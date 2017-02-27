@@ -13,4 +13,13 @@ defmodule Cforum.LayoutView do
   def default_page_title(_conn, _assigns) do
     " — SELFHTML Forum"
   end
+
+  def body_classes(conn, assigns) do
+    try do
+      {:safe, " class=\"" <> apply(view_module(conn), :body_classes, [action_name(conn), assigns]) <> "\""}
+    rescue
+      UndefinedFunctionError -> ""
+      FunctionClauseError -> ""
+    end
+  end
 end
