@@ -17,6 +17,10 @@ defmodule Cforum.Router do
   pipeline :require_login do
     plug Guardian.Plug.EnsureAuthenticated, handler: Cforum.GuardianErrorHandler
   end
+
+  pipeline :require_admin do
+    plug Cforum.Plug.EnsureAdmin
+  end
   end
 
   pipeline :api do
@@ -28,7 +32,9 @@ defmodule Cforum.Router do
   scope "/", Cforum do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+  scope "/admin", Cforum.Admin, as: :admin do
+    pipe_through [:browser, :require_login, :require_admin]
+    resources "/forums", ForumController
   end
 
   # Other scopes may use custom stacks.
