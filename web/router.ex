@@ -7,10 +7,21 @@ defmodule Cforum.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+
+    plug Guardian.Plug.VerifySession # looks in the session for the token
+    plug Guardian.Plug.LoadResource
+    plug Cforum.Plug.CurrentUser
+  end
+
+  pipeline :require_login do
+    plug Guardian.Plug.EnsureAuthenticated, handler: Cforum.GuardianErrorHandler
+  end
   end
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug Guardian.Plug.VerifyHeader
+    plug Guardian.Plug.LoadResource
   end
 
   scope "/", Cforum do
