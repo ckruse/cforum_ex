@@ -51,6 +51,7 @@ defmodule Cforum.Web do
 
       import Cforum.Router.Helpers
       import Cforum.ErrorHelpers
+      import Cforum.Helpers
       import Cforum.Gettext
     end
   end
