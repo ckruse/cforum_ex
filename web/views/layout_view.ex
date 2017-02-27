@@ -22,4 +22,13 @@ defmodule Cforum.LayoutView do
       FunctionClauseError -> ""
     end
   end
+
+  def body_id(conn, assigns) do
+    try do
+      {:safe, " id=\"" <> apply(view_module(conn), :body_id, [action_name(conn), assigns]) <> "\""}
+    rescue
+      UndefinedFunctionError -> ""
+      FunctionClauseError -> ""
+    end
+  end
 end
