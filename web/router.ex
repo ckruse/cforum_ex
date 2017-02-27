@@ -21,6 +21,9 @@ defmodule Cforum.Router do
   pipeline :require_admin do
     plug Cforum.Plug.EnsureAdmin
   end
+
+  pipeline :forum_access do
+    plug Cforum.Plug.CurrentForum
   end
 
   pipeline :api do
