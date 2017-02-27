@@ -12,6 +12,7 @@ defmodule Cforum.Router do
     plug Guardian.Plug.LoadResource
     plug Cforum.Plug.CurrentUser
     plug Cforum.Plug.VisibleForums
+    plug Cforum.Plug.LoadSettings
   end
 
   pipeline :require_login do
