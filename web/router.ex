@@ -24,6 +24,7 @@ defmodule Cforum.Router do
 
   pipeline :forum_access do
     plug Cforum.Plug.CurrentForum
+    plug Cforum.Plug.CheckForumAccess
   end
 
   pipeline :api do
@@ -33,7 +34,12 @@ defmodule Cforum.Router do
   end
 
   scope "/", Cforum do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser
+
+    scope "/:curr_forum" do
+      pipe_through [:browser, :forum_access]
+    end
+  end
 
   scope "/admin", Cforum.Admin, as: :admin do
     pipe_through [:browser, :require_login, :require_admin]
