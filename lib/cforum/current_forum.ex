@@ -8,12 +8,12 @@ defmodule Cforum.Plug.CurrentForum do
     val = conn.params["curr_forum"]
 
     forum = case val do
+             nil ->
+                nil
               slug when slug == "all" ->
                 nil
               slug ->
                 Repo.get_by!(Forum, slug: slug)
-              nil ->
-                nil
             end
 
     Plug.Conn.assign(conn, :current_forum, forum)
