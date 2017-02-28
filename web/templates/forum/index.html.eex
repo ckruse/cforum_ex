@@ -1,0 +1,59 @@
+<%= if signed_in?(@conn) do %>
+  <%# render 'portal' %>
+<% end %>
+
+<h1><%= gettext("global.forums") %></h1>
+
+<%= if signed_in?(@conn) do %>
+  <p><%# gettext("forums.new_threads_new_messages", count: @new_threads, new_messages_text: t('forums.new_messages_text', count: @new_messages)) %></p>
+<% end %>
+
+<ol class="forums-list">
+  <li>
+    <h2 class="forum-name">
+      <%= link gettext("forums.all_forums"), to: thread_path(@conn, :index, "all") %>
+      <%= link to: "", title: gettext("layout.statistics") do %> <!-- TODO stats path -->
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="27" height="17" viewBox="0, 0, 22, 14">
+          <use xlink:href="#stats-icon"></use>
+        </svg>
+      <% end %>
+    </h2>
+
+    <%# thread = (@overview_threads.sort {|a,b| b.latest_message <=> a.latest_message}).first %>
+    <%# unless thread.blank? %>
+    <!--ul>
+         <li class="thread"><%# render 'thread_infos', thread: thread %></li>
+         </ul -->
+    <%# end %>
+
+    <p><%= link gettext("layout.show_all"), to: thread_path(@conn, :index, "all") %></p>
+  </li>
+
+  <%= for forum <- @visible_forums do %>
+    <li>
+      <h2 class="forum-name">
+        <%= link forum.name, to: thread_path(@conn, :index, forum) %>
+        <%= link to: "", title: gettext("layout.statistics") do %><!-- TODO stats path -->
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="27" height="17" viewBox="0, 0, 22, 14">
+            <use xlink:href="#stats-icon"></use>
+          </svg>
+        <% end %>
+      </h2>
+      <!--ul>
+        <%# @activities[forum.forum_id].each do |thread| %>
+      <li class="thread"><%# render 'thread_infos', thread: thread %></li>
+        <%# end %>
+      </ul-->
+
+      <p><%= link gettext("layout.show_all"), to: thread_path(@conn, :index, forum) %></p>
+    </li>
+  <% end %>
+</ol>
+
+
+<%# unless @open_threads.blank? %>
+<%# render 'open_threads' %>
+<%# end %>
+
+<img src="//www.browser-statistik.de/browser.png?style=0"
+     width="1" height="1" style="border: 0px;" alt="">

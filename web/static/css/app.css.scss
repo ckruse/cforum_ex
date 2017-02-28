@@ -1,1 +1,308 @@
-/* This file is for your main application css. */
+html {
+  margin: 0;
+  padding: 0;
+  background: white;
+  font-size: 1em;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Calibri, 'PT Sans', sans-serif;
+  font-size: 1em;
+  color: #333333;
+  background: white;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
+h1 {
+  font-family:Oswald, Calibri, 'PT Sans', sans-serif;
+}
+h2 {
+  font-size: 1.25em;
+  border-top: 2px solid #c4d4da;
+  padding: .7em 0 0;
+  margin: 1em 0em;
+}
+h3 {
+  font-size: 1em;
+}
+body > p {
+  margin: 1em 2em;
+}
+code, kbd {
+  font-family: Consolas, 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Andale Mono', 'Droid Sans Mono', 'Lucida Console', monospace;
+  color: #0000C0;
+  background: #fcfcfc;
+  border: 1px solid #8a9da8;
+  border-radius: 0 .4em .4em;
+  padding: 0 .3em;
+}
+label {
+  font-weight: bold;
+
+  &.normal, .normal {
+    font-weight: normal;
+  }
+}
+a, a:hover, a:focus, a:active {
+  font-weight: normal;
+  text-decoration: none;
+  border: 0 none;
+
+  img {
+    border: 0 none;
+  }
+}
+a:link, a:visited {
+  color: #3481cd;
+}
+a:hover, a:focus , a:active,
+button:hover, button:focus, button:active {
+  color: #990909;
+}
+input {
+  margin: .5em .5em .2em 0;
+}
+
+.hidden, .btn.hidden, .cf-btn.hidden, .cf-primary-btn.hidden {
+  display:none;
+}
+
+
+.block {
+  display: block;
+}
+
+.avatar {
+  margin: 0 .2em;
+}
+
+.pointer {
+  cursor:pointer;
+}
+
+a.forgotten-password-link {
+  font-style:italic;
+  font-size:.9em;
+}
+
+#tree-functions {
+    border-left: 5px solid #8db243;
+    list-style-type: none;
+    margin: 0 0 2em 2em;
+    padding-left: 1em;
+    position: relative;
+    z-index: 10;
+}
+
+#charta {
+  border-left: 5px solid #c32e04;
+  list-style-type: none;
+  margin: 0;
+  padding-left: 1em;
+
+  a {
+    &:visited {
+      color: #3481cd;
+    }
+
+    &:hover, &:focus, &:active {
+      color: #990909;
+    }
+  }
+}
+
+aside { margin-bottom: 1.5em; }
+blockquote { margin: 1em 0; }
+
+
+.flex-container {
+  display:flex;
+  flex-flow:row wrap;
+
+  .flex-item {
+    margin: .5em;
+  }
+
+  .top.flex-item {
+    order: 1;
+    flex:1 100%;
+    margin:0;
+  }
+  .personallinks.flex-item {
+    flex:1 100%;
+    order:2;
+  }
+
+  .page-header.flex-item {
+    order: 3;
+    flex:1 100%;
+  }
+
+  aside.flex-item {
+    flex:1 100%;
+    order:4;
+    display:block;
+  }
+
+  main.flex-item {
+    order:5;
+    flex:1 100%;
+  }
+
+  .logo.flex-item {
+    order: 1;
+    flex:1 100%;
+    margin: 0 0 1em 0;
+  }
+
+  .quicklinks.flex-item {
+    order:2;
+    flex:1 100%;
+    margin: 0 0 .5em 0;
+  }
+
+  .subnav.flex-item {
+    order:3;
+    flex:1 100%;
+    margin: 0;
+  }
+}
+
+@media only screen and (min-width: 35em) {
+  .flex-container {
+
+    .flex-item {
+      margin: .5em 2em;
+    }
+
+    .quicklinks.flex-item {
+      order: 1
+    }
+    .logo.flex-item {
+      flex:0 170px;
+      order:2;
+      box-sizing:border-box;
+      margin: 0 1em 0 0;
+    }
+
+    .subnav.flex-item {
+      flex:1 calc(29em - 170px);
+      box-sizing:border-box;
+    }
+
+    main.flex-item {
+      align-self: auto;
+    }
+  }
+
+  /*
+   * Legacy Firefox implementation treats all flex containers
+   * as inline-block elements.
+   */
+
+  @-moz-document url-prefix() {
+    .flex-container {
+      width: 100%;
+      -moz-box-sizing: border-box;
+    }
+  }
+
+  a, a:hover,
+  a:focus,
+  a:active {
+    transition: all .2s ease-in-out 0s;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+main {
+  max-width:95vw;
+
+  h1 {
+    font-family: "Oswald",Calibri,"PT Sans",sans-serif;
+    border-top: 2px solid #C4D4DA;
+    padding: 0.7em 0px 0px;
+    margin:0.5em 0em;
+  }
+
+  .visited, a.visited, #root a:visited {
+	  color: #999;
+  }
+}
+
+
+th.no-data, td.no-data, p.no-data {
+  text-align:center;
+}
+
+p.no-data {
+  padding-top:2em;
+  padding-bottom:2em;
+  background-color:#f1f3f4;
+}
+
+.small {
+  font-size:0.8em;
+  line-height:0.8em;
+}
+
+.clearfix:after {
+	clear: both;
+	content: " ";
+	display: block;
+	font-size: 0;
+	height: 0;
+	line-height: 0;
+	visibility: hidden;
+	width: 0;
+}
+
+@media only screen and (min-width: 65em) {
+  .chart {
+    width:100%;
+    height:400px;
+  }
+
+  .flex-container {
+    .flex-container {
+      display:block;
+
+      .flex-item { flex:0; }
+      .logo { float:left; }
+      .quicklinks, .subnav {
+        margin-left:calc(170px + .5em);
+      }
+    }
+  }
+
+  main {
+    max-width:100%;
+    h1 { margin: 0 0 1em; }
+  }
+
+  th.nummeric, td.nummeric,
+  .cf-default-table th.nummeric, .cf-default-table td.nummeric,
+  .cf-default-table.responsive th.nummeric, .cf-default-table.responsive td.nummeric {
+    text-align:right;
+  }
+}
+
+@import "header.css.scss";
+@import "footer.css.scss";
+@import "alerts.css.scss";
+@import "dropdown.css.scss";
+@import "forums.css.scss";
+
+/* eof */

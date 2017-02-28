@@ -40,4 +40,22 @@ defmodule Cforum.LayoutView do
       FunctionClauseError -> ""
     end
   end
+
+  def rss_url(conn) do
+    case conn.assigns[:current_forum] do
+      nil ->
+        thread_url(conn, :index, "all") <> ".rss"
+      forum ->
+        thread_url(conn, :index, forum.slug) <> ".rss"
+    end
+  end
+
+  def atom_url(conn) do
+    case conn.assigns[:current_forum] do
+      nil ->
+        thread_url(conn, :index, "all") <> ".atom"
+      forum ->
+        thread_url(conn, :index, forum.slug) <> ".atom"
+    end
+  end
 end

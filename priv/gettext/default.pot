@@ -1,0 +1,145 @@
+## This file is a PO Template file.
+##
+## `msgid`s here are often extracted from source code.
+## Add new translations manually only if they're dynamic
+## translations that can't be statically extracted.
+##
+## Run `mix gettext.extract` to bring this file up to
+## date. Leave `msgstr`s empty as changing them here as no
+## effect: edit them in PO (`.po`) files instead.
+msgid ""
+msgstr ""
+
+#: web/templates/layout/app.html.eex:184
+msgid "cites.cites"
+msgstr ""
+
+#: web/templates/forum/index.html.eex:14 web/templates/layout/app.html.eex:144
+#: web/templates/layout/app.html.eex:144 web/templates/layout/app.html.eex:145
+#: web/templates/layout/app.html.eex:145 web/templates/layout/app.html.eex:158
+msgid "forums.all_forums"
+msgstr ""
+
+#: web/templates/forum/index.html.eex:5 web/templates/layout/app.html.eex:155
+#: web/views/forum_view.ex:4
+msgid "global.forums"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:129 web/templates/layout/app.html.eex:189
+msgid "help.help"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:237
+msgid "layout.administration"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:142 web/templates/layout/app.html.eex:142
+#: web/templates/layout/app.html.eex:145 web/templates/layout/app.html.eex:145
+msgid "layout.atom_feed"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:188
+msgid "layout.chat"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:10
+msgid "layout.description"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:148 web/templates/layout/app.html.eex:148
+msgid "layout.donate"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:35
+msgid "layout.help"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:154
+msgid "layout.home"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:27
+msgid "layout.icon"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:11
+msgid "layout.keywords"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:130
+msgid "layout.login"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:232
+msgid "layout.msg_atom_feed"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:233
+msgid "layout.msg_rss_feed"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:215
+msgid "layout.nested_view"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:13
+msgid "layout.publisher"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:131
+msgid "layout.register"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:141 web/templates/layout/app.html.eex:141
+#: web/templates/layout/app.html.eex:144 web/templates/layout/app.html.eex:144
+msgid "layout.rss_feed"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:221
+msgid "layout.sort_ascending"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:224
+msgid "layout.sort_descending"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:227
+msgid "layout.sort_newestfirst"
+msgstr ""
+
+#: web/templates/forum/index.html.eex:15 web/templates/forum/index.html.eex:36
+#: web/templates/layout/app.html.eex:159 web/templates/layout/app.html.eex:174
+msgid "layout.statistics"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:213
+msgid "layout.thread_view"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:128
+msgid "not logged in"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:187
+msgid "search.search"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:257
+msgid "threads.archive"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:153
+msgid "threads.write_new_thread"
+msgstr ""
+
+#: lib/cforum/guardian_error_handler.ex:13
+msgid "You have to be logged in and an admin to see this page!"
+msgstr ""
+
+#: lib/cforum/guardian_error_handler.ex:7
+msgid "You have to be logged in to see this page!"
+msgstr ""
+
+#: web/templates/forum/index.html.eex:29 web/templates/forum/index.html.eex:48
+msgid "layout.show_all"
+msgstr ""
