@@ -11,6 +11,7 @@ defmodule Cforum.Router do
     plug Guardian.Plug.VerifySession # looks in the session for the token
     plug Guardian.Plug.LoadResource
     plug Cforum.Plug.CurrentUser
+    plug Cforum.Plug.CurrentForum
     plug Cforum.Plug.VisibleForums
     plug Cforum.Plug.LoadSettings
   end
@@ -24,7 +25,6 @@ defmodule Cforum.Router do
   end
 
   pipeline :forum_access do
-    plug Cforum.Plug.CurrentForum
     plug Cforum.Plug.CheckForumAccess
   end
 
