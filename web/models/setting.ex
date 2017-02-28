@@ -28,4 +28,9 @@ defmodule Cforum.Setting do
   def conf(setting, nam) do
     setting.options[nam] || Cforum.ConfigManager.defaults[nam]
   end
+
+  def global(query) do
+    from setting in query,
+      where: is_nil(setting.forum_id) and is_nil(setting.user_id)
+  end
 end

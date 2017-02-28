@@ -27,7 +27,7 @@ defmodule Cforum.Plug.LoadSettings do
   end
 
   def load_global_conf(conn) do
-    conf = Repo.get_by!(Setting, forum_id: nil, user_id: nil)
+    conf = Setting |> Setting.global() |> Repo.one()
     Plug.Conn.assign(conn, :global_config, conf)
   end
 end
