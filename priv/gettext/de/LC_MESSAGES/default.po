@@ -158,7 +158,7 @@ msgstr "neuer Beitrag"
 
 #: web/templates/session/new.html.eex:10
 msgid "I forgot my password"
-msgstr "I habe mein Passwort vergessen"
+msgstr "Ich habe mein Passwort vergessen"
 
 #: web/templates/session/new.html.eex:21
 msgid "Login"
