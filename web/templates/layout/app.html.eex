@@ -7,10 +7,10 @@
 
     <%= render_existing @view_module, "robots.html", assigns %>
 
-    <meta name="description" content="<%= if @current_forum && @current_forum.description, do: @current_forum.description, else: gettext("layout.description") %>">
-    <meta name="keywords" content="<%= if @current_forum && @current_forum.keywords, do: @current_forum.keywords, else: gettext("layout.keywords") %>">
+    <meta name="description" content="<%= if @current_forum && @current_forum.description, do: @current_forum.description, else: gettext("description_text") %>">
+    <meta name="keywords" content="<%= if @current_forum && @current_forum.keywords, do: @current_forum.keywords, else: gettext("keywords_text") %>">
 
-    <meta name="DC.Publisher" content="<%= gettext("layout.publisher") %>">
+    <meta name="DC.Publisher" content="<%= gettext("publisher") %>">
     <meta name="DC.Identifier" content="<%= controller_module(@conn) %>">
     <meta name="DC.Language" content="<%= Gettext.get_locale(Cforum.Gettext) %>">
 
@@ -24,7 +24,7 @@
     <!-- meta http-equiv="refresh" content="<%# uconf('autorefresh').to_i * 60 %>; URL=<%# forum_url(current_forum) %>" -->
     <%# end %>
 
-    <link rel="shortcut icon" href="//src.selfhtml.org/favicon2.ico" type="image/x-icon" title="<%= gettext("layout.icon") %>">
+    <link rel="shortcut icon" href="//src.selfhtml.org/favicon2.ico" type="image/x-icon" title="<%= gettext("icon") %>">
 
     <link rel="apple-touch-icon" href="//src.selfhtml.org/logo/s-Logo_60.png">
     <link rel="apple-touch-icon-precomposed" href="//src.selfhtml.org/logo/s-Logo_144_r.png">
@@ -32,14 +32,19 @@
     <link rel="apple-touch-icon" sizes="120x120" href="//src.selfhtml.org/logo/s-Logo_120.png">
     <link rel="apple-touch-icon" sizes="152x152" href="//src.selfhtml.org/logo/s-Logo_152.png">
 
-    <link rel="help" href="<%= page_path(@conn, :help) %>" title="<%= gettext("layout.help") %>">
-    <!--link rel="search" href="<%# search_url %>" title="<%# t('layout.selfhtml_search') %>" -->
+    <link rel="help" href="<%= page_path(@conn, :help) %>" title="<%= gettext("Help") %>">
+    <!--link rel="search" href="<%# search_url %>" title="<%# gettext("SELFHTML Search") %>" -->
     <%= if assigns[:link_tags], do: @link_tags %>
 
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>" media="all" title="SELFHTML Forum Stylesheet">
 
-    <link rel="alternate" title="Atom Feed" type="application/atom+xml" href="<%= atom_url(@conn) %>">
-    <link rel="alternate" title="RSS Feed" type="application/rss+xml" href="<%= rss_url(@conn) %>">
+    <%= if @current_forum do %>
+      <link rel="alternate" title="<%= gettext("Atom feed (%{forum})", forum: @current_forum.name) %>" type="application/atom+xml" href="<%= atom_url(@conn) %>">
+      <link rel="alternate" title="<%= gettext("RSS feed (%{forum})", forum: @current_forum.name) %>" type="application/rss+xml" href="<%= rss_url(@conn) %>">
+    <% else %>
+      <link rel="alternate" title="<%= gettext("Atom feed (%{forum})", forum: gettext("All forums")) %>" type="application/atom+xml" href="<%= atom_url(@conn) %>">
+      <link rel="alternate" title="<%= gettext("RSS feed (%{forum})", forum: gettext("All forums")) %>" type="application/rss+xml" href="<%= rss_url(@conn) %>">
+    <% end %>
 
     <%= if assigns[:css_style] do %><link href="<%= @css_style %>" rel="stylesheet" media="all"><% end %>
     <%= if assigns[:own_css_file] do %><link href="<%= @own_css_file %>" rel="stylesheet" media="all" title="SELFHTML Forum Stylesheet"><% end %>
@@ -99,37 +104,28 @@
       </header>
 
       <ul class="personallinks flex-item">
-        <!-- <%# if user_signed_in? %>
-             <li id="user-info"><%# cf_link_to(image_tag(current_user.avatar(:thumb)) + current_user.username,
-                                user_path(current_user),
-                                id: 'username',
-                                title: t("users.score_num", num: current_user.score)) %>
-             <span class="score" title="<%# t("users.score_num", num: current_user.score) %>">(<%# number_with_delimiter(current_user.score) %>)</span>
-             </li>
-             <li id="optionen-myadmin"><%# cf_link_to t("layout.settings"), edit_user_path(current_user) %></li>
-             <li id="user-notifications"><%# cf_link_to(t("notifications.notifications"),
-                                         notifications_path,
-                                         title: t("notifications.new_notifications",
-                                         count: @new_notifications.length)) %>
-             (<span class="notifications<%# if @new_notifications.length > 0 %> new<%# end %>"
-             id="notifications-display"
-             title="<%# t("notifications.new_notifications",
-                    count: @new_notifications.length) %>"><%# @new_notifications.length %></span>)
-             </li>
-             <li id="post-link"><%# cf_link_to(t("layout.mail"),
-                                mails_path,
-                                title: t("mails.new_mails_num",
-                                count: @new_mails.length)) %>
-             (<span class="mails new" id="mails"
-             title="<%# t("mails.new_mails_num",
-                    count: @new_mails.length) %>"><%# @new_mails.length %></span>)</li>
-             <li id="optionen-logout"><%# cf_link_to(t('layout.logout'), destroy_user_session_path, method: :delete) %></li>
-             <%# else %> -->
-        <li id="user-not-signed-in"><%= img_tag(static_path(@conn, "/images/missing.png")) %> <%= gettext("not logged in") %></li>
-        <li id="optionen-help"><%= link(gettext("help.help"), to: page_path(@conn, :help)) %></li>
-        <li id="optionen-my"><%= link(gettext("layout.login"), to: "", rel: "nofollow") %></li>
-        <li id="optionen-myadmin"><%= link(gettext("layout.register"), to: "", rel: "nofollow") %></li>
-        <%# end %>
+        <%= if signed_in?(@conn) do %>
+          <li id="user-info"><%= link(@current_user.username, # TODO image_tag(current_user.avatar(:thumb)) +
+                             to: user_path(@conn, :show, @current_user),
+                             id: "username",
+                             title: gettext("%{points} points", points: 0)) # TODO @current_user.score %>
+            <span class="score" title="<%= gettext("%{points} points", points: 0) # TODO @current_user.score %>">(<%= number_to_delimited(0, precision: 0) # TODO current_user.score %>)</span>
+          </li>
+          <li id="optionen-myadmin"><%= link gettext("settings"), to: user_path(@conn, :edit, @current_user) %></li>
+          <li id="user-notifications"><%= link(gettext("notifications"), to: "", title: gettext("new notifications", count: 0)) # TODO @new_notifications.length %>
+            (<span class="notifications<%# if @new_notifications.length > 0 %> new<%# end %>"
+                   id="notifications-display"
+                   title="<%= gettext("new notifications", count: 0) # TODO @new_notifications.length %>"><%= 0 # TODO @new_notifications.length %></span>)
+          </li>
+          <li id="post-link"><%= link(gettext("mail"), to: "", title: gettext("%{count} new mails", count: 0)) # TODO @new_mails.length %>
+            (<span class="mails new" id="mails" title="<%= gettext("%{count} new mails", count: 0) # TODO @new_mails.length %>"><%= 0 # TODO @new_mails.length %></span>)</li>
+          <li id="optionen-logout"><%= link(gettext("logout"), to: session_path(@conn, :delete), method: :delete) %></li>
+        <% else %>
+          <li id="user-not-signed-in"><%= img_tag(static_path(@conn, "/images/missing.png")) %> <%= gettext("not logged in") %></li>
+          <li id="optionen-help"><%= link(gettext("Help"), to: page_path(@conn, :help)) %></li>
+          <li id="optionen-my"><%= link(gettext("login"), to: session_path(@conn, :new), rel: "nofollow") %></li>
+          <li id="optionen-myadmin"><%= link(gettext("register"), to: "", rel: "nofollow") %></li>
+        <% end %>
       </ul>
 
 
@@ -138,25 +134,25 @@
         <div class="flex-item logo">
           <h1><span>SELFHTML Forum - Ergänzung zur <%= link "Dokumentation", to: "https://wiki.selfhtml.org" %></span><%= link "", to: forum_path(@conn, :index), class: "home" %></h1>
           <%= if @current_forum do %>
-            <%= link(img_tag(static_path(@conn, "/images/feed-rss.svg"), alt: gettext("layout.rss_feed", forum: @current_forum.name)), to: rss_url(@conn), title: gettext("layout.rss_feed", forum: @current_forum.name), class: "rss") %>
-            <%= link(img_tag(static_path(@conn, "/images/feed-atom.svg"), alt: gettext("layout.atom_feed", forum: @current_forum.name)), to: atom_url(@conn), title: gettext("layout.atom_feed", forum: @current_forum.name), class: "atom") %>
+            <%= link(img_tag(static_path(@conn, "/images/feed-rss.svg"), alt: gettext("RSS feed (%{forum})", forum: @current_forum.name)), to: rss_url(@conn), title: gettext("RSS feed (%{forum})", forum: @current_forum.name), class: "rss") %>
+            <%= link(img_tag(static_path(@conn, "/images/feed-atom.svg"), alt: gettext("Atom feed (%{forum})", forum: @current_forum.name)), to: atom_url(@conn), title: gettext("Atom feed (%{forum})", forum: @current_forum.name), class: "atom") %>
           <% else %>
-            <%= link(img_tag(static_path(@conn, "/images/feed-rss.svg"), alt: gettext("layout.rss_feed", forum: gettext("forums.all_forums"))), to: rss_url(@conn), title: gettext("layout.rss_feed", forum: gettext("forums.all_forums")), class: "rss") %>
-            <%= link(img_tag(static_path(@conn, "/images/feed-atom.svg"), alt: gettext("layout.atom_feed", forum: gettext("forums.all_forums"))), to: atom_url(@conn), title: gettext("layout.atom_feed", forum: gettext("forums.all_forums")), class: "atom") %>
+            <%= link(img_tag(static_path(@conn, "/images/feed-rss.svg"), alt: gettext("RSS feed (%{forum})", forum: gettext("All forums"))), to: rss_url(@conn), title: gettext("RSS feed (%{forum})", forum: gettext("All forums")), class: "rss") %>
+            <%= link(img_tag(static_path(@conn, "/images/feed-atom.svg"), alt: gettext("Atom feed (%{forum})", forum: gettext("All forums"))), to: atom_url(@conn), title: gettext("Atom feed (%{forum})", forum: gettext("All forums")), class: "atom") %>
           <% end %>
 
-          <%= link(img_tag(static_path(@conn, "/images/donate.svg"), alt: gettext("layout.donate")), to: "https://selfhtml.org/spenden.html", title: gettext("layout.donate"), class: "donate") %>
+          <%= link(img_tag(static_path(@conn, "/images/donate.svg"), alt: gettext("donate")), to: "https://selfhtml.org/spenden.html", title: gettext("donate"), class: "donate") %>
         </div>
 
         <nav class="flex-item quicklinks">
           <ul>
-            <li><%= link gettext("threads.write_new_thread"), to: "" %></li>
-            <li><%= link gettext("layout.home"), to: forum_path(@conn, :index) %></li>
-            <li class="dropdown"><span class="anchor"><%= gettext("global.forums") %></span>
+            <li><%= link gettext("create new thread"), to: "" %></li>
+            <li><%= link gettext("home"), to: forum_path(@conn, :index) %></li>
+            <li class="dropdown"><span class="anchor"><%= gettext("Forums") %></span>
               <ul class="menu">
                 <li<% if !@current_forum && controller_module(@conn) == Cforum.ThreadController do %> class="active"<% end %>>
-                  <%= link gettext("forums.all_forums"), to: thread_path(@conn, :index, "all") %>
-                  <%= link to: "", title: gettext("layout.statistics"), class: "stats" do %>
+                  <%= link gettext("All forums"), to: thread_path(@conn, :index, "all") %>
+                  <%= link to: "", title: gettext("Statistics"), class: "stats" do %>
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="22" height="14" viewBox="0, 0, 22, 14">
                       <g id="stats-icon">
                         <path d="M-0.001,13 L21.999,13 L21.999,14 L-0.001,14 z" fill="#BFBFBF"/>
@@ -168,10 +164,10 @@
                     </svg>
                   <% end %>
                 </li>
-                <% for f <- [] do %>
-                  <li<% if @current_forum == f do %> class="active"<% end %>>
+                <%= for f <- @visible_forums do %>
+                  <li<%= if @current_forum == f do %> class="active"<% end %>>
                     <%= link f.name, to: thread_path(@conn, :index, f) %>
-                    <%= link to: "", title: gettext("layout.statistics"), class: "stats" do %>
+                    <%= link to: "", title: gettext("Statistics"), class: "stats" do %>
                       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="22" height="14" viewBox="0, 0, 22, 14">
                         <use xlink:href="#stats-icon"></use>
                       </svg>
@@ -181,12 +177,12 @@
               </ul>
             </li>
             <li class="cites">
-              <%= link gettext("cites.cites"), to: "" %>
+              <%= link gettext("Cites"), to: "" %>
               <%= if false do %>(<%= link "#{@undeceided_cites}", to: "" %>)<% end %><!-- TODO -->
             </li>
-            <li><%= link gettext("search.search"), to: "" %></li>
-            <li><%= link gettext("layout.chat"), to: "https://kiwiirc.com/client/irc.epd-me.net/?nick=&channel=#selfhtml", rel: "nofollow" %></li> <!-- TODO (current_user.try(:username) || "Guest%7C" + rand(9999).to_s) -->
-            <li><%= link(gettext("help.help"), to: page_path(@conn, :help)) %></li>
+            <li><%= link gettext("Search"), to: "" %></li>
+            <li><%= link gettext("Chat"), to: "https://kiwiirc.com/client/irc.epd-me.net/?nick=&channel=#selfhtml", rel: "nofollow" %></li> <!-- TODO (current_user.try(:username) || "Guest%7C" + rand(9999).to_s) -->
+            <li><%= link(gettext("Help"), to: page_path(@conn, :help)) %></li>
             <%= if controller_module(@conn) != Cforum.SearchController do %>
               <li class="search">
                 <%# form_tag search_path + '#results', method: 'get', rel: 'nofollow' do %>
@@ -210,31 +206,31 @@
 
             <%= if assigns[:message] != nil && assigns[:thread] != nil && !@thread.new_record? do %>
               <%= if @read_mode != "thread-view" do %>
-                <li><%= link(gettext("layout.thread_view"), to: "") %></li>
+                <li><%= link(gettext("thread view"), to: "") %></li>
               <% else %>
-                <li><%= link(gettext("layout.nested_view"), to: "") %></li>
+                <li><%= link(gettext("nested view"), to: "") %></li>
               <% end %>
             <% end %>
 
-            <%= if controller_module(@conn) == Cforum.Threads && true do %> <!-- TODO current_user.blank? -->
+            <%= if controller_module(@conn) == Cforum.Threads && @current_user == nil do %>
               <%= if @order != "ascending" do %>
-                <li><%= link(gettext("layout.sort_ascending"), to: thread_path(@conn, :index, @current_forum, p: @page, order: "ascending")) %></li>
+                <li><%= link(gettext("sort ascending"), to: thread_path(@conn, :index, @current_forum, p: @page, order: "ascending")) %></li>
               <% end %>
               <%= if @order != "descending" do %>
-                <li><%= link(gettext("layout.sort_descending"), to: thread_path(@conn, :index, @current_forum, p: @page, order: "descending")) %></li>
+                <li><%= link(gettext("sort descending"), to: thread_path(@conn, :index, @current_forum, p: @page, order: "descending")) %></li>
               <% end %>
               <%= if @order != "newest-first" do %>
-                <li><%= link(gettext("layout.sort_newestfirst"), to: thread_path(@conn, :index, @current_forum, p: @page, order: "newest-first")) %></li>
+                <li><%= link(gettext("sort newest first"), to: thread_path(@conn, :index, @current_forum, p: @page, order: "newest-first")) %></li>
               <% end %>
             <% end %>
 
             <%= if assigns[:thread] != nil && !@thread.new_record? do %>
-              <li id="nachricht-feed-atom"><%= link gettext("layout.msg_atom_feed"), to: "" %></li> <!-- TODO atom_url for thread -->
-              <li id="nachricht-feed-rss"><%= link gettext("layout.msg_rss_feed"), to: "" %></li> <!-- TODO rss_url for thread -->
+              <li id="nachricht-feed-atom"><%= link gettext("Atom feed"), to: "" %></li> <!-- TODO atom_url for thread -->
+              <li id="nachricht-feed-rss"><%= link gettext("RSS feed"), to: "" %></li> <!-- TODO rss_url for thread -->
             <% end %>
 
             <%= if false do %> <!-- TODO current_user.try(:admin) -->
-              <li><%= link gettext("layout.administration"), "" %></li>
+              <li><%= link gettext("Administration"), "" %></li>
             <% end %>
 
             <%# if current_user.try(:moderate?, current_forum) %>
@@ -254,7 +250,7 @@
             <%# end %>
 
             <% if Enum.member?([ThreadController, MessageController, ArchiveController], controller_module(@conn)) do %>
-              <li id="link-archiv"><%= link gettext("threads.archive"), to: "" %></li>
+              <li id="link-archiv"><%= link gettext("archive"), to: "" %></li>
             <% end %>
 
             <%# if threads && current_user && !controller_path.in?(%w(interesting_messages_plugin hidden_threads_plugin)) %>

@@ -42,4 +42,9 @@ defmodule Cforum.User do
     |> unique_constraint(:confirmation_token)
     |> unique_constraint(:authentication_token)
   end
+
+  def by_username_or_email(query, login) do
+    from user in query,
+      where: user.active == true and (user.email == ^login or user.username == ^login)
+  end
 end

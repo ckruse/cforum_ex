@@ -1,0 +1,23 @@
+<%= form_for @conn, session_path(@conn, :create), [as: :session, class: "cf-form"], fn f -> %>
+<div class="cf-cgroup">
+  <%= label f, :login, gettext("Username or email") %>
+  <%= text_input f, :login, placeholder: gettext("Regina Schlauklug"), autofocus: true %>
+</div>
+
+<div class="cf-cgroup">
+  <%= label f, :password, gettext("Password") %>
+  <%= password_input f, :password, placeholder: gettext("Password"), class: 'login-password' %><span class="show-password"></span>
+  <%= link gettext("I forgot my password"), to: "", class: "forgotten-password-link", tabindex: '-1' %>
+</div>
+
+<div class="cf-cgroup">
+  <%= label f, :remember_me, class: "checkbox" do %>
+    <%= checkbox f, :remember_me %>
+    <%= gettext("Remember me") %>
+  <% end %>
+</div>
+
+<p class="form-actions">
+  <%= submit gettext("Login"), class: "cf-primary-btn" %>
+</p>
+<% end %>

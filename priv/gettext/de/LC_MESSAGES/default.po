@@ -10,127 +10,9 @@ msgid ""
 msgstr ""
 "Language: de\n"
 
-#: web/templates/layout/app.html.eex:184
-msgid "cites.cites"
-msgstr "Zitatesammlung"
-
-#: web/templates/forum/index.html.eex:14 web/templates/layout/app.html.eex:144
-#: web/templates/layout/app.html.eex:144 web/templates/layout/app.html.eex:145
-#: web/templates/layout/app.html.eex:145 web/templates/layout/app.html.eex:158
-msgid "forums.all_forums"
-msgstr "alle Foren"
-
-#: web/templates/forum/index.html.eex:5 web/templates/layout/app.html.eex:155
-#: web/views/forum_view.ex:4
-msgid "global.forums"
-msgstr "Foren"
-
-#: web/templates/layout/app.html.eex:129 web/templates/layout/app.html.eex:189
-msgid "help.help"
-msgstr "Hilfe"
-
-#: web/templates/layout/app.html.eex:237
-msgid "layout.administration"
-msgstr "Verwaltung"
-
-#: web/templates/layout/app.html.eex:142 web/templates/layout/app.html.eex:142
-#: web/templates/layout/app.html.eex:145 web/templates/layout/app.html.eex:145
-msgid "layout.atom_feed"
-msgstr "Atom-Feed (%{forum})"
-
-#: web/templates/layout/app.html.eex:188
-msgid "layout.chat"
-msgstr "Chat"
-
-#: web/templates/layout/app.html.eex:10
-msgid "layout.description"
-msgstr "Forum als Ergänzung zum SELFHTML-Wiki und zur Dokumentation SELFHTML"
-
-#: web/templates/layout/app.html.eex:148 web/templates/layout/app.html.eex:148
-msgid "layout.donate"
-msgstr "Spenden"
-
-#: web/templates/layout/app.html.eex:35
-msgid "layout.help"
-msgstr "Hilfe"
-
-#: web/templates/layout/app.html.eex:154
-msgid "layout.home"
-msgstr "Übersicht"
-
-#: web/templates/layout/app.html.eex:27
-msgid "layout.icon"
-msgstr "icon"
-
-#: web/templates/layout/app.html.eex:11
-msgid "layout.keywords"
-msgstr "SELFHTML Forum, SELFHTML, Forum, SELFForum"
-
-#: web/templates/layout/app.html.eex:130
-msgid "layout.login"
-msgstr "anmelden"
-
-#: web/templates/layout/app.html.eex:232
-msgid "layout.msg_atom_feed"
-msgstr "Atom-Feed"
-
-#: web/templates/layout/app.html.eex:233
-msgid "layout.msg_rss_feed"
-msgstr "RSS-Feed"
-
-#: web/templates/layout/app.html.eex:215
-msgid "layout.nested_view"
-msgstr "Nested-Ansicht"
-
-#: web/templates/layout/app.html.eex:13
-msgid "layout.publisher"
-msgstr "SELFHTML Forum"
-
-#: web/templates/layout/app.html.eex:131
-msgid "layout.register"
-msgstr "Benutzerkonto erstellen"
-
-#: web/templates/layout/app.html.eex:141 web/templates/layout/app.html.eex:141
-#: web/templates/layout/app.html.eex:144 web/templates/layout/app.html.eex:144
-msgid "layout.rss_feed"
-msgstr "RSS-Feed (%{forum})"
-
-#: web/templates/layout/app.html.eex:221
-msgid "layout.sort_ascending"
-msgstr "aufsteigend sortieren"
-
-#: web/templates/layout/app.html.eex:224
-msgid "layout.sort_descending"
-msgstr "absteigend sortieren"
-
-#: web/templates/layout/app.html.eex:227
-msgid "layout.sort_newestfirst"
-msgstr "nach neuestem Beitrag sortieren"
-
-#: web/templates/forum/index.html.eex:15 web/templates/forum/index.html.eex:36
-#: web/templates/layout/app.html.eex:159 web/templates/layout/app.html.eex:174
-msgid "layout.statistics"
-msgstr "Statistiken"
-
-#: web/templates/layout/app.html.eex:213
-msgid "layout.thread_view"
-msgstr "Thread-Ansicht"
-
-#: web/templates/layout/app.html.eex:128
+#: web/templates/layout/app.html.eex:124
 msgid "not logged in"
 msgstr "nicht angemeldet"
-
-#: web/templates/layout/app.html.eex:187
-msgid "search.search"
-msgstr "Suche"
-
-#: web/templates/layout/app.html.eex:257
-msgid "threads.archive"
-msgstr "archivierte Beiträge"
-
-#: web/templates/layout/app.html.eex:153
-msgid "threads.write_new_thread"
-msgstr "neuer Beitrag"
 
 #: lib/cforum/guardian_error_handler.ex:13
 msgid "You have to be logged in and an admin to see this page!"
@@ -140,6 +22,192 @@ msgstr "Sie müssen sich einloggen und über Administrator-Rechte verfügen, um 
 msgid "You have to be logged in to see this page!"
 msgstr "Sie müssen sich einloggen, um diese Seite sehen zu dürfen!"
 
+#: web/templates/layout/app.html.eex:35 web/templates/layout/app.html.eex:125
+#: web/templates/layout/app.html.eex:185
+msgid "Help"
+msgstr "Hilfe"
+
+#: web/controllers/session_controller.ex:17
+msgid "Username or password wrong"
+msgstr "Benutzername oder Passwort sind falsch."
+
+#: lib/cforum/guardian_error_handler.ex:19
+msgid "You don't have access to this page!"
+msgstr "Sie haben keinen Zugriff auf diese Seite!"
+
+#: web/controllers/session_controller.ex:13
+msgid "You logged in successfully"
+msgstr "Sie haben sich erfolgreich angemeldet."
+
+#: web/templates/forum/index.html.eex:14 web/templates/layout/app.html.eex:45
+#: web/templates/layout/app.html.eex:46 web/templates/layout/app.html.eex:140
+#: web/templates/layout/app.html.eex:140 web/templates/layout/app.html.eex:141
+#: web/templates/layout/app.html.eex:141 web/templates/layout/app.html.eex:154
+msgid "All forums"
+msgstr "alle Foren"
+
 #: web/templates/forum/index.html.eex:29 web/templates/forum/index.html.eex:48
-msgid "layout.show_all"
+msgid "Show all"
 msgstr "alle anzeigen"
+
+#: web/templates/layout/app.html.eex:180
+msgid "Cites"
+msgstr "Zitatesammlung"
+
+#: web/templates/layout/app.html.eex:233
+msgid "Administration"
+msgstr "Verwaltung"
+
+#: web/templates/forum/index.html.eex:5 web/templates/layout/app.html.eex:151
+#: web/views/forum_view.ex:4
+msgid "Forums"
+msgstr "Foren"
+
+#: web/templates/layout/app.html.eex:228
+msgid "Atom feed"
+msgstr "Atom-Feed"
+
+#: web/templates/layout/app.html.eex:42 web/templates/layout/app.html.eex:45
+#: web/templates/layout/app.html.eex:138 web/templates/layout/app.html.eex:138
+#: web/templates/layout/app.html.eex:141 web/templates/layout/app.html.eex:141
+msgid "Atom feed (%{forum})"
+msgstr "Atom-Feed (%{forum})"
+
+#: web/templates/layout/app.html.eex:184
+msgid "Chat"
+msgstr "Chat"
+
+#: web/templates/layout/app.html.eex:229
+msgid "RSS feed"
+msgstr "RSS-Feed"
+
+#: web/templates/layout/app.html.eex:43 web/templates/layout/app.html.eex:46
+#: web/templates/layout/app.html.eex:137 web/templates/layout/app.html.eex:137
+#: web/templates/layout/app.html.eex:140 web/templates/layout/app.html.eex:140
+msgid "RSS feed (%{forum})"
+msgstr "RSS-Feed (%{forum})"
+
+#: web/templates/layout/app.html.eex:183
+msgid "Search"
+msgstr "Suche"
+
+#: web/templates/forum/index.html.eex:15 web/templates/forum/index.html.eex:36
+#: web/templates/layout/app.html.eex:155 web/templates/layout/app.html.eex:170
+msgid "Statistics"
+msgstr "Statistiken"
+
+#: web/templates/layout/app.html.eex:144 web/templates/layout/app.html.eex:144
+msgid "donate"
+msgstr "Spenden"
+
+#: web/templates/layout/app.html.eex:150
+msgid "home"
+msgstr "Übersicht"
+
+#: web/templates/layout/app.html.eex:27
+msgid "icon"
+msgstr "SELFHTML Icon"
+
+#: web/templates/layout/app.html.eex:126
+msgid "login"
+msgstr "anmelden"
+
+#: web/templates/layout/app.html.eex:211
+msgid "nested view"
+msgstr "Nested-Ansicht"
+
+#: web/templates/layout/app.html.eex:13
+msgid "publisher"
+msgstr "SELFHTML Forum"
+
+#: web/templates/layout/app.html.eex:127
+msgid "register"
+msgstr "Benutzerkonto erstellen"
+
+#: web/templates/layout/app.html.eex:217
+msgid "sort ascending"
+msgstr "aufsteigend sortieren"
+
+#: web/templates/layout/app.html.eex:220
+msgid "sort descending"
+msgstr "absteigend sortieren"
+
+#: web/templates/layout/app.html.eex:223
+msgid "sort newest first"
+msgstr "nach neuestem Beitrag sortieren"
+
+#: web/templates/layout/app.html.eex:209
+msgid "thread view"
+msgstr "Thread-Ansicht"
+
+#: web/templates/layout/app.html.eex:10
+msgid "description_text"
+msgstr "Forum als Ergänzung zum SELFHTML-Wiki und zur Dokumentation SELFHTML"
+
+#: web/templates/layout/app.html.eex:11
+msgid "keywords_text"
+msgstr "SELFHTML Forum, SELFHTML, Forum, SELFForum"
+
+#: web/templates/layout/app.html.eex:253
+msgid "archive"
+msgstr "archivierte Beiträge"
+
+#: web/templates/layout/app.html.eex:149
+msgid "create new thread"
+msgstr "neuer Beitrag"
+
+#: web/templates/session/new.html.eex:10
+msgid "I forgot my password"
+msgstr "I habe mein Passwort vergessen"
+
+#: web/templates/session/new.html.eex:21
+msgid "Login"
+msgstr "anmelden"
+
+#: web/templates/session/new.html.eex:8 web/templates/session/new.html.eex:9
+msgid "Password"
+msgstr "Passwort"
+
+#: web/templates/session/new.html.eex:4
+msgid "Regina Schlauklug"
+msgstr ""
+
+#: web/templates/session/new.html.eex:16
+msgid "Remember me"
+msgstr "Login merken"
+
+#: web/templates/session/new.html.eex:3
+msgid "Username or email"
+msgstr "Benutzername oder Email-Adresse"
+
+#: web/templates/layout/app.html.eex:121
+msgid "%{count} new mails"
+msgstr "%{count} neue Mails"
+
+#: web/templates/layout/app.html.eex:120
+msgid "%{count} new_mails"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:111 web/templates/layout/app.html.eex:112
+msgid "%{points} points"
+msgstr "%{points} Punkte"
+
+#: web/templates/layout/app.html.eex:122
+msgid "logout"
+msgstr "abmelden"
+
+#: web/templates/layout/app.html.eex:120
+msgid "mail"
+msgstr "Post"
+
+#: web/templates/layout/app.html.eex:115 web/templates/layout/app.html.eex:118
+msgid "new notifications"
+msgstr "neue Benachrichtigungen"
+
+#: web/templates/layout/app.html.eex:115
+msgid "notifications"
+msgstr "Benachrichtigungen"
+
+#: web/templates/layout/app.html.eex:114
+msgid "settings"
+msgstr "Einstellungen"

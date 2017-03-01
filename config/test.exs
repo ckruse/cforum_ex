@@ -12,8 +12,14 @@ config :logger, level: :warn
 # Configure your database
 config :cforum, Cforum.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
   database: "cforum_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :guardian, Guardian,
+  issuer: "Cforum",
+  ttl: { 30, :days },
+  allowed_drift: 2000,
+  verify_issuer: true,
+  secret_key: "s20ZSRaWh1d2fAv/3es69BvqZahWfvBLEsIxCpd8srjFtKjSC3JPe5yANwgpM4SJ",
+  serializer: Cforum.GuardianSerializer

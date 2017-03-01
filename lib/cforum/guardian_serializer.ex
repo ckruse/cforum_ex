@@ -4,7 +4,7 @@ defmodule Cforum.GuardianSerializer do
   alias Cforum.Repo
   alias Cforum.User
 
-  def for_token(user = %User{}), do: { :ok, "User:#{user.id}" }
+  def for_token(user = %User{}), do: { :ok, "User:#{user.user_id}" }
   def for_token(_), do: { :error, "Unknown resource type" }
 
   def from_token("User:" <> id), do: { :ok, Repo.get(User, id) }

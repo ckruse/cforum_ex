@@ -2,7 +2,7 @@
   <%# render 'portal' %>
 <% end %>
 
-<h1><%= gettext("global.forums") %></h1>
+<h1><%= gettext("Forums") %></h1>
 
 <%= if signed_in?(@conn) do %>
   <p><%# gettext("forums.new_threads_new_messages", count: @new_threads, new_messages_text: t('forums.new_messages_text', count: @new_messages)) %></p>
@@ -11,8 +11,8 @@
 <ol class="forums-list">
   <li>
     <h2 class="forum-name">
-      <%= link gettext("forums.all_forums"), to: thread_path(@conn, :index, "all") %>
-      <%= link to: "", title: gettext("layout.statistics") do %> <!-- TODO stats path -->
+      <%= link gettext("All forums"), to: thread_path(@conn, :index, "all") %>
+      <%= link to: "", title: gettext("Statistics") do %> <!-- TODO stats path -->
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="27" height="17" viewBox="0, 0, 22, 14">
           <use xlink:href="#stats-icon"></use>
         </svg>
@@ -26,26 +26,26 @@
          </ul -->
     <%# end %>
 
-    <p><%= link gettext("layout.show_all"), to: thread_path(@conn, :index, "all") %></p>
+    <p><%= link gettext("Show all"), to: thread_path(@conn, :index, "all") %></p>
   </li>
 
   <%= for forum <- @visible_forums do %>
     <li>
       <h2 class="forum-name">
         <%= link forum.name, to: thread_path(@conn, :index, forum) %>
-        <%= link to: "", title: gettext("layout.statistics") do %><!-- TODO stats path -->
+        <%= link to: "", title: gettext("Statistics") do %><!-- TODO stats path -->
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="27" height="17" viewBox="0, 0, 22, 14">
             <use xlink:href="#stats-icon"></use>
           </svg>
         <% end %>
       </h2>
       <!--ul>
-        <%# @activities[forum.forum_id].each do |thread| %>
-      <li class="thread"><%# render 'thread_infos', thread: thread %></li>
-        <%# end %>
-      </ul-->
+           <%# @activities[forum.forum_id].each do |thread| %>
+           <li class="thread"><%# render 'thread_infos', thread: thread %></li>
+           <%# end %>
+           </ul-->
 
-      <p><%= link gettext("layout.show_all"), to: thread_path(@conn, :index, forum) %></p>
+      <p><%= link gettext("Show all"), to: thread_path(@conn, :index, forum) %></p>
     </li>
   <% end %>
 </ol>
