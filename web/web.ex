@@ -53,6 +53,8 @@ defmodule Cforum.Web do
       import Cforum.ErrorHelpers
       import Cforum.Helpers
       import Cforum.Gettext
+
+      import Number.Delimit
     end
   end
 
