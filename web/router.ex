@@ -9,6 +9,7 @@ defmodule Cforum.Router do
     plug :put_secure_browser_headers
 
     plug Guardian.Plug.VerifySession # looks in the session for the token
+    plug Guardian.Plug.VerifyRememberMe
     plug Guardian.Plug.LoadResource
     plug Cforum.Plug.CurrentUser
     plug Cforum.Plug.CurrentForum
