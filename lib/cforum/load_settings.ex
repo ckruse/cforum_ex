@@ -8,26 +8,18 @@ defmodule Cforum.Plug.LoadSettings do
     user = conn.assigns[:current_user]
     forum = conn.assigns[:current_forum]
 
-    conn
-    |> load_user_conf(user)
-    |> load_forum_conf(forum)
-    |> load_global_conf
+    settings = Setting |> Setting.load_all(forum, user) |> Repo.all
+    set_confs(conn, settings)
   end
 
-  def load_user_conf(conn, user) when user == nil, do: conn
-  def load_user_conf(conn, user) do
-    conf = Repo.get_by(Setting, user_id: user.user_id)
-    Plug.Conn.assign(conn, :user_config, conf)
-  end
-
-  def load_forum_conf(conn, forum) when forum == nil, do: conn
-  def load_forum_conf(conn, forum) do
-    conf = Repo.get_by(Setting, forum_id: forum.forum_id)
-    Plug.Conn.assign(conn, :forum_config, conf)
-  end
-
-  def load_global_conf(conn) do
-    conf = Setting |> Setting.global() |> Repo.one()
+  defp set_confs(conn, []), do: conn
+  defp set_confs(conn, [conf = %Setting{user_id: nil, forum_id: nil} | tail]) do
     Plug.Conn.assign(conn, :global_config, conf)
+    |> set_confs(tail)
   end
+  defp set_confs(conn, [conf = %Setting{forum_id: nil} | tail]) do
+    Plug.Conn.assign(conn, :user_config, conf)
+    |> set_confs(tail)
+  end
+  defp set_confs(_, _), do: raise "a forum specific user config? wtf?"
 end

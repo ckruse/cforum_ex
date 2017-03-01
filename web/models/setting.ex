@@ -33,4 +33,25 @@ defmodule Cforum.Setting do
     from setting in query,
       where: is_nil(setting.forum_id) and is_nil(setting.user_id)
   end
+
+
+  def load_all(query, nil, nil) do
+    global(query)
+  end
+  def load_all(query, forum, nil) do
+    from setting in query,
+      where: (is_nil(setting.forum_id) and is_nil(setting.user_id)) or
+             (is_nil(setting.user_id) and setting.forum_id == ^forum.forum_id)
+  end
+  def load_all(query, nil, user) do
+    from setting in query,
+      where: (is_nil(setting.forum_id) and is_nil(setting.user_id)) or
+             (is_nil(setting.forum_id) and setting.user_id == ^user.user_id)
+  end
+  def load_all(query, forum, user) do
+    from setting in query,
+      where: (is_nil(setting.forum_id) and is_nil(setting.user_id)) or
+             (is_nil(setting.forum_id) and setting.user_id == ^user.user_id) or
+             (is_nil(setting.user_id) and setting.forum_id == ^forum.forum_id)
+  end
 end
