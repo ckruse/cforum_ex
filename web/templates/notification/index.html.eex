@@ -1,0 +1,40 @@
+<h2>Listing notifications</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Recipient</th>
+      <th>Is read</th>
+      <th>Subject</th>
+      <th>Path</th>
+      <th>Icon</th>
+      <th>Oid</th>
+      <th>Otype</th>
+      <th>Description</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for notification <- @notifications do %>
+    <tr>
+      <td><%= notification.recipient_id %></td>
+      <td><%= notification.is_read %></td>
+      <td><%= notification.subject %></td>
+      <td><%= notification.path %></td>
+      <td><%= notification.icon %></td>
+      <td><%= notification.oid %></td>
+      <td><%= notification.otype %></td>
+      <td><%= notification.description %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: notification_path(@conn, :show, notification), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: notification_path(@conn, :edit, notification), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: notification_path(@conn, :delete, notification), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New notification", to: notification_path(@conn, :new) %>

@@ -1,0 +1,6 @@
+<h2>Edit tag</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: tag_path(@conn, :update, @tag) %>
+
+<%= link "Back", to: tag_path(@conn, :index) %>

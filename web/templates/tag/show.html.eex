@@ -1,0 +1,33 @@
+<h2>Show tag</h2>
+
+<ul>
+
+  <li>
+    <strong>Tag name:</strong>
+    <%= @tag.tag_name %>
+  </li>
+
+  <li>
+    <strong>Slug:</strong>
+    <%= @tag.slug %>
+  </li>
+
+  <li>
+    <strong>Forum:</strong>
+    <%= @tag.forum_id %>
+  </li>
+
+  <li>
+    <strong>Num messages:</strong>
+    <%= @tag.num_messages %>
+  </li>
+
+  <li>
+    <strong>Suggest:</strong>
+    <%= @tag.suggest %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: tag_path(@conn, :edit, @tag) %>
+<%= link "Back", to: tag_path(@conn, :index) %>
