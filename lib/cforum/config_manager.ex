@@ -124,4 +124,7 @@ defmodule Cforum.ConfigManager do
   def get(conn, name, user, forum) do
     conn.assigns[:user_config][name] || conn.assigns[:forum_config][name] || get(conn, name)
   end
+
+  def uconf(conn, name), do: get(conn, name, conn.assigns[:current_user], conn.assigns[:current_forum])
+  def conf(conn, name), do: get(conn, name, nil, conn.assigns[:current_forum])
 end
