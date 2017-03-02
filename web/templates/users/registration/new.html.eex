@@ -1,0 +1,34 @@
+<%= form_for @changeset, registration_path(@conn, :create), [class: "cf-form"], fn f -> %>
+<%= if @changeset.action do %>
+  <div class="alert alert-error">
+    <p><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
+  </div>
+<% end %>
+
+<div class="cf-cgroup">
+  <%= label f, :username, gettext("username") %>
+  <%= text_input f, :username, placeholder: gettext("Regina Schlauklug"), data: [js: "username"] %>
+  <%= error_tag f, :username %>
+</div>
+
+<div class="cf-cgroup">
+  <%= label f, :email, gettext("email") %>
+  <%= text_input f, :email, placeholder: gettext("regina@example.org"), type: "email" %>
+  <%= error_tag f, :email %>
+</div>
+
+<div class="cf-cgroup">
+  <%= label f, :password, gettext("password") %>
+  <%= password_input f, :password %>
+  <%= error_tag f, :password %>
+</div>
+
+<div class="cf-cgroup">
+  <%= label f, :password_confirmation, gettext("password confirmation") %>
+  <%= password_input f, :password_confirmation, type: "password" %>
+</div>
+
+<p class="form-actions">
+  <%= submit gettext("sign up"), class: "cf-primary-btn" %>
+</p>
+<% end %>

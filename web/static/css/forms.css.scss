@@ -79,6 +79,20 @@
       background-size:contain;
     }
   }
+
+  .help-block {
+    display:block;
+    max-width:55em;
+    font-weight:bold;
+    color:#A94442;
+    background-color:#F2DEDE;
+    border-color:#EBCCD1;
+    border:1px solid transparent;
+    border-radius:4px;
+    box-shadow:0px 0px 6px #666;
+    padding:.5em 1em;
+    margin-top:.5em;
+  }
 }
 
 // .form-search {

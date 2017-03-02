@@ -27,7 +27,8 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: web/controllers/session_controller.ex:17
+#: web/controllers/session_controller.ex:28
+#: web/controllers/users/session_controller.ex:28
 msgid "Username or password wrong"
 msgstr ""
 
@@ -35,7 +36,8 @@ msgstr ""
 msgid "You don't have access to this page!"
 msgstr ""
 
-#: web/controllers/session_controller.ex:13
+#: web/controllers/session_controller.ex:23
+#: web/controllers/users/session_controller.ex:23
 msgid "You logged in successfully"
 msgstr ""
 
@@ -120,7 +122,8 @@ msgstr ""
 msgid "publisher"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:127
+#: web/templates/layout/app.html.eex:127 web/views/users/registration_view.ex:4
+#: web/views/users/registration_view.ex:5
 msgid "register"
 msgstr ""
 
@@ -156,36 +159,34 @@ msgstr ""
 msgid "create new thread"
 msgstr ""
 
-#: web/templates/session/new.html.eex:10
+#: web/templates/users/session/new.html.eex:10
 msgid "I forgot my password"
 msgstr ""
 
-#: web/templates/session/new.html.eex:21
+#: web/templates/users/session/new.html.eex:21
 msgid "Login"
 msgstr ""
 
-#: web/templates/session/new.html.eex:8 web/templates/session/new.html.eex:9
+#: web/templates/users/session/new.html.eex:8
+#: web/templates/users/session/new.html.eex:9
 msgid "Password"
 msgstr ""
 
-#: web/templates/session/new.html.eex:4
+#: web/templates/users/registration/new.html.eex:10
+#: web/templates/users/session/new.html.eex:4
 msgid "Regina Schlauklug"
 msgstr ""
 
-#: web/templates/session/new.html.eex:16
+#: web/templates/users/session/new.html.eex:16
 msgid "Remember me"
 msgstr ""
 
-#: web/templates/session/new.html.eex:3
+#: web/templates/users/session/new.html.eex:3
 msgid "Username or email"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:121
+#: web/templates/layout/app.html.eex:120 web/templates/layout/app.html.eex:121
 msgid "%{count} new mails"
-msgstr ""
-
-#: web/templates/layout/app.html.eex:120
-msgid "%{count} new_mails"
 msgstr ""
 
 #: web/templates/layout/app.html.eex:111 web/templates/layout/app.html.eex:112
@@ -210,4 +211,71 @@ msgstr ""
 
 #: web/templates/layout/app.html.eex:114
 msgid "settings"
+msgstr ""
+
+#: web/templates/users/registration/new.html.eex:4
+msgid "Oops, something went wrong! Please check the errors below."
+msgstr ""
+
+#: web/templates/users/registration/new.html.eex:15
+msgid "email"
+msgstr ""
+
+#: web/templates/users/registration/new.html.eex:21
+msgid "password"
+msgstr ""
+
+#: web/templates/users/registration/new.html.eex:16
+msgid "regina@example.org"
+msgstr ""
+
+#: web/templates/users/registration/new.html.eex:32
+msgid "sign up"
+msgstr ""
+
+#: web/templates/users/registration/new.html.eex:9
+msgid "username"
+msgstr ""
+
+#: web/templates/users/registration/new.html.eex:27
+msgid "password confirmation"
+msgstr ""
+
+#: web/controllers/registration_controller.ex:47
+msgid "Account successfully confirmed!"
+msgstr ""
+
+#: web/controllers/registration_controller.ex:33
+msgid "Account successfully created. Please follow the confirmation instructions we send you via mail."
+msgstr ""
+
+#: web/templates/user_mailer/confirmation_mail.html.eex:7
+#: web/templates/user_mailer/confirmation_mail.text.eex:7
+msgid "Best regards, SELFHTML"
+msgstr ""
+
+#: web/templates/user_mailer/confirmation_mail.html.eex:5
+msgid "Confirm my account"
+msgstr ""
+
+#: web/templates/user_mailer/confirmation_mail.html.eex:1
+#: web/templates/user_mailer/confirmation_mail.text.eex:1
+msgid "Hi there, %{name}!"
+msgstr ""
+
+#: web/controllers/registration_controller.ex:53
+msgid "Oops, something went wrong!"
+msgstr ""
+
+#: web/templates/user_mailer/confirmation_mail.html.eex:3
+#: web/templates/user_mailer/confirmation_mail.text.eex:3
+msgid "You can confirm your account email through the link below:"
+msgstr ""
+
+#: web/mailers/user_mailer.ex:9
+msgid "confirm your registration"
+msgstr ""
+
+#: web/controllers/registration_controller.ex:23
+msgid "password and password confirmation don't match"
 msgstr ""

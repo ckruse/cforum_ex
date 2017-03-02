@@ -38,12 +38,17 @@ defmodule Cforum.Router do
   scope "/", Cforum do
     pipe_through :browser
 
-    get "/", ForumController, :index
-    get "/help", PageController, :help
-
     get "/login", Users.SessionController, :new
     post "/login", Users.SessionController, :create
     delete "/logout", Users.SessionController, :delete
+
+    get "/registrations/new", Users.RegistrationController, :new
+    post "/registrations", Users.RegistrationController, :create
+    get "/registrations/confirm", Users.RegistrationController, :confirm
+
+    get "/", ForumController, :index
+    get "/help", PageController, :help
+
     resources "/users", Users.UserController
 
     scope "/:curr_forum" do

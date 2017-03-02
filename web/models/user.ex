@@ -22,6 +22,9 @@ defmodule Cforum.User do
     field :avatar_content_type, :string
     field :avatar_updated_at, :utc_datetime
 
+    field :password, :string, virtual: true
+    field :password_confirmation, :string, virtual: true
+
     has_one :settings, Cforum.Setting
 
     timestamps(inserted_at: :created_at)
@@ -39,6 +42,14 @@ defmodule Cforum.User do
     |> unique_constraint(:unconfirmed_email)
     |> unique_constraint(:reset_password_token)
     |> unique_constraint(:confirmation_token)
+  end
+
+  def register_changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:username, :email, :password, :password_confirmation])
+    |> validate_required([:username, :email, :password, :password_confirmation])
+    |> unique_constraint(:username)
+    |> unique_constraint(:email)
   end
 
   def by_username_or_email(query, login) do
