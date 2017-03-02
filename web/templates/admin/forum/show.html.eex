@@ -39,5 +39,5 @@
 
 </ul>
 
-<%= link "Edit", to: forum_path(@conn, :edit, @forum) %>
-<%= link "Back", to: forum_path(@conn, :index) %>
+<%= link "Edit", to: admin_forum_path(@conn, :edit, @forum) %>
+<%= link "Back", to: admin_forum_path(@conn, :index) %>

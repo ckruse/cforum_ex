@@ -26,9 +26,29 @@ defmodule Cforum.ConnCase do
       import Ecto.Query
 
       import Cforum.Router.Helpers
+      import Cforum.Gettext
 
       # The default endpoint for testing
       @endpoint Cforum.Endpoint
+
+
+      # We need a way to get into the connection to login a user
+      # We need to use the bypass_through to fire the plugs in the router
+      # and get the session fetched.
+      def login(%Cforum.User{} = user), do: login(build_conn(), user, :token, [])
+      def login(%Cforum.User{} = user, token), do: login(build_conn(), user, token, [])
+      def login(%Cforum.User{} = user, token, opts), do: login(build_conn(), user, token, opts)
+
+      def login(%Plug.Conn{} = conn, user), do: login(conn, user, :token, [])
+      def login(%Plug.Conn{} = conn, user, token), do: login(conn, user, token, [])
+      def login(%Plug.Conn{} = conn, user, token, opts) do
+        conn
+        |> bypass_through(Cforum.Router, [:browser])
+        |> get("/")
+        |> Guardian.Plug.sign_in(user, token, opts)
+        |> send_resp(200, "Flush the session yo")
+        |> recycle()
+      end
     end
   end
 

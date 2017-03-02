@@ -20,39 +20,39 @@ defmodule Cforum.Admin.ForumController do
       {:ok, _forum} ->
         conn
         |> put_flash(:info, "Forum created successfully.")
-        |> redirect(to: forum_path(conn, :index))
+        |> redirect(to: admin_forum_path(conn, :index))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    forum = Repo.get!(Forum, id)
+  def show(conn, %{"id" => slug}) do
+    forum = Repo.get_by!(Forum, slug: slug)
     render(conn, "show.html", forum: forum)
   end
 
-  def edit(conn, %{"id" => id}) do
-    forum = Repo.get!(Forum, id)
+  def edit(conn, %{"id" => slug}) do
+    forum = Repo.get_by!(Forum, slug: slug)
     changeset = Forum.changeset(forum)
     render(conn, "edit.html", forum: forum, changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "forum" => forum_params}) do
-    forum = Repo.get!(Forum, id)
+  def update(conn, %{"id" => slug, "forum" => forum_params}) do
+    forum = Repo.get_by!(Forum, slug: slug)
     changeset = Forum.changeset(forum, forum_params)
 
     case Repo.update(changeset) do
       {:ok, forum} ->
         conn
         |> put_flash(:info, "Forum updated successfully.")
-        |> redirect(to: forum_path(conn, :show, forum))
+        |> redirect(to: admin_forum_path(conn, :show, forum))
       {:error, changeset} ->
         render(conn, "edit.html", forum: forum, changeset: changeset)
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    forum = Repo.get!(Forum, id)
+  def delete(conn, %{"id" => slug}) do
+    forum = Repo.get_by!(Forum, slug: slug)
 
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
@@ -60,6 +60,6 @@ defmodule Cforum.Admin.ForumController do
 
     conn
     |> put_flash(:info, "Forum deleted successfully.")
-    |> redirect(to: forum_path(conn, :index))
+    |> redirect(to: admin_forum_path(conn, :index))
   end
 end
