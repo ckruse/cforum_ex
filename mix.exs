@@ -19,7 +19,7 @@ defmodule Cforum.Mixfile do
   def application do
     [mod: {Cforum, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :number]]
+                    :phoenix_ecto, :postgrex, :guardian, :number]]
   end
 
   # Specifies which paths to compile per environment.
