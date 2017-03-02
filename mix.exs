@@ -19,7 +19,7 @@ defmodule Cforum.Mixfile do
   def application do
     [mod: {Cforum, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :guardian, :number]]
+                    :phoenix_ecto, :postgrex, :guardian, :number, :bamboo, :bamboo_smtp]]
   end
 
   # Specifies which paths to compile per environment.
@@ -40,7 +40,9 @@ defmodule Cforum.Mixfile do
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 3.0"},
      {:guardian, "~> 0.14"},
-     {:number, "~> 0.5.1"}]
+     {:number, "~> 0.5.1"},
+     {:bamboo, "~> 0.8"},
+     {:bamboo_smtp, "~> 1.3.0"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
