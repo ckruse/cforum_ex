@@ -1,6 +1,9 @@
 defmodule Cforum.User do
   use Cforum.Web, :model
 
+  import Cforum.Gettext
+  alias Phoenix.Token
+
   @primary_key {:user_id, :integer, []}
   @derive {Phoenix.Param, key: :user_id}
 
@@ -50,7 +53,43 @@ defmodule Cforum.User do
     |> validate_required([:username, :email, :password, :password_confirmation])
     |> unique_constraint(:username)
     |> unique_constraint(:email)
+    |> confirm_password()
+    |> put_password_hash()
+    |> put_confirmation_token()
   end
+
+  defp confirm_password(changeset) do
+    case changeset do
+      %Ecto.Changeset{valid?: true, changes: %{password: pass, password_confirmation: confirmed_pass}} when pass == confirmed_pass ->
+        changeset
+      _ ->
+        add_error(changeset, :password, gettext("password and password confirmation don't match"))
+    end
+  end
+
+  defp put_password_hash(changeset) do
+    case changeset do
+      %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
+        put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(pass))
+      _ ->
+        changeset
+    end
+  end
+
+  defp put_confirmation_token(changeset) do
+    case changeset do
+      %Ecto.Changeset{valid?: true, changes: %{username: username}} ->
+        put_change(changeset, :confirmation_token, generate_confirmation_token(username))
+      _ ->
+        changeset
+    end
+  end
+
+  defp generate_confirmation_token(nil), do: nil
+  defp generate_confirmation_token(username) do
+    Token.sign(Cforum.Endpoint, "user", username)
+  end
+
 
   def by_username_or_email(query, login) do
     from user in query,

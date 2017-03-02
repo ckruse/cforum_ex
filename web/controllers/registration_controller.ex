@@ -1,10 +1,7 @@
 defmodule Cforum.Users.RegistrationController do
   use Cforum.Web, :controller
 
-  import Ecto.Changeset
-
   alias Cforum.User
-  alias Phoenix.Token
 
   def new(conn, _params) do
     changeset = User.register_changeset(%User{})
@@ -12,18 +9,7 @@ defmodule Cforum.Users.RegistrationController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    changeset = User.register_changeset(%User{}, user_params)
-    |> put_change(:confirmation_token, generate_confirmation_token(user_params["username"]))
-    |> put_change(:active, true)
-
-    {:changes, password} = fetch_field(changeset, :password)
-    {:changes, password_confirmation} = fetch_field(changeset, :password_confirmation)
-
-    changeset = if password != password_confirmation do
-      add_error(changeset, :password, gettext("password and password confirmation don't match"))
-    else
-      put_change(changeset, :encrypted_password, Comeonin.Bcrypt.hashpwsalt(password))
-    end
+    changeset = User.register_changeset(%User{active: true}, user_params)
 
     case Repo.insert(changeset) do
       {:ok, user} ->
@@ -55,8 +41,5 @@ defmodule Cforum.Users.RegistrationController do
     end
   end
 
-  def generate_confirmation_token(nil), do: nil
-  def generate_confirmation_token(username) do
-    Token.sign(Cforum.Endpoint, "user", username)
-  end
+
 end
