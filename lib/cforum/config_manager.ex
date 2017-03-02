@@ -115,10 +115,10 @@ defmodule Cforum.ConfigManager do
   def get(conn, name, user, forum) when user == nil and forum == nil do
     conn.assigns[:global_config][name] || @defaults[name]
   end
-  def get(conn, name, user, forum) when user == nil do
+  def get(conn, name, user, forum) when user == nil and forum != nil do
     conn.assigns[:forum_config][name] || get(conn, name)
   end
-  def get(conn, name, user, forum) when forum == nil do
+  def get(conn, name, user, forum) when forum == nil and user != nil do
     conn.assigns[:user_config][name] || get(conn, name)
   end
   def get(conn, name, user, forum) do
