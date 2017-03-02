@@ -1,4 +1,4 @@
-defmodule Cforum.UserController do
+defmodule Cforum.Users.UserController do
   use Cforum.Web, :controller
 
   alias Cforum.User

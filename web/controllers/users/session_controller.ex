@@ -1,4 +1,4 @@
-defmodule Cforum.Users.SessionController do
+defmodule Cforum.SessionController do
   use Cforum.Web, :controller
 
   def new(conn, _params) do
