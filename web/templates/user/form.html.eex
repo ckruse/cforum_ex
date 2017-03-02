@@ -1,0 +1,113 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :username, class: "control-label" %>
+    <%= text_input f, :username, class: "form-control" %>
+    <%= error_tag f, :username %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :email, class: "control-label" %>
+    <%= text_input f, :email, class: "form-control" %>
+    <%= error_tag f, :email %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :unconfirmed_email, class: "control-label" %>
+    <%= text_input f, :unconfirmed_email, class: "form-control" %>
+    <%= error_tag f, :unconfirmed_email %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :admin, class: "control-label" %>
+    <%= checkbox f, :admin, class: "form-control" %>
+    <%= error_tag f, :admin %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :active, class: "control-label" %>
+    <%= checkbox f, :active, class: "form-control" %>
+    <%= error_tag f, :active %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :encrypted_password, class: "control-label" %>
+    <%= text_input f, :encrypted_password, class: "form-control" %>
+    <%= error_tag f, :encrypted_password %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :remember_created_at, class: "control-label" %>
+    <%= datetime_select f, :remember_created_at, class: "form-control" %>
+    <%= error_tag f, :remember_created_at %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :reset_password_token, class: "control-label" %>
+    <%= text_input f, :reset_password_token, class: "form-control" %>
+    <%= error_tag f, :reset_password_token %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :confirmation_token, class: "control-label" %>
+    <%= text_input f, :confirmation_token, class: "form-control" %>
+    <%= error_tag f, :confirmation_token %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :confirmed_at, class: "control-label" %>
+    <%= datetime_select f, :confirmed_at, class: "form-control" %>
+    <%= error_tag f, :confirmed_at %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :confirmation_sent_at, class: "control-label" %>
+    <%= datetime_select f, :confirmation_sent_at, class: "form-control" %>
+    <%= error_tag f, :confirmation_sent_at %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :authentication_token, class: "control-label" %>
+    <%= text_input f, :authentication_token, class: "form-control" %>
+    <%= error_tag f, :authentication_token %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :last_sign_in_at, class: "control-label" %>
+    <%= datetime_select f, :last_sign_in_at, class: "form-control" %>
+    <%= error_tag f, :last_sign_in_at %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :current_sign_in_at, class: "control-label" %>
+    <%= datetime_select f, :current_sign_in_at, class: "form-control" %>
+    <%= error_tag f, :current_sign_in_at %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :avatar_file_name, class: "control-label" %>
+    <%= text_input f, :avatar_file_name, class: "form-control" %>
+    <%= error_tag f, :avatar_file_name %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :avatar_content_type, class: "control-label" %>
+    <%= text_input f, :avatar_content_type, class: "form-control" %>
+    <%= error_tag f, :avatar_content_type %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :avatar_updated_at, class: "control-label" %>
+    <%= datetime_select f, :avatar_updated_at, class: "form-control" %>
+    <%= error_tag f, :avatar_updated_at %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,43 @@
+<h2>Show forum</h2>
+
+<ul>
+
+  <li>
+    <strong>Slug:</strong>
+    <%= @forum.slug %>
+  </li>
+
+  <li>
+    <strong>Short name:</strong>
+    <%= @forum.short_name %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @forum.name %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @forum.description %>
+  </li>
+
+  <li>
+    <strong>Standard permission:</strong>
+    <%= @forum.standard_permission %>
+  </li>
+
+  <li>
+    <strong>Keywords:</strong>
+    <%= @forum.keywords %>
+  </li>
+
+  <li>
+    <strong>Position:</strong>
+    <%= @forum.position %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: forum_path(@conn, :edit, @forum) %>
+<%= link "Back", to: forum_path(@conn, :index) %>

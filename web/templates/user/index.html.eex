@@ -1,0 +1,58 @@
+<h2>Listing users</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Unconfirmed email</th>
+      <th>Admin</th>
+      <th>Active</th>
+      <th>Encrypted password</th>
+      <th>Remember created at</th>
+      <th>Reset password token</th>
+      <th>Confirmation token</th>
+      <th>Confirmed at</th>
+      <th>Confirmation sent at</th>
+      <th>Authentication token</th>
+      <th>Last sign in at</th>
+      <th>Current sign in at</th>
+      <th>Avatar file name</th>
+      <th>Avatar content type</th>
+      <th>Avatar updated at</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for user <- @users do %>
+    <tr>
+      <td><%= user.username %></td>
+      <td><%= user.email %></td>
+      <td><%= user.unconfirmed_email %></td>
+      <td><%= user.admin %></td>
+      <td><%= user.active %></td>
+      <td><%= user.encrypted_password %></td>
+      <td><%= user.remember_created_at %></td>
+      <td><%= user.reset_password_token %></td>
+      <td><%= user.confirmation_token %></td>
+      <td><%= user.confirmed_at %></td>
+      <td><%= user.confirmation_sent_at %></td>
+      <td><%= user.authentication_token %></td>
+      <td><%= user.last_sign_in_at %></td>
+      <td><%= user.current_sign_in_at %></td>
+      <td><%= user.avatar_file_name %></td>
+      <td><%= user.avatar_content_type %></td>
+      <td><%= user.avatar_updated_at %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: user_path(@conn, :edit, user), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New user", to: user_path(@conn, :new) %>
