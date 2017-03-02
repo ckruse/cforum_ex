@@ -33,6 +33,7 @@ defmodule Cforum.Users.SessionController do
   def delete(conn, _) do
     conn
     |> Guardian.Plug.sign_out
+    |> put_resp_cookie("remember_me", "", max_age: 0)
     |> redirect(to: forum_path(conn, :index))
   end
 end
