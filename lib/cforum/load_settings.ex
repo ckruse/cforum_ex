@@ -21,5 +21,9 @@ defmodule Cforum.Plug.LoadSettings do
     Plug.Conn.assign(conn, :user_config, conf)
     |> set_confs(tail)
   end
-  defp set_confs(_, _), do: raise "a forum specific user config? wtf?"
+  defp set_confs(conn, [conf = %Setting{user_id: nil} | tail]) do
+    Plug.Conn.assign(conn, :forum_config, conf)
+    |> set_confs(tail)
+  end
+  defp set_confs(a, b), do: raise "a forum specific user config? wtf?\n\n#{inspect a}\n\n#{inspect b}"
 end
