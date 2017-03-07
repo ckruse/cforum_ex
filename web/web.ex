@@ -37,6 +37,7 @@ defmodule Cforum.Web do
 
       import Cforum.Router.Helpers
       import Cforum.Gettext
+      import Cforum.Helpers
     end
   end
 
