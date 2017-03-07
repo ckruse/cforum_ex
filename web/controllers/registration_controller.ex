@@ -25,7 +25,7 @@ defmodule Cforum.Users.RegistrationController do
 
   def confirm(conn, %{"token" => token}) do
     user = Repo.get_by!(User, confirmation_token: token)
-    changeset = Ecto.Changeset.change user, confirmed_at: Ecto.DateTime.utc
+    changeset = Ecto.Changeset.change user, confirmed_at: Timex.now
 
     case Repo.update changeset do
       {:ok, user} ->
