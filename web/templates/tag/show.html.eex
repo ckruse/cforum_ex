@@ -29,5 +29,5 @@
 
 </ul>
 
-<%= link "Edit", to: tag_path(@conn, :edit, @tag) %>
-<%= link "Back", to: tag_path(@conn, :index) %>
+<%= link "Edit", to: tag_path(@conn, :edit, @current_forum, @tag) %>
+<%= link "Back", to: tag_path(@conn, :index, @current_forum) %>

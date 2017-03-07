@@ -20,7 +20,7 @@ defmodule Cforum.TagController do
       {:ok, _tag} ->
         conn
         |> put_flash(:info, "Tag created successfully.")
-        |> redirect(to: tag_path(conn, :index))
+        |> redirect(to: tag_path(conn, :index, conn.assigns[:current_forum]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -45,7 +45,7 @@ defmodule Cforum.TagController do
       {:ok, tag} ->
         conn
         |> put_flash(:info, "Tag updated successfully.")
-        |> redirect(to: tag_path(conn, :show, tag))
+        |> redirect(to: tag_path(conn, :show, conn.assigns[:current_forum], tag))
       {:error, changeset} ->
         render(conn, "edit.html", tag: tag, changeset: changeset)
     end
@@ -60,6 +60,6 @@ defmodule Cforum.TagController do
 
     conn
     |> put_flash(:info, "Tag deleted successfully.")
-    |> redirect(to: tag_path(conn, :index))
+    |> redirect(to: tag_path(conn, :index, conn.assigns[:current_forum]))
   end
 end

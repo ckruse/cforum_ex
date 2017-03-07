@@ -51,11 +51,12 @@ defmodule Cforum.Router do
     get "/help", PageController, :help
 
     resources "/users", Users.UserController
-    resources "/tags", TagController
 
     scope "/:curr_forum" do
       pipe_through [:browser, :forum_access]
+
       get "/", ThreadController, :index
+      resources "/tags", TagController 
     end
   end
 

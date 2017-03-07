@@ -22,13 +22,13 @@
       <td><%= tag.suggest %></td>
 
       <td class="text-right">
-        <%= link "Show", to: tag_path(@conn, :show, tag), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: tag_path(@conn, :edit, tag), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: tag_path(@conn, :delete, tag), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <%= link "Show", to: tag_path(@conn, :show, @current_forum, tag), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: tag_path(@conn, :edit, @current_forum, tag), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: tag_path(@conn, :delete, @current_forum, tag), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<%= link "New tag", to: tag_path(@conn, :new) %>
+<%# link "New tag", to: tag_path(@conn, :new) %>
