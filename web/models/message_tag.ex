@@ -1,11 +1,12 @@
 defmodule Cforum.MessageTag do
   use Cforum.Web, :model
 
-  schema "messages_tags" do
-    belongs_to :message, Cforum.Message
-    belongs_to :tag, Cforum.Tag
+  @primary_key {:message_tag_id, :integer, []}
+  @derive {Phoenix.Param, key: :message_tag_id}
 
-    timestamps()
+  schema "messages_tags" do
+    belongs_to :message, Cforum.Message, references: :message_id
+    belongs_to :tag, Cforum.Tag, references: :tag_id
   end
 
   @doc """
@@ -13,7 +14,7 @@ defmodule Cforum.MessageTag do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [])
-    |> validate_required([])
+    |> cast(params, [:message_id, :tag_id])
+    |> validate_required([:message_id, :tag_id])
   end
 end

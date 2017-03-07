@@ -1,6 +1,9 @@
 defmodule Cforum.Message do
   use Cforum.Web, :model
 
+  @primary_key {:message_id, :integer, []}
+  @derive {Phoenix.Param, key: :message_id}
+
   schema "messages" do
     field :upvotes, :integer
     field :downvotes, :integer
@@ -13,20 +16,25 @@ defmodule Cforum.Message do
     field :content, :string
     field :flags, :map
     field :uuid, :string
-    field :up, :string
+    field :ip, :string
     field :format, :string
     field :edit_author, :string
     field :problematic_site, :string
 
-    belongs_to :thread, Cforum.Thread
-    belongs_to :forum, Cforum.Forum
-    belongs_to :user, Cforum.User
-    belongs_to :parent, Cforum.Message
-    belongs_to :editor, Cforum.User
+    field :messages, :any, virtual: true
+    field :attribs, :map, virtual: true
 
-    many_to_many :tags, Cforum.Tag, join_through: "messages_tags"
+    belongs_to :thread, Cforum.Thread, references: :forum_id
+    belongs_to :forum, Cforum.Forum, references: :forum_id
+    belongs_to :user, Cforum.User, references: :user_id
+    belongs_to :parent, Cforum.Message, references: :message_id
+    belongs_to :editor, Cforum.User, references: :user_id
 
-    timestamps()
+    many_to_many :tags, Cforum.Tag, join_through: Cforum.MessageTag, join_keys: [message_id: :message_id, tag_id: :tag_id]
+    has_many :votes, Cforum.CloseVote, foreign_key: :message_id
+
+    timestamps(inserted_at: :created_at)
+  end
   end
 
   @doc """

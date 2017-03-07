@@ -1,11 +1,10 @@
-defmodule Cforum.Vote do
+defmodule Cforum.ReadMessage do
   use Cforum.Web, :model
 
-  @primary_key {:vote_id, :integer, []}
-  @derive {Phoenix.Param, key: :vote_id}
+  @primary_key {:read_message_id, :integer, []}
+  @derive {Phoenix.Param, key: :read_message_id}
 
-  schema "votes" do
-    field :vtype, :string
+  schema "read_messages" do
     belongs_to :user, Cforum.User, references: :user_id
     belongs_to :message, Cforum.Message, references: :message_id
   end
@@ -15,7 +14,7 @@ defmodule Cforum.Vote do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:vtype])
-    |> validate_required([:vtype])
+    |> cast(params, [:user_id, :message_id])
+    |> validate_required([:user_id, :message_id])
   end
 end

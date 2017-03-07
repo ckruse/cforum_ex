@@ -6,8 +6,8 @@ defmodule Cforum.Setting do
 
   schema "settings" do
     field :options, :map
-    belongs_to :forum, Cforum.Forum
-    belongs_to :user, Cforum.User
+    belongs_to :forum, Cforum.Forum, references: :forum_id
+    belongs_to :user, Cforum.User, references: :user_id
   end
 
   @doc """

@@ -1,6 +1,9 @@
 defmodule Cforum.Tag do
   use Cforum.Web, :model
 
+  @primary_key {:tag_id, :integer, []}
+  @derive {Phoenix.Param, key: :slug}
+
   schema "tags" do
     field :tag_name, :string
     field :slug, :string
@@ -9,9 +12,7 @@ defmodule Cforum.Tag do
 
     belongs_to :forum, Cforum.Forum
 
-    many_to_many :messages, Cforum.Message, join_through: "messages_tags"
-
-    timestamps()
+    many_to_many :messages, Cforum.Message, join_through: Cforum.MessageTag, join_keys: [tag_id: :tag_id, message_id: :message_id]
   end
 
   @doc """

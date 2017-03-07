@@ -1,13 +1,11 @@
-defmodule Cforum.Score do
+defmodule Cforum.InterestingMessage do
   use Cforum.Web, :model
 
-  @primary_key {:score_id, :integer, []}
-  @derive {Phoenix.Param, key: :score_id}
+  @primary_key {:interesting_message_id, :integer, []}
+  @derive {Phoenix.Param, key: :interesting_message_id}
 
-  schema "scores" do
-    field :value, :integer
+  schema "interesting_messages" do
     belongs_to :user, Cforum.User, references: :user_id
-    belongs_to :vote, Cforum.Vote, references: :vote_id
     belongs_to :message, Cforum.Message, references: :message_id
 
     timestamps(inserted_at: :created_at)
@@ -18,7 +16,7 @@ defmodule Cforum.Score do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:value])
-    |> validate_required([:value])
+    |> cast(params, [:user_id, :message_id])
+    |> validate_required([:user_id, :message_id])
   end
 end

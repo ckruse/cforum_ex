@@ -10,11 +10,17 @@ defmodule Cforum.Thread do
     field :deleted, :boolean, default: false
     field :sticky, :boolean, default: false
     field :flags, :map
-    field :latest_message, Ecto.DateTime
+    field :latest_message, Timex.Ecto.DateTime
 
-    belongs_to :forum, Cforum.Forum
-    belongs_to :message, Cforum.Message
-    has_many :messages, Cforum.Message
+    belongs_to :forum, Cforum.Forum, references: :forum_id
+    #belongs_to :message, Cforum.Message, references: :message_id
+    has_many :messages, Cforum.Message, foreign_key: :thread_id
+
+    field :message, :any, virtual: true
+    field :sorted_messages, :any, virtual: true
+    field :tree, :any, virtual: true
+    field :accepted, :any, virtual: true
+    field :attribs, :map, virtual: true
 
     timestamps(inserted_at: :created_at)
   end

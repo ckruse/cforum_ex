@@ -1,5 +1,6 @@
 defmodule Cforum.User do
   use Cforum.Web, :model
+  use Arc.Ecto.Schema
 
   import Cforum.Gettext
   alias Phoenix.Token
@@ -14,21 +15,21 @@ defmodule Cforum.User do
     field :admin, :boolean, default: false
     field :active, :boolean, default: false
     field :encrypted_password, :string
-    field :remember_created_at, :utc_datetime
+    field :remember_created_at, Timex.Ecto.DateTime
     field :reset_password_token, :string
     field :confirmation_token, :string
-    field :confirmed_at, :utc_datetime
-    field :confirmation_sent_at, :utc_datetime
-    field :last_sign_in_at, :utc_datetime
-    field :current_sign_in_at, :utc_datetime
-    field :avatar_file_name, :string
+    field :confirmed_at, Timex.Ecto.DateTime
+    field :confirmation_sent_at, Timex.Ecto.DateTime
+    field :last_sign_in_at, Timex.Ecto.DateTime
+    field :current_sign_in_at, Timex.Ecto.DateTime
+    field :avatar_file_name, Cforum.Avatar.Type
     field :avatar_content_type, :string
-    field :avatar_updated_at, :utc_datetime
+    field :avatar_updated_at, Timex.Ecto.DateTime
 
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
 
-    has_one :settings, Cforum.Setting
+    has_one :settings, Cforum.Setting, foreign_key: :user_id
 
     timestamps(inserted_at: :created_at)
   end
@@ -94,5 +95,10 @@ defmodule Cforum.User do
   def by_username_or_email(query, login) do
     from user in query,
       where: user.active == true and (user.email == ^login or user.username == ^login)
+  end
+
+  def avatar_path(user, version) do
+    Cforum.Avatar.url({user.avatar_file_name, user}, version)
+    |> String.replace_leading("/priv", "")
   end
 end

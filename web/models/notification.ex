@@ -1,6 +1,9 @@
 defmodule Cforum.Notification do
   use Cforum.Web, :model
 
+  @primary_key {:notification_id, :integer, []}
+  @derive {Phoenix.Param, key: :notification_id}
+
   schema "notifications" do
     field :is_read, :boolean, default: false
     field :subject, :string
@@ -9,9 +12,9 @@ defmodule Cforum.Notification do
     field :oid, :integer
     field :otype, :string
     field :description, :string
-    belongs_to :recipient, Cforum.User
+    belongs_to :recipient, Cforum.User, references: :user_id
 
-    timestamps()
+    timestamps(inserted_at: :created_at)
   end
 
   @doc """
