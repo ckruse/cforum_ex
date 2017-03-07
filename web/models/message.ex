@@ -35,6 +35,9 @@ defmodule Cforum.Message do
 
     timestamps(inserted_at: :created_at)
   end
+
+  def accepted?(message) do
+    message.flags["accepted"] == "yes"
   end
 
   @doc """
@@ -42,7 +45,40 @@ defmodule Cforum.Message do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:upvotes, :downvotes, :deleted, :mid, :author, :email, :homepage, :subject, :content, :flags, :uuid, :up, :format, :edit_author, :problematic_site])
-    |> validate_required([:upvotes, :downvotes, :deleted, :mid, :author, :email, :homepage, :subject, :content, :flags, :uuid, :up, :format, :edit_author, :problematic_site])
+    |> cast(params, [:upvotes, :downvotes, :deleted, :mid, :author, :email, :homepage, :subject, :content, :flags, :uuid, :ip, :format, :edit_author, :problematic_site])
+    |> validate_required([:upvotes, :downvotes, :deleted, :mid, :author, :email, :homepage, :subject, :content, :flags, :uuid, :ip, :format, :edit_author, :problematic_site])
+  end
+
+  def score(msg) do
+    msg.upvotes - msg.downvotes
+  end
+
+  def no_votes(msg) do
+    msg.upvotes + msg.downvotes
+  end
+
+  def score_str(msg) do
+    if no_votes(msg) == 0 do
+      "–"
+    else
+      case score(msg) do
+        0 ->
+          "±0"
+        s when s < 0 ->
+          "−" <> Integer.to_string(abs(s))
+        s ->
+          "+" <> Integer.to_string(s)
+      end
+    end
+  end
+
+  def subject_changed?(_, nil), do: true
+  def subject_changed?(msg, parent) do
+    parent.subject != msg.subject
+  end
+
+  def tags_changed?(_, nil), do: true
+  def tags_changed?(msg, parent) do
+    parent.tags != msg.tags
   end
 end

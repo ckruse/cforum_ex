@@ -1,0 +1,11 @@
+<article class="thread threadlist<%= if @thread.archived do %> archived<% end %><%= if @thread.flags["no-archive"] == "yes" do %> no-archive<% end %><%= if @thread.sticky do %> sticky<% end %>" id="<%= @thread.thread_id %>">
+  <%= if @thread.flags['no-archive'] == "yes" do %><i class="no-archive-icon" title="<%= gettext("no archive") %>"> </i><% end %>
+  <%= if @thread.sticky do %><i class="sticky-icon" title="<%= gettext("this thread is sticky") %>"> </i><% end %>
+  <%# TODO html << '<i class="has-interesting-icon" title="' + t('threads.has_interesting') + '"> </i>' if thread.attribs[:has_interesting] %>
+
+  <%= render Cforum.MessageView, "header.html", conn: @conn, thread: @thread, message: @thread.tree, first: true, show_icons: true %>
+
+  <%= if !blank?(@thread.tree.messages) do %><%# TODO and thread.attribs['open_state'] != 'closed' %>
+    <%= Cforum.MessageView.message_tree(@conn, @thread, @thread.tree, @thread.tree.messages) %>
+  <% end %>
+</article>

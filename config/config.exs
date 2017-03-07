@@ -31,6 +31,8 @@ config :number, delimit: [ precision: 2,
 
 config :cforum, mail_sender: "cforum@wwwtech.de"
 
+config :arc,
+  storage: Arc.Storage.Local
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
