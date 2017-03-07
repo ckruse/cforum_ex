@@ -15,6 +15,7 @@ defmodule Cforum.Router do
     plug Cforum.Plug.CurrentForum
     plug Cforum.Plug.VisibleForums
     plug Cforum.Plug.LoadSettings
+    plug Cforum.Plug.SetViewAll
   end
 
   pipeline :require_login do
