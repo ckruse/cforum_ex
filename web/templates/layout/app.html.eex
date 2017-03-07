@@ -201,7 +201,7 @@
 
           <ul>
             <%= if @current_forum do %>
-              <li><%= link @current_forum.name, thread_path(@conn, :index, @current_forum) %></li>
+              <li><%= link @current_forum.name, to: thread_path(@conn, :index, @current_forum) %></li>
             <% end %>
 
             <%= if assigns[:message] != nil && assigns[:thread] != nil && !@thread.new_record? do %>
