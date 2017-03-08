@@ -17,7 +17,6 @@ defmodule Guardian.Plug.VerifyRememberMe do
   It assumes that there is a cookie called 'remember_me' and that it has a
   refresh type token
   """
-  import Guardian.Keys
 
   @doc false
   def init(opts \\ %{}), do: Enum.into(opts, %{})

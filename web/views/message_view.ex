@@ -16,7 +16,7 @@ defmodule Cforum.MessageView do
   def accepted_class(classes, %Thread{accepted: []}, _), do: classes
   def accepted_class(classes, thread, message) do
     classes = if thread.message.message_id == message.message_id, do: [classes | ["has-accepted-answer"]], else: classes
-    classes = if Message.accepted?(message), do: [classes | ["accepted-answer"]], else: classes
+    if Message.accepted?(message), do: [classes | ["accepted-answer"]], else: classes
   end
 
   # TODO

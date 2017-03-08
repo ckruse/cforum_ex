@@ -1,9 +1,6 @@
 defmodule Cforum.ThreadController do
   use Cforum.Web, :controller
 
-  alias Cforum.Thread
-  alias Cforum.Message
-
   def index(conn, params) do
     page = if blank?(params[:p]) || String.to_integer(params[:p]) <= 0,
              do: 0,
