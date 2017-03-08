@@ -8,7 +8,7 @@ defmodule Cforum.ThreadTreeHelper do
   end
 
   def sort_thread(conn, modifier, thread, message \\ nil, direction \\ nil)
-  def sort_thread(conn, modifier, thread, modifier, message, nil), do: sort_thread(conn, modifier, thread, message, Cforum.ConfigManager.uconf(conn, "sort_messages"))
+  def sort_thread(conn, modifier, thread, message, nil), do: sort_thread(conn, modifier, thread, message, Cforum.ConfigManager.uconf(conn, "sort_messages"))
   def sort_thread(_conn, modifier, thread, nil, direction), do: gen_thread_tree(modifier, thread, direction)
 
   def sort_thread(_conn, modifier, thread, message, direction) do
