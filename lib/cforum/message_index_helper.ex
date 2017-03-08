@@ -68,5 +68,7 @@ defmodule Cforum.MessageIndexHelper do
     read_messages = get_read_messages(tids, user)
     subscribed_messages = get_subcribed_messages(tids, user)
     interesting_messages = get_interesting_messages(tids, user)
+
+    set_message_flags(read_messages, interesting_messages, subscribed_messages, threads)
   end
 end
