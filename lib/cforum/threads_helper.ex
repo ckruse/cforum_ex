@@ -11,7 +11,7 @@ defmodule Cforum.ThreadsHelper do
 
   @default_message_preloads [:user, :tags, votes: :voters]
 
-  defp set_forum_id(query, nil, nil), do: nil
+  defp set_forum_id(query, nil, nil), do: query
   defp set_forum_id(query, nil, visible_forums) when visible_forums != nil do
     fids = Enum.map(visible_forums, &(&1.forum_id))
     from thread in query,
@@ -56,7 +56,7 @@ defmodule Cforum.ThreadsHelper do
   def get_threads(forum, user, visible_forums, opts \\ []) do
     defaults = [sticky: false, view_all: false, hide_read_threads: false,
                 only_wo_answer: false, thread_conditions: %{}]
-    my_opts = Keyword.merge(defaults, opts)
+    opts = Keyword.merge(defaults, opts)
 
     threads_query = from(thread in Thread,
       where: thread.archived == false and thread.sticky == false)
