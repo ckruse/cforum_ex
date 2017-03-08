@@ -8,7 +8,7 @@ defmodule Cforum.ThreadController do
 
     limit = String.to_integer(Cforum.ConfigManager.uconf(conn, "pagination"))
 
-    threads = Cforum.ThreadsHelper.index_threads(conn, page: page, limit: limit)
+    {conn, threads} = Cforum.ThreadsHelper.index_threads(conn, page: page, limit: limit)
 
     conn
     |> render("index.html", threads: threads)

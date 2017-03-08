@@ -104,7 +104,7 @@ defmodule Cforum.ThreadsHelper do
     ordering = if Enum.member?(~w(ascending descending newest-first), ordering), do: ordering, else: "ascending"
 
     # TODO
-    #conn = if set_cookie, do: put_resp_cookie(conn, "cf_order", ordering, max_age: 360*24*60*60), else: conn
+    conn = if set_cookie, do: Plug.Conn.put_resp_cookie(conn, "cf_order", ordering, max_age: 360*24*60*60), else: conn
 
     order = case ordering do
               "descending" -> [desc: :created_at]
@@ -155,6 +155,8 @@ defmodule Cforum.ThreadsHelper do
       {0, threads_query}
     end
 
+    conn = Plug.Conn.assign(conn, :all_threads_count, all_threads_count)
+
     threads = from(thread in threads_query, preload: :forum)
     |> set_ordering(order)
     |> Repo.all()
@@ -162,7 +164,7 @@ defmodule Cforum.ThreadsHelper do
     |> set_user_attributes(user)
     |> sort_threads(conn, opts[:thread_modifier])
 
-    sticky_threads ++ threads
+    {conn, sticky_threads ++ threads}
   end
 
 end
