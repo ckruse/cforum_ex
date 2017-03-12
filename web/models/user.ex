@@ -101,4 +101,16 @@ defmodule Cforum.User do
     Cforum.Avatar.url({user.avatar_file_name, user}, version)
     |> String.replace_leading("/priv", "")
   end
+
+  def ordered(query, ordering \\ [asc: :username]) do
+    from query,
+      order_by: ^ordering
+  end
+
+  def with_score_and_num_msgs(query) do
+    from u in query,
+      select: [u,
+               fragment("COALESCE((SELECT SUM(value) FROM scores WHERE user_id = ?), 0)", u.user_id),
+               fragment("(SELECT COUNT(*) FROM messages WHERE user_id = ? AND created_at >= NOW() - INTERVAL '30 days')", u.user_id)]
+  end
 end

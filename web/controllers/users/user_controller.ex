@@ -3,9 +3,13 @@ defmodule Cforum.Users.UserController do
 
   alias Cforum.User
 
-  def index(conn, _params) do
-    users = Repo.all(User)
-    render(conn, "index.html", users: users)
+  def index(conn, params) do
+    paging = User
+    |> User.with_score_and_num_msgs
+    |> User.ordered()
+    |> paginate(page: params["p"])
+
+    render(conn, "index.html", users: paging.entries, paging: paging)
   end
 
   def new(conn, _params) do
