@@ -4,7 +4,7 @@ defmodule Cforum.UserMailer do
 
   def confirmation_mail(user) do
     new_email()
-    |> from(Application.get_env(:acd, :mail_sender, "cforum@example.org"))
+    |> from(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))
     |> to(user.email)
     |> subject(gettext("confirm your registration"))
     |> put_html_layout({Cforum.LayoutView, "email.html"})
