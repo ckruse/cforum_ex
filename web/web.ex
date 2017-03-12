@@ -38,6 +38,7 @@ defmodule Cforum.Web do
       import Cforum.Router.Helpers
       import Cforum.Gettext
       import Cforum.Helpers
+      import Cforum.Paginator
     end
   end
 
@@ -55,6 +56,7 @@ defmodule Cforum.Web do
       import Cforum.ErrorHelpers
       import Cforum.Helpers
       import Cforum.Gettext
+      import Cforum.Paginator
 
       import Number.Delimit
     end

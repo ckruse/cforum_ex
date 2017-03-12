@@ -125,30 +125,32 @@ div.aktuelle-mitteilung {
   }
 }
 
-nav {
-  ul {
-    margin-left:0;
-    padding:0;
-
-    li {
-      display: inline-block;
-      font-size: 80%;
-      font-weight: normal;
-      //background-color: #F1F3F4;
-      border-radius: 0px 0.4em 0.4em;
-      border:1px solid #D5D5D5;
+header {
+  nav {
+    ul {
+      margin-left:0;
       padding:0;
-      margin-top:0.3em;
-    }
 
-    a:link, a:visited {
-      color: #3481cd;
-      line-height: 1.6;
-      padding: 0.4em 0.6em;
-      display: block;
+      li {
+        display: inline-block;
+        font-size: 80%;
+        font-weight: normal;
+        //background-color: #F1F3F4;
+        border-radius: 0px 0.4em 0.4em;
+        border:1px solid #D5D5D5;
+        padding:0;
+        margin-top:0.3em;
+      }
 
-      &:hover, &:active, &:focus {
-        color: #990909;
+      a:link, a:visited {
+        color: #3481cd;
+        line-height: 1.6;
+        padding: 0.4em 0.6em;
+        display: block;
+
+        &:hover, &:active, &:focus {
+          color: #990909;
+        }
       }
     }
   }

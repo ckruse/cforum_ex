@@ -29,7 +29,12 @@ config :number, delimit: [ precision: 2,
                            delimiter: ".",
                            separator: "," ]
 
-config :cforum, mail_sender: "cforum@wwwtech.de"
+config :cforum,
+  mail_sender: "cforum@wwwtech.de",
+  paginator: [
+    per_page: 50,
+    distance: 3
+  ]
 
 config :arc,
   storage: Arc.Storage.Local
