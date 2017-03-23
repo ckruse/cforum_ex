@@ -4,9 +4,10 @@ defmodule Cforum.Users.UserController do
   alias Cforum.User
 
   def index(conn, params) do
-    paging = User
-    |> User.with_score_and_num_msgs
-    |> User.ordered()
+    {users, conn} = User
+    |> Cforum.Sortable.sort(conn, [:username, :score, :activity, :created_at])
+
+    paging = users
     |> paginate(page: params["p"])
 
     render(conn, "index.html", users: paging.entries, paging: paging)

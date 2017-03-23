@@ -2,19 +2,19 @@
 <table class="cf-default-table">
   <thead>
     <tr>
-      <th><%= gettext("Username") %></th>
-      <th class="nummeric"><%= gettext("Score") %></th>
-      <th class="nummeric"><%= gettext("Number of messages") %></th>
-      <th><%= gettext("Registration date") %></th>
+      <th><%= sortable(@conn, gettext("Username"), :username, &user_path/3) %></th>
+      <th class="nummeric"><%= sortable(@conn, gettext("Score"), :score, &user_path/3) %></th>
+      <th class="nummeric"><%= sortable(@conn, gettext("Activity during the last 30 days"), :activity, &user_path/3) %></th>
+      <th><%= sortable(@conn, gettext("Registration date"), :created_at, &user_path/3) %></th>
     </tr>
   </thead>
 
   <tbody>
-    <%= for [user, score, num_msgs] <- @users do %>
+    <%= for user <- @users do %>
       <tr>
         <td><%= link user.username, to: user_path(@conn, :show, user) %></td>
-        <td class="nummeric"><%= score %></td>
-        <td class="nummeric"><%= num_msgs %> <%= gettext("messages") %></td>
+        <td class="nummeric"><%= user.score %></td>
+        <td class="nummeric"><%= user.activity %> <%= gettext("messages") %></td>
         <td><%= Timex.format!(user.created_at, date_format(@conn), :strftime) %></td>
       </tr>
     <% end %>

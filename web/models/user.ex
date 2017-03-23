@@ -25,6 +25,8 @@ defmodule Cforum.User do
     field :avatar_file_name, Cforum.Avatar.Type
     field :avatar_content_type, :string
     field :avatar_updated_at, Timex.Ecto.DateTime
+    field :score, :integer
+    field :activity, :integer
 
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
@@ -105,12 +107,5 @@ defmodule Cforum.User do
   def ordered(query, ordering \\ [asc: :username]) do
     from query,
       order_by: ^ordering
-  end
-
-  def with_score_and_num_msgs(query) do
-    from u in query,
-      select: [u,
-               fragment("COALESCE((SELECT SUM(value) FROM scores WHERE user_id = ?), 0)", u.user_id),
-               fragment("(SELECT COUNT(*) FROM messages WHERE user_id = ? AND created_at >= NOW() - INTERVAL '30 days')", u.user_id)]
   end
 end
