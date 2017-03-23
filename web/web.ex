@@ -39,6 +39,7 @@ defmodule Cforum.Web do
       import Cforum.Gettext
       import Cforum.Helpers
       import Cforum.Paginator
+      import Cforum.Sortable
     end
   end
 
@@ -57,6 +58,7 @@ defmodule Cforum.Web do
       import Cforum.Helpers
       import Cforum.Gettext
       import Cforum.Paginator
+      import Cforum.Sortable
 
       import Number.Delimit
     end
