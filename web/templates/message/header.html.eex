@@ -118,7 +118,7 @@ opts = Map.merge(%{noid: false, id_prefix: nil, show_icons: false,
 
     <%= if opts[:show_votes] do %>
       <span class="votes" title="<%= gettext("messages.votes_tree", count: Message.no_votes(@message), score: Message.score_str(@message)) %>">
-        <%= gettext("messages.votes", count: Message.no_votes(@message), score: Message.score_str(@message)) %>
+        <%= ngettext("Score: no score", "Score: %{score}", Message.no_votes(@message), score: Message.score_str(@message)) %>
       </span>
     <% end %>
   </div>
