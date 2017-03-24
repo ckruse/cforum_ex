@@ -11,7 +11,7 @@ defmodule Cforum.LayoutView do
   end
 
   def default_page_title(_conn, _assigns) do
-    " — SELFHTML Forum"
+    "SELFHTML Forum"
   end
 
   def body_classes(conn, assigns) do
