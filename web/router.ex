@@ -53,6 +53,8 @@ defmodule Cforum.Router do
     get "/users/:id/messages", Users.UserController, :show_messages
     get "/users/:id/scores", Users.UserController, :show_scores
     get "/users/:id/votes", Users.UserController, :show_votes
+    get "/users/:id/delete", Users.UserController, :confirm_delete
+
     resources "/users", Users.UserController
     resources "/badges", BadgeController
 

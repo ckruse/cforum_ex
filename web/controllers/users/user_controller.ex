@@ -1,7 +1,7 @@
 defmodule Cforum.Users.UserController do
   use Cforum.Web, :controller
 
-  plug Cforum.Plug.AuthorizeAccess, only: [:edit, :update, :confirm_destroy, :destroy, :show_votes]
+  plug Cforum.Plug.AuthorizeAccess, only: [:edit, :update, :confirm_delete, :delete, :show_votes]
 
   alias Cforum.User
   alias Cforum.Thread
@@ -205,6 +205,11 @@ defmodule Cforum.Users.UserController do
       {:error, changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)
     end
+  end
+
+  def confirm_delete(conn, %{"id" => id}) do
+    user = Repo.get!(User, id)
+    render(conn, "confirm_delete.html", user: user)
   end
 
   def delete(conn, %{"id" => id}) do

@@ -174,18 +174,10 @@
 <% end %>
 
 
-<!--
-<%# unless current_user.blank? %>
-<p class="form-actions">
-  <%# if @user.user_id == current_user.user_id %>
-  <%# cf_link_to t('users.edit'), edit_user_path(@user), class: 'cf-btn' %>
-  <%# cf_link_to t('users.delete'), users_confirm_destroy_path(@user), class: 'cf-btn' %>
-    <%# end %>
-
-    <%# if @user.user_id != current_user.user_id %>
-    <%# cf_link_to(t("mails.new_mail"), new_mail_path(priv_message: {recipient_id: @user.user_id}),
-      class: 'cf-btn', rel: 'nofollow') %>
-    <%# end %>
-</p>
-<%# end %>
--->
+<%= if @current_user != nil do %>
+  <p class="form-actions">
+    <%= if may?(@conn, "users/user", :edit, @user), do: link(gettext("Edit profile and settings"), to: user_path(@conn, :edit, @user), class: "cf-btn") %>
+    <%= if may?(@conn, "users/user", :delete, @user), do: link(gettext("Delete user"), to: user_path(@conn, :confirm_delete, @user), class: "cf-btn") %>
+    <%= if @user.user_id != @current_user.user_id, do: link(gettext("New mail to %{username}", username: @user.username), to: mail_path(@conn, :new, priv_message: [recipient_id: @user.user_id]), class: "cf-btn", rel: "nofollow") %>
+  </p>
+<% end %>

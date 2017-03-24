@@ -5,11 +5,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2017-03-02 14:21+0100\n"
+"PO-Revision-Date: 2017-03-24 15:35+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #~ ## `msgid`s in this file come from POT (.pot) files.
@@ -300,11 +300,11 @@ msgstr "Passwort und Passwort-Bestätigung stimmen nicht überein"
 msgid "Activity during the last 30 days"
 msgstr "Aktivität in den letzten 30 Tagen"
 
-#: web/views/users/user_view.ex:6 web/views/users/user_view.ex:12
+#: web/views/users/user_view.ex:6 web/views/users/user_view.ex:13
 msgid "All messages for user %{username}"
 msgstr "alle Beiträge von Benutzer „%{username}“"
 
-#: web/views/users/user_view.ex:7 web/views/users/user_view.ex:13
+#: web/views/users/user_view.ex:7 web/views/users/user_view.ex:14
 msgid "All scores for user %{username}"
 msgstr "alle Punkte für Benutzer „%{username}“"
 
@@ -365,7 +365,7 @@ msgstr "Punkte"
 msgid "Twitter handle"
 msgstr "Twitter-Handle"
 
-#: web/views/users/user_view.ex:5 web/views/users/user_view.ex:11
+#: web/views/users/user_view.ex:5 web/views/users/user_view.ex:12
 msgid "User %{username}"
 msgstr "Benutzer %{username}"
 
@@ -378,7 +378,7 @@ msgstr "Benutzer-Aktivität"
 msgid "Username"
 msgstr "Benutzername"
 
-#: web/views/users/user_view.ex:4 web/views/users/user_view.ex:10
+#: web/views/users/user_view.ex:4 web/views/users/user_view.ex:11
 msgid "Users"
 msgstr "Benutzer"
 
@@ -467,10 +467,42 @@ msgstr[0] "Bewertung: keine Bewertung"
 msgstr[1] "Bewertung: %{score}"
 msgstr[2] "Bewertung: %{score}"
 
-#: web/views/users/user_view.ex:8 web/views/users/user_view.ex:14
+#: web/views/users/user_view.ex:8 web/views/users/user_view.ex:15
 msgid "All votes for user %{username}"
 msgstr "alle Bewertungen vom Benutzer „%{username}”"
 
 #: web/templates/users/user/show.html.eex:117
 msgid "Received votings"
 msgstr "erhaltene Bewertungen"
+
+#: web/templates/users/user/show.html.eex:180
+msgid "Delete user"
+msgstr "Benutzer löschen"
+
+#: web/templates/users/user/show.html.eex:179
+msgid "Edit profile and settings"
+msgstr "Profil und Einstellungen bearbeiten"
+
+#: web/templates/users/user/show.html.eex:181
+msgid "New mail to %{username}"
+msgstr "Neue Mail an %{username}"
+
+#: web/templates/users/user/confirm_delete.html.eex:4
+msgid "Caution!"
+msgstr "Achtung!"
+
+#: web/views/users/user_view.ex:9 web/views/users/user_view.ex:16
+msgid "Delete user %{username}"
+msgstr "Benutzer „%{username}” löschen"
+
+#: web/templates/users/user/confirm_delete.html.eex:13
+msgid "Nope, get me out of here"
+msgstr "Nein, bring mich hier weg"
+
+#: web/templates/users/user/confirm_delete.html.eex:12
+msgid "Yes, delete user"
+msgstr "Ja, Benutzer löschen"
+
+#: web/templates/users/user/confirm_delete.html.eex:4
+msgid "You can't undo the deletion of this account, all data will be irretrievable lost! Are you sure that you wan't to delete the account?"
+msgstr "Das Löschen dieses Accounts kann nicht rückgängig gemacht werden. Wenn das Profil erst einmal gelöscht worden ist, dann ist es endgültig weg. Sind Sie sicher, dass Sie das wollen?"

@@ -285,11 +285,11 @@ msgstr ""
 msgid "Activity during the last 30 days"
 msgstr ""
 
-#: web/views/users/user_view.ex:6 web/views/users/user_view.ex:12
+#: web/views/users/user_view.ex:6 web/views/users/user_view.ex:13
 msgid "All messages for user %{username}"
 msgstr ""
 
-#: web/views/users/user_view.ex:7 web/views/users/user_view.ex:13
+#: web/views/users/user_view.ex:7 web/views/users/user_view.ex:14
 msgid "All scores for user %{username}"
 msgstr ""
 
@@ -350,7 +350,7 @@ msgstr ""
 msgid "Twitter handle"
 msgstr ""
 
-#: web/views/users/user_view.ex:5 web/views/users/user_view.ex:11
+#: web/views/users/user_view.ex:5 web/views/users/user_view.ex:12
 msgid "User %{username}"
 msgstr ""
 
@@ -363,7 +363,7 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: web/views/users/user_view.ex:4 web/views/users/user_view.ex:10
+#: web/views/users/user_view.ex:4 web/views/users/user_view.ex:11
 msgid "Users"
 msgstr ""
 
@@ -451,10 +451,42 @@ msgid_plural "Score: %{score}"
 msgstr[0] ""
 msgstr[1] ""
 
-#: web/views/users/user_view.ex:8 web/views/users/user_view.ex:14
+#: web/views/users/user_view.ex:8 web/views/users/user_view.ex:15
 msgid "All votes for user %{username}"
 msgstr ""
 
 #: web/templates/users/user/show.html.eex:117
 msgid "Received votings"
+msgstr ""
+
+#: web/templates/users/user/show.html.eex:180
+msgid "Delete user"
+msgstr ""
+
+#: web/templates/users/user/show.html.eex:179
+msgid "Edit profile and settings"
+msgstr ""
+
+#: web/templates/users/user/show.html.eex:181
+msgid "New mail to %{username}"
+msgstr ""
+
+#: web/templates/users/user/confirm_delete.html.eex:4
+msgid "Caution!"
+msgstr ""
+
+#: web/views/users/user_view.ex:9 web/views/users/user_view.ex:16
+msgid "Delete user %{username}"
+msgstr ""
+
+#: web/templates/users/user/confirm_delete.html.eex:13
+msgid "Nope, get me out of here"
+msgstr ""
+
+#: web/templates/users/user/confirm_delete.html.eex:12
+msgid "Yes, delete user"
+msgstr ""
+
+#: web/templates/users/user/confirm_delete.html.eex:4
+msgid "You can't undo the deletion of this account, all data will be irretrievable lost! Are you sure that you wan't to delete the account?"
 msgstr ""
