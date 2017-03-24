@@ -39,6 +39,6 @@ defmodule Cforum.Avatar do
 
   # Provide a default URL if there hasn't been a file uploaded
   def default_url(version, _) do
-    "uploads/default_avatar/#{version}/missing.png"
+    "/uploads/default_avatar/#{version}/missing.png"
   end
 end
