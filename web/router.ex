@@ -67,6 +67,7 @@ defmodule Cforum.Router do
   scope "/", Cforum do
     pipe_through [:browser, :require_login]
     resources "/notifications", NotificationController
+    resources "/mails", MailController
   end
 
   scope "/admin", Cforum.Admin, as: :admin do
