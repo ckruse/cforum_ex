@@ -108,8 +108,8 @@
           <li id="user-info"><%= link(@current_user.username, # TODO image_tag(current_user.avatar(:thumb)) +
                              to: user_path(@conn, :show, @current_user),
                              id: "username",
-                             title: gettext("%{points} points", points: 0)) # TODO @current_user.score %>
-            <span class="score" title="<%= gettext("%{points} points", points: 0) # TODO @current_user.score %>">(<%= number_to_delimited(0, precision: 0) # TODO current_user.score %>)</span>
+                             title: gettext("%{points} points", points: @current_user.score)) %>
+            <span class="score" title="<%= gettext("%{points} points", points: @current_user.score) %>">(<%= number_to_delimited(@current_user.score, precision: 0) %>)</span>
           </li>
           <li id="optionen-myadmin"><%= link gettext("settings"), to: user_path(@conn, :edit, @current_user) %></li>
           <li id="user-notifications"><%= link(gettext("notifications"), to: "", title: gettext("new notifications", count: 0)) # TODO @new_notifications.length %>
