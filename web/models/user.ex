@@ -32,6 +32,8 @@ defmodule Cforum.User do
     field :password_confirmation, :string, virtual: true
 
     has_one :settings, Cforum.Setting, foreign_key: :user_id
+    has_many :badges_users, Cforum.BadgeUser, foreign_key: :user_id
+    has_many :badges, through: [:badges_users, :badge]
 
     timestamps(inserted_at: :created_at)
   end
@@ -107,5 +109,19 @@ defmodule Cforum.User do
   def ordered(query, ordering \\ [asc: :username]) do
     from query,
       order_by: ^ordering
+  end
+
+  def unique_badges(user) do
+    Enum.reduce(user.badges_users, %{}, fn(b, acc) ->
+      val = case acc[b.badge_id] do
+              nil ->
+                %{badge: b.badge, created_at: b.created_at, times: 1}
+              entry ->
+                %{entry | times: entry.times + 1}
+            end
+      Map.put(acc, b.badge_id, val)
+    end)
+    |> Map.values
+    |> Enum.sort(&(&1[:times] >= &2[:times]))
   end
 end
