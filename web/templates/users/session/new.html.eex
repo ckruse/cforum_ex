@@ -5,8 +5,8 @@
 </div>
 
 <div class="cf-cgroup">
-  <%= label f, :password, gettext("Password") %>
-  <%= password_input f, :password, placeholder: gettext("Password"), class: 'login-password' %><span class="show-password"></span>
+  <%= label f, :password, gettext("password") %>
+  <%= password_input f, :password, placeholder: gettext("password"), class: 'login-password' %><span class="show-password"></span>
   <%= link gettext("I forgot my password"), to: "", class: "forgotten-password-link", tabindex: '-1' %>
 </div>
 

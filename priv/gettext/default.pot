@@ -168,11 +168,6 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: web/templates/users/session/new.html.eex:8
-#: web/templates/users/session/new.html.eex:9
-msgid "Password"
-msgstr ""
-
 #: web/templates/users/registration/new.html.eex:10
 #: web/templates/users/session/new.html.eex:4
 msgid "Regina Schlauklug"
@@ -215,14 +210,20 @@ msgid "settings"
 msgstr ""
 
 #: web/templates/users/registration/new.html.eex:4
+#: web/templates/users/user/form.html.eex:3
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
 
 #: web/templates/users/registration/new.html.eex:15
+#: web/templates/users/user/show.html.eex:20
+#: web/templates/users/user/user_information.html.eex:10
 msgid "email"
 msgstr ""
 
 #: web/templates/users/registration/new.html.eex:21
+#: web/templates/users/session/new.html.eex:8
+#: web/templates/users/session/new.html.eex:9
+#: web/templates/users/user/user_information.html.eex:20
 msgid "password"
 msgstr ""
 
@@ -235,10 +236,14 @@ msgid "sign up"
 msgstr ""
 
 #: web/templates/users/registration/new.html.eex:9
+#: web/templates/users/user/index.html.eex:5
+#: web/templates/users/user/show.html.eex:7
+#: web/templates/users/user/user_information.html.eex:5
 msgid "username"
 msgstr ""
 
 #: web/templates/users/registration/new.html.eex:27
+#: web/templates/users/user/user_information.html.eex:25
 msgid "password confirmation"
 msgstr ""
 
@@ -285,11 +290,11 @@ msgstr ""
 msgid "Activity during the last 30 days"
 msgstr ""
 
-#: web/views/users/user_view.ex:6 web/views/users/user_view.ex:13
+#: web/views/users/user_view.ex:6 web/views/users/user_view.ex:15
 msgid "All messages for user %{username}"
 msgstr ""
 
-#: web/views/users/user_view.ex:7 web/views/users/user_view.ex:14
+#: web/views/users/user_view.ex:7 web/views/users/user_view.ex:16
 msgid "All scores for user %{username}"
 msgstr ""
 
@@ -342,7 +347,6 @@ msgid "Registration date"
 msgstr ""
 
 #: web/templates/users/user/index.html.eex:6
-#: web/templates/users/user/show.html.eex:11
 msgid "Score"
 msgstr ""
 
@@ -350,7 +354,7 @@ msgstr ""
 msgid "Twitter handle"
 msgstr ""
 
-#: web/views/users/user_view.ex:5 web/views/users/user_view.ex:12
+#: web/views/users/user_view.ex:5 web/views/users/user_view.ex:14
 msgid "User %{username}"
 msgstr ""
 
@@ -358,12 +362,7 @@ msgstr ""
 msgid "User activity"
 msgstr ""
 
-#: web/templates/users/user/index.html.eex:5
-#: web/templates/users/user/show.html.eex:7
-msgid "Username"
-msgstr ""
-
-#: web/views/users/user_view.ex:4 web/views/users/user_view.ex:11
+#: web/views/users/user_view.ex:4 web/views/users/user_view.ex:13
 msgid "Users"
 msgstr ""
 
@@ -377,10 +376,6 @@ msgstr ""
 
 #: web/templates/users/user/show.html.eex:156
 msgid "all votes"
-msgstr ""
-
-#: web/templates/users/user/show.html.eex:20
-msgid "e-mail"
 msgstr ""
 
 #: web/templates/users/user/show.html.eex:161
@@ -451,7 +446,7 @@ msgid_plural "Score: %{score}"
 msgstr[0] ""
 msgstr[1] ""
 
-#: web/views/users/user_view.ex:8 web/views/users/user_view.ex:15
+#: web/views/users/user_view.ex:8 web/views/users/user_view.ex:17
 msgid "All votes for user %{username}"
 msgstr ""
 
@@ -475,18 +470,42 @@ msgstr ""
 msgid "Caution!"
 msgstr ""
 
-#: web/views/users/user_view.ex:9 web/views/users/user_view.ex:16
+#: web/views/users/user_view.ex:9 web/views/users/user_view.ex:18
 msgid "Delete user %{username}"
 msgstr ""
 
-#: web/templates/users/user/confirm_delete.html.eex:13
+#: web/templates/users/user/confirm_delete.html.eex:9
 msgid "Nope, get me out of here"
 msgstr ""
 
-#: web/templates/users/user/confirm_delete.html.eex:12
+#: web/templates/users/user/confirm_delete.html.eex:8
 msgid "Yes, delete user"
 msgstr ""
 
 #: web/templates/users/user/confirm_delete.html.eex:4
 msgid "You can't undo the deletion of this account, all data will be irretrievable lost! Are you sure that you wan't to delete the account?"
+msgstr ""
+
+#: web/views/users/user_view.ex:10
+msgid "Edit profile: %{username}"
+msgstr ""
+
+#: web/templates/users/user/edit.html.eex:6
+msgid "Save changes"
+msgstr ""
+
+#: web/templates/users/user/user_information.html.eex:2
+msgid "User information"
+msgstr ""
+
+#: web/templates/users/user/user_information.html.eex:15
+msgid "avatar"
+msgstr ""
+
+#: web/templates/users/user/edit.html.eex:7
+msgid "cancel"
+msgstr ""
+
+#: web/templates/users/user/show.html.eex:11
+msgid "score"
 msgstr ""

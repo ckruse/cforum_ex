@@ -4,11 +4,11 @@
       <tbody>
         <tr>
           <td rowspan="<%= if @current_user && @current_user.user_id == @user.user_id, do: 5, else: 4 %>"><%= img_tag Cforum.User.avatar_path(@user, :medium) %></td>
-          <th><%= gettext("Username") %>:</th>
+          <th><%= gettext("username") %>:</th>
           <td><%= @user.username %></td>
         </tr>
         <tr>
-          <th><%= gettext("Score") %>:</th>
+          <th><%= gettext("score") %>:</th>
           <td class="<%= if @user.score < 0, do: "score-down", else: "score-up" %>"><%= Number.Delimit.number_to_delimited(@user.score, precision: 0) %></td>
         </tr>
         <tr>
@@ -17,7 +17,7 @@
         </tr>
         <%= if @current_user && @current_user.user_id == @user.user_id do %>
           <tr>
-            <th><%= gettext("e-mail") %>:</th>
+            <th><%= gettext("email") %>:</th>
             <td><%= @user.email %> <em>(<%= gettext("only visible for you") %>)</em></td>
           </tr>
         <% end %>

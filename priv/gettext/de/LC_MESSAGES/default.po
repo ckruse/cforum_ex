@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2017-03-24 15:35+0100\n"
+"PO-Revision-Date: 2017-03-24 16:34+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -181,11 +181,6 @@ msgstr "Ich habe mein Passwort vergessen"
 msgid "Login"
 msgstr "anmelden"
 
-#: web/templates/users/session/new.html.eex:8
-#: web/templates/users/session/new.html.eex:9
-msgid "Password"
-msgstr "Passwort"
-
 #: web/templates/users/registration/new.html.eex:10
 #: web/templates/users/session/new.html.eex:4
 msgid "Regina Schlauklug"
@@ -228,14 +223,20 @@ msgid "settings"
 msgstr "Einstellungen"
 
 #: web/templates/users/registration/new.html.eex:4
+#: web/templates/users/user/form.html.eex:3
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr "Es ist etwas schief gelaufen! Bitte prüfen Sie die untenstehenden Fehler."
 
 #: web/templates/users/registration/new.html.eex:15
+#: web/templates/users/user/show.html.eex:20
+#: web/templates/users/user/user_information.html.eex:10
 msgid "email"
 msgstr "Email-Adresse"
 
 #: web/templates/users/registration/new.html.eex:21
+#: web/templates/users/session/new.html.eex:8
+#: web/templates/users/session/new.html.eex:9
+#: web/templates/users/user/user_information.html.eex:20
 msgid "password"
 msgstr "Passwort"
 
@@ -248,10 +249,14 @@ msgid "sign up"
 msgstr "registrieren"
 
 #: web/templates/users/registration/new.html.eex:9
+#: web/templates/users/user/index.html.eex:5
+#: web/templates/users/user/show.html.eex:7
+#: web/templates/users/user/user_information.html.eex:5
 msgid "username"
-msgstr "Benutzer"
+msgstr "Benutzername"
 
 #: web/templates/users/registration/new.html.eex:27
+#: web/templates/users/user/user_information.html.eex:25
 msgid "password confirmation"
 msgstr "Passwort-Bestätigung"
 
@@ -300,11 +305,11 @@ msgstr "Passwort und Passwort-Bestätigung stimmen nicht überein"
 msgid "Activity during the last 30 days"
 msgstr "Aktivität in den letzten 30 Tagen"
 
-#: web/views/users/user_view.ex:6 web/views/users/user_view.ex:13
+#: web/views/users/user_view.ex:6 web/views/users/user_view.ex:15
 msgid "All messages for user %{username}"
 msgstr "alle Beiträge von Benutzer „%{username}“"
 
-#: web/views/users/user_view.ex:7 web/views/users/user_view.ex:14
+#: web/views/users/user_view.ex:7 web/views/users/user_view.ex:16
 msgid "All scores for user %{username}"
 msgstr "alle Punkte für Benutzer „%{username}“"
 
@@ -357,7 +362,6 @@ msgid "Registration date"
 msgstr "Registrierungs-Datum"
 
 #: web/templates/users/user/index.html.eex:6
-#: web/templates/users/user/show.html.eex:11
 msgid "Score"
 msgstr "Punkte"
 
@@ -365,7 +369,7 @@ msgstr "Punkte"
 msgid "Twitter handle"
 msgstr "Twitter-Handle"
 
-#: web/views/users/user_view.ex:5 web/views/users/user_view.ex:12
+#: web/views/users/user_view.ex:5 web/views/users/user_view.ex:14
 msgid "User %{username}"
 msgstr "Benutzer %{username}"
 
@@ -373,12 +377,7 @@ msgstr "Benutzer %{username}"
 msgid "User activity"
 msgstr "Benutzer-Aktivität"
 
-#: web/templates/users/user/index.html.eex:5
-#: web/templates/users/user/show.html.eex:7
-msgid "Username"
-msgstr "Benutzername"
-
-#: web/views/users/user_view.ex:4 web/views/users/user_view.ex:11
+#: web/views/users/user_view.ex:4 web/views/users/user_view.ex:13
 msgid "Users"
 msgstr "Benutzer"
 
@@ -393,10 +392,6 @@ msgstr "alle Punkte"
 #: web/templates/users/user/show.html.eex:156
 msgid "all votes"
 msgstr "alle Bewertungen"
-
-#: web/templates/users/user/show.html.eex:20
-msgid "e-mail"
-msgstr "E-Mail-Adresse"
 
 #: web/templates/users/user/show.html.eex:161
 msgid "info"
@@ -467,7 +462,7 @@ msgstr[0] "Bewertung: keine Bewertung"
 msgstr[1] "Bewertung: %{score}"
 msgstr[2] "Bewertung: %{score}"
 
-#: web/views/users/user_view.ex:8 web/views/users/user_view.ex:15
+#: web/views/users/user_view.ex:8 web/views/users/user_view.ex:17
 msgid "All votes for user %{username}"
 msgstr "alle Bewertungen vom Benutzer „%{username}”"
 
@@ -491,18 +486,42 @@ msgstr "Neue Mail an %{username}"
 msgid "Caution!"
 msgstr "Achtung!"
 
-#: web/views/users/user_view.ex:9 web/views/users/user_view.ex:16
+#: web/views/users/user_view.ex:9 web/views/users/user_view.ex:18
 msgid "Delete user %{username}"
 msgstr "Benutzer „%{username}” löschen"
 
-#: web/templates/users/user/confirm_delete.html.eex:13
+#: web/templates/users/user/confirm_delete.html.eex:9
 msgid "Nope, get me out of here"
 msgstr "Nein, bring mich hier weg"
 
-#: web/templates/users/user/confirm_delete.html.eex:12
+#: web/templates/users/user/confirm_delete.html.eex:8
 msgid "Yes, delete user"
 msgstr "Ja, Benutzer löschen"
 
 #: web/templates/users/user/confirm_delete.html.eex:4
 msgid "You can't undo the deletion of this account, all data will be irretrievable lost! Are you sure that you wan't to delete the account?"
 msgstr "Das Löschen dieses Accounts kann nicht rückgängig gemacht werden. Wenn das Profil erst einmal gelöscht worden ist, dann ist es endgültig weg. Sind Sie sicher, dass Sie das wollen?"
+
+#: web/views/users/user_view.ex:10
+msgid "Edit profile: %{username}"
+msgstr "Profil editieren: %{username}"
+
+#: web/templates/users/user/edit.html.eex:6
+msgid "Save changes"
+msgstr "Änderungen speichern"
+
+#: web/templates/users/user/user_information.html.eex:2
+msgid "User information"
+msgstr "Benutzer-Informationen"
+
+#: web/templates/users/user/user_information.html.eex:15
+msgid "avatar"
+msgstr "Avatar"
+
+#: web/templates/users/user/edit.html.eex:7
+msgid "cancel"
+msgstr "abbrechen"
+
+#: web/templates/users/user/show.html.eex:11
+msgid "score"
+msgstr "Punkte"

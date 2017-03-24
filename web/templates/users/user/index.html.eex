@@ -2,7 +2,7 @@
 <table class="cf-default-table">
   <thead>
     <tr>
-      <th><%= sortable(@conn, gettext("Username"), :username, &user_path/3) %></th>
+      <th><%= sortable(@conn, gettext("username"), :username, &user_path/3) %></th>
       <th class="nummeric"><%= sortable(@conn, gettext("Score"), :score, &user_path/3) %></th>
       <th class="nummeric"><%= sortable(@conn, gettext("Activity during the last 30 days"), :activity, &user_path/3) %></th>
       <th><%= sortable(@conn, gettext("Registration date"), :created_at, &user_path/3) %></th>
