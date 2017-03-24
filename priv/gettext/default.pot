@@ -14,7 +14,7 @@ msgstr ""
 msgid "not logged in"
 msgstr ""
 
-#: lib/cforum/guardian_error_handler.ex:13
+#: lib/cforum/guardian_error_handler.ex:14
 msgid "You have to be logged in and an admin to see this page!"
 msgstr ""
 
@@ -32,7 +32,8 @@ msgstr ""
 msgid "Username or password wrong"
 msgstr ""
 
-#: lib/cforum/guardian_error_handler.ex:19
+#: lib/cforum/guardian_error_handler.ex:21
+#: lib/cforum/plug/authorize_access.ex:22
 msgid "You don't have access to this page!"
 msgstr ""
 
@@ -284,11 +285,11 @@ msgstr ""
 msgid "Activity during the last 30 days"
 msgstr ""
 
-#: web/views/users/user_view.ex:6 web/views/users/user_view.ex:11
+#: web/views/users/user_view.ex:6 web/views/users/user_view.ex:12
 msgid "All messages for user %{username}"
 msgstr ""
 
-#: web/views/users/user_view.ex:7 web/views/users/user_view.ex:12
+#: web/views/users/user_view.ex:7 web/views/users/user_view.ex:13
 msgid "All scores for user %{username}"
 msgstr ""
 
@@ -349,7 +350,7 @@ msgstr ""
 msgid "Twitter handle"
 msgstr ""
 
-#: web/views/users/user_view.ex:5 web/views/users/user_view.ex:10
+#: web/views/users/user_view.ex:5 web/views/users/user_view.ex:11
 msgid "User %{username}"
 msgstr ""
 
@@ -362,7 +363,7 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: web/views/users/user_view.ex:4 web/views/users/user_view.ex:9
+#: web/views/users/user_view.ex:4 web/views/users/user_view.ex:10
 msgid "Users"
 msgstr ""
 
@@ -450,6 +451,10 @@ msgid_plural "Score: %{score}"
 msgstr[0] ""
 msgstr[1] ""
 
+#: web/views/users/user_view.ex:8 web/views/users/user_view.ex:14
+msgid "All votes for user %{username}"
+msgstr ""
+
 #: web/templates/users/user/show.html.eex:117
-msgid "received votings"
+msgid "Received votings"
 msgstr ""
