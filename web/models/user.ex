@@ -111,6 +111,17 @@ defmodule Cforum.User do
       order_by: ^ordering
   end
 
+  def conf(user, name) do
+    vals = case user.settings do
+             nil ->
+               {}
+             set ->
+               set.options || {}
+           end
+
+    vals[name] || Cforum.ConfigManager.defaults[name]
+  end
+
   def unique_badges(user) do
     Enum.reduce(user.badges_users, %{}, fn(b, acc) ->
       val = case acc[b.badge_id] do

@@ -50,13 +50,17 @@ defmodule Cforum.Router do
     get "/", ForumController, :index
     get "/help", PageController, :help
 
+    get "/users/:id/messages", Users.UserController, :show_messages
+    get "/users/:id/scores", Users.UserController, :show_scores
+    get "/users/:id/votes", Users.UserController, :show_votes
     resources "/users", Users.UserController
+    resources "/badges", BadgeController
 
     scope "/:curr_forum" do
       pipe_through [:browser, :forum_access]
 
       get "/", ThreadController, :index
-      resources "/tags", TagController 
+      resources "/tags", TagController
     end
   end
 

@@ -254,11 +254,11 @@ msgstr "Benutzer"
 msgid "password confirmation"
 msgstr "Passwort-Bestätigung"
 
-#: web/controllers/registration_controller.ex:47
+#: web/controllers/registration_controller.ex:33
 msgid "Account successfully confirmed!"
 msgstr "Benutzerkonto erfolgreich bestätigt!"
 
-#: web/controllers/registration_controller.ex:33
+#: web/controllers/registration_controller.ex:19
 msgid "Account successfully created. Please follow the confirmation instructions we send you via mail."
 msgstr "Benutzerkonto erfolgreich erstellt. Bitte folgen sie den Bestätigungs-Anweisungen, die wir Ihnen via Email geschickt haben."
 
@@ -278,7 +278,7 @@ msgstr "Benutzerkonto bestätigen"
 msgid "Hi there, %{name}!"
 msgstr "Hallo %{name}!"
 
-#: web/controllers/registration_controller.ex:53
+#: web/controllers/registration_controller.ex:39
 msgid "Oops, something went wrong!"
 msgstr "Uups, es ist etwas schief gegangen!"
 
@@ -291,6 +291,181 @@ msgstr "Sie können Ihr Benutzerkonto über den Link unten bestätigen:"
 msgid "confirm your registration"
 msgstr "Benutzerkonto bestätigen"
 
-#: web/controllers/registration_controller.ex:23
+#: web/models/user.ex:71
 msgid "password and password confirmation don't match"
 msgstr "Passwort und Passwort-Bestätigung stimmen nicht überein"
+
+#: web/templates/users/user/index.html.eex:7
+msgid "Activity during the last 30 days"
+msgstr "Aktivität in den letzten 30 Tagen"
+
+#: web/views/users/user_view.ex:6 web/views/users/user_view.ex:11
+msgid "All messages for user %{username}"
+msgstr "alle Beiträge von Benutzer „%{username}“"
+
+#: web/views/users/user_view.ex:7 web/views/users/user_view.ex:12
+msgid "All scores for user %{username}"
+msgstr "alle Punkte für Benutzer „%{username}“"
+
+#: web/templates/users/user/show.html.eex:161
+msgid "Badges"
+msgstr "Medaillen"
+
+#: web/templates/users/user/show.html.eex:102
+msgid "Best scored messages"
+msgstr "am besten bewertete Beiträge"
+
+#: web/templates/users/user/show.html.eex:57
+msgid "Description"
+msgstr "Beschreibung"
+
+#: web/templates/users/user/show.html.eex:51
+msgid "Homepage"
+msgstr "Homepage"
+
+#: web/templates/users/user/show.html.eex:37
+msgid "Jabber ID"
+msgstr "Jabber-ID"
+
+#: web/templates/message/header.html.eex:9
+msgid "Message closed, answering not allowed"
+msgstr "Dieser Beitrag ist gesperrt, antworten ist nicht erlaubt."
+
+#: web/templates/users/user/show.html.eex:86
+msgid "Newest messages"
+msgstr "neueste Beiträge"
+
+#: web/templates/users/user/show.html.eex:89
+msgid "No messages so far"
+msgstr "bisher keine Beiträge"
+
+#: web/templates/users/user/show.html.eex:105
+msgid "No scored messages so far"
+msgstr "bisher keine bewerteten Beiträge"
+
+#: web/templates/users/user/show.html.eex:15
+msgid "Number of messages"
+msgstr "Beiträge"
+
+#: web/templates/users/user/show.html.eex:117
+msgid "Own votings"
+msgstr "Bewertungsverlauf"
+
+#: web/templates/users/user/index.html.eex:8
+msgid "Registration date"
+msgstr "Registrierungs-Datum"
+
+#: web/templates/users/user/index.html.eex:6
+#: web/templates/users/user/show.html.eex:11
+msgid "Score"
+msgstr "Punkte"
+
+#: web/templates/users/user/show.html.eex:44
+msgid "Twitter handle"
+msgstr "Twitter-Handle"
+
+#: web/views/users/user_view.ex:5 web/views/users/user_view.ex:10
+msgid "User %{username}"
+msgstr "Benutzer %{username}"
+
+#: web/templates/users/user/show.html.eex:81
+msgid "User activity"
+msgstr "Benutzer-Aktivität"
+
+#: web/templates/users/user/index.html.eex:5
+#: web/templates/users/user/show.html.eex:7
+msgid "Username"
+msgstr "Benutzername"
+
+#: web/views/users/user_view.ex:4 web/views/users/user_view.ex:9
+msgid "Users"
+msgstr "Benutzer"
+
+#: web/templates/users/user/show.html.eex:100
+msgid "all messages"
+msgstr "alle Beiträge"
+
+#: web/templates/users/user/show.html.eex:154
+msgid "all scores"
+msgstr "alle Punkte"
+
+#: web/templates/users/user/show.html.eex:156
+msgid "all votes"
+msgstr "alle Bewertungen"
+
+#: web/templates/users/user/show.html.eex:20
+msgid "e-mail"
+msgstr "E-Mail-Adresse"
+
+#: web/templates/users/user/show.html.eex:161
+msgid "info"
+msgstr "Informationen"
+
+#: web/templates/users/user/index.html.eex:17
+msgid "messages"
+msgstr "Beiträge"
+
+#: web/templates/message/header.html.eex:47
+msgid "messages.link_to_profile_of"
+msgstr ""
+
+#: web/templates/message/header.html.eex:24
+msgid "messages.num_messages"
+msgstr ""
+
+#: web/templates/message/header.html.eex:46
+#: web/templates/message/header.html.eex:48
+msgid "messages.user_link"
+msgstr ""
+
+#: web/templates/message/header.html.eex:17
+#: web/templates/message/header.html.eex:120
+msgid "messages.votes_tree"
+msgstr ""
+
+#: web/templates/thread/thread.html.eex:2
+msgid "no archive"
+msgstr "Dieser Thread wird nicht archiviert."
+
+#: web/templates/users/user/show.html.eex:164
+msgid "no badges so far"
+msgstr "bisher keine Medaillen"
+
+#: web/templates/users/user/show.html.eex:59
+msgid "no description given"
+msgstr "Bisher keine Beschreibung angegeben."
+
+#: web/templates/users/user/show.html.eex:120
+msgid "no scored messages so far"
+msgstr "bisher keine bewerteten Beiträge"
+
+#: web/templates/users/user/show.html.eex:21
+msgid "only visible for you"
+msgstr "Nur für Sie sichtbar"
+
+#: web/templates/message/header.html.eex:53
+msgid "original poster"
+msgstr "Thread-Ersteller"
+
+#: web/templates/message/header.html.eex:27
+msgid "plugins.mark_read.num_unread"
+msgstr ""
+
+#: web/templates/users/user/show.html.eex:25
+msgid "registered since"
+msgstr "Registriert seit"
+
+#: web/templates/thread/thread.html.eex:3
+msgid "this thread is sticky"
+msgstr "Der Thread ist angepinnt."
+
+#: web/templates/message/header.html.eex:121
+msgid "Score: no score"
+msgid_plural "Score: %{score}"
+msgstr[0] "Bewertung: keine Bewertung"
+msgstr[1] "Bewertung: %{score}"
+msgstr[2] "Bewertung: %{score}"
+
+#: web/templates/users/user/show.html.eex:117
+msgid "Received votings"
+msgstr "erhaltene Bewertungen"

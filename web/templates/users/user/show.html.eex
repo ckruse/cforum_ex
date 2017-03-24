@@ -1,93 +1,191 @@
-<h2>Show user</h2>
+<div class="user-infos">
+  <div class="user-info-table">
+    <table>
+      <tbody>
+        <tr>
+          <td rowspan="<%= if @current_user && @current_user.user_id == @user.user_id, do: 5, else: 4 %>"><%= img_tag Cforum.User.avatar_path(@user, :medium) %></td>
+          <th><%= gettext("Username") %>:</th>
+          <td><%= @user.username %></td>
+        </tr>
+        <tr>
+          <th><%= gettext("Score") %>:</th>
+          <td class="<%= if @user.score < 0, do: "score-down", else: "score-up" %>"><%= Number.Delimit.number_to_delimited(@user.score, precision: 0) %></td>
+        </tr>
+        <tr>
+          <th><%= gettext("Number of messages") %>:</th>
+          <td><%= Number.Delimit.number_to_delimited(@messages_count, precision: 0) %></td>
+        </tr>
+        <%= if @current_user && @current_user.user_id == @user.user_id do %>
+          <tr>
+            <th><%= gettext("e-mail") %>:</th>
+            <td><%= @user.email %> <em>(<%= gettext("only visible for you") %>)</em></td>
+          </tr>
+        <% end %>
+        <tr>
+          <th><%= gettext("registered since") %>:</th>
+          <td><%= Timex.format!(@user.created_at, date_format(@conn), :strftime) %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-<ul>
+  <div class="user-profile">
+    <table>
+      <tbody>
+        <%= if !blank?(@jabber_id) do %>
+          <tr>
+            <th><%= gettext("Jabber ID") %>:</th>
+            <td><%= link @jabber_id, to: "xmpp:" <> @jabber_id %></td>
+          </tr>
+        <% end %>
 
-  <li>
-    <strong>Username:</strong>
-    <%= @user.username %>
-  </li>
+        <%= if !blank?(@twitter_handle) do %>
+          <tr>
+            <th><%= gettext("Twitter handle") %>:</th>
+            <td><%= link @twitter_handle, to: "https://twitter.com/" <> @twitter_handle %></td>
+          </tr>
+        <% end %>
 
-  <li>
-    <strong>Email:</strong>
-    <%= @user.email %>
-  </li>
+        <%= if !blank?(@user_url) do %>
+          <tr>
+            <th><%= gettext("Homepage") %>:</th>
+            <td><%= link @user_url, to: @user_url %></td>
+          </tr>
+        <% end %>
 
-  <li>
-    <strong>Unconfirmed email:</strong>
-    <%= @user.unconfirmed_email %>
-  </li>
+        <tr>
+          <th><%= gettext("Description") %>:</th>
+          <td>
+            <%= if blank?(@description) do %><em><%= gettext("no description given") %></em>
+            <% else %><%= @description %>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-  <li>
-    <strong>Admin:</strong>
-    <%= @user.admin %>
-  </li>
-
-  <li>
-    <strong>Active:</strong>
-    <%= @user.active %>
-  </li>
-
-  <li>
-    <strong>Encrypted password:</strong>
-    <%= @user.encrypted_password %>
-  </li>
-
-  <li>
-    <strong>Remember created at:</strong>
-    <%= @user.remember_created_at %>
-  </li>
-
-  <li>
-    <strong>Reset password token:</strong>
-    <%= @user.reset_password_token %>
-  </li>
-
-  <li>
-    <strong>Confirmation token:</strong>
-    <%= @user.confirmation_token %>
-  </li>
-
-  <li>
-    <strong>Confirmed at:</strong>
-    <%= @user.confirmed_at %>
-  </li>
-
-  <li>
-    <strong>Confirmation sent at:</strong>
-    <%= @user.confirmation_sent_at %>
-  </li>
-
-  <li>
-    <strong>Authentication token:</strong>
-    <%= @user.authentication_token %>
-  </li>
-
-  <li>
-    <strong>Last sign in at:</strong>
-    <%= @user.last_sign_in_at %>
-  </li>
-
-  <li>
-    <strong>Current sign in at:</strong>
-    <%= @user.current_sign_in_at %>
-  </li>
-
-  <li>
-    <strong>Avatar file name:</strong>
-    <%= @user.avatar_file_name %>
-  </li>
-
-  <li>
-    <strong>Avatar content type:</strong>
-    <%= @user.avatar_content_type %>
-  </li>
-
-  <li>
-    <strong>Avatar updated at:</strong>
-    <%= @user.avatar_updated_at %>
-  </li>
-
+<ul class="user-info-tags">
+  <%= for {tag_slug, tag_name, forum_slug, short_name, cnt} <- @tags_cnt do %>
+    <li>
+      <%= link to: tag_path(@conn, :show, forum_slug, tag_slug), class: "cf-tag" do %>
+        <span><%= short_name %>:</span> <%= tag_name %>
+      <% end %>
+      <span class="cnt"><%= Number.Delimit.number_to_delimited(cnt, precision: 0) %></span></li>
+    </li>
+  <% end %>
 </ul>
 
-<%= link "Edit", to: user_path(@conn, :edit, @user) %>
-<%= link "Back", to: user_path(@conn, :index) %>
+
+<h2><%= gettext("User activity") %></h2>
+
+<div id="user-activity-stats"></div>
+
+
+<h2><%= gettext("Newest messages") %></h2>
+
+<%= if blank?(@last_messages) do %>
+  <p><%= gettext("No messages so far") %></p>
+<% end %>
+
+<div class="root">
+  <%= for msg <- @last_messages do %>
+    <article class="thread threadlist">
+      <%= render Cforum.MessageView, "header.html", conn: @conn, thread: msg.thread, message: msg, show_votes: true, id: false  %>
+    </article>
+  <% end %>
+</div>
+
+<p><%= link gettext("all messages"), to: user_path(@conn, :show_messages, @user) %></p>
+
+<h2><%= gettext("Best scored messages") %></h2>
+
+<%= if blank?(@point_msgs) do %>
+  <p><%= gettext("No scored messages so far") %></p>
+<% end %>
+
+<div class="root">
+  <%= for msg <- @point_msgs do %>
+    <article class="thread threadlist">
+      <%= render Cforum.MessageView, "header.html", conn: @conn, thread: msg.thread, message: msg, show_votes: true, id: false  %>
+    </article>
+  <% end %>
+</div>
+
+
+<h2><%= if @current_user && @user.user_id == @current_user.user_id, do: gettext("Own votings"), else: gettext("Received votings") %></h2>
+
+<%= if blank?(@scored_msgs) do %>
+  <p><%= gettext("no scored messages so far") %></p>
+<% else %>
+  <table class="score-table">
+    <tbody>
+      <%= for s <- @scored_msgs do %>
+        <tr>
+          <td class="score">
+            <%= for score <- s do %>
+              <span class="<%= if score.value < 0, do: "score-down", else: "score-up" %>"><%= score.value %></span>
+            <% end %>
+          </td>
+          <td>
+            <% m = Cforum.Score.get_message(List.first(s)) %>
+            <%= if m == nil do %>
+              <em>Nachricht wurde gelöscht</em>
+            <% else %>
+              <%
+              thread = %Cforum.Thread{m.thread | message: m}
+              m = %Cforum.Message{m | thread: thread}
+              %>
+              <div class="root">
+                <article class="threadlist thread">
+                  <%= render Cforum.MessageView, "header.html", conn: @conn, thread: m.thread, message: m, show_votes: true, id: false  %>
+                </article>
+              </div>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<p>
+  <%= link gettext("all scores"), to: user_path(@conn, :show_scores, @user) %>
+  <%= if may?(@conn, "users/user", :show_votes, @user) do %>
+    <%= link gettext("all votes"), to: user_path(@conn, :show_votes, @user) %>
+  <% end %>
+</p>
+
+
+<h2><%= gettext("Badges") %> <%= link(to: "#badges", title: gettext("info")) do %><%= img_tag(static_path(@conn, "/images/bewertung-info-blaugrau.svg"), class: "svg-i") %><% end %></h2><!-- TODO link to help_path -->
+
+<%= if blank?(@badges) do %>
+  <p><%= gettext("no badges so far") %></p>
+<% else %>
+  <ul class="badge-user-list">
+    <%= for ub <- @badges do %>
+      <li><%= img_tag(static_path(@conn, "/images/" <> ub[:badge].badge_medal_type <> ".png"), class: "medal-image",
+          alt: "") #gettext("badges.badge_medal_types." + ub[:badge].badge_medal_type) %>
+        <%= link ub[:badge].name, to: badge_path(@conn, :show, ub[:badge]) %>
+        <%= if ub[:times] > 1 do %>× <%= ub[:times] %><% end %> (<%= Timex.format!(ub[:created_at], date_format(@conn), :strftime) %>)</li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+<!--
+<%# unless current_user.blank? %>
+<p class="form-actions">
+  <%# if @user.user_id == current_user.user_id %>
+  <%# cf_link_to t('users.edit'), edit_user_path(@user), class: 'cf-btn' %>
+  <%# cf_link_to t('users.delete'), users_confirm_destroy_path(@user), class: 'cf-btn' %>
+    <%# end %>
+
+    <%# if @user.user_id != current_user.user_id %>
+    <%# cf_link_to(t("mails.new_mail"), new_mail_path(priv_message: {recipient_id: @user.user_id}),
+      class: 'cf-btn', rel: 'nofollow') %>
+    <%# end %>
+</p>
+<%# end %>
+-->

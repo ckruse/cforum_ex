@@ -24,7 +24,7 @@ defmodule Cforum.Message do
     field :messages, :any, virtual: true
     field :attribs, :map, virtual: true
 
-    belongs_to :thread, Cforum.Thread, references: :forum_id
+    belongs_to :thread, Cforum.Thread, references: :thread_id
     belongs_to :forum, Cforum.Forum, references: :forum_id
     belongs_to :user, Cforum.User, references: :user_id
     belongs_to :parent, Cforum.Message, references: :message_id

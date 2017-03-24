@@ -8,6 +8,7 @@ defmodule Cforum.Vote do
     field :vtype, :string
     belongs_to :user, Cforum.User, references: :user_id
     belongs_to :message, Cforum.Message, references: :message_id
+    has_one :score, Cforum.Score, foreign_key: :vote_id
   end
 
   @doc """

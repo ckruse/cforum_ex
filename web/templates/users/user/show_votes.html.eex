@@ -1,0 +1,27 @@
+<%= pagination @conn, @paging, &user_path/4, path_args: [@conn, :show_votes, @user] %>
+
+<table class="score-table">
+  <%= for vote <- @votes do %>
+    <tr>
+      <td class="score">
+        <%= if vote.score do %>
+          <span class="<%= if vote.score.value < 0, do: "score-down", else: "score-up" %>"><%= vote.score.value %></span>
+        <% end %>
+      </td>
+      <td>
+        <div class="root">
+          <article class="threadlist thread">
+            <%
+            m = vote.message
+            thread = %Cforum.Thread{m.thread | message: m}
+            m = %Cforum.Message{m | thread: thread}
+            %>
+            <%= render Cforum.MessageView, "header.html", conn: @conn, thread: m.thread, message: m, show_votes: true, id: false  %>
+          </article>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+
+<%= pagination @conn, @paging, &user_path/4, path_args: [@conn, :show_votes, @user] %>

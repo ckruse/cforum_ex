@@ -1,0 +1,25 @@
+<%= pagination @conn, @paging, &user_path/4, path_args: [@conn, :show_scores, @user] %>
+
+<table class="score-table">
+  <%= for s <- @scores do %>
+    <tr>
+      <td class="score">
+        <span class="<%= if s.value < 0, do: "score-down", else: "score-up" %>"><%= s.value %></span>
+      </td>
+      <td>
+        <div class="root">
+          <article class="threadlist thread">
+            <%
+            m = Cforum.Score.get_message(s)
+            thread = %Cforum.Thread{m.thread | message: m}
+            m = %Cforum.Message{m | thread: thread}
+            %>
+            <%= render Cforum.MessageView, "header.html", conn: @conn, thread: m.thread, message: m, show_votes: true, id: false  %>
+          </article>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= pagination @conn, @paging, &user_path/4, path_args: [@conn, :show_scores, @user] %>
