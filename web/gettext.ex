@@ -20,5 +20,5 @@ defmodule Cforum.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :cforum
+  use Gettext, otp_app: :cforum, plural_forms: Cforum.Plurals
 end
