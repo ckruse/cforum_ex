@@ -11,8 +11,8 @@ defmodule Cforum.ThreadTreeHelper do
   def sort_thread(conn, modifier, thread, message, nil), do: sort_thread(conn, modifier, thread, message, Cforum.ConfigManager.uconf(conn, "sort_messages"))
   def sort_thread(_conn, modifier, thread, nil, direction), do: gen_thread_tree(modifier, thread, direction)
 
-  def sort_thread(_conn, modifier, thread, message, direction) do
-    messages = case direction do
+  def sort_thread(_conn, _modifier, _thread, message, direction) do
+    _messages = case direction do
                  "ascending" ->
                    Enum.sort(message.messages, &(&1.created_at <= &2.created_at))
                  _ ->

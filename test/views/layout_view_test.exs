@@ -1,3 +1,3 @@
 defmodule Cforum.LayoutViewTest do
-  use Cforum.ConnCase, async: true
+  use Cforum.Web.ConnCase, async: true
 end

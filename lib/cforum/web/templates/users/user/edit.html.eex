@@ -1,0 +1,12 @@
+<%= form_for @changeset, user_path(@conn, :update, @user), [class: "cf-form", multipart: true], fn f -> %>
+
+<%= render "form.html", changeset: @changeset, f: f %>
+
+<p class="form-actions">
+  <%= submit gettext("Save changes"), class: "cf-primary-btn" %>
+  <%= link gettext("cancel"), to: user_path(@conn, :show, @user), class: "cf-btn" %>
+</p>
+
+<% end %>
+
+

@@ -1,5 +1,5 @@
 defmodule Cforum.NotificationControllerTest do
-  use Cforum.ConnCase
+  use Cforum.Web.ConnCase
 
   alias Cforum.Notification
   @valid_attrs %{description: "some content", icon: "some content", is_read: true, oid: 42, otype: "some content", path: "some content", subject: "some content"}

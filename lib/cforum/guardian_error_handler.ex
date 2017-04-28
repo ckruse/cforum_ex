@@ -1,6 +1,6 @@
 defmodule Cforum.GuardianErrorHandler do
-  import Cforum.Router.Helpers
-  import Cforum.Gettext
+  import Cforum.Web.Router.Helpers
+  import Cforum.Web.Gettext
 
   def unauthenticated(conn, _params) do
     conn

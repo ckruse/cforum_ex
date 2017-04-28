@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2017-03-24 16:34+0100\n"
+"PO-Revision-Date: 2017-03-27 21:16+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -215,6 +215,7 @@ msgid "new notifications"
 msgstr "neue Benachrichtigungen"
 
 #: web/templates/layout/app.html.eex:115
+#: web/templates/users/user/notifications.html.eex:2
 msgid "notifications"
 msgstr "Benachrichtigungen"
 
@@ -365,6 +366,7 @@ msgstr "Registrierungs-Datum"
 msgid "Score"
 msgstr "Punkte"
 
+#: web/templates/users/user/personal_information.html.eex:35
 #: web/templates/users/user/show.html.eex:44
 msgid "Twitter handle"
 msgstr "Twitter-Handle"
@@ -525,3 +527,136 @@ msgstr "abbrechen"
 #: web/templates/users/user/show.html.eex:11
 msgid "score"
 msgstr "Punkte"
+
+#: web/templates/users/user/comfort.html.eex:6
+msgid "Hello {$vname},"
+msgstr "Hallo {$vname}"
+
+#: web/templates/users/user/comfort.html.eex:2
+msgid "comfort functions"
+msgstr "Komfort-Funktionen"
+
+#: web/templates/users/user/personal_information.html.eex:40
+msgid "description"
+msgstr "Beschreibung"
+
+#: web/templates/users/user/personal_information.html.eex:25
+msgid "flattr id"
+msgstr "Flattr-ID"
+
+#: web/templates/users/user/comfort.html.eex:5
+msgid "greeting"
+msgstr "Begrüßung"
+
+#: web/templates/users/user/personal_information.html.eex:10
+msgid "homepage"
+msgstr "Homepage"
+
+#: web/templates/users/user/personal_information.html.eex:30
+msgid "jabber id"
+msgstr "Jabber-ID"
+
+#: web/templates/users/user/notifications.html.eex:11
+msgid "notify me on new mail"
+msgstr "Benachrichtige mich über neue Post"
+
+#: web/templates/users/user/personal_information.html.eex:2
+msgid "personal information"
+msgstr "Persönliche Informationen"
+
+#: web/templates/users/user/personalization.html.eex:2
+msgid "personalization"
+msgstr "Personalisierung"
+
+#: web/templates/users/user/personal_information.html.eex:5
+msgid "public email"
+msgstr "öffentliche E-Mail-Adresse"
+
+#: web/templates/users/user/readability_overview.html.eex:2
+msgid "readability and overview"
+msgstr "Lesbarkeit und Übersicht"
+
+#: web/templates/users/user/notifications.html.eex:6
+msgid "use JavaScript for notifications"
+msgstr "Benutze JavaScript für Benachrichtigungen"
+
+#: web/templates/users/user/notifications.html.eex:72
+msgid "automatically delete read notifications for activity in subscribed threads"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:51
+msgid "automatically delete read notifications for mentions"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:64
+msgid "automatically delete read notifications for new cites"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:19
+msgid "automatically delete read notifications for new mails"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:81
+msgid "automatically subscribe the first posting of the thread"
+msgstr "abonniere den ersten Beitrag des Threads automatisch"
+
+#: web/templates/users/user/notifications.html.eex:80
+msgid "automatically subscribe the own posting"
+msgstr "abonniere den eigenen Beitrag automatisch"
+
+#: web/templates/users/user/notifications.html.eex:79
+msgid "automatically subscribe the parent posting"
+msgstr "automatisch das Vorgänger-Posting abonnieren"
+
+#: web/templates/users/user/notifications.html.eex:77
+msgid "automatically subscribe threads when answering"
+msgstr "Threads Automatisch abonnieren bei Antwort"
+
+#: web/templates/users/user/notifications.html.eex:78
+msgid "no, don't automatically subscribe"
+msgstr "Nein, nicht automatisch abonnieren"
+
+#: web/templates/users/user/notifications.html.eex:13
+#: web/templates/users/user/notifications.html.eex:38
+#: web/templates/users/user/notifications.html.eex:45
+#: web/templates/users/user/notifications.html.eex:58
+msgid "no, don't notify me"
+msgstr "Nein, benachrichtige mich nicht"
+
+#: web/templates/users/user/notifications.html.eex:14
+#: web/templates/users/user/notifications.html.eex:39
+#: web/templates/users/user/notifications.html.eex:46
+#: web/templates/users/user/notifications.html.eex:59
+msgid "notify me via email"
+msgstr "Benachrichtige mich via Email"
+
+#: web/templates/users/user/notifications.html.eex:31
+msgid "notify me via email on activity in subscribed threads"
+msgstr "Benachrichtige mich vie Email über Aktivität in einem abonnierten Thread"
+
+#: web/templates/users/user/notifications.html.eex:36
+msgid "notify me when a thread gets moved to a different forum"
+msgstr "Benachrichtige mich, wenn ein Thread in ein anderes Forum verschoben wurde"
+
+#: web/templates/users/user/notifications.html.eex:56
+msgid "notify me when someone creates a new cite"
+msgstr "Benachrichtige mich, wenn ein neues Zitat erstellt wurde"
+
+#: web/templates/users/user/notifications.html.eex:43
+msgid "notify me when someone mentions me"
+msgstr "benachrichtige mich, wenn mich jemand erwähnt"
+
+#: web/templates/users/user/notifications.html.eex:25
+msgid "notify on new threads"
+msgstr "benachrichtige mich über neue Threads"
+
+#: web/templates/users/user/notifications.html.eex:69
+msgid "subscriptions"
+msgstr "Abonnements"
+
+#: web/templates/users/user/notifications.html.eex:12
+#: web/templates/users/user/notifications.html.eex:37
+#: web/templates/users/user/notifications.html.eex:44
+#: web/templates/users/user/notifications.html.eex:57
+msgid "yes, notify me"
+msgstr "ja, benachrichtige mich"

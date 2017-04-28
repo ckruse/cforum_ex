@@ -24,16 +24,16 @@ defmodule Cforum.Mixfile do
   end
 
   # Specifies which paths to compile per environment.
-  defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
-  defp elixirc_paths(_),     do: ["lib", "web"]
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_),     do: ["lib"]
 
   # Specifies your project dependencies.
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.2.1"},
+    [{:phoenix, "~> 1.3.0-rc", override: true},
      {:phoenix_pubsub, "~> 1.0"},
-     {:phoenix_ecto, "~> 3.0"},
+     {:phoenix_ecto, "~> 3.2"},
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
@@ -46,8 +46,8 @@ defmodule Cforum.Mixfile do
      {:bamboo_smtp, "~> 1.3.0"},
      {:timex, "~> 3.0"},
      {:timex_ecto, "~> 3.0"},
-     {:arc_ecto, "~> 0.5.0"},
-     {:arc, "~> 0.7.0", override: :true}]
+     {:arc_ecto, "~> 0.7"},
+     {:arc, "~> 0.7"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

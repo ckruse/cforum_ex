@@ -1,5 +1,5 @@
 defmodule Cforum.TagControllerTest do
-  use Cforum.ConnCase
+  use Cforum.Web.ConnCase
 
   alias Cforum.Tag
   @valid_attrs %{num_messages: 42, slug: "some content", suggest: true, tag_name: "some content"}

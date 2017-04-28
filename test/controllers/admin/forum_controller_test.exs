@@ -1,5 +1,5 @@
 defmodule Cforum.Admin.ForumControllerTest do
-  use Cforum.ConnCase
+  use Cforum.Web.ConnCase
 
   alias Cforum.Forum
   alias Cforum.User

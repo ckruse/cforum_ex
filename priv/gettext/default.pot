@@ -202,6 +202,7 @@ msgid "new notifications"
 msgstr ""
 
 #: web/templates/layout/app.html.eex:115
+#: web/templates/users/user/notifications.html.eex:2
 msgid "notifications"
 msgstr ""
 
@@ -350,6 +351,7 @@ msgstr ""
 msgid "Score"
 msgstr ""
 
+#: web/templates/users/user/personal_information.html.eex:35
 #: web/templates/users/user/show.html.eex:44
 msgid "Twitter handle"
 msgstr ""
@@ -508,4 +510,137 @@ msgstr ""
 
 #: web/templates/users/user/show.html.eex:11
 msgid "score"
+msgstr ""
+
+#: web/templates/users/user/comfort.html.eex:6
+msgid "Hello {$vname},"
+msgstr ""
+
+#: web/templates/users/user/comfort.html.eex:2
+msgid "comfort functions"
+msgstr ""
+
+#: web/templates/users/user/personal_information.html.eex:40
+msgid "description"
+msgstr ""
+
+#: web/templates/users/user/personal_information.html.eex:25
+msgid "flattr id"
+msgstr ""
+
+#: web/templates/users/user/comfort.html.eex:5
+msgid "greeting"
+msgstr ""
+
+#: web/templates/users/user/personal_information.html.eex:10
+msgid "homepage"
+msgstr ""
+
+#: web/templates/users/user/personal_information.html.eex:30
+msgid "jabber id"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:11
+msgid "notify me on new mail"
+msgstr ""
+
+#: web/templates/users/user/personal_information.html.eex:2
+msgid "personal information"
+msgstr ""
+
+#: web/templates/users/user/personalization.html.eex:2
+msgid "personalization"
+msgstr ""
+
+#: web/templates/users/user/personal_information.html.eex:5
+msgid "public email"
+msgstr ""
+
+#: web/templates/users/user/readability_overview.html.eex:2
+msgid "readability and overview"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:6
+msgid "use JavaScript for notifications"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:72
+msgid "automatically delete read notifications for activity in subscribed threads"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:51
+msgid "automatically delete read notifications for mentions"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:64
+msgid "automatically delete read notifications for new cites"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:19
+msgid "automatically delete read notifications for new mails"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:81
+msgid "automatically subscribe the first posting of the thread"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:80
+msgid "automatically subscribe the own posting"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:79
+msgid "automatically subscribe the parent posting"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:77
+msgid "automatically subscribe threads when answering"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:78
+msgid "no, don't automatically subscribe"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:13
+#: web/templates/users/user/notifications.html.eex:38
+#: web/templates/users/user/notifications.html.eex:45
+#: web/templates/users/user/notifications.html.eex:58
+msgid "no, don't notify me"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:14
+#: web/templates/users/user/notifications.html.eex:39
+#: web/templates/users/user/notifications.html.eex:46
+#: web/templates/users/user/notifications.html.eex:59
+msgid "notify me via email"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:31
+msgid "notify me via email on activity in subscribed threads"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:36
+msgid "notify me when a thread gets moved to a different forum"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:56
+msgid "notify me when someone creates a new cite"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:43
+msgid "notify me when someone mentions me"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:25
+msgid "notify on new threads"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:69
+msgid "subscriptions"
+msgstr ""
+
+#: web/templates/users/user/notifications.html.eex:12
+#: web/templates/users/user/notifications.html.eex:37
+#: web/templates/users/user/notifications.html.eex:44
+#: web/templates/users/user/notifications.html.eex:57
+msgid "yes, notify me"
 msgstr ""

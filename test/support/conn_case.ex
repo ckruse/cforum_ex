@@ -1,4 +1,4 @@
-defmodule Cforum.ConnCase do
+defmodule Cforum.Web.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -25,11 +25,11 @@ defmodule Cforum.ConnCase do
       import Ecto.Changeset
       import Ecto.Query
 
-      import Cforum.Router.Helpers
-      import Cforum.Gettext
+      import Cforum.Web.Router.Helpers
+      import Cforum.Web.Gettext
 
       # The default endpoint for testing
-      @endpoint Cforum.Endpoint
+      @endpoint Cforum.Web.Endpoint
 
 
       # We need a way to get into the connection to login a user

@@ -1,4 +1,4 @@
-defmodule Cforum.ChannelCase do
+defmodule Cforum.Web.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -27,7 +27,7 @@ defmodule Cforum.ChannelCase do
 
 
       # The default endpoint for testing
-      @endpoint Cforum.Endpoint
+      @endpoint Cforum.Web.Endpoint
     end
   end
 

@@ -1,0 +1,43 @@
+<fieldset class="cf-tab-pane" id="personal_information">
+  <legend><%= gettext("personal information") %></legend>
+
+  <div class="cf-cgroup">
+    <%= label @f, :email, gettext("public email") %>
+    <%= email_input @f, :email, placeholder: "mail@example.com" %>
+  </div>
+
+  <div class="cf-cgroup">
+    <%= label @f, :url, gettext("homepage") %>
+    <%= url_input @f, :url, placeholder: "http://example.com/" %>
+  </div>
+
+  <!-- TODO <%# if @user.has_badge?('seo_profi') %>
+  <div class="cf-cgroup">
+    <label for="settings_norelnofollow"><%#= t('users.settings.norelnofollow') %></label>
+    <div class="cntrls">
+      <%#= hidden_field_tag 'settings[norelnofollow]', 'no', id: '' %>
+      <label class="checkbox"><%#= check_box_tag 'settings[norelnofollow]', 'yes', @settings.conf('norelnofollow') == 'yes' %></label>
+    </div>
+  </div>
+  <%# end %>-->
+
+  <div class="cf-cgroup">
+    <%= label @f, :flattr, gettext("flattr id") %>
+    <%= text_input @f, :flattr %>
+  </div>
+
+  <div class="cf-cgroup">
+    <%= label @f, :jabber_id, gettext("jabber id") %>
+    <%= text_input @f, :jabber_id %>
+  </div>
+
+  <div class="cf-cgroup">
+    <%= label @f, :twitter_handle, gettext("Twitter handle") %>
+    <%= text_input @f, :twitter_handle %>
+  </div>
+
+  <div class="cf-cgroup">
+    <%= label @f, :description, gettext("description") %>
+    <%= textarea @f, :description %>
+  </div>
+</fieldset>

@@ -29,13 +29,13 @@ defmodule Cforum.Sortable do
     cookie_key_col = "cforum_" <> controller_nam <> "-sort_col"
     cookie_key_dir = "cforum_" <> controller_nam <> "-sort_dir"
 
-    {set_cookie_col, sort_col} = if Cforum.Helpers.blank?(conn.params["sort"]) do
+    {set_cookie_col, sort_col} = if Cforum.Web.Helpers.blank?(conn.params["sort"]) do
       {false, conn.cookies[cookie_key_col] || Atom.to_string(List.first(valid_fields))}
     else
       {true, conn.params["sort"]}
     end
 
-    {set_cookie_dir, sort_dir} = if Cforum.Helpers.blank?(conn.params["dir"]) do
+    {set_cookie_dir, sort_dir} = if Cforum.Web.Helpers.blank?(conn.params["dir"]) do
       {false, conn.cookies[cookie_key_dir] || defaults[:dir]}
     else
       {true, conn.params["dir"]}

@@ -1,5 +1,5 @@
 defmodule Cforum.UserControllerTest do
-  use Cforum.ConnCase
+  use Cforum.Web.ConnCase
 
   alias Cforum.User
   @valid_attrs %{active: true, admin: true, email: "some content", username: "some content"}

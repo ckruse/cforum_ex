@@ -1,6 +1,6 @@
 defmodule Cforum.Plug.AuthorizeAccess do
-  import Cforum.Router.Helpers
-  import Cforum.Gettext
+  import Cforum.Web.Router.Helpers
+  import Cforum.Web.Gettext
   alias Cforum.Abilities
 
   def init(opts), do: opts

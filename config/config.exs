@@ -10,10 +10,10 @@ config :cforum,
   ecto_repos: [Cforum.Repo]
 
 # Configures the endpoint
-config :cforum, Cforum.Endpoint,
+config :cforum, Cforum.Web.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "w/W7vB8NBsnCLFPZfPrUK3IUvyfEZv/+kIYUAa7YSfAjLg/aM61tsp6K+vnrD6FF",
-  render_errors: [view: Cforum.ErrorView, accepts: ~w(html json)],
+  render_errors: [view: Cforum.Web.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Cforum.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
