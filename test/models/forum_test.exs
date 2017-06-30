@@ -1,7 +1,7 @@
 defmodule Cforum.ForumTest do
   use Cforum.ModelCase
 
-  alias Cforum.Forum
+  alias Cforum.Forums.Forum
 
   @valid_attrs %{description: "some content", keywords: "some content", name: "some content", position: 42, short_name: "some content", slug: "some content", standard_permission: "some content"}
   @invalid_attrs %{}

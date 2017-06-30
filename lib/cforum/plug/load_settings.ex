@@ -1,5 +1,5 @@
 defmodule Cforum.Plug.LoadSettings do
-  alias Cforum.Setting
+  alias Cforum.Accounts.Setting
   alias Cforum.Repo
 
   def init(opts), do: opts

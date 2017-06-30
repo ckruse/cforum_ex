@@ -1,4 +1,4 @@
-defmodule Cforum.Forum do
+defmodule Cforum.Forums.Forum do
   use Cforum.Web, :model
 
   @primary_key {:forum_id, :integer, []}
@@ -23,8 +23,8 @@ defmodule Cforum.Forum do
     field :keywords, :string
     field :position, :integer
 
-    has_many :threads, Cforum.Thread
-    has_many :messages, Cforum.Message
+    has_many :threads, Cforum.Forums.Threads.Thread
+    has_many :messages, Cforum.Forums.Threads.Message
 
     timestamps(inserted_at: :created_at)
   end
@@ -48,7 +48,7 @@ defmodule Cforum.Forum do
     from f in query,
       where: f.standard_permission in [^@read, ^@write]
   end
-  def visible_forums(query, %Cforum.User{admin: true}) do # admins may view all forums
+  def visible_forums(query, %Cforum.Accounts.User{admin: true}) do # admins may view all forums
     query
   end
   def visible_forums(query, user) do

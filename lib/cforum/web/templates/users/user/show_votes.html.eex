@@ -13,10 +13,10 @@
           <article class="threadlist thread">
             <%
             m = vote.message
-            thread = %Cforum.Thread{m.thread | message: m}
-            m = %Cforum.Message{m | thread: thread}
+            thread = %Cforum.Forums.Threads.Thread{m.thread | message: m}
+            m = %Cforum.Forums.Threads.Message{m | thread: thread}
             %>
-            <%= render Cforum.MessageView, "header.html", conn: @conn, thread: m.thread, message: m, show_votes: true, id: false  %>
+            <%= render Cforum.Web.MessageView, "header.html", conn: @conn, thread: m.thread, message: m, show_votes: true, id: false  %>
           </article>
       </td>
     </tr>

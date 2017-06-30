@@ -3,20 +3,18 @@ defmodule Cforum.Web.Users.UserController do
 
   plug Cforum.Plug.AuthorizeAccess, only: [:edit, :update, :confirm_delete, :delete, :show_votes]
 
-  alias Cforum.User
-  alias Cforum.Thread
-  alias Cforum.Message
-  alias Cforum.MessageTag
-  alias Cforum.Tag
-  alias Cforum.Forum
-  alias Cforum.Score
-  alias Cforum.Vote
-
-  import Ecto.Query, only: [from: 2]
+  alias Cforum.Accounts.User
+  alias Cforum.Accounts.Users
+  alias Cforum.Forums.Threads.Thread
+  alias Cforum.Forums.Threads.Message
+  alias Cforum.Forums.Threads.MessageTag
+  alias Cforum.Forums.Threads.Tag
+  alias Cforum.Forums.Forum
+  alias Cforum.Accounts.Score
+  alias Cforum.Forums.Threads.Vote
 
   def index(conn, params) do
-    {users, conn} = User
-    |> Cforum.Sortable.sort(conn, [:username, :score, :activity, :created_at])
+    {users, conn} = Cforum.Sortable.sort(User, conn, [:username, :score, :activity, :created_at])
 
     paging = users
     |> paginate(page: params["p"])
@@ -109,7 +107,7 @@ defmodule Cforum.Web.Users.UserController do
         {new_fid, id} = if m == nil,
           do: {fake_id + 1, "fake-#{fake_id}"},
           else: {fake_id, m.message_id}
-        
+
         {Map.update(msgs, id, [score], fn(scores) -> [score | scores] end),
           new_fid}
     end)
@@ -126,11 +124,11 @@ defmodule Cforum.Web.Users.UserController do
       last_messages: last_messages,
       tags_cnt: tags_cnt,
       point_msgs: point_msgs,
-      badges: User.unique_badges(user),
-      jabber_id: User.conf(user, "jabber_id"),
-      twitter_handle: User.conf(user, "twitter_handle"),
-      user_url: User.conf(user, "url"),
-      description: User.conf(user, "description"),
+      badges: Users.unique_badges(user),
+      jabber_id: Users.conf(user, "jabber_id"),
+      twitter_handle: Users.conf(user, "twitter_handle"),
+      user_url: Users.conf(user, "url"),
+      description: Users.conf(user, "description"),
       scored_msgs: scored_msgs)
   end
 

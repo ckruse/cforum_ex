@@ -1,4 +1,4 @@
-defmodule Cforum.Badge do
+defmodule Cforum.Accounts.Badge do
   use Cforum.Web, :model
 
   @primary_key {:badge_id, :integer, []}
@@ -13,7 +13,7 @@ defmodule Cforum.Badge do
     field :badge_type, :string
     field :order, :integer
 
-    has_many :badges_users, Cforum.BadgeUser, foreign_key: :badge_id
+    has_many :badges_users, Cforum.Accounts.BadgeUser, foreign_key: :badge_id
     has_many :users, through: [:badges_users, :user]
 
     timestamps(inserted_at: :created_at)

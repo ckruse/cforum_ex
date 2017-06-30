@@ -1,4 +1,4 @@
-defmodule Cforum.Vote do
+defmodule Cforum.Forums.Threads.Vote do
   use Cforum.Web, :model
 
   @primary_key {:vote_id, :integer, []}
@@ -6,9 +6,9 @@ defmodule Cforum.Vote do
 
   schema "votes" do
     field :vtype, :string
-    belongs_to :user, Cforum.User, references: :user_id
-    belongs_to :message, Cforum.Message, references: :message_id
-    has_one :score, Cforum.Score, foreign_key: :vote_id
+    belongs_to :user, Cforum.Accounts.User, references: :user_id
+    belongs_to :message, Cforum.Forums.Threads.Message, references: :message_id
+    has_one :score, Cforum.Accounts.Score, foreign_key: :vote_id
   end
 
   @doc """

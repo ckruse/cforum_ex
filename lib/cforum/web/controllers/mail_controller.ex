@@ -1,7 +1,7 @@
 defmodule Cforum.Web.MailController do
   use Cforum.Web, :controller
 
-  alias Cforum.PrivMessage
+  alias Cforum.Accounts.PrivMessage
 
   def index(conn, _params) do
     mails = Repo.all(PrivMessage)

@@ -1,7 +1,7 @@
 defmodule Cforum.Web.BadgeController do
   use Cforum.Web, :controller
 
-  alias Cforum.Badge
+  alias Cforum.Accounts.Badge
 
   def index(conn, _params) do
     badges = Repo.all(Badge)

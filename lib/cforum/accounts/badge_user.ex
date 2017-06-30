@@ -1,12 +1,12 @@
-defmodule Cforum.BadgeUser do
+defmodule Cforum.Accounts.BadgeUser do
   use Cforum.Web, :model
 
   @primary_key {:badge_user_id, :integer, []}
   @derive {Phoenix.Param, key: :badge_user_id}
 
   schema "badges_users" do
-    belongs_to :badge, Cforum.Badge, references: :badge_id
-    belongs_to :user, Cforum.User, references: :user_id
+    belongs_to :badge, Cforum.Accounts.Badge, references: :badge_id
+    belongs_to :user, Cforum.Accounts.User, references: :user_id
 
     timestamps(inserted_at: :created_at)
   end

@@ -1,4 +1,4 @@
-defmodule Cforum.CloseVote do
+defmodule Cforum.Forums.Threads.CloseVote do
   use Cforum.Web, :model
 
   @primary_key {:close_vote_id, :integer, []}
@@ -11,8 +11,8 @@ defmodule Cforum.CloseVote do
     field :finished, :boolean, default: false
     field :vote_type, :boolean, default: false
 
-    belongs_to :message, Cforum.Message, references: :message_id
-    has_many :voters, Cforum.CloseVoteVoter, references: :close_vote_id, foreign_key: :close_vote_id
+    belongs_to :message, Cforum.Forums.Threads.Message, references: :message_id
+    has_many :voters, Cforum.Forums.Threads.CloseVoteVoter, references: :close_vote_id, foreign_key: :close_vote_id
 
     timestamps(inserted_at: :created_at)
   end

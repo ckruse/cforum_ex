@@ -1,4 +1,4 @@
-defmodule Cforum.Setting do
+defmodule Cforum.Accounts.Setting do
   use Cforum.Web, :model
 
   @primary_key {:setting_id, :integer, []}
@@ -6,8 +6,8 @@ defmodule Cforum.Setting do
 
   schema "settings" do
     field :options, :map
-    belongs_to :forum, Cforum.Forum, references: :forum_id
-    belongs_to :user, Cforum.User, references: :user_id
+    belongs_to :forum, Cforum.Forums.Forum, references: :forum_id
+    belongs_to :user, Cforum.Accounts.User, references: :user_id
   end
 
   @doc """

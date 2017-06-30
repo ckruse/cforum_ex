@@ -1,4 +1,4 @@
-defmodule Cforum.Thread do
+defmodule Cforum.Forums.Threads.Thread do
   use Cforum.Web, :model
 
   @primary_key {:thread_id, :integer, []}
@@ -12,9 +12,9 @@ defmodule Cforum.Thread do
     field :flags, :map
     field :latest_message, Timex.Ecto.DateTime
 
-    belongs_to :forum, Cforum.Forum, references: :forum_id
-    #belongs_to :message, Cforum.Message, references: :message_id
-    has_many :messages, Cforum.Message, foreign_key: :thread_id
+    belongs_to :forum, Cforum.Forums.Forum, references: :forum_id
+    #belongs_to :message, Cforum.Forums.Threads.Message, references: :message_id
+    has_many :messages, Cforum.Forums.Threads.Message, foreign_key: :thread_id
 
     field :message, :any, virtual: true
     field :sorted_messages, :any, virtual: true

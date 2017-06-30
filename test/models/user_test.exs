@@ -1,7 +1,7 @@
 defmodule Cforum.UserTest do
   use Cforum.ModelCase
 
-  alias Cforum.User
+  alias Cforum.Accounts.User
 
   @valid_attrs %{username: "foo", email: "bar", active: true, admin: true}
   @invalid_attrs %{}

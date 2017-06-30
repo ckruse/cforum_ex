@@ -1,12 +1,12 @@
-defmodule Cforum.InterestingMessage do
+defmodule Cforum.Forums.Threads.InterestingMessage do
   use Cforum.Web, :model
 
   @primary_key {:interesting_message_id, :integer, []}
   @derive {Phoenix.Param, key: :interesting_message_id}
 
   schema "interesting_messages" do
-    belongs_to :user, Cforum.User, references: :user_id
-    belongs_to :message, Cforum.Message, references: :message_id
+    belongs_to :user, Cforum.Accounts.User, references: :user_id
+    belongs_to :message, Cforum.Forums.Threads.Message, references: :message_id
 
     timestamps(inserted_at: :created_at)
   end

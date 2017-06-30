@@ -3,7 +3,7 @@
 <div class="root">
   <%= for m <- @messages do %>
     <article class="thread threadlist">
-      <%= render Cforum.MessageView, "header.html", conn: @conn, thread: m.thread, message: m, show_votes: true, id: false  %>
+      <%= render Cforum.Web.MessageView, "header.html", conn: @conn, thread: m.thread, message: m, show_votes: true, id: false  %>
     </article>
   <% end %>
 </div>

@@ -1,4 +1,4 @@
-defmodule Cforum.User do
+defmodule Cforum.Accounts.User do
   use Cforum.Web, :model
   use Arc.Ecto.Schema
 
@@ -31,8 +31,8 @@ defmodule Cforum.User do
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
 
-    has_one :settings, Cforum.Setting, foreign_key: :user_id
-    has_many :badges_users, Cforum.BadgeUser, foreign_key: :user_id
+    has_one :settings, Cforum.Accounts.Setting, foreign_key: :user_id
+    has_many :badges_users, Cforum.Accounts.BadgeUser, foreign_key: :user_id
     has_many :badges, through: [:badges_users, :badge]
 
     timestamps(inserted_at: :created_at)
@@ -95,44 +95,8 @@ defmodule Cforum.User do
     Token.sign(Cforum.Endpoint, "user", username)
   end
 
-
-  def by_username_or_email(query, login) do
-    from user in query,
-      where: user.active == true and (user.email == ^login or user.username == ^login)
-  end
-
   def avatar_path(user, version) do
     Cforum.Web.Avatar.url({user.avatar_file_name, user}, version)
     |> String.replace_leading("/priv", "")
-  end
-
-  def ordered(query, ordering \\ [asc: :username]) do
-    from query,
-      order_by: ^ordering
-  end
-
-  def conf(user, name) do
-    vals = case user.settings do
-             nil ->
-               {}
-             set ->
-               set.options || {}
-           end
-
-    vals[name] || Cforum.ConfigManager.defaults[name]
-  end
-
-  def unique_badges(user) do
-    Enum.reduce(user.badges_users, %{}, fn(b, acc) ->
-      val = case acc[b.badge_id] do
-              nil ->
-                %{badge: b.badge, created_at: b.created_at, times: 1}
-              entry ->
-                %{entry | times: entry.times + 1}
-            end
-      Map.put(acc, b.badge_id, val)
-    end)
-    |> Map.values
-    |> Enum.sort(&(&1[:times] >= &2[:times]))
   end
 end

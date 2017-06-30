@@ -1,7 +1,7 @@
 defmodule Cforum.Web.Admin.ForumController do
   use Cforum.Web, :controller
 
-  alias Cforum.Forum
+  alias Cforum.Forums.Forum
 
   def index(conn, _params) do
     forums = Repo.all(Forum)

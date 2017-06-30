@@ -1,4 +1,4 @@
-defmodule Cforum.Message do
+defmodule Cforum.Forums.Threads.Message do
   use Cforum.Web, :model
 
   @primary_key {:message_id, :integer, []}
@@ -24,14 +24,14 @@ defmodule Cforum.Message do
     field :messages, :any, virtual: true
     field :attribs, :map, virtual: true
 
-    belongs_to :thread, Cforum.Thread, references: :thread_id
-    belongs_to :forum, Cforum.Forum, references: :forum_id
-    belongs_to :user, Cforum.User, references: :user_id
-    belongs_to :parent, Cforum.Message, references: :message_id
-    belongs_to :editor, Cforum.User, references: :user_id
+    belongs_to :thread, Cforum.Forums.Threads.Thread, references: :thread_id
+    belongs_to :forum, Cforum.Forums.Forum, references: :forum_id
+    belongs_to :user, Cforum.Accounts.User, references: :user_id
+    belongs_to :parent, Cforum.Forums.Threads.Message, references: :message_id
+    belongs_to :editor, Cforum.Accounts.User, references: :user_id
 
-    many_to_many :tags, Cforum.Tag, join_through: Cforum.MessageTag, join_keys: [message_id: :message_id, tag_id: :tag_id]
-    has_many :votes, Cforum.CloseVote, foreign_key: :message_id
+    many_to_many :tags, Cforum.Forums.Threads.Tag, join_through: Cforum.Forums.Threads.MessageTag, join_keys: [message_id: :message_id, tag_id: :tag_id]
+    has_many :votes, Cforum.Forums.Threads.CloseVote, foreign_key: :message_id
 
     timestamps(inserted_at: :created_at)
   end

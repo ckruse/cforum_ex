@@ -1,4 +1,4 @@
-defmodule Cforum.Notification do
+defmodule Cforum.Accounts.Notification do
   use Cforum.Web, :model
 
   @primary_key {:notification_id, :integer, []}
@@ -12,7 +12,7 @@ defmodule Cforum.Notification do
     field :oid, :integer
     field :otype, :string
     field :description, :string
-    belongs_to :recipient, Cforum.User, references: :user_id
+    belongs_to :recipient, Cforum.Accounts.User, references: :user_id
 
     timestamps(inserted_at: :created_at)
   end

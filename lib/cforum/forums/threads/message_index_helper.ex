@@ -1,10 +1,11 @@
-defmodule Cforum.MessageIndexHelper do
+defmodule Cforum.Forums.Threads.MessageIndexHelper do
   alias Cforum.Repo
-  alias Cforum.Thread
-  alias Cforum.Message
-  alias Cforum.ReadMessage
-  alias Cforum.InterestingMessage
-  alias Cforum.Subscription
+  alias Cforum.Forums.Threads.Thread
+  alias Cforum.Forums.Threads.Message
+
+  alias Cforum.Forums.Threads.ReadMessage
+  alias Cforum.Forums.Threads.InterestingMessage
+  alias Cforum.Forums.Threads.Subscription
 
   import Ecto.Query
 

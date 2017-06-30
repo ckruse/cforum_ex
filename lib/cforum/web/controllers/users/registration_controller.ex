@@ -1,7 +1,7 @@
 defmodule Cforum.Web.Users.RegistrationController do
   use Cforum.Web, :controller
 
-  alias Cforum.User
+  alias Cforum.Accounts.User
 
   def new(conn, _params) do
     changeset = User.register_changeset(%User{})

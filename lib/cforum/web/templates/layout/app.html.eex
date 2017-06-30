@@ -63,37 +63,6 @@
   <body data-controller="<%= controller_module(@conn) %>" data-action="<%= action_name(@conn) %>"<%= body_classes(@conn, assigns) %><%= body_id(@conn, assigns) %>>
 
     <div class="flex-container">
-      <main class="flex-item">
-        <div id="alerts-container">
-          <%= if get_flash(@conn, :info) do %>
-            <div class="cf-success cf-alert fade in">
-              <button type="button" class="close" data-dismiss="cf-alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-
-              <%= get_flash(@conn, :info) %>
-            </div>
-          <% end %>
-          <%= if get_flash(@conn, :error) do %>
-            <div class="cf-error cf-alert fade in">
-              <button type="button" class="close" data-dismiss="cf-alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-
-              <%= get_flash(@conn, :error) %>
-            </div>
-            <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-          <% end %>
-        </div>
-
-
-        <%= {:safe, page_heading(@conn, assigns)} %>
-
-        <div id="content">
-          <%= render @view_module, @view_template, assigns %>
-        </div>
-      </main>
-
       <header class="top flex-item">
         <ul class="selflinks">
           <li><%= link "SELFHTML", to: "//selfhtml.org/" %></li>
@@ -212,7 +181,7 @@
               <% end %>
             <% end %>
 
-            <%= if controller_module(@conn) == Cforum.Threads && @current_user == nil do %>
+            <%= if controller_module(@conn) == Cforum.Web.Threads && @current_user == nil do %>
               <%= if @order != "ascending" do %>
                 <li><%= link(gettext("sort ascending"), to: thread_path(@conn, :index, @current_forum, p: @page, order: "ascending")) %></li>
               <% end %>
@@ -294,6 +263,36 @@
       <!--/aside-->
       <%# end %>
 
+      <main class="flex-item">
+        <div id="alerts-container">
+          <%= if get_flash(@conn, :info) do %>
+            <div class="cf-success cf-alert fade in">
+              <button type="button" class="close" data-dismiss="cf-alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+
+              <%= get_flash(@conn, :info) %>
+            </div>
+          <% end %>
+          <%= if get_flash(@conn, :error) do %>
+            <div class="cf-error cf-alert fade in">
+              <button type="button" class="close" data-dismiss="cf-alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+
+              <%= get_flash(@conn, :error) %>
+            </div>
+            <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+          <% end %>
+        </div>
+
+
+        <%= {:safe, page_heading(@conn, assigns)} %>
+
+        <div id="content">
+          <%= render @view_module, @view_template, assigns %>
+        </div>
+      </main>
     </div>
 
     <footer>
@@ -353,7 +352,3 @@
 
   </body>
 </html>
-
-
-
-

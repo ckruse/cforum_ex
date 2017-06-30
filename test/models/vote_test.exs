@@ -1,7 +1,7 @@
-defmodule Cforum.VoteTest do
+defmodule Cforum.Forums.Threads.VoteTest do
   use Cforum.ModelCase
 
-  alias Cforum.Vote
+  alias Cforum.Forums.Threads.Vote
 
   @valid_attrs %{vtype: "some content"}
   @invalid_attrs %{}

@@ -1,7 +1,7 @@
 defmodule Cforum.NotificationTest do
   use Cforum.ModelCase
 
-  alias Cforum.Notification
+  alias Cforum.Accounts.Notification
 
   @valid_attrs %{description: "some content", icon: "some content", is_read: true, oid: 42, otype: "some content", path: "some content", subject: "some content"}
   @invalid_attrs %{}

@@ -23,11 +23,11 @@ defmodule Cforum.Web.Helpers do
     blank?(field_val) || field_val == value
   end
 
-  def sub_inputs(%{impl: impl} = form, field, options \\ [], fun) do
-    options =
-      form.options
-      |> Keyword.take([:multipart])
-      |> Keyword.merge(options)
+  def sub_inputs(form, field, _options \\ [], fun) do
+    # options =
+    #   form.options
+    #   |> Keyword.take([:multipart])
+    #   |> Keyword.merge(options)
 
     attr = Map.get(form.data, field)
     symbolized_attr = Enum.reduce(Map.keys(attr), %{}, fn(key, map) -> Map.put(map, String.to_atom(key), attr[key]) end)

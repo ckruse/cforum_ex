@@ -1,7 +1,7 @@
 defmodule Cforum.ScoreTest do
   use Cforum.ModelCase
 
-  alias Cforum.Score
+  alias Cforum.Accounts.Score
 
   @valid_attrs %{value: 42}
   @invalid_attrs %{}

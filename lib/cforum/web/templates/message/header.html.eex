@@ -45,7 +45,7 @@ opts = Map.merge(%{noid: false, id_prefix: nil, show_icons: false,
         <span class="registered-user<%= if (@message.message_id != @thread.message.message_id) && (@message.user_id == @thread.message.user_id), do: "original-poster" %>">
           <%= link(to: user_path(@conn, :show, @message.user), title: gettext("messages.user_link", user: @message.user.username), class: "user-link") do %>
             <span class="visually-hidden"><%= gettext("messages.link_to_profile_of") %></span>
-            <%= img_tag(Cforum.User.avatar_path(@message.user, :thumb), class: "avatar", alt: gettext("messages.user_link", user: @message.user.username)) %>
+            <%= img_tag(Cforum.Accounts.User.avatar_path(@message.user, :thumb), class: "avatar", alt: gettext("messages.user_link", user: @message.user.username)) %>
           <% end %>
         </span>
       <% else %>

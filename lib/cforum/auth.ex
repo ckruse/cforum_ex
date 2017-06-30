@@ -1,16 +1,15 @@
 defmodule Cforum.Auth do
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
 
-  alias Cforum.User
+  alias Cforum.Accounts.Users
 
   def login(conn, user) do
     conn
     |> Guardian.Plug.sign_in(user, :access)
   end
 
-  def authenticate(conn, login, given_pass, opts) do
-    repo = Keyword.fetch!(opts, :repo)
-    user = User |> User.by_username_or_email(login) |> repo.one
+  def authenticate(conn, login, given_pass, _opts) do
+    user = Users.get_user_by_username_or_email!(login)
 
     cond do
       user && checkpw(given_pass, user.encrypted_password) ->

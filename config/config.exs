@@ -22,7 +22,7 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :cforum, Cforum.Gettext,
+config :cforum, Cforum.Web.Gettext,
         default_locale: "de"
 
 config :number, delimit: [ precision: 2,

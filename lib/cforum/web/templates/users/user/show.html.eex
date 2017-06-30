@@ -3,7 +3,7 @@
     <table>
       <tbody>
         <tr>
-          <td rowspan="<%= if @current_user && @current_user.user_id == @user.user_id, do: 5, else: 4 %>"><%= img_tag Cforum.User.avatar_path(@user, :medium) %></td>
+          <td rowspan="<%= if @current_user && @current_user.user_id == @user.user_id, do: 5, else: 4 %>"><%= img_tag Cforum.Accounts.User.avatar_path(@user, :medium) %></td>
           <th><%= gettext("username") %>:</th>
           <td><%= @user.username %></td>
         </tr>
@@ -92,7 +92,7 @@
 <div class="root">
   <%= for msg <- @last_messages do %>
     <article class="thread threadlist">
-      <%= render Cforum.MessageView, "header.html", conn: @conn, thread: msg.thread, message: msg, show_votes: true, id: false  %>
+      <%= render Cforum.Web.MessageView, "header.html", conn: @conn, thread: msg.thread, message: msg, show_votes: true, id: false  %>
     </article>
   <% end %>
 </div>
@@ -108,7 +108,7 @@
 <div class="root">
   <%= for msg <- @point_msgs do %>
     <article class="thread threadlist">
-      <%= render Cforum.MessageView, "header.html", conn: @conn, thread: msg.thread, message: msg, show_votes: true, id: false  %>
+      <%= render Cforum.Web.MessageView, "header.html", conn: @conn, thread: msg.thread, message: msg, show_votes: true, id: false  %>
     </article>
   <% end %>
 </div>
@@ -129,17 +129,17 @@
             <% end %>
           </td>
           <td>
-            <% m = Cforum.Score.get_message(List.first(s)) %>
+            <% m = Cforum.Accounts.Score.get_message(List.first(s)) %>
             <%= if m == nil do %>
               <em>Nachricht wurde gelöscht</em>
             <% else %>
               <%
-              thread = %Cforum.Thread{m.thread | message: m}
-              m = %Cforum.Message{m | thread: thread}
+              thread = %Cforum.Forums.Threads.Thread{m.thread | message: m}
+              m = %Cforum.Forums.Threads.Message{m | thread: thread}
               %>
               <div class="root">
                 <article class="threadlist thread">
-                  <%= render Cforum.MessageView, "header.html", conn: @conn, thread: m.thread, message: m, show_votes: true, id: false  %>
+                  <%= render Cforum.Web.MessageView, "header.html", conn: @conn, thread: m.thread, message: m, show_votes: true, id: false  %>
                 </article>
               </div>
             <% end %>

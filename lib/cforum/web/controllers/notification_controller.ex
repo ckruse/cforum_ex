@@ -1,7 +1,7 @@
 defmodule Cforum.Web.NotificationController do
   use Cforum.Web, :controller
 
-  alias Cforum.Notification
+  alias Cforum.Accounts.Notification
 
   def index(conn, _params) do
     notifications = Repo.all(Notification)

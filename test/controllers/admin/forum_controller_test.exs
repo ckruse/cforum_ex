@@ -1,8 +1,8 @@
 defmodule Cforum.Admin.ForumControllerTest do
   use Cforum.Web.ConnCase
 
-  alias Cforum.Forum
-  alias Cforum.User
+  alias Cforum.Forums.Forum
+  alias Cforum.Accounts.User
 
   @valid_attrs %{description: "some content",
                  keywords: "some content",

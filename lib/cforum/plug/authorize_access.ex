@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 defmodule Cforum.Plug.AuthorizeAccess do
   import Cforum.Web.Router.Helpers
   import Cforum.Web.Gettext
@@ -8,7 +10,7 @@ defmodule Cforum.Plug.AuthorizeAccess do
   def call(conn, opts) do
     path = Phoenix.Controller.controller_module(conn)
     |> Atom.to_string
-    |> String.replace(~r{^Elixir\.Cforum\.}, "")
+    |> String.replace(~r{^Elixir\.Cforum\.Web}, "")
     |> String.replace(~r{Controller$}, "")
     |> Macro.underscore
 
@@ -36,3 +38,5 @@ defmodule Cforum.Plug.AuthorizeAccess do
     end
   end
 end
+
+# eof

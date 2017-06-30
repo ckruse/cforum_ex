@@ -1,6 +1,6 @@
 defmodule Cforum.Plug.CheckForumAccess do
-  alias Cforum.Forum
-  alias Cforum.User
+  alias Cforum.Forums.Forum
+  alias Cforum.Accounts.User
 
   def init(opts), do: opts
 

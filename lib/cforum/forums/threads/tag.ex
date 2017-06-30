@@ -1,4 +1,4 @@
-defmodule Cforum.Tag do
+defmodule Cforum.Forums.Threads.Tag do
   use Cforum.Web, :model
 
   @primary_key {:tag_id, :integer, []}
@@ -10,9 +10,9 @@ defmodule Cforum.Tag do
     field :num_messages, :integer
     field :suggest, :boolean, default: false
 
-    belongs_to :forum, Cforum.Forum
+    belongs_to :forum, Cforum.Forums.Forum
 
-    many_to_many :messages, Cforum.Message, join_through: Cforum.MessageTag, join_keys: [tag_id: :tag_id, message_id: :message_id]
+    many_to_many :messages, Cforum.Forums.Threads.Message, join_through: Cforum.Forums.Threads.MessageTag, join_keys: [tag_id: :tag_id, message_id: :message_id]
   end
 
   @doc """

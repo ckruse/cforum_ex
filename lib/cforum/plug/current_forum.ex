@@ -1,6 +1,6 @@
 defmodule Cforum.Plug.CurrentForum do
   alias Cforum.Repo
-  alias Cforum.Forum
+  alias Cforum.Forums.Forum
 
   def init(opts), do: opts
 
