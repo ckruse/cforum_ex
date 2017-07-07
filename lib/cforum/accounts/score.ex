@@ -9,8 +9,8 @@ defmodule Cforum.Accounts.Score do
     field :created_at, :utc_datetime
 
     belongs_to :user, Cforum.Accounts.User, references: :user_id
-    belongs_to :vote, Cforum.Forums.Threads.Vote, references: :vote_id
-    belongs_to :message, Cforum.Forums.Threads.Message, references: :message_id
+    belongs_to :vote, Cforum.Forums.Vote, references: :vote_id
+    belongs_to :message, Cforum.Forums.Message, references: :message_id
   end
 
   @doc """

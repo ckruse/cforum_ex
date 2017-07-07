@@ -1,7 +1,7 @@
 defmodule Cforum.CloseVoteVoterTest do
   use Cforum.ModelCase
 
-  alias Cforum.Forums.Threads.CloseVoteVoter
+  alias Cforum.Forums.CloseVoteVoter
 
   @valid_attrs %{}
   @invalid_attrs %{}

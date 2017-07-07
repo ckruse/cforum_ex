@@ -1,12 +1,14 @@
-defmodule Cforum.Forums.Threads.Subscription do
+defmodule Cforum.Forums.InterestingMessage do
   use Cforum.Web, :model
 
-  @primary_key {:subscription_id, :integer, []}
-  @derive {Phoenix.Param, key: :subscription_id}
+  @primary_key {:interesting_message_id, :integer, []}
+  @derive {Phoenix.Param, key: :interesting_message_id}
 
-  schema "subscriptions" do
+  schema "interesting_messages" do
     belongs_to :user, Cforum.Accounts.User, references: :user_id
-    belongs_to :message, Cforum.Forums.Threads.Message, references: :message_id
+    belongs_to :message, Cforum.Forums.Message, references: :message_id
+
+    timestamps(inserted_at: :created_at)
   end
 
   @doc """

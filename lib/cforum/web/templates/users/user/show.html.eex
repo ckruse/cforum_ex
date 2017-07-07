@@ -134,8 +134,8 @@
               <em>Nachricht wurde gelöscht</em>
             <% else %>
               <%
-              thread = %Cforum.Forums.Threads.Thread{m.thread | message: m}
-              m = %Cforum.Forums.Threads.Message{m | thread: thread}
+              thread = %Cforum.Forums.Thread{m.thread | message: m}
+              m = %Cforum.Forums.Message{m | thread: thread}
               %>
               <div class="root">
                 <article class="threadlist thread">

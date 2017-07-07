@@ -60,4 +60,120 @@ defmodule Cforum.ForumsTest do
       assert %Ecto.Changeset{} = Forums.change_forum(forum)
     end
   end
+
+  describe "messages" do
+    alias Cforum.Forums.Message
+
+    @valid_attrs %{}
+    @update_attrs %{}
+    @invalid_attrs %{}
+
+    def message_fixture(attrs \\ %{}) do
+      {:ok, message} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Forums.create_message()
+
+      message
+    end
+
+    test "list_messages/0 returns all messages" do
+      message = message_fixture()
+      assert Forums.list_messages() == [message]
+    end
+
+    test "get_message!/1 returns the message with given id" do
+      message = message_fixture()
+      assert Forums.get_message!(message.id) == message
+    end
+
+    test "create_message/1 with valid data creates a message" do
+      assert {:ok, %Message{} = message} = Forums.create_message(@valid_attrs)
+    end
+
+    test "create_message/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Forums.create_message(@invalid_attrs)
+    end
+
+    test "update_message/2 with valid data updates the message" do
+      message = message_fixture()
+      assert {:ok, message} = Forums.update_message(message, @update_attrs)
+      assert %Message{} = message
+    end
+
+    test "update_message/2 with invalid data returns error changeset" do
+      message = message_fixture()
+      assert {:error, %Ecto.Changeset{}} = Forums.update_message(message, @invalid_attrs)
+      assert message == Forums.get_message!(message.id)
+    end
+
+    test "delete_message/1 deletes the message" do
+      message = message_fixture()
+      assert {:ok, %Message{}} = Forums.delete_message(message)
+      assert_raise Ecto.NoResultsError, fn -> Forums.get_message!(message.id) end
+    end
+
+    test "change_message/1 returns a message changeset" do
+      message = message_fixture()
+      assert %Ecto.Changeset{} = Forums.change_message(message)
+    end
+  end
+
+  describe "tags" do
+    alias Cforum.Forums.Tag
+
+    @valid_attrs %{}
+    @update_attrs %{}
+    @invalid_attrs %{}
+
+    def tag_fixture(attrs \\ %{}) do
+      {:ok, tag} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Forums.create_tag()
+
+      tag
+    end
+
+    test "list_tags/0 returns all tags" do
+      tag = tag_fixture()
+      assert Forums.list_tags() == [tag]
+    end
+
+    test "get_tag!/1 returns the tag with given id" do
+      tag = tag_fixture()
+      assert Forums.get_tag!(tag.id) == tag
+    end
+
+    test "create_tag/1 with valid data creates a tag" do
+      assert {:ok, %Tag{} = tag} = Forums.create_tag(@valid_attrs)
+    end
+
+    test "create_tag/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Forums.create_tag(@invalid_attrs)
+    end
+
+    test "update_tag/2 with valid data updates the tag" do
+      tag = tag_fixture()
+      assert {:ok, tag} = Forums.update_tag(tag, @update_attrs)
+      assert %Tag{} = tag
+    end
+
+    test "update_tag/2 with invalid data returns error changeset" do
+      tag = tag_fixture()
+      assert {:error, %Ecto.Changeset{}} = Forums.update_tag(tag, @invalid_attrs)
+      assert tag == Forums.get_tag!(tag.id)
+    end
+
+    test "delete_tag/1 deletes the tag" do
+      tag = tag_fixture()
+      assert {:ok, %Tag{}} = Forums.delete_tag(tag)
+      assert_raise Ecto.NoResultsError, fn -> Forums.get_tag!(tag.id) end
+    end
+
+    test "change_tag/1 returns a tag changeset" do
+      tag = tag_fixture()
+      assert %Ecto.Changeset{} = Forums.change_tag(tag)
+    end
+  end
 end

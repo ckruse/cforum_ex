@@ -1,12 +1,12 @@
-defmodule Cforum.Forums.Threads.MessageTag do
+defmodule Cforum.Forums.MessageTag do
   use Cforum.Web, :model
 
   @primary_key {:message_tag_id, :integer, []}
   @derive {Phoenix.Param, key: :message_tag_id}
 
   schema "messages_tags" do
-    belongs_to :message, Cforum.Forums.Threads.Message, references: :message_id
-    belongs_to :tag, Cforum.Forums.Threads.Tag, references: :tag_id
+    belongs_to :message, Cforum.Forums.Message, references: :message_id
+    belongs_to :tag, Cforum.Forums.Tag, references: :tag_id
   end
 
   @doc """

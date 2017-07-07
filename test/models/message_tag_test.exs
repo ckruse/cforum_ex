@@ -1,7 +1,7 @@
 defmodule Cforum.MessageTagTest do
   use Cforum.ModelCase
 
-  alias Cforum.Forums.Threads.MessageTag
+  alias Cforum.Forums.MessageTag
 
   @valid_attrs %{}
   @invalid_attrs %{}

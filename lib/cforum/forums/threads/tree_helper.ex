@@ -1,6 +1,6 @@
 defmodule Cforum.Forums.Threads.TreeHelper do
-  alias Cforum.Forums.Threads.Thread
-  alias Cforum.Forums.Threads.Message
+  alias Cforum.Forums.Thread
+  alias Cforum.Forums.Message
 
   def sort_threads([], _, _), do: []
   def sort_threads([thread | tail], direction, thread_modifier) do

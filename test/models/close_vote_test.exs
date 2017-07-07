@@ -1,7 +1,7 @@
 defmodule Cforum.CloseVoteTest do
   use Cforum.ModelCase
 
-  alias Cforum.Forums.Threads.CloseVote
+  alias Cforum.Forums.CloseVote
 
   @valid_attrs %{custom_reason: "some content", duplicate_slug: "some content", finished: true, reason: "some content", vote_type: true}
   @invalid_attrs %{}

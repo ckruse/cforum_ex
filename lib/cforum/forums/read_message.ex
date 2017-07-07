@@ -1,4 +1,4 @@
-defmodule Cforum.Forums.Threads.ReadMessage do
+defmodule Cforum.Forums.ReadMessage do
   use Cforum.Web, :model
 
   @primary_key {:read_message_id, :integer, []}
@@ -6,7 +6,7 @@ defmodule Cforum.Forums.Threads.ReadMessage do
 
   schema "read_messages" do
     belongs_to :user, Cforum.Accounts.User, references: :user_id
-    belongs_to :message, Cforum.Forums.Threads.Message, references: :message_id
+    belongs_to :message, Cforum.Forums.Message, references: :message_id
   end
 
   @doc """

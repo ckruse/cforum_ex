@@ -1,7 +1,7 @@
 defmodule Cforum.TagTest do
   use Cforum.ModelCase
 
-  alias Cforum.Forums.Threads.Tag
+  alias Cforum.Forums.Tag
 
   @valid_attrs %{num_messages: 42, slug: "some content", suggest: true, tag_name: "some content"}
   @invalid_attrs %{}

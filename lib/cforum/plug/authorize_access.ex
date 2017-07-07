@@ -10,7 +10,7 @@ defmodule Cforum.Plug.AuthorizeAccess do
   def call(conn, opts) do
     path = Phoenix.Controller.controller_module(conn)
     |> Atom.to_string
-    |> String.replace(~r{^Elixir\.Cforum\.Web}, "")
+    |> String.replace(~r{^Elixir\.Cforum\.Web\.}, "")
     |> String.replace(~r{Controller$}, "")
     |> Macro.underscore
 

@@ -23,8 +23,8 @@ defmodule Cforum.Forums.Forum do
     field :keywords, :string
     field :position, :integer
 
-    has_many :threads, Cforum.Forums.Threads.Thread
-    has_many :messages, Cforum.Forums.Threads.Message
+    has_many :threads, Cforum.Forums.Thread
+    has_many :messages, Cforum.Forums.Message
 
     timestamps(inserted_at: :created_at)
   end

@@ -1,8 +1,8 @@
 defmodule Cforum.Web.MessageView do
   use Cforum.Web, :view
 
-  alias Cforum.Forums.Threads.Thread
-  alias Cforum.Forums.Threads.Message
+  alias Cforum.Forums.Thread
+  alias Cforum.Forums.Message
 
   def first_class(classes, %{first: true}), do: [classes | ["first"]]
   def first_class(classes, _), do: classes

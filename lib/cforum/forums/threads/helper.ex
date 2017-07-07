@@ -1,11 +1,11 @@
 defmodule Cforum.Forums.Threads.Helper do
   alias Cforum.Repo
-  alias Cforum.Forums.Threads.Thread
-  alias Cforum.Forums.Threads.Message
+  alias Cforum.Forums.Thread
+  alias Cforum.Forums.Message
   alias Cforum.Accounts.User
 
   import Cforum.Forums.Threads.TreeHelper
-  import Cforum.Forums.Threads.MessageIndexHelper
+  import Cforum.Forums.Messages.IndexHelper
   import Ecto.Query
 
   @default_message_preloads [:user, :tags, votes: :voters]

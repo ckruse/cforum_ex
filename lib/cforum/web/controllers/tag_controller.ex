@@ -1,7 +1,7 @@
 defmodule Cforum.Web.TagController do
   use Cforum.Web, :controller
 
-  alias Cforum.Forums.Threads.Tag
+  alias Cforum.Forums.Tag
 
   def index(conn, _params) do
     tags = Repo.all(Tag)

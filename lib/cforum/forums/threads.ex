@@ -8,8 +8,8 @@ defmodule Cforum.Forums.Threads do
 
   alias Cforum.Repo
 
-  alias Cforum.Forums.Threads.Thread
-  alias Cforum.Forums.Threads.Messages
+  alias Cforum.Forums.Thread
+  alias Cforum.Forums.Messages
 
   @doc """
   Returns the list of threads.
