@@ -9,12 +9,7 @@
       <td>
         <div class="root">
           <article class="threadlist thread">
-            <%
-            m = Cforum.Accounts.Score.get_message(s)
-            thread = %Cforum.Forums.Thread{m.thread | message: m}
-            m = %Cforum.Forums.Message{m | thread: thread}
-            %>
-            <%= render Cforum.Web.MessageView, "header.html", conn: @conn, thread: m.thread, message: m, show_votes: true, id: false  %>
+            <%= render Cforum.Web.MessageView, "header.html", conn: @conn, thread: s.message.thread, message: s.message, show_votes: true, id: false  %>
           </article>
         </div>
       </td>

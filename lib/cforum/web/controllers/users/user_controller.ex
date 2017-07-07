@@ -3,16 +3,11 @@ defmodule Cforum.Web.Users.UserController do
 
   plug Cforum.Plug.AuthorizeAccess, only: [:edit, :update, :confirm_delete, :delete, :show_votes]
 
-  alias Cforum.Accounts.User
-  alias Cforum.Accounts.Users
-  alias Cforum.Accounts.Score
-  alias Cforum.Forums.Messages
+  alias Cforum.Accounts.{Users, User}
+  alias Cforum.Forums.{Messages, Message}
+  alias Cforum.Forums.{Votes, Vote}
   alias Cforum.Forums.Thread
-  alias Cforum.Forums.Message
-  alias Cforum.Forums.MessageTag
-  alias Cforum.Forums.Tag
-  alias Cforum.Forums.Forum
-  alias Cforum.Forums.Vote
+  alias Cforum.Accounts.Score
 
   def index(conn, params) do
     {users, conn} = Cforum.Sortable.sort(User, conn, [:username, :score, :activity, :created_at])
@@ -129,30 +124,36 @@ defmodule Cforum.Web.Users.UserController do
     
     paging = Messages.list_scored_msgs_for_user_in_perspective(conn.assigns[:current_user], user, forum_ids)
     |> paginate(page: params["p"])
+
+    scores = Enum.map(paging.entries, fn(score) ->
+      msg = Score.get_message(score)
+      thread = %Thread{msg.thread | message: msg}
+      %Score{score | message: %Message{msg | thread: thread}}
+    end)
+
     
     render(conn, "show_scores.html",
            user: user,
            paging: paging,
-           scores: paging.entries)
+           scores: scores)
   end
 
   def show_votes(conn, %{"id" => id} = params) do
     user = Repo.get!(User, id)
     forum_ids = Enum.map(conn.assigns[:visible_forums], &(&1.forum_id))
 
-    paging = from(v in Vote,
-      inner_join: m in Message, on: m.message_id == v.message_id,
-      preload: [:score, message: [:user, :tags,
-                                  [thread: :forum, votes: :voters]]],
-      where: v.user_id == ^user.user_id,
-      where: m.forum_id in (^forum_ids) and m.deleted == false,
-      order_by: [desc: m.created_at])
+    paging = Votes.list_votes_for_user(user, forum_ids)
     |> paginate(page: params["p"])
+
+    votes = Enum.map(paging.entries, fn(vote) ->
+      thread = %Cforum.Forums.Thread{vote.message.thread | message: vote.message}
+      %Vote{vote | message: %Cforum.Forums.Message{vote.message | thread: thread}}
+    end)
 
     render(conn, "show_votes.html",
       user: user,
       paging: paging,
-      votes: paging.entries)
+      votes: votes)
   end
 
   def edit(conn, %{"id" => id}) do
