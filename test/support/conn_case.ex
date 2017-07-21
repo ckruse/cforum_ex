@@ -20,10 +20,7 @@ defmodule Cforum.Web.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
 
-      alias Cforum.Repo
-      import Ecto
-      import Ecto.Changeset
-      import Ecto.Query
+      import Plug.Test
 
       import Cforum.Web.Router.Helpers
       import Cforum.Web.Gettext
@@ -44,11 +41,8 @@ defmodule Cforum.Web.ConnCase do
       def login(%Plug.Conn{} = conn, user, token), do: login(conn, user, token, [])
       def login(%Plug.Conn{} = conn, user, token, opts) do
         conn
-        |> bypass_through(Cforum.Router, [:browser])
-        |> get("/")
+        |> init_test_session([])
         |> Guardian.Plug.sign_in(user, token, opts)
-        |> send_resp(200, "Flush the session yo")
-        |> recycle()
       end
     end
   end
