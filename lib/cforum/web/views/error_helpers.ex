@@ -32,9 +32,9 @@ defmodule Cforum.Web.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext(Cforum.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(Cforum.Web.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(Cforum.Gettext, "errors", msg, opts)
+      Gettext.dgettext(Cforum.Web.Gettext, "errors", msg, opts)
     end
   end
 end

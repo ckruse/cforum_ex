@@ -133,9 +133,9 @@ defmodule Cforum.Accounts.Users do
   def conf(user, name) do
     vals = case user.settings do
              nil ->
-               {}
+               %{}
              set ->
-               set.options || {}
+               set.options || %{}
            end
 
     vals[name] || Cforum.ConfigManager.defaults[name]
