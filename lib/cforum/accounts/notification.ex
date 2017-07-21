@@ -22,7 +22,7 @@ defmodule Cforum.Accounts.Notification do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:is_read, :subject, :path, :icon, :oid, :otype, :description])
-    |> validate_required([:is_read, :subject, :path, :icon, :oid, :otype, :description])
+    |> cast(params, [:is_read, :subject, :path, :icon, :oid, :otype, :description, :recipient_id])
+    |> validate_required([:is_read, :subject, :path, :oid, :otype, :recipient_id])
   end
 end

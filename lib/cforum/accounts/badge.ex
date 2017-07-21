@@ -24,7 +24,8 @@ defmodule Cforum.Accounts.Badge do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:reason, :duplicate_slug, :custom_reason, :finished, :vote_type])
-    |> validate_required([:reason, :duplicate_slug, :custom_reason, :finished, :vote_type])
+    |> cast(params, [:score_needed, :name, :description, :slug,
+                     :badge_medal_type, :badge_type, :order])
+    |> validate_required([:name, :slug, :badge_medal_type, :badge_type, :order])
   end
 end

@@ -17,8 +17,10 @@ defmodule Cforum.Accounts.Scores do
       [%Score{}, ...]
 
   """
-  def list_scores do
-    Repo.all(Score)
+  def list_scores(user) do
+    from(score in Score,
+      where: score.user_id == ^user.user_id)
+    |> Repo.all
   end
 
   @doc """

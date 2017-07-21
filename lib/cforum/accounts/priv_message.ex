@@ -24,7 +24,8 @@ defmodule Cforum.Accounts.PrivMessage do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:is_read, :subject, :path, :icon, :oid, :otype, :description])
-    |> validate_required([:is_read, :subject, :path, :icon, :oid, :otype, :description])
+    |> cast(params, [:sender_id, :recipient_id, :owner_id, :is_read, :subject,
+                     :body, :sender_name, :recipient_name, :thread_id])
+    |> validate_required([:owner_id, :is_read, :subject, :body, :sender_name, :recipient_name])
   end
 end

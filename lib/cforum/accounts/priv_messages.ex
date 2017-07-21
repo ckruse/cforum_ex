@@ -35,7 +35,7 @@ defmodule Cforum.Accounts.PrivMessages do
       ** (Ecto.NoResultsError)
 
   """
-  def get_priv_messages!(id), do: Repo.get!(PrivMessage, id)
+  def get_priv_message!(id), do: Repo.get!(PrivMessage, id)
 
   @doc """
   Creates a priv_messages.
@@ -49,7 +49,7 @@ defmodule Cforum.Accounts.PrivMessages do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_priv_messages(attrs \\ %{}) do
+  def create_priv_message(attrs \\ %{}) do
     %PrivMessage{}
     |> PrivMessage.changeset(attrs)
     |> Repo.insert()
@@ -67,7 +67,7 @@ defmodule Cforum.Accounts.PrivMessages do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_priv_messages(%PrivMessage{} = priv_messages, attrs) do
+  def update_priv_message(%PrivMessage{} = priv_messages, attrs) do
     priv_messages
     |> PrivMessage.changeset(attrs)
     |> Repo.update()
@@ -85,7 +85,7 @@ defmodule Cforum.Accounts.PrivMessages do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_priv_messages(%PrivMessage{} = priv_messages) do
+  def delete_priv_message(%PrivMessage{} = priv_messages) do
     Repo.delete(priv_messages)
   end
 
@@ -98,7 +98,7 @@ defmodule Cforum.Accounts.PrivMessages do
       %Ecto.Changeset{source: %PrivMessage{}}
 
   """
-  def change_priv_messages(%PrivMessage{} = priv_messages) do
+  def change_priv_message(%PrivMessage{} = priv_messages) do
     PrivMessage.changeset(priv_messages, %{})
   end
 end

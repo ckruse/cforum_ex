@@ -17,8 +17,11 @@ defmodule Cforum.Accounts.Notifications do
       [%Notification{}, ...]
 
   """
-  def list_notifications do
-    Repo.all(Notification)
+  def list_notifications(user, ordering \\ [desc: :created_at]) do
+    from(notification in Notification,
+      where: notification.recipient_id == ^user.user_id,
+      order_by: ^ordering)
+    |> Repo.all
   end
 
   @doc """

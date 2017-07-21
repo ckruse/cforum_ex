@@ -6,11 +6,12 @@ defmodule Cforum.Accounts.Score do
 
   schema "scores" do
     field :value, :integer
-    field :created_at, :utc_datetime
 
     belongs_to :user, Cforum.Accounts.User, references: :user_id
     belongs_to :vote, Cforum.Forums.Vote, references: :vote_id
     belongs_to :message, Cforum.Forums.Message, references: :message_id
+
+    timestamps(inserted_at: :created_at, updated_at: nil)
   end
 
   @doc """
@@ -18,8 +19,8 @@ defmodule Cforum.Accounts.Score do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:value])
-    |> validate_required([:value])
+    |> cast(params, [:value, :user_id, :vote_id, :message_id])
+    |> validate_required([:value, :user_id])
   end
 
   def get_message(%Cforum.Accounts.Score{vote_id: vid, message_id: mid}) when is_nil(vid) and is_nil(mid), do: nil
