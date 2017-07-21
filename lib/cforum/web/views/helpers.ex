@@ -29,7 +29,7 @@ defmodule Cforum.Web.Helpers do
     #   |> Keyword.take([:multipart])
     #   |> Keyword.merge(options)
 
-    attr = Map.get(form.data, field)
+    attr = Map.get(form.data, field) || %{}
     symbolized_attr = Enum.reduce(Map.keys(attr), %{}, fn(key, map) -> Map.put(map, String.to_atom(key), attr[key]) end)
     types = Enum.reduce(Map.keys(symbolized_attr), %{}, fn(key, map) -> Map.put(map, key, :string) end)
 

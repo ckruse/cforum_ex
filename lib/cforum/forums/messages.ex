@@ -28,6 +28,13 @@ defmodule Cforum.Forums.Messages do
     Repo.all(Message)
   end
 
+  def list_messages_for_user(user, forum_ids) do
+    from(m in Message,
+      preload: [:user, :tags, [votes: :voters, thread: :forum]],
+      where: m.user_id == ^user.user_id and m.deleted == false and m.forum_id in (^forum_ids),
+      order_by: [desc: :created_at])
+  end
+
   def list_last_messages_for_user(user, forum_ids, limit \\ 5) do
     from(m in Message,
       preload: [:user, :tags, [votes: :voters, thread: :forum]],

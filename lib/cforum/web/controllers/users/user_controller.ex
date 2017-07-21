@@ -18,29 +18,8 @@ defmodule Cforum.Web.Users.UserController do
     render(conn, "index.html", users: paging.entries, paging: paging)
   end
 
-  def new(conn, _params) do
-    changeset = User.changeset(%User{})
-    render(conn, "new.html", changeset: changeset)
-  end
-
-  def create(conn, %{"user" => user_params}) do
-    changeset = User.changeset(%User{}, user_params)
-
-    case Repo.insert(changeset) do
-      {:ok, _user} ->
-        conn
-        |> put_flash(:info, "User created successfully.")
-        |> redirect(to: user_path(conn, :index))
-      {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
-    end
-  end
-
   def show(conn, %{"id" => id}) do
-    user = from(u in User,
-      preload: [:settings, [badges_users: :badge]],
-      where: u.user_id == ^id)
-    |> Repo.one!
+    user = Users.get_user!(id)
 
     forum_ids = Enum.map(conn.assigns[:visible_forums], &(&1.forum_id))
     messages_count = Messages.count_messages_for_user(user)
@@ -98,13 +77,10 @@ defmodule Cforum.Web.Users.UserController do
   end
 
   def show_messages(conn, %{"id" => id} = params) do
-    user = Repo.get!(User, id)
+    user = Users.get_user!(id)
     forum_ids = Enum.map(conn.assigns[:visible_forums], &(&1.forum_id))
 
-    paging = from(m in Message,
-      preload: [:user, :tags, [votes: :voters, thread: :forum]],
-      where: m.user_id == ^user.user_id and m.deleted == false and m.forum_id in (^forum_ids),
-      order_by: [desc: :created_at])
+    paging = Messages.list_messages_for_user(user, forum_ids)
     |> paginate(page: params["p"])
 
     messages = Enum.map(paging.entries, fn(msg) ->
@@ -119,7 +95,7 @@ defmodule Cforum.Web.Users.UserController do
   end
 
   def show_scores(conn, %{"id" => id} = params) do
-    user = Repo.get!(User, id)
+    user = Users.get_user!(id)
     forum_ids = Enum.map(conn.assigns[:visible_forums], &(&1.forum_id))
     
     paging = Messages.list_scored_msgs_for_user_in_perspective(conn.assigns[:current_user], user, forum_ids)
@@ -139,7 +115,7 @@ defmodule Cforum.Web.Users.UserController do
   end
 
   def show_votes(conn, %{"id" => id} = params) do
-    user = Repo.get!(User, id)
+    user = Users.get_user!(id)
     forum_ids = Enum.map(conn.assigns[:visible_forums], &(&1.forum_id))
 
     paging = Votes.list_votes_for_user(user, forum_ids)
@@ -157,39 +133,35 @@ defmodule Cforum.Web.Users.UserController do
   end
 
   def edit(conn, %{"id" => id}) do
-    user = Repo.get!(User, id) |> Repo.preload(:settings)
-    changeset = User.changeset(user)
+    user = Users.get_user!(id)
+    changeset = Users.change_user(user)
     render(conn, "edit.html", user: user, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Repo.get!(User, id)
-    changeset = User.changeset(user, user_params)
+    user = Users.get_user!(id)
 
-    case Repo.update(changeset) do
+    case Users.update_user(user, user_params) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "User updated successfully.")
+        |> put_flash(:info, gettext("User updated successfully."))
         |> redirect(to: user_path(conn, :show, user))
-      {:error, changeset} ->
+      {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)
     end
   end
 
   def confirm_delete(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
+    user = Users.get_user!(id)
     render(conn, "confirm_delete.html", user: user)
   end
 
   def delete(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
-
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(user)
+    user = Users.get_user!(id)
+    {:ok, _user} = Users.delete_user(user)
 
     conn
-    |> put_flash(:info, "User deleted successfully.")
+    |> put_flash(:info, gettext("User deleted successfully."))
     |> redirect(to: user_path(conn, :index))
   end
 

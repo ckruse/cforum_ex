@@ -1,66 +1,63 @@
 defmodule Cforum.UserControllerTest do
   use Cforum.Web.ConnCase
 
+  alias Cforum.Accounts.Users
   alias Cforum.Accounts.User
-  @valid_attrs %{active: true, admin: true, email: "some content", username: "some content"}
-  @invalid_attrs %{}
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, user_path(conn, :index)
-    assert html_response(conn, 200) =~ gettext("Listing users")
+    assert html_response(conn, 200) =~ gettext("Users")
   end
 
-  # test "renders form for new resources", %{conn: conn} do
-  #   conn = get conn, user_path(conn, :new)
-  #   assert html_response(conn, 200) =~ "New user"
-  # end
+  test "shows chosen resource", %{conn: conn} do
+    user = insert(:user)
+    conn = get conn, user_path(conn, :show, user)
+    assert html_response(conn, 200) =~ gettext("User %{username}", username: user.username)
+  end
 
-  # test "creates resource and redirects when data is valid", %{conn: conn} do
-  #   conn = post conn, user_path(conn, :create), user: @valid_attrs
-  #   assert redirected_to(conn) == user_path(conn, :index)
-  #   assert Repo.get_by(User, @valid_attrs)
-  # end
+  test "renders page not found when id is nonexistent", %{conn: conn} do
+    assert_error_sent 404, fn ->
+      get conn, user_path(conn, :show, -1)
+    end
+  end
 
-  # test "does not create resource and renders errors when data is invalid", %{conn: conn} do
-  #   conn = post conn, user_path(conn, :create), user: @invalid_attrs
-  #   assert html_response(conn, 200) =~ "New user"
-  # end
+  test "renders form for editing chosen resource", %{conn: conn} do
+    user = insert(:user)
+    conn = login(conn, user)
+    |> get(user_path(conn, :edit, user))
+    assert html_response(conn, 200) =~ gettext("Edit profile: %{username}", username: user.username)
+  end
 
-  # test "shows chosen resource", %{conn: conn} do
-  #   user = Repo.insert! %User{}
-  #   conn = get conn, user_path(conn, :show, user)
-  #   assert html_response(conn, 200) =~ "Show user"
-  # end
+  test "updates chosen resource and redirects when data is valid", %{conn: conn} do
+    user = insert(:user)
+    conn = login(conn, user)
+    |> put(user_path(conn, :update, user), user: %{username: "Luke"})
 
-  # test "renders page not found when id is nonexistent", %{conn: conn} do
-  #   assert_error_sent 404, fn ->
-  #     get conn, user_path(conn, :show, -1)
-  #   end
-  # end
+    assert redirected_to(conn) == user_path(conn, :show, user)
+    user1 = Users.get_user!(user.user_id)
+    assert %User{} = user1
+    assert user1.username == "Luke"
+  end
 
-  # test "renders form for editing chosen resource", %{conn: conn} do
-  #   user = Repo.insert! %User{}
-  #   conn = get conn, user_path(conn, :edit, user)
-  #   assert html_response(conn, 200) =~ "Edit user"
-  # end
+  test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
+    user = insert(:user)
+    conn = login(conn, user)
+    |> put(user_path(conn, :update, user), user: %{username: nil})
+    assert html_response(conn, 200) =~ gettext("Edit profile: %{username}", username: user.username)
+  end
 
-  # test "updates chosen resource and redirects when data is valid", %{conn: conn} do
-  #   user = Repo.insert! %User{}
-  #   conn = put conn, user_path(conn, :update, user), user: @valid_attrs
-  #   assert redirected_to(conn) == user_path(conn, :show, user)
-  #   assert Repo.get_by(User, @valid_attrs)
-  # end
+  test "shows deletion confirmation dialogue", %{conn: conn} do
+    user = insert(:user)
+    conn = login(conn, user)
+    |> get(user_path(conn, :confirm_delete, user))
+    assert html_response(conn, 200) =~ gettext("Delete user %{username}", username: user.username)
+  end
 
-  # test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-  #   user = Repo.insert! %User{}
-  #   conn = put conn, user_path(conn, :update, user), user: @invalid_attrs
-  #   assert html_response(conn, 200) =~ "Edit user"
-  # end
-
-  # test "deletes chosen resource", %{conn: conn} do
-  #   user = Repo.insert! %User{}
-  #   conn = delete conn, user_path(conn, :delete, user)
-  #   assert redirected_to(conn) == user_path(conn, :index)
-  #   refute Repo.get(User, user.id)
-  # end
+  test "deletes chosen resource", %{conn: conn} do
+    user = insert(:user)
+    conn = login(conn, user)
+    |> delete(user_path(conn, :delete, user))
+    assert redirected_to(conn) == user_path(conn, :index)
+    assert_raise Ecto.NoResultsError, fn -> Users.get_user!(user.user_id) end
+  end
 end
