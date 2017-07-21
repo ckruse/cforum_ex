@@ -39,7 +39,9 @@ defmodule Cforum.Accounts.Users do
 
   def get_user_by_username_or_email!(login) do
     from(user in User,
-      where: user.active == true and (user.email == ^login or user.username == ^login))
+      where: user.active == true and
+             (fragment("lower(?)", user.email) == fragment("lower(?)", ^login) or
+              fragment("lower(?)", user.username) == fragment("lower(?)", ^login)))
     |> Repo.one!
   end
 
