@@ -35,10 +35,16 @@ defmodule Cforum.Accounts.Users do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id) do
+    from(u in User,
+      preload: [:settings, [badges_users: :badge]],
+      where: u.user_id == ^id)
+    |> Repo.one!
+  end
 
   def get_user_by_username_or_email!(login) do
     from(user in User,
+      preload: [:settings, [badges_users: :badge]],
       where: user.active == true and
              (fragment("lower(?)", user.email) == fragment("lower(?)", ^login) or
               fragment("lower(?)", user.username) == fragment("lower(?)", ^login)))
