@@ -1,53 +1,52 @@
-<%= form_for @changeset, @action, fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
-    </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= label f, :slug, class: "control-label" %>
-    <%= text_input f, :slug, class: "form-control" %>
-    <%= error_tag f, :slug %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :short_name, class: "control-label" %>
-    <%= text_input f, :short_name, class: "form-control" %>
-    <%= error_tag f, :short_name %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :name, class: "control-label" %>
-    <%= text_input f, :name, class: "form-control" %>
-    <%= error_tag f, :name %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :description, class: "control-label" %>
-    <%= textarea f, :description, class: "form-control" %>
-    <%= error_tag f, :description %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :standard_permission, class: "control-label" %>
-    <%= text_input f, :standard_permission, class: "form-control" %>
-    <%= error_tag f, :standard_permission %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :keywords, class: "control-label" %>
-    <%= text_input f, :keywords, class: "form-control" %>
-    <%= error_tag f, :keywords %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :position, class: "control-label" %>
-    <%= number_input f, :position, class: "form-control" %>
-    <%= error_tag f, :position %>
-  </div>
-
-  <div class="form-group">
-    <%= submit "Submit", class: "btn btn-primary" %>
+<%= if @changeset.action do %>
+  <div class="alert alert-danger">
+    <p><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
   </div>
 <% end %>
+
+
+<div class="cf-cgroup">
+  <%= label @f, :name, gettext("Name") %>
+  <%= text_input @f, :name %>
+  <%= error_tag @f, :name %>
+</div>
+
+<div class="cf-cgroup">
+  <%= label @f, :short_name, gettext("Short name") %>
+  <%= text_input @f, :short_name %>
+  <%= error_tag @f, :short_name %>
+</div>
+
+<div class="cf-cgroup">
+  <%= label @f, :slug, gettext("Slug") %>
+  <%= text_input @f, :slug %>
+  <%= error_tag @f, :slug %>
+</div>
+
+<div class="cf-cgroup">
+  <%= label @f, :standard_permission, gettext("Standard permission") %>
+  <%= select(@f, :standard_permission, [{gettext("private"), "private"},
+                                        {gettext("read"), Cforum.Forums.Forum.read()},
+                                        {gettext("write"), Cforum.Forums.Forum.write()},
+                                        {gettext("known-read"), Cforum.Forums.Forum.known_read()},
+                                        {gettext("known-write"), Cforum.Forums.Forum.known_write()}]) %>
+  <%= error_tag @f, :standard_permission %>
+</div>
+
+<div class="cf-cgroup">
+  <%= label @f, :keywords, gettext("Keywords") %>
+  <%= text_input @f, :keywords %>
+  <%= error_tag @f, :keywords %>
+</div>
+
+<div class="cf-cgroup">
+  <%= label @f, :position, gettext("Position") %>
+  <%= number_input @f, :position %>
+  <%= error_tag @f, :position %>
+</div>
+
+<div class="cf-cgroup">
+  <%= label @f, :description, gettext("Description") %>
+  <%= textarea @f, :description %>
+  <%= error_tag @f, :description %>
+</div>

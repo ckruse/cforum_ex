@@ -1,4 +1,4 @@
-<h2>Show forum</h2>
+<h2><%= gettext("Show Forum „%{forum}“", forum: @forum.name) %></h2>
 
 <ul>
 

@@ -113,20 +113,20 @@
 // }
 
 .btn {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: pointer;
-    -moz-user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -moz-user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
 }
 
 .btn:hover, .btn:focus, .btn.focus, a.btn:hover, a.btn:focus, a.btn.focus {
@@ -138,8 +138,8 @@
 
 .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus,
 .btn.focus:active, .btn.active.focus {
-    outline: thin dotted;
-    outline-offset: -2px;
+  outline: thin dotted;
+  outline-offset: -2px;
 }
 
 .cf-btn, .message-links .cf-btn, .button_to .cf-btn {
@@ -147,6 +147,24 @@
   color: #333;
   background-color: #FFF;
   border-color: #CCC;
+}
+
+.cf-btn-xs {
+  padding:1px 6px;
+  line-height: 1em;
+}
+
+.cf-index-btn {
+  @extend .cf-btn;
+  @extend .cf-btn-xs;
+}
+.cf-destructive-btn {
+  @extend .cf-btn;
+  @extend .cf-btn-xs;
+
+  color: #fff;
+  background-color: #d9534f;
+  border-color: #d43f3a
 }
 
 .cf-btn:hover, .cf-btn:focus, .cf-btn.focus,
@@ -323,7 +341,7 @@ input[type="search"] { -webkit-appearance: textfield; }
 //   }
 // }
 
-form.link {
+form.link, form.button {
   display:inline;
   margin:0;
   padding:0;
