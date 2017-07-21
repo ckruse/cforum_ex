@@ -36,6 +36,7 @@ defmodule Cforum.Forums do
 
   """
   def get_forum!(id), do: Repo.get!(Forum, id)
+  def get_forum_by_slug!(slug), do: Repo.get_by!(Forum, slug: slug)
 
   @doc """
   Creates a forum.

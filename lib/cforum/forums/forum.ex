@@ -35,7 +35,7 @@ defmodule Cforum.Forums.Forum do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:slug, :short_name, :name, :description, :standard_permission, :keywords, :position])
-    |> validate_required([:slug, :short_name, :name, :description, :standard_permission, :keywords, :position])
+    |> validate_required([:slug, :short_name, :name, :description, :standard_permission, :position])
     |> unique_constraint(:slug)
   end
 
