@@ -1,7 +1,7 @@
 defmodule Cforum.Forums.Forum do
   use Cforum.Web, :model
 
-  @primary_key {:forum_id, :integer, []}
+  @primary_key {:forum_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :slug}
 
   @read "read"

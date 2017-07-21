@@ -1,7 +1,7 @@
 defmodule Cforum.Forums.Tag do
   use Cforum.Web, :model
 
-  @primary_key {:tag_id, :integer, []}
+  @primary_key {:tag_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :slug}
 
   schema "tags" do

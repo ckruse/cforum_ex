@@ -1,7 +1,7 @@
 defmodule Cforum.Forums.InterestingMessage do
   use Cforum.Web, :model
 
-  @primary_key {:interesting_message_id, :integer, []}
+  @primary_key {:interesting_message_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :interesting_message_id}
 
   schema "interesting_messages" do

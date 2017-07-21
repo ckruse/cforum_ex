@@ -1,7 +1,7 @@
 defmodule Cforum.Forums.ReadMessage do
   use Cforum.Web, :model
 
-  @primary_key {:read_message_id, :integer, []}
+  @primary_key {:read_message_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :read_message_id}
 
   schema "read_messages" do

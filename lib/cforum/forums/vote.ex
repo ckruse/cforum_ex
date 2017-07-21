@@ -1,7 +1,7 @@
 defmodule Cforum.Forums.Vote do
   use Cforum.Web, :model
 
-  @primary_key {:vote_id, :integer, []}
+  @primary_key {:vote_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :vote_id}
 
   schema "votes" do

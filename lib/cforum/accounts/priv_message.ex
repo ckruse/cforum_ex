@@ -1,7 +1,7 @@
 defmodule Cforum.Accounts.PrivMessage do
   use Cforum.Web, :model
 
-  @primary_key {:priv_message_id, :integer, []}
+  @primary_key {:priv_message_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :priv_message_id}
 
   schema "priv_messages" do

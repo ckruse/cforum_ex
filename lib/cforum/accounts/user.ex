@@ -5,7 +5,7 @@ defmodule Cforum.Accounts.User do
   import Cforum.Web.Gettext
   alias Phoenix.Token
 
-  @primary_key {:user_id, :integer, []}
+  @primary_key {:user_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :user_id}
 
   schema "users" do

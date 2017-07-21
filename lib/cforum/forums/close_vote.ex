@@ -1,7 +1,7 @@
 defmodule Cforum.Forums.CloseVote do
   use Cforum.Web, :model
 
-  @primary_key {:close_vote_id, :integer, []}
+  @primary_key {:close_vote_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :close_vote_id}
 
   schema "close_votes" do

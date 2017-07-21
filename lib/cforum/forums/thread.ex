@@ -1,7 +1,7 @@
 defmodule Cforum.Forums.Thread do
   use Cforum.Web, :model
 
-  @primary_key {:thread_id, :integer, []}
+  @primary_key {:thread_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :thread_id}
 
   schema "threads" do

@@ -1,7 +1,7 @@
 defmodule Cforum.Forums.Message do
   use Cforum.Web, :model
 
-  @primary_key {:message_id, :integer, []}
+  @primary_key {:message_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :message_id}
 
   schema "messages" do

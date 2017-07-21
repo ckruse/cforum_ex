@@ -1,7 +1,7 @@
 defmodule Cforum.Accounts.Badge do
   use Cforum.Web, :model
 
-  @primary_key {:badge_id, :integer, []}
+  @primary_key {:badge_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :badge_id}
 
   schema "badges" do
