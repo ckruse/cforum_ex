@@ -18,10 +18,14 @@ defmodule Cforum.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
+    apps = [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
+            :phoenix_ecto, :postgrex, :timex, :guardian, :number, :bamboo, :bamboo_smtp,
+            :arc_ecto]
+
+    apps = if Mix.env == :test, do: apps ++ [:faker], else: apps
+
     [mod: {Cforum, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :timex, :guardian, :number, :bamboo, :bamboo_smtp,
-                    :arc_ecto, :faker]]
+     applications: apps]
   end
 
   # Specifies which paths to compile per environment.
