@@ -9,6 +9,7 @@ defmodule Cforum.Mixfile do
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     test_coverage: [tool: Coverex.Task, ignore_modules: ignored_modules()],
      aliases: aliases(),
      deps: deps()]
   end
@@ -19,7 +20,7 @@ defmodule Cforum.Mixfile do
   def application do
     [mod: {Cforum, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :guardian, :number, :bamboo, :bamboo_smtp,
+                    :phoenix_ecto, :postgrex, :timex, :guardian, :number, :bamboo, :bamboo_smtp,
                     :arc_ecto]]
   end
 
@@ -47,7 +48,11 @@ defmodule Cforum.Mixfile do
      {:timex, "~> 3.0"},
      {:timex_ecto, "~> 3.0"},
      {:arc_ecto, "~> 0.7"},
-     {:arc, "~> 0.7"}]
+     {:arc, "~> 0.7"},
+
+     {:ex_guard, "~> 1.2", only: :dev},
+     {:coverex, "~> 1.4.10", only: :test},
+     {:ex_machina, "~> 2.0", only: :test}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
@@ -60,5 +65,17 @@ defmodule Cforum.Mixfile do
     ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
      "ecto.reset": ["ecto.drop", "ecto.setup"],
      "test": ["ecto.create --quiet", "ecto.migrate", "test"]]
+  end
+
+  defp ignored_modules do
+    [Elixir.Phoenix.Param.Cforum.Accounts.Badge, Elixir.Phoenix.Param.Cforum.Accounts.BadgeUser,
+     Elixir.Phoenix.Param.Cforum.Accounts.Notification, Elixir.Phoenix.Param.Cforum.Accounts.PrivMessage,
+     Elixir.Phoenix.Param.Cforum.Accounts.Score, Elixir.Phoenix.Param.Cforum.Accounts.Setting,
+     Elixir.Phoenix.Param.Cforum.Accounts.User, Elixir.Phoenix.Param.Cforum.Forums.CloseVote,
+     Elixir.Phoenix.Param.Cforum.Forums.CloseVoteVoter, Elixir.Phoenix.Param.Cforum.Forums.Forum,
+     Elixir.Phoenix.Param.Cforum.Forums.InterestingMessage, Elixir.Phoenix.Param.Cforum.Forums.Message,
+     Elixir.Phoenix.Param.Cforum.Forums.MessageTag, Elixir.Phoenix.Param.Cforum.Forums.ReadMessage,
+     Elixir.Phoenix.Param.Cforum.Forums.Subscription, Elixir.Phoenix.Param.Cforum.Forums.Tag,
+     Elixir.Phoenix.Param.Cforum.Forums.Thread, Elixir.Phoenix.Param.Cforum.Forums.Vote]
   end
 end

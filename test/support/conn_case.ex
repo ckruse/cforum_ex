@@ -27,6 +27,7 @@ defmodule Cforum.Web.ConnCase do
 
       import Cforum.Web.Router.Helpers
       import Cforum.Web.Gettext
+      import Cforum.Factory
 
       # The default endpoint for testing
       @endpoint Cforum.Web.Endpoint
