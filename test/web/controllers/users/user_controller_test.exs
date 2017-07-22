@@ -1,4 +1,4 @@
-defmodule Cforum.UserControllerTest do
+defmodule Cforum.User.UserControllerTest do
   use Cforum.Web.ConnCase
 
   alias Cforum.Accounts.Users
