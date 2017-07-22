@@ -15,6 +15,10 @@ defmodule Cforum.UserFactory do
         %{user | admin: true}
       end
 
+      def with_password(user, pass) do
+        %{user | encrypted_password: Comeonin.Bcrypt.hashpwsalt(pass)}
+      end
+
     end # quote
   end # defmacro
 end # defmodule
