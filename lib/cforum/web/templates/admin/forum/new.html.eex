@@ -5,6 +5,6 @@
 
   <p class="form-actions">
     <%= submit gettext("Save changes"), class: "cf-primary-btn" %>
-    <%= link gettext("Cancel"), to: admin_forum_path(@conn, :index), class: "cf-btn" %>
+    <%= link gettext("cancel"), to: admin_forum_path(@conn, :index), class: "cf-btn" %>
   </p>
 <% end %>
