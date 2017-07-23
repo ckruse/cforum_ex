@@ -21,7 +21,7 @@ defmodule Cforum.Users.SessionControllerTest do
 
     conn = post conn, session_path(conn, :create, session: %{login: user.username,
                                                              password: "1234",
-                                                             remember_me: "1"})
+                                                             remember_me: "true"})
 
     assert redirected_to(conn) == forum_path(conn, :index)
     assert get_flash(conn, :info) == gettext("You logged in successfully")
@@ -34,7 +34,7 @@ defmodule Cforum.Users.SessionControllerTest do
 
     conn = post conn, session_path(conn, :create, session: %{login: user.username,
                                                              password: "12345",
-                                                             remember_me: "1"})
+                                                             remember_me: "true"})
 
     assert html_response(conn, 200) =~ gettext("Login")
     assert get_flash(conn, :error) == gettext("Username or password wrong")
@@ -50,6 +50,22 @@ defmodule Cforum.Users.SessionControllerTest do
 
     assert redirected_to(conn) == forum_path(conn, :index)
     assert get_flash(conn, :info) == gettext("You logged out successfully")
+  end
+
+  test "deletes the remember_me token upon logout", %{conn: conn} do
+    user = build(:user)
+    |> with_password("1234")
+    |> insert
+
+    conn = post(conn, session_path(conn, :create, session: %{login: user.username,
+                                                             password: "1234",
+                                                             remember_me: "true"}))
+
+    conn = delete(conn, session_path(conn, :delete))
+
+    assert redirected_to(conn) == forum_path(conn, :index)
+    assert get_flash(conn, :info) == gettext("You logged out successfully")
+    assert conn.cookies["remember_me"] == nil
   end
 
   test "confirms logout even when not logged in", %{conn: conn} do
