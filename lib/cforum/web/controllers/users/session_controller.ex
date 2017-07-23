@@ -1,14 +1,11 @@
 defmodule Cforum.Web.Users.SessionController do
   use Cforum.Web, :controller
 
+  plug Cforum.Plug.EnsureAnonymous, only: [:new, :create]
+  plug Cforum.Plug.EnsureLoggedIn, only: [:delete]
+
   def new(conn, _params) do
-    if conn.assigns[:current_user] == nil do
-      render conn, "new.html"
-    else
-      conn
-      |> put_flash(:error, gettext("You are already logged in"))
-      |> redirect(to: forum_path(conn, :index))
-    end
+    render conn, "new.html"
   end
 
   def create(conn, %{"session" => %{"login" => user,

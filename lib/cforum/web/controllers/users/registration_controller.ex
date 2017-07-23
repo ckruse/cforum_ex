@@ -1,38 +1,28 @@
 defmodule Cforum.Web.Users.RegistrationController do
   use Cforum.Web, :controller
 
+  plug Cforum.Plug.EnsureAnonymous
+
   alias Cforum.Accounts.Users
   alias Cforum.Accounts.User
 
   def new(conn, _params) do
-    if conn.assigns[:current_user] == nil do
-      changeset = User.register_changeset(%User{})
-      render(conn, "new.html", changeset: changeset)
-    else
-      conn
-      |> put_flash(:error, gettext("You are already logged in"))
-      |> redirect(to: forum_path(conn, :index))
-    end
+    changeset = User.register_changeset(%User{})
+    render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"user" => user_params}) do
-    if conn.assigns[:current_user] == nil do
-      case Users.register_user(user_params) do
-        {:ok, user} ->
-          Cforum.Web.UserMailer.confirmation_mail(user)
-          |> Cforum.Mailer.deliver_later
+    case Users.register_user(user_params) do
+      {:ok, user} ->
+        Cforum.Web.UserMailer.confirmation_mail(user)
+        |> Cforum.Mailer.deliver_later
 
-          conn
-          |> put_flash(:info, gettext("Account successfully created. Please follow the confirmation instructions we send you via mail."))
-          |> redirect(to: forum_path(conn, :index))
+        conn
+        |> put_flash(:info, gettext("Account successfully created. Please follow the confirmation instructions we send you via mail."))
+        |> redirect(to: forum_path(conn, :index))
 
-        {:error, changeset} ->
-          render(conn, "new.html", changeset: changeset)
-      end
-    else
-      conn
-      |> put_flash(:error, gettext("You are already logged in"))
-      |> redirect(to: forum_path(conn, :index))
+      {:error, changeset} ->
+        render(conn, "new.html", changeset: changeset)
     end
   end
 

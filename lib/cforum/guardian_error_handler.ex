@@ -22,4 +22,11 @@ defmodule Cforum.GuardianErrorHandler do
     |> Phoenix.Controller.redirect(to: session_path(conn, :new))
     |> Plug.Conn.halt
   end
+
+  def anonymous_required(conn, _params) do
+    conn
+    |> Phoenix.Controller.put_flash(:error, gettext("You are already logged in"))
+    |> Phoenix.Controller.redirect(to: forum_path(conn, :index))
+    |> Plug.Conn.halt
+  end
 end
