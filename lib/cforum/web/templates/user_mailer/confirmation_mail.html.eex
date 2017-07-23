@@ -2,6 +2,6 @@
 
 <p><%= gettext("You can confirm your account email through the link below:") %></p>
 
-<p><%= link gettext("Confirm my account"), to: registration_url(Cforum.Endpoint, :confirm, token: @user.confirmation_token) %></p>
+<p><%= link gettext("Confirm my account"), to: registration_url(Cforum.Web.Endpoint, :confirm, token: @user.confirmation_token) %></p>
 
 <p><%= gettext("Best regards, SELFHTML") %></p>

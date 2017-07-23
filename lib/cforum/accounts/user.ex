@@ -92,7 +92,7 @@ defmodule Cforum.Accounts.User do
 
   defp generate_confirmation_token(nil), do: nil
   defp generate_confirmation_token(username) do
-    Token.sign(Cforum.Endpoint, "user", username)
+    Token.sign(Cforum.Web.Endpoint, "user", username)
   end
 
   def avatar_path(user, version) do

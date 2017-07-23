@@ -2,6 +2,6 @@
 
 <%= gettext("You can confirm your account email through the link below:") %>
 
-<<%= registration_url(Cforum.Endpoint, :confirm, token: @user.confirmation_token) %>>
+<<%= registration_url(Cforum.Web.Endpoint, :confirm, token: @user.confirmation_token) %>>
 
 <%= gettext("Best regards, SELFHTML") %>
