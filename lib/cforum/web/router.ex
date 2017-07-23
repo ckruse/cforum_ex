@@ -60,7 +60,10 @@ defmodule Cforum.Web.Router do
     get "/users/:id/votes", Users.UserController, :show_votes
     get "/users/:id/delete", Users.UserController, :confirm_delete
 
-    resources "/users", Users.UserController, except: [:new, :create]
+    resources "/users", Users.UserController, except: [:new, :create] do
+      get "/password", Users.PasswordController, :edit
+      put "/password", Users.PasswordController, :update
+    end
     resources "/badges", BadgeController
 
     scope "/:curr_forum" do

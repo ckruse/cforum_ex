@@ -87,6 +87,12 @@ defmodule Cforum.Accounts.Users do
     |> Repo.update()
   end
 
+  def update_user_password(%User{} = user, attrs) do
+    user
+    |> User.password_changeset(attrs)
+    |> Repo.update()
+  end
+
   @doc """
   Deletes a User.
 
@@ -114,6 +120,10 @@ defmodule Cforum.Accounts.Users do
   """
   def change_user(%User{} = user) do
     User.changeset(user, %{})
+  end
+
+  def change_user_password(%User{} = user) do
+    User.password_changeset(user, %{})
   end
 
   def register_user(attrs) do

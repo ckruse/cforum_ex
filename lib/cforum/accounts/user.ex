@@ -63,6 +63,14 @@ defmodule Cforum.Accounts.User do
     |> put_confirmation_token()
   end
 
+  def password_changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:password, :password_confirmation])
+    |> validate_required([:password, :password_confirmation])
+    |> confirm_password()
+    |> put_password_hash()
+  end
+
   defp confirm_password(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: pass, password_confirmation: confirmed_pass}} when pass == confirmed_pass ->

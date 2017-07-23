@@ -15,14 +15,4 @@
     <%= label @f, :avatar, gettext("avatar") %>
     <%= file_input @f, :avatar %>
   </div>
-
-  <div class="cf-cgroup">
-    <%= label @f, :password, gettext("password") %>
-    <%= password_input @f, :password, autocomplete: "off" %>
-  </div>
-
-  <div class="cf-cgroup">
-    <%= label @f, :password_confirmation, gettext("password confirmation") %>
-    <%= password_input @f, :password_confirmation, autocomplete: "off" %>
-  </div>
 </fieldset>

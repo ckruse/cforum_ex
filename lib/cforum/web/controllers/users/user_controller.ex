@@ -107,7 +107,6 @@ defmodule Cforum.Web.Users.UserController do
       %Score{score | message: %Message{msg | thread: thread}}
     end)
 
-    
     render(conn, "show_scores.html",
            user: user,
            paging: paging,
