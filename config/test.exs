@@ -23,3 +23,6 @@ config :guardian, Guardian,
   verify_issuer: true,
   secret_key: "s20ZSRaWh1d2fAv/3es69BvqZahWfvBLEsIxCpd8srjFtKjSC3JPe5yANwgpM4SJ",
   serializer: Cforum.GuardianSerializer
+
+  config :cforum, Cforum.Mailer,
+    adapter: Bamboo.TestAdapter

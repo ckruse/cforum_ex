@@ -116,6 +116,21 @@ defmodule Cforum.Accounts.Users do
     User.changeset(user, %{})
   end
 
+  def register_user(attrs) do
+    %User{active: true}
+    |> User.register_changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def confirm_user(token) do
+    case Repo.get_by(User, confirmation_token: token) do
+      nil ->
+        {:error, nil}
+      user ->
+        update_user(user, %{confirmed_at: Timex.now})
+    end
+  end
+
   def unique_badges(user) do
     Enum.reduce(user.badges_users, %{}, fn(b, acc) ->
       val = case acc[b.badge_id] do
