@@ -24,6 +24,7 @@ defmodule Cforum.Web.Users.SessionController do
                end
 
         conn
+        |> configure_session(renew: true)
         |> put_flash(:info, gettext("You logged in successfully"))
         |> redirect(to: forum_path(conn, :index))
 
@@ -39,7 +40,7 @@ defmodule Cforum.Web.Users.SessionController do
     |> Guardian.Plug.sign_out
     |> put_flash(:info, gettext("You logged out successfully"))
     |> delete_resp_cookie("remember_me")
-    |> clear_session()
+    |> configure_session(drop: true)
     |> redirect(to: forum_path(conn, :index))
   end
 end
