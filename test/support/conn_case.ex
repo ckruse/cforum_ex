@@ -1,4 +1,4 @@
-defmodule Cforum.Web.ConnCase do
+defmodule CforumWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -22,27 +22,21 @@ defmodule Cforum.Web.ConnCase do
 
       import Plug.Test
 
-      import Cforum.Web.Router.Helpers
-      import Cforum.Web.Gettext
+      import CforumWeb.Router.Helpers
+      import CforumWeb.Gettext
       import Cforum.Factory
 
       # The default endpoint for testing
-      @endpoint Cforum.Web.Endpoint
+      @endpoint CforumWeb.Endpoint
 
 
       # We need a way to get into the connection to login a user
       # We need to use the bypass_through to fire the plugs in the router
       # and get the session fetched.
-      def login(%Cforum.Accounts.User{} = user), do: login(build_conn(), user, :token, [])
-      def login(%Cforum.Accounts.User{} = user, token), do: login(build_conn(), user, token, [])
-      def login(%Cforum.Accounts.User{} = user, token, opts), do: login(build_conn(), user, token, opts)
-
-      def login(%Plug.Conn{} = conn, user), do: login(conn, user, :token, [])
-      def login(%Plug.Conn{} = conn, user, token), do: login(conn, user, token, [])
-      def login(%Plug.Conn{} = conn, user, token, opts) do
+      def login(%Cforum.Accounts.User{} = user), do: login(build_conn(), user)
+      def login(%Plug.Conn{} = conn, user) do
         conn
-        |> init_test_session([])
-        |> Guardian.Plug.sign_in(user, token, opts)
+        |> init_test_session(user_id: user.user_id)
       end
     end
   end

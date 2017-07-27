@@ -1,5 +1,5 @@
 defmodule Cforum.Accounts.Notification do
-  use Cforum.Web, :model
+  use CforumWeb, :model
 
   @primary_key {:notification_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :notification_id}

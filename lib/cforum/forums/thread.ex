@@ -1,5 +1,5 @@
 defmodule Cforum.Forums.Thread do
-  use Cforum.Web, :model
+  use CforumWeb, :model
 
   @primary_key {:thread_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :thread_id}

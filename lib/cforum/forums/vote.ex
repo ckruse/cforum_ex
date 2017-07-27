@@ -1,5 +1,5 @@
 defmodule Cforum.Forums.Vote do
-  use Cforum.Web, :model
+  use CforumWeb, :model
 
   @primary_key {:vote_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :vote_id}

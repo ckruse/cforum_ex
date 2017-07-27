@@ -10,10 +10,10 @@ config :cforum,
   ecto_repos: [Cforum.Repo]
 
 # Configures the endpoint
-config :cforum, Cforum.Web.Endpoint,
+config :cforum, CforumWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "w/W7vB8NBsnCLFPZfPrUK3IUvyfEZv/+kIYUAa7YSfAjLg/aM61tsp6K+vnrD6FF",
-  render_errors: [view: Cforum.Web.ErrorView, accepts: ~w(html json)],
+  render_errors: [view: CforumWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Cforum.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
@@ -22,7 +22,7 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :cforum, Cforum.Web.Gettext,
+config :cforum, CforumWeb.Gettext,
         default_locale: "de"
 
 config :number, delimit: [ precision: 2,

@@ -1,8 +1,8 @@
 defmodule Cforum.Accounts.User do
-  use Cforum.Web, :model
+  use CforumWeb, :model
   use Arc.Ecto.Schema
 
-  import Cforum.Web.Gettext
+  import CforumWeb.Gettext
   alias Phoenix.Token
 
   @primary_key {:user_id, :id, autogenerate: true}
@@ -22,7 +22,7 @@ defmodule Cforum.Accounts.User do
     field :confirmation_sent_at, Timex.Ecto.DateTime
     field :last_sign_in_at, Timex.Ecto.DateTime
     field :current_sign_in_at, Timex.Ecto.DateTime
-    field :avatar_file_name, Cforum.Web.Avatar.Type
+    field :avatar_file_name, CforumWeb.Avatar.Type
     field :avatar_content_type, :string
     field :avatar_updated_at, Timex.Ecto.DateTime
     field :score, :integer
@@ -30,6 +30,7 @@ defmodule Cforum.Accounts.User do
 
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
+    field :login, :string, virtual: true
 
     has_one :settings, Cforum.Accounts.Setting, foreign_key: :user_id
     has_many :badges_users, Cforum.Accounts.BadgeUser, foreign_key: :user_id
@@ -71,6 +72,12 @@ defmodule Cforum.Accounts.User do
     |> put_password_hash()
   end
 
+  def login_changeset(%Cforum.Accounts.User{} = user, params \\ %{}) do
+    user
+    |> cast(params, [:login, :password])
+    |> validate_required([:login, :password])
+  end
+
   defp confirm_password(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: pass, password_confirmation: confirmed_pass}} when pass == confirmed_pass ->
@@ -100,11 +107,11 @@ defmodule Cforum.Accounts.User do
 
   defp generate_confirmation_token(nil), do: nil
   defp generate_confirmation_token(username) do
-    Token.sign(Cforum.Web.Endpoint, "user", username)
+    Token.sign(CforumWeb.Endpoint, "user", username)
   end
 
   def avatar_path(user, version) do
-    Cforum.Web.Avatar.url({user.avatar_file_name, user}, version)
+    CforumWeb.Avatar.url({user.avatar_file_name, user}, version)
     |> String.replace_leading("/priv", "")
   end
 end

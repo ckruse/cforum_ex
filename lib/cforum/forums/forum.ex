@@ -1,5 +1,5 @@
 defmodule Cforum.Forums.Forum do
-  use Cforum.Web, :model
+  use CforumWeb, :model
 
   @primary_key {:forum_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :slug}

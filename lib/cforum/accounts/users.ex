@@ -42,6 +42,13 @@ defmodule Cforum.Accounts.Users do
     |> Repo.one!
   end
 
+  def get_user(id) do
+    from(u in User,
+      preload: [:settings, [badges_users: :badge]],
+      where: u.user_id == ^id)
+    |> Repo.one
+  end
+
   def get_user_by_username_or_email!(login) do
     from(user in User,
       preload: [:settings, [badges_users: :badge]],
@@ -164,5 +171,24 @@ defmodule Cforum.Accounts.Users do
            end
 
     vals[name] || Cforum.ConfigManager.defaults[name]
+  end
+
+  def authenticate_user(login, password) do
+    user = get_user_by_username_or_email!(login)
+
+    cond do
+      user && Comeonin.Bcrypt.checkpw(password, user.encrypted_password) ->
+        {:ok, user}
+
+      user ->
+        {:error, User.login_changeset(user, %{"login" => login,
+                                              "password" => password})}
+
+      true ->
+        # just waste some time for timing sidechannel attacks
+        Comeonin.Bcrypt.dummy_checkpw()
+        {:error, User.login_changeset(%User{}, %{"login" => login,
+                                                 "password" => password})}
+    end
   end
 end

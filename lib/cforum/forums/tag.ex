@@ -1,5 +1,5 @@
 defmodule Cforum.Forums.Tag do
-  use Cforum.Web, :model
+  use CforumWeb, :model
 
   @primary_key {:tag_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :slug}

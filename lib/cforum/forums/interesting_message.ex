@@ -1,5 +1,5 @@
 defmodule Cforum.Forums.InterestingMessage do
-  use Cforum.Web, :model
+  use CforumWeb, :model
 
   @primary_key {:interesting_message_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :interesting_message_id}

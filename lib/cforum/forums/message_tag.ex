@@ -1,5 +1,5 @@
 defmodule Cforum.Forums.MessageTag do
-  use Cforum.Web, :model
+  use CforumWeb, :model
 
   @primary_key {:message_tag_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :message_tag_id}

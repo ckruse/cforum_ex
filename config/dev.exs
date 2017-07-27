@@ -6,7 +6,7 @@ use Mix.Config
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
-config :cforum, Cforum.Web.Endpoint,
+config :cforum, CforumWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -16,13 +16,13 @@ config :cforum, Cforum.Web.Endpoint,
 
 
 # Watch static and templates for browser reloading.
-config :cforum, Cforum.Web.Endpoint,
+config :cforum, CforumWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
-      ~r{lib/cforum/web/views/.*(ex)$},
-      ~r{lib/cforum/web/templates/.*(eex)$}
+      ~r{lib/cforum_web/views/.*(ex)$},
+      ~r{lib/cforum_web/templates/.*(eex)$}
     ]
   ]
 
@@ -39,14 +39,6 @@ config :cforum, Cforum.Repo,
   database: "cforum_development",
   hostname: "localhost",
   pool_size: 10
-
-config :guardian, Guardian,
-  issuer: "Cforum",
-  ttl: { 30, :days },
-  allowed_drift: 2000,
-  verify_issuer: true,
-  secret_key: "s20ZSRaWh1d2fAv/3es69BvqZahWfvBLEsIxCpd8srjFtKjSC3JPe5yANwgpM4SJ",
-  serializer: Cforum.GuardianSerializer
 
 config :cforum, Cforum.Mailer,
   adapter: Bamboo.LocalAdapter

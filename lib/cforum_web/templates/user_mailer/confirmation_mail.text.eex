@@ -1,0 +1,7 @@
+<%= gettext("Hi there, %{name}!", name: @user.username) %>
+
+<%= gettext("You can confirm your account email through the link below:") %>
+
+<<%= registration_url(CforumWeb.Endpoint, :confirm, token: @user.confirmation_token) %>>
+
+<%= gettext("Best regards, SELFHTML") %>

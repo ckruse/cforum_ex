@@ -1,5 +1,5 @@
 defmodule Cforum.Forums.Subscription do
-  use Cforum.Web, :model
+  use CforumWeb, :model
 
   @primary_key {:subscription_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :subscription_id}

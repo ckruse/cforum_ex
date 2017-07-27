@@ -1,0 +1,11 @@
+<%= pagination @conn, @paging, &user_path/4, path_args: [@conn, :show_messages, @user] %>
+
+<div class="root">
+  <%= for m <- @messages do %>
+    <article class="thread threadlist">
+      <%= render CforumWeb.MessageView, "header.html", conn: @conn, thread: m.thread, message: m, show_votes: true, id: false  %>
+    </article>
+  <% end %>
+</div>
+
+<%= pagination @conn, @paging, &user_path/4, path_args: [@conn, :show_messages, @user] %>

@@ -1,5 +1,5 @@
 defmodule Cforum.Accounts.PrivMessage do
-  use Cforum.Web, :model
+  use CforumWeb, :model
 
   @primary_key {:priv_message_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :priv_message_id}

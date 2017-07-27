@@ -1,5 +1,5 @@
 defmodule Cforum.Accounts.Score do
-  use Cforum.Web, :model
+  use CforumWeb, :model
 
   @primary_key {:score_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :score_id}

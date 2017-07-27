@@ -1,5 +1,5 @@
 defmodule Cforum.Accounts.Setting do
-  use Cforum.Web, :model
+  use CforumWeb, :model
 
   @primary_key {:setting_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :setting_id}
