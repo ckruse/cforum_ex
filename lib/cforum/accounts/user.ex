@@ -5,6 +5,8 @@ defmodule Cforum.Accounts.User do
   import CforumWeb.Gettext
   alias Phoenix.Token
 
+  alias Cforum.Accounts.User
+
   @primary_key {:user_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :user_id}
 
@@ -42,7 +44,7 @@ defmodule Cforum.Accounts.User do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
-  def changeset(struct, params \\ %{}) do
+  def changeset(%User{} = struct, params \\ %{}) do
     struct
     |> cast(params, [:username, :email, :unconfirmed_email, :admin, :active, :encrypted_password, :remember_created_at, :reset_password_token, :confirmation_token, :confirmed_at, :confirmation_sent_at, :last_sign_in_at, :current_sign_in_at, :avatar_file_name, :avatar_content_type, :avatar_updated_at])
     |> validate_required([:username, :email, :admin, :active])
@@ -53,7 +55,7 @@ defmodule Cforum.Accounts.User do
     |> unique_constraint(:confirmation_token)
   end
 
-  def register_changeset(struct, params \\ %{}) do
+  def register_changeset(%User{} = struct, params \\ %{}) do
     struct
     |> cast(params, [:username, :email, :password, :password_confirmation])
     |> validate_required([:username, :email, :password, :password_confirmation])
@@ -72,7 +74,7 @@ defmodule Cforum.Accounts.User do
     |> put_password_hash()
   end
 
-  def login_changeset(%Cforum.Accounts.User{} = user, params \\ %{}) do
+  def login_changeset(%User{} = user, params \\ %{}) do
     user
     |> cast(params, [:login, :password])
     |> validate_required([:login, :password])
