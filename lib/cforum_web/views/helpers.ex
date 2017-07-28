@@ -1,26 +1,20 @@
 defmodule CforumWeb.Views.Helpers do
   use Phoenix.HTML
 
+  alias Cforum.Helpers
+
   def signed_in?(conn) do
     conn.assigns[:current_user] != nil
   end
 
-  def blank?(nil), do: true
-  def blank?(""), do: true
-  def blank?(0), do: true
-  def blank?(false), do: true
-  def blank?([]), do: true
-  def blank?(%{}), do: true
-  def blank?(_), do: false
-
   def date_format(conn, name \\ "date_format_default") do
     val = Cforum.ConfigManager.uconf(conn, name)
-    if blank?(val), do: "%d.%m.%Y %H:%M", else: val
+    if Helpers.blank?(val), do: "%d.%m.%Y %H:%M", else: val
   end
 
   def blank_or_value?(changeset, key, value) do
     field_val = Map.get(changeset, key)
-    blank?(field_val) || field_val == value
+    Helpers.blank?(field_val) || field_val == value
   end
 
   def sub_inputs(form, field, _options \\ [], fun) do

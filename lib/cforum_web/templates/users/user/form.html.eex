@@ -7,7 +7,7 @@
 <%= render "user_information.html", f: @f %>
 
 <%= inputs_for @f, :settings, fn fs -> %>
-  <%= CforumWeb.Helpers.sub_inputs fs, :options, fn(fo) -> %>
+  <%= sub_inputs fs, :options, fn(fo) -> %>
     <%= render "settings.html", f: fo %>
   <% end %>
 <% end %>

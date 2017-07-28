@@ -40,6 +40,7 @@ defmodule CforumWeb do
       import CforumWeb.Views.Helpers
       import Cforum.Paginator
       import Cforum.Sortable
+      import Cforum.Helpers
     end
   end
 
@@ -61,6 +62,7 @@ defmodule CforumWeb do
       import Cforum.Paginator
       import Cforum.Sortable
       import Cforum.Abilities
+      import Cforum.Helpers
 
       import Number.Delimit
     end

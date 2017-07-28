@@ -36,7 +36,7 @@ defmodule CforumWeb.MessageView do
   def message_tree(conn, thread, parent, messages, opts \\ [show_icons: true]) do
     parts = Enum.map(messages, fn(msg) ->
       # TODO classes
-      subtree = if CforumWeb.Helpers.blank?(msg.messages), do: "", else: message_tree(conn, thread, msg, msg.messages)
+      subtree = if blank?(msg.messages), do: "", else: message_tree(conn, thread, msg, msg.messages)
       [{:safe, "<li>"} |
        [ render(CforumWeb.MessageView, "header.html", Keyword.merge([conn: conn, thread: thread, parent: parent, message: msg], opts)) |
          [subtree | {:safe, "</li>"}] ] ]
