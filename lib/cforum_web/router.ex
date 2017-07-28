@@ -52,6 +52,11 @@ defmodule CforumWeb.Router do
     get "/", ForumController, :index
     get "/help", PageController, :help
 
+    get "/users/password", Users.PasswordController, :new
+    post "/users/password", Users.PasswordController, :create
+    get "/users/password/reset", Users.PasswordController, :edit_reset
+    post "/users/password/reset", Users.PasswordController, :update_reset
+
     get "/users/:id/messages", Users.UserController, :show_messages
     get "/users/:id/scores", Users.UserController, :show_scores
     get "/users/:id/votes", Users.UserController, :show_votes

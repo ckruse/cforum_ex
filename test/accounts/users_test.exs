@@ -19,30 +19,30 @@ defmodule Cforum.Accounts.UsersTest do
     assert user1.user_id == user.user_id
   end
 
-  test "get_user_by_username_or_email! returns the user with the given email" do
+  test "get_user_by_username_or_email returns the user with the given email" do
     user = insert(:user)
-    user1 = Users.get_user_by_username_or_email!(user.email)
+    user1 = Users.get_user_by_username_or_email(user.email)
     assert %User{} = user1
     assert user1.user_id == user.user_id
   end
 
-  test "get_user_by_username_or_email! returns the user with given email case insensitive" do
+  test "get_user_by_username_or_email returns the user with given email case insensitive" do
     user = insert(:user)
-    user1 = Users.get_user_by_username_or_email!(String.upcase(user.email))
+    user1 = Users.get_user_by_username_or_email(String.upcase(user.email))
     assert %User{} = user1
     assert user1.user_id == user.user_id
   end
 
-  test "get_user_by_username_or_email! returns the user with the given username" do
+  test "get_user_by_username_or_email returns the user with the given username" do
     user = insert(:user)
-    user1 = Users.get_user_by_username_or_email!(user.username)
+    user1 = Users.get_user_by_username_or_email(user.username)
     assert %User{} = user1
     assert user1.user_id == user.user_id
   end
 
-  test "get_user_by_username_or_email! returns the user with the given username case insensitive" do
+  test "get_user_by_username_or_email returns the user with the given username case insensitive" do
     user = insert(:user)
-    user1 = Users.get_user_by_username_or_email!(String.upcase(user.username))
+    user1 = Users.get_user_by_username_or_email(String.upcase(user.username))
     assert %User{} = user1
     assert user1.user_id == user.user_id
   end

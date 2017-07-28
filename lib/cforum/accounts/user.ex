@@ -19,6 +19,7 @@ defmodule Cforum.Accounts.User do
     field :encrypted_password, :string
     field :remember_created_at, Timex.Ecto.DateTime
     field :reset_password_token, :string
+    field :reset_password_sent_at, Timex.Ecto.DateTime
     field :confirmation_token, :string
     field :confirmed_at, Timex.Ecto.DateTime
     field :confirmation_sent_at, Timex.Ecto.DateTime
@@ -46,7 +47,10 @@ defmodule Cforum.Accounts.User do
   """
   def changeset(%User{} = struct, params \\ %{}) do
     struct
-    |> cast(params, [:username, :email, :unconfirmed_email, :admin, :active, :encrypted_password, :remember_created_at, :reset_password_token, :confirmation_token, :confirmed_at, :confirmation_sent_at, :last_sign_in_at, :current_sign_in_at, :avatar_file_name, :avatar_content_type, :avatar_updated_at])
+    |> cast(params, [:username, :email, :unconfirmed_email, :admin, :active, :encrypted_password,
+                     :remember_created_at, :reset_password_token, :confirmation_token, :confirmed_at,
+                     :confirmation_sent_at, :last_sign_in_at, :current_sign_in_at, :avatar_file_name,
+                     :avatar_content_type, :avatar_updated_at])
     |> validate_required([:username, :email, :admin, :active])
     |> unique_constraint(:username)
     |> unique_constraint(:email)
@@ -78,6 +82,12 @@ defmodule Cforum.Accounts.User do
     user
     |> cast(params, [:login, :password])
     |> validate_required([:login, :password])
+  end
+
+  def reset_password_token_changeset(%User{} = user, params \\ %{}) do
+    user
+    |> cast(params, [:reset_password_token, :reset_password_sent_at])
+    |> validate_required([:reset_password_token, :reset_password_sent_at])
   end
 
   defp confirm_password(changeset) do

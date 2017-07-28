@@ -49,13 +49,17 @@ defmodule Cforum.Accounts.Users do
     |> Repo.one
   end
 
-  def get_user_by_username_or_email!(login) do
+  def get_user_by_username_or_email(login) do
     from(user in User,
       preload: [:settings, [badges_users: :badge]],
       where: user.active == true and
              (fragment("lower(?)", user.email) == fragment("lower(?)", ^login) or
               fragment("lower(?)", user.username) == fragment("lower(?)", ^login)))
-    |> Repo.one!
+    |> Repo.one
+  end
+
+  def get_user_by_reset_password_token!(reset_token) do
+    Repo.get_by!(User, reset_password_token: reset_token)
   end
 
   @doc """
@@ -97,6 +101,16 @@ defmodule Cforum.Accounts.Users do
   def update_user_password(%User{} = user, attrs) do
     user
     |> User.password_changeset(attrs)
+    |> Ecto.Changeset.change(
+      %{reset_password_token: nil,
+        reset_password_sent_at: nil}
+    )
+    |> Repo.update()
+  end
+
+  def update_user_reset_password_token(%User{} = user, attrs) do
+    user
+    |> User.reset_password_token_changeset(attrs)
     |> Repo.update()
   end
 
@@ -148,6 +162,17 @@ defmodule Cforum.Accounts.Users do
     end
   end
 
+  def get_reset_password_token(user) do
+    token = :crypto.strong_rand_bytes(32)
+    |> Base.encode64
+    |> binary_part(0, 32)
+
+    {:ok, user} = update_user_reset_password_token(user, %{reset_password_token: token,
+                                                           reset_password_sent_at: Timex.now})
+
+    user
+  end
+
   def unique_badges(user) do
     Enum.reduce(user.badges_users, %{}, fn(b, acc) ->
       val = case acc[b.badge_id] do
@@ -174,7 +199,7 @@ defmodule Cforum.Accounts.Users do
   end
 
   def authenticate_user(login, password) do
-    user = get_user_by_username_or_email!(login)
+    user = get_user_by_username_or_email(login)
 
     cond do
       user && Comeonin.Bcrypt.checkpw(password, user.encrypted_password) ->

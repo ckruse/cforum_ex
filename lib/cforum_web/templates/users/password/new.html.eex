@@ -1,0 +1,12 @@
+<%= form_for @conn, password_path(@conn, :create), [as: :user, class: "cf-form"], fn f -> %>
+  <div class="cf-cgroup">
+    <%= label f, :login, gettext("Username or email") %>
+    <%= text_input f, :login, autofocus: true %>
+    <%= error_tag f, :login %>
+  </div>
+
+  <p class="form-actions">
+    <%= submit gettext("send reset instructions"), class: "cf-primary-btn" %>
+    <%= link gettext("cancel"), to: forum_path(@conn, :index), class: "cf-btn" %>
+  </p>
+<% end %>

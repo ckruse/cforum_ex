@@ -1,7 +1,36 @@
 defmodule CforumWeb.Users.PasswordControllerTest do
   use CforumWeb.ConnCase
+  use Bamboo.Test
 
   alias Cforum.Accounts.Users
+
+  test "renders send reset instructions form", %{conn: conn} do
+    conn = get(conn, password_path(conn, :new))
+    assert html_response(conn, 200) =~ gettext("Send password reset instructions")
+  end
+
+  test "sets a reset password token", %{conn: conn} do
+    user = insert(:user)
+    conn = post(conn, password_path(conn, :create), user: %{login: user.username})
+
+    assert redirected_to(conn) == forum_path(conn, :index)
+    assert get_flash(conn, :info) == gettext("The instructions how to reset your password have been sent.")
+
+    user1 = Users.get_user!(user.user_id)
+    assert user1.reset_password_token != nil
+  end
+
+  test "sends an instruction mail", %{conn: conn} do
+    user = insert(:user)
+    post(conn, password_path(conn, :create), user: %{login: user.username})
+    user1 = Users.get_user!(user.user_id)
+    assert_delivered_email CforumWeb.UserMailer.reset_password_mail(user1)
+  end
+
+  test "renders reset instruction form when user could not be found", %{conn: conn} do
+    conn = post(conn, password_path(conn, :create), user: %{login: "Fizzban"})
+    assert html_response(conn, 200) =~ gettext("Send password reset instructions")
+  end
 
   test "renders password form for logged in users", %{conn: conn} do
     user = insert(:user)
