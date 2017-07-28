@@ -1,4 +1,4 @@
-defmodule CforumWeb.Helpers do
+defmodule CforumWeb.Views.Helpers do
   use Phoenix.HTML
 
   def signed_in?(conn) do
