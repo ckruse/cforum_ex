@@ -49,6 +49,7 @@ defmodule Cforum.Mixfile do
 
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:ex_guard, "~> 1.2", only: :dev},
+     {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
 
      {:coverex, "~> 1.4.10", only: :test},
      {:ex_machina, "~> 2.0", only: :test},
