@@ -74,7 +74,7 @@ defmodule Cforum.Accounts.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_user(attrs \\ %{}) do
+  def create_user(attrs) do
     %User{}
     |> User.changeset(attrs)
     |> Repo.insert()
@@ -174,28 +174,20 @@ defmodule Cforum.Accounts.Users do
   end
 
   def unique_badges(user) do
-    Enum.reduce(user.badges_users, %{}, fn(b, acc) ->
-      val = case acc[b.badge_id] do
-              nil ->
-                %{badge: b.badge, created_at: b.created_at, times: 1}
-              entry ->
-                %{entry | times: entry.times + 1}
-            end
-      Map.put(acc, b.badge_id, val)
+    user.badges_users
+    |> Enum.reduce(%{}, fn(bu, acc) ->
+      Map.update(acc, bu.badge_id,
+                 %{badge: bu.badge, created_at: bu.created_at, times: 1},
+                 & %{&1 | times: &1.times + 1})
     end)
     |> Map.values
     |> Enum.sort(&(&1[:times] >= &2[:times]))
   end
 
-  def conf(user, name) do
-    vals = case user.settings do
-             nil ->
-               %{}
-             set ->
-               set.options || %{}
-           end
-
-    vals[name] || Cforum.ConfigManager.defaults[name]
+  def conf(nil, name), do: Cforum.ConfigManager.defaults[name]
+  def conf(%User{settings: nil}, name), do: Cforum.ConfigManager.defaults[name]
+  def conf(%User{settings: settings}, name) do
+    settings.options[name] || Cforum.ConfigManager.defaults[name]
   end
 
   def authenticate_user(login, password) do
