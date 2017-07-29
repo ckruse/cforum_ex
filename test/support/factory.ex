@@ -5,5 +5,6 @@ defmodule Cforum.Factory do
   use Cforum.PrivMessageFactory
   use Cforum.ScoreFactory
   use Cforum.BadgeFactory
+  use Cforum.BadgeUserFactory
   use Cforum.ForumFactory
 end

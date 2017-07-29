@@ -1,8 +1,14 @@
 defmodule Cforum.Accounts.UsersTest do
+  @moduledoc """
+  Tests for the users API
+  """
+
   use Cforum.DataCase
 
   alias Cforum.Accounts.Users
   alias Cforum.Accounts.User
+  alias Cforum.Accounts.Setting
+  alias Cforum.Accounts.Badge
 
   test "list_users/1 returns all users" do
     user = insert(:user)
@@ -17,6 +23,10 @@ defmodule Cforum.Accounts.UsersTest do
     user1 = Users.get_user!(user.user_id)
     assert %User{} = user1
     assert user1.user_id == user.user_id
+  end
+
+  test "get_user! fails with invalid ID" do
+    assert_raise Ecto.NoResultsError, fn -> Users.get_user!(-1) end
   end
 
   test "get_user_by_username_or_email returns the user with the given email" do
@@ -45,6 +55,22 @@ defmodule Cforum.Accounts.UsersTest do
     user1 = Users.get_user_by_username_or_email(String.upcase(user.username))
     assert %User{} = user1
     assert user1.user_id == user.user_id
+  end
+
+  test "get_user_by_username_or_email returns nil when nothing found" do
+    user1 = Users.get_user_by_username_or_email("Bibbledibobble")
+    assert user1 == nil
+  end
+
+  test "get_user_by_reset_password_token! returns a user by a given token" do
+    user = insert(:user, reset_password_token: "foobar")
+    user1 = Users.get_user_by_reset_password_token!("foobar")
+    assert %User{} = user1
+    assert user1.user_id == user.user_id
+  end
+
+  test "get_user_by_reset_password_token! fails on invalid tokens" do
+    assert_raise Ecto.NoResultsError, fn -> Users.get_user_by_reset_password_token!("efwefwef") end
   end
 
   test "create_user/1 with valid data creates a user" do
@@ -83,5 +109,38 @@ defmodule Cforum.Accounts.UsersTest do
   test "change_user/1 returns a user changeset" do
     user = insert(:user)
     assert %Ecto.Changeset{} = Users.change_user(user)
+  end
+
+  test "unique_badges should return an empty array when user has no badges" do
+    user = insert(:user) |> Repo.preload(badges_users: :badges)
+    assert Users.unique_badges(user) == []
+  end
+
+  test "unique_badges should return a list of unique user badges sorted by creation time" do
+    badge = insert(:badge)
+    user = insert(:user)
+
+    insert(:badge_user, badge: badge, user: user)
+    insert(:badge_user, badge: badge, user: user)
+
+    user = Repo.preload(user, badges_users: :badge)
+    assert [%{badge: %Badge{}, created_at: _, times: 2}] = Users.unique_badges(user)
+  end
+
+  test "conf will return default values for nil user" do
+    assert Users.conf(nil, "pagination") == Cforum.ConfigManager.defaults["pagination"]
+  end
+
+  test "conf will return default values for user w/o settings" do
+    user = insert(:user)
+    |> Repo.preload(:settings)
+    assert Users.conf(user, "pagination") == Cforum.ConfigManager.defaults["pagination"]
+  end
+
+  test "conf will return settings for user with a settings object" do
+    user = %User{build(:user) | settings: %Setting{options: %{"pagination" => "60"}}}
+    |> insert
+    u = Users.get_user!(user.user_id)
+    assert Users.conf(u, "pagination") == "60"
   end
 end
