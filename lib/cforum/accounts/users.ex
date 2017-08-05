@@ -17,8 +17,17 @@ defmodule Cforum.Accounts.Users do
       [%User{}, ...]
 
   """
-  def list_users do
-    Repo.all(User)
+  def list_users(query_params \\ [order: nil, limit: nil]) do
+    User
+    |> Cforum.PagingApi.set_limit(query_params[:limit])
+    |> Cforum.OrderApi.set_ordering(query_params[:order], [desc: :created_at])
+    |> Repo.all
+  end
+
+  def count_users do
+    User
+    |> select(count("*"))
+    |> Repo.one
   end
 
   @doc """

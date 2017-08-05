@@ -10,12 +10,12 @@ defmodule CforumWeb.Users.UserController do
   alias Cforum.Accounts.Score
 
   def index(conn, params) do
-    {users, conn} = Cforum.Sortable.sort(User, conn, [:username, :score, :activity, :created_at])
+    {sort_params, conn} = sort_collection(conn, [:username, :score, :activity, :created_at])
+    count = Users.count_users
+    paging = paginate(count, page: params["p"])
+    users = Users.list_users(limit: paging.params, order: sort_params)
 
-    paging = users
-    |> paginate(page: params["p"])
-
-    render(conn, "index.html", users: paging.entries, paging: paging)
+    render(conn, "index.html", users: users, paging: paging)
   end
 
   def show(conn, %{"id" => id}) do
@@ -97,7 +97,7 @@ defmodule CforumWeb.Users.UserController do
   def show_scores(conn, %{"id" => id} = params) do
     user = Users.get_user!(id)
     forum_ids = Enum.map(conn.assigns[:visible_forums], &(&1.forum_id))
-    
+
     paging = Messages.list_scored_msgs_for_user_in_perspective(conn.assigns[:current_user], user, forum_ids)
     |> paginate(page: params["p"])
 

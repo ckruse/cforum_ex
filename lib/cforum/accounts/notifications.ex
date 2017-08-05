@@ -17,11 +17,20 @@ defmodule Cforum.Accounts.Notifications do
       [%Notification{}, ...]
 
   """
-  def list_notifications(user, ordering \\ [desc: :created_at]) do
+  def list_notifications(user, query_params \\ [order: nil, limit: nil]) do
+    from(notification in Notification,
+      where: notification.recipient_id == ^user.user_id)
+    |> Cforum.PagingApi.set_limit(query_params[:limit])
+    |> Cforum.OrderApi.set_ordering(query_params[:order], [desc: :created_at])
+    |> Repo.all
+  end
+
+  def count_notifications(user) do
     from(notification in Notification,
       where: notification.recipient_id == ^user.user_id,
-      order_by: ^ordering)
-    |> Repo.all
+      select: count("*")
+    )
+    |> Repo.one
   end
 
   @doc """
