@@ -1,4 +1,4 @@
-defmodule Cforum.Sortable do
+defmodule CforumWeb.Sortable do
   import Ecto.Query
 
   def sortable(conn, text, field, path_helper, opts \\ []) do
@@ -21,7 +21,7 @@ defmodule Cforum.Sortable do
     end
   end
 
-  def sort(query, conn, valid_fields, replacements \\ [], defaults \\ [dir: :asc]) do
+  def sort_collection(conn, valid_fields, replacements \\ [], defaults \\ [dir: :asc]) do
     controller_nam = Phoenix.Controller.controller_module(conn)
     |> Atom.to_string()
     |> String.replace(~r{.*\.}, "")
@@ -45,20 +45,11 @@ defmodule Cforum.Sortable do
       do: :asc,
       else: String.to_atom(sort_dir)
 
-    sort_col = if !Enum.find(valid_fields, &(Atom.to_string(&1) == sort_col)),
-      do: List.first(valid_fields),
-      else: String.to_atom(sort_col)
+    sort_col = if Enum.find(valid_fields, &(Atom.to_string(&1) == sort_col)),
+      do: String.to_atom(sort_col),
+      else: List.first(valid_fields)
 
-    query = case replacements[sort_col] do
-              nil ->
-                from(o in query,
-                  order_by: [{^sort_dir, ^sort_col}])
-              replaced ->
-                replaced.(query, sort_col, sort_dir)
-            end
-
-
-    {query,
+    {[{sort_dir, sort_col}],
      conn
      |> set_cookie(cookie_key_col, Atom.to_string(sort_col), set_cookie_col)
      |> set_cookie(cookie_key_dir, Atom.to_string(sort_dir), set_cookie_dir)

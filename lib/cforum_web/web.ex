@@ -38,8 +38,8 @@ defmodule CforumWeb do
       import CforumWeb.Router.Helpers
       import CforumWeb.Gettext
       import CforumWeb.Views.Helpers
-      import Cforum.Paginator
-      import Cforum.Sortable
+      import CforumWeb.Paginator
+      import CforumWeb.Sortable
       import Cforum.Helpers
     end
   end
@@ -59,8 +59,8 @@ defmodule CforumWeb do
       import CforumWeb.Gettext
       import CforumWeb.Views.Helpers
       import CforumWeb.Views.Helpers.Button
-      import Cforum.Paginator
-      import Cforum.Sortable
+      import CforumWeb.Paginator
+      import CforumWeb.Sortable
       import Cforum.Abilities
       import Cforum.Helpers
 

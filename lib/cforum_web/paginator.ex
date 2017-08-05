@@ -1,26 +1,24 @@
-defmodule Cforum.Paginator do
-  defstruct [:per_page, :page, :entries, :all_entries_count, :pages_count, :distance]
+defmodule CforumWeb.Paginator do
+  defstruct [:per_page, :page, :params, :all_entries_count, :pages_count, :distance]
 
   alias Cforum.Repo
+  alias CforumWeb.Paginator
 
   import Ecto.Query
   use Phoenix.HTML
 
-  def paginate(query, opts \\ []) do
+  def paginate(data_count, opts \\ []) do
     config = Application.get_env(:cforum, :paginator)
 
     per_page = opts[:per_page] || config[:per_page] || 50
     distance = opts[:distance] || config[:distance] || 3
     page = parse_page(opts[:page])
-
-    all_entries_count = count_all_entries(query)
-
-    %Cforum.Paginator{
+    %Paginator{
+      params: [quantity: per_page, offset: (page - 1) * per_page],
       per_page: per_page,
       page: page,
-      entries: entries(query, page, per_page),
-      all_entries_count: all_entries_count,
-      pages_count: pages_count(all_entries_count, per_page),
+      all_entries_count: data_count,
+      pages_count: pages_count(data_count, per_page),
       distance: distance
     }
   end
@@ -30,30 +28,9 @@ defmodule Cforum.Paginator do
   defp parse_page(x) when x < 1, do: 1
   defp parse_page(x), do: x
 
-  defp count_all_entries(query) do
-    all_entries_count = query
-    |> exclude(:preload)
-    |> exclude(:select)
-    |> exclude(:order_by)
-    |> select(count("*"))
-    |> Repo.one
-
-    all_entries_count || 0
-  end
-
   defp pages_count(all_entries_count, per_page) do
     (all_entries_count / per_page) |> Float.ceil |> round
   end
-
-  defp entries(query, page, per_page) do
-    offset = per_page * (page - 1)
-
-    query
-    |> limit(^per_page)
-    |> offset(^offset)
-    |> Repo.all
-  end
-
 
   def pagination(conn, page, path_helper, opts \\ []) do
     content_tag :nav, class: "cf-pages" do
@@ -131,14 +108,14 @@ defmodule Cforum.Paginator do
     end
   end
 
-  defp pages_list_start(%Cforum.Paginator{page: page, distance: distance}) do
+  defp pages_list_start(%Paginator{page: page, distance: distance}) do
     case page - distance do
                 x when x < 1 -> 1
                 x -> x
     end
   end
 
-  defp pages_list_end(%Cforum.Paginator{page: page, distance: distance, pages_count: pages_count}) do
+  defp pages_list_end(%Paginator{page: page, distance: distance, pages_count: pages_count}) do
     case page + distance do
                 x when x > pages_count -> pages_count
                 x -> x
