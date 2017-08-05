@@ -39,6 +39,17 @@ defmodule CforumWeb.Router do
   end
 
   scope "/", CforumWeb do
+    pipe_through [:browser, :require_login]
+    resources "/notifications", NotificationController, only: [:index, :show, :delete]
+    resources "/mails", MailController
+  end
+
+  scope "/admin", CforumWeb.Admin, as: :admin do
+    pipe_through [:browser, :require_login, :require_admin]
+    resources "/forums", ForumController
+  end
+
+  scope "/", CforumWeb do
     pipe_through :browser
 
     get "/login", Users.SessionController, :new
@@ -74,17 +85,6 @@ defmodule CforumWeb.Router do
       get "/", ThreadController, :index
       resources "/tags", TagController
     end
-  end
-
-  scope "/", CforumWeb do
-    pipe_through [:browser, :require_login]
-    resources "/notifications", NotificationController
-    resources "/mails", MailController
-  end
-
-  scope "/admin", CforumWeb.Admin, as: :admin do
-    pipe_through [:browser, :require_login, :require_admin]
-    resources "/forums", ForumController
   end
 
   # Other scopes may use custom stacks.
