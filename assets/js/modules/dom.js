@@ -134,6 +134,11 @@ export function classes (selector, context = document) {
  *  The ID of the element to fetch.
  *
  *
+ *  @param { Document | DocumentFragment } [ context = document ]
+ *
+ *  The context object whose subtree to search.
+ *
+ *
  *  @return { ? Element }
  *
  *  The element with the given ID or null.
@@ -141,8 +146,8 @@ export function classes (selector, context = document) {
  *
  *
  */
-export function id (name) {
-  return document.getElementById(name);
+export function id (name, context = document) {
+  return context.getElementById(name);
 }
 
 
