@@ -202,7 +202,7 @@ export function id (name, context = document) {
  *
  */
 export const on = curry(function (type, context, callback, options = false) {
-  context.addEventListener(type, callback, capture);
+  context.addEventListener(type, callback, options);
   return context;
 });
 
