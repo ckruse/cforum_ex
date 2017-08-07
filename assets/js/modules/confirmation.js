@@ -71,7 +71,6 @@ import { defined } from './predicates.js';
  */
 function addConfirmationBehavior (element) {
   element.text = element.textContent;
-
   bind(element, [
 
     ['blur', branch(
