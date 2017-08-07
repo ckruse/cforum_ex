@@ -68,6 +68,52 @@ export function all (selector, context = document) {
 
 
 /**
+ *  @function bind
+ *
+ *
+ *  @summary
+ *
+ *  Connects an object with multiple actions.
+ *
+ *
+ *  @description
+ *
+ *  The bind function expects to be invoked with an object
+ *  implementing the EventTarget interface and a multidimensional
+ *  array containing pairs of strings and functions. The strings
+ *  must be valid event types. For each pair, the bind function
+ *  registers an event listener on the context object, using the
+ *  provided type strings and handler functions. The return
+ *  value is the context object.
+ *
+ *
+ *  @param { EventTarget } context
+ *
+ *  The object to attach handlers to.
+ *
+ *
+ *  @param { Array [] } actions
+ *
+ *  List of arrays containing an event type and a handler.
+ *
+ *
+ *  @return { EventTarget }
+ *
+ *  The context object.
+ *
+ *
+ *
+ */
+export const bind = curry(function bind (context, actions) {
+  actions.forEach(([event, action]) => on(event, context, action));
+  return context;
+});
+
+
+
+
+
+/**
  *  @function classes
  *
  *
