@@ -23,7 +23,7 @@
 
 
 
-import { bind, preventDefault, ready, select, stopPropagation } from './dom.js';
+import { all, bind, preventDefault, ready, stopPropagation } from './dom.js';
 
 import { pipe } from './functional.js';
 
@@ -41,53 +41,55 @@ import { defined } from './predicates.js';
  *
  *  @summary
  *
- *  Adds confirmation functionality to an element.
+ *  Adds confirmation functionality to a list of elements.
  *
  *
  *  @description
  *
- *  This function takes an element and adds an additional state
- *  for confirmation. That means, if the element is clicked in its
- *  default state, the click event is intercepted and the text of
- *  the element is changed as to ask for confirmation. Another
- *  activation will then pass and can be processed by other
+ *  This function takes a list of elements and adds an additional
+ *  state for confirmation to each. That means, if the elements are
+ *  clicked in their default state, the click event is intercepted
+ *  and the text of the elements is changed as to ask for confirmation.
+ *  Another activation will then pass and can be processed by other
  *  event handlers.
  *
  *
  *  After confirmation the default state is restored. This is
- *  also the case when the element loses focus before confirmation.
+ *  also the case when the elements lose focus before confirmation.
  *  To make these changes accessible, this function also manages the
- *  aria-live attribute of the element, that controls which changes
+ *  aria-live attribute of the elements, that controls which changes
  *  should be provided to users of assistive software. The
  *  function does not have a return value.
  *
  *
- *  @param { Element } element
+ *  @param { Element [] } list
  *
- *  The element to process.
+ *  A list of elements to process.
  *
  *
  *
  */
-function addConfirmationBehavior (element) {
-  element.text = element.textContent;
-  bind(element, [
+function addConfirmationBehavior (elements) {
+  elements.forEach(element => {
+    element.text = element.textContent;
+    bind(element, [
 
-    ['blur', branch(
-      confirming,
-      pipe(disableConfirmationState, muteLiveRegion),
-      muteLiveRegion
-    )],
+      ['blur', branch(
+        confirming,
+        pipe(disableConfirmationState, muteLiveRegion),
+        muteLiveRegion
+      )],
 
-    ['click', branch(
-      confirming,
-      pipe(disableConfirmationState, muteLiveRegion),
-      pipe(stopPropagation, preventDefault, enableConfirmationState)
-    )],
+      ['click', branch(
+        confirming,
+        pipe(disableConfirmationState, muteLiveRegion),
+        pipe(stopPropagation, preventDefault, enableConfirmationState)
+      )],
 
-    ['focus', makeLiveRegionAssertive]
+      ['focus', makeLiveRegionAssertive]
 
-  ]);
+    ]);
+  });
 }
 
 
@@ -309,5 +311,5 @@ function muteLiveRegion (event) {
 // Add behavior when there is a prepared element.
 
 ready(function (event) {
-  when(defined, addConfirmationBehavior, select('[data-confirm]'));
+  when(defined, addConfirmationBehavior, all('[data-confirm]'));
 });
