@@ -377,6 +377,46 @@ export function parse (markup) {
 
 
 /**
+ *  @function prevent
+ *
+ *
+ *  @summary
+ *
+ *  Prevents a default action.
+ *
+ *
+ *  @description
+ *
+ *  This is just a wrapper for the preventDefault method that
+ *  event objects implement. When called, an associated default
+ *  action will be stopped. This function can be used as a plug
+ *  when performing function composition, because the event
+ *  that has been passed in as an argument is also the
+ *  return value of the function.
+ *
+ *
+ *  @param { Event } event
+ *
+ *  An event whose default action to prevent.
+ *
+ *
+ *  @return { Event }
+ *
+ *  The provided event object.
+ *
+ *
+ *
+ */
+export function prevent (event) {
+  event.preventDefault();
+  return event;
+}
+
+
+
+
+
+/**
  *  @function ready
  *
  *
