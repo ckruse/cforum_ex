@@ -245,7 +245,7 @@ export function id (name, context = document) {
  *
  *  @summary
  *
- *  Prevents and event from further propagation.
+ *  Prevents an event from further propagation.
  *
  *
  *  @description
