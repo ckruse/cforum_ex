@@ -70,13 +70,13 @@ function addConfirmationBehavior (element) {
 
     ['blur', branch(
       confirming,
-      pipe(disableConfirmationState, muteLiveRegion),
+      pipe(muteLiveRegion, disableConfirmationState),
       muteLiveRegion
     )],
 
     ['click', branch(
       confirming,
-      pipe(disableConfirmationState, muteLiveRegion),
+      pipe(muteLiveRegion, disableConfirmationState),
       pipe(stopPropagation, preventDefault, enableConfirmationState)
     )],
 
