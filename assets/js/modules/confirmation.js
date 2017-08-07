@@ -301,6 +301,6 @@ function muteLiveRegion (event) {
 
 
 
-// Add behavior when there is at least one prepared element.
+// Add behavior to all prepared elements.
 
 ready(event => all('[data-confirm]').forEach(addConfirmationBehavior));
