@@ -240,47 +240,6 @@ export function id (name, context = document) {
 
 
 /**
- *  @function stopPropagation
- *
- *
- *  @summary
- *
- *  Prevents an event from further propagation.
- *
- *
- *  @description
- *
- *  This is a functional wrapper for the stopPropagation method
- *  that’s implemented by event objects. When this function is called
- *  it only invokes said method and then returns the event object. The
- *  call to stopPropagation prevents the event from invoking handler
- *  functions that are registered for other objects than that whose
- *  handler received the event object. This function is useful
- *  when performing function composition.
- *
- *
- *  @param { Event } event
- *
- *  An event to intercept.
- *
- *
- *  @return { Event }
- *
- *  The event object.
- *
- *
- *
- */
-export function stopPropagation (event) {
-  event.stopPropagation();
-  return event;
-}
-
-
-
-
-
-/**
  *  @function on
  *
  *
@@ -488,4 +447,45 @@ export function ready (callback) {
  */
 export function select (selector, context = document) {
   return context.querySelector(selector);
+}
+
+
+
+
+
+/**
+ *  @function stopPropagation
+ *
+ *
+ *  @summary
+ *
+ *  Prevents an event from further propagation.
+ *
+ *
+ *  @description
+ *
+ *  This is a functional wrapper for the stopPropagation method
+ *  that’s implemented by event objects. When this function is called
+ *  it only invokes said method and then returns the event object. The
+ *  call to stopPropagation prevents the event from invoking handler
+ *  functions that are registered for other objects than that whose
+ *  handler received the event object. This function is useful
+ *  when performing function composition.
+ *
+ *
+ *  @param { Event } event
+ *
+ *  An event to intercept.
+ *
+ *
+ *  @return { Event }
+ *
+ *  The event object.
+ *
+ *
+ *
+ */
+export function stopPropagation (event) {
+  event.stopPropagation();
+  return event;
 }
