@@ -4,7 +4,7 @@
  *
  *  @summary
  *
- *  Implements confirmation behavior for buttons.
+ *  Implements confirmation behavior for elements.
  *
  *
  *  @requires dom
