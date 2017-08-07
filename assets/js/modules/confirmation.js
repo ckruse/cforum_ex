@@ -23,7 +23,7 @@
 
 
 
-import { bind, intercept, prevent, ready, select } from './dom.js';
+import { bind, preventDefault, ready, select, stopPropagation } from './dom.js';
 
 import { pipe } from './functional.js';
 
@@ -83,7 +83,7 @@ function addConfirmationBehavior (element) {
     ['click', branch(
       confirming,
       pipe(disableConfirmationState, muteLiveRegion),
-      pipe(intercept, prevent, enableConfirmationState)
+      pipe(stopPropagation, preventDefault, enableConfirmationState)
     )],
 
     ['focus', makeLiveRegionAssertive]
