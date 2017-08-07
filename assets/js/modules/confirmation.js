@@ -59,14 +59,19 @@ import { branch } from './logic.js';
  *
  *  @param { Element } element
  *
- *  An element to process.
+ *  An element to add confirmation behavior to.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The augmented element.
  *
  *
  *
  */
 function addConfirmationBehavior (element) {
   element.text = element.textContent;
-  bind(element, [
+  return bind(element, [
 
     ['blur', branch(
       confirming,
