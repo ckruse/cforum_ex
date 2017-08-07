@@ -240,7 +240,7 @@ export function id (name, context = document) {
 
 
 /**
- *  @function intercept
+ *  @function stopPropagation
  *
  *
  *  @summary
@@ -271,7 +271,7 @@ export function id (name, context = document) {
  *
  *
  */
-export function intercept (event) {
+export function stopPropagation (event) {
   event.stopPropagation();
   return event;
 }
@@ -377,7 +377,7 @@ export function parse (markup) {
 
 
 /**
- *  @function prevent
+ *  @function preventDefault
  *
  *
  *  @summary
@@ -407,7 +407,7 @@ export function parse (markup) {
  *
  *
  */
-export function prevent (event) {
+export function preventDefault (event) {
   event.preventDefault();
   return event;
 }
