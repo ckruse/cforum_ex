@@ -13,8 +13,6 @@
  *
  *  @requires logic
  *
- *  @requires predicates
- *
  *
  *
  */
