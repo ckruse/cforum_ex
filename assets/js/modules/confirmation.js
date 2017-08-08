@@ -137,22 +137,22 @@ function confirming (event) {
  *
  *  @summary
  *
- *  Changes the elements state to confirming.
+ *  Changes the elements state to confirmation.
  *
  *
  *  @description
  *
  *  This function takes an event object and changes the state of
- *  the element that is the events current target to confirming, by
- *  adding a class of the same name and replacing the textual content
- *  with the text that is the value of the data-confirm attribute of
- *  the element. After the transformation the event object is
- *  returned for further processing.
+ *  the element that is the events current target to confirmation.
+ *  This is done by adding a class with the name confirming and by
+ *  replacing the textual content with the text that is the value
+ *  of the data-confirm attribute of the element. After that
+ *  transformation the event object is returned.
  *
  *
  *  @param { Event } event
  *
- *  An event the action is connected to.
+ *  An event whose current target is the element to process.
  *
  *
  *  @return { Event }
