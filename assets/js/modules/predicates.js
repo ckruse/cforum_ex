@@ -66,6 +66,30 @@ export const array = curry(function array (value) {
  *  @function callable
  *
  *
+ *  @summary
+ *
+ *  Tests if a value is a function.
+ *
+ *
+ *  @description
+ *
+ *  This is a simple test if a value is a function object.
+ *  It does not check if the supplied value is a class or a
+ *  generator function that possibly needs special treatment.
+ *  Tests for these kind of function types must be done in
+ *  a different way, they cannot be performed by using
+ *  the typeof operator like this function does.
+ *
+ *
+ *  @param { * } value
+ *
+ *  The value to test.
+ *
+ *
+ *  @return { boolean }
+ *
+ *  The result of the test.
+ *
  *
  *
  */
