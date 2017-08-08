@@ -337,6 +337,31 @@ export const lessThanOrEqual = curry(function lessThanOrEqual (first, second) {
  *  @function string
  *
  *
+ *  @summary
+ *
+ *  Tests if a value has the data type string.
+ *
+ *
+ *  @description
+ *
+ *  The string function tests if its operand is a string
+ *  and returns true or false depending on the result. The
+ *  test is internally performed by the typeof operator, but
+ *  it differs from the direct usage of this operator in that
+ *  an exception will be thrown, in case a reference is used
+ *  in the call expression which cannot be resolved.
+ *
+ *
+ *  @param { * } value
+ *
+ *  The value to test.
+ *
+ *
+ *  @return { boolean }
+ *
+ *  The result of the test.
+ *
+ *
  *
  */
 export const string = curry(function string (value) {
