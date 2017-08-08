@@ -1,4 +1,4 @@
-defmodule CforumWeb.Plug.EnsureLoggedIn do
+defmodule CforumWeb.Plug.EnsureAuthenticatedAction do
   def init(opts), do: opts
 
   def call(conn, opts) do

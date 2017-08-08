@@ -59,6 +59,7 @@ defmodule CforumWeb do
       import CforumWeb.Gettext
       import CforumWeb.Views.Helpers
       import CforumWeb.Views.Helpers.Button
+      import CforumWeb.Views.Helpers.Links
       import CforumWeb.Paginator
       import CforumWeb.Sortable
       import Cforum.Abilities

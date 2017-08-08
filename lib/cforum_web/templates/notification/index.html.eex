@@ -28,15 +28,10 @@
         </td>
         <td><%= Timex.format!(notification.created_at, date_format(@conn), :strftime) %></td>
         <td>
-          <%#= cf_link_to('', notification_path(n), method: :delete, data: {
-            'cf-confirm' => t('global.are_you_sure')},
-                         class: 'icon-delete-nofication',
-                         title: t('notifications.delete')) %>
-          <%# if n.is_read? %>
-            <%#= cf_link_to('', notification_path(n), method: :patch,
-                           class: 'icon-renew-nofication',
-                           title: t('notifications.mark_unread')) %>
-          <%# end %>
+          <%= destructive_index_button(gettext("delete"), to: "#", method: :delete, data: [confirm: gettext("Are you sure?")]) %><% # notification_path(@conn, :delete, notification) %>
+          <%= if notification.is_read do %>
+            <%= default_index_button(gettext("mark unread"), to: notification_unread_path(@conn, :update_unread, notification), method: :put) %>
+          <% end %>
         </td>
       </tr>
     <% end %>

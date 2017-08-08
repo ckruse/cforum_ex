@@ -25,9 +25,17 @@ defmodule Cforum.Accounts.Notifications do
     |> Repo.all
   end
 
-  def count_notifications(user) do
+  def count_notifications(user, only_unread \\ false)
+  def count_notifications(user, false) do
     from(notification in Notification,
       where: notification.recipient_id == ^user.user_id,
+      select: count("*")
+    )
+    |> Repo.one
+  end
+  def count_notifications(user, true) do
+    from(notification in Notification,
+      where: notification.recipient_id == ^user.user_id and notification.is_read == false,
       select: count("*")
     )
     |> Repo.one

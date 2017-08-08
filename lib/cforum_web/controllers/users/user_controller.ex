@@ -3,7 +3,7 @@ defmodule CforumWeb.Users.UserController do
 
   plug CforumWeb.Plug.AuthorizeAccess, only: [:edit, :update, :confirm_delete, :delete, :show_votes]
 
-  alias Cforum.Accounts.{Users, User}
+  alias Cforum.Accounts.Users
   alias Cforum.Forums.{Messages, Message}
   alias Cforum.Forums.{Votes, Vote}
   alias Cforum.Forums.Thread

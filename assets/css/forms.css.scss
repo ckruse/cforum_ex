@@ -3,95 +3,114 @@
 .cf-form {
   .cf-cgroup {
     vertical-align: middle;
-    margin-bottom:1em;
+    margin-bottom: 1em;
 
     label {
-      max-width:55em;
-      display:block;
+      max-width: 55em;
+      display: block;
       vertical-align: middle;
     }
 
-    input, select, textarea {
-      width:100%;
-      max-width:55em;
+    input,
+    select,
+    textarea {
+      width: 100%;
+      max-width: 55em;
       display: block;
       padding: .5em 1em;
       color: #333;
-      background-color: #FFF;
+      background-color: #fff;
       background-image: none;
-      border: 1px solid #CCC;
+      border: 1px solid #ccc;
       border-radius: 4px;
       box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
-      transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-      font-size:16px;
+      transition: border-color 0.15s ease-in-out 0s,
+        box-shadow 0.15s ease-in-out 0s;
+      font-size: 16px;
     }
 
-    input[type=radio], input[type=checkbox] { width:auto; }
+    input[type=radio],
+    input[type=checkbox] {
+      width: auto;
+    }
 
-    input:focus, select:focus, textarea:focus {
-      border-color: #66AFE9;
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #66afe9;
       outline: 0px none;
-      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
+      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset,
+        0px 0px 8px rgba(102, 175, 233, 0.6);
     }
 
-    input[disabled], select[disabled], textarea[disabled] {
+    input[disabled],
+    select[disabled],
+    textarea[disabled] {
       background-color: #eee;
-      opacity:1;
+      opacity: 1;
     }
 
     small {
       font-style: italic;
       padding-left: .5em;
     }
-    :focus + small { color: #66AFE9; }
+    :focus + small {
+      color: #66afe9;
+    }
 
-    textarea { height:10em; }
+    textarea {
+      height: 10em;
+    }
 
-    label.radio, label.checkbox {
-      width:100%;
-      max-width:55em;
+    label.radio,
+    label.checkbox {
+      width: 100%;
+      max-width: 55em;
 
-      input[type=checkbox], input[type=radio] {
-        display:inline;
-        margin-right:.25em;
+      input[type=checkbox],
+      input[type=radio] {
+        display: inline;
+        margin-right: .25em;
       }
     }
 
     textarea.big {
-      width:100%;
-      max-width:55em;
-      height:20em;
+      width: 100%;
+      max-width: 55em;
+      height: 20em;
     }
 
     .image-upload {
-      cursor:pointer;
-      text-align:center;
-      vertical-align:middle;
-      width:100%;
-      min-height:3em;
-      background-color:#f5f5f5;
-      cursor:pointer;
+      cursor: pointer;
+      text-align: center;
+      vertical-align: middle;
+      width: 100%;
+      min-height: 3em;
+      background-color: #f5f5f5;
+      cursor: pointer;
     }
 
     .image-upload.loading {
-      span { display:none; }
-      background:asset-data-url('ajax-loader.svg') center center no-repeat;
-      background-size:contain;
+      span {
+        display: none;
+      }
+      background: asset-data-url('ajax-loader.svg') center center no-repeat;
+      background-size: contain;
     }
   }
 
   .help-block {
-    display:block;
-    max-width:55em;
-    font-weight:bold;
-    color:#A94442;
-    background-color:#F2DEDE;
-    border-color:#EBCCD1;
-    border:1px solid transparent;
-    border-radius:4px;
-    box-shadow:0px 0px 6px #666;
-    padding:.5em 1em;
-    margin-top:.5em;
+    display: block;
+    max-width: 55em;
+    font-weight: bold;
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    box-shadow: 0px 0px 6px #666;
+    padding: .5em 1em;
+    margin-top: .5em;
   }
 }
 
@@ -129,99 +148,163 @@
   border-radius: 4px;
 }
 
-.btn:hover, .btn:focus, .btn.focus, a.btn:hover, a.btn:focus, a.btn.focus {
+.btn:hover,
+.btn:focus,
+.btn.focus,
+a.btn:hover,
+a.btn:focus,
+a.btn.focus {
   color: #333;
   text-decoration: none;
   border: 1px solid transparent;
   border-radius: 4px;
 }
 
-.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus,
-.btn.focus:active, .btn.active.focus {
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn.focus:active,
+.btn.active.focus {
   outline: thin dotted;
   outline-offset: -2px;
 }
 
-.cf-btn, .message-links .cf-btn, .button_to .cf-btn {
+.cf-btn,
+.message-links .cf-btn,
+.button_to .cf-btn {
   @extend .btn;
   color: #333;
-  background-color: #FFF;
-  border-color: #CCC;
+  background-color: #fff;
+  border-color: #ccc;
 }
 
-.cf-btn-xs {
-  padding:1px 6px;
+.cf-btn-xs,
+.button_to .cf-btn-xs {
+  padding: 3px 6px;
   line-height: 1em;
 }
 
-.cf-index-btn {
+.cf-index-btn,
+.button_to .cf-index-btn {
   @extend .cf-btn;
   @extend .cf-btn-xs;
 }
-.cf-destructive-btn {
-  @extend .cf-btn;
+
+.cf-destructive-index-btn,
+.button_to .cf-destructive-index-btn {
+  @extend .cf-destructive-btn;
   @extend .cf-btn-xs;
-
-  color: #fff;
-  background-color: #d9534f;
-  border-color: #d43f3a
 }
 
-.cf-btn:hover, .cf-btn:focus, .cf-btn.focus,
-.cf-btn:active, .cf-btn.active,
-a.cf-btn:hover, a.cf-btn:focus, a.cf-btn:active,
-a.cf-btn:link:hover, a.cf-btn:link:focus, a.cf-btn:link:active,
-.button_to .cf-btn:hover, .button_to .cf-btn:focus, .button_to .cf-btn.focus,
-.button_to .cf-btn:active, .button_to .cf-btn.active,
-.button_to a.cf-btn:hover, .button_to a.cf-btn:focus, .button_to a.cf-btn:active,
-.button_to a.cf-btn:link:hover, .button_to a.cf-btn:link:focus, .button_to a.cf-btn:link:active {
-    color: #333;
-    background-color: #E6E6E6;
-    border-color: #ADADAD;
+.cf-primary-index-btn,
+.button_to .cf-primary-index-btn {
+  @extend .cf-primary-btn;
+  @extend .cf-btn-xs;
 }
 
-a.cf-btn:link, a.cf-btn:visited {
+.cf-btn:hover,
+.cf-btn:focus,
+.cf-btn.focus,
+.cf-btn:active,
+.cf-btn.active,
+a.cf-btn:hover,
+a.cf-btn:focus,
+a.cf-btn:active,
+a.cf-btn:link:hover,
+a.cf-btn:link:focus,
+a.cf-btn:link:active,
+.button_to .cf-btn:hover,
+.button_to .cf-btn:focus,
+.button_to .cf-btn.focus,
+.button_to .cf-btn:active,
+.button_to .cf-btn.active,
+.button_to a.cf-btn:hover,
+.button_to a.cf-btn:focus,
+.button_to a.cf-btn:active,
+.button_to a.cf-btn:link:hover,
+.button_to a.cf-btn:link:focus,
+.button_to a.cf-btn:link:active {
+  color: #333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+
+a.cf-btn:link,
+a.cf-btn:visited {
   color: #333;
 }
 
-.cf-primary-btn, .button_to .cf-primary-btn {
+.cf-primary-btn,
+.button_to .cf-primary-btn {
   @extend .btn;
-  color: #FFF;
-  background-color: #337AB7;
-  border-color: #2E6DA4;
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
 }
 
-.cf-primary-btn.is-confirmed { transition: all 0.5s ease; }
-
-a.cf-primary-btn:link, a.cf-primary-btn:visited {
-  color: #FFF;
+.cf-primary-btn.is-confirmed {
+  transition: all 0.5s ease;
 }
 
-.cf-primary-btn:hover, .cf-primary-btn:focus, .cf-primary-btn.focus,
-.cf-primary-btn:active, .cf-primary-btn.active,
-a.cf-primary-btn:hover, a.cf-primary-btn:focus, a.cf-primary-btn:active,
-a.cf-primary-btn:link:hover, a.cf-primary-btn:link:focus, a.cf-primary-btn:link:active,
-.button_to .cf-primary-btn:hover, .button_to .cf-primary-btn:focus, .button_to .cf-primary-btn.focus,
-.button_to .cf-primary-btn:active, .button_to .cf-primary-btn.active,
-.button_to a.cf-primary-btn:hover, .button_to a.cf-primary-btn:focus, .button_to a.cf-primary-btn:active,
-.button_to a.cf-primary-btn:link:hover, .button_to a.cf-primary-btn:link:focus, .button_to a.cf-primary-btn:link:active
-{
-    color: #FFF;
-    background-color: #286090;
-    border-color: #204D74;
+a.cf-primary-btn:link,
+a.cf-primary-btn:visited {
+  color: #fff;
 }
 
-input, button, select, textarea {
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
+.cf-destructive-btn {
+  @extend .cf-btn;
+
+  color: #fff;
+  background-color: #d9534f;
+  border-color: #d43f3a;
 }
 
-button, html input[type="button"], input[type="reset"], input[type="submit"] {
+.cf-primary-btn:hover,
+.cf-primary-btn:focus,
+.cf-primary-btn.focus,
+.cf-primary-btn:active,
+.cf-primary-btn.active,
+a.cf-primary-btn:hover,
+a.cf-primary-btn:focus,
+a.cf-primary-btn:active,
+a.cf-primary-btn:link:hover,
+a.cf-primary-btn:link:focus,
+a.cf-primary-btn:link:active,
+.button_to .cf-primary-btn:hover,
+.button_to .cf-primary-btn:focus,
+.button_to .cf-primary-btn.focus,
+.button_to .cf-primary-btn:active,
+.button_to .cf-primary-btn.active,
+.button_to a.cf-primary-btn:hover,
+.button_to a.cf-primary-btn:focus,
+.button_to a.cf-primary-btn:active,
+.button_to a.cf-primary-btn:link:hover,
+.button_to a.cf-primary-btn:link:focus,
+.button_to a.cf-primary-btn:link:active {
+  color: #fff;
+  background-color: #286090;
+  border-color: #204d74;
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
   cursor: pointer;
 }
 
-button, select {
+button,
+select {
   text-transform: none;
 }
 
@@ -229,38 +312,40 @@ button {
   overflow: visible;
 }
 
-button, input, optgroup, select, textarea {
+button,
+input,
+optgroup,
+select,
+textarea {
   margin: 0px;
   font: inherit;
   color: inherit;
 }
 
 fieldset {
-  min-width:0;
-  padding:0;
-  margin:0;
-  border:0;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 
 legend {
-  display:block;
-  width:100%;
-  font-weight:bold;
-  font-size:1.1em;
-  margin-bottom:1em;
-  margin-top:1em;
-  border-bottom: 2px solid #C4D4DA;
+  display: block;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  border-bottom: 2px solid #c4d4da;
 }
 
 .users-modal {
   ul {
-    list-style-type:none;
-    margin-left:0;
-    padding-left:0;
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
   }
 }
-
-
 
 /* markdown editor adjustments */
 
@@ -318,21 +403,22 @@ legend {
 //   select:nth-of-type(5) { max-width:4em; }
 // }
 
-
 // safari fix: search inputs in safari can't have a padding
-input[type="search"] { -webkit-appearance: textfield; }
+input[type="search"] {
+  -webkit-appearance: textfield;
+}
 
 .button_to {
-  display:inline;
+  display: inline;
   button {
-    border:0;
-    background:transparent;
-    padding:0;
+    border: 0;
+    background: transparent;
+    padding: 0;
     color: #3481cd;
   }
 
   button:hover {
-    color:#990909;
+    color: #990909;
   }
 
   button,
@@ -342,11 +428,10 @@ input[type="search"] { -webkit-appearance: textfield; }
 }
 
 .cf-btn.spinning {
-  padding-left:2.5em;
+  padding-left: 2.5em;
   background: asset-url("ajax-loader.svg") no-repeat left scroll;
   background-size: contain;
 }
-
 
 @media only screen and (min-width: 35em) {
   // .form-horizontal {
@@ -392,6 +477,5 @@ input[type="search"] { -webkit-appearance: textfield; }
   //   }
   // }
 }
-
 
 /* eof */
