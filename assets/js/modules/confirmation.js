@@ -217,6 +217,31 @@ function addConfirmationClass (element) {
  *  @function replaceTextualContent
  *
  *
+ *  @summary
+ *
+ *  Replaces the textual content of an element.
+ *
+ *
+ *  @description
+ *
+ *  This function takes an element and replaces its textual
+ *  content with the value of its data-confirm attribute. Then
+ *  it returns the element. The new text content of the element
+ *  will be a request for confirmation. If the user confirms or
+ *  if the element loses focus, the original content will be
+ *  restored, but because the data-confirm attribute is not
+ *  touched, it can be replaced all over again.
+ *
+ *
+ *  @param { Element } element
+ *
+ *  An element whose textual content should be changed.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The provided element.
+ *
  *
  *
  */
