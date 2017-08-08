@@ -148,7 +148,7 @@ function confirming (event) {
  *  the element that is the events current target to confirmation.
  *  This is done by adding a class with the name confirming and by
  *  replacing the textual content with the text that is the value
- *  of the data-confirm attribute of the element. After that
+ *  of the data-confirm attribute of the element. After this
  *  transformation the event object is returned.
  *
  *
