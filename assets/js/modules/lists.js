@@ -50,10 +50,17 @@ export const head = curry(function head ([first]) {
  *
  *  @description
  *
+ *  The peak function takes a list and returns the last item
+ *  within. The function is generic, so the argument does not have
+ *  to be an array or another indexed collection like a string or
+ *  arguments object. Any object that implements the Iterable
+ *  interface will do fine. In case an empty list has been
+ *  provided, the return value will be undefined.
  *
- *  @param { Array } list
  *
- *  An array or other indexed collection.
+ *  @param { Iterable } list
+ *
+ *  An array or other object that is iterable.
  *
  *
  *  @return { * }
@@ -63,8 +70,8 @@ export const head = curry(function head ([first]) {
  *
  *
  */
-export const peak = curry(function peak (list) {
-  return list[list.length - 1];
+export const peak = curry(function peak ([...items]) {
+  return items[items.length - 1];
 });
 
 
