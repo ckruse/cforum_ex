@@ -26,13 +26,32 @@ import { curry } from './functional.js';
  *
  *  @summary
  *
- *  Returns the first element of a list.
+ *  Returns the first item of a list.
+ *
+ *
+ *  @description
+ *
+ *  This function expects to be called with a list and
+ *  returns the lists first item, or undefined if the list
+ *  is empty. The function is generic, so the argument does
+ *  not have to be an array but can be any object that
+ *  implements the Iterable interface.
+ *
+ *
+ *  @param { Iterable } list
+ *
+ *  An array or other object that is iterable.
+ *
+ *
+ *  @return { * }
+ *
+ *  The first item of the list.
  *
  *
  *
  */
-export const head = curry(function head ([first]) {
-  return first;
+export const head = curry(function head ([item]) {
+  return item;
 });
 
 
