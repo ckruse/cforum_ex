@@ -7,6 +7,17 @@
  *  Implements confirmation behavior for elements.
  *
  *
+ *  @description
+ *
+ *  This module adds an additional state to a set of interactive
+ *  elements on a page. More precisely, it transforms elements like
+ *  buttons or links such that an activation does not directly cause
+ *  the associated action to be executed. Instead the textual content
+ *  of these elements is replaced with a request for confirmation.
+ *  The program will only continue with the actual action if the
+ *  user confirms by activating the element once more.
+ *
+ *
  *  @requires dom
  *
  *  @requires functional
