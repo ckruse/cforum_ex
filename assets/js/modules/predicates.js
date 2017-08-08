@@ -63,6 +63,21 @@ export const array = curry(function array (value) {
 
 
 /**
+ *  @function callable
+ *
+ *
+ *
+ *
+ */
+export const callable = curry(function callable (value) {
+  return typeof value === 'function';
+});
+
+
+
+
+
+/**
  *  @function defined
  *
  *
@@ -312,4 +327,18 @@ export const lessThan = curry(function lessThan (first, second) {
  */
 export const lessThanOrEqual = curry(function lessThanOrEqual (first, second) {
   return first <= second;
+});
+
+
+
+
+
+/**
+ *  @function string
+ *
+ *
+ *
+ */
+export const string = curry(function string (value) {
+  return typeof value === 'string';
 });
