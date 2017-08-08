@@ -386,23 +386,24 @@ function restoreTextualContent (element) {
  *  @description
  *
  *  To make assistive software recognize the state change of the
- *  element from default to confirming, one has to make the element
- *  part of a so called live region, which is done by setting the
- *  aria-live attribute of the element. Because the confirmation
- *  message should be transmitted immediately to the user the
+ *  element from default to confirmation, one has to make the element
+ *  part of a so called live region, which is accomplished by setting
+ *  the aria-live attribute of the element. Because the confirmation
+ *  message should be transmitted immediately to the user, the
  *  value of the attribute is set to assertive.
  *
  *
- *  The function expects an event object as argument which holds
- *  a reference to the element which is subject to the state change
- *  in its currentTarget property. After setting the value of the
- *  aria-live attribute the event object is returned for further
- *  processing.
+ *  The function expects to be called with an event object whose
+ *  current target is the element which is subject to the state change.
+ *  After setting the value of the elements aria-live attribute to the
+ *  new value, the event object is returned for further processing. It
+ *  has to be mentioned though, that this is not ideal, because this
+ *  functionality is likely to be needed elsewhere, too.
  *
  *
  *  @param { Event } event
  *
- *  An event object with a reference to the element to change.
+ *  An event whose current target is the element to change.
  *
  *
  *  @return { Event }
