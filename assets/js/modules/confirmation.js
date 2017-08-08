@@ -100,20 +100,22 @@ function addConfirmationBehavior (element) {
  *
  *  @summary
  *
- *  A predicate checking if an event target has the class confirming.
+ *  Tests if an element is in the confirmation state.
  *
  *
  *  @description
  *
- *  This function expects an event object and returns a boolean value. It
- *  tests if the element that is the current target of the event object has
- *  the class confirming, indicating that the element is in the state of
- *  confirmation. If it is, than true is returned, otherwise false.
+ *  This is a predicate function that tests if an element has
+ *  a class with the name confirming, indicating that the element
+ *  is in the confirmation state rather than in its default state.
+ *  This function is used by the addConfirmationBehavior function
+ *  to control which actions should be executed when certain
+ *  events occur.
  *
  *
  *  @param { Event } event
  *
- *  Event whose current target to test.
+ *  An event whose current target is the element to process.
  *
  *
  *  @return { boolean }
