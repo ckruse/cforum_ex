@@ -275,6 +275,25 @@ function disableConfirmationState (event) {
  *  Removes the class confirming from an elements class list.
  *
  *
+ *  @description
+ *
+ *  This function expects to be called with an element and returns
+ *  the element it has been called with. It removes the class with the
+ *  name confirming from the element using the DOMTokenList collection
+ *  returned from its classList property. After that the element will
+ *  no longer be recognized as being in the confirmation state by
+ *  the predicate confirming that is defined above.
+ *
+ *
+ *  @param { Element } element
+ *
+ *  An element to remove the class confirming from.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The provided element.
+ *
  *
  *
  */
