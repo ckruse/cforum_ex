@@ -23,7 +23,7 @@
 
 import { all, bind, preventDefault, ready, stopPropagation } from './dom.js';
 
-import { pipe } from './functional.js';
+import { compose, pipe } from './functional.js';
 
 import { branch } from './logic.js';
 
@@ -64,7 +64,7 @@ import { branch } from './logic.js';
  *
  *  @return { Element }
  *
- *  The augmented element.
+ *  The provided element.
  *
  *
  *
@@ -163,9 +163,64 @@ function confirming (event) {
  *
  */
 function enableConfirmationState (event) {
-  const element = event.currentTarget;
-  element.classList.add('confirming'), element.textContent = element.dataset.confirm;
+  compose(replaceTextualContent, addConfirmationClass, event.currentTarget);
   return event;
+}
+
+
+
+
+
+/**
+ *  @function addConfirmationClass
+ *
+ *
+ *  @summary
+ *
+ *  Adds the class confirming to an elements class list.
+ *
+ *
+ *  @description
+ *
+ *  This function expects to be called with an element and returns
+ *  the element it has been called with. It adds the class confirming
+ *  to the element via the DOMTokenList collection returned from its
+ *  classList property. After that the element can be recognized as
+ *  being in the confirmation state by the predicate confirming
+ *  that is defined above.
+ *
+ *
+ *  @param { Element } element
+ *
+ *  An element to add the class confirming to.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The provided element.
+ *
+ *
+ *
+ */
+function addConfirmationClass (element) {
+  element.classList.add('confirming');
+  return element;
+}
+
+
+
+
+
+/**
+ *  @function replaceTextualContent
+ *
+ *
+ *
+ *
+ */
+function replaceTextualContent (element) {
+  element.textContent = element.dataset.confirm;
+  return element;
 }
 
 
@@ -203,9 +258,49 @@ function enableConfirmationState (event) {
  *
  */
 function disableConfirmationState (event) {
-  const element = event.currentTarget;
-  element.classList.remove('confirming'), element.textContent = element.text;
+  compose(restoreTextualContent, removeConfirmationClass, event.currentTarget);
   return event;
+}
+
+
+
+
+
+/**
+ *  @function removeConfirmationClass
+ *
+ *
+ *  @summary
+ *
+ *  Removes the class confirming from an elements class list.
+ *
+ *
+ *
+ *
+ */
+function removeConfirmationClass (element) {
+  element.classList.remove('confirming');
+  return element;
+}
+
+
+
+
+
+/**
+ *  @function restoreTextualContent
+ *
+ *
+ *  @summary
+ *
+ *  Resets the textual content of an element.
+ *
+ *
+ *
+ */
+function restoreTextualContent (element) {
+  element.textContent = element.text;
+  return element;
 }
 
 
@@ -306,6 +401,6 @@ function muteLiveRegion (event) {
 
 
 
-// Add behavior to all prepared elements.
+// Add behavior to all prepared elements
 
 ready(event => all('[data-confirm]').forEach(addConfirmationBehavior));
