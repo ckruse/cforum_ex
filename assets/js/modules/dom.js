@@ -19,6 +19,12 @@
 
 import { curry } from './functional.js';
 
+import { peak } from './lists.js';
+
+import { conditions } from './logic.js';
+
+import { array, callable, string } from './predicates.js';
+
 
 
 
@@ -105,7 +111,15 @@ export function all (selector, context = document) {
  *
  */
 export const bind = curry(function bind (context, actions) {
-  actions.forEach(([event, action]) => on(event, context, action));
+  const transformed = [];
+
+  actions.forEach(conditions([
+    [array, item => transformed.push(item)],
+    [string, item => transformed.push([item])],
+    [callable, item => peak(transformed).push(item)]
+  ]));
+
+  transformed.forEach(([event, action]) => on(event, context, action));
   return context;
 });
 
