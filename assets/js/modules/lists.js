@@ -82,15 +82,15 @@ export const peak = curry(function peak (list) {
  *
  *  @description
  *
- *  The tail function takes an array and returns another array
- *  whose elements are those of the array provided without the first
- *  element. If the supplied array contains less than two elements,
- *  an empty array will be returned. The argument does not have to
- *  be an array, though. It can be any object that implements
- *  the Iterable interface.
+ *  The tail function takes a list and returns an array whose
+ *  elements are the items of the provided list except the first
+ *  one. If the supplied list contains less than two items, then
+ *  an empty array will be returned. The list does not have to
+ *  be an array, it can be any object that implements the
+ *  Iterable interface.
  *
  *
- *  @param { Array } list
+ *  @param { Iterable } list
  *
  *  An array or other object that is iterable.
  *
