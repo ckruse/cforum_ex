@@ -471,6 +471,32 @@ function muteLiveRegion (event) {
 
 
 
-// Add behavior to all prepared elements
-
+/**
+ *  @callback
+ *
+ *
+ *  @summary
+ *
+ *  Selects prepared elements and adds behavior.
+ *
+ *
+ *  @description
+ *
+ *  This function is executed when the DOM of the page is
+ *  fully loaded and parsed. It selects all elements that have
+ *  a data-confirm attribute and adds confirmation behavior to
+ *  them. If there are no elements matched by the selector,
+ *  no error will be thrown, just nothing will happen.
+ *
+ *
+ *  @param { Event } event
+ *
+ *  An event object.
+ *
+ *
+ *  @ignore
+ *
+ *
+ *
+ */
 ready(event => all('[data-confirm]').forEach(addConfirmationBehavior));
