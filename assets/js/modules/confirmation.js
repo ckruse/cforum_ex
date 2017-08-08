@@ -247,7 +247,7 @@ function replaceTextualContent (element) {
  *
  *  @param { Event } event
  *
- *  An event the action is connected to.
+ *  An event whose current target is the element to process.
  *
  *
  *  @return { Event }
