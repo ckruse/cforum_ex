@@ -73,19 +73,19 @@ function addConfirmationBehavior (element) {
   element.text = element.textContent;
   return bind(element, [
 
-    ['blur', branch(
+    'blur', branch(
       confirming,
       pipe(muteLiveRegion, disableConfirmationState),
       muteLiveRegion
-    )],
+    ),
 
-    ['click', branch(
+    'click', branch(
       confirming,
       pipe(muteLiveRegion, disableConfirmationState),
       pipe(stopPropagation, preventDefault, enableConfirmationState)
-    )],
+    ),
 
-    ['focus', makeLiveRegionAssertive]
+    'focus', makeLiveRegionAssertive
 
   ]);
 }
