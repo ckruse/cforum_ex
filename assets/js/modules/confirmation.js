@@ -43,18 +43,21 @@ import { branch } from './logic.js';
  *  @description
  *
  *  This function takes an element and adds an additional state
- *  for confirmation. That means, if the element is clicked in its
- *  default state, the click event is intercepted and the text of the
- *  element is changed as to ask for confirmation. Another activation
- *  will then pass and can be processed by other event handlers.
+ *  for confirmation. That means, if the element is activated in its
+ *  default state, the click event is intercepted, a possible default
+ *  action is canceled, and the text of the element is changed as to
+ *  ask for confirmation. Another activation will then pass and can
+ *  be processed by other event handlers, or trigger the default
+ *  action associated with the element, if there is one.
  *
  *
  *  After confirmation the default state is restored. This is
  *  also the case when the element loses focus before confirmation.
  *  To make these changes accessible, this function also manages the
- *  aria-live attribute of the element, that controls which changes
- *  should be provided to users of assistive software. The
- *  function does not have a return value.
+ *  aria-live attribute of the element, which controls whether changes
+ *  should be transmitted to users of assistive software or not, and
+ *  if so, as how urgent the information should be considered. When
+ *  all actions are implemented, the element is returned.
  *
  *
  *  @param { Element } element
