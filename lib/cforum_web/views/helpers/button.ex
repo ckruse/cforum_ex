@@ -3,6 +3,50 @@
 defmodule CforumWeb.Views.Helpers.Button do
   use Phoenix.HTML
 
+  def default_button(opts, [do: contents]) do
+    cf_button(Keyword.update(opts, :class, "cf-btn", &(&1 <> " cf-btn")), [do: contents])
+  end
+  def default_button(text, opts) do
+    cf_button(text, Keyword.update(opts, :class, "cf-btn", &(&1 <> " cf-btn")))
+  end
+
+  def default_index_button(opts, [do: contents]) do
+    cf_button(Keyword.update(opts, :class, "cf-index-btn", &(&1 <> " cf-index-btn")), [do: contents])
+  end
+  def default_index_button(text, opts) do
+    cf_button(text, Keyword.update(opts, :class, "cf-index-btn", &(&1 <> " cf-index-btn")))
+  end
+
+  def primary_button(opts, [do: contents]) do
+    cf_button(Keyword.update(opts, :class, "cf-primary-btn", &(&1 <> " cf-primary-btn")), [do: contents])
+  end
+  def primary_button(text, opts) do
+    cf_button(text, Keyword.update(opts, :class, "cf-primary-btn", &(&1 <> " cf-primary-btn")))
+  end
+
+  def primary_index_button(opts, [do: contents]) do
+    cf_button(Keyword.update(opts, :class, "cf-primary-index-btn", &(&1 <> " cf-primary-index-btn")), [do: contents])
+  end
+  def primary_index_button(text, opts) do
+    cf_button(text, Keyword.update(opts, :class, "cf-primary-index-btn", &(&1 <> " cf-primary-index-btn")))
+  end
+
+  def destructive_button(opts, [do: contents]) do
+    cf_button(Keyword.update(opts, :class, "cf-destructive-btn", &(&1 <> " cf-destructive-btn")), [do: contents])
+  end
+  def destructive_button(text, opts) do
+    cf_button(text, Keyword.update(opts, :class, "cf-destructive-btn", &(&1 <> " cf-destructive-btn")))
+  end
+
+  def destructive_index_button(opts, [do: contents]) do
+    cf_button(Keyword.update(opts, :class, "cf-destructive-index-btn", &(&1 <> " cf-destructive-index-btn")), [do: contents])
+  end
+  def destructive_index_button(text, opts) do
+    cf_button(text, Keyword.update(opts, :class, "cf-destructive-index-btn", &(&1 <> " cf-destructive-index-btn")))
+  end
+
+
+
   @doc """
   Generates a button that uses a regular HTML form to submit to the given URL.
   Useful to ensure that links that change data are not triggered by

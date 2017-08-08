@@ -2,7 +2,6 @@ defmodule CforumWeb.NotificationController do
   use CforumWeb, :controller
 
   alias Cforum.Accounts.Notifications
-  alias Cforum.Accounts.Notification
 
   def index(conn, params) do
     {sort_params, conn} = sort_collection(conn, [:created_at, :subject, :is_read])
@@ -18,19 +17,31 @@ defmodule CforumWeb.NotificationController do
   end
 
   def show(conn, %{"id" => id}) do
-    notification = Repo.get!(Notification, id)
+    notification = Notifications.get_notification!(id)
     render(conn, "show.html", notification: notification)
   end
 
-  def delete(conn, %{"id" => id}) do
-    notification = Repo.get!(Notification, id)
+  def update_unread(conn, %{"notification_id" => id}) do
+    notification = Notifications.get_notification!(id)
 
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(notification)
+    case Notifications.update_notification(notification, %{is_read: false}) do
+      {:ok, _notification} ->
+        conn
+        |> put_flash(:info, gettext("Notification successfully marked as unread."))
+        |> redirect(to: notification_path(conn, :index))
+      {:error, _changeset} ->
+        conn
+        |> put_flash(:error, gettext("Oops, something went wrong!"))
+        |> redirect(to: notification_path(conn, :index))
+    end
+  end
+
+  def delete(conn, %{"id" => id}) do
+    notification = Notifications.get_notification!(id)
+    Notifications.delete_notification(notification)
 
     conn
-    |> put_flash(:info, "Notification deleted successfully.")
+    |> put_flash(:info, gettext("Notification deleted successfully."))
     |> redirect(to: notification_path(conn, :index))
   end
 end

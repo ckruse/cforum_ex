@@ -18,6 +18,7 @@ defmodule CforumWeb.Router do
     plug CforumWeb.Plug.CurrentForum
     plug CforumWeb.Plug.VisibleForums
     plug CforumWeb.Plug.LoadSettings
+    plug CforumWeb.Plug.LoadUserInfoData
     plug CforumWeb.Plug.SetViewAll
   end
 
@@ -40,7 +41,9 @@ defmodule CforumWeb.Router do
 
   scope "/", CforumWeb do
     pipe_through [:browser, :require_login]
-    resources "/notifications", NotificationController, only: [:index, :show, :delete]
+    resources "/notifications", NotificationController, only: [:index, :show, :delete] do
+      put "/unread", NotificationController, :update_unread, as: :unread
+    end
     resources "/mails", MailController
   end
 
