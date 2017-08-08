@@ -342,6 +342,27 @@ function removeConfirmationClass (element) {
  *  Resets the textual content of an element.
  *
  *
+ *  @description
+ *
+ *  When an element enters the confirmation state, its textual
+ *  content is replaced by the value of its data-confirm attribute.
+ *  In case the user confirmed the action that is associated with
+ *  the element or if the element loses focus, the default state
+ *  must be restored. This function then replaces the current
+ *  content with the original text that has been retained
+ *  in the elements text property.
+ *
+ *
+ *  @param { Element } element
+ *
+ *  An element whose textual content should be restored.
+ *
+ *
+ *  @return
+ *
+ *  The provided element.
+ *
+ *
  *
  */
 function restoreTextualContent (element) {
