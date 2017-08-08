@@ -444,13 +444,15 @@ function makeLiveRegionAssertive (event) {
  *
  *  Therefore this function sets the value of the aria-live attribute
  *  to off, until another focus will raise the level to assertive again.
- *  The element to augment is expected to be provided via an event
- *  object, that is also returned after changing the attribute.
+ *  The element whose attribute should be changed must be provided via
+ *  an event object as its current target, which is not a satisfying
+ *  solution as already mentioned above. However, the event that’s
+ *  been passed to this function is also its return value.
  *
  *
  *  @param { Event } event
  *
- *  An event object with a reference to the object to change.
+ *  An event whose current target is the element to change.
  *
  *
  *  @return { Event }
