@@ -171,6 +171,6 @@ export const peak = curry(function peak ([...items]) {
  *
  *
  */
-export const tail = curry(function tail ([head, ...rest]) {
-  return rest;
+export const tail = curry(function tail ([head, ...remainder]) {
+  return remainder;
 });
