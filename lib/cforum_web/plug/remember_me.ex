@@ -9,7 +9,7 @@ defmodule CforumWeb.Plug.RememberMe do
     else
       # do we find a cookie
       token = conn.req_cookies["remember_me"]
-      case Phoenix.Token.verify(CforumWeb.Endpoint, "user", token, max_age: 2592000) do
+      case Phoenix.Token.verify(CforumWeb.Endpoint, "user", token, max_age: 2_592_000) do
         {:ok, uid} ->
           current_user = Cforum.Accounts.Users.get_user(uid)
           conn
