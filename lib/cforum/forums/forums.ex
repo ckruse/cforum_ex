@@ -18,7 +18,9 @@ defmodule Cforum.Forums do
 
   """
   def list_forums do
-    Repo.all(Forum)
+    Forum
+    |> ordered
+    |> Repo.all
   end
 
   @doc """
@@ -36,6 +38,21 @@ defmodule Cforum.Forums do
 
   """
   def get_forum!(id), do: Repo.get!(Forum, id)
+
+  @doc """
+  Gets a single forum by its slug.
+
+  Raises `Ecto.NoResultsError` if the Forum does not exist.
+
+  ## Examples
+
+      iex> get_forum_by_slug!("rebellion")
+      %Forum{}
+
+      iex> get_forum_by_slug!("aldebaran")
+      ** (Ecto.NoResultsError)
+
+  """
   def get_forum_by_slug!(slug), do: Repo.get_by!(Forum, slug: slug)
 
   @doc """
@@ -101,5 +118,9 @@ defmodule Cforum.Forums do
   """
   def change_forum(%Forum{} = forum) do
     Forum.changeset(forum, %{})
+  end
+
+  defp ordered(query) do
+    query |> order_by([n], asc: n.position)
   end
 end
