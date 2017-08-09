@@ -358,6 +358,44 @@ export const lessThanOrEqual = curry(function lessThanOrEqual (first, second) {
 
 
 /**
+ *  @function object
+ *
+ *
+ *  @summary
+ *
+ *  Tests if a value is a plain object.
+ *
+ *
+ *  @description
+ *
+ *  This function takes any value and returns true if it
+ *  is an ordinary object and false otherwise. Because this
+ *  function leaves the type check to the native toString
+ *  method of Object.prototype, it will also recognize
+ *  plain dictionaries whose prototype is null.
+ *
+ *
+ *  @param { * } value
+ *
+ *  The value to test.
+ *
+ *
+ *  @return { boolean }
+ *
+ *  The result of the test.
+ *
+ *
+ *
+ */
+export const object = curry(function object (value) {
+  return Object.prototype.toString.call(value).includes('Object');
+});
+
+
+
+
+
+/**
  *  @function string
  *
  *
