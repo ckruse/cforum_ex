@@ -16,6 +16,49 @@
 
 import { curry } from './functional.js';
 
+import { when } from './logic.js';
+
+import { array } from './predicates.js';
+
+
+
+
+
+/**
+ *  @function flatten
+ *
+ *
+ *  @summary
+ *
+ *  Builds a flat list from nested arrays.
+ *
+ *
+ *  @description
+ *
+ *  This function takes an array and builds a new array from
+ *  its elements. In the process nested arrays are destructured
+ *  recursively and their elements are appended to the new list,
+ *  depth first. So the order is preserved such that the array
+ *  returned looks like the written out nested list without
+ *  the inner brackets.
+ *
+ *
+ *  @param { Array } list
+ *
+ *  A potentially nested list to flatten.
+ *
+ *
+ *  @return { Array }
+ *
+ *  The flattened list.
+ *
+ *
+ *
+ */
+export const flatten = curry(function flatten (list) {
+  return list.reduce((result, value) => result.concat(when(array, flatten, value)), []);
+});
+
 
 
 
