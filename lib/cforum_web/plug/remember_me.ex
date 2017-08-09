@@ -1,6 +1,16 @@
 # -*- coding: utf-8 -*-
 
 defmodule CforumWeb.Plug.RememberMe do
+  @moduledoc """
+  This plug is plugged in the browser pipeline and implements a „remember me”
+  behaviour:
+
+  - if the user is signed in it does nothing
+  - if the user isn't signed in it checks if there is a `remember_me` cookie
+  - if there is a `remember_me` cookie it loads the user object, signs in the
+    user (sets `user_id` in session) and assigns the current_user
+  """
+
   def init(opts), do: opts
 
   def call(conn, _opts) do

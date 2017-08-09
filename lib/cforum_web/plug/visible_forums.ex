@@ -1,4 +1,9 @@
 defmodule CforumWeb.Plug.VisibleForums do
+  @moduledoc """
+  This plug is plugged in the browser pipeline and loads and assigns the forums
+  visible to the current user.
+  """
+
   alias Cforum.Forums
 
   def init(opts), do: opts

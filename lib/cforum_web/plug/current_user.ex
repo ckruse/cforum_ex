@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 defmodule CforumWeb.Plug.CurrentUser do
+  @moduledoc """
+  This plug is plugged in the browser pipeline and loads and assigns the
+  current user
+  """
   def init(opts), do: opts
 
   def call(conn, _opts) do

@@ -1,4 +1,18 @@
 defmodule CforumWeb.Plug.EnsureAnonymous do
+  @moduledoc """
+  This plug can be plugged in controllers and ensures that a user is not
+  signed in. It can be limited to actions by the `only` keyword. It shows
+  a 403 error page when user is signed in.
+
+  ## Examples
+
+      # ensure that user isn't signed in for all actions
+      plug EnsureAnonymous
+
+      # ensure that user isn't signed in only for some actions
+      plug EnsureAnonymous, only: [:sign_in]
+  """
+
   def init(opts), do: opts
 
   def call(conn, opts) do
