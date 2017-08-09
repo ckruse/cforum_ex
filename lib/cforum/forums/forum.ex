@@ -38,22 +38,4 @@ defmodule Cforum.Forums.Forum do
     |> validate_required([:slug, :short_name, :name, :description, :standard_permission, :position])
     |> unique_constraint(:slug)
   end
-
-  def ordered(query) do
-    query |> order_by([n], asc: n.position)
-  end
-
-  def visible_forums(query, user \\ nil)
-  def visible_forums(query, user) when user == nil do
-    from f in query,
-      where: f.standard_permission in [^@read, ^@write]
-  end
-  def visible_forums(query, %Cforum.Accounts.User{admin: true}) do # admins may view all forums
-    query
-  end
-  def visible_forums(query, user) do
-    from f in query,
-      where: f.standard_permission in [^@read, ^@write, ^@known_read, ^@known_write] or
-             fragment("? IN (SELECT forum_id FROM forums_groups_permissions INNER JOIN groups_users USING(group_id) WHERE user_id = ?)", f.forum_id, ^user.user_id)
-  end
 end

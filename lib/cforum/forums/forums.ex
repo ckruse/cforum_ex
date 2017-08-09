@@ -120,6 +120,37 @@ defmodule Cforum.Forums do
     Forum.changeset(forum, %{})
   end
 
+  @doc """
+  Returns an ordered list of %Forum{} visible to the given user
+
+  ## Examples
+
+      iex> list_visible_forums(user)
+      [%Forum{}]
+
+  """
+  def list_visible_forums(user \\ nil) do
+    Forum
+    |> visible_forums(user)
+    |> ordered
+    |> Repo.all
+  end
+
+  alias Cforum.Accounts.User
+
+  defp visible_forums(query, nil) do
+    from f in query,
+      where: f.standard_permission in [^Forum.read, ^Forum.write]
+  end
+  defp visible_forums(query, %User{admin: true}) do # admins may view all forums
+    query
+  end
+  defp visible_forums(query, %User{} = user) do
+    from f in query,
+      where: f.standard_permission in [^Forum.read, ^Forum.write, ^Forum.known_read, ^Forum.known_write] or
+             fragment("? IN (SELECT forum_id FROM forums_groups_permissions INNER JOIN groups_users USING(group_id) WHERE user_id = ?)", f.forum_id, ^user.user_id)
+  end
+
   defp ordered(query) do
     query |> order_by([n], asc: n.position)
   end
