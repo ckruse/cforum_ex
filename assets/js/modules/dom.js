@@ -119,7 +119,10 @@ export const bind = curry(function bind (context, actions) {
     [callable, item => peak(transformed).push(item)]
   ]));
 
-  transformed.forEach(([event, action]) => on(event, context, action));
+  transformed.forEach(function ([event, ...handlers]) {
+    handlers.forEach(handler => on(event, context, handler));
+  });
+
   return context;
 });
 
