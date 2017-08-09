@@ -18,7 +18,11 @@ defmodule CforumWeb.NotificationController do
 
   def show(conn, %{"id" => id}) do
     notification = Notifications.get_notification!(id)
-    render(conn, "show.html", notification: notification)
+
+    # we ignore errors in this case; the user doesn't care, he just want's to
+    # go to the referenced subject
+    Notifications.update_notification(notification, %{is_read: false})
+    redirect(conn, to: notification.path)
   end
 
   def update_unread(conn, %{"notification_id" => id}) do

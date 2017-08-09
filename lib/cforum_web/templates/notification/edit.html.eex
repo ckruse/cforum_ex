@@ -1,6 +1,0 @@
-<h2>Edit notification</h2>
-
-<%= render "form.html", changeset: @changeset,
-                        action: notification_path(@conn, :update, @notification) %>
-
-<%= link "Back", to: notification_path(@conn, :index) %>
