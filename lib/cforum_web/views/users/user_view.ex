@@ -19,7 +19,7 @@ defmodule CforumWeb.Users.UserView do
   def page_heading(:update, assigns), do: page_title(:update, assigns)
   def page_heading(:edit, assigns), do: page_heading(:update, assigns)
 
-  def body_id(:index, _), do: "forums-index"
+  def body_id(:index, _), do: "users-index"
   def body_id(:show, _), do: "users-show"
   def body_id(:show_messages, _), do: "users-messages"
   def body_id(:show_scores, _), do: "users-scores"
@@ -28,7 +28,7 @@ defmodule CforumWeb.Users.UserView do
   def body_id(:update, _), do: "users-edit"
   def body_id(:edit, conn), do: body_id(:update, conn)
 
-  def body_classes(:index, _), do: "forums"
+  def body_classes(:index, _), do: "users"
   def body_classes(:show, _), do: "users show"
   def body_classes(:show_messages, _), do: "users messages"
   def body_classes(:show_scores, _), do: "users scores"
