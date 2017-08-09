@@ -1,4 +1,12 @@
 defmodule CforumWeb.Plug.LoadSettings do
+  @moduledoc """
+  This plug is plugged in the browser pipeline and loads these settings objects:
+
+  - global settings
+  - forum settings
+  - user settings
+  """
+
   alias Cforum.Accounts.Setting
   alias Cforum.Repo
 

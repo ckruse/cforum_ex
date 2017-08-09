@@ -1,4 +1,9 @@
 defmodule CforumWeb.Plug.LoadUserInfoData do
+  @moduledoc """
+  This plug is plugged in the browser pipeline and loads some meta information
+  for signed in users (e.g. the count of unread PMs and notifications)
+  """
+
   alias Cforum.Accounts
 
   def init(opts), do: opts

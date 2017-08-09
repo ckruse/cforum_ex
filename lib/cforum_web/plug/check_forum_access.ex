@@ -1,4 +1,10 @@
 defmodule CforumWeb.Plug.CheckForumAccess do
+  @moduledoc """
+  This plug is plugged in the browser pipeline; it checks if the user of the
+  current request has access to a forum (if he tries to access one); if not
+  the user gets a 403 error message
+  """
+
   alias Cforum.Forums.Forum
   alias Cforum.Accounts.User
 

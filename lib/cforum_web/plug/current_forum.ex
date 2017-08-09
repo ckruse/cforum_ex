@@ -1,4 +1,9 @@
 defmodule CforumWeb.Plug.CurrentForum do
+  @moduledoc """
+  This plug is plugged in the browser pipeline and loads and assigns the current
+  forum; if the forum could not be found it throws an 404 error
+  """
+
   alias Cforum.Forums
 
   def init(opts), do: opts
