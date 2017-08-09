@@ -1,6 +1,5 @@
 defmodule CforumWeb.Plug.CurrentForum do
-  alias Cforum.Repo
-  alias Cforum.Forums.Forum
+  alias Cforum.Forums
 
   def init(opts), do: opts
 
@@ -13,7 +12,7 @@ defmodule CforumWeb.Plug.CurrentForum do
               slug when slug == "all" ->
                 nil
               slug ->
-                Repo.get_by!(Forum, slug: slug)
+                Forums.get_forum_by_slug!(slug)
             end
 
     Plug.Conn.assign(conn, :current_forum, forum)
