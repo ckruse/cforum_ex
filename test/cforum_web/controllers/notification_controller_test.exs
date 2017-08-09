@@ -1,66 +1,52 @@
 defmodule CforumWeb.NotificationControllerTest do
   use CforumWeb.ConnCase
 
-  # alias Cforum.Accounts.Notification
-  # @valid_attrs %{description: "some content", icon: "some content", is_read: true, oid: 42, otype: "some content", path: "some content", subject: "some content"}
-  # @invalid_attrs %{}
+  alias Cforum.Accounts.Notifications
 
-  # test "lists all entries on index", %{conn: conn} do
-  #   conn = get conn, notification_path(conn, :index)
-  #   assert html_response(conn, 200) =~ "Listing notifications"
-  # end
+  setup do
+    {:ok, user: insert(:user)}
+  end
 
-  # test "renders form for new resources", %{conn: conn} do
-  #   conn = get conn, notification_path(conn, :new)
-  #   assert html_response(conn, 200) =~ "New notification"
-  # end
+  test "lists all entries on index", %{conn: conn, user: user} do
+    conn = login(conn, user)
+    |> get(notification_path(conn, :index))
 
-  # test "creates resource and redirects when data is valid", %{conn: conn} do
-  #   conn = post conn, notification_path(conn, :create), notification: @valid_attrs
-  #   assert redirected_to(conn) == notification_path(conn, :index)
-  #   assert Repo.get_by(Notification, @valid_attrs)
-  # end
+    assert html_response(conn, 200) =~ gettext("Notifications")
+  end
 
-  # test "does not create resource and renders errors when data is invalid", %{conn: conn} do
-  #   conn = post conn, notification_path(conn, :create), notification: @invalid_attrs
-  #   assert html_response(conn, 200) =~ "New notification"
-  # end
+  test "redirects to notification ressource when showing", %{conn: conn, user: user} do
+    notification = insert(:notification)
 
-  # test "shows chosen resource", %{conn: conn} do
-  #   notification = Repo.insert! %Notification{}
-  #   conn = get conn, notification_path(conn, :show, notification)
-  #   assert html_response(conn, 200) =~ "Show notification"
-  # end
+    conn = login(conn, user)
+    |> get(notification_path(conn, :show, notification))
 
-  # test "renders page not found when id is nonexistent", %{conn: conn} do
-  #   assert_error_sent 404, fn ->
-  #     get conn, notification_path(conn, :show, -1)
-  #   end
-  # end
+    assert redirected_to(conn) == notification.path
+  end
 
-  # test "renders form for editing chosen resource", %{conn: conn} do
-  #   notification = Repo.insert! %Notification{}
-  #   conn = get conn, notification_path(conn, :edit, notification)
-  #   assert html_response(conn, 200) =~ "Edit notification"
-  # end
+  test "renders page not found when id is nonexistent", %{conn: conn, user: user} do
+    assert_error_sent 404, fn ->
+      login(conn, user)
+      |> get(notification_path(conn, :show, -1))
+    end
+  end
 
-  # test "updates chosen resource and redirects when data is valid", %{conn: conn} do
-  #   notification = Repo.insert! %Notification{}
-  #   conn = put conn, notification_path(conn, :update, notification), notification: @valid_attrs
-  #   assert redirected_to(conn) == notification_path(conn, :show, notification)
-  #   assert Repo.get_by(Notification, @valid_attrs)
-  # end
+  test "marks a notification as unread", %{conn: conn, user: user} do
+    notification = insert(:notification, is_read: true)
 
-  # test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-  #   notification = Repo.insert! %Notification{}
-  #   conn = put conn, notification_path(conn, :update, notification), notification: @invalid_attrs
-  #   assert html_response(conn, 200) =~ "Edit notification"
-  # end
+    conn = login(conn, user)
+    |> put(notification_unread_path(conn, :update_unread, notification))
 
-  # test "deletes chosen resource", %{conn: conn} do
-  #   notification = Repo.insert! %Notification{}
-  #   conn = delete conn, notification_path(conn, :delete, notification)
-  #   assert redirected_to(conn) == notification_path(conn, :index)
-  #   refute Repo.get(Notification, notification.id)
-  # end
+    assert redirected_to(conn) == notification_path(conn, :index)
+    n1 = Notifications.get_notification!(notification.notification_id)
+    assert n1.is_read == false
+  end
+
+  test "deletes chosen resource", %{conn: conn, user: user} do
+    notification = insert(:notification)
+    conn = login(conn, user)
+    |> delete(notification_path(conn, :delete, notification))
+
+    assert redirected_to(conn) == notification_path(conn, :index)
+    assert_raise Ecto.NoResultsError, fn -> Notifications.get_notification!(notification.notification_id) end
+  end
 end
