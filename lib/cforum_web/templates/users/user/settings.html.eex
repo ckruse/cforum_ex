@@ -1,5 +1,5 @@
-<%= render "personal_information.html", f: @f %>
-<%= render "comfort.html", f: @f %>
-<%= render "notifications.html", f: @f %>
-<%= render "personalization.html", f: @f %>
-<%= render "readability_overview.html", f: @f %>
+<%= render "personal_information.html", f: @f, user: @user %>
+<%= render "comfort.html", f: @f, user: @user %>
+<%= render "notifications.html", f: @f, user: @user %>
+<%= render "personalization.html", f: @f, user: @user %>
+<%= render "readability_overview.html", f: @f, user: @user %>

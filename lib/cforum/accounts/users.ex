@@ -46,21 +46,21 @@ defmodule Cforum.Accounts.Users do
   """
   def get_user!(id) do
     from(u in User,
-      preload: [:settings, [badges_users: :badge]],
+      preload: [:settings, :badges, [badges_users: :badge]],
       where: u.user_id == ^id)
     |> Repo.one!
   end
 
   def get_user(id) do
     from(u in User,
-      preload: [:settings, [badges_users: :badge]],
+      preload: [:settings, :badges, [badges_users: :badge]],
       where: u.user_id == ^id)
     |> Repo.one
   end
 
   def get_user_by_username_or_email(login) do
     from(user in User,
-      preload: [:settings, [badges_users: :badge]],
+      preload: [:settings, :badges, [badges_users: :badge]],
       where: user.active == true and
              (fragment("lower(?)", user.email) == fragment("lower(?)", ^login) or
               fragment("lower(?)", user.username) == fragment("lower(?)", ^login)))
@@ -216,5 +216,18 @@ defmodule Cforum.Accounts.Users do
         {:error, User.login_changeset(%User{}, %{"login" => login,
                                                  "password" => password})}
     end
+  end
+
+  def has_badge?(user, badge) do
+    Enum.find(user.badges, &(&1.badge_type == badge)) != nil
+  end
+
+  def moderator?(%User{admin: true}), do: true
+  def moderator?(user) do
+    # TODO
+    # user.has_badge?(Badge::MODERATOR_TOOLS) ||
+    # ForumGroupPermission.exists?(['group_id IN (SELECT group_id FROM groups_users WHERE user_id = ?) ' \
+    #                               'AND permission = ?', user_id, ForumGroupPermission::MODERATE])
+    false
   end
 end

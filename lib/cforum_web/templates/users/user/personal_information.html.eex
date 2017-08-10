@@ -11,15 +11,11 @@
     <%= url_input @f, :url, placeholder: "http://example.com/" %>
   </div>
 
-  <!-- TODO <%# if @user.has_badge?('seo_profi') %>
-  <div class="cf-cgroup">
-    <label for="settings_norelnofollow"><%#= t('users.settings.norelnofollow') %></label>
-    <div class="cntrls">
-      <%#= hidden_field_tag 'settings[norelnofollow]', 'no', id: '' %>
-      <label class="checkbox"><%#= check_box_tag 'settings[norelnofollow]', 'yes', @settings.conf('norelnofollow') == 'yes' %></label>
+  <%= if Cforum.Accounts.Users.has_badge?(@user, "seo_profi") do %>
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox @f, :norelnofollow, checked_value: "yes", unchecked_value: "no" %> <%= gettext("remove rel=nofollow from my homepage URL") %></label>
     </div>
-  </div>
-  <%# end %>-->
+  <% end %>
 
   <div class="cf-cgroup">
     <%= label @f, :flattr, gettext("flattr id") %>

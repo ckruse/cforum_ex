@@ -6,90 +6,53 @@
     <%= textarea @f, :greeting, placeholder: gettext("Hello {$vname},") %>
   </div>
 
-  <!--     <div class="cf-cgroup">
-       <label for="settings_farewell"><%#= t('users.settings.farewell') %></label>
-       <div class="cntrls">
-       <textarea name="settings[farewell]" id="settings_farewell" placeholder="<%#= t('layout.placeholders.farewell') %>"<%#= disabled %>><%#= @settings.conf('farewell') %></textarea>
-       </div>
-       </div>
+  <div class="cf-cgroup">
+    <%= label @f, :farewell, gettext("farewell") %>
+    <%= textarea @f, :farewell, placeholder: gettext("Bye, Regina") %>
+  </div>
 
-       <div class="cf-cgroup">
-       <label for="settings_signature"><%#= t('users.settings.signature') %></label>
-       <div class="cntrls">
-       <textarea name="settings[signature]" id="settings_signature" placeholder="<%#= t('layout.placeholders.signature') %>"<%#= disabled %>><%#= @settings.conf('signature') %></textarea>
-       </div>
-       </div>
+  <div class="cf-cgroup">
+    <%= label @f, :signature, gettext("signature") %>
+    <%= textarea @f, :signature, placeholder: gettext("Roses are red") %>
+  </div>
 
-       <div class="cf-cgroup">
-       <label for="settings_quote_signature"><%#= t('users.settings.quote_signature') %></label>
-       <div class="cntrls">
-       <%#= hidden_field_tag 'settings[quote_signature]', 'no', id: '' %>
-       <label class="checkbox"><%#= check_box_tag 'settings[quote_signature]', 'yes', @settings.conf('quote_signature') == 'yes' %></label>
-       </div>
-       </div>
+  <div class="cf-cgroup">
+    <label class="checkbox"><%= checkbox @f, :quote_signature, checked_value: "yes", unchecked_value: "no" %> <%= gettext("quote signature when answering") %></label>
+  </div>
 
-       <div class="cf-cgroup">
-       <label for="settings_inline_answer"><%#= t('users.settings.inline_answer') %></label>
-       <div class="cntrls">
-       <%#= hidden_field_tag 'settings[inline_answer]', 'no', id: '' %>
-       <label class="checkbox"><%#= check_box_tag 'settings[inline_answer]', 'yes', @settings.conf('inline_answer') == 'yes' %></label>
-       </div>
-       </div>
+  <div class="cf-cgroup">
+    <label class="checkbox"><%= checkbox @f, :inline_answer, checked_value: "yes", unchecked_value: "no" %> <%= gettext("use inline answer forms") %></label>
+  </div>
 
-       <div class="cf-cgroup">
-       <label for="settings_quote_by_default"><%#= t('users.settings.quote_by_default') %></label>
-       <div class="cntrls">
-       <label class="radio"><input type="radio" value="yes" name="settings[quote_by_default]" <%# if @settings.conf('quote_by_default') == 'yes' %> checked="checked"<%# end %>> <%#= t("global.yeah") %></label>
-       <label class="radio"><input type="radio" value="no" name="settings[quote_by_default]" <%# if @settings.conf('quote_by_default') == 'no' || @settings.conf('quote_by_default').blank? %> checked="checked"<%# end %>> <%#= t("global.nope") %></label>
-       <label class="radio"><input type="radio" value="button" name="settings[quote_by_default]" <%# if @settings.conf('quote_by_default') == 'button' %> checked="checked"<%# end %>> <%#= t("users.settings.quote_by_default_buttons") %></label>
-       </div>
-       </div>
+  <div class="cf-cgroup">
+    <label><%= gettext("quote previous message by default") %></label>
+    <label class="radio"><%= radio_button @f, :quote_by_default, "yes" %> <%= gettext("yes") %></label>
+    <label class="radio"><%= radio_button @f, :quote_by_default, "no" %> <%= gettext("no") %></label>
+    <label class="radio"><%= radio_button @f, :quote_by_default, "button" %> <%= gettext("show two buttons") %>
+  </div>
 
-       <div class="cf-cgroup">
-       <label for="settings_show_unread_notifications_in_title"><%#= t('users.settings.show_unread_notifications_in_title') %></label>
-       <div class="cntrls">
-       <%#= hidden_field_tag 'settings[show_unread_notifications_in_title]', 'no', id: '' %>
-       <label class="checkbox"><%#= check_box_tag 'settings[show_unread_notifications_in_title]', 'yes', @settings.conf('show_unread_notifications_in_title') == 'yes' %></label>
-       </div>
-       </div>
+  <div class="cf-cgroup">
+    <label class="checkbox"><%= checkbox(@f, :show_unread_notifications_in_title, checked_value: "yes", unchecked_value: "no") %> <%= gettext("show number of unread notifications in title") %></label>
+  </div>
 
-       <div class="cf-cgroup">
-       <label for="settings_show_unread_pms_in_title"><%#= t('users.settings.show_unread_pms_in_title') %></label>
-       <div class="cntrls">
-       <%#= hidden_field_tag 'settings[show_unread_pms_in_title]', 'no', id: '' %>
-       <label class="checkbox"><%#= check_box_tag 'settings[show_unread_pms_in_title]', 'yes', @settings.conf('show_unread_pms_in_title') == 'yes' %></label>
-       </div>
-       </div>
+  <div class="cf-cgroup">
+    <label class="checkbox"><%= checkbox @f, :show_unread_pms_in_title, checked_value: "yes", unchecked_value: "no" %> <%= gettext("show number of unread PMs in title") %></label>
+  </div>
 
-       <div class="cf-cgroup">
-       <label for="settings_show_new_messages_since_last_visit_in_title"><%#= t('users.settings.show_new_messages_since_last_visit_in_title') %></label>
-       <div class="cntrls">
-       <%#= hidden_field_tag 'settings[show_new_messages_since_last_visit_in_title]', 'no', id: '' %>
-       <label class="checkbox"><%#= check_box_tag 'settings[show_new_messages_since_last_visit_in_title]', 'yes', @settings.conf('show_new_messages_since_last_visit_in_title') == 'yes' %></label>
-       </div>
-       </div>
+  <div class="cf-cgroup">
+    <label class="checkbox"><%= checkbox @f, :show_new_messages_since_last_visit_in_title, checked_value: "yes", unchecked_value: "no" %> <%= gettext("show number of unread messages in title") %></label>
+  </div>
 
-       <div class="cf-cgroup">
-       <label for="settings_autorefresh"><%#= t('users.settings.autorefresh') %></label>
-       <div class="cntrls">
-       <input type="number" min="0" max="60" step="1" value="<%#= @settings.conf('autorefresh') %>" name="settings[autorefresh]" id="settings_autorefresh"<%#= disabled %>>
-       </div>
-       </div>
+  <div class="cf-cgroup">
+    <%= label @f, :autorefresh, gettext("automatically refresh forum index page") %>
+    <%= number_input(@f, :refresh) %>
+  </div>
 
-       <div class="cf-cgroup">
-       <label for="settings_load_messages_via_js"><%#= t('users.settings.load_messages_via_js') %></label>
-       <div class="cntrls">
-       <%#= hidden_field_tag 'settings[load_messages_via_js]', 'no', id: '' %>
-       <label class="checkbox"><%#= check_box_tag 'settings[load_messages_via_js]', 'yes', @settings.conf('load_messages_via_js') != 'no' %></label>
-       </div>
-       </div>
+  <div class="cf-cgroup">
+    <label class="checkbox"><%= checkbox @f, :load_messages_via_js, checked_value: "yes", unchecked_value: "no" %> <%= gettext("use JavaScript to dynamically load new threads and messages from server") %></label>
+  </div>
 
-       <div class="cf-cgroup">
-       <label for="settings_live_preview"><%#= t('users.settings.live_preview') %></label>
-       <div class="cntrls">
-       <%#= hidden_field_tag 'settings[live_preview]', 'no', id: '' %>
-       <label class="checkbox"><%#= check_box_tag 'settings[live_preview]', 'yes', @settings.conf('live_preview') != 'no' %></label>
-       </div>
-       </div> -->
-
+  <div class="cf-cgroup">
+    <label class="checkbox"><%= checkbox @f, :live_preview, checked_value: "yes", unchecked_value: "no" %> <%= gettext("show the live preview") %></label>
+  </div>
 </fieldset>
