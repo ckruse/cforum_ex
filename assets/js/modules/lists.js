@@ -60,7 +60,7 @@ import { array, callable } from './predicates.js';
  *
  *
  */
-export const append = curry(function (value, list) {
+export const append = curry(function append (value, list) {
   return [...list, value];
 });
 
