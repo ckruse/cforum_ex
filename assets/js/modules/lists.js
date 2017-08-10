@@ -530,7 +530,7 @@ export const prepend = curry(function prepend (value, list) {
  *  reduce function has been invoked with.
  *
  *
- *  @param { function } callback
+ *  @param { function } reducer
  *
  *  The function to process the list items and the accumulator.
  *
@@ -542,7 +542,7 @@ export const prepend = curry(function prepend (value, list) {
  *
  *  @param { Iterable } list
  *
- *  The list whose items are passed to callback.
+ *  The list whose items are passed to the reducer.
  *
  *
  *  @return { * }
@@ -552,8 +552,8 @@ export const prepend = curry(function prepend (value, list) {
  *
  *
  */
-export const reduce = curry(function reduce (callback, accumulator, [...list]) {
-  return list.reduce(callback, accumulator);
+export const reduce = curry(function reduce (reducer, accumulator, [...list]) {
+  return list.reduce(reducer, accumulator);
 });
 
 
