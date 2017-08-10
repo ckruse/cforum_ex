@@ -65,8 +65,6 @@
     </label>
   </div>
 
-
-  <h3><%= gettext("subscriptions") %></h3>
   <div class="cf-cgroup">
     <label class="checkbox">
       <%= checkbox @f, :delete_read_notifications_on_abonements, checked_value: "yes", unchecked_value: "no" %> <%= gettext("automatically delete read notifications for activity in subscribed threads") %>
@@ -82,27 +80,22 @@
   </div>
 
 
-  <!--
+  <%= if Cforum.Accounts.Users.moderator?(@user) do %>
+    <div class="cf-cgroup">
+      <%= label @f, :notification_on_flagged, gettext("send me a notification on flagged messages") %>
+      <label class="radio"><%= radio_button @f, :notification_on_flagged, "yes" %> <%= gettext("yes") %></label>
+      <label class="radio"><%= radio_button @f, :notification_on_flagged, "no" %> <%= gettext("no") %></label>
+      <label class="radio"><%= radio_button @f, :notification_on_flagged, "email" %> <%= gettext("via email") %></label>
+    </div>
+  <% end %>
 
-
-       <%# if @user.admin or @user.has_badge?(Badge::MODERATOR_TOOLS) or @user.moderator? %>
-       <div class="cf-cgroup">
-       <label><%#= t('users.settings.notification_on_flagged') %></label>
-       <div class="cntrls">
-       <label class="radio"><input type="radio" value="yes" name="settings[notify_on_flagged]"<%#= disabled %><%# if @settings.conf('notify_on_flagged') == 'yes' %> checked="checked"<%# end %>> <%#= t("global.yeah") %></label>
-       <label class="radio"><input type="radio" value="no" name="settings[notify_on_flagged]"<%#= disabled %><%# if @settings.conf('notify_on_flagged') == 'no' or @settings.conf('notify_on_flagged').blank? %> checked="checked"<%# end %>> <%#= t("global.nope") %></label>
-       <label class="radio"><input type="radio" value="email" name="settings[notify_on_flagged]"<%#= disabled %><%# if @settings.conf('notify_on_flagged') == 'email' %> checked="checked"<%# end %>> <%#= t("users.settings.via_email") %></label>
-       </div>
-       </div>
-
-       <div class="cf-cgroup">
-       <label><%#= t('users.settings.notification_on_open_close_vote') %></label>
-       <div class="cntrls">
-       <label class="radio"><input type="radio" value="yes" name="settings[notify_on_open_close_vote]"<%#= disabled %><%# if @settings.conf('notify_on_open_close_vote') == 'yes' %> checked="checked"<%# end %>> <%#= t("global.yeah") %></label>
-       <label class="radio"><input type="radio" value="no" name="settings[notify_on_open_close_vote]"<%#= disabled %><%# if @settings.conf('notify_on_open_close_vote') == 'no' or @settings.conf('notify_on_open_close_vote').blank? %> checked="checked"<%# end %>> <%#= t("global.nope") %></label>
-       <label class="radio"><input type="radio" value="email" name="settings[notify_on_open_close_vote]"<%#= disabled %><%# if @settings.conf('notify_on_open_close_vote') == 'email' %> checked="checked"<%# end %>> <%#= t("users.settings.via_email") %></label>
-       </div>
-       </div>
-       <%# end %> -->
+  <%= if Cforum.Accounts.Users.has_badge?(@user, "visit_close_reopen") do %>
+    <div class="cf-cgroup">
+      <label><%= gettext("send me a notification on close and re-open votes") %></label>
+      <label class="radio"><%= radio_button @f, :notification_on_open_close_vote, "yes" %> <%= gettext("yes") %></label>
+      <label class="radio"><%= radio_button @f, :notification_on_open_close_vote, "no" %> <%= gettext("no") %></label>
+      <label class="radio"><%= radio_button @f, :notification_on_open_close_vote, "email" %> <%= gettext("via email") %></label>
+    </div>
+  <% end %>
 
 </fieldset>

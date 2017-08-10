@@ -1,6 +1,6 @@
 <%= form_for @changeset, user_path(@conn, :update, @user), [class: "cf-form", multipart: true], fn f -> %>
 
-<%= render "form.html", changeset: @changeset, f: f %>
+<%= render "form.html", changeset: @changeset, f: f, user: @user %>
 
 <p class="form-actions">
   <%= submit gettext("save changes"), class: "cf-primary-btn" %>
