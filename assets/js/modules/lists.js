@@ -25,6 +25,50 @@ import { array, callable } from './predicates.js';
 
 
 /**
+ *  @function append
+ *
+ *
+ *  @summary
+ *
+ *  Appends a value to a list.
+ *
+ *
+ *  @description
+ *
+ *  This function takes a value of any type and an iterable
+ *  object and returns an array. It simply appends the supplied
+ *  value to the array that is constructed from the items of the
+ *  iterable object. The iterable object itself is not touched.
+ *  In case the second argument is not iterable, an exception
+ *  will be thrown.
+ *
+ *
+ *  @param { * } value
+ *
+ *  The value to append to the list.
+ *
+ *
+ *  @param { Iterable } list
+ *
+ *  The list to append the value to.
+ *
+ *
+ *  @return { Array }
+ *
+ *  An array containing the list items and the supplied value.
+ *
+ *
+ *
+ */
+export const append = curry(function (value, list) {
+  return [...list, value];
+});
+
+
+
+
+
+/**
  *  @function entries
  *
  *
