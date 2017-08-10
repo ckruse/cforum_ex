@@ -292,6 +292,45 @@ export const head = curry(function head ([item]) {
 
 
 /**
+ *  @function init
+ *
+ *
+ *  @summary
+ *
+ *  Returns all but the last item of a list.
+ *
+ *
+ *  @description
+ *
+ *  This is the opposite of the tail function. It takes
+ *  an array or other iterable object and creates a new array
+ *  which contains all items the original list contains except
+ *  the last one. So, the functions operand is not altered.
+ *  If the supplied value does not implement the Iterable
+ *  interface, an error will occur.
+ *
+ *
+ *  @param { Iterable } list
+ *
+ *  A list whose last item to remove.
+ *
+ *
+ *  @return { Array }
+ *
+ *  The list without the last item.
+ *
+ *
+ *
+ */
+export const init = curry(function init ([...list]) {
+  return list.slice(0, list.length - 1);
+});
+
+
+
+
+
+/**
  *  @function keys
  *
  *
