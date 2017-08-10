@@ -358,6 +358,44 @@ export const lessThanOrEqual = curry(function lessThanOrEqual (first, second) {
 
 
 /**
+ *  @function map
+ *
+ *
+ *  @summary
+ *
+ *  Tests if a value is a map.
+ *
+ *
+ *  @description
+ *
+ *  This function takes any value and returns true if
+ *  it is a map object and false otherwise. Because the
+ *  native instanceof operator is used for the test, it
+ *  will also return true if the tested value is an
+ *  instance of a class that is derived from Map.
+ *
+ *
+ *  @param { * } value
+ *
+ *  The value to test.
+ *
+ *
+ *  @return { boolean }
+ *
+ *  The result of the test.
+ *
+ *
+ *
+ */
+export const map = curry(function map (value) {
+  return value instanceof Map;
+});
+
+
+
+
+
+/**
  *  @function object
  *
  *
