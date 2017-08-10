@@ -326,6 +326,50 @@ export const peak = curry(function peak ([...list]) {
 
 
 /**
+ *  @function prepend
+ *
+ *
+ *  @summary
+ *
+ *  Prepends a value to a list.
+ *
+ *
+ *  @description
+ *
+ *  This function takes a value of any type and an iterable
+ *  object and returns an array. It simply prepends the supplied
+ *  value to the array that is constructed from the items of the
+ *  iterable object. The iterable object itself is not touched.
+ *  In case the second argument is not iterable, an exception
+ *  will be thrown.
+ *
+ *
+ *  @param { * } value
+ *
+ *  The value to prepend to the list.
+ *
+ *
+ *  @param { Iterable } list
+ *
+ *  The list to prepend the value to.
+ *
+ *
+ *  @return { Array }
+ *
+ *  An array containing the supplied value and the list items.
+ *
+ *
+ *
+ */
+export const prepend = curry(function prepend (value, list) {
+  return [value, ...list];
+});
+
+
+
+
+
+/**
  *  @function reduce
  *
  *
