@@ -241,7 +241,25 @@ export const peak = curry(function peak ([...list]) {
  *
  *  @description
  *
+ *  This function reduces a list to a single value. It takes a
+ *  callback function to iterate over the lists values as its first
+ *  argument. The second argument is an accumulator value that is
+ *  passed to the callback function in its first invokation. The
+ *  third and last argument is an iterable object to process.
  *
+ *
+ *  The callback function will be invoked for each item that is
+ *  derived from the iterable object with four arguments. The first
+ *  argument is the accumulator. That is the value which is passed
+ *  to reduce for the first call, in all subsequent calls this is
+ *  the value that has been returned from the callback function.
+ *
+ *
+ *  The second argument to the callback is the current value of
+ *  of the list that is iterated over and the third argument is its
+ *  index. The fourth and final argument that is passed to callback
+ *  is the array that is built from the iterable object that the
+ *  reduce function has been invoked with.
  *
  *
  *  @param { function } callback
