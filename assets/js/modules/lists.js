@@ -264,3 +264,48 @@ export const peak = curry(function peak ([...items]) {
 export const tail = curry(function tail ([head, ...remainder]) {
   return remainder;
 });
+
+
+
+
+
+/**
+ *  @function values
+ *
+ *
+ *  @summary
+ *
+ *  Returns an array with the values of an object.
+ *
+ *
+ *  @description
+ *
+ *  This function expects to be called with an object and
+ *  returns an array containing its values. If the object that
+ *  values has been called with has a method of the same name,
+ *  it is assumed that this method will return an iterator
+ *  and it will be called to extract the values.
+ *
+ *
+ *  If no such method exists, then it is supposed that the
+ *  data structure provided to values is a plain object and the
+ *  array returned will contain the values of its enumerable own
+ *  properties. If the value passed to values cannot be coerced
+ *  to an object, an exception will be thrown.
+ *
+ *
+ *  @param { Object } data
+ *
+ *  The data structure whose values should be extracted.
+ *
+ *
+ *  @return { Array }
+ *
+ *  An array with the data structures values.
+ *
+ *
+ *
+ */
+export const values = curry(function values (data) {
+  return callable(data.values) ? [...data.values()] : Object.values(data);
+});
