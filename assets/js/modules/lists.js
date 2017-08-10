@@ -147,6 +147,51 @@ export const head = curry(function head ([item]) {
 
 
 /**
+ *  @function keys
+ *
+ *
+ *  @summary
+ *
+ *  Returns an array with the keys of an object.
+ *
+ *
+ *  @description
+ *
+ *  This function expects to be called with an object and
+ *  returns an array containing its keys. If the object that
+ *  keys has been called with has a method of the same name,
+ *  it is assumed that this method will return an iterator
+ *  and it will be called to extract the keys.
+ *
+ *
+ *  If no such method exists, then it is supposed that the
+ *  data structure provided to keys is a plain object and the
+ *  array returned will contain the keys of its enumerable own
+ *  properties. If the value passed to keys cannot be coerced
+ *  to an object, an exception will be thrown.
+ *
+ *
+ *  @param { Object } data
+ *
+ *  The data structure whose keys should be extracted.
+ *
+ *
+ *  @return { Array }
+ *
+ *  An array with the data structures keys.
+ *
+ *
+ *
+ */
+export const keys = curry(function keys (data) {
+  return callable(data.keys) ? [...data.keys()] : Object.keys(data);
+});
+
+
+
+
+
+/**
  *  @function peak
  *
  *
