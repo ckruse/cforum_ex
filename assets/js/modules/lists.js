@@ -236,7 +236,7 @@ export const peak = curry(function peak ([...list]) {
  *
  *  @summary
  *
- *  A functional wrapper for the native reduce method.
+ *  Reduces the items of a list to a single value.
  *
  *
  *  @description
@@ -337,7 +337,7 @@ export const tail = curry(function tail ([head, ...remainder]) {
  *
  *  @summary
  *
- *  A functional wrapper for the native map method.
+ *  Creates a list of transformed values from another list.
  *
  *
  *  @description
