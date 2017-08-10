@@ -337,6 +337,46 @@ export const keys = curry(function keys (data) {
 
 
 /**
+ *  @function length
+ *
+ *
+ *  @summary
+ *
+ *  Returns the number of items in a list.
+ *
+ *
+ *  @description
+ *
+ *  This function simply returns the value of the length
+ *  property of an object, so it can be used not only with
+ *  arrays but with every indexed collection and also strings
+ *  and functions, where the length property represents the
+ *  number of formal parameters. If the provided value is
+ *  not an object and cannot be coerced to an object, an
+ *  exception will be thrown.
+ *
+ *
+ *  @param { Array | String } list
+ *
+ *  An object with a length property.
+ *
+ *
+ *  @return { number }
+ *
+ *  The length of the object.
+ *
+ *
+ *
+ */
+export const length = curry(function length (list) {
+  return list.length;
+});
+
+
+
+
+
+/**
  *  @function peak
  *
  *
