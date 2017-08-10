@@ -18,7 +18,52 @@ import { curry } from './functional.js';
 
 import { when } from './logic.js';
 
-import { array } from './predicates.js';
+import { array, callable } from './predicates.js';
+
+
+
+
+
+/**
+ *  @function entries
+ *
+ *
+ *  @summary
+ *
+ *  Returns an array with the entries of an object.
+ *
+ *
+ *  @description
+ *
+ *  This function expects to be called with an object and
+ *  returns an array containing its entries. If the provided
+ *  data structure has a method with the name entries, it is
+ *  assumed that this method will return an iterator and it
+ *  will be called to extract the entries.
+ *
+ *
+ *  If no such method exists, then it is supposed that the
+ *  value provided to entries is a plain object and the array
+ *  that is returned will contain pairs of the keys and values
+ *  of its enumerable own properties. If the argument cannot
+ *  be coerced to an object, an exception will be thrown.
+ *
+ *
+ *  @param { Object } data
+ *
+ *  The data structure whose entries should be extracted.
+ *
+ *
+ *  @return { Array }
+ *
+ *  An array with the data structures entries.
+ *
+ *
+ *
+ */
+export const entries = curry(function entries (data) {
+  return callable(data.entries) ? [...data.entries()] : Object.entries(data);
+});
 
 
 
