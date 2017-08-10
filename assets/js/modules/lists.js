@@ -70,6 +70,57 @@ export const entries = curry(function entries (data) {
 
 
 /**
+ *  @function filter
+ *
+ *
+ *  @summary
+ *
+ *  Builds an array with list items that pass a test.
+ *
+ *
+ *  @description
+ *
+ *  The filter function takes a callback function and an iterable
+ *  object and returns an array. The callback function is called for
+ *  every item derived from the iterable object. If the value that
+ *  is returned from the callback function is truthy, the currently
+ *  processed list item will be appended to the returned array,
+ *  otherwise it will be skipped.
+ *
+ *
+ *  The callback function will be invoked with three arguments,
+ *  first the current list item and second its index. The third and
+ *  last argument passed to the callback function is a reference to
+ *  the array that is built from the iterable object that has been
+ *  supplied to the filter function.
+ *
+ *
+ *  @param { function } callback
+ *
+ *  The function that performs the test.
+ *
+ *
+ *  @param { Iterable } list
+ *
+ *  An array or other iterable object whose items to test.
+ *
+ *
+ *  @return { Array }
+ *
+ *  An array with the values that passed the test.
+ *
+ *
+ *
+ */
+export const filter = curry(function (callback, [...list]) {
+  return list.filter(callback);
+});
+
+
+
+
+
+/**
  *  @function flatten
  *
  *
