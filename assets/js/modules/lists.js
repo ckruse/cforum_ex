@@ -270,6 +270,50 @@ export const tail = curry(function tail ([head, ...remainder]) {
 
 
 /**
+ *  @function transform
+ *
+ *
+ *  @summary
+ *
+ *  A functional wrapper for the native map method.
+ *
+ *
+ *  @description
+ *
+ *  This function takes a callback function and an iterable
+ *  object and returns an array. It applies the callback to each
+ *  item derived from the iterable object and appends the result
+ *  to the array returned. The callback function is called with
+ *  the current value, its index and a reference to the array
+ *  built from the iterable objects items.
+ *
+ *
+ *  @param { function } callback
+ *
+ *  A function to apply to each item of a list.
+ *
+ *
+ *  @param { Iterable } list
+ *
+ *  A list to transform by the callback function.
+ *
+ *
+ *  @return { Array }
+ *
+ *  The transformed list.
+ *
+ *
+ *
+ */
+export const transform = curry(function transform (callback, [...items]) {
+  return items.map(callback);
+});
+
+
+
+
+
+/**
  *  @function values
  *
  *
