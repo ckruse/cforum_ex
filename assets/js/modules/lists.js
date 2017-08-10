@@ -231,6 +231,50 @@ export const peak = curry(function peak ([...items]) {
 
 
 /**
+ *  @function reduce
+ *
+ *
+ *  @summary
+ *
+ *  A functional wrapper for the native reduce method.
+ *
+ *
+ *  @description
+ *
+ *
+ *
+ *
+ *  @param { function } callback
+ *
+ *  The function to process the list items and the accumulator.
+ *
+ *
+ *  @param { * } accumulator
+ *
+ *  The accumulator value.
+ *
+ *
+ *  @param { Iterable } list
+ *
+ *  The list whose items are passed to callback.
+ *
+ *
+ *  @return { * }
+ *
+ *  The accumulated value.
+ *
+ *
+ *
+ */
+export const reduce = curry(function reduce (callback, accumulator, [...list]) {
+  return list.reduce(callback, accumulator);
+});
+
+
+
+
+
+/**
  *  @function tail
  *
  *
