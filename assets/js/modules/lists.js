@@ -25,6 +25,56 @@ import { array, callable } from './predicates.js';
 
 
 /**
+ *  @function adjust
+ *
+ *
+ *  @summary
+ *
+ *  Replaces an item of a list.
+ *
+ *
+ *  @description
+ *
+ *  This function takes a callback function, a number specifying
+ *  an index and an iterable object. It returns an array containing
+ *  all items of the provided list, but with the item at the specified
+ *  index replaced with the result of invoking the callback function.
+ *  The latter is called with the value at the given index in the
+ *  supplied list, which is not altered by adjust.
+ *
+ *
+ *  @param { function } callback
+ *
+ *  The function to call for the specified item.
+ *
+ *
+ *  @param { number } index
+ *
+ *  A positive integer smaller than the lists length.
+ *
+ *
+ *  @param { Iterable } list
+ *
+ *  The list whose item to replace.
+ *
+ *
+ *  @return { Array }
+ *
+ *  A new list with the specified item replaced.
+ *
+ *
+ *
+ */
+export const adjust = curry(function adjust (callback, index, [...list]) {
+  list.splice(index, 1, callback(list[index]));
+  return list;
+});
+
+
+
+
+
+/**
  *  @function append
  *
  *
