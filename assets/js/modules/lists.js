@@ -222,8 +222,8 @@ export const keys = curry(function keys (data) {
  *
  *
  */
-export const peak = curry(function peak ([...items]) {
-  return items[items.length - 1];
+export const peak = curry(function peak ([...list]) {
+  return list[list.length - 1];
 });
 
 
@@ -349,8 +349,8 @@ export const tail = curry(function tail ([head, ...remainder]) {
  *
  *
  */
-export const transform = curry(function transform (callback, [...items]) {
-  return items.map(callback);
+export const transform = curry(function transform (callback, [...list]) {
+  return list.map(callback);
 });
 
 
