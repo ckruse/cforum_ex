@@ -17,13 +17,13 @@
 
 
 
-import { curry } from './functional.js';
+import { curry, pipe } from './functional.js';
 
-import { peak } from './lists.js';
+import { entries, flatten, values } from './lists.js';
 
-import { conditions } from './logic.js';
+import { branch, either } from './logic.js';
 
-import { array, callable, string } from './predicates.js';
+import { map, object, string } from './predicates.js';
 
 
 
@@ -84,23 +84,61 @@ export function all (selector, context = document) {
  *
  *  @description
  *
- *  The bind function expects to be invoked with an object
- *  implementing the EventTarget interface and a multidimensional
- *  array containing pairs of strings and functions. The strings
- *  must be valid event types. For each pair, the bind function
- *  registers an event listener on the context object, using the
- *  provided type strings and handler functions. The return
- *  value is the context object.
+ *  This function can be used to register an arbitrary number
+ *  of event handlers for any types of events. It expects to be
+ *  called with a context object that is supposed to be the event
+ *  target and a data structure, containing strings specifying the
+ *  event types and the associated handler functions which should
+ *  be invoked when a corresponding event reaches the target.
+ *
+ *
+ *  The bind function can be called with a dictionary as its
+ *  second argument, that is just a plain object. In this case
+ *  the keys of the enumerable own properties of the object will
+ *  be used to determine the type of the event. The property value
+ *  can either be a reference to a handler function or an array of
+ *  functions. In the latter case all functions contained in the
+ *  array will be registered for the event type that is derived
+ *  from the property key.
+ *
+ *
+ *  Since property names of objects must be unique, defining
+ *  multiple properties declaring the same event type as key is
+ *  no option. This should always be kept in mind, especially in
+ *  the case that several dictionaries are supposed to be merged,
+ *  aiming to combine different predefined behaviors. This will
+ *  likely lead to a situation where properties of one object
+ *  are overwritten by properties of another.
+ *
+ *
+ *  However, to also account for more sophisticated use cases,
+ *  this function provides alternative means to the caller, in that
+ *  it is possible to invoke bind with an iterable object instead of
+ *  a dictionary. So, event types and functions can be delivered in
+ *  an array, a map, a set or any other data structure implementing
+ *  the Iterable interface. The only convention one has to respect
+ *  is that one or more handler functions always follow the
+ *  string designating the type of the event.
+ *
+ *
+ *  @todo
+ *
+ *  Replace the call to forEach with something better. Since the
+ *  function on returns the context object anyway, reducing the list
+ *  of actions would enable a more purposeful solution. However, the
+ *  reducer should be created programmatically and we do not have
+ *  the necessary abstractions yet.
+ *
  *
  *
  *  @param { EventTarget } context
  *
- *  The object to attach handlers to.
+ *  The object to attach event handlers to.
  *
  *
- *  @param { Array [] } actions
+ *  @param { Iterable | Object } actions
  *
- *  List of arrays containing an event type and a handler.
+ *  List containing event types and handlers.
  *
  *
  *  @return { EventTarget }
@@ -111,17 +149,10 @@ export function all (selector, context = document) {
  *
  */
 export const bind = curry(function bind (context, actions) {
-  const transformed = [];
+  const list = pipe(branch(either(object, map), entries, values), flatten)(actions);
 
-  actions.forEach(conditions([
-    [array, item => transformed.push(item)],
-    [string, item => transformed.push([item])],
-    [callable, item => peak(transformed).push(item)]
-  ]));
-
-  transformed.forEach(function ([event, ...handlers]) {
-    handlers.forEach(handler => on(event, context, handler));
-  });
+  let action;
+  list.forEach(branch(string, event => action = on(context, event), handler => action(handler)));
 
   return context;
 });
@@ -268,17 +299,12 @@ export function id (name, context = document) {
  *  @description
  *
  *  This is mostly a shorthand for the native addEventListener method,
- *  so it takes a string for the event type, an object that implements the
- *  EventTarget interface and a callback function that is invoked in case
- *  the dispatched event reaches the context object. An optional fourth
- *  argument can be used to specify parameters for the event listener,
- *  it defaults to false. The value returned is the object the
- *  handler has been attached to.
- *
- *
- *  @param { string } type
- *
- *  The type of the event.
+ *  so it takes an object that implements the EventTarget interface, a
+ *  string for the event type and a callback function that is invoked in
+ *  case the dispatched event reaches the context object. An optional
+ *  fourth argument can be used to specify parameters for the event
+ *  listener, it defaults to false. The value returned is the
+ *  object the handler has been registered for.
  *
  *
  *  @param { EventTarget } context
@@ -286,9 +312,14 @@ export function id (name, context = document) {
  *  The object on which the event should be observed.
  *
  *
+ *  @param { string } type
+ *
+ *  The type of the event.
+ *
+ *
  *  @param { function } callback
  *
- *  The function to invoke when the event occured.
+ *  The function that should handle the event.
  *
  *
  *  @param { boolean | Object } [ options = false ]
@@ -303,7 +334,7 @@ export function id (name, context = document) {
  *
  *
  */
-export const on = curry(function (type, context, callback, options = false) {
+export const on = curry(function (context, type, callback, options = false) {
   context.addEventListener(type, callback, options);
   return context;
 });
