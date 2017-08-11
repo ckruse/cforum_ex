@@ -413,7 +413,6 @@ export function curry (target, list = []) {
  *
  */
 export function define (length, name, target) {
-
   return Object.defineProperties(target, {
 
     length: {
