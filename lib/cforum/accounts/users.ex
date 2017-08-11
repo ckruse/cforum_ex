@@ -7,6 +7,8 @@ defmodule Cforum.Accounts.Users do
   alias Cforum.Repo
 
   alias Cforum.Accounts.User
+  alias Cforum.Accounts.ForumGroupPermission
+  alias Cforum.Accounts.Badge
 
   @doc """
   Returns the list of users.
@@ -400,10 +402,19 @@ defmodule Cforum.Accounts.Users do
   """
   def moderator?(%User{admin: true}), do: true
   def moderator?(user) do
-    # TODO
-    # user.has_badge?(Badge::MODERATOR_TOOLS) ||
-    # ForumGroupPermission.exists?(['group_id IN (SELECT group_id FROM groups_users WHERE user_id = ?) ' \
-    #                               'AND permission = ?', user_id, ForumGroupPermission::MODERATE])
-    false
+    pm_query = from(
+      fpm in ForumGroupPermission,
+      where: fpm.group_id in (fragment("SELECT group_id FROM groups_users WHERE user_id = ?", ^user.user_id)) and
+             fpm.permission == ^ForumGroupPermission.moderate
+    )
+
+    cond do
+      has_badge?(user, Badge.moderator_tools) ->
+        true
+      Repo.exists?(pm_query) ->
+        true
+      true ->
+        false
+    end
   end
 end
