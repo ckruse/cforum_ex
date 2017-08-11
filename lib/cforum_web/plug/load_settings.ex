@@ -10,10 +10,6 @@ defmodule CforumWeb.Plug.LoadSettings do
   alias Cforum.Accounts.Setting
   alias Cforum.Accounts.Settings
 
-  #
-  # TODO use context to load settings; define API
-  #
-
   def init(opts), do: opts
 
   def call(conn, _opts) do
