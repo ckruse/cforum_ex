@@ -9,4 +9,5 @@ defmodule Cforum.Factory do
   use Cforum.ForumFactory
   use Cforum.SettingFactory
   use Cforum.GroupFactory
+  use Cforum.ForumGroupPermissionFactory
 end

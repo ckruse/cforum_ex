@@ -9,6 +9,7 @@ defmodule Cforum.Accounts.UsersTest do
   alias Cforum.Accounts.User
   alias Cforum.Accounts.Setting
   alias Cforum.Accounts.Badge
+  alias Cforum.Accounts.ForumGroupPermission
 
   test "list_users/1 returns all users" do
     user = insert(:user)
@@ -142,5 +143,33 @@ defmodule Cforum.Accounts.UsersTest do
     |> insert
     u = Users.get_user!(user.user_id)
     assert Users.conf(u, "pagination") == "60"
+  end
+
+  test "moderator? returns true for admins" do
+    user = build(:user) |> as_admin
+    assert Users.moderator?(user) == true
+  end
+
+  test "moderator? returns true for users with moderator badge" do
+    badge = build(:badge, badge_type: Badge.moderator_tools)
+    user = build(:user, badges: [badge])
+    assert Users.moderator?(user) == true
+  end
+
+  test "moderator? returns true for users with a moderator permission" do
+    user = insert(:user, badges: [])
+    group = insert(:group, users: [user])
+    insert(:forum_group_permission, permission: ForumGroupPermission.moderate, group: group)
+
+    assert Users.moderator?(user) == true
+  end
+
+  test "moderator? returns false for normal users" do
+    user = build(:user, badges: [])
+    assert Users.moderator?(user) == false
+
+    group = insert(:group, users: [user])
+    insert(:forum_group_permission, permission: ForumGroupPermission.read, group: group)
+    assert Users.moderator?(user) == false
   end
 end
