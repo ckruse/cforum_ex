@@ -57,7 +57,6 @@
 
 
 
-
 import { max } from './math.js';
 
 import { equal } from './predicates.js';
@@ -80,13 +79,9 @@ import { equal } from './predicates.js';
  *  This is mostly an alias for the native apply method, but other
  *  than that method, this one does not expect a value for the function
  *  context. Instead the target function will be called with the context
- *  that apply has been initialized with.
- *
- *
- *  The second parameter for the list of arguments is optional, but if
- *  a value is provided, it must be an array-like object, because it is
- *  directly passed to the native apply method. Other values will
- *  cause an exception to be thrown.
+ *  that apply has been initialized with. In addition, the argument that
+ *  is passed after the target function does not have to be an array or
+ *  array-like object, it can be any object that is iterable.
  *
  *
  *  @param { function } target
@@ -94,7 +89,7 @@ import { equal } from './predicates.js';
  *  The function to call.
  *
  *
- *  @param { Array | Arguments } [ values = [] ]
+ *  @param { Iterable } values
  *
  *  List of arguments for target.
  *
@@ -106,7 +101,7 @@ import { equal } from './predicates.js';
  *
  *
  */
-export const apply = curry(function apply (target, values = []) {
+export const apply = curry(function apply (target, [...values]) {
   return target.apply(this, values);
 });
 
