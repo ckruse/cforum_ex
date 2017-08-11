@@ -8,4 +8,5 @@ defmodule Cforum.Factory do
   use Cforum.BadgeUserFactory
   use Cforum.ForumFactory
   use Cforum.SettingFactory
+  use Cforum.GroupFactory
 end

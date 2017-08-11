@@ -39,6 +39,8 @@ defmodule Cforum.Accounts.User do
     has_many :badges_users, Cforum.Accounts.BadgeUser, foreign_key: :user_id
     has_many :badges, through: [:badges_users, :badge]
 
+    many_to_many :groups, Cforum.Accounts.Group, join_through: "groups_users", on_delete: :delete_all, unique: true, join_keys: [user_id: :user_id, group_id: :group_id]
+
     timestamps(inserted_at: :created_at)
   end
 
