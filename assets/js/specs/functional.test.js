@@ -1458,6 +1458,131 @@ tests.pipe = function () {
 
 
 /**
+ *  @method prepare
+ *
+ *
+ *  @summary
+ *
+ *  Tests the prepare function.
+ *
+ *
+ *  @description
+ *
+ *  The function to test takes a target function and an array
+ *  of transformer functions. It returns a function that invokes
+ *  every transformer with the argument that has the same index
+ *  and passes the transformed values to the target function. If
+ *  the first argument to prepare is not a function, the second
+ *  argument not an array, or any of the arrays elements is not
+ *  a function, then a type error will be thrown.
+ *
+ *
+ *  @memberof tests
+ *
+ *
+ *
+ */
+tests.prepare = function () {
+
+
+  const { prepare } = functional;
+
+
+  describe('when called with one function and an array of transformers', function () {
+
+    const { identity } = functional;
+
+    it('should return a function', function () {
+      expect(typeof prepare(identity, [identity])).toBe('function');
+    });
+
+
+    describe('then the function returned', function () {
+
+      it('should have the same arity as the target function', function () {
+        expect(prepare(identity, [identity]).length).toBe(1);
+      });
+
+
+      describe('when called with enough arguments', function () {
+
+        it('should call every transformer with the argument at the same index', function () {
+          prepare(identity, [spy, spy])(true, false);
+
+          expect(spy).toHaveBeenCalledTimes(2);
+
+          const [first] = spy.calls.first().args, [second] = spy.calls.mostRecent().args;
+
+          expect(first).toBe(true), expect(second).toBe(false);
+
+          spy.calls.reset();
+        });
+
+        it('should call the target function with the transformed arguments', function () {
+          prepare(spy, [identity, identity])(1, 2), expect(spy).toHaveBeenCalledWith(1, 2);
+
+          spy.calls.reset();
+        });
+
+        it('should return the result returned from the target function', function () {
+          expect(prepare(identity, [identity])(true)).toBe(true);
+        });
+
+      });
+
+
+      describe('when called with less arguments than transformers provided', function () {
+
+        it('should substitute the value undefined', function () {
+          prepare(spy, [identity, identity])(true);
+
+          expect(spy).toHaveBeenCalledWith(true, undefined);
+
+          spy.calls.reset();
+        });
+
+      });
+
+
+      describe('when called with more arguments than transformers provided', function () {
+
+        it('should append the surplus to the transformed arguments', function () {
+          prepare(spy, [identity])(1, 2, 3),
+
+          expect(spy).toHaveBeenCalledWith(1, 2, 3);
+
+          spy.calls.reset();
+        });
+
+      });
+
+    });
+
+  });
+
+
+  describe('when called with a function and an empty array', function () {
+
+    it('should call the target function with the raw values', function () {
+      expect(prepare(functional.identity, [])(true)).toBe(true);
+    });
+
+    it('should not thow an exception', function () {
+      const test = () => prepare(functional.identity, [])(true);
+
+      expect(jasmine.createSpy('useWith', test).and.callThrough()).not.toThrow();
+    });
+
+  });
+
+
+};
+
+
+
+
+
+/**
  *  @method substitute
  *
  *
@@ -1775,131 +1900,6 @@ tests.unary = function () {
         expect(unary(functional.truthy)(false)).toBe(true);
       });
 
-    });
-
-  });
-
-
-};
-
-
-
-
-
-/**
- *  @method useWith
- *
- *
- *  @summary
- *
- *  Tests the useWith function.
- *
- *
- *  @description
- *
- *  The function to test takes a target function and an array
- *  of transformer functions. It returns a function that invokes
- *  every transformer with the argument that has the same index
- *  and passes the transformed values to the target function. If
- *  the first argument to useWith is not a function, the second
- *  argument not an array, or any of the arrays elements is not
- *  a function, then a type error will be thrown.
- *
- *
- *  @memberof tests
- *
- *
- *
- */
-tests.useWith = function () {
-
-
-  const { useWith } = functional;
-
-
-  describe('when called with one function and an array of transformers', function () {
-
-    const { identity } = functional;
-
-    it('should return a function', function () {
-      expect(typeof useWith(identity, [identity])).toBe('function');
-    });
-
-
-    describe('then the function returned', function () {
-
-      it('should have the same arity as the target function', function () {
-        expect(useWith(identity, [identity]).length).toBe(1);
-      });
-
-
-      describe('when called with enough arguments', function () {
-
-        it('should call every transformer with the argument at the same index', function () {
-          useWith(identity, [spy, spy])(true, false);
-
-          expect(spy).toHaveBeenCalledTimes(2);
-
-          const [first] = spy.calls.first().args, [second] = spy.calls.mostRecent().args;
-
-          expect(first).toBe(true), expect(second).toBe(false);
-
-          spy.calls.reset();
-        });
-
-        it('should call the target function with the transformed arguments', function () {
-          useWith(spy, [identity, identity])(1, 2), expect(spy).toHaveBeenCalledWith(1, 2);
-
-          spy.calls.reset();
-        });
-
-        it('should return the result returned from the target function', function () {
-          expect(useWith(identity, [identity])(true)).toBe(true);
-        });
-
-      });
-
-
-      describe('when called with less arguments than transformers provided', function () {
-
-        it('should substitute the value undefined', function () {
-          useWith(spy, [identity, identity])(true);
-
-          expect(spy).toHaveBeenCalledWith(true, undefined);
-
-          spy.calls.reset();
-        });
-
-      });
-
-
-      describe('when called with more arguments than transformers provided', function () {
-
-        it('should append the surplus to the transformed arguments', function () {
-          useWith(spy, [identity])(1, 2, 3),
-
-          expect(spy).toHaveBeenCalledWith(1, 2, 3);
-
-          spy.calls.reset();
-        });
-
-      });
-
-    });
-
-  });
-
-
-  describe('when called with a function and an empty array', function () {
-
-    it('should call the target function with the raw values', function () {
-      expect(useWith(functional.identity, [])(true)).toBe(true);
-    });
-
-    it('should not thow an exception', function () {
-      const test = () => useWith(functional.identity, [])(true);
-
-      expect(jasmine.createSpy('useWith', test).and.callThrough()).not.toThrow();
     });
 
   });
