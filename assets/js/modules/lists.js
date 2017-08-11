@@ -156,7 +156,7 @@ export const append = curry(function append (value, list) {
  *
  */
 export const entries = curry(function entries (data) {
-  return callable(data.entries) ? [...data.entries()] : Object.entries(data);
+  return callable(data.entries) ? Array.from(data.entries()) : Object.entries(data);
 });
 
 
@@ -406,7 +406,7 @@ export const init = curry(function init ([...list]) {
  *
  */
 export const keys = curry(function keys (data) {
-  return callable(data.keys) ? [...data.keys()] : Object.keys(data);
+  return callable(data.keys) ? Array.from(data.keys()) : Object.keys(data);
 });
 
 
@@ -719,5 +719,5 @@ export const transform = curry(function transform (callback, [...list]) {
  *
  */
 export const values = curry(function values (data) {
-  return callable(data.values) ? [...data.values()] : Object.values(data);
+  return callable(data.values) ? Array.from(data.values()) : Object.values(data);
 });
