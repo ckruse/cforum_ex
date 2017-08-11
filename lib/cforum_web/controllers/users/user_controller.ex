@@ -38,8 +38,7 @@ defmodule CforumWeb.Users.UserController do
       %Message{msg | thread: thread}
     end)
 
-    scored_msgs = Messages.list_scored_msgs_for_user_in_perspective(conn.assigns[:current_user], user, forum_ids, 10)
-    |> Repo.all
+    scored_msgs = Messages.list_scored_msgs_for_user_in_perspective(conn.assigns[:current_user], user, forum_ids, [quantity: 10, offset: 0])
     |> Enum.reduce({%{}, 0}, fn(score, {msgs, fake_id}) ->
         m = case score.vote do
               nil ->
@@ -80,10 +79,12 @@ defmodule CforumWeb.Users.UserController do
     user = Users.get_user!(id)
     forum_ids = Enum.map(conn.assigns[:visible_forums], &(&1.forum_id))
 
-    paging = Messages.list_messages_for_user(user, forum_ids)
-    |> paginate(page: params["p"])
+    count = Messages.count_messages_for_user(user, forum_ids)
+    paging = paginate(count, page: params["p"])
 
-    messages = Enum.map(paging.entries, fn(msg) ->
+    entries = Messages.list_messages_for_user(user, forum_ids, paging.params)
+
+    messages = Enum.map(entries, fn(msg) ->
       thread = %Thread{msg.thread | message: msg}
       %Message{msg | thread: thread}
     end)
@@ -98,10 +99,17 @@ defmodule CforumWeb.Users.UserController do
     user = Users.get_user!(id)
     forum_ids = Enum.map(conn.assigns[:visible_forums], &(&1.forum_id))
 
-    paging = Messages.list_scored_msgs_for_user_in_perspective(conn.assigns[:current_user], user, forum_ids)
-    |> paginate(page: params["p"])
+    count = Messages.count_scored_msgs_for_user_in_perspective(conn.assigns[:current_user], user, forum_ids)
+    paging = paginate(count, page: params["p"])
 
-    scores = Enum.map(paging.entries, fn(score) ->
+    messages = Messages.list_scored_msgs_for_user_in_perspective(
+      conn.assigns[:current_user],
+      user,
+      forum_ids,
+      paging.params
+    )
+
+    scores = Enum.map(messages, fn(score) ->
       msg = Score.get_message(score)
       thread = %Thread{msg.thread | message: msg}
       %Score{score | message: %Message{msg | thread: thread}}
@@ -117,10 +125,12 @@ defmodule CforumWeb.Users.UserController do
     user = Users.get_user!(id)
     forum_ids = Enum.map(conn.assigns[:visible_forums], &(&1.forum_id))
 
-    paging = Votes.list_votes_for_user(user, forum_ids)
-    |> paginate(page: params["p"])
+    count = Votes.count_votes_for_user(user, forum_ids)
+    paging = paginate(count, page: params["p"])
 
-    votes = Enum.map(paging.entries, fn(vote) ->
+    entries = Votes.list_votes_for_user(user, forum_ids, limit: paging.params)
+
+    votes = Enum.map(entries, fn(vote) ->
       thread = %Cforum.Forums.Thread{vote.message.thread | message: vote.message}
       %Vote{vote | message: %Cforum.Forums.Message{vote.message | thread: thread}}
     end)

@@ -22,14 +22,29 @@ defmodule Cforum.Forums.Votes do
     Repo.all(Vote)
   end
 
-  def list_votes_for_user(user, forum_ids) do
-    from(v in Vote,
+  def count_votes_for_user(user, forum_ids) do
+    from(
+      v in Vote,
+      select: count("*"),
+      inner_join: m in Message, on: m.message_id == v.message_id,
+      where: v.user_id == ^user.user_id,
+      where: m.forum_id in (^forum_ids) and m.deleted == false,
+    )
+    |> Repo.one
+  end
+
+  def list_votes_for_user(user, forum_ids, query_params \\ [limit: nil]) do
+    from(
+      v in Vote,
       inner_join: m in Message, on: m.message_id == v.message_id,
       preload: [:score, message: [:user, :tags,
                                   [thread: :forum, votes: :voters]]],
       where: v.user_id == ^user.user_id,
       where: m.forum_id in (^forum_ids) and m.deleted == false,
-      order_by: [desc: m.created_at])
+      order_by: [desc: m.created_at]
+    )
+    |> Cforum.PagingApi.set_limit(query_params[:limit])
+    |> Repo.all
   end
 
   @doc """

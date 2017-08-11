@@ -28,11 +28,22 @@ defmodule Cforum.Forums.Messages do
     Repo.all(Message)
   end
 
-  def list_messages_for_user(user, forum_ids) do
+  def list_messages_for_user(user, forum_ids, limit) do
     from(m in Message,
       preload: [:user, :tags, [votes: :voters, thread: :forum]],
       where: m.user_id == ^user.user_id and m.deleted == false and m.forum_id in (^forum_ids),
       order_by: [desc: :created_at])
+    |> Cforum.PagingApi.set_limit(limit)
+    |> Repo.all
+  end
+
+  def count_messages_for_user(user, forum_ids) do
+    from(
+      m in Message,
+      where: m.user_id == ^user.user_id and m.deleted == false and m.forum_id in (^forum_ids),
+      select: count("*")
+    )
+    |> Repo.one
   end
 
   def list_last_messages_for_user(user, forum_ids, limit \\ 5) do
@@ -53,8 +64,8 @@ defmodule Cforum.Forums.Messages do
     |> Repo.all
   end
 
-  def list_scored_msgs_for_user_in_perspective(cuser, user, forum_ids, limit \\ nil)
-  def list_scored_msgs_for_user_in_perspective(%User{user_id: cuid}, user = %User{user_id: uid}, forum_ids, limit) when cuid == uid do
+  defp int_list_scored_msgs_for_user_in_perspective(cuser, user, forum_ids, limit)
+  defp int_list_scored_msgs_for_user_in_perspective(%User{user_id: cuid}, user = %User{user_id: uid}, forum_ids, limit) when cuid == uid do
     from(s in Score,
       preload: [message: [:user, :tags, [thread: :forum, votes: :voters]],
                 vote: [message: [:user, :tags, [thread: :forum, votes: :voters]]]],
@@ -67,10 +78,9 @@ defmodule Cforum.Forums.Messages do
       where: is_nil(m1.message_id) or m1.deleted == false,
       where: is_nil(m2.message_id) or m2.deleted == false,
       order_by: [desc: :created_at])
-    |> set_limit(limit)
+    |> Cforum.PagingApi.set_limit(limit)
   end
-
-  def list_scored_msgs_for_user_in_perspective(_, user, forum_ids, limit) do
+  defp int_list_scored_msgs_for_user_in_perspective(_, user, forum_ids, limit) do
     from(s in Score,
       preload: [message: [:user, :tags, [thread: :forum, votes: :voters]],
                 vote: [message: [:user, :tags, [thread: :forum, votes: :voters]]]],
@@ -84,11 +94,21 @@ defmodule Cforum.Forums.Messages do
       where: is_nil(m2.message_id) or m2.deleted == false,
       where: m2.user_id == ^user.user_id,
       order_by: [desc: :created_at])
-    |> set_limit(limit)
+    |> Cforum.PagingApi.set_limit(limit)
   end
 
-  defp set_limit(q, nil), do: q
-  defp set_limit(q, limit), do: from(s in q, limit: ^limit)
+  def list_scored_msgs_for_user_in_perspective(cuser, user, forum_ids, limit \\ nil) do
+    int_list_scored_msgs_for_user_in_perspective(cuser, user, forum_ids, limit)
+    |> Repo.all
+  end
+
+  def count_scored_msgs_for_user_in_perspective(cuser, user, forum_ids) do
+    int_list_scored_msgs_for_user_in_perspective(cuser, user, forum_ids, nil)
+    |> exclude(:preload)
+    |> exclude(:order_by)
+    |> select(count("*"))
+    |> Repo.one
+  end
 
   def count_messages_for_user(user) do
     from(m in Message,
