@@ -254,6 +254,44 @@ export const flatten = curry(function flatten (list) {
 
 
 /**
+ *  @function from
+ *
+ *
+ *  @summary
+ *
+ *  Creates an array from an iterable object.
+ *
+ *
+ *  @description
+ *
+ *  This function takes an iterable object and returns an
+ *  array with all the extracted values. There is no explict
+ *  invokaction of a method returning an iterator, instead
+ *  the default iteration interface will be accessed, which
+ *  is the property whose key is the @@iterator symbol.
+ *
+ *
+ *  @param { Iterable } iterable
+ *
+ *  An iterable object.
+ *
+ *
+ *  @return { Array }
+ *
+ *  An array with the extracted values.
+ *
+ *
+ *
+ */
+export const from = curry(function from (iterable) {
+  return [...iterable];
+});
+
+
+
+
+
+/**
  *  @function head
  *
  *
