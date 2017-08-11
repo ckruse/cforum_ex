@@ -271,7 +271,7 @@ export const flatten = curry(function flatten (list) {
  *  is the property whose key is the @@iterator symbol.
  *
  *
- *  @param { Iterable } iterable
+ *  @param { Iterable } list
  *
  *  An iterable object.
  *
@@ -283,8 +283,8 @@ export const flatten = curry(function flatten (list) {
  *
  *
  */
-export const from = curry(function from (iterable) {
-  return [...iterable];
+export const from = curry(function from ([...list]) {
+  return list;
 });
 
 
