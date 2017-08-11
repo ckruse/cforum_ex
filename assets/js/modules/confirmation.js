@@ -36,7 +36,7 @@ import { all, bind, preventDefault, ready, stopPropagation } from './dom.js';
 
 import { compose, pipe } from './functional.js';
 
-import { branch } from './logic.js';
+import { branch, when } from './logic.js';
 
 
 
@@ -87,11 +87,7 @@ function addConfirmationBehavior (element) {
   element.text = element.textContent;
   return bind(element, {
 
-    blur: branch(
-      confirming,
-      pipe(muteLiveRegion, disableConfirmationState),
-      muteLiveRegion
-    ),
+    blur: pipe(muteLiveRegion, when(confirming, disableConfirmationState)),
 
     click: branch(
       confirming,
