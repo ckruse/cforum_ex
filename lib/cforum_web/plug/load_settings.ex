@@ -8,7 +8,7 @@ defmodule CforumWeb.Plug.LoadSettings do
   """
 
   alias Cforum.Accounts.Setting
-  alias Cforum.Repo
+  alias Cforum.Accounts.Settings
 
   #
   # TODO use context to load settings; define API
@@ -20,7 +20,7 @@ defmodule CforumWeb.Plug.LoadSettings do
     user = conn.assigns[:current_user]
     forum = conn.assigns[:current_forum]
 
-    settings = Setting |> Setting.load_all(forum, user) |> Repo.all
+    settings = Settings.load_relevant_settings(forum, user)
     set_confs(conn, settings)
   end
 

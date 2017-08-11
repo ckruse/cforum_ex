@@ -7,4 +7,5 @@ defmodule Cforum.Factory do
   use Cforum.BadgeFactory
   use Cforum.BadgeUserFactory
   use Cforum.ForumFactory
+  use Cforum.SettingFactory
 end
