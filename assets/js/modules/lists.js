@@ -721,3 +721,37 @@ export const transform = curry(function transform (callback, [...list]) {
 export const values = curry(function values (data) {
   return callable(data.values) ? Array.from(data.values()) : Object.values(data);
 });
+
+
+
+
+
+/**
+ *  @function zip
+ *
+ *
+ *  @summary
+ *
+ *  Pairs values with the same index from two lists.
+ *
+ *
+ *  @param { Iterable } first
+ *
+ *  The first list.
+ *
+ *
+ *  @param { Iterable } second
+ *
+ *  The second list.
+ *
+ *
+ *  @return { Array }
+ *
+ *  An array containg pairs of the lists values.
+ *
+ *
+ *
+ */
+export const zip = curry(function zip ([...first], [...second]) {
+  return first.map((value, index) => [value, second[index]]);
+});
