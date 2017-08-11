@@ -19,11 +19,11 @@
 
 import { curry, pipe } from './functional.js';
 
-import { entries, flatten, values } from './lists.js';
+import { entries, flatten, from } from './lists.js';
 
-import { branch, either } from './logic.js';
+import { branch } from './logic.js';
 
-import { map, object, string } from './predicates.js';
+import { object, string } from './predicates.js';
 
 
 
@@ -149,7 +149,7 @@ export function all (selector, context = document) {
  *
  */
 export const bind = curry(function bind (context, actions) {
-  const list = pipe(branch(either(object, map), entries, values), flatten)(actions);
+  const list = pipe(branch(object, entries, from), flatten)(actions);
 
   let action;
   list.forEach(branch(string, event => action = on(context, event), handler => action(handler)));
