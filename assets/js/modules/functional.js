@@ -847,6 +847,68 @@ export const pipe = curry(function pipe (start, ...list) {
 
 
 /**
+ *  @function prepare
+ *
+ *
+ *  @summary
+ *
+ *  Transforms arguments before calling a function with them.
+ *
+ *
+ *  @description
+ *
+ *  When invoked, prepare takes a target function as its first argument
+ *  and an array of functions in second place. It returns a function of the
+ *  same arity and name as the target function. This function maps the list
+ *  of functions to the list of its arguments, such that each argument is
+ *  passed to the function having the same index in the list. Then the
+ *  target function is invoked with the transformed values.
+ *
+ *
+ *  In case the function returned from prepare is called with more values
+ *  than functions were provided, the remaining arguments are appended to the
+ *  list of values the target function gets called with. If there are fewer
+ *  arguments than functions and than expected by the target function, some
+ *  functions will be called with the undefined value, which is most
+ *  likely no desired behavior, so care must be taken.
+ *
+ *
+ *  @param { function } target
+ *
+ *  The function to call with transformed arguments.
+ *
+ *
+ *  @param { function [] } transformers
+ *
+ *  An array of transformer functions.
+ *
+ *
+ *  @return { functions }
+ *
+ *  Function that receives the arguments to transform.
+ *
+ *
+ *
+ */
+export const prepare = curry(function prepare (target, transformers) {
+
+  return curry(defineFrom(target, function () {
+    let values = transformers.map((target, index) => target.call(this, arguments[index]));
+
+    if (arguments.length > transformers.length) {
+      values = values.concat([...arguments].slice(transformers.length));
+    }
+
+    return target.apply(this, values);
+  }));
+
+});
+
+
+
+
+
+/**
  *  @function substitute
  *
  *
@@ -1053,68 +1115,6 @@ export const unary = curry(function unary (target) {
 
   return curry(define(1, unary.name + target.name, function (value) {
     return target.call(this, value);
-  }));
-
-});
-
-
-
-
-
-/**
- *  @function useWith
- *
- *
- *  @summary
- *
- *  Transforms arguments before calling a function with them.
- *
- *
- *  @description
- *
- *  When invoked, useWith takes a target function as its first argument
- *  and an array of functions in second place. It returns a function of the
- *  same arity and name as the target function. This function maps the list
- *  of functions to the list of its arguments, such that each argument is
- *  passed to the function having the same index in the list. Then the
- *  target function is invoked with the transformed values.
- *
- *
- *  In case the function returned from useWith is called with more values
- *  than functions were provided, the remaining arguments are appended to the
- *  list of values the target function gets called with. If there are fewer
- *  arguments than functions and than expected by the target function, some
- *  functions will be called with the undefined value, which is most
- *  likely no desired behavior, so care must be taken.
- *
- *
- *  @param { function } target
- *
- *  The function to call with transformed arguments.
- *
- *
- *  @param { function [] } transformers
- *
- *  An array of transformer functions.
- *
- *
- *  @return { functions }
- *
- *  Function that receives the arguments to transform.
- *
- *
- *
- */
-export const useWith = curry(function useWith (target, transformers) {
-
-  return curry(defineFrom(target, function () {
-    let values = transformers.map((target, index) => target.call(this, arguments[index]));
-
-    if (arguments.length > transformers.length) {
-      values = values.concat([...arguments].slice(transformers.length));
-    }
-
-    return target.apply(this, values);
   }));
 
 });
