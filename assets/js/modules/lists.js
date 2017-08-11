@@ -454,6 +454,40 @@ export const length = curry(function length (list) {
 
 
 /**
+ *  @function pair
+ *
+ *
+ *  @summary
+ *
+ *  Puts two values in an array.
+ *
+ *
+ *  @param { * } first
+ *
+ *  The first value.
+ *
+ *
+ *  @param { * } second
+ *
+ *  The second value.
+ *
+ *
+ *  @return { Array }
+ *
+ *  An array containing both valurs.
+ *
+ *
+ *
+ */
+export const pair = curry(function pair (first, second) {
+  return [first, second];
+});
+
+
+
+
+
+/**
  *  @function peak
  *
  *
