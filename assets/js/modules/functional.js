@@ -206,11 +206,10 @@ export const call = curry(function call (target, ...values) {
  *
  *  @description
  *
- *  When called with two function arguments and an arbitrary number of
- *  additional values of any type, calls the function provided as the second
- *  argument with all arguments coming next in the list. Then the function
- *  that has been passed in as the first argument is called with the result
- *  of that invokation and its value is returned.
+ *  When called with two function arguments and a third argument
+ *  of any type, it first calls the second function operand with the
+ *  supplied value. Then the first function operand is called with
+ *  the result of that invokation and its value is returned.
  *
  *
  *  @param { function } outer
@@ -220,12 +219,12 @@ export const call = curry(function call (target, ...values) {
  *
  *  @param { function } inner
  *
- *  The function to call with values.
+ *  The function to call with value.
  *
  *
- *  @param { ...* } values
+ *  @param { * } value
  *
- *  The values to call the inner function.
+ *  The value to call the inner function with.
  *
  *
  *  @return { * }
@@ -235,8 +234,8 @@ export const call = curry(function call (target, ...values) {
  *
  *
  */
-export const compose = curry(function compose (outer, inner, ...values) {
-  return outer(inner.apply(this, values));
+export const compose = curry(function compose (outer, inner, value) {
+  return outer(inner(value));
 });
 
 
