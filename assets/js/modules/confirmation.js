@@ -482,7 +482,7 @@ function muteLiveRegion (event) {
 
 
 /**
- *  @callback
+ *  @function main
  *
  *
  *  @summary
@@ -504,9 +504,11 @@ function muteLiveRegion (event) {
  *  An event object.
  *
  *
- *  @ignore
+ *  @callback
  *
  *
  *
  */
-ready(event => all('[data-confirm]').forEach(addConfirmationBehavior));
+ready(function main (event) {
+  all('[data-confirm]').forEach(addConfirmationBehavior);
+});
