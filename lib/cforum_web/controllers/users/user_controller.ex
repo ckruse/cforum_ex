@@ -26,7 +26,7 @@ defmodule CforumWeb.Users.UserController do
     messages_by_months = Messages.count_messages_for_user_by_month(user)
     tags_cnt = Messages.count_messages_per_tag_for_user(user, forum_ids)
 
-    last_messages = Messages.list_last_messages_for_user(user, forum_ids)
+    last_messages = Messages.list_messages_for_user(user, forum_ids, limit: [quantity: 5, offset: 0])
     |> Enum.map(fn(msg) ->
       thread = %Thread{msg.thread | message: msg}
       %Message{msg | thread: thread}
@@ -82,7 +82,7 @@ defmodule CforumWeb.Users.UserController do
     count = Messages.count_messages_for_user(user, forum_ids)
     paging = paginate(count, page: params["p"])
 
-    entries = Messages.list_messages_for_user(user, forum_ids, paging.params)
+    entries = Messages.list_messages_for_user(user, forum_ids, limit: paging.params)
 
     messages = Enum.map(entries, fn(msg) ->
       thread = %Thread{msg.thread | message: msg}
