@@ -273,6 +273,8 @@ export function create (tagName) {
  *  @function hide
  *
  *
+ *  @summary
+ *
  *  Sets the hidden attribute of an element.
  *
  *
