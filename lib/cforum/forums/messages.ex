@@ -28,6 +28,14 @@ defmodule Cforum.Forums.Messages do
     Repo.all(Message)
   end
 
+  @doc """
+  Returns a list of messages for a user, limited to the forums specified in `forum_ids`
+
+  ## Examples
+
+      iex> list_messages_for_user(%User{}, [1, 2], quantity: 10, offset: 0)
+      [%Message{}, ...]
+  """
   def list_messages_for_user(user, forum_ids, query_params \\ [order: nil, limit: nil]) do
     from(m in Message,
       preload: [:user, :tags, [votes: :voters, thread: :forum]],
@@ -37,6 +45,14 @@ defmodule Cforum.Forums.Messages do
     |> Repo.all
   end
 
+  @doc """
+  Counts the messages for a user, limited to the forums specified in `forum_ids`
+
+  ## Examples
+
+      iex> count_messages_for_user(%User{}, [1, 2])
+      10
+  """
   def count_messages_for_user(user, forum_ids) do
     from(
       m in Message,
@@ -46,11 +62,22 @@ defmodule Cforum.Forums.Messages do
     |> Repo.one
   end
 
+  @doc """
+  Lists the `limit` best scored messages for a user (limited to forums listed in `forum_ids`).
+
+  Although this function is very similiar to `list_messages_for_user`, we can't
+  really use that API due to limitations in the `order_by`.
+
+  ## Examples
+
+      iex> list_best_scored_messages_for_user(%User{}, [1, 2])
+      [%Message{}, ...]
+  """
   def list_best_scored_messages_for_user(user, forum_ids, limit \\ 10) do
     from(m in Message,
       preload: [:user, :tags, [votes: :voters, thread: :forum]],
       where: m.deleted == false and m.upvotes > 0 and m.user_id == ^user.user_id and m.forum_id in (^forum_ids),
-      order_by: [desc: m.upvotes],
+      order_by: fragment("upvotes - downvotes DESC"),
       limit: ^limit)
     |> Repo.all
   end
@@ -88,11 +115,40 @@ defmodule Cforum.Forums.Messages do
     |> Cforum.PagingApi.set_limit(limit)
   end
 
+  @doc """
+  List scored messages for a user in the perspective of another user, i.e. leave out
+  negative votings (a user gets a negative score for voting negative) if user
+  doesn't look at his own scores; is limited to the forums defined in `forum_ids`
+
+  ## Arguments
+
+  cuser: the user which perspective we are look on this, i.e. the `current_user`
+  user: the user we are watching at
+  forum_ids: the list of forums we are interested in
+  limit: the number of messages we want to get
+
+  ## Examples
+
+      iex> list_scored_msgs_for_user_in_perspective(nil, %User{}, [1, 2])
+      [%Message{}, ...]
+
+      iex> list_scored_msgs_for_user_in_perspective(%User{}, %User{}, [1, 2])
+      [%Message{}]
+  """
   def list_scored_msgs_for_user_in_perspective(cuser, user, forum_ids, limit \\ nil) do
     int_list_scored_msgs_for_user_in_perspective(cuser, user, forum_ids, limit)
     |> Repo.all
   end
 
+  @doc """
+  Count the scored messages of the user in perspective; for a better explanation
+  look at `list_scored_msgs_for_user_in_perspective`
+
+  ## Examples
+
+      iex> count_scored_msgs_for_user_in_perspective(nil, %User{}, [1, 2])
+      1
+  """
   def count_scored_msgs_for_user_in_perspective(cuser, user, forum_ids) do
     int_list_scored_msgs_for_user_in_perspective(cuser, user, forum_ids, nil)
     |> exclude(:preload)
@@ -101,22 +157,33 @@ defmodule Cforum.Forums.Messages do
     |> Repo.one
   end
 
-  def count_messages_for_user(user) do
-    from(m in Message,
-      select: count("*"),
-      where: m.user_id == ^user.user_id and m.deleted == false)
-    |> Repo.one
-  end
+  @doc """
+  Counts the messages for a user, grouped by month; for statistical purposes
 
-  def count_messages_for_user_by_month(user) do
+  ## Examples
+
+      iex> count_messages_for_user_by_month(user)
+      [{"2017-01-01", 10}, ...]
+  """
+  def count_messages_for_user_by_month(user, forum_ids) do
     from(m in Message,
          select: {fragment("DATE_TRUNC('month', created_at) created_at"), count("*")},
-         where: m.user_id == ^user.user_id and m.deleted == false,
+         where: m.user_id == ^user.user_id and m.deleted == false and m.forum_id in (^forum_ids),
          group_by: fragment("DATE_TRUNC('month', created_at)"),
          order_by: fragment("DATE_TRUNC('month', created_at)"))
     |> Repo.all
   end
 
+  @doc """
+  Count the number of messages for a user, grouped by tag and limited to the
+  forums defined in `forum_id`; returns a list of tuples consisting of
+  {tag slug, tag name, forum slug, forum short name, count}
+
+  ## Examples
+
+      iex> count_messages_per_tag_for_user(%User{}, [1, 2])
+      [{"foo-bar", "Foo Bar", "self", "Selfforum", 10}, ...]
+  """
   def count_messages_per_tag_for_user(user, forum_ids, limit \\ 10) do
     from(mt in MessageTag,
       inner_join: m in Message, on: m.message_id == mt.message_id,

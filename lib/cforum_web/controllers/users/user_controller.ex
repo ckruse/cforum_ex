@@ -22,8 +22,8 @@ defmodule CforumWeb.Users.UserController do
     user = Users.get_user!(id)
 
     forum_ids = Enum.map(conn.assigns[:visible_forums], &(&1.forum_id))
-    messages_count = Messages.count_messages_for_user(user)
-    messages_by_months = Messages.count_messages_for_user_by_month(user)
+    messages_count = Messages.count_messages_for_user(user, forum_ids)
+    messages_by_months = Messages.count_messages_for_user_by_month(user, forum_ids)
     tags_cnt = Messages.count_messages_per_tag_for_user(user, forum_ids)
 
     last_messages = Messages.list_messages_for_user(user, forum_ids, limit: [quantity: 5, offset: 0])
