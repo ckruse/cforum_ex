@@ -235,6 +235,25 @@ export const filter = curry(function (callback, [...list]) {
 
 
 /**
+ *  @function find
+ *
+ *
+ *  @summary
+ *
+ *  Returns the first item that satisfies the predicate.
+ *
+ *
+ *
+ */
+export const find = curry(function find (predicate, [...list]) {
+  return list.find(predicate);
+});
+
+
+
+
+
+/**
  *  @function flatten
  *
  *
