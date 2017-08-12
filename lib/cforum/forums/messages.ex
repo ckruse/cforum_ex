@@ -28,12 +28,12 @@ defmodule Cforum.Forums.Messages do
     Repo.all(Message)
   end
 
-  def list_messages_for_user(user, forum_ids, limit) do
+  def list_messages_for_user(user, forum_ids, query_params \\ [order: nil, limit: nil]) do
     from(m in Message,
       preload: [:user, :tags, [votes: :voters, thread: :forum]],
-      where: m.user_id == ^user.user_id and m.deleted == false and m.forum_id in (^forum_ids),
-      order_by: [desc: :created_at])
-    |> Cforum.PagingApi.set_limit(limit)
+      where: m.user_id == ^user.user_id and m.deleted == false and m.forum_id in (^forum_ids))
+    |> Cforum.PagingApi.set_limit(query_params[:limit])
+    |> Cforum.OrderApi.set_ordering(query_params[:order], [desc: :created_at])
     |> Repo.all
   end
 
@@ -44,15 +44,6 @@ defmodule Cforum.Forums.Messages do
       select: count("*")
     )
     |> Repo.one
-  end
-
-  def list_last_messages_for_user(user, forum_ids, limit \\ 5) do
-    from(m in Message,
-      preload: [:user, :tags, [votes: :voters, thread: :forum]],
-      where: m.user_id == ^user.user_id and m.deleted == false and m.forum_id in (^forum_ids),
-      order_by: [desc: :created_at],
-      limit: ^limit)
-    |> Repo.all
   end
 
   def list_best_scored_messages_for_user(user, forum_ids, limit \\ 10) do
