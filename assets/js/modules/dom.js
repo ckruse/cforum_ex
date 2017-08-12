@@ -9,6 +9,12 @@
  *
  *  @requires functional
  *
+ *  @requires lists
+ *
+ *  @requires logic
+ *
+ *  @requires predicates
+ *
  *
  *
  */
@@ -23,7 +29,7 @@ import { entries, flatten, from } from './lists.js';
 
 import { branch } from './logic.js';
 
-import { object, string } from './predicates.js';
+import { equal, object, string } from './predicates.js';
 
 
 
@@ -162,6 +168,25 @@ export const bind = curry(function bind (context, actions) {
 
 
 /**
+ *  @function children
+ *
+ *
+ *  @summary
+ *
+ *  Returns a list with child elements.
+ *
+ *
+ *
+ */
+export const children = curry(function children (element) {
+  return Array.from(element.children);
+});
+
+
+
+
+
+/**
  *  @function classes
  *
  *
@@ -282,6 +307,25 @@ export function create (tagName) {
 export function id (name, context = document) {
   return context.getElementById(name);
 }
+
+
+
+
+
+/**
+ *  @function key
+ *
+ *
+ *  @summary
+ *
+ *  Predicate to determine if a key was pressed.
+ *
+ *
+ *
+ */
+export const key = curry(function key (event, name) {
+  return equal(event.key, name);
+});
 
 
 
