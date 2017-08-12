@@ -209,9 +209,9 @@ export const entries = curry(function entries (data) {
  *  supplied to the filter function.
  *
  *
- *  @param { function } callback
+ *  @param { function } predicate
  *
- *  The function that performs the test.
+ *  The predicate function that performs the test.
  *
  *
  *  @param { Iterable } list
@@ -226,8 +226,8 @@ export const entries = curry(function entries (data) {
  *
  *
  */
-export const filter = curry(function (callback, [...list]) {
-  return list.filter(callback);
+export const filter = curry(function (predicate, [...list]) {
+  return list.filter(predicate);
 });
 
 
