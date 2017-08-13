@@ -440,6 +440,7 @@ export const on = curry(function (context, type, callback, options = false) {
  */
 export function parse (markup) {
   const fragment = document.createDocumentFragment();
+
   fragment.innerHTML = markup;
   return fragment;
 }
