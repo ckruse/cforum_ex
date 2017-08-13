@@ -119,26 +119,6 @@ export const append = curry(function append (value, list) {
 
 
 /**
- *  @function each
- *
- *
- *  @summary
- *
- *  Executes a function for each item of a list.
- *
- *
- *
- */
-export const each = curry(function each (callback, [...list]) {
-  list.forEach(callback);
-  return list;
-})
-
-
-
-
-
-/**
  *  @function entries
  *
  *
