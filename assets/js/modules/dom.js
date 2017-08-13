@@ -282,7 +282,7 @@ export function create (tagName) {
  *
  */
 export const hide = curry(function hide (element) {
-  element.setAttribute('hidden', 'hidden')
+  element.setAttribute('hidden', 'hidden');
   return element;
 });
 
