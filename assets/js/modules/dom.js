@@ -344,7 +344,7 @@ export function id (name, context = document) {
  *
  *
  */
-export const key = curry(function key (name, event.key) {
+export const key = curry(function key (name, event) {
   return equal(name, event.key);
 });
 
