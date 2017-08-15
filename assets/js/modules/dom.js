@@ -143,50 +143,6 @@ export const children = curry(function children (element) {
 
 
 /**
- *  @function classes
- *
- *
- *  @summary
- *
- *  Selects elements by their class attribute.
- *
- *
- *  @description
- *
- *  This function searches the DOM for elements that have
- *  the same classes as specified by the string passed in as the
- *  first argument. The search can be restricted to a subtree by
- *  passing in an element as the second argument. If multiple
- *  classes should be taken into account, their names are
- *  separated by whitespace.
- *
- *
- *  @param { string } selector
- *
- *  Class names separated by whitespace.
- *
- *
- *  @param { Document | Element } [ context = document ]
- *
- *  The object whose subtree to search.
- *
- *
- *  @return { Array }
- *
- *  An array containing the elements found, if any.
- *
- *
- *
- */
-export function classes (selector, context = document) {
-  return Array.from(context.getElementsByClassName(selector));
-}
-
-
-
-
-
-/**
  *  @function create
  *
  *
