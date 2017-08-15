@@ -108,18 +108,6 @@ const getAssociatedTabpanel = memoize(function (tab) {
 
 
 
-/**
- *  @function selected
- *
- *
- *
- */
-function selected (element) {
-  return equal(element.getAttribute('aria-selected'), 'true');
-}
-
-
-
 
 /**
  *  @function toggleSelection
