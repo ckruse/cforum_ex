@@ -91,6 +91,21 @@ export function firstElementChild (element) {
 
 
 /**
+ *  @function focus
+ *
+ *
+ *
+ */
+export function focus (element) {
+  element.focus();
+  return element;
+}
+
+
+
+
+
+/**
  *  @function lastElementChild
  *
  *
