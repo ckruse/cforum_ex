@@ -91,6 +91,20 @@ export function firstElementChild (element) {
 
 
 /**
+ *  @function lastElementChild
+ *
+ *
+ *
+ */
+export function lastElementChild (element) {
+  return element.lastElementChild;
+}
+
+
+
+
+
+/**
  *  @function parentElement
  *
  *
