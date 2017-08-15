@@ -12,7 +12,7 @@
 
 
 
-import { curry } from './functional.js';
+import { compose, curry } from './functional.js';
 
 
 
