@@ -203,6 +203,21 @@ export function previousElementSibling (element) {
 
 
 /**
+ *  @function setAttribute
+ *
+ *
+ *
+ *
+ */
+export const setAttribute = curry(function setAttribute (name, value, element) {
+  return element.setAttribute(name, value), element;
+});
+
+
+
+
+
+/**
  *  @function toggleHiddenState
  *
  *
