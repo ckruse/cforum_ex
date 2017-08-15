@@ -16,7 +16,7 @@
 
 
 
-import { curry } from './functional.js';
+import { curry, memoize } from './functional.js';
 
 import { equal } from './predicates.js';
 
@@ -32,9 +32,9 @@ import { id } from './selectors.js';
  *
  *
  */
-export const controls = curry(function controls (element) {
+export const controls = curry(memoize(function controls (element) {
   return id(element.getAttribute('aria-controls'));
-});
+}));
 
 
 
