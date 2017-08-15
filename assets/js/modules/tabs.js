@@ -170,12 +170,12 @@ const getAssociatedTabpanel = memoize(controls);
 
 
 /**
- *  @function replaceFallbackWithTablist
+ *  @function insertTablist
  *
  *
  *
  */
-function replaceFallbackWithTablist (template) {
+function insertTablist (template) {
   const tablist = template.content.firstElementChild;
 
   template.parentNode.replaceChild(tablist, template.previousElementSibling), template.remove();
@@ -226,5 +226,5 @@ function setRoleAndLabelForTabpanel (tab) {
  *
  */
 ready(function main (event) {
-  compose(setupTabpanels, setupTabs, replaceFallbackWithTablist(id('tablist')));
+  compose(setupTabpanels, setupTabs, insertTablist(id('tablist')));
 });
