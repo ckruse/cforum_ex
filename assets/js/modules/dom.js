@@ -9,10 +9,6 @@
  *
  *  @requires functional
  *
- *  @requires lists
- *
- *  @requires logic
- *
  *  @requires predicates
  *
  *
