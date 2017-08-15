@@ -100,7 +100,7 @@ import {
 
 
 
-import { classes, id } from './selectors.js';
+import { id } from './selectors.js';
 
 
 
@@ -181,6 +181,11 @@ function replaceFallbackWithTablist (template) {
   template.parentNode.replaceChild(tablist, template.previousElementSibling), template.remove();
   return tablist
 }
+
+
+
+
+
 
 
 
