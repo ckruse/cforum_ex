@@ -137,14 +137,6 @@ function toggleSelection (element) {
 
 
 
-function target (event) {
-  return event.target;
-}
-
-
-
-
-
 /**
  *  @function replaceFallbackWithTablist
  *
