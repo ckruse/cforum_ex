@@ -2,6 +2,8 @@
  *  @module elements
  *
  *
+ *  @requires functional
+ *
  *
  *
  */
