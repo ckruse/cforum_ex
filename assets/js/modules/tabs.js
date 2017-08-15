@@ -153,15 +153,7 @@ function addTabBehavior (tab) {
 
 
 function switchTabs (tab) {
-  const process = both(
-    pipe(
-      siblings, find(selected), toggleSelection, toggleTabIndex,
-      controls, toggleHiddenState
-    ),
-    pipe(toggleSelection, toggleTabIndex, focus, controls, toggleHiddenState)
-  );
-
-  return process(tab);
+  return both(change(compose(find(selected), siblings)), change(focus))(tab);
 }
 
 
