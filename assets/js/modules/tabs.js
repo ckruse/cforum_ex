@@ -31,7 +31,7 @@
 
 import { children, firstElementChild, focus, lastElementChild, nextElementSibling, parentElement, previousElementSibling, toggleHiddenState, toggleTabIndex } from './elements.js';
 
-import { bind, key, preventDefault, ready } from './events.js'
+import { bind, key, preventDefault, ready, target } from './events.js'
 
 import { compose, memoize, pipe } from './functional.js';
 
