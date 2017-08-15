@@ -111,8 +111,7 @@ export const firstElementSibling = curry(function firstElementSibling (element) 
  *
  */
 export const focus = curry(function focus (element) {
-  element.focus();
-  return element;
+  return element.focus(), element;
 });
 
 
