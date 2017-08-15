@@ -312,7 +312,7 @@ export const siblings = curry(function siblings (element) {
  *
  */
 export const toggleHiddenState = curry(function toggleHiddenState (element) {
-  return toggle('hidden', 'hidden', element);
+  return element.hidden = not(element.hidden), element;
 });
 
 
