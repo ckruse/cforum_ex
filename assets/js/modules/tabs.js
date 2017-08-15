@@ -76,9 +76,9 @@ function addTabBehavior (tab) {
         switchTabs
       )],
 
-      [key('Home'), handleHomeAndEndKey(firstElementSibling)],
+      [key('Home'), to(firstElementSibling)],
 
-      [key('End'), handleHomeAndEndKey(lastElementSibling)]
+      [key('End'), to(lastElementSibling)]
 
     ])
 
@@ -88,7 +88,7 @@ function addTabBehavior (tab) {
 
 
 
-const handleHomeAndEndKey = curry(function handleHomeAndEndKey (selector, event) {
+const to = curry(function to (selector, event) {
   return pipe(preventDefault, target, selector, switchTabs)(event);
 });
 
