@@ -29,7 +29,7 @@
 
 
 
-import { children, firstElementSibling, focus, lastElementChild, nextElementSibling, parentElement, previousElementSibling, toggleHiddenState, toggleTabIndex } from './elements.js';
+import { children, firstElementSibling, focus, lastElementSibling, nextElementSibling, parentElement, previousElementSibling, toggleHiddenState, toggleTabIndex } from './elements.js';
 
 import { bind, key, preventDefault, ready, target } from './events.js'
 
