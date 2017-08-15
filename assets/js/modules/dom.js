@@ -203,49 +203,6 @@ export const hide = curry(function hide (element) {
 
 
 /**
- *  @function id
- *
- *
- *  @summary
- *
- *  Retrieves an element by the value of its ID attribute.
- *
- *
- *  @description
- *
- *  This is just a wrapper for the native getElementById method. If
- *  there is no need for a more complex selector or the tree to search
- *  is not restricted to an element deeper in the hierarchy of the dom,
- *  then it is better to use this function rather than the select
- *  function that is also exported from this module.
- *
- *
- *  @param { string } name
- *
- *  The ID of the element to fetch.
- *
- *
- *  @param { Document | DocumentFragment } [ context = document ]
- *
- *  The context object whose subtree to search.
- *
- *
- *  @return { ? Element }
- *
- *  The element with the given ID or null.
- *
- *
- *
- */
-export function id (name, context = document) {
-  return context.getElementById(name);
-}
-
-
-
-
-
-/**
  *  @function key
  *
  *
