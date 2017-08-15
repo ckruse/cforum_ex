@@ -88,6 +88,12 @@ function addTabBehavior (tab) {
 
 
 
+const handleHomeAndEndKey = curry(function (selector, event) {
+  return pipe(preventDefault, target, selector, switchTabs)(event);
+});
+
+
+
 
 function switchTabs (tab) {
   const process = both(
