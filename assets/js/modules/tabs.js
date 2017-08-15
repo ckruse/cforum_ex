@@ -37,7 +37,7 @@ import { children, firstElementSibling, focus, lastElementSibling, nextElementSi
 
 import { bind, key, preventDefault, ready, target } from './events.js'
 
-import { compose, memoize, pipe } from './functional.js';
+import { compose, curry, memoize, pipe } from './functional.js';
 
 import { find, tail, transform } from './lists.js';
 
