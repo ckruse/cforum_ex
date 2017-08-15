@@ -84,12 +84,6 @@ function addTabBehavior (tab) {
 
 
 
-
-function lastElementChild (element) {
-  return element.lastElementChild;
-}
-
-
 function previousElementSibling (element) {
   return element.previousElementSibling;
 }
