@@ -119,24 +119,3 @@ export function parse (markup) {
   fragment.innerHTML = markup;
   return fragment;
 }
-
-
-
-
-
-/**
- *  @function show
- *
- *
- *  @summary
- *
- *  Removes the hidden attribute from an element.
- *
- *
- *
- *
- */
-export const show = curry(function show (element) {
-  element.removeAttribute('hidden');
-  return element;
-})
