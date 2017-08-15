@@ -62,7 +62,7 @@ function addTabBehavior (tab) {
 
       [key('ArrowLeft'), pipe(
         target,
-        either(previousElementSibling, compose(lastElementChild, parentElement)),
+        either(previousElementSibling, lastElementSibling),
         switchTabs
       )],
 
@@ -74,7 +74,7 @@ function addTabBehavior (tab) {
 
       [key('Home'), pipe(preventDefault, target, firstElementSibling, switchTabs)],
 
-      [key('End'), pipe(preventDefault, target, parentElement, lastElementChild, switchTabs)]
+      [key('End'), pipe(preventDefault, target, lastElementSibling, switchTabs)]
 
     ])
 
