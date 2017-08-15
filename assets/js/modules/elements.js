@@ -16,7 +16,7 @@
 
 import { compose, curry } from './functional.js';
 
-import { branch } from './logic.js';
+import { branch, not } from './logic.js';
 
 
 
