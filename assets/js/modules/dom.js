@@ -19,12 +19,6 @@
 
 
 
-import { curry } from './functional.js';
-
-
-
-
-
 /**
  *  @function create
  *
