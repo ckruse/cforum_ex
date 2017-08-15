@@ -20,7 +20,7 @@ import { entries, flatten, from } from './lists.js';
 
 import { branch } from './logic.js';
 
-import { object, string } from './predicates.js';
+import { equal, object, string } from './predicates.js';
 
 
 
