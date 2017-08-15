@@ -212,8 +212,7 @@ function setupTabpanels (tabs) {
 function setRoleAndLabelForTabpanel (tab) {
   const tabpanel = tab.panel;
 
-  tabpanel.setAttribute('aria-labelledby', tab.id), tabpanel.setAttribute('role', 'tabpanel');
-  return tabpanel;
+  return role('tabpanel', tabpanel).setAttribute('aria-labelledby', tab.id), tabpanel;
 }
 
 
