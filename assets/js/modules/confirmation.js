@@ -18,8 +18,6 @@
  *  user confirms by activating the element once more.
  *
  *
- *  @requires dom
- *
  *  @requires events
  *
  *  @requires functional
