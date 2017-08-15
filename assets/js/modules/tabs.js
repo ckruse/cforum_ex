@@ -102,20 +102,9 @@ import {
 
 
 
-import {
+import { equal } from './predicates.js';
 
-  equal
-
-} from './predicates.js';
-
-
-
-import {
-
-  classes,
-  id
-
-} from './selectors.js';
+import { classes, id } from './selectors.js';
 
 
 
