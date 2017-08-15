@@ -4,6 +4,8 @@
  *
  *  @requires functional
  *
+ *  @requires predicates
+ *
  *
  *
  */
