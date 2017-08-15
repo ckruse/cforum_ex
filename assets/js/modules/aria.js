@@ -2,6 +2,9 @@
  *  @module aria
  *
  *
+ *  @requires functional
+ *
+ *
  *
  */
 
