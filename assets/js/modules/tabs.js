@@ -79,7 +79,6 @@ import {
 
   compose,
   curry,
-  memoize,
   pipe
 
 } from './functional.js';
@@ -157,15 +156,21 @@ function switchTabs (tab) {
   const process = both(
     pipe(
       siblings, find(selected), toggleSelection, toggleTabIndex,
-      panel, toggleHiddenState
+      controls, toggleHiddenState
     ),
-    pipe(toggleSelection, toggleTabIndex, focus, panel, toggleHiddenState)
+    pipe(toggleSelection, toggleTabIndex, focus, controls, toggleHiddenState)
   );
 
   return process(tab);
 }
 
 
+
+
+
+const change = curry(function change (starter, tab) {
+  return pipe(starter, toggleSelection, toggleTabIndex, controls, toggleHiddenState)(tab);
+});
 
 
 
@@ -176,12 +181,6 @@ const to = curry(function to (selector, event) {
 });
 
 
-
-
-
-
-
-const panel = memoize(controls);
 
 
 
@@ -221,7 +220,7 @@ function setupTabpanels (tabs) {
 
 
 function setRoleAndLabelForTabpanel (tab) {
-  return compose(role('tabpanel'), setAttribute('aria-labelledby', tab.id), panel(tab));
+  return compose(role('tabpanel'), setAttribute('aria-labelledby', tab.id), controls(tab));
 }
 
 
