@@ -309,6 +309,30 @@ function setupTabs (tablist) {
  *  @function setupTabpanels
  *
  *
+ *  @summary
+ *
+ *  Initializes the elements to serve as tabpanels.
+ *
+ *
+ *  @description
+ *
+ *  This function takes a list of tabs and for each references
+ *  the element that should be its associated tabpanel. It then
+ *  assigns these elements the role tabpanel and labels them.
+ *  After this transformation it hides all tabpanels except
+ *  the first one setting the hidden attribute.
+ *
+ *
+ *  @param { Element [] } tabs
+ *
+ *  An array with tab elements.
+ *
+ *
+ *  @return { Element [] }
+ *
+ *  An array with elements transformed to tabpanels.
+ *
+ *
  *
  */
 function setupTabpanels (tabs) {
