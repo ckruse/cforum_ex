@@ -197,3 +197,18 @@ export function parse (markup) {
 export function previousElementSibling (element) {
   return element.previousElementSibling;
 }
+
+
+
+
+
+/**
+ *  @function toggleHiddenState
+ *
+ *
+ *
+ */
+export function toggleHiddenState (element) {
+  element.hasAttribute('hidden') ? element.removeAttribute('hidden') : element.setAttribute('hidden', 'hidden');
+  return element;
+}
