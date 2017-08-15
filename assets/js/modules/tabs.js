@@ -227,7 +227,7 @@ function connectTabsWithTabpanels (tabs) {
 
 
 function setupTabpanels (tabs) {
-  return pipe(transform(setRoleAndLabelForTabpanel), tail, transform(hide))(tabs);
+  return pipe(transform(setRoleAndLabelForTabpanel), tail, transform(toggleHiddenState))(tabs);
 }
 
 
