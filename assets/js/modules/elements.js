@@ -12,7 +12,7 @@
 
 
 
-import { call, compose, curry } from './functional.js';
+import { compose, curry } from './functional.js';
 
 import { branch } from './logic.js';
 
