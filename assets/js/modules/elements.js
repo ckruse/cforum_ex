@@ -106,6 +106,20 @@ export function focus (element) {
 
 
 /**
+ *  @function getAttribute
+ *
+ *
+ *
+ */
+export const getAttribute = curry(function getAttribute (name, element) {
+  return element.getAttribute(name);
+});
+
+
+
+
+
+/**
  *  @function lastElementChild
  *
  *
