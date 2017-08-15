@@ -22,7 +22,7 @@ defmodule Cforum.Forums.Message do
     field :problematic_site, :string
 
     field :messages, :any, virtual: true
-    field :attribs, :map, virtual: true
+    field :attribs, :map, virtual: true, default: %{classes: []}
 
     belongs_to :thread, Cforum.Forums.Thread, references: :thread_id
     belongs_to :forum, Cforum.Forums.Forum, references: :forum_id
