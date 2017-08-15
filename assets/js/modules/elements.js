@@ -246,6 +246,21 @@ export const setAttribute = curry(function setAttribute (name, value, element) {
 
 
 /**
+ *  @function siblings
+ *
+ *
+ *
+ *
+ */
+export function siblings (element) {
+  return compose(children, parentElement, element);
+}
+
+
+
+
+
+/**
  *  @function toggleHiddenState
  *
  *
