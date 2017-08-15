@@ -324,12 +324,7 @@ export const toggle = curry(function toggle (name, value, element) {
  *
  */
 export const toggleHiddenState = curry(function toggleHiddenState (element) {
-
-  return call(
-    branch(hasAttribute('hidden'), removeAttribute('hidden'), setAttribute('hidden', 'hidden')),
-    element
-  );
-
+  return toggle('hidden', 'hidden', element);
 });
 
 
