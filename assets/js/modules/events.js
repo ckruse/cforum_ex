@@ -14,6 +14,18 @@
 
 
 
+import { curry, pipe } from './functional.js';
+
+import { entries, flatten, from } from './lists.js';
+
+import { branch } from './logic.js';
+
+import { object, string } from './predicates.js';
+
+
+
+
+
 /**
  *  @function bind
  *
