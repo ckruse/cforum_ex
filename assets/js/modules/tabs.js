@@ -88,7 +88,7 @@ function addTabBehavior (tab) {
 function switchTabs (tab) {
   const process = both(
     pipe(
-      getCurrentTabSelection, toggleSelection, toggleTabIndex,
+      siblings, find(selected), toggleSelection, toggleTabIndex,
       getAssociatedTabpanel, toggleHiddenState
     ),
     pipe(toggleSelection, toggleTabIndex, focus, getAssociatedTabpanel, toggleHiddenState)
@@ -98,12 +98,6 @@ function switchTabs (tab) {
 }
 
 
-
-
-
-function getCurrentTabSelection (tab) {
-  return find(selected, siblings(tab));
-}
 
 
 
