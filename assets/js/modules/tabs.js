@@ -158,8 +158,8 @@ function addTabBehavior (tab) {
  *
  *
  */
-function switchTo (selection) {
-  return pipe(preventDefault, target, selection, both(disableActiveTab, enableSelectedTab));
+function switchTo (selector) {
+  return pipe(preventDefault, target, selector, both(disableActiveTab, enableSelectedTab));
 }
 
 
@@ -236,6 +236,31 @@ function currentSelection (tab) {
 /**
  *  @function toggleTabAndTabpanel
  *
+ *
+ *  @summary
+ *
+ *  Changes the state of a tab and its associated tabpanel.
+ *
+ *
+ *  @description
+ *
+ *  This function enables or disables a tab depending on the tabs
+ *  current state. If the tab is currently selected, then its aria
+ *  selected attribute will be set to false and it will be removed
+ *  from the documents taborder. In addition, the hidden attribute
+ *  of the panel that is controlled by the tab is set, such that
+ *  the panel is no longer visible. In case the tab is not
+ *  selected, the opposite will happen.
+ *
+ *
+ *  @param { Element } tab
+ *
+ *  A selected or unselected tab.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The tabpanel that is controlled by the tab.
  *
  *
  *
