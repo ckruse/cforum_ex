@@ -105,6 +105,20 @@ export function lastElementChild (element) {
 
 
 /**
+ *  @function nextElementSibling
+ *
+ *
+ *
+ */
+export function nextElementSibling (element) {
+  return element.nextElementSibling;
+}
+
+
+
+
+
+/**
  *  @function parentElement
  *
  *
