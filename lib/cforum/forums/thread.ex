@@ -21,7 +21,7 @@ defmodule Cforum.Forums.Thread do
     field :sorted_messages, :any, virtual: true
     field :tree, :any, virtual: true
     field :accepted, :any, virtual: true
-    field :attribs, :map, virtual: true
+    field :attribs, :map, virtual: true, default: %{}
 
     timestamps(inserted_at: :created_at)
   end
