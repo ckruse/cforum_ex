@@ -154,3 +154,17 @@ export function parse (markup) {
   fragment.innerHTML = markup;
   return fragment;
 }
+
+
+
+
+
+/**
+ *  @function previousElementSibling
+ *
+ *
+ *
+ */
+export function previousElementSibling (element) {
+  return element.previousElementSibling;
+}
