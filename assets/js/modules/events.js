@@ -128,3 +128,59 @@ export const bind = curry(function bind (context, actions) {
 export const key = curry(function key (name, event) {
   return equal(name, event.key);
 });
+
+
+
+
+
+/**
+ *  @function on
+ *
+ *
+ *  @summary
+ *
+ *  Registers an event handler for an object.
+ *
+ *
+ *  @description
+ *
+ *  This is mostly a shorthand for the native addEventListener method,
+ *  so it takes an object that implements the EventTarget interface, a
+ *  string for the event type and a callback function that is invoked in
+ *  case the dispatched event reaches the context object. An optional
+ *  fourth argument can be used to specify parameters for the event
+ *  listener, it defaults to false. The value returned is the
+ *  object the handler has been registered for.
+ *
+ *
+ *  @param { EventTarget } context
+ *
+ *  The object on which the event should be observed.
+ *
+ *
+ *  @param { string } type
+ *
+ *  The type of the event.
+ *
+ *
+ *  @param { function } callback
+ *
+ *  The function that should handle the event.
+ *
+ *
+ *  @param { boolean | Object } [ options = false ]
+ *
+ *  A boolean to control capturing or an options object.
+ *
+ *
+ *  @return { EventTarget }
+ *
+ *  The context object.
+ *
+ *
+ *
+ */
+export const on = curry(function (context, type, callback, options = false) {
+  context.addEventListener(type, callback, options);
+  return context;
+});
