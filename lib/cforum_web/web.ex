@@ -41,6 +41,8 @@ defmodule CforumWeb do
       import CforumWeb.Paginator
       import CforumWeb.Sortable
       import Cforum.Helpers
+
+      import CforumWeb.Views.Helpers.Path
     end
   end
 
@@ -60,6 +62,7 @@ defmodule CforumWeb do
       import CforumWeb.Views.Helpers
       import CforumWeb.Views.Helpers.Button
       import CforumWeb.Views.Helpers.Links
+      import CforumWeb.Views.Helpers.Path
       import CforumWeb.Paginator
       import CforumWeb.Sortable
       import Cforum.Abilities
