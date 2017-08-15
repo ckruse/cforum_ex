@@ -64,21 +64,17 @@ function addTabBehavior (tab) {
 
     keydown: conditions([
 
-      [key('ArrowLeft'), pipe(
-        target,
-        either(previousElementSibling, lastElementSibling),
-        switchTabs
-      )],
+      [key('ArrowLeft'),
+       to(either(previousElementSibling, lastElementSibling))],
 
-      [key('ArrowRight'), pipe(
-        target,
-        either(nextElementSibling, firstElementSibling),
-        switchTabs
-      )],
+      [key('ArrowRight'),
+       to(either(nextElementSibling, firstElementSibling))],
 
-      [key('Home'), to(firstElementSibling)],
+      [key('Home'),
+       to(firstElementSibling)],
 
-      [key('End'), to(lastElementSibling)]
+      [key('End'),
+       to(lastElementSibling)]
 
     ])
 
