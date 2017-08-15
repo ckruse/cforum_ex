@@ -102,7 +102,7 @@ function switchTabs (tab) {
 
 
 function getCurrentTabSelection (tab) {
-  return compose(find(selected), children, parentElement(tab));
+  return find(selected, siblings(tab));
 }
 
 
