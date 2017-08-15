@@ -212,3 +212,18 @@ export function toggleHiddenState (element) {
   element.hasAttribute('hidden') ? element.removeAttribute('hidden') : element.setAttribute('hidden', 'hidden');
   return element;
 }
+
+
+
+
+
+/**
+ *  @function toggleTabIndex
+ *
+ *
+ *
+ */
+export function toggleTabIndex (element) {
+  element.tabIndex = element.tabIndex ? 0 : -1;
+  return element;
+}
