@@ -86,11 +86,6 @@ function addTabBehavior (tab) {
 
 
 
-function parentElement (element) {
-  return element.parentElement;
-}
-
-
 function firstElementChild (element) {
   return element.firstElementChild;
 }
