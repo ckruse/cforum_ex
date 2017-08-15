@@ -27,7 +27,9 @@
 
 
 
-import { bind, children, hide, key, preventDefault, ready, show } from './dom.js';
+import { children, hide, show } from './dom.js';
+
+import { bind, key, preventDefault, ready } from './events.js'
 
 import { compose, memoize, pipe } from './functional.js';
 
