@@ -298,3 +298,17 @@ export function stopPropagation (event) {
   event.stopPropagation();
   return event;
 }
+
+
+
+
+
+/**
+ *  @function target
+ *
+ *
+ *
+ */
+export function target (event) {
+  return event.target;
+}
