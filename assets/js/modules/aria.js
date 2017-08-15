@@ -23,6 +23,20 @@ import { equal } from './predicates.js';
 
 
 /**
+ *  @function controls
+ *
+ *
+ *
+ */
+export const controls = curry(function controls (element) {
+  return id(element.getAttribute('aria-controls'));
+});
+
+
+
+
+
+/**
  *  @function selected
  *
  *
