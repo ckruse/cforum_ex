@@ -120,6 +120,20 @@ export const getAttribute = curry(function getAttribute (name, element) {
 
 
 /**
+ *  @function hasAttribute
+ *
+ *
+ *
+ */
+export const hasAttribute = curry(function hasAttribute (name, element) {
+  return element.hasAttribute(name);
+});
+
+
+
+
+
+/**
  *  @function lastElementChild
  *
  *
