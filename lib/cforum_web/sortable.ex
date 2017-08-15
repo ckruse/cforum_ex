@@ -1,6 +1,4 @@
 defmodule CforumWeb.Sortable do
-  import Ecto.Query
-
   def sortable(conn, text, field, path_helper, opts \\ []) do
     extra_args = opts[:link_args] || []
     action = Phoenix.Controller.action_name(conn)
@@ -21,7 +19,7 @@ defmodule CforumWeb.Sortable do
     end
   end
 
-  def sort_collection(conn, valid_fields, replacements \\ [], defaults \\ [dir: :asc]) do
+  def sort_collection(conn, valid_fields, defaults \\ [dir: :asc]) do
     controller_nam = Phoenix.Controller.controller_module(conn)
     |> Atom.to_string()
     |> String.replace(~r{.*\.}, "")

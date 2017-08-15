@@ -1,10 +1,8 @@
 defmodule CforumWeb.Paginator do
   defstruct [:per_page, :page, :params, :all_entries_count, :pages_count, :distance]
 
-  alias Cforum.Repo
   alias CforumWeb.Paginator
 
-  import Ecto.Query
   use Phoenix.HTML
 
   def paginate(data_count, opts \\ []) do
