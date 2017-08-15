@@ -18,6 +18,8 @@ import { curry } from './functional.js';
 
 import { equal } from './predicates.js';
 
+import { id } from './selectors.js';
+
 
 
 
