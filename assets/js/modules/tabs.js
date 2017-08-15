@@ -135,19 +135,6 @@ function toggleSelection (element) {
 
 
 
-/**
- *  @function toggleTabIndex
- *
- *
- *
- */
-function toggleTabIndex (element) {
-  element.tabIndex = element.tabIndex ? 0 : -1;
-  return element;
-}
-
-
-
 
 
 function target (event) {
