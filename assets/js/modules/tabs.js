@@ -27,7 +27,7 @@
 
 
 
-import { children } from './dom.js';
+import { children } from './elements.js';
 
 import { bind, key, preventDefault, ready } from './events.js'
 
