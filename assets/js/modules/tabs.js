@@ -4,7 +4,7 @@
  *
  *  @summary
  *
- *  Adds functionality for tabs.
+ *  Creates a tab interface.
  *
  *
  *  @requires aria
