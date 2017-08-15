@@ -260,6 +260,20 @@ export const previousElementSibling = curry(function previousElementSibling (ele
 
 
 /**
+ *  @function removeAttribute
+ *
+ *
+ *
+ */
+export const removeAttribute = curry(function removeAttribute (name, element) {
+  return element.removeAttribute(name), element;
+});
+
+
+
+
+
+/**
  *  @function setAttribute
  *
  *
