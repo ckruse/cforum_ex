@@ -323,6 +323,30 @@ function setupTabpanels (tabs) {
  *  @function setRoleAndLabelForTabpanel
  *
  *
+ *  @summary
+ *
+ *  Sets the appropriate role and labels a tabpanel.
+ *
+ *
+ *  @description
+ *
+ *  To be recognized as a tabpanel by assistive software, the
+ *  elements which are meant to play this role must be marked up
+ *  accordingly. This function takes a designated tab, references
+ *  its associated tabpanel via the value of its aria-controls
+ *  attribute and adds the role tabpanel to this element. In
+ *  addition, the tabpanel is labeled by the tab.
+ *
+ *
+ *  @param { Element } tab
+ *
+ *  The tab whose associated panel to set up.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The initialized tabpanel.
+ *
  *
  *
  */
