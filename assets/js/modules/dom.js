@@ -107,25 +107,6 @@ export const hide = curry(function hide (element) {
 
 
 /**
- *  @function key
- *
- *
- *  @summary
- *
- *  Predicate to determine if a key was pressed.
- *
- *
- *
- */
-export const key = curry(function key (name, event) {
-  return equal(name, event.key);
-});
-
-
-
-
-
-/**
  *  @function on
  *
  *
