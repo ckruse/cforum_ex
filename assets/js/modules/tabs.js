@@ -29,7 +29,7 @@
 
 
 
-import { children, firstElementChild, lastElementChild, nextElementSibling, parentElement, previousElementSibling } from './elements.js';
+import { children, firstElementChild, focus, lastElementChild, nextElementSibling, parentElement, previousElementSibling } from './elements.js';
 
 import { bind, key, preventDefault, ready } from './events.js'
 
