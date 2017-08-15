@@ -91,6 +91,20 @@ export function firstElementChild (element) {
 
 
 /**
+ *  @function firstElementSibling
+ *
+ *
+ *
+ */
+export function firstElementSibling (element) {
+  return compose(firstElementChild, parentElement, element);
+}
+
+
+
+
+
+/**
  *  @function focus
  *
  *
