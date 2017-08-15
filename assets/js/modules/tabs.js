@@ -48,6 +48,7 @@ import {
   lastElementSibling,
   nextElementSibling,
   previousElementSibling,
+  setAttribute,
   siblings,
   toggleHiddenState,
   toggleTabIndex
@@ -139,12 +140,6 @@ function addTabBehavior (tab) {
 
 
 
-const to = curry(function to (selector, event) {
-  return pipe(preventDefault, target, selector, switchTabs)(event);
-});
-
-
-
 
 function switchTabs (tab) {
   const process = both(
@@ -157,6 +152,18 @@ function switchTabs (tab) {
 
   return process(tab);
 }
+
+
+
+
+
+
+
+const to = curry(function to (selector, event) {
+  return pipe(preventDefault, target, selector, switchTabs)(event);
+});
+
+
 
 
 
@@ -210,9 +217,7 @@ function setupTabpanels (tabs) {
 
 
 function setRoleAndLabelForTabpanel (tab) {
-  const tabpanel = tab.panel;
-
-  return role('tabpanel', tabpanel).setAttribute('aria-labelledby', tab.id), tabpanel;
+  return compose(role('tabpanel'), setAttribute('aria-labelledby', tab.id), getAssociatedTabpanel(tab));
 }
 
 
