@@ -23,13 +23,9 @@
 
 
 
-import { curry, pipe } from './functional.js';
+import { curry } from './functional.js';
 
-import { entries, flatten, from } from './lists.js';
-
-import { branch } from './logic.js';
-
-import { equal, object, string } from './predicates.js';
+import { equal } from './predicates.js';
 
 
 
