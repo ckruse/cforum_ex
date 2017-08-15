@@ -20,6 +20,8 @@
  *
  *  @requires dom
  *
+ *  @requires events
+ *
  *  @requires functional
  *
  *  @requires logic
