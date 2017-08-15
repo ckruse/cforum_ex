@@ -41,6 +41,21 @@ export const controls = curry(function controls (element) {
 
 
 /**
+ *  @function role
+ *
+ *
+ *
+ */
+export const role = curry(function role (value, element) {
+  element.setAttribute('role', value);
+  return element;
+})
+
+
+
+
+
+/**
  *  @function selected
  *
  *
