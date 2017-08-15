@@ -27,3 +27,18 @@ import { curry } from './functional.js';
 export const selected = curry(function selected (element) {
   return equal(element.getAttribute('aria-selected'), 'true');
 });
+
+
+
+
+
+/**
+ *  @function toggleSelection
+ *
+ *
+ *
+ *
+ */
+export const toggleSelection = curry(function toggleSelection (element) {
+  return element.setAttribute('aria-selected', selected(element) ? 'false' : 'true'), element;
+});
