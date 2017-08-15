@@ -84,27 +84,6 @@ export function create (tagName) {
 
 
 /**
- *  @function hide
- *
- *
- *  @summary
- *
- *  Sets the hidden attribute of an element.
- *
- *
- *
- *
- */
-export const hide = curry(function hide (element) {
-  element.setAttribute('hidden', 'hidden');
-  return element;
-});
-
-
-
-
-
-/**
  *  @function parse
  *
  *
