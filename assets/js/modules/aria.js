@@ -40,5 +40,6 @@ export const selected = curry(function selected (element) {
  *
  */
 export const toggleSelection = curry(function toggleSelection (element) {
-  return element.setAttribute('aria-selected', selected(element) ? 'false' : 'true'), element;
+  element.setAttribute('aria-selected', selected(element) ? 'false' : 'true');
+  return element;
 });
