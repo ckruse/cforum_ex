@@ -31,7 +31,7 @@
 
 
 
-import { selected, toggleSelection } from './aria.js';
+import { controls, selected, toggleSelection } from './aria.js';
 
 import { children, firstElementSibling, focus, lastElementSibling, nextElementSibling, previousElementSibling, siblings, toggleHiddenState, toggleTabIndex } from './elements.js';
 
@@ -107,9 +107,7 @@ function switchTabs (tab) {
 
 
 
-const getAssociatedTabpanel = memoize(function (tab) {
-  return id(tab.getAttribute('aria-controls'));
-});
+const getAssociatedTabpanel = memoize(controls);
 
 
 
