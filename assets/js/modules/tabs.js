@@ -157,9 +157,9 @@ function switchTabs (tab) {
   const process = both(
     pipe(
       siblings, find(selected), toggleSelection, toggleTabIndex,
-      getAssociatedTabpanel, toggleHiddenState
+      panel, toggleHiddenState
     ),
-    pipe(toggleSelection, toggleTabIndex, focus, getAssociatedTabpanel, toggleHiddenState)
+    pipe(toggleSelection, toggleTabIndex, focus, panel, toggleHiddenState)
   );
 
   return process(tab);
@@ -181,7 +181,7 @@ const to = curry(function to (selector, event) {
 
 
 
-const getAssociatedTabpanel = memoize(controls);
+const panel = memoize(controls);
 
 
 
@@ -221,7 +221,7 @@ function setupTabpanels (tabs) {
 
 
 function setRoleAndLabelForTabpanel (tab) {
-  return compose(role('tabpanel'), setAttribute('aria-labelledby', tab.id), getAssociatedTabpanel(tab));
+  return compose(role('tabpanel'), setAttribute('aria-labelledby', tab.id), panel(tab));
 }
 
 
