@@ -88,7 +88,7 @@ function addTabBehavior (tab) {
 
 
 
-const handleHomeAndEndKey = curry(function (selector, event) {
+const handleHomeAndEndKey = curry(function handleHomeAndEndKey (selector, event) {
   return pipe(preventDefault, target, selector, switchTabs)(event);
 });
 
