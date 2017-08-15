@@ -36,9 +36,7 @@
 
 
 
-import { preventDefault, ready, stopPropagation } from './dom.js';
-
-import { bind } from './events.js';
+import { bind, preventDefault, ready, stopPropagation } from './events.js';
 
 import { compose, pipe } from './functional.js';
 
