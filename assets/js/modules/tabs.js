@@ -152,6 +152,15 @@ function addTabBehavior (tab) {
 
 
 
+function to (selection) {
+  return pipe(preventDefault, target, selection, switchTabs);
+}
+
+
+
+
+
+
 function switchTabs (tab) {
   return both(change(compose(find(selected), siblings)), change(focus))(tab);
 }
@@ -164,13 +173,6 @@ const change = curry(function change (starter, tab) {
   return pipe(starter, toggleSelection, toggleTabIndex, controls, toggleHiddenState)(tab);
 });
 
-
-
-
-
-const to = curry(function to (selector, event) {
-  return pipe(preventDefault, target, selector, switchTabs)(event);
-});
 
 
 
