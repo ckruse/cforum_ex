@@ -84,10 +84,6 @@ function addTabBehavior (tab) {
 
 
 
-function nextElementSibling (element) {
-  return element.nextElementSibling;
-}
-
 
 function focus (element) {
   element.focus();
