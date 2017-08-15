@@ -127,21 +127,21 @@ import { id } from './selectors.js';
 function addTabBehavior (tab) {
   return bind(tab, {
 
-    click: pipe(target, unless(selected, switchTabs)),
+    click: pipe(target, unless(selected, both(disableActiveTab, enableSelectedTab))),
 
     keydown: conditions([
 
       [key('ArrowLeft'),
-       to(either(previousElementSibling, lastElementSibling))],
+       switchTo(either(previousElementSibling, lastElementSibling))],
 
       [key('ArrowRight'),
-       to(either(nextElementSibling, firstElementSibling))],
+       switchTo(either(nextElementSibling, firstElementSibling))],
 
       [key('Home'),
-       to(firstElementSibling)],
+       switchTo(firstElementSibling)],
 
       [key('End'),
-       to(lastElementSibling)]
+       switchTo(lastElementSibling)]
 
     ])
 
@@ -152,30 +152,70 @@ function addTabBehavior (tab) {
 
 
 
-function to (selection) {
-  return pipe(preventDefault, target, selection, switchTabs);
+/**
+ *  @function switchTo
+ *
+ *
+ *
+ */
+function switchTo (selection) {
+  return pipe(preventDefault, target, selection, both(disableActiveTab, enableSelectedTab));
+}
+
+
+
+
+/**
+ *  @function enableSelectedTab
+ *
+ *
+ *
+ */
+function enableSelectedTab (tab) {
+  return compose(toggleTabAndTabpanel, focus, tab);
+}
+
+
+
+
+/**
+ *  @function disableActiveTab
+ *
+ *
+ *
+ */
+function disableActiveTab (tab) {
+  return compose(toggleTabAndTabpanel, currentSelection, tab);
 }
 
 
 
 
 
-
-function switchTabs (tab) {
-  return both(change(compose(find(selected), siblings)), change(focus))(tab);
+/**
+ *  @function currentSelection
+ *
+ *
+ *
+ */
+function currentSelection (tab) {
+  return find(selected, siblings(tab));
 }
 
 
 
 
 
-const change = curry(function change (starter, tab) {
-  return pipe(starter, toggleSelection, toggleTabIndex, controls, toggleHiddenState)(tab);
-});
-
-
-
-
+/**
+ *  @function toggleTabAndTabpanel
+ *
+ *
+ *
+ *
+ */
+function toggleTabAndTabpanel (tab) {
+  return pipe(toggleSelection, toggleTabIndex, controls, toggleHiddenState)(tab);
+}
 
 
 
@@ -198,21 +238,42 @@ function insertTablist (template) {
 
 
 
-
-
-
+/**
+ *  @function setupTabs
+ *
+ *
+ *
+ *
+ */
 function setupTabs (tablist) {
   return transform(addTabBehavior, children(tablist));
 }
 
 
 
+
+
+/**
+ *  @function setupTabpanels
+ *
+ *
+ *
+ */
 function setupTabpanels (tabs) {
-  return pipe(transform(setRoleAndLabelForTabpanel), tail, transform(toggleHiddenState))(tabs);
+  return transform(toggleHiddenState, tail(transform(setRoleAndLabelForTabpanel, tabs)));
 }
 
 
 
+
+
+/**
+ *  @function setRoleAndLabelForTabpanel
+ *
+ *
+ *
+ *
+ */
 function setRoleAndLabelForTabpanel (tab) {
   return compose(role('tabpanel'), setAttribute('aria-labelledby', tab.id), controls(tab));
 }
