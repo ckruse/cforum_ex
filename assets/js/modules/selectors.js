@@ -181,3 +181,48 @@ export function id (name, context = document) {
 export function select (selector, context = document) {
   return context.querySelector(selector);
 }
+
+
+
+
+
+/**
+ *  @function tags
+ *
+ *
+ *  @summary
+ *
+ *  Selects elements by their tag name.
+ *
+ *
+ *  @description
+ *
+ *  This function searches the DOM for elements that have
+ *  the same tag as specified by the string passed in as the
+ *  first argument. The search can be restricted to a subtree by
+ *  passing in an element as the second argument. The default
+ *  context is the document object. Just as the classes function
+ *  the function tags returns an array instead of a live
+ *  collection.
+ *
+ *
+ *  @param { string } selector
+ *
+ *  The tag name to search for.
+ *
+ *
+ *  @param { Document | Element } [ context = document ]
+ *
+ *  The object whose subtree to search.
+ *
+ *
+ *  @return { Array }
+ *
+ *  An array containing the elements found, if any.
+ *
+ *
+ *
+ */
+export function tags (selector, context = document) {
+  return Array.from(context.getElementsByTagName(selector));
+}
