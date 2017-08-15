@@ -2,6 +2,10 @@
  *  @module selectors
  *
  *
+ *  @summary
+ *
+ *  Provides functions to select elements from the DOM.
+ *
  *
  *
  */
