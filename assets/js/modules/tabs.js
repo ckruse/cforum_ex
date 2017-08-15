@@ -76,9 +76,9 @@ function addTabBehavior (tab) {
         switchTabs
       )],
 
-      [key('Home'), pipe(preventDefault, target, firstElementSibling, switchTabs)],
+      [key('Home'), handleHomeAndEndKey(firstElementSibling)],
 
-      [key('End'), pipe(preventDefault, target, lastElementSibling, switchTabs)]
+      [key('End'), handleHomeAndEndKey(lastElementSibling)]
 
     ])
 
