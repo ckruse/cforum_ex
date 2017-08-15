@@ -146,39 +146,6 @@ export function parse (markup) {
 
 
 /**
- *  @function ready
- *
- *
- *  @summary
- *
- *  Executes code when the DOM is loaded and parsed.
- *
- *
- *  @description
- *
- *  This function registers an event listener to be called when
- *  the DOM of the page is fully loaded and parsed. The function
- *  does not return any value. Since the DOMContentLoaded event
- *  is used, external ressources might not be available at the
- *  time the callback is invoked.
- *
- *
- *  @param { function } callback
- *
- *  The function to execute.
- *
- *
- *
- */
-export function ready (callback) {
-  window.addEventListener('DOMContentLoaded', callback);
-}
-
-
-
-
-
-/**
  *  @function show
  *
  *
