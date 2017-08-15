@@ -68,9 +68,9 @@ export const children = curry(function children (element) {
  *
  *
  */
-export function create (tagName) {
+export const create = curry(function create (tagName) {
   return document.createElement(tagName);
-}
+});
 
 
 
@@ -82,9 +82,9 @@ export function create (tagName) {
  *
  *
  */
-export function firstElementChild (element) {
+export const firstElementChild = curry(function firstElementChild (element) {
   return element.firstElementChild;
-}
+});
 
 
 
@@ -96,9 +96,9 @@ export function firstElementChild (element) {
  *
  *
  */
-export function firstElementSibling (element) {
+export const firstElementSibling = curry(function firstElementSibling (element) {
   return compose(firstElementChild, parentElement, element);
-}
+});
 
 
 
@@ -110,10 +110,10 @@ export function firstElementSibling (element) {
  *
  *
  */
-export function focus (element) {
+export const focus = curry(function focus (element) {
   element.focus();
   return element;
-}
+});
 
 
 
@@ -153,9 +153,9 @@ export const hasAttribute = curry(function hasAttribute (name, element) {
  *
  *
  */
-export function lastElementChild (element) {
+export const lastElementChild = curry(function lastElementChild (element) {
   return element.lastElementChild;
-}
+});
 
 
 
@@ -167,9 +167,9 @@ export function lastElementChild (element) {
  *
  *
  */
-export function lastElementSibling (element) {
+export const lastElementSibling = curry(function lastElementSibling (element) {
   return compose(lastElementChild, parentElement, element);
-}
+});
 
 
 
@@ -181,9 +181,9 @@ export function lastElementSibling (element) {
  *
  *
  */
-export function nextElementSibling (element) {
+export const nextElementSibling = curry(function nextElementSibling (element) {
   return element.nextElementSibling;
-}
+});
 
 
 
@@ -195,9 +195,9 @@ export function nextElementSibling (element) {
  *
  *
  */
-export function parentElement (element) {
+export const parentElement = curry(function parentElement (element) {
   return element.parentElement;
-}
+});
 
 
 
@@ -250,9 +250,9 @@ export function parse (markup) {
  *
  *
  */
-export function previousElementSibling (element) {
+export const previousElementSibling = curry(function previousElementSibling (element) {
   return element.previousElementSibling;
-}
+});
 
 
 
@@ -280,9 +280,9 @@ export const setAttribute = curry(function setAttribute (name, value, element) {
  *
  *
  */
-export function siblings (element) {
+export const siblings = curry(function siblings (element) {
   return compose(children, parentElement, element);
-}
+});
 
 
 
@@ -294,10 +294,10 @@ export function siblings (element) {
  *
  *
  */
-export function toggleHiddenState (element) {
+export const toggleHiddenState = curry(function toggleHiddenState (element) {
   element.hasAttribute('hidden') ? element.removeAttribute('hidden') : element.setAttribute('hidden', 'hidden');
   return element;
-}
+});
 
 
 
@@ -309,7 +309,7 @@ export function toggleHiddenState (element) {
  *
  *
  */
-export function toggleTabIndex (element) {
+export const toggleTabIndex = curry(function toggleTabIndex (element) {
   element.tabIndex = element.tabIndex ? 0 : -1;
   return element;
-}
+});
