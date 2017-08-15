@@ -7,6 +7,8 @@
  *  Adds functionality for tabs.
  *
  *
+ *  @requires aria
+ *
  *  @requires elements
  *
  *  @requires events
