@@ -392,51 +392,6 @@ export function ready (callback) {
 
 
 /**
- *  @function select
- *
- *
- *  @summary
- *
- *  Returns the first element a selector matches.
- *
- *
- *  @description
- *
- *  This is merely a wrapper for the native querySelector method.
- *  It takes a selector string and optionally a context object which
- *  defaults to the document object. The subtree of the context object
- *  is searched using the selector and the first element that matches
- *  will be returned, or if no element matches, the value null. If
- *  the provided string is not a valid CSS selector, a syntax
- *  error will be thrown.
- *
- *
- *  @param { string } selector
- *
- *  The selector to use.
- *
- *
- *  @param { Document | DocumentFragment | Element } [ context = document ]
- *
- *  Context object whose subtree to search.
- *
- *
- *  @return { ? Element }
- *
- *  Either a matching element or the primitive value null.
- *
- *
- *
- */
-export function select (selector, context = document) {
-  return context.querySelector(selector);
-}
-
-
-
-
-
-/**
  *  @function show
  *
  *
