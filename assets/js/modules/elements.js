@@ -162,6 +162,20 @@ export function lastElementChild (element) {
 
 
 /**
+ *  @function lastElementSibling
+ *
+ *
+ *
+ */
+export function lastElementSibling (element) {
+  return compose(lastElementChild, parentElement, element);
+}
+
+
+
+
+
+/**
  *  @function nextElementSibling
  *
  *
