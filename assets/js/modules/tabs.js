@@ -127,12 +127,6 @@ function selected (element) {
 
 
 
-function toggleHiddenState (element) {
-  element.hasAttribute('hidden') ? element.removeAttribute('hidden') : element.setAttribute('hidden', 'hidden');
-  return element;
-}
-
-
 
 function toggleSelection (element) {
   element.hasAttribute('aria-selected') ? element.removeAttribute('aria-selected') : element.setAttribute('aria-selected', 'true');
