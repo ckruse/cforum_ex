@@ -31,29 +31,91 @@
 
 
 
-import { controls, selected, toggleSelection } from './aria.js';
+import {
+
+  controls,
+  role,
+  selected,
+  toggleSelection
+
+} from './aria.js';
+
 
 
 import {
 
-  children, firstElementSibling, focus, lastElementSibling, nextElementSibling,
-
-  previousElementSibling, siblings, toggleHiddenState, toggleTabIndex
+  children,
+  firstElementSibling,
+  focus,
+  lastElementSibling,
+  nextElementSibling,
+  previousElementSibling,
+  siblings,
+  toggleHiddenState,
+  toggleTabIndex
 
 } from './elements.js';
 
 
-import { bind, key, preventDefault, ready, target } from './events.js'
 
-import { compose, curry, memoize, pipe } from './functional.js';
+import {
 
-import { find, tail, transform } from './lists.js';
+  bind,
+  key,
+  preventDefault,
+  ready,
+  target
 
-import { both, conditions, either, unless } from './logic.js';
+} from './events.js'
 
-import { equal } from './predicates.js';
 
-import { classes, id } from './selectors.js';
+
+import {
+
+  compose,
+  curry,
+  memoize,
+  pipe
+
+} from './functional.js';
+
+
+
+import {
+
+  find,
+  tail,
+  transform
+
+} from './lists.js';
+
+
+
+import {
+
+  both,
+  conditions,
+  either,
+  unless
+
+} from './logic.js';
+
+
+
+import {
+
+  equal
+
+} from './predicates.js';
+
+
+
+import {
+
+  classes,
+  id
+
+} from './selectors.js';
 
 
 
