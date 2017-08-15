@@ -24,6 +24,8 @@
  *
  *  @requires logic
  *
+ *  @requires selectors
+ *
  *
  *
  */
@@ -32,11 +34,13 @@
 
 
 
-import { all, bind, preventDefault, ready, stopPropagation } from './dom.js';
+import { bind, preventDefault, ready, stopPropagation } from './dom.js';
 
 import { compose, pipe } from './functional.js';
 
 import { branch, when } from './logic.js';
+
+import { all } from './selectors.js';
 
 
 
