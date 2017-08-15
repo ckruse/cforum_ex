@@ -11,6 +11,7 @@ defmodule Cforum.Forums.Thread do
     field :sticky, :boolean, default: false
     field :flags, :map
     field :latest_message, Timex.Ecto.DateTime
+    field :slug, :string
 
     belongs_to :forum, Cforum.Forums.Forum, references: :forum_id
     #belongs_to :message, Cforum.Forums.Message, references: :message_id
