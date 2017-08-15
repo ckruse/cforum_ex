@@ -64,8 +64,8 @@ msgstr "Sie haben sich erfolgreich angemeldet."
 msgid "All forums"
 msgstr "alle Foren"
 
-#: lib/cforum_web/templates/forum/index.html.eex:29
-#: lib/cforum_web/templates/forum/index.html.eex:48
+#: lib/cforum_web/templates/forum/index.html.eex:28
+#: lib/cforum_web/templates/forum/index.html.eex:50
 msgid "Show all"
 msgstr "alle anzeigen"
 
@@ -118,7 +118,7 @@ msgid "Search"
 msgstr "Suche"
 
 #: lib/cforum_web/templates/forum/index.html.eex:15
-#: lib/cforum_web/templates/forum/index.html.eex:36
+#: lib/cforum_web/templates/forum/index.html.eex:35
 #: lib/cforum_web/templates/layout/app.html.eex:124
 #: lib/cforum_web/templates/layout/app.html.eex:139
 msgid "Statistics"
@@ -325,7 +325,7 @@ msgstr "Sie können Ihr Benutzerkonto über den Link unten bestätigen:"
 msgid "confirm your registration"
 msgstr "Benutzerkonto bestätigen"
 
-#: lib/cforum/accounts/user.ex:98
+#: lib/cforum/accounts/user.ex:100
 msgid "password and password confirmation don't match"
 msgstr "Passwort und Passwort-Bestätigung stimmen nicht überein"
 
@@ -444,6 +444,8 @@ msgstr ""
 msgid "messages.num_messages"
 msgstr ""
 
+#: lib/cforum_web/templates/forum/message_header.html.eex:5
+#: lib/cforum_web/templates/forum/message_header.html.eex:7
 #: lib/cforum_web/templates/message/header.html.eex:46
 #: lib/cforum_web/templates/message/header.html.eex:48
 msgid "messages.user_link"
@@ -773,11 +775,11 @@ msgstr "Standard-Berechtigung"
 msgid "The instructions how to reset your password have been sent."
 msgstr "Die Anweisungen, wie Sie Ihr Passwort zurücksetzen können, wurden verschickt."
 
-#: lib/cforum_web/controllers/users/user_controller.ex:163
+#: lib/cforum_web/controllers/users/user_controller.ex:173
 msgid "User deleted successfully."
 msgstr "Benutzer erfolgreich gelöscht."
 
-#: lib/cforum_web/controllers/users/user_controller.ex:146
+#: lib/cforum_web/controllers/users/user_controller.ex:156
 msgid "User updated successfully."
 msgstr "Benutzer erfolgreich geändert."
 
@@ -1099,3 +1101,84 @@ msgstr "… der Nested-Ansicht"
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:6
 msgid "… in thread view"
 msgstr "… der Einzel-Ansicht"
+
+#: lib/cforum_web/views/helpers.ex:75
+msgid "%{days} days"
+msgstr "%{days} Tagen"
+
+#: lib/cforum_web/views/helpers.ex:67
+msgid "%{minutes} minutes"
+msgstr "%{minutes} Minuten"
+
+#: lib/cforum_web/views/helpers.ex:79
+msgid "%{months} months"
+msgstr "%{months} Monaten"
+
+#: lib/cforum_web/templates/forum/thread_infos.html.eex:20
+msgid "%{time} ago"
+msgstr "vor %{time}"
+
+#: lib/cforum_web/templates/forum/thread_infos.html.eex:6
+#: lib/cforum_web/templates/forum/thread_infos.html.eex:13
+msgid "%{time} ago:"
+msgstr "vor %{time}:"
+
+#: lib/cforum_web/views/helpers.ex:83
+msgid "%{years} years"
+msgstr "%{years} Jahren"
+
+#: lib/cforum_web/views/helpers.ex:64
+msgid "1 minute"
+msgstr "einer Minute"
+
+#: lib/cforum_web/views/helpers.ex:81
+msgid "1 year"
+msgstr "einem Jahr"
+
+#: lib/cforum_web/templates/forum/thread_infos.html.eex:19
+msgid "Thread created"
+msgstr "Thread erstellt"
+
+#: lib/cforum_web/views/helpers.ex:73
+msgid "a day"
+msgstr "einem Tag"
+
+#: lib/cforum_web/views/helpers.ex:71
+msgid "about %{hours} hours"
+msgstr "etwa %{hours} Stunden"
+
+#: lib/cforum_web/views/helpers.ex:77
+msgid "about 1 month"
+msgstr "etwa einem Monat"
+
+#: lib/cforum_web/views/helpers.ex:69
+msgid "about an hour"
+msgstr "etwa einer Stunde"
+
+#: lib/cforum_web/templates/forum/thread_infos.html.eex:12
+msgid "first unread message"
+msgstr "erster ungelesener Beitrag"
+
+#: lib/cforum_web/views/helpers.ex:60
+msgid "half a minute"
+msgstr "einer halben Minute"
+
+#: lib/cforum_web/templates/forum/thread_infos.html.eex:5
+msgid "last message"
+msgstr "letzter Beitrag"
+
+#: lib/cforum_web/views/helpers.ex:56
+msgid "less than 10 seconds"
+msgstr "weniger als zehn Sekunden"
+
+#: lib/cforum_web/views/helpers.ex:58
+msgid "less than 20 seconds"
+msgstr "weniger als 20 Sekunden"
+
+#: lib/cforum_web/views/helpers.ex:54
+msgid "less than 5 seconds"
+msgstr "weniger als fünf Sekunden"
+
+#: lib/cforum_web/views/helpers.ex:62
+msgid "less than a minute"
+msgstr "weniger als einer Minute"
