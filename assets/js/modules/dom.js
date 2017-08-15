@@ -7,11 +7,6 @@
  *  Provides helpers for handling the DOM.
  *
  *
- *  @requires functional
- *
- *  @requires predicates
- *
- *
  *
  */
 
