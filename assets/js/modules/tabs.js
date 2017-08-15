@@ -121,10 +121,15 @@ function selected (element) {
 
 
 
-
+/**
+ *  @function toggleSelection
+ *
+ *
+ *
+ *
+ */
 function toggleSelection (element) {
-  element.hasAttribute('aria-selected') ? element.removeAttribute('aria-selected') : element.setAttribute('aria-selected', 'true');
-  return element;
+  return element.setAttribute('aria-selected', selected(element) ? 'false' : 'true'), element;
 }
 
 
