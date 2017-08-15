@@ -19,12 +19,11 @@
       <% end %>
     </h2>
 
-    <%# thread = (@overview_threads.sort {|a,b| b.latest_message <=> a.latest_message}).first %>
-    <%# unless thread.blank? %>
-    <!--ul>
-         <li class="thread"><%# render 'thread_infos', thread: thread %></li>
-         </ul -->
-    <%# end %>
+    <%= unless blank?(@newest_thread) do %>
+      <ul>
+        <li class="thread"><%= render "thread_infos.html", conn: @conn, thread: @newest_thread %></li>
+      </ul>
+    <% end %>
 
     <p><%= link gettext("Show all"), to: thread_path(@conn, :index, "all") %></p>
   </li>
@@ -39,11 +38,14 @@
           </svg>
         <% end %>
       </h2>
-      <!--ul>
-           <%# @activities[forum.forum_id].each do |thread| %>
-           <li class="thread"><%# render 'thread_infos', thread: thread %></li>
-           <%# end %>
-           </ul-->
+
+      <%= if !blank?(@latest_threads[forum.forum_id]) do %>
+        <ul>
+          <%= for thread <- @latest_threads[forum.forum_id] do %>
+            <li class="thread"><%= render "thread_infos.html", conn: @conn, thread: thread %></li>
+          <% end %>
+       </ul>
+       <% end %>
 
       <p><%= link gettext("Show all"), to: thread_path(@conn, :index, forum) %></p>
     </li>

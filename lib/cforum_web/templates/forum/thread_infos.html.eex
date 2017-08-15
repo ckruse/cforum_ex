@@ -1,0 +1,22 @@
+<%= render "message_header.html", conn: @conn, thread: @thread, message: @thread.tree %>
+
+<%= if @thread.attribs[:latest_message].message_id != @thread.attribs[:first_message].message_id do %>
+  <span class="last-answer h-entry">
+    <%= gettext("last message") %>
+    <%= time_tag(time: @thread.attribs[:latest_message].created_at, class: "dt-published") do %><%= gettext("%{time} ago:", time: relative_time(@thread.attribs[:latest_message].created_at)) %><% end %>
+    <%= render "message_header.html", conn: @conn, thread: @thread, message: @thread.attribs[:latest_message] %>
+  </span>
+
+  <%= if !blank?(@thread.attribs[:first_unread]) && @thread.attribs[:first_unread].message_id != @thread.attribs[:first_message].message_id do %>
+    <span class="first-unread">
+      <%= gettext("first unread message") %>
+      <%= time_tag(time: @thread.attribs[:first_unread].created_at, class: "dt-published") do %><%= gettext("%{time} ago:", time: relative_time(@thread.attribs[:first_unread].created_at)) %><% end %>
+      <%= render "message_header.html", conn: @conn, thread: @thread, message: @thread.attribs[:first_unread] %>
+    </span>
+  <% end %>
+<% else %>
+  <span class="last-answer">
+    <%= gettext("Thread created") %>
+    <%= time_tag(time: @thread.attribs[:latest_message].created_at, class: "dt-published") do %><%= gettext("%{time} ago", time: relative_time(@thread.attribs[:latest_message].created_at)) %><% end %>
+  </span>
+<% end %>

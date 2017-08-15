@@ -57,8 +57,13 @@ defmodule Cforum.Forums.Threads.Helper do
                 only_wo_answer: false, thread_conditions: %{}]
     opts = Keyword.merge(defaults, opts)
 
-    threads_query = from(thread in Thread,
-      where: thread.archived == false and thread.sticky == false)
+    also_query_sticky = if opts[:sticky] == nil do
+      from(thread in Thread, where: thread.archived == false)
+    else
+      from(thread in Thread, where: thread.archived == false and thread.sticky == false)
+    end
+
+    threads_query = also_query_sticky
     |> set_forum_id(forum, visible_forums)
     |> set_view_all(opts[:view_all])
     |> hide_read_threads(user, opts[:hide_read_threads])
@@ -84,6 +89,9 @@ defmodule Cforum.Forums.Threads.Helper do
     {sticky_threads_query, threads_query}
   end
 
+  def get_sticky_threads(_, _, _, _, false), do: []
+  def get_sticky_threads(_, _, _, _, nil), do: []
+
   def get_sticky_threads(query, user, order, opts, true) do
     from(thread in query, preload: :forum)
     |> set_ordering(order)
@@ -92,8 +100,6 @@ defmodule Cforum.Forums.Threads.Helper do
     |> set_user_attributes(user)
     |> sort_threads(opts[:message_order], opts[:thread_modifier])
   end
-
-  def get_sticky_threads(_, _, _, _, _, _, false), do: []
 
   def gen_normal_threads_query(threads_query, page, per_page, sticky_len, true) do
     page = if is_bitstring(page), do: String.to_integer(page), else: page

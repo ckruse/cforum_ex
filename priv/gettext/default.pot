@@ -51,8 +51,8 @@ msgstr ""
 msgid "All forums"
 msgstr ""
 
-#: lib/cforum_web/templates/forum/index.html.eex:29
-#: lib/cforum_web/templates/forum/index.html.eex:48
+#: lib/cforum_web/templates/forum/index.html.eex:28
+#: lib/cforum_web/templates/forum/index.html.eex:50
 msgid "Show all"
 msgstr ""
 
@@ -105,7 +105,7 @@ msgid "Search"
 msgstr ""
 
 #: lib/cforum_web/templates/forum/index.html.eex:15
-#: lib/cforum_web/templates/forum/index.html.eex:36
+#: lib/cforum_web/templates/forum/index.html.eex:35
 #: lib/cforum_web/templates/layout/app.html.eex:124
 #: lib/cforum_web/templates/layout/app.html.eex:139
 msgid "Statistics"
@@ -310,7 +310,7 @@ msgstr ""
 msgid "confirm your registration"
 msgstr ""
 
-#: lib/cforum/accounts/user.ex:98
+#: lib/cforum/accounts/user.ex:100
 msgid "password and password confirmation don't match"
 msgstr ""
 
@@ -429,6 +429,8 @@ msgstr ""
 msgid "messages.num_messages"
 msgstr ""
 
+#: lib/cforum_web/templates/forum/message_header.html.eex:5
+#: lib/cforum_web/templates/forum/message_header.html.eex:7
 #: lib/cforum_web/templates/message/header.html.eex:46
 #: lib/cforum_web/templates/message/header.html.eex:48
 msgid "messages.user_link"
@@ -757,11 +759,11 @@ msgstr ""
 msgid "The instructions how to reset your password have been sent."
 msgstr ""
 
-#: lib/cforum_web/controllers/users/user_controller.ex:163
+#: lib/cforum_web/controllers/users/user_controller.ex:173
 msgid "User deleted successfully."
 msgstr ""
 
-#: lib/cforum_web/controllers/users/user_controller.ex:146
+#: lib/cforum_web/controllers/users/user_controller.ex:156
 msgid "User updated successfully."
 msgstr ""
 
@@ -1082,4 +1084,85 @@ msgstr ""
 
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:6
 msgid "… in thread view"
+msgstr ""
+
+#: lib/cforum_web/views/helpers.ex:75
+msgid "%{days} days"
+msgstr ""
+
+#: lib/cforum_web/views/helpers.ex:67
+msgid "%{minutes} minutes"
+msgstr ""
+
+#: lib/cforum_web/views/helpers.ex:79
+msgid "%{months} months"
+msgstr ""
+
+#: lib/cforum_web/templates/forum/thread_infos.html.eex:20
+msgid "%{time} ago"
+msgstr ""
+
+#: lib/cforum_web/templates/forum/thread_infos.html.eex:6
+#: lib/cforum_web/templates/forum/thread_infos.html.eex:13
+msgid "%{time} ago:"
+msgstr ""
+
+#: lib/cforum_web/views/helpers.ex:83
+msgid "%{years} years"
+msgstr ""
+
+#: lib/cforum_web/views/helpers.ex:64
+msgid "1 minute"
+msgstr ""
+
+#: lib/cforum_web/views/helpers.ex:81
+msgid "1 year"
+msgstr ""
+
+#: lib/cforum_web/templates/forum/thread_infos.html.eex:19
+msgid "Thread created"
+msgstr ""
+
+#: lib/cforum_web/views/helpers.ex:73
+msgid "a day"
+msgstr ""
+
+#: lib/cforum_web/views/helpers.ex:71
+msgid "about %{hours} hours"
+msgstr ""
+
+#: lib/cforum_web/views/helpers.ex:77
+msgid "about 1 month"
+msgstr ""
+
+#: lib/cforum_web/views/helpers.ex:69
+msgid "about an hour"
+msgstr ""
+
+#: lib/cforum_web/templates/forum/thread_infos.html.eex:12
+msgid "first unread message"
+msgstr ""
+
+#: lib/cforum_web/views/helpers.ex:60
+msgid "half a minute"
+msgstr ""
+
+#: lib/cforum_web/templates/forum/thread_infos.html.eex:5
+msgid "last message"
+msgstr ""
+
+#: lib/cforum_web/views/helpers.ex:56
+msgid "less than 10 seconds"
+msgstr ""
+
+#: lib/cforum_web/views/helpers.ex:58
+msgid "less than 20 seconds"
+msgstr ""
+
+#: lib/cforum_web/views/helpers.ex:54
+msgid "less than 5 seconds"
+msgstr ""
+
+#: lib/cforum_web/views/helpers.ex:62
+msgid "less than a minute"
 msgstr ""
