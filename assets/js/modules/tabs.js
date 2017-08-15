@@ -85,15 +85,6 @@ function addTabBehavior (tab) {
 
 
 
-function focus (element) {
-  element.focus();
-  return element;
-}
-
-
-
-
-
 function switchTabs (tab) {
   const process = both(
     pipe(
