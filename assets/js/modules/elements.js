@@ -77,6 +77,20 @@ export function create (tagName) {
 
 
 /**
+ *  @function parentElement
+ *
+ *
+ *
+ */
+export function parentElement (element) {
+  return element.parentElement;
+}
+
+
+
+
+
+/**
  *  @function parse
  *
  *
