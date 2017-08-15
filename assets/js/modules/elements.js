@@ -12,7 +12,7 @@
 
 
 
-import { compose, curry } from './functional.js';
+import { call, compose, curry } from './functional.js';
 
 
 
@@ -294,8 +294,12 @@ export const siblings = curry(function siblings (element) {
  *
  */
 export const toggleHiddenState = curry(function toggleHiddenState (element) {
-  element.hasAttribute('hidden') ? element.removeAttribute('hidden') : element.setAttribute('hidden', 'hidden');
-  return element;
+
+  return call(
+    branch(hasAttribute('hidden'), removeAttribute('hidden'), setAttribute('hidden', 'hidden')),
+    element
+  );
+
 });
 
 
