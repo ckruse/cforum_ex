@@ -21,8 +21,6 @@
 
 import { curry } from './functional.js';
 
-import { equal } from './predicates.js';
-
 
 
 
