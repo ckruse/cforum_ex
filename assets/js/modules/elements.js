@@ -340,6 +340,5 @@ export const toggleHiddenState = curry(function toggleHiddenState (element) {
  *
  */
 export const toggleTabIndex = curry(function toggleTabIndex (element) {
-  element.tabIndex = element.tabIndex ? 0 : -1;
-  return element;
+  return element.tabIndex = element.tabIndex ? 0 : -1, element;
 });
