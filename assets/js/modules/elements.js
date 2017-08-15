@@ -304,6 +304,20 @@ export const siblings = curry(function siblings (element) {
 
 
 /**
+ *  @function toggle
+ *
+ *
+ *
+ */
+export const toggle = curry(function toggle (name, value, element) {
+  return branch(hasAttribute(name), removeAttribute(name), setAttribute(name, value))(element);
+});
+
+
+
+
+
+/**
  *  @function toggleHiddenState
  *
  *
