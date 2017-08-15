@@ -7,7 +7,9 @@
  *  Adds functionality for tabs.
  *
  *
- *  @requires dom
+ *  @requires elements
+ *
+ *  @requires events
  *
  *  @requires functional
  *
