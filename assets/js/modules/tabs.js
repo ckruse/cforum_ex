@@ -197,15 +197,7 @@ function insertTablist (template) {
 
 
 function setupTabs (tablist) {
-  return compose(transform(addTabBehavior), connectTabsWithTabpanels, children(tablist));
-}
-
-
-
-
-function connectTabsWithTabpanels (tabs) {
-  tabs.forEach(tab => tab.panel = id(tab.getAttribute('aria-controls')));
-  return tabs;
+  return transform(addTabBehavior, children(tablist));
 }
 
 
