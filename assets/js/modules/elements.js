@@ -111,8 +111,8 @@ export const create = curry(function create (tagName) {
  *
  *
  */
-export const firstElementChild = curry(function firstElementChild (element) {
-  return element.firstElementChild;
+export const firstElementChild = curry(function firstElementChild (context) {
+  return context.firstElementChild;
 });
 
 
