@@ -424,6 +424,41 @@ export const removeAttribute = curry(function removeAttribute (name, element) {
  *  @function setAttribute
  *
  *
+ *  @summary
+ *
+ *  Sets an attribute of an element to a value.
+ *
+ *
+ *  @description
+ *
+ *  This function is a wrapper for the native setAttribute
+ *  method implemented by elements. It takes two strings for the
+ *  name and value of an attribute and an element object. It sets
+ *  the attribute with the given name to the given value on the
+ *  supplied element. If the attribute already existed, its value
+ *  is updated, else the attribute will be added to the element.
+ *  The function returns the element it has been called with.
+ *
+ *
+ *  @param { string } name
+ *
+ *  The name of the attribute.
+ *
+ *
+ *  @param { string } value
+ *
+ *  The attributes value.
+ *
+ *
+ *  @param { Element } element
+ *
+ *  The element to set the attribute on.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The modified element.
+ *
  *
  *
  */
