@@ -32,9 +32,9 @@ import { id } from './selectors.js';
  *
  *
  */
-export const controls = curry(memoize(function controls (element) {
+export const controls = curry(function controls (element) {
   return id(element.getAttribute('aria-controls'));
-}));
+});
 
 
 
