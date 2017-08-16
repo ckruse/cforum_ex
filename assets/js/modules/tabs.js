@@ -78,7 +78,7 @@ import {
 import {
 
   compose,
-  curry,
+  memoize,
   pipe
 
 } from './functional.js';
