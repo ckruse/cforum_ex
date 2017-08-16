@@ -332,6 +332,32 @@ export function stopPropagation (event) {
  *  @function target
  *
  *
+ *  @summary
+ *
+ *  Returns the target of an event.
+ *
+ *
+ *  @description
+ *
+ *  The target function expects to be called with an
+ *  event object and returns the object the event has been
+ *  dispatched to. Please note, that the object returned is
+ *  not necessarily the object that the event handler which
+ *  received the event has been registered for. That object
+ *  is always referenced by the currentTarget property
+ *  of an event object.
+ *
+ *
+ *  @param { Event } event
+ *
+ *  An event object.
+ *
+ *
+ *  @return { EventTarget }
+ *
+ *  The target of the event.
+ *
+ *
  *
  */
 export function target (event) {
