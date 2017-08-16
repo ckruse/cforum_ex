@@ -410,6 +410,36 @@ export const previousElementSibling = curry(function previousElementSibling (con
  *  @function removeAttribute
  *
  *
+ *  @summary
+ *
+ *  Removes an attribute from an element.
+ *
+ *
+ *  @description
+ *
+ *  This is a wrapper for the native removeAttribute method
+ *  implemented by elements. It takes a string for the attributes
+ *  name and an element object. It removes the attribute with the
+ *  specified name from the element and returns the element after
+ *  that. The attempt to remove an attribute that does not exist
+ *  on the element will not raise an exception.
+ *
+ *
+ *  @param { string } name
+ *
+ *  The name of the attribute that shall be removed.
+ *
+ *
+ *  @param { Element } element
+ *
+ *  The element from which the attribute shall be removed.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The modified element.
+ *
+ *
  *
  */
 export const removeAttribute = curry(function removeAttribute (name, element) {
