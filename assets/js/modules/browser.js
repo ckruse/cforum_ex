@@ -34,6 +34,39 @@ import { defined, equal } from './predicates.js';
 
 
 /**
+ *  @function hasHiddenAttribute
+ *
+ *
+ *  @summary
+ *
+ *  Tests if the HTML hidden attribute is supported.
+ *
+ *
+ *  @description
+ *
+ *  Unfortunately there are still some browsers around that
+ *  do not support the HTML hidden attribute. To avoid exposing
+ *  broken interfaces to the users this function can be used to
+ *  check if the attribute is available. If not, fallback
+ *  content can be presented.
+ *
+ *
+ *  @return { boolean }
+ *
+ *  The result of the test.
+ *
+ *
+ *
+ */
+export function hasHiddenAttribute () {
+  return 'hidden' in document.body;
+}
+
+
+
+
+
+/**
  *  @function hasLocalStorage
  *
  *
