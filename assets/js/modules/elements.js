@@ -255,6 +255,30 @@ export const lastElementSibling = curry(function lastElementSibling (element) {
  *  @function nextElementSibling
  *
  *
+ *  @summary
+ *
+ *  Returns the next element sibling.
+ *
+ *
+ *  @description
+ *
+ *  This function takes an object that is either an element or
+ *  that inherits from the CharacterData interface of the DOM and
+ *  returns its next element sibling. If there is no next element
+ *  sibling, the function returns null. This is a wrapper for
+ *  the native property of the same name.
+ *
+ *
+ *  @param { CharacterData | Element } context
+ *
+ *  The node whose next element sibling should be returned.
+ *
+ *
+ *  @return { ? Element }
+ *
+ *  The next element sibling or null.
+ *
+ *
  *
  */
 export const nextElementSibling = curry(function nextElementSibling (context) {
