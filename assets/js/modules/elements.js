@@ -398,8 +398,8 @@ export function parse (markup) {
  *
  *
  */
-export const previousElementSibling = curry(function previousElementSibling (element) {
-  return element.previousElementSibling;
+export const previousElementSibling = curry(function previousElementSibling (context) {
+  return context.previousElementSibling;
 });
 
 
