@@ -442,8 +442,8 @@ export const setAttribute = curry(function setAttribute (name, value, element) {
  *
  *
  */
-export const elementSiblings = curry(function elementSiblings (element) {
-  return compose(children, parentElement, element);
+export const elementSiblings = curry(function elementSiblings (node) {
+  return children(parentElement(node));
 });
 
 
