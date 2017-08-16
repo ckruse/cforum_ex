@@ -156,6 +156,32 @@ function addTabBehavior (tab) {
  *  @function getTabpanel
  *
  *
+ *  @summary
+ *
+ *  Returns the element controlled by another element.
+ *
+ *
+ *  @description
+ *
+ *  This is just a wrapper for the controls function, which
+ *  takes an element and returns the element whose ID is the
+ *  value of the former elements aria-controls attribute. It
+ *  is used to reference the tabpanel that is associated with
+ *  a tab. To avoid having to search the DOM in every call,
+ *  this function uses memoization, so the results of the
+ *  controls function can be read from a cache.
+ *
+ *
+ *  @param { Element } tab
+ *
+ *  The tab whose associated tabpanel to find.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The tabpanel controlled by the tab.
+ *
+ *
  *
  */
 const getTabpanel = memoize(controls);
