@@ -4,12 +4,19 @@
  *
  *  @summary
  *
- *  Creates a tab interface.
+ *  Replaces internal navigation with a tab interface.
  *
  *
  *  @description
  *
- *  This module...
+ *  This module creates a tab interface from prepared content. In
+ *  case there is a template element with the ID tablist, it will take
+ *  this elements content to replace a fallback navigation, which is
+ *  presumed to be the previous element sibling of the template. After
+ *  replacing the navigation with the tablist and setting up the state,
+ *  all but the first elements that are meant to be tabpanels are
+ *  hidden. When one of the tabs is activated, the current content
+ *  is hidden and the newly selected content is made visible.
  *
  *
  *  @requires aria
