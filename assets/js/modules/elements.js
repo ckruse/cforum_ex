@@ -229,8 +229,8 @@ export const hasAttribute = curry(function hasAttribute (name, element) {
  *
  *
  */
-export const lastElementChild = curry(function lastElementChild (element) {
-  return element.lastElementChild;
+export const lastElementChild = curry(function lastElementChild (context) {
+  return context.lastElementChild;
 });
 
 
