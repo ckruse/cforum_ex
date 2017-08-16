@@ -311,7 +311,7 @@ const toggleTabAndTabpanel = pipe(toggleSelection, toggleTabIndex, getTabpanel, 
  *
  *
  */
-const currentSelection = pipe(siblings, find(selected));
+const currentSelection = pipe(elementSiblings, find(selected));
 
 
 
