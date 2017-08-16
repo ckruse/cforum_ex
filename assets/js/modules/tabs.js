@@ -122,6 +122,32 @@ import { id } from './selectors.js';
  *  @function addTabBehavior
  *
  *
+ *  @summary
+ *
+ *  Implements tabbing behavior to a given element.
+ *
+ *
+ *  @description
+ *
+ *  This function takes an element that is meant to be a tab
+ *  and registers event handlers for this element. If the element
+ *  gets clicked, it is checked if it already is the selected tab,
+ *  and if not, this element is activated and the formerly active
+ *  tab is disabled. On keydown it is first determined which tab
+ *  should be activated next, before selecting the new and
+ *  unselecting the old tab.
+ *
+ *
+ *  @param { Element } tab
+ *
+ *  The tab to add behavior to.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The element provided to this function.
+ *
+ *
  *
  */
 function addTabBehavior (tab) {
