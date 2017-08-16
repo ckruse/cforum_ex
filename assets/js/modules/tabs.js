@@ -67,7 +67,7 @@ import { hasHiddenAttribute } from './browser.js';
 import {
 
   children,
-  elemetSiblings,
+  elementSiblings,
   firstElementSibling,
   focus,
   lastElementSibling,
