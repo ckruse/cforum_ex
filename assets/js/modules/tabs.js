@@ -7,7 +7,14 @@
  *  Creates a tab interface.
  *
  *
+ *  @description
+ *
+ *  This module...
+ *
+ *
  *  @requires aria
+ *
+ *  @requires browser
  *
  *  @requires elements
  *
@@ -37,6 +44,12 @@ import {
   toggleSelection
 
 } from './aria.js';
+
+
+
+
+
+import { hasHiddenAttribute } from './browser.js';
 
 
 
@@ -104,13 +117,16 @@ import {
   both,
   conditions,
   either,
-  unless
+  unless,
+  when
 
 } from './logic.js';
 
 
 
 
+
+import { defined } from './predicates.js';
 
 import { id } from './selectors.js';
 
@@ -406,6 +422,18 @@ const disableActiveTab = pipe(currentSelection, toggleTabAndTabpanel);
 
 
 /**
+ *  @function setupTabInterface
+ *
+ *
+ *
+ */
+const setupTabInterface = pipe(insertTablist, setupTabs, setupTabpanels);
+
+
+
+
+
+/**
  *  @function insertTablist
  *
  *
@@ -595,5 +623,5 @@ function setRoleAndLabelForTabpanel (tab) {
  *
  */
 ready(function main (event) {
-  'hidden' in document.body && compose(setupTabpanels, setupTabs, insertTablist(id('tablist')));
+  when(both(defined, hasHiddenAttribute), setupTabInterface, id('tablist'));
 });
