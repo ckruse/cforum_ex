@@ -109,6 +109,30 @@ export const create = curry(function create (tagName) {
  *  @function firstElementChild
  *
  *
+ *  @summary
+ *
+ *  Returns the first element child of an object.
+ *
+ *
+ *  @description
+ *
+ *  This is a functional wrapper for the firstElementChild
+ *  property that is implemented by documents, DocumentFragments
+ *  and elements. It returns the first child node of the context
+ *  object that is an element or null, if the context object
+ *  does not have any child nodes that are elements.
+ *
+ *
+ *  @param { Document | DocumentFragment | Element } context
+ *
+ *  The object whose first element child should be returned.
+ *
+ *
+ *  @return { ? Element }
+ *
+ *  The first element child or null.
+ *
+ *
  *
  */
 export const firstElementChild = curry(function firstElementChild (context) {
