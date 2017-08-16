@@ -236,9 +236,7 @@ const disableActiveTab = pipe(currentSelection, toggleTabAndTabpanel);
  *
  *
  */
-function currentSelection (tab) {
-  return find(selected, siblings(tab));
-}
+const currentSelection = pipe(siblings, find(selected));
 
 
 
