@@ -320,6 +320,31 @@ const enableSelectedTab = pipe(focus, toggleTabAndTabpanel);
  *  @function disableActiveTab
  *
  *
+ *  @summary
+ *
+ *  Changes the state of a tab to unselected.
+ *
+ *
+ *  @description
+ *
+ *  This is the counterpart to the enableActiveTab function. It
+ *  takes the tab that should become the selected tab and uses this
+ *  element to find the tab which is currently selected. It then
+ *  disables the currently selected tab by setting its aria-selected
+ *  attribute to false, removing it from taborder and by hiding the
+ *  tabpanel that is controlled by this tab.
+ *
+ *
+ *  @param { Element } tab
+ *
+ *  The newly selected tab.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The tabpanel of the formerly selected tab.
+ *
+ *
  *
  */
 const disableActiveTab = pipe(currentSelection, toggleTabAndTabpanel);
