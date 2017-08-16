@@ -161,6 +161,30 @@ export const firstElementSibling = curry(function firstElementSibling (element) 
  *  @function focus
  *
  *
+ *  @summary
+ *
+ *  Sets focus on an element.
+ *
+ *
+ *  @description
+ *
+ *  This function takes an element and returns that same
+ *  element. It internally calls the native focus method of
+ *  the provided element. If the element is focusable, as it
+ *  is the case for interactive elements, then the element
+ *  will receive focus. Otherwise nothing will happen.
+ *
+ *
+ *  @param { HTMLElement }
+ *
+ *  An interactive element to set focus on.
+ *
+ *
+ *  @return { HTMLElement }
+ *
+ *  The element after receiving focus.
+ *
+ *
  *
  */
 export const focus = curry(function focus (element) {
