@@ -189,6 +189,35 @@ export const getAttribute = curry(function getAttribute (name, element) {
  *  @function hasAttribute
  *
  *
+ *  @summary
+ *
+ *  A predicate to test if an element has an attribute.
+ *
+ *
+ *  @description
+ *
+ *  This function is a wrapper for the native hasAttribute
+ *  method which is implemented by elements. It takes a string
+ *  specifying the name of an attribute and an element object.
+ *  If the element has an attribute whose name matches the
+ *  provided string true is returned, otherwise false.
+ *
+ *
+ *  @param { string } name
+ *
+ *  The name of the attribute.
+ *
+ *
+ *  @param { Element } element
+ *
+ *  The element on which search the attribute.
+ *
+ *
+ *  @return { boolean }
+ *
+ *  The result of the test.
+ *
+ *
  *
  */
 export const hasAttribute = curry(function hasAttribute (name, element) {
