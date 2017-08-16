@@ -610,6 +610,40 @@ export const elementSiblings = curry(function elementSiblings (node) {
  *  @function toggleHiddenState
  *
  *
+ *  @summary
+ *
+ *  Toggles the hidden attribute of an element.
+ *
+ *
+ *  @description
+ *
+ *  The HTML hidden attribute is used to mark an element as not
+ *  yet, or no longer relevant to the documents current state, or
+ *  to indicate that the element should not be directly accessed by
+ *  the user for other reasons. A hidden element will neither be
+ *  displayed per default, nor will it be exposed to assistive
+ *  software, like screen readers.
+ *
+ *
+ *  This function takes an element and sets its hidden attribute
+ *  if it is not currently set. Else it removes the attribute from
+ *  the element. The element the function has been called with is
+ *  returned after adding or removing the attribute. The function
+ *  will not work for older browsers, though, since changing the
+ *  property of an element is not reflected to the elements
+ *  attributes if the attribute is not supported.
+ *
+ *
+ *  @param { HTMLElement } element
+ *
+ *  The element whose hidden attribute should be toggled.
+ *
+ *
+ *  @return { HTMLElement }
+ *
+ *  The provided element.
+ *
+ *
  *
  */
 export const toggleHiddenState = curry(function toggleHiddenState (element) {
