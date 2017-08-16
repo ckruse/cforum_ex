@@ -257,8 +257,8 @@ export const lastElementSibling = curry(function lastElementSibling (element) {
  *
  *
  */
-export const nextElementSibling = curry(function nextElementSibling (element) {
-  return element.nextElementSibling;
+export const nextElementSibling = curry(function nextElementSibling (context) {
+  return context.nextElementSibling;
 });
 
 
