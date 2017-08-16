@@ -67,13 +67,13 @@ import { hasHiddenAttribute } from './browser.js';
 import {
 
   children,
+  elemetSiblings,
   firstElementSibling,
   focus,
   lastElementSibling,
   nextElementSibling,
   previousElementSibling,
   setAttribute,
-  siblings,
   toggleHiddenState,
   toggleTabIndex
 
