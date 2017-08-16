@@ -293,6 +293,30 @@ export const nextElementSibling = curry(function nextElementSibling (context) {
  *  @function parentElement
  *
  *
+ *  @summary
+ *
+ *  Returns the parent element of a node.
+ *
+ *
+ *  @description
+ *
+ *  This is a wrapper for the native parentElement property
+ *  which all DOM nodes implement. It returns the parent element
+ *  of the context object the function has been called with. In
+ *  case this object does not have a parent element, the value
+ *  null is returned.
+ *
+ *
+ *  @param { Node } context
+ *
+ *  The object whose parent element should be returned.
+ *
+ *
+ *  @return { ? Element }
+ *
+ *  Either the nodes parent element or null.
+ *
+ *
  *
  */
 export const parentElement = curry(function parentElement (context) {
