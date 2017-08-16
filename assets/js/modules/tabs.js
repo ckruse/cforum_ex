@@ -383,6 +383,32 @@ const disableActiveTab = pipe(currentSelection, toggleTabAndTabpanel);
  *  @function insertTablist
  *
  *
+ *  @summary
+ *
+ *  Replaces the fallback navigation with a tablist.
+ *
+ *
+ *  @description
+ *
+ *  This function is called with a reference to a template element
+ *  whose content is a prepared tablist. It then replaces the fallback
+ *  content with the tablist. There is no need to explicitly mark the
+ *  fallback content, instead we use the convention that the template
+ *  element is the next element sibling of the element which should be
+ *  replaced. After the replacement the template is removed from
+ *  the document.
+ *
+ *
+ *  @param { HTMLTemplateElement } template
+ *
+ *  The template to use.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The tablist inserted into the document.
+ *
+ *
  *
  */
 function insertTablist (template) {
