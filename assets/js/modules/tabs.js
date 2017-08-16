@@ -288,6 +288,16 @@ function switchTo (selector) {
  *  Changes the state of a tab to selected.
  *
  *
+ *  @description
+ *
+ *  This function takes the newly selected tab and sets
+ *  focus on it. After that the tabs aria-selected attribute
+ *  is set to true and its tabindex attribute is changed such
+ *  that the element is placed in the documents taborder. To
+ *  complete the state change, the tabpanel associated with
+ *  the tab is made visible.
+ *
+ *
  *  @param { Element } tab
  *
  *  The newly selected tab.
