@@ -169,6 +169,21 @@ function switchTo (selector) {
  *  @function enableSelectedTab
  *
  *
+ *  @summary
+ *
+ *  Changes the state of a tab to selected.
+ *
+ *
+ *  @param { Element } tab
+ *
+ *  The newly selected tab.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The associated tabpanel.
+ *
+ *
  *
  */
 function enableSelectedTab (tab) {
@@ -265,9 +280,7 @@ function currentSelection (tab) {
  *
  *
  */
-function toggleTabAndTabpanel (tab) {
-  return pipe(toggleSelection, toggleTabIndex, controls, toggleHiddenState)(tab);
-}
+const toggleTabAndTabpanel = pipe(toggleSelection, toggleTabIndex, controls, toggleHiddenState);
 
 
 
