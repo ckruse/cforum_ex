@@ -372,6 +372,30 @@ export function parse (markup) {
  *  @function previousElementSibling
  *
  *
+ *  @summary
+ *
+ *  Returns the previous element sibling.
+ *
+ *
+ *  @description
+ *
+ *  This function takes an object that is either an element or
+ *  that inherits from the CharacterData interface of the DOM and
+ *  returns its previous element sibling. If there is no previous
+ *  element sibling, the function returns null. This is a wrapper
+ *  for the native property of the same name.
+ *
+ *
+ *  @param { CharacterData | Element } context
+ *
+ *  The node whose previous element sibling should be returned.
+ *
+ *
+ *  @return { ? Element }
+ *
+ *  The previous element sibling or null.
+ *
+ *
  *
  */
 export const previousElementSibling = curry(function previousElementSibling (element) {
