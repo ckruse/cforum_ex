@@ -425,6 +425,31 @@ const disableActiveTab = pipe(currentSelection, toggleTabAndTabpanel);
  *  @function setupTabInterface
  *
  *
+ *  @summary
+ *
+ *  Implements the logic for the tab interface.
+ *
+ *
+ *  @description
+ *
+ *  This function expects to be called with a reference to the
+ *  template whose content is the prepared tablist. It replaces
+ *  the fallback for the tab interface with the retrieved tablist,
+ *  complements missing attributes on the elements that should be
+ *  tabs and tabpanels, and registers event handlers on the tabs
+ *  to make these elements interactive.
+ *
+ *
+ *  @param { HTMLTemplateElement } template
+ *
+ *  The template for the tablist.
+ *
+ *
+ *  @return { Element [] }
+ *
+ *  The list of tabpanels.
+ *
+ *
  *
  */
 const setupTabInterface = pipe(insertTablist, setupTabs, setupTabpanels);
