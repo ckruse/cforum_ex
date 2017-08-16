@@ -2,6 +2,11 @@
  *  @module elements
  *
  *
+ *  @summary
+ *
+ *  This module provides functions to work with elements.
+ *
+ *
  *  @requires functional
  *
  *  @requires logic
