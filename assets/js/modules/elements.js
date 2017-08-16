@@ -302,8 +302,8 @@ export const nextElementSibling = curry(function nextElementSibling (context) {
  *
  *  This is a wrapper for the native parentElement property
  *  which all DOM nodes implement. It returns the parent element
- *  of the context object the function has been called with. In
- *  case this object does not have a parent element, the value
+ *  of the context object that the function has been called with.
+ *  In case this object does not have a parent element the value
  *  null is returned.
  *
  *
