@@ -123,6 +123,31 @@ export const bind = curry(function bind (context, actions) {
  *  Predicate to determine if a key was pressed.
  *
  *
+ *  @description
+ *
+ *  This function takes a string and an event object and returns
+ *  a boolean value. The string must be a valid value for the key
+ *  property of keyboard events. A list of key names can be obtained
+ *  from the UI Events spec and its attached documents. In case the
+ *  provided string matches the value of the events key property,
+ *  true is returned, otherwise false.
+ *
+ *
+ *  @param { string } name
+ *
+ *  Name of the key to test against.
+ *
+ *
+ *  @param { KeyboardEvent } event
+ *
+ *  An event object.
+ *
+ *
+ *  @return { boolean }
+ *
+ *  The result of the test.
+ *
+ *
  *
  */
 export const key = curry(function key (name, event) {
