@@ -153,6 +153,82 @@ function addTabBehavior (tab) {
 
 
 /**
+ *  @function toggleTabAndTabpanel
+ *
+ *
+ *  @summary
+ *
+ *  Changes the state of a tab and its associated tabpanel.
+ *
+ *
+ *  @description
+ *
+ *  This function enables or disables a tab depending on the tabs
+ *  current state. If the tab is currently selected, then its aria
+ *  selected attribute will be set to false and it will be removed
+ *  from the documents taborder. In addition, the hidden attribute
+ *  of the panel that is controlled by the tab is set, such that
+ *  the panel is no longer visible. In case the tab is not
+ *  selected, the opposite will happen.
+ *
+ *
+ *  @param { Element } tab
+ *
+ *  A selected or unselected tab.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The tabpanel that is controlled by the tab.
+ *
+ *
+ *
+ */
+const toggleTabAndTabpanel = pipe(toggleSelection, toggleTabIndex, controls, toggleHiddenState);
+
+
+
+
+
+/**
+ *  @function currentSelection
+ *
+ *
+ *  @summary
+ *
+ *  Fetches the currently selected tab.
+ *
+ *
+ *  @description
+ *
+ *  When an event occurs which indicates that another tab
+ *  should be selected, then the tab which is currently selected
+ *  must be disabled first. This is done by changing some of the
+ *  values of the tabs attributes and by hiding its associated
+ *  tabpanel. Now, to disable the currently selected tab, one
+ *  has to know which tab it is. To find this out is the
+ *  purpose of this function.
+ *
+ *
+ *  @param { Element } tab
+ *
+ *  The newly selected tab.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The currently selected tab.
+ *
+ *
+ *
+ */
+const currentSelection = pipe(siblings, find(selected));
+
+
+
+
+
+/**
  *  @function switchTo
  *
  *
@@ -199,82 +275,6 @@ const enableSelectedTab = pipe(focus, toggleTabAndTabpanel);
  *
  */
 const disableActiveTab = pipe(currentSelection, toggleTabAndTabpanel);
-
-
-
-
-
-/**
- *  @function currentSelection
- *
- *
- *  @summary
- *
- *  Fetches the currently selected tab.
- *
- *
- *  @description
- *
- *  When an event occurs which indicates that another tab
- *  should be selected, then the tab which is currently selected
- *  must be disabled first. This is done by changing some of the
- *  values of the tabs attributes and by hiding its associated
- *  tabpanel. Now, to disable the currently selected tab, one
- *  has to know which tab it is. To find this out is the
- *  purpose of this function.
- *
- *
- *  @param { Element } tab
- *
- *  The newly selected tab.
- *
- *
- *  @return { Element }
- *
- *  The currently selected tab.
- *
- *
- *
- */
-const currentSelection = pipe(siblings, find(selected));
-
-
-
-
-
-/**
- *  @function toggleTabAndTabpanel
- *
- *
- *  @summary
- *
- *  Changes the state of a tab and its associated tabpanel.
- *
- *
- *  @description
- *
- *  This function enables or disables a tab depending on the tabs
- *  current state. If the tab is currently selected, then its aria
- *  selected attribute will be set to false and it will be removed
- *  from the documents taborder. In addition, the hidden attribute
- *  of the panel that is controlled by the tab is set, such that
- *  the panel is no longer visible. In case the tab is not
- *  selected, the opposite will happen.
- *
- *
- *  @param { Element } tab
- *
- *  A selected or unselected tab.
- *
- *
- *  @return { Element }
- *
- *  The tabpanel that is controlled by the tab.
- *
- *
- *
- */
-const toggleTabAndTabpanel = pipe(toggleSelection, toggleTabIndex, controls, toggleHiddenState);
 
 
 
