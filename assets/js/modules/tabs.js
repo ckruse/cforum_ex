@@ -186,9 +186,7 @@ function switchTo (selector) {
  *
  *
  */
-function enableSelectedTab (tab) {
-  return compose(toggleTabAndTabpanel, focus, tab);
-}
+const enableSelectedTab = pipe(focus, toggleTabAndTabpanel);
 
 
 
@@ -200,9 +198,7 @@ function enableSelectedTab (tab) {
  *
  *
  */
-function disableActiveTab (tab) {
-  return compose(toggleTabAndTabpanel, currentSelection, tab);
-}
+const disableActiveTab = pipe(currentSelection, toggleTabAndTabpanel);
 
 
 
