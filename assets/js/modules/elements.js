@@ -436,13 +436,13 @@ export const setAttribute = curry(function setAttribute (name, value, element) {
 
 
 /**
- *  @function siblings
+ *  @function elementSiblings
  *
  *
  *
  *
  */
-export const siblings = curry(function siblings (element) {
+export const elementSiblings = curry(function elementSiblings (element) {
   return compose(children, parentElement, element);
 });
 
