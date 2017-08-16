@@ -153,6 +153,18 @@ function addTabBehavior (tab) {
 
 
 /**
+ *  @function getTabpanel
+ *
+ *
+ *
+ */
+const getTabpanel = memoize(controls);
+
+
+
+
+
+/**
  *  @function toggleTabAndTabpanel
  *
  *
@@ -184,7 +196,7 @@ function addTabBehavior (tab) {
  *
  *
  */
-const toggleTabAndTabpanel = pipe(toggleSelection, toggleTabIndex, controls, toggleHiddenState);
+const toggleTabAndTabpanel = pipe(toggleSelection, toggleTabIndex, getTabpanel, toggleHiddenState);
 
 
 
@@ -406,7 +418,7 @@ function setupTabpanels (tabs) {
  *
  */
 function setRoleAndLabelForTabpanel (tab) {
-  return compose(role('tabpanel'), setAttribute('aria-labelledby', tab.id), controls(tab));
+  return compose(role('tabpanel'), setAttribute('aria-labelledby', tab.id), getTabpanel(tab));
 }
 
 
