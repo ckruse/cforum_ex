@@ -36,10 +36,30 @@ import { branch, not } from './logic.js';
  *  Returns a list with child elements.
  *
  *
+ *  @description
+ *
+ *  Documents, DocumentFragments and elements implement the
+ *  interface ParentNode of the DOM, which provides a property
+ *  named children whose value is a HTMLCollection of elements
+ *  that are children of the context object. This function is
+ *  a wrapper for this property. It is called with a context
+ *  object and returns its child elements in an array.
+ *
+ *
+ *  @param { Document | DocumentFragment | Element } context
+ *
+ *  The object whose child elements should be returned.
+ *
+ *
+ *  @return { Array }
+ *
+ *  The list of child elements.
+ *
+ *
  *
  */
-export const children = curry(function children (element) {
-  return Array.from(element.children);
+export const children = curry(function children (context) {
+  return Array.from(context.children);
 });
 
 
