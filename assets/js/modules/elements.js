@@ -85,7 +85,7 @@ export const children = curry(function children (context) {
  *  for an optional parameter for custom elements.
  *
  *
- *  @param { string } tagName
+ *  @param { string } type
  *
  *  The type of element to create.
  *
@@ -97,8 +97,8 @@ export const children = curry(function children (context) {
  *
  *
  */
-export const create = curry(function create (tagName) {
-  return document.createElement(tagName);
+export const create = curry(function create (type) {
+  return document.createElement(type);
 });
 
 
