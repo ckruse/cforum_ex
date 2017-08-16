@@ -175,6 +175,44 @@ export const focus = curry(function focus (element) {
  *  @function getAttribute
  *
  *
+ *  @summary
+ *
+ *  Returns the value of an elements attribute.
+ *
+ *
+ *  @description
+ *
+ *  This function expects to be called with a string specifying
+ *  the name of an attribute and with an element object. It returns
+ *  the value of the elements attribute with the given name. If the
+ *  element does not have an attribute whose name matches the string
+ *  that was passed to the function, null shall be returned.
+ *
+ *
+ *  However, because this function is merely a wrapper for the
+ *  native method of the same name, the value returned depends on
+ *  the browsers implementation of the DOM standard, which sometime
+ *  stated, that an empty string should be returned when the element
+ *  does not have the specified attribute. So, it is possible that
+ *  some browsers won’t return null in this case, as defined by
+ *  the current standard.
+ *
+ *
+ *  @param { string } name
+ *
+ *  The name of the attribute.
+ *
+ *
+ *  @param { Element } element
+ *
+ *  The element whose attributes value shall be returned.
+ *
+ *
+ *  @return { ? string }
+ *
+ *  The attributes value or null.
+ *
+ *
  *
  */
 export const getAttribute = curry(function getAttribute (name, element) {
