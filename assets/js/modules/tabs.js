@@ -277,6 +277,24 @@ const currentSelection = pipe(siblings, find(selected));
  *
  *  @description
  *
+ *  In case a keydown event occurs on the currently selected tab,
+ *  it must be determined which tab should be activated next. So this
+ *  function takes a callback which is called with a reference to the
+ *  currently selected tab. The return value of this selector function
+ *  is expected to be the tab that is the target of the operation.
+ *  Then this function removes the old selection and changes the
+ *  state of the provided tab to selected.
+ *
+ *
+ *  @param { function } selector
+ *
+ *  A function that returns the tab to activate.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The tabpanel of the newly selected tab.
+ *
  *
  *
  */
