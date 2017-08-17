@@ -23,6 +23,8 @@ import { compose, curry } from './functional.js';
 
 import { branch, not } from './logic.js';
 
+import { equal } from './predicates.js';
+
 
 
 
