@@ -481,7 +481,7 @@ export function parse (markup) {
  *  for the native property of the same name.
  *
  *
- *  @param { CharacterData | Element } context
+ *  @param { CharacterData | Element } nextSibling
  *
  *  The node whose previous element sibling should be returned.
  *
@@ -493,8 +493,8 @@ export function parse (markup) {
  *
  *
  */
-export const previousElementSibling = curry(function previousElementSibling (context) {
-  return context.previousElementSibling;
+export const previousElementSibling = curry(function previousElementSibling (nextSibling) {
+  return nextSibling.previousElementSibling;
 });
 
 
