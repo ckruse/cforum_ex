@@ -1,58 +1,62 @@
-<fieldset class="cf-tab-pane" id="comfort">
-  <legend><%= gettext("comfort functions") %></legend>
+<div id="comfort">
 
-  <div class="cf-cgroup">
-    <%= label @f, :greeting, gettext("greeting") %>
-    <%= textarea @f, :greeting, placeholder: gettext("Hello {$vname},") %>
-  </div>
+  <fieldset>
+    <legend><%= gettext("comfort functions") %></legend>
 
-  <div class="cf-cgroup">
-    <%= label @f, :farewell, gettext("farewell") %>
-    <%= textarea @f, :farewell, placeholder: gettext("Bye, Regina") %>
-  </div>
+    <div class="cf-cgroup">
+      <%= label @f, :greeting, gettext("greeting") %>
+      <%= textarea @f, :greeting, placeholder: gettext("Hello {$vname},") %>
+    </div>
 
-  <div class="cf-cgroup">
-    <%= label @f, :signature, gettext("signature") %>
-    <%= textarea @f, :signature, placeholder: gettext("Roses are red") %>
-  </div>
+    <div class="cf-cgroup">
+      <%= label @f, :farewell, gettext("farewell") %>
+      <%= textarea @f, :farewell, placeholder: gettext("Bye, Regina") %>
+    </div>
 
-  <div class="cf-cgroup">
-    <label class="checkbox"><%= checkbox @f, :quote_signature, checked_value: "yes", unchecked_value: "no" %> <%= gettext("quote signature when answering") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <%= label @f, :signature, gettext("signature") %>
+      <%= textarea @f, :signature, placeholder: gettext("Roses are red") %>
+    </div>
 
-  <div class="cf-cgroup">
-    <label class="checkbox"><%= checkbox @f, :inline_answer, checked_value: "yes", unchecked_value: "no" %> <%= gettext("use inline answer forms") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox @f, :quote_signature, checked_value: "yes", unchecked_value: "no" %> <%= gettext("quote signature when answering") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <label><%= gettext("quote previous message by default") %></label>
-    <label class="radio"><%= radio_button @f, :quote_by_default, "yes" %> <%= gettext("yes") %></label>
-    <label class="radio"><%= radio_button @f, :quote_by_default, "no" %> <%= gettext("no") %></label>
-    <label class="radio"><%= radio_button @f, :quote_by_default, "button" %> <%= gettext("show two buttons") %>
-  </div>
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox @f, :inline_answer, checked_value: "yes", unchecked_value: "no" %> <%= gettext("use inline answer forms") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <label class="checkbox"><%= checkbox(@f, :show_unread_notifications_in_title, checked_value: "yes", unchecked_value: "no") %> <%= gettext("show number of unread notifications in title") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <label><%= gettext("quote previous message by default") %></label>
+      <label class="radio"><%= radio_button @f, :quote_by_default, "yes" %> <%= gettext("yes") %></label>
+      <label class="radio"><%= radio_button @f, :quote_by_default, "no" %> <%= gettext("no") %></label>
+      <label class="radio"><%= radio_button @f, :quote_by_default, "button" %> <%= gettext("show two buttons") %>
+    </div>
 
-  <div class="cf-cgroup">
-    <label class="checkbox"><%= checkbox @f, :show_unread_pms_in_title, checked_value: "yes", unchecked_value: "no" %> <%= gettext("show number of unread PMs in title") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox(@f, :show_unread_notifications_in_title, checked_value: "yes", unchecked_value: "no") %> <%= gettext("show number of unread notifications in title") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <label class="checkbox"><%= checkbox @f, :show_new_messages_since_last_visit_in_title, checked_value: "yes", unchecked_value: "no" %> <%= gettext("show number of unread messages in title") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox @f, :show_unread_pms_in_title, checked_value: "yes", unchecked_value: "no" %> <%= gettext("show number of unread PMs in title") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <%= label @f, :autorefresh, gettext("automatically refresh forum index page") %>
-    <%= number_input(@f, :refresh) %>
-  </div>
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox @f, :show_new_messages_since_last_visit_in_title, checked_value: "yes", unchecked_value: "no" %> <%= gettext("show number of unread messages in title") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <label class="checkbox"><%= checkbox @f, :load_messages_via_js, checked_value: "yes", unchecked_value: "no" %> <%= gettext("use JavaScript to dynamically load new threads and messages from server") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <%= label @f, :autorefresh, gettext("automatically refresh forum index page") %>
+      <%= number_input(@f, :refresh) %>
+    </div>
 
-  <div class="cf-cgroup">
-    <label class="checkbox"><%= checkbox @f, :live_preview, checked_value: "yes", unchecked_value: "no" %> <%= gettext("show the live preview") %></label>
-  </div>
-</fieldset>
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox @f, :load_messages_via_js, checked_value: "yes", unchecked_value: "no" %> <%= gettext("use JavaScript to dynamically load new threads and messages from server") %></label>
+    </div>
+
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox @f, :live_preview, checked_value: "yes", unchecked_value: "no" %> <%= gettext("show the live preview") %></label>
+    </div>
+  </fieldset>
+
+</div>
