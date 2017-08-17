@@ -127,7 +127,7 @@ export const create = curry(function create (type) {
  *  does not have any child nodes that are elements.
  *
  *
- *  @param { Document | DocumentFragment | Element } context
+ *  @param { Document | DocumentFragment | Element } parent
  *
  *  The object whose first element child should be returned.
  *
@@ -139,8 +139,8 @@ export const create = curry(function create (type) {
  *
  *
  */
-export const firstElementChild = curry(function firstElementChild (context) {
-  return context.firstElementChild;
+export const firstElementChild = curry(function firstElementChild (parent) {
+  return parent.firstElementChild;
 });
 
 
@@ -312,7 +312,7 @@ export const hasAttribute = curry(function hasAttribute (name, element) {
  *  does not have any child nodes that are elements.
  *
  *
- *  @param { Document | DocumentFragment | Element } context
+ *  @param { Document | DocumentFragment | Element } parent
  *
  *  The object whose last element child should be returned.
  *
@@ -324,8 +324,8 @@ export const hasAttribute = curry(function hasAttribute (name, element) {
  *
  *
  */
-export const lastElementChild = curry(function lastElementChild (context) {
-  return context.lastElementChild;
+export const lastElementChild = curry(function lastElementChild (parent) {
+  return parent.lastElementChild;
 });
 
 
@@ -602,8 +602,8 @@ export const setAttribute = curry(function setAttribute (name, value, element) {
  *
  *
  */
-export const elementSiblings = curry(function elementSiblings (node) {
-  return children(parentElement(node));
+export const elementSiblings = curry(function elementSiblings (sibling) {
+  return children(parentElement(sibling));
 });
 
 
