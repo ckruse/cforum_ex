@@ -1,39 +1,43 @@
-<fieldset class="cf-tab-pane" id="personal_information">
-  <legend><%= gettext("personal information") %></legend>
+<div id="personal_information">
 
-  <div class="cf-cgroup">
-    <%= label @f, :email, gettext("public email") %>
-    <%= email_input @f, :email, placeholder: "mail@example.com" %>
-  </div>
+  <fieldset>
+    <legend><%= gettext("personal information") %></legend>
 
-  <div class="cf-cgroup">
-    <%= label @f, :url, gettext("homepage") %>
-    <%= url_input @f, :url, placeholder: "http://example.com/" %>
-  </div>
-
-  <%= if Cforum.Accounts.Users.has_badge?(@user, "seo_profi") do %>
     <div class="cf-cgroup">
-      <label class="checkbox"><%= checkbox @f, :norelnofollow, checked_value: "yes", unchecked_value: "no" %> <%= gettext("remove rel=nofollow from my homepage URL") %></label>
+      <%= label @f, :email, gettext("public email") %>
+      <%= email_input @f, :email, placeholder: "mail@example.com" %>
     </div>
-  <% end %>
 
-  <div class="cf-cgroup">
-    <%= label @f, :flattr, gettext("flattr id") %>
-    <%= text_input @f, :flattr %>
-  </div>
+    <div class="cf-cgroup">
+      <%= label @f, :url, gettext("homepage") %>
+      <%= url_input @f, :url, placeholder: "http://example.com/" %>
+    </div>
 
-  <div class="cf-cgroup">
-    <%= label @f, :jabber_id, gettext("jabber id") %>
-    <%= text_input @f, :jabber_id %>
-  </div>
+    <%= if Cforum.Accounts.Users.has_badge?(@user, "seo_profi") do %>
+      <div class="cf-cgroup">
+        <label class="checkbox"><%= checkbox @f, :norelnofollow, checked_value: "yes", unchecked_value: "no" %> <%= gettext("remove rel=nofollow from my homepage URL") %></label>
+      </div>
+    <% end %>
 
-  <div class="cf-cgroup">
-    <%= label @f, :twitter_handle, gettext("Twitter handle") %>
-    <%= text_input @f, :twitter_handle %>
-  </div>
+    <div class="cf-cgroup">
+      <%= label @f, :flattr, gettext("flattr id") %>
+      <%= text_input @f, :flattr %>
+    </div>
 
-  <div class="cf-cgroup">
-    <%= label @f, :description, gettext("description") %>
-    <%= textarea @f, :description %>
-  </div>
-</fieldset>
+    <div class="cf-cgroup">
+      <%= label @f, :jabber_id, gettext("jabber id") %>
+      <%= text_input @f, :jabber_id %>
+    </div>
+
+    <div class="cf-cgroup">
+      <%= label @f, :twitter_handle, gettext("Twitter handle") %>
+      <%= text_input @f, :twitter_handle %>
+    </div>
+
+    <div class="cf-cgroup">
+      <%= label @f, :description, gettext("description") %>
+      <%= textarea @f, :description %>
+    </div>
+  </fieldset>
+
+</div>
