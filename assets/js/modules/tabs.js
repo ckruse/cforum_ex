@@ -163,6 +163,15 @@ import { id } from './selectors.js';
  *  unselecting the old tab.
  *
  *
+ *  @todo
+ *
+ *  The biggest part of this module must be refactored, because
+ *  there have been too many subsequent changes causing disarray,
+ *  and ultimately a poor handling of control flow. Additionaly most
+ *  of the logic related to keyboard control should not be part of
+ *  this module, since it can be reused for other components, too.
+ *
+ *
  *  @param { Element } tab
  *
  *  The tab to add behavior to.
