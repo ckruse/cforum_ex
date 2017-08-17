@@ -18,7 +18,7 @@
 <div id="user_information">
 
   <fieldset>
-    <legend><%= gettext("User information") %></legend>
+    <legend><%= gettext("user information") %></legend>
 
     <div class="cf-cgroup">
       <%= label @f, :username, gettext("username") %>
