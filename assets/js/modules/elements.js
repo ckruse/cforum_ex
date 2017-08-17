@@ -402,7 +402,7 @@ export const nextElementSibling = curry(function nextElementSibling (context) {
  *  null is returned.
  *
  *
- *  @param { Node } context
+ *  @param { Node } child
  *
  *  The object whose parent element should be returned.
  *
@@ -414,8 +414,8 @@ export const nextElementSibling = curry(function nextElementSibling (context) {
  *
  *
  */
-export const parentElement = curry(function parentElement (context) {
-  return context.parentElement;
+export const parentElement = curry(function parentElement (child) {
+  return child.parentElement;
 });
 
 
