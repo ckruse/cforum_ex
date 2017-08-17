@@ -650,6 +650,21 @@ export const memoize = curry(function memoize (target) {
 
 
 /**
+ *  @function nothing
+ *
+ *
+ *
+ *
+ */
+export function nothing () {
+  return null;
+}
+
+
+
+
+
+/**
  *  @function once
  *
  *
