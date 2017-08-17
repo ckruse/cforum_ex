@@ -153,8 +153,8 @@ export const firstElementChild = curry(function firstElementChild (context) {
  *
  *
  */
-export const firstElementSibling = curry(function firstElementSibling (element) {
-  return compose(firstElementChild, parentElement, element);
+export const firstElementSibling = curry(function firstElementSibling (node) {
+  return when(equal(node), nothing, compose(firstElementChild, parentElement, node));
 });
 
 
