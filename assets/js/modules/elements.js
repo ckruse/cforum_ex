@@ -110,6 +110,21 @@ export const create = curry(function create (type) {
 
 
 /**
+ *  @function elementSiblings
+ *
+ *
+ *
+ *
+ */
+export const elementSiblings = curry(function elementSiblings (sibling) {
+  return children(parentElement(sibling));
+});
+
+
+
+
+
+/**
  *  @function firstElementChild
  *
  *
@@ -589,21 +604,6 @@ export const removeAttribute = curry(function removeAttribute (name, element) {
  */
 export const setAttribute = curry(function setAttribute (name, value, element) {
   return element.setAttribute(name, value), element;
-});
-
-
-
-
-
-/**
- *  @function elementSiblings
- *
- *
- *
- *
- */
-export const elementSiblings = curry(function elementSiblings (sibling) {
-  return children(parentElement(sibling));
 });
 
 
