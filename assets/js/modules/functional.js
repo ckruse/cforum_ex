@@ -653,6 +653,15 @@ export const memoize = curry(function memoize (target) {
  *  @function nothing
  *
  *
+ *  @summary
+ *
+ *  A function that always returns null.
+ *
+ *
+ *  @return { null }
+ *
+ *  The primitive value null.
+ *
  *
  *
  */
