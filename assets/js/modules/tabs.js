@@ -430,6 +430,36 @@ const disableActiveTab = pipe(currentSelection, toggleTabAndTabpanel);
 
 
 
+/**
+ *  @function switchTabs
+ *
+ *
+ *  @summary
+ *
+ *  Disables the active tab and enables the selected tab.
+ *
+ *
+ *  @description
+ *
+ *  This function takes the newly selected tab and returns the
+ *  panel that is associated with it. When called, the function
+ *  first disables the currently active tab and hides its panel,
+ *  then it enables the newly selected tab and makes the
+ *  panel it controls visible.
+ *
+ *
+ *  @param { Element } tab
+ *
+ *  The newly selected tab.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The tabpanel associated with the selected tab.
+ *
+ *
+ *
+ */
 const switchTabs = both(disableActiveTab, enableSelectedTab);
 
 
