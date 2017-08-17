@@ -117,7 +117,7 @@ export const create = curry(function create (type) {
  *
  */
 export const elementSiblings = curry(function elementSiblings (sibling) {
-  return children(parentElement(sibling));
+  return filter(complement(equal(sibling)), children(parentElement(sibling)));
 });
 
 
