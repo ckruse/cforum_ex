@@ -50,7 +50,7 @@ import { equal } from './predicates.js';
  *  object and returns its child elements in an array.
  *
  *
- *  @param { Document | DocumentFragment | Element } context
+ *  @param { Document | DocumentFragment | Element } parent
  *
  *  The object whose child elements should be returned.
  *
@@ -62,8 +62,8 @@ import { equal } from './predicates.js';
  *
  *
  */
-export const children = curry(function children (context) {
-  return Array.from(context.children);
+export const children = curry(function children (parent) {
+  return Array.from(parent.children);
 });
 
 
