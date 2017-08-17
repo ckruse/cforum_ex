@@ -658,8 +658,35 @@ export const toggleHiddenState = curry(function toggleHiddenState (element) {
  *  @function toggleTabIndex
  *
  *
+ *  @summary
+ *
+ *  Adds an element to or removes it from taborder.
+ *
+ *
+ *  @description
+ *
+ *  The tabindex attribute should only be used to make ordinary
+ *  elements interactive content or to remove such elements from
+ *  taborder. If this function is called with an element whose tabindex
+ *  value is zero, meaning that it is focusable and in taborder, then
+ *  the tabindex value will be set to minus one, such that the element
+ *  is removed from the sequential keyboard navigation, but remains
+ *  focusable. Otherwise the value is set from minus one to zero.
+ *
+ *
+ *  @param { HTMLElement } element
+ *
+ *  The element whose tabindex attribute should be toggled.
+ *
+ *
+ *  @return { HTMLElement }
+ *
+ *  The provided element.
+ *
+ *
  *
  */
 export const toggleTabIndex = curry(function toggleTabIndex (element) {
-  return element.tabIndex = element.tabIndex ? 0 : -1, element;
+  element.tabIndex = not(equal(0, element.tabIndex)) ? 0 : -1;
+  return element;
 });
