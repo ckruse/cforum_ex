@@ -1,76 +1,80 @@
-<fieldset class="cf-tab-pane" id="readability">
-  <legend><%= gettext("readability and overview") %></legend>
+<div id="readability">
 
-  <div class="cf-cgroup">
-    <label><%= gettext("show threads in…") %></label>
-    <label class="radio"><%= radio_button @f, :standard_view, "thread-view" %> <%= gettext("… in thread view") %></label>
-    <label class="radio"><%= radio_button @f, :standard_view, "nested-view" %> <%= gettext("… in nested view") %></label>
-  </div>
+  <fieldset>
+    <legend><%= gettext("readability and overview") %></legend>
 
-  <div class="cf-cgroup" data-depends-on="settings[standard_view]=nested-view">
-    <label class="checkbox"><%= checkbox @f, :fold_read_nested %> <%= gettext("fold read messages") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <label><%= gettext("show threads in…") %></label>
+      <label class="radio"><%= radio_button @f, :standard_view, "thread-view" %> <%= gettext("… in thread view") %></label>
+      <label class="radio"><%= radio_button @f, :standard_view, "nested-view" %> <%= gettext("… in nested view") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <label class="checkbox"><%= checkbox @f, :hide_subjects_unchanged, unchecked_value: "no", checked_value: "yes" %> <%= gettext("hide unchanged subjects") %></label>
-  </div>
+    <div class="cf-cgroup" data-depends-on="settings[standard_view]=nested-view">
+      <label class="checkbox"><%= checkbox @f, :fold_read_nested %> <%= gettext("fold read messages") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <label class="checkbox"><%= checkbox @f, :hide_repeating_tags, unchecked_value: "no", checked_value: "yes" %> <%= gettext("hide unchanged tags") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox @f, :hide_subjects_unchanged, unchecked_value: "no", checked_value: "yes" %> <%= gettext("hide unchanged subjects") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <label class="checkbox"><%= checkbox @f, :hide_repeating_date, unchecked_value: "no", checked_value: "yes" %> <%= gettext("hide unchanged date") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox @f, :hide_repeating_tags, unchecked_value: "no", checked_value: "yes" %> <%= gettext("hide unchanged tags") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <label class="checkbox"><%= checkbox @f, :mark_suspicious, unchecked_value: "no", checked_value: "yes" %> <%= gettext("mark suspicious usernames") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox @f, :hide_repeating_date, unchecked_value: "no", checked_value: "yes" %> <%= gettext("hide unchanged date") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <label class="checkbox"><%= checkbox @f, :page_messages, unchecked_value: "no", checked_value: "yes" %> <%= gettext("page messages index") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox @f, :mark_suspicious, unchecked_value: "no", checked_value: "yes" %> <%= gettext("mark suspicious usernames") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <label><%= gettext("sort threads…") %></label>
-    <label class="radio"><%= radio_button @f, :sort_threads, "newest-first" %> <%= gettext("newest first") %></label>
-    <label class="radio"><%= radio_button @f, :sort_threads, "ascending" %> <%= gettext("ascending") %></label>
-    <label class="radio"><%= radio_button @f, :sort_threads, "descending" %> <%= gettext("descending") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox @f, :page_messages, unchecked_value: "no", checked_value: "yes" %> <%= gettext("page messages index") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <label><%= gettext("sort messages…") %></label>
-    <label class="radio"><%= radio_button @f, :sort_messages, "ascending" %> <%= gettext("ascending") %></label>
-    <label class="radio"><%= radio_button @f, :sort_messages, "descending" %> <%= gettext("descending") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <label><%= gettext("sort threads…") %></label>
+      <label class="radio"><%= radio_button @f, :sort_threads, "newest-first" %> <%= gettext("newest first") %></label>
+      <label class="radio"><%= radio_button @f, :sort_threads, "ascending" %> <%= gettext("ascending") %></label>
+      <label class="radio"><%= radio_button @f, :sort_threads, "descending" %> <%= gettext("descending") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <label class="checkbox"><%= checkbox @f, :highlight_self, unchecked_value: "no", checked_value: "yes" %> <%= gettext("highlight myself") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <label><%= gettext("sort messages…") %></label>
+      <label class="radio"><%= radio_button @f, :sort_messages, "ascending" %> <%= gettext("ascending") %></label>
+      <label class="radio"><%= radio_button @f, :sort_messages, "descending" %> <%= gettext("descending") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <label class="checkbox"><%= checkbox @f, :fold_quotes, unchecked_value: "no", checked_value: "yes" %> <%= gettext("fold quotes") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox @f, :highlight_self, unchecked_value: "no", checked_value: "yes" %> <%= gettext("highlight myself") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <label class="checkbox"><%= checkbox @f, :hide_read_threads, unchecked_value: "no", checked_value: "yes" %> <%= gettext("hide read threads") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox @f, :fold_quotes, unchecked_value: "no", checked_value: "yes" %> <%= gettext("fold quotes") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <label class="checkbox"><%= checkbox @f, :mail_index_grouped, unchecked_value: "no", checked_value: "yes" %> <%= gettext("show mail index grouped by thread") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox @f, :hide_read_threads, unchecked_value: "no", checked_value: "yes" %> <%= gettext("hide read threads") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <label><%= gettext("sort mail threads…") %></label>
-    <label class="radio"><%= radio_button @f, :mail_thread_sort, "ascending" %> <%= gettext("ascending") %></label>
-    <label class="radio"><%= radio_button @f, :mail_thread_sort, "descending" %> <%= gettext("descending") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox @f, :mail_index_grouped, unchecked_value: "no", checked_value: "yes" %> <%= gettext("show mail index grouped by thread") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <%= label @f, :diff_context_lines, gettext("number of diff context lines shown") %>
-    <%= number_input @f, :diff_context_lines %>
-  </div>
+    <div class="cf-cgroup">
+      <label><%= gettext("sort mail threads…") %></label>
+      <label class="radio"><%= radio_button @f, :mail_thread_sort, "ascending" %> <%= gettext("ascending") %></label>
+      <label class="radio"><%= radio_button @f, :mail_thread_sort, "descending" %> <%= gettext("descending") %></label>
+    </div>
 
-  <%# TODO users selector for highlighted users %>
-  <%#= render 'widgets/users_selector', desc: t('users.settings.highlighted_users'), name: "settings[highlighted_users][]", id: "settings_highlighted_users", users: @highlighted_users_list %>
-</fieldset>
+    <div class="cf-cgroup">
+      <%= label @f, :diff_context_lines, gettext("number of diff context lines shown") %>
+      <%= number_input @f, :diff_context_lines %>
+    </div>
+
+    <%# TODO users selector for highlighted users %>
+    <%#= render 'widgets/users_selector', desc: t('users.settings.highlighted_users'), name: "settings[highlighted_users][]", id: "settings_highlighted_users", users: @highlighted_users_list %>
+  </fieldset>
+
+</div>
