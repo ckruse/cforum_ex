@@ -153,8 +153,8 @@ export const firstElementChild = curry(function firstElementChild (context) {
  *
  *
  */
-export const firstElementSibling = curry(function firstElementSibling (node) {
-  return when(equal(node), nothing, compose(firstElementChild, parentElement, node));
+export const firstElementSibling = curry(function firstElementSibling (sibling) {
+  return when(equal(sibling), nothing, compose(firstElementChild, parentElement, sibling));
 });
 
 
@@ -338,8 +338,8 @@ export const lastElementChild = curry(function lastElementChild (context) {
  *
  *
  */
-export const lastElementSibling = curry(function lastElementSibling (node) {
-  return when(equal(node), nothing, compose(lastElementChild, parentElement, node));
+export const lastElementSibling = curry(function lastElementSibling (sibling) {
+  return when(equal(sibling), nothing, compose(lastElementChild, parentElement, sibling));
 });
 
 
@@ -364,7 +364,7 @@ export const lastElementSibling = curry(function lastElementSibling (node) {
  *  the native property of the same name.
  *
  *
- *  @param { CharacterData | Element } context
+ *  @param { CharacterData | Element } sibling
  *
  *  The node whose next element sibling should be returned.
  *
@@ -376,8 +376,8 @@ export const lastElementSibling = curry(function lastElementSibling (node) {
  *
  *
  */
-export const nextElementSibling = curry(function nextElementSibling (context) {
-  return context.nextElementSibling;
+export const nextElementSibling = curry(function nextElementSibling (sibling) {
+  return sibling.nextElementSibling;
 });
 
 
@@ -481,7 +481,7 @@ export function parse (markup) {
  *  for the native property of the same name.
  *
  *
- *  @param { CharacterData | Element } nextSibling
+ *  @param { CharacterData | Element } sibling
  *
  *  The node whose previous element sibling should be returned.
  *
@@ -493,8 +493,8 @@ export function parse (markup) {
  *
  *
  */
-export const previousElementSibling = curry(function previousElementSibling (nextSibling) {
-  return nextSibling.previousElementSibling;
+export const previousElementSibling = curry(function previousElementSibling (sibling) {
+  return sibling.previousElementSibling;
 });
 
 
