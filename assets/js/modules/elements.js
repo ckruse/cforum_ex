@@ -21,9 +21,9 @@
 
 
 
-import { compose, curry } from './functional.js';
+import { compose, curry, nothing } from './functional.js';
 
-import { branch, not } from './logic.js';
+import { branch, not, when } from './logic.js';
 
 import { equal } from './predicates.js';
 
