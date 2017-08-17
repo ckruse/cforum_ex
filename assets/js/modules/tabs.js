@@ -178,7 +178,7 @@ import { id } from './selectors.js';
 function addTabBehavior (tab) {
   return bind(tab, {
 
-    click: pipe(target, unless(selected, both(disableActiveTab, enableSelectedTab))),
+    click: pipe(target, unless(selected, switchTabs)),
 
     keydown: conditions([
 
@@ -350,7 +350,7 @@ const currentSelection = pipe(elementSiblings, find(selected));
  *
  */
 function switchTo (selector) {
-  return pipe(preventDefault, target, selector, both(disableActiveTab, enableSelectedTab));
+  return pipe(preventDefault, target, selector, when(defined, switchTabs));
 }
 
 
@@ -425,6 +425,12 @@ const enableSelectedTab = pipe(focus, toggleTabAndTabpanel);
  *
  */
 const disableActiveTab = pipe(currentSelection, toggleTabAndTabpanel);
+
+
+
+
+
+const switchTabs = both(disableActiveTab, enableSelectedTab);
 
 
 
