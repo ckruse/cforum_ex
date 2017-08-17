@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div id="user-information">
   <fieldset>
     <legend><%= gettext("User information") %></legend>
@@ -13,8 +14,30 @@
     </div>
 
     <div class="cf-cgroup">
+=======
+<div id="user_information">
+
+  <fieldset>
+    <legend><%= gettext("User information") %></legend>
+
+    <div class="cf-cgroup">
+      <%= label @f, :username, gettext("username") %>
+      <%= text_input @f, :username %>
+    </div>
+
+    <div class="cf-cgroup">
+      <%= label @f, :email, gettext("email") %>
+      <%= email_input @f, :email %>
+    </div>
+
+    <div class="cf-cgroup">
+>>>>>>> updates user_information
       <%= label @f, :avatar, gettext("avatar") %>
       <%= file_input @f, :avatar %>
     </div>
   </fieldset>
+<<<<<<< HEAD
+=======
+
+>>>>>>> updates user_information
 </div>
