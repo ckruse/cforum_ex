@@ -178,7 +178,7 @@ import { id } from './selectors.js';
 function addTabBehavior (tab) {
   return bind(tab, {
 
-    click: pipe(target, unless(selected, switchTabs)),
+    click: pipe(preventDefault, target, unless(selected, switchTabs)),
 
     keydown: conditions([
 
