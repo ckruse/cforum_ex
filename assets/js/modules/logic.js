@@ -188,6 +188,50 @@ export const branch = curry(function branch (predicate, whenTrue, whenFalse) {
 
 
 /**
+ *  @function complement
+ *
+ *
+ *  @summary
+ *
+ *  Takes a predicate function and negates the result.
+ *
+ *
+ *  @description
+ *
+ *  This function takes a predicate and returns another function
+ *  that when invoked calls the predicate with the provided arguments
+ *  and applies the logical NOT operation to its result. For example,
+ *  calling complement with equal will produce a function which tests
+ *  not for equality but for inequality. The function returned from
+ *  complement has the same arity as the predicate and the name is
+ *  a concatenation of the word not and the predicate name.
+ *
+ *
+ *  @param { function } predicate
+ *
+ *  A predicate function.
+ *
+ *
+ *  @return { boolean }
+ *
+ *  The negation of the value returned from predicate.
+ *
+ *
+ *
+ */
+export const complement = curry(function complement (predicate) {
+
+  return curry(define(predicate.length, not.name + predicate.name, function () {
+    return not(predicate.apply(this, arguments));
+  }));
+
+});
+
+
+
+
+
+/**
  *  @function conditions
  *
  *
@@ -246,50 +290,6 @@ export const conditions = curry(function conditions (pairs) {
 
     return result;
   };
-
-});
-
-
-
-
-
-/**
- *  @function complement
- *
- *
- *  @summary
- *
- *  Takes a predicate function and negates the result.
- *
- *
- *  @description
- *
- *  This function takes a predicate and returns another function
- *  that when invoked calls the predicate with the provided arguments
- *  and applies the logical NOT operation to its result. For example,
- *  calling complement with equal will produce a function which tests
- *  not for equality but for inequality. The function returned from
- *  complement has the same arity as the predicate and the name is
- *  a concatenation of the word not and the predicate name.
- *
- *
- *  @param { function } predicate
- *
- *  A predicate function.
- *
- *
- *  @return { boolean }
- *
- *  The negation of the value returned from predicate.
- *
- *
- *
- */
-export const complement = curry(function complement (predicate) {
-
-  return curry(define(predicate.length, not.name + predicate.name, function () {
-    return not(predicate.apply(this, arguments));
-  }));
 
 });
 
