@@ -1,49 +1,53 @@
-<fieldset class="cf-tab-pane" id="adoption">
-  <legend><%= gettext("personalization") %></legend>
+<div id="personalization">
 
-  <div class="cf-cgroup">
-    <label><%= gettext("Show threads by default…") %></label>
-    <label class="radio"><%= radio_button @f, :open_close_default, "open", checked: blank_or_value?(@f.data, :open_close_default, "open") %> <%= gettext("show opened") %></label>
-    <label class="radio"><%= radio_button @f, :open_close_default, "closed" %> <%= gettext("show closed") %></label>
-  </div>
+  <fieldset>
+    <legend><%= gettext("personalization") %></legend>
 
-  <div class="cf-cgroup">
-    <label class="checkbox"><%= checkbox @f, :open_close_close_when_read, checked_value: "yes", unchecked_value: "no" %> <%= gettext("close threads when read") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <label><%= gettext("Show threads by default…") %></label>
+      <label class="radio"><%= radio_button @f, :open_close_default, "open", checked: blank_or_value?(@f.data, :open_close_default, "open") %> <%= gettext("show opened") %></label>
+      <label class="radio"><%= radio_button @f, :open_close_default, "closed" %> <%= gettext("show closed") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <%= label @f, :own_css_file, gettext("include my own CSS file") %>
-    <%= url_input @f, :own_css_file, placeholder: "https://example.org/foo.css" %>
-  </div>
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox @f, :open_close_close_when_read, checked_value: "yes", unchecked_value: "no" %> <%= gettext("close threads when read") %></label>
+    </div>
 
-  <div class="cf-cgroup">
-    <%= label @f, :own_js_file, gettext("include my own JS file") %>
-    <%= url_input @f, :own_js_file, placeholder: "https://example.org/foo.js" %>
-  </div>
+    <div class="cf-cgroup">
+      <%= label @f, :own_css_file, gettext("include my own CSS file") %>
+      <%= url_input @f, :own_css_file, placeholder: "https://example.org/foo.css" %>
+    </div>
 
-  <div class="cf-cgroup">
-    <%= label @f, :own_css, gettext("include my own CSS code") %>
-    <%= textarea @f, :own_css, placeholder: ".author-regina-schlauklug { color:red !important; }" %>
-  </div>
+    <div class="cf-cgroup">
+      <%= label @f, :own_js_file, gettext("include my own JS file") %>
+      <%= url_input @f, :own_js_file, placeholder: "https://example.org/foo.js" %>
+    </div>
 
-  <div class="cf-cgroup">
-    <%= label @f, :own_js, gettext("include my own JS code") %>
-    <%= textarea @f, :own_js %>
-  </div>
+    <div class="cf-cgroup">
+      <%= label @f, :own_css, gettext("include my own CSS code") %>
+      <%= textarea @f, :own_css, placeholder: ".author-regina-schlauklug { color:red !important; }" %>
+    </div>
 
-  <div class="cf-cgroup">
-    <%= label @f, :date_format_index, gettext("date format for the threads index") %>
-    <%= text_input @f, :date_format_index, placeholder: "%d.%m.%Y %H:%M" %>
-  </div>
+    <div class="cf-cgroup">
+      <%= label @f, :own_js, gettext("include my own JS code") %>
+      <%= textarea @f, :own_js %>
+    </div>
 
-  <div class="cf-cgroup">
-    <%= label @f, :date_format_post, gettext("date format for the posting view") %>
-    <%= text_input @f, :date_format_post, placeholder: "%d.%m.%Y %H:%M" %>
-  </div>
+    <div class="cf-cgroup">
+      <%= label @f, :date_format_index, gettext("date format for the threads index") %>
+      <%= text_input @f, :date_format_index, placeholder: "%d.%m.%Y %H:%M" %>
+    </div>
+
+    <div class="cf-cgroup">
+      <%= label @f, :date_format_post, gettext("date format for the posting view") %>
+      <%= text_input @f, :date_format_post, placeholder: "%d.%m.%Y %H:%M" %>
+    </div>
 
 
-  <div class="cf-cgroup">
-    <%= label @f, :date_format_default, gettext("default date format") %>
-    <%= text_input @f, :date_format_default, placeholder: "%d.%m.%Y %H:%M" %>
-  </div>
-</fieldset>
+    <div class="cf-cgroup">
+      <%= label @f, :date_format_default, gettext("default date format") %>
+      <%= text_input @f, :date_format_default, placeholder: "%d.%m.%Y %H:%M" %>
+    </div>
+  </fieldset>
+
+</div>
