@@ -11,6 +11,8 @@
  *
  *  @requires logic
  *
+ *  @requires predicates
+ *
  *
  *
  */
