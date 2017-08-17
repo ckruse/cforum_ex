@@ -338,8 +338,8 @@ export const lastElementChild = curry(function lastElementChild (context) {
  *
  *
  */
-export const lastElementSibling = curry(function lastElementSibling (element) {
-  return compose(lastElementChild, parentElement, element);
+export const lastElementSibling = curry(function lastElementSibling (node) {
+  return when(equal(node), nothing, compose(lastElementChild, parentElement, node));
 });
 
 
