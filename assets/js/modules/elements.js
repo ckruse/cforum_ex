@@ -23,7 +23,9 @@
 
 import { compose, curry, nothing } from './functional.js';
 
-import { branch, not, when } from './logic.js';
+import { filter } from './lists.js';
+
+import { branch, complement, not, when } from './logic.js';
 
 import { equal } from './predicates.js';
 
