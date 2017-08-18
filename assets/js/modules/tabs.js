@@ -19,6 +19,15 @@
  *  is hidden and the newly selected content is made visible.
  *
  *
+ *  @todo
+ *
+ *  The biggest part of this module must be refactored, because
+ *  there have been too many subsequent changes causing disarray,
+ *  and ultimately a poor handling of control flow. Additionaly most
+ *  of the logic related to keyboard control should not be part of
+ *  this module, since it can be reused for other components, too.
+ *
+ *
  *  @requires aria
  *
  *  @requires browser
@@ -161,15 +170,6 @@ import { id } from './selectors.js';
  *  tab is disabled. On keydown it is first determined which tab
  *  should be activated next, before selecting the new and
  *  unselecting the old tab.
- *
- *
- *  @todo
- *
- *  The biggest part of this module must be refactored, because
- *  there have been too many subsequent changes causing disarray,
- *  and ultimately a poor handling of control flow. Additionaly most
- *  of the logic related to keyboard control should not be part of
- *  this module, since it can be reused for other components, too.
  *
  *
  *  @param { Element } tab
