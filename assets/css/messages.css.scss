@@ -1,35 +1,45 @@
 /* -*- coding: utf-8 -*- */
 
+@import "variables.css.scss";
+
 #posting-author {
   color: #8a9da9;
   font-size: 80%;
-  font-weight:bold;
+  font-weight: bold;
 }
 
-main h2 { margin-left:0; }
+main h2 {
+  margin-left: 0;
+}
 
 .thread-message {
   font-size: 1em;
-  background: none repeat scroll 0% 0% #F1F3F4;
-  width:100%;
-  width:95vw;
+  background: none repeat scroll 0% 0% #f1f3f4;
+  width: 100%;
+  width: 95vw;
   margin: 1em 0em 1em 0em;
   padding: 0.6em 0.1em 0.25em 0.1em;
   border-radius: 0px 0.7em 0.7em;
-  border: 1px solid #D5D5D5;
+  border: 1px solid #d5d5d5;
 
   box-sizing: border-box;
 
   .flagged-message {
-    border:1px solid #EBCCD1;
+    border: 1px solid #ebccd1;
     border-radius: 0px 0.7em 0.7em;
-    color:#A94442;
+    color: #a94442;
     width: 95%;
     margin: 0.5em 0px;
     padding: 0.8em 1em 1em;
   }
 
-  h2, h3, h2 a, h3 a, header, header .author, header .author a {
+  h2,
+  h3,
+  h2 a,
+  h3 a,
+  header,
+  header .author,
+  header .author a {
     border: none;
     font-weight: bold;
     margin: 0;
@@ -42,9 +52,10 @@ main h2 { margin-left:0; }
 
   .posting-content {
     color: #039;
-    border: 1px solid #E7C157;
-    background: none repeat scroll 0% 0% #FDFCF3;
-    font-family: Consolas,"DejaVu Sans Mono","Bitstream Vera Sans Mono","Andale Mono","Droid Sans Mono","Lucida Console",monospace;
+    border: 1px solid #e7c157;
+    background: none repeat scroll 0% 0% #fdfcf3;
+    font-family: Consolas, "DejaVu Sans Mono", "Bitstream Vera Sans Mono",
+      "Andale Mono", "Droid Sans Mono", "Lucida Console", monospace;
     margin: 0.5em 0px;
     padding: 0.8em 0.1em 1em;
     border-radius: 0px 0.5em 0.5em;
@@ -65,34 +76,54 @@ main h2 { margin-left:0; }
 
     a.mention {
       text-decoration: none;
-      color:inherit;
-      background-color:#eee;
-      font-weight:bold;
+      color: inherit;
+      background-color: #eee;
+      font-weight: bold;
 
-      &:hover { text-decoration:underline; }
-      &.highlighted-user { color: #8ab337; }
-      &.highlighted-self { color: #c32e04; }
+      &:hover {
+        text-decoration: underline;
+      }
+      &.highlighted-user {
+        color: #8ab337;
+      }
+      &.highlighted-self {
+        color: #c32e04;
+      }
     }
 
     blockquote a.mention {
-      &.highlighted-user { color: #bdd886; }
-      &.highlighted-self { color: #d37b6d; }
+      &.highlighted-user {
+        color: #bdd886;
+      }
+      &.highlighted-self {
+        color: #d37b6d;
+      }
     }
 
-    img { max-width:100%; }
+    img {
+      max-width: 100%;
+    }
 
-    ul, ol {
+    ul,
+    ol {
       margin-top: 1em;
       padding-left: 2em;
     }
 
-    ul { list-style-type: disc;}
+    ul {
+      list-style-type: disc;
+    }
 
-    ul ul { list-style-type: circle;}
+    ul ul {
+      list-style-type: circle;
+    }
 
-    ul ul ul { list-style-type: square;}
+    ul ul ul {
+      list-style-type: square;
+    }
 
-    h3, h4 {
+    h3,
+    h4 {
       margin: .8em 0;
       font-weight: bold;
     }
@@ -106,7 +137,8 @@ main h2 { margin-left:0; }
       border-collapse: collapse;
       margin: 1em 0;
     }
-    th, td {
+    th,
+    td {
       border: 1px solid;
       padding: .1em .3em;
     }
@@ -114,9 +146,13 @@ main h2 { margin-left:0; }
       font-weight: bold;
     }
 
-    blockquote.show-quotes { cursor:pointer; }
+    blockquote.show-quotes {
+      cursor: pointer;
+    }
 
-    dt { font-weight: bold; }
+    dt {
+      font-weight: bold;
+    }
 
     sup {
       position: relative;
@@ -125,7 +161,8 @@ main h2 { margin-left:0; }
     }
   }
 
-  .accepted, .message-references {
+  .accepted,
+  .message-references {
     list-style-type: none;
     border-bottom: 1px dotted;
     border-top: 1px dotted;
@@ -146,7 +183,6 @@ main h2 { margin-left:0; }
     }
   }
 
-
   .accepted + h3 {
     margin-top: 1.5em;
   }
@@ -154,15 +190,20 @@ main h2 { margin-left:0; }
   .message-links {
     font-size: .8em;
 
-    a, button { margin-right: 1em; }
+    a,
+    button {
+      margin-right: 1em;
+    }
   }
 
   .forum-links a {
-    color: #3481CD;
+    color: $link_color;
     border-radius: 0 .4em .4em;
 
-    &:hover, &:active, &:focus {
-      color: #990909;
+    &:hover,
+    &:active,
+    &:focus {
+      color: $active_link_color;
       background-color: #fff;
     }
   }
@@ -179,12 +220,12 @@ main h2 { margin-left:0; }
     display: none;
   }
 
-
   /*
    * voting and accepting
    */
 
-  & > .posting-header > .voting, & > .posting-footer > .voting {
+  & > .posting-header > .voting,
+  & > .posting-footer > .voting {
     text-align: right;
     vertical-align: bottom;
     white-space: nowrap;
@@ -201,7 +242,9 @@ main h2 { margin-left:0; }
       cursor: default;
     }
 
-    .vote, .accept, .infos {
+    .vote,
+    .accept,
+    .infos {
       border: none;
       margin: 0;
       padding: 0;
@@ -212,32 +255,67 @@ main h2 { margin-left:0; }
       background-size: contain;
     }
 
-    .vote.icon-vote-down.spinning, .vote.icon-vote-up.spinning,
-    .vote.icon-vote-down.spinning:hover, .vote.icon-vote-up.spinning:hover,
-    .accepted-answer.spinning, .unaccepted-answer.spinning,
-    .accepted-answer.spinning:hover, .unaccepted-answer.spinning:hover {
+    .vote.icon-vote-down.spinning,
+    .vote.icon-vote-up.spinning,
+    .vote.icon-vote-down.spinning:hover,
+    .vote.icon-vote-up.spinning:hover,
+    .accepted-answer.spinning,
+    .unaccepted-answer.spinning,
+    .accepted-answer.spinning:hover,
+    .unaccepted-answer.spinning:hover {
       background-image: asset-url("ajax-loader.svg");
     }
 
-    .icon-vote-down[disabled], .icon-vote-down[disabled]:hover { background-image: asset-url("bewertung-minus-grau.svg"); }
-    .icon-vote-up[disabled], .icon-vote-up[disabled]:hover { background-image: asset-url("bewertung-plus-grau.svg"); }
+    .icon-vote-down[disabled],
+    .icon-vote-down[disabled]:hover {
+      background-image: asset-url("bewertung-minus-grau.svg");
+    }
+    .icon-vote-up[disabled],
+    .icon-vote-up[disabled]:hover {
+      background-image: asset-url("bewertung-plus-grau.svg");
+    }
 
-    .icon-vote-down, .icon-vote-down.active:hover { background-image: asset-url("bewertung-minus-gelb.svg"); }
-    .icon-vote-up, .icon-vote-up.active:hover { background-image: asset-url("bewertung-plus-gelb.svg"); }
-    .icon-vote-down.active, .icon-vote-down:hover { background-image: asset-url("bewertung-minus-rot.svg"); }
-    .icon-vote-up.active, .icon-vote-up:hover { background-image: asset-url("bewertung-plus-gruen.svg"); }
-    .icon-vote-down.disabled { background-image: asset-url("bewertung-minus-grau.svg"); }
-    .icon-vote-up.disabled  { background-image: asset-url("bewertung-plus-grau.svg"); }
+    .icon-vote-down,
+    .icon-vote-down.active:hover {
+      background-image: asset-url("bewertung-minus-gelb.svg");
+    }
+    .icon-vote-up,
+    .icon-vote-up.active:hover {
+      background-image: asset-url("bewertung-plus-gelb.svg");
+    }
+    .icon-vote-down.active,
+    .icon-vote-down:hover {
+      background-image: asset-url("bewertung-minus-rot.svg");
+    }
+    .icon-vote-up.active,
+    .icon-vote-up:hover {
+      background-image: asset-url("bewertung-plus-gruen.svg");
+    }
+    .icon-vote-down.disabled {
+      background-image: asset-url("bewertung-minus-grau.svg");
+    }
+    .icon-vote-up.disabled {
+      background-image: asset-url("bewertung-plus-grau.svg");
+    }
 
-    .unaccepted-answer, .accepted-answer:hover { background-image: asset-url("bewertung-ok-gelb.svg"); }
-    .accepted-answer, .unaccepted-answer:hover { background-image: asset-url("bewertung-ok-gruen.svg"); }
+    .unaccepted-answer,
+    .accepted-answer:hover {
+      background-image: asset-url("bewertung-ok-gelb.svg");
+    }
+    .accepted-answer,
+    .unaccepted-answer:hover {
+      background-image: asset-url("bewertung-ok-gruen.svg");
+    }
 
-    .infos { background-image: asset-url('bewertung-info-blaugrau.svg'); }
-    .infos:hover { background-image: asset-url('bewertung-info-rot.svg'); }
+    .infos {
+      background-image: asset-url('bewertung-info-blaugrau.svg');
+    }
+    .infos:hover {
+      background-image: asset-url('bewertung-info-rot.svg');
+    }
   }
 
   //& > .voting.bottom { float:right; }
-
 
   header h2 a,
   header h3 a,
@@ -245,7 +323,7 @@ main h2 { margin-left:0; }
   header.visited h2 a,
   header.visited h3 a,
   header.visited .details a.versions {
-    color: #3481cd;
+    color: $link_color;
   }
 
   header h2 a:hover,
@@ -254,36 +332,41 @@ main h2 { margin-left:0; }
   header.visited h2 a:hover,
   header.visited h3 a:hover,
   header.visited .details a.version-link:hover {
-    color: #990909;
+    color: $active_link_color;
   }
 
   header .versions {
     .editor a.version-link {
-      font-weight:bold;
-      color:#999;
+      font-weight: bold;
+      color: #999;
     }
-    .edit-time { font-weight:normal; }
+    .edit-time {
+      font-weight: normal;
+    }
   }
 
   .controls {
-    display:flex;
-    margin-bottom:1em;
-    flex-wrap:wrap;
+    display: flex;
+    margin-bottom: 1em;
+    flex-wrap: wrap;
   }
-  form.button_to { display:inline; }
-  .cf-btn { margin-bottom:0.2em; }
-
+  form.button_to {
+    display: inline;
+  }
+  .cf-btn {
+    margin-bottom: 0.2em;
+  }
 }
 
 .thread-message.preview .posting-content {
-  background-image:asset-url('preview.png');
-  background-position:top right;
+  background-image: asset-url('preview.png');
+  background-position: top right;
   background-repeat: no-repeat;
 }
 
 .archived .posting-content {
-  background-image:asset-url('archived.png');
-  background-position:top right;
+  background-image: asset-url('archived.png');
+  background-position: top right;
   background-repeat: no-repeat;
 
   & > p:first-child {
@@ -297,30 +380,37 @@ button {
     content: "";
     background: asset-url("ajax-loader.svg") no-repeat center scroll transparent;
     background-size: contain;
-    display:inline-block;
-    width:1em;
-    height:1em;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
   }
 }
 
-
 .thread-nested {
-  display:inline-block;
+  display: inline-block;
 
   ol {
-    list-style-type:none;
+    list-style-type: none;
     padding-left: 1em;
   }
-  .posting-content ol { list-style-type: decimal; }
+  .posting-content ol {
+    list-style-type: decimal;
+  }
 
-  .answers li { position: relative; }
+  .answers li {
+    position: relative;
+  }
 
   .posting-nested.folded {
-    cursor:pointer;
+    cursor: pointer;
 
-    & > .posting-header { padding-left: 1em; }
+    & > .posting-header {
+      padding-left: 1em;
+    }
 
-    & > .posting-header ~ h3:first-of-type { margin-top: .8em; }
+    & > .posting-header ~ h3:first-of-type {
+      margin-top: .8em;
+    }
 
     &::before {
       background-color: transparent;
@@ -334,17 +424,20 @@ button {
       margin-left: -.5em;
     }
 
-    .posting-content, .forum-links, .problematic-site, .posting-footer {
-      display:none;
+    .posting-content,
+    .forum-links,
+    .problematic-site,
+    .posting-footer {
+      display: none;
     }
   }
 
   .thread-message.active {
-    border-color:#66afe9;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+    border-color: #66afe9;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset,
+      0 0 8px rgba(102, 175, 233, 0.6);
   }
 }
-
 
 blockquote {
   border-left: .3em solid #d5d5d5;
@@ -359,11 +452,10 @@ blockquote blockquote {
 }
 
 hr {
-  border:none;
+  border: none;
   background-color: #8a9da8;
-  height:1px;
+  height: 1px;
 }
-
 
 /* Code-Blöcke */
 code.block {
@@ -372,7 +464,7 @@ code.block {
   white-space: pre-wrap;
   margin-top: .5em;
   padding: .3em .4em .3em .5em;
-  line-height:1.2em;
+  line-height: 1.2em;
 }
 code.block code.block {
   border: 0 none;
@@ -383,29 +475,35 @@ code.block code.block {
 }
 
 code.good {
-  color:#3C763D;
-  background-color:#DFF0D8;
+  color: #3c763d;
+  background-color: #dff0d8;
 }
 
 code.bad {
-  color:#A94442;
-  background-color:#F2DEDE;
+  color: #a94442;
+  background-color: #f2dede;
 }
 /* end Code-Blöcke */
 
 .signature {
-  .sig-dashes { display:block; }
+  .sig-dashes {
+    display: block;
+  }
   color: #808080;
 }
 
 .btn-default.btn-sm.btn {
-  margin-right:.25em;
-  margin-bottom:.25em;
+  margin-right: .25em;
+  margin-bottom: .25em;
 }
 
 blockquote.show-quotes .unfold {
-  color: #3481CD;
-  &:hover, &:active, &:focus { color: #990909; }
+  color: $link_color;
+  &:hover,
+  &:active,
+  &:focus {
+    color: $active_link_color;
+  }
 }
 
 .problematic-site {
@@ -421,7 +519,9 @@ blockquote.show-quotes .unfold {
     border-top-right-radius: 0;
   }
 
-  a { font-size: 1.1em; }
+  a {
+    font-size: 1.1em;
+  }
   a:before {
     font-size: 1.3em;
     color: #c32e04;
@@ -437,29 +537,37 @@ blockquote.show-quotes .unfold {
   text-align: center;
 
   a:last-child {
-    color: #3481CD;
-    &:hover, &:active, &:focus { color: #990909; }
+    color: $link_color;
+    &:hover,
+    &:active,
+    &:focus {
+      color: $active_link_color;
+    }
   }
 }
 
 #unfold-all {
-  position:fixed;
-  cursor:pointer;
+  position: fixed;
+  cursor: pointer;
   border-radius: 0px 0.4em 0.4em;
-  border:1px solid #D5D5D5;
+  border: 1px solid #d5d5d5;
   padding: 0.4em 0.6em;
-  background-color:#fff;
-  right:.5em;
-  left:.5em;
-  top:.5em;
+  background-color: #fff;
+  right: .5em;
+  left: .5em;
+  top: .5em;
 }
 
-textarea.length-warning, .message-character-count.length-warning, .twitter-message-character-count.length-warning {
+textarea.length-warning,
+.message-character-count.length-warning,
+.twitter-message-character-count.length-warning {
   color: #8a6d3b;
   background-color: #fcf8e3;
   border-color: #faebcc;
 }
-textarea.length-error, .message-character-count.length-error, .twitter-message-character-count.length-error {
+textarea.length-error,
+.message-character-count.length-error,
+.twitter-message-character-count.length-error {
   color: #a94442;
   background-color: #f2dede;
   border-color: #ebccd1;
@@ -467,36 +575,40 @@ textarea.length-error, .message-character-count.length-error, .twitter-message-c
 
 .thread-message.preview.active {
   border-color: #66afe9;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset,
+    0 0 8px rgba(102, 175, 233, 0.6);
 }
 
 .thread-message.preview.active .posting-content {
   border-color: #66afe9;
 }
 
-.flattr, .message-cite {
-  img { vertical-align:middle; }
-  margin-top:0;
-  margin-bottom:.5em;
+.flattr,
+.message-cite {
+  img {
+    vertical-align: middle;
+  }
+  margin-top: 0;
+  margin-bottom: .5em;
 }
 
 .character-count-container {
-  padding:0;
-  text-align:right;
-  width:calc(99% + 2px); // 2px border
-  margin:auto;
-  margin-bottom:0.2em;
+  padding: 0;
+  text-align: right;
+  width: calc(99% + 2px); // 2px border
+  margin: auto;
+  margin-bottom: 0.2em;
 
   .message-character-count {
-    background:#f5f5f5;
+    background: #f5f5f5;
     padding: 0.25em;
     border-radius: 4px 4px 0 0;
-    border: 1px solid #D5D5D5;
+    border: 1px solid #d5d5d5;
   }
 }
 
-
-.thread-message.interesting, .thread-message.interesting .posting-content {
+.thread-message.interesting,
+.thread-message.interesting .posting-content {
   border-color: #8db243;
 }
 .thread-message.interesting {
@@ -505,13 +617,13 @@ textarea.length-error, .message-character-count.length-error, .twitter-message-c
 
 @media only screen and (min-width: 35em) {
   #unfold-all {
-    right:2em;
-    top:40%;
-    left:auto;
+    right: 2em;
+    top: 40%;
+    left: auto;
   }
 
   .character-count-container {
-    width:calc(95.5% + 1em);
+    width: calc(95.5% + 1em);
   }
 
   .thread-message {
@@ -521,18 +633,24 @@ textarea.length-error, .message-character-count.length-error, .twitter-message-c
     max-width: 95vw;
     width: 55em;
 
-    .posting-header, .posting-footer {
-      display:flex;
+    .posting-header,
+    .posting-footer {
+      display: flex;
       align-items: flex-end;
 
-      header, .message-links { flex:1 1 auto; }
-      .voting { flex:1 1 auto; }
+      header,
+      .message-links {
+        flex: 1 1 auto;
+      }
+      .voting {
+        flex: 1 1 auto;
+      }
     }
 
     .posting-footer {
       align-items: flex-start;
       .voting {
-        order:1;
+        order: 1;
         flex: 0 0 auto;
       }
     }
@@ -543,7 +661,7 @@ textarea.length-error, .message-character-count.length-error, .twitter-message-c
   }
 
   .thread-nested ol {
-    padding-left:2em;
+    padding-left: 2em;
   }
 }
 

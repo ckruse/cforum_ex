@@ -1,8 +1,9 @@
 /* -*- coding: utf-8 -*- */
+@import "variables.css.scss";
 
 footer {
-  margin:1em;
-  border-top: 2px solid #c4d4da;
+  margin: 1em;
+  border-top: 2px solid $standard_hr_color;
   padding-top: .5em;
 
   ul {
@@ -12,21 +13,24 @@ footer {
   }
 
   .termitel-sponsor {
-    margin-top:0.5em;
-    margin-bottom:1em;
-    font-size:0.8em;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    font-size: 0.8em;
   }
 
-  a:link, a:visited {
-    color: #3481cd;
+  a:link,
+  a:visited {
+    color: $link_color;
 
-    &:hover, &:active, &:focus {
-      color: #990909;
+    &:hover,
+    &:active,
+    &:focus {
+      color: $active_link_color;
     }
   }
 }
 
-@media only screen and (min-width : 35em) {
+@media only screen and (min-width: 35em) {
   footer {
     margin: 2em 1em 2em 2em;
 
@@ -34,16 +38,15 @@ footer {
       display: inline;
 
       &:not(:first-child) {
-        border-left: 2px solid #c4d4da;
+        border-left: 2px solid $standard_hr_color;
         padding-left: .2em;
       }
     }
 
     .termitel-sponsor {
-      margin-top:-1.5em;
-      float:right;
+      margin-top: -1.5em;
+      float: right;
     }
-
   }
 }
 

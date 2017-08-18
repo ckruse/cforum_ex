@@ -1,5 +1,7 @@
 /* -*- coding: utf-8 -*- */
 
+@import "variables.css.scss";
+
 .cf-form {
   .cf-cgroup {
     vertical-align: middle;
@@ -131,162 +133,6 @@
 //   }
 // }
 
-.btn {
-  display: inline-block;
-  padding: 6px 12px;
-  margin-bottom: 0px;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.42857;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  -moz-user-select: none;
-  background-image: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
-}
-
-.btn:hover,
-.btn:focus,
-.btn.focus,
-a.btn:hover,
-a.btn:focus,
-a.btn.focus {
-  color: #333;
-  text-decoration: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
-}
-
-.btn:focus,
-.btn:active:focus,
-.btn.active:focus,
-.btn.focus,
-.btn.focus:active,
-.btn.active.focus {
-  outline: thin dotted;
-  outline-offset: -2px;
-}
-
-.cf-btn,
-.message-links .cf-btn,
-.button_to .cf-btn {
-  @extend .btn;
-  color: #333;
-  background-color: #fff;
-  border-color: #ccc;
-}
-
-.cf-btn-xs,
-.button_to .cf-btn-xs {
-  padding: 3px 6px;
-  line-height: 1em;
-}
-
-.cf-index-btn,
-.button_to .cf-index-btn {
-  @extend .cf-btn;
-  @extend .cf-btn-xs;
-}
-
-.cf-destructive-index-btn,
-.button_to .cf-destructive-index-btn {
-  @extend .cf-destructive-btn;
-  @extend .cf-btn-xs;
-}
-
-.cf-primary-index-btn,
-.button_to .cf-primary-index-btn {
-  @extend .cf-primary-btn;
-  @extend .cf-btn-xs;
-}
-
-.cf-btn:hover,
-.cf-btn:focus,
-.cf-btn.focus,
-.cf-btn:active,
-.cf-btn.active,
-a.cf-btn:hover,
-a.cf-btn:focus,
-a.cf-btn:active,
-a.cf-btn:link:hover,
-a.cf-btn:link:focus,
-a.cf-btn:link:active,
-.button_to .cf-btn:hover,
-.button_to .cf-btn:focus,
-.button_to .cf-btn.focus,
-.button_to .cf-btn:active,
-.button_to .cf-btn.active,
-.button_to a.cf-btn:hover,
-.button_to a.cf-btn:focus,
-.button_to a.cf-btn:active,
-.button_to a.cf-btn:link:hover,
-.button_to a.cf-btn:link:focus,
-.button_to a.cf-btn:link:active {
-  color: #333;
-  background-color: #e6e6e6;
-  border-color: #adadad;
-}
-
-a.cf-btn:link,
-a.cf-btn:visited {
-  color: #333;
-}
-
-.cf-primary-btn,
-.button_to .cf-primary-btn {
-  @extend .btn;
-  color: #fff;
-  background-color: #337ab7;
-  border-color: #2e6da4;
-}
-
-.cf-primary-btn.is-confirmed {
-  transition: all 0.5s ease;
-}
-
-a.cf-primary-btn:link,
-a.cf-primary-btn:visited {
-  color: #fff;
-}
-
-.cf-destructive-btn {
-  @extend .cf-btn;
-
-  color: #fff;
-  background-color: #d9534f;
-  border-color: #d43f3a;
-}
-
-.cf-primary-btn:hover,
-.cf-primary-btn:focus,
-.cf-primary-btn.focus,
-.cf-primary-btn:active,
-.cf-primary-btn.active,
-a.cf-primary-btn:hover,
-a.cf-primary-btn:focus,
-a.cf-primary-btn:active,
-a.cf-primary-btn:link:hover,
-a.cf-primary-btn:link:focus,
-a.cf-primary-btn:link:active,
-.button_to .cf-primary-btn:hover,
-.button_to .cf-primary-btn:focus,
-.button_to .cf-primary-btn.focus,
-.button_to .cf-primary-btn:active,
-.button_to .cf-primary-btn.active,
-.button_to a.cf-primary-btn:hover,
-.button_to a.cf-primary-btn:focus,
-.button_to a.cf-primary-btn:active,
-.button_to a.cf-primary-btn:link:hover,
-.button_to a.cf-primary-btn:link:focus,
-.button_to a.cf-primary-btn:link:active {
-  color: #fff;
-  background-color: #286090;
-  border-color: #204d74;
-}
-
 input,
 button,
 select,
@@ -336,7 +182,7 @@ legend {
   font-size: 1.1em;
   margin-bottom: 1em;
   margin-top: 1em;
-  border-bottom: 2px solid #c4d4da;
+  border-bottom: 2px solid $standard_hr_color;
 }
 
 .users-modal {
@@ -373,10 +219,10 @@ legend {
 //       }
 
 //       .image-upload a {
-//         color: #3481cd;
+//         color: $link_color;
 
 //         &:hover {
-//           color: #990909;
+//           color: $active_link_color;
 //         }
 //       }
 //     }
@@ -408,29 +254,24 @@ input[type="search"] {
   -webkit-appearance: textfield;
 }
 
+// TODO Check if necessary
 .button_to {
   display: inline;
-  button {
+  button.btn-link {
     border: 0;
     background: transparent;
     padding: 0;
-    color: #3481cd;
+    color: $link_color;
   }
 
   button:hover {
-    color: #990909;
+    color: $active_link_color;
   }
 
   button,
   button:hover {
     transition: all .2s ease-in-out 0s;
   }
-}
-
-.cf-btn.spinning {
-  padding-left: 2.5em;
-  background: asset-url("ajax-loader.svg") no-repeat left scroll;
-  background-size: contain;
 }
 
 @media only screen and (min-width: 35em) {
