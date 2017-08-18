@@ -1,5 +1,6 @@
-<nav>
+<nav class="tablist">
   <ul>
+    <li><a href="#user-information"><%= gettext("User information") %></a></li>
     <li><a href="#personal_information"><%= gettext("personal information") %></a></li>
     <li><a href="#comfort"><%= gettext("comfort functions") %></a></li>
     <li><a href="#notifications"><%= gettext("notifications") %></a></li>
@@ -10,7 +11,8 @@
 
 <template id="tablist">
   <div role="tablist">
-    <button role="tab" id="personal_information_tab" aria-controls="personal_information" aria-selected="true"><%= gettext("personal information") %></button>
+    <button role="tab" id="user-information_tab" aria-controls="user-information" aria-selected="true"><%= gettext("User information") %></button>
+    <button role="tab" id="personal_information_tab" aria-controls="personal_information" aria-selected="false" tabindex="-1"><%= gettext("personal information") %></button>
     <button role="tab" id="comfort_tab" aria-controls="comfort" aria-selected="false" tabindex="-1"><%= gettext("comfort functions") %></button>
     <button role="tab" id="notifications_tab" aria-controls="notifications" aria-selected="false" tabindex="-1"><%= gettext("notifications") %></button>
     <button role="tab" id="personalization_tab" aria-controls="personalization" aria-selected="false" tabindex="-1"><%= gettext("personalization") %></button>
@@ -18,6 +20,7 @@
   </div>
 </template>
 
+<%= render "user_information.html", f: @original_f, user: @user %>
 <%= render "personal_information.html", f: @f, user: @user %>
 <%= render "comfort.html", f: @f, user: @user %>
 <%= render "notifications.html", f: @f, user: @user %>
