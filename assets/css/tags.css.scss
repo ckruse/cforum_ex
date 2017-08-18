@@ -1,19 +1,26 @@
 /* -*- coding: utf-8 -*- */
 
-.cf-tags-list, header .details .cf-tags-list, .thread header ul.cf-tags-list  {
-  display:inline;
-  list-style-type:none;
-  margin:0;
-  padding:0;
+@import "variables.css.scss";
 
-  li.no-data { display:inline; }
+.cf-tags-list,
+header .details .cf-tags-list,
+.thread header ul.cf-tags-list {
+  display: inline;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  li.no-data {
+    display: inline;
+  }
 }
 
 .thread header ul.cf-tags-list {
-  margin-right:1em;
+  margin-right: 1em;
 }
 
-.cf-tag, .thread li.cf-tag {
+.cf-tag,
+.thread li.cf-tag {
   display: inline;
   background-color: #e6f2f7;
   margin-top: 1px;
@@ -30,42 +37,57 @@
 }
 
 .cf-tag.cf-tag-hidden {
-  background-color:inherit;
+  background-color: inherit;
 }
 
 .cf-tag {
-  
-  &:link, &:visited {
-    color: #3481cd;
-  
-    &:hover, &:focus, &:active {
+  &:link,
+  &:visited {
+    color: $link_color;
+
+    &:hover,
+    &:focus,
+    &:active {
       border: 1px solid #5983ab;
     }
   }
 }
 
-
 .thread {
   li.cf-tag {
     font-size: .8em;
 
-    &:hover, &:focus, &:active {
+    &:hover,
+    &:focus,
+    &:active {
       border: 1px solid #5983ab;
     }
 
-    a, a:visitedtag_name, span {
+    a,
+    a:visitedtag_name,
+    span {
       color: inherit;
     }
 
-    a:hover, a:visited:hover { color: #990909; }
+    a:hover,
+    a:visited:hover {
+      color: $active_link_color;
+    }
   }
 
   .visited li.cf-tag {
     background-color: #f1f3f4;
     border-color: #c4c4c4;
 
-    a:visited, a, span { color: #999; }
-    a:hover, a:visited:hover { color: #990909; }
+    a:visited,
+    a,
+    span {
+      color: #999;
+    }
+    a:hover,
+    a:visited:hover {
+      color: $active_link_color;
+    }
   }
 
   .active li.cf-tag {
@@ -82,9 +104,8 @@
 }
 
 .form-horizontal .cf-cgroup .cntrls input[type="text"].tags-input {
-  width:10%;
-  display:inline;
+  width: 10%;
+  display: inline;
 }
-
 
 /* eof */
