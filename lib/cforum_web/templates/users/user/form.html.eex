@@ -4,10 +4,8 @@
   </div>
 <% end %>
 
-<%= render "user_information.html", f: @f, user: @user %>
-
 <%= inputs_for @f, :settings, fn fs -> %>
   <%= sub_inputs fs, :options, fn(fo) -> %>
-    <%= render "settings.html", f: fo, user: @user %>
+    <%= render "settings.html", f: fo, original_f: @f, user: @user %>
   <% end %>
 <% end %>
