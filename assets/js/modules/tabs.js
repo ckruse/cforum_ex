@@ -625,9 +625,7 @@ function setupTabs (tablist) {
  *
  *
  */
-function setupTabpanels (tabs) {
-  return transform(toggleHiddenState, tail(transform(setRoleAndLabelForTabpanel, tabs)));
-}
+const setupTabpanels = transform(pipe(setRoleAndLabelForTabpanel, toggleHiddenState));
 
 
 
