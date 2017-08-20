@@ -118,13 +118,7 @@ import {
 
 
 
-import {
-
-  find,
-  tail,
-  transform
-
-} from './lists.js';
+import { find, transform } from './lists.js';
 
 
 
