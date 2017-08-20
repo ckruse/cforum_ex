@@ -181,7 +181,7 @@ import { id } from './selectors.js';
 function addTabBehavior (tab) {
   return bind(tab, {
 
-    click: pipe(preventDefault, target, unless(selected, switchTabs)),
+    click: pipe(preventDefault, target, unless(selected, pipe(pushState, switchTabs))),
 
     keydown: conditions([
 
@@ -327,7 +327,7 @@ const toggleTab = pipe(toggleSelection, toggleTabIndex, getTabpanel, toggleHidde
  *
  */
 function switchTo (selector) {
-  return pipe(preventDefault, target, selector, when(defined, switchTabs));
+  return pipe(preventDefault, target, selector, when(defined, pipe(pushState, switchTabs)));
 }
 
 
@@ -550,6 +550,16 @@ function setupNavigation (tabpanels) {
 
   });
 }
+
+
+
+
+
+const getState = tab => [tab.textContent, '#' + getAttribute('aria-controls', tab)];
+
+const pushState = tab => history.pushState({}, ...getState(tab));
+
+const replaceState = tab => history.replaceState({}, ...getState(tab));
 
 
 
