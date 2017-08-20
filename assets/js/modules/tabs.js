@@ -244,6 +244,12 @@ const getTabpanel = memoize(controls);
 
 
 
+const getTab = memoize(tabpanel => id(getAttribute('aria-labelledby', tabpanel)));
+
+
+
+
+
 /**
  *  @function toggleTabAndTabpanel
  *
@@ -501,7 +507,7 @@ const switchTabs = both(disableActiveTab, enableSelectedTab);
  *
  *
  */
-const setupTabInterface = pipe(insertTablist, children, setupTabs);
+const setupTabInterface = pipe(insertTablist, children, setupTabs, setupNavigation);
 
 
 
@@ -619,6 +625,22 @@ const setupTabs = transform(pipe(addTabBehavior, setRoleAndLabelForTabpanel, tog
  */
 function setRoleAndLabelForTabpanel (tab) {
   return compose(role('tabpanel'), setAttribute('aria-labelledby', tab.id), getTabpanel(tab));
+}
+
+
+
+
+
+function setupNavigation (tabpanels) {
+  return bind(window, {
+
+    popstate (event) {
+      const tabpanel = find(tabpanel => equal(tabpanel.id, location.hash.slice(1)), tabpanels);
+
+      when(defined, switchTabs, compose(id, getAttribute('aria-labelledby'), tabpanel)); // this should be partially extracted
+    }
+
+  });
 }
 
 
