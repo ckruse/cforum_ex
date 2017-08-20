@@ -1,5 +1,4 @@
 <div id="comfort">
-
   <fieldset>
     <legend><%= gettext("comfort functions") %></legend>
 
@@ -58,5 +57,4 @@
       <label class="checkbox"><%= checkbox @f, :live_preview, checked_value: "yes", unchecked_value: "no" %> <%= gettext("show the live preview") %></label>
     </div>
   </fieldset>
-
 </div>
