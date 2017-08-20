@@ -79,6 +79,7 @@ import {
   elementSiblings,
   firstElementSibling,
   focus,
+  getAttribute,
   lastElementSibling,
   nextElementSibling,
   previousElementSibling,
@@ -118,7 +119,7 @@ import {
 
 
 
-import { find, transform } from './lists.js';
+import { find, head, transform } from './lists.js';
 
 
 
@@ -181,7 +182,7 @@ import { id } from './selectors.js';
 function addTabBehavior (tab) {
   return bind(tab, {
 
-    click: pipe(preventDefault, target, unless(selected, pipe(pushState, switchTabs))),
+    click: pipe(preventDefault, target, unless(selected, both(pushState, switchTabs))),
 
     keydown: conditions([
 
@@ -327,7 +328,7 @@ const toggleTab = pipe(toggleSelection, toggleTabIndex, getTabpanel, toggleHidde
  *
  */
 function switchTo (selector) {
-  return pipe(preventDefault, target, selector, when(defined, pipe(pushState, switchTabs)));
+  return pipe(preventDefault, target, selector, when(defined, both(pushState, switchTabs)));
 }
 
 
@@ -366,42 +367,6 @@ function switchTo (selector) {
  */
 const switchTabs = both(pipe(elementSiblings, find(selected), toggleTab), pipe(focus, toggleTab));
 
-
-
-
-
-/**
- *  @function setupTabInterface
- *
- *
- *  @summary
- *
- *  Implements the logic for the tab interface.
- *
- *
- *  @description
- *
- *  This function expects to be called with a reference to the
- *  template whose content is the prepared tablist. It replaces
- *  the fallback for the tab interface with the retrieved tablist,
- *  complements missing attributes on the elements that should be
- *  tabs and tabpanels, and registers event handlers on the tabs
- *  to make these elements interactive.
- *
- *
- *  @param { HTMLTemplateElement } template
- *
- *  The template for the tablist.
- *
- *
- *  @return { Element [] }
- *
- *  The list of tabpanels.
- *
- *
- *
- */
-const setupTabInterface = pipe(insertTablist, children, setupTabs, setupNavigation);
 
 
 
@@ -554,20 +519,61 @@ function setupNavigation (tabpanels) {
 
 
 
-
 const getState = memoize(tab => [tab.textContent, '#' + getAttribute('aria-controls', tab)]);
 
 
 
 
 
-const pushState = tab => history.pushState({}, ...getState(tab));
+const pushState = tab => (history.pushState({}, ...getState(tab)), tab);
 
 
 
 
 
-const replaceState = tab => history.replaceState({}, ...getState(tab));
+const replaceState = tab => (history.replaceState({}, ...getState(tab)), tab);
+
+
+
+const makeSelection = pipe(either(getTabpanelFromHash, head), getTab, replaceState, toggleTab);
+
+
+
+
+/**
+ *  @function setupTabInterface
+ *
+ *
+ *  @summary
+ *
+ *  Implements the logic for the tab interface.
+ *
+ *
+ *  @description
+ *
+ *  This function expects to be called with a reference to the
+ *  template whose content is the prepared tablist. It replaces
+ *  the fallback for the tab interface with the retrieved tablist,
+ *  complements missing attributes on the elements that should be
+ *  tabs and tabpanels, and registers event handlers on the tabs
+ *  to make these elements interactive.
+ *
+ *
+ *  @param { HTMLTemplateElement } template
+ *
+ *  The template for the tablist.
+ *
+ *
+ *  @return { Element [] }
+ *
+ *  The list of tabpanels.
+ *
+ *
+ *
+ */
+const setupTabInterface = pipe(insertTablist, children, setupTabs, both(
+  setupNavigation, makeSelection
+));
 
 
 
