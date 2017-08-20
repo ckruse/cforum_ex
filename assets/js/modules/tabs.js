@@ -54,22 +54,9 @@
 
 
 
-import {
-
-  controls,
-  role,
-  selected,
-  toggleSelection
-
-} from './aria.js';
-
-
-
-
+import { role, selected, toggleSelection } from './aria.js';
 
 import { hasHiddenAttribute } from './browser.js';
-
-
 
 
 
@@ -91,8 +78,6 @@ import {
 
 
 
-
-
 import {
 
   bind,
@@ -105,23 +90,9 @@ import {
 
 
 
-
-
-import {
-
-  compose,
-  memoize,
-  pipe
-
-} from './functional.js';
-
-
-
-
+import { compose, memoize, pipe } from './functional.js';
 
 import { find, head, transform } from './lists.js';
-
-
 
 
 
@@ -134,8 +105,6 @@ import {
   when
 
 } from './logic.js';
-
-
 
 
 
@@ -182,7 +151,7 @@ import { id } from './selectors.js';
 function addTabBehavior (tab) {
   return bind(tab, {
 
-    click: pipe(preventDefault, target, unless(selected, both(pushState, switchTabs))),
+    click: pipe(preventDefault, target, unless(selected, pipe(historyPushState, switchTabs))),
 
     keydown: conditions([
 
@@ -202,6 +171,48 @@ function addTabBehavior (tab) {
 
   });
 }
+
+
+
+
+
+/**
+ *  @function addNavigationBehavior
+ *
+ *
+ *  @param { Array } tabpanels
+ *
+ *  A list of tabpanels.
+ *
+ *
+ *  @return { Window }
+ *
+ *  The global object.
+ *
+ *
+ *
+ */
+function addNavigationBehavior (tabpanels) {
+  return bind(window, {
+
+    popstate (event) {
+      when(defined, switchTabs, compose(getTab, getTabpanelFromFragment, tabpanels));
+    }
+
+  });
+}
+
+
+
+
+
+/**
+ *  @function getTab
+ *
+ *
+ *
+ */
+const getTab = memoize(pipe(getAttribute('aria-labelledby'), id));
 
 
 
@@ -239,19 +250,19 @@ function addTabBehavior (tab) {
  *
  *
  */
-const getTabpanel = memoize(tab => id(getAttribute('aria-controls', tab)));
+const getTabpanel = memoize(pipe(getAttribute('aria-controls'), id));
 
 
 
 
 
-const getTabpanelFromHash = find(tabpanel => equal(location.hash.slice(1), tabpanel.id));
-
-
-
-
-
-const getTab = memoize(tabpanel => id(getAttribute('aria-labelledby', tabpanel)));
+/**
+ *  @function getTabpanelFromFragment
+ *
+ *
+ *
+ */
+const getTabpanelFromFragment = find(tabpanel => equal(location.hash.slice(1), tabpanel.id));
 
 
 
@@ -328,7 +339,7 @@ const toggleTab = pipe(toggleSelection, toggleTabIndex, getTabpanel, toggleHidde
  *
  */
 function switchTo (selector) {
-  return pipe(preventDefault, target, selector, when(defined, both(pushState, switchTabs)));
+  return pipe(preventDefault, target, selector, when(defined, pipe(historyPushState, switchTabs)));
 }
 
 
@@ -490,52 +501,33 @@ function setRoleAndLabelForTabpanel (tab) {
 
 
 
-/**
- *  @function setupNavigation
- *
- *
- *  @param { Array } tabpanels
- *
- *  A list of tabpanels.
- *
- *
- *  @return { Window }
- *
- *  The global object.
- *
- *
- *
- */
-function setupNavigation (tabpanels) {
-  return bind(window, {
 
-    popstate (event) {
-      when(defined, switchTabs, compose(getTab, getTabpanelFromHash, tabpanels));
-    }
 
-  });
+
+
+// const getState = memoize(tab => [tab.textContent, '#' + getAttribute('aria-controls', tab)]);
+
+const getState = memoize(function getState (tab) {
+  return Array.of(tab.textContent, '#' + getAttribute('aria-controls', tab));
+});
+
+
+
+function historyPushState (tab) {
+  history.pushState({}, ...getState(tab));
+  return tab;
 }
 
 
 
-
-const getState = memoize(tab => [tab.textContent, '#' + getAttribute('aria-controls', tab)]);
-
-
-
-
-
-const pushState = tab => (history.pushState({}, ...getState(tab)), tab);
+function historyReplaceState (tab) {
+  history.replaceState({}, ...getState(tab));
+  return tab;
+}
 
 
 
-
-
-const replaceState = tab => (history.replaceState({}, ...getState(tab)), tab);
-
-
-
-const makeSelection = pipe(either(getTabpanelFromHash, head), getTab, replaceState, toggleTab);
+const makeSelection = pipe(either(getTabpanelFromFragment, head), getTab, historyReplaceState, toggleTab);
 
 
 
@@ -571,9 +563,7 @@ const makeSelection = pipe(either(getTabpanelFromHash, head), getTab, replaceSta
  *
  *
  */
-const setupTabInterface = pipe(insertTablist, children, setupTabs, both(
-  setupNavigation, makeSelection
-));
+const setupTabInterface = pipe(insertTablist, children, setupTabs, both(addNavigationBehavior, makeSelection));
 
 
 
