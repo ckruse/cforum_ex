@@ -244,7 +244,7 @@ const getTabpanel = memoize(tab => id(getAttribute('aria-controls', tab)));
 
 
 
-const getTabpanelFromHash = find(tabpanel => equal(tabpanel.id, location.hash.slice(1)));
+const getTabpanelFromHash = find(tabpanel => equal(location.hash.slice(1), tabpanel.id));
 
 
 
