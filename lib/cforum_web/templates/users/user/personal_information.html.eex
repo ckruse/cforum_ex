@@ -1,5 +1,4 @@
-<div id="personal_information">
-
+<div id="personal-information">
   <fieldset>
     <legend><%= gettext("personal information") %></legend>
 
@@ -39,5 +38,4 @@
       <%= textarea @f, :description %>
     </div>
   </fieldset>
-
 </div>
