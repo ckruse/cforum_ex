@@ -365,6 +365,7 @@ function switchTo (selector) {
 
 
 
+
 /**
  *  @function enableSelectedTab
  *
