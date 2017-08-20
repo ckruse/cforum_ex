@@ -555,11 +555,21 @@ function setupNavigation (tabpanels) {
 
 
 
-const getState = tab => [tab.textContent, '#' + getAttribute('aria-controls', tab)];
+const getTabStateForHistory = memoize(function (tab) {
+  return [tab.textContent, '#' + getAttribute('aria-controls', tab)];
+});
 
-const pushState = tab => history.pushState({}, ...getState(tab));
 
-const replaceState = tab => history.replaceState({}, ...getState(tab));
+
+
+
+const pushState = tab => history.pushState({}, ...getTabStateForHistory(tab));
+
+
+
+
+
+const replaceState = tab => history.replaceState({}, ...getTabStateForHistory(tab));
 
 
 
