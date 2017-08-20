@@ -619,7 +619,7 @@ function setupTabs (tablist) {
  *
  *
  */
-const setupTabpanels = transform(pipe(setRoleAndLabelForTabpanel, toggleHiddenState));
+const setupTabs = transform(pipe(addTabBehavior, setRoleAndLabelForTabpanel, toggleHiddenState));
 
 
 
