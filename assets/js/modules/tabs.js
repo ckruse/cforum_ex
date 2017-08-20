@@ -551,45 +551,6 @@ function insertTablist (template) {
 
 
 /**
- *  @function setupTabs
- *
- *
- *  @summary
- *
- *  Adds tab behavior to all children of a tablist.
- *
- *
- *  @description
- *
- *  This function takes an element that is assigned the role
- *  tablist and references all of its child elements, which are
- *  expected to be initialized as tabs. It then registers event
- *  handlers on every element to make them interactive. After
- *  this, tabs can be selected to show the contents of the
- *  tabpanels that they control.
- *
- *
- *  @param { Element } tablist
- *
- *  The tablist whose children to add behavior to.
- *
- *
- *  @return { Element [] }
- *
- *  A list of tabs.
- *
- *
- *
- */
-function setupTabs (tablist) {
-  return transform(addTabBehavior, children(tablist));
-}
-
-
-
-
-
-/**
  *  @function setupTabpanels
  *
  *
