@@ -244,6 +244,12 @@ const getTabpanel = memoize(tab => id(getAttribute('aria-controls', tab)));
 
 
 
+const getTabpanelFromHash = find(tabpanel => equal(tabpanel.id, location.hash.slice(1)));
+
+
+
+
+
 const getTab = memoize(tabpanel => id(getAttribute('aria-labelledby', tabpanel)));
 
 
@@ -635,8 +641,7 @@ function setupNavigation (tabpanels) {
   return bind(window, {
 
     popstate (event) {
-      const tabpanel = find(tabpanel => equal(tabpanel.id, location.hash.slice(1)), tabpanels);
-      when(defined, switchTabs, getTab(tabpanel));
+      when(defined, switchTabs, compose(getTab, getTabpanelFromHash, tabpanels));
     }
 
   });
