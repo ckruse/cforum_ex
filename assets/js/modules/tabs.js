@@ -138,7 +138,7 @@ import {
 
 
 
-import { defined } from './predicates.js';
+import { defined, equal } from './predicates.js';
 
 import { id } from './selectors.js';
 
