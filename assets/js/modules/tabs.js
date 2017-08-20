@@ -295,44 +295,6 @@ const toggleTab = pipe(toggleSelection, toggleTabIndex, getTabpanel, toggleHidde
 
 
 /**
- *  @function currentSelection
- *
- *
- *  @summary
- *
- *  Fetches the currently selected tab.
- *
- *
- *  @description
- *
- *  When an event occurs which indicates that another tab
- *  should be selected, then the tab which is currently selected
- *  must be disabled first. This is done by changing some of the
- *  values of the tabs attributes and by hiding its associated
- *  tabpanel. Now, to disable the currently selected tab, one
- *  has to know which tab it is. To find this out is the
- *  purpose of this function.
- *
- *
- *  @param { Element } tab
- *
- *  The newly selected tab.
- *
- *
- *  @return { Element }
- *
- *  The currently selected tab.
- *
- *
- *
- */
-const currentSelection = pipe(elementSiblings, find(selected));
-
-
-
-
-
-/**
  *  @function switchTo
  *
  *
@@ -402,7 +364,7 @@ function switchTo (selector) {
  *
  *
  */
-const switchTabs = both(pipe(currentSelection, toggleTab), pipe(focus, toggleTab));
+const switchTabs = both(pipe(elementSiblings, find(selected), toggleTab), pipe(focus, toggleTab));
 
 
 
