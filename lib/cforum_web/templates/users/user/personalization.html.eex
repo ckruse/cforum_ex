@@ -1,5 +1,4 @@
 <div id="personalization">
-
   <fieldset>
     <legend><%= gettext("personalization") %></legend>
 
@@ -49,5 +48,4 @@
       <%= text_input @f, :date_format_default, placeholder: "%d.%m.%Y %H:%M" %>
     </div>
   </fieldset>
-
 </div>
