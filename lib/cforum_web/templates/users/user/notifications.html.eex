@@ -1,5 +1,4 @@
 <div id="notifications">
-
   <fieldset>
     <legend><%= gettext("notifications") %></legend>
 
@@ -101,5 +100,4 @@
     <% end %>
 
   </fieldset>
-
 </div>
