@@ -238,7 +238,7 @@ function addTabBehavior (tab) {
  *
  *
  */
-const getTabpanel = memoize(controls);
+const getTabpanel = memoize(tab => id(getAttribute('aria-controls', tab)));
 
 
 
