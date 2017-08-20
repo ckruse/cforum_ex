@@ -373,80 +373,6 @@ function switchTo (selector) {
 
 
 /**
- *  @function enableSelectedTab
- *
- *
- *  @summary
- *
- *  Changes the state of a tab to selected.
- *
- *
- *  @description
- *
- *  This function takes the newly selected tab and sets
- *  focus on it. After that the tabs aria-selected attribute
- *  is set to true and its tabindex attribute is changed such
- *  that the element is placed in the documents taborder. To
- *  complete the state change, the tabpanel associated with
- *  the tab is made visible.
- *
- *
- *  @param { Element } tab
- *
- *  The newly selected tab.
- *
- *
- *  @return { Element }
- *
- *  The associated tabpanel.
- *
- *
- *
- */
-const enableSelectedTab = pipe(focus, toggleTab);
-
-
-
-
-
-/**
- *  @function disableActiveTab
- *
- *
- *  @summary
- *
- *  Changes the state of a tab to unselected.
- *
- *
- *  @description
- *
- *  This is the counterpart to the enableActiveTab function. It
- *  takes the tab that should become the selected tab and uses this
- *  element to find the tab which is currently selected. It then
- *  disables the currently selected tab by setting its aria-selected
- *  attribute to false, removing it from taborder and by hiding the
- *  tabpanel that is controlled by this tab.
- *
- *
- *  @param { Element } tab
- *
- *  The newly selected tab.
- *
- *
- *  @return { Element }
- *
- *  The tabpanel of the formerly selected tab.
- *
- *
- *
- */
-const disableActiveTab = pipe(currentSelection, toggleTab);
-
-
-
-
-
-/**
  *  @function switchTabs
  *
  *
@@ -476,7 +402,7 @@ const disableActiveTab = pipe(currentSelection, toggleTab);
  *
  *
  */
-const switchTabs = both(disableActiveTab, enableSelectedTab);
+const switchTabs = both(pipe(currentSelection, toggleTab), pipe(focus, toggleTab));
 
 
 
