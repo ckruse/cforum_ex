@@ -257,7 +257,7 @@ const getTab = memoize(tabpanel => id(getAttribute('aria-labelledby', tabpanel))
 
 
 /**
- *  @function toggleTabAndTabpanel
+ *  @function toggleTab
  *
  *
  *  @summary
@@ -288,7 +288,7 @@ const getTab = memoize(tabpanel => id(getAttribute('aria-labelledby', tabpanel))
  *
  *
  */
-const toggleTabAndTabpanel = pipe(toggleSelection, toggleTabIndex, getTabpanel, toggleHiddenState);
+const toggleTab = pipe(toggleSelection, toggleTabIndex, getTabpanel, toggleHiddenState);
 
 
 
@@ -403,7 +403,7 @@ function switchTo (selector) {
  *
  *
  */
-const enableSelectedTab = pipe(focus, toggleTabAndTabpanel);
+const enableSelectedTab = pipe(focus, toggleTab);
 
 
 
@@ -440,7 +440,7 @@ const enableSelectedTab = pipe(focus, toggleTabAndTabpanel);
  *
  *
  */
-const disableActiveTab = pipe(currentSelection, toggleTabAndTabpanel);
+const disableActiveTab = pipe(currentSelection, toggleTab);
 
 
 
