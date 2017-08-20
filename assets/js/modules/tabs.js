@@ -636,8 +636,7 @@ function setupNavigation (tabpanels) {
 
     popstate (event) {
       const tabpanel = find(tabpanel => equal(tabpanel.id, location.hash.slice(1)), tabpanels);
-
-      when(defined, switchTabs, compose(id, getAttribute('aria-labelledby'), tabpanel)); // this should be partially extracted
+      when(defined, switchTabs, getTab(tabpanel));
     }
 
   });
