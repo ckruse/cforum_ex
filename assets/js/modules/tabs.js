@@ -637,6 +637,22 @@ function setRoleAndLabelForTabpanel (tab) {
 
 
 
+/**
+ *  @function setupNavigation
+ *
+ *
+ *  @param { Array } tabpanels
+ *
+ *  A list of tabpanels.
+ *
+ *
+ *  @return { Window }
+ *
+ *  The global object.
+ *
+ *
+ *
+ */
 function setupNavigation (tabpanels) {
   return bind(window, {
 
