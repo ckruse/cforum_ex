@@ -501,7 +501,7 @@ const switchTabs = both(disableActiveTab, enableSelectedTab);
  *
  *
  */
-const setupTabInterface = pipe(insertTablist, setupTabs, setupTabpanels);
+const setupTabInterface = pipe(insertTablist, children, setupTabs);
 
 
 
