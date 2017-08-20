@@ -551,7 +551,7 @@ function insertTablist (template) {
 
 
 /**
- *  @function setupTabpanels
+ *  @function setupTabs
  *
  *
  *  @summary
