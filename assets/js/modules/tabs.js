@@ -196,7 +196,7 @@ function addNavigationBehavior (tabpanels) {
   return bind(window, {
 
     popstate (event) {
-      when(defined, switchTabs, compose(getTabFromTabpanel, getTabpanelFromFragment, tabpanels));
+      when(defined, switchTabs, compose(getTabFromTabpanel, getPanelFromFragment, tabpanels));
     }
 
   });
@@ -257,12 +257,12 @@ const getPanelFromTab = memoize(pipe(getAttribute('aria-controls'), id));
 
 
 /**
- *  @function getTabpanelFromFragment
+ *  @function getPanelFromFragment
  *
  *
  *
  */
-const getTabpanelFromFragment = find(tabpanel => equal(location.hash.slice(1), tabpanel.id));
+const getPanelFromFragment = find(tabpanel => equal(location.hash.slice(1), tabpanel.id));
 
 
 
@@ -527,7 +527,7 @@ function historyReplaceState (tab) {
 
 
 
-const makeSelection = pipe(either(getTabpanelFromFragment, head), getTabFromTabpanel, historyReplaceState, toggleTab);
+const makeSelection = pipe(either(getPanelFromFragment, head), getTabFromTabpanel, historyReplaceState, toggleTab);
 
 
 
