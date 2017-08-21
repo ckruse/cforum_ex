@@ -215,6 +215,21 @@ function handleHistoryChange (tabpanels) {
  *  @function getTabFromPanel
  *
  *
+ *  @summary
+ *
+ *  Returns the tab that controls a panel.
+ *
+ *
+ *  @param { Element } panel
+ *
+ *  The panel whose associated tab should be returned.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The tab that controls the panel.
+ *
+ *
  *
  */
 const getTabFromPanel = memoize(pipe(getAttribute('aria-labelledby'), id));
