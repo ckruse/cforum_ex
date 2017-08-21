@@ -663,8 +663,12 @@ function insertTablist (template) {
  *
  *
  */
-const setupTabs = transform(pipe(addTabBehavior, setRoleAndLabelForPanel, toggleHiddenState));
-
+function setupTabs (tablist) {
+  return transform(
+    pipe(addTabBehavior, setRoleAndLabelForPanel, toggleHiddenState),
+    children(tablist)
+  );
+}
 
 
 
@@ -709,14 +713,14 @@ function setRoleAndLabelForPanel (tab) {
 
 
 
-const getSelectedTab = pipe(either(getPanelFromFragment, head), getTabFromPanel);
+const getInitialSelection = pipe(either(getPanelFromFragment, head), getTabFromPanel);
 
 
 
 
 
 
-const makeSelection = pipe(getSelectedTab, historyReplaceState, toggleTab);
+const makeSelection = pipe(getInitialSelection, historyReplaceState, toggleTab);
 
 
 
@@ -752,7 +756,7 @@ const makeSelection = pipe(getSelectedTab, historyReplaceState, toggleTab);
  *
  *
  */
-const setupTabInterface = pipe(insertTablist, children, setupTabs, both(
+const setupTabInterface = pipe(insertTablist, setupTabs, both(
   handleHistoryChange, makeSelection
 ));
 
