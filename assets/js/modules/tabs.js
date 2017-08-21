@@ -176,11 +176,6 @@ function addTabBehavior (tab) {
 
 
 
-
-
-
-
-
 /**
  *  @function getTabFromPanel
  *
@@ -473,7 +468,6 @@ function switchTo (selector) {
  *
  */
 const switchTabs = both(pipe(elementSiblings, find(selected), toggleTab), pipe(focus, toggleTab));
-
 
 
 
