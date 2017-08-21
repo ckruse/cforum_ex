@@ -340,9 +340,9 @@ function handleHistoryChange (tabpanels) {
  *
  *
  */
-const getState = memoize(function (tab) {
-  return [tab.textContent, '#' + getAttribute('aria-controls', tab)];
-});
+const getState = tab => [tab.textContent, '#' + getAttribute('aria-controls', tab)];
+
+
 
 
 
@@ -350,6 +350,8 @@ function historyPushState (tab) {
   history.pushState({}, ...getState(tab));
   return tab;
 }
+
+
 
 
 
