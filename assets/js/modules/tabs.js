@@ -262,7 +262,7 @@ const getPanelFromTab = memoize(pipe(getAttribute('aria-controls'), id));
  *
  *
  */
-const getPanelFromFragment = find(tabpanel => equal(location.hash.slice(1), tabpanel.id));
+const getPanelFromFragment = find(panel => equal(location.hash.slice(1), panel.id));
 
 
 
