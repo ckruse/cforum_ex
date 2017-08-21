@@ -224,28 +224,28 @@ const getTabFromPanel = memoize(pipe(getAttribute('aria-labelledby'), id));
  *
  *  @summary
  *
- *  Returns the element controlled by another element.
+ *  Returns the panel controlled by a tab.
  *
  *
  *  @description
  *
- *  This is just a wrapper for the controls function, which
- *  takes an element and returns the element whose ID is the
- *  value of the former elements aria-controls attribute. It
- *  is used to reference the tabpanel that is associated with
- *  a tab. To avoid having to search the DOM in every call,
- *  this function uses memoization, so the results of the
- *  controls function can be read from a cache.
+ *  This function takes a tab and returns the panel it controls.
+ *  To find the associated panel, the attribute aria-controls of the
+ *  tab is used, whose value is an ID reference to the panel. Because
+ *  referencing an element by its ID might be a time consuming task,
+ *  the function is memoized, so the DOM will only be searched in the
+ *  first call. In all subsequent calls with the same input the
+ *  result will be read from a cache.
  *
  *
  *  @param { Element } tab
  *
- *  The tab whose associated tabpanel to find.
+ *  The tab whose associated panel should be returned.
  *
  *
  *  @return { Element }
  *
- *  The tabpanel controlled by the tab.
+ *  The panel controlled by the tab.
  *
  *
  *
