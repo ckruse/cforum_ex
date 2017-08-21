@@ -177,7 +177,7 @@ function addTabBehavior (tab) {
 
 
 /**
- *  @function addNavigationBehavior
+ *  @function handleHistoryChange
  *
  *
  *  @param { Array } tabpanels
@@ -192,7 +192,7 @@ function addTabBehavior (tab) {
  *
  *
  */
-function addNavigationBehavior (tabpanels) {
+function handleHistoryChange (tabpanels) {
   return bind(window, {
 
     popstate (event) {
@@ -583,7 +583,7 @@ const makeSelection = pipe(either(getPanelFromFragment, head), getTabFromPanel, 
  *
  *
  */
-const setupTabInterface = pipe(insertTablist, children, setupTabs, both(addNavigationBehavior, makeSelection));
+const setupTabInterface = pipe(insertTablist, children, setupTabs, both(handleHistoryChange, makeSelection));
 
 
 
