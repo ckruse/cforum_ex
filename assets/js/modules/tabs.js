@@ -151,7 +151,10 @@ import { id } from './selectors.js';
 function addTabBehavior (tab) {
   return bind(tab, {
 
-    click: pipe(preventDefault, target, unless(selected, pipe(historyPushState, switchTabs))),
+    click: pipe(
+      preventDefault, target,
+      unless(selected, pipe(historyPushState, switchTabs))
+    ),
 
     keydown: conditions([
 
@@ -545,7 +548,10 @@ const toggleTab = pipe(toggleSelection, toggleTabIndex, getPanelFromTab, toggleH
  *
  */
 function switchTo (selector) {
-  return pipe(preventDefault, target, selector, when(defined, pipe(historyPushState, switchTabs)));
+  return pipe(
+    preventDefault, target, selector,
+    when(defined, pipe(historyPushState, switchTabs))
+  );
 }
 
 
@@ -583,7 +589,9 @@ function switchTo (selector) {
  *
  *
  */
-const switchTabs = both(pipe(elementSiblings, find(selected), toggleTab), pipe(focus, toggleTab));
+function switchTabs (tab) {
+  return toggleTab(compose(find(selected), elementSiblings, tab)), toggleTab(focus(tab));
+}
 
 
 
