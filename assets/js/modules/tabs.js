@@ -709,8 +709,14 @@ function setRoleAndLabelForPanel (tab) {
 
 
 
-const makeSelection = pipe(either(getPanelFromFragment, head), getTabFromPanel, historyReplaceState, toggleTab);
+const getSelectedTab = pipe(either(getPanelFromFragment, head), getTabFromPanel);
 
+
+
+
+
+
+const makeSelection = pipe(getSelectedTab, historyReplaceState, toggleTab);
 
 
 
