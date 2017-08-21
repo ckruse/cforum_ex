@@ -258,12 +258,17 @@ const getPanelFromTab = memoize(pipe(getAttribute('aria-controls'), id));
  *
  *  @summary
  *
- *  Finds a panel that is identified by an URL fragment.
+ *  Finds a panel that is referenced by an URL fragment.
  *
  *
  *  @description
  *
- *
+ *  This function tests a list of panels against the fragment part
+ *  of the pages URL. If there is a fragment and in case the fragment
+ *  identifier matches the ID of a panel, this panel will be returned,
+ *  otherwise null. The function is needed to enable navigation using
+ *  the browser history and to make it possible to directly link to
+ *  content that is contained within the tab interface.
  *
  *
  *  @param { Iterable } panels
