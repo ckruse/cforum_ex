@@ -687,7 +687,7 @@ function setupTabsAndPanels (tablist) {
  *
  *  @summary
  *
- *  Sets the appropriate role and labels a tabpanel.
+ *  Sets the appropriate role and labels a tab panel.
  *
  *
  *  @description
@@ -695,9 +695,9 @@ function setupTabsAndPanels (tablist) {
  *  To be recognized as a tabpanel by assistive software, the
  *  elements which are meant to play this role must be marked up
  *  accordingly. This function takes a designated tab, references
- *  its associated tabpanel via the value of its aria-controls
+ *  its associated tab panel via the value of its aria-controls
  *  attribute and adds the role tabpanel to this element. To
- *  provide an accessible name, the tabpanel is labeled by
+ *  provide an accessible name, the tab panel is labeled by
  *  the corresponding tabs text content.
  *
  *
@@ -708,7 +708,7 @@ function setupTabsAndPanels (tablist) {
  *
  *  @return { Element }
  *
- *  The initialized tabpanel.
+ *  The initialized panel.
  *
  *
  *
