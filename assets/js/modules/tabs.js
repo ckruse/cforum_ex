@@ -534,7 +534,7 @@ const toggleTab = pipe(toggleSelection, toggleTabIndex, getPanelFromTab, toggleH
  *
  *  @param { function } selector
  *
- *  A function that returns the tab to activate.
+ *  A function that returns the tab that should be selected.
  *
  *
  *  @return { Element }
