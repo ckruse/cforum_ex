@@ -180,6 +180,11 @@ function addTabBehavior (tab) {
  *  @function handleHistoryChange
  *
  *
+ *  @summary
+ *
+ *  Restores the selection when the browser history changes.
+ *
+ *
  *  @param { Array } tabpanels
  *
  *  A list of tabpanels.
