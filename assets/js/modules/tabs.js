@@ -298,7 +298,18 @@ const getPanelFromFragment = find(panel => equal(location.hash.slice(1), panel.i
  *  Restores the selection when the browser history changes.
  *
  *
- *  @param { Array } tabpanels
+ *  @description
+ *
+ *  This module takes care that the currently selected tab and its
+ *  associated content are reflected by the pages URL. When the user
+ *  presses the back or forward button of her browser, the selection
+ *  within the tab interface must be set accordingly. This function
+ *  registers a handler that will be called every time the state of
+ *  the browsers history changes. It gathers the necessary data
+ *  and selects the tab that matches the URLs fragment.
+ *
+ *
+ *  @param { Iterable } tabpanels
  *
  *  A list of tabpanels.
  *
