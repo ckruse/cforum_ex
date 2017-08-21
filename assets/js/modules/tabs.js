@@ -294,7 +294,7 @@ const getPanelFromFragment = find(panel => equal(location.hash.slice(1), panel.i
  *
  *  @summary
  *
- *  Changes the state of a tab and its associated tabpanel.
+ *  Changes the state of a tab and its associated panel.
  *
  *
  *  @description
