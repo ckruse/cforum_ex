@@ -220,6 +220,17 @@ function handleHistoryChange (tabpanels) {
  *  Returns the tab that controls a panel.
  *
  *
+ *  @description
+ *
+ *  This function takes a panel and returns the tab by which
+ *  it is controlled. The function obtains the ID of the tab from
+ *  the aria-labelledby attribute of the panel and then references
+ *  the element via this identifier. To avoid having to search the
+ *  DOM in every invokation, this function is memoized, such that
+ *  multiple calls with the same input will read the result from
+ *  a cache in all but the first call.
+ *
+ *
  *  @param { Element } panel
  *
  *  The panel whose associated tab should be returned.
