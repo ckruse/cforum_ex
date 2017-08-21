@@ -427,6 +427,27 @@ function historyPushState (tab) {
 
 
 
+/**
+ *  @function historyReplaceState
+ *
+ *
+ *  @summary
+ *
+ *  Replaces the current entry in the browsers history.
+ *
+ *
+ *  @param { Element } tab
+ *
+ *  The tab whose properties shoud be used in the browser history.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The provided tab.
+ *
+ *
+ *
+ */
 function historyReplaceState (tab) {
   history.replaceState({}, ...getState(tab));
   return tab;
