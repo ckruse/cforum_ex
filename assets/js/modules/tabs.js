@@ -601,12 +601,13 @@ const switchTabs = both(pipe(elementSiblings, find(selected), toggleTab), pipe(f
  *  @description
  *
  *  This function is called with a reference to a template element
- *  whose content is a prepared tablist. It then replaces the fallback
- *  content with the tablist. There is no need to explicitly mark the
- *  fallback content, instead we use the convention that the template
- *  element is the next element sibling of the element which should be
- *  replaced. After the replacement the template is removed from
- *  the document.
+ *  whose content is expected to be a prepared tablist. It replaces
+ *  the existing fallback for the tab interface with the tablist that
+ *  is retrieved from the template. It is presumed that the fallback
+ *  will be a single element that is the previous element sibling of
+ *  the template. So, explicit marking of the fallback content is
+ *  not necessary. After the replacement the template element
+ *  will be removed from the document.
  *
  *
  *  @param { HTMLTemplateElement } template
