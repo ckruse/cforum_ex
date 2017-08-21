@@ -529,7 +529,7 @@ const toggleTab = pipe(toggleSelection, toggleTabIndex, getPanelFromTab, toggleH
  *  currently selected tab. The return value of this selector function
  *  is expected to be the tab that is the target of the operation.
  *  Then this function removes the old selection and changes the
- *  state of the provided tab to selected.
+ *  state of the tab provided by the callback to selected.
  *
  *
  *  @param { function } selector
