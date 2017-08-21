@@ -634,7 +634,7 @@ function insertTablist (template) {
 
 
 /**
- *  @function setupTabs
+ *  @function setupTabsAndPanels
  *
  *
  *  @summary
@@ -663,7 +663,7 @@ function insertTablist (template) {
  *
  *
  */
-function setupTabs (tablist) {
+function setupTabsAndPanels (tablist) {
   return transform(
     pipe(addTabBehavior, setRoleAndLabelForPanel, toggleHiddenState),
     children(tablist)
@@ -756,7 +756,7 @@ const makeSelection = pipe(getInitialSelection, historyReplaceState, toggleTab);
  *
  *
  */
-const setupTabInterface = pipe(insertTablist, setupTabs, both(
+const setupTabInterface = pipe(insertTablist, setupTabsAndPanels, both(
   handleHistoryChange, makeSelection
 ));
 
