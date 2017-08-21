@@ -392,18 +392,18 @@ const getState = tab => [tab.textContent, '#' + getAttribute('aria-controls', ta
  *
  *  @description
  *
- *  This function is merely a wrapper for the native pushState method
- *  that is provided by the browsers History API. It takes a tab element
- *  and retrieves its text content as well as an ID reference to the panel
- *  that is controlled by the tab. The panels identifier is then converted
- *  into an URL fragment by combining it with a hash sign.
+ *  This function is a wrapper for the pushState method that is
+ *  provided by the browsers History API. It takes a tab and retrieves
+ *  its text content for a title as well as an ID reference to the panel
+ *  that is controlled by the tab. The panels identifier is then used
+ *  to create an URL fragment by combining it with a hash sign.
  *
  *
- *  Subsequently the pushState method is called to create a new entry in
- *  the browsers history and then the supplied tab is returned. The purpose
- *  of this function is to let the pages URL reflect the selected tab and
- *  its content, such that it is possible to navigate using the browser
- *  interfaces back and forward buttons.
+ *  Subsequently the pushState method is called with both these values
+ *  to create a new entry in the browsers history. Then the supplied tab
+ *  is returned. The purpose of this function is to let the URL of the
+ *  page reflect the current tab selection, such that it is possible
+ *  to navigate using the browsers back and forward buttons.
  *
  *
  *  @param { Element } tab
