@@ -219,7 +219,7 @@ const getTab = memoize(pipe(getAttribute('aria-labelledby'), id));
 
 
 /**
- *  @function getTabpanel
+ *  @function getTabpanelFromTab
  *
  *
  *  @summary
@@ -250,7 +250,7 @@ const getTab = memoize(pipe(getAttribute('aria-labelledby'), id));
  *
  *
  */
-const getTabpanel = memoize(pipe(getAttribute('aria-controls'), id));
+const getTabpanelFromTab = memoize(pipe(getAttribute('aria-controls'), id));
 
 
 
@@ -300,7 +300,7 @@ const getTabpanelFromFragment = find(tabpanel => equal(location.hash.slice(1), t
  *
  *
  */
-const toggleTab = pipe(toggleSelection, toggleTabIndex, getTabpanel, toggleHiddenState);
+const toggleTab = pipe(toggleSelection, toggleTabIndex, getTabpanelFromTab, toggleHiddenState);
 
 
 
