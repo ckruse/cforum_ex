@@ -219,7 +219,7 @@ const getTabFromTabpanel = memoize(pipe(getAttribute('aria-labelledby'), id));
 
 
 /**
- *  @function getTabpanelFromTab
+ *  @function getPanelFromTab
  *
  *
  *  @summary
@@ -250,7 +250,7 @@ const getTabFromTabpanel = memoize(pipe(getAttribute('aria-labelledby'), id));
  *
  *
  */
-const getTabpanelFromTab = memoize(pipe(getAttribute('aria-controls'), id));
+const getPanelFromTab = memoize(pipe(getAttribute('aria-controls'), id));
 
 
 
@@ -300,7 +300,7 @@ const getTabpanelFromFragment = find(tabpanel => equal(location.hash.slice(1), t
  *
  *
  */
-const toggleTab = pipe(toggleSelection, toggleTabIndex, getTabpanelFromTab, toggleHiddenState);
+const toggleTab = pipe(toggleSelection, toggleTabIndex, getPanelFromTab, toggleHiddenState);
 
 
 
@@ -494,7 +494,7 @@ const setupTabs = transform(pipe(addTabBehavior, setRoleAndLabelForPanel, toggle
  *
  */
 function setRoleAndLabelForPanel (tab) {
-  return compose(role('tabpanel'), setAttribute('aria-labelledby', tab.id), getTabpanelFromTab(tab));
+  return compose(role('tabpanel'), setAttribute('aria-labelledby', tab.id), getPanelFromTab(tab));
 }
 
 
