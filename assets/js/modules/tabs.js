@@ -563,11 +563,12 @@ function switchTo (selector) {
  *
  *  @description
  *
- *  This function takes the newly selected tab and returns the
- *  panel that is associated with it. When called, the function
- *  first disables the currently active tab and hides its panel,
- *  then it enables the newly selected tab and makes the
- *  panel it controls visible.
+ *  This function takes the newly selected tab and returns the panel
+ *  which is associated with it. When called, the first thing it does
+ *  is to find out which tab is currently selected and disables it by
+ *  changing some of its attributes values and hiding the panel that
+ *  is controlled by this tab. Thereafter the tab the function has
+ *  been called with is focussed and made the current selection.
  *
  *
  *  @param { Element } tab
