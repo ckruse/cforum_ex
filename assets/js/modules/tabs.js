@@ -436,6 +436,23 @@ function historyPushState (tab) {
  *  Replaces the current entry in the browsers history.
  *
  *
+ *  @description
+ *
+ *  When the page containing the tab interface is loaded the first
+ *  time then there are two possibilities. Either the URL of the page
+ *  does not include a fragment part matching an ID of a panel, which
+ *  means the first tab should be selected, or it does have a relevant
+ *  fragment identifier which can be used to determine which tab
+ *  should be selected.
+ *
+ *
+ *  In both cases this function is called to replace the current
+ *  entry in the browsers history by calling the native replaceState
+ *  method of the History API. The new entry will be equipped with an
+ *  appropriate title obtained from the tabs text content and the
+ *  correct URL reflecting the currently selected tab.
+ *
+ *
  *  @param { Element } tab
  *
  *  The tab whose properties shoud be used in the browser history.
