@@ -176,36 +176,6 @@ function addTabBehavior (tab) {
 
 
 
-/**
- *  @function handleHistoryChange
- *
- *
- *  @summary
- *
- *  Restores the selection when the browser history changes.
- *
- *
- *  @param { Array } tabpanels
- *
- *  A list of tabpanels.
- *
- *
- *  @return { Window }
- *
- *  The global object.
- *
- *
- *
- */
-function handleHistoryChange (tabpanels) {
-  return bind(window, {
-
-    popstate (event) {
-      when(defined, switchTabs, compose(getTabFromPanel, getPanelFromFragment, tabpanels));
-    }
-
-  });
-}
 
 
 
@@ -314,6 +284,41 @@ const getPanelFromTab = memoize(pipe(getAttribute('aria-controls'), id));
  *
  */
 const getPanelFromFragment = find(panel => equal(location.hash.slice(1), panel.id));
+
+
+
+
+
+/**
+ *  @function handleHistoryChange
+ *
+ *
+ *  @summary
+ *
+ *  Restores the selection when the browser history changes.
+ *
+ *
+ *  @param { Array } tabpanels
+ *
+ *  A list of tabpanels.
+ *
+ *
+ *  @return { Window }
+ *
+ *  The global object.
+ *
+ *
+ *
+ */
+function handleHistoryChange (tabpanels) {
+  return bind(window, {
+
+    popstate (event) {
+      when(defined, switchTabs, compose(getTabFromPanel, getPanelFromFragment, tabpanels));
+    }
+
+  });
+}
 
 
 
