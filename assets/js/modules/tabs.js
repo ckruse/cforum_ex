@@ -739,14 +739,16 @@ const makeSelection = pipe(either(getPanelFromFragment, head), getTabFromPanel, 
  *  The template for the tablist.
  *
  *
- *  @return { Element [] }
+ *  @return { Element }
  *
- *  The list of tabpanels.
+ *  The selected tab panel.
  *
  *
  *
  */
-const setupTabInterface = pipe(insertTablist, children, setupTabs, both(handleHistoryChange, makeSelection));
+const setupTabInterface = pipe(insertTablist, children, setupTabs, both(
+  handleHistoryChange, makeSelection
+));
 
 
 
