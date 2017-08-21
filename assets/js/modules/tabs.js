@@ -682,8 +682,9 @@ const setupTabs = transform(pipe(addTabBehavior, setRoleAndLabelForPanel, toggle
  *  elements which are meant to play this role must be marked up
  *  accordingly. This function takes a designated tab, references
  *  its associated tabpanel via the value of its aria-controls
- *  attribute and adds the role tabpanel to this element. In
- *  addition, the tabpanel is labeled by the tab.
+ *  attribute and adds the role tabpanel to this element. To
+ *  provide an accessible name, the tabpanel is labeled by
+ *  the corresponding tabs text content.
  *
  *
  *  @param { Element } tab
