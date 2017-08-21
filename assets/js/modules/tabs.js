@@ -456,14 +456,14 @@ function insertTablist (template) {
  *
  *
  */
-const setupTabs = transform(pipe(addTabBehavior, setRoleAndLabelForTabpanel, toggleHiddenState));
+const setupTabs = transform(pipe(addTabBehavior, setRoleAndLabelForPanel, toggleHiddenState));
 
 
 
 
 
 /**
- *  @function setRoleAndLabelForTabpanel
+ *  @function setRoleAndLabelForPanel
  *
  *
  *  @summary
@@ -493,7 +493,7 @@ const setupTabs = transform(pipe(addTabBehavior, setRoleAndLabelForTabpanel, tog
  *
  *
  */
-function setRoleAndLabelForTabpanel (tab) {
+function setRoleAndLabelForPanel (tab) {
   return compose(role('tabpanel'), setAttribute('aria-labelledby', tab.id), getTabpanelFromTab(tab));
 }
 
