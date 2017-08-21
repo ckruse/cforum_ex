@@ -339,6 +339,30 @@ function handleHistoryChange (tabpanels) {
  *  @function getState
  *
  *
+ *  @summary
+ *
+ *  Returns an array with state information obtained from a tab.
+ *
+ *
+ *  @description
+ *
+ *  This function takes a tab and returns an array containing its
+ *  textual content and a string that represents an URL fragment for
+ *  the tabs associated panel. These two values are arguments for the
+ *  methods of the browsers History API and extracted to avoid code
+ *  duplication. The function is only called from the functions
+ *  pushState and replaceState that are defined below.
+ *
+ *
+ *  @todo
+ *
+ *  The function does not look particularly good, but I haven’t come
+ *  up with a better solution to handle the subject, yet. If some time
+ *  in the future a task requires similar functionality, then it might
+ *  be possible to write an abstraction providing an interface which
+ *  allows for a less verbose implementation.
+ *
+ *
  *  @param { Element } tab
  *
  *  The tab to obtain arguments for the History API from.
