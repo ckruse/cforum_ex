@@ -324,6 +324,30 @@ function handleHistoryChange (tabpanels) {
 
 
 
+// const getState = memoize(tab => [tab.textContent, '#' + getAttribute('aria-controls', tab)]);
+
+const getState = memoize(function getState (tab) {
+  return Array.of(tab.textContent, '#' + getAttribute('aria-controls', tab));
+});
+
+
+
+function historyPushState (tab) {
+  history.pushState({}, ...getState(tab));
+  return tab;
+}
+
+
+
+function historyReplaceState (tab) {
+  history.replaceState({}, ...getState(tab));
+  return tab;
+}
+
+
+
+
+
 /**
  *  @function toggleTab
  *
@@ -557,33 +581,8 @@ function setRoleAndLabelForPanel (tab) {
 
 
 
-
-
-
-
-// const getState = memoize(tab => [tab.textContent, '#' + getAttribute('aria-controls', tab)]);
-
-const getState = memoize(function getState (tab) {
-  return Array.of(tab.textContent, '#' + getAttribute('aria-controls', tab));
-});
-
-
-
-function historyPushState (tab) {
-  history.pushState({}, ...getState(tab));
-  return tab;
-}
-
-
-
-function historyReplaceState (tab) {
-  history.replaceState({}, ...getState(tab));
-  return tab;
-}
-
-
-
 const makeSelection = pipe(either(getPanelFromFragment, head), getTabFromPanel, historyReplaceState, toggleTab);
+
 
 
 
