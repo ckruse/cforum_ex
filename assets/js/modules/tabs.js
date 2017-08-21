@@ -260,6 +260,26 @@ const getPanelFromTab = memoize(pipe(getAttribute('aria-controls'), id));
  *  @function getPanelFromFragment
  *
  *
+ *  @summary
+ *
+ *  Finds a panel that is identified by an URL fragment.
+ *
+ *
+ *  @description
+ *
+ *
+ *
+ *
+ *  @param { Iterable } panels
+ *
+ *  A list of panels for comparsion.
+ *
+ *
+ *  @return { ? Element }
+ *
+ *  Either the found panel or null.
+ *
+ *
  *
  */
 const getPanelFromFragment = find(panel => equal(location.hash.slice(1), panel.id));
