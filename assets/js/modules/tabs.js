@@ -324,10 +324,24 @@ function handleHistoryChange (tabpanels) {
 
 
 
-// const getState = memoize(tab => [tab.textContent, '#' + getAttribute('aria-controls', tab)]);
-
-const getState = memoize(function getState (tab) {
-  return Array.of(tab.textContent, '#' + getAttribute('aria-controls', tab));
+/**
+ *  @function getState
+ *
+ *
+ *  @param { Element } tab
+ *
+ *  The tab to obtain arguments for the History API from.
+ *
+ *
+ *  @return { Array }
+ *
+ *  A list with arguments for the History API.
+ *
+ *
+ *
+ */
+const getState = memoize(function (tab) {
+  return [tab.textContent, '#' + getAttribute('aria-controls', tab)];
 });
 
 
