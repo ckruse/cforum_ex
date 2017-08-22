@@ -539,7 +539,7 @@ const toggleTab = pipe(toggleSelection, toggleTabIndex, getPanelFromTab, toggleH
  *
  *  @return { Element }
  *
- *  The tabpanel of the newly selected tab.
+ *  The panel of the newly selected tab.
  *
  *
  *
