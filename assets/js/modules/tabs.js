@@ -627,7 +627,7 @@ function switchTabs (tab) {
  */
 function setupTabInterface (template) {
   return compose(
-    both(handleHistoryChange, enableSelectedOrFirstTab), setupTabsAndPanels,
+    both(handleHistoryChange, makeInitialSelection), setupTabsAndPanels,
     insertTablist(template)
   );
 }
@@ -763,16 +763,76 @@ function setRoleAndLabelForPanel (tab) {
 
 
 /**
- *  @function enableSelectedOrFirstTab
+ *  @function determineActiveTab
+ *
+ *
+ *  @summary
+ *
+ *  Returns the tab that should be selected on page load.
+ *
+ *
+ *  @description
+ *
+ *  This function takes a list of tab panels and returns the tab
+ *  that should be initially selected. If the pages URL contains a
+ *  fragment from which an identifier for a panel can be retrieved,
+ *  then the tab associated with this panel will be returned, else
+ *  the tab that controls the first panel. This way the user can
+ *  directly link to content contained in the tab interface.
+ *
+ *
+ *  @param { Element [] } panels
+ *
+ *  The list of tab panels.
+ *
+ *
+ *  @return { Element }
+ *
+ *  An element representing a tab.
  *
  *
  *
  */
-const enableSelectedOrFirstTab = pipe(
-  compose(getTabFromPanel, either(getPanelFromFragment, head)),
-  historyReplaceState,
-  toggleTab
-);
+const determineActiveTab = pipe(either(getPanelFromFragment, head), getTabFromPanel);
+
+
+
+
+
+/**
+ *  @function makeInitialSelection
+ *
+ *
+ *  @summary
+ *
+ *  Enables the requested or first tab on page load.
+ *
+ *
+ *  @description
+ *
+ *  When setting up the tabs and panels, initially all tabs are
+ *  disabled. Now, this function is used to determine which of the
+ *  tab panels should be visible and to enable the corresponding tab.
+ *  In case the pages URL has a fragment whose identifier can be used
+ *  to determine the tab that should be selected, this tab will be
+ *  enabled, otherwise the first tab in the list. In addition, the
+ *  function historyReplaceState will be called to update the
+ *  entry in the browsers history.
+ *
+ *
+ *  @param { Element [] } panels
+ *
+ *  The list of tab panels.
+ *
+ *
+ *  @return { Element }
+ *
+ *  The panel controlled by the selected tab.
+ *
+ *
+ *
+ */
+const makeInitialSelection = pipe(determineActiveTab, historyReplaceState, toggleTab);
 
 
 
