@@ -151,10 +151,7 @@ import { id } from './selectors.js';
 function addTabBehavior (tab) {
   return bind(tab, {
 
-    click: pipe(
-      preventDefault, target,
-      unless(selected, pipe(historyPushState, switchTabs))
-    ),
+    click: pipe(preventDefault, target, unless(selected, pipe(historyPushState, switchTabs))),
 
     keydown: conditions([
 
@@ -770,11 +767,12 @@ const enableSelectedOrFirstTab = pipe(
  *
  *
  */
-const setupTabInterface = pipe(
-  insertTablist,
-  setupTabsAndPanels,
-  both(handleHistoryChange, enableSelectedOrFirstTab)
-);
+function setupTabInterface (template) {
+  return compose(
+    both(handleHistoryChange, enableSelectedOrFirstTab), setupTabsAndPanels,
+    insertTablist(template)
+  );
+}
 
 
 
