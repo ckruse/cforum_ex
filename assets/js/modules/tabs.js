@@ -54,9 +54,21 @@
 
 
 
-import { role, selected, toggleSelection } from './aria.js';
+import {
 
-import { hasHiddenAttribute } from './browser.js';
+  role,
+  selected,
+  toggleSelection
+
+} from './aria.js';
+
+
+
+import {
+
+  hasHiddenAttribute
+
+} from './browser.js';
 
 
 
@@ -90,9 +102,23 @@ import {
 
 
 
-import { compose, memoize, pipe } from './functional.js';
+import {
 
-import { find, head, transform } from './lists.js';
+  compose,
+  memoize,
+  pipe
+
+} from './functional.js';
+
+
+
+import {
+
+  find,
+  head,
+  transform
+
+} from './lists.js';
 
 
 
@@ -108,9 +134,20 @@ import {
 
 
 
-import { defined, equal } from './predicates.js';
+import {
 
-import { id } from './selectors.js';
+  defined,
+  equal
+
+} from './predicates.js';
+
+
+
+import {
+
+  id
+
+} from './selectors.js';
 
 
 
