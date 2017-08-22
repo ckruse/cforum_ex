@@ -312,9 +312,9 @@ const getPanelFromFragment = find(panel => equal(location.hash.slice(1), panel.i
  *  and selects the tab that matches the URLs fragment.
  *
  *
- *  @param { Iterable } tabpanels
+ *  @param { Iterable } panels
  *
- *  A list of tabpanels.
+ *  A list of tab panels.
  *
  *
  *  @return { Window }
@@ -324,11 +324,11 @@ const getPanelFromFragment = find(panel => equal(location.hash.slice(1), panel.i
  *
  *
  */
-function handleHistoryChange (tabpanels) {
+function handleHistoryChange (panels) {
   return bind(window, {
 
     popstate (event) {
-      when(defined, switchTabs, compose(getTabFromPanel, getPanelFromFragment, tabpanels));
+      when(defined, switchTabs, compose(getTabFromPanel, getPanelFromFragment, panels));
     }
 
   });
@@ -647,26 +647,28 @@ function insertTablist (template) {
  *
  *  @summary
  *
- *  Initializes the elements to serve as tabpanels.
+ *  Initializes the elements to serve as tab and panels.
  *
  *
  *  @description
  *
- *  This function takes a list of tabs and for each references
- *  the element that should be its associated tabpanel. It then
- *  assigns these elements the role tabpanel and labels them.
- *  After this transformation it hides all tabpanels except
- *  the first one setting the hidden attribute.
+ *  This function takes the tablist and returns an array with
+ *  tab panels. It registers event handlers for each tab and sets
+ *  roles and labels to the panels that are controlled by the tabs.
+ *  In addition, all panels will be disabled and made invisible by
+ *  setting the attribute hidden on them. In accordance with the
+ *  predefined tablist markup, all tabs and corresponding panels
+ *  will be disabled after calling this function.
  *
  *
- *  @param { Element [] } tabs
+ *  @param { Element } tablist
  *
- *  An array with tab elements.
+ *  The element that serves as tablist.
  *
  *
  *  @return { Element [] }
  *
- *  An array with elements transformed to tabpanels.
+ *  An array with elements transformed to tab panels.
  *
  *
  *
@@ -721,14 +723,18 @@ function setRoleAndLabelForPanel (tab) {
 
 
 
-const getInitialSelection = pipe(either(getPanelFromFragment, head), getTabFromPanel);
+/**
+ *  @function enableSelectedOrFirstTab
+ *
+ *
+ *
+ */
+const enableSelectedOrFirstTab = pipe(
+  compose(getTabFromPanel, either(getPanelFromFragment, head)),
+  historyReplaceState,
+  toggleTab
+);
 
-
-
-
-
-
-const makeSelection = pipe(getInitialSelection, historyReplaceState, toggleTab);
 
 
 
@@ -764,9 +770,11 @@ const makeSelection = pipe(getInitialSelection, historyReplaceState, toggleTab);
  *
  *
  */
-const setupTabInterface = pipe(insertTablist, setupTabsAndPanels, both(
-  handleHistoryChange, makeSelection
-));
+const setupTabInterface = pipe(
+  insertTablist,
+  setupTabsAndPanels,
+  both(handleHistoryChange, enableSelectedOrFirstTab)
+);
 
 
 
