@@ -698,7 +698,6 @@ function setupTabInterface (template) {
  */
 function insertTablist (template) {
   const tablist = template.content.firstElementChild;
-
   template.parentNode.replaceChild(tablist, template.previousElementSibling), template.remove();
   return tablist
 }
