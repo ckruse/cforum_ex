@@ -15,7 +15,7 @@
  *  presumed to be the previous element sibling of the template. After
  *  initialization the content of the tab panels can be accessed by
  *  selecting tabs from the tablist. Tab may also be directly
- *  referenced via the pages URL ands the browsers history.
+ *  referenced via the pages URL and the browsers history.
  *
  *
  *  @requires aria
