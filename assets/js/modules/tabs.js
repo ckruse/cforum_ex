@@ -849,13 +849,12 @@ const makeInitialSelection = pipe(determineActiveTab, historyReplaceState, toggl
  *
  *  @description
  *
- *  This function is executed When the DOM is fully loaded and
- *  parsed. It first checks if the hidden attribute is supported
- *  and then sets up the tab interface. In the future the feature
- *  check might be excluded, but we decided to keep it in for now
- *  to avoid having users be exposed to a dysfunctional interface.
- *  If the hidden attribute is not supported, the user has to
- *  use the fallback navigation.
+ *  This function is executed When the DOM is fully loaded and parsed.
+ *  It checks if the hidden attribute is supported and then sets up the
+ *  tab interface. In the future the feature check might be excluded, but
+ *  we decided to keep it in for now to avoid having users be exposed
+ *  to a dysfunctional interface. If the hidden attribute is not
+ *  supported, the user has to use the fallback navigation.
  *
  *
  *  @param { Event } event
