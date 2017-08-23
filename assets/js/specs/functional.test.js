@@ -471,15 +471,6 @@ tests.curry = function () {
   const { curry } = functional;
 
 
-  describe('when called without arguments', function () {
-
-    it('should return itself', function () {
-      expect(curry()).toBe(curry);
-    });
-
-  });
-
-
   describe('when called with one function argument', function () {
 
     it('should return a function', function () {
