@@ -219,13 +219,13 @@ export const branch = curry(function branch (predicate, whenTrue, whenFalse) {
  *
  *
  */
-export const complement = curry(function complement (predicate) {
+export function complement (predicate) {
 
   return curry(define(predicate.length, not.name + predicate.name, function () {
     return not(predicate.apply(this, arguments));
   }));
 
-});
+}
 
 
 
@@ -273,7 +273,7 @@ export const complement = curry(function complement (predicate) {
  *
  *
  */
-export const conditions = curry(function conditions (pairs) {
+export function conditions (pairs) {
 
   return function () {
     let result = false;
@@ -291,7 +291,7 @@ export const conditions = curry(function conditions (pairs) {
     return result;
   };
 
-});
+}
 
 
 
@@ -382,9 +382,9 @@ export const either = curry(function either (first, second) {
  *
  *
  */
-export const not = curry(function not (value) {
+export function not (value) {
   return !value;
-});
+}
 
 
 
