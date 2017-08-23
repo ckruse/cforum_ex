@@ -139,13 +139,13 @@ export const apply = curry(function apply (target, [...values]) {
  *
  *
  */
-export const binary = curry(function binary (target) {
+export function binary (target) {
 
   return curry(define(2, binary.name + target.name, function (first, second) {
     return target.call(this, first, second);
   }));
 
-});
+}
 
 
 
@@ -187,9 +187,9 @@ export const binary = curry(function binary (target) {
  *
  *
  */
-export const call = curry(function call (target, ...values) {
+export function call (target, ...values) {
   return target.apply(this, values);
-});
+}
 
 
 
@@ -272,9 +272,9 @@ export const compose = curry(function compose (outer, inner, value) {
  *
  *
  */
-export const constant = curry(function constant (value) {
+export function constant (value) {
   return () => value;
-});
+}
 
 
 
@@ -329,17 +329,12 @@ export const constant = curry(function constant (value) {
  */
 export function curry (target, list = []) {
 
-  if (target) {
+  return define(target.length - list.length, target.name, function () {
+    const values = list.concat([...arguments]);
 
-    return define(target.length - list.length, target.name, function () {
-      const values = list.concat([...arguments]);
+    return target.length <= values.length ? target.apply(this, values) : curry(target, values);
+  });
 
-      return target.length <= values.length ? target.apply(this, values) : curry(target, values);
-    });
-
-  }
-
-  return curry;
 }
 
 
@@ -534,13 +529,13 @@ export function falsy () {
  *
  *
  */
-export const flip = curry(function flip (target) {
+export function flip (target) {
 
   return curry(defineFrom(target, function () {
     return target.apply(this, [...arguments].reverse());
   }));
 
-});
+}
 
 
 
@@ -625,7 +620,7 @@ export const identity = curry(function identity (value) {
  *
  *
  */
-export const memoize = curry(function memoize (target) {
+export function memoize (target) {
   const cache = [];
 
   return curry(defineFrom(target, function () {
@@ -643,7 +638,7 @@ export const memoize = curry(function memoize (target) {
     return value;
   }));
 
-});
+}
 
 
 
@@ -703,14 +698,14 @@ export function nothing () {
  *
  *
  */
-export const once = curry(function once (target) {
+export function once (target) {
   let result, called = false;
 
   return curry(define(target.length, once.name + target.name, function () {
     return called ? result : (called = true, result = target.apply(this, arguments));
   }));
 
-});
+}
 
 
 
@@ -751,13 +746,13 @@ export const once = curry(function once (target) {
  *
  *
  */
-export const partial = curry(function partial (target, ...values) {
+export function partial (target, ...values) {
 
   return curry(define(target.length - values.length, target.name, function () {
     return target.apply(this, values.concat([...arguments]));
   }));
 
-});
+}
 
 
 
@@ -798,13 +793,13 @@ export const partial = curry(function partial (target, ...values) {
  *
  *
  */
-export const partialReversed = curry(function partialReversed (target, ...values) {
+export function partialReversed (target, ...values) {
 
   return curry(define(target.length - values.length, target.name, function () {
     return target.apply(this, [...arguments, ...values]);
   }));
 
-});
+}
 
 
 
@@ -850,7 +845,7 @@ export const partialReversed = curry(function partialReversed (target, ...values
  *
  *
  */
-export const pipe = curry(function pipe (start, ...list) {
+export function pipe (start, ...list) {
 
   return curry(define(start.length, pipe.name + start.name, function () {
     const initializer = start.apply(this, arguments);
@@ -858,7 +853,7 @@ export const pipe = curry(function pipe (start, ...list) {
     return list.length ? list.reduce((value, target) => target(value), initializer) : initializer;
   }));
 
-});
+}
 
 
 
@@ -1005,13 +1000,13 @@ export const substitute = curry(function (first, second, ...values) {
  *
  *
  */
-export const ternary = curry(function ternary (target) {
+export function ternary (target) {
 
   return curry(define(3, ternary.name + target.name, function (first, second, third) {
     return target.call(this, first, second, third);
   }));
 
-});
+}
 
 
 
@@ -1087,13 +1082,13 @@ export function truthy () {
  *
  *
  */
-export const unapply = curry(function unapply (target, length = 1) {
+export function unapply (target, length = 1) {
 
   return curry(define(length, target.name, function () {
     return target.call(this, [...arguments]);
   }));
 
-});
+}
 
 
 
@@ -1129,13 +1124,13 @@ export const unapply = curry(function unapply (target, length = 1) {
  *
  *
  */
-export const unary = curry(function unary (target) {
+export function unary (target) {
 
   return curry(define(1, unary.name + target.name, function (value) {
     return target.call(this, value);
   }));
 
-});
+}
 
 
 
