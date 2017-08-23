@@ -54,9 +54,9 @@ import { curry } from './functional.js';
  *
  *
  */
-export const array = curry(function array (value) {
+export function array (value) {
   return Array.isArray(value);
-});
+}
 
 
 
@@ -93,9 +93,9 @@ export const array = curry(function array (value) {
  *
  *
  */
-export const callable = curry(function callable (value) {
+export function callable (value) {
   return typeof value === 'function';
-});
+}
 
 
 
@@ -132,9 +132,9 @@ export const callable = curry(function callable (value) {
  *
  *
  */
-export const defined = curry(function defined (value) {
+export function defined (value) {
   return value != null;
-});
+}
 
 
 
@@ -387,9 +387,9 @@ export const lessThanOrEqual = curry(function lessThanOrEqual (first, second) {
  *
  *
  */
-export const map = curry(function map (value) {
+export function map (value) {
   return value instanceof Map;
-});
+}
 
 
 
@@ -425,9 +425,9 @@ export const map = curry(function map (value) {
  *
  *
  */
-export const object = curry(function object (value) {
+export function object (value) {
   return Object.prototype.toString.call(value).includes('Object');
-});
+}
 
 
 
@@ -464,6 +464,6 @@ export const object = curry(function object (value) {
  *
  *
  */
-export const string = curry(function string (value) {
+export function string (value) {
   return typeof value === 'string';
-});
+}
