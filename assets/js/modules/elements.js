@@ -66,9 +66,9 @@ import { equal } from './predicates.js';
  *
  *
  */
-export const children = curry(function children (parent) {
+export function children (parent) {
   return Array.from(parent.children);
-});
+}
 
 
 
@@ -105,9 +105,9 @@ export const children = curry(function children (parent) {
  *
  *
  */
-export const create = curry(function create (type) {
+export function create (type) {
   return document.createElement(type);
-});
+}
 
 
 
@@ -120,9 +120,9 @@ export const create = curry(function create (type) {
  *
  *
  */
-export const elementSiblings = curry(function elementSiblings (sibling) {
+export function elementSiblings (sibling) {
   return filter(complement(equal(sibling)), children(parentElement(sibling)));
-});
+}
 
 
 
@@ -158,9 +158,9 @@ export const elementSiblings = curry(function elementSiblings (sibling) {
  *
  *
  */
-export const firstElementChild = curry(function firstElementChild (parent) {
+export function firstElementChild (parent) {
   return parent.firstElementChild;
-});
+}
 
 
 
@@ -172,9 +172,9 @@ export const firstElementChild = curry(function firstElementChild (parent) {
  *
  *
  */
-export const firstElementSibling = curry(function firstElementSibling (sibling) {
+export function firstElementSibling (sibling) {
   return when(equal(sibling), nothing, compose(firstElementChild, parentElement, sibling));
-});
+}
 
 
 
@@ -210,9 +210,10 @@ export const firstElementSibling = curry(function firstElementSibling (sibling) 
  *
  *
  */
-export const focus = curry(function focus (element) {
-  return element.focus(), element;
-});
+export function focus (element) {
+  element.focus();
+  return element;
+}
 
 
 
@@ -343,9 +344,9 @@ export const hasAttribute = curry(function hasAttribute (name, element) {
  *
  *
  */
-export const lastElementChild = curry(function lastElementChild (parent) {
+export function lastElementChild (parent) {
   return parent.lastElementChild;
-});
+}
 
 
 
@@ -357,9 +358,9 @@ export const lastElementChild = curry(function lastElementChild (parent) {
  *
  *
  */
-export const lastElementSibling = curry(function lastElementSibling (sibling) {
+export function lastElementSibling (sibling) {
   return when(equal(sibling), nothing, compose(lastElementChild, parentElement, sibling));
-});
+}
 
 
 
@@ -395,9 +396,9 @@ export const lastElementSibling = curry(function lastElementSibling (sibling) {
  *
  *
  */
-export const nextElementSibling = curry(function nextElementSibling (sibling) {
+export function nextElementSibling (sibling) {
   return sibling.nextElementSibling;
-});
+}
 
 
 
@@ -433,9 +434,9 @@ export const nextElementSibling = curry(function nextElementSibling (sibling) {
  *
  *
  */
-export const parentElement = curry(function parentElement (child) {
+export function parentElement (child) {
   return child.parentElement;
-});
+}
 
 
 
@@ -512,9 +513,9 @@ export function parse (markup) {
  *
  *
  */
-export const previousElementSibling = curry(function previousElementSibling (sibling) {
+export function previousElementSibling (sibling) {
   return sibling.previousElementSibling;
-});
+}
 
 
 
@@ -654,9 +655,9 @@ export const setAttribute = curry(function setAttribute (name, value, element) {
  *
  *
  */
-export const toggleHiddenState = curry(function toggleHiddenState (element) {
+export function toggleHiddenState (element) {
   return element.hidden = not(element.hidden), element;
-});
+}
 
 
 
@@ -694,7 +695,7 @@ export const toggleHiddenState = curry(function toggleHiddenState (element) {
  *
  *
  */
-export const toggleTabIndex = curry(function toggleTabIndex (element) {
+export function toggleTabIndex (element) {
   element.tabIndex = not(equal(0, element.tabIndex)) ? 0 : -1;
   return element;
-});
+}
