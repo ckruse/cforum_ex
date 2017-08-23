@@ -155,9 +155,9 @@ export const append = curry(function append (value, list) {
  *
  *
  */
-export const entries = curry(function entries (data) {
+export function entries (data) {
   return callable(data.entries) ? Array.from(data.entries()) : Object.entries(data);
-});
+}
 
 
 
@@ -264,9 +264,9 @@ export const find = curry(function find (predicate, [...list]) {
  *
  *
  */
-export const flatten = curry(function flatten (list) {
+export function flatten (list) {
   return list.reduce((result, value) => result.concat(when(array, flatten, value)), []);
-});
+}
 
 
 
@@ -302,9 +302,9 @@ export const flatten = curry(function flatten (list) {
  *
  *
  */
-export const from = curry(function from ([...list]) {
+export function from ([...list]) {
   return list;
-});
+}
 
 
 
@@ -340,9 +340,9 @@ export const from = curry(function from ([...list]) {
  *
  *
  */
-export const head = curry(function head ([item]) {
+export function head ([item]) {
   return item;
-});
+}
 
 
 
@@ -379,9 +379,9 @@ export const head = curry(function head ([item]) {
  *
  *
  */
-export const init = curry(function init ([...list]) {
+export function init ([...list]) {
   return list.slice(0, list.length - 1);
-});
+}
 
 
 
@@ -424,9 +424,9 @@ export const init = curry(function init ([...list]) {
  *
  *
  */
-export const keys = curry(function keys (data) {
+export function keys (data) {
   return callable(data.keys) ? Array.from(data.keys()) : Object.keys(data);
-});
+}
 
 
 
@@ -464,9 +464,9 @@ export const keys = curry(function keys (data) {
  *
  *
  */
-export const length = curry(function length (list) {
+export function length (list) {
   return list.length;
-});
+}
 
 
 
@@ -537,9 +537,9 @@ export const pair = curry(function pair (first, second) {
  *
  *
  */
-export const peak = curry(function peak ([...list]) {
+export function peak ([...list]) {
   return list[list.length - 1];
-});
+}
 
 
 
@@ -682,9 +682,9 @@ export const reduce = curry(function reduce (reducer, accumulator, [...list]) {
  *
  *
  */
-export const tail = curry(function tail ([head, ...remainder]) {
+export function tail ([head, ...remainder]) {
   return remainder;
-});
+}
 
 
 
@@ -771,9 +771,9 @@ export const transform = curry(function transform (callback, [...list]) {
  *
  *
  */
-export const values = curry(function values (data) {
+export function values (data) {
   return callable(data.values) ? Array.from(data.values()) : Object.values(data);
-});
+}
 
 
 
