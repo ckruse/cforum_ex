@@ -4,6 +4,9 @@ defmodule Cforum.Forums.Message do
   @primary_key {:message_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :message_id}
 
+  @default_preloads [:user, :tags, votes: :voters]
+  def default_preloads, do: @default_preloads
+
   schema "messages" do
     field :upvotes, :integer
     field :downvotes, :integer

@@ -4,6 +4,9 @@ defmodule Cforum.Forums.Thread do
   @primary_key {:thread_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :thread_id}
 
+  def default_preloads, do: [:forum]
+  def default_preloads(:messages), do: [:forum, messages: Cforum.Forums.Message.default_preloads]
+
   schema "threads" do
     field :archived, :boolean, default: false
     field :tid, :integer
