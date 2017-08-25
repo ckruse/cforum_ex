@@ -59,6 +59,40 @@ defmodule Cforum.Forums.Threads do
   def get_thread!(id), do: Repo.get!(Thread, id)
 
   @doc """
+  Gets a single thread by its slug.
+
+  Raises `Ecto.NoResultsError` if the Thread does not exist.
+
+  ## Examples
+
+      iex> get_thread!("2017/08/25/foo-bar")
+      %Thread{}
+
+      iex> get_thread!("2017/08/32/non-existant")
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_thread_by_slug!(user, slug, opts) do
+    opts = Keyword.merge([predicate: nil, view_all: false, message_order: "ascending",
+                          hide_read_threads: false, only_wo_answer: false, thread_modifier: nil,
+                          use_paging: false], opts)
+
+    q = from(
+      thread in Thread,
+      where: thread.slug == ^slug,
+      preload: ^Thread.default_preloads(:messages)
+    )
+    ret = get_normal_threads(q, user, [desc: :created_at], 0, opts)
+
+    case ret do
+      {_, []} ->
+        raise Ecto.NoResultsError, queryable: q
+      {_, [thread]} ->
+        thread
+    end
+  end
+
+  @doc """
   Creates a thread.
 
   ## Examples
