@@ -15,6 +15,8 @@ defmodule Cforum.Forums.Messages do
   alias Cforum.Accounts.User
   alias Cforum.Accounts.Score
 
+  alias Cforum.Forums.Threads
+
   @doc """
   Returns the list of messages.
 
@@ -212,6 +214,37 @@ defmodule Cforum.Forums.Messages do
 
   """
   def get_message!(id), do: Repo.get!(Message, id)
+
+  @doc """
+  Loads a thread by its slug and searches for the message specified my `mid` in the thread tree. Sets things like
+  visited marks, etc, pp. Raises `Ecto.NoResultsError` when no thread or no message could be found.
+
+  ## Examples
+
+      iex> get_message_from_slug_and_mid!(%Forum{}, %User{}, "2009/08/25/foo-bar", 222)
+      {%Thread{}, %Message{}}
+
+      iex> get_message_from_slug_and_mid!(%Forum{}, %User{}, "2009/08/32/foo-bar", 222)
+      ** (Ecto.NoResultsError)
+  """
+  def get_message_from_slug_and_mid!(forum, user, slug, mid, opts \\ [])
+  def get_message_from_slug_and_mid!(forum, user, slug, mid, opts) when is_bitstring(mid) do
+    get_message_from_slug_and_mid!(forum, user, slug, String.to_integer(mid, 10), opts)
+  end
+  def get_message_from_slug_and_mid!(forum, user, slug, mid, opts) do
+    thread = Threads.get_thread_by_slug!(user, slug, opts)
+
+    if forum == nil || thread.forum_id != forum.forum_id do
+      raise Ecto.NoResultsError, queryable: Message
+    end
+
+    case Enum.find(thread.sorted_messages, &(&1.message_id == mid)) do
+      nil ->
+        raise Ecto.NoResultsError, queryable: Message
+      msg ->
+        {thread, msg}
+    end
+  end
 
   @doc """
   Creates a message.
