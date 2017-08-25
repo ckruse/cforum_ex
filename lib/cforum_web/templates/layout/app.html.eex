@@ -173,7 +173,7 @@
               <li><%= link @current_forum.name, to: thread_path(@conn, :index, @current_forum) %></li>
             <% end %>
 
-            <%= if assigns[:message] != nil && assigns[:thread] != nil && !@thread.new_record? do %>
+            <%= if assigns[:message] != nil && assigns[:thread] != nil && !blank?(@thread.thread_id) do %>
               <%= if @read_mode != "thread-view" do %>
                 <li><%= link(gettext("thread view"), to: "") %></li>
               <% else %>
@@ -193,7 +193,7 @@
               <% end %>
             <% end %>
 
-            <%= if assigns[:thread] != nil && !@thread.new_record? do %>
+            <%= if assigns[:thread] != nil && !blank?(@thread.thread_id) do %>
               <li id="nachricht-feed-atom"><%= link gettext("Atom feed"), to: "" %></li> <!-- TODO atom_url for thread -->
               <li id="nachricht-feed-rss"><%= link gettext("RSS feed"), to: "" %></li> <!-- TODO rss_url for thread -->
             <% end %>
