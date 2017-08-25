@@ -8,8 +8,6 @@ defmodule Cforum.Forums.Threads.Helper do
   import Cforum.Forums.Messages.IndexHelper
   import Ecto.Query
 
-  @default_message_preloads [:user, :tags, votes: :voters]
-
   defp set_forum_id(query, nil, nil), do: query
   defp set_forum_id(query, nil, visible_forums) when visible_forums != nil do
     fids = Enum.map(visible_forums, &(&1.forum_id))
@@ -93,10 +91,10 @@ defmodule Cforum.Forums.Threads.Helper do
   def get_sticky_threads(_, _, _, _, nil), do: []
 
   def get_sticky_threads(query, user, order, opts, true) do
-    from(thread in query, preload: :forum)
+    from(thread in query, preload: ^Thread.default_preloads)
     |> set_ordering(order)
     |> Repo.all()
-    |> Repo.preload(messages: {preload_messages(opts[:view_all]) |> order_messages(), @default_message_preloads})
+    |> Repo.preload(messages: {preload_messages(opts[:view_all]) |> order_messages(), Message.default_preloads})
     |> set_user_attributes(user)
     |> sort_threads(opts[:message_order], opts[:thread_modifier])
   end
@@ -128,10 +126,10 @@ defmodule Cforum.Forums.Threads.Helper do
     {all_threads_count, threads_query} = gen_normal_threads_query(threads_query, opts[:page],
       opts[:limit], sticky_len, opts[:use_paging])
 
-    threads = from(thread in threads_query, preload: :forum)
+    threads = from(thread in threads_query, preload: ^Thread.default_preloads)
     |> set_ordering(order)
     |> Repo.all()
-    |> Repo.preload(messages: {preload_messages(opts[:view_all]) |> order_messages(), @default_message_preloads})
+    |> Repo.preload(messages: {preload_messages(opts[:view_all]) |> order_messages(), Message.default_preloads})
     |> set_user_attributes(user)
     |> sort_threads(opts[:message_order], opts[:thread_modifier])
 
