@@ -87,6 +87,8 @@ defmodule CforumWeb.Router do
 
       get "/", ThreadController, :index
       resources "/tags", TagController
+
+      get "/:year/:month/:day/:slug/:mid", MessageController, :show
     end
   end
 

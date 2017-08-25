@@ -1,0 +1,18 @@
+<div class="posting-header">
+  <%= render(
+    "header.html", conn: @conn, thread: @thread, message: @message,
+    first: @first, do_parent: @do_parent, tree: false,
+    show_editor: true, author_link_to_message: false
+  ) %>
+
+  <%# if m.flags["no-answer"] != 'yes' && m.flags['no-answer-admin'] != 'yes' && controls == :yes && !m.deleted %>
+    <%# render 'votes_accept', m: m %>
+  <%# end %>
+</div>
+
+<%= unless blank?(@message.problematic_site) do %>
+  <p class="problematic-site"><%= link gettext("problematic site"), to: @message.problematic_site, rel: "nofollow" %></p>
+<% end %>
+<div class="posting-content<%= if @message.deleted, do: " deleted" %> e-content">
+  <%= Cforum.MarkdownRenderer.to_html(@message, assigns[:current_user]) %>
+</div>

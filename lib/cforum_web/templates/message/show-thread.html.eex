@@ -1,0 +1,24 @@
+<h1>
+  <span class="author block" id="posting-author"><%= @message.author %>:</span>
+  <span class="title" id="posting-title"><%= @message.subject %></span>
+</h1>
+
+<h2><%= gettext("read message") %></h2>
+
+<article class="thread-message <%= message_classes(@conn, @message, @thread, false) %> h-entry">
+  <%= render "message.html", Map.merge(assigns, %{first: true, do_parent: true}) %>
+</article>
+
+<div class="root">
+  <article class="thread posting <%= Enum.join(CforumWeb.ThreadView.thread_classes(@thread), " ") %>">
+    <%= render CforumWeb.MessageView, "header.html", conn: @conn, thread: @thread, message: @thread.tree, first: true, show_icons: true, id_prefix: "tree-" %>
+
+    <%= if !blank?(@thread.tree.messages) do %>
+      <%= CforumWeb.MessageView.message_tree(
+            @conn, @thread, @thread.tree, @thread.tree.messages, show_icons: true,
+            hide_repeating_subjects: uconf(@conn, "hide_subjects_unchanged") == "yes",
+            hide_repeating_tags: uconf(@conn, "hide_repeating_tags") == "yes",
+            id_prefix: "tree-", parent_subscribed: @thread.message.attribs[:is_subscribed]) %>
+    <% end %>
+  </article>
+</div>
