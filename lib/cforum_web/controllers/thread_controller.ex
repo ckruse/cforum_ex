@@ -3,8 +3,6 @@ defmodule CforumWeb.ThreadController do
 
   alias Cforum.Forums.Threads
 
-  import Cforum.ConfigManager
-
   def index(conn, params) do
     page = if blank?(params[:p]) || String.to_integer(params[:p]) <= 0,
              do: 0,
