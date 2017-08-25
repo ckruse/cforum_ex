@@ -46,6 +46,8 @@ defmodule Cforum.Mixfile do
      {:timex_ecto, "~> 3.0"},
      {:arc_ecto, "~> 0.7"},
      {:arc, "~> 0.7"},
+     {:poolboy, "~> 1.5.1"},
+     {:porcelain, "~> 2.0"},
 
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:ex_guard, "~> 1.2", only: :dev},

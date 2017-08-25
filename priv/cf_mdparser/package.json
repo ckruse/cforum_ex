@@ -1,0 +1,14 @@
+{
+  "name": "cf_mdparser",
+  "version": "0.0.1",
+  "description": "Long-running process to parse and render markdown in CForum style",
+  "main": "cf_mdparser.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Christian Kruse <christian@kruse.cool>",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "commonmark": "git+https://github.com/ckruse/commonmark.js.git"
+  }
+}
