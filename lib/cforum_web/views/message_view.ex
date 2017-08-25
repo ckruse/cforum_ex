@@ -45,11 +45,8 @@ defmodule CforumWeb.MessageView do
     [{:safe, "<ol>"} | [parts | {:safe, "</ol>"}]]
   end
 
-  def message_date_format(conn, opts) do
-    if opts[:tree] do
-      date_format(conn, "date_format_index") # TODO+ day_changed_key(message))
-    else
-      date_format(conn, "date_format_post")
+  def message_date_format(conn, true), do: date_format(conn, "date_format_index") # TODO+ day_changed_key(message))
+  def message_date_format(conn, false), do: date_format(conn, "date_format_post")
     end
   end
 end
