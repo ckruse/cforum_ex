@@ -84,6 +84,7 @@ import {
 
   bind,
   key,
+  modified
   preventDefault,
   ready,
   target
@@ -573,9 +574,11 @@ const toggleTab = pipe(toggleSelection, toggleTabIndex, getPanelFromTab, toggleH
  *
  */
 function switchTo (selector) {
-  return pipe(
-    preventDefault, target,
-    selector, when(defined, pipe(historyPushState, switchTabs))
+  return unless(
+    modified, pipe(
+      preventDefault, target,
+      selector, when(defined, pipe(historyPushState, switchTabs))
+    )
   );
 }
 
