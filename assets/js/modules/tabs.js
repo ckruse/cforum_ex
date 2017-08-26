@@ -84,7 +84,7 @@ import {
 
   bind,
   key,
-  modified
+  modified,
   preventDefault,
   ready,
   target
