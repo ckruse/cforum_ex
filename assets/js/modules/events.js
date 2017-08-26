@@ -159,6 +159,22 @@ export const key = curry(function key (name, event) {
 
 
 /**
+ *  @function modified
+ *
+ *  Predicate to test if a modifier key was pressed.
+ *
+ *
+ *
+ */
+export function modified (event) {
+  return ['altKey', 'ctrlKey', 'metaKey', 'shiftKey'].some(key => event[key]);
+}
+
+
+
+
+
+/**
  *  @function on
  *
  *
