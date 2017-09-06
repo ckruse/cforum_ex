@@ -93,9 +93,7 @@ export function array (value) {
  *
  *
  */
-export function callable (value) {
-  return typeof value === 'function';
-}
+export const callable = value => typeof value === 'function';
 
 
 
