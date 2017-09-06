@@ -54,9 +54,7 @@ import { curry } from './functional.js';
  *
  *
  */
-export function array (value) {
-  return Array.isArray(value);
-}
+export const array = value => Array.isArray(value);
 
 
 
