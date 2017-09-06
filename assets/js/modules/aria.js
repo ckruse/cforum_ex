@@ -64,9 +64,7 @@ export const role = setAttribute('role');
  *
  *
  */
-export function selected (element) {
-  return equal(element.getAttribute('aria-selected'), 'true');
-}
+export const selected = pipe(getAttribute('aria-selected'), equal('true'));
 
 
 
