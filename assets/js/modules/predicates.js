@@ -132,9 +132,7 @@ export function callable (value) {
  *
  *
  */
-export function defined (value) {
-  return value != null;
-}
+export const defined = value => value != null;
 
 
 
