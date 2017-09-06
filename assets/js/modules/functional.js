@@ -567,9 +567,7 @@ export function flip (target) {
  *
  *
  */
-export const identity = curry(function identity (value) {
-  return value;
-});
+export const identity = value => value;
 
 
 
