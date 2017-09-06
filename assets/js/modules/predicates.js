@@ -454,6 +454,4 @@ export const object = value => Object.prototype.toString.call(value).includes('O
  *
  *
  */
-export function string (value) {
-  return typeof value === 'string';
-}
+export const string = value => typeof value === 'string';
