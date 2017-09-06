@@ -489,9 +489,7 @@ export const defineFrom = curry(function defineFrom (source, target) {
  *
  *
  */
-export function falsy () {
-  return false;
-}
+export const falsy = () => false;
 
 
 
