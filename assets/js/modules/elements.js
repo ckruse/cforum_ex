@@ -158,9 +158,7 @@ export function elementSiblings (sibling) {
  *
  *
  */
-export function firstElementChild (parent) {
-  return parent.firstElementChild;
-}
+export const firstElementChild = parent => parent.firstElementChild;
 
 
 
