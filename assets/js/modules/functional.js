@@ -1029,9 +1029,7 @@ export function ternary (target) {
  *
  *
  */
-export function truthy () {
-  return true;
-}
+export const truthy = () => true;
 
 
 
