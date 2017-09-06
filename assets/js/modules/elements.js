@@ -105,9 +105,7 @@ export function children (parent) {
  *
  *
  */
-export function create (type) {
-  return document.createElement(type);
-}
+export const create = type => document.createElement(type);
 
 
 
