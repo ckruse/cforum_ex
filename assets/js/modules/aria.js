@@ -16,7 +16,7 @@
 
 
 
-import { getAttribute } from './elements.js';
+import { getAttribute, setAttribute } from './elements.js';
 
 import { curry, pipe } from './functional.js';
 
