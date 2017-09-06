@@ -654,9 +654,7 @@ export function memoize (target) {
  *
  *
  */
-export function nothing () {
-  return null;
-}
+export const nothing = () => null;
 
 
 
