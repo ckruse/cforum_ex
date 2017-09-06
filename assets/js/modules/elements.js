@@ -66,9 +66,7 @@ import { equal } from './predicates.js';
  *
  *
  */
-export function children (parent) {
-  return Array.from(parent.children);
-}
+export const children = parent => Array.from(parent.children);
 
 
 
