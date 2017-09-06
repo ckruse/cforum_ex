@@ -368,6 +368,4 @@ export const stopPropagation = event => (event.stopPropagation(), event);
  *
  *
  */
-export function target (event) {
-  return event.target;
-}
+export const target = event => event.target;
