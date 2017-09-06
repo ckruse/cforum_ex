@@ -330,10 +330,7 @@ export const ready = on(window, 'DOMContentLoaded');
  *
  *
  */
-export function stopPropagation (event) {
-  event.stopPropagation();
-  return event;
-}
+export const stopPropagation = event => (event.stopPropagation(), event);
 
 
 
