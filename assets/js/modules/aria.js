@@ -16,7 +16,9 @@
 
 
 
-import { curry } from './functional.js';
+import { getAttribute } from './elements.js';
+
+import { curry, pipe } from './functional.js';
 
 import { equal } from './predicates.js';
 
@@ -30,11 +32,15 @@ import { id } from './selectors.js';
  *  @function controls
  *
  *
+ *  @param { Element } element
+ *
+ *
+ *  @return { Element }
+ *
+ *
  *
  */
-export function controls (element) {
-  return id(element.getAttribute('aria-controls'));
-}
+export const controls = pipe(getAttribute('aria-controls'), id);
 
 
 
