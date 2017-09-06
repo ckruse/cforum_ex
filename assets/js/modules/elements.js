@@ -210,10 +210,7 @@ export function firstElementSibling (sibling) {
  *
  *
  */
-export function focus (element) {
-  element.focus();
-  return element;
-}
+export const focus = element => (element.focus(), element);
 
 
 
