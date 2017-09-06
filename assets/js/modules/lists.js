@@ -464,9 +464,7 @@ export function keys (data) {
  *
  *
  */
-export function length (list) {
-  return list.length;
-}
+export const length = list => list.length;
 
 
 
