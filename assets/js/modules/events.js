@@ -292,9 +292,7 @@ export const preventDefault = event => (event.preventDefault(), event);
  *
  *
  */
-export function ready (callback) {
-  window.addEventListener('DOMContentLoaded', callback);
-}
+export const ready = on(window, 'DOMContentLoaded');
 
 
 
