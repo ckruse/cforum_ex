@@ -261,10 +261,7 @@ export const on = curry(function (context, type, callback, options = false) {
  *
  *
  */
-export function preventDefault (event) {
-  event.preventDefault();
-  return event;
-}
+export const preventDefault = event => (event.preventDefault(), event);
 
 
 
