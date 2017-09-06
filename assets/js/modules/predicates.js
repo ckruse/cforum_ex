@@ -381,9 +381,7 @@ export const lessThanOrEqual = curry(function lessThanOrEqual (first, second) {
  *
  *
  */
-export function map (value) {
-  return value instanceof Map;
-}
+export const map = value => value instanceof Map;
 
 
 
