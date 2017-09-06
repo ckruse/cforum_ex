@@ -78,6 +78,5 @@ export const selected = pipe(getAttribute('aria-selected'), equal('true'));
  *
  */
 export function toggleSelection (element) {
-  element.setAttribute('aria-selected', selected(element) ? 'false' : 'true');
-  return element;
+  return setAttribute('aria-selected', selected(element) ? 'false' : 'true', element);
 }
