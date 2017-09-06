@@ -417,9 +417,7 @@ export const map = value => value instanceof Map;
  *
  *
  */
-export function object (value) {
-  return Object.prototype.toString.call(value).includes('Object');
-}
+export const object = value => Object.prototype.toString.call(value).includes('Object');
 
 
 
