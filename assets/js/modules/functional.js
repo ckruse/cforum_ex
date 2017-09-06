@@ -272,9 +272,7 @@ export const compose = curry(function compose (outer, inner, value) {
  *
  *
  */
-export function constant (value) {
-  return () => value;
-}
+export const constant = value => () => value;
 
 
 
