@@ -52,10 +52,7 @@ export const controls = pipe(getAttribute('aria-controls'), id);
  *
  *
  */
-export const role = curry(function role (value, element) {
-  element.setAttribute('role', value);
-  return element;
-})
+export const role = setAttribute('role');
 
 
 
