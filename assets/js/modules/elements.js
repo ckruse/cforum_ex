@@ -513,9 +513,7 @@ export function parse (markup) {
  *
  *
  */
-export function previousElementSibling (sibling) {
-  return sibling.previousElementSibling;
-}
+export const previousElementSibling = sibling => sibling.previousElementSibling;
 
 
 
