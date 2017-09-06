@@ -382,9 +382,7 @@ export const either = curry(function either (first, second) {
  *
  *
  */
-export function not (value) {
-  return !value;
-}
+export const not = value => !value;
 
 
 
