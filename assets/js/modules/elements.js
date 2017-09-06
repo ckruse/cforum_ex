@@ -396,9 +396,7 @@ export function lastElementSibling (sibling) {
  *
  *
  */
-export function nextElementSibling (sibling) {
-  return sibling.nextElementSibling;
-}
+export const nextElementSibling = sibling => sibling.nextElementSibling;
 
 
 
