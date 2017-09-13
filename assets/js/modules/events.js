@@ -166,9 +166,7 @@ export const key = curry(function key (name, event) {
  *
  *
  */
-export function modified (event) {
-  return ['altKey', 'ctrlKey', 'metaKey', 'shiftKey'].some(key => event[key]);
-}
+export const modified = event => event.altKey || event.ctrlKey || event.metaKey || event.shiftKey;
 
 
 
