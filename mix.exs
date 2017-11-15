@@ -30,32 +30,31 @@ defmodule Cforum.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.3.0-rc"},
-     {:phoenix_pubsub, "~> 1.0"},
-     {:phoenix_ecto, "~> 3.2"},
-     {:postgrex, ">= 0.0.0"},
-     {:phoenix_html, "~> 2.10"},
-     {:gettext, "~> 0.11"},
-     {:cowboy, "~> 1.0"},
-
-     {:comeonin, "~> 3.0"},
-     {:number, "~> 0.5.1"},
-     {:bamboo, "~> 0.8"},
-     {:bamboo_smtp, "~> 1.3.0"},
-     {:timex, "~> 3.0"},
-     {:timex_ecto, "~> 3.0"},
-     {:arc_ecto, "~> 0.7"},
-     {:arc, "~> 0.7"},
-     {:poolboy, "~> 1.5.1"},
-     {:porcelain, "~> 2.0"},
-
-     {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:ex_guard, "~> 1.2", only: :dev},
-     {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
-
-     {:coverex, "~> 1.4.10", only: :test},
-     {:ex_machina, "~> 2.0", only: :test},
-     {:faker, "~> 0.8", only: :test}]
+    [
+      {:phoenix, "~> 1.3.0"},
+      {:phoenix_pubsub, "~> 1.0"},
+      {:phoenix_ecto, "~> 3.2"},
+      {:postgrex, ">= 0.0.0"},
+      {:phoenix_html, "~> 2.10"},
+      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:gettext, "~> 0.11"},
+      {:cowboy, "~> 1.0"},
+      {:comeonin, "~> 4.0"},
+      {:bcrypt_elixir, "~> 0.12"},
+      {:number, "~> 0.5.1"},
+      {:bamboo, "~> 0.8"},
+      {:bamboo_smtp, "~> 1.4.0"},
+      {:timex, "~> 3.1"},
+      {:timex_ecto, "~> 3.2"},
+      {:arc_ecto, "~> 0.7"},
+      {:arc, "~> 0.8"},
+      {:poolboy, "~> 1.5.1"},
+      {:porcelain, "~> 2.0"},
+      {:ex_guard, "~> 1.3", only: :dev},
+      {:coverex, "~> 1.4.15", only: :test},
+      {:ex_machina, "~> 2.1", only: :test},
+      {:faker, "~> 0.9", only: :test}
+    ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
