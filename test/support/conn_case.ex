@@ -29,11 +29,11 @@ defmodule CforumWeb.ConnCase do
       # The default endpoint for testing
       @endpoint CforumWeb.Endpoint
 
-
       # We need a way to get into the connection to login a user
       # We need to use the bypass_through to fire the plugs in the router
       # and get the session fetched.
       def login(%Cforum.Accounts.User{} = user), do: login(build_conn(), user)
+
       def login(%Plug.Conn{} = conn, user) do
         conn
         |> init_test_session(user_id: user.user_id)

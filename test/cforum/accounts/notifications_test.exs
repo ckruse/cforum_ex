@@ -9,7 +9,7 @@ defmodule Cforum.Accounts.NotificationsTest do
     notifications = Notifications.list_notifications(notification.recipient)
     assert length(notifications) == 1
     assert [%Notification{}] = notifications
-    assert Enum.map(notifications, &(&1.notification_id)) == [notification.notification_id]
+    assert Enum.map(notifications, & &1.notification_id) == [notification.notification_id]
   end
 
   test "get_notification!/1 returns the notification with given id" do

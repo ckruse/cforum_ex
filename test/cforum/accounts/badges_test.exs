@@ -6,10 +6,10 @@ defmodule Cforum.Accounts.BadgesTest do
 
   test "list_badges/2 returns all badges" do
     badge = insert(:badge)
-    badges = Badges.list_badges
+    badges = Badges.list_badges()
     assert length(badges) == 1
     assert [%Badge{}] = badges
-    assert Enum.map(badges, &(&1.badge_id)) == [badge.badge_id]
+    assert Enum.map(badges, & &1.badge_id) == [badge.badge_id]
   end
 
   test "get_badge!/1 returns the badge with given id" do

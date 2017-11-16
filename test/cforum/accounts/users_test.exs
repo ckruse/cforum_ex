@@ -16,7 +16,7 @@ defmodule Cforum.Accounts.UsersTest do
     users = Users.list_users()
     assert length(users) == 1
     assert [%User{}] = users
-    assert Enum.map(users, &(&1.user_id)) == [user.user_id]
+    assert Enum.map(users, & &1.user_id) == [user.user_id]
   end
 
   test "get_user! returns the user with given id" do
@@ -129,18 +129,22 @@ defmodule Cforum.Accounts.UsersTest do
   end
 
   test "conf will return default values for nil user" do
-    assert Users.conf(nil, "pagination") == Cforum.ConfigManager.defaults["pagination"]
+    assert Users.conf(nil, "pagination") == Cforum.ConfigManager.defaults()["pagination"]
   end
 
   test "conf will return default values for user w/o settings" do
-    user = insert(:user)
-    |> Repo.preload(:settings)
-    assert Users.conf(user, "pagination") == Cforum.ConfigManager.defaults["pagination"]
+    user =
+      insert(:user)
+      |> Repo.preload(:settings)
+
+    assert Users.conf(user, "pagination") == Cforum.ConfigManager.defaults()["pagination"]
   end
 
   test "conf will return settings for user with a settings object" do
-    user = %User{build(:user) | settings: %Setting{options: %{"pagination" => "60"}}}
-    |> insert
+    user =
+      %User{build(:user) | settings: %Setting{options: %{"pagination" => "60"}}}
+      |> insert
+
     u = Users.get_user!(user.user_id)
     assert Users.conf(u, "pagination") == "60"
   end
@@ -151,7 +155,7 @@ defmodule Cforum.Accounts.UsersTest do
   end
 
   test "moderator? returns true for users with moderator badge" do
-    badge = build(:badge, badge_type: Badge.moderator_tools)
+    badge = build(:badge, badge_type: Badge.moderator_tools())
     user = build(:user, badges: [badge])
     assert Users.moderator?(user) == true
   end
@@ -159,7 +163,7 @@ defmodule Cforum.Accounts.UsersTest do
   test "moderator? returns true for users with a moderator permission" do
     user = insert(:user, badges: [])
     group = insert(:group, users: [user])
-    insert(:forum_group_permission, permission: ForumGroupPermission.moderate, group: group)
+    insert(:forum_group_permission, permission: ForumGroupPermission.moderate(), group: group)
 
     assert Users.moderator?(user) == true
   end
@@ -169,7 +173,7 @@ defmodule Cforum.Accounts.UsersTest do
     assert Users.moderator?(user) == false
 
     group = insert(:group, users: [user])
-    insert(:forum_group_permission, permission: ForumGroupPermission.read, group: group)
+    insert(:forum_group_permission, permission: ForumGroupPermission.read(), group: group)
     assert Users.moderator?(user) == false
   end
 end
