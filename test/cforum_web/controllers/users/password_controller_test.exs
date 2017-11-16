@@ -46,7 +46,7 @@ defmodule CforumWeb.Users.PasswordControllerTest do
     user = insert(:user)
     conn = get(conn, user_password_path(conn, :edit, user))
 
-    assert redirected_to(conn) == session_path(conn, :new)
+    assert redirected_to(conn, 403) == session_path(conn, :new)
     assert get_flash(conn, :error) == gettext("You don't have access to this page!")
   end
 

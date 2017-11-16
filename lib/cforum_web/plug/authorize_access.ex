@@ -37,6 +37,7 @@ defmodule CforumWeb.Plug.AuthorizeAccess do
 
       conn
       |> Phoenix.Controller.put_flash(:error, gettext("You don't have access to this page!"))
+      |> Plug.Conn.put_status(403)
       |> Phoenix.Controller.redirect(to: session_path(conn, :new))
       |> Plug.Conn.halt()
     end
