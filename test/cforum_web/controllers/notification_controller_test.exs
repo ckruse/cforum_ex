@@ -16,7 +16,7 @@ defmodule CforumWeb.NotificationControllerTest do
   end
 
   test "redirects to notification ressource when showing", %{conn: conn, user: user} do
-    notification = insert(:notification)
+    notification = insert(:notification, recipient: user)
 
     conn =
       login(conn, user)
@@ -33,7 +33,7 @@ defmodule CforumWeb.NotificationControllerTest do
   end
 
   test "marks a notification as unread", %{conn: conn, user: user} do
-    notification = insert(:notification, is_read: true)
+    notification = insert(:notification, is_read: true, recipient: user)
 
     conn =
       login(conn, user)
@@ -45,7 +45,7 @@ defmodule CforumWeb.NotificationControllerTest do
   end
 
   test "deletes chosen resource", %{conn: conn, user: user} do
-    notification = insert(:notification)
+    notification = insert(:notification, recipient: user)
 
     conn =
       login(conn, user)
@@ -53,5 +53,15 @@ defmodule CforumWeb.NotificationControllerTest do
 
     assert redirected_to(conn) == notification_path(conn, :index)
     assert_raise Ecto.NoResultsError, fn -> Notifications.get_notification!(notification.notification_id) end
+  end
+
+  test "ensure that one can't access foreign notifications", %{conn: conn, user: user} do
+    notification = insert(:notification)
+
+    conn =
+      login(conn, user)
+      |> get(notification_path(conn, :show, notification))
+
+    assert response(conn, 403)
   end
 end

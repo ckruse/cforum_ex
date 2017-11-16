@@ -2,6 +2,7 @@ defmodule CforumWeb.NotificationController do
   use CforumWeb, :controller
 
   alias Cforum.Accounts.Notifications
+  alias Cforum.Accounts.Notification
 
   plug(:check_access)
 
@@ -53,14 +54,20 @@ defmodule CforumWeb.NotificationController do
     |> redirect(to: notification_path(conn, :index))
   end
 
+  defp check_access(conn, %Notification{} = notification) do
+    if conn.assigns[:current_user] == nil || conn.assigns[:current_user].user_id != notification.recipient_id,
+      do: CforumWeb.ErrorHandler.access_forbidden(conn, nil),
+      else: assign(conn, :notification, notification)
+  end
+
   defp check_access(%Plug.Conn{params: %{"id" => id}} = conn, _) do
     notification = Notifications.get_notification!(id)
+    check_access(conn, notification)
+  end
 
-    if conn.assigns[:current_user] == nil || conn.assigns[:current_user].user_id != notification.recipient_id do
-      CforumWeb.ErrorHandler.access_forbidden(conn, nil)
-    else
-      assign(conn, :notification, notification)
-    end
+  defp check_access(%Plug.Conn{params: %{"notification_id" => id}} = conn, _) do
+    notification = Notifications.get_notification!(id)
+    check_access(conn, notification)
   end
 
   defp check_access(conn, _), do: conn
