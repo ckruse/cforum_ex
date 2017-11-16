@@ -9,7 +9,7 @@ defmodule Cforum.Accounts.SettingsTest do
     settings = Settings.list_settings(setting.user)
     assert length(settings) == 1
     assert [%Setting{}] = settings
-    assert Enum.map(settings, &(&1.setting_id)) == [setting.setting_id]
+    assert Enum.map(settings, & &1.setting_id) == [setting.setting_id]
   end
 
   test "get_setting!/1 returns the setting with given id" do

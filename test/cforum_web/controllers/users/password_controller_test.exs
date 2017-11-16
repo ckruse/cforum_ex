@@ -24,7 +24,7 @@ defmodule CforumWeb.Users.PasswordControllerTest do
     user = insert(:user)
     post(conn, password_path(conn, :create), user: %{login: user.username})
     user1 = Users.get_user!(user.user_id)
-    assert_delivered_email CforumWeb.UserMailer.reset_password_mail(user1)
+    assert_delivered_email(CforumWeb.UserMailer.reset_password_mail(user1))
   end
 
   test "renders reset instruction form when user could not be found", %{conn: conn} do
@@ -34,8 +34,10 @@ defmodule CforumWeb.Users.PasswordControllerTest do
 
   test "renders password form for logged in users", %{conn: conn} do
     user = insert(:user)
-    conn = login(conn, user)
-    |> get(user_password_path(conn, :edit, user))
+
+    conn =
+      login(conn, user)
+      |> get(user_password_path(conn, :edit, user))
 
     assert html_response(conn, 200) =~ gettext("change password")
   end
@@ -50,8 +52,10 @@ defmodule CforumWeb.Users.PasswordControllerTest do
 
   test "changes password", %{conn: conn} do
     user = insert(:user, encrypted_password: "1234")
-    conn = login(conn, user)
-    |> put(user_password_path(conn, :update, user), user: %{password: "111", password_confirmation: "111"})
+
+    conn =
+      login(conn, user)
+      |> put(user_password_path(conn, :update, user), user: %{password: "111", password_confirmation: "111"})
 
     u1 = Users.get_user!(user.user_id)
 
@@ -62,8 +66,10 @@ defmodule CforumWeb.Users.PasswordControllerTest do
 
   test "does not change password when confirmation does not match", %{conn: conn} do
     user = insert(:user, encrypted_password: "1234")
-    conn = login(conn, user)
-    |> put(user_password_path(conn, :update, user), user: %{password: "111", password_confirmation: "222"})
+
+    conn =
+      login(conn, user)
+      |> put(user_password_path(conn, :update, user), user: %{password: "111", password_confirmation: "222"})
 
     u1 = Users.get_user!(user.user_id)
 

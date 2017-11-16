@@ -9,7 +9,7 @@ defmodule Cforum.Accounts.PrivMessagesTest do
     priv_messages = PrivMessages.list_priv_messages()
     assert length(priv_messages) == 1
     assert [%PrivMessage{}] = priv_messages
-    assert Enum.map(priv_messages, &(&1.priv_message_id)) == [priv_message.priv_message_id]
+    assert Enum.map(priv_messages, & &1.priv_message_id) == [priv_message.priv_message_id]
   end
 
   test "get_priv_message!/1 returns the priv_message with given id" do

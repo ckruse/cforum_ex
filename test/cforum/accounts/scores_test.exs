@@ -9,7 +9,7 @@ defmodule Cforum.Accounts.ScoresTest do
     scores = Scores.list_scores(score.user)
     assert length(scores) == 1
     assert [%Score{}] = scores
-    assert Enum.map(scores, &(&1.score_id)) == [score.score_id]
+    assert Enum.map(scores, & &1.score_id) == [score.score_id]
   end
 
   test "get_score!/1 returns the score with given id" do

@@ -4,10 +4,12 @@ defmodule Cforum.ForumGroupPermissionFactory do
       alias Cforum.Accounts.ForumGroupPermission
 
       def forum_group_permission_factory do
-        %ForumGroupPermission{permission: "read",
-                              forum: build(:forum),
-                              group: build(:group)}
+        %ForumGroupPermission{permission: "read", forum: build(:forum), group: build(:group)}
       end
-    end # quote
-  end # defmacro
+    end
+
+    # quote
+  end
+
+  # defmacro
 end
