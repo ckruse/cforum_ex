@@ -21,6 +21,7 @@ defmodule CforumWeb.TagController do
         conn
         |> put_flash(:info, "Tag created successfully.")
         |> redirect(to: tag_path(conn, :index, conn.assigns[:current_forum]))
+
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -46,6 +47,7 @@ defmodule CforumWeb.TagController do
         conn
         |> put_flash(:info, "Tag updated successfully.")
         |> redirect(to: tag_path(conn, :show, conn.assigns[:current_forum], tag))
+
       {:error, changeset} ->
         render(conn, "edit.html", tag: tag, changeset: changeset)
     end

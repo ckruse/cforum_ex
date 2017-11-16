@@ -21,6 +21,7 @@ defmodule CforumWeb.BadgeController do
         conn
         |> put_flash(:info, "Badge created successfully.")
         |> redirect(to: badge_path(conn, :index, conn.assigns[:current_forum]))
+
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -46,6 +47,7 @@ defmodule CforumWeb.BadgeController do
         conn
         |> put_flash(:info, "Badge updated successfully.")
         |> redirect(to: badge_path(conn, :show, conn.assigns[:current_forum], badge))
+
       {:error, changeset} ->
         render(conn, "edit.html", badge: badge, changeset: changeset)
     end

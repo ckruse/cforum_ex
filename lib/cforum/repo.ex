@@ -3,8 +3,9 @@ defmodule Cforum.Repo do
   import Ecto.Query, warn: false
 
   def exists?(queryable) do
-    query = Ecto.Query.from(x in queryable, select: 1, limit: 1)
-    |> Ecto.Queryable.to_query
+    query =
+      Ecto.Query.from(x in queryable, select: 1, limit: 1)
+      |> Ecto.Queryable.to_query()
 
     case all(query) do
       [1] -> true

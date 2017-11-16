@@ -40,24 +40,35 @@ defmodule Cforum.Accounts.Badge do
   @seo_profi "seo_profi"
   def seo_profi, do: @seo_profi
 
-  @badge_types [@upvote, @downvote, @flag,
-                @retag, @visit_close_reopen, @create_tags,
-                @create_tag_synonym, @edit_question, @edit_answer,
-                @create_close_reopen_vote, @moderator_tools, @seo_profi, "custom"]
+  @badge_types [
+    @upvote,
+    @downvote,
+    @flag,
+    @retag,
+    @visit_close_reopen,
+    @create_tags,
+    @create_tag_synonym,
+    @edit_question,
+    @edit_answer,
+    @create_close_reopen_vote,
+    @moderator_tools,
+    @seo_profi,
+    "custom"
+  ]
 
   @badge_medal_types ~w[bronze silver gold]
 
   schema "badges" do
-    field :score_needed, :integer
-    field :name, :string
-    field :description, :string
-    field :slug, :string
-    field :badge_medal_type, :string
-    field :badge_type, :string
-    field :order, :integer
+    field(:score_needed, :integer)
+    field(:name, :string)
+    field(:description, :string)
+    field(:slug, :string)
+    field(:badge_medal_type, :string)
+    field(:badge_type, :string)
+    field(:order, :integer)
 
-    has_many :badges_users, Cforum.Accounts.BadgeUser, foreign_key: :badge_id
-    has_many :users, through: [:badges_users, :user]
+    has_many(:badges_users, Cforum.Accounts.BadgeUser, foreign_key: :badge_id)
+    has_many(:users, through: [:badges_users, :user])
 
     timestamps(inserted_at: :created_at)
   end
@@ -67,8 +78,7 @@ defmodule Cforum.Accounts.Badge do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:score_needed, :name, :description, :slug,
-                     :badge_medal_type, :badge_type, :order])
+    |> cast(params, [:score_needed, :name, :description, :slug, :badge_medal_type, :badge_type, :order])
     |> validate_required([:name, :slug, :badge_medal_type, :badge_type, :order])
     |> unique_constraint(:slug)
     |> validate_inclusion(:badge_type, @badge_types)

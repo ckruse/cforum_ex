@@ -21,6 +21,7 @@ defmodule CforumWeb.MailController do
         conn
         |> put_flash(:info, "PrivMessage created successfully.")
         |> redirect(to: mail_path(conn, :index))
+
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -46,6 +47,7 @@ defmodule CforumWeb.MailController do
         conn
         |> put_flash(:info, "PrivMessage updated successfully.")
         |> redirect(to: mail_path(conn, :show, priv_message))
+
       {:error, changeset} ->
         render(conn, "edit.html", priv_message: priv_message, changeset: changeset)
     end

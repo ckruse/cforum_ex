@@ -19,5 +19,4 @@ defmodule CforumWeb.UserMailer do
     |> put_html_layout({CforumWeb.LayoutView, "email.html"})
     |> render(:reset_password_mail, user: user)
   end
-
 end

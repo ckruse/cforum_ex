@@ -11,35 +11,42 @@ defmodule Cforum.Accounts.User do
   @derive {Phoenix.Param, key: :user_id}
 
   schema "users" do
-    field :username, :string
-    field :email, :string
-    field :unconfirmed_email, :string
-    field :admin, :boolean, default: false
-    field :active, :boolean, default: false
-    field :encrypted_password, :string
-    field :remember_created_at, Timex.Ecto.DateTime
-    field :reset_password_token, :string
-    field :reset_password_sent_at, Timex.Ecto.DateTime
-    field :confirmation_token, :string
-    field :confirmed_at, Timex.Ecto.DateTime
-    field :confirmation_sent_at, Timex.Ecto.DateTime
-    field :last_sign_in_at, Timex.Ecto.DateTime
-    field :current_sign_in_at, Timex.Ecto.DateTime
-    field :avatar_file_name, CforumWeb.Avatar.Type
-    field :avatar_content_type, :string
-    field :avatar_updated_at, Timex.Ecto.DateTime
-    field :score, :integer
-    field :activity, :integer
+    field(:username, :string)
+    field(:email, :string)
+    field(:unconfirmed_email, :string)
+    field(:admin, :boolean, default: false)
+    field(:active, :boolean, default: false)
+    field(:encrypted_password, :string)
+    field(:remember_created_at, Timex.Ecto.DateTime)
+    field(:reset_password_token, :string)
+    field(:reset_password_sent_at, Timex.Ecto.DateTime)
+    field(:confirmation_token, :string)
+    field(:confirmed_at, Timex.Ecto.DateTime)
+    field(:confirmation_sent_at, Timex.Ecto.DateTime)
+    field(:last_sign_in_at, Timex.Ecto.DateTime)
+    field(:current_sign_in_at, Timex.Ecto.DateTime)
+    field(:avatar_file_name, CforumWeb.Avatar.Type)
+    field(:avatar_content_type, :string)
+    field(:avatar_updated_at, Timex.Ecto.DateTime)
+    field(:score, :integer)
+    field(:activity, :integer)
 
-    field :password, :string, virtual: true
-    field :password_confirmation, :string, virtual: true
-    field :login, :string, virtual: true
+    field(:password, :string, virtual: true)
+    field(:password_confirmation, :string, virtual: true)
+    field(:login, :string, virtual: true)
 
-    has_one :settings, Cforum.Accounts.Setting, foreign_key: :user_id
-    has_many :badges_users, Cforum.Accounts.BadgeUser, foreign_key: :user_id
-    has_many :badges, through: [:badges_users, :badge]
+    has_one(:settings, Cforum.Accounts.Setting, foreign_key: :user_id)
+    has_many(:badges_users, Cforum.Accounts.BadgeUser, foreign_key: :user_id)
+    has_many(:badges, through: [:badges_users, :badge])
 
-    many_to_many :groups, Cforum.Accounts.Group, join_through: "groups_users", on_delete: :delete_all, unique: true, join_keys: [user_id: :user_id, group_id: :group_id]
+    many_to_many(
+      :groups,
+      Cforum.Accounts.Group,
+      join_through: "groups_users",
+      on_delete: :delete_all,
+      unique: true,
+      join_keys: [user_id: :user_id, group_id: :group_id]
+    )
 
     timestamps(inserted_at: :created_at)
   end
@@ -49,10 +56,24 @@ defmodule Cforum.Accounts.User do
   """
   def changeset(%User{} = struct, params \\ %{}) do
     struct
-    |> cast(params, [:username, :email, :unconfirmed_email, :admin, :active, :encrypted_password,
-                     :remember_created_at, :reset_password_token, :confirmation_token, :confirmed_at,
-                     :confirmation_sent_at, :last_sign_in_at, :current_sign_in_at, :avatar_file_name,
-                     :avatar_content_type, :avatar_updated_at])
+    |> cast(params, [
+         :username,
+         :email,
+         :unconfirmed_email,
+         :admin,
+         :active,
+         :encrypted_password,
+         :remember_created_at,
+         :reset_password_token,
+         :confirmation_token,
+         :confirmed_at,
+         :confirmation_sent_at,
+         :last_sign_in_at,
+         :current_sign_in_at,
+         :avatar_file_name,
+         :avatar_content_type,
+         :avatar_updated_at
+       ])
     |> validate_required([:username, :email, :admin, :active])
     |> unique_constraint(:username)
     |> unique_constraint(:email)
@@ -94,8 +115,10 @@ defmodule Cforum.Accounts.User do
 
   defp confirm_password(changeset) do
     case changeset do
-      %Ecto.Changeset{valid?: true, changes: %{password: pass, password_confirmation: confirmed_pass}} when pass == confirmed_pass ->
+      %Ecto.Changeset{valid?: true, changes: %{password: pass, password_confirmation: confirmed_pass}}
+      when pass == confirmed_pass ->
         changeset
+
       _ ->
         add_error(changeset, :password, gettext("password and password confirmation don't match"))
     end
@@ -105,6 +128,7 @@ defmodule Cforum.Accounts.User do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
         put_change(changeset, :encrypted_password, Comeonin.Bcrypt.hashpwsalt(pass))
+
       _ ->
         changeset
     end
@@ -114,12 +138,14 @@ defmodule Cforum.Accounts.User do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{username: username}} ->
         put_change(changeset, :confirmation_token, generate_confirmation_token(username))
+
       _ ->
         changeset
     end
   end
 
   defp generate_confirmation_token(nil), do: nil
+
   defp generate_confirmation_token(username) do
     Token.sign(CforumWeb.Endpoint, "user", username)
   end

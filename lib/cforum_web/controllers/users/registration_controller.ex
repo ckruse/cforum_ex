@@ -1,7 +1,7 @@
 defmodule CforumWeb.Users.RegistrationController do
   use CforumWeb, :controller
 
-  plug CforumWeb.Plug.EnsureAnonymous
+  plug(CforumWeb.Plug.EnsureAnonymous)
 
   alias Cforum.Accounts.Users
   alias Cforum.Accounts.User
@@ -15,10 +15,13 @@ defmodule CforumWeb.Users.RegistrationController do
     case Users.register_user(user_params) do
       {:ok, user} ->
         CforumWeb.UserMailer.confirmation_mail(user)
-        |> Cforum.Mailer.deliver_later
+        |> Cforum.Mailer.deliver_later()
 
         conn
-        |> put_flash(:info, gettext("Account successfully created. Please follow the confirmation instructions we send you via mail."))
+        |> put_flash(
+             :info,
+             gettext("Account successfully created. Please follow the confirmation instructions we send you via mail.")
+           )
         |> redirect(to: forum_path(conn, :index))
 
       {:error, changeset} ->
@@ -41,6 +44,4 @@ defmodule CforumWeb.Users.RegistrationController do
         |> redirect(to: forum_path(conn, :index))
     end
   end
-
-
 end

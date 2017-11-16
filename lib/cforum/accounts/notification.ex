@@ -5,14 +5,14 @@ defmodule Cforum.Accounts.Notification do
   @derive {Phoenix.Param, key: :notification_id}
 
   schema "notifications" do
-    field :is_read, :boolean, default: false
-    field :subject, :string
-    field :path, :string
-    field :icon, :string
-    field :oid, :integer
-    field :otype, :string
-    field :description, :string
-    belongs_to :recipient, Cforum.Accounts.User, references: :user_id
+    field(:is_read, :boolean, default: false)
+    field(:subject, :string)
+    field(:path, :string)
+    field(:icon, :string)
+    field(:oid, :integer)
+    field(:otype, :string)
+    field(:description, :string)
+    belongs_to(:recipient, Cforum.Accounts.User, references: :user_id)
 
     timestamps(inserted_at: :created_at)
   end

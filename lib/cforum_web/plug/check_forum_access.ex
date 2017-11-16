@@ -15,19 +15,20 @@ defmodule CforumWeb.Plug.CheckForumAccess do
       conn
     else
       conn
-      |> Plug.Conn.halt
+      |> Plug.Conn.halt()
       |> CforumWeb.ErrorHandler.access_forbidden(conn.params)
     end
   end
 
   defp check_access(forum, _user, _visible_forums) when forum == nil, do: true
   defp check_access(_forum, %User{admin: true}, _visible_forums), do: true
+
   defp check_access(forum, user, _visible_forums) when user == nil do
-    forum.standard_permission == Forum.read || forum.standard_permission == Forum.write
+    forum.standard_permission == Forum.read() || forum.standard_permission == Forum.write()
   end
 
   defp check_access(forum, _user, visible_forums) do
-    if Enum.member?([Forum.read, Forum.write, Forum.known_read, Forum.known_write], forum.standard_permission) do
+    if Enum.member?([Forum.read(), Forum.write(), Forum.known_read(), Forum.known_write()], forum.standard_permission) do
       true
     else
       Enum.member?(visible_forums, forum)

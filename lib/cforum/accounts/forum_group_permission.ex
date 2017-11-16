@@ -24,10 +24,10 @@ defmodule Cforum.Accounts.ForumGroupPermission do
   @permissions [@moderate, @write, @read, @known_write, @known_read]
 
   schema "forums_groups_permissions" do
-    field :permission, :string
+    field(:permission, :string)
 
-    belongs_to :group, Cforum.Accounts.Group, references: :group_id
-    belongs_to :forum, Cforum.Forums.Forum, references: :forum_id
+    belongs_to(:group, Cforum.Accounts.Group, references: :group_id)
+    belongs_to(:forum, Cforum.Forums.Forum, references: :forum_id)
   end
 
   @doc false

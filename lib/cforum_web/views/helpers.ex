@@ -59,8 +59,8 @@ defmodule CforumWeb.Views.Helpers do
     #   |> Keyword.merge(options)
 
     attr = Map.get(form.data, field) || %{}
-    symbolized_attr = Enum.reduce(Map.keys(attr), %{}, fn(key, map) -> Map.put(map, String.to_atom(key), attr[key]) end)
-    types = Enum.reduce(Map.keys(symbolized_attr), %{}, fn(key, map) -> Map.put(map, key, :string) end)
+    symbolized_attr = Enum.reduce(Map.keys(attr), %{}, fn key, map -> Map.put(map, String.to_atom(key), attr[key]) end)
+    types = Enum.reduce(Map.keys(symbolized_attr), %{}, fn key, map -> Map.put(map, key, :string) end)
 
     changeset = Ecto.Changeset.cast({symbolized_attr, types}, form.params, Map.keys(symbolized_attr))
     forms = Phoenix.HTML.FormData.to_form(changeset, as: form.name <> "[#{field}]")
@@ -69,7 +69,8 @@ defmodule CforumWeb.Views.Helpers do
   end
 
   defp ecto_to_seconds(datetime) do
-    :calendar.datetime_to_gregorian_seconds(:calendar.local_time()) - :calendar.datetime_to_gregorian_seconds(Ecto.DateTime.to_erl(datetime))
+    :calendar.datetime_to_gregorian_seconds(:calendar.local_time()) -
+      :calendar.datetime_to_gregorian_seconds(Ecto.DateTime.to_erl(datetime))
   end
 
   @doc """
@@ -78,9 +79,11 @@ defmodule CforumWeb.Views.Helpers do
   def relative_time(%Ecto.DateTime{} = time) do
     relative_time(ecto_to_seconds(time))
   end
+
   def relative_time(%DateTime{} = time) do
-    relative_time(Timex.diff(Timex.now, time, :seconds))
+    relative_time(Timex.diff(Timex.now(), time, :seconds))
   end
+
   def relative_time(seconds) do
     minutes = round(seconds / 60)
 
@@ -89,33 +92,47 @@ defmodule CforumWeb.Views.Helpers do
         case seconds do
           seconds when seconds in 0..4 ->
             gettext("less than 5 seconds")
+
           seconds when seconds in 5..9 ->
             gettext("less than 10 seconds")
+
           seconds when seconds in 10..19 ->
             gettext("less than 20 seconds")
+
           seconds when seconds in 20..39 ->
             gettext("half a minute")
+
           seconds when seconds in 40..59 ->
             gettext("less than a minute")
+
           _ ->
             gettext("1 minute")
         end
+
       minutes when minutes in 2..44 ->
         gettext("%{minutes} minutes", minutes: minutes)
+
       minutes when minutes in 45..89 ->
         gettext("about an hour")
+
       minutes when minutes in 90..1439 ->
         gettext("about %{hours} hours", hours: round(minutes / 60))
+
       minutes when minutes in 1440..2519 ->
         gettext("a day")
+
       minutes when minutes in 2_520..43_199 ->
         gettext("%{days} days", days: round(minutes / 1440))
+
       minutes when minutes in 43_200..86_399 ->
         gettext("about 1 month")
+
       minutes when minutes in 86_400..525_599 ->
         gettext("%{months} months", months: round(minutes / 43_200))
+
       minutes when minutes in 525_600..1_051_199 ->
         gettext("1 year")
+
       _ ->
         gettext("%{years} years", years: round(minutes / 525_600))
     end
@@ -124,10 +141,11 @@ defmodule CforumWeb.Views.Helpers do
   @doc """
   Generates a time tag with the correct `datetime` attribute and the given content
   """
-  def time_tag(opts, [do: content]) do
+  def time_tag(opts, do: content) do
     timestamp = DateTime.to_iso8601(opts[:time])
     content_tag(:time, content, Keyword.merge([datetime: timestamp], opts) |> Keyword.delete(:time))
   end
+
   def time_tag(content, opts) do
     timestamp = DateTime.to_iso8601(opts[:time])
     content_tag(:time, content, Keyword.merge([datetime: timestamp], opts) |> Keyword.delete(:time))

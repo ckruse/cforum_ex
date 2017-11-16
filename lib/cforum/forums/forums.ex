@@ -20,7 +20,7 @@ defmodule Cforum.Forums do
   def list_forums do
     Forum
     |> ordered
-    |> Repo.all
+    |> Repo.all()
   end
 
   @doc """
@@ -133,22 +133,31 @@ defmodule Cforum.Forums do
     Forum
     |> visible_forums(user)
     |> ordered
-    |> Repo.all
+    |> Repo.all()
   end
 
   alias Cforum.Accounts.User
 
   defp visible_forums(query, nil) do
-    from f in query,
-      where: f.standard_permission in [^Forum.read, ^Forum.write]
+    from(f in query, where: f.standard_permission in [^Forum.read(), ^Forum.write()])
   end
-  defp visible_forums(query, %User{admin: true}) do # admins may view all forums
+
+  # admins may view all forums
+  defp visible_forums(query, %User{admin: true}) do
     query
   end
+
   defp visible_forums(query, %User{} = user) do
-    from f in query,
-      where: f.standard_permission in [^Forum.read, ^Forum.write, ^Forum.known_read, ^Forum.known_write] or
-             fragment("? IN (SELECT forum_id FROM forums_groups_permissions INNER JOIN groups_users USING(group_id) WHERE user_id = ?)", f.forum_id, ^user.user_id)
+    from(
+      f in query,
+      where:
+        f.standard_permission in [^Forum.read(), ^Forum.write(), ^Forum.known_read(), ^Forum.known_write()] or
+          fragment(
+            "? IN (SELECT forum_id FROM forums_groups_permissions INNER JOIN groups_users USING(group_id) WHERE user_id = ?)",
+            f.forum_id,
+            ^user.user_id
+          )
+    )
   end
 
   defp ordered(query) do

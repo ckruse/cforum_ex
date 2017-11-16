@@ -1,7 +1,7 @@
 defmodule CforumWeb.Users.PasswordController do
   use CforumWeb, :controller
 
-  plug CforumWeb.Plug.AuthorizeAccess, only: [:edit, :update]
+  plug(CforumWeb.Plug.AuthorizeAccess, only: [:edit, :update])
 
   alias Cforum.Accounts.Users
   alias Cforum.Accounts.User
@@ -14,8 +14,8 @@ defmodule CforumWeb.Users.PasswordController do
     case Users.get_user_by_username_or_email(login) do
       %User{} = user ->
         Users.get_reset_password_token(user)
-        |> CforumWeb.UserMailer.reset_password_mail
-        |> Cforum.Mailer.deliver_later
+        |> CforumWeb.UserMailer.reset_password_mail()
+        |> Cforum.Mailer.deliver_later()
 
         conn
         |> put_flash(:info, gettext("The instructions how to reset your password have been sent."))
@@ -29,9 +29,13 @@ defmodule CforumWeb.Users.PasswordController do
   def edit_reset(conn, %{"token" => reset_token}) do
     user = Users.get_user_by_reset_password_token!(reset_token)
     changeset = Users.change_user_password(user)
+
     render(
-      conn, "edit_reset.html", user: user,
-      changeset: changeset, token: reset_token
+      conn,
+      "edit_reset.html",
+      user: user,
+      changeset: changeset,
+      token: reset_token
     )
   end
 
@@ -48,8 +52,11 @@ defmodule CforumWeb.Users.PasswordController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(
-          conn, "edit_reset.html", user: user,
-          changeset: changeset, token: reset_token
+          conn,
+          "edit_reset.html",
+          user: user,
+          changeset: changeset,
+          token: reset_token
         )
     end
   end

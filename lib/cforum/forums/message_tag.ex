@@ -5,8 +5,8 @@ defmodule Cforum.Forums.MessageTag do
   @derive {Phoenix.Param, key: :message_tag_id}
 
   schema "messages_tags" do
-    belongs_to :message, Cforum.Forums.Message, references: :message_id
-    belongs_to :tag, Cforum.Forums.Tag, references: :tag_id
+    belongs_to(:message, Cforum.Forums.Message, references: :message_id)
+    belongs_to(:tag, Cforum.Forums.Tag, references: :tag_id)
   end
 
   @doc """

@@ -21,20 +21,47 @@ defmodule Cforum.Forums.Threads do
 
   """
   def list_threads(forum, visible_forums, user, opts \\ []) do
-    opts = Keyword.merge([sticky: true, page: 0, limit: 50, predicate: nil,
-                          view_all: false, order: "newest-first", message_order: "ascending",
-                          hide_read_threads: false, only_wo_answer: false,
-                          thread_modifier: nil, use_paging: true], opts)
+    opts =
+      Keyword.merge(
+        [
+          sticky: true,
+          page: 0,
+          limit: 50,
+          predicate: nil,
+          view_all: false,
+          order: "newest-first",
+          message_order: "ascending",
+          hide_read_threads: false,
+          only_wo_answer: false,
+          thread_modifier: nil,
+          use_paging: true
+        ],
+        opts
+      )
 
-    order = case opts[:order] do
-              "descending" -> [desc: :created_at]
-              "ascending" -> [asc: :created_at]
-              _ -> [desc: :latest_message] # falling back to "newest-first" for all other cases
-            end
+    order =
+      case opts[:order] do
+        "descending" ->
+          [desc: :created_at]
 
-    {sticky_threads_query, threads_query} = get_threads(forum, user, visible_forums, sticky: opts[:sticky],
-                                                        view_all: opts[:view_all], hide_read_threads: opts[:hide_read_threads],
-                                                        only_wo_answer: opts[:only_wo_answer])
+        "ascending" ->
+          [asc: :created_at]
+
+        # falling back to "newest-first" for all other cases
+        _ ->
+          [desc: :latest_message]
+      end
+
+    {sticky_threads_query, threads_query} =
+      get_threads(
+        forum,
+        user,
+        visible_forums,
+        sticky: opts[:sticky],
+        view_all: opts[:view_all],
+        hide_read_threads: opts[:hide_read_threads],
+        only_wo_answer: opts[:only_wo_answer]
+      )
 
     sticky_threads = get_sticky_threads(sticky_threads_query, user, order, opts, opts[:sticky])
     {all_threads_count, threads} = get_normal_threads(threads_query, user, order, length(sticky_threads), opts)
@@ -73,20 +100,33 @@ defmodule Cforum.Forums.Threads do
 
   """
   def get_thread_by_slug!(user, slug, opts) do
-    opts = Keyword.merge([predicate: nil, view_all: false, message_order: "ascending",
-                          hide_read_threads: false, only_wo_answer: false, thread_modifier: nil,
-                          use_paging: false], opts)
+    opts =
+      Keyword.merge(
+        [
+          predicate: nil,
+          view_all: false,
+          message_order: "ascending",
+          hide_read_threads: false,
+          only_wo_answer: false,
+          thread_modifier: nil,
+          use_paging: false
+        ],
+        opts
+      )
 
-    q = from(
-      thread in Thread,
-      where: thread.slug == ^slug,
-      preload: ^Thread.default_preloads(:messages)
-    )
+    q =
+      from(
+        thread in Thread,
+        where: thread.slug == ^slug,
+        preload: ^Thread.default_preloads(:messages)
+      )
+
     ret = get_normal_threads(q, user, [desc: :created_at], 0, opts)
 
     case ret do
       {_, []} ->
         raise Ecto.NoResultsError, queryable: q
+
       {_, [thread]} ->
         thread
     end

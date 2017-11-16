@@ -5,14 +5,14 @@ defmodule Cforum.Forums.CloseVote do
   @derive {Phoenix.Param, key: :close_vote_id}
 
   schema "close_votes" do
-    field :reason, :string
-    field :duplicate_slug, :string
-    field :custom_reason, :string
-    field :finished, :boolean, default: false
-    field :vote_type, :boolean, default: false
+    field(:reason, :string)
+    field(:duplicate_slug, :string)
+    field(:custom_reason, :string)
+    field(:finished, :boolean, default: false)
+    field(:vote_type, :boolean, default: false)
 
-    belongs_to :message, Cforum.Forums.Message, references: :message_id
-    has_many :voters, Cforum.Forums.CloseVoteVoter, references: :close_vote_id, foreign_key: :close_vote_id
+    belongs_to(:message, Cforum.Forums.Message, references: :message_id)
+    has_many(:voters, Cforum.Forums.CloseVoteVoter, references: :close_vote_id, foreign_key: :close_vote_id)
 
     timestamps(inserted_at: :created_at)
   end

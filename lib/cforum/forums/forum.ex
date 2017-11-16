@@ -15,17 +15,17 @@ defmodule Cforum.Forums.Forum do
   def known_write(), do: @known_write
 
   schema "forums" do
-    field :slug, :string
-    field :short_name, :string
-    field :name, :string
-    field :description, :string
-    field :standard_permission, :string
-    field :keywords, :string
-    field :position, :integer
+    field(:slug, :string)
+    field(:short_name, :string)
+    field(:name, :string)
+    field(:description, :string)
+    field(:standard_permission, :string)
+    field(:keywords, :string)
+    field(:position, :integer)
 
-    has_many :threads, Cforum.Forums.Thread, foreign_key: :forum_id
-    has_many :messages, Cforum.Forums.Message, foreign_key: :forum_id
-    has_many :permissions, Cforum.Accounts.ForumGroupPermission, foreign_key: :forum_id
+    has_many(:threads, Cforum.Forums.Thread, foreign_key: :forum_id)
+    has_many(:messages, Cforum.Forums.Message, foreign_key: :forum_id)
+    has_many(:permissions, Cforum.Accounts.ForumGroupPermission, foreign_key: :forum_id)
 
     timestamps(inserted_at: :created_at)
   end

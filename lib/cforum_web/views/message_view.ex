@@ -14,6 +14,7 @@ defmodule CforumWeb.MessageView do
   def classes_from_message(classes, _), do: classes
 
   def accepted_class(classes, %Thread{accepted: []}, _), do: classes
+
   def accepted_class(classes, thread, message) do
     classes = if thread.message.message_id == message.message_id, do: [classes | ["has-accepted-answer"]], else: classes
     if Message.accepted?(message), do: [classes | ["accepted-answer"]], else: classes
@@ -30,43 +31,63 @@ defmodule CforumWeb.MessageView do
     |> accepted_class(thread, message)
     |> close_vote_class(message)
     |> open_vote_class(message)
-    |> Enum.join
+    |> Enum.join()
   end
 
   def message_tree(conn, thread, parent, messages, opts \\ [show_icons: true]) do
-    parts = Enum.map(messages, fn(msg) ->
-      # TODO classes
-      subtree = if blank?(msg.messages), do: "", else: message_tree(conn, thread, msg, msg.messages)
-      [{:safe, "<li>"} |
-       [ render(CforumWeb.MessageView, "header.html", Keyword.merge([conn: conn, thread: thread, parent: parent, message: msg], opts)) |
-         [subtree | {:safe, "</li>"}] ] ]
-    end)
+    parts =
+      Enum.map(messages, fn msg ->
+        # TODO classes
+        subtree = if blank?(msg.messages), do: "", else: message_tree(conn, thread, msg, msg.messages)
+
+        [
+          {:safe, "<li>"}
+          | [
+              render(
+                CforumWeb.MessageView,
+                "header.html",
+                Keyword.merge([conn: conn, thread: thread, parent: parent, message: msg], opts)
+              )
+              | [subtree | {:safe, "</li>"}]
+            ]
+        ]
+      end)
 
     [{:safe, "<ol>"} | [parts | {:safe, "</ol>"}]]
   end
 
-  def message_date_format(conn, true), do: date_format(conn, "date_format_index") # TODO+ day_changed_key(message))
+  # TODO+ day_changed_key(message))
+  def message_date_format(conn, true), do: date_format(conn, "date_format_index")
   def message_date_format(conn, false), do: date_format(conn, "date_format_post")
 
   def page_title(:show, assigns) do
     msg = assigns[:message]
-    msg.subject <> " " <> gettext("by") <> " " <>
-      msg.author <> ", " <>
-      Timex.format!(msg.created_at, message_date_format(assigns[:conn], false), :strftime)
+
+    msg.subject <>
+      " " <>
+      gettext("by") <>
+      " " <> msg.author <> ", " <> Timex.format!(msg.created_at, message_date_format(assigns[:conn], false), :strftime)
   end
+
   def body_id(:show, assigns), do: "message-#{assigns[:read_mode]}"
-  def body_classes(:show, assigns), do: "messages thread-view forum-#{forum_slug(assigns[:current_forum])}#{assigns[:thread].archived && " archived" || ""}"
+
+  def body_classes(:show, assigns),
+    do:
+      "messages thread-view forum-#{forum_slug(assigns[:current_forum])}#{
+        (assigns[:thread].archived && " archived") || ""
+      }"
 
   defp forum_slug(nil), do: "all"
   defp forum_slug(forum), do: forum.slug
-
 
   defp positive_score_class(score) do
     cond do
       score >= 0 && score <= 3 ->
         "positive-score"
+
       score == 4 ->
         "positiver-score"
+
       true ->
         "best-score"
     end
@@ -76,8 +97,10 @@ defmodule CforumWeb.MessageView do
     cond do
       score <= 0 && score >= -3 ->
         "negative-score"
+
       score == -4 ->
         "negativer-score"
+
       true ->
         "negative-bad-score"
     end
@@ -89,9 +112,9 @@ defmodule CforumWeb.MessageView do
     cond do
       score == 0 ->
         classes
-      score > 0
+        score > 0
         [positive_score_class(score) | classes]
-      score < 0
+        score < 0
         [negative_score_class(score) | classes]
     end
   end
@@ -100,8 +123,9 @@ defmodule CforumWeb.MessageView do
   defp class_if_true(classes, _, class), do: classes
 
   def message_classes(conn, message, thread, active, read_mode \\ :thread) do
-    is_folded = uconf(conn, "fold_read_nested") == "yes" && read_mode == :nested && !active &&
-      !thread.archived && Enum.member?(message.attribs[:classes], "visited")
+    is_folded =
+      uconf(conn, "fold_read_nested") == "yes" && read_mode == :nested && !active && !thread.archived &&
+        Enum.member?(message.attribs[:classes], "visited")
 
     []
     |> class_if_true(active, "active")

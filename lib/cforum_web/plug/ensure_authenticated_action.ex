@@ -34,10 +34,13 @@ defmodule CforumWeb.Plug.EnsureAuthenticatedAction do
     cond do
       is_list(opts[:only]) && !(action in opts[:only]) ->
         false
-      is_list(opts[:only]) && (action in opts[:only]) ->
+
+      is_list(opts[:only]) && action in opts[:only] ->
         true
+
       opts[:only] == nil ->
         true
+
       true ->
         false
     end

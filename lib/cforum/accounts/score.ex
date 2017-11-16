@@ -5,11 +5,11 @@ defmodule Cforum.Accounts.Score do
   @derive {Phoenix.Param, key: :score_id}
 
   schema "scores" do
-    field :value, :integer
+    field(:value, :integer)
 
-    belongs_to :user, Cforum.Accounts.User, references: :user_id
-    belongs_to :vote, Cforum.Forums.Vote, references: :vote_id
-    belongs_to :message, Cforum.Forums.Message, references: :message_id
+    belongs_to(:user, Cforum.Accounts.User, references: :user_id)
+    belongs_to(:vote, Cforum.Forums.Vote, references: :vote_id)
+    belongs_to(:message, Cforum.Forums.Message, references: :message_id)
 
     timestamps(inserted_at: :created_at, updated_at: nil)
   end
