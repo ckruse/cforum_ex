@@ -7,7 +7,7 @@ defmodule Cforum.MarkdownRenderer do
   use GenServer
 
   alias Porcelain.Process, as: Proc
-  #alias Porcelain.Result
+  # alias Porcelain.Result
 
   alias Cforum.Forums.Message
   alias Cforum.Accounts.User
@@ -18,10 +18,13 @@ defmodule Cforum.MarkdownRenderer do
 
   def init([]) do
     md_dir = Application.app_dir(:cforum, "priv")
-    proc = Porcelain.spawn_shell(
-      "node #{md_dir}/cf_mdparser/cf_mdparser.js",
-      in: :receive, out: :stream
-    )
+
+    proc =
+      Porcelain.spawn_shell(
+        "node #{md_dir}/cf_mdparser/cf_mdparser.js",
+        in: :receive,
+        out: :stream
+      )
 
     {:ok, proc}
   end
@@ -40,12 +43,8 @@ defmodule Cforum.MarkdownRenderer do
   end
 
   def render_doc(markdown) do
-    :poolboy.transaction(
-      pool_name(),
-      fn(pid) -> :gen_server.call(pid, {:render_doc, markdown}) end
-    )
+    :poolboy.transaction(pool_name(), fn pid -> :gen_server.call(pid, {:render_doc, markdown}) end)
   end
-
 
   #
   # server callbacks
@@ -65,5 +64,4 @@ defmodule Cforum.MarkdownRenderer do
         {:reply, {:error, retval["message"]}, proc}
     end
   end
-
 end

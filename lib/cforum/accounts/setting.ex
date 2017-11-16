@@ -5,9 +5,9 @@ defmodule Cforum.Accounts.Setting do
   @derive {Phoenix.Param, key: :setting_id}
 
   schema "settings" do
-    field :options, :map
-    belongs_to :forum, Cforum.Forums.Forum, references: :forum_id
-    belongs_to :user, Cforum.Accounts.User, references: :user_id
+    field(:options, :map)
+    belongs_to(:forum, Cforum.Forums.Forum, references: :forum_id)
+    belongs_to(:user, Cforum.Accounts.User, references: :user_id)
   end
 
   @doc """

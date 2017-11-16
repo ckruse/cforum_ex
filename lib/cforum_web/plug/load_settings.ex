@@ -21,17 +21,21 @@ defmodule CforumWeb.Plug.LoadSettings do
   end
 
   defp set_confs(conn, []), do: conn
+
   defp set_confs(conn, [conf = %Setting{user_id: nil, forum_id: nil} | tail]) do
     Plug.Conn.assign(conn, :global_config, conf)
     |> set_confs(tail)
   end
+
   defp set_confs(conn, [conf = %Setting{forum_id: nil} | tail]) do
     Plug.Conn.assign(conn, :user_config, conf)
     |> set_confs(tail)
   end
+
   defp set_confs(conn, [conf = %Setting{user_id: nil} | tail]) do
     Plug.Conn.assign(conn, :forum_config, conf)
     |> set_confs(tail)
   end
-  defp set_confs(a, b), do: raise "a forum specific user config? wtf?\n\n#{inspect a}\n\n#{inspect b}"
+
+  defp set_confs(a, b), do: raise("a forum specific user config? wtf?\n\n#{inspect(a)}\n\n#{inspect(b)}")
 end

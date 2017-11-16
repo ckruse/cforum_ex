@@ -3,6 +3,7 @@ defmodule Cforum.PagingApi do
 
   def set_limit(query, nil), do: query
   def set_limit(query, []), do: query
+
   def set_limit(query, limit) do
     query
     |> limit(^limit[:quantity])

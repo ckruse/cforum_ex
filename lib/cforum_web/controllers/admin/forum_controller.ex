@@ -5,7 +5,7 @@ defmodule CforumWeb.Admin.ForumController do
   alias Cforum.Forums.Forum
 
   def index(conn, _params) do
-    forums = Forums.list_forums
+    forums = Forums.list_forums()
     render(conn, "index.html", forums: forums)
   end
 
@@ -20,6 +20,7 @@ defmodule CforumWeb.Admin.ForumController do
         conn
         |> put_flash(:info, gettext("Forum created successfully."))
         |> redirect(to: admin_forum_path(conn, :show, forum))
+
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -44,6 +45,7 @@ defmodule CforumWeb.Admin.ForumController do
         conn
         |> put_flash(:info, gettext("Forum updated successfully."))
         |> redirect(to: admin_forum_path(conn, :show, forum))
+
       {:error, changeset} ->
         render(conn, "edit.html", forum: forum, changeset: changeset)
     end

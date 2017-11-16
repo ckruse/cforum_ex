@@ -22,19 +22,23 @@ defmodule Cforum.Accounts.PrivMessages do
   end
 
   def count_priv_messages(user, only_unread \\ false)
+
   def count_priv_messages(user, false) do
-    from(pm in PrivMessage,
+    from(
+      pm in PrivMessage,
       where: pm.owner_id == ^user.user_id,
       select: count("*")
     )
-    |> Repo.one
+    |> Repo.one()
   end
+
   def count_priv_messages(user, true) do
-    from(pm in PrivMessage,
+    from(
+      pm in PrivMessage,
       where: pm.owner_id == ^user.user_id and pm.is_read == false,
       select: count("*")
     )
-    |> Repo.one
+    |> Repo.one()
   end
 
   @doc """

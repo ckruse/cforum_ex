@@ -1,30 +1,30 @@
 defmodule CforumWeb.Users.SessionController do
   use CforumWeb, :controller
 
-  plug CforumWeb.Plug.EnsureAnonymous, only: [:new, :create]
-  plug CforumWeb.Plug.EnsureAuthenticatedAction, only: [:delete]
+  plug(CforumWeb.Plug.EnsureAnonymous, only: [:new, :create])
+  plug(CforumWeb.Plug.EnsureAuthenticatedAction, only: [:delete])
 
   alias Cforum.Accounts
 
   def new(conn, _params) do
     changeset = Accounts.User.login_changeset(%Accounts.User{})
-    render conn, "new.html", changeset: changeset
+    render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"user" => %{"login" => user,
-                                 "password" => pass,
-                                 "remember_me" => remember}}) do
-
+  def create(conn, %{"user" => %{"login" => user, "password" => pass, "remember_me" => remember}}) do
     case Cforum.Accounts.Users.authenticate_user(user, pass) do
       {:ok, user} ->
-        conn = case remember do
-                 "true" ->
-                   token = Phoenix.Token.sign(CforumWeb.Endpoint, "user", user.user_id)
-                   conn
-                   |> put_resp_cookie("remember_me", token, max_age: 30 * 24 * 60 * 60)
-                 _ ->
-                   conn
-               end
+        conn =
+          case remember do
+            "true" ->
+              token = Phoenix.Token.sign(CforumWeb.Endpoint, "user", user.user_id)
+
+              conn
+              |> put_resp_cookie("remember_me", token, max_age: 30 * 24 * 60 * 60)
+
+            _ ->
+              conn
+          end
 
         conn
         |> put_session(:user_id, user.user_id)

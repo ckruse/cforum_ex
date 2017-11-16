@@ -8,6 +8,7 @@ defmodule Cforum.Abilities do
     uid = if resource != nil, do: resource.user_id, else: String.to_integer(conn.params["user_id"] || conn.params["id"])
     cuser != nil && (cuser.admin || uid == cuser.user_id)
   end
+
   def may?(conn, "users/user", :edit, resource), do: may?(conn, "users/user", :update, resource)
   def may?(conn, "users/user", :delete, resource), do: may?(conn, "users/user", :update, resource)
   def may?(conn, "users/user", :confirm_delete, resource), do: may?(conn, "users/user", :delete, resource)
@@ -21,7 +22,7 @@ defmodule Cforum.Abilities do
   end
 
   def may?(_conn, path, action, _) do
-    Logger.debug "--- CAUTION: no ability defined for path #{path} and action #{action}"
+    Logger.debug("--- CAUTION: no ability defined for path #{path} and action #{action}")
     false
   end
 end

@@ -8,33 +8,39 @@ defmodule Cforum.Forums.Message do
   def default_preloads, do: @default_preloads
 
   schema "messages" do
-    field :upvotes, :integer
-    field :downvotes, :integer
-    field :deleted, :boolean, default: false
-    field :mid, :integer
-    field :author, :string
-    field :email, :string
-    field :homepage, :string
-    field :subject, :string
-    field :content, :string
-    field :flags, :map
-    field :uuid, :string
-    field :ip, :string
-    field :format, :string
-    field :edit_author, :string
-    field :problematic_site, :string
+    field(:upvotes, :integer)
+    field(:downvotes, :integer)
+    field(:deleted, :boolean, default: false)
+    field(:mid, :integer)
+    field(:author, :string)
+    field(:email, :string)
+    field(:homepage, :string)
+    field(:subject, :string)
+    field(:content, :string)
+    field(:flags, :map)
+    field(:uuid, :string)
+    field(:ip, :string)
+    field(:format, :string)
+    field(:edit_author, :string)
+    field(:problematic_site, :string)
 
-    field :messages, :any, virtual: true
-    field :attribs, :map, virtual: true, default: %{classes: []}
+    field(:messages, :any, virtual: true)
+    field(:attribs, :map, virtual: true, default: %{classes: []})
 
-    belongs_to :thread, Cforum.Forums.Thread, references: :thread_id
-    belongs_to :forum, Cforum.Forums.Forum, references: :forum_id
-    belongs_to :user, Cforum.Accounts.User, references: :user_id
-    belongs_to :parent, Cforum.Forums.Message, references: :message_id
-    belongs_to :editor, Cforum.Accounts.User, references: :user_id
+    belongs_to(:thread, Cforum.Forums.Thread, references: :thread_id)
+    belongs_to(:forum, Cforum.Forums.Forum, references: :forum_id)
+    belongs_to(:user, Cforum.Accounts.User, references: :user_id)
+    belongs_to(:parent, Cforum.Forums.Message, references: :message_id)
+    belongs_to(:editor, Cforum.Accounts.User, references: :user_id)
 
-    many_to_many :tags, Cforum.Forums.Tag, join_through: Cforum.Forums.MessageTag, join_keys: [message_id: :message_id, tag_id: :tag_id]
-    has_many :votes, Cforum.Forums.CloseVote, foreign_key: :message_id
+    many_to_many(
+      :tags,
+      Cforum.Forums.Tag,
+      join_through: Cforum.Forums.MessageTag,
+      join_keys: [message_id: :message_id, tag_id: :tag_id]
+    )
+
+    has_many(:votes, Cforum.Forums.CloseVote, foreign_key: :message_id)
 
     timestamps(inserted_at: :created_at)
   end
@@ -48,8 +54,40 @@ defmodule Cforum.Forums.Message do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:upvotes, :downvotes, :deleted, :mid, :author, :email, :homepage, :subject, :content, :flags, :uuid, :ip, :format, :edit_author, :problematic_site])
-    |> validate_required([:upvotes, :downvotes, :deleted, :mid, :author, :email, :homepage, :subject, :content, :flags, :uuid, :ip, :format, :edit_author, :problematic_site])
+    |> cast(params, [
+         :upvotes,
+         :downvotes,
+         :deleted,
+         :mid,
+         :author,
+         :email,
+         :homepage,
+         :subject,
+         :content,
+         :flags,
+         :uuid,
+         :ip,
+         :format,
+         :edit_author,
+         :problematic_site
+       ])
+    |> validate_required([
+         :upvotes,
+         :downvotes,
+         :deleted,
+         :mid,
+         :author,
+         :email,
+         :homepage,
+         :subject,
+         :content,
+         :flags,
+         :uuid,
+         :ip,
+         :format,
+         :edit_author,
+         :problematic_site
+       ])
   end
 
   def score(msg) do
@@ -67,8 +105,10 @@ defmodule Cforum.Forums.Message do
       case score(msg) do
         0 ->
           "±0"
+
         s when s < 0 ->
           "−" <> Integer.to_string(abs(s))
+
         s ->
           "+" <> Integer.to_string(s)
       end
@@ -76,11 +116,13 @@ defmodule Cforum.Forums.Message do
   end
 
   def subject_changed?(_, nil), do: true
+
   def subject_changed?(msg, parent) do
     parent.subject != msg.subject
   end
 
   def tags_changed?(_, nil), do: true
+
   def tags_changed?(msg, parent) do
     parent.tags != msg.tags
   end

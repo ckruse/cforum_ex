@@ -20,7 +20,7 @@ defmodule Cforum.Accounts.Groups do
   def list_groups do
     Group
     |> order_by(:name)
-    |> Repo.all
+    |> Repo.all()
   end
 
   @doc """

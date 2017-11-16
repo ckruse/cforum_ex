@@ -5,8 +5,8 @@ defmodule Cforum.Forums.InterestingMessage do
   @derive {Phoenix.Param, key: :interesting_message_id}
 
   schema "interesting_messages" do
-    belongs_to :user, Cforum.Accounts.User, references: :user_id
-    belongs_to :message, Cforum.Forums.Message, references: :message_id
+    belongs_to(:user, Cforum.Accounts.User, references: :user_id)
+    belongs_to(:message, Cforum.Forums.Message, references: :message_id)
 
     timestamps(inserted_at: :created_at)
   end

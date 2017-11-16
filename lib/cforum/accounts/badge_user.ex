@@ -5,8 +5,8 @@ defmodule Cforum.Accounts.BadgeUser do
   @derive {Phoenix.Param, key: :badge_user_id}
 
   schema "badges_users" do
-    belongs_to :badge, Cforum.Accounts.Badge, references: :badge_id
-    belongs_to :user, Cforum.Accounts.User, references: :user_id
+    belongs_to(:badge, Cforum.Accounts.Badge, references: :badge_id)
+    belongs_to(:user, Cforum.Accounts.User, references: :user_id)
 
     timestamps(inserted_at: :created_at)
   end

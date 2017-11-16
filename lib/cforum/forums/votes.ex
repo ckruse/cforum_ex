@@ -26,25 +26,26 @@ defmodule Cforum.Forums.Votes do
     from(
       v in Vote,
       select: count("*"),
-      inner_join: m in Message, on: m.message_id == v.message_id,
+      inner_join: m in Message,
+      on: m.message_id == v.message_id,
       where: v.user_id == ^user.user_id,
-      where: m.forum_id in (^forum_ids) and m.deleted == false,
+      where: m.forum_id in ^forum_ids and m.deleted == false
     )
-    |> Repo.one
+    |> Repo.one()
   end
 
   def list_votes_for_user(user, forum_ids, query_params \\ [limit: nil]) do
     from(
       v in Vote,
-      inner_join: m in Message, on: m.message_id == v.message_id,
-      preload: [:score, message: [:user, :tags,
-                                  [thread: :forum, votes: :voters]]],
+      inner_join: m in Message,
+      on: m.message_id == v.message_id,
+      preload: [:score, message: [:user, :tags, [thread: :forum, votes: :voters]]],
       where: v.user_id == ^user.user_id,
-      where: m.forum_id in (^forum_ids) and m.deleted == false,
+      where: m.forum_id in ^forum_ids and m.deleted == false,
       order_by: [desc: m.created_at]
     )
     |> Cforum.PagingApi.set_limit(query_params[:limit])
-    |> Repo.all
+    |> Repo.all()
   end
 
   @doc """

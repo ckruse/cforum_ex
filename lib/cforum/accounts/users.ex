@@ -27,8 +27,8 @@ defmodule Cforum.Accounts.Users do
   def list_users(query_params \\ [order: nil, limit: nil]) do
     User
     |> Cforum.PagingApi.set_limit(query_params[:limit])
-    |> Cforum.OrderApi.set_ordering(query_params[:order], [desc: :created_at])
-    |> Repo.all
+    |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
+    |> Repo.all()
   end
 
   @doc """
@@ -42,7 +42,7 @@ defmodule Cforum.Accounts.Users do
   def count_users do
     User
     |> select(count("*"))
-    |> Repo.one
+    |> Repo.one()
   end
 
   @doc """
@@ -60,10 +60,12 @@ defmodule Cforum.Accounts.Users do
 
   """
   def get_user!(id) do
-    from(u in User,
+    from(
+      u in User,
       preload: [:settings, :badges, [badges_users: :badge]],
-      where: u.user_id == ^id)
-    |> Repo.one!
+      where: u.user_id == ^id
+    )
+    |> Repo.one!()
   end
 
   @doc """
@@ -81,10 +83,12 @@ defmodule Cforum.Accounts.Users do
 
   """
   def get_user(id) do
-    from(u in User,
+    from(
+      u in User,
       preload: [:settings, :badges, [badges_users: :badge]],
-      where: u.user_id == ^id)
-    |> Repo.one
+      where: u.user_id == ^id
+    )
+    |> Repo.one()
   end
 
   @doc """
@@ -105,12 +109,15 @@ defmodule Cforum.Accounts.Users do
 
   """
   def get_user_by_username_or_email(login) do
-    from(user in User,
+    from(
+      user in User,
       preload: [:settings, :badges, [badges_users: :badge]],
-      where: user.active == true and
-             (fragment("lower(?)", user.email) == fragment("lower(?)", ^login) or
-              fragment("lower(?)", user.username) == fragment("lower(?)", ^login)))
-    |> Repo.one
+      where:
+        user.active == true and
+          (fragment("lower(?)", user.email) == fragment("lower(?)", ^login) or
+             fragment("lower(?)", user.username) == fragment("lower(?)", ^login))
+    )
+    |> Repo.one()
   end
 
   @doc """
@@ -182,10 +189,7 @@ defmodule Cforum.Accounts.Users do
   def update_user_password(%User{} = user, attrs) do
     user
     |> User.password_changeset(attrs)
-    |> Ecto.Changeset.change(
-      %{reset_password_token: nil,
-        reset_password_sent_at: nil}
-    )
+    |> Ecto.Changeset.change(%{reset_password_token: nil, reset_password_sent_at: nil})
     |> Repo.update()
   end
 
@@ -283,8 +287,9 @@ defmodule Cforum.Accounts.Users do
     case Repo.get_by(User, confirmation_token: token) do
       nil ->
         {:error, nil}
+
       user ->
-        update_user(user, %{confirmed_at: Timex.now})
+        update_user(user, %{confirmed_at: Timex.now()})
     end
   end
 
@@ -298,12 +303,13 @@ defmodule Cforum.Accounts.Users do
 
   """
   def get_reset_password_token(user) do
-    token = :crypto.strong_rand_bytes(32)
-    |> Base.encode64
-    |> binary_part(0, 32)
+    token =
+      :crypto.strong_rand_bytes(32)
+      |> Base.encode64()
+      |> binary_part(0, 32)
 
-    {:ok, user} = update_user_reset_password_token(user, %{reset_password_token: token,
-                                                           reset_password_sent_at: Timex.now})
+    {:ok, user} =
+      update_user_reset_password_token(user, %{reset_password_token: token, reset_password_sent_at: Timex.now()})
 
     user
   end
@@ -319,12 +325,15 @@ defmodule Cforum.Accounts.Users do
   """
   def unique_badges(user) do
     user.badges_users
-    |> Enum.reduce(%{}, fn(bu, acc) ->
-      Map.update(acc, bu.badge_id,
-                 %{badge: bu.badge, created_at: bu.created_at, times: 1},
-                 & %{&1 | times: &1.times + 1})
-    end)
-    |> Map.values
+    |> Enum.reduce(%{}, fn bu, acc ->
+         Map.update(
+           acc,
+           bu.badge_id,
+           %{badge: bu.badge, created_at: bu.created_at, times: 1},
+           &%{&1 | times: &1.times + 1}
+         )
+       end)
+    |> Map.values()
     |> Enum.sort(&(&1[:times] >= &2[:times]))
   end
 
@@ -340,10 +349,11 @@ defmodule Cforum.Accounts.Users do
 
   """
   def conf(user, config_name)
-  def conf(nil, name), do: Cforum.ConfigManager.defaults[name]
-  def conf(%User{settings: nil}, name), do: Cforum.ConfigManager.defaults[name]
+  def conf(nil, name), do: Cforum.ConfigManager.defaults()[name]
+  def conf(%User{settings: nil}, name), do: Cforum.ConfigManager.defaults()[name]
+
   def conf(%User{settings: settings}, name) do
-    settings.options[name] || Cforum.ConfigManager.defaults[name]
+    settings.options[name] || Cforum.ConfigManager.defaults()[name]
   end
 
   @doc """
@@ -365,14 +375,12 @@ defmodule Cforum.Accounts.Users do
         {:ok, user}
 
       user ->
-        {:error, User.login_changeset(user, %{"login" => login,
-                                              "password" => password})}
+        {:error, User.login_changeset(user, %{"login" => login, "password" => password})}
 
       true ->
         # just waste some time for timing sidechannel attacks
         Comeonin.Bcrypt.dummy_checkpw()
-        {:error, User.login_changeset(%User{}, %{"login" => login,
-                                                 "password" => password})}
+        {:error, User.login_changeset(%User{}, %{"login" => login, "password" => password})}
     end
   end
 
@@ -401,18 +409,23 @@ defmodule Cforum.Accounts.Users do
       false
   """
   def moderator?(%User{admin: true}), do: true
+
   def moderator?(user) do
-    pm_query = from(
-      fpm in ForumGroupPermission,
-      where: fpm.group_id in (fragment("SELECT group_id FROM groups_users WHERE user_id = ?", ^user.user_id)) and
-             fpm.permission == ^ForumGroupPermission.moderate
-    )
+    pm_query =
+      from(
+        fpm in ForumGroupPermission,
+        where:
+          fpm.group_id in fragment("SELECT group_id FROM groups_users WHERE user_id = ?", ^user.user_id) and
+            fpm.permission == ^ForumGroupPermission.moderate()
+      )
 
     cond do
-      has_badge?(user, Badge.moderator_tools) ->
+      has_badge?(user, Badge.moderator_tools()) ->
         true
+
       Repo.exists?(pm_query) ->
         true
+
       true ->
         false
     end

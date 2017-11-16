@@ -3,8 +3,13 @@ defmodule CforumWeb.Users.UserView do
 
   def page_title(:index, _), do: gettext("Users")
   def page_title(:show, assigns), do: gettext("User %{username}", username: assigns[:user].username)
-  def page_title(:show_messages, assigns), do: gettext("All messages for user %{username}", username: assigns[:user].username)
-  def page_title(:show_scores, assigns), do: gettext("All scores for user %{username}", username: assigns[:user].username)
+
+  def page_title(:show_messages, assigns),
+    do: gettext("All messages for user %{username}", username: assigns[:user].username)
+
+  def page_title(:show_scores, assigns),
+    do: gettext("All scores for user %{username}", username: assigns[:user].username)
+
   def page_title(:show_votes, assigns), do: gettext("All votes for user %{username}", username: assigns[:user].username)
   def page_title(:confirm_delete, assigns), do: gettext("Delete user %{username}", username: assigns[:user].username)
   def page_title(:update, assigns), do: gettext("Edit profile: %{username}", username: assigns[:user].username)
@@ -12,9 +17,16 @@ defmodule CforumWeb.Users.UserView do
 
   def page_heading(:index, _), do: gettext("Users")
   def page_heading(:show, assigns), do: gettext("User %{username}", username: assigns[:user].username)
-  def page_heading(:show_messages, assigns), do: gettext("All messages for user %{username}", username: assigns[:user].username)
-  def page_heading(:show_scores, assigns), do: gettext("All scores for user %{username}", username: assigns[:user].username)
-  def page_heading(:show_votes, assigns), do: gettext("All votes for user %{username}", username: assigns[:user].username)
+
+  def page_heading(:show_messages, assigns),
+    do: gettext("All messages for user %{username}", username: assigns[:user].username)
+
+  def page_heading(:show_scores, assigns),
+    do: gettext("All scores for user %{username}", username: assigns[:user].username)
+
+  def page_heading(:show_votes, assigns),
+    do: gettext("All votes for user %{username}", username: assigns[:user].username)
+
   def page_heading(:confirm_delete, assigns), do: gettext("Delete user %{username}", username: assigns[:user].username)
   def page_heading(:update, assigns), do: page_title(:update, assigns)
   def page_heading(:edit, assigns), do: page_heading(:update, assigns)

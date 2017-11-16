@@ -2,29 +2,30 @@ defmodule Cforum.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :cforum,
-     version: "0.0.1",
-     elixir: "~> 1.2",
-     elixirc_paths: elixirc_paths(Mix.env),
-     compilers: [:phoenix, :gettext] ++ Mix.compilers,
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     test_coverage: [tool: Coverex.Task, ignore_modules: ignored_modules()],
-     aliases: aliases(),
-     deps: deps()]
+    [
+      app: :cforum,
+      version: "0.0.1",
+      elixir: "~> 1.2",
+      elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      test_coverage: [tool: Coverex.Task, ignore_modules: ignored_modules()],
+      aliases: aliases(),
+      deps: deps()
+    ]
   end
 
   # Configuration for the OTP application.
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {Cforum, []},
-     extra_applications: [:logger, :runtime_tools]]
+    [mod: {Cforum, []}, extra_applications: [:logger, :runtime_tools]]
   end
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_),     do: ["lib"]
+  defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
   #
@@ -64,20 +65,33 @@ defmodule Cforum.Mixfile do
   #
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
-    ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-     "ecto.reset": ["ecto.drop", "ecto.setup"],
-     "test": ["ecto.create --quiet", "ecto.migrate", "test"]]
+    [
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+    ]
   end
 
   defp ignored_modules do
-    [Elixir.Phoenix.Param.Cforum.Accounts.Badge, Elixir.Phoenix.Param.Cforum.Accounts.BadgeUser,
-     Elixir.Phoenix.Param.Cforum.Accounts.Notification, Elixir.Phoenix.Param.Cforum.Accounts.PrivMessage,
-     Elixir.Phoenix.Param.Cforum.Accounts.Score, Elixir.Phoenix.Param.Cforum.Accounts.Setting,
-     Elixir.Phoenix.Param.Cforum.Accounts.User, Elixir.Phoenix.Param.Cforum.Forums.CloseVote,
-     Elixir.Phoenix.Param.Cforum.Forums.CloseVoteVoter, Elixir.Phoenix.Param.Cforum.Forums.Forum,
-     Elixir.Phoenix.Param.Cforum.Forums.InterestingMessage, Elixir.Phoenix.Param.Cforum.Forums.Message,
-     Elixir.Phoenix.Param.Cforum.Forums.MessageTag, Elixir.Phoenix.Param.Cforum.Forums.ReadMessage,
-     Elixir.Phoenix.Param.Cforum.Forums.Subscription, Elixir.Phoenix.Param.Cforum.Forums.Tag,
-     Elixir.Phoenix.Param.Cforum.Forums.Thread, Elixir.Phoenix.Param.Cforum.Forums.Vote]
+    [
+      Elixir.Phoenix.Param.Cforum.Accounts.Badge,
+      Elixir.Phoenix.Param.Cforum.Accounts.BadgeUser,
+      Elixir.Phoenix.Param.Cforum.Accounts.Notification,
+      Elixir.Phoenix.Param.Cforum.Accounts.PrivMessage,
+      Elixir.Phoenix.Param.Cforum.Accounts.Score,
+      Elixir.Phoenix.Param.Cforum.Accounts.Setting,
+      Elixir.Phoenix.Param.Cforum.Accounts.User,
+      Elixir.Phoenix.Param.Cforum.Forums.CloseVote,
+      Elixir.Phoenix.Param.Cforum.Forums.CloseVoteVoter,
+      Elixir.Phoenix.Param.Cforum.Forums.Forum,
+      Elixir.Phoenix.Param.Cforum.Forums.InterestingMessage,
+      Elixir.Phoenix.Param.Cforum.Forums.Message,
+      Elixir.Phoenix.Param.Cforum.Forums.MessageTag,
+      Elixir.Phoenix.Param.Cforum.Forums.ReadMessage,
+      Elixir.Phoenix.Param.Cforum.Forums.Subscription,
+      Elixir.Phoenix.Param.Cforum.Forums.Tag,
+      Elixir.Phoenix.Param.Cforum.Forums.Thread,
+      Elixir.Phoenix.Param.Cforum.Forums.Vote
+    ]
   end
 end

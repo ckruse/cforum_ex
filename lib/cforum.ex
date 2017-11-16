@@ -24,9 +24,11 @@ defmodule Cforum do
   end
 
   defp poolboy_config(:markdown) do
-    [{:name, {:local, Cforum.MarkdownRenderer.pool_name()}},
-     {:worker_module, Cforum.MarkdownRenderer},
-     {:size, 3},
-     {:max_overflow, 1}]
+    [
+      {:name, {:local, Cforum.MarkdownRenderer.pool_name()}},
+      {:worker_module, Cforum.MarkdownRenderer},
+      {:size, 3},
+      {:max_overflow, 1}
+    ]
   end
 end

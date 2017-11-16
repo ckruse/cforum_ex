@@ -16,5 +16,4 @@ config :cforum, Cforum.Repo,
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
-  config :cforum, Cforum.Mailer,
-    adapter: Bamboo.TestAdapter
+config :cforum, Cforum.Mailer, adapter: Bamboo.TestAdapter

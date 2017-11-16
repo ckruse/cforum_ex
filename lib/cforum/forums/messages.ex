@@ -39,12 +39,14 @@ defmodule Cforum.Forums.Messages do
       [%Message{}, ...]
   """
   def list_messages_for_user(user, forum_ids, query_params \\ [order: nil, limit: nil]) do
-    from(m in Message,
+    from(
+      m in Message,
       preload: [:user, :tags, [votes: :voters, thread: :forum]],
-      where: m.user_id == ^user.user_id and m.deleted == false and m.forum_id in (^forum_ids))
+      where: m.user_id == ^user.user_id and m.deleted == false and m.forum_id in ^forum_ids
+    )
     |> Cforum.PagingApi.set_limit(query_params[:limit])
-    |> Cforum.OrderApi.set_ordering(query_params[:order], [desc: :created_at])
-    |> Repo.all
+    |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
+    |> Repo.all()
   end
 
   @doc """
@@ -58,10 +60,10 @@ defmodule Cforum.Forums.Messages do
   def count_messages_for_user(user, forum_ids) do
     from(
       m in Message,
-      where: m.user_id == ^user.user_id and m.deleted == false and m.forum_id in (^forum_ids),
+      where: m.user_id == ^user.user_id and m.deleted == false and m.forum_id in ^forum_ids,
       select: count("*")
     )
-    |> Repo.one
+    |> Repo.one()
   end
 
   @doc """
@@ -76,44 +78,63 @@ defmodule Cforum.Forums.Messages do
       [%Message{}, ...]
   """
   def list_best_scored_messages_for_user(user, forum_ids, limit \\ 10) do
-    from(m in Message,
+    from(
+      m in Message,
       preload: [:user, :tags, [votes: :voters, thread: :forum]],
-      where: m.deleted == false and m.upvotes > 0 and m.user_id == ^user.user_id and m.forum_id in (^forum_ids),
+      where: m.deleted == false and m.upvotes > 0 and m.user_id == ^user.user_id and m.forum_id in ^forum_ids,
       order_by: fragment("upvotes - downvotes DESC"),
-      limit: ^limit)
-    |> Repo.all
+      limit: ^limit
+    )
+    |> Repo.all()
   end
 
   defp int_list_scored_msgs_for_user_in_perspective(cuser, user, forum_ids, limit)
-  defp int_list_scored_msgs_for_user_in_perspective(%User{user_id: cuid}, user = %User{user_id: uid}, forum_ids, limit) when cuid == uid do
-    from(s in Score,
-      preload: [message: [:user, :tags, [thread: :forum, votes: :voters]],
-                vote: [message: [:user, :tags, [thread: :forum, votes: :voters]]]],
-      left_join: m1 in Message, on: m1.message_id == s.message_id,
-      left_join: v in Vote, on: s.vote_id == v.vote_id,
-      left_join: m2 in Message, on: v.message_id == m2.message_id,
+
+  defp int_list_scored_msgs_for_user_in_perspective(%User{user_id: cuid}, user = %User{user_id: uid}, forum_ids, limit)
+       when cuid == uid do
+    from(
+      s in Score,
+      preload: [
+        message: [:user, :tags, [thread: :forum, votes: :voters]],
+        vote: [message: [:user, :tags, [thread: :forum, votes: :voters]]]
+      ],
+      left_join: m1 in Message,
+      on: m1.message_id == s.message_id,
+      left_join: v in Vote,
+      on: s.vote_id == v.vote_id,
+      left_join: m2 in Message,
+      on: v.message_id == m2.message_id,
       where: s.user_id == ^user.user_id,
-      where: is_nil(m1.message_id) or m1.forum_id in (^forum_ids),
-      where: is_nil(m2.message_id) or m2.forum_id in (^forum_ids),
+      where: is_nil(m1.message_id) or m1.forum_id in ^forum_ids,
+      where: is_nil(m2.message_id) or m2.forum_id in ^forum_ids,
       where: is_nil(m1.message_id) or m1.deleted == false,
       where: is_nil(m2.message_id) or m2.deleted == false,
-      order_by: [desc: :created_at])
+      order_by: [desc: :created_at]
+    )
     |> Cforum.PagingApi.set_limit(limit)
   end
+
   defp int_list_scored_msgs_for_user_in_perspective(_, user, forum_ids, limit) do
-    from(s in Score,
-      preload: [message: [:user, :tags, [thread: :forum, votes: :voters]],
-                vote: [message: [:user, :tags, [thread: :forum, votes: :voters]]]],
-      left_join: m1 in Message, on: m1.message_id == s.message_id,
-      left_join: v in Vote, on: s.vote_id == v.vote_id,
-      left_join: m2 in Message, on: v.message_id == m2.message_id,
+    from(
+      s in Score,
+      preload: [
+        message: [:user, :tags, [thread: :forum, votes: :voters]],
+        vote: [message: [:user, :tags, [thread: :forum, votes: :voters]]]
+      ],
+      left_join: m1 in Message,
+      on: m1.message_id == s.message_id,
+      left_join: v in Vote,
+      on: s.vote_id == v.vote_id,
+      left_join: m2 in Message,
+      on: v.message_id == m2.message_id,
       where: s.user_id == ^user.user_id,
-      where: is_nil(m1.message_id) or m1.forum_id in (^forum_ids),
-      where: is_nil(m2.message_id) or m2.forum_id in (^forum_ids),
+      where: is_nil(m1.message_id) or m1.forum_id in ^forum_ids,
+      where: is_nil(m2.message_id) or m2.forum_id in ^forum_ids,
       where: is_nil(m1.message_id) or m1.deleted == false,
       where: is_nil(m2.message_id) or m2.deleted == false,
       where: m2.user_id == ^user.user_id,
-      order_by: [desc: :created_at])
+      order_by: [desc: :created_at]
+    )
     |> Cforum.PagingApi.set_limit(limit)
   end
 
@@ -139,7 +160,7 @@ defmodule Cforum.Forums.Messages do
   """
   def list_scored_msgs_for_user_in_perspective(cuser, user, forum_ids, limit \\ nil) do
     int_list_scored_msgs_for_user_in_perspective(cuser, user, forum_ids, limit)
-    |> Repo.all
+    |> Repo.all()
   end
 
   @doc """
@@ -156,7 +177,7 @@ defmodule Cforum.Forums.Messages do
     |> exclude(:preload)
     |> exclude(:order_by)
     |> select(count("*"))
-    |> Repo.one
+    |> Repo.one()
   end
 
   @doc """
@@ -168,12 +189,14 @@ defmodule Cforum.Forums.Messages do
       [{"2017-01-01", 10}, ...]
   """
   def count_messages_for_user_by_month(user, forum_ids) do
-    from(m in Message,
-         select: {fragment("DATE_TRUNC('month', created_at) created_at"), count("*")},
-         where: m.user_id == ^user.user_id and m.deleted == false and m.forum_id in (^forum_ids),
-         group_by: fragment("DATE_TRUNC('month', created_at)"),
-         order_by: fragment("DATE_TRUNC('month', created_at)"))
-    |> Repo.all
+    from(
+      m in Message,
+      select: {fragment("DATE_TRUNC('month', created_at) created_at"), count("*")},
+      where: m.user_id == ^user.user_id and m.deleted == false and m.forum_id in ^forum_ids,
+      group_by: fragment("DATE_TRUNC('month', created_at)"),
+      order_by: fragment("DATE_TRUNC('month', created_at)")
+    )
+    |> Repo.all()
   end
 
   @doc """
@@ -187,16 +210,21 @@ defmodule Cforum.Forums.Messages do
       [{"foo-bar", "Foo Bar", "self", "Selfforum", 10}, ...]
   """
   def count_messages_per_tag_for_user(user, forum_ids, limit \\ 10) do
-    from(mt in MessageTag,
-      inner_join: m in Message, on: m.message_id == mt.message_id,
-      inner_join: t in Tag, on: mt.tag_id == t.tag_id,
-      inner_join: f in Forum, on: f.forum_id == t.forum_id,
+    from(
+      mt in MessageTag,
+      inner_join: m in Message,
+      on: m.message_id == mt.message_id,
+      inner_join: t in Tag,
+      on: mt.tag_id == t.tag_id,
+      inner_join: f in Forum,
+      on: f.forum_id == t.forum_id,
       select: {t.slug, t.tag_name, f.slug, f.short_name, count("*")},
-      where: m.deleted == false and m.user_id == ^user.user_id and m.forum_id in (^forum_ids),
+      where: m.deleted == false and m.user_id == ^user.user_id and m.forum_id in ^forum_ids,
       group_by: [t.slug, t.tag_name, f.forum_id, f.short_name],
       order_by: fragment("COUNT(*) DESC"),
-      limit: ^limit)
-    |> Repo.all
+      limit: ^limit
+    )
+    |> Repo.all()
   end
 
   @doc """
@@ -228,9 +256,11 @@ defmodule Cforum.Forums.Messages do
       ** (Ecto.NoResultsError)
   """
   def get_message_from_slug_and_mid!(forum, user, slug, mid, opts \\ [])
+
   def get_message_from_slug_and_mid!(forum, user, slug, mid, opts) when is_bitstring(mid) do
     get_message_from_slug_and_mid!(forum, user, slug, String.to_integer(mid, 10), opts)
   end
+
   def get_message_from_slug_and_mid!(forum, user, slug, mid, opts) do
     thread = Threads.get_thread_by_slug!(user, slug, opts)
 
@@ -241,6 +271,7 @@ defmodule Cforum.Forums.Messages do
     case Enum.find(thread.sorted_messages, &(&1.message_id == mid)) do
       nil ->
         raise Ecto.NoResultsError, queryable: Message
+
       msg ->
         {thread, msg}
     end

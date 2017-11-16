@@ -24,7 +24,7 @@ defmodule Cforum.Accounts.Settings do
       setting in Setting,
       where: setting.user_id == ^user.user_id
     )
-    |> Repo.all
+    |> Repo.all()
   end
 
   @doc """
@@ -64,7 +64,7 @@ defmodule Cforum.Accounts.Settings do
       setting in Setting,
       where: setting.forum_id == ^forum.forum_id
     )
-    |> Repo.one
+    |> Repo.one()
   end
 
   @doc """
@@ -132,7 +132,6 @@ defmodule Cforum.Accounts.Settings do
     Setting.changeset(setting, %{})
   end
 
-
   @doc """
   Loads the global settings, the settings for a given forum and the settings
   for a given user. Omits if one of them is missing.
@@ -152,40 +151,47 @@ defmodule Cforum.Accounts.Settings do
       [%Setting{}, %Setting{}, %Setting{}]
   """
   def load_relevant_settings(forum, user)
+
   def load_relevant_settings(nil, nil) do
     from(
       setting in Setting,
       where: is_nil(setting.forum_id) and is_nil(setting.user_id)
     )
-    |> Repo.all
+    |> Repo.all()
   end
+
   def load_relevant_settings(%Forum{} = forum, nil) do
     from(
       setting in Setting,
-      where: (is_nil(setting.forum_id) and is_nil(setting.user_id)) or
-             (is_nil(setting.user_id) and setting.forum_id == ^forum.forum_id),
+      where:
+        (is_nil(setting.forum_id) and is_nil(setting.user_id)) or
+          (is_nil(setting.user_id) and setting.forum_id == ^forum.forum_id),
       order_by: fragment("? NULLS FIRST", setting.forum_id)
     )
-    |> Repo.all
+    |> Repo.all()
   end
+
   def load_relevant_settings(nil, %User{} = user) do
     from(
       setting in Setting,
-      where: (is_nil(setting.forum_id) and is_nil(setting.user_id)) or
-             (is_nil(setting.forum_id) and setting.user_id == ^user.user_id),
+      where:
+        (is_nil(setting.forum_id) and is_nil(setting.user_id)) or
+          (is_nil(setting.forum_id) and setting.user_id == ^user.user_id),
       order_by: fragment("? NULLS FIRST", setting.user_id)
     )
-    |> Repo.all
+    |> Repo.all()
   end
+
   def load_relevant_settings(%Forum{} = forum, %User{} = user) do
     from(
       setting in Setting,
-      where: (is_nil(setting.forum_id) and is_nil(setting.user_id)) or
-             (is_nil(setting.forum_id) and setting.user_id == ^user.user_id) or
-             (is_nil(setting.user_id) and setting.forum_id == ^forum.forum_id),
+      where:
+        (is_nil(setting.forum_id) and is_nil(setting.user_id)) or
+          (is_nil(setting.forum_id) and setting.user_id == ^user.user_id) or
+          (is_nil(setting.user_id) and setting.forum_id == ^forum.forum_id),
       order_by: fragment("? NULLS FIRST, ? NULLS FIRST", setting.user_id, setting.forum_id)
     )
-    |> Repo.all
+    |> Repo.all()
   end
 
   @doc """
@@ -198,6 +204,6 @@ defmodule Cforum.Accounts.Settings do
       "bar"
   """
   def conf(setting, nam) do
-    setting.options[nam] || Cforum.ConfigManager.defaults[nam]
+    setting.options[nam] || Cforum.ConfigManager.defaults()[nam]
   end
 end

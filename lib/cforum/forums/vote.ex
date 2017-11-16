@@ -5,10 +5,10 @@ defmodule Cforum.Forums.Vote do
   @derive {Phoenix.Param, key: :vote_id}
 
   schema "votes" do
-    field :vtype, :string
-    belongs_to :user, Cforum.Accounts.User, references: :user_id
-    belongs_to :message, Cforum.Forums.Message, references: :message_id
-    has_one :score, Cforum.Accounts.Score, foreign_key: :vote_id
+    field(:vtype, :string)
+    belongs_to(:user, Cforum.Accounts.User, references: :user_id)
+    belongs_to(:message, Cforum.Forums.Message, references: :message_id)
+    has_one(:score, Cforum.Accounts.Score, foreign_key: :vote_id)
   end
 
   @doc """

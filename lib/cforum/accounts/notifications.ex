@@ -18,27 +18,30 @@ defmodule Cforum.Accounts.Notifications do
 
   """
   def list_notifications(user, query_params \\ [order: nil, limit: nil]) do
-    from(notification in Notification,
-      where: notification.recipient_id == ^user.user_id)
+    from(notification in Notification, where: notification.recipient_id == ^user.user_id)
     |> Cforum.PagingApi.set_limit(query_params[:limit])
-    |> Cforum.OrderApi.set_ordering(query_params[:order], [desc: :created_at])
-    |> Repo.all
+    |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
+    |> Repo.all()
   end
 
   def count_notifications(user, only_unread \\ false)
+
   def count_notifications(user, false) do
-    from(notification in Notification,
+    from(
+      notification in Notification,
       where: notification.recipient_id == ^user.user_id,
       select: count("*")
     )
-    |> Repo.one
+    |> Repo.one()
   end
+
   def count_notifications(user, true) do
-    from(notification in Notification,
+    from(
+      notification in Notification,
       where: notification.recipient_id == ^user.user_id and notification.is_read == false,
       select: count("*")
     )
-    |> Repo.one
+    |> Repo.one()
   end
 
   @doc """

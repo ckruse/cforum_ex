@@ -3,17 +3,19 @@ defmodule CforumWeb.NotificationController do
 
   alias Cforum.Accounts.Notifications
 
-  plug :check_access
+  plug(:check_access)
 
   def index(conn, params) do
     {sort_params, conn} = sort_collection(conn, [:created_at, :subject, :is_read])
     count = Notifications.count_notifications(conn.assigns[:current_user])
     paging = CforumWeb.Paginator.paginate(count, page: params["p"])
-    notifications = Notifications.list_notifications(
-      conn.assigns[:current_user],
-      limit: paging.params,
-      order: sort_params
-    )
+
+    notifications =
+      Notifications.list_notifications(
+        conn.assigns[:current_user],
+        limit: paging.params,
+        order: sort_params
+      )
 
     render(conn, "index.html", notifications: notifications, paging: paging)
   end
@@ -35,6 +37,7 @@ defmodule CforumWeb.NotificationController do
         conn
         |> put_flash(:info, gettext("Notification successfully marked as unread."))
         |> redirect(to: notification_path(conn, :index))
+
       {:error, _changeset} ->
         conn
         |> put_flash(:error, gettext("Oops, something went wrong!"))
@@ -59,5 +62,6 @@ defmodule CforumWeb.NotificationController do
       assign(conn, :notification, notification)
     end
   end
+
   defp check_access(conn, _), do: conn
 end

@@ -11,6 +11,7 @@ defmodule CforumWeb.Paginator do
     per_page = opts[:per_page] || config[:per_page] || 50
     distance = opts[:distance] || config[:distance] || 3
     page = parse_page(opts[:page])
+
     %Paginator{
       params: [quantity: per_page, offset: (page - 1) * per_page],
       per_page: per_page,
@@ -27,7 +28,7 @@ defmodule CforumWeb.Paginator do
   defp parse_page(x), do: x
 
   defp pages_count(all_entries_count, per_page) do
-    (all_entries_count / per_page) |> Float.ceil |> round
+    (all_entries_count / per_page) |> Float.ceil() |> round
   end
 
   def pagination(conn, page, path_helper, opts \\ []) do
@@ -55,7 +56,7 @@ defmodule CforumWeb.Paginator do
     label = opts[:prev] || "«"
 
     content_tag :li, class: classes do
-      page(label, path_helper, conn,  p_num, opts)
+      page(label, path_helper, conn, p_num, opts)
     end
   end
 
@@ -79,19 +80,22 @@ defmodule CforumWeb.Paginator do
   end
 
   defp pages_list(conn, page, path_helper, opts) do
-    start = case page.page - page.distance do
-                             x when x <= 1 -> []
-                             _ -> [add_ellipsis()]
-    end
+    start =
+      case page.page - page.distance do
+        x when x <= 1 -> []
+        _ -> [add_ellipsis()]
+      end
 
     pcount = page.pages_count
-    ending = case page.page + page.distance do
-                              x when x >= pcount -> []
-                              _ -> [add_ellipsis()]
-    end
 
-    start ++ Enum.map(Enum.to_list(pages_list_start(page)..pages_list_end(page)),
-      fn(pno) ->
+    ending =
+      case page.page + page.distance do
+        x when x >= pcount -> []
+        _ -> [add_ellipsis()]
+      end
+
+    start ++
+      Enum.map(Enum.to_list(pages_list_start(page)..pages_list_end(page)), fn pno ->
         classes = if pno == page.page, do: "active", else: nil
 
         content_tag :li, class: classes do
@@ -102,21 +106,21 @@ defmodule CforumWeb.Paginator do
 
   defp add_ellipsis() do
     content_tag :li do
-      content_tag :span, "…"
+      content_tag(:span, "…")
     end
   end
 
   defp pages_list_start(%Paginator{page: page, distance: distance}) do
     case page - distance do
-                x when x < 1 -> 1
-                x -> x
+      x when x < 1 -> 1
+      x -> x
     end
   end
 
   defp pages_list_end(%Paginator{page: page, distance: distance, pages_count: pages_count}) do
     case page + distance do
-                x when x > pages_count -> pages_count
-                x -> x
+      x when x > pages_count -> pages_count
+      x -> x
     end
   end
 
@@ -130,7 +134,7 @@ defmodule CforumWeb.Paginator do
     if to do
       link(text, to: to)
     else
-      content_tag :a, text
+      content_tag(:a, text)
     end
   end
 end

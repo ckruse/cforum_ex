@@ -10,7 +10,7 @@ defmodule CforumWeb.Plug.EnsureAdmin do
   def call(conn, _) do
     if conn.assigns[:current_user] == nil || !conn.assigns[:current_user].admin do
       conn
-      |> Plug.Conn.halt
+      |> Plug.Conn.halt()
       |> CforumWeb.ErrorHandler.admin_required(conn.params)
     else
       conn
