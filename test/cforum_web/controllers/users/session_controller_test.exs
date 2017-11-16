@@ -87,7 +87,7 @@ defmodule CforumWeb.Users.SessionControllerTest do
   test "redirects to new session path when not logged in", %{conn: conn} do
     conn = delete(conn, session_path(conn, :delete))
 
-    assert redirected_to(conn) == session_path(conn, :new)
+    assert redirected_to(conn, 403) == session_path(conn, :new)
     assert get_flash(conn, :error) == gettext("You have to be logged in to see this page!")
   end
 end
