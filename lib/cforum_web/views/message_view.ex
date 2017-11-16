@@ -56,7 +56,7 @@ defmodule CforumWeb.MessageView do
     [{:safe, "<ol>"} | [parts | {:safe, "</ol>"}]]
   end
 
-  # TODO+ day_changed_key(message))
+  # TODO day_changed_key(message))
   def message_date_format(conn, true), do: date_format(conn, "date_format_index")
   def message_date_format(conn, false), do: date_format(conn, "date_format_post")
 
@@ -112,9 +112,11 @@ defmodule CforumWeb.MessageView do
     cond do
       score == 0 ->
         classes
-        score > 0
+
+      score > 0 ->
         [positive_score_class(score) | classes]
-        score < 0
+
+      score < 0 ->
         [negative_score_class(score) | classes]
     end
   end
