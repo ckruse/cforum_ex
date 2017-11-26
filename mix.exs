@@ -51,6 +51,8 @@ defmodule Cforum.Mixfile do
       {:arc, "~> 0.8"},
       {:poolboy, "~> 1.5.1"},
       {:porcelain, "~> 2.0"},
+      {:poison, "~> 3.1"},
+      # testing
       {:ex_guard, "~> 1.3", only: :dev},
       {:coverex, "~> 1.4.15", only: :test},
       {:ex_machina, "~> 2.1", only: :test},
