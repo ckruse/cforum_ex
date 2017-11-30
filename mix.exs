@@ -56,7 +56,8 @@ defmodule Cforum.Mixfile do
       {:ex_guard, "~> 1.3", only: :dev},
       {:coverex, "~> 1.4.15", only: :test},
       {:ex_machina, "~> 2.1", only: :test},
-      {:faker, "~> 0.9", only: :test}
+      {:faker, "~> 0.9", only: :test},
+      {:credo, "~> 0.8", only: [:dev, :test], runtime: false}
     ]
   end
 
