@@ -65,7 +65,7 @@ defmodule CforumWeb.Router do
     post("/registrations", Users.RegistrationController, :create)
     get("/registrations/confirm", Users.RegistrationController, :confirm)
 
-    get("/", ForumController, :index)
+    get("/", ForumController, :index, as: :root)
     get("/help", PageController, :help)
 
     get("/users/password", Users.PasswordController, :new)
@@ -88,7 +88,7 @@ defmodule CforumWeb.Router do
     scope "/:curr_forum" do
       pipe_through([:browser, :forum_access])
 
-      get("/", ThreadController, :index)
+      get("/", ThreadController, :index, as: :forum)
       resources("/tags", TagController)
 
       get("/:year/:month/:day/:slug/:mid", MessageController, :show)

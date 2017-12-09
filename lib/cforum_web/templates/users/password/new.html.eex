@@ -7,6 +7,6 @@
 
   <p class="form-actions">
     <%= submit gettext("send reset instructions"), class: "cf-primary-btn" %>
-    <%= link gettext("cancel"), to: forum_path(@conn, :index), class: "cf-btn" %>
+    <%= link gettext("cancel"), to: root_path(@conn, :index), class: "cf-btn" %>
   </p>
 <% end %>

@@ -13,7 +13,7 @@ defmodule CforumWeb.Users.RegistrationControllerTest do
       login(conn, user)
       |> get(registration_path(conn, :new))
 
-    assert redirected_to(conn) == forum_path(conn, :index)
+    assert redirected_to(conn) == root_path(conn, :index)
   end
 
   test "registers a new user", %{conn: conn} do
@@ -24,7 +24,7 @@ defmodule CforumWeb.Users.RegistrationControllerTest do
         user: %{username: "foobar", email: "foo@example.org", password: "1234", password_confirmation: "1234"}
       )
 
-    assert redirected_to(conn) == forum_path(conn, :index)
+    assert redirected_to(conn) == root_path(conn, :index)
 
     assert get_flash(conn, :info) ==
              gettext("Account successfully created. Please follow the confirmation instructions we send you via mail.")
@@ -41,21 +41,21 @@ defmodule CforumWeb.Users.RegistrationControllerTest do
         user: %{username: "foobar", email: "foo@example.org", password: "1234", password_confirmation: "1234"}
       )
 
-    assert redirected_to(conn) == forum_path(conn, :index)
+    assert redirected_to(conn) == root_path(conn, :index)
     assert get_flash(conn, :error) == gettext("You are already logged in")
   end
 
   test "confirms a new user", %{conn: conn} do
     insert(:user, confirmation_token: "foobar")
     conn = get(conn, registration_path(conn, :confirm, token: "foobar"))
-    assert redirected_to(conn) == forum_path(conn, :index)
+    assert redirected_to(conn) == root_path(conn, :index)
     assert get_flash(conn, :info) == gettext("Account successfully confirmed!")
   end
 
   test "shows an error on invalid confirmation token", %{conn: conn} do
     insert(:user, confirmation_token: "foobar")
     conn = get(conn, registration_path(conn, :confirm, token: "foobarbaz"))
-    assert redirected_to(conn) == forum_path(conn, :index)
+    assert redirected_to(conn) == root_path(conn, :index)
     assert get_flash(conn, :error) == gettext("Oops, something went wrong!")
   end
 end
