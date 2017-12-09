@@ -13,7 +13,7 @@ defmodule CforumWeb.Users.PasswordControllerTest do
     user = insert(:user)
     conn = post(conn, password_path(conn, :create), user: %{login: user.username})
 
-    assert redirected_to(conn) == forum_path(conn, :index)
+    assert redirected_to(conn) == root_path(conn, :index)
     assert get_flash(conn, :info) == gettext("The instructions how to reset your password have been sent.")
 
     user1 = Users.get_user!(user.user_id)

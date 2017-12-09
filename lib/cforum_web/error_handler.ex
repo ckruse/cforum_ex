@@ -39,7 +39,7 @@ defmodule CforumWeb.ErrorHandler do
   def anonymous_required(conn, _params) do
     conn
     |> Phoenix.Controller.put_flash(:error, gettext("You are already logged in"))
-    |> Phoenix.Controller.redirect(to: forum_path(conn, :index))
+    |> Phoenix.Controller.redirect(to: root_path(conn, :index))
     |> Plug.Conn.halt()
   end
 end

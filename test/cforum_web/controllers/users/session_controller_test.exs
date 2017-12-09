@@ -13,7 +13,7 @@ defmodule CforumWeb.Users.SessionControllerTest do
       login(conn, user)
       |> get(session_path(conn, :new))
 
-    assert redirected_to(conn) == forum_path(conn, :index)
+    assert redirected_to(conn) == root_path(conn, :index)
   end
 
   test "logs in successfully with right password", %{conn: conn} do
@@ -24,7 +24,7 @@ defmodule CforumWeb.Users.SessionControllerTest do
 
     conn = post(conn, session_path(conn, :create, user: %{login: user.username, password: "1234", remember_me: "true"}))
 
-    assert redirected_to(conn) == forum_path(conn, :index)
+    assert redirected_to(conn) == root_path(conn, :index)
     assert get_flash(conn, :info) == gettext("You logged in successfully")
   end
 
@@ -51,7 +51,7 @@ defmodule CforumWeb.Users.SessionControllerTest do
       login(conn, user)
       |> post(session_path(conn, :create, user: %{login: user.username, password: "12345", remember_me: "true"}))
 
-    assert redirected_to(conn) == forum_path(conn, :index)
+    assert redirected_to(conn) == root_path(conn, :index)
     assert get_flash(conn, :error) == gettext("You are already logged in")
   end
 
@@ -65,7 +65,7 @@ defmodule CforumWeb.Users.SessionControllerTest do
       login(conn, user)
       |> delete(session_path(conn, :delete))
 
-    assert redirected_to(conn) == forum_path(conn, :index)
+    assert redirected_to(conn) == root_path(conn, :index)
     assert get_flash(conn, :info) == gettext("You logged out successfully")
   end
 
@@ -79,7 +79,7 @@ defmodule CforumWeb.Users.SessionControllerTest do
 
     conn = delete(conn, session_path(conn, :delete))
 
-    assert redirected_to(conn) == forum_path(conn, :index)
+    assert redirected_to(conn) == root_path(conn, :index)
     assert get_flash(conn, :info) == gettext("You logged out successfully")
     assert conn.cookies["remember_me"] == nil
   end

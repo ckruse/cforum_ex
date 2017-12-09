@@ -67,7 +67,7 @@
         <ul class="selflinks">
           <li><%= link "SELFHTML", to: "//selfhtml.org/" %></li>
           <li><%= link "Wiki", to: "//wiki.selfhtml.org/" %></li>
-          <li><%= link "Forum", to: forum_path(@conn, :index) %></li>
+          <li><%= link "Forum", to: root_path(@conn, :index) %></li>
           <li><%= link "Blog", to: "//blog.selfhtml.org/" %></li>
         </ul>
       </header>
@@ -101,7 +101,7 @@
 
       <header class="flex-container flex-item page-header">
         <div class="flex-item logo">
-          <h1><span>SELFHTML Forum - Ergänzung zur <%= link "Dokumentation", to: "https://wiki.selfhtml.org" %></span><%= link "", to: forum_path(@conn, :index), class: "home" %></h1>
+          <h1><span>SELFHTML Forum - Ergänzung zur <%= link "Dokumentation", to: "https://wiki.selfhtml.org" %></span><%= link "", to: root_path(@conn, :index), class: "home" %></h1>
           <%= if @current_forum do %>
             <%= link(img_tag(static_path(@conn, "/images/feed-rss.svg"), alt: gettext("RSS feed (%{forum})", forum: @current_forum.name)), to: rss_url(@conn), title: gettext("RSS feed (%{forum})", forum: @current_forum.name), class: "rss") %>
             <%= link(img_tag(static_path(@conn, "/images/feed-atom.svg"), alt: gettext("Atom feed (%{forum})", forum: @current_forum.name)), to: atom_url(@conn), title: gettext("Atom feed (%{forum})", forum: @current_forum.name), class: "atom") %>
@@ -116,11 +116,11 @@
         <nav class="flex-item quicklinks">
           <ul>
             <li><%= link gettext("create new thread"), to: "" %></li>
-            <li><%= link gettext("home"), to: forum_path(@conn, :index) %></li>
+            <li><%= link gettext("home"), to: root_path(@conn, :index) %></li>
             <li class="dropdown"><span class="anchor"><%= gettext("Forums") %></span>
               <ul class="menu">
                 <li<% if !@current_forum && controller_module(@conn) == Cforum.ThreadController do %> class="active"<% end %>>
-                  <%= link gettext("All forums"), to: thread_path(@conn, :index, "all") %>
+                  <%= link gettext("All forums"), to: forum_path(@conn, :index, "all") %>
                   <%= link to: "", title: gettext("Statistics"), class: "stats" do %>
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="22" height="14" viewBox="0, 0, 22, 14">
                       <g id="stats-icon">
@@ -135,7 +135,7 @@
                 </li>
                 <%= for f <- @visible_forums do %>
                   <li<%= if @current_forum == f do %> class="active"<% end %>>
-                    <%= link f.name, to: thread_path(@conn, :index, f) %>
+                    <%= link f.name, to: forum_path(@conn, :index, f) %>
                     <%= link to: "", title: gettext("Statistics"), class: "stats" do %>
                       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="22" height="14" viewBox="0, 0, 22, 14">
                         <use xlink:href="#stats-icon"></use>
@@ -170,7 +170,7 @@
 
           <ul>
             <%= if @current_forum do %>
-              <li><%= link @current_forum.name, to: thread_path(@conn, :index, @current_forum) %></li>
+              <li><%= link @current_forum.name, to: forum_path(@conn, :index, @current_forum) %></li>
             <% end %>
 
             <%= if assigns[:message] != nil && assigns[:thread] != nil && !blank?(@thread.thread_id) do %>
@@ -183,13 +183,13 @@
 
             <%= if controller_module(@conn) == CforumWeb.Threads && @current_user == nil do %>
               <%= if @order != "ascending" do %>
-                <li><%= link(gettext("sort ascending"), to: thread_path(@conn, :index, @current_forum, p: @page, order: "ascending")) %></li>
+                <li><%= link(gettext("sort ascending"), to: forum_path(@conn, :index, @current_forum, p: @page, order: "ascending")) %></li>
               <% end %>
               <%= if @order != "descending" do %>
-                <li><%= link(gettext("sort descending"), to: thread_path(@conn, :index, @current_forum, p: @page, order: "descending")) %></li>
+                <li><%= link(gettext("sort descending"), to: forum_path(@conn, :index, @current_forum, p: @page, order: "descending")) %></li>
               <% end %>
               <%= if @order != "newest-first" do %>
-                <li><%= link(gettext("sort newest first"), to: thread_path(@conn, :index, @current_forum, p: @page, order: "newest-first")) %></li>
+                <li><%= link(gettext("sort newest first"), to: forum_path(@conn, :index, @current_forum, p: @page, order: "newest-first")) %></li>
               <% end %>
             <% end %>
 
