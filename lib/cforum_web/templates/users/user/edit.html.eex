@@ -1,11 +1,11 @@
 <%= form_for @changeset, user_path(@conn, :update, @user), [class: "cf-form", multipart: true], fn f -> %>
 
-<%= render "form.html", changeset: @changeset, f: f, user: @user %>
+  <%= render "form.html", changeset: @changeset, f: f, user: @user %>
 
-<p class="form-actions">
-  <%= submit gettext("save changes"), class: "cf-primary-btn" %>
-  <%= if may?(@conn, "users/password", :edit, @user), do: link(gettext("change password"), to: user_password_path(@conn, :edit, @user), class: "cf-btn") %>
-  <%= link gettext("cancel"), to: user_path(@conn, :show, @user), class: "cf-btn" %>
-</p>
+  <p class="form-actions">
+    <%= submit gettext("save changes"), class: "cf-primary-btn" %>
+    <%= if may?(@conn, "users/password", :edit, @user), do: link(gettext("change password"), to: user_password_path(@conn, :edit, @user), class: "cf-btn") %>
+    <%= link gettext("cancel"), to: user_path(@conn, :show, @user), class: "cf-btn" %>
+  </p>
 
 <% end %>

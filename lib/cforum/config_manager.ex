@@ -1,4 +1,6 @@
 defmodule Cforum.ConfigManager do
+  import Cforum.Helpers
+
   @defaults %{
     "pagination" => 50,
     "pagination_users" => 50,
@@ -6,9 +8,9 @@ defmodule Cforum.ConfigManager do
     "locked" => "no",
     "css_ressource" => nil,
     "js_ressource" => nil,
-    "sort_threads" => "descending",
+    "sort_threads" => "newest-first",
     "sort_messages" => "ascending",
-    "standard_view" => "thread-view",
+    "standard_view" => "nested-view",
     "max_tags_per_message" => 3,
     "min_tags_per_message" => 1,
     "close_vote_votes" => 5,
@@ -56,7 +58,7 @@ defmodule Cforum.ConfigManager do
     "signature" => nil,
     "flattr" => nil,
     "autorefresh" => 0,
-    "quote_signature" => "yes",
+    "quote_signature" => "no",
     "show_unread_notifications_in_title" => "no",
     "show_unread_pms_in_title" => "no",
     "show_new_messages_since_last_visit_in_title" => "no",
@@ -117,7 +119,10 @@ defmodule Cforum.ConfigManager do
     get_val(conn.assigns[:user_config], name) || get_val(conn.assigns[:forum_config], name) || get(conn, name)
   end
 
-  def uconf(conn, name) do
+  def uconf(conn, name, type \\ :none)
+  def uconf(conn, name, :int), do: to_int(uconf(conn, name))
+
+  def uconf(conn, name, _) do
     get(conn, name, conn.assigns[:current_user], conn.assigns[:current_forum]) || @defaults[name]
   end
 

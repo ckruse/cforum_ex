@@ -1,4 +1,8 @@
 defmodule CforumWeb.Views.Helpers.Links do
+  @moduledoc """
+  Provides button link helpers
+  """
+
   use Phoenix.HTML
 
   def default_link(opts, do: contents) do

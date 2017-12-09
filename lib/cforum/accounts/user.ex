@@ -62,7 +62,6 @@ defmodule Cforum.Accounts.User do
          :unconfirmed_email,
          :admin,
          :active,
-         :encrypted_password,
          :remember_created_at,
          :reset_password_token,
          :confirmation_token,

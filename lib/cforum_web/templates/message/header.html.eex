@@ -10,7 +10,7 @@ opts = Map.merge(%{noid: false, id_prefix: nil, show_icons: false,
   <% end %>
 
   <%= if opts[:first] && !@conn.assigns[:current_forum] do %>
-    <%= link @thread.forum.short_name, to: thread_path(@conn, :index, @thread.forum), class: "thread-forum-plate" %>
+    <%= link @thread.forum.short_name, to: forum_path(@conn, :index, @thread.forum), class: "thread-forum-plate" %>
   <% end %>
 
   <%= if opts[:show_icons] do %>

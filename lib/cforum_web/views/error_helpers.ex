@@ -10,8 +10,16 @@ defmodule CforumWeb.ErrorHelpers do
   """
   def error_tag(form, field) do
     if error = form.errors[field] do
-      content_tag(:span, translate_error(error), class: "help-block")
+      content_tag(:span, translate_error(error), class: "help error")
     end
+  end
+
+  def has_error?(form, field) do
+    form.errors[field] != nil
+  end
+
+  def error_class(form, field) do
+    if has_error?(form, field), do: "has-error", else: ""
   end
 
   @doc """

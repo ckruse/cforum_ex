@@ -22,10 +22,10 @@ defmodule CforumWeb.Paginator do
     }
   end
 
-  defp parse_page(nil), do: 1
-  defp parse_page(x) when is_bitstring(x), do: parse_page(String.to_integer(x))
-  defp parse_page(x) when x < 1, do: 1
-  defp parse_page(x), do: x
+  def parse_page(nil), do: 1
+  def parse_page(x) when is_bitstring(x), do: parse_page(String.to_integer(x))
+  def parse_page(x) when x < 1, do: 1
+  def parse_page(x), do: x
 
   defp pages_count(all_entries_count, per_page) do
     (all_entries_count / per_page) |> Float.ceil() |> round

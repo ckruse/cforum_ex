@@ -17,10 +17,10 @@ defmodule Cforum.Forums.Message do
     field(:homepage, :string)
     field(:subject, :string)
     field(:content, :string)
-    field(:flags, :map)
+    field(:flags, :map, default: %{})
     field(:uuid, :string)
     field(:ip, :string)
-    field(:format, :string)
+    field(:format, :string, default: "markdown")
     field(:edit_author, :string)
     field(:problematic_site, :string)
 
