@@ -11,36 +11,41 @@ defmodule CforumWeb.MessageControllerTest do
       {:ok, forum: forum, thread: thread, message: message, message1: message1}
     end
 
-    test "changes read mode based on parameter", %{conn: conn, thread: t, message: m} do
+    test "read mode parameter with thread shows thread view", %{conn: conn, thread: t, message: m} do
       conn = get(conn, message_path(conn, t, m, :show, rm: "thread"))
       assert html_response(conn, 200) =~ ~r/class="messages thread-view/
+    end
+
+    test "read mode parameter with nested shows nested view", %{conn: conn, thread: t, message: m} do
       conn = get(conn, message_path(conn, t, m, :show, rm: "nested"))
       assert html_response(conn, 200) =~ ~r/class="messages nested-view/
     end
 
-    test "changes read mode based on cookie", %{conn: conn, thread: t, message: m} do
+    test "read mode cookie with thread shows thread-view", %{conn: conn, thread: t, message: m} do
       conn =
         conn
         |> Phoenix.ConnTest.put_req_cookie("cf_readmode", "thread")
         |> get(message_path(conn, t, m, :show))
 
       assert html_response(conn, 200) =~ ~r/class="messages thread-view/
+    end
 
+    test "read mode cookie with nested shows nested-view", %{conn: conn, thread: t, message: m} do
       conn =
         conn
-        |> Phoenix.ConnTest.recycle()
         |> Phoenix.ConnTest.put_req_cookie("cf_readmode", "nested")
         |> get(message_path(conn, t, m, :show))
 
       assert html_response(conn, 200) =~ ~r/class="messages nested-view/
     end
 
-    test "changes read mode based on config", %{conn: conn, thread: t, message: m} do
-      setting = insert(:setting, options: %{"standard_view" => "thread"})
+    test "config with read mode thread shows thread-view", %{conn: conn, thread: t, message: m} do
+      insert(:setting, options: %{"standard_view" => "thread"})
       conn = get(conn, message_path(conn, t, m, :show))
       assert html_response(conn, 200) =~ ~r/class="messages thread-view/
+    end
 
-      Cforum.Repo.delete(setting)
+    test "config with read mode nested shows nested-view", %{conn: conn, thread: t, message: m} do
       insert(:setting, options: %{"standard_view" => "nested"})
       conn = get(conn, message_path(conn, t, m, :show, rm: "nested"))
       assert html_response(conn, 200) =~ ~r/class="messages nested-view/
