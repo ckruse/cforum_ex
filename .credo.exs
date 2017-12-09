@@ -80,7 +80,7 @@
         {Credo.Check.Readability.ModuleAttributeNames},
         {
           Credo.Check.Readability.ModuleDoc,
-          ignore_names: ~r/(\.\w+Controller|\.Endpoint|\.Repo|\.Router|\.\w+Socket|\.\w+View|\.\w+Test)$/
+          ignore_names: ~r/(\.\w+Controller|\.Endpoint|\.Repo|\.Router|\.\w+Socket|\.\w+View|\.\w+Test|\.\w+Factory)$/
         },
         {Credo.Check.Readability.ModuleNames},
         {Credo.Check.Readability.ParenthesesOnZeroArityDefs},
