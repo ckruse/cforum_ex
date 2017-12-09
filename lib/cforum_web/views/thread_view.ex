@@ -13,5 +13,6 @@ defmodule CforumWeb.ThreadView do
     thread.attribs[:classes]
     |> archived_class(thread)
     |> sticky_class(thread)
+    |> Enum.join(" ")
   end
 end

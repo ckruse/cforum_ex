@@ -486,8 +486,12 @@ code.bad {
 /* end Code-Blöcke */
 
 .signature {
-  .sig-dashes {
+  .delimiter {
     display: block;
+    margin-bottom: 0;
+  }
+  .delimiter + * {
+    margin-top:0;
   }
   color: #808080;
 }

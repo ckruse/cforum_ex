@@ -19,20 +19,19 @@
       width: 100%;
       max-width: 55em;
       display: block;
-      padding: .5em 1em;
+      padding: 0.5em 1em;
       color: #333;
       background-color: #fff;
       background-image: none;
       border: 1px solid #ccc;
       border-radius: 4px;
       box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
-      transition: border-color 0.15s ease-in-out 0s,
-        box-shadow 0.15s ease-in-out 0s;
+      transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
       font-size: 16px;
     }
 
-    input[type=radio],
-    input[type=checkbox] {
+    input[type="radio"],
+    input[type="checkbox"] {
       width: auto;
     }
 
@@ -41,8 +40,7 @@
     textarea:focus {
       border-color: #66afe9;
       outline: 0px none;
-      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset,
-        0px 0px 8px rgba(102, 175, 233, 0.6);
+      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
     }
 
     input[disabled],
@@ -54,7 +52,7 @@
 
     small {
       font-style: italic;
-      padding-left: .5em;
+      padding-left: 0.5em;
     }
     :focus + small {
       color: #66afe9;
@@ -69,10 +67,10 @@
       width: 100%;
       max-width: 55em;
 
-      input[type=checkbox],
-      input[type=radio] {
+      input[type="checkbox"],
+      input[type="radio"] {
         display: inline;
-        margin-right: .25em;
+        margin-right: 0.25em;
       }
     }
 
@@ -96,9 +94,18 @@
       span {
         display: none;
       }
-      background: asset-data-url('ajax-loader.svg') center center no-repeat;
+      background: asset-data-url("ajax-loader.svg") center center no-repeat;
       background-size: contain;
     }
+  }
+
+  .help {
+    font-size: 0.8em;
+    font-style: italic;
+  }
+
+  .help.error {
+    font-size: 1em;
   }
 
   .help-block {
@@ -111,8 +118,8 @@
     border: 1px solid transparent;
     border-radius: 4px;
     box-shadow: 0px 0px 6px #666;
-    padding: .5em 1em;
-    margin-top: .5em;
+    padding: 0.5em 1em;
+    margin-top: 0.5em;
   }
 }
 
@@ -270,7 +277,7 @@ input[type="search"] {
 
   button,
   button:hover {
-    transition: all .2s ease-in-out 0s;
+    transition: all 0.2s ease-in-out 0s;
   }
 }
 

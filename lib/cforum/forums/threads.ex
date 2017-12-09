@@ -116,8 +116,7 @@ defmodule Cforum.Forums.Threads do
     q =
       from(
         thread in Thread,
-        where: thread.slug == ^slug,
-        preload: ^Thread.default_preloads(:messages)
+        where: thread.slug == ^slug
       )
 
     ret = get_normal_threads(q, user, [desc: :created_at], 0, opts)
@@ -201,4 +200,34 @@ defmodule Cforum.Forums.Threads do
     |> cast(attrs, [:name])
     |> validate_required([:name])
   end
+
+  @doc """
+  Returns the order value itself if it is valid; returns the
+  configured value for the current forum (or the global config) when
+  invalid
+
+  ## Examples
+
+      iex> validated_ordering("ascending")
+      "ascending"
+
+      iex> validated_ordering("foo")
+      "newest-first"
+  """
+  def validated_ordering(order, forum \\ nil) do
+    if Enum.member?(~w(ascending descending newest-first), order),
+      do: order,
+      else: Cforum.ConfigManager.conf("sort_threads", forum)
+  end
+
+  @doc """
+  Generate a thread slug from a params map.
+
+  ## Example
+
+      iex> slug_from_params(%{"year" => "2017", "month" => "jan", "day" => "31", "slug" => "foo"})
+      "/2017/jan/31/foo"
+  """
+  def slug_from_params(%{"year" => year, "month" => month, "day" => day, "slug" => slug}),
+    do: "/#{year}/#{month}/#{day}/#{slug}"
 end

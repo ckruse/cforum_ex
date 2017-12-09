@@ -35,7 +35,7 @@ defmodule Cforum.MarkdownRenderer do
   # client API
   #
 
-  def to_html(%Message{} = message, %User{} = _user) do
+  def to_html(%Message{} = message, _user) do
     # TODO handle user specific foo
     {:ok, html} = render_doc(message.content)
     {:safe, html}

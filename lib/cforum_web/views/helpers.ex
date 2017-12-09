@@ -4,7 +4,6 @@ defmodule CforumWeb.Views.Helpers do
   """
 
   use Phoenix.HTML
-  import CforumWeb.Gettext
 
   alias Cforum.Helpers
 
@@ -82,5 +81,26 @@ defmodule CforumWeb.Views.Helpers do
   def time_tag(content, time, opts) do
     timestamp = DateTime.to_iso8601(time)
     content_tag(:time, content, Keyword.merge([datetime: timestamp], opts))
+  end
+
+  @doc """
+  Renders a localized version of the template.
+
+  Sometimes it is useful to have a localized partial or template, containing blocks of
+  HTML and text mixed. `l10n_render/3` tries to render this localized version and falls
+  back to the non-localized version, e.g. given locale is `de`,
+  `l10n_render(@view_module, "foo.html", assigns)`` first tries to render `foo.de.html`
+  and then, when not successful, falls back to `foo.html`.
+
+  ## Parameters
+
+  - `view` - the view module (e.g. `@view_module`)
+  - `template` - the template file name
+  - `assigns` - assigned variables/values
+  """
+  def l10n_render(view, template, assigns) do
+    locale = Gettext.get_locale(CforumWeb.Gettext)
+    val = Phoenix.View.render_existing(view, String.replace_suffix(template, ".html", ".#{locale}.html"), assigns)
+    if val == nil, do: Phoenix.View.render(view, template, assigns), else: val
   end
 end

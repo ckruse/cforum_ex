@@ -1,0 +1,45 @@
+<h1>
+  <label for="message_input"><%= gettext("new answer to %{name}", name: @parent.author) %></label>
+</h1>
+
+<%= if @changeset.action do %>
+  <div class="cf-error">
+    <p><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
+  </div>
+<% end %>
+
+<article class="thread-message <%= if assigns[:preview], do: "preview" %>">
+  <%= if !assigns[:preview] do %>
+    <%= render(
+      CforumWeb.MessageView,
+      "message.html",
+      conn: @conn,
+      thread: @thread,
+      message: @parent,
+      controls: :no,
+      first: true
+    ) %>
+  <% else %>
+    <%= render(
+      CforumWeb.MessageView,
+      "message.html",
+      conn: @conn,
+      thread: @thread,
+      message: @message,
+      controls: :no,
+      first: true
+    ) %>
+  <% end %>
+</article>
+
+<%= form_for @changeset, message_path(@conn, @thread, @parent, :new), [class: "cf-form"], fn f -> %>
+  <%= render("form.html", Map.merge(assigns, %{f: f, tags: @parent.tags})) %>
+
+  <%= l10n_render @view_module, "post-notes.html", assigns %><!-- TODO abstract that using something like l10n_render() -->
+
+  <p class="form-actions">
+    <%= submit gettext("show preview"), class: "cf-btn", name: "preview" %>
+    <%= submit gettext("create message"), class: "cf-primary-btn" %>
+    <%= link gettext("cancel"), to: message_path(@conn, @thread, @parent), class: "cf-btn" %>
+  </p>
+<% end %>

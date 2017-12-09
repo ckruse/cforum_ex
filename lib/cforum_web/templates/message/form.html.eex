@@ -1,0 +1,52 @@
+<fieldset>
+  <div class="cf-cgroup <%= error_class(@f, :subject) %>">
+    <%= label @f, :subject, gettext("subject") %>
+    <%= text_input @f, :subject, placeholder: gettext("replace float:left with a flexbox construct"), maxlength: 250, required: true %>
+    <%= error_tag @f, :subject %>
+  </div>
+
+  <%= if !@conn.assigns[:current_user] do %>
+    <div class="cf-cgroup <%= error_class(@f, :author) %>">
+      <%= label @f, :author, gettext("author") %>
+      <%= text_input @f, :author, maxlength: 60, required: true %>
+      <%= error_tag @f, :author %>
+    </div>
+  <% end %>
+
+  <div class="cf-cgroup <%= error_class(@f, :email) %>">
+    <%= label @f, :email, gettext("email") %>
+    <%= text_input @f, :email, maxlength: 60 %>
+    <%= error_tag @f, :email %>
+    <span class="help"><%= gettext("voluntary, will be publicly visible") %></span>
+  </div>
+
+  <div class="cf-cgroup <%= error_class(@f, :homepage) %>">
+    <%= label @f, :homepage, gettext("homepage") %>
+    <%= text_input @f, :homepage, maxlength: 250, placeholder: gettext("https://example.com") %>
+    <%= error_tag @f, :homepage %>
+    <span class="help"><%= gettext("voluntary, will be publicly visible") %></span>
+  </div>
+
+  <div class="cf-cgroup <%= error_class(@f, :problematic_site) %>">
+    <%= label @f, :problematic_site, gettext("problematic site") %>
+    <%= text_input @f, :problematic_site, maxlength: 250, placeholder: gettext("https://example.com/float-example.html") %>
+    <%= error_tag @f, :problematic_site %>
+    <span class="help"><%= gettext("voluntary, will be publicly visible") %></span>
+  </div>
+</fieldset>
+
+<fieldset>
+  <div class="cf-cgroup cf-textarea-only <%= error_class(@f, :content) %>">
+    <%= textarea @f, :content, class: "big", id: "message_input", maxlength: 12288, required: true %>
+    <%= error_tag @f, :content %>
+  </div>
+</fieldset>
+
+<fieldset>
+  <div class="cf-cgroup <%= error_class(@f, :tags) %>">
+    <label for="tags-input"><%= gettext "tags" %></label>
+    <%= text_input @f, :tags_list, value: tags_list_str(@tags), id: "tags-input", placeholder: gettext("html, css, javascript") %>
+    <%= error_tag @f, :tags %>
+    <noscript><span class="help"><%= gettext("comma separated list, e.g. „css, html“") %></span></noscript>
+  </div>
+</fieldset>

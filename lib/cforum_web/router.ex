@@ -95,7 +95,9 @@ defmodule CforumWeb.Router do
       get("/", ThreadController, :index, as: :forum)
       resources("/tags", TagController)
 
-      get("/:year/:month/:day/:slug/:mid", MessageController, :show)
+      get("/:year/:month/:day/:slug/:mid", MessageController, :show, as: nil)
+      get("/:year/:month/:day/:slug/:mid/new", MessageController, :new, as: nil)
+      post("/:year/:month/:day/:slug/:mid/new", MessageController, :create, as: nil)
     end
   end
 

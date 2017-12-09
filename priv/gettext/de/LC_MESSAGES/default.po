@@ -27,7 +27,7 @@ msgstr ""
 msgid "not logged in"
 msgstr "nicht angemeldet"
 
-#: lib/cforum_web/error_handler.ex:16
+#: lib/cforum_web/error_handler.ex:17
 msgid "You have to be logged in and an admin to see this page!"
 msgstr "Sie müssen sich einloggen und über Administrator-Rechte verfügen, um diese Seite sehen zu dürfen!"
 
@@ -45,8 +45,8 @@ msgstr "Hilfe"
 msgid "Username or password wrong"
 msgstr "Benutzername oder Passwort sind falsch."
 
-#: lib/cforum_web/error_handler.ex:23 lib/cforum_web/error_handler.ex:30
-#: lib/cforum_web/plug/authorize_access.ex:37
+#: lib/cforum_web/error_handler.ex:25 lib/cforum_web/error_handler.ex:33
+#: lib/cforum_web/plug/authorize_access.ex:39
 msgid "You don't have access to this page!"
 msgstr "Sie haben keinen Zugriff auf diese Seite!"
 
@@ -286,11 +286,11 @@ msgstr "Benutzername"
 msgid "password confirmation"
 msgstr "Passwort-Bestätigung"
 
-#: lib/cforum_web/controllers/users/registration_controller.ex:35
+#: lib/cforum_web/controllers/users/registration_controller.ex:38
 msgid "Account successfully confirmed!"
 msgstr "Benutzerkonto erfolgreich bestätigt!"
 
-#: lib/cforum_web/controllers/users/registration_controller.ex:21
+#: lib/cforum_web/controllers/users/registration_controller.ex:23
 msgid "Account successfully created. Please follow the confirmation instructions we send you via mail."
 msgstr "Benutzerkonto erfolgreich erstellt. Bitte folgen sie den Bestätigungs-Anweisungen, die wir Ihnen via Email geschickt haben."
 
@@ -314,8 +314,8 @@ msgstr "Benutzerkonto bestätigen"
 msgid "Hi there, %{name}!"
 msgstr "Hallo %{name}!"
 
-#: lib/cforum_web/controllers/notification_controller.ex:40
-#: lib/cforum_web/controllers/users/registration_controller.ex:40
+#: lib/cforum_web/controllers/notification_controller.ex:44
+#: lib/cforum_web/controllers/users/registration_controller.ex:43
 msgid "Oops, something went wrong!"
 msgstr "Uups, es ist etwas schief gegangen!"
 
@@ -328,7 +328,7 @@ msgstr "Sie können Ihr Benutzerkonto über den Link unten bestätigen:"
 msgid "confirm your registration"
 msgstr "Benutzerkonto bestätigen"
 
-#: lib/cforum/accounts/user.ex:100
+#: lib/cforum/accounts/user.ex:122
 msgid "password and password confirmation don't match"
 msgstr "Passwort und Passwort-Bestätigung stimmen nicht überein"
 
@@ -336,13 +336,13 @@ msgstr "Passwort und Passwort-Bestätigung stimmen nicht überein"
 msgid "Activity during the last 30 days"
 msgstr "Aktivität in den letzten 30 Tagen"
 
-#: lib/cforum_web/views/users/user_view.ex:6
-#: lib/cforum_web/views/users/user_view.ex:15
+#: lib/cforum_web/views/users/user_view.ex:8
+#: lib/cforum_web/views/users/user_view.ex:22
 msgid "All messages for user %{username}"
 msgstr "alle Beiträge von Benutzer „%{username}“"
 
-#: lib/cforum_web/views/users/user_view.ex:7
-#: lib/cforum_web/views/users/user_view.ex:16
+#: lib/cforum_web/views/users/user_view.ex:11
+#: lib/cforum_web/views/users/user_view.ex:25
 msgid "All scores for user %{username}"
 msgstr "alle Punkte für Benutzer „%{username}“"
 
@@ -406,7 +406,7 @@ msgid "Twitter handle"
 msgstr "Twitter-Handle"
 
 #: lib/cforum_web/views/users/user_view.ex:5
-#: lib/cforum_web/views/users/user_view.ex:14
+#: lib/cforum_web/views/users/user_view.ex:19
 msgid "User %{username}"
 msgstr "Benutzer %{username}"
 
@@ -415,7 +415,7 @@ msgid "User activity"
 msgstr "Benutzer-Aktivität"
 
 #: lib/cforum_web/views/users/user_view.ex:4
-#: lib/cforum_web/views/users/user_view.ex:13
+#: lib/cforum_web/views/users/user_view.ex:18
 msgid "Users"
 msgstr "Benutzer"
 
@@ -502,8 +502,8 @@ msgstr[0] "Bewertung: keine Bewertung"
 msgstr[1] "Bewertung: %{score}"
 msgstr[2] "Bewertung: %{score}"
 
-#: lib/cforum_web/views/users/user_view.ex:8
-#: lib/cforum_web/views/users/user_view.ex:17
+#: lib/cforum_web/views/users/user_view.ex:13
+#: lib/cforum_web/views/users/user_view.ex:28
 msgid "All votes for user %{username}"
 msgstr "alle Bewertungen vom Benutzer „%{username}”"
 
@@ -515,8 +515,8 @@ msgstr "erhaltene Bewertungen"
 msgid "Caution!"
 msgstr "Achtung!"
 
-#: lib/cforum_web/views/users/user_view.ex:9
-#: lib/cforum_web/views/users/user_view.ex:18
+#: lib/cforum_web/views/users/user_view.ex:14
+#: lib/cforum_web/views/users/user_view.ex:30
 msgid "Delete user %{username}"
 msgstr "Benutzer „%{username}” löschen"
 
@@ -532,7 +532,7 @@ msgstr "Ja, Benutzer löschen"
 msgid "You can't undo the deletion of this account, all data will be irretrievable lost! Are you sure that you wan't to delete the account?"
 msgstr "Das Löschen dieses Accounts kann nicht rückgängig gemacht werden. Wenn das Profil erst einmal gelöscht worden ist, dann ist es endgültig weg. Sind Sie sicher, dass Sie das wollen?"
 
-#: lib/cforum_web/views/users/user_view.ex:10
+#: lib/cforum_web/views/users/user_view.ex:15
 msgid "Edit profile: %{username}"
 msgstr "Profil editieren: %{username}"
 
@@ -708,11 +708,11 @@ msgstr "Forum „%{forum}“ bearbeiten"
 msgid "Forum created successfully."
 msgstr "Forum erfolgreich erstellt."
 
-#: lib/cforum_web/controllers/admin/forum_controller.ex:57
+#: lib/cforum_web/controllers/admin/forum_controller.ex:59
 msgid "Forum deleted successfully."
 msgstr "Forum erfolgreich gelöscht."
 
-#: lib/cforum_web/controllers/admin/forum_controller.ex:45
+#: lib/cforum_web/controllers/admin/forum_controller.ex:46
 msgid "Forum updated successfully."
 msgstr "Forum erfolgreich geändert."
 
@@ -738,8 +738,8 @@ msgstr "Keine Benachrichtigungen gefunden"
 msgid "Notifications"
 msgstr "Benachrichtigungen"
 
-#: lib/cforum_web/controllers/users/password_controller.ex:44
-#: lib/cforum_web/controllers/users/password_controller.ex:69
+#: lib/cforum_web/controllers/users/password_controller.ex:48
+#: lib/cforum_web/controllers/users/password_controller.ex:76
 msgid "Password updated successfully."
 msgstr "Passwort erfolgreich geändert."
 
@@ -782,15 +782,15 @@ msgstr "Standard-Berechtigung"
 msgid "The instructions how to reset your password have been sent."
 msgstr "Die Anweisungen, wie Sie Ihr Passwort zurücksetzen können, wurden verschickt."
 
-#: lib/cforum_web/controllers/users/user_controller.ex:173
+#: lib/cforum_web/controllers/users/user_controller.ex:201
 msgid "User deleted successfully."
 msgstr "Benutzer erfolgreich gelöscht."
 
-#: lib/cforum_web/controllers/users/user_controller.ex:156
+#: lib/cforum_web/controllers/users/user_controller.ex:183
 msgid "User updated successfully."
 msgstr "Benutzer erfolgreich geändert."
 
-#: lib/cforum_web/error_handler.ex:37
+#: lib/cforum_web/error_handler.ex:41
 msgid "You are already logged in"
 msgstr "Sie sind bereits eingeloggt"
 
@@ -892,11 +892,11 @@ msgstr "schreiben"
 msgid "New forum"
 msgstr "Neues Forum"
 
-#: lib/cforum_web/controllers/notification_controller.ex:49
+#: lib/cforum_web/controllers/notification_controller.ex:53
 msgid "Notification deleted successfully."
 msgstr "Benachrichtigung erfolgreich gelöscht."
 
-#: lib/cforum_web/controllers/notification_controller.ex:36
+#: lib/cforum_web/controllers/notification_controller.ex:39
 msgid "Notification successfully marked as unread."
 msgstr "Benachrichtigung erfolgreich als ungelesen markiert."
 
@@ -1109,15 +1109,15 @@ msgstr "… der Nested-Ansicht"
 msgid "… in thread view"
 msgstr "… der Einzel-Ansicht"
 
-#: lib/cforum_web/views/helpers.ex:112
+#: lib/cforum_web/views/helpers.ex:125
 msgid "%{days} days"
 msgstr "%{days} Tagen"
 
-#: lib/cforum_web/views/helpers.ex:104
+#: lib/cforum_web/views/helpers.ex:113
 msgid "%{minutes} minutes"
 msgstr "%{minutes} Minuten"
 
-#: lib/cforum_web/views/helpers.ex:116
+#: lib/cforum_web/views/helpers.ex:131
 msgid "%{months} months"
 msgstr "%{months} Monaten"
 
@@ -1130,15 +1130,15 @@ msgstr "vor %{time}"
 msgid "%{time} ago:"
 msgstr "vor %{time}:"
 
-#: lib/cforum_web/views/helpers.ex:120
+#: lib/cforum_web/views/helpers.ex:137
 msgid "%{years} years"
 msgstr "%{years} Jahren"
 
-#: lib/cforum_web/views/helpers.ex:101
+#: lib/cforum_web/views/helpers.ex:109
 msgid "1 minute"
 msgstr "einer Minute"
 
-#: lib/cforum_web/views/helpers.ex:118
+#: lib/cforum_web/views/helpers.ex:134
 msgid "1 year"
 msgstr "einem Jahr"
 
@@ -1146,19 +1146,19 @@ msgstr "einem Jahr"
 msgid "Thread created"
 msgstr "Thread erstellt"
 
-#: lib/cforum_web/views/helpers.ex:110
+#: lib/cforum_web/views/helpers.ex:122
 msgid "a day"
 msgstr "einem Tag"
 
-#: lib/cforum_web/views/helpers.ex:108
+#: lib/cforum_web/views/helpers.ex:119
 msgid "about %{hours} hours"
 msgstr "etwa %{hours} Stunden"
 
-#: lib/cforum_web/views/helpers.ex:114
+#: lib/cforum_web/views/helpers.ex:128
 msgid "about 1 month"
 msgstr "etwa einem Monat"
 
-#: lib/cforum_web/views/helpers.ex:106
+#: lib/cforum_web/views/helpers.ex:116
 msgid "about an hour"
 msgstr "etwa einer Stunde"
 
@@ -1166,7 +1166,7 @@ msgstr "etwa einer Stunde"
 msgid "first unread message"
 msgstr "erster ungelesener Beitrag"
 
-#: lib/cforum_web/views/helpers.ex:97
+#: lib/cforum_web/views/helpers.ex:103
 msgid "half a minute"
 msgstr "einer halben Minute"
 
@@ -1174,23 +1174,23 @@ msgstr "einer halben Minute"
 msgid "last message"
 msgstr "letzter Beitrag"
 
-#: lib/cforum_web/views/helpers.ex:93
+#: lib/cforum_web/views/helpers.ex:97
 msgid "less than 10 seconds"
 msgstr "weniger als zehn Sekunden"
 
-#: lib/cforum_web/views/helpers.ex:95
+#: lib/cforum_web/views/helpers.ex:100
 msgid "less than 20 seconds"
 msgstr "weniger als 20 Sekunden"
 
-#: lib/cforum_web/views/helpers.ex:91
+#: lib/cforum_web/views/helpers.ex:94
 msgid "less than 5 seconds"
 msgstr "weniger als fünf Sekunden"
 
-#: lib/cforum_web/views/helpers.ex:99
+#: lib/cforum_web/views/helpers.ex:106
 msgid "less than a minute"
 msgstr "weniger als einer Minute"
 
-#: lib/cforum_web/views/message_view.ex:53
+#: lib/cforum_web/views/message_view.ex:69
 msgid "by"
 msgstr "von"
 
@@ -1202,9 +1202,12 @@ msgstr "problematische Seite"
 msgid "read message"
 msgstr "Beitrag lesen"
 
-#, fuzzy
 #: lib/cforum_web/templates/users/user/settings.html.eex:3
 #: lib/cforum_web/templates/users/user/settings.html.eex:14
 #: lib/cforum_web/templates/users/user/user_information.html.eex:3
 msgid "user information"
 msgstr "Benutzer-Informationen"
+
+#: lib/cforum_web/templates/message/new.html.eex:2
+msgid "new answer to %{name}"
+msgstr "Antwort an „%{name}“ verfassen"

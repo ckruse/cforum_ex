@@ -341,4 +341,79 @@ defmodule Cforum.Forums.Messages do
   def change_message(%Message{} = message) do
     Message.changeset(message, %{})
   end
+
+  def changeset_from_parent(message, opts \\ []) do
+    opts =
+      Keyword.merge(
+        [
+          strip_signature: true,
+          greeting: nil,
+          farewell: nil,
+          signature: nil,
+          email: nil,
+          homepage: nil,
+          author: nil,
+          quote: true
+        ],
+        opts
+      )
+
+    content =
+      if opts[:quote] do
+        message.content
+        |> quote_from_content(opts[:strip_signature])
+        |> maybe_add_greeting(opts[:greeting], message.author)
+        |> maybe_add_farewell(opts[:farewell])
+        |> maybe_add_signature(opts[:signature])
+      else
+        ""
+      end
+
+    change_message(%Message{
+      author: opts[:author],
+      email: opts[:email],
+      homepage: opts[:homepage],
+      subject: message.subject,
+      problematic_site: message.problematic_site,
+      content: content
+    })
+  end
+
+  def quote_from_content(content, strip_signature \\ true) do
+    content
+    |> remove_signature(strip_signature)
+    |> String.replace(~r/^/m, "> ")
+  end
+
+  defp maybe_add_greeting(content, greeting, _) when greeting == nil or greeting == "", do: content
+  defp maybe_add_greeting(content, greeting, name), do: [name_replacements(greeting, name) | ["\n" | content]]
+
+  defp name_replacements(greeting, name) do
+    greeting
+    |> String.replace(~r/\{\$name\}/, name)
+    |> String.replace(~r/\{\$vname\}/, String.replace(name, ~r/\s.*/, ""))
+  end
+
+  defp maybe_add_farewell(content, farewell) when farewell == nil or farewell == "", do: content
+  defp maybe_add_farewell(content, farewell), do: [content | ["\n\n" | farewell]]
+
+  defp maybe_add_signature(content, signature) when signature == nil or signature == "", do: content
+  defp maybe_add_signature(content, signature), do: [content | ["\n-- \n" | signature]]
+
+  defp remove_signature(content, false), do: content
+
+  defp remove_signature(content, true) do
+    parts =
+      content
+      |> String.reverse()
+      |> String.split("\n --\n", parts: 2)
+
+    case parts do
+      [_, part] ->
+        String.reverse(part)
+
+      _ ->
+        content
+    end
+  end
 end

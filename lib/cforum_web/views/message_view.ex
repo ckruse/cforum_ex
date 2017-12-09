@@ -25,13 +25,14 @@ defmodule CforumWeb.MessageView do
   def open_vote_class(classes, _), do: classes
 
   def header_classes(thread, message, assigns) do
-    first_class([], assigns)
+    []
+    |> first_class(assigns)
     |> deleted_class(message)
     |> classes_from_message(message)
     |> accepted_class(thread, message)
     |> close_vote_class(message)
     |> open_vote_class(message)
-    |> Enum.join()
+    |> Enum.join(" ")
   end
 
   def message_tree(conn, thread, parent, messages, opts \\ [show_icons: true]) do
@@ -71,11 +72,10 @@ defmodule CforumWeb.MessageView do
 
   def body_id(:show, assigns), do: "message-#{assigns[:read_mode]}"
 
-  def body_classes(:show, assigns),
-    do:
-      "messages thread-view forum-#{forum_slug(assigns[:current_forum])}#{
-        (assigns[:thread].archived && " archived") || ""
-      }"
+  def body_classes(:show, assigns) do
+    classes = "messages #{assigns[:read_mode]}-view forum-#{forum_slug(assigns[:current_forum])}"
+    if assigns[:thread].archived, do: ["archived " | classes], else: classes
+  end
 
   defp forum_slug(nil), do: "all"
   defp forum_slug(forum), do: forum.slug
@@ -122,7 +122,7 @@ defmodule CforumWeb.MessageView do
   end
 
   defp class_if_true(classes, true, class), do: [class | classes]
-  defp class_if_true(classes, _, class), do: classes
+  defp class_if_true(classes, _, _class), do: classes
 
   def message_classes(conn, message, thread, active, read_mode \\ :thread) do
     is_folded =
@@ -137,4 +137,6 @@ defmodule CforumWeb.MessageView do
     |> score_class(message)
     |> Enum.join(" ")
   end
+
+  def tags_list_str(tags), do: Enum.map(tags, & &1.tag_name) |> Enum.join(", ")
 end

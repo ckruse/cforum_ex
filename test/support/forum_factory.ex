@@ -14,15 +14,7 @@ defmodule Cforum.ForumFactory do
         }
       end
 
-      def public_forum(forum) do
-        %{forum | standard_permission: "write"}
-      end
+      def public_forum_factory, do: build(:forum, standard_permission: "write")
     end
-
-    # quote
   end
-
-  # defmacro
 end
-
-# defmodule
