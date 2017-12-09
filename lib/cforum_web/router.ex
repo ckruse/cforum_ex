@@ -54,6 +54,25 @@ defmodule CforumWeb.Router do
     resources("/forums", ForumController)
   end
 
+  scope "/users", CforumWeb.Users do
+    pipe_through(:browser)
+
+    get("/users/password", PasswordController, :new)
+    post("/users/password", PasswordController, :create)
+    get("/users/password/reset", PasswordController, :edit_reset)
+    post("/users/password/reset", PasswordController, :update_reset)
+
+    get("/users/:id/messages", UserController, :show_messages)
+    get("/users/:id/scores", UserController, :show_scores)
+    get("/users/:id/votes", UserController, :show_votes)
+    get("/users/:id/delete", UserController, :confirm_delete)
+
+    resources "/", UserController, except: [:new, :create] do
+      get("/password", PasswordController, :edit)
+      put("/password", PasswordController, :update)
+    end
+  end
+
   scope "/", CforumWeb do
     pipe_through(:browser)
 
@@ -67,21 +86,6 @@ defmodule CforumWeb.Router do
 
     get("/", ForumController, :index, as: :root)
     get("/help", PageController, :help)
-
-    get("/users/password", Users.PasswordController, :new)
-    post("/users/password", Users.PasswordController, :create)
-    get("/users/password/reset", Users.PasswordController, :edit_reset)
-    post("/users/password/reset", Users.PasswordController, :update_reset)
-
-    get("/users/:id/messages", Users.UserController, :show_messages)
-    get("/users/:id/scores", Users.UserController, :show_scores)
-    get("/users/:id/votes", Users.UserController, :show_votes)
-    get("/users/:id/delete", Users.UserController, :confirm_delete)
-
-    resources "/users", Users.UserController, except: [:new, :create] do
-      get("/password", Users.PasswordController, :edit)
-      put("/password", Users.PasswordController, :update)
-    end
 
     resources("/badges", BadgeController)
 
