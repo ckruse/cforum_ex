@@ -22,7 +22,7 @@ defmodule Cforum.Abilities do
   end
 
   def may?(_conn, path, action, _) do
-    Logger.debug("--- CAUTION: no ability defined for path #{path} and action #{action}")
+    Logger.debug(fn -> "--- CAUTION: no ability defined for path #{path} and action #{action}" end)
     false
   end
 end
