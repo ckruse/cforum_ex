@@ -23,6 +23,7 @@ defmodule CforumWeb.ConnCase do
       import Plug.Test
 
       import CforumWeb.Router.Helpers
+      import CforumWeb.Views.Helpers.Path
       import CforumWeb.Gettext
       import Cforum.Factory
 
