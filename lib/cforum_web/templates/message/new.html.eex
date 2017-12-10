@@ -35,7 +35,7 @@
 <%= form_for @changeset, message_path(@conn, @thread, @parent, :new), [class: "cf-form"], fn f -> %>
   <%= render("form.html", Map.merge(assigns, %{f: f, tags: @parent.tags})) %>
 
-  <%= l10n_render @view_module, "post-notes.html", assigns %><!-- TODO abstract that using something like l10n_render() -->
+  <%= l10n_render @view_module, "post-notes.html", assigns %>
 
   <p class="form-actions">
     <%= submit gettext("show preview"), class: "cf-btn", name: "preview" %>
