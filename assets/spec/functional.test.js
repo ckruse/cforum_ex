@@ -35,7 +35,7 @@
 
 
 
-import * as functional from '../modules/functional.js';
+import * as functional from '../js/modules/functional.js';
 
 
 

@@ -1,6 +1,6 @@
 /* -*- coding: utf-8 -*- */
 
-@import "variables.css.scss";
+@import "variables.scss";
 
 #posting-author {
   color: #8a9da9;
@@ -47,15 +47,15 @@ main h2 {
   }
 
   .versions {
-    font-size: .8em;
+    font-size: 0.8em;
   }
 
   .posting-content {
     color: #039;
     border: 1px solid #e7c157;
     background: none repeat scroll 0% 0% #fdfcf3;
-    font-family: Consolas, "DejaVu Sans Mono", "Bitstream Vera Sans Mono",
-      "Andale Mono", "Droid Sans Mono", "Lucida Console", monospace;
+    font-family: Consolas, "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Andale Mono", "Droid Sans Mono",
+      "Lucida Console", monospace;
     margin: 0.5em 0px;
     padding: 0.8em 0.1em 1em;
     border-radius: 0px 0.5em 0.5em;
@@ -124,7 +124,7 @@ main h2 {
 
     h3,
     h4 {
-      margin: .8em 0;
+      margin: 0.8em 0;
       font-weight: bold;
     }
     h3 {
@@ -140,7 +140,7 @@ main h2 {
     th,
     td {
       border: 1px solid;
-      padding: .1em .3em;
+      padding: 0.1em 0.3em;
     }
     tfoot td {
       font-weight: bold;
@@ -157,7 +157,7 @@ main h2 {
     sup {
       position: relative;
       vertical-align: baseline;
-      top: -.4em;
+      top: -0.4em;
     }
   }
 
@@ -166,7 +166,7 @@ main h2 {
     list-style-type: none;
     border-bottom: 1px dotted;
     border-top: 1px dotted;
-    margin: .5em 1em 1em 0;
+    margin: 0.5em 1em 1em 0;
     padding: 1em 0 0;
 
     ul.cf-tags-list {
@@ -188,7 +188,7 @@ main h2 {
   }
 
   .message-links {
-    font-size: .8em;
+    font-size: 0.8em;
 
     a,
     button {
@@ -198,7 +198,7 @@ main h2 {
 
   .forum-links a {
     color: $link_color;
-    border-radius: 0 .4em .4em;
+    border-radius: 0 0.4em 0.4em;
 
     &:hover,
     &:active,
@@ -308,10 +308,10 @@ main h2 {
     }
 
     .infos {
-      background-image: asset-url('bewertung-info-blaugrau.svg');
+      background-image: asset-url("bewertung-info-blaugrau.svg");
     }
     .infos:hover {
-      background-image: asset-url('bewertung-info-rot.svg');
+      background-image: asset-url("bewertung-info-rot.svg");
     }
   }
 
@@ -359,13 +359,13 @@ main h2 {
 }
 
 .thread-message.preview .posting-content {
-  background-image: asset-url('preview.png');
+  background-image: asset-url("preview.png");
   background-position: top right;
   background-repeat: no-repeat;
 }
 
 .archived .posting-content {
-  background-image: asset-url('archived.png');
+  background-image: asset-url("archived.png");
   background-position: top right;
   background-repeat: no-repeat;
 
@@ -409,7 +409,7 @@ button {
     }
 
     & > .posting-header ~ h3:first-of-type {
-      margin-top: .8em;
+      margin-top: 0.8em;
     }
 
     &::before {
@@ -420,8 +420,8 @@ button {
       cursor: pointer;
       display: inline;
       position: absolute;
-      margin-top: .5em;
-      margin-left: -.5em;
+      margin-top: 0.5em;
+      margin-left: -0.5em;
     }
 
     .posting-content,
@@ -434,21 +434,20 @@ button {
 
   .thread-message.active {
     border-color: #66afe9;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset,
-      0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
   }
 }
 
 blockquote {
-  border-left: .3em solid #d5d5d5;
+  border-left: 0.3em solid #d5d5d5;
   margin-left: 0;
   padding-left: 1em;
   color: #808080;
 }
 
 blockquote blockquote {
-  border-width: .25em;
-  padding-left: .5em;
+  border-width: 0.25em;
+  padding-left: 0.5em;
 }
 
 hr {
@@ -462,8 +461,8 @@ code.block {
   display: block;
   white-space: pre;
   white-space: pre-wrap;
-  margin-top: .5em;
-  padding: .3em .4em .3em .5em;
+  margin-top: 0.5em;
+  padding: 0.3em 0.4em 0.3em 0.5em;
   line-height: 1.2em;
 }
 code.block code.block {
@@ -491,14 +490,14 @@ code.bad {
     margin-bottom: 0;
   }
   .delimiter + * {
-    margin-top:0;
+    margin-top: 0;
   }
   color: #808080;
 }
 
 .btn-default.btn-sm.btn {
-  margin-right: .25em;
-  margin-bottom: .25em;
+  margin-right: 0.25em;
+  margin-bottom: 0.25em;
 }
 
 blockquote.show-quotes .unfold {
@@ -511,13 +510,13 @@ blockquote.show-quotes .unfold {
 }
 
 .problematic-site {
-  font-size: .9em;
+  font-size: 0.9em;
   background-color: #fdfcf3;
   border: 1px solid #e7c157;
-  border-radius: 0 .5em 0 0;
+  border-radius: 0 0.5em 0 0;
   border-bottom: 0 none;
-  margin: .5em 0 -.5em;
-  padding: .5em 1em;
+  margin: 0.5em 0 -0.5em;
+  padding: 0.5em 1em;
 
   & + .posting-content {
     border-top-right-radius: 0;
@@ -529,7 +528,7 @@ blockquote.show-quotes .unfold {
   a:before {
     font-size: 1.3em;
     color: #c32e04;
-    margin-right: .3em;
+    margin-right: 0.3em;
     vertical-align: middle;
   }
 }
@@ -537,7 +536,7 @@ blockquote.show-quotes .unfold {
 .md-header #forum-usage {
   margin: 3px -4px 0;
   border-top: 5px solid white;
-  padding: .8em;
+  padding: 0.8em;
   text-align: center;
 
   a:last-child {
@@ -557,9 +556,9 @@ blockquote.show-quotes .unfold {
   border: 1px solid #d5d5d5;
   padding: 0.4em 0.6em;
   background-color: #fff;
-  right: .5em;
-  left: .5em;
-  top: .5em;
+  right: 0.5em;
+  left: 0.5em;
+  top: 0.5em;
 }
 
 textarea.length-warning,
@@ -579,8 +578,7 @@ textarea.length-error,
 
 .thread-message.preview.active {
   border-color: #66afe9;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset,
-    0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
 }
 
 .thread-message.preview.active .posting-content {
@@ -593,7 +591,7 @@ textarea.length-error,
     vertical-align: middle;
   }
   margin-top: 0;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 }
 
 .character-count-container {

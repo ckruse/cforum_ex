@@ -29,10 +29,10 @@
 
 
 
-import * as logic from '../modules/logic.js';
+import * as logic from '../js/modules/logic.js';
 
 
-import { binary, falsy, identity, truthy } from '../modules/functional.js';
+import { binary, falsy, identity, truthy } from '../js/modules/functional.js';
 
 
 

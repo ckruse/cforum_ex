@@ -1,6 +1,6 @@
 /* -*- coding: utf-8 -*- */
 
-@import "variables.css.scss";
+@import "variables.scss";
 
 /* upper navigation */
 .top {
@@ -14,7 +14,7 @@
   position: relative;
 
   .selflinks {
-    margin: 0 0 0 .5em;
+    margin: 0 0 0 0.5em;
     padding: 0;
 
     li {
@@ -39,7 +39,7 @@
 .personallinks {
   list-style-type: none;
   padding: 0;
-  margin: .5em;
+  margin: 0.5em;
 
   li {
     display: block;
@@ -51,7 +51,7 @@
     color: $link_color;
   }
   img {
-    margin-right: .2em;
+    margin-right: 0.2em;
   }
   #user-not-signed-in {
     color: #999;
@@ -65,11 +65,11 @@
     span {
       display: none;
     }
-    background: url('/images/selfhtml-forum-small.svg') no-repeat center center;
+    background: url("/images/selfhtml-forum-small.svg") no-repeat center center;
     background-size: contain;
     width: 100%;
     height: 96px;
-    margin-bottom: .3em;
+    margin-bottom: 0.3em;
   }
 
   a.home {
@@ -181,13 +181,13 @@ header {
 nav.quicklinks {
   max-width: none;
   display: block;
-  padding: 0 .25em .25em .5em;
+  padding: 0 0.25em 0.25em 0.5em;
   margin: 0 1em 0.8em 0;
 
   li {
     display: block;
     border: none;
-    padding: .3em 0;
+    padding: 0.3em 0;
     font-size: 1em;
   }
 
@@ -202,7 +202,7 @@ nav.quicklinks {
   }
   a.stats {
     display: none;
-    padding-left: .2em;
+    padding-left: 0.2em;
   }
 
   .search {
@@ -210,10 +210,10 @@ nav.quicklinks {
       color: white;
     }
 
-    input[type=search] {
+    input[type="search"] {
       border-radius: 0px 0.5em 0.5em;
       border: 1px solid #d5d5d5;
-      padding: .2em .5em;
+      padding: 0.2em 0.5em;
     }
   }
 }
@@ -232,7 +232,7 @@ nav.quicklinks {
   }
 
   .personallinks.flex-item {
-    margin: .1em 2em;
+    margin: 0.1em 2em;
 
     li {
       display: inline;
@@ -267,11 +267,11 @@ nav.quicklinks {
     margin-bottom: 1em;
 
     h1 {
-      background: url('/images/selfhtml-forum.svg') no-repeat center center;
+      background: url("/images/selfhtml-forum.svg") no-repeat center center;
       background-size: contain;
       width: 160px;
       height: 178px;
-      margin-bottom: .3em;
+      margin-bottom: 0.3em;
     }
 
     .rss,
