@@ -1,6 +1,6 @@
 /* -*- coding: utf-8 -*- */
 
-@import "variables.css.scss";
+@import "variables.scss";
 
 .cf-tags-list,
 header .details .cf-tags-list,
@@ -25,15 +25,15 @@ header .details .cf-tags-list,
   background-color: #e6f2f7;
   margin-top: 1px;
   margin-bottom: 1px;
-  margin-left: .5em;
-  padding: .1em .4em 0 .4em;
+  margin-left: 0.5em;
+  padding: 0.1em 0.4em 0 0.4em;
   font-weight: bold;
   color: #3983ab;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
   border: 1px solid #a1c6d7;
-  border-radius: 0 .25em .25em;
+  border-radius: 0 0.25em 0.25em;
 }
 
 .cf-tag.cf-tag-hidden {
@@ -55,7 +55,7 @@ header .details .cf-tags-list,
 
 .thread {
   li.cf-tag {
-    font-size: .8em;
+    font-size: 0.8em;
 
     &:hover,
     &:focus,

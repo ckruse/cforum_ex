@@ -17,7 +17,7 @@
 
 
 
-import * as predicates from '../modules/predicates.js';
+import * as predicates from '../js/modules/predicates.js';
 
 
 

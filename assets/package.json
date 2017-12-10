@@ -1,9 +1,12 @@
 {
+  "app_name": "Classic Forum",
+  "version": "5.0.0-alpha",
   "repository": {},
   "license": "AGPL-3.0",
   "scripts": {
-    "deploy": "brunch build --production",
-    "watch": "brunch watch --stdin"
+    "dev": "MIX_ENV=dev webpack --watch-stdin --progress --color",
+    "deploy": "MIX_ENV=prod webpack -p",
+    "test": "babel-node spec/support/run.js"
   },
   "dependencies": {
     "phoenix": "file:../deps/phoenix",
@@ -11,12 +14,24 @@
   },
   "devDependencies": {
     "autoprefixer": "^7.2.2",
-    "babel-brunch": "^6.1.1",
-    "brunch": "^2.10.12",
-    "clean-css-brunch": "^2.10.0",
-    "css-brunch": "^2.10.0",
-    "javascript-brunch": "^2.10.0",
-    "sass-brunch": ">=2.10.4",
-    "uglify-js-brunch": "^2.10.0"
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "copy-webpack-plugin": "^4.2.3",
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.5",
+    "jasmine": "^2.8.0",
+    "node-sass": "^4.7.2",
+    "postcss-loader": "^2.0.9",
+    "postcss-sass": "^0.2.0",
+    "sass-loader": "^6.0.6",
+    "snazzy": "^7.0.0",
+    "style-loader": "^0.19.0",
+    "stylelint": "^8.3.1",
+    "stylelint-config-recommended": "^2.0.0",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.10.0"
   }
 }

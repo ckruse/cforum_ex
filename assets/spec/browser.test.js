@@ -33,7 +33,7 @@
 
 
 
-import * as browser from '../modules/browser.js';
+import * as browser from '../js/modules/browser.js';
 
 
 

@@ -1,4 +1,4 @@
-@import "variables.css.scss";
+@import "variables.scss";
 
 html {
   margin: 0;
@@ -9,7 +9,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: Calibri, 'PT Sans', sans-serif;
+  font-family: Calibri, "PT Sans", sans-serif;
   font-size: 1em;
   color: #333333;
   background: white;
@@ -23,12 +23,12 @@ h6 {
   font-weight: normal;
 }
 h1 {
-  font-family: Oswald, Calibri, 'PT Sans', sans-serif;
+  font-family: Oswald, Calibri, "PT Sans", sans-serif;
 }
 h2 {
   font-size: 1.25em;
   border-top: 2px solid $standard_hr_color;
-  padding: .7em 0 0;
+  padding: 0.7em 0 0;
   margin: 1em 0em;
 }
 h3 {
@@ -39,13 +39,13 @@ body > p {
 }
 code,
 kbd {
-  font-family: Consolas, 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono',
-    'Andale Mono', 'Droid Sans Mono', 'Lucida Console', monospace;
+  font-family: Consolas, "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Andale Mono", "Droid Sans Mono",
+    "Lucida Console", monospace;
   color: #0000c0;
   background: #fcfcfc;
   border: 1px solid #8a9da8;
-  border-radius: 0 .4em .4em;
-  padding: 0 .3em;
+  border-radius: 0 0.4em 0.4em;
+  padding: 0 0.3em;
 }
 label {
   font-weight: bold;
@@ -80,7 +80,7 @@ button:active {
   color: $active_link_color;
 }
 input {
-  margin: .5em .5em .2em 0;
+  margin: 0.5em 0.5em 0.2em 0;
 }
 
 .hidden,
@@ -95,7 +95,7 @@ input {
 }
 
 .avatar {
-  margin: 0 .2em;
+  margin: 0 0.2em;
 }
 
 .pointer {
@@ -104,7 +104,7 @@ input {
 
 a.forgotten-password-link {
   font-style: italic;
-  font-size: .9em;
+  font-size: 0.9em;
 }
 
 #tree-functions {
@@ -147,7 +147,7 @@ blockquote {
   flex-flow: row wrap;
 
   .flex-item {
-    margin: .5em;
+    margin: 0.5em;
   }
 
   .top.flex-item {
@@ -185,7 +185,7 @@ blockquote {
   .quicklinks.flex-item {
     order: 2;
     flex: 1 100%;
-    margin: 0 0 .5em 0;
+    margin: 0 0 0.5em 0;
   }
 
   .subnav.flex-item {
@@ -198,7 +198,7 @@ blockquote {
 @media only screen and (min-width: 35em) {
   .flex-container {
     .flex-item {
-      margin: .5em 2em;
+      margin: 0.5em 2em;
     }
 
     .quicklinks.flex-item {
@@ -237,7 +237,7 @@ blockquote {
   a:hover,
   a:focus,
   a:active {
-    transition: all .2s ease-in-out 0s;
+    transition: all 0.2s ease-in-out 0s;
   }
 }
 
@@ -315,7 +315,7 @@ p.no-data {
       }
       .quicklinks,
       .subnav {
-        margin-left: calc(170px + .5em);
+        margin-left: calc(170px + 0.5em);
       }
     }
   }
@@ -337,20 +337,20 @@ p.no-data {
   }
 }
 
-@import "header.css.scss";
-@import "footer.css.scss";
-@import "alerts.css.scss";
-@import "forms.css.scss";
-@import "default_table.css.scss";
-@import "pages.css.scss";
-@import "sortable.css.scss";
-@import "cf-btn.css.scss";
-@import "tabs.css.scss";
+@import "header.scss";
+@import "footer.scss";
+@import "alerts.scss";
+@import "forms.scss";
+@import "default_table.scss";
+@import "pages.scss";
+@import "sortable.scss";
+@import "cf-btn.scss";
+@import "tabs.scss";
 
-@import "forums.css.scss";
-@import "threads.css.scss";
-@import "messages.css.scss";
-@import "tags.css.scss";
-@import "users.css.scss";
+@import "forums.scss";
+@import "threads.scss";
+@import "messages.scss";
+@import "tags.scss";
+@import "users.scss";
 
 /* eof */

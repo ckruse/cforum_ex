@@ -1,7 +1,7 @@
-@import "variables.css.scss";
-@import "cf-btn.css.scss";
+@import "variables.scss";
+@import "cf-btn.scss";
 
-[role=tablist],
+[role="tablist"],
 .tablist {
   border-bottom: 2px solid $standard_hr_color;
   margin-bottom: 2rem;
@@ -39,7 +39,7 @@
     border-bottom-right-radius: 0;
   }
 
-  [aria-selected=true],
+  [aria-selected="true"],
   li.active {
     background-color: #f1f3f4;
   }
