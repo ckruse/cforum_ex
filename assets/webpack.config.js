@@ -50,6 +50,12 @@ module.exports = function(env = {}) {
       path: OUTPUT_PATH
     },
 
+    devtool: "source-map",
+
+    resolve: {
+      modules: ["node_modules", __dirname + "/js"]
+    },
+
     module: {
       rules: [
         {
