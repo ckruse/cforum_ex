@@ -1,6 +1,7 @@
 defmodule CforumWeb.Paginator do
   defstruct [:per_page, :page, :params, :all_entries_count, :pages_count, :distance]
 
+  import CforumWeb.Gettext
   alias CforumWeb.Paginator
 
   use Phoenix.HTML
@@ -31,8 +32,13 @@ defmodule CforumWeb.Paginator do
     (all_entries_count / per_page) |> Float.ceil() |> round
   end
 
-  def pagination(conn, page, path_helper, opts \\ []) do
+  def pagination(conn, page, path_helper, opts \\ [])
+  def pagination(_conn, %Paginator{pages_count: 1}, _, _), do: ""
+
+  def pagination(conn, page, path_helper, opts) do
     content_tag :nav, class: "cf-pages" do
+      content_tag(:h3, gettext("pages"), class: "visually-hidden")
+
       content_tag :ul do
         [first_tag(path_helper, conn, page, opts), previous_tag(path_helper, conn, page, opts)] ++
           pages_list(conn, page, path_helper, opts) ++
@@ -41,11 +47,14 @@ defmodule CforumWeb.Paginator do
     end
   end
 
+  defp maybe_disabled(true, opts), do: Keyword.put(opts, :"aria-disabled", "true")
+  defp maybe_disabled(_, opts), do: opts
+
   defp first_tag(path_helper, conn, page, opts) do
     classes = if page.page == 1, do: "first disabled", else: "first"
-    label = opts[:first] || "««"
+    label = opts[:first] || gettext("first page")
 
-    content_tag :li, class: classes do
+    content_tag :li, maybe_disabled(page.page == 1, class: classes) do
       page(label, path_helper, conn, 1, opts)
     end
   end
@@ -53,9 +62,9 @@ defmodule CforumWeb.Paginator do
   defp previous_tag(path_helper, conn, page, opts) do
     classes = if page.page == 1, do: "prev disabled", else: "prev"
     p_num = if page.page - 1 < 1, do: 1, else: page.page - 1
-    label = opts[:prev] || "«"
+    label = opts[:prev] || gettext("previous page")
 
-    content_tag :li, class: classes do
+    content_tag :li, maybe_disabled(page.page - 1 < 1, class: classes) do
       page(label, path_helper, conn, p_num, opts)
     end
   end
@@ -63,18 +72,18 @@ defmodule CforumWeb.Paginator do
   defp next_tag(path_helper, conn, page, opts) do
     classes = if page.page == page.pages_count, do: "next disabled", else: "next"
     p_num = if page.page + 1 > page.pages_count, do: page.pages_count, else: page.page + 1
-    label = opts[:next] || "»"
+    label = opts[:next] || gettext("next page")
 
-    content_tag :li, class: classes do
+    content_tag :li, maybe_disabled(page.page + 1 > page.pages_count, class: classes) do
       page(label, path_helper, conn, p_num, opts)
     end
   end
 
   defp last_tag(path_helper, conn, page, opts) do
     classes = if page.page == page.pages_count, do: "last disabled", else: "last"
-    label = opts[:last] || "»»"
+    label = opts[:last] || gettext("last page")
 
-    content_tag :li, class: classes do
+    content_tag :li, maybe_disabled(page.page == page.pages_count, class: classes) do
       page(label, path_helper, conn, page.pages_count, opts)
     end
   end

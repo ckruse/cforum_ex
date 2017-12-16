@@ -480,6 +480,7 @@ msgid "this thread is sticky"
 msgstr ""
 
 #: lib/cforum_web/templates/message/header.html.eex:19
+#: lib/cforum_web/templates/message/votes.html.eex:2
 #: lib/cforum_web/templates/message/votes.html.eex:3
 msgid "Score: no score"
 msgid_plural "Score: %{score}"
@@ -1278,3 +1279,28 @@ msgid "%{count} unread message"
 msgid_plural "{count} unread messages"
 msgstr[0] ""
 msgstr[1] ""
+
+#, elixir-format
+#: lib/cforum_web/paginator.ex:55
+msgid "first page"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/paginator.ex:84
+msgid "last page"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/paginator.ex:75
+msgid "next page"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/paginator.ex:40
+msgid "pages"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/paginator.ex:65
+msgid "previous page"
+msgstr ""

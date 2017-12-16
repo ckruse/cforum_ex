@@ -4,7 +4,7 @@ defmodule CforumWeb.ThreadController do
   alias Cforum.Forums.Threads
 
   def index(conn, params) do
-    page = parse_page(params[:p]) - 1
+    page = parse_page(params["p"]) - 1
     limit = uconf(conn, "pagination", :int)
     user = conn.assigns[:current_user]
     {set_order_cookie, ordering} = get_ordering(conn, user)
@@ -24,9 +24,11 @@ defmodule CforumWeb.ThreadController do
         use_paging: uconf(conn, "page_messages") == "yes"
       )
 
+    p = paginate(all_threads_count, per_page: limit, page: page + 1)
+
     conn
     |> maybe_set_cookie(set_order_cookie, ordering)
-    |> render("index.html", threads: threads, all_threads_count: all_threads_count)
+    |> render("index.html", threads: threads, all_threads_count: all_threads_count, page: p)
   end
 
   defp maybe_set_cookie(conn, true, ordering),

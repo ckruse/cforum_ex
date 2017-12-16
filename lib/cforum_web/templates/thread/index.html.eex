@@ -1,5 +1,9 @@
+<%= pagination @conn, @page, &forum_path/4, path_args: ([@conn, :index, @current_forum || "all"]) %>
+
 <div class="cf-thread-list">
   <%= for thread <- @threads do %>
     <%= render "thread.html", conn: @conn, thread: thread %>
   <% end %>
 </div>
+
+<%= pagination @conn, @page, &forum_path/4, path_args: ([@conn, :index, @current_forum || "all"]) %>
