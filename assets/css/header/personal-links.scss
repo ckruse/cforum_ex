@@ -1,0 +1,57 @@
+.cf-personallinks {
+  list-style-type: none;
+  padding: 0;
+  margin: 0.5em;
+
+  li {
+    margin: 0 0 1em 0;
+    line-height: 1em;
+    white-space: nowrap;
+  }
+
+  a:visited {
+    color: $link_color;
+  }
+
+  img {
+    margin-right: 0.2em;
+  }
+  #user-not-signed-in {
+    color: #999;
+  }
+
+  .btn-link {
+    border: 0;
+    padding: 0;
+    font-size: 1em;
+    cursor: pointer;
+    @extend a:link;
+  }
+
+  .btn-link:hover,
+  .btn-link:focus,
+  .btn-link:active {
+    @extend a:hover;
+  }
+}
+
+@media only screen and (min-width: 35em) {
+  .cf-personallinks {
+    text-align: right;
+    margin: 0.1em 2em;
+
+    li {
+      display: inline;
+      margin-right: 1em;
+      line-height: 1.5;
+    }
+
+    li:last-of-type {
+      margin-right: 0;
+    }
+
+    a {
+      display: inline;
+    }
+  }
+}

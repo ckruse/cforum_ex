@@ -95,7 +95,7 @@ defmodule CforumWeb.Views.Helpers.Button do
     {to, opts} = pop_required_option!(opts, :to, "option :to is required in button/2")
     {method, opts} = Keyword.pop(opts, :method, :post)
 
-    {form, opts} = form_options(opts, method, "button_to")
+    {form, opts} = form_options(opts, method, "cf-inline-form")
 
     {to, form, opts}
   end

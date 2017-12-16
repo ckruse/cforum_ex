@@ -1,5 +1,3 @@
-/* -*- coding: utf-8 -*- */
-
 .cf-pages {
   text-align: center;
 
@@ -21,13 +19,11 @@
 
   li > a,
   li > span {
-    border: 1px solid #ddd;
+    border: 1px solid $grey_border;
     display: block;
     margin-left: -1px;
-    color: #337ab7;
+    color: $primary_color;
     text-decoration: none;
-    padding-left: 1em;
-    padding-right: 1em;
     padding: 0.5em 1em;
   }
 
@@ -50,10 +46,10 @@
   .active > span:hover,
   .active > a:focus,
   .active > span:focus {
-    color: #fff;
+    color: $default_background_color;
     cursor: default;
-    background-color: #337ab7;
-    border-color: #337ab7;
+    background-color: $primary_color;
+    border-color: $primary_color;
   }
 
   .disabled > span,
@@ -64,23 +60,7 @@
   .disabled > a:focus {
     color: #777;
     cursor: not-allowed;
-    background-color: #fff;
-    border-color: #ddd;
+    background-color: $default_background_color;
+    border-color: $grey_border;
   }
 }
-
-/* Paging in Cites */
-
-.cites .cf-pages {
-  width: 100%;
-  width: 95vw;
-}
-@media only screen and (min-width: 35em) {
-  .cites .cf-pages {
-    max-width: 100%;
-    max-width: 95vw;
-    width: 55em;
-  }
-}
-
-/* eof */

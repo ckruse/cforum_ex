@@ -1,0 +1,50 @@
+.cf-default-table {
+  border-collapse: collapse;
+  width: 100%;
+
+  th,
+  td {
+    padding: 0.4em 0.5em 0.4em 0.5em;
+    border-bottom: 1px solid $grey_border;
+  }
+
+  tr {
+    margin: 0;
+    padding: 0;
+
+    &:nth-child(2n) {
+      background-color: $grey_background;
+    }
+    &:hover {
+      background-color: $grey_border;
+    }
+  }
+
+  thead tr:hover {
+    background-color: inherit;
+  }
+
+  th {
+    text-align: left;
+  }
+  thead th {
+    color: $bolded_color;
+  }
+  tfoot th {
+    border-bottom: 0;
+  }
+
+  tr.no-data {
+    td {
+      text-align: center;
+      padding-top: 2em;
+      padding-bottom: 2em;
+      background-color: $grey_background;
+    }
+  }
+
+  td.numeric,
+  th.numeric {
+    text-align: right;
+  }
+}

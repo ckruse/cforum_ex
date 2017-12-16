@@ -1,0 +1,7 @@
+    <%= if !blank?(@message.tags) && @opts[:tags] && (!@opts[:hide_repeating_tags] || Message.tags_changed?(@message, assigns[:parent])) do %>
+      <ul class="cf-tags-list-thread">
+        <%= for t <- @message.tags do %>
+          <li class="cf-tag"><%= link(t.tag_name, to: tag_path(@conn, :show, @thread.forum.slug, t)) %></li>
+        <% end %>
+      </ul>
+    <% end %>

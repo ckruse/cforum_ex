@@ -1,0 +1,23 @@
+<div id="alerts-container">
+  <%= if get_flash(@conn, :info) do %>
+    <div class="cf-success cf-alert fade in">
+      <button type="button" class="close" data-dismiss="cf-alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <%= get_flash(@conn, :info) %>
+    </div>
+  <% end %>
+  <%= if get_flash(@conn, :error) do %>
+    <div class="cf-error cf-alert fade in">
+      <button type="button" class="close" data-dismiss="cf-alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <%= get_flash(@conn, :error) %>
+    </div>
+    <p class="alert alert-danger" role="alert">
+      <%= get_flash(@conn, :error) %>
+    </p>
+  <% end %>
+</div>

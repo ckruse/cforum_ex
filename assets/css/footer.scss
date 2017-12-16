@@ -1,8 +1,5 @@
-/* -*- coding: utf-8 -*- */
-@import "variables.scss";
-
-footer {
-  margin: 1em;
+.cf-footer {
+  margin: 0.5em;
   border-top: 2px solid $standard_hr_color;
   padding-top: 0.5em;
 
@@ -11,43 +8,26 @@ footer {
     margin: 0;
     padding: 0;
   }
-
-  .termitel-sponsor {
-    margin-top: 0.5em;
-    margin-bottom: 1em;
-    font-size: 0.8em;
-  }
-
-  a:link,
-  a:visited {
-    color: $link_color;
-
-    &:hover,
-    &:active,
-    &:focus {
-      color: $active_link_color;
-    }
-  }
 }
 
 @media only screen and (min-width: 35em) {
-  footer {
+  .cf-footer {
     margin: 2em 1em 2em 2em;
 
     li {
       display: inline;
-
-      &:not(:first-child) {
-        border-left: 2px solid $standard_hr_color;
-        padding-left: 0.2em;
-      }
+      border-left: 2px solid $standard_hr_color;
+      padding-left: 0.3em;
     }
 
-    .termitel-sponsor {
-      margin-top: -1.5em;
+    li:first-of-type,
+    li:last-of-type {
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    li:last-of-type {
       float: right;
     }
   }
 }
-
-/* eof */

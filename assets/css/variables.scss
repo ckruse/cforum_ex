@@ -1,4 +1,27 @@
+$default_foreground_color: #333;
+$default_background_color: white;
+
+$default_font_family: Calibri, "PT Sans", sans-serif;
+
 $link_color: #3481cd;
 $active_link_color: #990909;
+$visited_link_color: #999;
 
 $standard_hr_color: #c4d4da;
+
+$grey_border: #d5d5d5;
+$grey_background: #f1f3f4;
+
+$focus_color: #66afe9;
+
+$error_color: #dc3545;
+
+$primary_color: #337ab7;
+
+$bolded_color: #5d7380;
+
+@mixin focus-w-shadow() {
+  border-color: $focus_color;
+  outline: 0px none;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
+}

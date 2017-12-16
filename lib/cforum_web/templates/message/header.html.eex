@@ -3,9 +3,11 @@ opts = Map.merge(%{noid: false, id_prefix: nil, show_icons: false,
                    hide_repeating_subjects: true, hide_repeating_tags: true,
                    author_link_to_message: true, tree: true, tags: true,
                    show_votes: false}, assigns)
+
+assigns = Map.put(assigns, :opts, opts)
 %>
-<header class="<%= header_classes(@thread, @message, assigns) %>"<%= unless opts[:noid] do %> id="<%= opts[:id_prefix] %>m<%= @message.message_id %>"<% end %>>
-  <%= if !@conn.assigns[:view_all] && ((@message.flags["no-answer"] == "yes") || (@message.flags["no-answer-admin"] == "yes")) do %>
+<header class="cf-message-header <%= header_classes(@thread, @message, assigns) %>" <%= message_id(@message, opts) %>>
+  <%= if !@conn.assigns[:view_all] && Message.no_answer?(@message) do %>
     <span class="icon-message no-answer user" title="<% gettext("Message closed, answering not allowed") %>"> </span>
   <% end %>
 
@@ -14,112 +16,21 @@ opts = Map.merge(%{noid: false, id_prefix: nil, show_icons: false,
   <% end %>
 
   <%= if opts[:show_icons] do %>
-    <span class="votes" title="<%= gettext("messages.votes_tree", count: Message.no_votes(@message), score: Message.score_str(@message)) %>">
+    <span class="votes" title="<%= ngettext("Score: no score", "Score: %{score}", Message.no_votes(@message), score: Message.score_str(@message)) %>">
       <%= Message.score(@message) %>
     </span>
+
+    <%= if opts[:first], do: render "num_infos.html", assigns %>
   <% end %>
 
-  <%= if opts[:first] do %>
-    <%= if opts[:show_icons] do %>
-      <span class="num-infos"><span class="num-msgs" title="<%= gettext("messages.num_messages", count: length(@thread.messages)) %>"><%= length(@thread.messages) %></span>
-
-        <%= if @thread.attribs[:msgs] do %>
-          <span class="num-unread" title="<%= gettext("plugins.mark_read.num_unread", count: @thread.attribs[:msgs][:unread]) %>"><%= @thread.attribs[:msgs][:unread] %></span>
-        <% end %>
-    <% end %>
-
-    <h2><%= link(@message.subject, to: message_path(@conn, @thread, @message)) %></h2>
-  <% else %>
-    <%= if @thread.thread_id != 0 && @message.message_id != 0 do %>
-      <%= if (opts[:hide_repeating_subjects] && Message.subject_changed?(@message, assigns[:parent])) || !(opts[:hide_repeating_subjects]) do %>
-        <h3><%= link(@message.subject, to: message_path(@conn, @thread, @message)) %></h3>
-      <% end %>
-    <% else %>
-      <h3><%= @message.subject %></h3>
-    <% end %>
-  <% end %>
+  <%= render "subject.html", assigns %>
 
   <div class="details">
-    <span class="author">
-      <%= if !blank?(@message.user_id) do %>
-        <span class="registered-user<%= if (@message.message_id != @thread.message.message_id) && (@message.user_id == @thread.message.user_id), do: "original-poster" %>">
-          <%= link(to: user_path(@conn, :show, @message.user), title: gettext("messages.user_link", user: @message.user.username), class: "user-link") do %>
-            <span class="visually-hidden"><%= gettext("messages.link_to_profile_of") %></span>
-            <%= img_tag(Cforum.Accounts.User.avatar_path(@message.user, :thumb), class: "avatar", alt: gettext("messages.user_link", user: @message.user.username)) %>
-          <% end %>
-        </span>
-      <% else %>
-        <%= if (@message.message_id != @thread.message.message_id) && !blank?(@message.uuid) && (@message.uuid == @thread.message.uuid) do %>
-          <span class="icon-message original-poster" title="<%= gettext("original poster") %>"> </span>
-        <% end %>
-      <% end %>
-
-      <%= cond do
-      opts[:author_link_to_message] ->
-        link(@message.author, to: message_path(@conn, @thread, @message), aria: [hidden:  "true"])
-      !blank?(@message.user_id) ->
-        link(@message.author, to: user_path(@conn, :show, @message.user_id))
-      true ->
-        @message.author
-      end %>
-    </span>
-
-    <%= if !opts[:tree] && !@thread.archived && (!blank?(@message.email) || !blank?(@message.homepage)) do %>
-      <span class="author-infos">
-        <%= if !blank?(@message.email) do %>
-          <%= link("", to: "mailto:" <> @message.email, class: "author-email") %>
-        <% end %>
-
-        <%= if !blank?(@message.homepage) do %>
-          <%= if !blank?(@message.user_id) do %> <%#TODO && message.owner.has_badge?('seo_profi') && (message.owner.conf('norelnofollow') == 'yes') %>
-            <%= link("", to: @message.homepage, class: "author-homepage", rel: nil) %>
-          <% else %>
-            <%= link("", to: @message.homepage, class: "author-homepage") %>
-          <% end %>
-        <% end %>
-      </span>
-    <% end %>
-
-    <%= if @conn.assigns[:current_user] && @conn.assigns[:current_user].admin && @conn.assigns[:view_all] do %><%# TODO (@conn.assigns[:current_user].admin || (current_forum && current_user.moderate?(current_forum)) %>
-      <%= if !blank?(@message.ip) do %>
-        <span class="admin-infos ip"><%= @message.ip %></span>
-      <% end %>
-      <%= if !blank?(@message.uuid) do %>
-        <span class="admin-infos uuid"><%= @message.uuid %></span>
-      <% end %>
-    <% end %>
-
-    <time datetime="<%= NaiveDateTime.to_iso8601(@message.created_at) %>">
-      <%= if !blank?(@thread.thread_id) && !blank?(@message.message_id) do %>
-        <%= link Timex.format!(@message.created_at, message_date_format(@conn, opts[:tree]), :strftime), to: message_path(@conn, @thread, @message) %>
-      <% else %>
-        <%= Timex.format!(@message.created_at, message_date_format(@conn, opts[:tree]), :strftime) %>
-      <% end %>
-    </time>
-
-    <%# TODO
-      if opts[:show_editor] && !message.edit_author.blank? && !message.versions.blank?
-        html << ' <span class="versions">(' << cf_link_to(t('messages.versions'),
-                                                          versions_message_path(thread, message),
-                                                          rel: 'nofollow',
-                                                          class: 'version-link')
-
-        html << ')</span>'
-      end
-    %>
-
-    <%= if !blank?(@message.tags) && opts[:tags] && (!opts[:hide_repeating_tags] || Message.tags_changed?(@message, assigns[:parent])) do %>
-      <ul class="cf-tags-list">
-        <%= for t <- @message.tags do %>
-          <li class="cf-tag"><%= link(t.tag_name, to: tag_path(@conn, :show, @thread.forum.slug, t)) %></li>
-        <% end %>
-      </ul>
-    <% end %>
-
-    <%= if opts[:show_votes] do %>
-      <span class="votes" title="<%= gettext("messages.votes_tree", count: Message.no_votes(@message), score: Message.score_str(@message)) %>">
-        <%= ngettext("Score: no score", "Score: %{score}", Message.no_votes(@message), score: Message.score_str(@message)) %>
-      </span>
-    <% end %>
+    <%= render "author.html", assigns %>
+    <%= render "admin_infos.html", assigns %>
+    <%= render "time_infos.html", assigns %>
+    <%= render "editor.html", assigns %>
+    <%= render "tags.html", assigns %>
+    <%= render "votes.html", assigns %>
   </div>
 </header>

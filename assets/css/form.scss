@@ -1,0 +1,127 @@
+.cf-form {
+  ::-moz-focus-inner {
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
+
+  .cf-cgroup {
+    vertical-align: middle;
+    margin-bottom: 1em;
+
+    label {
+      display: block;
+      vertical-align: middle;
+      margin-bottom: 0.25em;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      max-width: 55em;
+      display: block;
+      padding: 0.5em 1em;
+      color: $default_foreground_color;
+      background-color: $default_background_color;
+      background-image: none;
+      border: 1px solid $grey_border;
+      border-radius: 4px;
+      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+      transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+      font-size: 16px;
+    }
+
+    textarea {
+      height: 10em;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      width: auto;
+      display: inline;
+      margin-right: 0.5em;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      @include focus-w-shadow();
+    }
+
+    input[disabled],
+    select[disabled],
+    textarea[disabled] {
+      background-color: #eee;
+    }
+
+    label.radio,
+    label.checkbox {
+      width: 100%;
+      max-width: 55em;
+
+      input[type="checkbox"],
+      input[type="radio"] {
+        display: inline;
+        margin-right: 0.25em;
+      }
+    }
+  }
+
+  .help {
+    font-size: 0.875em;
+  }
+  :focus + small {
+    color: $focus_color;
+  }
+
+  .cf-cgroup.error {
+    input,
+    select,
+    textarea {
+      border: 2px solid $error_color;
+    }
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: $error_color;
+      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(220, 53, 69, 0.6);
+    }
+
+    .help {
+      color: $error_color;
+    }
+  }
+
+  fieldset {
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
+
+  legend {
+    display: block;
+    width: 100%;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    border-bottom: 2px solid $standard_hr_color;
+  }
+}
+
+.cf-inline-form {
+  display: inline;
+}
+
+@media only screen and (min-width: 35em) {
+  .cf-form {
+    .cf-cgroup {
+      textarea {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+.cf-portal-forums-list {
+  &,
+  & ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .thread {
+    border: 0;
+    background: none;
+    margin: 0 0 1.5em;
+    padding: 0.2em 0 0.2em 0.75em;
+    border-left: 5px solid $standard_hr_color;
+    border-radius: 0;
+  }
+
+  a.thread-info {
+    font-weight: bold;
+  }
+
+  .last-answer,
+  .first-unread {
+    display: block;
+    margin: 0 0 0 2em;
+  }
+}

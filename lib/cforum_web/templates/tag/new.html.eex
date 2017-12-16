@@ -1,4 +1,4 @@
-<h2>New tag</h2>
+<h2 class="cf-heading">New tag</h2>
 
 <%= render "form.html", changeset: @changeset,
                         action: tag_path(@conn, :create, @current_forum) %>

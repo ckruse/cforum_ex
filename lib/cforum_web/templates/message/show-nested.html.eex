@@ -3,8 +3,8 @@
   <span class="title" id="posting-title"><%= @thread.message.subject %></span>
 </h1>
 
-<div class="root">
-  <article class="thread posting tree <%= CforumWeb.ThreadView.thread_classes(@thread) %>">
+<div class="cf-thread-list">
+  <article class="cf-thread posting tree <%= CforumWeb.ThreadView.thread_classes(@thread) %>">
     <%= render(
           "header.html",
           conn: @conn,
@@ -32,7 +32,7 @@
 
 <div>
   <article class="thread-nested<%= if @thread.archived, do: "archived" %>">
-    <div class="posting-nested thread-message h-entry <%= message_classes(@conn, @message, @thread, @message.message_id == @thread.message.message_id, :nested) %>">
+    <div class="posting-nested cf-thread-message h-entry <%= message_classes(@conn, @message, @thread, @message.message_id == @thread.message.message_id, :nested) %>">
       <%= render "message.html", Map.merge(assigns, %{first: true, message: @thread.message}) %>
     </div>
 

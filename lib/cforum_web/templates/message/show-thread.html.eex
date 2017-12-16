@@ -3,14 +3,14 @@
   <span class="title" id="posting-title"><%= @message.subject %></span>
 </h1>
 
-<h2><%= gettext("read message") %></h2>
+<h2 class="cf-heading"><%= gettext("read message") %></h2>
 
-<article class="thread-message <%= message_classes(@conn, @message, @thread, false) %> h-entry">
+<article class="cf-thread-message <%= message_classes(@conn, @message, @thread, false) %> h-entry">
   <%= render "message.html", Map.merge(assigns, %{first: true, do_parent: true}) %>
 </article>
 
-<div class="root">
-  <article class="thread posting <%= CforumWeb.ThreadView.thread_classes(@thread) %>">
+<div class="cf-thread-list">
+  <article class="cf-thread posting <%= CforumWeb.ThreadView.thread_classes(@thread) %>">
     <%= render(
           CforumWeb.MessageView,
           "header.html",

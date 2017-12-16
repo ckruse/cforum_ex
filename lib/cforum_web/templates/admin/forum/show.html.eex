@@ -1,4 +1,4 @@
-<h2><%= gettext("Show Forum „%{forum}“", forum: @forum.name) %></h2>
+<h2 class="cf-heading"><%= gettext("Show Forum „%{forum}“", forum: @forum.name) %></h2>
 
 <ul>
 

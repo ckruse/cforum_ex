@@ -45,9 +45,9 @@ defmodule Cforum.Forums.Message do
     timestamps(inserted_at: :created_at)
   end
 
-  def accepted?(message) do
-    message.flags["accepted"] == "yes"
-  end
+  def accepted?(message), do: message.flags["accepted"] == "yes"
+  def no_answer?(message), do: message.flags["no-answer"] == "yes" || message.flags["no-answer-admin"] == "yes"
+  def closed?(message), do: message.deleted || no_answer?(message)
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -55,39 +55,39 @@ defmodule Cforum.Forums.Message do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [
-         :upvotes,
-         :downvotes,
-         :deleted,
-         :mid,
-         :author,
-         :email,
-         :homepage,
-         :subject,
-         :content,
-         :flags,
-         :uuid,
-         :ip,
-         :format,
-         :edit_author,
-         :problematic_site
-       ])
+      :upvotes,
+      :downvotes,
+      :deleted,
+      :mid,
+      :author,
+      :email,
+      :homepage,
+      :subject,
+      :content,
+      :flags,
+      :uuid,
+      :ip,
+      :format,
+      :edit_author,
+      :problematic_site
+    ])
     |> validate_required([
-         :upvotes,
-         :downvotes,
-         :deleted,
-         :mid,
-         :author,
-         :email,
-         :homepage,
-         :subject,
-         :content,
-         :flags,
-         :uuid,
-         :ip,
-         :format,
-         :edit_author,
-         :problematic_site
-       ])
+      :upvotes,
+      :downvotes,
+      :deleted,
+      :mid,
+      :author,
+      :email,
+      :homepage,
+      :subject,
+      :content,
+      :flags,
+      :uuid,
+      :ip,
+      :format,
+      :edit_author,
+      :problematic_site
+    ])
   end
 
   def score(msg) do

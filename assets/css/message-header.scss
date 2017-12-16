@@ -1,0 +1,145 @@
+.cf-message-header {
+  line-height: 1.6em;
+
+  h2,
+  h3 {
+    font-size: 1em;
+    display: inline;
+    line-height: inherit;
+    margin: 0 0 0 0.325em;
+    font-weight: bold;
+    border: 0;
+  }
+
+  .details {
+    display: inline;
+    list-style-type: none;
+    margin-left: 0;
+    font-size: 1em;
+  }
+
+  .author,
+  .author a:link,
+  .author a:visited {
+    white-space: nowrap;
+    font-weight: bold;
+    color: $bolded_color;
+  }
+
+  .author a:focus,
+  .author a:hover,
+  .author a:active {
+    color: $active_link_color;
+  }
+
+  .votes,
+  .num-infos {
+    display: inline-block;
+    color: #8a9da8;
+    font-size: 0.9em;
+    text-align: right;
+    cursor: default;
+  }
+
+  .num-infos:before,
+  .num-unread:before {
+    content: "|";
+    color: #999;
+    opacity: 0.5;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+  .votes {
+    margin-left: 0.5em;
+  }
+  &.deleted {
+    h2,
+    h3,
+    .details {
+      text-decoration: line-through;
+    }
+  }
+
+  .registered-user img {
+    max-height: 0.9em;
+  }
+
+  .votes,
+  .num-infos,
+  .details > a,
+  .details > .cf-tags-list,
+  .thread-forum-plate {
+    display: none;
+  }
+
+  .thread ol header .author {
+    padding-left: 0.3em;
+  }
+
+  .thread > ol header {
+    white-space: nowrap;
+  }
+
+  .visited,
+  a.visited,
+  .visited a,
+  a:visited {
+    color: #999;
+  }
+
+  h2 a {
+    font-weight: bold;
+  }
+}
+
+.cf-thread-message .cf-message-header {
+  h2 a,
+  h3 a,
+  .details a.version-link,
+  &.visited h2 a,
+  &.visited h3 a,
+  &.visited .details a.versions {
+    color: $link_color;
+  }
+
+  h2 a:hover,
+  h3 a:hover,
+  .details a.versions:hover,
+  &.visited h2 a:hover,
+  &.visited h3 a:hover,
+  &.visited .details a.version-link:hover,
+  h2 a:active,
+  h3 a:active,
+  .details a.versions:active,
+  &.visited h2 a:active,
+  &.visited h3 a:active,
+  &.visited .details a.version-link:active,
+  h2 a:focus,
+  h3 a:focus,
+  .details a.versions:focus,
+  &.visited h2 a:focus,
+  &.visited h3 a:focus,
+  &.visited .details a.version-link:focus {
+    color: $active_link_color;
+  }
+}
+
+@media only screen and (min-width: 35em) {
+  .cf-message-header {
+    .votes,
+    .num-infos {
+      display: inline-block;
+    }
+
+    h3 > a,
+    .author {
+      text-decoration: none;
+    }
+
+    .details > a,
+    .details > .cf-tags-list,
+    .thread-forum-plate {
+      display: inline;
+    }
+  }
+}

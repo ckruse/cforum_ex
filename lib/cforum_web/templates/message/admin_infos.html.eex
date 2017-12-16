@@ -1,0 +1,8 @@
+    <%= if @conn.assigns[:current_user] && @conn.assigns[:current_user].admin && @conn.assigns[:view_all] do %><%# TODO (@conn.assigns[:current_user].admin || (current_forum && current_user.moderate?(current_forum)) %>
+      <%= if !blank?(@message.ip) do %>
+        <span class="admin-infos ip"><%= @message.ip %></span>
+      <% end %>
+      <%= if !blank?(@message.uuid) do %>
+        <span class="admin-infos uuid"><%= @message.uuid %></span>
+      <% end %>
+    <% end %>

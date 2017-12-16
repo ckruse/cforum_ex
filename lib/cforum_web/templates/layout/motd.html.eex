@@ -1,0 +1,11 @@
+<%# if not @motds.blank? or content_for?(:aside) %>
+<!--aside class="flex-item" -->
+  <%# if not @motds.blank? %>
+  <%# @motds.each do |motd| %>
+  <!--div class="aktuelle-mitteilung"><%# motd %></div-->
+      <%# end %>
+    <%# end %>
+
+    <%# content_for :aside %>
+<!--/aside-->
+<%# end %>

@@ -1,8 +1,4 @@
-@import "variables.scss";
-@import "cf-btn.scss";
-
-[role="tablist"],
-.tablist {
+.cf-tab-list {
   border-bottom: 2px solid $standard_hr_color;
   margin-bottom: 2rem;
   padding-left: 0.5rem;
@@ -41,6 +37,6 @@
 
   [aria-selected="true"],
   li.active {
-    background-color: #f1f3f4;
+    background-color: $grey_background;
   }
 }

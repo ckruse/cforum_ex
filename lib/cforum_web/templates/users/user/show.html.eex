@@ -78,12 +78,12 @@
 </ul>
 
 
-<h2><%= gettext("User activity") %></h2>
+<h2 class="cf-heading"><%= gettext("User activity") %></h2>
 
 <div id="user-activity-stats"></div>
 
 
-<h2><%= gettext("Newest messages") %></h2>
+<h2 class="cf-heading"><%= gettext("Newest messages") %></h2>
 
 <%= if blank?(@last_messages) do %>
   <p><%= gettext("No messages so far") %></p>
@@ -99,7 +99,7 @@
 
 <p><%= link gettext("all messages"), to: user_path(@conn, :show_messages, @user) %></p>
 
-<h2><%= gettext("Best scored messages") %></h2>
+<h2 class="cf-heading"><%= gettext("Best scored messages") %></h2>
 
 <%= if blank?(@point_msgs) do %>
   <p><%= gettext("No scored messages so far") %></p>
@@ -114,7 +114,7 @@
 </div>
 
 
-<h2><%= if @current_user && @user.user_id == @current_user.user_id, do: gettext("Own votings"), else: gettext("Received votings") %></h2>
+<h2 class="cf-heading"><%= if @current_user && @user.user_id == @current_user.user_id, do: gettext("Own votings"), else: gettext("Received votings") %></h2>
 
 <%= if blank?(@scored_msgs) do %>
   <p><%= gettext("no scored messages so far") %></p>
@@ -158,7 +158,7 @@
 </p>
 
 
-<h2><%= gettext("Badges") %> <%= link(to: "#badges", title: gettext("info")) do %><%= img_tag(static_path(@conn, "/images/bewertung-info-blaugrau.svg"), class: "svg-i") %><% end %></h2><!-- TODO link to help_path -->
+<h2 class="cf-heading"><%= gettext("Badges") %> <%= link(to: "#badges", title: gettext("info")) do %><%= img_tag(static_path(@conn, "/images/bewertung-info-blaugrau.svg"), class: "svg-i") %><% end %></h2><!-- TODO link to help_path -->
 
 <%= if blank?(@badges) do %>
   <p><%= gettext("no badges so far") %></p>

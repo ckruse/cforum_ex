@@ -1,49 +1,30 @@
-/* -*- coding: utf-8 -*- */
-
-@import "variables.scss";
-
-.cf-tags-list,
-header .details .cf-tags-list,
-.thread header ul.cf-tags-list {
+.cf-tags-list {
   display: inline;
   list-style-type: none;
   margin: 0;
   padding: 0;
 
-  li.no-data {
+  li {
     display: inline;
   }
-}
 
-.thread header ul.cf-tags-list {
-  margin-right: 1em;
-}
+  .cf-tag {
+    display: inline;
+    background-color: #e6f2f7;
+    margin-right: 0.5em;
+    padding: 0.1em 0.4em 0 0.4em;
+    font-weight: bold;
+    color: #3983ab;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border: 1px solid #a1c6d7;
+    border-radius: 0 0.25em 0.25em;
 
-.cf-tag,
-.thread li.cf-tag {
-  display: inline;
-  background-color: #e6f2f7;
-  margin-top: 1px;
-  margin-bottom: 1px;
-  margin-left: 0.5em;
-  padding: 0.1em 0.4em 0 0.4em;
-  font-weight: bold;
-  color: #3983ab;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border: 1px solid #a1c6d7;
-  border-radius: 0 0.25em 0.25em;
-}
-
-.cf-tag.cf-tag-hidden {
-  background-color: inherit;
-}
-
-.cf-tag {
-  &:link,
-  &:visited {
-    color: $link_color;
+    &:link,
+    &:visited {
+      color: #3481cd;
+    }
 
     &:hover,
     &:focus,
@@ -53,8 +34,11 @@ header .details .cf-tags-list,
   }
 }
 
-.thread {
-  li.cf-tag {
+.cf-tags-list-thread {
+  @extend .cf-tags-list;
+  margin-right: 1em;
+
+  .cf-tag {
     font-size: 0.8em;
 
     &:hover,
@@ -64,48 +48,33 @@ header .details .cf-tags-list,
     }
 
     a,
-    a:visitedtag_name,
+    a:visited,
     span {
       color: inherit;
     }
 
     a:hover,
     a:visited:hover {
-      color: $active_link_color;
+      color: #990909;
     }
   }
 
-  .visited li.cf-tag {
+  .visited .cf-tag {
     background-color: #f1f3f4;
     border-color: #c4c4c4;
 
-    a:visited,
     a,
+    a:visited,
     span {
       color: #999;
     }
     a:hover,
     a:visited:hover {
-      color: $active_link_color;
+      color: #990909;
     }
   }
 
-  .active li.cf-tag {
-    a {
-      font-weight: normal;
-    }
-  }
-}
-
-.user-info-tags {
-  .cf-tag {
+  .active .cf-tag a {
     font-weight: normal;
   }
 }
-
-.form-horizontal .cf-cgroup .cntrls input[type="text"].tags-input {
-  width: 10%;
-  display: inline;
-}
-
-/* eof */

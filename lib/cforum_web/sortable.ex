@@ -9,15 +9,15 @@ defmodule CforumWeb.Sortable do
     cond do
       column == field && dir == :desc ->
         path = apply(path_helper, [conn, action, extra_args ++ [sort: field, dir: :asc]])
-        Phoenix.HTML.Link.link(text, to: path, class: "sortable sort-descending")
+        Phoenix.HTML.Link.link(text, to: path, class: "cf-sortable sort-descending")
 
       column == field && dir == :asc ->
         path = apply(path_helper, [conn, action, extra_args ++ [sort: field, dir: :desc]])
-        Phoenix.HTML.Link.link(text, to: path, class: "sortable sort-ascending")
+        Phoenix.HTML.Link.link(text, to: path, class: "cf-sortable sort-ascending")
 
       true ->
         path = apply(path_helper, [conn, action, extra_args ++ [sort: field, dir: :asc]])
-        Phoenix.HTML.Link.link(text, to: path, class: "sortable")
+        Phoenix.HTML.Link.link(text, to: path, class: "cf-sortable")
     end
   end
 

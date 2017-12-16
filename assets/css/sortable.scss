@@ -1,20 +1,14 @@
-/* -*- coding: utf-8 -*- */
-
-@import "variables.scss";
-
-a.sortable,
-a.sortable:visited,
-a.sortable:active {
+a.cf-sortable,
+a.cf-sortable:visited,
+a.cf-sortable:active {
   color: $link_color;
 }
 
-.sortable.sort-descending::after {
+.cf-sortable.sort-descending::after {
   content: "⌄";
   margin-left: 0.25em;
 }
-.sortable.sort-ascending::after {
+.cf-sortable.sort-ascending::after {
   content: "⌃";
   margin-left: 0.25em;
 }
-
-/* eof */

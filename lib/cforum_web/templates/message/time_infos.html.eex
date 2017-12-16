@@ -1,0 +1,7 @@
+    <time datetime="<%= NaiveDateTime.to_iso8601(@message.created_at) %>">
+      <%= if !blank?(@thread.thread_id) && !blank?(@message.message_id) do %>
+        <%= link Timex.format!(@message.created_at, message_date_format(@conn, @opts[:tree]), :strftime), to: message_path(@conn, @thread, @message) %>
+      <% else %>
+        <%= Timex.format!(@message.created_at, message_date_format(@conn, @opts[:tree]), :strftime) %>
+      <% end %>
+    </time>
