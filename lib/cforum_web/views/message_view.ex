@@ -139,4 +139,8 @@ defmodule CforumWeb.MessageView do
   end
 
   def tags_list_str(tags), do: Enum.map(tags, & &1.tag_name) |> Enum.join(", ")
+
+  def message_id(msg, opts) do
+    if opts[:noid], do: "", else: {:safe, "id=\"#{opts[:id_prefix]}m#{msg.message_id}\""}
+  end
 end

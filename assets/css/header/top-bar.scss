@@ -1,0 +1,34 @@
+.cf-top-bar {
+  background-color: #699cb3;
+  background-image: linear-gradient(to right, #75b0ca 0%, #4089aa 100%);
+  border-bottom: 3px double #ffffff;
+  border-top: 1px solid #0070a2;
+  min-height: 2.25em;
+  line-height: 2.25em;
+  font-size: 1.25em;
+
+  ul {
+    list-style-type: none;
+    margin: 0 0 0 0.5em;
+    padding: 0;
+    margin-left: 1.75em;
+  }
+
+  li {
+    display: inline;
+    margin-right: 1.5em;
+  }
+
+  li:last-of-type {
+    margin-right: 0;
+  }
+
+  a:link,
+  a:visited {
+    color: #e6f2f7;
+  }
+  a:hover,
+  a:focus {
+    color: white;
+  }
+}

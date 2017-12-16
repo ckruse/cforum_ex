@@ -1,0 +1,107 @@
+.cf-thread-list {
+  display: inline-block;
+
+  ol {
+    overflow: hidden;
+  }
+
+  ol header:before {
+    content: "";
+    font-size: 1.6px;
+    font-size: 0rem;
+    vertical-align: top;
+    padding: 500% 1px 0;
+    margin-right: 10px;
+  }
+
+  header {
+    background: url("/images/posting-pfeil1.png") no-repeat left bottom;
+  }
+
+  article > header,
+  & > header,
+  article ol li:only-child > header,
+  &.posting ol li:only-child > header {
+    background: none;
+  }
+
+  ol li:last-child > header:before {
+    background: url("/images/posting-linie.png") repeat-y left top;
+  }
+
+  ol li:first-child > header:before {
+    background-image: none;
+  }
+}
+
+.cf-thread {
+  background: $grey_background;
+  margin-bottom: 0.75em;
+  border: 1px solid $grey_border;
+  border-radius: 0px 0.5em 0.5em;
+  padding: 0.35em 1em 0 0.5em;
+
+  ol {
+    list-style-type: none;
+
+    li {
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  & > ol {
+    background: $default_background_color;
+    border-radius: 0px 0.5em 0.5em;
+    margin: 0 -1em 0 -0.5em;
+    padding: 0.25em 1.5em 0.5em 1em;
+  }
+
+  li ol {
+    margin-left: -0.75em;
+    padding-left: 1.5em;
+  }
+
+  .thread-forum-plate {
+    font-size: 90%;
+    font-weight: bold;
+    background-color: #9aaab3;
+    color: $default_background_color;
+    border-radius: 0 0.3em 0.3em;
+    padding: 0.2em 0.6em 0.15em;
+  }
+
+  a.thread-forum-plate {
+    &:link,
+    &:visited {
+      color: $default_background_color;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: $active_link_color;
+    }
+  }
+
+  .admin-infos {
+    font-size: 70%;
+  }
+}
+
+@media only screen and (min-width: 35em) {
+  .cf-thread {
+    min-width: 44em;
+
+    ol .cf-message-header .author {
+      padding-left: 0;
+    }
+
+    & > ol {
+      padding-left: 4.5em;
+    }
+    li ol {
+      padding-left: 2.5em;
+    }
+  }
+}

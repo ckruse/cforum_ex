@@ -1,0 +1,114 @@
+.cf-posting-content {
+  color: #039;
+  border: 1px solid #e7c157;
+  background: none repeat scroll 0% 0% #fdfcf3;
+  font-family: Consolas, "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Andale Mono", "Droid Sans Mono",
+    "Lucida Console", monospace;
+  margin: 0.5em 0px;
+  padding: 0.8em 0.1em 1em;
+  border-radius: 0px 0.5em 0.5em;
+  font-size: 0.9em;
+  line-height: 1.4em;
+  image-orientation: from-image;
+
+  & > :first-child {
+    margin-top: 0;
+  }
+
+  & > :last-child {
+    margin-bottom: 0;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  a.mention {
+    text-decoration: none;
+    color: inherit;
+    background-color: #eee;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
+    &.highlighted-user {
+      color: #8ab337;
+    }
+    &.highlighted-self {
+      color: #c32e04;
+    }
+  }
+
+  blockquote a.mention {
+    &.highlighted-user {
+      color: #bdd886;
+    }
+    &.highlighted-self {
+      color: #d37b6d;
+    }
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  img[style*="rotate"] {
+    image-orientation: initial;
+  }
+
+  ul,
+  ol {
+    margin-top: 1em;
+    padding-left: 2em;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ul ul {
+    list-style-type: circle;
+  }
+
+  ul ul ul {
+    list-style-type: square;
+  }
+
+  h3,
+  h4 {
+    margin: 0.8em 0;
+    font-weight: bold;
+  }
+  h3 {
+    font-size: 1.3em;
+  }
+  h4 {
+    font-size: 1.1em;
+  }
+
+  table {
+    border-collapse: collapse;
+    margin: 1em 0;
+  }
+
+  th,
+  td {
+    border: 1px solid;
+    padding: 0.1em 0.3em;
+  }
+
+  tfoot td {
+    font-weight: bold;
+  }
+
+  dt {
+    font-weight: bold;
+  }
+
+  sup {
+    position: relative;
+    vertical-align: baseline;
+    top: -0.4em;
+  }
+}

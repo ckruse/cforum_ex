@@ -1,4 +1,4 @@
-<nav class="tablist">
+<nav class="cf-tab-list">
   <ul>
     <li><a href="#user-information"><%= gettext("user information") %></a></li>
     <li><a href="#personal-information"><%= gettext("personal information") %></a></li>
@@ -10,7 +10,7 @@
 </nav>
 
 <template id="tablist">
-  <div role="tablist">
+  <div role="tablist" class="cf-tab-list">
     <button role="tab" id="user-information-tab" aria-controls="user-information" aria-selected="false" tabindex="-1"><%= gettext("user information") %></button>
     <button role="tab" id="personal-information-tab" aria-controls="personal-information" aria-selected="false" tabindex="-1"><%= gettext("personal information") %></button>
     <button role="tab" id="comfort-tab" aria-controls="comfort" aria-selected="false" tabindex="-1"><%= gettext("comfort functions") %></button>

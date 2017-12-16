@@ -1,0 +1,16 @@
+main {
+  margin: 0.5em;
+
+  h1 {
+    font-family: Oswald, $default_font_family;
+    border-top: 2px solid $standard_hr_color;
+    padding: 0.7em 0px 0px;
+    margin: 0.5em 0em;
+  }
+}
+
+@media only screen and (min-width: 35em) {
+  main {
+    margin: 0.5em 2em;
+  }
+}

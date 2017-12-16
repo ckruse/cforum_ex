@@ -8,7 +8,7 @@
   </div>
 <% end %>
 
-<article class="thread-message <%= if assigns[:preview], do: "preview" %>">
+<article class="cf-thread-message <%= if assigns[:preview], do: "preview" %>">
   <%= if !assigns[:preview] do %>
     <%= render(
       CforumWeb.MessageView,

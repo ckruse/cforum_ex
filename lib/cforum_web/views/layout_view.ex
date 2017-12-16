@@ -34,7 +34,7 @@ defmodule CforumWeb.LayoutView do
 
   def page_heading(conn, assigns) do
     try do
-      "<h1>" <> apply(view_module(conn), :page_heading, [action_name(conn), assigns]) <> "</h1>"
+      [{:safe, "<h1>"} | [apply(view_module(conn), :page_heading, [action_name(conn), assigns]) | {:safe, "</h1>"}]]
     rescue
       UndefinedFunctionError -> ""
       FunctionClauseError -> ""

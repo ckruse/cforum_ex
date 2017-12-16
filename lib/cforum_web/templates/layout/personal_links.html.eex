@@ -1,0 +1,25 @@
+<ul class="cf-personallinks">
+  <%= if signed_in?(@conn) do %>
+    <li id="user-info">
+      <%= link(to: user_path(@conn, :show, @current_user), id: "username") do %>
+        <%= img_tag(Cforum.Accounts.User.avatar_path(@current_user, :thumb), class: "avatar", alt: "") %>
+        <%= @current_user.username %>
+      <% end %>
+      <span class="score" title="<%= gettext("%{points} points", points: @current_user.score) %>">(<%= number_to_delimited(@current_user.score, precision: 0) %>)</span>
+    </li>
+    <li id="optionen-myadmin"><%= link gettext("settings"), to: user_path(@conn, :edit, @current_user) %></li>
+    <li id="user-notifications"><%= link(gettext("notifications"), to: notification_path(@conn, :index), title: gettext("new notifications", count: @unread_notifications)) %>
+      (<span class="notifications<%= if @unread_notifications > 0 do %> new<% end %>"
+              id="notifications-display"
+              title="<%= gettext("new notifications", count: @unread_notifications) %>"><%= @unread_notifications %></span>)
+    </li>
+    <li id="post-link"><%= link(gettext("mail"), to: "", title: gettext("%{count} new mails", count: @unread_mails)) %>
+      (<span class="mails new" id="mails" title="<%= gettext("%{count} new mails", count: @unread_mails) %>"><%= @unread_mails %></span>)</li>
+    <li id="optionen-logout"><%= cf_button(gettext("logout"), to: session_path(@conn, :delete), method: :delete, class: "btn-link") %></li>
+  <% else %>
+    <li id="user-not-signed-in"><%= img_tag(static_path(@conn, "/images/missing.png")) %> <%= gettext("not logged in") %></li>
+    <li id="optionen-help"><%= link(gettext("Help"), to: page_path(@conn, :help)) %></li>
+    <li id="optionen-my"><%= link(gettext("login"), to: session_path(@conn, :new), rel: "nofollow") %></li>
+    <li id="optionen-myadmin"><%= link(gettext("register"), to: registration_path(@conn, :new), rel: "nofollow") %></li>
+  <% end %>
+</ul>

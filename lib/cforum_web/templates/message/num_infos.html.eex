@@ -1,0 +1,7 @@
+      <span class="num-infos">
+        <span class="num-msgs" title="<%= ngettext("%{count} message", "%{count} messages", length(@thread.messages)) %>"><%= length(@thread.messages) %></span>
+
+        <%= if @thread.attribs[:msgs] do %>
+          <span class="num-unread" title="<%= ngettext("%{count} unread message", "{count} unread messages", @thread.attribs[:msgs][:unread]) %>"><%= @thread.attribs[:msgs][:unread] %></span>
+        <% end %>
+      </span>

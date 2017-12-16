@@ -1,3 +1,5 @@
-<%= for thread <- @threads do %>
-  <%= render "thread.html", conn: @conn, thread: thread %>
-<% end %>
+<div class="cf-thread-list">
+  <%= for thread <- @threads do %>
+    <%= render "thread.html", conn: @conn, thread: thread %>
+  <% end %>
+</div>

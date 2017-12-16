@@ -1,4 +1,4 @@
-<h2><%= gettext("Edit Forum „%{forum}“", forum: @forum.name) %></h2>
+<h2 class="cf-heading"><%= gettext("Edit Forum „%{forum}“", forum: @forum.name) %></h2>
 
 <%= form_for @changeset, admin_forum_path(@conn, :update, @forum), [class: "cf-form"], fn f -> %>
   <%= render "form.html", changeset: @changeset, f: f %>

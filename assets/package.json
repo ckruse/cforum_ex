@@ -3,6 +3,9 @@
   "version": "5.0.0-alpha",
   "repository": {},
   "license": "AGPL-3.0",
+  "prettier": {
+    "printWidth": 120
+  },
   "scripts": {
     "dev": "MIX_ENV=dev webpack --watch-stdin --progress --color",
     "deploy": "MIX_ENV=prod webpack -p",

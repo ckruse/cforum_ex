@@ -23,7 +23,7 @@ msgstr ""
 #~ msgid ""
 #~ msgstr ""
 #~ "Language: de\n"
-#: lib/cforum_web/templates/layout/app.html.eex:93
+#: lib/cforum_web/templates/layout/personal_links.html.eex:20
 msgid "not logged in"
 msgstr "nicht angemeldet"
 
@@ -36,8 +36,8 @@ msgid "You have to be logged in to see this page!"
 msgstr "Sie müssen sich einloggen, um diese Seite sehen zu dürfen!"
 
 #: lib/cforum_web/templates/layout/app.html.eex:35
-#: lib/cforum_web/templates/layout/app.html.eex:94
-#: lib/cforum_web/templates/layout/app.html.eex:154
+#: lib/cforum_web/templates/layout/page_header.html.eex:58
+#: lib/cforum_web/templates/layout/personal_links.html.eex:21
 msgid "Help"
 msgstr "Hilfe"
 
@@ -57,11 +57,11 @@ msgstr "Sie haben sich erfolgreich angemeldet."
 #: lib/cforum_web/templates/forum/index.html.eex:14
 #: lib/cforum_web/templates/layout/app.html.eex:45
 #: lib/cforum_web/templates/layout/app.html.eex:46
-#: lib/cforum_web/templates/layout/app.html.eex:109
-#: lib/cforum_web/templates/layout/app.html.eex:109
-#: lib/cforum_web/templates/layout/app.html.eex:110
-#: lib/cforum_web/templates/layout/app.html.eex:110
-#: lib/cforum_web/templates/layout/app.html.eex:123
+#: lib/cforum_web/templates/layout/page_header.html.eex:12
+#: lib/cforum_web/templates/layout/page_header.html.eex:12
+#: lib/cforum_web/templates/layout/page_header.html.eex:13
+#: lib/cforum_web/templates/layout/page_header.html.eex:13
+#: lib/cforum_web/templates/layout/page_header.html.eex:27
 msgid "All forums"
 msgstr "alle Foren"
 
@@ -70,67 +70,68 @@ msgstr "alle Foren"
 msgid "Show all"
 msgstr "alle anzeigen"
 
-#: lib/cforum_web/templates/layout/app.html.eex:149
+#: lib/cforum_web/templates/layout/page_header.html.eex:53
 msgid "Cites"
 msgstr "Zitatesammlung"
 
-#: lib/cforum_web/templates/layout/app.html.eex:202
+#: lib/cforum_web/templates/layout/page_header.html.eex:108
 msgid "Administration"
 msgstr "Verwaltung"
 
 #: lib/cforum_web/templates/forum/index.html.eex:5
-#: lib/cforum_web/templates/layout/app.html.eex:120
+#: lib/cforum_web/templates/layout/page_header.html.eex:24
 #: lib/cforum_web/views/forum_view.ex:4
 msgid "Forums"
 msgstr "Foren"
 
-#: lib/cforum_web/templates/layout/app.html.eex:197
+#: lib/cforum_web/templates/layout/page_header.html.eex:103
 msgid "Atom feed"
 msgstr "Atom-Feed"
 
 #: lib/cforum_web/templates/layout/app.html.eex:42
 #: lib/cforum_web/templates/layout/app.html.eex:45
-#: lib/cforum_web/templates/layout/app.html.eex:107
-#: lib/cforum_web/templates/layout/app.html.eex:107
-#: lib/cforum_web/templates/layout/app.html.eex:110
-#: lib/cforum_web/templates/layout/app.html.eex:110
+#: lib/cforum_web/templates/layout/page_header.html.eex:10
+#: lib/cforum_web/templates/layout/page_header.html.eex:10
+#: lib/cforum_web/templates/layout/page_header.html.eex:13
+#: lib/cforum_web/templates/layout/page_header.html.eex:13
 msgid "Atom feed (%{forum})"
 msgstr "Atom-Feed (%{forum})"
 
-#: lib/cforum_web/templates/layout/app.html.eex:153
+#: lib/cforum_web/templates/layout/page_header.html.eex:57
 msgid "Chat"
 msgstr "Chat"
 
-#: lib/cforum_web/templates/layout/app.html.eex:198
+#: lib/cforum_web/templates/layout/page_header.html.eex:104
 msgid "RSS feed"
 msgstr "RSS-Feed"
 
 #: lib/cforum_web/templates/layout/app.html.eex:43
 #: lib/cforum_web/templates/layout/app.html.eex:46
-#: lib/cforum_web/templates/layout/app.html.eex:106
-#: lib/cforum_web/templates/layout/app.html.eex:106
-#: lib/cforum_web/templates/layout/app.html.eex:109
-#: lib/cforum_web/templates/layout/app.html.eex:109
+#: lib/cforum_web/templates/layout/page_header.html.eex:9
+#: lib/cforum_web/templates/layout/page_header.html.eex:9
+#: lib/cforum_web/templates/layout/page_header.html.eex:12
+#: lib/cforum_web/templates/layout/page_header.html.eex:12
 msgid "RSS feed (%{forum})"
 msgstr "RSS-Feed (%{forum})"
 
-#: lib/cforum_web/templates/layout/app.html.eex:152
+#: lib/cforum_web/templates/layout/page_header.html.eex:56
 msgid "Search"
 msgstr "Suche"
 
 #: lib/cforum_web/templates/forum/index.html.eex:15
 #: lib/cforum_web/templates/forum/index.html.eex:35
-#: lib/cforum_web/templates/layout/app.html.eex:124
-#: lib/cforum_web/templates/layout/app.html.eex:139
+#: lib/cforum_web/templates/layout/page_header.html.eex:28
+#: lib/cforum_web/templates/layout/page_header.html.eex:43
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: lib/cforum_web/templates/layout/app.html.eex:113
-#: lib/cforum_web/templates/layout/app.html.eex:113
+#: lib/cforum_web/templates/layout/page_header.html.eex:16
+#: lib/cforum_web/templates/layout/page_header.html.eex:16
 msgid "donate"
 msgstr "Spenden"
 
-#: lib/cforum_web/templates/layout/app.html.eex:119
+#: lib/cforum_web/templates/layout/page_header.html.eex:5
+#: lib/cforum_web/templates/layout/page_header.html.eex:23
 msgid "home"
 msgstr "Übersicht"
 
@@ -138,11 +139,11 @@ msgstr "Übersicht"
 msgid "icon"
 msgstr "SELFHTML Icon"
 
-#: lib/cforum_web/templates/layout/app.html.eex:95
+#: lib/cforum_web/templates/layout/personal_links.html.eex:22
 msgid "login"
 msgstr "anmelden"
 
-#: lib/cforum_web/templates/layout/app.html.eex:180
+#: lib/cforum_web/templates/layout/page_header.html.eex:86
 msgid "nested view"
 msgstr "Nested-Ansicht"
 
@@ -150,25 +151,25 @@ msgstr "Nested-Ansicht"
 msgid "publisher"
 msgstr "SELFHTML Forum"
 
-#: lib/cforum_web/templates/layout/app.html.eex:96
+#: lib/cforum_web/templates/layout/personal_links.html.eex:23
 #: lib/cforum_web/views/users/registration_view.ex:4
 #: lib/cforum_web/views/users/registration_view.ex:5
 msgid "register"
 msgstr "Benutzerkonto erstellen"
 
-#: lib/cforum_web/templates/layout/app.html.eex:186
+#: lib/cforum_web/templates/layout/page_header.html.eex:92
 msgid "sort ascending"
 msgstr "aufsteigend sortieren"
 
-#: lib/cforum_web/templates/layout/app.html.eex:189
+#: lib/cforum_web/templates/layout/page_header.html.eex:95
 msgid "sort descending"
 msgstr "absteigend sortieren"
 
-#: lib/cforum_web/templates/layout/app.html.eex:192
+#: lib/cforum_web/templates/layout/page_header.html.eex:98
 msgid "sort newest first"
 msgstr "nach neuestem Beitrag sortieren"
 
-#: lib/cforum_web/templates/layout/app.html.eex:178
+#: lib/cforum_web/templates/layout/page_header.html.eex:84
 msgid "thread view"
 msgstr "Thread-Ansicht"
 
@@ -180,11 +181,11 @@ msgstr "Forum als Ergänzung zum SELFHTML-Wiki und zur Dokumentation SELFHTML"
 msgid "keywords_text"
 msgstr "SELFHTML Forum, SELFHTML, Forum, SELFForum"
 
-#: lib/cforum_web/templates/layout/app.html.eex:222
+#: lib/cforum_web/templates/layout/page_header.html.eex:128
 msgid "archive"
 msgstr "archivierte Beiträge"
 
-#: lib/cforum_web/templates/layout/app.html.eex:118
+#: lib/cforum_web/templates/layout/page_header.html.eex:22
 msgid "create new thread"
 msgstr "neuer Beitrag"
 
@@ -211,46 +212,47 @@ msgstr "Login merken"
 msgid "Username or email"
 msgstr "Benutzername oder Email-Adresse"
 
-#: lib/cforum_web/templates/layout/app.html.eex:89
-#: lib/cforum_web/templates/layout/app.html.eex:90
+#: lib/cforum_web/templates/layout/personal_links.html.eex:16
+#: lib/cforum_web/templates/layout/personal_links.html.eex:17
 msgid "%{count} new mails"
 msgstr "%{count} neue Mails"
 
-#: lib/cforum_web/templates/layout/app.html.eex:80
-#: lib/cforum_web/templates/layout/app.html.eex:81
+#: lib/cforum_web/templates/layout/personal_links.html.eex:8
 msgid "%{points} points"
 msgstr "%{points} Punkte"
 
-#: lib/cforum_web/templates/layout/app.html.eex:91
+#: lib/cforum_web/templates/layout/personal_links.html.eex:18
 msgid "logout"
 msgstr "abmelden"
 
-#: lib/cforum_web/templates/layout/app.html.eex:89
+#: lib/cforum_web/templates/layout/personal_links.html.eex:16
 msgid "mail"
 msgstr "Post"
 
-#: lib/cforum_web/templates/layout/app.html.eex:84
-#: lib/cforum_web/templates/layout/app.html.eex:87
+#: lib/cforum_web/templates/layout/personal_links.html.eex:11
+#: lib/cforum_web/templates/layout/personal_links.html.eex:14
 msgid "new notifications"
 msgstr "neue Benachrichtigungen"
 
-#: lib/cforum_web/templates/layout/app.html.eex:84
+#: lib/cforum_web/templates/layout/personal_links.html.eex:11
 #: lib/cforum_web/templates/users/user/notifications.html.eex:3
 #: lib/cforum_web/templates/users/user/settings.html.eex:6
 #: lib/cforum_web/templates/users/user/settings.html.eex:17
 msgid "notifications"
 msgstr "Benachrichtigungen"
 
-#: lib/cforum_web/templates/layout/app.html.eex:83
+#: lib/cforum_web/templates/layout/personal_links.html.eex:10
 msgid "settings"
 msgstr "Einstellungen"
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:3
+#: lib/cforum_web/templates/message/new.html.eex:7
 #: lib/cforum_web/templates/users/registration/new.html.eex:4
 #: lib/cforum_web/templates/users/user/form.html.eex:3
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr "Es ist etwas schief gelaufen! Bitte prüfen Sie die untenstehenden Fehler."
 
+#: lib/cforum_web/templates/message/form.html.eex:17
 #: lib/cforum_web/templates/users/registration/new.html.eex:15
 #: lib/cforum_web/templates/users/user/show.html.eex:20
 #: lib/cforum_web/templates/users/user/user_information.html.eex:11
@@ -368,7 +370,7 @@ msgstr "Homepage"
 msgid "Jabber ID"
 msgstr "Jabber-ID"
 
-#: lib/cforum_web/templates/message/header.html.eex:9
+#: lib/cforum_web/templates/message/header.html.eex:11
 msgid "Message closed, answering not allowed"
 msgstr "Dieser Beitrag ist gesperrt, antworten ist nicht erlaubt."
 
@@ -439,27 +441,24 @@ msgstr "Informationen"
 msgid "messages"
 msgstr "Beiträge"
 
-#: lib/cforum_web/templates/message/header.html.eex:47
+#: lib/cforum_web/templates/message/header.html.eex:49
 msgid "messages.link_to_profile_of"
 msgstr ""
 
-#: lib/cforum_web/templates/message/header.html.eex:24
+#: lib/cforum_web/templates/message/num_infos.html.eex:2
 msgid "messages.num_messages"
 msgstr ""
 
 #: lib/cforum_web/templates/forum/message_header.html.eex:5
 #: lib/cforum_web/templates/forum/message_header.html.eex:7
-#: lib/cforum_web/templates/message/header.html.eex:46
-#: lib/cforum_web/templates/message/header.html.eex:48
 msgid "messages.user_link"
 msgstr ""
 
-#: lib/cforum_web/templates/message/header.html.eex:17
-#: lib/cforum_web/templates/message/header.html.eex:120
+#: lib/cforum_web/templates/message/votes.html.eex:2
 msgid "messages.votes_tree"
 msgstr ""
 
-#: lib/cforum_web/templates/thread/thread.html.eex:2
+#: lib/cforum_web/templates/thread/thread.html.eex:4
 msgid "no archive"
 msgstr "Dieser Thread wird nicht archiviert."
 
@@ -479,11 +478,11 @@ msgstr "bisher keine bewerteten Beiträge"
 msgid "only visible for you"
 msgstr "Nur für Sie sichtbar"
 
-#: lib/cforum_web/templates/message/header.html.eex:53
+#: lib/cforum_web/templates/message/author.html.eex:11
 msgid "original poster"
 msgstr "Thread-Ersteller"
 
-#: lib/cforum_web/templates/message/header.html.eex:27
+#: lib/cforum_web/templates/message/num_infos.html.eex:5
 msgid "plugins.mark_read.num_unread"
 msgstr ""
 
@@ -491,16 +490,17 @@ msgstr ""
 msgid "registered since"
 msgstr "Registriert seit"
 
-#: lib/cforum_web/templates/thread/thread.html.eex:3
+#: lib/cforum_web/templates/thread/thread.html.eex:5
 msgid "this thread is sticky"
 msgstr "Der Thread ist angepinnt."
 
-#: lib/cforum_web/templates/message/header.html.eex:121
+#: lib/cforum_web/templates/message/header.html.eex:19
+#: lib/cforum_web/templates/message/votes.html.eex:3
 msgid "Score: no score"
 msgid_plural "Score: %{score}"
 msgstr[0] "Bewertung: keine Bewertung"
-msgstr[1] "Bewertung: %{score}"
-msgstr[2] "Bewertung: %{score}"
+msgstr[1] "Bewertung: %{score}, %{count} Stimme"
+msgstr[2] "Bewertung: %{score}, %{count} Stimmen"
 
 #: lib/cforum_web/views/users/user_view.ex:13
 #: lib/cforum_web/views/users/user_view.ex:28
@@ -547,6 +547,7 @@ msgstr "Avatar"
 
 #: lib/cforum_web/templates/admin/forum/edit.html.eex:8
 #: lib/cforum_web/templates/admin/forum/new.html.eex:8
+#: lib/cforum_web/templates/message/new.html.eex:43
 #: lib/cforum_web/templates/users/password/edit.html.eex:15
 #: lib/cforum_web/templates/users/password/edit_reset.html.eex:15
 #: lib/cforum_web/templates/users/password/new.html.eex:10
@@ -580,6 +581,7 @@ msgstr "Flattr-ID"
 msgid "greeting"
 msgstr "Begrüßung"
 
+#: lib/cforum_web/templates/message/form.html.eex:24
 #: lib/cforum_web/templates/users/user/personal_information.html.eex:11
 msgid "homepage"
 msgstr "Homepage"
@@ -876,6 +878,7 @@ msgstr "Anweisungen zum zurücksetzen verschicken"
 msgid "show"
 msgstr "anzeigen"
 
+#: lib/cforum_web/templates/message/form.html.eex:3
 #: lib/cforum_web/templates/notification/index.html.eex:6
 msgid "subject"
 msgstr "Betreff"
@@ -1109,15 +1112,15 @@ msgstr "… der Nested-Ansicht"
 msgid "… in thread view"
 msgstr "… der Einzel-Ansicht"
 
-#: lib/cforum_web/views/helpers.ex:125
+#: lib/cforum_web/views/helpers/relative_time.ex:63
 msgid "%{days} days"
 msgstr "%{days} Tagen"
 
-#: lib/cforum_web/views/helpers.ex:113
+#: lib/cforum_web/views/helpers/relative_time.ex:53
 msgid "%{minutes} minutes"
 msgstr "%{minutes} Minuten"
 
-#: lib/cforum_web/views/helpers.ex:131
+#: lib/cforum_web/views/helpers/relative_time.ex:68
 msgid "%{months} months"
 msgstr "%{months} Monaten"
 
@@ -1130,15 +1133,15 @@ msgstr "vor %{time}"
 msgid "%{time} ago:"
 msgstr "vor %{time}:"
 
-#: lib/cforum_web/views/helpers.ex:137
+#: lib/cforum_web/views/helpers/relative_time.ex:71
 msgid "%{years} years"
 msgstr "%{years} Jahren"
 
-#: lib/cforum_web/views/helpers.ex:109
+#: lib/cforum_web/views/helpers/relative_time.ex:49
 msgid "1 minute"
 msgstr "einer Minute"
 
-#: lib/cforum_web/views/helpers.ex:134
+#: lib/cforum_web/views/helpers/relative_time.ex:70
 msgid "1 year"
 msgstr "einem Jahr"
 
@@ -1146,19 +1149,19 @@ msgstr "einem Jahr"
 msgid "Thread created"
 msgstr "Thread erstellt"
 
-#: lib/cforum_web/views/helpers.ex:122
+#: lib/cforum_web/views/helpers/relative_time.ex:60
 msgid "a day"
 msgstr "einem Tag"
 
-#: lib/cforum_web/views/helpers.ex:119
+#: lib/cforum_web/views/helpers/relative_time.ex:58
 msgid "about %{hours} hours"
 msgstr "etwa %{hours} Stunden"
 
-#: lib/cforum_web/views/helpers.ex:128
+#: lib/cforum_web/views/helpers/relative_time.ex:65
 msgid "about 1 month"
 msgstr "etwa einem Monat"
 
-#: lib/cforum_web/views/helpers.ex:116
+#: lib/cforum_web/views/helpers/relative_time.ex:55
 msgid "about an hour"
 msgstr "etwa einer Stunde"
 
@@ -1166,7 +1169,7 @@ msgstr "etwa einer Stunde"
 msgid "first unread message"
 msgstr "erster ungelesener Beitrag"
 
-#: lib/cforum_web/views/helpers.ex:103
+#: lib/cforum_web/views/helpers/relative_time.ex:43
 msgid "half a minute"
 msgstr "einer halben Minute"
 
@@ -1174,19 +1177,19 @@ msgstr "einer halben Minute"
 msgid "last message"
 msgstr "letzter Beitrag"
 
-#: lib/cforum_web/views/helpers.ex:97
+#: lib/cforum_web/views/helpers/relative_time.ex:37
 msgid "less than 10 seconds"
 msgstr "weniger als zehn Sekunden"
 
-#: lib/cforum_web/views/helpers.ex:100
+#: lib/cforum_web/views/helpers/relative_time.ex:40
 msgid "less than 20 seconds"
 msgstr "weniger als 20 Sekunden"
 
-#: lib/cforum_web/views/helpers.ex:94
+#: lib/cforum_web/views/helpers/relative_time.ex:34
 msgid "less than 5 seconds"
 msgstr "weniger als fünf Sekunden"
 
-#: lib/cforum_web/views/helpers.ex:106
+#: lib/cforum_web/views/helpers/relative_time.ex:46
 msgid "less than a minute"
 msgstr "weniger als einer Minute"
 
@@ -1194,6 +1197,7 @@ msgstr "weniger als einer Minute"
 msgid "by"
 msgstr "von"
 
+#: lib/cforum_web/templates/message/form.html.eex:31
 #: lib/cforum_web/templates/message/message.html.eex:14
 msgid "problematic site"
 msgstr "problematische Seite"
@@ -1211,3 +1215,84 @@ msgstr "Benutzer-Informationen"
 #: lib/cforum_web/templates/message/new.html.eex:2
 msgid "new answer to %{name}"
 msgstr "Antwort an „%{name}“ verfassen"
+
+#: lib/cforum_web/controllers/message_controller.ex:62
+msgid "Message created successfully."
+msgstr "Nachricht erfolgreich gespeichert."
+
+#: lib/cforum_web/templates/layout/page_header.html.eex:4
+msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">documentation</a>"
+msgstr "SELFHTML Forum - Ergänzung zur <a href=\"https://wiki.selfhtml.org\">Dokumentation</a>"
+
+#: lib/cforum_web/controllers/message_controller.ex:37
+msgid "all"
+msgstr "alle"
+
+#: lib/cforum_web/templates/message/form.html.eex:10
+msgid "author"
+msgstr "Autor"
+
+#: lib/cforum_web/templates/message/form.html.eex:50
+msgid "comma separated list, e.g. „css, html“"
+msgstr "Komma-separierte Liste, z.B. “css, html“"
+
+#: lib/cforum_web/templates/message/new.html.eex:42
+msgid "create message"
+msgstr "Nachricht speichern"
+
+#: lib/cforum_web/templates/message/form.html.eex:48
+msgid "html, css, javascript"
+msgstr ""
+
+#: lib/cforum_web/templates/message/form.html.eex:25
+msgid "https://example.com"
+msgstr ""
+
+#: lib/cforum_web/templates/message/form.html.eex:32
+msgid "https://example.com/float-example.html"
+msgstr ""
+
+#: lib/cforum_web/templates/message/form.html.eex:4
+msgid "replace float:left with a flexbox construct"
+msgstr "float:left mit einem Flexbox-Konstrukt ersetzen"
+
+#: lib/cforum_web/templates/message/new.html.eex:41
+msgid "show preview"
+msgstr "Vorschau"
+
+#: lib/cforum_web/templates/message/form.html.eex:47
+msgid "tags"
+msgstr "Tags"
+
+#: lib/cforum_web/templates/message/form.html.eex:20
+#: lib/cforum_web/templates/message/form.html.eex:27
+#: lib/cforum_web/templates/message/form.html.eex:34
+msgid "voluntary, will be publicly visible"
+msgstr "freiwillig, öffentlich sichtbar"
+
+#: lib/cforum_web/templates/message/author.html.eex:5
+msgid "link to profile of"
+msgstr "Link zum Profil von"
+
+#: lib/cforum_web/templates/layout/page_header.html.eex:62
+msgid "search"
+msgstr "suchen"
+
+#: lib/cforum_web/templates/message/author.html.eex:4
+#: lib/cforum_web/templates/message/author.html.eex:6
+msgid "user %{user}"
+msgstr "Bentutzer %{user}"
+
+#: lib/cforum_web/templates/message/num_infos.html.eex:2
+msgid "%{count} message"
+msgid_plural "%{count} messages"
+msgstr[0] "keine Beiträge"
+msgstr[1] "ein Beitrag"
+msgstr[2] "%{count} Beiträge"
+
+#: lib/cforum_web/templates/message/num_infos.html.eex:5
+msgid "%{count} unread message"
+msgid_plural "{count} unread messages"
+msgstr[0] "keine ungelesenen Beiträge"
+msgstr[1] "ein ungelesener Beitrag"
+msgstr[2] "%{count} ungelesene Beiträge"
