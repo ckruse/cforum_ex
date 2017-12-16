@@ -495,6 +495,7 @@ msgid "this thread is sticky"
 msgstr "Der Thread ist angepinnt."
 
 #: lib/cforum_web/templates/message/header.html.eex:19
+#: lib/cforum_web/templates/message/votes.html.eex:2
 #: lib/cforum_web/templates/message/votes.html.eex:3
 msgid "Score: no score"
 msgid_plural "Score: %{score}"
@@ -1296,3 +1297,28 @@ msgid_plural "{count} unread messages"
 msgstr[0] "keine ungelesenen Beiträge"
 msgstr[1] "ein ungelesener Beitrag"
 msgstr[2] "%{count} ungelesene Beiträge"
+
+#, elixir-format
+#: lib/cforum_web/paginator.ex:55
+msgid "first page"
+msgstr "erste Seite"
+
+#, elixir-format
+#: lib/cforum_web/paginator.ex:84
+msgid "last page"
+msgstr "letzte Seite"
+
+#, elixir-format
+#: lib/cforum_web/paginator.ex:75
+msgid "next page"
+msgstr "eine Seite vor"
+
+#, elixir-format
+#: lib/cforum_web/paginator.ex:40
+msgid "pages"
+msgstr "Seitenauswahl"
+
+#, elixir-format
+#: lib/cforum_web/paginator.ex:65
+msgid "previous page"
+msgstr "eine Seite zurück"
