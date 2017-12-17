@@ -50,7 +50,7 @@ module.exports = function(env = {}) {
       path: OUTPUT_PATH
     },
 
-    devtool: "source-map",
+    devtool: IS_PROD ? false : "source-map",
 
     resolve: {
       modules: ["node_modules", __dirname + "/js"]
@@ -68,10 +68,12 @@ module.exports = function(env = {}) {
           loader: ExtractCSS.extract({
             use: [
               {
-                loader: "css-loader"
+                loader: "css-loader",
+                options: { sourceMap: IS_PROD ? false : true }
               },
               {
-                loader: "postcss-loader"
+                loader: "postcss-loader",
+                options: { sourceMap: IS_PROD ? false : true }
               }
             ],
             fallback: "style-loader"
@@ -82,13 +84,21 @@ module.exports = function(env = {}) {
           loader: ExtractCSS.extract({
             use: [
               {
-                loader: "css-loader"
+                loader: "css-loader",
+                options: { sourceMap: IS_PROD ? false : true }
               },
               {
-                loader: "postcss-loader"
+                loader: "postcss-loader",
+                options: { sourceMap: IS_PROD ? false : true }
               },
               {
-                loader: "sass-loader"
+                loader: "sass-loader",
+                options: IS_PROD
+                  ? {}
+                  : {
+                      sourceMap: true,
+                      outputStyle: "expanded"
+                    }
               }
             ],
             fallback: "style-loader"
