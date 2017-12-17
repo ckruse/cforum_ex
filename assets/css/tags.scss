@@ -54,7 +54,8 @@
     }
 
     a:hover,
-    a:visited:hover {
+    a:focus,
+    a:active {
       color: $active_link_color;
     }
   }
@@ -68,8 +69,10 @@
     span {
       color: $visited_link_color;
     }
+
     a:hover,
-    a:visited:hover {
+    a:focus,
+    a:active {
       color: $active_link_color;
     }
   }
