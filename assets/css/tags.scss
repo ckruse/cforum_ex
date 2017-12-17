@@ -10,26 +10,27 @@
 
   .cf-tag {
     display: inline;
-    background-color: #e6f2f7;
+    background-color: $tag_background_color;
     margin-right: 0.5em;
     padding: 0.1em 0.4em 0 0.4em;
     font-weight: bold;
-    color: #3983ab;
+    color: $tag_color;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
-    border: 1px solid #a1c6d7;
+    border: 1px solid $tag_border_color;
     border-radius: 0 0.25em 0.25em;
 
     &:link,
     &:visited {
-      color: #3481cd;
+      color: $tag_visited_color;
     }
 
     &:hover,
     &:focus,
     &:active {
-      border: 1px solid #5983ab;
+      border: 1px solid $tag_border_color;
+      color: $active_link_color;
     }
   }
 }
@@ -44,7 +45,7 @@
     &:hover,
     &:focus,
     &:active {
-      border: 1px solid #5983ab;
+      border: 1px solid $tag_border_color;
     }
 
     a,
@@ -61,8 +62,8 @@
   }
 
   .visited .cf-tag {
-    background-color: #f1f3f4;
-    border-color: #c4c4c4;
+    background-color: $grey_background;
+    border-color: $tag_visited_border_color;
 
     a,
     a:visited,

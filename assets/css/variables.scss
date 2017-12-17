@@ -20,6 +20,13 @@ $primary_color: #337ab7;
 
 $bolded_color: #5d7380;
 
+$tag_color: #3983ab;
+$tag_visited_color: #3481cd;
+$tag_background_color: #e6f2f7;
+$tag_border_color: #a1c6d7;
+$active_tag_border_color: #5983ab;
+$tag_visited_border_color: #c4c4c4;
+
 @mixin focus-w-shadow() {
   border-color: $focus_color;
   outline: 0px none;
