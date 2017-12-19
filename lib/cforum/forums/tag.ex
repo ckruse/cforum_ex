@@ -11,6 +11,7 @@ defmodule Cforum.Forums.Tag do
     field(:suggest, :boolean, default: false)
 
     belongs_to(:forum, Cforum.Forums.Forum, references: :forum_id)
+    has_many(:synonyms, Cforum.Forums.TagSynonym, foreign_key: :tag_id)
 
     many_to_many(
       :messages,

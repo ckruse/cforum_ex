@@ -7,6 +7,7 @@ defmodule Cforum.Forums.Tags do
   alias Cforum.Repo
 
   alias Cforum.Forums.Tag
+  alias Cforum.Forums.TagSynonym
 
   @doc """
   Returns the list of tags.
@@ -36,6 +37,20 @@ defmodule Cforum.Forums.Tags do
 
   """
   def get_tag!(id), do: Repo.get!(Tag, id)
+
+  def get_tags(tags, %Cforum.Forums.Forum{} = forum), do: get_tags(tags, forum.forum_id)
+
+  def get_tags(tags, forum_id) do
+    from(
+      tag in Tag,
+      left_join: syn in assoc(tag, :synonyms),
+      where:
+        (fragment("lower(?)", tag.tag_name) in ^tags or fragment("lower(?)", syn.synonym) in ^tags) and
+          tag.forum_id == ^forum_id,
+      order_by: [desc: :tag_name]
+    )
+    |> Repo.all()
+  end
 
   @doc """
   Creates a tag.

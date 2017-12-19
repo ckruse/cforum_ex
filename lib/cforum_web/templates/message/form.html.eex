@@ -45,7 +45,7 @@
 <fieldset>
   <div class="cf-cgroup <%= error_class(@f, :tags) %>">
     <label for="tags-input"><%= gettext "tags" %></label>
-    <%= text_input @f, :tags_list, value: tags_list_str(@tags), id: "tags-input", placeholder: gettext("html, css, javascript") %>
+    <%= text_input @f, :tags_str, id: "tags-input", placeholder: gettext("html, css, javascript") %>
     <%= error_tag @f, :tags %>
     <noscript><span class="help"><%= gettext("comma separated list, e.g. „css, html“") %></span></noscript>
   </div>

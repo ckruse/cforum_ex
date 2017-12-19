@@ -3,32 +3,14 @@
 </h1>
 
 <%= if @changeset.action do %>
-  <div class="cf-error">
-    <p><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
-  </div>
+  <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
 <% end %>
 
 <article class="cf-thread-message <%= if assigns[:preview], do: "preview" %>">
   <%= if !assigns[:preview] do %>
-    <%= render(
-      CforumWeb.MessageView,
-      "message.html",
-      conn: @conn,
-      thread: @thread,
-      message: @parent,
-      controls: :no,
-      first: true
-    ) %>
+    <%= render(CforumWeb.MessageView, "message.html", conn: @conn, thread: @thread, message: @parent, controls: :no, first: true) %>
   <% else %>
-    <%= render(
-      CforumWeb.MessageView,
-      "message.html",
-      conn: @conn,
-      thread: @thread,
-      message: @message,
-      controls: :no,
-      first: true
-    ) %>
+    <%= render(CforumWeb.MessageView, "message.html", conn: @conn, thread: @thread, message: @message, controls: :no, first: true) %>
   <% end %>
 </article>
 
