@@ -1,0 +1,65 @@
+#alerts-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 2em;
+  z-index: 9999;
+  width: auto;
+}
+
+.cf-alert {
+  padding: 1em;
+  margin: 0 0 1em;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: 0px 0px 6px #666;
+}
+
+.cf-success {
+  @extend .cf-alert;
+
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.cf-info {
+  @extend .cf-alert;
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.cf-warning {
+  @extend .cf-alert;
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+
+.cf-error {
+  @extend .cf-alert;
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.cf-alert .close {
+  float: right;
+  padding: 0px;
+  cursor: pointer;
+  background: none repeat scroll 0px 0px transparent;
+  border: 0px none;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  text-shadow: 0px 1px 0px #fff;
+  opacity: 0.2;
+}
+
+@media only screen and (min-width: 35em) {
+  #alerts-container {
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+}

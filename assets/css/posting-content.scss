@@ -111,4 +111,28 @@
     vertical-align: baseline;
     top: -0.4em;
   }
+
+  blockquote {
+    border-left: 0.3em solid #d5d5d5;
+    margin-left: 0;
+    padding-left: 1em;
+    color: #808080;
+  }
+
+  blockquote blockquote {
+    border-width: 0.25em;
+    padding-left: 0.5em;
+  }
+
+  hr {
+    border: none;
+    background-color: #8a9da8;
+    height: 1px;
+  }
+}
+
+@media only screen and (min-width: 35em) {
+  .cf-posting-content {
+    padding: 0.8em 1em 1em;
+  }
 }

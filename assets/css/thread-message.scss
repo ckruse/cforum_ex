@@ -31,6 +31,11 @@
       vertical-align: middle;
     }
   }
+
+  .cf-message-header h2,
+  .cf-message-header h3 {
+    display: block;
+  }
 }
 
 @media only screen and (min-width: 35em) {
