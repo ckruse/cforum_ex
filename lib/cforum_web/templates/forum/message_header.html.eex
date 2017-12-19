@@ -4,7 +4,7 @@
       <%= link(
             img_tag(Cforum.Accounts.User.avatar_path(@message.user, :thumb), class: "avatar u-photo", alt: gettext("messages.user_link", user: @message.user.username)),
             to: user_path(@conn, :show, @message.user),
-            title: gettext("messages.user_link", user: @message.user.username), class: "user-link u-uid u-url"
+            title: gettext("User %{user}", user: @message.user.username), class: "user-link u-uid u-url"
           ) %>
       <%= link(@message.author, to: message_path(@conn, @thread, @message), class: Enum.join(["p-name" | @message.attribs[:classes]], " ")) %>: </span>
   <% else %>
