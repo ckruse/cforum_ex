@@ -40,8 +40,31 @@ defmodule CforumWeb.MessageController do
     render(conn, "new.html", thread: thread, parent: message, changeset: changeset)
   end
 
-  def create(conn, _params) do
-    conn
+  def create(conn, %{"message" => message_params} = params) do
+    {thread, parent} = get_message(conn, params)
+
+    if Map.has_key?(params, "preview") do
+      show_preview(conn, message_params, thread, parent)
+    else
+      create_message(conn, message_params, thread, parent)
+    end
+  end
+
+  defp show_preview(conn, params, thread, parent) do
+    {message, changeset} = Messages.preview_message(params, conn.assigns[:current_user], thread, parent)
+    render(conn, "new.html", thread: thread, parent: parent, message: message, changeset: changeset, preview: true)
+  end
+
+  defp create_message(conn, params, thread, parent) do
+    case Messages.create_message(params, conn.assigns[:current_user], thread, parent) do
+      {:ok, message} ->
+        conn
+        |> put_flash(:info, gettext("Message created successfully."))
+        |> redirect(to: message_path(conn, thread, message))
+
+      {:error, changeset} ->
+        render(conn, "new.html", thread: thread, parent: parent, changeset: changeset)
+    end
   end
 
   def edit(conn, _params) do

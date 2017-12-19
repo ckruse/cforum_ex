@@ -233,7 +233,7 @@ msgid "settings"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:3
-#: lib/cforum_web/templates/message/new.html.eex:7
+#: lib/cforum_web/templates/message/new.html.eex:6
 #: lib/cforum_web/templates/users/registration/new.html.eex:4
 #: lib/cforum_web/templates/users/user/form.html.eex:3
 msgid "Oops, something went wrong! Please check the errors below."
@@ -532,7 +532,7 @@ msgstr ""
 
 #: lib/cforum_web/templates/admin/forum/edit.html.eex:8
 #: lib/cforum_web/templates/admin/forum/new.html.eex:8
-#: lib/cforum_web/templates/message/new.html.eex:43
+#: lib/cforum_web/templates/message/new.html.eex:25
 #: lib/cforum_web/templates/users/password/edit.html.eex:15
 #: lib/cforum_web/templates/users/password/edit_reset.html.eex:15
 #: lib/cforum_web/templates/users/password/new.html.eex:10
@@ -1221,7 +1221,7 @@ msgstr ""
 msgid "comma separated list, e.g. „css, html“"
 msgstr ""
 
-#: lib/cforum_web/templates/message/new.html.eex:42
+#: lib/cforum_web/templates/message/new.html.eex:24
 msgid "create message"
 msgstr ""
 
@@ -1241,7 +1241,7 @@ msgstr ""
 msgid "replace float:left with a flexbox construct"
 msgstr ""
 
-#: lib/cforum_web/templates/message/new.html.eex:41
+#: lib/cforum_web/templates/message/new.html.eex:23
 msgid "show preview"
 msgstr ""
 
@@ -1280,27 +1280,26 @@ msgid_plural "{count} unread messages"
 msgstr[0] ""
 msgstr[1] ""
 
-#, elixir-format
 #: lib/cforum_web/paginator.ex:55
 msgid "first page"
 msgstr ""
 
-#, elixir-format
 #: lib/cforum_web/paginator.ex:84
 msgid "last page"
 msgstr ""
 
-#, elixir-format
 #: lib/cforum_web/paginator.ex:75
 msgid "next page"
 msgstr ""
 
-#, elixir-format
 #: lib/cforum_web/paginator.ex:40
 msgid "pages"
 msgstr ""
 
-#, elixir-format
 #: lib/cforum_web/paginator.ex:65
 msgid "previous page"
+msgstr ""
+
+#: lib/cforum/forums/message.ex:134
+msgid "unknown tags given: %{tags}"
 msgstr ""

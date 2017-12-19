@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2017-04-28 11:24+0200\n"
+"PO-Revision-Date: 2017-12-18 16:32+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -246,7 +246,7 @@ msgid "settings"
 msgstr "Einstellungen"
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:3
-#: lib/cforum_web/templates/message/new.html.eex:7
+#: lib/cforum_web/templates/message/new.html.eex:6
 #: lib/cforum_web/templates/users/registration/new.html.eex:4
 #: lib/cforum_web/templates/users/user/form.html.eex:3
 msgid "Oops, something went wrong! Please check the errors below."
@@ -548,7 +548,7 @@ msgstr "Avatar"
 
 #: lib/cforum_web/templates/admin/forum/edit.html.eex:8
 #: lib/cforum_web/templates/admin/forum/new.html.eex:8
-#: lib/cforum_web/templates/message/new.html.eex:43
+#: lib/cforum_web/templates/message/new.html.eex:25
 #: lib/cforum_web/templates/users/password/edit.html.eex:15
 #: lib/cforum_web/templates/users/password/edit_reset.html.eex:15
 #: lib/cforum_web/templates/users/password/new.html.eex:10
@@ -1237,7 +1237,7 @@ msgstr "Autor"
 msgid "comma separated list, e.g. „css, html“"
 msgstr "Komma-separierte Liste, z.B. “css, html“"
 
-#: lib/cforum_web/templates/message/new.html.eex:42
+#: lib/cforum_web/templates/message/new.html.eex:24
 msgid "create message"
 msgstr "Nachricht speichern"
 
@@ -1257,7 +1257,7 @@ msgstr ""
 msgid "replace float:left with a flexbox construct"
 msgstr "float:left mit einem Flexbox-Konstrukt ersetzen"
 
-#: lib/cforum_web/templates/message/new.html.eex:41
+#: lib/cforum_web/templates/message/new.html.eex:23
 msgid "show preview"
 msgstr "Vorschau"
 
@@ -1298,27 +1298,26 @@ msgstr[0] "keine ungelesenen Beiträge"
 msgstr[1] "ein ungelesener Beitrag"
 msgstr[2] "%{count} ungelesene Beiträge"
 
-#, elixir-format
 #: lib/cforum_web/paginator.ex:55
 msgid "first page"
 msgstr "erste Seite"
 
-#, elixir-format
 #: lib/cforum_web/paginator.ex:84
 msgid "last page"
 msgstr "letzte Seite"
 
-#, elixir-format
 #: lib/cforum_web/paginator.ex:75
 msgid "next page"
 msgstr "eine Seite vor"
 
-#, elixir-format
 #: lib/cforum_web/paginator.ex:40
 msgid "pages"
 msgstr "Seitenauswahl"
 
-#, elixir-format
 #: lib/cforum_web/paginator.ex:65
 msgid "previous page"
 msgstr "eine Seite zurück"
+
+#: lib/cforum/forums/message.ex:134
+msgid "unknown tags given: %{tags}"
+msgstr "Folgende Tags sind unbekannt: %{tags}."

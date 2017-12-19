@@ -6,6 +6,8 @@ defmodule Cforum.Forums.Messages do
   import Ecto.Query, warn: false
   alias Cforum.Repo
 
+  import CforumWeb.Gettext
+
   alias Cforum.Forums.Forum
   alias Cforum.Forums.Message
   alias Cforum.Forums.Tag
@@ -289,10 +291,48 @@ defmodule Cforum.Forums.Messages do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_message(attrs \\ %{}) do
-    %Message{}
-    |> Message.changeset(attrs)
-    |> Repo.insert()
+  def create_message(attrs, user, thread, parent) do
+    changeset =
+      %Message{}
+      |> Message.changeset(attrs, user, thread, parent)
+
+    author = Ecto.Changeset.get_field(changeset, :author)
+
+    case may_user_post_with_name?(user, author) do
+      true ->
+        Repo.insert(changeset)
+
+      _ ->
+        {:error, Ecto.Changeset.add_error(changeset, :author, gettext("name already taken"))}
+    end
+  end
+
+  defp may_user_post_with_name?(_, nil), do: true
+
+  defp may_user_post_with_name?(nil, name) do
+    clean_name = String.trim(name)
+
+    found =
+      from(u in User, where: fragment("lower(?)", u.username) == fragment("lower(?)", ^clean_name))
+      |> Repo.one()
+
+    found == nil
+  end
+
+  defp may_user_post_with_name?(user, name) do
+    if String.downcase(user.username) == String.downcase(name),
+      do: true,
+      else: may_user_post_with_name?(nil, name)
+  end
+
+  def preview_message(attrs, user, thread, parent) do
+    changeset =
+      %Message{created_at: Timex.now()}
+      |> Message.changeset(attrs, user, thread, parent)
+
+    msg = %Message{Ecto.Changeset.apply_changes(changeset) | tags: Ecto.Changeset.get_field(changeset, :tags)}
+
+    {msg, changeset}
   end
 
   @doc """
@@ -309,7 +349,7 @@ defmodule Cforum.Forums.Messages do
   """
   def update_message(%Message{} = message, attrs) do
     message
-    |> Message.changeset(attrs)
+    |> Message.update_changeset(attrs)
     |> Repo.update()
   end
 
@@ -339,7 +379,7 @@ defmodule Cforum.Forums.Messages do
 
   """
   def change_message(%Message{} = message) do
-    Message.changeset(message, %{})
+    Message.update_changeset(message, %{})
   end
 
   def changeset_from_parent(message, opts \\ []) do
@@ -375,7 +415,9 @@ defmodule Cforum.Forums.Messages do
       homepage: opts[:homepage],
       subject: message.subject,
       problematic_site: message.problematic_site,
-      content: content
+      content: content,
+      tags_str: Enum.map(message.tags, & &1.tag_name) |> Enum.join(", "),
+      tags: message.tags
     })
   end
 

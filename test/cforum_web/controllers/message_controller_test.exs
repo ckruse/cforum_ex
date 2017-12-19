@@ -100,4 +100,86 @@ defmodule CforumWeb.MessageControllerTest do
       assert html_response(conn, 200) =~ ~r/<textarea[^>]+id="message_input"[^>]*>\s*&gt;/s
     end
   end
+
+  describe "create" do
+    setup do
+      forum = insert(:public_forum)
+      thread = insert(:thread, forum: forum)
+      message = insert(:message, thread: thread, forum: forum)
+      user = insert(:user)
+
+      {:ok, forum: forum, thread: thread, message: message, user: user}
+    end
+
+    test "post /new creates a new answer", %{conn: conn, thread: t, message: m} do
+      conn = post(conn, message_path(conn, t, m, :new), message: params_for(:message))
+
+      assert %{curr_forum: f, year: y, month: m, day: d, slug: s, mid: mid} = redirected_params(conn)
+      assert redirected_to(conn) == "/#{f}/#{y}/#{m}/#{d}/#{s}/#{mid}#m#{mid}"
+    end
+
+    test "post /new creates a new answer with user_id set", %{conn: conn, thread: t, message: m, user: user} do
+      conn =
+        login(conn, user)
+        |> post(message_path(conn, t, m, :new), message: params_for(:message))
+
+      assert %{curr_forum: _f, year: _y, month: _m, day: _d, slug: _s, mid: mid} = redirected_params(conn)
+
+      msg = Cforum.Forums.Messages.get_message!(mid)
+      assert msg.user_id == user.user_id
+    end
+
+    test "post /new forbids posting with a registered author name", %{conn: conn, thread: t, message: m, user: user} do
+      conn = post(conn, message_path(conn, t, m, :new), message: params_for(:message, author: user.username))
+      assert html_response(conn, 200) =~ gettext("new answer to %{name}", name: m.author)
+    end
+
+    test "name checks ignore spaces", %{conn: conn, thread: t, message: m, user: user} do
+      conn = post(conn, message_path(conn, t, m, :new), message: params_for(:message, author: user.username <> " "))
+      assert html_response(conn, 200) =~ gettext("new answer to %{name}", name: m.author)
+
+      conn = post(conn, message_path(conn, t, m, :new), message: params_for(:message, author: " " <> user.username))
+      assert html_response(conn, 200) =~ gettext("new answer to %{name}", name: m.author)
+
+      conn = post(conn, message_path(conn, t, m, :new), message: params_for(:message, author: " " <> user.username))
+      assert html_response(conn, 200) =~ gettext("new answer to %{name}", name: m.author)
+
+      conn = post(conn, message_path(conn, t, m, :new), message: params_for(:message, author: user.username <> " "))
+      assert html_response(conn, 200) =~ gettext("new answer to %{name}", name: m.author)
+
+      conn = post(conn, message_path(conn, t, m, :new), message: params_for(:message, author: user.username <> "\r\n"))
+      assert html_response(conn, 200) =~ gettext("new answer to %{name}", name: m.author)
+
+      conn = post(conn, message_path(conn, t, m, :new), message: params_for(:message, author: "\r\n" <> user.username))
+      assert html_response(conn, 200) =~ gettext("new answer to %{name}", name: m.author)
+    end
+
+    test "post to /new with ?preview=yes set renders the preview", %{conn: conn, thread: t, message: m} do
+      conn = post(conn, message_path(conn, t, m, :new), message: params_for(:message), preview: "yes")
+      assert html_response(conn, 200) =~ ~r/<article class="cf-thread-message preview/
+    end
+
+    test "posting as a user doesn't require a name", %{conn: conn, thread: t, message: m, user: user} do
+      conn =
+        login(conn, user)
+        |> post(message_path(conn, t, m, :new), message: Map.delete(params_for(:message), :author))
+
+      assert %{curr_forum: _f, year: _y, month: _m, day: _d, slug: _s, mid: _mid} = redirected_params(conn)
+    end
+
+    test "posting anonymous requires a name", %{conn: conn, thread: t, message: m} do
+      conn = post(conn, message_path(conn, t, m, :new), message: Map.delete(params_for(:message), :author))
+      assert html_response(conn, 200) =~ gettext("new answer to %{name}", name: m.author)
+    end
+
+    test "posting requires a subject", %{conn: conn, thread: t, message: m} do
+      conn = post(conn, message_path(conn, t, m, :new), message: Map.delete(params_for(:message), :subject))
+      assert html_response(conn, 200) =~ gettext("new answer to %{name}", name: m.author)
+    end
+
+    test "posting requires content", %{conn: conn, thread: t, message: m} do
+      conn = post(conn, message_path(conn, t, m, :new), message: Map.delete(params_for(:message), :content))
+      assert html_response(conn, 200) =~ gettext("new answer to %{name}", name: m.author)
+    end
+  end
 end
