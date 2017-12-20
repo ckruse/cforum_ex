@@ -103,7 +103,7 @@
         {Credo.Check.Refactor.NegatedConditionsInUnless},
         {Credo.Check.Refactor.NegatedConditionsWithElse},
         {Credo.Check.Refactor.Nesting},
-        {Credo.Check.Refactor.PipeChainStart, excluded_functions: ["from", ":crypto.hash"]},
+        {Credo.Check.Refactor.PipeChainStart, excluded_functions: ["from", ":crypto.hash", "login"]},
         {Credo.Check.Refactor.UnlessWithElse},
         {Credo.Check.Warning.BoolOperationOnSameValues},
         {Credo.Check.Warning.ExpensiveEmptyEnumCheck},
