@@ -1,7 +1,7 @@
 <ol class="answers">
   <%= for msg <- @messages do %>
     <li>
-      <div class="posting-nested thread-message h-entry <%= message_classes(@conn, msg, @thread, @message.message_id == msg.message_id, :nested) %>">
+      <div class="posting-nested cf-thread-message h-entry <%= message_classes(@conn, msg, @thread, @message.message_id == msg.message_id, :nested) %>">
         <%= render "message.html", Map.merge(assigns, %{first: false, message: msg}) %>
       </div>
 

@@ -39,7 +39,7 @@ defmodule CforumWeb.MessageView do
     parts =
       Enum.map(messages, fn msg ->
         # TODO classes
-        subtree = if blank?(msg.messages), do: "", else: message_tree(conn, thread, msg, msg.messages)
+        subtree = if blank?(msg.messages), do: "", else: message_tree(conn, thread, msg, msg.messages, opts)
 
         [
           {:safe, "<li>"}
