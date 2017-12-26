@@ -90,7 +90,7 @@ defmodule CforumWeb.Router do
     resources("/badges", BadgeController)
 
     scope "/:curr_forum" do
-      pipe_through([:browser, :forum_access])
+      pipe_through([:forum_access])
 
       get("/", ThreadController, :index, as: :forum)
       resources("/tags", TagController)
