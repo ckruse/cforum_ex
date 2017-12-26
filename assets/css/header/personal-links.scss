@@ -25,14 +25,14 @@
     padding: 0;
     font-size: 1em;
     cursor: pointer;
-    background-color:transparent;
-    @extend a:link;
+    background-color: transparent;
+    color: $link_color;
   }
 
   .btn-link:hover,
   .btn-link:focus,
   .btn-link:active {
-    @extend a:hover;
+    color: $active_link_color;
   }
 }
 
