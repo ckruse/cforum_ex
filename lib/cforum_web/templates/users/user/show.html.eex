@@ -1,86 +1,88 @@
-<div class="user-infos">
-  <div class="user-info-table">
-    <table>
-      <tbody>
-        <tr>
-          <td rowspan="<%= if @current_user && @current_user.user_id == @user.user_id, do: 5, else: 4 %>"><%= img_tag Cforum.Accounts.User.avatar_path(@user, :medium) %></td>
-          <th><%= gettext("username") %>:</th>
-          <td><%= @user.username %></td>
-        </tr>
-        <tr>
-          <th><%= gettext("score") %>:</th>
-          <td class="<%= if @user.score < 0, do: "score-down", else: "score-up" %>"><%= Number.Delimit.number_to_delimited(@user.score, precision: 0) %></td>
-        </tr>
-        <tr>
-          <th><%= gettext("Number of messages") %>:</th>
-          <td><%= Number.Delimit.number_to_delimited(@messages_count, precision: 0) %></td>
-        </tr>
-        <%= if @current_user && @current_user.user_id == @user.user_id do %>
+<div class="h-card">
+  <div class="cf-user-infos">
+    <div class="user-info">
+      <table class="cf-user-info-table">
+        <tbody>
           <tr>
-            <th><%= gettext("email") %>:</th>
-            <td><%= @user.email %> <em>(<%= gettext("only visible for you") %>)</em></td>
+            <td rowspan="<%= if @current_user && @current_user.user_id == @user.user_id, do: 5, else: 4 %>"><%= img_tag Cforum.Accounts.User.avatar_path(@user, :medium) %></td>
+            <th><%= gettext("username") %>:</th>
+            <td class="p-name"><%= @user.username %></td>
           </tr>
-        <% end %>
-        <tr>
-          <th><%= gettext("registered since") %>:</th>
-          <td><%= format_date(@conn, @user.created_at) %></td>
-        </tr>
-      </tbody>
-    </table>
+          <tr>
+            <th><%= gettext("score") %>:</th>
+            <td class="<%= if @user.score < 0, do: "score-down", else: "score-up" %>"><%= Number.Delimit.number_to_delimited(@user.score, precision: 0) %></td>
+          </tr>
+          <tr>
+            <th><%= gettext("Number of messages") %>:</th>
+            <td><%= Number.Delimit.number_to_delimited(@messages_count, precision: 0) %></td>
+          </tr>
+          <%= if @current_user && @current_user.user_id == @user.user_id do %>
+            <tr>
+              <th><%= gettext("email") %>:</th>
+              <td class="u-email"><%= @user.email %> <em>(<%= gettext("only visible for you") %>)</em></td>
+            </tr>
+          <% end %>
+          <tr>
+            <th><%= gettext("registered since") %>:</th>
+            <td><%= format_date(@conn, @user.created_at) %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="user-profile">
+      <table class="cf-user-info-table">
+        <tbody>
+          <%= if !blank?(@jabber_id) do %>
+            <tr>
+              <th><%= gettext("Jabber ID") %>:</th>
+              <td class="u-url"><%= link @jabber_id, to: "xmpp:" <> @jabber_id %></td>
+            </tr>
+          <% end %>
+
+          <%= if !blank?(@twitter_handle) do %>
+            <tr>
+              <th><%= gettext("Twitter handle") %>:</th>
+              <td class="u-url"><%= link @twitter_handle, to: "https://twitter.com/" <> @twitter_handle %></td>
+            </tr>
+          <% end %>
+
+          <%= if !blank?(@user_url) do %>
+            <tr>
+              <th><%= gettext("Homepage") %>:</th>
+              <td class="u-url"><%= link @user_url, to: @user_url %></td>
+            </tr>
+          <% end %>
+
+          <tr>
+            <th><%= gettext("Description") %>:</th>
+            <td class="p-note">
+              <%= if blank?(@description) do %><em><%= gettext("no description given") %></em>
+              <% else %><%= @description %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  <div class="user-profile">
-    <table>
-      <tbody>
-        <%= if !blank?(@jabber_id) do %>
-          <tr>
-            <th><%= gettext("Jabber ID") %>:</th>
-            <td><%= link @jabber_id, to: "xmpp:" <> @jabber_id %></td>
-          </tr>
+  <ul class="cf-user-info-tags-list">
+    <%= for {tag_slug, tag_name, forum_slug, short_name, cnt} <- @tags_cnt do %>
+      <li>
+        <%= link to: tag_path(@conn, :show, forum_slug, tag_slug), class: "cf-tag" do %>
+          <span><%= short_name %>:</span> <%= tag_name %>
         <% end %>
-
-        <%= if !blank?(@twitter_handle) do %>
-          <tr>
-            <th><%= gettext("Twitter handle") %>:</th>
-            <td><%= link @twitter_handle, to: "https://twitter.com/" <> @twitter_handle %></td>
-          </tr>
-        <% end %>
-
-        <%= if !blank?(@user_url) do %>
-          <tr>
-            <th><%= gettext("Homepage") %>:</th>
-            <td><%= link @user_url, to: @user_url %></td>
-          </tr>
-        <% end %>
-
-        <tr>
-          <th><%= gettext("Description") %>:</th>
-          <td>
-            <%= if blank?(@description) do %><em><%= gettext("no description given") %></em>
-            <% else %><%= @description %>
-            <% end %>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+        <span class="cnt"><%= Number.Delimit.number_to_delimited(cnt, precision: 0) %></span></li>
+      </li>
+    <% end %>
+  </ul>
 </div>
-
-<ul class="user-info-tags">
-  <%= for {tag_slug, tag_name, forum_slug, short_name, cnt} <- @tags_cnt do %>
-    <li>
-      <%= link to: tag_path(@conn, :show, forum_slug, tag_slug), class: "cf-tag" do %>
-        <span><%= short_name %>:</span> <%= tag_name %>
-      <% end %>
-      <span class="cnt"><%= Number.Delimit.number_to_delimited(cnt, precision: 0) %></span></li>
-    </li>
-  <% end %>
-</ul>
-
 
 <h2 class="cf-heading"><%= gettext("User activity") %></h2>
 
 <div id="user-activity-stats"></div>
+<!-- TODO chart -->
 
 
 <h2 class="cf-heading"><%= gettext("Newest messages") %></h2>
@@ -152,12 +154,12 @@
 </p>
 
 
-<h2 class="cf-heading"><%= gettext("Badges") %> <%= link(to: "#badges", title: gettext("info")) do %><%= img_tag(static_path(@conn, "/images/bewertung-info-blaugrau.svg"), class: "svg-i") %><% end %></h2><!-- TODO link to help_path -->
+<h2 class="cf-heading"><%= gettext("Badges") %> <%= link(to: "#badges", title: gettext("info")) do %><%= img_tag(static_path(@conn, "/images/bewertung-info-blaugrau.svg"), class: "cf-info-icon") %><% end %></h2><!-- TODO link to help_path -->
 
 <%= if blank?(@badges) do %>
   <p><%= gettext("no badges so far") %></p>
 <% else %>
-  <ul class="badge-user-list">
+  <ul class="cf-badge-user-list">
     <%= for ub <- @badges do %>
       <li><%= img_tag(static_path(@conn, "/images/" <> ub[:badge].badge_medal_type <> ".png"), class: "medal-image", alt: l10n_medal_type(ub[:badge].badge_medal_type)) %>
         <%= link ub[:badge].name, to: badge_path(@conn, :show, ub[:badge]) %>
