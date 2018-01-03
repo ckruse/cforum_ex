@@ -9,6 +9,7 @@ defmodule Cforum.Forums.Messages.IndexHelper do
 
   import Ecto.Query
 
+  import Cforum.Helpers
 
   def preload_messages(true), do: from(m in Message)
   def preload_messages(_), do: from(m in Message, where: m.deleted == false)
@@ -56,10 +57,18 @@ defmodule Cforum.Forums.Messages.IndexHelper do
   defp set_message_flags(read_messages, interesting_messages, subscribed_messages, [thread | threads], new_threads) do
     messages =
       Enum.map(thread.messages, fn msg ->
+        classes =
+          msg.attribs[:classes]
+          |> add_if(read_messages[msg.message_id] != nil, "visited")
+          |> add_if(subscribed_messages[msg.message_id] != nil, "subscribed")
+          |> add_if(interesting_messages[msg.message_id] != nil, "interesting")
+
         new_attribs =
-          Map.put(msg.attribs || %{}, :is_read, read_messages[msg.message_id] != nil)
+          msg.attribs
+          |> Map.put(:is_read, read_messages[msg.message_id] != nil)
           |> Map.put(:is_subscribed, subscribed_messages[msg.message_id] != nil)
           |> Map.put(:is_interesting, interesting_messages[msg.message_id] != nil)
+          |> Map.put(:classes, classes)
 
         %Message{msg | attribs: new_attribs}
       end)
