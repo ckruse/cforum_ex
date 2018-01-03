@@ -23,7 +23,7 @@
         <% end %>
         <tr>
           <th><%= gettext("registered since") %>:</th>
-          <td><%= Timex.format!(@user.created_at, date_format(@conn), :strftime) %></td>
+          <td><%= format_date(@conn, @user.created_at) %></td>
         </tr>
       </tbody>
     </table>
@@ -161,7 +161,7 @@
     <%= for ub <- @badges do %>
       <li><%= img_tag(static_path(@conn, "/images/" <> ub[:badge].badge_medal_type <> ".png"), class: "medal-image", alt: l10n_medal_type(ub[:badge].badge_medal_type)) %>
         <%= link ub[:badge].name, to: badge_path(@conn, :show, ub[:badge]) %>
-        <%= if ub[:times] > 1, do: "× #{ub[:times]}" %> (<%= Timex.format!(ub[:created_at], date_format(@conn), :strftime) %>)</li>
+        <%= if ub[:times] > 1, do: "× #{ub[:times]}" %> (<%= format_date(@conn, ub[:created_at]) %>)</li>
     <% end %>
   </ul>
 <% end %>
