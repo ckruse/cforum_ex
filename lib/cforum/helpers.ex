@@ -60,4 +60,13 @@ defmodule Cforum.Helpers do
   def to_int(v) when is_integer(v), do: v
   def to_int(v) when is_number(v), do: trunc(v)
   def to_int(_v), do: 0
+
+  @doc """
+  Returns the `attribute` value of a `struct` when it is not `nil` and the attribute value is set
+
+  returns `default_value` otherwise
+  """
+  def attribute_value(struct, attribute, default_value \\ nil)
+  def attribute_value(nil, _, default), do: default
+  def attribute_value(struct, field, default), do: Map.get(struct, field, default)
 end

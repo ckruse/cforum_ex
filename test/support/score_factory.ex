@@ -4,7 +4,7 @@ defmodule Cforum.ScoreFactory do
       alias Cforum.Accounts.Score
 
       def score_factory do
-        %Cforum.Accounts.Score{value: 10, user: build(:user)}
+        %Score{value: 10, user: build(:user)}
       end
 
       def with_negative_score(score), do: %{score | value: -10}

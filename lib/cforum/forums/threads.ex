@@ -9,6 +9,7 @@ defmodule Cforum.Forums.Threads do
   alias Cforum.Repo
 
   alias Cforum.Forums.Thread
+  alias Cforum.Forums.Messages
 
   @doc """
   Returns the list of threads.
@@ -130,6 +131,11 @@ defmodule Cforum.Forums.Threads do
     end
   end
 
+  def slug_taken?(slug) do
+    from(t in Thread, where: t.slug == ^slug)
+    |> Repo.exists?()
+  end
+
   @doc """
   Creates a thread.
 
@@ -142,10 +148,42 @@ defmodule Cforum.Forums.Threads do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_thread(attrs \\ %{}) do
-    %Thread{}
-    |> thread_changeset(attrs)
-    |> Repo.insert()
+  def create_thread(attrs, user, forum, visible_forums) do
+    retval =
+      Repo.transaction(fn ->
+        retval =
+          %Thread{latest_message: Timex.local()}
+          |> Thread.changeset(attrs, forum, visible_forums)
+          |> Repo.insert()
+
+        case retval do
+          {:ok, thread} ->
+            create_message(attrs, user, visible_forums, thread)
+
+          {:error, t_changeset} ->
+            thread = Ecto.Changeset.apply_changes(t_changeset)
+            # we need a changeset with an action; since thread_id is empty this always fails
+            create_message(attrs, user, visible_forums, thread)
+        end
+      end)
+
+    case retval do
+      {:ok, {:ok, thread, message}} ->
+        {:ok, Repo.preload(thread, [:forum]), message}
+
+      _ ->
+        retval
+    end
+  end
+
+  defp create_message(attrs, user, visible_forums, thread) do
+    case Messages.create_message(attrs, user, visible_forums, thread) do
+      {:ok, message} ->
+        {:ok, thread, message}
+
+      {:error, changeset} ->
+        Repo.rollback(changeset)
+    end
   end
 
   @doc """
@@ -160,9 +198,9 @@ defmodule Cforum.Forums.Threads do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_thread(%Thread{} = thread, attrs) do
+  def update_thread(%Thread{} = thread, attrs, forum, visible_forums) do
     thread
-    |> thread_changeset(attrs)
+    |> thread_changeset(attrs, forum, visible_forums)
     |> Repo.update()
   end
 
@@ -191,14 +229,35 @@ defmodule Cforum.Forums.Threads do
       %Ecto.Changeset{source: %Thread{}}
 
   """
-  def change_thread(%Thread{} = thread) do
-    thread_changeset(thread, %{})
+  def change_thread(%Thread{} = thread, forum \\ nil, visible_forums \\ []) do
+    thread_changeset(thread, %{}, forum, visible_forums)
   end
 
-  defp thread_changeset(%Thread{} = thread, attrs) do
-    thread
-    |> cast(attrs, [:name])
-    |> validate_required([:name])
+  alias Cforum.Forums.Messages
+
+  def preview_thread(attrs, user, forum, visible_forums) do
+    changeset =
+      %Thread{created_at: Timex.now()}
+      |> Thread.changeset(attrs, forum, visible_forums)
+
+    thread = Ecto.Changeset.apply_changes(changeset)
+    {message, msg_changeset} = Messages.preview_message(attrs, user, thread)
+
+    forum = Enum.find(visible_forums, &(&1.forum_id == message.forum_id))
+
+    thread = %Thread{
+      thread
+      | forum: forum,
+        forum_id: message.forum_id,
+        messages: [message],
+        message: message
+    }
+
+    {thread, message, msg_changeset}
+  end
+
+  defp thread_changeset(%Thread{} = thread, attrs, forum, visible_forums) do
+    Thread.changeset(thread, attrs, forum, visible_forums)
   end
 
   @doc """

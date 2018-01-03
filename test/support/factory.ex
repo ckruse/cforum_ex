@@ -4,6 +4,7 @@ defmodule Cforum.Factory do
   use Cforum.NotificationFactory
   use Cforum.PrivMessageFactory
   use Cforum.ScoreFactory
+  use Cforum.VoteFactory
   use Cforum.BadgeFactory
   use Cforum.BadgeUserFactory
   use Cforum.ForumFactory

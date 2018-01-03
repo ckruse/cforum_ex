@@ -2,7 +2,6 @@
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -24,7 +23,6 @@ msgstr ""
 #~ msgid ""
 #~ msgstr ""
 #~ "Language: de\n"
-
 msgid "can't be blank"
 msgstr "darf nicht leer sein"
 

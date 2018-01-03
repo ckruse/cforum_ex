@@ -14,7 +14,7 @@
   <% end %>
 </article>
 
-<%= form_for @changeset, message_path(@conn, @thread, @parent, :new), [class: "cf-form"], fn f -> %>
+<%= form_for @changeset, message_path(@conn, :new, @thread, @parent), [class: "cf-form"], fn f -> %>
   <%= render("form.html", Map.merge(assigns, %{f: f, tags: @parent.tags})) %>
 
   <%= l10n_render @view_module, "post-notes.html", assigns %>
@@ -22,6 +22,6 @@
   <p class="form-actions">
     <%= submit gettext("show preview"), class: "cf-btn", name: "preview" %>
     <%= submit gettext("create message"), class: "cf-primary-btn" %>
-    <%= link gettext("cancel"), to: message_path(@conn, @thread, @parent), class: "cf-btn" %>
+    <%= link gettext("cancel"), to: message_path(@conn, :show, @thread, @parent), class: "cf-btn" %>
   </p>
 <% end %>

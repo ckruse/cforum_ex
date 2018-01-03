@@ -27,49 +27,46 @@ defmodule CforumWeb.Users.UserController do
     tags_cnt = Messages.count_messages_per_tag_for_user(user, forum_ids)
 
     last_messages =
-      Messages.list_messages_for_user(user, forum_ids, limit: [quantity: 5, offset: 0])
+      user
+      |> Messages.list_messages_for_user(forum_ids, limit: [quantity: 5, offset: 0])
       |> Enum.map(fn msg ->
-           thread = %Thread{msg.thread | message: msg}
-           %Message{msg | thread: thread}
-         end)
+        thread = %Thread{msg.thread | message: msg}
+        %Message{msg | thread: thread}
+      end)
 
     point_msgs =
-      Messages.list_best_scored_messages_for_user(user, forum_ids)
+      user
+      |> Messages.list_best_scored_messages_for_user(forum_ids)
       |> Enum.map(fn msg ->
-           thread = %Thread{msg.thread | message: msg}
-           %Message{msg | thread: thread}
-         end)
+        thread = %Thread{msg.thread | message: msg}
+        %Message{msg | thread: thread}
+      end)
 
     scored_msgs =
-      Messages.list_scored_msgs_for_user_in_perspective(
-        conn.assigns[:current_user],
-        user,
-        forum_ids,
-        quantity: 10,
-        offset: 0
-      )
+      user
+      |> Messages.list_scored_msgs_for_user_in_perspective(conn.assigns[:current_user], forum_ids)
       |> Enum.reduce({%{}, 0}, fn score, {msgs, fake_id} ->
-           m =
-             case score.vote do
-               nil ->
-                 score.message
+        m =
+          case score.vote do
+            nil ->
+              score.message
 
-               v ->
-                 v.message
-             end
+            v ->
+              v.message
+          end
 
-           {new_fid, id} =
-             if m == nil,
-               do: {fake_id + 1, "fake-#{fake_id}"},
-               else: {fake_id, m.message_id}
+        {new_fid, id} =
+          if m == nil,
+            do: {fake_id + 1, "fake-#{fake_id}"},
+            else: {fake_id, m.message_id}
 
-           {Map.update(msgs, id, [score], fn scores -> [score | scores] end), new_fid}
-         end)
+        {Map.update(msgs, id, [score], fn scores -> [score | scores] end), new_fid}
+      end)
       |> (fn {msgs, _} -> msgs end).()
       |> Map.values()
       |> Enum.sort(fn a, b ->
-           List.last(a).created_at >= List.last(b).created_at
-         end)
+        List.last(a).created_at >= List.last(b).created_at
+      end)
 
     render(
       conn,
@@ -117,13 +114,13 @@ defmodule CforumWeb.Users.UserController do
     user = Users.get_user!(id)
     forum_ids = Enum.map(conn.assigns[:visible_forums], & &1.forum_id)
 
-    count = Messages.count_scored_msgs_for_user_in_perspective(conn.assigns[:current_user], user, forum_ids)
+    count = Messages.count_scored_msgs_for_user_in_perspective(user, conn.assigns[:current_user], forum_ids)
     paging = paginate(count, page: params["p"])
 
     messages =
       Messages.list_scored_msgs_for_user_in_perspective(
-        conn.assigns[:current_user],
         user,
+        conn.assigns[:current_user],
         forum_ids,
         paging.params
       )

@@ -77,9 +77,6 @@ defmodule CforumWeb.MessageView do
     if assigns[:thread].archived, do: ["archived " | classes], else: classes
   end
 
-  defp forum_slug(nil), do: "all"
-  defp forum_slug(forum), do: forum.slug
-
   defp positive_score_class(score) do
     cond do
       score >= 0 && score <= 3 ->

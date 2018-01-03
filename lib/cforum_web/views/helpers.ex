@@ -5,7 +5,10 @@ defmodule CforumWeb.Views.Helpers do
 
   use Phoenix.HTML
 
+  import CforumWeb.Gettext
+
   alias Cforum.Helpers
+  alias Cforum.ConfigManager
 
   @doc """
   Returns true if a user is signed in, returns false otherwise
@@ -103,4 +106,40 @@ defmodule CforumWeb.Views.Helpers do
     val = Phoenix.View.render_existing(view, String.replace_suffix(template, ".html", ".#{locale}.html"), assigns)
     if val == nil, do: Phoenix.View.render(view, template, assigns), else: val
   end
+
+  @doc """
+  Try to get a pre-filled author from the conn
+
+  Either by `current_user.username` or by `cforum_author` cookie
+  """
+  def author_from_conn(%{assigns: %{current_user: user}}) when not is_nil(user), do: user.username
+  def author_from_conn(conn), do: conn.cookies["cforum_author"]
+
+  @doc """
+  Try to get the email address from the conn
+
+  Either from user configuration or from `cforum_email` cookie
+  """
+  def email_from_conn(%{assigns: %{current_user: user}} = conn) when not is_nil(user),
+    do: ConfigManager.uconf(conn, "email")
+
+  def email_from_conn(conn), do: conn.cookies["cforum_email"]
+
+  @doc """
+  Try to get the homepage address from the conn
+
+  Either from user config or from the `cforum_homepage` cookie
+  """
+  def homepage_from_conn(%{assigns: %{current_user: user}} = conn) when not is_nil(user),
+    do: ConfigManager.uconf(conn, "url")
+
+  def homepage_from_conn(conn), do: conn.cookies["cforum_homepage"]
+
+  @doc """
+  Returns the localized medal type name
+  """
+  def l10n_medal_type("bronze"), do: gettext("bronze medal")
+  def l10n_medal_type("silver"), do: gettext("silver medal")
+  def l10n_medal_type("gold"), do: gettext("gold medal")
+  def l10n_medal_type(v), do: raise(inspect(v))
 end

@@ -24,8 +24,10 @@ defmodule CforumWeb.MessageController do
     {thread, message} = get_message(conn, params)
 
     changeset =
-      Messages.changeset_from_parent(
+      Messages.new_message_changeset(
         message,
+        conn.assigns[:current_user],
+        conn.assigns[:visible_forums],
         strip_signature: uconf(conn, "quote_signature") != "yes",
         author: author_from_conn(conn),
         email: email_from_conn(conn),
@@ -43,11 +45,9 @@ defmodule CforumWeb.MessageController do
   def create(conn, %{"message" => message_params} = params) do
     {thread, parent} = get_message(conn, params)
 
-    if Map.has_key?(params, "preview") do
-      show_preview(conn, message_params, thread, parent)
-    else
-      create_message(conn, message_params, thread, parent)
-    end
+    if Map.has_key?(params, "preview"),
+      do: show_preview(conn, message_params, thread, parent),
+      else: create_message(conn, message_params, thread, parent)
   end
 
   defp show_preview(conn, params, thread, parent) do
@@ -56,11 +56,11 @@ defmodule CforumWeb.MessageController do
   end
 
   defp create_message(conn, params, thread, parent) do
-    case Messages.create_message(params, conn.assigns[:current_user], thread, parent) do
+    case Messages.create_message(params, conn.assigns[:current_user], conn.assigns[:visible_forums], thread, parent) do
       {:ok, message} ->
         conn
         |> put_flash(:info, gettext("Message created successfully."))
-        |> redirect(to: message_path(conn, thread, message))
+        |> redirect(to: message_path(conn, :show, thread, message))
 
       {:error, changeset} ->
         render(conn, "new.html", thread: thread, parent: parent, changeset: changeset)
@@ -123,11 +123,4 @@ defmodule CforumWeb.MessageController do
       do: put_resp_cookie(conn, "cf_readmode", read_mode, max_age: 360 * 24 * 60 * 60),
       else: conn
   end
-
-  defp author_from_conn(%{assigns: %{current_user: user}}) when not is_nil(user), do: user.username
-  defp author_from_conn(conn), do: conn.cookies["cforum_author"]
-  defp email_from_conn(%{assigns: %{current_user: user}} = conn) when not is_nil(user), do: uconf(conn, "email")
-  defp email_from_conn(conn), do: conn.cookies["cforum_email"]
-  defp homepage_from_conn(%{assigns: %{current_user: user}} = conn) when not is_nil(user), do: uconf(conn, "url")
-  defp homepage_from_conn(conn), do: conn.cookies["cforum_homepage"]
 end

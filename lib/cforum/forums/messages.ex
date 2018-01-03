@@ -6,7 +6,7 @@ defmodule Cforum.Forums.Messages do
   import Ecto.Query, warn: false
   alias Cforum.Repo
 
-  import CforumWeb.Gettext
+  import Cforum.Helpers
 
   alias Cforum.Forums.Forum
   alias Cforum.Forums.Message
@@ -18,19 +18,6 @@ defmodule Cforum.Forums.Messages do
   alias Cforum.Accounts.Score
 
   alias Cforum.Forums.Threads
-
-  @doc """
-  Returns the list of messages.
-
-  ## Examples
-
-      iex> list_messages()
-      [%Message{}, ...]
-
-  """
-  def list_messages do
-    Repo.all(Message)
-  end
 
   @doc """
   Returns a list of messages for a user, limited to the forums specified in `forum_ids`
@@ -135,6 +122,7 @@ defmodule Cforum.Forums.Messages do
       where: is_nil(m1.message_id) or m1.deleted == false,
       where: is_nil(m2.message_id) or m2.deleted == false,
       where: m2.user_id == ^user.user_id,
+      where: s.value > 0,
       order_by: [desc: :created_at]
     )
     |> Cforum.PagingApi.set_limit(limit)
@@ -147,7 +135,7 @@ defmodule Cforum.Forums.Messages do
 
   ## Arguments
 
-  cuser: the user which perspective we are look on this, i.e. the `current_user`
+  current_user: the user which perspective we are look on this
   user: the user we are watching at
   forum_ids: the list of forums we are interested in
   limit: the number of messages we want to get
@@ -160,8 +148,9 @@ defmodule Cforum.Forums.Messages do
       iex> list_scored_msgs_for_user_in_perspective(%User{}, %User{}, [1, 2])
       [%Message{}]
   """
-  def list_scored_msgs_for_user_in_perspective(cuser, user, forum_ids, limit \\ nil) do
-    int_list_scored_msgs_for_user_in_perspective(cuser, user, forum_ids, limit)
+  def list_scored_msgs_for_user_in_perspective(user, current_user, forum_ids, limit \\ [quantity: 10, offset: 0]) do
+    current_user
+    |> int_list_scored_msgs_for_user_in_perspective(user, forum_ids, limit)
     |> Repo.all()
   end
 
@@ -174,8 +163,9 @@ defmodule Cforum.Forums.Messages do
       iex> count_scored_msgs_for_user_in_perspective(nil, %User{}, [1, 2])
       1
   """
-  def count_scored_msgs_for_user_in_perspective(cuser, user, forum_ids) do
-    int_list_scored_msgs_for_user_in_perspective(cuser, user, forum_ids, nil)
+  def count_scored_msgs_for_user_in_perspective(user, current_user, forum_ids) do
+    current_user
+    |> int_list_scored_msgs_for_user_in_perspective(user, forum_ids, nil)
     |> exclude(:preload)
     |> exclude(:order_by)
     |> select(count("*"))
@@ -232,6 +222,9 @@ defmodule Cforum.Forums.Messages do
   @doc """
   Gets a single message.
 
+  Leaves out deleted messages by default; if you want to retrieve
+  deleted messages, set `view_all: true` as second parameter
+
   Raises `Ecto.NoResultsError` if the Message does not exist.
 
   ## Examples
@@ -243,7 +236,11 @@ defmodule Cforum.Forums.Messages do
       ** (Ecto.NoResultsError)
 
   """
-  def get_message!(id), do: Repo.get!(Message, id)
+  def get_message!(id, opts \\ []) do
+    if opts[:view_all],
+      do: Repo.get!(Message, id),
+      else: Repo.get_by!(Message, message_id: id, deleted: false)
+  end
 
   @doc """
   Loads a thread by its slug and searches for the message specified my `mid` in the thread tree. Sets things like
@@ -282,19 +279,27 @@ defmodule Cforum.Forums.Messages do
   @doc """
   Creates a message.
 
+  ## Parameters
+
+  attrs: the message attributes, e.g. `:subject`
+  user: the current user
+  visible_forums: the forums visible to the current user
+  thread: the thread the message belongs to
+  parent: the parent message of the new message
+
   ## Examples
 
-      iex> create_message(%{field: value})
+      iex> create_message(%{field: value}, %User{}, [%Forum{}], %Thread{})
       {:ok, %Message{}}
 
-      iex> create_message(%{field: bad_value})
+      iex> create_message(%{field: bad_value}, %User{}, [%Forum{}], %Thread{})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_message(attrs, user, thread, parent) do
+  def create_message(attrs, user, visible_forums, thread, parent \\ nil) do
     changeset =
       %Message{}
-      |> Message.changeset(attrs, user, thread, parent)
+      |> Message.changeset(attrs, user, visible_forums, thread, parent)
 
     author = Ecto.Changeset.get_field(changeset, :author)
 
@@ -303,7 +308,7 @@ defmodule Cforum.Forums.Messages do
         Repo.insert(changeset)
 
       _ ->
-        {:error, Ecto.Changeset.add_error(changeset, :author, gettext("name already taken"))}
+        {:error, Ecto.Changeset.add_error(changeset, :author, "already taken")}
     end
   end
 
@@ -325,12 +330,31 @@ defmodule Cforum.Forums.Messages do
       else: may_user_post_with_name?(nil, name)
   end
 
-  def preview_message(attrs, user, thread, parent) do
+  @doc """
+  Generates a %Message{} and a changeset for preview purposes
+
+  ## Parameters
+
+  attrs: The message attributes
+  user: The current user
+  thread: The thread the message belongs to
+  parent: the parent message
+
+  ## Examples
+
+      iex> preview_message(%{}, %User{}, %Thread{})
+      {%Message{}, %Ecto.Changeset{}}
+  """
+  def preview_message(attrs, user, thread, parent \\ nil) do
     changeset =
       %Message{created_at: Timex.now()}
-      |> Message.changeset(attrs, user, thread, parent)
+      |> Message.changeset(attrs, user, [], thread, parent)
 
-    msg = %Message{Ecto.Changeset.apply_changes(changeset) | tags: Ecto.Changeset.get_field(changeset, :tags)}
+    msg = %Message{
+      Ecto.Changeset.apply_changes(changeset)
+      | tags: Ecto.Changeset.get_field(changeset, :tags),
+        user: user
+    }
 
     {msg, changeset}
   end
@@ -347,9 +371,9 @@ defmodule Cforum.Forums.Messages do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_message(%Message{} = message, attrs) do
+  def update_message(%Message{} = message, attrs, user, visible_forums) do
     message
-    |> Message.update_changeset(attrs)
+    |> Message.changeset(attrs, user, visible_forums)
     |> Repo.update()
   end
 
@@ -366,7 +390,7 @@ defmodule Cforum.Forums.Messages do
 
   """
   def delete_message(%Message{} = message) do
-    Repo.delete(message)
+    Repo.update(Ecto.Changeset.change(message, deleted: true))
   end
 
   @doc """
@@ -378,11 +402,28 @@ defmodule Cforum.Forums.Messages do
       %Ecto.Changeset{source: %Message{}}
 
   """
-  def change_message(%Message{} = message) do
-    Message.update_changeset(message, %{})
+  def change_message(%Message{} = message, user, visible_forums) do
+    Message.changeset(message, %{}, user, visible_forums)
   end
 
-  def changeset_from_parent(message, opts \\ []) do
+  @doc """
+  Returns a changeset for a new message.
+
+  ## Parameters
+
+  message: the parent message (`nil` if none present)
+  user: the current user
+  visible_forums: the forums visible to the current user
+  opts: options for generating the changeset, valid keys are
+        `strip_signature`, `greeting`, `farewell`, `signature`, `email`,
+        `homepage`, `author`, `quote`, `std_replacement`
+
+  ## Examples
+
+      iex> new_message_changeset(%Message{}, %User{}, [%Forum{}], [])
+      %Ecto.Changeset{}
+  """
+  def new_message_changeset(message, user, visible_forums, opts \\ []) do
     opts =
       Keyword.merge(
         [
@@ -393,42 +434,58 @@ defmodule Cforum.Forums.Messages do
           email: nil,
           homepage: nil,
           author: nil,
-          quote: true
+          quote: true,
+          std_replacement: "all"
         ],
         opts
       )
 
-    content =
-      if opts[:quote] do
-        message.content
-        |> quote_from_content(opts[:strip_signature])
-        |> maybe_add_greeting(opts[:greeting], message.author)
-        |> maybe_add_farewell(opts[:farewell])
-        |> maybe_add_signature(opts[:signature])
-      else
-        ""
-      end
+    cnt =
+      if opts[:quote],
+        do: attribute_value(message, :content, ""),
+        else: ""
 
-    change_message(%Message{
-      author: opts[:author],
-      email: opts[:email],
-      homepage: opts[:homepage],
-      subject: message.subject,
-      problematic_site: message.problematic_site,
-      content: content,
-      tags_str: Enum.map(message.tags, & &1.tag_name) |> Enum.join(", "),
-      tags: message.tags
-    })
+    tags_str =
+      message
+      |> attribute_value(:tags, [])
+      |> Enum.map(& &1.tag_name)
+      |> Enum.join(", ")
+
+    content =
+      cnt
+      |> quote_from_content(opts[:strip_signature])
+      |> maybe_add_greeting(opts[:greeting], attribute_value(message, :author), opts[:std_replacement])
+      |> maybe_add_farewell(opts[:farewell])
+      |> maybe_add_signature(opts[:signature])
+
+    change_message(
+      %Message{
+        author: opts[:author],
+        email: opts[:email],
+        homepage: opts[:homepage],
+        subject: attribute_value(message, :subject),
+        problematic_site: attribute_value(message, :problematic_site),
+        content: content,
+        tags_str: tags_str,
+        tags: attribute_value(message, :tags, [])
+      },
+      user,
+      visible_forums
+    )
   end
 
-  def quote_from_content(content, strip_signature \\ true) do
+  defp quote_from_content(content, strip_signature) do
     content
     |> remove_signature(strip_signature)
-    |> String.replace(~r/^/m, "> ")
+    |> quote_from_content()
   end
 
-  defp maybe_add_greeting(content, greeting, _) when greeting == nil or greeting == "", do: content
-  defp maybe_add_greeting(content, greeting, name), do: [name_replacements(greeting, name) | ["\n" | content]]
+  defp quote_from_content(""), do: ""
+  defp quote_from_content(content), do: String.replace(content, ~r/^/m, "> ")
+
+  defp maybe_add_greeting(content, greeting, _, _) when greeting == nil or greeting == "", do: content
+  defp maybe_add_greeting(content, greeting, nil, std), do: [name_replacements(greeting, std) | ["\n" | content]]
+  defp maybe_add_greeting(content, greeting, name, _), do: [name_replacements(greeting, name) | ["\n" | content]]
 
   defp name_replacements(greeting, name) do
     greeting

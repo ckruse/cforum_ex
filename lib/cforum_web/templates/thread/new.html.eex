@@ -1,0 +1,33 @@
+<h1>
+  <label for="message_input"><%= gettext("new thread") %></label>
+</h1>
+
+<%= if @changeset.action do %>
+  <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
+<% end %>
+
+<%= if assigns[:preview] do %>
+  <article class="cf-thread-message preview">
+    <%= render(CforumWeb.MessageView, "message.html", conn: @conn, thread: @thread, message: @message, controls: :no, first: true) %>
+  </article>
+<% end %>
+
+<%= form_for @changeset, thread_path(@conn, :new, @current_forum), [class: "cf-form"], fn f -> %>
+  <%= if blank?(@current_forum) do %>
+    <div class="cf-cgroup <%= error_class(f, :forum_id) %>">
+      <%= label f, :forum_id, gettext("forum") %>
+      <%= select f, :forum_id, Enum.map(@visible_forums, &{&1.name, &1.forum_id}) %>
+      <%= error_tag f, :forum_id %>
+    </div>
+  <% end %>
+
+  <%= render(CforumWeb.MessageView, "form.html", Map.merge(assigns, %{f: f})) %>
+
+  <%= l10n_render CforumWeb.MessageView, "post-notes.html", assigns %>
+
+  <p class="form-actions">
+    <%= submit gettext("show preview"), class: "cf-btn", name: "preview" %>
+    <%= submit gettext("create message"), class: "cf-primary-btn" %>
+    <%= link gettext("cancel"), to: forum_path(@conn, :index, @current_forum), class: "cf-btn" %>
+  </p>
+<% end %>

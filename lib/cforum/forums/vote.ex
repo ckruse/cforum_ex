@@ -4,6 +4,10 @@ defmodule Cforum.Forums.Vote do
   @primary_key {:vote_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :vote_id}
 
+  @upvote "upvote"
+  @downvote "downvote"
+  @valid_vtypes [@upvote, @downvote]
+
   schema "votes" do
     field(:vtype, :string)
     belongs_to(:user, Cforum.Accounts.User, references: :user_id)
@@ -18,5 +22,9 @@ defmodule Cforum.Forums.Vote do
     struct
     |> cast(params, [:vtype])
     |> validate_required([:vtype])
+    |> validate_inclusion(:vtype, @valid_vtypes)
   end
+
+  def upvote, do: @upvote
+  def downvote, do: @downvote
 end

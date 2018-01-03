@@ -81,34 +81,53 @@ defmodule Cforum.Forums.Message do
   def tags_changed?(_, nil), do: true
   def tags_changed?(msg, parent), do: parent.tags != msg.tags
 
-  defp base_changeset(struct, params, user, forum_id) do
+  defp base_changeset(struct, params, user, forum_id, visible_forums) do
     struct
-    |> cast(params, [:author, :email, :homepage, :subject, :content, :problematic_site, :tags_str])
-    |> put_change(:forum_id, forum_id)
+    |> cast(params, [:author, :email, :homepage, :subject, :content, :problematic_site, :tags_str, :forum_id])
+    |> maybe_put_change(:forum_id, forum_id)
+    |> validate_forum_id(visible_forums)
     |> maybe_set_author(user)
     |> parse_tags(params)
+  end
+
+  defp maybe_put_change(changeset, _, nil), do: changeset
+  defp maybe_put_change(changeset, field, value), do: put_change(changeset, field, value)
+
+  defp validate_forum_id(changeset, visible_forums) do
+    case get_field(changeset, :forum_id) do
+      nil ->
+        changeset
+
+      forum_id ->
+        if Enum.find(visible_forums, &(&1.forum_id == forum_id)) == nil,
+          do: add_error(changeset, :forum_id, "is invalid"),
+          else: changeset
+    end
   end
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
-  def changeset(struct, params, user, thread, message) do
+  def changeset(struct, params, user, visible_forums, thread, message \\ nil)
+
+  def changeset(struct, params, user, visible_forums, thread, nil) do
     struct
-    |> base_changeset(params, user, thread.forum_id)
+    |> base_changeset(params, user, thread.forum_id, visible_forums)
+    |> put_change(:thread_id, thread.thread_id)
+    |> validate_required([:author, :subject, :content, :forum_id, :thread_id])
+  end
+
+  def changeset(struct, params, user, visible_forums, thread, message) do
+    struct
+    |> base_changeset(params, user, thread.forum_id, visible_forums)
     |> put_change(:thread_id, thread.thread_id)
     |> put_change(:parent_id, message.message_id)
-    |> validate_required([:author, :subject, :content])
+    |> validate_required([:author, :subject, :content, :forum_id, :thread_id])
   end
 
-  def changeset(struct, params, user, thread) do
+  def changeset(struct, params, user, visible_forums) do
     struct
-    |> base_changeset(params, user, thread.forum_id)
-    |> validate_required([:author, :subject, :content])
-  end
-
-  def update_changeset(struct, params) do
-    struct
-    |> base_changeset(params, nil, struct.forum_id)
+    |> base_changeset(params, user, nil, visible_forums)
     |> validate_required([:author, :subject, :content])
   end
 

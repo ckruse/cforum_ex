@@ -1,9 +1,9 @@
   <%= if @opts[:first] do %>
-    <h2><%= link(@message.subject, to: message_path(@conn, @thread, @message)) %></h2>
+    <h2><%= link(@message.subject, to: message_path(@conn, :show, @thread, @message)) %></h2>
   <% else %>
     <%= if @thread.thread_id != 0 && @message.message_id != 0 do %>
       <%= if (@opts[:hide_repeating_subjects] && Message.subject_changed?(@message, assigns[:parent])) || !(@opts[:hide_repeating_subjects]) do %>
-        <h3><%= link(@message.subject, to: message_path(@conn, @thread, @message)) %></h3>
+        <h3><%= link(@message.subject, to: message_path(@conn, :show, @thread, @message)) %></h3>
       <% end %>
     <% else %>
       <h3><%= @message.subject %></h3>
