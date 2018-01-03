@@ -1,10 +1,10 @@
 <div class="h-card">
   <div class="cf-user-infos">
     <div class="user-info">
+      <%= img_tag Cforum.Accounts.User.avatar_path(@user, :medium), class: "avatar" %>
       <table class="cf-user-info-table">
         <tbody>
           <tr>
-            <td rowspan="<%= if @current_user && @current_user.user_id == @user.user_id, do: 5, else: 4 %>"><%= img_tag Cforum.Accounts.User.avatar_path(@user, :medium) %></td>
             <th><%= gettext("username") %>:</th>
             <td class="p-name"><%= @user.username %></td>
           </tr>
