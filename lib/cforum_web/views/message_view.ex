@@ -58,8 +58,8 @@ defmodule CforumWeb.MessageView do
   end
 
   # TODO day_changed_key(message))
-  def message_date_format(conn, true), do: date_format(conn, "date_format_index")
-  def message_date_format(conn, false), do: date_format(conn, "date_format_post")
+  def message_date_format(true), do: "date_format_index"
+  def message_date_format(false), do: "date_format_post"
 
   def page_title(:show, assigns) do
     msg = assigns[:message]
@@ -67,7 +67,7 @@ defmodule CforumWeb.MessageView do
     msg.subject <>
       " " <>
       gettext("by") <>
-      " " <> msg.author <> ", " <> Timex.format!(msg.created_at, message_date_format(assigns[:conn], false), :strftime)
+      " " <> msg.author <> ", " <> format_date(assigns[:conn], msg.created_at, message_date_format(false))
   end
 
   def body_id(:show, assigns), do: "message-#{assigns[:read_mode]}"

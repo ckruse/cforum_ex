@@ -24,7 +24,7 @@
             <div class="notification-description"><%= notification.description %></div>
           <% end %>
         </td>
-        <td><%= Timex.format!(notification.created_at, date_format(@conn), :strftime) %></td>
+        <td><%= format_date(@conn, notification.created_at) %></td>
         <td>
           <%= destructive_index_button(gettext("delete"), to: notification_path(@conn, :delete, notification), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
           <%= if notification.is_read do %>
