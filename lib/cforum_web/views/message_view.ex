@@ -4,20 +4,20 @@ defmodule CforumWeb.MessageView do
   alias Cforum.Forums.Thread
   alias Cforum.Forums.Message
 
-  def first_class(classes, %{first: true}), do: [classes | ["first"]]
+  def first_class(classes, %{first: true}), do: ["first" | classes]
   def first_class(classes, _), do: classes
 
-  def deleted_class(classes, %Message{deleted: true}), do: [classes | ["deleted"]]
+  def deleted_class(classes, %Message{deleted: true}), do: ["deleted" | classes]
   def deleted_class(classes, _), do: classes
 
-  def classes_from_message(classes, %Message{attribs: %{classes: msg_classes}}), do: [classes | [msg_classes]]
+  def classes_from_message(classes, %Message{attribs: %{classes: msg_classes}}), do: [classes | msg_classes]
   def classes_from_message(classes, _), do: classes
 
   def accepted_class(classes, %Thread{accepted: []}, _), do: classes
 
   def accepted_class(classes, thread, message) do
-    classes = if thread.message.message_id == message.message_id, do: [classes | ["has-accepted-answer"]], else: classes
-    if Message.accepted?(message), do: [classes | ["accepted-answer"]], else: classes
+    classes = if thread.message.message_id == message.message_id, do: ["has-accepted-answer" | classes], else: classes
+    if Message.accepted?(message), do: ["accepted-answer" | classes], else: classes
   end
 
   # TODO
@@ -118,19 +118,16 @@ defmodule CforumWeb.MessageView do
     end
   end
 
-  defp class_if_true(classes, true, class), do: [class | classes]
-  defp class_if_true(classes, _, _class), do: classes
-
   def message_classes(conn, message, thread, active, read_mode \\ :thread) do
     is_folded =
       uconf(conn, "fold_read_nested") == "yes" && read_mode == :nested && !active && !thread.archived &&
         Enum.member?(message.attribs[:classes], "visited")
 
     []
-    |> class_if_true(active, "active")
-    |> class_if_true(message.attribs[:is_interesting], "interesting")
-    |> class_if_true(Enum.member?(thread.accepted, message), "accepted")
-    |> class_if_true(is_folded, "folded")
+    |> add_if(active, "active")
+    |> add_if(message.attribs[:is_interesting], "interesting")
+    |> add_if(Enum.member?(thread.accepted, message), "accepted")
+    |> add_if(is_folded, "folded")
     |> score_class(message)
     |> Enum.join(" ")
   end

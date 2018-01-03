@@ -69,4 +69,10 @@ defmodule Cforum.Helpers do
   def attribute_value(struct, attribute, default_value \\ nil)
   def attribute_value(nil, _, default), do: default
   def attribute_value(struct, field, default), do: Map.get(struct, field, default)
+
+  @doc """
+  Adds a value to a list if the test is true
+  """
+  def add_if(list, true, value), do: [value | list]
+  def add_if(list, _, _value), do: list
 end
