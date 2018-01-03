@@ -29,3 +29,115 @@
   padding-right: 5px;
   border-radius: 0 0.5em 0.5em;
 }
+
+.cf-badge-user-list {
+  list-style-type: none;
+  padding-left: 0;
+  .medal-image {
+    max-height: 1em;
+  }
+}
+
+.cf-user-info-tags-list {
+  @extend .cf-tags-list;
+
+  vertical-align: top;
+
+  li {
+    display: inline-block;
+    font-size: 0.9em;
+    margin-bottom: 0.5em;
+    margin-right: 0.5em;
+  }
+
+  .cf-tag {
+    margin-left: 0;
+    font-weight: normal;
+
+    span {
+      margin-right: 0.5em;
+    }
+  }
+
+  .cnt {
+    margin-left: 0.25em;
+    display: inline-block;
+    text-align: center;
+    padding: 0.1em 0.6em 0 0.6em;
+    border-radius: 0 0.3em 0.3em;
+    color: #5d7380;
+    border: 1px solid #c4c4c4;
+  }
+}
+
+.cf-user-info-table {
+  border-collapse: collapse;
+
+  th {
+    text-align: right;
+    color: #5d7380;
+    vertical-align: top;
+  }
+
+  th,
+  td {
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+
+    p:first-of-type {
+      margin-top: 0;
+    }
+  }
+}
+
+.cf-box {
+  background-color: #f1f3f4;
+  border-radius: 0 0.4em 0.4em;
+  border: 1px solid #d5d5d5;
+  padding: 1em 0.7em 0.7em 1em;
+  display: inline-block;
+}
+
+.cf-user-infos {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+
+  .user-info {
+    @extend .cf-box;
+
+    flex: 1 1 auto;
+    vertical-align: top;
+    margin-bottom: 0.5em;
+
+    img {
+      margin-right: 1em;
+    }
+
+    & ~ .thread {
+      border: 1px solid #d5d5d5;
+      padding: 0.35em 1em;
+    }
+  }
+
+  .user-profile {
+    @extend .cf-box;
+
+    flex: 1 1 auto;
+    margin-bottom: 0.5em;
+  }
+}
+
+@media only screen and (min-width: 35em) {
+  .cf-user-infos {
+    .user-info {
+      flex: 0 1 auto;
+      margin-right: 0.5em;
+    }
+
+    .user-profile {
+      flex: 0 1 auto;
+    }
+  }
+}
