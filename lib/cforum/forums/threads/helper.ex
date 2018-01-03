@@ -15,19 +15,10 @@ defmodule Cforum.Forums.Threads.Helper do
     from(thread in query, where: thread.forum_id in ^fids)
   end
 
-  defp set_forum_id(query, forum, _) do
-    from(thread in query, where: thread.forum_id == ^forum.forum_id)
-  end
-
+  defp set_forum_id(query, forum, _), do: from(thread in query, where: thread.forum_id == ^forum.forum_id)
   defp set_view_all(query, true), do: query
-
-  defp set_view_all(query, _view_all) do
-    from(thread in query, where: thread.deleted == false)
-  end
-
-  defp set_ordering(query, order) do
-    from(thread in query, order_by: ^order)
-  end
+  defp set_view_all(query, _view_all), do: from(thread in query, where: thread.deleted == false)
+  defp set_ordering(query, order), do: from(thread in query, order_by: ^order)
 
   defp hide_read_threads(query, user, true) when user != nil do
     from(
@@ -45,8 +36,7 @@ defmodule Cforum.Forums.Threads.Helper do
 
   defp hide_read_threads(query, _, _), do: query
 
-  defp leave_out_invisible(query, nil, _), do: query
-  defp leave_out_invisible(query, _, true), do: query
+  defp leave_out_invisible(query, user, leave_out) when is_nil(user) or leave_out == true, do: query
 
   defp leave_out_invisible(query, user, _) do
     from(

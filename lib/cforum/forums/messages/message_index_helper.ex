@@ -9,11 +9,9 @@ defmodule Cforum.Forums.Messages.IndexHelper do
 
   import Ecto.Query
 
-  def preload_messages(true), do: from(m in Message)
 
-  def preload_messages(_) do
-    from(m in Message, where: m.deleted == false)
-  end
+  def preload_messages(true), do: from(m in Message)
+  def preload_messages(_), do: from(m in Message, where: m.deleted == false)
 
   def order_messages(query) do
     from(m in query, order_by: [asc: fragment("? NULLS FIRST", m.parent_id), desc: m.created_at])
