@@ -92,7 +92,9 @@ defmodule CforumWeb.Router do
     scope "/:curr_forum" do
       pipe_through([:forum_access])
 
-      get("/", ThreadController, :index, as: :forum)
+      get("/", ThreadController, :index, as: nil)
+      get("/new", ThreadController, :new, as: nil)
+      post("/new", ThreadController, :create, as: nil)
       resources("/tags", TagController)
 
       get("/:year/:month/:day/:slug/:mid", MessageController, :show, as: nil)

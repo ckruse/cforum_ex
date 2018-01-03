@@ -19,7 +19,7 @@
       <div class="navs">
         <nav class="quicklinks">
           <ul>
-            <li><%= link gettext("create new thread"), to: "" %></li>
+            <li><%= link gettext("create new thread"), to: thread_path(@conn, :new, @current_forum) %></li>
             <li><%= link gettext("home"), to: root_path(@conn, :index) %></li>
             <li class="dropdown"><span class="anchor"><%= gettext("Forums") %></span>
               <ul class="menu">
@@ -81,9 +81,9 @@
 
             <%= if assigns[:message] != nil && assigns[:thread] != nil && !blank?(@message.message_id) do %>
               <%= if @read_mode != "thread-view" do %>
-                <li><%= link(gettext("thread view"), to: message_path(@conn, @thread, @message, :show, rm: "thread")) %></li>
+                <li><%= link(gettext("thread view"), to: message_path(@conn, :show, @thread, @message, rm: "thread")) %></li>
               <% else %>
-                <li><%= link(gettext("nested view"), to: message_path(@conn, @thread, @message, :show, rm: "nested")) %></li>
+                <li><%= link(gettext("nested view"), to: message_path(@conn, :show, @thread, @message, rm: "nested")) %></li>
               <% end %>
             <% end %>
 

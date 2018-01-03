@@ -1,19 +1,17 @@
 <%= pagination @conn, @paging, &user_path/4, path_args: [@conn, :show_votes, @user] %>
 
-<table class="score-table">
+<table class="cf-score-table">
   <%= for vote <- @votes do %>
     <tr>
       <td class="score">
         <%= if vote.score do %>
-          <span class="<%= if vote.score.value < 0, do: "score-down", else: "score-up" %>"><%= vote.score.value %></span>
+          <span class="<%= if vote.score.value < 0, do: "cf-score-down", else: "cf-score-up" %>"><%= vote.score.value %></span>
         <% end %>
       </td>
       <td>
-        <div class="root">
-          <article class="threadlist thread">
-            <%= render CforumWeb.MessageView, "header.html", conn: @conn, thread: vote.message.thread, message: vote.message, show_votes: true, id: false  %>
-          </article>
-      </td>
+        <article class="threadlist cf-thread">
+          <%= render CforumWeb.MessageView, "header.html", conn: @conn, thread: vote.message.thread, message: vote.message, show_votes: true, id: false  %>
+        </article>
     </tr>
   <% end %>
 </table>

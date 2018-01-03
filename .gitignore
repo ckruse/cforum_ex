@@ -25,3 +25,4 @@ node_modules
 /config/prod.secret.exs
 /priv/uploads/*
 /cover/*
+/.elixir_ls/*

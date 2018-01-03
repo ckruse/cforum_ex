@@ -234,6 +234,7 @@ msgstr ""
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:3
 #: lib/cforum_web/templates/message/new.html.eex:6
+#: lib/cforum_web/templates/thread/new.html.eex:6
 #: lib/cforum_web/templates/users/registration/new.html.eex:4
 #: lib/cforum_web/templates/users/user/form.html.eex:3
 msgid "Oops, something went wrong! Please check the errors below."
@@ -333,11 +334,11 @@ msgstr ""
 msgid "All scores for user %{username}"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:161
+#: lib/cforum_web/templates/users/user/show.html.eex:155
 msgid "Badges"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:102
+#: lib/cforum_web/templates/users/user/show.html.eex:100
 msgid "Best scored messages"
 msgstr ""
 
@@ -367,7 +368,7 @@ msgstr ""
 msgid "No messages so far"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:105
+#: lib/cforum_web/templates/users/user/show.html.eex:103
 msgid "No scored messages so far"
 msgstr ""
 
@@ -375,7 +376,7 @@ msgstr ""
 msgid "Number of messages"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:117
+#: lib/cforum_web/templates/users/user/show.html.eex:113
 msgid "Own votings"
 msgstr ""
 
@@ -406,19 +407,19 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:100
+#: lib/cforum_web/templates/users/user/show.html.eex:98
 msgid "all messages"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:154
+#: lib/cforum_web/templates/users/user/show.html.eex:148
 msgid "all scores"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:156
+#: lib/cforum_web/templates/users/user/show.html.eex:150
 msgid "all votes"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:161
+#: lib/cforum_web/templates/users/user/show.html.eex:155
 msgid "info"
 msgstr ""
 
@@ -435,7 +436,6 @@ msgid "messages.num_messages"
 msgstr ""
 
 #: lib/cforum_web/templates/forum/message_header.html.eex:5
-#: lib/cforum_web/templates/forum/message_header.html.eex:7
 msgid "messages.user_link"
 msgstr ""
 
@@ -447,7 +447,7 @@ msgstr ""
 msgid "no archive"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:164
+#: lib/cforum_web/templates/users/user/show.html.eex:158
 msgid "no badges so far"
 msgstr ""
 
@@ -455,7 +455,7 @@ msgstr ""
 msgid "no description given"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:120
+#: lib/cforum_web/templates/users/user/show.html.eex:116
 msgid "no scored messages so far"
 msgstr ""
 
@@ -492,7 +492,7 @@ msgstr[1] ""
 msgid "All votes for user %{username}"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:117
+#: lib/cforum_web/templates/users/user/show.html.eex:113
 msgid "Received votings"
 msgstr ""
 
@@ -533,6 +533,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/forum/edit.html.eex:8
 #: lib/cforum_web/templates/admin/forum/new.html.eex:8
 #: lib/cforum_web/templates/message/new.html.eex:25
+#: lib/cforum_web/templates/thread/new.html.eex:31
 #: lib/cforum_web/templates/users/password/edit.html.eex:15
 #: lib/cforum_web/templates/users/password/edit_reset.html.eex:15
 #: lib/cforum_web/templates/users/password/new.html.eex:10
@@ -769,11 +770,11 @@ msgstr ""
 msgid "The instructions how to reset your password have been sent."
 msgstr ""
 
-#: lib/cforum_web/controllers/users/user_controller.ex:201
+#: lib/cforum_web/controllers/users/user_controller.ex:198
 msgid "User deleted successfully."
 msgstr ""
 
-#: lib/cforum_web/controllers/users/user_controller.ex:183
+#: lib/cforum_web/controllers/users/user_controller.ex:180
 msgid "User updated successfully."
 msgstr ""
 
@@ -793,7 +794,7 @@ msgstr ""
 #: lib/cforum_web/templates/users/password/edit.html.eex:14
 #: lib/cforum_web/templates/users/password/edit_reset.html.eex:14
 #: lib/cforum_web/templates/users/user/edit.html.eex:7
-#: lib/cforum_web/templates/users/user/show.html.eex:181
+#: lib/cforum_web/templates/users/user/show.html.eex:174
 msgid "change password"
 msgstr ""
 
@@ -810,7 +811,7 @@ msgstr ""
 msgid "delete"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:180
+#: lib/cforum_web/templates/users/user/show.html.eex:173
 msgid "delete user"
 msgstr ""
 
@@ -818,7 +819,7 @@ msgstr ""
 msgid "edit"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:179
+#: lib/cforum_web/templates/users/user/show.html.eex:172
 msgid "edit profile and settings"
 msgstr ""
 
@@ -834,7 +835,7 @@ msgstr ""
 msgid "mark unread"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:182
+#: lib/cforum_web/templates/users/user/show.html.eex:175
 msgid "new mail to %{username}"
 msgstr ""
 
@@ -1209,7 +1210,8 @@ msgstr ""
 msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">documentation</a>"
 msgstr ""
 
-#: lib/cforum_web/controllers/message_controller.ex:37
+#: lib/cforum_web/controllers/message_controller.ex:39
+#: lib/cforum_web/controllers/thread_controller.ex:47
 msgid "all"
 msgstr ""
 
@@ -1222,6 +1224,7 @@ msgid "comma separated list, e.g. „css, html“"
 msgstr ""
 
 #: lib/cforum_web/templates/message/new.html.eex:24
+#: lib/cforum_web/templates/thread/new.html.eex:30
 msgid "create message"
 msgstr ""
 
@@ -1242,6 +1245,7 @@ msgid "replace float:left with a flexbox construct"
 msgstr ""
 
 #: lib/cforum_web/templates/message/new.html.eex:23
+#: lib/cforum_web/templates/thread/new.html.eex:29
 msgid "show preview"
 msgstr ""
 
@@ -1300,6 +1304,34 @@ msgstr ""
 msgid "previous page"
 msgstr ""
 
-#: lib/cforum/forums/message.ex:134
+#: lib/cforum/forums/message.ex:154
 msgid "unknown tags given: %{tags}"
+msgstr ""
+
+#: lib/cforum_web/controllers/thread_controller.ex:83
+msgid "Thread created successfully."
+msgstr ""
+
+#: lib/cforum_web/templates/forum/message_header.html.eex:7
+msgid "User %{user}"
+msgstr ""
+
+#: lib/cforum_web/views/helpers.ex:141
+msgid "bronze medal"
+msgstr ""
+
+#: lib/cforum_web/templates/thread/new.html.eex:18
+msgid "forum"
+msgstr ""
+
+#: lib/cforum_web/views/helpers.ex:143
+msgid "gold medal"
+msgstr ""
+
+#: lib/cforum_web/templates/thread/new.html.eex:2
+msgid "new thread"
+msgstr ""
+
+#: lib/cforum_web/views/helpers.ex:142
+msgid "silver medal"
 msgstr ""
