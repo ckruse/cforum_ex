@@ -19,4 +19,14 @@ defmodule CforumWeb.ThreadView do
     |> no_archive_class(thread)
     |> Enum.join(" ")
   end
+
+  def page_title(:index, assigns) do
+    f = assigns[:current_forum]
+
+    title = if f, do: f.name, else: gettext("all forums")
+    gettext("overview") <> " — " <> title
+  end
+
+  def body_id(:index, assigns), do: "threads-index"
+  def body_classes(:index, assigns), do: "threads forum-#{forum_slug(assigns[:current_forum])}"
 end
