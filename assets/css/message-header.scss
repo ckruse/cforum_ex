@@ -82,24 +82,20 @@
     white-space: nowrap;
   }
 
-  .visited,
-  a.visited,
-  .visited a,
+  &.visited,
+  &.visited a,
   a:visited {
     color: $visited_link_color;
   }
 
-  .visited:hover,
-  a.visited:hover,
-  .visited a:hover,
+  &.visited:hover,
+  &.visited a:hover,
   a:visited:hover,
-  .visited:active,
-  a.visited:active,
-  .visited a:active,
+  &.visited:active,
+  &.visited a:active,
   a:visited:active,
-  .visited:focus,
-  a.visited:focus,
-  .visited a:focus,
+  &.visited:focus,
+  &.visited a:focus,
   a:visited:focus {
     color: $active_link_color;
   }
