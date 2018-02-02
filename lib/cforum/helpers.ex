@@ -75,4 +75,16 @@ defmodule Cforum.Helpers do
   """
   def add_if(list, true, value), do: [value | list]
   def add_if(list, _, _value), do: list
+
+  def map_maybe_delete(map, key, true), do: Map.delete(map, key)
+  def map_maybe_delete(map, _, _), do: map
+
+  def controller_path(conn) do
+    conn
+    |> Phoenix.Controller.controller_module()
+    |> Atom.to_string()
+    |> String.replace(~r{^Elixir\.CforumWeb\.}, "")
+    |> String.replace(~r{Controller$}, "")
+    |> Macro.underscore()
+  end
 end

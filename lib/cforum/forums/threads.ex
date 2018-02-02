@@ -101,7 +101,7 @@ defmodule Cforum.Forums.Threads do
       ** (Ecto.NoResultsError)
 
   """
-  def get_thread_by_slug!(user, slug, opts) do
+  def get_thread_by_slug!(user, slug, opts \\ []) do
     opts =
       Keyword.merge(
         [

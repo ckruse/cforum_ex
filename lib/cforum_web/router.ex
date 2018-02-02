@@ -100,6 +100,8 @@ defmodule CforumWeb.Router do
       get("/:year/:month/:day/:slug/:mid", MessageController, :show, as: nil)
       get("/:year/:month/:day/:slug/:mid/new", MessageController, :new, as: nil)
       post("/:year/:month/:day/:slug/:mid/new", MessageController, :create, as: nil)
+
+      post("/:year/:month/:day/:slug/mark-read", Messages.MarkReadController, :mark_read, as: nil)
     end
   end
 
