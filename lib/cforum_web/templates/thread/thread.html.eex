@@ -6,7 +6,7 @@
   <%# TODO html << '<i class="has-interesting-icon" title="' + t('threads.has_interesting') + '"> </i>' if thread.attribs[:has_interesting] %>
 
 
-  <%= if !blank?(@thread.tree.messages) do %><%# TODO and thread.attribs['open_state'] != 'closed' %>
+  <%= if !blank?(@thread.tree.messages) and @thread.attribs[:open_state] != "closed" do %>
     <%= CforumWeb.MessageView.message_tree(@conn, @thread, @thread.tree, @thread.tree.messages) %>
   <% end %>
 </article>

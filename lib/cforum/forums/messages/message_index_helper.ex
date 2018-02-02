@@ -6,6 +6,7 @@ defmodule Cforum.Forums.Messages.IndexHelper do
   alias Cforum.Forums.ReadMessage
   alias Cforum.Forums.InterestingMessage
   alias Cforum.Forums.Subscription
+  alias Cforum.Forums.OpenCloseState
 
   import Ecto.Query
 
@@ -51,10 +52,49 @@ defmodule Cforum.Forums.Messages.IndexHelper do
     |> Enum.reduce(%{}, fn x, acc -> Map.put(acc, x.message_id, true) end)
   end
 
-  defp set_message_flags(read_messages, interesting_messages, subscribed_messages, threads, new_threads \\ [])
-  defp set_message_flags(_, _, _, [], new_threads), do: new_threads
+  defp get_open_close_state(tids, user) do
+    from(
+      oc_state in OpenCloseState,
+      where: oc_state.user_id == ^user.user_id and oc_state.thread_id in ^tids,
+      order_by: oc_state.thread_id
+    )
+    |> Repo.all()
+    |> Enum.reduce(%{}, fn x, acc -> Map.put(acc, x.thread_id, x.state) end)
+  end
 
-  defp set_message_flags(read_messages, interesting_messages, subscribed_messages, [thread | threads], new_threads) do
+  defp open_state(_messages, "open", _), do: "open"
+  defp open_state(_messages, "closed", _), do: "closed"
+
+  defp open_state(messages, _, opts) do
+    if opts[:close_read_threads] do
+      has_unread = Enum.find(messages, &(&1.attribs[:is_read] != true)) != nil
+      if has_unread, do: "open", else: "closed"
+    else
+      opts[:open_close_default_state]
+    end
+  end
+
+  defp set_message_flags(
+         oc_state,
+         read_messages,
+         interesting_messages,
+         subscribed_messages,
+         threads,
+         opts,
+         new_threads \\ []
+       )
+
+  defp set_message_flags(_, _, _, _, [], _, new_threads), do: new_threads
+
+  defp set_message_flags(
+         oc_state,
+         read_messages,
+         interesting_messages,
+         subscribed_messages,
+         [thread | threads],
+         opts,
+         new_threads
+       ) do
     messages =
       Enum.map(thread.messages, fn msg ->
         classes =
@@ -73,24 +113,31 @@ defmodule Cforum.Forums.Messages.IndexHelper do
         %Message{msg | attribs: new_attribs}
       end)
 
+    new_attribs =
+      thread.attribs
+      |> Map.put(:open_state, open_state(messages, oc_state[thread.thread_id], opts))
+
     set_message_flags(
+      oc_state,
       read_messages,
       interesting_messages,
       subscribed_messages,
       threads,
-      new_threads ++ [%Thread{thread | messages: messages}]
+      opts,
+      new_threads ++ [%Thread{thread | messages: messages, attribs: new_attribs}]
     )
   end
 
-  def set_user_attributes(threads, nil), do: threads
+  def set_user_attributes(threads, nil, _), do: threads
 
-  def set_user_attributes(threads, user) do
+  def set_user_attributes(threads, user, opts) do
     tids = Enum.map(threads, & &1.thread_id)
 
     read_messages = get_read_messages(tids, user)
     subscribed_messages = get_subcribed_messages(tids, user)
     interesting_messages = get_interesting_messages(tids, user)
+    oc_state = get_open_close_state(tids, user)
 
-    set_message_flags(read_messages, interesting_messages, subscribed_messages, threads)
+    set_message_flags(oc_state, read_messages, interesting_messages, subscribed_messages, threads, opts)
   end
 end
