@@ -58,21 +58,25 @@ defmodule CforumWeb.Views.Helpers.Button do
   Generates a button that uses a regular HTML form to submit to the given URL.
   Useful to ensure that links that change data are not triggered by
   search engines and other spidering software.
+
   ## Examples
-  button("hello", to: "/world")
-  #=> <form action="/world" class="button" method="post">
-  <input name="_csrf_token" value="">
-  <button type="submit">hello</button>
-  </form>
-  button("hello", to: "/world", method: "get", class: "btn")
-  #=> <form action="/world" class="btn" method="get">
-  <button type="submit">hello</button>
-  </form>
+      button("hello", to: "/world")
+      #=> <form action="/world" class="button" method="post">
+        <input name="_csrf_token" value="">
+        <button type="submit">hello</button>
+      </form>
+    
+      button("hello", to: "/world", method: "get", class: "btn")
+      #=> <form action="/world" class="btn" method="get">
+        <button type="submit">hello</button>
+      </form>
+
   ## Options
+
   * `:to` - the page to link to. This option is required
   * `:method` - the method to use with the button. Defaults to :post.
-  * `:form` - the options for the form. Defaults to
-  `[class: "button", enforce_utf8: false]`
+  * `:form` - the options for the form. Defaults to `[class: "button", enforce_utf8: false]`
+
   All other options are forwarded to the underlying button input.
   """
   def cf_button(opts, do: contents) do
