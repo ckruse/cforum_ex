@@ -21,8 +21,21 @@ defmodule Cforum.Abilities do
     cuser != nil && uid == cuser.user_id
   end
 
+  def may?(conn, "messages/mark_read", _, _), do: signed_in?(conn)
+  def may?(conn, "threads/invisible", _, _), do: signed_in?(conn)
+
   def may?(_conn, path, action, _) do
     Logger.debug(fn -> "--- CAUTION: no ability defined for path #{path} and action #{action}" end)
     false
   end
+
+  @doc """
+  Returns true if a user is signed in, returns false otherwise
+
+  ## Examples
+
+      iex> signed_in?(conn)
+      true
+  """
+  def signed_in?(conn), do: conn.assigns[:current_user] != nil
 end
