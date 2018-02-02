@@ -19,6 +19,8 @@ defmodule Cforum.Forums.Messages do
 
   alias Cforum.Forums.Threads
 
+  alias Cforum.Forums.ReadMessage
+
   @doc """
   Returns a list of messages for a user, limited to the forums specified in `forum_ids`
 
@@ -513,6 +515,30 @@ defmodule Cforum.Forums.Messages do
 
       _ ->
         content
+    end
+  end
+
+  @doc """
+  Marks a single message or list of messages as read
+
+  ## Parameters
+
+  user: the current user
+  message: the message to mark read, **or**
+  messages: the list of messages to mark read
+
+  ## Examples
+
+      iex> mark_messages_read(%User{}, %Message{})
+  """
+  def mark_messages_read(nil, _), do: nil
+  def mark_messages_read(user, message) when not is_list(message), do: mark_messages_read(user, [message])
+
+  def mark_messages_read(user, messages) do
+    for msg <- messages do
+      %ReadMessage{}
+      |> ReadMessage.changeset(%{message_id: msg.message_id, user_id: user.user_id})
+      |> Repo.insert()
     end
   end
 end

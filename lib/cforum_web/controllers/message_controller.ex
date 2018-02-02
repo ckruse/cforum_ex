@@ -15,6 +15,10 @@ defmodule CforumWeb.MessageController do
       |> parse_readmode(params)
       |> validate_readmode
 
+    if read_mode == "nested",
+      do: Messages.mark_messages_read(conn.assigns[:current_user], thread.messages),
+      else: Messages.mark_messages_read(conn.assigns[:current_user], message)
+
     conn
     |> maybe_put_readmode(params, read_mode)
     |> render("show-#{read_mode}.html", thread: thread, message: message, read_mode: read_mode)

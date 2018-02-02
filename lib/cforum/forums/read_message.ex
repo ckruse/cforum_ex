@@ -16,5 +16,6 @@ defmodule Cforum.Forums.ReadMessage do
     struct
     |> cast(params, [:user_id, :message_id])
     |> validate_required([:user_id, :message_id])
+    |> unique_constraint(:user_id, name: :read_messages_message_id_user_id_idx)
   end
 end
