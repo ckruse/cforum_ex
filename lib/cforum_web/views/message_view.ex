@@ -44,11 +44,7 @@ defmodule CforumWeb.MessageView do
         [
           {:safe, "<li>"}
           | [
-              render(
-                CforumWeb.MessageView,
-                "header.html",
-                Keyword.merge([conn: conn, thread: thread, parent: parent, message: msg], opts)
-              )
+              header(conn, thread, msg, Keyword.merge([parent: parent], opts))
               | [subtree | {:safe, "</li>"}]
             ]
         ]
@@ -134,5 +130,25 @@ defmodule CforumWeb.MessageView do
 
   def message_id(msg, opts) do
     if opts[:noid], do: "", else: {:safe, "id=\"#{opts[:id_prefix]}m#{msg.message_id}\""}
+  end
+
+  def header(conn, thread, message, opts \\ []) do
+    opts =
+      Keyword.merge(
+        [
+          noid: false,
+          id_prefix: nil,
+          show_icons: false,
+          hide_repeating_subjects: true,
+          hide_repeating_tags: true,
+          author_link_to_message: true,
+          tree: true,
+          tags: true,
+          show_votes: false
+        ],
+        opts
+      )
+
+    render("header.html", conn: conn, thread: thread, message: message, opts: opts)
   end
 end

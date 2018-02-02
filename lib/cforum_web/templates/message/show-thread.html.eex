@@ -11,16 +11,7 @@
 
 <div class="cf-thread-list">
   <article class="cf-thread posting <%= CforumWeb.ThreadView.thread_classes(@thread) %>">
-    <%= render(
-          CforumWeb.MessageView,
-          "header.html",
-          conn: @conn,
-          thread: @thread,
-          message: @thread.tree,
-          first: true,
-          show_icons: true,
-          id_prefix: "tree-"
-        ) %>
+    <%= CforumWeb.MessageView.header(@conn, @thread, @thread.tree, first: true, show_icons: true, id_prefix: "tree-") %>
 
     <%= unless blank?(@thread.tree.messages) do %>
       <%= CforumWeb.MessageView.message_tree(

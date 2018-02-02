@@ -5,15 +5,7 @@
 
 <div class="cf-thread-list">
   <article class="cf-thread posting tree <%= CforumWeb.ThreadView.thread_classes(@thread) %>">
-    <%= render(
-          "header.html",
-          conn: @conn,
-          thread: @thread,
-          message: @thread.tree,
-          first: true,
-          show_icons: true,
-          id_prefix: "tree-"
-        ) %>
+    <%= header(@conn, @thread, @thread.tree, first: true, show_icons: true, id_prefix: "tree-") %>
 
     <%= unless blank?(@thread.message.messages) do %>
       <%= message_tree(

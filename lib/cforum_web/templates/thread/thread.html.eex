@@ -1,5 +1,5 @@
 <article class="cf-thread threadlist <%= thread_classes(@thread) %>" id="<%= @thread.thread_id %>">
-  <%= render CforumWeb.MessageView, "header.html", conn: @conn, thread: @thread, message: @thread.tree, first: true, show_icons: true %>
+  <%= CforumWeb.MessageView.header(@conn, @thread, @thread.tree, first: true, show_icons: true) %>
 
   <%= if @thread.flags["no-archive"] == "yes" do %><i class="no-archive-icon" title="<%= gettext("no archive") %>"> </i><% end %>
   <%= if @thread.sticky do %><i class="sticky-icon" title="<%= gettext("this thread is sticky") %>"> </i><% end %>
