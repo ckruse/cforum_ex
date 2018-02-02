@@ -1,26 +1,18 @@
-<%
-opts = Map.merge(%{noid: false, id_prefix: nil, show_icons: false,
-                   hide_repeating_subjects: true, hide_repeating_tags: true,
-                   author_link_to_message: true, tree: true, tags: true,
-                   show_votes: false}, assigns)
-
-assigns = Map.put(assigns, :opts, opts)
-%>
-<header class="cf-message-header <%= header_classes(@thread, @message, assigns) %>" <%= message_id(@message, opts) %>>
+<header class="cf-message-header <%= header_classes(@thread, @message, assigns) %>" <%= message_id(@message, @opts) %>>
   <%= if !@conn.assigns[:view_all] && Message.no_answer?(@message) do %>
     <span class="icon-message no-answer user" title="<% gettext("Message closed, answering not allowed") %>"> </span>
   <% end %>
 
-  <%= if opts[:first] && !@conn.assigns[:current_forum] do %>
+  <%= if @opts[:first] && !@conn.assigns[:current_forum] do %>
     <%= link @thread.forum.short_name, to: forum_path(@conn, :index, @thread.forum), class: "cf-thread-forum-plate" %>
   <% end %>
 
-  <%= if opts[:show_icons] do %>
+  <%= if @opts[:show_icons] do %>
     <span class="votes" title="<%= ngettext("Score: no score", "Score: %{score}", Message.no_votes(@message), score: Message.score_str(@message)) %>">
       <%= Message.score(@message) %>
     </span>
 
-    <%= if opts[:first], do: render "num_infos.html", assigns %>
+    <%= if @opts[:first], do: render "num_infos.html", assigns %>
   <% end %>
 
   <%= render "subject.html", assigns %>
