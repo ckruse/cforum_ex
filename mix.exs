@@ -8,7 +8,6 @@ defmodule Cforum.Mixfile do
       elixir: "~> 1.2",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
-      build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: Coverex.Task, ignore_modules: ignored_modules()],
       aliases: aliases(),
@@ -20,7 +19,7 @@ defmodule Cforum.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {Cforum, []}, extra_applications: [:logger, :runtime_tools]]
+    [mod: {Cforum.Application, []}, extra_applications: [:logger, :runtime_tools]]
   end
 
   # Specifies which paths to compile per environment.

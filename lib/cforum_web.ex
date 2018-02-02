@@ -19,11 +19,12 @@ defmodule CforumWeb do
   def model do
     quote do
       use Ecto.Schema
-      use Timex.Ecto.Timestamps
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
+
+      @timestamps_opts [type: Timex.Ecto.DateTime, autogenerate: {Timex.Ecto.DateTime, :autogenerate, []}]
     end
   end
 
