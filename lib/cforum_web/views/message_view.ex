@@ -151,4 +151,26 @@ defmodule CforumWeb.MessageView do
 
     render("header.html", conn: conn, thread: thread, message: message, opts: opts)
   end
+
+  def std_args(conn, args \\ %{}) do
+    local_args =
+      %{
+        p: conn.params["p"],
+        page: conn.params["page"],
+        r: controller_path(conn),
+        f: forum_slug(conn.assigns[:current_forum])
+      }
+      |> Enum.filter(fn {_k, v} -> !blank?(v) end)
+      |> Enum.into(%{})
+
+    Map.merge(local_args, args)
+  end
+
+  def std_args_as_hidden_inputs(conn, args \\ %{}) do
+    conn
+    |> std_args(args)
+    |> Enum.map(fn {k, v} ->
+      [{:safe, "<input type=\"hidden\" name=\""}, to_string(k), {:safe, "\" value=\""}, v, {:safe, "\">"}]
+    end)
+  end
 end

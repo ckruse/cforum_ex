@@ -99,34 +99,31 @@ defmodule Cforum.ConfigManager do
   def defaults, do: @defaults
 
   defp get_val(nil, _), do: nil
-  defp get_val(conf, nam), do: conf.options[nam]
+
+  defp get_val(conf, nam) do
+    v = conf.options[nam]
+    if v == "", do: nil, else: v
+  end
 
   def get(conn, name, user \\ nil, forum \\ nil)
 
-  def get(conn, name, user, forum) when user == nil and forum == nil do
-    get_val(conn.assigns[:global_config], name) || @defaults[name]
-  end
+  def get(conn, name, user, forum) when user == nil and forum == nil,
+    do: get_val(conn.assigns[:global_config], name) || @defaults[name]
 
-  def get(conn, name, user, forum) when user == nil and forum != nil do
-    get_val(conn.assigns[:forum_config], name) || get(conn, name)
-  end
+  def get(conn, name, user, forum) when user == nil and forum != nil,
+    do: get_val(conn.assigns[:forum_config], name) || get(conn, name)
 
-  def get(conn, name, user, forum) when forum == nil and user != nil do
-    get_val(conn.assigns[:user_config], name) || get(conn, name)
-  end
+  def get(conn, name, user, forum) when forum == nil and user != nil,
+    do: get_val(conn.assigns[:user_config], name) || get(conn, name)
 
-  def get(conn, name, _, _) do
-    get_val(conn.assigns[:user_config], name) || get_val(conn.assigns[:forum_config], name) || get(conn, name)
-  end
+  def get(conn, name, _, _),
+    do: get_val(conn.assigns[:user_config], name) || get_val(conn.assigns[:forum_config], name) || get(conn, name)
 
   def uconf(conn, name, type \\ :none)
   def uconf(conn, name, :int), do: to_int(uconf(conn, name))
 
-  def uconf(conn, name, _) do
-    get(conn, name, conn.assigns[:current_user], conn.assigns[:current_forum]) || @defaults[name]
-  end
+  def uconf(conn, name, _),
+    do: get(conn, name, conn.assigns[:current_user], conn.assigns[:current_forum]) || @defaults[name]
 
-  def conf(conn, name) do
-    get(conn, name, nil, conn.assigns[:current_forum]) || @defaults[name]
-  end
+  def conf(conn, name), do: get(conn, name, nil, conn.assigns[:current_forum]) || @defaults[name]
 end

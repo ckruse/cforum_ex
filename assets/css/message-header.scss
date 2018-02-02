@@ -103,6 +103,41 @@
   h2 a {
     font-weight: bold;
   }
+
+  .thread-icons {
+    display: inline;
+    float: right;
+
+    .thread-button {
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background-color: transparent;
+    }
+
+    .thread-button {
+      color: $link_color;
+      fill: $link_color;
+    }
+
+    .thread-button:hover,
+    .thread-button:active,
+    .thread-button:focus {
+      color: $active_link_color;
+      fill: $active_link_color;
+    }
+
+    .thread-button:visited,
+    .thread-button svg:visited {
+      color: $visited_link_color;
+      fill: $visited_link_color;
+    }
+  }
+
+  &.visited .thread-icons .thread-button {
+    color: $visited_link_color;
+    fill: $visited_link_color;
+  }
 }
 
 .cf-thread-message .cf-message-header {

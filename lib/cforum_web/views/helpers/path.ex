@@ -7,9 +7,11 @@ defmodule CforumWeb.Views.Helpers.Path do
 
   import CforumWeb.Router.Helpers
 
-  def forum_slug(nil), do: "all"
-  def forum_slug(%Forum{} = forum), do: forum.slug
-  def forum_slug(slug), do: slug
+  def forum_slug(forum, with_all \\ true)
+  def forum_slug(nil, true), do: "all"
+  def forum_slug(nil, _), do: nil
+  def forum_slug(%Forum{} = forum, _), do: forum.slug
+  def forum_slug(slug, _), do: slug
 
   def forum_path(conn, :index, slug, params \\ []),
     do: "#{root_path(conn, :index)}#{forum_slug(slug)}#{encode_query_string(params)}"
@@ -80,4 +82,7 @@ defmodule CforumWeb.Views.Helpers.Path do
 
   def message_path(conn, :new, %Thread{} = thread, %Message{} = msg, params),
     do: "#{int_message_path(conn, thread, msg)}/new#{encode_query_string(params)}"
+
+  def mark_read_path(conn, :mark_read, %Thread{} = thread, params \\ []),
+    do: "#{thread_path(conn, :show, thread)}/mark-read#{encode_query_string(params)}"
 end

@@ -98,6 +98,10 @@ button:active {
   border: 0;
 }
 
+#svg-check-mark-preload {
+  display: none;
+}
+
 @import "header";
 @import "main";
 @import "footer";

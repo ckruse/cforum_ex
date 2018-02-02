@@ -21,13 +21,7 @@ defmodule CforumWeb.Plug.AuthorizeAccess do
   def init(opts), do: opts
 
   def call(conn, opts) do
-    path =
-      Phoenix.Controller.controller_module(conn)
-      |> Atom.to_string()
-      |> String.replace(~r{^Elixir\.CforumWeb\.}, "")
-      |> String.replace(~r{Controller$}, "")
-      |> Macro.underscore()
-
+    path = Cforum.Helpers.controller_path(conn)
     action = Phoenix.Controller.action_name(conn)
 
     if action_valid?(conn, path, action, opts) do
