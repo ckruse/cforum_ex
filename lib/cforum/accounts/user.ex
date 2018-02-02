@@ -57,22 +57,22 @@ defmodule Cforum.Accounts.User do
   def changeset(%User{} = struct, params \\ %{}) do
     struct
     |> cast(params, [
-         :username,
-         :email,
-         :unconfirmed_email,
-         :admin,
-         :active,
-         :remember_created_at,
-         :reset_password_token,
-         :confirmation_token,
-         :confirmed_at,
-         :confirmation_sent_at,
-         :last_sign_in_at,
-         :current_sign_in_at,
-         :avatar_file_name,
-         :avatar_content_type,
-         :avatar_updated_at
-       ])
+      :username,
+      :email,
+      :unconfirmed_email,
+      :admin,
+      :active,
+      :remember_created_at,
+      :reset_password_token,
+      :confirmation_token,
+      :confirmed_at,
+      :confirmation_sent_at,
+      :last_sign_in_at,
+      :current_sign_in_at,
+      :avatar_file_name,
+      :avatar_content_type,
+      :avatar_updated_at
+    ])
     |> validate_required([:username, :email, :admin, :active])
     |> unique_constraint(:username)
     |> unique_constraint(:email)

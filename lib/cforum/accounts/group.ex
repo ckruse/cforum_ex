@@ -1,6 +1,6 @@
 defmodule Cforum.Accounts.Group do
-  use Ecto.Schema
-  import Ecto.Changeset
+  use CforumWeb, :model
+
   alias Cforum.Accounts.Group
 
   @primary_key {:group_id, :id, autogenerate: true}

@@ -1,6 +1,5 @@
 defmodule Cforum.Accounts.ForumGroupPermission do
-  use Ecto.Schema
-  import Ecto.Changeset
+  use CforumWeb, :model
   alias Cforum.Accounts.ForumGroupPermission
 
   @primary_key {:forum_group_permission_id, :id, autogenerate: true}

@@ -2,7 +2,7 @@ defmodule Cforum.Forums.Threads.Helper do
   alias Cforum.Repo
   alias Cforum.Forums.Thread
   alias Cforum.Forums.Message
-  alias Cforum.Accounts.User
+  # alias Cforum.Accounts.User
 
   import Cforum.Forums.Threads.TreeHelper
   import Cforum.Forums.Messages.IndexHelper
