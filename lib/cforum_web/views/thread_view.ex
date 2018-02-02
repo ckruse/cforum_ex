@@ -27,6 +27,6 @@ defmodule CforumWeb.ThreadView do
     gettext("overview") <> " — " <> title
   end
 
-  def body_id(:index, assigns), do: "threads-index"
+  def body_id(:index, _assigns), do: "threads-index"
   def body_classes(:index, assigns), do: "threads forum-#{forum_slug(assigns[:current_forum])}"
 end

@@ -12,14 +12,14 @@ defmodule Cforum.Forums.Threads.TreeHelper do
   def sort_thread(direction, modifier, thread, nil), do: gen_thread_tree(modifier, thread, direction)
 
   def sort_thread(direction, _modifier, _thread, message) do
-    messages =
-      case direction do
-        "ascending" ->
-          Enum.sort(message.messages, &(&1.created_at <= &2.created_at))
+    # messages =
+    case direction do
+      "ascending" ->
+        Enum.sort(message.messages, &(&1.created_at <= &2.created_at))
 
-        _ ->
-          Enum.sort(message.messages, &(&1.created_at <= &2.created_at))
-      end
+      _ ->
+        Enum.sort(message.messages, &(&1.created_at <= &2.created_at))
+    end
 
     # TODO!
   end
@@ -56,9 +56,9 @@ defmodule Cforum.Forums.Threads.TreeHelper do
       thread.sorted_messages
       |> Enum.reverse()
       |> Enum.reduce(%{}, fn msg, map ->
-           msg = %Message{msg | messages: Map.get(map, msg.message_id, [])}
-           Map.update(map, msg.parent_id, [msg], fn msgs -> [msg | msgs] end)
-         end)
+        msg = %Message{msg | messages: Map.get(map, msg.message_id, [])}
+        Map.update(map, msg.parent_id, [msg], fn msgs -> [msg | msgs] end)
+      end)
       |> Map.get(nil)
       |> hd
 

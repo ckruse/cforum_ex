@@ -10,7 +10,7 @@ defmodule Cforum.MarkdownRenderer do
   # alias Porcelain.Result
 
   alias Cforum.Forums.Message
-  alias Cforum.Accounts.User
+  # alias Cforum.Accounts.User
 
   def start_link(opts \\ []) do
     GenServer.start_link(__MODULE__, [], opts)

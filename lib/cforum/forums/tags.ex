@@ -7,7 +7,7 @@ defmodule Cforum.Forums.Tags do
   alias Cforum.Repo
 
   alias Cforum.Forums.Tag
-  alias Cforum.Forums.TagSynonym
+  # alias Cforum.Forums.TagSynonym
 
   @doc """
   Returns the list of tags.

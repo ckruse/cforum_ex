@@ -326,13 +326,13 @@ defmodule Cforum.Accounts.Users do
   def unique_badges(user) do
     user.badges_users
     |> Enum.reduce(%{}, fn bu, acc ->
-         Map.update(
-           acc,
-           bu.badge_id,
-           %{badge: bu.badge, created_at: bu.created_at, times: 1},
-           &%{&1 | times: &1.times + 1}
-         )
-       end)
+      Map.update(
+        acc,
+        bu.badge_id,
+        %{badge: bu.badge, created_at: bu.created_at, times: 1},
+        &%{&1 | times: &1.times + 1}
+      )
+    end)
     |> Map.values()
     |> Enum.sort(&(&1[:times] >= &2[:times]))
   end
