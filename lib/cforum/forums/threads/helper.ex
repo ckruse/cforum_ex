@@ -89,11 +89,7 @@ defmodule Cforum.Forums.Threads.Helper do
         true ->
           from(
             thread in Thread,
-            where: thread.archived == false and thread.sticky == true,
-            inner_join: m in Message,
-            on: m.thread_id == thread.thread_id,
-            left_join: u in User,
-            on: u.user_id == m.user_id
+            where: thread.archived == false and thread.sticky == true
           )
           |> set_forum_id(forum, visible_forums)
           |> set_view_all(opts[:view_all])
