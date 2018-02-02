@@ -34,7 +34,9 @@ defmodule Cforum.Forums.Threads do
           hide_read_threads: false,
           only_wo_answer: false,
           thread_modifier: nil,
-          use_paging: true
+          use_paging: true,
+          close_read_threads: false,
+          open_close_default_state: "open"
         ],
         opts
       )

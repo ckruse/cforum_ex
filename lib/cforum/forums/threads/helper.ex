@@ -116,7 +116,7 @@ defmodule Cforum.Forums.Threads.Helper do
     |> set_ordering(order)
     |> Repo.all()
     |> Repo.preload(messages: {preload_messages(opts[:view_all]) |> order_messages(), Message.default_preloads()})
-    |> set_user_attributes(user)
+    |> set_user_attributes(user, opts)
     |> sort_threads(opts[:message_order], opts[:thread_modifier])
   end
 
@@ -154,7 +154,7 @@ defmodule Cforum.Forums.Threads.Helper do
       |> set_ordering(order)
       |> Repo.all()
       |> Repo.preload(messages: {preload_messages(opts[:view_all]) |> order_messages(), Message.default_preloads()})
-      |> set_user_attributes(user)
+      |> set_user_attributes(user, opts)
       |> sort_threads(opts[:message_order], opts[:thread_modifier])
 
     {all_threads_count, threads}

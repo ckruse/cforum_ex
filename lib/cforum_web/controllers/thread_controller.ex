@@ -22,7 +22,9 @@ defmodule CforumWeb.ThreadController do
         hide_read_threads: hide_read_threads?(conn),
         only_wo_answer: conn.params["only_wo_answer"] != nil,
         message_order: uconf(conn, "sort_messages"),
-        use_paging: uconf(conn, "page_messages") == "yes"
+        use_paging: uconf(conn, "page_messages") == "yes",
+        close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
+        open_close_default_state: uconf(conn, "open_close_default")
       )
 
     p = paginate(all_threads_count, per_page: limit, page: page + 1)
