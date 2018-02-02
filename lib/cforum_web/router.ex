@@ -102,6 +102,7 @@ defmodule CforumWeb.Router do
       post("/:year/:month/:day/:slug/:mid/new", MessageController, :create, as: nil)
 
       post("/:year/:month/:day/:slug/mark-read", Messages.MarkReadController, :mark_read, as: nil)
+      post("/:year/:month/:day/:slug/hide", Threads.InvisibleController, :hide, as: nil)
     end
   end
 

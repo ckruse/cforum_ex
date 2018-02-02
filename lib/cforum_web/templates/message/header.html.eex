@@ -28,6 +28,12 @@
 
   <%= if @opts[:first] && @opts[:show_icons] do %>
     <div class="thread-icons">
+      <%= cf_button(to: hide_thread_path(@conn, :hide, @thread), class: "hide thread-button") do %>
+        <%= std_args_as_hidden_inputs(@conn) %>
+        <span class="visually-hidden"><%= gettext("mark thread read") %></span>
+        <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#svg-remove"></use></svg>
+      <% end %>
+
       <%= cf_button(to: mark_read_path(@conn, :mark_read, @thread), class: "mark-read thread-button") do %>
         <%= std_args_as_hidden_inputs(@conn) %>
         <span class="visually-hidden"><%= gettext("mark thread read") %></span>

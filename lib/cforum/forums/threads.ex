@@ -8,7 +8,7 @@ defmodule Cforum.Forums.Threads do
 
   alias Cforum.Repo
 
-  alias Cforum.Forums.Thread
+  alias Cforum.Forums.{Thread, InvisibleThread}
   alias Cforum.Forums.Messages
 
   @doc """
@@ -291,4 +291,10 @@ defmodule Cforum.Forums.Threads do
   """
   def slug_from_params(%{"year" => year, "month" => month, "day" => day, "slug" => slug}),
     do: "/#{year}/#{month}/#{day}/#{slug}"
+
+  def hide_thread(user, thread) do
+    %InvisibleThread{}
+    |> InvisibleThread.changeset(%{thread_id: thread.thread_id, user_id: user.user_id})
+    |> Repo.insert()
+  end
 end

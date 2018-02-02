@@ -11,18 +11,6 @@ defmodule CforumWeb.Views.Helpers do
   alias Cforum.ConfigManager
 
   @doc """
-  Returns true if a user is signed in, returns false otherwise
-
-  ## Examples
-
-      iex> signed_in?(conn)
-      true
-  """
-  def signed_in?(conn) do
-    conn.assigns[:current_user] != nil
-  end
-
-  @doc """
   This function formats a date by a format name. It looks up the format itself
   using `Cforum.ConfigManager.uconf`. `name` parameter defaults to `"date_format_default"`.
 
