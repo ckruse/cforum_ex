@@ -23,6 +23,7 @@ defmodule Cforum.Abilities do
 
   def may?(conn, "messages/mark_read", _, _), do: signed_in?(conn)
   def may?(conn, "threads/invisible", _, _), do: signed_in?(conn)
+  def may?(conn, "threads/open_close", _, _), do: signed_in?(conn)
 
   def may?(_conn, path, action, _) do
     Logger.debug(fn -> "--- CAUTION: no ability defined for path #{path} and action #{action}" end)
