@@ -88,4 +88,10 @@ defmodule CforumWeb.Views.Helpers.Path do
 
   def hide_thread_path(conn, :hide, %Thread{} = thread, params \\ []),
     do: "#{thread_path(conn, :show, thread)}/hide#{encode_query_string(params)}"
+
+  def open_thread_path(conn, %Thread{} = thread, params \\ []),
+    do: "#{thread_path(conn, :show, thread)}/open#{encode_query_string(params)}"
+
+  def close_thread_path(conn, %Thread{} = thread, params \\ []),
+    do: "#{thread_path(conn, :show, thread)}/close#{encode_query_string(params)}"
 end

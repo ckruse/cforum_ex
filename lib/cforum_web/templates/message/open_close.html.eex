@@ -1,0 +1,13 @@
+<%= if @thread.attribs[:open_state] == "open" do %>
+  <%= cf_button(to: close_thread_path(@conn, @thread), class: "open thread-button") do %>
+    <%= std_args_as_hidden_inputs(@conn) %>
+    <span class="visually-hidden"><%= gettext("open thread") %></span>
+    <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#svg-folder-open"></use></svg>
+  <% end %>
+<% else %>
+  <%= cf_button(to: open_thread_path(@conn, @thread), class: "close thread-button") do %>
+    <%= std_args_as_hidden_inputs(@conn) %>
+    <span class="visually-hidden"><%= gettext("close thread") %></span>
+    <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#svg-folder-closed"></use></svg>
+  <% end %>
+<% end %>

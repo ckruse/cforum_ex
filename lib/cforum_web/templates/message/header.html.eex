@@ -28,6 +28,8 @@
 
   <%= if @opts[:first] && @opts[:show_icons] do %>
     <div class="thread-icons">
+      <%= render "open_close.html", assigns %>
+
       <%= cf_button(to: hide_thread_path(@conn, :hide, @thread), class: "hide thread-button") do %>
         <%= std_args_as_hidden_inputs(@conn) %>
         <span class="visually-hidden"><%= gettext("mark thread read") %></span>

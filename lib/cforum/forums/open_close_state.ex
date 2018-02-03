@@ -15,7 +15,9 @@ defmodule Cforum.Forums.OpenCloseState do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:user_id, :message_id, :state])
-    |> validate_required([:user_id, :message_id, :state])
+    |> cast(params, [:user_id, :thread_id, :state])
+    |> validate_required([:user_id, :thread_id, :state])
+    |> validate_inclusion(:state, ~w[open closed])
+    |> unique_constraint(:thread_id, name: :opened_closed_threads_thread_id_user_id_idx)
   end
 end
