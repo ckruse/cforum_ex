@@ -15,6 +15,12 @@
     color: $link_color;
   }
 
+  a:hover,
+  a:focus,
+  a:active {
+    color: $active_link_color;
+  }
+
   img {
     margin-right: 0.2em;
   }
