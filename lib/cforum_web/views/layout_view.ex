@@ -116,4 +116,18 @@ defmodule CforumWeb.LayoutView do
       do: "",
       else: [{:safe, "<script src=\""}, js, {:safe, "\"></script>"}]
   end
+
+  def css_ressource(conn) do
+    css = uconf(conn, "css_ressource")
+
+    if blank?(css) do
+      ""
+    else
+      [
+        {:safe, "<link href=\""},
+        css,
+        {:safe, "\" rel=\"stylesheet\" media=\"all\" title=\"SELFHTML Forum Stylesheet\">"}
+      ]
+    end
+  end
 end
