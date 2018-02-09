@@ -1,0 +1,22 @@
+    <link rel="author" href="/humans.txt">
+    <link rel="shortcut icon" href="//src.selfhtml.org/favicon2.ico" type="image/x-icon" title="<%= gettext("icon") %>">
+    <link rel="apple-touch-icon" href="//src.selfhtml.org/logo/s-Logo_60.png">
+    <link rel="apple-touch-icon-precomposed" href="//src.selfhtml.org/logo/s-Logo_144_r.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="//src.selfhtml.org/logo/s-Logo_76.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="//src.selfhtml.org/logo/s-Logo_120.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="//src.selfhtml.org/logo/s-Logo_152.png">
+
+    <link rel="help" href="<%= page_path(@conn, :help) %>" title="<%= gettext("Help") %>">
+    <!--link rel="search" href="<%# search_url %>" title="<%# gettext("SELFHTML Search") %>" -->
+    <%= if assigns[:link_tags], do: @link_tags %>
+
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>" media="all" title="SELFHTML Forum Stylesheet">
+
+    <%= if @current_forum do %>
+      <link rel="alternate" title="<%= gettext("Atom feed (%{forum})", forum: @current_forum.name) %>" type="application/atom+xml" href="<%= atom_url(@conn) %>">
+      <link rel="alternate" title="<%= gettext("RSS feed (%{forum})", forum: @current_forum.name) %>" type="application/rss+xml" href="<%= rss_url(@conn) %>">
+    <% else %>
+      <link rel="alternate" title="<%= gettext("Atom feed (%{forum})", forum: gettext("All forums")) %>" type="application/atom+xml" href="<%= atom_url(@conn) %>">
+      <link rel="alternate" title="<%= gettext("RSS feed (%{forum})", forum: gettext("All forums")) %>" type="application/rss+xml" href="<%= rss_url(@conn) %>">
+    <% end %>
+

@@ -26,7 +26,6 @@ defmodule Cforum.ConfigManager do
     "max_editable_age" => 10,
     "hide_subjects_unchanged" => "yes",
     "hide_repeating_tags" => "yes",
-    "css_styles" => nil,
     "max_threads" => 150,
     "max_messages_per_thread" => 50,
     "cites_min_age_to_archive" => 2,

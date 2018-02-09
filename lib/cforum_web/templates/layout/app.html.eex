@@ -1,54 +1,14 @@
 <!DOCTYPE html>
 <html lang="<%= Gettext.get_locale(CforumWeb.Gettext) %>">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-
-    <%= render_existing @view_module, "robots.html", assigns %>
-
-    <meta name="description" content="<%= if @current_forum && @current_forum.description, do: @current_forum.description, else: gettext("description_text") %>">
-    <meta name="keywords" content="<%= if @current_forum && @current_forum.keywords, do: @current_forum.keywords, else: gettext("keywords_text") %>">
-
-    <meta name="DC.Publisher" content="<%= gettext("publisher") %>">
-    <meta name="DC.Identifier" content="<%= controller_module(@conn) %>">
-    <meta name="DC.Language" content="<%= Gettext.get_locale(CforumWeb.Gettext) %>">
-
-    <meta name="application-name" content="SELFHTML | F">
-    <meta name="msapplication-TileImage" content="//src.selfhtml.org/logo/s-Logo_kachel_144.png">
-    <meta name="msapplication-TileColor" content="#3983ab">
-    <%= meta_refresh(@conn) %>
-
-    <link rel="author" href="/humans.txt">
-    <link rel="shortcut icon" href="//src.selfhtml.org/favicon2.ico" type="image/x-icon" title="<%= gettext("icon") %>">
-    <link rel="apple-touch-icon" href="//src.selfhtml.org/logo/s-Logo_60.png">
-    <link rel="apple-touch-icon-precomposed" href="//src.selfhtml.org/logo/s-Logo_144_r.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="//src.selfhtml.org/logo/s-Logo_76.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="//src.selfhtml.org/logo/s-Logo_120.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="//src.selfhtml.org/logo/s-Logo_152.png">
-
-    <link rel="help" href="<%= page_path(@conn, :help) %>" title="<%= gettext("Help") %>">
-    <!--link rel="search" href="<%# search_url %>" title="<%# gettext("SELFHTML Search") %>" -->
-    <%= if assigns[:link_tags], do: @link_tags %>
-
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>" media="all" title="SELFHTML Forum Stylesheet">
-
-    <%= if @current_forum do %>
-      <link rel="alternate" title="<%= gettext("Atom feed (%{forum})", forum: @current_forum.name) %>" type="application/atom+xml" href="<%= atom_url(@conn) %>">
-      <link rel="alternate" title="<%= gettext("RSS feed (%{forum})", forum: @current_forum.name) %>" type="application/rss+xml" href="<%= rss_url(@conn) %>">
-    <% else %>
-      <link rel="alternate" title="<%= gettext("Atom feed (%{forum})", forum: gettext("All forums")) %>" type="application/atom+xml" href="<%= atom_url(@conn) %>">
-      <link rel="alternate" title="<%= gettext("RSS feed (%{forum})", forum: gettext("All forums")) %>" type="application/rss+xml" href="<%= rss_url(@conn) %>">
-    <% end %>
-
-    <%= if assigns[:css_style] do %><link href="<%= @css_style %>" rel="stylesheet" media="all"><% end %>
+    <%= render "meta.html", assigns %>
+    <%= render "link.html", assigns %>
 
     <%= own_css_file(@conn) %>
     <%= own_css(@conn) %>
+    <%= css_ressource(@conn) %>
 
     <title><%= page_title(@conn, assigns) %></title>
-
-    <%= unless blank?(conf(@conn, "css_ressource")) do %><link rel="stylesheet" href="<%= conf(@conn, "css_ressource") %>" title="SELFHTML Forum Stylesheet"><% end %>
   </head>
 
   <body data-controller="<%= controller_module(@conn) %>" data-action="<%= action_name(@conn) %>"<%= body_classes(@conn, assigns) %><%= body_id(@conn, assigns) %>>

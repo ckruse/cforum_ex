@@ -1,0 +1,17 @@
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+
+    <%= render_existing @view_module, "robots.html", assigns %>
+
+    <meta name="description" content="<%= if @current_forum && @current_forum.description, do: @current_forum.description, else: gettext("description_text") %>">
+    <meta name="keywords" content="<%= if @current_forum && @current_forum.keywords, do: @current_forum.keywords, else: gettext("keywords_text") %>">
+
+    <meta name="DC.Publisher" content="<%= gettext("publisher") %>">
+    <meta name="DC.Identifier" content="<%= controller_module(@conn) %>">
+    <meta name="DC.Language" content="<%= Gettext.get_locale(CforumWeb.Gettext) %>">
+
+    <meta name="application-name" content="SELFHTML | F">
+    <meta name="msapplication-TileImage" content="//src.selfhtml.org/logo/s-Logo_kachel_144.png">
+    <meta name="msapplication-TileColor" content="#3983ab">
+    <%= meta_refresh(@conn) %>
