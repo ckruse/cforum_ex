@@ -71,7 +71,7 @@
           </ul>
         </nav>
 
-        <nav class="subnav">
+        <nav class="subnav cf-button-nav-list">
           <%= render_existing @view_module, "subnav.html", assigns %>
 
           <ul>
