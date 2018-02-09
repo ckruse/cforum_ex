@@ -1,0 +1,5 @@
+<div class="cf-thread-list">
+  <%= for thread <- @threads do %>
+    <%= render CforumWeb.ThreadView, "thread.html", conn: @conn, thread: thread, action: :list_invisible %>
+  <% end %>
+</div>

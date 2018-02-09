@@ -76,6 +76,28 @@ defmodule Cforum.Forums.Threads do
     {all_threads_count, sticky_threads ++ threads}
   end
 
+  def list_invisible_threads(forum, visible_forums, user, opts \\ []) do
+    opts =
+      Keyword.merge(
+        [
+          predicate: fn query ->
+            from(
+              thread in query,
+              where:
+                fragment(
+                  "EXISTS(SELECT thread_id FROM invisible_threads WHERE user_id = ? AND invisible_threads.thread_id = ?)",
+                  ^user.user_id,
+                  thread.thread_id
+                )
+            )
+          end
+        ],
+        opts
+      )
+
+    list_threads(forum, visible_forums, user, opts)
+  end
+
   @doc """
   Gets a single thread.
 
@@ -300,6 +322,14 @@ defmodule Cforum.Forums.Threads do
     %InvisibleThread{}
     |> InvisibleThread.changeset(%{thread_id: thread.thread_id, user_id: user.user_id})
     |> Repo.insert()
+  end
+
+  def unhide_thread(user, thread) do
+    invisible =
+      InvisibleThread
+      |> Repo.get_by(user_id: user.user_id, thread_id: thread.thread_id)
+
+    if invisible, do: Repo.delete(invisible), else: nil
   end
 
   def get_open_closed_state(user, thread),
