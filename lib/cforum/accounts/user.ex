@@ -73,6 +73,7 @@ defmodule Cforum.Accounts.User do
       :avatar_content_type,
       :avatar_updated_at
     ])
+    |> cast_assoc(:settings)
     |> validate_required([:username, :email, :admin, :active])
     |> unique_constraint(:username)
     |> unique_constraint(:email)
@@ -150,7 +151,8 @@ defmodule Cforum.Accounts.User do
   end
 
   def avatar_path(user, version) do
-    CforumWeb.Avatar.url({user.avatar_file_name, user}, version)
+    {user.avatar_file_name, user}
+    |> CforumWeb.Avatar.url(version)
     |> String.replace_leading("/priv", "")
   end
 end
