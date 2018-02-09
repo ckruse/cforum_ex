@@ -118,6 +118,7 @@
     .thread-button {
       color: $link_color;
       fill: $link_color;
+      cursor: pointer;
     }
 
     .thread-button:hover,
@@ -137,6 +138,13 @@
   &.visited .thread-icons .thread-button {
     color: $visited_link_color;
     fill: $visited_link_color;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $active_link_color;
+      fill: $active_link_color;
+    }
   }
 }
 
