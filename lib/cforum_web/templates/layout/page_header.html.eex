@@ -144,10 +144,10 @@
               <%# end %>
             <%# end %>
 
-            <%# if current_user && ((@threads && !controller_path.in?(%w(interesting_messages_plugin hidden_threads_plugin))) || controller_path.in?(%w(forums users))) %>
+            <%= if assigns[:current_user] do %>
             <!--li id="interesting-links"><%# cf_link_to t('plugins.interesting_messages.interesting_messages'), interesting_messages_path %></li> -->
-            <!--li id="invisible-links"><%# cf_link_to t('plugins.invisible_threads.invisible_threads'), hidden_threads_path %></li> -->
-            <%# end %>
+              <li id="invisible-links"><%= link gettext("invisible threads"), to: invisible_thread_path(@conn, :index) %></li>
+            <% end %>
 
             <%= if controller_module(@conn) == Cforum.ForumController do %>
               <li id="events-link"><%# cf_link_to t('events.events'), events_path %></li>

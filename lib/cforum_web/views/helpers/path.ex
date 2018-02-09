@@ -86,8 +86,16 @@ defmodule CforumWeb.Views.Helpers.Path do
   def mark_read_path(conn, :mark_read, %Thread{} = thread, params \\ []),
     do: "#{thread_path(conn, :show, thread)}/mark-read#{encode_query_string(params)}"
 
-  def hide_thread_path(conn, :hide, %Thread{} = thread, params \\ []),
+  def invisible_thread_path(conn, action, thread \\ nil, params \\ [])
+
+  def invisible_thread_path(conn, :hide, %Thread{} = thread, params),
     do: "#{thread_path(conn, :show, thread)}/hide#{encode_query_string(params)}"
+
+  def invisible_thread_path(conn, :unhide, %Thread{} = thread, params),
+    do: "#{thread_path(conn, :show, thread)}/unhide#{encode_query_string(params)}"
+
+  def invisible_thread_path(conn, :index, nil, params),
+    do: "#{root_path(conn, :index)}invisible#{encode_query_string(params)}"
 
   def open_thread_path(conn, %Thread{} = thread, params \\ []),
     do: "#{thread_path(conn, :show, thread)}/open#{encode_query_string(params)}"

@@ -47,6 +47,7 @@ defmodule CforumWeb.Router do
     end
 
     resources("/mails", MailController)
+    get("/invisible", Threads.InvisibleController, :index)
   end
 
   scope "/admin", CforumWeb.Admin, as: :admin do
@@ -102,7 +103,10 @@ defmodule CforumWeb.Router do
       post("/:year/:month/:day/:slug/:mid/new", MessageController, :create, as: nil)
 
       post("/:year/:month/:day/:slug/mark-read", Messages.MarkReadController, :mark_read, as: nil)
+
       post("/:year/:month/:day/:slug/hide", Threads.InvisibleController, :hide, as: nil)
+      post("/:year/:month/:day/:slug/unhide", Threads.InvisibleController, :unhide, as: nil)
+
       post("/:year/:month/:day/:slug/open", Threads.OpenCloseController, :open, as: nil)
       post("/:year/:month/:day/:slug/close", Threads.OpenCloseController, :close, as: nil)
     end
