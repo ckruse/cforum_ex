@@ -27,8 +27,8 @@ defmodule Cforum.Forums.Threads do
           sticky: true,
           page: 0,
           limit: 50,
-          predicate: nil,
           view_all: false,
+          leave_out_invisible: true,
           order: "newest-first",
           message_order: "ascending",
           hide_read_threads: false,
@@ -36,7 +36,9 @@ defmodule Cforum.Forums.Threads do
           thread_modifier: nil,
           use_paging: true,
           close_read_threads: false,
-          open_close_default_state: "open"
+          open_close_default_state: "open",
+          thread_conditions: %{},
+          predicate: nil
         ],
         opts
       )
@@ -62,7 +64,10 @@ defmodule Cforum.Forums.Threads do
         sticky: opts[:sticky],
         view_all: opts[:view_all],
         hide_read_threads: opts[:hide_read_threads],
-        only_wo_answer: opts[:only_wo_answer]
+        only_wo_answer: opts[:only_wo_answer],
+        leave_out_invisible: opts[:leave_out_invisible],
+        thread_conditions: opts[:thread_conditions],
+        predicate: opts[:predicate]
       )
 
     sticky_threads = get_sticky_threads(sticky_threads_query, user, order, opts, opts[:sticky])
@@ -105,7 +110,6 @@ defmodule Cforum.Forums.Threads do
     opts =
       Keyword.merge(
         [
-          predicate: nil,
           view_all: false,
           message_order: "ascending",
           hide_read_threads: false,

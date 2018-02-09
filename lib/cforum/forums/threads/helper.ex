@@ -65,8 +65,29 @@ defmodule Cforum.Forums.Threads.Helper do
 
   defp only_wo_answer(query, _, _), do: query
 
+  defp apply_thread_conditions(q, nil), do: q
+  defp apply_thread_conditions(q, map) when map == %{}, do: q
+
+  defp apply_thread_conditions(q, map) do
+    Enum.reduce(Map.keys(map), q, fn field, acc ->
+      acc |> where([t], field(t, ^field) == ^map[field])
+    end)
+  end
+
+  defp apply_predicate(q, p) when is_function(p), do: p.(q)
+  defp apply_predicate(q, _), do: q
+
   def get_threads(forum, user, visible_forums, opts \\ []) do
-    defaults = [sticky: false, view_all: false, hide_read_threads: false, only_wo_answer: false, thread_conditions: %{}]
+    defaults = [
+      sticky: false,
+      view_all: false,
+      hide_read_threads: false,
+      only_wo_answer: false,
+      thread_conditions: %{},
+      leave_out_invisible: true,
+      predicate: nil
+    ]
+
     opts = Keyword.merge(defaults, opts)
 
     also_query_sticky =
@@ -78,10 +99,12 @@ defmodule Cforum.Forums.Threads.Helper do
 
     threads_query =
       also_query_sticky
+      |> apply_thread_conditions(opts[:thread_conditions])
+      |> apply_predicate(opts[:predicate])
       |> set_forum_id(forum, visible_forums)
       |> set_view_all(opts[:view_all])
       |> hide_read_threads(user, opts[:hide_read_threads])
-      |> leave_out_invisible(user, opts[:view_all])
+      |> leave_out_invisible(user, opts[:view_all] || !opts[:leave_out_invisible])
       |> only_wo_answer(opts[:only_wo_answer], visible_forums)
 
     sticky_threads_query =
@@ -91,10 +114,12 @@ defmodule Cforum.Forums.Threads.Helper do
             thread in Thread,
             where: thread.archived == false and thread.sticky == true
           )
+          |> apply_thread_conditions(opts[:thread_conditions])
+          |> apply_predicate(opts[:predicate])
           |> set_forum_id(forum, visible_forums)
           |> set_view_all(opts[:view_all])
           |> hide_read_threads(user, opts[:hide_read_threads])
-          |> leave_out_invisible(user, opts[:view_all])
+          |> leave_out_invisible(user, opts[:view_all] || !opts[:leave_out_invisible])
           |> only_wo_answer(opts[:only_wo_answer], visible_forums)
 
         _ ->
