@@ -17,15 +17,10 @@
     <meta name="application-name" content="SELFHTML | F">
     <meta name="msapplication-TileImage" content="//src.selfhtml.org/logo/s-Logo_kachel_144.png">
     <meta name="msapplication-TileColor" content="#3983ab">
+    <%= meta_refresh(@conn) %>
 
     <link rel="author" href="/humans.txt">
-
-    <%# if controller_path == 'cf_threads' and action_name == 'index' and uconf('autorefresh').to_i > 0 %>
-    <!-- meta http-equiv="refresh" content="<%# uconf('autorefresh').to_i * 60 %>; URL=<%# forum_url(current_forum) %>" -->
-    <%# end %>
-
     <link rel="shortcut icon" href="//src.selfhtml.org/favicon2.ico" type="image/x-icon" title="<%= gettext("icon") %>">
-
     <link rel="apple-touch-icon" href="//src.selfhtml.org/logo/s-Logo_60.png">
     <link rel="apple-touch-icon-precomposed" href="//src.selfhtml.org/logo/s-Logo_144_r.png">
     <link rel="apple-touch-icon" sizes="76x76" href="//src.selfhtml.org/logo/s-Logo_76.png">
@@ -47,17 +42,13 @@
     <% end %>
 
     <%= if assigns[:css_style] do %><link href="<%= @css_style %>" rel="stylesheet" media="all"><% end %>
-    <%= if assigns[:own_css_file] do %><link href="<%= @own_css_file %>" rel="stylesheet" media="all" title="SELFHTML Forum Stylesheet"><% end %>
 
-    <%= if assigns[:own_css] do %>
-      <style>
-       <%= {:safe, @own_css} %>
-      </style>
-    <% end %>
+    <%= own_css_file(@conn) %>
+    <%= own_css(@conn) %>
 
     <title><%= page_title(@conn, assigns) %></title>
 
-    <%# unless conf('css_ressource').blank? %><!-- link rel="stylesheet" href="<%# conf('css_ressource') %>" title="SELFHTML Forum Stylesheet" --><%# end %>
+    <%= unless blank?(conf(@conn, "css_ressource")) do %><link rel="stylesheet" href="<%= conf(@conn, "css_ressource") %>" title="SELFHTML Forum Stylesheet"><% end %>
   </head>
 
   <body data-controller="<%= controller_module(@conn) %>" data-action="<%= action_name(@conn) %>"<%= body_classes(@conn, assigns) %><%= body_id(@conn, assigns) %>>
@@ -85,11 +76,8 @@
     <%= render "footer.html", assigns %>
 
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-    <%= if assigns[:own_js_file] do %><script src="<%= @own_js_file %>"></script><% end %>
-
-    <%# if @own_js %><!--script>
-                          <%# @own_js.html_safe %>
-                          </script --><%# end %>
+    <%= own_js_file(@conn) %>
+    <%= own_js(@conn) %>
 
   </body>
 </html>

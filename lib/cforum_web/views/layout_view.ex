@@ -60,4 +60,60 @@ defmodule CforumWeb.LayoutView do
         forum_url(conn, :index, forum.slug) <> ".atom"
     end
   end
+
+  def meta_refresh(conn) do
+    path = Cforum.Helpers.controller_path(conn)
+    action = Phoenix.Controller.action_name(conn)
+    refresh = uconf(conn, "autorefresh", :int)
+
+    if path == "thread" and action == :index and refresh > 0 do
+      [
+        {:safe, "<meta http-equiv=\"refresh\" content=\""},
+        Integer.to_string(refresh * 60),
+        {:safe, "; URL="},
+        forum_url(conn, :index, conn.assigns[:current_forum]),
+        {:safe, "\">"}
+      ]
+    else
+      ""
+    end
+  end
+
+  def own_css(conn) do
+    css = uconf(conn, "own_css")
+
+    if blank?(css),
+      do: "",
+      else: [{:safe, "<style>\n"}, {:safe, css}, {:safe, "\n</style>"}]
+  end
+
+  def own_css_file(conn) do
+    css = uconf(conn, "own_css_file")
+
+    if blank?(css) do
+      ""
+    else
+      [
+        {:safe, "<link href=\""},
+        css,
+        {:safe, "\" rel=\"stylesheet\" media=\"all\" title=\"SELFHTML Forum Stylesheet\">"}
+      ]
+    end
+  end
+
+  def own_js(conn) do
+    js = uconf(conn, "own_js")
+
+    if blank?(js),
+      do: "",
+      else: [{:safe, "<script>\n"}, {:safe, js}, {:safe, "\n</script>"}]
+  end
+
+  def own_js_file(conn) do
+    js = uconf(conn, "own_js_file")
+
+    if blank?(js),
+      do: "",
+      else: [{:safe, "<script src=\""}, js, {:safe, "\"></script>"}]
+  end
 end
