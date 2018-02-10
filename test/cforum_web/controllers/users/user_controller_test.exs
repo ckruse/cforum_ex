@@ -38,7 +38,7 @@ defmodule CforumWeb.User.UserControllerTest do
       login(conn, user)
       |> put(user_path(conn, :update, user), user: %{username: "Luke"})
 
-    assert redirected_to(conn) == user_path(conn, :show, user)
+    assert redirected_to(conn) == user_path(conn, :edit, user)
     user1 = Users.get_user!(user.user_id)
     assert %User{} = user1
     assert user1.username == "Luke"
