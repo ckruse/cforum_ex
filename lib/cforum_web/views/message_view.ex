@@ -75,46 +75,18 @@ defmodule CforumWeb.MessageView do
     if assigns[:thread].archived, do: ["archived " | classes], else: classes
   end
 
-  defp positive_score_class(score) do
-    cond do
-      score >= 0 && score <= 3 ->
-        "positive-score"
+  defp positive_score_class(score) when score >= 0 and score <= 3, do: "positive-score"
+  defp positive_score_class(score) when score == 4, do: "positiver-score"
+  defp positive_score_class(score) when score > 4, do: "best-score"
 
-      score == 4 ->
-        "positiver-score"
+  defp negative_score_class(score) when score <= 0 and score >= -3, do: "negative-score"
+  defp negative_score_class(score) when score == -4, do: "negativer-score"
+  defp negative_score_class(score) when score < -4, do: "negative-bad-score"
 
-      true ->
-        "best-score"
-    end
-  end
-
-  defp negative_score_class(score) do
-    cond do
-      score <= 0 && score >= -3 ->
-        "negative-score"
-
-      score == -4 ->
-        "negativer-score"
-
-      true ->
-        "negative-bad-score"
-    end
-  end
-
-  def score_class(classes, message) do
-    score = Message.score(message)
-
-    cond do
-      score == 0 ->
-        classes
-
-      score > 0 ->
-        [positive_score_class(score) | classes]
-
-      score < 0 ->
-        [negative_score_class(score) | classes]
-    end
-  end
+  def score_class(classes, %Message{} = message), do: score_class(classes, Message.score(message))
+  def score_class(classes, score) when score == 0, do: classes
+  def score_class(classes, score) when score > 0, do: [positive_score_class(score) | classes]
+  def score_class(classes, score) when score < 0, do: [negative_score_class(score) | classes]
 
   def message_classes(conn, message, thread, active, read_mode \\ :thread) do
     is_folded =
