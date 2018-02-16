@@ -37,6 +37,7 @@ defmodule Cforum.Abilities do
 
   def may?(conn, "messages/mark_read", _, _), do: signed_in?(conn)
   def may?(conn, "messages/subscription", _, _), do: signed_in?(conn)
+  def may?(conn, "messages/interesting", _, _), do: signed_in?(conn)
   def may?(conn, "threads/invisible", _, _), do: signed_in?(conn)
   def may?(conn, "threads/open_close", _, _), do: signed_in?(conn)
 

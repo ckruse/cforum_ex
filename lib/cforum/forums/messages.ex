@@ -557,4 +557,20 @@ defmodule Cforum.Forums.Messages do
 
     if subscription, do: Repo.delete(subscription), else: nil
   end
+
+  alias Cforum.Forums.InterestingMessage
+
+  def mark_message_interesting(user, message) do
+    %InterestingMessage{}
+    |> InterestingMessage.changeset(%{user_id: user.user_id, message_id: message.message_id})
+    |> Repo.insert()
+  end
+
+  def mark_message_boring(user, message) do
+    interesting_message =
+      InterestingMessage
+      |> Repo.get_by(user_id: user.user_id, message_id: message.message_id)
+
+    if interesting_message, do: Repo.delete(interesting_message), else: nil
+  end
 end

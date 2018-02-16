@@ -89,6 +89,12 @@ defmodule CforumWeb.Views.Helpers.Path do
   def unsubscribe_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/unsubscribe#{encode_query_string(params)}"
 
+  def interesting_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
+    do: "#{int_message_path(conn, thread, msg)}/interesting#{encode_query_string(params)}"
+
+  def boring_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
+    do: "#{int_message_path(conn, thread, msg)}/boring#{encode_query_string(params)}"
+
   def mark_read_path(conn, :mark_read, %Thread{} = thread, params \\ []),
     do: "#{thread_path(conn, :show, thread)}/mark-read#{encode_query_string(params)}"
 
