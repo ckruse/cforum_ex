@@ -83,6 +83,12 @@ defmodule CforumWeb.Views.Helpers.Path do
   def message_path(conn, :new, %Thread{} = thread, %Message{} = msg, params),
     do: "#{int_message_path(conn, thread, msg)}/new#{encode_query_string(params)}"
 
+  def subscribe_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
+    do: "#{int_message_path(conn, thread, msg)}/subscribe#{encode_query_string(params)}"
+
+  def unsubscribe_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
+    do: "#{int_message_path(conn, thread, msg)}/unsubscribe#{encode_query_string(params)}"
+
   def mark_read_path(conn, :mark_read, %Thread{} = thread, params \\ []),
     do: "#{thread_path(conn, :show, thread)}/mark-read#{encode_query_string(params)}"
 

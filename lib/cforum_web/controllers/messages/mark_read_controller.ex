@@ -16,7 +16,6 @@ defmodule CforumWeb.Messages.MarkReadController do
 
     Messages.mark_messages_read(conn.assigns[:current_user], thread.messages)
 
-    # forum_path(conn, :index, conn.assigns[:current_forum]))
     conn
     |> put_flash(:info, gettext("Thread has successfully been marked as read."))
     |> redirect(to: ReturnUrl.return_path(conn, params, thread))

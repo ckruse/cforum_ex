@@ -1,0 +1,23 @@
+<span class="message-icons">
+  <%= if !@conn.assigns[:view_all] && Message.no_answer?(@message) do %>
+    <span class="icon-message no-answer user" title="<% gettext("Message closed, answering not allowed") %>"> </span>
+  <% end %>
+
+  <%= if signed_in?(@conn) && @opts[:show_icons] && !@conn.assigns[:view_all] do %>
+    <%= unless @opts[:parent_subscribed] do %>
+      <%= if @message.attribs[:is_subscribed] do %>
+        <%= cf_button(to: unsubscribe_message_path(@conn, @thread, @message), class: "icon-message unsubscribe icon-button", title: gettext("unsubscribe message")) do %>
+          <%= std_args_as_hidden_inputs(@conn) %>
+          <span class="visually-hidden"><%= gettext("unsubscribe message") %></span>
+          <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#svg-unsubscribe"></use></svg>
+        <% end %>
+      <% else %>
+        <%= cf_button(to: subscribe_message_path(@conn, @thread, @message), class: "icon-message subscribe icon-button", title: gettext("subscribe message")) do %>
+          <%= std_args_as_hidden_inputs(@conn) %>
+          <span class="visually-hidden"><%= gettext("subscribe message") %></span>
+          <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#svg-subscribe"></use></svg>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</span>
