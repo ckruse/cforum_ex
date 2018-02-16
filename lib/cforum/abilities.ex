@@ -1,6 +1,20 @@
 defmodule Cforum.Abilities do
+  @moduledoc """
+  This module defines all access rights for users in our forum system
+  """
+
   require Logger
 
+  @doc """
+  Returns `true` if the user may access the given path, `false` otherwise
+
+  ## Parameters
+
+  - `conn`: the connection struct of the current request
+  - `path`: the path to check if the user has access to, e.g. `"users/user"`
+  - `action`: the action on the path, e.g. `:index`
+  - `args`: additional arguments, e.g. the resource in question
+  """
   def may?(conn, path, action \\ :index, args \\ nil)
 
   def may?(conn, "users/user", :update, resource) do
@@ -22,6 +36,7 @@ defmodule Cforum.Abilities do
   end
 
   def may?(conn, "messages/mark_read", _, _), do: signed_in?(conn)
+  def may?(conn, "messages/subscription", _, _), do: signed_in?(conn)
   def may?(conn, "threads/invisible", _, _), do: signed_in?(conn)
   def may?(conn, "threads/open_close", _, _), do: signed_in?(conn)
 

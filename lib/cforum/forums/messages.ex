@@ -541,4 +541,20 @@ defmodule Cforum.Forums.Messages do
       |> Repo.insert()
     end
   end
+
+  alias Cforum.Forums.Subscription
+
+  def subscribe_message(user, message) do
+    %Subscription{}
+    |> Subscription.changeset(%{user_id: user.user_id, message_id: message.message_id})
+    |> Repo.insert()
+  end
+
+  def unsubscribe_message(user, message) do
+    subscription =
+      Subscription
+      |> Repo.get_by(user_id: user.user_id, message_id: message.message_id)
+
+    if subscription, do: Repo.delete(subscription), else: nil
+  end
 end

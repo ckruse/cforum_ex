@@ -48,6 +48,7 @@ defmodule CforumWeb.Router do
 
     resources("/mails", MailController)
     get("/invisible", Threads.InvisibleController, :index)
+    get("/subscriptions", Threads.InvisibleController, :index)
   end
 
   scope "/admin", CforumWeb.Admin, as: :admin do
@@ -98,10 +99,6 @@ defmodule CforumWeb.Router do
       post("/new", ThreadController, :create, as: nil)
       resources("/tags", TagController)
 
-      get("/:year/:month/:day/:slug/:mid", MessageController, :show, as: nil)
-      get("/:year/:month/:day/:slug/:mid/new", MessageController, :new, as: nil)
-      post("/:year/:month/:day/:slug/:mid/new", MessageController, :create, as: nil)
-
       post("/:year/:month/:day/:slug/mark-read", Messages.MarkReadController, :mark_read, as: nil)
 
       post("/:year/:month/:day/:slug/hide", Threads.InvisibleController, :hide, as: nil)
@@ -109,6 +106,13 @@ defmodule CforumWeb.Router do
 
       post("/:year/:month/:day/:slug/open", Threads.OpenCloseController, :open, as: nil)
       post("/:year/:month/:day/:slug/close", Threads.OpenCloseController, :close, as: nil)
+
+      get("/:year/:month/:day/:slug/:mid", MessageController, :show, as: nil)
+      get("/:year/:month/:day/:slug/:mid/new", MessageController, :new, as: nil)
+      post("/:year/:month/:day/:slug/:mid/new", MessageController, :create, as: nil)
+
+      post("/:year/:month/:day/:slug/:mid/subscribe", Messages.SubscriptionController, :subscribe, as: nil)
+      post("/:year/:month/:day/:slug/:mid/unsubscribe", Messages.SubscriptionController, :unsubscribe, as: nil)
     end
   end
 

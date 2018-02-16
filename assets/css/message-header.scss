@@ -107,35 +107,36 @@
   .thread-icons {
     display: inline;
     float: right;
+  }
 
-    .thread-button {
+  .thread-icons,
+  .message-icons {
+    .icon-button {
       border: 0;
       padding: 0;
       margin: 0;
       background-color: transparent;
-    }
-
-    .thread-button {
       color: $link_color;
       fill: $link_color;
       cursor: pointer;
     }
 
-    .thread-button:hover,
-    .thread-button:active,
-    .thread-button:focus {
+    .icon-button:hover,
+    .icon-button:active,
+    .icon-button:focus {
       color: $active_link_color;
       fill: $active_link_color;
     }
 
-    .thread-button:visited,
-    .thread-button svg:visited {
+    .icon-button:visited,
+    .icon-button svg:visited {
       color: $visited_link_color;
       fill: $visited_link_color;
     }
   }
 
-  &.visited .thread-icons .thread-button {
+  &.visited .thread-icons .icon-button,
+  &.visited .message-icons .icon-button {
     color: $visited_link_color;
     fill: $visited_link_color;
 

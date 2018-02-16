@@ -1,7 +1,5 @@
 <header class="cf-message-header <%= header_classes(@thread, @message, assigns) %>" <%= message_id(@message, @opts) %>>
-  <%= if !@conn.assigns[:view_all] && Message.no_answer?(@message) do %>
-    <span class="icon-message no-answer user" title="<% gettext("Message closed, answering not allowed") %>"> </span>
-  <% end %>
+  <%= render "header_message_icons.html", assigns %>
 
   <%= if @opts[:first] && !@conn.assigns[:current_forum] do %>
     <%= link @thread.forum.short_name, to: forum_path(@conn, :index, @thread.forum), class: "cf-thread-forum-plate" %>

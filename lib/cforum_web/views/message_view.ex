@@ -35,13 +35,25 @@ defmodule CforumWeb.MessageView do
     |> Enum.join(" ")
   end
 
+  defp maybe_put_parent_subscribed(opts, nil), do: opts
+
+  defp maybe_put_parent_subscribed(opts, parent) do
+    if parent.attribs[:is_subscribed] do
+      Keyword.put(opts, :parent_subscribed, true)
+    else
+      opts
+    end
+  end
+
   def message_tree(conn, thread, parent, messages, opts \\ [show_icons: true]) do
-    new_opts = Keyword.merge([parent: parent], opts)
+    new_opts =
+      Keyword.merge([parent: parent], opts)
+      |> maybe_put_parent_subscribed(parent)
 
     parts =
       Enum.map(messages, fn msg ->
         # TODO classes
-        subtree = if blank?(msg.messages), do: "", else: message_tree(conn, thread, msg, msg.messages, opts)
+        subtree = if blank?(msg.messages), do: "", else: message_tree(conn, thread, msg, msg.messages, new_opts)
 
         [
           {:safe, "<li>"}
