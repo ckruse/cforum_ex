@@ -20,7 +20,7 @@ defmodule CforumWeb.Users.SessionController do
               token = Phoenix.Token.sign(CforumWeb.Endpoint, "user", user.user_id)
 
               conn
-              |> put_resp_cookie("remember_me", token, max_age: 30 * 24 * 60 * 60)
+              |> put_resp_cookie("remember_me", token, max_age: 30 * 24 * 60 * 60, http_only: true)
 
             _ ->
               conn
