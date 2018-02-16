@@ -47,7 +47,8 @@ defmodule CforumWeb.MessageView do
 
   def message_tree(conn, thread, parent, messages, opts \\ [show_icons: true]) do
     new_opts =
-      Keyword.merge([parent: parent], opts)
+      opts
+      |> Keyword.put(:parent, parent)
       |> maybe_put_parent_subscribed(parent)
 
     parts =
