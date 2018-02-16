@@ -75,12 +75,6 @@ defmodule Cforum.Forums.Message do
     end
   end
 
-  def subject_changed?(_, nil), do: true
-  def subject_changed?(msg, parent), do: parent.subject != msg.subject
-
-  def tags_changed?(_, nil), do: true
-  def tags_changed?(msg, parent), do: parent.tags != msg.tags
-
   defp base_changeset(struct, params, user, forum_id, visible_forums) do
     struct
     |> cast(params, [:author, :email, :homepage, :subject, :content, :problematic_site, :tags_str, :forum_id])
