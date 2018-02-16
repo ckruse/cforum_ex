@@ -36,6 +36,8 @@ defmodule CforumWeb.MessageView do
   end
 
   def message_tree(conn, thread, parent, messages, opts \\ [show_icons: true]) do
+    new_opts = Keyword.merge([parent: parent], opts)
+
     parts =
       Enum.map(messages, fn msg ->
         # TODO classes
@@ -44,7 +46,7 @@ defmodule CforumWeb.MessageView do
         [
           {:safe, "<li>"}
           | [
-              header(conn, thread, msg, Keyword.merge([parent: parent], opts))
+              header(conn, thread, msg, new_opts)
               | [subtree | {:safe, "</li>"}]
             ]
         ]
@@ -173,4 +175,20 @@ defmodule CforumWeb.MessageView do
       [{:safe, "<input type=\"hidden\" name=\""}, to_string(k), {:safe, "\" value=\""}, v, {:safe, "\">"}]
     end)
   end
+
+  def subject_changed?(_, nil), do: true
+  def subject_changed?(msg, parent), do: parent.subject != msg.subject
+
+  def tags_changed?(_, nil), do: true
+  def tags_changed?(msg, parent), do: parent.tags != msg.tags
+
+  def hide_subject?(nil, _, _), do: false
+
+  def hide_subject?(parent, message, opts),
+    do: (opts[:hide_repeating_subjects] && subject_changed?(message, parent)) || !opts[:hide_repeating_subjects]
+
+  def hide_tags?(nil, message, opts), do: !blank?(message.tags) && opts[:tags]
+
+  def hide_tags?(parent, message, opts),
+    do: !blank?(message.tags) && opts[:tags] && (!opts[:hide_repeating_tags] || tags_changed?(message, parent))
 end
