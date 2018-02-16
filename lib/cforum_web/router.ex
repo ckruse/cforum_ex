@@ -113,6 +113,8 @@ defmodule CforumWeb.Router do
 
       post("/:year/:month/:day/:slug/:mid/subscribe", Messages.SubscriptionController, :subscribe, as: nil)
       post("/:year/:month/:day/:slug/:mid/unsubscribe", Messages.SubscriptionController, :unsubscribe, as: nil)
+      post("/:year/:month/:day/:slug/:mid/interesting", Messages.InterestingController, :interesting, as: nil)
+      post("/:year/:month/:day/:slug/:mid/boring", Messages.InterestingController, :boring, as: nil)
     end
   end
 
