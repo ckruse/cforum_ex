@@ -16,143 +16,141 @@
         <%= link(img_tag(static_path(@conn, "/images/donate.svg"), alt: gettext("donate")), to: "https://selfhtml.org/spenden.html", title: gettext("donate"), class: "donate") %>
       </div>
 
-      <div class="navs">
-        <nav class="quicklinks">
-          <ul>
-            <li><%= link gettext("create new thread"), to: thread_path(@conn, :new, @current_forum) %></li>
-            <li><%= link gettext("home"), to: root_path(@conn, :index) %></li>
-            <li class="dropdown"><span class="anchor"><%= gettext("Forums") %></span>
-              <ul class="menu">
-                <li<% if !@current_forum && controller_module(@conn) == Cforum.ThreadController do %> class="active"<% end %>>
-                  <%= link gettext("All forums"), to: forum_path(@conn, :index, "all") %>
+      <nav class="quicklinks">
+        <ul>
+          <li><%= link gettext("create new thread"), to: thread_path(@conn, :new, @current_forum) %></li>
+          <li><%= link gettext("home"), to: root_path(@conn, :index) %></li>
+          <li class="dropdown"><span class="anchor"><%= gettext("Forums") %></span>
+            <ul class="menu">
+              <li<% if !@current_forum && controller_module(@conn) == Cforum.ThreadController do %> class="active"<% end %>>
+                <%= link gettext("All forums"), to: forum_path(@conn, :index, "all") %>
+                <%= link to: "", title: gettext("Statistics"), class: "stats" do %>
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="22" height="14" viewBox="0, 0, 22, 14">
+                    <g id="stats-icon">
+                      <path d="M-0.001,13 L21.999,13 L21.999,14 L-0.001,14 z" fill="#BFBFBF"/>
+                      <path d="M17,-0.001 L20,-0.001 L20,12.999 L17,12.999 z" fill="#8CB433"/>
+                      <path d="M12,4 L15,4 L15,13 L12,13 z" fill="#5C7FDD"/>
+                      <path d="M7,2 L10,2 L10,13 L7,13 z" fill="#E7C248"/>
+                      <path d="M2,7 L5,7 L5,13 L2,13 z" fill="#C52D00"/>
+                    </g>
+                  </svg>
+                <% end %>
+              </li>
+              <%= for f <- @visible_forums do %>
+                <li<%= if @current_forum == f do %> class="active"<% end %>>
+                  <%= link f.name, to: forum_path(@conn, :index, f) %>
                   <%= link to: "", title: gettext("Statistics"), class: "stats" do %>
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="22" height="14" viewBox="0, 0, 22, 14">
-                      <g id="stats-icon">
-                        <path d="M-0.001,13 L21.999,13 L21.999,14 L-0.001,14 z" fill="#BFBFBF"/>
-                        <path d="M17,-0.001 L20,-0.001 L20,12.999 L17,12.999 z" fill="#8CB433"/>
-                        <path d="M12,4 L15,4 L15,13 L12,13 z" fill="#5C7FDD"/>
-                        <path d="M7,2 L10,2 L10,13 L7,13 z" fill="#E7C248"/>
-                        <path d="M2,7 L5,7 L5,13 L2,13 z" fill="#C52D00"/>
-                      </g>
+                      <use xlink:href="#stats-icon"></use>
                     </svg>
                   <% end %>
                 </li>
-                <%= for f <- @visible_forums do %>
-                  <li<%= if @current_forum == f do %> class="active"<% end %>>
-                    <%= link f.name, to: forum_path(@conn, :index, f) %>
-                    <%= link to: "", title: gettext("Statistics"), class: "stats" do %>
-                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="22" height="14" viewBox="0, 0, 22, 14">
-                        <use xlink:href="#stats-icon"></use>
-                      </svg>
-                    <% end %>
-                  </li>
-                <% end %>
-              </ul>
-            </li>
-            <li class="cites">
-              <%= link gettext("Cites"), to: "" %>
-              <%= if false do %>(<%= link "#{@undeceided_cites}", to: "" %>)<% end %><!-- TODO -->
-            </li>
-            <li><%= link gettext("Search"), to: "" %></li>
-            <li><%= link gettext("Chat"), to: "https://kiwiirc.com/client/irc.epd-me.net/?nick=&channel=#selfhtml", rel: "nofollow" %></li> <!-- TODO (current_user.try(:username) || "Guest%7C" + rand(9999).to_s) -->
-            <li><%= link(gettext("Help"), to: page_path(@conn, :help)) %></li>
-            <%= if controller_module(@conn) != Cforum.SearchController do %>
-              <li class="search">
-                <form>
-                  <input type="search" placeholder="<%= gettext("search") %>">
-                </form>
-                <%# form_tag search_path + '#results', method: 'get', rel: 'nofollow' do %>
-                <%# hidden_field_tag 'sections[]', 1, id: nil %>
-                <%# hidden_field_tag 'sections[]', 2, id: nil %>
-                <%# search_field_tag 'term', params[:term], placeholder: t('search.search_top') %>
-                <%# end %>
-              </li> <!-- TODO -->
-            <% end %>
-          </ul>
-        </nav>
-
-        <nav class="subnav cf-button-nav-list">
-          <%= render_existing @view_module, "subnav.html", assigns %>
-
-          <ul>
-            <%= if @current_forum do %>
-              <li><%= link @current_forum.name, to: forum_path(@conn, :index, @current_forum) %></li>
-            <% end %>
-
-            <%= if assigns[:message] != nil && assigns[:thread] != nil && !blank?(@message.message_id) do %>
-              <%= if @read_mode != "thread-view" do %>
-                <li><%= link(gettext("thread view"), to: message_path(@conn, :show, @thread, @message, rm: "thread")) %></li>
-              <% else %>
-                <li><%= link(gettext("nested view"), to: message_path(@conn, :show, @thread, @message, rm: "nested")) %></li>
               <% end %>
+            </ul>
+          </li>
+          <li class="cites">
+            <%= link gettext("Cites"), to: "" %>
+            <%= if false do %>(<%= link "#{@undeceided_cites}", to: "" %>)<% end %><!-- TODO -->
+          </li>
+          <li><%= link gettext("Search"), to: "" %></li>
+          <li><%= link gettext("Chat"), to: "https://kiwiirc.com/client/irc.epd-me.net/?nick=&channel=#selfhtml", rel: "nofollow" %></li> <!-- TODO (current_user.try(:username) || "Guest%7C" + rand(9999).to_s) -->
+          <li><%= link(gettext("Help"), to: page_path(@conn, :help)) %></li>
+          <%= if controller_module(@conn) != Cforum.SearchController do %>
+            <li class="search">
+              <form>
+                <input type="search" placeholder="<%= gettext("search") %>">
+              </form>
+              <%# form_tag search_path + '#results', method: 'get', rel: 'nofollow' do %>
+              <%# hidden_field_tag 'sections[]', 1, id: nil %>
+              <%# hidden_field_tag 'sections[]', 2, id: nil %>
+              <%# search_field_tag 'term', params[:term], placeholder: t('search.search_top') %>
+              <%# end %>
+            </li> <!-- TODO -->
+          <% end %>
+        </ul>
+      </nav>
+
+      <nav class="subnav cf-button-nav-list">
+        <%= render_existing @view_module, "subnav.html", assigns %>
+
+        <ul>
+          <%= if @current_forum do %>
+            <li><%= link @current_forum.name, to: forum_path(@conn, :index, @current_forum) %></li>
+          <% end %>
+
+          <%= if assigns[:message] != nil && assigns[:thread] != nil && !blank?(@message.message_id) do %>
+            <%= if @read_mode != "thread-view" do %>
+              <li><%= link(gettext("thread view"), to: message_path(@conn, :show, @thread, @message, rm: "thread")) %></li>
+            <% else %>
+              <li><%= link(gettext("nested view"), to: message_path(@conn, :show, @thread, @message, rm: "nested")) %></li>
             <% end %>
+          <% end %>
 
-            <%= if controller_module(@conn) == CforumWeb.Threads && @current_user == nil do %>
-              <%= if @order != "ascending" do %>
-                <li><%= link(gettext("sort ascending"), to: forum_path(@conn, :index, @current_forum, p: @page, order: "ascending")) %></li>
-              <% end %>
-              <%= if @order != "descending" do %>
-                <li><%= link(gettext("sort descending"), to: forum_path(@conn, :index, @current_forum, p: @page, order: "descending")) %></li>
-              <% end %>
-              <%= if @order != "newest-first" do %>
-                <li><%= link(gettext("sort newest first"), to: forum_path(@conn, :index, @current_forum, p: @page, order: "newest-first")) %></li>
-              <% end %>
+          <%= if controller_module(@conn) == CforumWeb.Threads && @current_user == nil do %>
+            <%= if @order != "ascending" do %>
+              <li><%= link(gettext("sort ascending"), to: forum_path(@conn, :index, @current_forum, p: @page, order: "ascending")) %></li>
             <% end %>
-
-            <%= if assigns[:thread] != nil && !blank?(@thread.thread_id) do %>
-              <li id="nachricht-feed-atom"><%= link gettext("Atom feed"), to: "" %></li> <!-- TODO atom_url for thread -->
-              <li id="nachricht-feed-rss"><%= link gettext("RSS feed"), to: "" %></li> <!-- TODO rss_url for thread -->
+            <%= if @order != "descending" do %>
+              <li><%= link(gettext("sort descending"), to: forum_path(@conn, :index, @current_forum, p: @page, order: "descending")) %></li>
             <% end %>
-
-            <%= if false do %> <!-- TODO current_user.try(:admin) -->
-              <li><%= link gettext("Administration"), "" %></li>
+            <%= if @order != "newest-first" do %>
+              <li><%= link(gettext("sort newest first"), to: forum_path(@conn, :index, @current_forum, p: @page, order: "newest-first")) %></li>
             <% end %>
+          <% end %>
 
-            <%# if current_user.try(:moderate?, current_forum) %>
-            <%#
-            path = nil
-            if @message.blank?
-            path = cf_threads_path(current_forum, view_all: @view_all ? nil : "yes")
-            else
-            path = message_path(@thread, @message, view_all: @view_all ? nil : "yes")
-            end
-            %>
-            <%# if @view_all %>
-            <!--li id="admin-view"><%# cf_link_to t("forums.normal_view"), path %></li> -->
-            <%# else %>
-            <!--li id="admin-view"><%# cf_link_to t("forums.admin_view"), path %></li> -->
-            <%# end %>
-            <%# end %>
+          <%= if assigns[:thread] != nil && !blank?(@thread.thread_id) do %>
+            <li id="nachricht-feed-atom"><%= link gettext("Atom feed"), to: "" %></li> <!-- TODO atom_url for thread -->
+            <li id="nachricht-feed-rss"><%= link gettext("RSS feed"), to: "" %></li> <!-- TODO rss_url for thread -->
+          <% end %>
 
-            <% if Enum.member?([ThreadController, MessageController, ArchiveController], controller_module(@conn)) do %>
-              <li id="link-archiv"><%= link gettext("archive"), to: "" %></li>
-            <% end %>
+          <%= if false do %> <!-- TODO current_user.try(:admin) -->
+            <li><%= link gettext("Administration"), "" %></li>
+          <% end %>
 
-            <%# if threads && current_user && !controller_path.in?(%w(interesting_messages_plugin hidden_threads_plugin)) %>
-            <!--li id="mark-all-read"><%# cf_link_to(t("plugins.mark_read.mark_all_read"),
-                                    mark_all_read_path(current_forum, std_args),
-                                    method: :post) %></li> -->
-            <!--li id="optionen-close-all-threads"><%# cf_link_to t('plugins.open_close.close_all_threads'), close_all_threads_path(current_forum, std_args), method: :post %></li> -->
-            <!--li id="optionen-open-all-threads"><%# cf_link_to t('plugins.open_close.open_all_threads'), open_all_threads_path(current_forum, std_args), method: :post %></li> -->
+          <%# if current_user.try(:moderate?, current_forum) %>
+          <%#
+          path = nil
+          if @message.blank?
+          path = cf_threads_path(current_forum, view_all: @view_all ? nil : "yes")
+          else
+          path = message_path(@thread, @message, view_all: @view_all ? nil : "yes")
+          end
+          %>
+          <%# if @view_all %>
+          <!--li id="admin-view"><%# cf_link_to t("forums.normal_view"), path %></li> -->
+          <%# else %>
+          <!--li id="admin-view"><%# cf_link_to t("forums.admin_view"), path %></li> -->
+          <%# end %>
+          <%# end %>
 
-            <%# if uconf('hide_read_threads') == 'yes' %>
-            <%# if session[:srt] %>
-            <!--li id="optionen-hide-read-threads"><%# cf_link_to t('plugins.hide_read_threads.hide_read_threads'), forum_path(current_forum, 'srt' => 'no') %></li> -->
-                <%# else %>
-            <!--li id="optionen-show-read-threads"><%# cf_link_to t('plugins.hide_read_threads.show_read_threads'), forum_path(current_forum, 'srt' => 'yes') %></li> -->
-                <%# end %>
+          <% if Enum.member?([ThreadController, MessageController, ArchiveController], controller_module(@conn)) do %>
+            <li id="link-archiv"><%= link gettext("archive"), to: "" %></li>
+          <% end %>
+
+          <%# if threads && current_user && !controller_path.in?(%w(interesting_messages_plugin hidden_threads_plugin)) %>
+          <!--li id="mark-all-read"><%# cf_link_to(t("plugins.mark_read.mark_all_read"),
+                                  mark_all_read_path(current_forum, std_args),
+                                  method: :post) %></li> -->
+          <!--li id="optionen-close-all-threads"><%# cf_link_to t('plugins.open_close.close_all_threads'), close_all_threads_path(current_forum, std_args), method: :post %></li> -->
+          <!--li id="optionen-open-all-threads"><%# cf_link_to t('plugins.open_close.open_all_threads'), open_all_threads_path(current_forum, std_args), method: :post %></li> -->
+
+          <%# if uconf('hide_read_threads') == 'yes' %>
+          <%# if session[:srt] %>
+          <!--li id="optionen-hide-read-threads"><%# cf_link_to t('plugins.hide_read_threads.hide_read_threads'), forum_path(current_forum, 'srt' => 'no') %></li> -->
+              <%# else %>
+          <!--li id="optionen-show-read-threads"><%# cf_link_to t('plugins.hide_read_threads.show_read_threads'), forum_path(current_forum, 'srt' => 'yes') %></li> -->
               <%# end %>
             <%# end %>
+          <%# end %>
 
-            <%= if assigns[:current_user] do %>
-            <!--li id="interesting-links"><%# cf_link_to t('plugins.interesting_messages.interesting_messages'), interesting_messages_path %></li> -->
-              <li id="invisible-links"><%= link gettext("invisible threads"), to: invisible_thread_path(@conn, :index) %></li>
-            <% end %>
+          <%= if assigns[:current_user] do %>
+          <!--li id="interesting-links"><%# cf_link_to t('plugins.interesting_messages.interesting_messages'), interesting_messages_path %></li> -->
+            <li id="invisible-links"><%= link gettext("invisible threads"), to: invisible_thread_path(@conn, :index) %></li>
+          <% end %>
 
-            <%= if controller_module(@conn) == Cforum.ForumController do %>
-              <li id="events-link"><%# cf_link_to t('events.events'), events_path %></li>
-            <% end %>
-          </ul>
-        </nav>
-      </div>
+          <%= if controller_module(@conn) == Cforum.ForumController do %>
+            <li id="events-link"><%# cf_link_to t('events.events'), events_path %></li>
+          <% end %>
+        </ul>
+      </nav>
     </header>

@@ -86,11 +86,17 @@
 @media only screen and (min-width: 35em) {
   .cf-page-header {
     margin: 0.5em 2em;
-    display: flex;
-    flex-flow: row wrap;
+
+    display: grid;
+    grid-template-areas: "logo nav" "logo subnav";
+
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+    grid-column-gap: 1em;
 
     .logo {
-      flex: 0 0 auto;
+      grid-column: 1;
+      grid-area: logo;
 
       h1 {
         background: url("/images/selfhtml-forum.svg") no-repeat center center;
@@ -107,12 +113,8 @@
       }
     }
 
-    div.navs {
-      flex: 1 1 auto;
-      margin-left: 0.5em;
-    }
-
     .quicklinks {
+      grid-area: nav;
       ul {
         display: inline;
       }
@@ -128,6 +130,10 @@
           display: inline;
         }
       }
+    }
+
+    .subnav {
+      grid-area: subnav;
     }
   }
 }
