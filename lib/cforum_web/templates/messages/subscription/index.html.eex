@@ -1,0 +1,11 @@
+<%= pagination @conn, @paging, &user_path/4, path_args: [@conn, :show_messages, @current_user] %>
+
+<div class="cf-thread-list">
+  <%= for m <- @messages do %>
+    <article class="threadlist cf-thread">
+      <%= CforumWeb.MessageView.header(@conn, m.thread, m, show_votes: true, show_icons: true, id: false) %>
+    </article>
+  <% end %>
+</div>
+
+<%= pagination @conn, @paging, &user_path/4, path_args: [@conn, :show_messages, @current_user] %>

@@ -558,6 +558,28 @@ defmodule Cforum.Forums.Messages do
     if subscription, do: Repo.delete(subscription), else: nil
   end
 
+  def list_subscriptions(user, query_params \\ [order: nil, limit: nil]) do
+    from(
+      msg in Message,
+      join: s in Subscription,
+      where: s.message_id == msg.message_id and s.user_id == ^user.user_id,
+      preload: [:user, :tags, [votes: :voters, thread: :forum]]
+    )
+    |> Cforum.PagingApi.set_limit(query_params[:limit])
+    |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
+    |> Repo.all()
+  end
+
+  def count_subscriptions(user) do
+    from(
+      msg in Message,
+      join: s in Subscription,
+      where: s.message_id == msg.message_id and s.user_id == ^user.user_id,
+      select: count("*")
+    )
+    |> Repo.one()
+  end
+
   alias Cforum.Forums.InterestingMessage
 
   def mark_message_interesting(user, message) do
