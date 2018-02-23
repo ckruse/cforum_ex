@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2018-01-06 08:33+0100\n"
+"PO-Revision-Date: 2018-02-23 14:01+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -35,8 +35,8 @@ msgstr "Sie müssen sich einloggen und über Administrator-Rechte verfügen, um 
 msgid "You have to be logged in to see this page!"
 msgstr "Sie müssen sich einloggen, um diese Seite sehen zu dürfen!"
 
-#: lib/cforum_web/templates/layout/app.html.eex:35
-#: lib/cforum_web/templates/layout/page_header.html.eex:58
+#: lib/cforum_web/templates/layout/link.html.eex:9
+#: lib/cforum_web/templates/layout/page_header.html.eex:57
 #: lib/cforum_web/templates/layout/personal_links.html.eex:21
 msgid "Help"
 msgstr "Hilfe"
@@ -46,7 +46,7 @@ msgid "Username or password wrong"
 msgstr "Benutzername oder Passwort sind falsch."
 
 #: lib/cforum_web/error_handler.ex:25 lib/cforum_web/error_handler.ex:33
-#: lib/cforum_web/plug/authorize_access.ex:39
+#: lib/cforum_web/plug/authorize_access.ex:33
 msgid "You don't have access to this page!"
 msgstr "Sie haben keinen Zugriff auf diese Seite!"
 
@@ -54,13 +54,13 @@ msgstr "Sie haben keinen Zugriff auf diese Seite!"
 msgid "You logged in successfully"
 msgstr "Sie haben sich erfolgreich angemeldet."
 
-#: lib/cforum_web/templates/layout/app.html.eex:45
-#: lib/cforum_web/templates/layout/app.html.eex:46
+#: lib/cforum_web/templates/layout/link.html.eex:19
+#: lib/cforum_web/templates/layout/link.html.eex:20
 #: lib/cforum_web/templates/layout/page_header.html.eex:12
 #: lib/cforum_web/templates/layout/page_header.html.eex:12
 #: lib/cforum_web/templates/layout/page_header.html.eex:13
 #: lib/cforum_web/templates/layout/page_header.html.eex:13
-#: lib/cforum_web/templates/layout/page_header.html.eex:27
+#: lib/cforum_web/templates/layout/page_header.html.eex:26
 msgid "All forums"
 msgstr "alle Foren"
 
@@ -69,26 +69,26 @@ msgstr "alle Foren"
 msgid "Show all"
 msgstr "alle anzeigen"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:53
+#: lib/cforum_web/templates/layout/page_header.html.eex:52
 msgid "Cites"
 msgstr "Zitatesammlung"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:108
+#: lib/cforum_web/templates/layout/page_header.html.eex:107
 msgid "Administration"
 msgstr "Verwaltung"
 
 #: lib/cforum_web/templates/forum/index.html.eex:5
-#: lib/cforum_web/templates/layout/page_header.html.eex:24
+#: lib/cforum_web/templates/layout/page_header.html.eex:23
 #: lib/cforum_web/views/forum_view.ex:4
 msgid "Forums"
 msgstr "Foren"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:103
+#: lib/cforum_web/templates/layout/page_header.html.eex:102
 msgid "Atom feed"
 msgstr "Atom-Feed"
 
-#: lib/cforum_web/templates/layout/app.html.eex:42
-#: lib/cforum_web/templates/layout/app.html.eex:45
+#: lib/cforum_web/templates/layout/link.html.eex:16
+#: lib/cforum_web/templates/layout/link.html.eex:19
 #: lib/cforum_web/templates/layout/page_header.html.eex:10
 #: lib/cforum_web/templates/layout/page_header.html.eex:10
 #: lib/cforum_web/templates/layout/page_header.html.eex:13
@@ -96,16 +96,16 @@ msgstr "Atom-Feed"
 msgid "Atom feed (%{forum})"
 msgstr "Atom-Feed (%{forum})"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:57
+#: lib/cforum_web/templates/layout/page_header.html.eex:56
 msgid "Chat"
 msgstr "Chat"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:104
+#: lib/cforum_web/templates/layout/page_header.html.eex:103
 msgid "RSS feed"
 msgstr "RSS-Feed"
 
-#: lib/cforum_web/templates/layout/app.html.eex:43
-#: lib/cforum_web/templates/layout/app.html.eex:46
+#: lib/cforum_web/templates/layout/link.html.eex:17
+#: lib/cforum_web/templates/layout/link.html.eex:20
 #: lib/cforum_web/templates/layout/page_header.html.eex:9
 #: lib/cforum_web/templates/layout/page_header.html.eex:9
 #: lib/cforum_web/templates/layout/page_header.html.eex:12
@@ -113,14 +113,14 @@ msgstr "RSS-Feed"
 msgid "RSS feed (%{forum})"
 msgstr "RSS-Feed (%{forum})"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:56
+#: lib/cforum_web/templates/layout/page_header.html.eex:55
 msgid "Search"
 msgstr "Suche"
 
 #: lib/cforum_web/templates/forum/index.html.eex:15
 #: lib/cforum_web/templates/forum/index.html.eex:35
-#: lib/cforum_web/templates/layout/page_header.html.eex:28
-#: lib/cforum_web/templates/layout/page_header.html.eex:43
+#: lib/cforum_web/templates/layout/page_header.html.eex:27
+#: lib/cforum_web/templates/layout/page_header.html.eex:42
 msgid "Statistics"
 msgstr "Statistiken"
 
@@ -130,11 +130,11 @@ msgid "donate"
 msgstr "Spenden"
 
 #: lib/cforum_web/templates/layout/page_header.html.eex:5
-#: lib/cforum_web/templates/layout/page_header.html.eex:23
+#: lib/cforum_web/templates/layout/page_header.html.eex:22
 msgid "home"
 msgstr "Übersicht"
 
-#: lib/cforum_web/templates/layout/app.html.eex:27
+#: lib/cforum_web/templates/layout/link.html.eex:2
 msgid "icon"
 msgstr "SELFHTML Icon"
 
@@ -142,11 +142,11 @@ msgstr "SELFHTML Icon"
 msgid "login"
 msgstr "anmelden"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:86
+#: lib/cforum_web/templates/layout/page_header.html.eex:85
 msgid "nested view"
 msgstr "Nested-Ansicht"
 
-#: lib/cforum_web/templates/layout/app.html.eex:13
+#: lib/cforum_web/templates/layout/meta.html.eex:10
 msgid "publisher"
 msgstr "SELFHTML Forum"
 
@@ -156,35 +156,35 @@ msgstr "SELFHTML Forum"
 msgid "register"
 msgstr "Benutzerkonto erstellen"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:92
+#: lib/cforum_web/templates/layout/page_header.html.eex:91
 msgid "sort ascending"
 msgstr "aufsteigend sortieren"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:95
+#: lib/cforum_web/templates/layout/page_header.html.eex:94
 msgid "sort descending"
 msgstr "absteigend sortieren"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:98
+#: lib/cforum_web/templates/layout/page_header.html.eex:97
 msgid "sort newest first"
 msgstr "nach neuestem Beitrag sortieren"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:84
+#: lib/cforum_web/templates/layout/page_header.html.eex:83
 msgid "thread view"
 msgstr "Thread-Ansicht"
 
-#: lib/cforum_web/templates/layout/app.html.eex:10
+#: lib/cforum_web/templates/layout/meta.html.eex:7
 msgid "description_text"
 msgstr "Forum als Ergänzung zum SELFHTML-Wiki und zur Dokumentation SELFHTML"
 
-#: lib/cforum_web/templates/layout/app.html.eex:11
+#: lib/cforum_web/templates/layout/meta.html.eex:8
 msgid "keywords_text"
 msgstr "SELFHTML Forum, SELFHTML, Forum, SELFForum"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:128
+#: lib/cforum_web/templates/layout/page_header.html.eex:127
 msgid "archive"
 msgstr "archivierte Beiträge"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:22
+#: lib/cforum_web/templates/layout/page_header.html.eex:21
 msgid "create new thread"
 msgstr "neuer Beitrag"
 
@@ -330,7 +330,7 @@ msgstr "Sie können Ihr Benutzerkonto über den Link unten bestätigen:"
 msgid "confirm your registration"
 msgstr "Benutzerkonto bestätigen"
 
-#: lib/cforum/accounts/user.ex:122
+#: lib/cforum/accounts/user.ex:123
 msgid "password and password confirmation don't match"
 msgstr "Passwort und Passwort-Bestätigung stimmen nicht überein"
 
@@ -370,7 +370,7 @@ msgstr "Homepage"
 msgid "Jabber ID"
 msgstr "Jabber-ID"
 
-#: lib/cforum_web/templates/message/header.html.eex:11
+#: lib/cforum_web/templates/message/header_message_icons.html.eex:3
 msgid "Message closed, answering not allowed"
 msgstr "Dieser Beitrag ist gesperrt, antworten ist nicht erlaubt."
 
@@ -477,7 +477,7 @@ msgstr "bisher keine bewerteten Beiträge"
 msgid "only visible for you"
 msgstr "Nur für Sie sichtbar"
 
-#: lib/cforum_web/templates/message/author.html.eex:11
+#: lib/cforum_web/templates/message/header_author.html.eex:11
 msgid "original poster"
 msgstr "Thread-Ersteller"
 
@@ -493,9 +493,9 @@ msgstr "Registriert seit"
 msgid "this thread is sticky"
 msgstr "Der Thread ist angepinnt."
 
-#: lib/cforum_web/templates/message/header.html.eex:19
-#: lib/cforum_web/templates/message/votes.html.eex:2
-#: lib/cforum_web/templates/message/votes.html.eex:3
+#: lib/cforum_web/templates/message/header.html.eex:9
+#: lib/cforum_web/templates/message/header_votes.html.eex:2
+#: lib/cforum_web/templates/message/header_votes.html.eex:3
 msgid "Score: no score"
 msgid_plural "Score: %{score}"
 msgstr[0] "Bewertung: keine Bewertung"
@@ -1194,12 +1194,12 @@ msgstr "weniger als fünf Sekunden"
 msgid "less than a minute"
 msgstr "weniger als einer Minute"
 
-#: lib/cforum_web/views/message_view.ex:69
+#: lib/cforum_web/views/message_view.ex:80
 msgid "by"
 msgstr "von"
 
 #: lib/cforum_web/templates/message/form.html.eex:31
-#: lib/cforum_web/templates/message/message.html.eex:14
+#: lib/cforum_web/templates/message/message.html.eex:10
 msgid "problematic site"
 msgstr "problematische Seite"
 
@@ -1217,7 +1217,7 @@ msgstr "Benutzer-Informationen"
 msgid "new answer to %{name}"
 msgstr "Antwort an „%{name}“ verfassen"
 
-#: lib/cforum_web/controllers/message_controller.ex:62
+#: lib/cforum_web/controllers/message_controller.ex:66
 msgid "Message created successfully."
 msgstr "Nachricht erfolgreich gespeichert."
 
@@ -1225,8 +1225,8 @@ msgstr "Nachricht erfolgreich gespeichert."
 msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">documentation</a>"
 msgstr "SELFHTML Forum - Ergänzung zur <a href=\"https://wiki.selfhtml.org\">Dokumentation</a>"
 
-#: lib/cforum_web/controllers/message_controller.ex:39
-#: lib/cforum_web/controllers/thread_controller.ex:47
+#: lib/cforum_web/controllers/message_controller.ex:43
+#: lib/cforum_web/controllers/thread_controller.ex:49
 msgid "all"
 msgstr "alle"
 
@@ -1274,27 +1274,27 @@ msgstr "Tags"
 msgid "voluntary, will be publicly visible"
 msgstr "freiwillig, öffentlich sichtbar"
 
-#: lib/cforum_web/templates/message/author.html.eex:5
+#: lib/cforum_web/templates/message/header_author.html.eex:5
 msgid "link to profile of"
 msgstr "Link zum Profil von"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:62
+#: lib/cforum_web/templates/layout/page_header.html.eex:61
 msgid "search"
 msgstr "suchen"
 
-#: lib/cforum_web/templates/message/author.html.eex:4
-#: lib/cforum_web/templates/message/author.html.eex:6
+#: lib/cforum_web/templates/message/header_author.html.eex:4
+#: lib/cforum_web/templates/message/header_author.html.eex:6
 msgid "user %{user}"
 msgstr "Bentutzer %{user}"
 
-#: lib/cforum_web/templates/message/num_infos.html.eex:2
+#: lib/cforum_web/templates/message/header_num_infos.html.eex:2
 msgid "%{count} message"
 msgid_plural "%{count} messages"
 msgstr[0] "keine Beiträge"
 msgstr[1] "ein Beitrag"
 msgstr[2] "%{count} Beiträge"
 
-#: lib/cforum_web/templates/message/num_infos.html.eex:5
+#: lib/cforum_web/templates/message/header_num_infos.html.eex:5
 msgid "%{count} unread message"
 msgid_plural "{count} unread messages"
 msgstr[0] "keine ungelesenen Beiträge"
@@ -1321,11 +1321,11 @@ msgstr "Seitenauswahl"
 msgid "previous page"
 msgstr "eine Seite zurück"
 
-#: lib/cforum/forums/message.ex:154
+#: lib/cforum/forums/message.ex:148
 msgid "unknown tags given: %{tags}"
 msgstr "Folgende Tags sind unbekannt: %{tags}."
 
-#: lib/cforum_web/controllers/thread_controller.ex:83
+#: lib/cforum_web/controllers/thread_controller.ex:85
 msgid "Thread created successfully."
 msgstr "Thread erfolgreich erstellt."
 
@@ -1333,7 +1333,7 @@ msgstr "Thread erfolgreich erstellt."
 msgid "User %{user}"
 msgstr "Benutzer %{user}"
 
-#: lib/cforum_web/views/helpers.ex:144
+#: lib/cforum_web/views/helpers.ex:132
 msgid "bronze medal"
 msgstr "Bronze-Medaille"
 
@@ -1341,7 +1341,7 @@ msgstr "Bronze-Medaille"
 msgid "forum"
 msgstr "Forum"
 
-#: lib/cforum_web/views/helpers.ex:146
+#: lib/cforum_web/views/helpers.ex:134
 msgid "gold medal"
 msgstr "Gold-Medaille"
 
@@ -1349,7 +1349,7 @@ msgstr "Gold-Medaille"
 msgid "new thread"
 msgstr "neuer Thread"
 
-#: lib/cforum_web/views/helpers.ex:145
+#: lib/cforum_web/views/helpers.ex:133
 msgid "silver medal"
 msgstr "Silber-Medaille"
 
@@ -1367,3 +1367,139 @@ msgstr "alle anzeigen"
 #: lib/cforum_web/views/thread_view.ex:27
 msgid "overview"
 msgstr "Übersicht"
+
+#, elixir-format
+#: lib/cforum_web/controllers/messages/interesting_controller.ex:59
+msgid "Interesting mark was successfully removed."
+msgstr "Die Interessant-Markierung wurde erfolgreich gelöscht."
+
+#, elixir-format
+#: lib/cforum_web/controllers/messages/interesting_controller.ex:42
+msgid "Message was successfully marked as interesting."
+msgstr "Der Beitrag wurde erfolgreich als interessant markiert."
+
+#, elixir-format
+#: lib/cforum_web/controllers/messages/subscription_controller.ex:42
+msgid "Message was successfully subscribed."
+msgstr "Der Baum wurde erfolgreich abonniert."
+
+#, elixir-format
+#: lib/cforum_web/controllers/messages/subscription_controller.ex:59
+msgid "Message was successfully unsubscribed."
+msgstr "Der Baum wurde erfolgreich deabonniert."
+
+#, elixir-format
+#: lib/cforum_web/controllers/threads/open_close_controller.ex:33
+msgid "Thread has successfully been closed."
+msgstr "Der Thread wurde erfolgreich zugeklappt."
+
+#, elixir-format
+#: lib/cforum_web/controllers/threads/invisible_controller.ex:50
+msgid "Thread has successfully been hidden."
+msgstr "Der Thread wurde erfolgreich ausgeblendet."
+
+#, elixir-format
+#: lib/cforum_web/controllers/messages/mark_read_controller.ex:20
+msgid "Thread has successfully been marked as read."
+msgstr "Der Thread wurde erfolgreich als gelesen markiert."
+
+#, elixir-format
+#: lib/cforum_web/controllers/threads/open_close_controller.ex:19
+msgid "Thread has successfully been opened."
+msgstr "Der Thread wurde erfolgreich aufgeklappt."
+
+#, elixir-format
+#: lib/cforum_web/controllers/threads/invisible_controller.ex:64
+msgid "Thread has successfully been restored."
+msgstr "Der Thread wurde erfolgreich wiederhergestellt."
+
+#, elixir-format
+#: lib/cforum_web/templates/message/header_thread_icons.html.eex:9
+#: lib/cforum_web/templates/message/header_thread_icons.html.eex:11
+msgid "Thread is currently closed. Open it."
+msgstr "Dieser Thread ist zur Zeit zugeklappt. Klappe ihn auf."
+
+#, elixir-format
+#: lib/cforum_web/templates/message/header_thread_icons.html.eex:3
+#: lib/cforum_web/templates/message/header_thread_icons.html.eex:5
+msgid "Thread is currently open. Close it."
+msgstr "Dieser Thread ist zur Zeit aufgeklappt. Klappe ihn zu."
+
+#, elixir-format
+#: lib/cforum_web/templates/message/header_thread_icons.html.eex:23
+#: lib/cforum_web/templates/message/header_thread_icons.html.eex:25
+msgid "hide this thread"
+msgstr "Diesen Thread ausblenden"
+
+#, elixir-format
+#: lib/cforum_web/templates/layout/page_header.html.eex:147
+msgid "interesting messages"
+msgstr "als interessant markierte Beiträge"
+
+#, elixir-format
+#: lib/cforum_web/templates/layout/page_header.html.eex:149
+#: lib/cforum_web/views/threads/invisible_view.ex:4
+msgid "invisible threads"
+msgstr "ausgeblendete Threads"
+
+#, elixir-format
+#: lib/cforum_web/templates/message/header_thread_icons.html.eex:17
+#: lib/cforum_web/templates/message/header_thread_icons.html.eex:19
+msgid "make this thread visible again"
+msgstr "Diesen Thread wieder einblenden"
+
+#, elixir-format
+#: lib/cforum_web/templates/message/header_message_icons.html.eex:14
+#: lib/cforum_web/templates/message/header_message_icons.html.eex:16
+msgid "mark message as interesting"
+msgstr "Beitrag als interessant markieren"
+
+#, elixir-format
+#: lib/cforum_web/templates/message/header_thread_icons.html.eex:30
+#: lib/cforum_web/templates/message/header_thread_icons.html.eex:32
+msgid "mark thread read"
+msgstr "Thread als gelesen markieren"
+
+#, elixir-format
+#: lib/cforum_web/views/messages/interesting_view.ex:4
+msgid "messages marked as interesting"
+msgstr "Als interessant markierte Beiträge"
+
+#, elixir-format
+#: lib/cforum_web/templates/threads/invisible/index.html.eex:2
+msgid "no invisible threads, yet"
+msgstr "Sie haben bisher keine Threads ausgeblendet."
+
+#, elixir-format
+#: lib/cforum_web/templates/messages/interesting/index.html.eex:2
+msgid "no messages marked as interesting, yet"
+msgstr "Sie haben bisher keine Beiträge als interessant markiert."
+
+#, elixir-format
+#: lib/cforum_web/templates/messages/subscription/index.html.eex:2
+msgid "no subscribed messages, yet"
+msgstr "Sie haben bisher keine Beiträge abonniert."
+
+#, elixir-format
+#: lib/cforum_web/templates/message/header_message_icons.html.eex:8
+#: lib/cforum_web/templates/message/header_message_icons.html.eex:10
+msgid "remove interesting mark"
+msgstr "Interessant-Markierung entfernen"
+
+#, elixir-format
+#: lib/cforum_web/templates/message/header_message_icons.html.eex:29
+#: lib/cforum_web/templates/message/header_message_icons.html.eex:31
+msgid "subscribe message"
+msgstr "Baum abonnieren"
+
+#, elixir-format
+#: lib/cforum_web/templates/layout/page_header.html.eex:148
+#: lib/cforum_web/views/messages/subscription_view.ex:4
+msgid "subscribed messages"
+msgstr "abonnierte Beiträge"
+
+#, elixir-format
+#: lib/cforum_web/templates/message/header_message_icons.html.eex:23
+#: lib/cforum_web/templates/message/header_message_icons.html.eex:25
+msgid "unsubscribe message"
+msgstr "Baum deabonnieren"
