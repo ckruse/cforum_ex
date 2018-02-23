@@ -1,0 +1,15 @@
+<%= if blank?(@messages) do %>
+  <p><%= gettext("no messages marked as interesting, yet") %></p>
+<% else %>
+  <%= pagination @conn, @paging, &interesting_path/3, path_args: [@conn, :index] %>
+
+  <div class="cf-thread-list">
+    <%= for m <- @messages do %>
+      <article class="threadlist cf-thread">
+        <%= CforumWeb.MessageView.header(@conn, m.thread, m, show_votes: true, show_icons: true, id: false) %>
+      </article>
+    <% end %>
+  </div>
+
+  <%= pagination @conn, @paging, &interesting_path/3, path_args: [@conn, :index] %>
+<% end %>

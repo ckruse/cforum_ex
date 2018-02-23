@@ -595,4 +595,26 @@ defmodule Cforum.Forums.Messages do
 
     if interesting_message, do: Repo.delete(interesting_message), else: nil
   end
+
+  def list_interesting_messages(user, query_params \\ [order: nil, limit: nil]) do
+    from(
+      msg in Message,
+      join: s in InterestingMessage,
+      where: s.message_id == msg.message_id and s.user_id == ^user.user_id,
+      preload: [:user, :tags, [votes: :voters, thread: :forum]]
+    )
+    |> Cforum.PagingApi.set_limit(query_params[:limit])
+    |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
+    |> Repo.all()
+  end
+
+  def count_interesting_messages(user) do
+    from(
+      msg in Message,
+      join: s in InterestingMessage,
+      where: s.message_id == msg.message_id and s.user_id == ^user.user_id,
+      select: count("*")
+    )
+    |> Repo.one()
+  end
 end
