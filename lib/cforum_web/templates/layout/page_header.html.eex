@@ -144,8 +144,9 @@
           <%# end %>
 
           <%= if assigns[:current_user] do %>
-          <!--li id="interesting-links"><%# cf_link_to t('plugins.interesting_messages.interesting_messages'), interesting_messages_path %></li> -->
-            <li id="invisible-links"><%= link gettext("invisible threads"), to: invisible_thread_path(@conn, :index) %></li>
+            <li id="interestings-link"><%= link gettext("interesting messages"), to: interesting_path(@conn, :index) %></li>
+            <li id="subscriptions-link"><%= link gettext("subscribed messages"), to: subscription_path(@conn, :index) %></li>
+            <li id="invisibles-link"><%= link gettext("invisible threads"), to: invisible_thread_path(@conn, :index) %></li>
           <% end %>
 
           <%= if controller_module(@conn) == Cforum.ForumController do %>
