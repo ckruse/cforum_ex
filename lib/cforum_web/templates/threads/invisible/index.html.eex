@@ -1,5 +1,13 @@
-<div class="cf-thread-list">
-  <%= for thread <- @threads do %>
-    <%= render CforumWeb.ThreadView, "thread.html", conn: @conn, thread: thread, action: :list_invisible %>
-  <% end %>
-</div>
+<%= if blank?(@threads) do %>
+  <p><%= gettext("no invisible threads, yet") %></p>
+<% else %>
+  <%= pagination @conn, @paging, &invisible_thread_path/3, path_args: [@conn, :index] %>
+
+  <div class="cf-thread-list">
+    <%= for thread <- @threads do %>
+      <%= render CforumWeb.ThreadView, "thread.html", conn: @conn, thread: thread, action: :list_invisible %>
+    <% end %>
+  </div>
+
+  <%= pagination @conn, @paging, &invisible_thread_path/3, path_args: [@conn, :index] %>
+<% end %>
