@@ -49,6 +49,7 @@ defmodule CforumWeb.Router do
     resources("/mails", MailController)
     get("/invisible", Threads.InvisibleController, :index)
     get("/subscriptions", Messages.SubscriptionController, :index)
+    get("/interesting", Messages.InterestingController, :index)
   end
 
   scope "/admin", CforumWeb.Admin, as: :admin do
