@@ -1285,7 +1285,7 @@ msgstr "suchen"
 #: lib/cforum_web/templates/message/header_author.html.eex:4
 #: lib/cforum_web/templates/message/header_author.html.eex:6
 msgid "user %{user}"
-msgstr "Bentutzer %{user}"
+msgstr "Benutzer %{user}"
 
 #: lib/cforum_web/templates/message/header_num_infos.html.eex:2
 msgid "%{count} message"
