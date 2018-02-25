@@ -441,22 +441,6 @@ msgstr "Informationen"
 msgid "messages"
 msgstr "Beiträge"
 
-#: lib/cforum_web/templates/message/header.html.eex:49
-msgid "messages.link_to_profile_of"
-msgstr ""
-
-#: lib/cforum_web/templates/message/num_infos.html.eex:2
-msgid "messages.num_messages"
-msgstr ""
-
-#: lib/cforum_web/templates/forum/message_header.html.eex:5
-msgid "messages.user_link"
-msgstr ""
-
-#: lib/cforum_web/templates/message/votes.html.eex:2
-msgid "messages.votes_tree"
-msgstr ""
-
 #: lib/cforum_web/templates/thread/thread.html.eex:4
 msgid "no archive"
 msgstr "Dieser Thread wird nicht archiviert."
@@ -480,10 +464,6 @@ msgstr "Nur für Sie sichtbar"
 #: lib/cforum_web/templates/message/header_author.html.eex:11
 msgid "original poster"
 msgstr "Thread-Ersteller"
-
-#: lib/cforum_web/templates/message/num_infos.html.eex:5
-msgid "plugins.mark_read.num_unread"
-msgstr ""
 
 #: lib/cforum_web/templates/users/user/show.html.eex:26
 msgid "registered since"
