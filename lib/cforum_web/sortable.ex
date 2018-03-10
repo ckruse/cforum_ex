@@ -23,7 +23,8 @@ defmodule CforumWeb.Sortable do
 
   def sort_collection(conn, valid_fields, defaults \\ [dir: :asc]) do
     controller_nam =
-      Phoenix.Controller.controller_module(conn)
+      conn
+      |> Phoenix.Controller.controller_module()
       |> Atom.to_string()
       |> String.replace(~r{.*\.}, "")
 
@@ -44,10 +45,7 @@ defmodule CforumWeb.Sortable do
         {true, conn.params["dir"]}
       end
 
-    sort_dir =
-      if sort_dir != "asc" && sort_dir != "desc",
-        do: :asc,
-        else: String.to_atom(sort_dir)
+    sort_dir = validated_sort_dir(sort_dir)
 
     sort_col =
       if Enum.find(valid_fields, &(Atom.to_string(&1) == sort_col)),
@@ -77,4 +75,7 @@ defmodule CforumWeb.Sortable do
   defp sort_direction(conn) do
     conn.assigns[:_sort_dir] || :asc
   end
+
+  defp validated_sort_dir(dir) when dir in [:desc, "desc"], do: :desc
+  defp validated_sort_dir(_), do: :asc
 end
