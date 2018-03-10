@@ -49,4 +49,9 @@
   th.numeric {
     text-align: right;
   }
+
+  .visited td,
+  .visited td a {
+    color: $visited_link_color;
+  }
 }
