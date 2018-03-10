@@ -1,7 +1,6 @@
 <table class="cf-default-table">
   <thead>
     <tr>
-      <th><%= sortable(@conn, "", :is_read, &notification_path/3) %></th>
       <th> </th>
       <th><%= sortable(@conn, gettext("subject"), :subject, &notification_path/3) %></th>
       <th><%= sortable(@conn, gettext("created at"), :created_at, &notification_path/3) %></th>
@@ -15,8 +14,7 @@
     <% end %>
 
     <%= for notification <- @notifications do %>
-      <tr>
-        <td><%= unless notification.is_read do %><span class="icon-unread-notification" title="<%= gettext("unread") %>">&nbsp;</span><% end %></td>
+      <tr<%= if notification.is_read do %> class="visited"<% end %>>
         <td><%= unless blank?(notification.icon) do %><%= link("", to: notification.path, class: "icon " <> notification.icon) %><% end %></td>
         <td>
           <%= link(notification.subject, to: notification_path(@conn, :show, notification)) %>
