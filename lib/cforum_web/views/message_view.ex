@@ -176,4 +176,23 @@ defmodule CforumWeb.MessageView do
 
   def show_tags?(parent, message, opts),
     do: !blank?(message.tags) && opts[:tags] && (!opts[:hide_repeating_tags] || tags_changed?(message, parent))
+
+  def original_poster_class(thread, message) do
+    if message.message_id != thread.message.message_id && message.user_id == thread.message.user_id,
+      do: "original-poster",
+      else: ""
+  end
+
+  def author_name(conn, thread, message, opts) do
+    cond do
+      opts[:author_link_to_message] ->
+        link(message.author, to: message_path(conn, :show, thread, message), aria: [hidden: "true"])
+
+      !blank?(message.user_id) ->
+        link(message.author, to: user_path(conn, :show, message.user_id))
+
+      true ->
+        message.author
+    end
+  end
 end
