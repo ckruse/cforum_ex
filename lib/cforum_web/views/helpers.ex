@@ -133,4 +133,30 @@ defmodule CforumWeb.Views.Helpers do
   def l10n_medal_type("silver"), do: gettext("silver medal")
   def l10n_medal_type("gold"), do: gettext("gold medal")
   def l10n_medal_type(v), do: raise(inspect(v))
+
+  def user_link(conn, user, additional_classes \\ [], username \\ "") do
+    user_name = if Cforum.Helpers.blank?(username), do: "", else: " #{username}"
+
+    link(
+      to: CforumWeb.Router.Helpers.user_path(conn, :show, user),
+      title: gettext("user %{user}", user: user.username),
+      class: "user-link"
+    ) do
+      [
+        {:safe, "<span class=\"registered-user\""},
+        additional_classes,
+        {:safe, "\">"},
+        {:safe, "<span class=\"visually-hidden\">"},
+        gettext("link to profile of"),
+        {:safe, "</span>"},
+        img_tag(
+          Cforum.Accounts.User.avatar_path(user, :thumb),
+          class: "avatar",
+          alt: gettext("user %{user}", user: user.username)
+        ),
+        user_name,
+        {:safe, "</span>"}
+      ]
+    end
+  end
 end
