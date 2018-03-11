@@ -1,57 +1,130 @@
-# -*- coding: utf-8 -*-
-
 defmodule CforumWeb.Views.Helpers.Button do
+  @moduledoc """
+  This module defines button helpers to avoid boiler plate
+  """
+
   use Phoenix.HTML
 
-  def default_button(opts, do: contents) do
-    cf_button(Keyword.update(opts, :class, "cf-btn", &(&1 <> " cf-btn")), do: contents)
-  end
+  import CforumWeb.Gettext
 
-  def default_button(text, opts) do
-    cf_button(text, Keyword.update(opts, :class, "cf-btn", &(&1 <> " cf-btn")))
-  end
+  @doc """
+  Generates a button with a &lt;form&gt; for not very specific actions
 
-  def default_index_button(opts, do: contents) do
-    cf_button(Keyword.update(opts, :class, "cf-index-btn", &(&1 <> " cf-index-btn")), do: contents)
-  end
+  `opts` is a keyword list, special values are `:to` defining the
+  target URL and `:method` defining the HTTP method. Every other
+  attribute will be set as an attribute on the generated
+  &lt;button&gt; tag.
 
-  def default_index_button(text, opts) do
-    cf_button(text, Keyword.update(opts, :class, "cf-index-btn", &(&1 <> " cf-index-btn")))
-  end
+  ### Examples
 
-  def primary_button(opts, do: contents) do
-    cf_button(Keyword.update(opts, :class, "cf-primary-btn", &(&1 <> " cf-primary-btn")), do: contents)
-  end
+      default_button("foo", to: "bar")
+      => <form action="bar" class="cf-inline-form" method="post">
+           ...
+           <button class="cf-btn" type="submit">foo</button>
+         </form>
 
-  def primary_button(text, opts) do
-    cf_button(text, Keyword.update(opts, :class, "cf-primary-btn", &(&1 <> " cf-primary-btn")))
-  end
+      default_button("foo", to: "bar", method: :delete)
+      => <form action="bar" class="cf-inline-form" method="post">
+           ...
+           <input name="_method" type="hidden" value="delete">
+           <button class="cf-btn" type="submit">foo</button>
+         </form>
 
-  def primary_index_button(opts, do: contents) do
-    cf_button(Keyword.update(opts, :class, "cf-primary-index-btn", &(&1 <> " cf-primary-index-btn")), do: contents)
-  end
+      default_button("foo", to: "bar", class: "lulu")
+      => <form action="bar" class="cf-inline-form" method="post">
+           ...
+           <input name="_method" type="hidden" value="delete">
+           <button class="cf-btn lulu" type="submit">foo</button>
+         </form>
 
-  def primary_index_button(text, opts) do
-    cf_button(text, Keyword.update(opts, :class, "cf-primary-index-btn", &(&1 <> " cf-primary-index-btn")))
-  end
+      default_button(to: "bar", method: :delete) do
+        {:safe, "<b>foo</b>"}
+      end
+      => <form action="bar" class="cf-inline-form" method="post">
+           ...
+           <input name="_method" type="hidden" value="delete">
+           <button class="cf-btn" type="submit"><b>foo</b></button>
+         </form>
+  """
+  def default_button(opts, do: contents),
+    do: cf_button(Keyword.update(opts, :class, "cf-btn", &(&1 <> " cf-btn")), do: contents)
 
+  def default_button(text, opts), do: cf_button(text, Keyword.update(opts, :class, "cf-btn", &(&1 <> " cf-btn")))
+
+  @doc """
+  Generates a button with a &lt;form&gt; for not very specific actions
+  for an index view, e.g. a table with a list of relations; see `default_button/2`.
+  """
+  def default_index_button(opts, do: contents),
+    do: cf_button(Keyword.update(opts, :class, "cf-index-btn", &(&1 <> " cf-index-btn")), do: contents)
+
+  def default_index_button(text, opts),
+    do: cf_button(text, Keyword.update(opts, :class, "cf-index-btn", &(&1 <> " cf-index-btn")))
+
+  @doc """
+  Generates a button with a &lt;form&gt; for a primary action; see `default_button/2`.
+  """
+  def primary_button(opts, do: contents),
+    do: cf_button(Keyword.update(opts, :class, "cf-primary-btn", &(&1 <> " cf-primary-btn")), do: contents)
+
+  def primary_button(text, opts),
+    do: cf_button(text, Keyword.update(opts, :class, "cf-primary-btn", &(&1 <> " cf-primary-btn")))
+
+  @doc """
+  Generates a button with a &lt;form&gt; for a primary action for an
+  index view, e.g. a table with a list of relations; see
+  `default_button/2`.
+  """
+  def primary_index_button(opts, do: contents),
+    do: cf_button(Keyword.update(opts, :class, "cf-primary-index-btn", &(&1 <> " cf-primary-index-btn")), do: contents)
+
+  def primary_index_button(text, opts),
+    do: cf_button(text, Keyword.update(opts, :class, "cf-primary-index-btn", &(&1 <> " cf-primary-index-btn")))
+
+  @doc """
+  Generates a button with a &lt;form&gt; for a destructive action; see
+  `default_button/2`. Additionally it sets a `data-cf-confirm`
+  attribute the UI can intervene on and make sure that the user will
+  be asked for confirmation.
+  """
   def destructive_button(opts, do: contents) do
-    cf_button(Keyword.update(opts, :class, "cf-destructive-btn", &(&1 <> " cf-destructive-btn")), do: contents)
+    opts =
+      opts
+      |> Keyword.update(:class, "cf-destructive-btn", &(&1 <> " cf-destructive-btn"))
+      |> Keyword.update(:"data-cf-confirm", gettext("Are you sure?"), & &1)
+
+    cf_button(opts, do: contents)
   end
 
   def destructive_button(text, opts) do
-    cf_button(text, Keyword.update(opts, :class, "cf-destructive-btn", &(&1 <> " cf-destructive-btn")))
+    opts =
+      opts
+      |> Keyword.update(:class, "cf-destructive-btn", &(&1 <> " cf-destructive-btn"))
+      |> Keyword.update(:"data-cf-confirm", gettext("Are you sure?"), & &1)
+
+    cf_button(text, opts)
   end
 
+  @doc """
+  Generates a button with a &lt;form&gt; for a destructive action
+  for an index view, e.g. a table with a list of relations; see `destructive_button/2`.
+  """
   def destructive_index_button(opts, do: contents) do
-    cf_button(
-      Keyword.update(opts, :class, "cf-destructive-index-btn", &(&1 <> " cf-destructive-index-btn")),
-      do: contents
-    )
+    opts =
+      opts
+      |> Keyword.update(:class, "cf-destructive-index-btn", &(&1 <> " cf-destructive-index-btn"))
+      |> Keyword.update(:"data-cf-confirm", gettext("Are you sure?"), & &1)
+
+    cf_button(opts, do: contents)
   end
 
   def destructive_index_button(text, opts) do
-    cf_button(text, Keyword.update(opts, :class, "cf-destructive-index-btn", &(&1 <> " cf-destructive-index-btn")))
+    opts =
+      opts
+      |> Keyword.update(:class, "cf-destructive-index-btn", &(&1 <> " cf-destructive-index-btn"))
+      |> Keyword.update(:"data-cf-confirm", gettext("Are you sure?"), & &1)
+
+    cf_button(text, opts)
   end
 
   @doc """
