@@ -26,8 +26,8 @@
   <%= l10n_render CforumWeb.MessageView, "post-notes.html", assigns %>
 
   <p class="form-actions">
-    <%= submit gettext("show preview"), class: "cf-btn", name: "preview" %>
-    <%= submit gettext("create message"), class: "cf-primary-btn" %>
-    <%= link gettext("cancel"), to: forum_path(@conn, :index, @current_forum), class: "cf-btn" %>
+    <%= default_submit gettext("show preview"), name: "preview" %>
+    <%= primary_submit gettext("create message") %>
+    <%= default_button_link gettext("cancel"), to: forum_path(@conn, :index, @current_forum) %>
   </p>
 <% end %>

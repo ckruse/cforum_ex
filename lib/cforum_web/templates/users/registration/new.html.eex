@@ -29,6 +29,6 @@
 </div>
 
 <p class="form-actions">
-  <%= submit gettext("sign up"), class: "cf-primary-btn" %>
+  <%= primary_submit gettext("sign up") %>
 </p>
 <% end %>
