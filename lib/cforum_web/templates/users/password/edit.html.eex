@@ -11,7 +11,7 @@
   </div>
 
   <p class="form-actions">
-    <%= submit gettext("change password"), class: "cf-primary-btn" %>
-    <%= link gettext("cancel"), to: user_path(@conn, :show, @user), class: "cf-btn" %>
+    <%= primary_submit gettext("change password") %>
+    <%= default_button_link gettext("cancel"), to: user_path(@conn, :show, @user) %>
   </p>
 <% end %>

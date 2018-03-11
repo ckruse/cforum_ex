@@ -3,9 +3,9 @@
   <%= render "form.html", changeset: @changeset, f: f, user: @user %>
 
   <p class="form-actions">
-    <%= submit gettext("save changes"), class: "cf-primary-btn" %>
-    <%= if may?(@conn, "users/password", :edit, @user), do: link(gettext("change password"), to: user_password_path(@conn, :edit, @user), class: "cf-btn") %>
-    <%= link gettext("cancel"), to: user_path(@conn, :show, @user), class: "cf-btn" %>
+    <%= primary_submit gettext("save changes") %>
+    <%= if may?(@conn, "users/password", :edit, @user), do: default_button_link(gettext("change password"), to: user_password_path(@conn, :edit, @user)) %>
+    <%= default_button_link gettext("cancel"), to: user_path(@conn, :show, @user) %>
   </p>
 
 <% end %>

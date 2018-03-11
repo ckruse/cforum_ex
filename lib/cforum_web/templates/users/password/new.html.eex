@@ -6,7 +6,7 @@
   </div>
 
   <p class="form-actions">
-    <%= submit gettext("send reset instructions"), class: "cf-primary-btn" %>
-    <%= link gettext("cancel"), to: root_path(@conn, :index), class: "cf-btn" %>
+    <%= primary_submit gettext("send reset instructions") %>
+    <%= default_button_link gettext("cancel"), to: root_path(@conn, :index) %>
   </p>
 <% end %>

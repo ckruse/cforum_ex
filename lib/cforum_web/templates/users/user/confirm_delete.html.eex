@@ -5,7 +5,7 @@
 </p>
 
 <p class="form-actions">
-  <%= submit gettext("Yes, delete user"), class: "cf-primary-btn" %>
-  <%= link gettext("Nope, get me out of here"), to: user_path(@conn, :show, @user), class: "cf-btn" %>
+  <%= primary_submit gettext("Yes, delete user") %>
+  <%= default_button_link gettext("Nope, get me out of here"), to: user_path(@conn, :show, @user) %>
 </p>
 <% end %>

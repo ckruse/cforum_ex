@@ -171,9 +171,9 @@
 
 <%= if @current_user != nil do %>
   <p class="form-actions">
-    <%= if may?(@conn, "users/user", :edit, @user), do: link(gettext("edit profile and settings"), to: user_path(@conn, :edit, @user), class: "cf-btn") %>
-    <%= if may?(@conn, "users/user", :delete, @user), do: link(gettext("delete user"), to: user_path(@conn, :confirm_delete, @user), class: "cf-btn") %>
-    <%= if may?(@conn, "users/password", :edit, @user), do: link(gettext("change password"), to: user_password_path(@conn, :edit, @user), class: "cf-btn") %>
-    <%= if @user.user_id != @current_user.user_id, do: link(gettext("new mail to %{username}", username: @user.username), to: mail_path(@conn, :new, priv_message: [recipient_id: @user.user_id]), class: "cf-btn", rel: "nofollow") %>
+    <%= if may?(@conn, "users/user", :edit, @user), do: default_button_link(gettext("edit profile and settings"), to: user_path(@conn, :edit, @user)) %>
+    <%= if may?(@conn, "users/user", :delete, @user), do: default_button_link(gettext("delete user"), to: user_path(@conn, :confirm_delete, @user)) %>
+    <%= if may?(@conn, "users/password", :edit, @user), do: default_button_link(gettext("change password"), to: user_password_path(@conn, :edit, @user)) %>
+    <%= if @user.user_id != @current_user.user_id, do: default_button_link(gettext("new mail to %{username}", username: @user.username), to: mail_path(@conn, :new, priv_message: [recipient_id: @user.user_id]), rel: "nofollow") %>
   </p>
 <% end %>
