@@ -54,4 +54,8 @@
   .visited td a {
     color: $visited_link_color;
   }
+
+  .visited td a.cf-btn {
+    color: $default_foreground_color;
+  }
 }

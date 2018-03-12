@@ -40,7 +40,6 @@ defmodule Cforum.ConfigManager do
     "date_format_search" => "%d.%m.%Y",
     "date_format_default" => "%d.%m.%Y %H:%M",
     "date_format_date" => "%d.%m.%Y",
-    "mail_index_grouped" => "yes",
     "mail_thread_sort" => "ascending",
     "subject_black_list" => "",
     "content_black_list" => "",

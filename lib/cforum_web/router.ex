@@ -46,7 +46,9 @@ defmodule CforumWeb.Router do
       put("/unread", NotificationController, :update_unread, as: :unread)
     end
 
-    resources("/mails", MailController)
+    resources("/mails", MailController, except: [:edit, :update])
+    post("/mails/:id/unread", MailController, :update_unread, as: :mail)
+
     get("/invisible", Threads.InvisibleController, :index)
     get("/subscriptions", Messages.SubscriptionController, :index)
     get("/interesting", Messages.InterestingController, :index)

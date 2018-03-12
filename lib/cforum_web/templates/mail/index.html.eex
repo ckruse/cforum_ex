@@ -1,0 +1,40 @@
+<table class="cf-default-table">
+  <thead>
+    <tr>
+      <th><%= gettext("partner") %></th>
+      <th><%= sortable(@conn, gettext("subject"), :subject, &mail_path/3) %></th>
+      <th><%= sortable(@conn, gettext("created at"), :created_at, &mail_path/3) %></th>
+      <th> </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= if blank?(@mails) do %>
+      <tr class="no-data"><td colspan="5"><%= gettext("No mails found") %></td></tr>
+    <% end %>
+
+    <%= for mail <- @mails do %>
+      <%= for pm <- mail.messages do %>
+        <tr<%= if pm.is_read do %> class="visited"<% end %>>
+          <td>
+            <%= unless blank?(PrivMessages.partner(pm)), do: user_link(@conn, PrivMessages.partner(pm), [], false) %>
+            <%= link(PrivMessages.partner_name(pm), to: mail_path(@conn, :index, author: PrivMessages.partner_name(pm))) %>
+          </td>
+          <td><%= link pm.subject, to: mail_path(@conn, :show, pm) %></td>
+          <td><%= format_date(@conn, pm.created_at) %></td>
+          <td>
+            <%= if pm.sender_id != @current_user.user_id do %>
+              <%= default_index_button_link(gettext("answer"), to: mail_path(@conn, :new, parent_id: pm.priv_message_id)) %>
+              <%= default_index_button_link(gettext("answer without cite"), to: mail_path(@conn, :new, parent_id: pm.priv_message_id, cite: false)) %>
+            <% end %>
+            <%= if pm.is_read, do: default_index_button(gettext("mark unread"), to: mail_path(@conn, :update_unread, pm)) %>
+            <%= destructive_index_button(gettext("delete"), to: mail_path(@conn, :delete, pm), method: :delete) %> 
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+
+</table>
+
+<%= pagination @conn, @paging, &mail_path/3 %>

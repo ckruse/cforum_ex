@@ -1,0 +1,16 @@
+.cf-mail {
+  @extend .cf-thread-message;
+}
+
+.cf-mail-header {
+  @extend .cf-message-header;
+
+  h2,
+  h3 {
+    margin-left: 0;
+  }
+}
+
+.cf-mail-content {
+  @extend .cf-posting-content;
+}
