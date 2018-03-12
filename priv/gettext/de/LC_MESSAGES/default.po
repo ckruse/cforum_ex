@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2018-02-23 14:01+0100\n"
+"PO-Revision-Date: 2018-03-12 16:48+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -245,6 +245,7 @@ msgid "settings"
 msgstr "Einstellungen"
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:3
+#: lib/cforum_web/templates/mail/new.html.eex:2
 #: lib/cforum_web/templates/message/new.html.eex:6
 #: lib/cforum_web/templates/thread/new.html.eex:6
 #: lib/cforum_web/templates/users/registration/new.html.eex:4
@@ -461,7 +462,7 @@ msgstr "bisher keine bewerteten Beiträge"
 msgid "only visible for you"
 msgstr "Nur für Sie sichtbar"
 
-#: lib/cforum_web/templates/message/header_author.html.eex:11
+#: lib/cforum_web/templates/message/header_author.html.eex:6
 msgid "original poster"
 msgstr "Thread-Ersteller"
 
@@ -527,6 +528,7 @@ msgstr "Avatar"
 
 #: lib/cforum_web/templates/admin/forum/edit.html.eex:8
 #: lib/cforum_web/templates/admin/forum/new.html.eex:8
+#: lib/cforum_web/templates/mail/new.html.eex:11
 #: lib/cforum_web/templates/message/new.html.eex:25
 #: lib/cforum_web/templates/thread/new.html.eex:31
 #: lib/cforum_web/templates/users/password/edit.html.eex:15
@@ -679,7 +681,17 @@ msgid "yes, notify me"
 msgstr "ja, benachrichtige mich"
 
 #: lib/cforum_web/templates/admin/forum/index.html.eex:29
-#: lib/cforum_web/templates/notification/index.html.eex:29
+#: lib/cforum_web/templates/notification/index.html.eex:27
+#: lib/cforum_web/views/helpers/button.ex:94
+#: lib/cforum_web/views/helpers/button.ex:103
+#: lib/cforum_web/views/helpers/button.ex:116
+#: lib/cforum_web/views/helpers/button.ex:125
+#: lib/cforum_web/views/helpers/button.ex:269
+#: lib/cforum_web/views/helpers/button.ex:278
+#: lib/cforum_web/views/helpers/button.ex:292
+#: lib/cforum_web/views/helpers/button.ex:301
+#: lib/cforum_web/views/helpers/button.ex:356
+#: lib/cforum_web/views/helpers/button.ex:365
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
 
@@ -713,7 +725,7 @@ msgstr "Name"
 msgid "New Forum"
 msgstr "Neues Forum"
 
-#: lib/cforum_web/templates/notification/index.html.eex:14
+#: lib/cforum_web/templates/notification/index.html.eex:13
 msgid "No notifications found"
 msgstr "Keine Benachrichtigungen gefunden"
 
@@ -797,12 +809,14 @@ msgstr "Passwort ändern"
 msgid "change password: %{username}"
 msgstr "Passwort ändern: %{username}"
 
-#: lib/cforum_web/templates/notification/index.html.eex:7
+#: lib/cforum_web/templates/mail/index.html.eex:6
+#: lib/cforum_web/templates/notification/index.html.eex:6
 msgid "created at"
 msgstr "Erstellungszeitpunkt"
 
 #: lib/cforum_web/templates/admin/forum/index.html.eex:29
-#: lib/cforum_web/templates/notification/index.html.eex:29
+#: lib/cforum_web/templates/mail/index.html.eex:31
+#: lib/cforum_web/templates/notification/index.html.eex:27
 msgid "delete"
 msgstr "löschen"
 
@@ -826,7 +840,9 @@ msgstr "lesen für Angemeldete"
 msgid "known-write"
 msgstr "schreiben für Angemeldete"
 
-#: lib/cforum_web/templates/notification/index.html.eex:31
+#: lib/cforum_web/templates/mail/index.html.eex:30
+#: lib/cforum_web/templates/mail/show.html.eex:33
+#: lib/cforum_web/templates/notification/index.html.eex:29
 msgid "mark unread"
 msgstr "ungelesen markieren"
 
@@ -859,8 +875,10 @@ msgstr "Anweisungen zum zurücksetzen verschicken"
 msgid "show"
 msgstr "anzeigen"
 
+#: lib/cforum_web/templates/mail/form.html.eex:11
+#: lib/cforum_web/templates/mail/index.html.eex:5
 #: lib/cforum_web/templates/message/form.html.eex:3
-#: lib/cforum_web/templates/notification/index.html.eex:6
+#: lib/cforum_web/templates/notification/index.html.eex:5
 msgid "subject"
 msgstr "Betreff"
 
@@ -1239,6 +1257,7 @@ msgstr ""
 msgid "replace float:left with a flexbox construct"
 msgstr "float:left mit einem Flexbox-Konstrukt ersetzen"
 
+#: lib/cforum_web/templates/mail/new.html.eex:9
 #: lib/cforum_web/templates/message/new.html.eex:23
 #: lib/cforum_web/templates/thread/new.html.eex:29
 msgid "show preview"
@@ -1254,7 +1273,8 @@ msgstr "Tags"
 msgid "voluntary, will be publicly visible"
 msgstr "freiwillig, öffentlich sichtbar"
 
-#: lib/cforum_web/templates/message/header_author.html.eex:5
+#: lib/cforum_web/templates/forum/message_header.html.eex:4
+#: lib/cforum_web/views/helpers.ex:150
 msgid "link to profile of"
 msgstr "Link zum Profil von"
 
@@ -1262,8 +1282,8 @@ msgstr "Link zum Profil von"
 msgid "search"
 msgstr "suchen"
 
-#: lib/cforum_web/templates/message/header_author.html.eex:4
-#: lib/cforum_web/templates/message/header_author.html.eex:6
+#: lib/cforum_web/templates/forum/message_header.html.eex:6
+#: lib/cforum_web/views/helpers.ex:142 lib/cforum_web/views/helpers.ex:155
 msgid "user %{user}"
 msgstr "Benutzer %{user}"
 
@@ -1309,7 +1329,7 @@ msgstr "Folgende Tags sind unbekannt: %{tags}."
 msgid "Thread created successfully."
 msgstr "Thread erfolgreich erstellt."
 
-#: lib/cforum_web/templates/forum/message_header.html.eex:7
+#: lib/cforum_web/templates/forum/message_header.html.eex:8
 msgid "User %{user}"
 msgstr "Benutzer %{user}"
 
@@ -1483,3 +1503,76 @@ msgstr "abonnierte Beiträge"
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:25
 msgid "unsubscribe message"
 msgstr "Baum deabonnieren"
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/index.html.eex:13
+msgid "No mails found"
+msgstr "Keine Mails gefunden."
+
+#, elixir-format
+#: lib/cforum_web/views/mail_view.ex:8
+msgid "mails"
+msgstr "Post"
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/subnav.html.eex:2
+#: lib/cforum_web/views/mail_view.ex:9
+msgid "new mail"
+msgstr "neue Mail"
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/index.html.eex:4
+msgid "partner"
+msgstr "Partner"
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/new.html.eex:10
+msgid "send mail"
+msgstr "Mail versenden"
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/form.html.eex:12
+msgid "Howdy, partner!"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/mail_view.ex:12
+msgid "mail from %{partner}"
+msgstr "Post von %{partner}"
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/index.html.eex:27
+#: lib/cforum_web/templates/mail/show.html.eex:28
+msgid "answer"
+msgstr "antworten"
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/index.html.eex:28
+#: lib/cforum_web/templates/mail/show.html.eex:29
+msgid "answer without cite"
+msgstr "ohne Zitat antworten"
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/controllers/mail_controller.ex:51
+msgid "Mail created successfully."
+msgstr "Nachricht erfolgreich gespeichert."
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/controllers/mail_controller.ex:76
+msgid "Mail deleted successfully."
+msgstr "Forum erfolgreich gelöscht."
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/controllers/mail_controller.ex:64
+msgid "Mail successfully marked as unread."
+msgstr "Benachrichtigung erfolgreich als ungelesen markiert."
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/mail/show.html.eex:32
+msgid "delete mail"
+msgstr "löschen"
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/form.html.eex:5
+msgid "recpient"
+msgstr "Empfänger"

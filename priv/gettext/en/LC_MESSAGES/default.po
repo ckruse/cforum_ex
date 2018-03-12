@@ -232,6 +232,7 @@ msgid "settings"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:3
+#: lib/cforum_web/templates/mail/new.html.eex:2
 #: lib/cforum_web/templates/message/new.html.eex:6
 #: lib/cforum_web/templates/thread/new.html.eex:6
 #: lib/cforum_web/templates/users/registration/new.html.eex:4
@@ -446,7 +447,7 @@ msgstr ""
 msgid "only visible for you"
 msgstr ""
 
-#: lib/cforum_web/templates/message/header_author.html.eex:11
+#: lib/cforum_web/templates/message/header_author.html.eex:6
 msgid "original poster"
 msgstr ""
 
@@ -511,6 +512,7 @@ msgstr ""
 
 #: lib/cforum_web/templates/admin/forum/edit.html.eex:8
 #: lib/cforum_web/templates/admin/forum/new.html.eex:8
+#: lib/cforum_web/templates/mail/new.html.eex:11
 #: lib/cforum_web/templates/message/new.html.eex:25
 #: lib/cforum_web/templates/thread/new.html.eex:31
 #: lib/cforum_web/templates/users/password/edit.html.eex:15
@@ -663,7 +665,17 @@ msgid "yes, notify me"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/forum/index.html.eex:29
-#: lib/cforum_web/templates/notification/index.html.eex:29
+#: lib/cforum_web/templates/notification/index.html.eex:27
+#: lib/cforum_web/views/helpers/button.ex:94
+#: lib/cforum_web/views/helpers/button.ex:103
+#: lib/cforum_web/views/helpers/button.ex:116
+#: lib/cforum_web/views/helpers/button.ex:125
+#: lib/cforum_web/views/helpers/button.ex:269
+#: lib/cforum_web/views/helpers/button.ex:278
+#: lib/cforum_web/views/helpers/button.ex:292
+#: lib/cforum_web/views/helpers/button.ex:301
+#: lib/cforum_web/views/helpers/button.ex:356
+#: lib/cforum_web/views/helpers/button.ex:365
 msgid "Are you sure?"
 msgstr ""
 
@@ -697,7 +709,7 @@ msgstr ""
 msgid "New Forum"
 msgstr ""
 
-#: lib/cforum_web/templates/notification/index.html.eex:14
+#: lib/cforum_web/templates/notification/index.html.eex:13
 msgid "No notifications found"
 msgstr ""
 
@@ -781,12 +793,14 @@ msgstr ""
 msgid "change password: %{username}"
 msgstr ""
 
-#: lib/cforum_web/templates/notification/index.html.eex:7
+#: lib/cforum_web/templates/mail/index.html.eex:6
+#: lib/cforum_web/templates/notification/index.html.eex:6
 msgid "created at"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/forum/index.html.eex:29
-#: lib/cforum_web/templates/notification/index.html.eex:29
+#: lib/cforum_web/templates/mail/index.html.eex:31
+#: lib/cforum_web/templates/notification/index.html.eex:27
 msgid "delete"
 msgstr ""
 
@@ -810,7 +824,9 @@ msgstr ""
 msgid "known-write"
 msgstr ""
 
-#: lib/cforum_web/templates/notification/index.html.eex:31
+#: lib/cforum_web/templates/mail/index.html.eex:30
+#: lib/cforum_web/templates/mail/show.html.eex:33
+#: lib/cforum_web/templates/notification/index.html.eex:29
 msgid "mark unread"
 msgstr ""
 
@@ -843,8 +859,10 @@ msgstr ""
 msgid "show"
 msgstr ""
 
+#: lib/cforum_web/templates/mail/form.html.eex:11
+#: lib/cforum_web/templates/mail/index.html.eex:5
 #: lib/cforum_web/templates/message/form.html.eex:3
-#: lib/cforum_web/templates/notification/index.html.eex:6
+#: lib/cforum_web/templates/notification/index.html.eex:5
 msgid "subject"
 msgstr ""
 
@@ -1223,6 +1241,7 @@ msgstr ""
 msgid "replace float:left with a flexbox construct"
 msgstr ""
 
+#: lib/cforum_web/templates/mail/new.html.eex:9
 #: lib/cforum_web/templates/message/new.html.eex:23
 #: lib/cforum_web/templates/thread/new.html.eex:29
 msgid "show preview"
@@ -1238,7 +1257,8 @@ msgstr ""
 msgid "voluntary, will be publicly visible"
 msgstr ""
 
-#: lib/cforum_web/templates/message/header_author.html.eex:5
+#: lib/cforum_web/templates/forum/message_header.html.eex:4
+#: lib/cforum_web/views/helpers.ex:150
 msgid "link to profile of"
 msgstr ""
 
@@ -1246,8 +1266,8 @@ msgstr ""
 msgid "search"
 msgstr ""
 
-#: lib/cforum_web/templates/message/header_author.html.eex:4
-#: lib/cforum_web/templates/message/header_author.html.eex:6
+#: lib/cforum_web/templates/forum/message_header.html.eex:6
+#: lib/cforum_web/views/helpers.ex:142 lib/cforum_web/views/helpers.ex:155
 msgid "user %{user}"
 msgstr ""
 
@@ -1291,7 +1311,7 @@ msgstr ""
 msgid "Thread created successfully."
 msgstr ""
 
-#: lib/cforum_web/templates/forum/message_header.html.eex:7
+#: lib/cforum_web/templates/forum/message_header.html.eex:8
 msgid "User %{user}"
 msgstr ""
 
@@ -1464,4 +1484,77 @@ msgstr ""
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:23
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:25
 msgid "unsubscribe message"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/index.html.eex:13
+msgid "No mails found"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/mail_view.ex:8
+msgid "mails"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/subnav.html.eex:2
+#: lib/cforum_web/views/mail_view.ex:9
+msgid "new mail"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/index.html.eex:4
+msgid "partner"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/new.html.eex:10
+msgid "send mail"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/form.html.eex:12
+msgid "Howdy, partner!"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/mail_view.ex:12
+msgid "mail from %{partner}"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/index.html.eex:27
+#: lib/cforum_web/templates/mail/show.html.eex:28
+msgid "answer"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/index.html.eex:28
+#: lib/cforum_web/templates/mail/show.html.eex:29
+msgid "answer without cite"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/controllers/mail_controller.ex:51
+msgid "Mail created successfully."
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/controllers/mail_controller.ex:76
+msgid "Mail deleted successfully."
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/controllers/mail_controller.ex:64
+msgid "Mail successfully marked as unread."
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/mail/show.html.eex:32
+msgid "delete mail"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/form.html.eex:5
+msgid "recpient"
 msgstr ""
