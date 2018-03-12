@@ -13,7 +13,7 @@
               id="notifications-display"
               title="<%= gettext("new notifications", count: @unread_notifications) %>"><%= @unread_notifications %></span>)
     </li>
-    <li id="post-link"><%= link(gettext("mail"), to: "", title: gettext("%{count} new mails", count: @unread_mails)) %>
+    <li id="post-link"><%= link(gettext("mail"), to: mail_path(@conn, :index), title: gettext("%{count} new mails", count: @unread_mails)) %>
       (<span class="mails new" id="mails" title="<%= gettext("%{count} new mails", count: @unread_mails) %>"><%= @unread_mails %></span>)</li>
     <li id="optionen-logout"><%= cf_button(gettext("logout"), to: session_path(@conn, :delete), method: :delete, class: "btn-link") %></li>
   <% else %>

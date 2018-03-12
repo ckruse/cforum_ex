@@ -10,6 +10,7 @@ defmodule Cforum.MarkdownRenderer do
   # alias Porcelain.Result
 
   alias Cforum.Forums.Message
+  alias Cforum.Accounts.PrivMessage
   # alias Cforum.Accounts.User
 
   def start_link(opts \\ []) do
@@ -38,6 +39,13 @@ defmodule Cforum.MarkdownRenderer do
   def to_html(%Message{} = message, _user) do
     # TODO handle user specific foo
     {:ok, html} = render_doc(message.content)
+    {:safe, html}
+    # [{:safe, "<pre>"}, message.content, {:safe, "</pre>"}]
+  end
+
+  def to_html(%PrivMessage{} = message, _user) do
+    # TODO handle user specific foo
+    {:ok, html} = render_doc(message.body)
     {:safe, html}
     # [{:safe, "<pre>"}, message.content, {:safe, "</pre>"}]
   end

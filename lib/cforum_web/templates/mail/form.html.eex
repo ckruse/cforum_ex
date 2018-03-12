@@ -1,0 +1,22 @@
+<%= unless blank?(Ecto.Changeset.get_field(@changeset, :thread_id)), do: hidden_input @f, :thread_id %>
+
+<fieldset>
+  <div class="cf-cgroup <%= error_class(@f, :recipient_id) %>">
+    <%= label @f, :recipient_id, gettext("recpient") %>
+    <%= text_input @f, :recipient_id, required: true, "data-user-selector": "yes" %>
+    <%= error_tag @f, :recipient_id %>
+  </div>
+
+  <div class="cf-cgroup <%= error_class(@f, :subject) %>">
+    <%= label @f, :subject, gettext("subject") %>
+    <%= text_input @f, :subject, placeholder: gettext("Howdy, partner!"), maxlength: 250, required: true %>
+    <%= error_tag @f, :subject %>
+  </div>
+</fieldset>
+
+<fieldset>
+  <div class="cf-cgroup cf-textarea-only <%= error_class(@f, :body) %>">
+    <%= textarea @f, :body, maxlength: 12288, class: 'big', required: true %>
+    <%= error_tag @f, :body %>
+  </div>
+</fieldset>

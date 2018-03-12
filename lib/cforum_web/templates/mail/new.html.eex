@@ -1,0 +1,13 @@
+<%= if @changeset.action do %>
+  <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
+<% end %>
+
+<%= form_for @changeset, mail_path(@conn, :create), [class: "cf-form"], fn f -> %>
+  <%= render("form.html", Map.merge(assigns, %{f: f})) %>
+
+  <p class="form-actions">
+    <%= default_submit gettext("show preview"), name: "preview" %>
+    <%= primary_submit gettext("send mail") %>
+    <%= default_button_link gettext("cancel"), to: mail_path(@conn, :index) %>
+  </p>
+<% end %>

@@ -1,0 +1,3 @@
+<ul>
+  <li><%= link gettext("new mail"), to: mail_path(@conn, :new) %>
+</ul>
