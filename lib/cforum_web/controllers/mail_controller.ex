@@ -27,20 +27,34 @@ defmodule CforumWeb.MailController do
     render(conn, "show.html", priv_message: priv_message)
   end
 
-  def new(conn, %{"parent_id" => id}) do
+  def new(conn, %{"parent_id" => id} = params) do
     parent = PrivMessages.get_priv_message!(conn.assigns[:current_user], id)
 
     changeset =
-      PrivMessages.change_priv_message(%PrivMessage{
-        thread_id: parent.thread_id,
-        recipient_id: PrivMessages.partner_id(parent)
-      })
+      PrivMessages.answer_changeset(
+        %PrivMessage{},
+        parent,
+        strip_signature: uconf(conn, "quote_signature") != "yes",
+        greeting: uconf(conn, "greeting"),
+        farewell: uconf(conn, "farewell"),
+        signature: uconf(conn, "signature"),
+        quote: quote?(conn, params),
+        std_replacement: gettext("you")
+      )
 
     render(conn, "new.html", changeset: changeset)
   end
 
   def new(conn, _params) do
-    changeset = PrivMessages.change_priv_message(%PrivMessage{})
+    changeset =
+      PrivMessages.new_changeset(
+        %PrivMessage{},
+        greeting: uconf(conn, "greeting"),
+        farewell: uconf(conn, "farewell"),
+        signature: uconf(conn, "signature"),
+        std_replacement: gettext("you")
+      )
+
     render(conn, "new.html", changeset: changeset)
   end
 
@@ -79,4 +93,12 @@ defmodule CforumWeb.MailController do
 
   defp ordering("ascending"), do: :asc
   defp ordering(_), do: :desc
+
+  defp quote?(conn, params) do
+    if blank?(params["quote"]) do
+      uconf(conn, "quote_by_default") == "yes"
+    else
+      params["quote"] == "yes"
+    end
+  end
 end

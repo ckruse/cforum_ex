@@ -1535,17 +1535,17 @@ msgid "answer without cite"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:51
+#: lib/cforum_web/controllers/mail_controller.ex:65
 msgid "Mail created successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:76
+#: lib/cforum_web/controllers/mail_controller.ex:90
 msgid "Mail deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:64
+#: lib/cforum_web/controllers/mail_controller.ex:78
 msgid "Mail successfully marked as unread."
 msgstr ""
 
@@ -1557,4 +1557,10 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/mail/form.html.eex:5
 msgid "recpient"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/controllers/mail_controller.ex:42
+#: lib/cforum_web/controllers/mail_controller.ex:55
+msgid "you"
 msgstr ""
