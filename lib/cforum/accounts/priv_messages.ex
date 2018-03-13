@@ -4,9 +4,12 @@ defmodule Cforum.Accounts.PrivMessages do
   """
 
   import Ecto.Query, warn: false
-  alias Cforum.Repo
+  import Cforum.Helpers
 
+  alias Cforum.Repo
   alias Cforum.Accounts.PrivMessage
+
+  alias Cforum.Helpers.CompositionHelpers
 
   @doc """
   Returns the list of priv_messages.
@@ -172,8 +175,62 @@ defmodule Cforum.Accounts.PrivMessages do
       %Ecto.Changeset{source: %PrivMessage{}}
 
   """
-  def change_priv_message(%PrivMessage{} = priv_messages) do
-    PrivMessage.changeset(priv_messages, %{})
+  def change_priv_message(%PrivMessage{} = priv_messages, attrs \\ %{}) do
+    PrivMessage.changeset(priv_messages, attrs)
+  end
+
+  def new_changeset(%PrivMessage{} = priv_message, opts \\ []) do
+    opts =
+      Keyword.merge(
+        [
+          greeting: nil,
+          farewell: nil,
+          signature: nil,
+          quote: true,
+          std_replacement: "all"
+        ],
+        opts
+      )
+
+    content =
+      ""
+      |> CompositionHelpers.maybe_add_greeting(opts[:greeting], nil, opts[:std_replacement])
+      |> CompositionHelpers.maybe_add_farewell(opts[:farewell])
+      |> CompositionHelpers.maybe_add_signature(opts[:signature])
+
+    change_priv_message(priv_message, %{body: content})
+  end
+
+  def answer_changeset(%PrivMessage{} = priv_message, parent, opts \\ []) do
+    opts =
+      Keyword.merge(
+        [
+          strip_signature: true,
+          greeting: nil,
+          farewell: nil,
+          signature: nil,
+          quote: true,
+          std_replacement: parent.sender.username,
+          subject_prefix: "RE: "
+        ],
+        opts
+      )
+
+    cnt =
+      if opts[:quote],
+        do: attribute_value(parent, :body, ""),
+        else: ""
+
+    content =
+      cnt
+      |> CompositionHelpers.quote_from_content(opts[:strip_signature])
+      |> CompositionHelpers.maybe_add_greeting(opts[:greeting], parent.sender.username, opts[:std_replacement])
+      |> CompositionHelpers.maybe_add_farewell(opts[:farewell])
+      |> CompositionHelpers.maybe_add_signature(opts[:signature])
+
+    subject = CompositionHelpers.subject_from_parent(parent.subject, opts[:subject_prefix])
+
+    change_priv_message(priv_message, %{subject: subject, body: content, recipient_id: parent.sender_id})
   end
 
   def mark_priv_message(%PrivMessage{} = priv_message, type) do
