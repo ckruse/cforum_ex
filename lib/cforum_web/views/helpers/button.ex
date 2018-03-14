@@ -83,7 +83,7 @@ defmodule CforumWeb.Views.Helpers.Button do
 
   @doc """
   Generates a button with a &lt;form&gt; for a destructive action; see
-  `default_button/2`. Additionally it sets a `data-cf-confirm`
+  `default_button/2`. Additionally it sets a `data-confirm`
   attribute the UI can intervene on and make sure that the user will
   be asked for confirmation.
   """
@@ -91,7 +91,7 @@ defmodule CforumWeb.Views.Helpers.Button do
     opts =
       opts
       |> Keyword.update(:class, "cf-destructive-btn", &(&1 <> " cf-destructive-btn"))
-      |> Keyword.update(:"data-cf-confirm", gettext("Are you sure?"), & &1)
+      |> Keyword.update(:"data-confirm", gettext("Are you sure?"), & &1)
 
     cf_button(opts, do: contents)
   end
@@ -100,7 +100,7 @@ defmodule CforumWeb.Views.Helpers.Button do
     opts =
       opts
       |> Keyword.update(:class, "cf-destructive-btn", &(&1 <> " cf-destructive-btn"))
-      |> Keyword.update(:"data-cf-confirm", gettext("Are you sure?"), & &1)
+      |> Keyword.update(:"data-confirm", gettext("Are you sure?"), & &1)
 
     cf_button(text, opts)
   end
@@ -113,7 +113,7 @@ defmodule CforumWeb.Views.Helpers.Button do
     opts =
       opts
       |> Keyword.update(:class, "cf-destructive-index-btn", &(&1 <> " cf-destructive-index-btn"))
-      |> Keyword.update(:"data-cf-confirm", gettext("Are you sure?"), & &1)
+      |> Keyword.update(:"data-confirm", gettext("Are you sure?"), & &1)
 
     cf_button(opts, do: contents)
   end
@@ -122,7 +122,7 @@ defmodule CforumWeb.Views.Helpers.Button do
     opts =
       opts
       |> Keyword.update(:class, "cf-destructive-index-btn", &(&1 <> " cf-destructive-index-btn"))
-      |> Keyword.update(:"data-cf-confirm", gettext("Are you sure?"), & &1)
+      |> Keyword.update(:"data-confirm", gettext("Are you sure?"), & &1)
 
     cf_button(text, opts)
   end
@@ -258,7 +258,7 @@ defmodule CforumWeb.Views.Helpers.Button do
 
   @doc """
   Generates a button with a link for a destructive action; see
-  `default_button_link/2`. Additionally it sets a `data-cf-confirm`
+  `default_button_link/2`. Additionally it sets a `data-confirm`
   attribute the UI can intervene on and make sure that the user will
   be asked for confirmation.
   """
@@ -266,7 +266,7 @@ defmodule CforumWeb.Views.Helpers.Button do
     opts =
       opts
       |> Keyword.update(:class, "cf-destructive-btn", &(&1 <> " cf-destructive-btn"))
-      |> Keyword.update(:"data-cf-confirm", gettext("Are you sure?"), & &1)
+      |> Keyword.update(:"data-confirm", gettext("Are you sure?"), & &1)
 
     link(opts, do: contents)
   end
@@ -275,7 +275,7 @@ defmodule CforumWeb.Views.Helpers.Button do
     opts =
       opts
       |> Keyword.update(:class, "cf-destructive-btn", &(&1 <> " cf-destructive-btn"))
-      |> Keyword.update(:"data-cf-confirm", gettext("Are you sure?"), & &1)
+      |> Keyword.update(:"data-confirm", gettext("Are you sure?"), & &1)
 
     link(text, opts)
   end
@@ -289,7 +289,7 @@ defmodule CforumWeb.Views.Helpers.Button do
     opts =
       opts
       |> Keyword.update(:class, "cf-destructive-btn", &(&1 <> " cf-destructive-btn"))
-      |> Keyword.update(:"data-cf-confirm", gettext("Are you sure?"), & &1)
+      |> Keyword.update(:"data-confirm", gettext("Are you sure?"), & &1)
 
     link(opts, do: contents)
   end
@@ -298,7 +298,7 @@ defmodule CforumWeb.Views.Helpers.Button do
     opts =
       opts
       |> Keyword.update(:class, "cf-destructive-btn", &(&1 <> " cf-destructive-btn"))
-      |> Keyword.update(:"data-cf-confirm", gettext("Are you sure?"), & &1)
+      |> Keyword.update(:"data-confirm", gettext("Are you sure?"), & &1)
 
     link(text, opts)
   end
@@ -343,7 +343,7 @@ defmodule CforumWeb.Views.Helpers.Button do
 
   @doc """
   Generates a submit button for a destructive action; see
-  `default_submit/2`. Additionally it sets a `data-cf-confirm`
+  `default_submit/2`. Additionally it sets a `data-confirm`
   attribute the UI can intervene on and make sure that the user will
   be asked for confirmation.
   """
@@ -353,7 +353,7 @@ defmodule CforumWeb.Views.Helpers.Button do
     opts =
       opts
       |> Keyword.update(:class, "cf-destructive-btn", &(&1 <> " cf-destructive-btn"))
-      |> Keyword.update(:"data-cf-confirm", gettext("Are you sure?"), & &1)
+      |> Keyword.update(:"data-confirm", gettext("Are you sure?"), & &1)
 
     submit(opts, do: contents)
   end
@@ -362,7 +362,7 @@ defmodule CforumWeb.Views.Helpers.Button do
     opts =
       opts
       |> Keyword.update(:class, "cf-destructive-btn", &(&1 <> " cf-destructive-btn"))
-      |> Keyword.update(:"data-cf-confirm", gettext("Are you sure?"), & &1)
+      |> Keyword.update(:"data-confirm", gettext("Are you sure?"), & &1)
 
     submit(text, opts)
   end
