@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2018-03-13 07:34+0100\n"
+"PO-Revision-Date: 2018-03-14 08:56+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -188,11 +188,11 @@ msgstr "archivierte Beiträge"
 msgid "create new thread"
 msgstr "neuer Beitrag"
 
-#: lib/cforum_web/templates/users/session/new.html.eex:10
+#: lib/cforum_web/templates/users/session/new.html.eex:21
 msgid "I forgot my password"
 msgstr "Ich habe mein Passwort vergessen"
 
-#: lib/cforum_web/templates/users/session/new.html.eex:21
+#: lib/cforum_web/templates/users/session/new.html.eex:20
 #: lib/cforum_web/views/users/session_view.ex:4
 msgid "Login"
 msgstr "anmelden"
@@ -202,7 +202,7 @@ msgstr "anmelden"
 msgid "Regina Schlauklug"
 msgstr "Regina Schlauklug"
 
-#: lib/cforum_web/templates/users/session/new.html.eex:16
+#: lib/cforum_web/templates/users/session/new.html.eex:15
 msgid "Remember me"
 msgstr "Login merken"
 
@@ -1582,3 +1582,11 @@ msgstr "Empfänger"
 #: lib/cforum_web/controllers/mail_controller.ex:55
 msgid "you"
 msgstr "du"
+
+#, elixir-format
+#: lib/cforum_web/templates/users/password/edit.html.eex:4
+#: lib/cforum_web/templates/users/password/edit_reset.html.eex:4
+#: lib/cforum_web/templates/users/registration/new.html.eex:22
+#: lib/cforum_web/templates/users/session/new.html.eex:9
+msgid "show password"
+msgstr "Passwort anzeigen"

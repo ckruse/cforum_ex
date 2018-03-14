@@ -175,11 +175,11 @@ msgstr ""
 msgid "create new thread"
 msgstr ""
 
-#: lib/cforum_web/templates/users/session/new.html.eex:10
+#: lib/cforum_web/templates/users/session/new.html.eex:21
 msgid "I forgot my password"
 msgstr ""
 
-#: lib/cforum_web/templates/users/session/new.html.eex:21
+#: lib/cforum_web/templates/users/session/new.html.eex:20
 #: lib/cforum_web/views/users/session_view.ex:4
 msgid "Login"
 msgstr ""
@@ -189,7 +189,7 @@ msgstr ""
 msgid "Regina Schlauklug"
 msgstr ""
 
-#: lib/cforum_web/templates/users/session/new.html.eex:16
+#: lib/cforum_web/templates/users/session/new.html.eex:15
 msgid "Remember me"
 msgstr ""
 
@@ -1563,4 +1563,12 @@ msgstr ""
 #: lib/cforum_web/controllers/mail_controller.ex:42
 #: lib/cforum_web/controllers/mail_controller.ex:55
 msgid "you"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/users/password/edit.html.eex:4
+#: lib/cforum_web/templates/users/password/edit_reset.html.eex:4
+#: lib/cforum_web/templates/users/registration/new.html.eex:22
+#: lib/cforum_web/templates/users/session/new.html.eex:9
+msgid "show password"
 msgstr ""

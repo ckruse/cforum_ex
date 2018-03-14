@@ -20,6 +20,6 @@
 
 // import socket from "./socket"
 
-import './modules/confirmation.js';
-
-import './modules/tabs.js';
+import "./modules/confirmation.js";
+import "./modules/tabs.js";
+import "./modules/show-password.js";
