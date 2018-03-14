@@ -10,19 +10,11 @@
  *
  */
 
+import { curry } from "./functional.js";
 
+import { when } from "./logic.js";
 
-
-
-import { curry } from './functional.js';
-
-import { when } from './logic.js';
-
-import { array, callable } from './predicates.js';
-
-
-
-
+import { array, callable } from "./predicates.js";
 
 /**
  *  @function adjust
@@ -65,14 +57,10 @@ import { array, callable } from './predicates.js';
  *
  *
  */
-export const adjust = curry(function adjust (callback, index, [...list]) {
+export const adjust = curry(function adjust(callback, index, [...list]) {
   list.splice(index, 1, callback(list[index]));
   return list;
 });
-
-
-
-
 
 /**
  *  @function append
@@ -110,13 +98,9 @@ export const adjust = curry(function adjust (callback, index, [...list]) {
  *
  *
  */
-export const append = curry(function append (value, list) {
+export const append = curry(function append(value, list) {
   return [...list, value];
 });
-
-
-
-
 
 /**
  *  @function entries
@@ -155,13 +139,9 @@ export const append = curry(function append (value, list) {
  *
  *
  */
-export function entries (data) {
+export function entries(data) {
   return callable(data.entries) ? Array.from(data.entries()) : Object.entries(data);
 }
-
-
-
-
 
 /**
  *  @function filter
@@ -206,13 +186,9 @@ export function entries (data) {
  *
  *
  */
-export const filter = curry(function (predicate, [...list]) {
+export const filter = curry(function(predicate, [...list]) {
   return list.filter(predicate);
 });
-
-
-
-
 
 /**
  *  @function find
@@ -225,13 +201,9 @@ export const filter = curry(function (predicate, [...list]) {
  *
  *
  */
-export const find = curry(function find (predicate, [...list]) {
+export const find = curry(function find(predicate, [...list]) {
   return list.find(predicate);
 });
-
-
-
-
 
 /**
  *  @function flatten
@@ -264,13 +236,9 @@ export const find = curry(function find (predicate, [...list]) {
  *
  *
  */
-export function flatten (list) {
+export function flatten(list) {
   return list.reduce((result, value) => result.concat(when(array, flatten, value)), []);
 }
-
-
-
-
 
 /**
  *  @function from
@@ -302,13 +270,9 @@ export function flatten (list) {
  *
  *
  */
-export function from ([...list]) {
+export function from([...list]) {
   return list;
 }
-
-
-
-
 
 /**
  *  @function head
@@ -340,13 +304,9 @@ export function from ([...list]) {
  *
  *
  */
-export function head ([item]) {
+export function head([item]) {
   return item;
 }
-
-
-
-
 
 /**
  *  @function init
@@ -379,13 +339,9 @@ export function head ([item]) {
  *
  *
  */
-export function init ([...list]) {
+export function init([...list]) {
   return list.slice(0, list.length - 1);
 }
-
-
-
-
 
 /**
  *  @function keys
@@ -424,13 +380,9 @@ export function init ([...list]) {
  *
  *
  */
-export function keys (data) {
+export function keys(data) {
   return callable(data.keys) ? Array.from(data.keys()) : Object.keys(data);
 }
-
-
-
-
 
 /**
  *  @function length
@@ -466,10 +418,6 @@ export function keys (data) {
  */
 export const length = list => list.length;
 
-
-
-
-
 /**
  *  @function pair
  *
@@ -496,13 +444,9 @@ export const length = list => list.length;
  *
  *
  */
-export const pair = curry(function pair (first, second) {
+export const pair = curry(function pair(first, second) {
   return [first, second];
 });
-
-
-
-
 
 /**
  *  @function peak
@@ -535,13 +479,9 @@ export const pair = curry(function pair (first, second) {
  *
  *
  */
-export function peak ([...list]) {
+export function peak([...list]) {
   return list[list.length - 1];
 }
-
-
-
-
 
 /**
  *  @function prepend
@@ -579,13 +519,9 @@ export function peak ([...list]) {
  *
  *
  */
-export const prepend = curry(function prepend (value, list) {
+export const prepend = curry(function prepend(value, list) {
   return [value, ...list];
 });
-
-
-
-
 
 /**
  *  @function reduce
@@ -641,13 +577,9 @@ export const prepend = curry(function prepend (value, list) {
  *
  *
  */
-export const reduce = curry(function reduce (reducer, accumulator, [...list]) {
+export const reduce = curry(function reduce(reducer, accumulator, [...list]) {
   return list.reduce(reducer, accumulator);
 });
-
-
-
-
 
 /**
  *  @function tail
@@ -680,13 +612,9 @@ export const reduce = curry(function reduce (reducer, accumulator, [...list]) {
  *
  *
  */
-export function tail ([head, ...remainder]) {
+export function tail([head, ...remainder]) {
   return remainder;
 }
-
-
-
-
 
 /**
  *  @function transform
@@ -724,13 +652,9 @@ export function tail ([head, ...remainder]) {
  *
  *
  */
-export const transform = curry(function transform (callback, [...list]) {
+export const transform = curry(function transform(callback, [...list]) {
   return list.map(callback);
 });
-
-
-
-
 
 /**
  *  @function values
@@ -769,13 +693,9 @@ export const transform = curry(function transform (callback, [...list]) {
  *
  *
  */
-export function values (data) {
+export function values(data) {
   return callable(data.values) ? Array.from(data.values()) : Object.values(data);
 }
-
-
-
-
 
 /**
  *  @function zip
@@ -803,6 +723,6 @@ export function values (data) {
  *
  *
  */
-export const zip = curry(function zip ([...first], [...second]) {
+export const zip = curry(function zip([...first], [...second]) {
   return first.map((value, index) => [value, second[index]]);
 });

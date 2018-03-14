@@ -12,21 +12,13 @@
  *
  */
 
+import { getAttribute, setAttribute } from "./elements.js";
 
+import { curry, pipe } from "./functional.js";
 
+import { equal } from "./predicates.js";
 
-
-import { getAttribute, setAttribute } from './elements.js';
-
-import { curry, pipe } from './functional.js';
-
-import { equal } from './predicates.js';
-
-import { id } from './selectors.js';
-
-
-
-
+import { id } from "./selectors.js";
 
 /**
  *  @function controls
@@ -40,11 +32,7 @@ import { id } from './selectors.js';
  *
  *
  */
-export const controls = pipe(getAttribute('aria-controls'), id);
-
-
-
-
+export const controls = pipe(getAttribute("aria-controls"), id);
 
 /**
  *  @function role
@@ -52,11 +40,7 @@ export const controls = pipe(getAttribute('aria-controls'), id);
  *
  *
  */
-export const role = setAttribute('role');
-
-
-
-
+export const role = setAttribute("role");
 
 /**
  *  @function selected
@@ -64,11 +48,7 @@ export const role = setAttribute('role');
  *
  *
  */
-export const selected = pipe(getAttribute('aria-selected'), equal('true'));
-
-
-
-
+export const selected = pipe(getAttribute("aria-selected"), equal("true"));
 
 /**
  *  @function toggleSelection
@@ -77,6 +57,6 @@ export const selected = pipe(getAttribute('aria-selected'), equal('true'));
  *
  *
  */
-export function toggleSelection (element) {
-  return setAttribute('aria-selected', selected(element) ? 'false' : 'true', element);
+export function toggleSelection(element) {
+  return setAttribute("aria-selected", selected(element) ? "false" : "true", element);
 }

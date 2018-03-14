@@ -23,15 +23,7 @@
  *
  */
 
-
-
-
-
-import { defined, equal } from './predicates.js';
-
-
-
-
+import { defined, equal } from "./predicates.js";
 
 /**
  *  @function hasHiddenAttribute
@@ -58,13 +50,9 @@ import { defined, equal } from './predicates.js';
  *
  *
  */
-export function hasHiddenAttribute () {
-  return 'hidden' in document.body;
+export function hasHiddenAttribute() {
+  return "hidden" in document.body;
 }
-
-
-
-
 
 /**
  *  @function hasLocalStorage
@@ -92,21 +80,14 @@ export function hasHiddenAttribute () {
  *
  *
  */
-export function hasLocalStorage () {
-
+export function hasLocalStorage() {
   try {
-    localStorage.setItem('test', 'value'), localStorage.removeItem('test');
+    localStorage.setItem("test", "value"), localStorage.removeItem("test");
     return true;
-  }
-  catch (exception) {
+  } catch (exception) {
     return false;
   }
-
 }
-
-
-
-
 
 /**
  *  @function hasNotifications
@@ -133,13 +114,9 @@ export function hasLocalStorage () {
  *
  *
  */
-export function hasNotifications () {
+export function hasNotifications() {
   return defined(window.Notification) && defined(window.Notification.requestPermission);
 }
-
-
-
-
 
 /**
  *  @function hasWebSocket
@@ -167,13 +144,10 @@ export function hasNotifications () {
  *
  *
  */
-export function hasWebSocket () {
-
+export function hasWebSocket() {
   try {
     return equal(WebSocket.CLOSING, 2);
-  }
-  catch (exception) {
+  } catch (exception) {
     return false;
   }
-
 }

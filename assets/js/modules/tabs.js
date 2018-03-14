@@ -40,30 +40,11 @@
  *
  */
 
+import { role, selected, toggleSelection } from "./aria.js";
 
-
-
-
-import {
-
-  role,
-  selected,
-  toggleSelection
-
-} from './aria.js';
-
-
+import { hasHiddenAttribute } from "./browser.js";
 
 import {
-
-  hasHiddenAttribute
-
-} from './browser.js';
-
-
-
-import {
-
   children,
   elementSiblings,
   firstElementSibling,
@@ -75,74 +56,19 @@ import {
   setAttribute,
   toggleHiddenState,
   toggleTabIndex
+} from "./elements.js";
 
-} from './elements.js';
+import { bind, key, modified, preventDefault, ready, target } from "./events.js";
 
+import { compose, memoize, pipe } from "./functional.js";
 
+import { find, head, transform } from "./lists.js";
 
-import {
+import { both, conditions, either, unless, when } from "./logic.js";
 
-  bind,
-  key,
-  modified,
-  preventDefault,
-  ready,
-  target
+import { defined, equal } from "./predicates.js";
 
-} from './events.js'
-
-
-
-import {
-
-  compose,
-  memoize,
-  pipe
-
-} from './functional.js';
-
-
-
-import {
-
-  find,
-  head,
-  transform
-
-} from './lists.js';
-
-
-
-import {
-
-  both,
-  conditions,
-  either,
-  unless,
-  when
-
-} from './logic.js';
-
-
-
-import {
-
-  defined,
-  equal
-
-} from './predicates.js';
-
-
-
-import {
-
-  id
-
-} from './selectors.js';
-
-
-
-
+import { id } from "./selectors.js";
 
 /**
  *  @function addTabBehavior
@@ -176,33 +102,21 @@ import {
  *
  *
  */
-function addTabBehavior (tab) {
+function addTabBehavior(tab) {
   return bind(tab, {
-
     click: pipe(preventDefault, target, unless(selected, pipe(historyPushState, switchTabs))),
 
     keydown: conditions([
+      [key("ArrowLeft"), switchTo(either(previousElementSibling, lastElementSibling))],
 
-      [key('ArrowLeft'),
-       switchTo(either(previousElementSibling, lastElementSibling))],
+      [key("ArrowRight"), switchTo(either(nextElementSibling, firstElementSibling))],
 
-      [key('ArrowRight'),
-       switchTo(either(nextElementSibling, firstElementSibling))],
+      [key("Home"), switchTo(firstElementSibling)],
 
-      [key('Home'),
-       switchTo(firstElementSibling)],
-
-      [key('End'),
-       switchTo(lastElementSibling)]
-
+      [key("End"), switchTo(lastElementSibling)]
     ])
-
   });
 }
-
-
-
-
 
 /**
  *  @function getTabFromPanel
@@ -236,11 +150,7 @@ function addTabBehavior (tab) {
  *
  *
  */
-const getTabFromPanel = memoize(pipe(getAttribute('aria-labelledby'), id));
-
-
-
-
+const getTabFromPanel = memoize(pipe(getAttribute("aria-labelledby"), id));
 
 /**
  *  @function getPanelFromTab
@@ -274,11 +184,7 @@ const getTabFromPanel = memoize(pipe(getAttribute('aria-labelledby'), id));
  *
  *
  */
-const getPanelFromTab = memoize(pipe(getAttribute('aria-controls'), id));
-
-
-
-
+const getPanelFromTab = memoize(pipe(getAttribute("aria-controls"), id));
 
 /**
  *  @function getPanelFromFragment
@@ -313,10 +219,6 @@ const getPanelFromTab = memoize(pipe(getAttribute('aria-controls'), id));
  */
 const getPanelFromFragment = find(panel => equal(location.hash.slice(1), panel.id));
 
-
-
-
-
 /**
  *  @function handleHistoryChange
  *
@@ -349,19 +251,13 @@ const getPanelFromFragment = find(panel => equal(location.hash.slice(1), panel.i
  *
  *
  */
-function handleHistoryChange (panels) {
+function handleHistoryChange(panels) {
   return bind(window, {
-
-    popstate (event) {
+    popstate(event) {
       when(defined, switchTabs, compose(getTabFromPanel, getPanelFromFragment, panels));
     }
-
   });
 }
-
-
-
-
 
 /**
  *  @function getState
@@ -403,11 +299,7 @@ function handleHistoryChange (panels) {
  *
  *
  */
-const getState = tab => [tab.textContent, '#' + getAttribute('aria-controls', tab)];
-
-
-
-
+const getState = tab => [tab.textContent, "#" + getAttribute("aria-controls", tab)];
 
 /**
  *  @function historyPushState
@@ -446,14 +338,10 @@ const getState = tab => [tab.textContent, '#' + getAttribute('aria-controls', ta
  *
  *
  */
-function historyPushState (tab) {
+function historyPushState(tab) {
   history.pushState({}, ...getState(tab));
   return tab;
 }
-
-
-
-
 
 /**
  *  @function historyReplaceState
@@ -493,14 +381,10 @@ function historyPushState (tab) {
  *
  *
  */
-function historyReplaceState (tab) {
+function historyReplaceState(tab) {
   history.replaceState({}, ...getState(tab));
   return tab;
 }
-
-
-
-
 
 /**
  *  @function toggleTab
@@ -536,10 +420,6 @@ function historyReplaceState (tab) {
  */
 const toggleTab = pipe(toggleSelection, toggleTabIndex, getPanelFromTab, toggleHiddenState);
 
-
-
-
-
 /**
  *  @function switchTo
  *
@@ -573,18 +453,9 @@ const toggleTab = pipe(toggleSelection, toggleTabIndex, getPanelFromTab, toggleH
  *
  *
  */
-function switchTo (selector) {
-  return unless(
-    modified, pipe(
-      preventDefault, target,
-      selector, when(defined, pipe(historyPushState, switchTabs))
-    )
-  );
+function switchTo(selector) {
+  return unless(modified, pipe(preventDefault, target, selector, when(defined, pipe(historyPushState, switchTabs))));
 }
-
-
-
-
 
 /**
  *  @function switchTabs
@@ -617,13 +488,9 @@ function switchTo (selector) {
  *
  *
  */
-function switchTabs (tab) {
+function switchTabs(tab) {
   return toggleTab(compose(find(selected), elementSiblings, tab)), toggleTab(focus(tab));
 }
-
-
-
-
 
 /**
  *  @function setupTabInterface
@@ -656,16 +523,9 @@ function switchTabs (tab) {
  *
  *
  */
-function setupTabInterface (template) {
-  return compose(
-    both(handleHistoryChange, makeInitialSelection), setupTabsAndPanels,
-    insertTablist(template)
-  );
+function setupTabInterface(template) {
+  return compose(both(handleHistoryChange, makeInitialSelection), setupTabsAndPanels, insertTablist(template));
 }
-
-
-
-
 
 /**
  *  @function insertTablist
@@ -700,15 +560,11 @@ function setupTabInterface (template) {
  *
  *
  */
-function insertTablist (template) {
+function insertTablist(template) {
   const tablist = template.content.firstElementChild;
   template.parentNode.replaceChild(tablist, template.previousElementSibling), template.remove();
-  return tablist
+  return tablist;
 }
-
-
-
-
 
 /**
  *  @function setupTabsAndPanels
@@ -742,15 +598,9 @@ function insertTablist (template) {
  *
  *
  */
-function setupTabsAndPanels (tablist) {
-  return transform(
-    pipe(addTabBehavior, setRoleAndLabelForPanel, toggleHiddenState),
-    children(tablist)
-  );
+function setupTabsAndPanels(tablist) {
+  return transform(pipe(addTabBehavior, setRoleAndLabelForPanel, toggleHiddenState), children(tablist));
 }
-
-
-
 
 /**
  *  @function setRoleAndLabelForPanel
@@ -784,13 +634,9 @@ function setupTabsAndPanels (tablist) {
  *
  *
  */
-function setRoleAndLabelForPanel (tab) {
-  return compose(role('tabpanel'), setAttribute('aria-labelledby', tab.id), getPanelFromTab(tab));
+function setRoleAndLabelForPanel(tab) {
+  return compose(role("tabpanel"), setAttribute("aria-labelledby", tab.id), getPanelFromTab(tab));
 }
-
-
-
-
 
 /**
  *  @function determineActiveTab
@@ -824,10 +670,6 @@ function setRoleAndLabelForPanel (tab) {
  *
  */
 const determineActiveTab = pipe(either(getPanelFromFragment, head), getTabFromPanel);
-
-
-
-
 
 /**
  *  @function makeInitialSelection
@@ -864,10 +706,6 @@ const determineActiveTab = pipe(either(getPanelFromFragment, head), getTabFromPa
  */
 const makeInitialSelection = pipe(determineActiveTab, historyReplaceState, toggleTab);
 
-
-
-
-
 /**
  *  @function main
  *
@@ -897,6 +735,6 @@ const makeInitialSelection = pipe(determineActiveTab, historyReplaceState, toggl
  *
  *
  */
-ready(function main (event) {
-  when(both(defined, hasHiddenAttribute), setupTabInterface, id('tablist'));
+ready(function main(event) {
+  when(both(defined, hasHiddenAttribute), setupTabInterface, id("tablist"));
 });
