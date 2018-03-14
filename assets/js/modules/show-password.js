@@ -33,6 +33,5 @@ function setupShowPassword(passwords) {
 }
 
 ready(function() {
-  const passwords = all("[data-show-password]");
-  when(() => passwords.length, setupShowPassword, passwords);
+  when(passwords => passwords.length, setupShowPassword, all("[data-show-password]"));
 });
