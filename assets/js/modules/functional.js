@@ -53,17 +53,9 @@
  *
  */
 
+import { max } from "./math.js";
 
-
-
-
-import { max } from './math.js';
-
-import { equal } from './predicates.js';
-
-
-
-
+import { equal } from "./predicates.js";
 
 /**
  *  @function apply
@@ -101,13 +93,9 @@ import { equal } from './predicates.js';
  *
  *
  */
-export const apply = curry(function apply (target, [...values]) {
+export const apply = curry(function apply(target, [...values]) {
   return target.apply(this, values);
 });
-
-
-
-
 
 /**
  *  @function binary
@@ -139,17 +127,13 @@ export const apply = curry(function apply (target, [...values]) {
  *
  *
  */
-export function binary (target) {
-
-  return curry(define(2, binary.name + target.name, function (first, second) {
-    return target.call(this, first, second);
-  }));
-
+export function binary(target) {
+  return curry(
+    define(2, binary.name + target.name, function(first, second) {
+      return target.call(this, first, second);
+    })
+  );
 }
-
-
-
-
 
 /**
  *  @function call
@@ -187,13 +171,9 @@ export function binary (target) {
  *
  *
  */
-export function call (target, ...values) {
+export function call(target, ...values) {
   return target.apply(this, values);
 }
-
-
-
-
 
 /**
  *  @function compose
@@ -234,13 +214,9 @@ export function call (target, ...values) {
  *
  *
  */
-export const compose = curry(function compose (outer, inner, value) {
+export const compose = curry(function compose(outer, inner, value) {
   return outer(inner(value));
 });
-
-
-
-
 
 /**
  *  @function constant
@@ -273,10 +249,6 @@ export const compose = curry(function compose (outer, inner, value) {
  *
  */
 export const constant = value => () => value;
-
-
-
-
 
 /**
  *  @function curry
@@ -325,19 +297,13 @@ export const constant = value => () => value;
  *
  *
  */
-export function curry (target, list = []) {
-
-  return define(target.length - list.length, target.name, function () {
+export function curry(target, list = []) {
+  return define(target.length - list.length, target.name, function() {
     const values = list.concat([...arguments]);
 
     return target.length <= values.length ? target.apply(this, values) : curry(target, values);
   });
-
 }
-
-
-
-
 
 /**
  *  @function define
@@ -399,9 +365,8 @@ export function curry (target, list = []) {
  *
  *
  */
-export function define (length, name, target) {
+export function define(length, name, target) {
   return Object.defineProperties(target, {
-
     length: {
       configurable: true,
       value: max(length, 0)
@@ -411,13 +376,8 @@ export function define (length, name, target) {
       configurable: true,
       value: name
     }
-
   });
 }
-
-
-
-
 
 /**
  *  @function defineFrom
@@ -454,15 +414,9 @@ export function define (length, name, target) {
  *
  *
  */
-export const defineFrom = curry(function defineFrom (source, target) {
+export const defineFrom = curry(function defineFrom(source, target) {
   return define(source.length, source.name, target);
 });
-
-
-
-
-
-
 
 /**
  *  @function falsy
@@ -490,10 +444,6 @@ export const defineFrom = curry(function defineFrom (source, target) {
  *
  */
 export const falsy = () => false;
-
-
-
-
 
 /**
  *  @function flip
@@ -525,17 +475,13 @@ export const falsy = () => false;
  *
  *
  */
-export function flip (target) {
-
-  return curry(defineFrom(target, function () {
-    return target.apply(this, [...arguments].reverse());
-  }));
-
+export function flip(target) {
+  return curry(
+    defineFrom(target, function() {
+      return target.apply(this, [...arguments].reverse());
+    })
+  );
 }
-
-
-
-
 
 /**
  *  @function identity
@@ -568,10 +514,6 @@ export function flip (target) {
  *
  */
 export const identity = value => value;
-
-
-
-
 
 /**
  *  @function memoize
@@ -614,29 +556,26 @@ export const identity = value => value;
  *
  *
  */
-export function memoize (target) {
+export function memoize(target) {
   const cache = [];
 
-  return curry(defineFrom(target, function () {
-    const list = [...arguments];
+  return curry(
+    defineFrom(target, function() {
+      const list = [...arguments];
 
-    for (let [array, value] of cache) {
-      if (array.every((argument, index) => equal(list[index], argument))) {
-        return value;
+      for (let [array, value] of cache) {
+        if (array.every((argument, index) => equal(list[index], argument))) {
+          return value;
+        }
       }
-    }
 
-    const value = target.apply(this, list);
-    cache.push([list, value]);
+      const value = target.apply(this, list);
+      cache.push([list, value]);
 
-    return value;
-  }));
-
+      return value;
+    })
+  );
 }
-
-
-
-
 
 /**
  *  @function nothing
@@ -655,10 +594,6 @@ export function memoize (target) {
  *
  */
 export const nothing = () => null;
-
-
-
-
 
 /**
  *  @function once
@@ -690,18 +625,16 @@ export const nothing = () => null;
  *
  *
  */
-export function once (target) {
-  let result, called = false;
+export function once(target) {
+  let result,
+    called = false;
 
-  return curry(define(target.length, once.name + target.name, function () {
-    return called ? result : (called = true, result = target.apply(this, arguments));
-  }));
-
+  return curry(
+    define(target.length, once.name + target.name, function() {
+      return called ? result : ((called = true), (result = target.apply(this, arguments)));
+    })
+  );
 }
-
-
-
-
 
 /**
  *  @function partial
@@ -738,17 +671,13 @@ export function once (target) {
  *
  *
  */
-export function partial (target, ...values) {
-
-  return curry(define(target.length - values.length, target.name, function () {
-    return target.apply(this, values.concat([...arguments]));
-  }));
-
+export function partial(target, ...values) {
+  return curry(
+    define(target.length - values.length, target.name, function() {
+      return target.apply(this, values.concat([...arguments]));
+    })
+  );
 }
-
-
-
-
 
 /**
  *  @function partialReversed
@@ -785,17 +714,13 @@ export function partial (target, ...values) {
  *
  *
  */
-export function partialReversed (target, ...values) {
-
-  return curry(define(target.length - values.length, target.name, function () {
-    return target.apply(this, [...arguments, ...values]);
-  }));
-
+export function partialReversed(target, ...values) {
+  return curry(
+    define(target.length - values.length, target.name, function() {
+      return target.apply(this, [...arguments, ...values]);
+    })
+  );
 }
-
-
-
-
 
 /**
  *  @function pipe
@@ -837,19 +762,15 @@ export function partialReversed (target, ...values) {
  *
  *
  */
-export function pipe (start, ...list) {
+export function pipe(start, ...list) {
+  return curry(
+    define(start.length, pipe.name + start.name, function() {
+      const initializer = start.apply(this, arguments);
 
-  return curry(define(start.length, pipe.name + start.name, function () {
-    const initializer = start.apply(this, arguments);
-
-    return list.length ? list.reduce((value, target) => target(value), initializer) : initializer;
-  }));
-
+      return list.length ? list.reduce((value, target) => target(value), initializer) : initializer;
+    })
+  );
 }
-
-
-
-
 
 /**
  *  @function prepare
@@ -895,23 +816,19 @@ export function pipe (start, ...list) {
  *
  *
  */
-export const prepare = curry(function prepare (target, transformers) {
+export const prepare = curry(function prepare(target, transformers) {
+  return curry(
+    defineFrom(target, function() {
+      let values = transformers.map((target, index) => target.call(this, arguments[index]));
 
-  return curry(defineFrom(target, function () {
-    let values = transformers.map((target, index) => target.call(this, arguments[index]));
+      if (arguments.length > transformers.length) {
+        values = values.concat([...arguments].slice(transformers.length));
+      }
 
-    if (arguments.length > transformers.length) {
-      values = values.concat([...arguments].slice(transformers.length));
-    }
-
-    return target.apply(this, values);
-  }));
-
+      return target.apply(this, values);
+    })
+  );
 });
-
-
-
-
 
 /**
  *  @function substitute
@@ -954,13 +871,9 @@ export const prepare = curry(function prepare (target, transformers) {
  *
  *
  */
-export const substitute = curry(function (first, second, ...values) {
+export const substitute = curry(function(first, second, ...values) {
   return first.apply(this, values)(second.apply(this, values));
 });
-
-
-
-
 
 /**
  *  @function ternary
@@ -992,17 +905,13 @@ export const substitute = curry(function (first, second, ...values) {
  *
  *
  */
-export function ternary (target) {
-
-  return curry(define(3, ternary.name + target.name, function (first, second, third) {
-    return target.call(this, first, second, third);
-  }));
-
+export function ternary(target) {
+  return curry(
+    define(3, ternary.name + target.name, function(first, second, third) {
+      return target.call(this, first, second, third);
+    })
+  );
 }
-
-
-
-
 
 /**
  *  @function truthy
@@ -1030,10 +939,6 @@ export function ternary (target) {
  *
  */
 export const truthy = () => true;
-
-
-
-
 
 /**
  *  @function unapply
@@ -1072,17 +977,13 @@ export const truthy = () => true;
  *
  *
  */
-export function unapply (target, length = 1) {
-
-  return curry(define(length, target.name, function () {
-    return target.call(this, [...arguments]);
-  }));
-
+export function unapply(target, length = 1) {
+  return curry(
+    define(length, target.name, function() {
+      return target.call(this, [...arguments]);
+    })
+  );
 }
-
-
-
-
 
 /**
  *  @function unary
@@ -1114,17 +1015,13 @@ export function unapply (target, length = 1) {
  *
  *
  */
-export function unary (target) {
-
-  return curry(define(1, unary.name + target.name, function (value) {
-    return target.call(this, value);
-  }));
-
+export function unary(target) {
+  return curry(
+    define(1, unary.name + target.name, function(value) {
+      return target.call(this, value);
+    })
+  );
 }
-
-
-
-
 
 /**
  *  @function wrap
@@ -1168,10 +1065,10 @@ export function unary (target) {
  *
  *
  */
-export const wrap = curry(function wrap (target, wrapper) {
-
-  return curry(defineFrom(target, function () {
-    return wrapper.call(this, target, ...arguments);
-  }));
-
+export const wrap = curry(function wrap(target, wrapper) {
+  return curry(
+    defineFrom(target, function() {
+      return wrapper.call(this, target, ...arguments);
+    })
+  );
 });

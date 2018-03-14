@@ -30,21 +30,13 @@
  *
  */
 
+import { bind, preventDefault, ready, stopPropagation } from "./events.js";
 
+import { compose, pipe } from "./functional.js";
 
+import { branch, when } from "./logic.js";
 
-
-import { bind, preventDefault, ready, stopPropagation } from './events.js';
-
-import { compose, pipe } from './functional.js';
-
-import { branch, when } from './logic.js';
-
-import { all } from './selectors.js';
-
-
-
-
+import { all } from "./selectors.js";
 
 /**
  *  @function addConfirmationBehavior
@@ -87,10 +79,9 @@ import { all } from './selectors.js';
  *
  *
  */
-function addConfirmationBehavior (element) {
+function addConfirmationBehavior(element) {
   element.text = element.textContent;
   return bind(element, {
-
     blur: pipe(muteLiveRegion, when(confirming, disableConfirmationState)),
 
     click: branch(
@@ -100,13 +91,8 @@ function addConfirmationBehavior (element) {
     ),
 
     focus: makeLiveRegionAssertive
-
   });
 }
-
-
-
-
 
 /**
  *  @function confirming
@@ -139,13 +125,9 @@ function addConfirmationBehavior (element) {
  *
  *
  */
-function confirming (event) {
-  return event.currentTarget.classList.contains('confirming');
+function confirming(event) {
+  return event.currentTarget.classList.contains("confirming");
 }
-
-
-
-
 
 /**
  *  @function enableConfirmationState
@@ -178,14 +160,10 @@ function confirming (event) {
  *
  *
  */
-function enableConfirmationState (event) {
+function enableConfirmationState(event) {
   compose(replaceTextualContent, addConfirmationClass, event.currentTarget);
   return event;
 }
-
-
-
-
 
 /**
  *  @function addConfirmationClass
@@ -218,14 +196,10 @@ function enableConfirmationState (event) {
  *
  *
  */
-function addConfirmationClass (element) {
-  element.classList.add('confirming');
+function addConfirmationClass(element) {
+  element.classList.add("confirming");
   return element;
 }
-
-
-
-
 
 /**
  *  @function replaceTextualContent
@@ -259,14 +233,10 @@ function addConfirmationClass (element) {
  *
  *
  */
-function replaceTextualContent (element) {
+function replaceTextualContent(element) {
   element.textContent = element.dataset.confirm;
   return element;
 }
-
-
-
-
 
 /**
  *  @function disableConfirmationState
@@ -298,14 +268,10 @@ function replaceTextualContent (element) {
  *
  *
  */
-function disableConfirmationState (event) {
+function disableConfirmationState(event) {
   compose(restoreTextualContent, removeConfirmationClass, event.currentTarget);
   return event;
 }
-
-
-
-
 
 /**
  *  @function removeConfirmationClass
@@ -338,14 +304,10 @@ function disableConfirmationState (event) {
  *
  *
  */
-function removeConfirmationClass (element) {
-  element.classList.remove('confirming');
+function removeConfirmationClass(element) {
+  element.classList.remove("confirming");
   return element;
 }
-
-
-
-
 
 /**
  *  @function restoreTextualContent
@@ -379,14 +341,10 @@ function removeConfirmationClass (element) {
  *
  *
  */
-function restoreTextualContent (element) {
+function restoreTextualContent(element) {
   element.textContent = element.text;
   return element;
 }
-
-
-
-
 
 /**
  *  @function makeLiveRegionAssertive
@@ -427,14 +385,10 @@ function restoreTextualContent (element) {
  *
  *
  */
-function makeLiveRegionAssertive (event) {
-  event.currentTarget.setAttribute('aria-live', 'assertive');
+function makeLiveRegionAssertive(event) {
+  event.currentTarget.setAttribute("aria-live", "assertive");
   return event;
 }
-
-
-
-
 
 /**
  *  @function muteLiveRegion
@@ -476,14 +430,10 @@ function makeLiveRegionAssertive (event) {
  *
  *
  */
-function muteLiveRegion (event) {
-  event.currentTarget.setAttribute('aria-live', 'off');
+function muteLiveRegion(event) {
+  event.currentTarget.setAttribute("aria-live", "off");
   return event;
 }
-
-
-
-
 
 /**
  *  @function main
@@ -513,6 +463,6 @@ function muteLiveRegion (event) {
  *
  *
  */
-ready(function main (event) {
-  all('[data-confirm]').forEach(addConfirmationBehavior);
+ready(function main(event) {
+  all("[data-confirm]").forEach(addConfirmationBehavior);
 });

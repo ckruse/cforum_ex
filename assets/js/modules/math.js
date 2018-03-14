@@ -10,10 +10,6 @@
  *
  */
 
-
-
-
-
 /**
  *  @function max
  *
@@ -45,13 +41,9 @@
  *
  *
  */
-export function max (...values) {
+export function max(...values) {
   return Math.max.apply(null, values);
 }
-
-
-
-
 
 /**
  *  @function min
@@ -84,6 +76,6 @@ export function max (...values) {
  *
  *
  */
-export function min (...values) {
+export function min(...values) {
   return Math.min.apply(null, values);
 }

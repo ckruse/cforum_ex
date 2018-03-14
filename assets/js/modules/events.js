@@ -10,21 +10,13 @@
  *
  */
 
+import { curry, pipe } from "./functional.js";
 
+import { entries, flatten, from } from "./lists.js";
 
+import { branch } from "./logic.js";
 
-
-import { curry, pipe } from './functional.js';
-
-import { entries, flatten, from } from './lists.js';
-
-import { branch } from './logic.js';
-
-import { equal, object, string } from './predicates.js';
-
-
-
-
+import { equal, object, string } from "./predicates.js";
 
 /**
  *  @function bind
@@ -101,18 +93,14 @@ import { equal, object, string } from './predicates.js';
  *
  *
  */
-export const bind = curry(function bind (context, actions) {
+export const bind = curry(function bind(context, actions) {
   const list = pipe(branch(object, entries, from), flatten)(actions);
 
   let action;
-  list.forEach(branch(string, event => action = on(context, event), handler => action(handler)));
+  list.forEach(branch(string, event => (action = on(context, event)), handler => action(handler)));
 
   return context;
 });
-
-
-
-
 
 /**
  *  @function key
@@ -150,13 +138,9 @@ export const bind = curry(function bind (context, actions) {
  *
  *
  */
-export const key = curry(function key (name, event) {
+export const key = curry(function key(name, event) {
   return equal(name, event.key);
 });
-
-
-
-
 
 /**
  *  @function modified
@@ -167,10 +151,6 @@ export const key = curry(function key (name, event) {
  *
  */
 export const modified = event => event.altKey || event.ctrlKey || event.metaKey || event.shiftKey;
-
-
-
-
 
 /**
  *  @function on
@@ -219,14 +199,10 @@ export const modified = event => event.altKey || event.ctrlKey || event.metaKey 
  *
  *
  */
-export const on = curry(function (context, type, callback, options = false) {
+export const on = curry(function(context, type, callback, options = false) {
   context.addEventListener(type, callback, options);
   return context;
 });
-
-
-
-
 
 /**
  *  @function preventDefault
@@ -261,10 +237,6 @@ export const on = curry(function (context, type, callback, options = false) {
  */
 export const preventDefault = event => (event.preventDefault(), event);
 
-
-
-
-
 /**
  *  @function ready
  *
@@ -290,11 +262,7 @@ export const preventDefault = event => (event.preventDefault(), event);
  *
  *
  */
-export const ready = on(window, 'DOMContentLoaded');
-
-
-
-
+export const ready = on(window, "DOMContentLoaded");
 
 /**
  *  @function stopPropagation
@@ -329,10 +297,6 @@ export const ready = on(window, 'DOMContentLoaded');
  *
  */
 export const stopPropagation = event => (event.stopPropagation(), event);
-
-
-
-
 
 /**
  *  @function target

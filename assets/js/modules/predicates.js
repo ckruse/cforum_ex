@@ -13,15 +13,7 @@
  *
  */
 
-
-
-
-
-import { curry } from './functional.js';
-
-
-
-
+import { curry } from "./functional.js";
 
 /**
  *  @function array
@@ -56,10 +48,6 @@ import { curry } from './functional.js';
  */
 export const array = value => Array.isArray(value);
 
-
-
-
-
 /**
  *  @function callable
  *
@@ -91,11 +79,7 @@ export const array = value => Array.isArray(value);
  *
  *
  */
-export const callable = value => typeof value === 'function';
-
-
-
-
+export const callable = value => typeof value === "function";
 
 /**
  *  @function defined
@@ -129,10 +113,6 @@ export const callable = value => typeof value === 'function';
  *
  */
 export const defined = value => value != null;
-
-
-
-
 
 /**
  *  @function equal
@@ -171,13 +151,9 @@ export const defined = value => value != null;
  *
  *
  */
-export const equal = curry(function equal (first, second) {
+export const equal = curry(function equal(first, second) {
   return Object.is(first, second);
 });
-
-
-
-
 
 /**
  *  @function greaterThan
@@ -214,13 +190,9 @@ export const equal = curry(function equal (first, second) {
  *
  *
  */
-export const greaterThan = curry(function greaterThan (first, second) {
+export const greaterThan = curry(function greaterThan(first, second) {
   return first > second;
 });
-
-
-
-
 
 /**
  *  @function greaterThanOrEqual
@@ -257,13 +229,9 @@ export const greaterThan = curry(function greaterThan (first, second) {
  *
  *
  */
-export const greaterThanOrEqual = curry(function greaterThanOrEqual (first, second) {
+export const greaterThanOrEqual = curry(function greaterThanOrEqual(first, second) {
   return first >= second;
 });
-
-
-
-
 
 /**
  *  @function lessThan
@@ -300,13 +268,9 @@ export const greaterThanOrEqual = curry(function greaterThanOrEqual (first, seco
  *
  *
  */
-export const lessThan = curry(function lessThan (first, second) {
+export const lessThan = curry(function lessThan(first, second) {
   return first < second;
 });
-
-
-
-
 
 /**
  *  @function lessThanOrEqual
@@ -343,13 +307,9 @@ export const lessThan = curry(function lessThan (first, second) {
  *
  *
  */
-export const lessThanOrEqual = curry(function lessThanOrEqual (first, second) {
+export const lessThanOrEqual = curry(function lessThanOrEqual(first, second) {
   return first <= second;
 });
-
-
-
-
 
 /**
  *  @function map
@@ -383,10 +343,6 @@ export const lessThanOrEqual = curry(function lessThanOrEqual (first, second) {
  */
 export const map = value => value instanceof Map;
 
-
-
-
-
 /**
  *  @function object
  *
@@ -417,11 +373,7 @@ export const map = value => value instanceof Map;
  *
  *
  */
-export const object = value => Object.prototype.toString.call(value).includes('Object');
-
-
-
-
+export const object = value => Object.prototype.toString.call(value).includes("Object");
 
 /**
  *  @function string
@@ -454,4 +406,4 @@ export const object = value => Object.prototype.toString.call(value).includes('O
  *
  *
  */
-export const string = value => typeof value === 'string';
+export const string = value => typeof value === "string";

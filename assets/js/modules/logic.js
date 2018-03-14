@@ -15,17 +15,9 @@
  *
  */
 
+import { curry, define } from "./functional.js";
 
-
-
-
-import { curry, define } from './functional.js';
-
-import { min } from './math.js';
-
-
-
-
+import { min } from "./math.js";
 
 /**
  *  @function and
@@ -62,12 +54,9 @@ import { min } from './math.js';
  *
  *
  */
-export const and = curry(function and (first, second) {
+export const and = curry(function and(first, second) {
   return first && second;
 });
-
-
-
 
 /**
  *  @function both
@@ -112,18 +101,15 @@ export const and = curry(function and (first, second) {
  *
  *
  */
-export const both = curry(function both (first, second) {
+export const both = curry(function both(first, second) {
   const arity = min(first.length, second.length);
 
-  return curry(define(arity, both.name + first.name + second.name, function () {
-    return first.apply(this, arguments) && second.apply(this, arguments);
-  }));
-
+  return curry(
+    define(arity, both.name + first.name + second.name, function() {
+      return first.apply(this, arguments) && second.apply(this, arguments);
+    })
+  );
 });
-
-
-
-
 
 /**
  *  @function branch
@@ -175,17 +161,13 @@ export const both = curry(function both (first, second) {
  *
  *
  */
-export const branch = curry(function branch (predicate, whenTrue, whenFalse) {
-
-  return curry(define(predicate.length, branch.name + predicate.name, function () {
-    return (predicate.apply(this, arguments) ? whenTrue : whenFalse).apply(this, arguments);
-  }));
-
+export const branch = curry(function branch(predicate, whenTrue, whenFalse) {
+  return curry(
+    define(predicate.length, branch.name + predicate.name, function() {
+      return (predicate.apply(this, arguments) ? whenTrue : whenFalse).apply(this, arguments);
+    })
+  );
 });
-
-
-
-
 
 /**
  *  @function complement
@@ -219,17 +201,13 @@ export const branch = curry(function branch (predicate, whenTrue, whenFalse) {
  *
  *
  */
-export function complement (predicate) {
-
-  return curry(define(predicate.length, not.name + predicate.name, function () {
-    return not(predicate.apply(this, arguments));
-  }));
-
+export function complement(predicate) {
+  return curry(
+    define(predicate.length, not.name + predicate.name, function() {
+      return not(predicate.apply(this, arguments));
+    })
+  );
 }
-
-
-
-
 
 /**
  *  @function conditions
@@ -273,9 +251,8 @@ export function complement (predicate) {
  *
  *
  */
-export function conditions (pairs) {
-
-  return function () {
+export function conditions(pairs) {
+  return function() {
     let result = false;
 
     pairs.some(([predicate, action]) => {
@@ -290,12 +267,7 @@ export function conditions (pairs) {
 
     return result;
   };
-
 }
-
-
-
-
 
 /**
  *  @function either
@@ -340,18 +312,15 @@ export function conditions (pairs) {
  *
  *
  */
-export const either = curry(function either (first, second) {
+export const either = curry(function either(first, second) {
   const arity = min(first.length, second.length);
 
-  return curry(define(arity, either.name + first.name + second.name, function () {
-    return first.apply(this, arguments) || second.apply(this, arguments);
-  }));
-
+  return curry(
+    define(arity, either.name + first.name + second.name, function() {
+      return first.apply(this, arguments) || second.apply(this, arguments);
+    })
+  );
 });
-
-
-
-
 
 /**
  *  @function not
@@ -383,10 +352,6 @@ export const either = curry(function either (first, second) {
  *
  */
 export const not = value => !value;
-
-
-
-
 
 /**
  *  @function or
@@ -423,13 +388,9 @@ export const not = value => !value;
  *
  *
  */
-export const or = curry(function or (first, second) {
+export const or = curry(function or(first, second) {
   return first || second;
 });
-
-
-
-
 
 /**
  *  @function unless
@@ -472,13 +433,9 @@ export const or = curry(function or (first, second) {
  *
  *
  */
-export const unless = curry(function unless (predicate, action, value) {
+export const unless = curry(function unless(predicate, action, value) {
   return predicate(value) ? value : action(value);
 });
-
-
-
-
 
 /**
  *  @function when
@@ -521,6 +478,6 @@ export const unless = curry(function unless (predicate, action, value) {
  *
  *
  */
-export const when = curry(function when (predicate, action, value) {
+export const when = curry(function when(predicate, action, value) {
   return predicate(value) ? action(value) : value;
 });

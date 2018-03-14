@@ -10,10 +10,6 @@
  *
  */
 
-
-
-
-
 /**
  *  @function all
  *
@@ -50,13 +46,9 @@
  *
  *
  */
-export function all (selector, context = document) {
+export function all(selector, context = document) {
   return Array.from(context.querySelectorAll(selector));
 }
-
-
-
-
 
 /**
  *  @function classes
@@ -94,13 +86,9 @@ export function all (selector, context = document) {
  *
  *
  */
-export function classes (selector, context = document) {
+export function classes(selector, context = document) {
   return Array.from(context.getElementsByClassName(selector));
 }
-
-
-
-
 
 /**
  *  @function id
@@ -137,13 +125,9 @@ export function classes (selector, context = document) {
  *
  *
  */
-export function id (name, context = document) {
+export function id(name, context = document) {
   return context.getElementById(name);
 }
-
-
-
-
 
 /**
  *  @function select
@@ -182,13 +166,9 @@ export function id (name, context = document) {
  *
  *
  */
-export function select (selector, context = document) {
+export function select(selector, context = document) {
   return context.querySelector(selector);
 }
-
-
-
-
 
 /**
  *  @function tags
@@ -227,6 +207,6 @@ export function select (selector, context = document) {
  *
  *
  */
-export function tags (selector, context = document) {
+export function tags(selector, context = document) {
   return Array.from(context.getElementsByTagName(selector));
 }
