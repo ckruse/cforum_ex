@@ -6,8 +6,7 @@
 
   <div class="cf-cgroup">
     <%= label f, :password, gettext("password") %>
-    <%= password_input f, :password, placeholder: gettext("password"), class: "login-password" %>
-    <%= link gettext("I forgot my password"), to: password_path(@conn, :new), class: "forgotten-password-link help", tabindex: "-1" %>
+    <%= password_input f, :password, placeholder: gettext("password"), class: "login-password", "data-show-password": gettext("show password") %>
   </div>
 
   <div class="cf-cgroup">
@@ -19,5 +18,6 @@
 
   <p class="form-actions">
     <%= primary_submit gettext("Login") %>
+    <%= default_button_link gettext("I forgot my password"), to: password_path(@conn, :new) %>
   </p>
 <% end %>
