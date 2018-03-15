@@ -4,6 +4,7 @@ import { when } from "./logic.js";
 import { create, nextElementSibling, parentElement, getAttribute, setAttribute, focus } from "./elements.js";
 import { compose, pipe } from "./functional.js";
 import { equal } from "./predicates.js";
+import { t } from "./i18n.js";
 
 function toggleInputType(input) {
   if (getAttribute("type", input) == "password") {
@@ -17,7 +18,7 @@ function toggleInputType(input) {
 
 function setupShowPassword(passwords) {
   passwords.forEach(input => {
-    const text = input.dataset.showPassword || "show password";
+    const text = t("show password");
     const anchor = create("button");
 
     anchor.textContent = text;

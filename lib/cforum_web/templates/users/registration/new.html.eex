@@ -19,7 +19,7 @@
 
 <div class="cf-cgroup">
   <%= label f, :password, gettext("password") %>
-  <%= password_input f, :password, autocomplete: "off", "data-show-password": gettext("show password") %>
+  <%= password_input f, :password, autocomplete: "off", "data-show-password": true %>
   <%= error_tag f, :password %>
 </div>
 
