@@ -1,7 +1,7 @@
 <%= form_for @changeset, password_path(@conn, :update_reset, token: @token), [method: :post, class: "cf-form"], fn f -> %>
   <div class="cf-cgroup">
     <%= label f, :password, gettext("password") %>
-    <%= password_input f, :password, autocomplete: "off", autofocus: true, "data-show-password": gettext("show password") %>
+    <%= password_input f, :password, autocomplete: "off", autofocus: true, "data-show-password": true %>
     <%= error_tag f, :password %>
   </div>
 
