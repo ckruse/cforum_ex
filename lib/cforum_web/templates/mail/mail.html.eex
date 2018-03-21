@@ -24,7 +24,7 @@
   </div>
 
   <div class="cf-mail-footer">
-    <%= unless blank?(PrivMessages.partner_id(@priv_message)) do %>
+    <%= if not blank?(@priv_message.sender_id) and @priv_message.sender_id != @current_user.user_id do %>
       <%= default_button_link(gettext("answer"), to: mail_path(@conn, :new, parent_id: @priv_message.priv_message_id)) %>
       <%= default_button_link(gettext("answer without cite"), to: mail_path(@conn, :new, parent_id: @priv_message.priv_message_id, cite: false)) %>
     <% end %>
