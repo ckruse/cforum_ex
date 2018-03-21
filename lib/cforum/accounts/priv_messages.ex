@@ -205,6 +205,11 @@ defmodule Cforum.Accounts.PrivMessages do
     PrivMessage.changeset(priv_messages, attrs)
   end
 
+  def preview_priv_message(attrs \\ %{}) do
+    changeset = change_priv_message(%PrivMessage{created_at: Timex.now()}, attrs)
+    {Ecto.Changeset.apply_changes(changeset), changeset}
+  end
+
   def new_changeset(%PrivMessage{} = priv_message, opts \\ []) do
     opts =
       Keyword.merge(

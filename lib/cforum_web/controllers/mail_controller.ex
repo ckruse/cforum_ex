@@ -58,7 +58,18 @@ defmodule CforumWeb.MailController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"priv_message" => priv_message_params}) do
+  def create(conn, %{"priv_message" => priv_message_params} = params) do
+    if Map.has_key?(params, "preview"),
+      do: show_preview(conn, priv_message_params),
+      else: create_message(conn, priv_message_params)
+  end
+
+  defp show_preview(conn, params) do
+    {priv_message, changeset} = PrivMessages.preview_priv_message(params)
+    render(conn, "new.html", changeset: changeset, priv_message: priv_message, preview: true)
+  end
+
+  def create_message(conn, priv_message_params) do
     case PrivMessages.create_priv_message(conn.assigns[:current_user], priv_message_params) do
       {:ok, priv_message} ->
         conn
