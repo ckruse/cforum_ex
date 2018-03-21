@@ -19,6 +19,8 @@
 // paths "./socket" or full ones "web/static/js/socket".
 
 import "whatwg-fetch";
+import "./modules/closest.js";
+
 // import socket from "./socket"
 
 import "./modules/confirmation.js";
