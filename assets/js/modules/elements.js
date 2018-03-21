@@ -403,8 +403,11 @@ export const parentElement = child => child.parentElement;
  */
 export function parse(markup) {
   const fragment = document.createDocumentFragment();
+  const div = document.createElement("div");
 
-  fragment.innerHTML = markup;
+  div.innerHTML = markup;
+  Array.from(div.childNodes).forEach(child => fragment.appendChild(child));
+
   return fragment;
 }
 
