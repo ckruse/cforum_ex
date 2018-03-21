@@ -24,11 +24,19 @@ defmodule Cforum.Accounts.Users do
       [%User{}, ...]
 
   """
-  def list_users(query_params \\ [order: nil, limit: nil]) do
+  def list_users(query_params \\ [order: nil, limit: nil, search: nil]) do
     User
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
+    |> search_users(query_params[:search])
     |> Repo.all()
+  end
+
+  defp search_users(query, term) when is_nil(term) or term == "", do: query
+
+  defp search_users(query, term) do
+    clean_term = "%" <> String.trim(term) <> "%"
+    from(u in query, where: like(fragment("LOWER(?)", u.username), fragment("LOWER(?)", ^clean_term)))
   end
 
   @doc """

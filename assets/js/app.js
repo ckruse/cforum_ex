@@ -26,3 +26,4 @@ import "./modules/closest.js";
 import "./modules/confirmation.js";
 import "./modules/tabs.js";
 import "./modules/show-password.js";
+import "./modules/user-selector";
