@@ -1,0 +1,63 @@
+.cf-modal {
+  &[aria-hidden="true"] {
+    display: none;
+  }
+
+  .cf-modal-overlay {
+    z-index: 9998;
+    background-color: rgba(0, 0, 0, 0.66);
+    //background-color: rgba(43, 46, 56, 0.9);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  .cf-modal-content {
+    background-color: #fff;
+    z-index: 9999;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    padding: 1em;
+    max-width: 90%;
+    width: 600px;
+    border-radius: 4px;
+  }
+
+  h1:first-of-type {
+    margin-top: 0;
+  }
+
+  .cf-modal-close {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    font-weight: bold;
+    font-size: 1.25em;
+    width: 1.2em;
+    height: 1.2em;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.15s;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .cf-modal {
+    .cf-modal-content {
+      padding: 2em;
+    }
+
+    .cf-modal-close {
+      top: 1.25em;
+      right: 1.25em;
+    }
+  }
+}
