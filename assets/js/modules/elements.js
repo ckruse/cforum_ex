@@ -609,3 +609,37 @@ export function toggleTabIndex(element) {
   element.tabIndex = not(equal(0, element.tabIndex)) ? 0 : -1;
   return element;
 }
+
+/**
+ *  @function clearChildren
+ *
+ *
+ *  @summary
+ *
+ *  Removes all children from a node
+ *
+ *
+ *  @description
+ *
+ *  Removes all children from a node
+ *
+ *
+ *  @param { HTMLElement } element
+ *
+ *  The element whose children should be removed.
+ *
+ *
+ *  @return { HTMLElement }
+ *
+ *  The provided element.
+ *
+ *
+ *
+ */
+export function clearChildren(element) {
+  while (element.firstChild) {
+    element.firstChild.remove();
+  }
+
+  return element;
+}
