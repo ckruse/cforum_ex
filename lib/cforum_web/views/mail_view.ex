@@ -9,7 +9,7 @@ defmodule CforumWeb.MailView do
   def page_title(:new, _), do: gettext("new mail")
 
   def page_title(:show, assigns),
-    do: gettext("mail from %{partner}", partner: PrivMessages.partner_name(assigns[:priv_message]))
+    do: gettext("mail from %{partner}", partner: assigns[:pm_thread] |> List.first() |> PrivMessages.partner_name())
 
   def body_id(:index, _), do: "mail-index"
   def body_id(:show, _), do: "mail-show"

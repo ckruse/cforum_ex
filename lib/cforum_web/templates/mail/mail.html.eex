@@ -1,0 +1,35 @@
+<article class="cf-mail">
+  <div class="posting-header">
+    <header class="cf-mail-header">
+      <h2><%= @priv_message.subject %></h2>
+
+      <div class="details">
+        <span class="author">
+          <%= if blank?(@priv_message.sender_id), do: @priv_message.sender_name, else: user_link(@conn, @priv_message.sender, ["original-poster"], @priv_message.sender_name) %>
+        </span>
+
+        <time datetime="<%= NaiveDateTime.to_iso8601(@priv_message.created_at) %>">
+          <%= if !blank?(@priv_message.priv_message_id) do %>
+            <%= link format_date(@conn, @priv_message.created_at, "date_format_post"), to: mail_path(@conn, :show, @priv_message) %>
+          <% else %>
+            <%= format_date(@conn, @priv_message.created_at, "date_format_post") %>
+          <% end %>
+        </time>
+      </div>
+    </header>
+  </div>
+
+  <div class="cf-mail-content e-content">
+    <%= Cforum.MarkdownRenderer.to_html(@priv_message, assigns[:current_user]) %>
+  </div>
+
+  <div class="cf-mail-footer">
+    <%= unless blank?(PrivMessages.partner_id(@priv_message)) do %>
+      <%= default_button_link(gettext("answer"), to: mail_path(@conn, :new, parent_id: @priv_message.priv_message_id)) %>
+      <%= default_button_link(gettext("answer without cite"), to: mail_path(@conn, :new, parent_id: @priv_message.priv_message_id, cite: false)) %>
+    <% end %>
+
+    <%= destructive_button(gettext("delete mail"), to: mail_path(@conn, :delete, @priv_message), method: :delete) %>
+    <%= default_button(gettext("mark unread"), to: mail_path(@conn, :update_unread, @priv_message)) %>
+  </div>
+</article>

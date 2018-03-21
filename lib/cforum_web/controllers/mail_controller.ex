@@ -11,7 +11,7 @@ defmodule CforumWeb.MailController do
     paging = CforumWeb.Paginator.paginate(count, page: params["p"])
 
     mails =
-      PrivMessages.list_priv_messages(
+      PrivMessages.list_newest_priv_messages_of_each_thread(
         conn.assigns[:current_user],
         limit: paging.params,
         order: sort_params,
@@ -22,9 +22,9 @@ defmodule CforumWeb.MailController do
   end
 
   def show(conn, %{"id" => id}) do
-    priv_message = PrivMessages.get_priv_message!(conn.assigns[:current_user], id)
-    PrivMessages.mark_priv_message(priv_message, :read)
-    render(conn, "show.html", priv_message: priv_message)
+    thread = PrivMessages.get_priv_message_thread!(conn.assigns[:current_user], id)
+    Enum.each(thread, &PrivMessages.mark_priv_message(&1, :read))
+    render(conn, "show.html", pm_thread: thread)
   end
 
   def new(conn, %{"parent_id" => id} = params) do
