@@ -14,7 +14,8 @@
   "dependencies": {
     "a11y-dialog": "^4.0.1",
     "phoenix": "file:../deps/phoenix",
-    "phoenix_html": "file:../deps/phoenix_html"
+    "phoenix_html": "file:../deps/phoenix_html",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.2",

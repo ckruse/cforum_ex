@@ -18,6 +18,7 @@
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
+import "whatwg-fetch";
 // import socket from "./socket"
 
 import "./modules/confirmation.js";
