@@ -114,4 +114,7 @@ defmodule CforumWeb.Views.Helpers.Path do
 
   def close_thread_path(conn, %Thread{} = thread, params \\ []),
     do: "#{thread_path(conn, :show, thread)}/close#{encode_query_string(params)}"
+
+  def mail_thread_path(conn, :show, pm, params \\ []),
+    do: "#{root_path(conn, :index)}mails/#{pm.thread_id}##{pm.priv_message_id}"
 end

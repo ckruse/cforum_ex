@@ -41,6 +41,22 @@ defmodule Cforum.Accounts.PrivMessages do
     )
   end
 
+  def list_newest_priv_messages_of_each_thread(user, query_params \\ [order: nil, limit: nil, messages_order: nil]) do
+    from(
+      pm in PrivMessage,
+      where:
+        pm.owner_id == ^user.user_id and
+          pm.priv_message_id in fragment(
+            "SELECT MAX(priv_message_id) FROM priv_messages WHERE owner_id = ? GROUP BY thread_id",
+            ^user.user_id
+          ),
+      preload: [:recipient, :sender]
+    )
+    |> Cforum.PagingApi.set_limit(query_params[:limit])
+    |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
+    |> Repo.all()
+  end
+
   def order_messages(q, :asc), do: order_by(q, asc: :created_at)
   def order_messages(q, _), do: order_by(q, desc: :created_at)
 
@@ -83,6 +99,16 @@ defmodule Cforum.Accounts.PrivMessages do
     PrivMessage
     |> Repo.get_by!(priv_message_id: id, owner_id: user.user_id)
     |> Repo.preload([:sender, :recipient])
+  end
+
+  def get_priv_message_thread!(user, tid, query_params \\ [messages_order: nil]) do
+    from(
+      pm in PrivMessage,
+      where: pm.thread_id == ^tid and pm.owner_id == ^user.user_id,
+      preload: [:sender, :recipient]
+    )
+    |> order_messages(query_params[:messages_order])
+    |> Repo.all()
   end
 
   @doc """
