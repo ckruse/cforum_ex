@@ -2,6 +2,11 @@
   <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
 <% end %>
 
+<%= if assigns[:preview] do %>
+  <h2><%= gettext("preview") %></h2>
+  <%= render "mail.html", Map.merge(assigns, %{priv_message: @priv_message}) %>
+<% end %>
+
 <%= form_for @changeset, mail_path(@conn, :create), [class: "cf-form"], fn f -> %>
   <%= render("form.html", Map.merge(assigns, %{f: f})) %>
 
