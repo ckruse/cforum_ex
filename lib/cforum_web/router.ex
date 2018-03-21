@@ -36,6 +36,7 @@ defmodule CforumWeb.Router do
 
   pipeline :api do
     plug(:accepts, ["json"])
+    plug(:fetch_session)
     plug(CforumWeb.Plug.CurrentUser)
   end
 
@@ -122,7 +123,11 @@ defmodule CforumWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", Cforum do
-  #   pipe_through :api
-  # end
+  scope "/api", CforumWeb.Api do
+    pipe_through(:api)
+
+    scope "/v1", V1 do
+      get("/users", UserController, :index)
+    end
+  end
 end

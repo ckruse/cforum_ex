@@ -3,7 +3,12 @@
 <fieldset>
   <div class="cf-cgroup <%= error_class(@f, :recipient_id) %>">
     <%= label @f, :recipient_id, gettext("recpient") %>
-    <%= text_input @f, :recipient_id, required: true, "data-user-selector": "yes" %>
+    <%= if assigns[:parent] do %>
+      <%= hidden_input @f, :recipient_id, required: true %>
+      <input type="text" disabled value="<%= @parent.sender.username %>">
+    <% else %>
+      <%= text_input @f, :recipient_id, required: true, "data-user-selector": "single" %>
+    <% end %>
     <%= error_tag @f, :recipient_id %>
   </div>
 

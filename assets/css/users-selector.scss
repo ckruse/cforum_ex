@@ -1,0 +1,27 @@
+.cf-users-selector {
+  margin-bottom: 0.25em;
+}
+
+.cf-users-selector-btn {
+  @extend .cf-index-btn;
+}
+
+.cf-user-selector-modal {
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+
+    li {
+      display: flex;
+      margin-bottom: 0.25em;
+
+      .author {
+        flex: 1 1 auto;
+      }
+
+      button {
+        flex: 0 0 auto;
+      }
+    }
+  }
+}

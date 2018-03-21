@@ -42,7 +42,7 @@ defmodule CforumWeb.MailController do
         std_replacement: gettext("you")
       )
 
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, parent: parent)
   end
 
   def new(conn, _params) do
