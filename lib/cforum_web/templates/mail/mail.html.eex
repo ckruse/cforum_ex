@@ -1,4 +1,4 @@
-<article class="cf-mail">
+<article class="cf-mail" id="pm<%= @priv_message.priv_message_id %>">
   <div class="posting-header">
     <header class="cf-mail-header">
       <h2><%= @priv_message.subject %></h2>
