@@ -23,6 +23,10 @@ class UsersSelector {
 
     this.widget = new Widget(this.single, input, () => this.showModal());
 
+    if (input.value) {
+      this.setInitialValue(input.value);
+    }
+
     this.modal = new Modal(
       this.single,
       (value, callback) => this.searchUsers(value, callback),
@@ -65,6 +69,15 @@ class UsersSelector {
   chooseUsers(event) {
     this.widget.setUsers(this.selectedUsers);
     this.modal.hide();
+  }
+
+  setInitialValue(id) {
+    fetch(`/api/v1/users/${id}`, { credentials: "same-origin" })
+      .then(response => response.json())
+      .then(json => {
+        this.users = [json];
+        this.widget.setUsers([json]);
+      });
   }
 
   showModal() {
