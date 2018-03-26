@@ -13,4 +13,9 @@ defmodule CforumWeb.Api.V1.UserController do
 
     render(conn, "index.json", users: users)
   end
+
+  def show(conn, %{"id" => id}) do
+    user = Cforum.Accounts.Users.get_user!(id)
+    render(conn, "show.json", user: user)
+  end
 end
