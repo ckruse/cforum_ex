@@ -7,7 +7,7 @@
       <%= hidden_input @f, :recipient_id, required: true %>
       <input type="text" disabled value="<%= @parent.sender.username %>">
     <% else %>
-      <%= text_input @f, :recipient_id, required: true, "data-user-selector": "single" %>
+      <%= text_input @f, :recipient_id, required: true, "data-user-selector": "single", "data-user-selector-self": "no" %>
     <% end %>
     <%= error_tag @f, :recipient_id %>
   </div>
