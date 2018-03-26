@@ -128,6 +128,7 @@ defmodule CforumWeb.Router do
 
     scope "/v1", V1 do
       get("/users", UserController, :index)
+      get("/users/:id", UserController, :show)
     end
   end
 end
