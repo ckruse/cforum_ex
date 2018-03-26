@@ -24,13 +24,18 @@ defmodule Cforum.Accounts.Users do
       [%User{}, ...]
 
   """
-  def list_users(query_params \\ [order: nil, limit: nil, search: nil]) do
+  def list_users(query_params \\ [order: nil, limit: nil, search: nil, include_self: true, user: nil]) do
     User
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
     |> search_users(query_params[:search])
+    |> maybe_leave_out_self(!query_params[:include_self], query_params[:user])
     |> Repo.all()
   end
+
+  defp maybe_leave_out_self(q, false, _), do: q
+  defp maybe_leave_out_self(q, _, nil), do: q
+  defp maybe_leave_out_self(q, _, self), do: from(u in q, where: u.user_id != ^self.user_id)
 
   defp search_users(query, term) when is_nil(term) or term == "", do: query
 
