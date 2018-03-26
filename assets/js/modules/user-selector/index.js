@@ -15,6 +15,11 @@ class UsersSelector {
     this.users = [];
     this.selectedUsers = [];
     this.single = input.dataset.userSelector == "single";
+    this.selfSelectable = "yes";
+
+    if (input.dataset.userSelectorSelf == "no") {
+      this.selfSelectable = "no";
+    }
 
     this.widget = new Widget(this.single, input, () => this.showModal());
 
@@ -35,7 +40,7 @@ class UsersSelector {
     }
 
     const qs = queryString({ s: value });
-    fetch(`/api/v1/users?${qs}`)
+    fetch(`/api/v1/users?${qs}&self=${this.selfSelectable}`, { credentials: "same-origin" })
       .then(response => response.json())
       .then(json => {
         this.users = json;
