@@ -103,25 +103,61 @@ defmodule Cforum.ConfigManager do
     if v == "", do: nil, else: v
   end
 
-  def get(conn, name, user \\ nil, forum \\ nil)
+  def get(confs, name, user \\ nil, forum \\ nil)
 
-  def get(conn, name, user, forum) when user == nil and forum == nil,
-    do: get_val(conn.assigns[:global_config], name) || @defaults[name]
+  def get(confs, name, user, forum) when user == nil and forum == nil,
+    do: get_val(confs[:global_config], name) || @defaults[name]
 
-  def get(conn, name, user, forum) when user == nil and forum != nil,
-    do: get_val(conn.assigns[:forum_config], name) || get(conn, name)
+  def get(confs, name, user, forum) when user == nil and forum != nil,
+    do: get_val(confs[:forum_config], name) || get(confs, name)
 
-  def get(conn, name, user, forum) when forum == nil and user != nil,
-    do: get_val(conn.assigns[:user_config], name) || get(conn, name)
+  def get(confs, name, user, forum) when forum == nil and user != nil,
+    do: get_val(confs[:user], name) || get(confs, name)
 
-  def get(conn, name, _, _),
-    do: get_val(conn.assigns[:user_config], name) || get_val(conn.assigns[:forum_config], name) || get(conn, name)
+  def get(confs, name, _, _), do: get_val(confs[:user], name) || get_val(confs[:forum], name) || get(confs, name)
 
   def uconf(conn, name, type \\ :none)
   def uconf(conn, name, :int), do: to_int(uconf(conn, name))
 
-  def uconf(conn, name, _),
-    do: get(conn, name, conn.assigns[:current_user], conn.assigns[:current_forum]) || @defaults[name]
+  def uconf(%Cforum.Accounts.User{} = user, name, _) do
+    settings = Cforum.Accounts.Settings.load_relevant_settings(nil, user)
 
-  def conf(conn, name), do: get(conn, name, nil, conn.assigns[:current_forum]) || @defaults[name]
+    confs = %{
+      global: List.first(settings),
+      forum: nil,
+      user: Enum.at(settings, 1)
+    }
+
+    get(confs, name, user, nil) || @defaults[name]
+  end
+
+  def uconf(%Plug.Conn{} = conn, name, _) do
+    confs = map_from_conn(conn)
+    get(confs, name, conn.assigns[:current_user], conn.assigns[:current_forum]) || @defaults[name]
+  end
+
+  def conf(%Cforum.Forums.Forum{} = forum, name) do
+    settings = Cforum.Accounts.Settings.load_relevant_settings(forum, nil)
+
+    confs = %{
+      global: List.first(settings),
+      forum: Enum.at(settings, 1),
+      user: nil
+    }
+
+    get(confs, name, nil, forum) || @defaults[name]
+  end
+
+  def conf(%Plug.Conn{} = conn, name) do
+    confs = map_from_conn(conn)
+    get(confs, name, nil, conn.assigns[:current_forum]) || @defaults[name]
+  end
+
+  defp map_from_conn(conn) do
+    %{
+      global: conn.assigns[:global_config],
+      forum: conn.assigns[:forum_config],
+      user: conn.assigns[:user_config]
+    }
+  end
 end
