@@ -74,7 +74,7 @@ defmodule CforumWeb.MailController do
       {:ok, priv_message} ->
         conn
         |> put_flash(:info, gettext("Mail created successfully."))
-        |> redirect(to: mail_path(conn, :show, priv_message))
+        |> redirect(to: mail_thread_path(conn, :show, priv_message))
 
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
