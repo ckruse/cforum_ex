@@ -6,11 +6,13 @@ import { compose, pipe } from "./functional.js";
 import { equal } from "./predicates.js";
 import { t } from "./i18n.js";
 
-function toggleInputType(input) {
+function toggleInputType(input, button) {
   if (getAttribute("type", input) == "password") {
     setAttribute("type", "text", input);
+    button.innerText = t("hide password");
   } else {
     setAttribute("type", "password", input);
+    button.innerText = t("show password");
   }
 
   focus(input);
@@ -26,7 +28,7 @@ function setupShowPassword(passwords) {
     setAttribute("type", "button", anchor);
 
     bind(anchor, {
-      click: pipe(preventDefault, () => input, toggleInputType)
+      click: pipe(preventDefault, event => toggleInputType(input, event.target))
     });
 
     parentElement(input).insertBefore(anchor, nextElementSibling(input));
