@@ -1,29 +1,27 @@
 <%= form_for @changeset, registration_path(@conn, :create), [class: "cf-form"], fn f -> %>
 <%= if @changeset.action do %>
-  <div class="alert alert-error">
-    <p><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
-  </div>
+  <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
 <% end %>
 
-<div class="cf-cgroup">
+<div class="cf-cgroup <%= error_class(f, :username) %>">
   <%= label f, :username, gettext("username") %>
   <%= text_input f, :username, placeholder: gettext("Regina Schlauklug"), data: [js: "username"] %>
   <%= error_tag f, :username %>
 </div>
 
-<div class="cf-cgroup">
+<div class="cf-cgroup <%= error_class(f, :email) %>">
   <%= label f, :email, gettext("email") %>
   <%= text_input f, :email, placeholder: gettext("regina@example.org"), type: "email" %>
   <%= error_tag f, :email %>
 </div>
 
-<div class="cf-cgroup">
+<div class="cf-cgroup <%= error_class(f, :password) %>">
   <%= label f, :password, gettext("password") %>
   <%= password_input f, :password, autocomplete: "off", "data-show-password": true %>
   <%= error_tag f, :password %>
 </div>
 
-<div class="cf-cgroup">
+<div class="cf-cgroup <%= error_class(f, :password_confirmation) %>">
   <%= label f, :password_confirmation, gettext("password confirmation") %>
   <%= password_input f, :password_confirmation, type: "password", autocomplete: "off" %>
 </div>
