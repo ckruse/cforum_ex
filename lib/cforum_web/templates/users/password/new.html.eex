@@ -1,5 +1,5 @@
 <%= form_for @conn, password_path(@conn, :create), [as: :user, class: "cf-form"], fn f -> %>
-  <div class="cf-cgroup">
+  <div class="cf-cgroup <%= error_class(f, :login) %>">
     <%= label f, :login, gettext("Username or email") %>
     <%= text_input f, :login, autofocus: true %>
     <%= error_tag f, :login %>
