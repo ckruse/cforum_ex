@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2018-03-14 08:56+0100\n"
+"PO-Revision-Date: 2018-03-27 07:49+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -528,7 +528,7 @@ msgstr "Avatar"
 
 #: lib/cforum_web/templates/admin/forum/edit.html.eex:8
 #: lib/cforum_web/templates/admin/forum/new.html.eex:8
-#: lib/cforum_web/templates/mail/new.html.eex:11
+#: lib/cforum_web/templates/mail/new.html.eex:16
 #: lib/cforum_web/templates/message/new.html.eex:25
 #: lib/cforum_web/templates/thread/new.html.eex:31
 #: lib/cforum_web/templates/users/password/edit.html.eex:15
@@ -603,80 +603,77 @@ msgstr "Lesbarkeit und Übersicht"
 msgid "use JavaScript for notifications"
 msgstr "Benutze JavaScript für Benachrichtigungen"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:71
+#: lib/cforum_web/templates/users/user/notifications.html.eex:70
 msgid "automatically delete read notifications for activity in subscribed threads"
 msgstr "Benachrichtigungen für Aktivität in abonnierten Nachrichten automatisch löschen"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:52
+#: lib/cforum_web/templates/users/user/notifications.html.eex:51
 msgid "automatically delete read notifications for mentions"
 msgstr "Benachrichtigungen für Erwähnungen automatisch löschen"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:65
+#: lib/cforum_web/templates/users/user/notifications.html.eex:64
 msgid "automatically delete read notifications for new cites"
 msgstr "Benachrichtigungen für neue Zitate automatisch löschen"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:20
+#: lib/cforum_web/templates/users/user/notifications.html.eex:19
 msgid "automatically delete read notifications for new mails"
 msgstr "Benachrichtigungen für neue Post automatisch löschen"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:80
+#: lib/cforum_web/templates/users/user/notifications.html.eex:79
 msgid "automatically subscribe the first posting of the thread"
 msgstr "abonniere den ersten Beitrag des Threads automatisch"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:79
+#: lib/cforum_web/templates/users/user/notifications.html.eex:78
 msgid "automatically subscribe the own posting"
 msgstr "abonniere den eigenen Beitrag automatisch"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:78
+#: lib/cforum_web/templates/users/user/notifications.html.eex:77
 msgid "automatically subscribe the parent posting"
 msgstr "automatisch das Vorgänger-Posting abonnieren"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:76
+#: lib/cforum_web/templates/users/user/notifications.html.eex:75
 msgid "automatically subscribe threads when answering"
 msgstr "Threads Automatisch abonnieren bei Antwort"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:77
+#: lib/cforum_web/templates/users/user/notifications.html.eex:76
 msgid "no, don't automatically subscribe"
 msgstr "Nein, nicht automatisch abonnieren"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:14
-#: lib/cforum_web/templates/users/user/notifications.html.eex:39
-#: lib/cforum_web/templates/users/user/notifications.html.eex:46
-#: lib/cforum_web/templates/users/user/notifications.html.eex:59
-msgid "no, don't notify me"
-msgstr "Nein, benachrichtige mich nicht"
-
-#: lib/cforum_web/templates/users/user/notifications.html.eex:15
-#: lib/cforum_web/templates/users/user/notifications.html.eex:40
-#: lib/cforum_web/templates/users/user/notifications.html.eex:47
-#: lib/cforum_web/templates/users/user/notifications.html.eex:60
-msgid "notify me via email"
-msgstr "Benachrichtige mich via Email"
-
-#: lib/cforum_web/templates/users/user/notifications.html.eex:32
-msgid "notify me via email on activity in subscribed threads"
-msgstr "Benachrichtige mich vie Email über Aktivität in einem abonnierten Thread"
-
-#: lib/cforum_web/templates/users/user/notifications.html.eex:37
-msgid "notify me when a thread gets moved to a different forum"
-msgstr "Benachrichtige mich, wenn ein Thread in ein anderes Forum verschoben wurde"
-
-#: lib/cforum_web/templates/users/user/notifications.html.eex:57
-msgid "notify me when someone creates a new cite"
-msgstr "Benachrichtige mich, wenn ein neues Zitat erstellt wurde"
-
-#: lib/cforum_web/templates/users/user/notifications.html.eex:44
-msgid "notify me when someone mentions me"
-msgstr "Benachrichtige mich, wenn mich jemand erwähnt"
-
-#: lib/cforum_web/templates/users/user/notifications.html.eex:26
-msgid "notify on new threads"
-msgstr "benachrichtige mich über neue Threads"
-
-#: lib/cforum_web/templates/users/user/notifications.html.eex:13
 #: lib/cforum_web/templates/users/user/notifications.html.eex:38
 #: lib/cforum_web/templates/users/user/notifications.html.eex:45
 #: lib/cforum_web/templates/users/user/notifications.html.eex:58
+msgid "no, don't notify me"
+msgstr "Nein, benachrichtige mich nicht"
+
+#: lib/cforum_web/templates/users/user/notifications.html.eex:39
+#: lib/cforum_web/templates/users/user/notifications.html.eex:46
+#: lib/cforum_web/templates/users/user/notifications.html.eex:59
+msgid "notify me via email"
+msgstr "Benachrichtige mich via Email"
+
+#: lib/cforum_web/templates/users/user/notifications.html.eex:31
+msgid "notify me via email on activity in subscribed threads"
+msgstr "Benachrichtige mich via Email über Aktivität in einem abonnierten Thread"
+
+#: lib/cforum_web/templates/users/user/notifications.html.eex:36
+msgid "notify me when a thread gets moved to a different forum"
+msgstr "Benachrichtige mich, wenn ein Thread in ein anderes Forum verschoben wurde"
+
+#: lib/cforum_web/templates/users/user/notifications.html.eex:56
+msgid "notify me when someone creates a new cite"
+msgstr "Benachrichtige mich, wenn ein neues Zitat erstellt wurde"
+
+#: lib/cforum_web/templates/users/user/notifications.html.eex:43
+msgid "notify me when someone mentions me"
+msgstr "Benachrichtige mich, wenn mich jemand erwähnt"
+
+#: lib/cforum_web/templates/users/user/notifications.html.eex:25
+msgid "notify on new threads"
+msgstr "benachrichtige mich über neue Threads"
+
+#: lib/cforum_web/templates/users/user/notifications.html.eex:37
+#: lib/cforum_web/templates/users/user/notifications.html.eex:44
+#: lib/cforum_web/templates/users/user/notifications.html.eex:57
 msgid "yes, notify me"
 msgstr "ja, benachrichtige mich"
 
@@ -815,7 +812,7 @@ msgid "created at"
 msgstr "Erstellungszeitpunkt"
 
 #: lib/cforum_web/templates/admin/forum/index.html.eex:29
-#: lib/cforum_web/templates/mail/index.html.eex:31
+#: lib/cforum_web/templates/mail/index.html.eex:30
 #: lib/cforum_web/templates/notification/index.html.eex:27
 msgid "delete"
 msgstr "löschen"
@@ -840,8 +837,8 @@ msgstr "lesen für Angemeldete"
 msgid "known-write"
 msgstr "schreiben für Angemeldete"
 
-#: lib/cforum_web/templates/mail/index.html.eex:30
-#: lib/cforum_web/templates/mail/show.html.eex:33
+#: lib/cforum_web/templates/mail/index.html.eex:29
+#: lib/cforum_web/templates/mail/mail.html.eex:34
 #: lib/cforum_web/templates/notification/index.html.eex:29
 msgid "mark unread"
 msgstr "ungelesen markieren"
@@ -875,7 +872,7 @@ msgstr "Anweisungen zum zurücksetzen verschicken"
 msgid "show"
 msgstr "anzeigen"
 
-#: lib/cforum_web/templates/mail/form.html.eex:11
+#: lib/cforum_web/templates/mail/form.html.eex:16
 #: lib/cforum_web/templates/mail/index.html.eex:5
 #: lib/cforum_web/templates/message/form.html.eex:3
 #: lib/cforum_web/templates/notification/index.html.eex:5
@@ -999,8 +996,8 @@ msgid "newest first"
 msgstr "Threads mit neuestem Beitrag zuerst"
 
 #: lib/cforum_web/templates/users/user/comfort.html.eex:31
-#: lib/cforum_web/templates/users/user/notifications.html.eex:88
-#: lib/cforum_web/templates/users/user/notifications.html.eex:97
+#: lib/cforum_web/templates/users/user/notifications.html.eex:87
+#: lib/cforum_web/templates/users/user/notifications.html.eex:96
 msgid "no"
 msgstr "nein"
 
@@ -1024,11 +1021,11 @@ msgstr "Zitiere die Signatur beim antworten"
 msgid "remove rel=nofollow from my homepage URL"
 msgstr "Verlinke meine Homepage ohne rel=nofollow"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:95
+#: lib/cforum_web/templates/users/user/notifications.html.eex:94
 msgid "send me a notification on close and re-open votes"
 msgstr "Sende eine Benachrichtigung, wenn eine Sperr- oder Entsperr-Abstimmung stattfindet"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:86
+#: lib/cforum_web/templates/users/user/notifications.html.eex:85
 msgid "send me a notification on flagged messages"
 msgstr "Sende eine Benachrichtigung, wenn ein Beitrag Moderation benötigt"
 
@@ -1092,14 +1089,14 @@ msgstr "JavaScript nutzen, um neue Threads und Nachrichten vom Server zu laden"
 msgid "use inline answer forms"
 msgstr "Inline-Formular zum antworten nutzen"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:89
-#: lib/cforum_web/templates/users/user/notifications.html.eex:98
+#: lib/cforum_web/templates/users/user/notifications.html.eex:88
+#: lib/cforum_web/templates/users/user/notifications.html.eex:97
 msgid "via email"
 msgstr "via Email"
 
 #: lib/cforum_web/templates/users/user/comfort.html.eex:30
-#: lib/cforum_web/templates/users/user/notifications.html.eex:87
-#: lib/cforum_web/templates/users/user/notifications.html.eex:96
+#: lib/cforum_web/templates/users/user/notifications.html.eex:86
+#: lib/cforum_web/templates/users/user/notifications.html.eex:95
 msgid "yes"
 msgstr "ja"
 
@@ -1257,7 +1254,7 @@ msgstr ""
 msgid "replace float:left with a flexbox construct"
 msgstr "float:left mit einem Flexbox-Konstrukt ersetzen"
 
-#: lib/cforum_web/templates/mail/new.html.eex:9
+#: lib/cforum_web/templates/mail/new.html.eex:14
 #: lib/cforum_web/templates/message/new.html.eex:23
 #: lib/cforum_web/templates/thread/new.html.eex:29
 msgid "show preview"
@@ -1526,12 +1523,12 @@ msgid "partner"
 msgstr "Partner"
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/new.html.eex:10
+#: lib/cforum_web/templates/mail/new.html.eex:15
 msgid "send mail"
 msgstr "Mail versenden"
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/form.html.eex:12
+#: lib/cforum_web/templates/mail/form.html.eex:17
 msgid "Howdy, partner!"
 msgstr ""
 
@@ -1541,34 +1538,34 @@ msgid "mail from %{partner}"
 msgstr "Post von %{partner}"
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/index.html.eex:27
-#: lib/cforum_web/templates/mail/show.html.eex:28
+#: lib/cforum_web/templates/mail/index.html.eex:26
+#: lib/cforum_web/templates/mail/mail.html.eex:29
 msgid "answer"
 msgstr "antworten"
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/index.html.eex:28
-#: lib/cforum_web/templates/mail/show.html.eex:29
+#: lib/cforum_web/templates/mail/index.html.eex:27
+#: lib/cforum_web/templates/mail/mail.html.eex:30
 msgid "answer without cite"
 msgstr "ohne Zitat antworten"
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:65
+#: lib/cforum_web/controllers/mail_controller.ex:76
 msgid "Mail created successfully."
 msgstr "Nachricht erfolgreich gespeichert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:90
+#: lib/cforum_web/controllers/mail_controller.ex:101
 msgid "Mail deleted successfully."
-msgstr "Forum erfolgreich gelöscht."
+msgstr "Post erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:78
+#: lib/cforum_web/controllers/mail_controller.ex:89
 msgid "Mail successfully marked as unread."
 msgstr "Benachrichtigung erfolgreich als ungelesen markiert."
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/show.html.eex:32
+#: lib/cforum_web/templates/mail/mail.html.eex:33
 msgid "delete mail"
 msgstr "löschen"
 
@@ -1583,10 +1580,12 @@ msgstr "Empfänger"
 msgid "you"
 msgstr "du"
 
-#, elixir-format
-#: lib/cforum_web/templates/users/password/edit.html.eex:4
-#: lib/cforum_web/templates/users/password/edit_reset.html.eex:4
-#: lib/cforum_web/templates/users/registration/new.html.eex:22
-#: lib/cforum_web/templates/users/session/new.html.eex:9
-msgid "show password"
-msgstr "Passwort anzeigen"
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/users/user/notifications.html.eex:13
+msgid "notify me via email on new mail"
+msgstr "Benachrichtige mich via Email über neue Post"
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/mail/new.html.eex:6
+msgid "preview"
+msgstr "Vorschau"
