@@ -1,5 +1,6 @@
 export const lang = {
   "show password": "Passwort anzeigen",
+  "hide password": "Passwort verbergen",
   "search user": "Benutzer suchen",
   "Close this dialog window": "Dieses Dialog-Fenster schließen",
   "Search user": "Benutzer suchen",
