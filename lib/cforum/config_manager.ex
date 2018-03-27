@@ -19,7 +19,6 @@ defmodule Cforum.ConfigManager do
     "close_vote_action_illegal" => "hide",
     "close_vote_action_duplicate" => "close",
     "close_vote_action_custom" => "close",
-    "delete_read_notifications_on_new_mail" => "yes",
     "header_start_index" => 2,
     "editing_enabled" => "yes",
     "edit_until_has_answer" => "yes",

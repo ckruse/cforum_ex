@@ -9,15 +9,8 @@
     </div>
 
     <div class="cf-cgroup">
-      <label><%= gettext("notify me on new mail") %></label>
-      <label class="radio"><%= radio_button @f, :notify_on_new_mail, "yes" %> <%= gettext("yes, notify me") %></label>
-      <label class="radio"><%= radio_button @f, :notify_on_new_mail, "no", checked: blank_or_value?(@f.data, :notify_on_new_mail, "no") %> <%= gettext("no, don't notify me") %></label>
-      <label class="radio"><%= radio_button @f, :notify_on_new_mail, "email" %> <%= gettext("notify me via email") %></label>
-    </div>
-
-    <div class="cf-cgroup">
       <label class="checkbox">
-        <%= checkbox @f, :delete_read_notifications_on_new_mail, checked_value: "yes", unchecked_value: "no" %> <%= gettext("automatically delete read notifications for new mails") %>
+        <%= checkbox @f, :notify_on_new_mail, checked_value: "email", unchecked_value: "no" %> <%= gettext("notify me via email on new mail") %>
       </label>
     </div>
 
