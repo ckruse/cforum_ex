@@ -134,6 +134,7 @@ defmodule Cforum.Accounts.PrivMessages do
         case pm do
           {:ok, foreign_pm} ->
             priv_message = Repo.get!(PrivMessage, foreign_pm.priv_message_id)
+            notify_user(priv_message)
 
             %PrivMessage{
               owner_id: current_user.user_id,
@@ -280,4 +281,14 @@ defmodule Cforum.Accounts.PrivMessages do
 
   def partner(%PrivMessage{owner_id: oid, recipient_id: rid} = msg) when oid == rid, do: msg.sender
   def partner(%PrivMessage{} = msg), do: msg.recipient
+
+  defp notify_user(pm) do
+    user = Cforum.Accounts.Users.get_user!(pm.recipient_id)
+
+    if Cforum.ConfigManager.uconf(user, "notify_on_new_mail") == "email" do
+      user
+      |> CforumWeb.NotificationMailer.pm_notification_mail(pm)
+      |> Cforum.Mailer.deliver_later()
+    end
+  end
 end
