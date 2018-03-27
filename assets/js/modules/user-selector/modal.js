@@ -30,7 +30,7 @@ export default class Modal {
 
     return `
       <h2>${t("selected users")}</h2>
-      <ul class="users-selector-selected-users-list">
+      <ul class="users-selector-selected-users-list" aria-live="assertive">
         <li class="no-data">${t("none selected")}</li>
       </ul>
     `;
@@ -45,7 +45,7 @@ export default class Modal {
         </div>
       
         <h2>${t("found users")}</h2>
-        <ul class="users-selector-found-users-list">
+        <ul class="users-selector-found-users-list" aria-live="assertive">
           <li class="no-data">${t("none found")}</li>
         </ul>
       
