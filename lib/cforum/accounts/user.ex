@@ -86,8 +86,9 @@ defmodule Cforum.Accounts.User do
     struct
     |> cast(params, [:username, :email, :password, :password_confirmation])
     |> validate_required([:username, :email, :password, :password_confirmation])
-    |> unique_constraint(:username)
-    |> unique_constraint(:email)
+    |> unique_constraint(:username, name: :users_username_idx)
+    |> unique_constraint(:email, name: :users_email_idx)
+    |> unique_constraint(:confirmation_token, name: :users_confirmation_token_idx)
     |> confirm_password()
     |> put_password_hash()
     |> put_confirmation_token()
@@ -111,6 +112,7 @@ defmodule Cforum.Accounts.User do
     user
     |> cast(params, [:reset_password_token, :reset_password_sent_at])
     |> validate_required([:reset_password_token, :reset_password_sent_at])
+    |> unique_constraint(:reset_password_token, name: :users_reset_password_token_idx)
   end
 
   defp confirm_password(changeset) do
