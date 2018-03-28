@@ -1,7 +1,3 @@
-<h1>
-  <label for="message_input"><%= gettext("new answer to %{name}", name: @parent.author) %></label>
-</h1>
-
 <%= if @changeset.action do %>
   <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
 <% end %>
