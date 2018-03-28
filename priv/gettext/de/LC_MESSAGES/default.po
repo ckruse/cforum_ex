@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2018-03-27 07:49+0200\n"
+"PO-Revision-Date: 2018-03-28 07:37+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -197,7 +197,7 @@ msgstr "Ich habe mein Passwort vergessen"
 msgid "Login"
 msgstr "anmelden"
 
-#: lib/cforum_web/templates/users/registration/new.html.eex:10
+#: lib/cforum_web/templates/users/registration/new.html.eex:11
 #: lib/cforum_web/templates/users/session/new.html.eex:4
 msgid "Regina Schlauklug"
 msgstr "Regina Schlauklug"
@@ -206,7 +206,6 @@ msgstr "Regina Schlauklug"
 msgid "Remember me"
 msgstr "Login merken"
 
-#: lib/cforum_web/templates/users/password/new.html.eex:3
 #: lib/cforum_web/templates/users/session/new.html.eex:3
 msgid "Username or email"
 msgstr "Benutzername oder Email-Adresse"
@@ -246,46 +245,46 @@ msgstr "Einstellungen"
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:3
 #: lib/cforum_web/templates/mail/new.html.eex:2
-#: lib/cforum_web/templates/message/new.html.eex:6
-#: lib/cforum_web/templates/thread/new.html.eex:6
-#: lib/cforum_web/templates/users/registration/new.html.eex:4
+#: lib/cforum_web/templates/message/new.html.eex:2
+#: lib/cforum_web/templates/thread/new.html.eex:2
+#: lib/cforum_web/templates/users/registration/new.html.eex:3
 #: lib/cforum_web/templates/users/user/form.html.eex:3
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr "Es ist etwas schief gelaufen! Bitte prüfen Sie die untenstehenden Fehler."
 
-#: lib/cforum_web/templates/message/form.html.eex:17
-#: lib/cforum_web/templates/users/registration/new.html.eex:15
+#: lib/cforum_web/templates/message/form.html.eex:22
+#: lib/cforum_web/templates/users/registration/new.html.eex:16
 #: lib/cforum_web/templates/users/user/show.html.eex:21
 #: lib/cforum_web/templates/users/user/user_information.html.eex:11
 msgid "email"
 msgstr "Email-Adresse"
 
-#: lib/cforum_web/templates/users/password/edit.html.eex:3
-#: lib/cforum_web/templates/users/password/edit_reset.html.eex:3
-#: lib/cforum_web/templates/users/registration/new.html.eex:21
+#: lib/cforum_web/templates/users/password/edit.html.eex:4
+#: lib/cforum_web/templates/users/password/edit_reset.html.eex:4
+#: lib/cforum_web/templates/users/registration/new.html.eex:24
 #: lib/cforum_web/templates/users/session/new.html.eex:8
 #: lib/cforum_web/templates/users/session/new.html.eex:9
 msgid "password"
 msgstr "Passwort"
 
-#: lib/cforum_web/templates/users/registration/new.html.eex:16
+#: lib/cforum_web/templates/users/registration/new.html.eex:19
 msgid "regina@example.org"
 msgstr "regina@example.org"
 
-#: lib/cforum_web/templates/users/registration/new.html.eex:32
+#: lib/cforum_web/templates/users/registration/new.html.eex:36
 msgid "sign up"
 msgstr "registrieren"
 
-#: lib/cforum_web/templates/users/registration/new.html.eex:9
+#: lib/cforum_web/templates/users/registration/new.html.eex:8
 #: lib/cforum_web/templates/users/user/index.html.eex:5
 #: lib/cforum_web/templates/users/user/show.html.eex:8
 #: lib/cforum_web/templates/users/user/user_information.html.eex:6
 msgid "username"
 msgstr "Benutzername"
 
-#: lib/cforum_web/templates/users/password/edit.html.eex:9
-#: lib/cforum_web/templates/users/password/edit_reset.html.eex:9
-#: lib/cforum_web/templates/users/registration/new.html.eex:27
+#: lib/cforum_web/templates/users/password/edit.html.eex:11
+#: lib/cforum_web/templates/users/password/edit_reset.html.eex:11
+#: lib/cforum_web/templates/users/registration/new.html.eex:31
 msgid "password confirmation"
 msgstr "Passwort-Bestätigung"
 
@@ -331,7 +330,7 @@ msgstr "Sie können Ihr Benutzerkonto über den Link unten bestätigen:"
 msgid "confirm your registration"
 msgstr "Benutzerkonto bestätigen"
 
-#: lib/cforum/accounts/user.ex:123
+#: lib/cforum/accounts/user.ex:125
 msgid "password and password confirmation don't match"
 msgstr "Passwort und Passwort-Bestätigung stimmen nicht überein"
 
@@ -357,7 +356,6 @@ msgstr "Medaillen"
 msgid "Best scored messages"
 msgstr "am besten bewertete Beiträge"
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:49
 #: lib/cforum_web/templates/admin/forum/index.html.eex:8
 #: lib/cforum_web/templates/users/user/show.html.eex:58
 msgid "Description"
@@ -529,11 +527,11 @@ msgstr "Avatar"
 #: lib/cforum_web/templates/admin/forum/edit.html.eex:8
 #: lib/cforum_web/templates/admin/forum/new.html.eex:8
 #: lib/cforum_web/templates/mail/new.html.eex:16
-#: lib/cforum_web/templates/message/new.html.eex:25
-#: lib/cforum_web/templates/thread/new.html.eex:31
-#: lib/cforum_web/templates/users/password/edit.html.eex:15
-#: lib/cforum_web/templates/users/password/edit_reset.html.eex:15
-#: lib/cforum_web/templates/users/password/new.html.eex:10
+#: lib/cforum_web/templates/message/new.html.eex:21
+#: lib/cforum_web/templates/thread/new.html.eex:29
+#: lib/cforum_web/templates/users/password/edit.html.eex:17
+#: lib/cforum_web/templates/users/password/edit_reset.html.eex:17
+#: lib/cforum_web/templates/users/password/new.html.eex:12
 #: lib/cforum_web/templates/users/user/edit.html.eex:8
 msgid "cancel"
 msgstr "abbrechen"
@@ -552,6 +550,7 @@ msgstr "Hallo {$vname}"
 msgid "comfort functions"
 msgstr "Komfort-Funktionen"
 
+#: lib/cforum_web/templates/admin/forum/form.html.eex:62
 #: lib/cforum_web/templates/users/user/personal_information.html.eex:37
 msgid "description"
 msgstr "Beschreibung"
@@ -564,7 +563,7 @@ msgstr "Flattr-ID"
 msgid "greeting"
 msgstr "Begrüßung"
 
-#: lib/cforum_web/templates/message/form.html.eex:24
+#: lib/cforum_web/templates/message/form.html.eex:31
 #: lib/cforum_web/templates/users/user/personal_information.html.eex:11
 msgid "homepage"
 msgstr "Homepage"
@@ -603,15 +602,15 @@ msgstr "Lesbarkeit und Übersicht"
 msgid "use JavaScript for notifications"
 msgstr "Benutze JavaScript für Benachrichtigungen"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:70
+#: lib/cforum_web/templates/users/user/notifications.html.eex:64
 msgid "automatically delete read notifications for activity in subscribed threads"
 msgstr "Benachrichtigungen für Aktivität in abonnierten Nachrichten automatisch löschen"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:51
+#: lib/cforum_web/templates/users/user/notifications.html.eex:45
 msgid "automatically delete read notifications for mentions"
 msgstr "Benachrichtigungen für Erwähnungen automatisch löschen"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:64
+#: lib/cforum_web/templates/users/user/notifications.html.eex:58
 msgid "automatically delete read notifications for new cites"
 msgstr "Benachrichtigungen für neue Zitate automatisch löschen"
 
@@ -619,61 +618,61 @@ msgstr "Benachrichtigungen für neue Zitate automatisch löschen"
 msgid "automatically delete read notifications for new mails"
 msgstr "Benachrichtigungen für neue Post automatisch löschen"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:79
+#: lib/cforum_web/templates/users/user/notifications.html.eex:73
 msgid "automatically subscribe the first posting of the thread"
 msgstr "abonniere den ersten Beitrag des Threads automatisch"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:78
+#: lib/cforum_web/templates/users/user/notifications.html.eex:72
 msgid "automatically subscribe the own posting"
 msgstr "abonniere den eigenen Beitrag automatisch"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:77
+#: lib/cforum_web/templates/users/user/notifications.html.eex:71
 msgid "automatically subscribe the parent posting"
 msgstr "automatisch das Vorgänger-Posting abonnieren"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:75
+#: lib/cforum_web/templates/users/user/notifications.html.eex:69
 msgid "automatically subscribe threads when answering"
 msgstr "Threads Automatisch abonnieren bei Antwort"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:76
+#: lib/cforum_web/templates/users/user/notifications.html.eex:70
 msgid "no, don't automatically subscribe"
 msgstr "Nein, nicht automatisch abonnieren"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:38
-#: lib/cforum_web/templates/users/user/notifications.html.eex:45
-#: lib/cforum_web/templates/users/user/notifications.html.eex:58
+#: lib/cforum_web/templates/users/user/notifications.html.eex:32
+#: lib/cforum_web/templates/users/user/notifications.html.eex:39
+#: lib/cforum_web/templates/users/user/notifications.html.eex:52
 msgid "no, don't notify me"
 msgstr "Nein, benachrichtige mich nicht"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:39
-#: lib/cforum_web/templates/users/user/notifications.html.eex:46
-#: lib/cforum_web/templates/users/user/notifications.html.eex:59
+#: lib/cforum_web/templates/users/user/notifications.html.eex:33
+#: lib/cforum_web/templates/users/user/notifications.html.eex:40
+#: lib/cforum_web/templates/users/user/notifications.html.eex:53
 msgid "notify me via email"
 msgstr "Benachrichtige mich via Email"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:31
+#: lib/cforum_web/templates/users/user/notifications.html.eex:25
 msgid "notify me via email on activity in subscribed threads"
 msgstr "Benachrichtige mich via Email über Aktivität in einem abonnierten Thread"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:36
+#: lib/cforum_web/templates/users/user/notifications.html.eex:30
 msgid "notify me when a thread gets moved to a different forum"
 msgstr "Benachrichtige mich, wenn ein Thread in ein anderes Forum verschoben wurde"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:56
+#: lib/cforum_web/templates/users/user/notifications.html.eex:50
 msgid "notify me when someone creates a new cite"
 msgstr "Benachrichtige mich, wenn ein neues Zitat erstellt wurde"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:43
+#: lib/cforum_web/templates/users/user/notifications.html.eex:37
 msgid "notify me when someone mentions me"
 msgstr "Benachrichtige mich, wenn mich jemand erwähnt"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:25
+#: lib/cforum_web/templates/users/user/notifications.html.eex:19
 msgid "notify on new threads"
 msgstr "benachrichtige mich über neue Threads"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:37
-#: lib/cforum_web/templates/users/user/notifications.html.eex:44
-#: lib/cforum_web/templates/users/user/notifications.html.eex:57
+#: lib/cforum_web/templates/users/user/notifications.html.eex:31
+#: lib/cforum_web/templates/users/user/notifications.html.eex:38
+#: lib/cforum_web/templates/users/user/notifications.html.eex:51
 msgid "yes, notify me"
 msgstr "ja, benachrichtige mich"
 
@@ -708,12 +707,10 @@ msgstr "Forum erfolgreich gelöscht."
 msgid "Forum updated successfully."
 msgstr "Forum erfolgreich geändert."
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:37
 #: lib/cforum_web/templates/admin/forum/index.html.eex:10
 msgid "Keywords"
 msgstr "Schlagwörter"
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:9
 #: lib/cforum_web/templates/admin/forum/index.html.eex:6
 msgid "Name"
 msgstr "Name"
@@ -735,7 +732,6 @@ msgstr "Benachrichtigungen"
 msgid "Password updated successfully."
 msgstr "Passwort erfolgreich geändert."
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:43
 #: lib/cforum_web/templates/admin/forum/index.html.eex:11
 msgid "Position"
 msgstr "Position"
@@ -748,7 +744,6 @@ msgstr "Mein Passwort zurücksetzen"
 msgid "Send password reset instructions"
 msgstr "Instruktionen um das Passwort zurückzusetzen versenden"
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:15
 #: lib/cforum_web/templates/admin/forum/index.html.eex:7
 msgid "Short name"
 msgstr "Kurzname"
@@ -765,7 +760,6 @@ msgstr "Threads per default…"
 msgid "Slug"
 msgstr "Slug"
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:27
 #: lib/cforum_web/templates/admin/forum/index.html.eex:9
 msgid "Standard permission"
 msgstr "Standard-Berechtigung"
@@ -795,8 +789,8 @@ msgstr "Sie können Sie Ihr Passwort zurücksetzen:"
 msgid "You logged out successfully"
 msgstr "Sie wurden erfolgreich ausgeloggt"
 
-#: lib/cforum_web/templates/users/password/edit.html.eex:14
-#: lib/cforum_web/templates/users/password/edit_reset.html.eex:14
+#: lib/cforum_web/templates/users/password/edit.html.eex:16
+#: lib/cforum_web/templates/users/password/edit_reset.html.eex:16
 #: lib/cforum_web/templates/users/user/edit.html.eex:7
 #: lib/cforum_web/templates/users/user/show.html.eex:176
 msgid "change password"
@@ -829,11 +823,11 @@ msgstr "bearbeiten"
 msgid "edit profile and settings"
 msgstr "Profil und Einstellungen bearbeiten"
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:31
+#: lib/cforum_web/templates/admin/forum/form.html.eex:40
 msgid "known-read"
 msgstr "lesen für Angemeldete"
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:32
+#: lib/cforum_web/templates/admin/forum/form.html.eex:41
 msgid "known-write"
 msgstr "schreiben für Angemeldete"
 
@@ -847,11 +841,11 @@ msgstr "ungelesen markieren"
 msgid "new mail to %{username}"
 msgstr "Neue Mail an %{username}"
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:28
+#: lib/cforum_web/templates/admin/forum/form.html.eex:37
 msgid "private"
 msgstr "privat"
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:29
+#: lib/cforum_web/templates/admin/forum/form.html.eex:38
 msgid "read"
 msgstr "lesen"
 
@@ -864,7 +858,7 @@ msgstr "Instruktionen um das Passwort zurückzusetzen"
 msgid "save changes"
 msgstr "Änderungen speichern"
 
-#: lib/cforum_web/templates/users/password/new.html.eex:9
+#: lib/cforum_web/templates/users/password/new.html.eex:11
 msgid "send reset instructions"
 msgstr "Anweisungen zum zurücksetzen verschicken"
 
@@ -872,9 +866,9 @@ msgstr "Anweisungen zum zurücksetzen verschicken"
 msgid "show"
 msgstr "anzeigen"
 
-#: lib/cforum_web/templates/mail/form.html.eex:16
+#: lib/cforum_web/templates/mail/form.html.eex:19
 #: lib/cforum_web/templates/mail/index.html.eex:5
-#: lib/cforum_web/templates/message/form.html.eex:3
+#: lib/cforum_web/templates/message/form.html.eex:4
 #: lib/cforum_web/templates/notification/index.html.eex:5
 msgid "subject"
 msgstr "Betreff"
@@ -883,7 +877,7 @@ msgstr "Betreff"
 msgid "unread"
 msgstr "ungelesen"
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:30
+#: lib/cforum_web/templates/admin/forum/form.html.eex:39
 msgid "write"
 msgstr "schreiben"
 
@@ -996,8 +990,8 @@ msgid "newest first"
 msgstr "Threads mit neuestem Beitrag zuerst"
 
 #: lib/cforum_web/templates/users/user/comfort.html.eex:31
-#: lib/cforum_web/templates/users/user/notifications.html.eex:87
-#: lib/cforum_web/templates/users/user/notifications.html.eex:96
+#: lib/cforum_web/templates/users/user/notifications.html.eex:81
+#: lib/cforum_web/templates/users/user/notifications.html.eex:90
 msgid "no"
 msgstr "nein"
 
@@ -1021,11 +1015,11 @@ msgstr "Zitiere die Signatur beim antworten"
 msgid "remove rel=nofollow from my homepage URL"
 msgstr "Verlinke meine Homepage ohne rel=nofollow"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:94
+#: lib/cforum_web/templates/users/user/notifications.html.eex:88
 msgid "send me a notification on close and re-open votes"
 msgstr "Sende eine Benachrichtigung, wenn eine Sperr- oder Entsperr-Abstimmung stattfindet"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:85
+#: lib/cforum_web/templates/users/user/notifications.html.eex:79
 msgid "send me a notification on flagged messages"
 msgstr "Sende eine Benachrichtigung, wenn ein Beitrag Moderation benötigt"
 
@@ -1089,14 +1083,14 @@ msgstr "JavaScript nutzen, um neue Threads und Nachrichten vom Server zu laden"
 msgid "use inline answer forms"
 msgstr "Inline-Formular zum antworten nutzen"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:88
-#: lib/cforum_web/templates/users/user/notifications.html.eex:97
+#: lib/cforum_web/templates/users/user/notifications.html.eex:82
+#: lib/cforum_web/templates/users/user/notifications.html.eex:91
 msgid "via email"
 msgstr "via Email"
 
 #: lib/cforum_web/templates/users/user/comfort.html.eex:30
-#: lib/cforum_web/templates/users/user/notifications.html.eex:86
-#: lib/cforum_web/templates/users/user/notifications.html.eex:95
+#: lib/cforum_web/templates/users/user/notifications.html.eex:80
+#: lib/cforum_web/templates/users/user/notifications.html.eex:89
 msgid "yes"
 msgstr "ja"
 
@@ -1193,7 +1187,7 @@ msgstr "weniger als einer Minute"
 msgid "by"
 msgstr "von"
 
-#: lib/cforum_web/templates/message/form.html.eex:31
+#: lib/cforum_web/templates/message/form.html.eex:40
 #: lib/cforum_web/templates/message/message.html.eex:10
 msgid "problematic site"
 msgstr "problematische Seite"
@@ -1208,7 +1202,7 @@ msgstr "Beitrag lesen"
 msgid "user information"
 msgstr "Benutzer-Informationen"
 
-#: lib/cforum_web/templates/message/new.html.eex:2
+#: lib/cforum_web/views/message_view.ex:85
 msgid "new answer to %{name}"
 msgstr "Antwort an „%{name}“ verfassen"
 
@@ -1225,48 +1219,48 @@ msgstr "SELFHTML Forum - Ergänzung zur <a href=\"https://wiki.selfhtml.org\">Do
 msgid "all"
 msgstr "alle"
 
-#: lib/cforum_web/templates/message/form.html.eex:10
+#: lib/cforum_web/templates/message/form.html.eex:13
 msgid "author"
 msgstr "Autor"
 
-#: lib/cforum_web/templates/message/form.html.eex:50
+#: lib/cforum_web/templates/message/form.html.eex:65
 msgid "comma separated list, e.g. „css, html“"
 msgstr "Komma-separierte Liste, z.B. “css, html“"
 
-#: lib/cforum_web/templates/message/new.html.eex:24
-#: lib/cforum_web/templates/thread/new.html.eex:30
+#: lib/cforum_web/templates/message/new.html.eex:20
+#: lib/cforum_web/templates/thread/new.html.eex:28
 msgid "create message"
 msgstr "Nachricht speichern"
 
-#: lib/cforum_web/templates/message/form.html.eex:48
+#: lib/cforum_web/templates/message/form.html.eex:64
 msgid "html, css, javascript"
 msgstr ""
 
-#: lib/cforum_web/templates/message/form.html.eex:25
+#: lib/cforum_web/templates/message/form.html.eex:34
 msgid "https://example.com"
 msgstr ""
 
-#: lib/cforum_web/templates/message/form.html.eex:32
+#: lib/cforum_web/templates/message/form.html.eex:43
 msgid "https://example.com/float-example.html"
 msgstr ""
 
-#: lib/cforum_web/templates/message/form.html.eex:4
+#: lib/cforum_web/templates/message/form.html.eex:7
 msgid "replace float:left with a flexbox construct"
 msgstr "float:left mit einem Flexbox-Konstrukt ersetzen"
 
 #: lib/cforum_web/templates/mail/new.html.eex:14
-#: lib/cforum_web/templates/message/new.html.eex:23
-#: lib/cforum_web/templates/thread/new.html.eex:29
+#: lib/cforum_web/templates/message/new.html.eex:19
+#: lib/cforum_web/templates/thread/new.html.eex:27
 msgid "show preview"
 msgstr "Vorschau"
 
-#: lib/cforum_web/templates/message/form.html.eex:47
+#: lib/cforum_web/templates/message/form.html.eex:61
 msgid "tags"
 msgstr "Tags"
 
-#: lib/cforum_web/templates/message/form.html.eex:20
-#: lib/cforum_web/templates/message/form.html.eex:27
-#: lib/cforum_web/templates/message/form.html.eex:34
+#: lib/cforum_web/templates/message/form.html.eex:26
+#: lib/cforum_web/templates/message/form.html.eex:35
+#: lib/cforum_web/templates/message/form.html.eex:44
 msgid "voluntary, will be publicly visible"
 msgstr "freiwillig, öffentlich sichtbar"
 
@@ -1334,7 +1328,7 @@ msgstr "Benutzer %{user}"
 msgid "bronze medal"
 msgstr "Bronze-Medaille"
 
-#: lib/cforum_web/templates/thread/new.html.eex:18
+#: lib/cforum_web/templates/thread/new.html.eex:15
 msgid "forum"
 msgstr "Forum"
 
@@ -1342,7 +1336,7 @@ msgstr "Forum"
 msgid "gold medal"
 msgstr "Gold-Medaille"
 
-#: lib/cforum_web/templates/thread/new.html.eex:2
+#: lib/cforum_web/views/thread_view.ex:30
 msgid "new thread"
 msgstr "neuer Thread"
 
@@ -1528,7 +1522,7 @@ msgid "send mail"
 msgstr "Mail versenden"
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/form.html.eex:17
+#: lib/cforum_web/templates/mail/form.html.eex:22
 msgid "Howdy, partner!"
 msgstr ""
 
@@ -1552,17 +1546,17 @@ msgstr "ohne Zitat antworten"
 #, elixir-format
 #: lib/cforum_web/controllers/mail_controller.ex:76
 msgid "Mail created successfully."
-msgstr "Nachricht erfolgreich gespeichert."
+msgstr "Mail erfolgreich gespeichert."
 
 #, elixir-format
 #: lib/cforum_web/controllers/mail_controller.ex:101
 msgid "Mail deleted successfully."
-msgstr "Post erfolgreich gelöscht."
+msgstr "Mail erfolgreich gelöscht."
 
 #, elixir-format
 #: lib/cforum_web/controllers/mail_controller.ex:89
 msgid "Mail successfully marked as unread."
-msgstr "Benachrichtigung erfolgreich als ungelesen markiert."
+msgstr "Mail erfolgreich als ungelesen markiert."
 
 #, elixir-format
 #: lib/cforum_web/templates/mail/mail.html.eex:33
@@ -1570,7 +1564,7 @@ msgid "delete mail"
 msgstr "löschen"
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/form.html.eex:5
+#: lib/cforum_web/templates/mail/form.html.eex:6
 msgid "recpient"
 msgstr "Empfänger"
 
@@ -1580,12 +1574,57 @@ msgstr "Empfänger"
 msgid "you"
 msgstr "du"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/users/user/notifications.html.eex:13
 msgid "notify me via email on new mail"
-msgstr "Benachrichtige mich via Email über neue Post"
+msgstr "benachrichtige mich via Email über neue Post"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/mail/new.html.eex:6
 msgid "preview"
 msgstr "Vorschau"
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/form.html.eex:29
+msgid "mail content"
+msgstr "Mail-Inhalt"
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/admin/forum/form.html.eex:46
+msgid "keywords"
+msgstr "Schlagwörter"
+
+#, elixir-format
+#: lib/cforum_web/templates/message/form.html.eex:51
+msgid "message content"
+msgstr "Beitragstext"
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/admin/forum/form.html.eex:10
+msgid "name"
+msgstr "Name"
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/admin/forum/form.html.eex:54
+msgid "position"
+msgstr "Position"
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/admin/forum/form.html.eex:18
+msgid "short name"
+msgstr "Kurzname"
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/admin/forum/form.html.eex:26
+msgid "slug"
+msgstr "Slug"
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/admin/forum/form.html.eex:34
+msgid "standard permission"
+msgstr "Standard-Berechtigung"
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/users/password/new.html.eex:4
+msgid "username or email"
+msgstr "Benutzername oder Email-Adresse"
