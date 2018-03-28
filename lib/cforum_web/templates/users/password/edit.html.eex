@@ -1,8 +1,10 @@
 <%= form_for @changeset, user_password_path(@conn, :update, @user), [class: "cf-form"], fn f -> %>
   <div class="cf-cgroup <%= error_class(f, :password) %>">
-    <%= label f, :password, gettext("password") %>
+    <%= label f, :password do %>
+      <%= gettext("password") %>
+      <%= error_tag f, :password %>
+    <% end %>
     <%= password_input f, :password, autocomplete: "off", "data-show-password": true %>
-    <%= error_tag f, :password %>
   </div>
 
   <div class="cf-cgroup <%= error_class(f, :password_confirmation) %>">

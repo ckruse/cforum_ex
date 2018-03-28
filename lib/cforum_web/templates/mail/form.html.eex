@@ -2,26 +2,33 @@
 
 <fieldset>
   <div class="cf-cgroup <%= error_class(@f, :recipient_id) %>">
-    <%= label @f, :recipient_id, gettext("recpient") %>
+    <%= label @f, :recipient_id do %>
+      <%= gettext("recpient") %>
+      <%= error_tag @f, :recipient_id %>
+    <% end %>
     <%= if assigns[:parent] do %>
       <%= hidden_input @f, :recipient_id, required: true %>
       <input type="text" disabled value="<%= @parent.sender.username %>">
     <% else %>
       <%= text_input @f, :recipient_id, required: true, "data-user-selector": "single", "data-user-selector-self": "no" %>
     <% end %>
-    <%= error_tag @f, :recipient_id %>
   </div>
 
   <div class="cf-cgroup <%= error_class(@f, :subject) %>">
-    <%= label @f, :subject, gettext("subject") %>
+    <%= label @f, :subject do %>
+      <%= gettext("subject") %>
+      <%= error_tag @f, :subject %>
+    <% end %>
     <%= text_input @f, :subject, placeholder: gettext("Howdy, partner!"), maxlength: 250, required: true %>
-    <%= error_tag @f, :subject %>
   </div>
 </fieldset>
 
 <fieldset>
   <div class="cf-cgroup cf-textarea-only <%= error_class(@f, :body) %>">
+    <%= label @f, :body do %>
+      <%= gettext("mail content") %>
+      <%= error_tag @f, :body %>
+    <% end %>
     <%= textarea @f, :body, maxlength: 12288, class: 'big', required: true %>
-    <%= error_tag @f, :body %>
   </div>
 </fieldset>

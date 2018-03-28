@@ -4,26 +4,32 @@
 <% end %>
 
 <div class="cf-cgroup <%= error_class(f, :username) %>">
-  <%= label f, :username, gettext("username") %>
-  <%= text_input f, :username, placeholder: gettext("Regina Schlauklug"), data: [js: "username"] %>
-  <%= error_tag f, :username %>
+  <%= label f, :username do %>
+    <%= gettext("username") %>
+    <%= error_tag f, :username %>
+  <% end %>
+  <%= text_input f, :username, placeholder: gettext("Regina Schlauklug"), required: true, data: [js: "username"] %>
 </div>
 
 <div class="cf-cgroup <%= error_class(f, :email) %>">
-  <%= label f, :email, gettext("email") %>
-  <%= text_input f, :email, placeholder: gettext("regina@example.org"), type: "email" %>
-  <%= error_tag f, :email %>
+  <%= label f, :email do %>
+    <%= gettext("email") %>
+    <%= error_tag f, :email %>
+  <% end %>
+  <%= text_input f, :email, placeholder: gettext("regina@example.org"), required: true, type: "email" %>
 </div>
 
 <div class="cf-cgroup <%= error_class(f, :password) %>">
-  <%= label f, :password, gettext("password") %>
-  <%= password_input f, :password, autocomplete: "off", "data-show-password": true %>
-  <%= error_tag f, :password %>
+  <%= label f, :password do %>
+    <%= gettext("password") %>
+    <%= error_tag f, :password %>
+  <% end %>
+  <%= password_input f, :password, autocomplete: "off", required: true, "data-show-password": true %>
 </div>
 
 <div class="cf-cgroup <%= error_class(f, :password_confirmation) %>">
   <%= label f, :password_confirmation, gettext("password confirmation") %>
-  <%= password_input f, :password_confirmation, type: "password", autocomplete: "off" %>
+  <%= password_input f, :password_confirmation, type: "password", required: true, autocomplete: "off" %>
 </div>
 
 <p class="form-actions">
