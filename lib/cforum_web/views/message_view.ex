@@ -81,6 +81,11 @@ defmodule CforumWeb.MessageView do
       " " <> msg.author <> ", " <> format_date(assigns[:conn], msg.created_at, message_date_format(false))
   end
 
+  def page_title(action, assigns) when action in [:new, :create],
+    do: gettext("new answer to %{name}", name: assigns[:parent].author)
+
+  def page_heading(action, assigns) when action in [:new, :create], do: page_title(action, assigns)
+
   def body_id(:show, assigns), do: "message-#{assigns[:read_mode]}"
 
   def body_classes(:show, assigns) do
