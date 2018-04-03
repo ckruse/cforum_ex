@@ -246,6 +246,12 @@ defmodule Cforum.Forums.Messages do
       else: Repo.get_by!(Message, message_id: id, deleted: false)
   end
 
+  def get_message(id, opts \\ []) do
+    if opts[:view_all],
+      do: Repo.get(Message, id),
+      else: Repo.get_by(Message, message_id: id, deleted: false)
+  end
+
   @doc """
   Loads a thread by its slug and searches for the message specified my `mid` in the thread tree. Sets things like
   visited marks, etc, pp. Raises `Ecto.NoResultsError` when no thread or no message could be found.

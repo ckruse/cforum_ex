@@ -29,7 +29,8 @@ config :cforum,
   paginator: [
     per_page: 50,
     distance: 3
-  ]
+  ],
+  base_url: "http://localhost:4000/"
 
 config :arc, storage: Arc.Storage.Local
 
