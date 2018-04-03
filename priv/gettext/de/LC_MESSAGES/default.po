@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2018-03-28 07:37+0200\n"
+"PO-Revision-Date: 2018-04-03 15:02+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,6 @@ msgid "You have to be logged in to see this page!"
 msgstr "Sie müssen sich einloggen, um diese Seite sehen zu dürfen!"
 
 #: lib/cforum_web/templates/layout/link.html.eex:9
-#: lib/cforum_web/templates/layout/page_header.html.eex:57
 #: lib/cforum_web/templates/layout/personal_links.html.eex:21
 msgid "Help"
 msgstr "Hilfe"
@@ -244,11 +243,12 @@ msgid "settings"
 msgstr "Einstellungen"
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:3
+#: lib/cforum_web/templates/cite/form.html.eex:2
 #: lib/cforum_web/templates/mail/new.html.eex:2
 #: lib/cforum_web/templates/message/new.html.eex:2
 #: lib/cforum_web/templates/thread/new.html.eex:2
 #: lib/cforum_web/templates/users/registration/new.html.eex:3
-#: lib/cforum_web/templates/users/user/form.html.eex:3
+#: lib/cforum_web/templates/users/user/form.html.eex:2
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr "Es ist etwas schief gelaufen! Bitte prüfen Sie die untenstehenden Fehler."
 
@@ -288,11 +288,11 @@ msgstr "Benutzername"
 msgid "password confirmation"
 msgstr "Passwort-Bestätigung"
 
-#: lib/cforum_web/controllers/users/registration_controller.ex:38
+#: lib/cforum_web/controllers/users/registration_controller.ex:39
 msgid "Account successfully confirmed!"
 msgstr "Benutzerkonto erfolgreich bestätigt!"
 
-#: lib/cforum_web/controllers/users/registration_controller.ex:23
+#: lib/cforum_web/controllers/users/registration_controller.ex:24
 msgid "Account successfully created. Please follow the confirmation instructions we send you via mail."
 msgstr "Benutzerkonto erfolgreich erstellt. Bitte folgen sie den Bestätigungs-Anweisungen, die wir Ihnen via Email geschickt haben."
 
@@ -317,7 +317,7 @@ msgid "Hi there, %{name}!"
 msgstr "Hallo %{name}!"
 
 #: lib/cforum_web/controllers/notification_controller.ex:44
-#: lib/cforum_web/controllers/users/registration_controller.ex:43
+#: lib/cforum_web/controllers/users/registration_controller.ex:44
 msgid "Oops, something went wrong!"
 msgstr "Uups, es ist etwas schief gegangen!"
 
@@ -330,7 +330,7 @@ msgstr "Sie können Ihr Benutzerkonto über den Link unten bestätigen:"
 msgid "confirm your registration"
 msgstr "Benutzerkonto bestätigen"
 
-#: lib/cforum/accounts/user.ex:125
+#: lib/cforum/accounts/user.ex:127
 msgid "password and password confirmation don't match"
 msgstr "Passwort und Passwort-Bestätigung stimmen nicht überein"
 
@@ -472,6 +472,7 @@ msgstr "Registriert seit"
 msgid "this thread is sticky"
 msgstr "Der Thread ist angepinnt."
 
+#: lib/cforum_web/templates/cite/cite.html.eex:37
 #: lib/cforum_web/templates/message/header.html.eex:9
 #: lib/cforum_web/templates/message/header_votes.html.eex:2
 #: lib/cforum_web/templates/message/header_votes.html.eex:3
@@ -526,6 +527,8 @@ msgstr "Avatar"
 
 #: lib/cforum_web/templates/admin/forum/edit.html.eex:8
 #: lib/cforum_web/templates/admin/forum/new.html.eex:8
+#: lib/cforum_web/templates/cite/edit.html.eex:6
+#: lib/cforum_web/templates/cite/new.html.eex:6
 #: lib/cforum_web/templates/mail/new.html.eex:16
 #: lib/cforum_web/templates/message/new.html.eex:21
 #: lib/cforum_web/templates/thread/new.html.eex:29
@@ -1219,6 +1222,7 @@ msgstr "SELFHTML Forum - Ergänzung zur <a href=\"https://wiki.selfhtml.org\">Do
 msgid "all"
 msgstr "alle"
 
+#: lib/cforum_web/templates/cite/form.html.eex:15
 #: lib/cforum_web/templates/message/form.html.eex:13
 msgid "author"
 msgstr "Autor"
@@ -1269,6 +1273,7 @@ msgstr "freiwillig, öffentlich sichtbar"
 msgid "link to profile of"
 msgstr "Link zum Profil von"
 
+#: lib/cforum_web/templates/layout/page_header.html.eex:55
 #: lib/cforum_web/templates/layout/page_header.html.eex:61
 msgid "search"
 msgstr "suchen"
@@ -1312,7 +1317,7 @@ msgstr "Seitenauswahl"
 msgid "previous page"
 msgstr "eine Seite zurück"
 
-#: lib/cforum/forums/message.ex:148
+#: lib/cforum/forums/message.ex:150
 msgid "unknown tags given: %{tags}"
 msgstr "Folgende Tags sind unbekannt: %{tags}."
 
@@ -1589,7 +1594,7 @@ msgstr "Vorschau"
 msgid "mail content"
 msgstr "Mail-Inhalt"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:46
 msgid "keywords"
 msgstr "Schlagwörter"
@@ -1599,32 +1604,106 @@ msgstr "Schlagwörter"
 msgid "message content"
 msgstr "Beitragstext"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:10
 msgid "name"
 msgstr "Name"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:54
 msgid "position"
 msgstr "Position"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:18
 msgid "short name"
 msgstr "Kurzname"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:26
 msgid "slug"
 msgstr "Slug"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:34
 msgid "standard permission"
 msgstr "Standard-Berechtigung"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/users/password/new.html.eex:4
 msgid "username or email"
 msgstr "Benutzername oder Email-Adresse"
+
+#, elixir-format
+#: lib/cforum_web/templates/layout/page_header.html.eex:56
+msgid "chat"
+msgstr "Chat"
+
+#, elixir-format
+#: lib/cforum_web/templates/layout/page_header.html.eex:52
+#: lib/cforum_web/views/cite_view.ex:7
+msgid "cites"
+msgstr "Zitatesammlung"
+
+#, elixir-format
+#: lib/cforum_web/templates/layout/page_header.html.eex:57
+msgid "help"
+msgstr "Hilfe"
+
+#, elixir-format
+#: lib/cforum_web/templates/cite/cite.html.eex:4
+#: lib/cforum_web/views/cite_view.ex:9
+msgid "cite %{id}"
+msgstr "Zitat #%{id}"
+
+#, elixir-format
+#: lib/cforum_web/templates/cite/cite.html.eex:52
+msgid "created by"
+msgstr "erstellt von"
+
+#, elixir-format
+#: lib/cforum_web/templates/cite/subnav.html.eex:2
+#: lib/cforum_web/views/cite_view.ex:10
+msgid "suggest new cite"
+msgstr "neues Zitat vorschlagen"
+
+#, elixir-format
+#: lib/cforum_web/templates/cite/subnav.html.eex:3
+#: lib/cforum_web/views/cite_view.ex:8
+msgid "vote for cites"
+msgstr "über Zitate abstimmen"
+
+#, elixir-format
+#: lib/cforum_web/templates/cite/form.html.eex:7
+msgid "URL"
+msgstr "URL"
+
+#, elixir-format
+#: lib/cforum_web/templates/cite/form.html.eex:33
+msgid "cite"
+msgstr "Zitatesammlung"
+
+#, elixir-format
+#: lib/cforum_web/views/cite_view.ex:11
+msgid "edit cite #%{id}"
+msgstr "Zitat #%{id} speichern"
+
+#, elixir-format
+#: lib/cforum_web/templates/cite/edit.html.eex:5
+msgid "save edited cite"
+msgstr "geändertes Zitat speichern"
+
+#, elixir-format
+#: lib/cforum_web/templates/cite/new.html.eex:5
+msgid "suggest cite"
+msgstr "neues Zitat vorschlagen"
+
+#, elixir-format
+#: lib/cforum_web/templates/cite/form.html.eex:24
+msgid "submitted by"
+msgstr "eingereicht von"
+
+#, elixir-format
+#: lib/cforum_web/controllers/cite/vote_controller.ex:21
+msgid "Successfully voted for cite."
+msgstr "Sie haben erfolgreich über das Zitat abgestimmt."
