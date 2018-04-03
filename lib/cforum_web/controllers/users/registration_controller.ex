@@ -14,14 +14,15 @@ defmodule CforumWeb.Users.RegistrationController do
   def create(conn, %{"user" => user_params}) do
     case Users.register_user(user_params) do
       {:ok, user} ->
-        CforumWeb.UserMailer.confirmation_mail(user)
+        user
+        |> CforumWeb.UserMailer.confirmation_mail()
         |> Cforum.Mailer.deliver_later()
 
         conn
         |> put_flash(
-             :info,
-             gettext("Account successfully created. Please follow the confirmation instructions we send you via mail.")
-           )
+          :info,
+          gettext("Account successfully created. Please follow the confirmation instructions we send you via mail.")
+        )
         |> redirect(to: root_path(conn, :index))
 
       {:error, changeset} ->
