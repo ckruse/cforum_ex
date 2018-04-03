@@ -1,0 +1,7 @@
+<%= pagination @conn, @paging, &cite_path/3, path_args: path_args(@conn) %>
+
+<%= for cite <- @cites do %>
+  <%= render "cite.html", Map.put(assigns, :cite, cite) %>
+<% end %>
+
+<%= pagination @conn, @paging, &cite_path/3, path_args: path_args(@conn) %>

@@ -5,6 +5,8 @@ defmodule Cforum.Abilities do
 
   require Logger
 
+  alias Cforum.Accounts.User
+
   @doc """
   Returns `true` if the user may access the given path, `false` otherwise
 
@@ -20,7 +22,7 @@ defmodule Cforum.Abilities do
   def may?(conn, "users/user", :update, resource) do
     cuser = conn.assigns[:current_user]
     uid = if resource != nil, do: resource.user_id, else: String.to_integer(conn.params["user_id"] || conn.params["id"])
-    cuser != nil && (cuser.admin || uid == cuser.user_id)
+    cuser != nil && (admin?(cuser) || uid == cuser.user_id)
   end
 
   def may?(conn, "users/user", :edit, resource), do: may?(conn, "users/user", :update, resource)
@@ -34,6 +36,13 @@ defmodule Cforum.Abilities do
     uid = if resource != nil, do: resource.user_id, else: String.to_integer(conn.params["id"])
     cuser != nil && uid == cuser.user_id
   end
+
+  def may?(_conn, "cite", action, _) when action in [:index, :show, :new, :create], do: true
+  def may?(conn, "cite", action, _) when action not in [:index, :show, :new, :create], do: admin?(conn)
+  def may?(conn, "cite/vote", :vote, _), do: signed_in?(conn)
+
+  # TODO implement proper rights
+  def may?(_conn, "message", _, _), do: true
 
   def may?(conn, "messages/mark_read", _, _), do: signed_in?(conn)
   def may?(conn, "messages/subscription", _, _), do: signed_in?(conn)
@@ -55,4 +64,7 @@ defmodule Cforum.Abilities do
       true
   """
   def signed_in?(conn), do: conn.assigns[:current_user] != nil
+
+  def admin?(%Plug.Conn{} = conn), do: admin?(conn.assigns[:current_user])
+  def admin?(%User{} = user), do: user.admin
 end

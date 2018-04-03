@@ -9,6 +9,11 @@
 <%= unless blank?(@message.problematic_site) do %>
   <p class="problematic-site"><%= link gettext("problematic site"), to: @message.problematic_site, rel: "nofollow" %></p>
 <% end %>
+
 <div class="cf-posting-content<%= if @message.deleted, do: " deleted" %> e-content">
   <%= Cforum.MarkdownRenderer.to_html(@message, assigns[:current_user]) %>
+</div>
+
+<div class="posting-footer">
+
 </div>

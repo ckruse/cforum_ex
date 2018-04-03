@@ -94,6 +94,9 @@ defmodule CforumWeb.Router do
     get("/help", PageController, :help)
 
     resources("/badges", BadgeController)
+    get("/cites/voting", CiteController, :index_voting, as: :cite)
+    post("/cites/:id/vote", Cite.VoteController, :vote, as: :cite)
+    resources("/cites", CiteController)
 
     scope "/:curr_forum" do
       pipe_through([:forum_access])

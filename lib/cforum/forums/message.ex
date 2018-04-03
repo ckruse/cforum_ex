@@ -38,6 +38,8 @@ defmodule Cforum.Forums.Message do
     belongs_to(:parent, Cforum.Forums.Message, references: :message_id)
     belongs_to(:editor, Cforum.Accounts.User, references: :user_id)
 
+    has_many(:cites, Cforum.Cites.Cite, foreign_key: :message_id, on_delete: :nilify_all)
+
     field(:tags_str, :string, virtual: true)
 
     many_to_many(

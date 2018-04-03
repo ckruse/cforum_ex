@@ -1,0 +1,66 @@
+<article class="cf-cite h-cite">
+  <div class="posting-header">
+    <header class="cf-cite-header">
+      <h2><%= link gettext("cite %{id}", id: @cite.cite_id), to: cite_path(@conn, :show, @cite) %></h2>
+
+      <%= if link_to_url?(@conn, @cite) do %>
+        <h3 class="origin"><%= link url_link_title(@cite), to: @cite.url, class: "p-name u-uid u-url" %></h3>
+      <% end %>
+
+      <div class="details">
+        <span class="author p-author h-card">
+          <%= if blank?(@cite.user_id) do %>
+            <span class="p-name"><%= @cite.author %></span>
+          <% else %>
+            <%= user_link(@conn, @cite.user, [], @cite.author) %>
+          <% end %>
+        </span>
+
+        <time datetime="<%= NaiveDateTime.to_iso8601(@cite.cite_date) %>" class="dt-published">
+          <%= if link_to_url?(@conn, @cite) do %>
+            <%= link format_date(@conn, @cite.cite_date), to: @cite.url %>
+          <% else %>
+            <%= format_date(@conn, @cite.cite_date) %>
+          <% end %>
+        </time>
+      </div>
+    </header>
+
+    <%= if votable?(@conn, @cite) do %>
+      <div class="voting">
+        <%= form_tag cite_path(@conn, :vote, @cite), method: :post do %>
+          <button name="type"
+                  value="down"
+                  title="<%# downvote_msg %>"
+                  class="vote vote-down<%= if Cites.downvoted?(@cite, @conn.assigns[:current_user]), do: " active" %>">‒</button>
+
+          <span class="votes" title="<%= ngettext("Score: no score", "Score: %{score}", Cites.no_votes(@cite), score: Cites.score_str(@cite)) %>"><%= Cites.score_str(@cite) %></span>
+
+          <button name="type"
+                  value="up"
+                  title="<%# upvote_msg %>"
+                  class="vote vote-up<%= if Cites.upvoted?(@cite, @conn.assigns[:current_user]), do: " active" %>">+</button>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="cf-cite-content p-content"><%= Cforum.MarkdownRenderer.to_html(@cite, assigns[:current_user]) %></div>
+
+  <div class="cf-cite-footer">
+    <%= unless blank?(@cite.creator) do %>
+      <%= gettext("created by") %>
+      <span class="author">
+        <%= if !blank?(@cite.creator_user_id) do %>
+          <%= user_link(@conn, @cite.creator_user, [], @cite.creator) %>
+        <% else %>
+          <span class="icon-message original-poster"><%= @cite.creator %></span>
+        <% end %>
+      </span>
+    <% end %>
+
+    <time datetime="<%= NaiveDateTime.to_iso8601(@cite.created_at) %>" class="dt-accessed">
+      <%= format_date(@conn, @cite.created_at) %>
+    </time>
+  </div>
+</article>

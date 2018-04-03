@@ -39,6 +39,8 @@ defmodule Cforum.Accounts.User do
     has_many(:badges_users, Cforum.Accounts.BadgeUser, foreign_key: :user_id)
     has_many(:badges, through: [:badges_users, :badge])
 
+    has_many(:cites, Cforum.Cites.Cite, foreign_key: :user_id)
+
     many_to_many(
       :groups,
       Cforum.Accounts.Group,

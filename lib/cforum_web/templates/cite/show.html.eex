@@ -1,0 +1,1 @@
+<%= render "cite.html", Map.put(assigns, :cite, @cite) %>
