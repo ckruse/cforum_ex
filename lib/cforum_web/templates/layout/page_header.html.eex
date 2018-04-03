@@ -49,12 +49,12 @@
             </ul>
           </li>
           <li class="cites">
-            <%= link gettext("Cites"), to: "" %>
+            <%= link gettext("cites"), to: cite_path(@conn, :index) %>
             <%= if false do %>(<%= link "#{@undeceided_cites}", to: "" %>)<% end %><!-- TODO -->
           </li>
-          <li><%= link gettext("Search"), to: "" %></li>
-          <li><%= link gettext("Chat"), to: "https://kiwiirc.com/client/irc.epd-me.net/?nick=&channel=#selfhtml", rel: "nofollow" %></li> <!-- TODO (current_user.try(:username) || "Guest%7C" + rand(9999).to_s) -->
-          <li><%= link(gettext("Help"), to: page_path(@conn, :help)) %></li>
+          <li><%= link gettext("search"), to: "" %></li>
+          <li><%= link gettext("chat"), to: "https://kiwiirc.com/client/irc.epd-me.net/?nick=&channel=#selfhtml", rel: "nofollow" %></li> <!-- TODO (current_user.try(:username) || "Guest%7C" + rand(9999).to_s) -->
+          <li><%= link(gettext("help"), to: page_path(@conn, :help)) %></li>
           <%= if controller_module(@conn) != Cforum.SearchController do %>
             <li class="search">
               <form>
