@@ -98,11 +98,9 @@ defmodule CforumWeb.MessageController do
   end
 
   defp quote?(conn, params) do
-    if blank?(params["with_quote"]) do
-      uconf(conn, "quote_by_default") == "yes"
-    else
-      params["with_quote"] == "yes"
-    end
+    if blank?(params["with_quote"]),
+      do: uconf(conn, "quote_by_default") == "yes",
+      else: params["with_quote"] == "yes"
   end
 
   defp parse_readmode(conn, params) do
