@@ -917,6 +917,7 @@ CREATE SEQUENCE cites_votes_cite_vote_id_seq
 
 ALTER SEQUENCE cites_votes_cite_vote_id_seq OWNED BY cites_votes.cite_vote_id;
 
+CREATE UNIQUE INDEX cites_votes_cite_id_user_id_idx ON cites_votes (cite_id, user_id);
 
 --
 -- Name: close_votes; Type: TABLE; Schema: public; Owner: -
