@@ -105,10 +105,10 @@ defmodule Cforum.ConfigManager do
   def get(confs, name, user \\ nil, forum \\ nil)
 
   def get(confs, name, user, forum) when user == nil and forum == nil,
-    do: get_val(confs[:global_config], name) || @defaults[name]
+    do: get_val(confs[:global], name) || @defaults[name]
 
   def get(confs, name, user, forum) when user == nil and forum != nil,
-    do: get_val(confs[:forum_config], name) || get(confs, name)
+    do: get_val(confs[:forum], name) || get(confs, name)
 
   def get(confs, name, user, forum) when forum == nil and user != nil,
     do: get_val(confs[:user], name) || get(confs, name)
