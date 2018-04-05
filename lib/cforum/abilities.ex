@@ -67,4 +67,5 @@ defmodule Cforum.Abilities do
 
   def admin?(%Plug.Conn{} = conn), do: admin?(conn.assigns[:current_user])
   def admin?(%User{} = user), do: user.admin
+  def admin?(_), do: false
 end
