@@ -7,6 +7,7 @@ defmodule Cforum.Cites.Vote do
 
   @downvote 0
   @upvote 1
+  @vote_types [@downvote, @upvote]
 
   def downvote(), do: @downvote
   def upvote(), do: @upvote
@@ -25,6 +26,8 @@ defmodule Cforum.Cites.Vote do
     vote
     |> cast(attrs, [:cite_id, :user_id, :vote_type])
     |> validate_required([:cite_id, :user_id, :vote_type])
+    |> validate_inclusion(:vote_type, @vote_types)
+    |> unique_constraint(:cite_id, name: :cites_votes_cite_id_user_id_idx)
   end
 
   def vtype("up"), do: @upvote
