@@ -131,23 +131,7 @@ defmodule Cforum.Cites do
   end
 
   def no_votes(cite), do: length(cite.votes)
-
-  def score_str(msg) do
-    if no_votes(msg) == 0 do
-      "–"
-    else
-      case score(msg) do
-        0 ->
-          "±0"
-
-        s when s < 0 ->
-          "−" <> Integer.to_string(abs(s))
-
-        s ->
-          "+" <> Integer.to_string(s)
-      end
-    end
-  end
+  def score_str(cite), do: Cforum.Helpers.score_str(no_votes(cite), score(cite))
 
   def voted?(cite, user) when not is_nil(user),
     do: Enum.find(cite.votes, fn vote -> vote.user_id == user.user_id end) != nil
