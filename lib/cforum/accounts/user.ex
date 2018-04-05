@@ -77,11 +77,11 @@ defmodule Cforum.Accounts.User do
     ])
     |> cast_assoc(:settings)
     |> validate_required([:username, :email, :admin, :active])
-    |> unique_constraint(:username)
-    |> unique_constraint(:email)
+    |> unique_constraint(:username, name: :users_username_idx)
+    |> unique_constraint(:email, name: :users_email_idx)
     |> unique_constraint(:unconfirmed_email)
     |> unique_constraint(:reset_password_token)
-    |> unique_constraint(:confirmation_token)
+    |> unique_constraint(:confirmation_token, name: :users_confirmation_token_idx)
   end
 
   def register_changeset(%User{} = struct, params \\ %{}) do
