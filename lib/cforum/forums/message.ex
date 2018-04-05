@@ -59,23 +59,7 @@ defmodule Cforum.Forums.Message do
   def closed?(message), do: message.deleted || no_answer?(message)
   def score(msg), do: msg.upvotes - msg.downvotes
   def no_votes(msg), do: msg.upvotes + msg.downvotes
-
-  def score_str(msg) do
-    if no_votes(msg) == 0 do
-      "–"
-    else
-      case score(msg) do
-        0 ->
-          "±0"
-
-        s when s < 0 ->
-          "−" <> Integer.to_string(abs(s))
-
-        s ->
-          "+" <> Integer.to_string(s)
-      end
-    end
-  end
+  def score_str(msg), do: Cforum.Helpers.score_str(no_votes(msg), score(msg))
 
   defp base_changeset(struct, params, user, forum_id, visible_forums) do
     struct
