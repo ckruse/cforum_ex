@@ -36,10 +36,11 @@ defmodule Cforum.Cites.Cite do
   end
 
   defp maybe_set_message_and_user_id(%Changeset{valid?: true} = changeset) do
-    url = Changeset.get_field(changeset, :url) || ""
+    url = Changeset.get_change(changeset, :url) || ""
     base_url = Application.get_env(:cforum, :base_url)
+
     part = String.slice(url, 0..(String.length(base_url) - 1))
-    matchdata = Regex.run(~r</\w+(/\d{4,}/[a-z]{3}/\d{1,2}/[^/]+)/(\d+)>, url)
+    matchdata = Regex.run(~r</[\w0-9_-]+(/\d{4,}/[a-z]{3}/\d{1,2}/[^/]+)/(\d+)>, url)
 
     if part == base_url && matchdata do
       mid = List.last(matchdata)

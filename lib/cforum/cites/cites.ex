@@ -139,6 +139,8 @@ defmodule Cforum.Cites do
   def voted?(cite, user, type) when not is_nil(user) and type in ["up", "down"],
     do: Enum.find(cite.votes, fn vote -> vote.user_id == user.user_id && vote.vote_type == Vote.vtype(type) end) != nil
 
+  def voted?(_, _, _), do: false
+
   def downvoted?(cite, user) when not is_nil(user), do: voted?(cite, user, "down")
   def downvoted?(_, _), do: false
   def upvoted?(cite, user) when not is_nil(user), do: voted?(cite, user, "up")
