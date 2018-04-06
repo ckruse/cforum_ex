@@ -65,6 +65,22 @@ defmodule Cforum.Abilities do
   """
   def signed_in?(conn), do: conn.assigns[:current_user] != nil
 
+  @doc """
+  Returns true if the user is an admin user
+
+  ## Parameters
+
+  - conn_or_user: either a `%Plug.Conn{}` struct or a `%Cforum.Accounts.User{}` struct
+
+  ## Examples
+
+      iex> admin?(%User{})
+      false
+
+      iex> admin?(%User{admin: true})
+      true
+  """
+  def admin?(conn_or_user)
   def admin?(%Plug.Conn{} = conn), do: admin?(conn.assigns[:current_user])
   def admin?(%User{} = user), do: user.admin
   def admin?(_), do: false
