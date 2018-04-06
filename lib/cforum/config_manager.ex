@@ -1,4 +1,11 @@
 defmodule Cforum.ConfigManager do
+  @moduledoc """
+  Configuration management module, handling getting config values with
+  increasing specifity
+  """
+
+  alias Cforum.Accounts.Setting
+
   import Cforum.Helpers
 
   @defaults %{
@@ -93,6 +100,9 @@ defmodule Cforum.ConfigManager do
     "diff_context_lines" => nil
   }
 
+  @doc """
+  Returns the default configuration of the forum
+  """
   def defaults, do: @defaults
 
   defp get_val(nil, _), do: nil
@@ -102,30 +112,55 @@ defmodule Cforum.ConfigManager do
     if v == "", do: nil, else: v
   end
 
+  @doc """
+  Gets a config value from three different configs: if the value is
+  defined in the user config, it returns this value. If not and the
+  value is defined in the forum config, it returns this value. If not
+  and the value is defined in the global config, it returns this
+  value. Returns the default value otherwise.
+
+  ## Parameters
+
+  - confs: a map with the following keys: `:global` containing the
+    global configuration, `:forum` containing the configuration of the
+    current forum and `:user`, containing the config of the current
+    user
+  - name: the name of the configuration option
+  - user: the current user
+  - forum: the current forum
+
+  ## Examples
+
+      iex> get(%{global: %Settings{options: %{"diff_context_lines" => 3}}}, "diff_context_lines")
+      3
+
+  """
   def get(confs, name, user \\ nil, forum \\ nil)
 
-  def get(confs, name, user, forum) when user == nil and forum == nil,
-    do: get_val(confs[:global], name) || @defaults[name]
-
-  def get(confs, name, user, forum) when user == nil and forum != nil,
-    do: get_val(confs[:forum], name) || get(confs, name)
-
-  def get(confs, name, user, forum) when forum == nil and user != nil,
-    do: get_val(confs[:user], name) || get(confs, name)
-
+  def get(confs, name, nil, nil), do: get_val(confs[:global], name) || @defaults[name]
+  def get(confs, name, nil, forum) when not is_nil(forum), do: get_val(confs[:forum], name) || get(confs, name)
+  def get(confs, name, user, nil) when not is_nil(user), do: get_val(confs[:user], name) || get(confs, name)
   def get(confs, name, _, _), do: get_val(confs[:user], name) || get_val(confs[:forum], name) || get(confs, name)
 
-  def uconf(conn, name, type \\ :none)
+  @doc """
+  Returns the config value we're searching for with the user
+  configuration in respect.
+
+  ## Parameters
+
+  - conn_or_user: The `%Plug.Conn{}` struct of the current request or
+    a `%Cforum.Accounts.User{}` struct
+  - name: The name of the configuration option
+  - type: the type we expect; currently only `:int` or `:none` is
+    supported. If `:int` is specified, we cast the value with
+    `String.to_integer/1`
+  """
+  def uconf(conn_or_user, name, type \\ :none)
   def uconf(conn, name, :int), do: to_int(uconf(conn, name))
 
   def uconf(%Cforum.Accounts.User{} = user, name, _) do
     settings = Cforum.Accounts.Settings.load_relevant_settings(nil, user)
-
-    confs = %{
-      global: List.first(settings),
-      forum: nil,
-      user: Enum.at(settings, 1)
-    }
+    confs = map_from_confs(settings)
 
     get(confs, name, user, nil) || @defaults[name]
   end
@@ -135,7 +170,23 @@ defmodule Cforum.ConfigManager do
     get(confs, name, conn.assigns[:current_user], conn.assigns[:current_forum]) || @defaults[name]
   end
 
-  def conf(%Cforum.Forums.Forum{} = forum, name) do
+  @doc """
+  Returns the config value we're searching for ignoring the user
+  configuration.
+
+  ## Parameters
+
+  - conn_or_forum: The `%Plug.Conn{}` struct of the current request or
+    a `%Cforum.Forums.Forum{}` struct
+  - name: The name of the configuration option
+  - type: the type we expect; currently only `:int` or `:none` is
+    supported. If `:int` is specified, we cast the value with
+    `String.to_integer/1`
+  """
+  def conf(conn_or_forum, name, type \\ :none)
+  def conf(conn_or_forum, name, :int), do: to_int(conf(conn_or_forum, name))
+
+  def conf(%Cforum.Forums.Forum{} = forum, name, _) do
     settings = Cforum.Accounts.Settings.load_relevant_settings(forum, nil)
 
     confs = %{
@@ -147,7 +198,7 @@ defmodule Cforum.ConfigManager do
     get(confs, name, nil, forum) || @defaults[name]
   end
 
-  def conf(%Plug.Conn{} = conn, name) do
+  def conf(%Plug.Conn{} = conn, name, _) do
     confs = map_from_conn(conn)
     get(confs, name, nil, conn.assigns[:current_forum]) || @defaults[name]
   end
@@ -158,5 +209,13 @@ defmodule Cforum.ConfigManager do
       forum: conn.assigns[:forum_config],
       user: conn.assigns[:user_config]
     }
+  end
+
+  defp map_from_confs(confs) do
+    Enum.reduce(confs, %{}, fn
+      conf = %Setting{user_id: nil, forum_id: nil}, acc -> Map.put(acc, :global, conf)
+      conf = %Setting{user_id: nil}, acc -> Map.put(acc, :forum, conf)
+      conf = %Setting{forum_id: nil}, acc -> Map.put(acc, :user, conf)
+    end)
   end
 end
