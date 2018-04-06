@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 defmodule CforumWeb.Plug.AuthorizeAccess do
   @moduledoc """
   This plug is pluggable in controllers for authorizing actions based on our
@@ -50,5 +48,3 @@ defmodule CforumWeb.Plug.AuthorizeAccess do
     end
   end
 end
-
-# eof
