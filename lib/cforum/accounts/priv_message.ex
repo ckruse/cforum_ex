@@ -26,13 +26,14 @@ defmodule Cforum.Accounts.PrivMessage do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
-  def changeset(struct, params \\ %{}) do
+  def changeset(struct, params \\ %{}, sender \\ nil, set_owner_to_sender \\ false) do
     struct
     |> cast(params, [:recipient_id, :subject, :body, :thread_id])
     |> validate_required([:recipient_id, :subject, :body])
+    |> maybe_set_sender_id(sender)
     |> set_name(:sender_id, :sender_name)
     |> set_name(:recipient_id, :recipient_name)
-    |> maybe_set_owner_id()
+    |> set_owner_id(sender, set_owner_to_sender)
     |> validate_required([:owner_id])
   end
 
@@ -55,15 +56,13 @@ defmodule Cforum.Accounts.PrivMessage do
     end
   end
 
-  defp maybe_set_owner_id(%Changeset{valid?: false} = changeset), do: changeset
+  defp set_owner_id(%Changeset{valid?: false} = changeset, _, _), do: changeset
+  defp set_owner_id(changeset, nil, true), do: changeset
+  defp set_owner_id(changeset, user, true), do: put_change(changeset, :owner_id, user.user_id)
+  defp set_owner_id(changeset, _, false), do: put_change(changeset, :owner_id, get_field(changeset, :recipient_id))
 
-  defp maybe_set_owner_id(changeset) do
-    case Changeset.get_field(changeset, :owner_id) do
-      nil ->
-        put_change(changeset, :owner_id, get_field(changeset, :recipient_id))
+  defp maybe_set_sender_id(changeset, %Cforum.Accounts.User{} = user),
+    do: Changeset.put_change(changeset, :sender_id, user.user_id)
 
-      _ ->
-        changeset
-    end
-  end
+  defp maybe_set_sender_id(changeset, _), do: changeset
 end
