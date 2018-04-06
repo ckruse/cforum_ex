@@ -1,8 +1,6 @@
 defmodule CforumWeb.CiteControllerTest do
   use CforumWeb.ConnCase
 
-  alias Cforum.Cites
-
   @invalid_attrs %{archived: nil, author: nil, cite: nil, cite_date: nil, creator: nil, old_id: nil, url: nil}
 
   describe "index" do

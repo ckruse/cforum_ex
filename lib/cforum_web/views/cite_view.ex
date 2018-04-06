@@ -2,7 +2,6 @@ defmodule CforumWeb.CiteView do
   use CforumWeb, :view
 
   alias Cforum.Cites
-  alias Cforum.Cites.Vote
 
   def page_title(:index, _), do: gettext("cites")
   def page_title(:index_voting, _), do: gettext("vote for cites")
