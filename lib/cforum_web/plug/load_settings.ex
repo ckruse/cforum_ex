@@ -2,9 +2,9 @@ defmodule CforumWeb.Plug.LoadSettings do
   @moduledoc """
   This plug is plugged in the browser pipeline and loads these settings objects:
 
-  - global settings
-  - forum settings
-  - user settings
+  - global settings as `@global_config`/`:global_config`
+  - forum settings as `@forum_config`/`:forum_config`
+  - user settings as `@user_config`/`:user_config`
   """
 
   alias Cforum.Accounts.Setting
@@ -20,22 +20,11 @@ defmodule CforumWeb.Plug.LoadSettings do
     set_confs(conn, settings)
   end
 
-  defp set_confs(conn, []), do: conn
-
-  defp set_confs(conn, [conf = %Setting{user_id: nil, forum_id: nil} | tail]) do
-    Plug.Conn.assign(conn, :global_config, conf)
-    |> set_confs(tail)
+  defp set_confs(conn, confs) do
+    Enum.reduce(confs, conn, fn
+      conf = %Setting{user_id: nil, forum_id: nil}, conn -> Plug.Conn.assign(conn, :global_config, conf)
+      conf = %Setting{forum_id: nil}, conn -> Plug.Conn.assign(conn, :user_config, conf)
+      conf = %Setting{user_id: nil}, conn -> Plug.Conn.assign(conn, :forum_config, conf)
+    end)
   end
-
-  defp set_confs(conn, [conf = %Setting{forum_id: nil} | tail]) do
-    Plug.Conn.assign(conn, :user_config, conf)
-    |> set_confs(tail)
-  end
-
-  defp set_confs(conn, [conf = %Setting{user_id: nil} | tail]) do
-    Plug.Conn.assign(conn, :forum_config, conf)
-    |> set_confs(tail)
-  end
-
-  defp set_confs(a, b), do: raise("a forum specific user config? wtf?\n\n#{inspect(a)}\n\n#{inspect(b)}")
 end
