@@ -43,14 +43,14 @@ export default class Modal {
           <label for="users-selector-search-input">${t("username")}</label>
           <input type="text" id="users-selector-search-input">
         </div>
-      
+
         <h2>${t("found users")}</h2>
         <ul class="users-selector-found-users-list" aria-live="assertive">
           <li class="no-data">${t("none found")}</li>
         </ul>
-      
+
         ${this.selectedUserHtml()}
-      
+
         <p>
           <button type="button" class="cf-primary-btn">${t("choose selected users")}</button>
           <button type="button" data-a11y-dialog-hide class="cf-btn">${t("cancel")}</button>
@@ -167,7 +167,15 @@ export default class Modal {
     this.chooseCallback();
   }
 
-  show() {
+  show(foundUsers) {
+    if (!foundUsers) {
+      foundUsers = [];
+    }
+
+    this.renderFoundUsers(foundUsers);
+    if (!this.single) {
+      this.renderSelectedUsers([]);
+    }
     this.modal.show();
   }
 

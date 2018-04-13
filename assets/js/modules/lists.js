@@ -726,3 +726,38 @@ export function values(data) {
 export const zip = curry(function zip([...first], [...second]) {
   return first.map((value, index) => [value, second[index]]);
 });
+
+/**
+ *  @function unique
+ *
+ *
+ *  @summary
+ *
+ *  Removes all duplicate values from a list
+ *
+ *
+ *  @param { Iterable } list
+ *
+ *  The list.
+ *
+ *  @param { function } finder
+ *
+ *  A callback for finding the index of the current element, falls
+ *  back to `Array.indexOf`
+ *
+ *  @return { Array }
+ *
+ *  The reduced array containing no duplicate values.
+ *
+ *
+ *
+ */
+export const unique = (list, finder) => {
+  if (!finder) {
+    finder = (ary, elem) => ary.indexOf(elem);
+  }
+
+  return list.filter((elem, pos, ary) => {
+    return finder(ary, elem) == pos;
+  });
+};

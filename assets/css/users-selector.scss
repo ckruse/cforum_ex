@@ -2,10 +2,6 @@
   margin-bottom: 0.25em;
 }
 
-.cf-users-selector-btn {
-  @extend .cf-index-btn;
-}
-
 .cf-user-selector-modal {
   ul {
     list-style-type: none;
@@ -17,6 +13,41 @@
 
       .author {
         flex: 1 1 auto;
+      }
+
+      button {
+        flex: 0 0 auto;
+      }
+    }
+  }
+}
+
+.cf-users-selector-btn {
+  @extend .cf-index-btn;
+}
+
+.cf-users-selector.multi {
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .cf-users-selector-btn {
+    @extend .cf-btn;
+  }
+}
+
+@media only screen and (min-width: 35em) {
+  .cf-users-selector.multi {
+    display: inline-block;
+
+    li {
+      display: flex;
+      margin-bottom: 0.25em;
+
+      .user-link {
+        flex: 1 1 auto;
+        margin-right: 1em;
       }
 
       button {

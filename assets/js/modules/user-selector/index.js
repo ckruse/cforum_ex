@@ -5,6 +5,7 @@ import { parse, create, parentElement, nextElementSibling, setAttribute, clearCh
 import { pipe } from "../functional";
 import { t } from "../i18n";
 import { queryString } from "../helpers";
+import { unique } from "../lists";
 
 import Modal from "./modal";
 import Widget from "./widget";
@@ -14,6 +15,8 @@ class UsersSelector {
     //this.input = input;
     this.users = [];
     this.selectedUsers = [];
+    this.chosenUsers = [];
+
     this.single = input.dataset.userSelector == "single";
     this.selfSelectable = "yes";
 
@@ -21,11 +24,20 @@ class UsersSelector {
       this.selfSelectable = "no";
     }
 
-    this.widget = new Widget(this.single, input, () => this.showModal());
-
-    if (input.value) {
+    if (this.single && input.value) {
       this.setInitialValue(input.value);
+    } else if (!this.single) {
+      this.fieldName = input.dataset.fieldName;
+      this.setInitialValuesFromList(input);
     }
+
+    this.widget = new Widget(
+      this.single,
+      input,
+      () => this.showModal(),
+      (user_id, cb) => this.unchooseUser(user_id, cb),
+      this.fieldName
+    );
 
     this.modal = new Modal(
       this.single,
@@ -54,7 +66,12 @@ class UsersSelector {
 
   selectUser(uid, callback) {
     const user = this.users.find(u => u.user_id == uid);
-    this.selectedUsers.push(user);
+    if (this.single) {
+      this.selectedUsers = [user];
+    } else {
+      this.selectedUsers.push(user);
+    }
+
     const foundUsers = this.users.filter(user => !this.selectedUsers.includes(user));
 
     callback(foundUsers, this.selectedUsers);
@@ -67,21 +84,49 @@ class UsersSelector {
   }
 
   chooseUsers(event) {
-    this.widget.setUsers(this.selectedUsers);
+    if (this.single) {
+      this.chosenUsers = [...this.selectedUsers];
+    } else {
+      this.chosenUsers = [...this.chosenUsers, ...this.selectedUsers];
+    }
+
+    this.chosenUsers = unique(this.chosenUsers, (ary, searchedElem) => {
+      return ary.findIndex(elem => searchedElem.user_id == elem.user_id);
+    });
+
+    this.widget.setUsers(this.chosenUsers);
     this.modal.hide();
+  }
+
+  unchooseUser(user_id, callback) {
+    this.chosenUsers = this.chosenUsers.filter(user => user.user_id != user_id);
+    callback(this.chosenUsers);
   }
 
   setInitialValue(id) {
     fetch(`/api/v1/users/${id}`, { credentials: "same-origin" })
       .then(response => response.json())
       .then(json => {
-        this.users = [json];
+        this.chosenUsers = [json];
         this.widget.setUsers([json]);
       });
   }
 
+  setInitialValuesFromList(list) {
+    const formData = new FormData();
+    const ids = all("input[type=hidden]", list).forEach(el => formData.append("ids[]", el.value));
+
+    fetch(`/api/v1/users`, { cedentials: "same-origin", method: "post", body: formData })
+      .then(response => response.json())
+      .then(json => {
+        this.chosenUsers = json;
+        this.widget.setUsers(json);
+      });
+  }
+
   showModal() {
-    this.modal.show();
+    this.selectedUsers = [];
+    this.modal.show(this.users);
   }
 }
 

@@ -1,0 +1,10 @@
+<div class="cf-users-selector multi">
+  <ul data-user-selector="yes"<%= if assigns[:self_select] == false, do: " data-user-selector-self=\"no\"" %> data-field-name="<%= @field_name %>">
+    <%= for user <- @users do %>
+      <li>
+        <input type="hidden" name="<%= @field_name %>" value="<%= user.user_id %>">
+        <%= user_link(@conn, user, [], user.username) %> <button type="button" class="cf-index-btn remove-user-btn"><%= gettext("remove user") %></button>
+      </li>
+    <% end %>
+  </ul>
+</div>
