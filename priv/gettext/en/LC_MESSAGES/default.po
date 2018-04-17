@@ -32,7 +32,7 @@ msgid "Username or password wrong"
 msgstr ""
 
 #: lib/cforum_web/error_handler.ex:25 lib/cforum_web/error_handler.ex:33
-#: lib/cforum_web/plug/authorize_access.ex:33
+#: lib/cforum_web/plug/authorize_access.ex:31
 msgid "You don't have access to this page!"
 msgstr ""
 
@@ -225,11 +225,13 @@ msgstr ""
 msgid "notifications"
 msgstr ""
 
+#: lib/cforum_web/templates/admin/subnav.html.eex:3
 #: lib/cforum_web/templates/layout/personal_links.html.eex:10
 msgid "settings"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:3
+#: lib/cforum_web/templates/admin/group/form.html.eex:3
 #: lib/cforum_web/templates/cite/form.html.eex:2
 #: lib/cforum_web/templates/mail/new.html.eex:2
 #: lib/cforum_web/templates/message/new.html.eex:2
@@ -511,6 +513,7 @@ msgstr ""
 
 #: lib/cforum_web/templates/admin/forum/edit.html.eex:8
 #: lib/cforum_web/templates/admin/forum/new.html.eex:8
+#: lib/cforum_web/templates/admin/group/form.html.eex:34
 #: lib/cforum_web/templates/cite/edit.html.eex:6
 #: lib/cforum_web/templates/cite/new.html.eex:6
 #: lib/cforum_web/templates/mail/new.html.eex:16
@@ -663,7 +666,8 @@ msgstr ""
 msgid "yes, notify me"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:29
+#: lib/cforum_web/templates/admin/forum/index.html.eex:28
+#: lib/cforum_web/templates/admin/group/index.html.eex:23
 #: lib/cforum_web/templates/notification/index.html.eex:27
 #: lib/cforum_web/views/helpers/button.ex:94
 #: lib/cforum_web/views/helpers/button.ex:103
@@ -686,11 +690,11 @@ msgstr ""
 msgid "Forum created successfully."
 msgstr ""
 
-#: lib/cforum_web/controllers/admin/forum_controller.ex:59
+#: lib/cforum_web/controllers/admin/forum_controller.ex:54
 msgid "Forum deleted successfully."
 msgstr ""
 
-#: lib/cforum_web/controllers/admin/forum_controller.ex:46
+#: lib/cforum_web/controllers/admin/forum_controller.ex:41
 msgid "Forum updated successfully."
 msgstr ""
 
@@ -792,7 +796,8 @@ msgstr ""
 msgid "created at"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:29
+#: lib/cforum_web/templates/admin/forum/index.html.eex:28
+#: lib/cforum_web/templates/admin/group/index.html.eex:23
 #: lib/cforum_web/templates/mail/index.html.eex:30
 #: lib/cforum_web/templates/notification/index.html.eex:27
 msgid "delete"
@@ -802,7 +807,8 @@ msgstr ""
 msgid "delete user"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:28
+#: lib/cforum_web/templates/admin/forum/index.html.eex:27
+#: lib/cforum_web/templates/admin/group/index.html.eex:22
 msgid "edit"
 msgstr ""
 
@@ -833,6 +839,7 @@ msgid "private"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:38
+#: lib/cforum_web/templates/admin/group/permissions.html.eex:18
 msgid "read"
 msgstr ""
 
@@ -865,10 +872,11 @@ msgid "unread"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:39
+#: lib/cforum_web/templates/admin/group/permissions.html.eex:17
 msgid "write"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:36
+#: lib/cforum_web/templates/admin/forum/index.html.eex:35
 msgid "New forum"
 msgstr ""
 
@@ -1299,7 +1307,7 @@ msgstr ""
 msgid "previous page"
 msgstr ""
 
-#: lib/cforum/forums/message.ex:150
+#: lib/cforum/forums/message.ex:134
 msgid "unknown tags given: %{tags}"
 msgstr ""
 
@@ -1315,6 +1323,7 @@ msgstr ""
 msgid "bronze medal"
 msgstr ""
 
+#: lib/cforum_web/templates/admin/group/permissions.html.eex:3
 #: lib/cforum_web/templates/thread/new.html.eex:15
 msgid "forum"
 msgstr ""
@@ -1588,6 +1597,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:10
+#: lib/cforum_web/templates/admin/group/form.html.eex:7
 msgid "name"
 msgstr ""
 
@@ -1623,7 +1633,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/layout/page_header.html.eex:52
-#: lib/cforum_web/views/cite_view.ex:7
+#: lib/cforum_web/views/cite_view.ex:6
 msgid "cites"
 msgstr ""
 
@@ -1634,7 +1644,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/cite/cite.html.eex:4
-#: lib/cforum_web/views/cite_view.ex:9
+#: lib/cforum_web/views/cite_view.ex:8
 msgid "cite %{id}"
 msgstr ""
 
@@ -1645,13 +1655,13 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/cite/subnav.html.eex:2
-#: lib/cforum_web/views/cite_view.ex:10
+#: lib/cforum_web/views/cite_view.ex:9
 msgid "suggest new cite"
 msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/cite/subnav.html.eex:3
-#: lib/cforum_web/views/cite_view.ex:8
+#: lib/cforum_web/views/cite_view.ex:7
 msgid "vote for cites"
 msgstr ""
 
@@ -1666,7 +1676,7 @@ msgid "cite"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/cite_view.ex:11
+#: lib/cforum_web/views/cite_view.ex:10
 msgid "edit cite #%{id}"
 msgstr ""
 
@@ -1688,4 +1698,131 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/controllers/cite/vote_controller.ex:21
 msgid "Successfully voted for cite."
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/admin/group_view.ex:4
+msgid "administrate groups"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/subnav.html.eex:10
+msgid "audit log"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/subnav.html.eex:11
+msgid "background tasks"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/subnav.html.eex:7
+msgid "badges"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/group/index.html.eex:6
+msgid "created"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/subnav.html.eex:5
+msgid "events"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/subnav.html.eex:4
+msgid "forums"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/subnav.html.eex:6
+msgid "group"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/group/index.html.eex:4
+msgid "group name"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/subnav.html.eex:9
+msgid "images"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/group/index.html.eex:5
+msgid "members"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/group/subnav.html.eex:4
+#: lib/cforum_web/views/admin/group_view.ex:5
+msgid "new group"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/subnav.html.eex:12
+msgid "redirects"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/group/form.html.eex:33
+msgid "save"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/subnav.html.eex:8
+msgid "search sections"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/group/index.html.eex:7
+msgid "updated"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/group/form.html.eex:13
+#: lib/cforum_web/templates/admin/subnav.html.eex:2
+msgid "users"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/controllers/admin/group_controller.ex:22
+msgid "The group has been created successfully."
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/controllers/admin/group_controller.ex:58
+msgid "The group has been deleted successfully."
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/controllers/admin/group_controller.ex:44
+msgid "The group has been updated successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/admin/group_view.ex:8
+msgid "edit group „%{name}“"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/group/permissions.html.eex:16
+msgid "moderate"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/group/permissions.html.eex:13
+msgid "permission"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/group/form.html.eex:19
+msgid "permissions"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/widgets/users_selector.html.eex:6
+msgid "remove user"
 msgstr ""
