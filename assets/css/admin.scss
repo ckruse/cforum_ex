@@ -1,0 +1,9 @@
+.cf-admin-group-permission {
+  border-bottom: 2px solid $standard_hr_color;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+
+.cf-admin-group-permission:last-of-type {
+  border-bottom: none;
+}

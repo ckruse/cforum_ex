@@ -8,12 +8,17 @@ defmodule Cforum.GroupsTest do
 
     test "list_groups/0 returns all groups" do
       group = insert(:group)
-      assert Groups.list_groups() == [group]
+      groups = Groups.list_groups()
+      assert length(groups) == 1
+      assert [%Group{}] = groups
+      assert Enum.map(groups, & &1.group_id) == [group.group_id]
     end
 
     test "get_group!/1 returns the group with given id" do
       group = insert(:group)
-      assert Groups.get_group!(group.group_id) == group
+      group1 = Groups.get_group!(group.group_id)
+      assert %Group{} = group1
+      assert group.group_id == group.group_id
     end
 
     test "create_group/1 with valid data creates a group" do
@@ -36,7 +41,10 @@ defmodule Cforum.GroupsTest do
     test "update_group/2 with invalid data returns error changeset" do
       group = insert(:group)
       assert {:error, %Ecto.Changeset{}} = Groups.update_group(group, %{name: nil})
-      assert group == Groups.get_group!(group.group_id)
+      group1 = Groups.get_group!(group.group_id)
+      assert %Group{} = group1
+      assert group.name == group1.name
+      assert group.group_id == group1.group_id
     end
 
     test "delete_group/1 deletes the group" do
