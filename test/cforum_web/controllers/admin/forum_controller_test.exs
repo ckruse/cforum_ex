@@ -32,9 +32,9 @@ defmodule CforumWeb.Admin.ForumControllerTest do
       |> post(admin_forum_path(conn, :create), forum: params_for(:forum))
 
     assert %{id: id} = redirected_params(conn)
-    assert redirected_to(conn) == admin_forum_path(conn, :show, id)
+    assert redirected_to(conn) == admin_forum_path(conn, :edit, id)
 
-    conn = get(conn, admin_forum_path(conn, :show, id))
+    conn = get(conn, admin_forum_path(conn, :edit, id))
     forum = Forums.get_forum_by_slug!(id)
     assert html_response(conn, 200) =~ gettext("Show Forum „%{forum}“", forum: forum.name)
   end
@@ -64,9 +64,9 @@ defmodule CforumWeb.Admin.ForumControllerTest do
       login(conn, user)
       |> put(admin_forum_path(conn, :update, forum), forum: %{name: "Foobar"})
 
-    assert redirected_to(conn) == admin_forum_path(conn, :show, forum)
+    assert redirected_to(conn) == admin_forum_path(conn, :edit, forum)
 
-    conn = get(conn, admin_forum_path(conn, :show, forum))
+    conn = get(conn, admin_forum_path(conn, :edit, forum))
     assert html_response(conn, 200) =~ "Foobar"
   end
 
@@ -90,7 +90,7 @@ defmodule CforumWeb.Admin.ForumControllerTest do
     assert redirected_to(conn) == admin_forum_path(conn, :index)
 
     assert_error_sent(404, fn ->
-      get(conn, admin_forum_path(conn, :show, forum))
+      get(conn, admin_forum_path(conn, :edit, forum))
     end)
   end
 end

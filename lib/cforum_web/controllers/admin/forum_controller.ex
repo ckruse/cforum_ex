@@ -19,16 +19,11 @@ defmodule CforumWeb.Admin.ForumController do
       {:ok, forum} ->
         conn
         |> put_flash(:info, gettext("Forum created successfully."))
-        |> redirect(to: admin_forum_path(conn, :show, forum))
+        |> redirect(to: admin_forum_path(conn, :edit, forum))
 
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
-  end
-
-  def show(conn, %{"id" => slug}) do
-    forum = Forums.get_forum_by_slug!(slug)
-    render(conn, "show.html", forum: forum)
   end
 
   def edit(conn, %{"id" => slug}) do
@@ -44,7 +39,7 @@ defmodule CforumWeb.Admin.ForumController do
       {:ok, forum} ->
         conn
         |> put_flash(:info, gettext("Forum updated successfully."))
-        |> redirect(to: admin_forum_path(conn, :show, forum))
+        |> redirect(to: admin_forum_path(conn, :edit, forum))
 
       {:error, changeset} ->
         render(conn, "edit.html", forum: forum, changeset: changeset)
