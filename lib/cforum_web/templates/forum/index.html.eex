@@ -5,7 +5,7 @@
 <h1><%= gettext("Forums") %></h1>
 
 <%= if signed_in?(@conn) do %>
-  <p><%# gettext("forums.new_threads_new_messages", count: @new_threads, new_messages_text: t('forums.new_messages_text', count: @new_messages)) %></p>
+  <p><%# TODO gettext("forums.new_threads_new_messages", count: @new_threads, new_messages_text: t('forums.new_messages_text', count: @new_messages)) %></p>
 <% end %>
 
 <ol class="cf-portal-forums-list">
