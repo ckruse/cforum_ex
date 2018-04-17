@@ -1,0 +1,36 @@
+<%= form_for @changeset, @action, [class: "cf-form"], fn f -> %>
+  <%= if @changeset.action do %>
+    <p class="alert alert-danger"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
+  <% end %>
+
+  <div class="cf-cgroup <%= error_class(f, :name) %>">
+    <%= label f, :name, gettext("name") %>
+    <%= text_input f, :name %>
+    <%= error_tag f, :name %>
+  </div>
+
+  <fieldset>
+    <legend><%= gettext("users") %></legend>
+
+    <%= CforumWeb.WidgetsView.multi_users_selector(assigns, Ecto.Changeset.get_field(@changeset, :users), "group[users][]") %>
+  </fieldset>
+
+  <fieldset>
+    <legend><%= gettext("permissions") %></legend>
+
+    <div data-autolist="yes">
+      <%= for {permission, idx} <- Enum.with_index(Ecto.Changeset.get_field(@changeset, :permissions)) do %>
+        <%= render "permissions.html", Map.merge(assigns, %{f: f, permission: permission, index: idx}) %>
+      <% end %>
+
+      <template>
+        <%= render "permissions.html", Map.merge(assigns, %{f: f, permission: %Cforum.Accounts.ForumGroupPermission{}, index: "__index__"}) %>
+      </template>
+    </div>
+  </fieldset>
+
+  <p class="form-actions">
+    <%= primary_submit gettext("save") %>
+    <%= default_button_link gettext("cancel"), to: @back %>
+  </p>
+<% end %>

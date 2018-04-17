@@ -1,0 +1,28 @@
+<table class="cf-default-table">
+  <thead>
+    <tr>
+      <th><%= gettext("group name") %></th>
+      <th><%= gettext("members") %></th>
+      <th><%= gettext("created") %></th>
+      <th><%= gettext("updated") %></th>
+
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= for group <- @groups do %>
+      <tr>
+        <td><%= group.name %></td>
+        <td><%= length(group.users) %></td>
+        <td><%= format_date(@conn, group.created_at) %></td>
+        <td><%= format_date(@conn, group.updated_at) %></td>
+
+        <td class="text-right">
+          <%= default_index_link(gettext("edit"), to: admin_group_path(@conn, :edit, group)) %>
+          <%= destructive_index_button(gettext("delete"), to: admin_group_path(@conn, :delete, group), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

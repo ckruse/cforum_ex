@@ -20,7 +20,7 @@ defmodule Cforum.Accounts.ForumGroupPermission do
   @known_read "known-read"
   def known_read, do: @known_read
 
-  @permissions [@moderate, @write, @read, @known_write, @known_read]
+  @permissions [@moderate, @write, @read]
 
   schema "forums_groups_permissions" do
     field(:permission, :string)
@@ -32,8 +32,8 @@ defmodule Cforum.Accounts.ForumGroupPermission do
   @doc false
   def changeset(%ForumGroupPermission{} = forum_group_permission, attrs) do
     forum_group_permission
-    |> cast(attrs, [:permission])
-    |> validate_required([:permission])
+    |> cast(attrs, [:permission, :forum_id])
+    |> validate_required([:permission, :forum_id])
     |> validate_inclusion(:permission, @permissions)
   end
 end

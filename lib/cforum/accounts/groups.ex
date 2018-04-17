@@ -18,8 +18,7 @@ defmodule Cforum.Accounts.Groups do
 
   """
   def list_groups do
-    Group
-    |> order_by(:name)
+    from(group in Group, preload: [:users, :permissions], order_by: [desc: :name])
     |> Repo.all()
   end
 
@@ -37,7 +36,11 @@ defmodule Cforum.Accounts.Groups do
       ** (Ecto.NoResultsError)
 
   """
-  def get_group!(id), do: Repo.get!(Group, id)
+  def get_group!(id) do
+    Group
+    |> Repo.get!(id)
+    |> Repo.preload([:permissions, :users])
+  end
 
   @doc """
   Creates a group.

@@ -58,6 +58,7 @@ defmodule CforumWeb.Router do
   scope "/admin", CforumWeb.Admin, as: :admin do
     pipe_through([:browser, :require_login, :require_admin])
     resources("/forums", ForumController)
+    resources("/groups", GroupController, except: [:show])
   end
 
   scope "/users", CforumWeb.Users do

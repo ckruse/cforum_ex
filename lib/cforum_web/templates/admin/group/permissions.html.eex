@@ -1,0 +1,21 @@
+<div class="cf-cgroup <%= error_class(@f, :name) %> cf-admin-group-permission" data-index="<%= @index %>">
+  <label>
+    <%= gettext("forum") %>
+    <select name="group[permissions][<%= @index %>][forum_id]">
+      <option></option>
+      <%= for forum <- @forums do %>
+        <option value="<%= forum.forum_id %>"<%= if @permission.forum_id == forum.forum_id, do: " selected=\"selected\"" %>><%= forum.name %></option>
+      <% end %>
+    </select>
+  </label>
+
+  <label>
+    <%= gettext("permission") %>
+    <select name="group[permissions][<%= @index %>][permission]">
+      <option></option>
+      <option value="moderate"<%= if @permission.permission == "moderate", do: " selected=\"selected\"" %>><%= gettext("moderate") %></option>
+      <option value="write"<%= if @permission.permission == "write", do: " selected=\"selected\"" %>><%= gettext("write") %></option>
+      <option value="read"<%= if @permission.permission == "read", do: " selected=\"selected\"" %>><%= gettext("read") %></option>
+    </select>
+  </label>
+</div>
