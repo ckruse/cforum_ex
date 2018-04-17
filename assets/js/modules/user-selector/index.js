@@ -116,6 +116,10 @@ class UsersSelector {
     const formData = new FormData();
     const ids = all("input[type=hidden]", list).forEach(el => formData.append("ids[]", el.value));
 
+    if (!ids) {
+      return;
+    }
+
     fetch(`/api/v1/users`, { cedentials: "same-origin", method: "post", body: formData })
       .then(response => response.json())
       .then(json => {
