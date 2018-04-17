@@ -12,5 +12,6 @@ export const lang = {
   "choose selected users": "selektierte Benutzer auswählen",
   "found users": "gefundene Benutzer",
   "selected users": "selektierte Benutzer",
+  "remove user": "Benutzer entfernen",
   cancel: "abbrechen"
 };

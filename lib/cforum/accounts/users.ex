@@ -44,6 +44,12 @@ defmodule Cforum.Accounts.Users do
     from(u in query, where: like(fragment("LOWER(?)", u.username), fragment("LOWER(?)", ^clean_term)))
   end
 
+  def get_users(ids, query_params \\ [order: nil]) do
+    from(user in User, where: user.user_id in ^ids)
+    |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
+    |> Repo.all()
+  end
+
   @doc """
   Returns the number of users
 
