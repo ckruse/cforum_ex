@@ -24,7 +24,6 @@
       <td><%= forum.position %></td>
 
       <td>
-        <%= default_index_link gettext("show"), to: admin_forum_path(@conn, :show, forum) %>
         <%= default_index_link gettext("edit"), to: admin_forum_path(@conn, :edit, forum) %>
         <%= destructive_index_button gettext("delete"), to: admin_forum_path(@conn, :delete, forum), method: :delete, data: [confirm: gettext("Are you sure?")] %>
       </td>
