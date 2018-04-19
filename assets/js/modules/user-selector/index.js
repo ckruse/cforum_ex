@@ -114,7 +114,8 @@ class UsersSelector {
 
   setInitialValuesFromList(list) {
     const formData = new FormData();
-    const ids = all("input[type=hidden]", list).forEach(el => formData.append("ids[]", el.value));
+    const ids = all("input[type=hidden]", list);
+    ids.forEach(el => formData.append("ids[]", el.value));
 
     if (!ids) {
       return;
