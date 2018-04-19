@@ -13,5 +13,7 @@ export const lang = {
   "found users": "gefundene Benutzer",
   "selected users": "selektierte Benutzer",
   "remove user": "Benutzer entfernen",
-  cancel: "abbrechen"
+  cancel: "abbrechen",
+  "add new element": "neues Element hinzufügen",
+  "remove element": "Element entfernen"
 };
