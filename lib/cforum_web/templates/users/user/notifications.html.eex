@@ -83,7 +83,7 @@
       </div>
     <% end %>
 
-    <%= if Cforum.Accounts.Users.has_badge?(@user, "visit_close_reopen") do %>
+    <%= if Cforum.Accounts.Users.badge?(@user, "visit_close_reopen") do %>
       <div class="cf-cgroup">
         <label><%= gettext("send me a notification on close and re-open votes") %></label>
         <label class="radio"><%= radio_button @f, :notification_on_open_close_vote, "yes" %> <%= gettext("yes") %></label>

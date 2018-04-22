@@ -8,6 +8,8 @@ defmodule Cforum.Forums.Forum do
   @write "write"
   @known_read "known-read"
   @known_write "known-write"
+  @private "private"
+  @permissions [@read, @write, @known_read, @known_write, @private]
 
   def read(), do: @read
   def write(), do: @write
@@ -37,6 +39,7 @@ defmodule Cforum.Forums.Forum do
     struct
     |> cast(params, [:slug, :short_name, :name, :description, :standard_permission, :keywords, :position])
     |> validate_required([:slug, :short_name, :name, :description, :standard_permission, :position])
+    |> validate_inclusion(:standard_permission, @permissions)
     |> unique_constraint(:slug)
   end
 end

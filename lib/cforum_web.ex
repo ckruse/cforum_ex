@@ -45,6 +45,8 @@ defmodule CforumWeb do
       import Cforum.ConfigManager
 
       import CforumWeb.Views.Helpers.Path
+
+      plug(CforumWeb.Plug.AuthorizeAccess)
     end
   end
 
@@ -70,6 +72,7 @@ defmodule CforumWeb do
       import CforumWeb.Paginator
       import CforumWeb.Sortable
       import Cforum.Abilities
+      import Cforum.Abilities.Helpers
       import Cforum.Helpers
       import Cforum.ConfigManager
 

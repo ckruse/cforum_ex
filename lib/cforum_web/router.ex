@@ -22,18 +22,6 @@ defmodule CforumWeb.Router do
     plug(CforumWeb.Plug.SetViewAll)
   end
 
-  pipeline :require_login do
-    plug(CforumWeb.Plug.EnsureAuthenticated)
-  end
-
-  pipeline :require_admin do
-    plug(CforumWeb.Plug.EnsureAdmin)
-  end
-
-  pipeline :forum_access do
-    plug(CforumWeb.Plug.CheckForumAccess)
-  end
-
   pipeline :api do
     plug(:accepts, ["json"])
     plug(:fetch_session)
@@ -41,7 +29,13 @@ defmodule CforumWeb.Router do
   end
 
   scope "/", CforumWeb do
-    pipe_through([:browser, :require_login])
+    pipe_through(:browser)
+
+    scope "/admin", Admin, as: :admin do
+      resources("/users", UserController, except: [:show])
+      resources("/forums", ForumController, except: [:show])
+      resources("/groups", GroupController, except: [:show])
+    end
 
     resources "/notifications", NotificationController, only: [:index, :show, :delete] do
       put("/unread", NotificationController, :update_unread, as: :unread)
@@ -53,35 +47,23 @@ defmodule CforumWeb.Router do
     get("/invisible", Threads.InvisibleController, :index)
     get("/subscriptions", Messages.SubscriptionController, :index)
     get("/interesting", Messages.InterestingController, :index)
-  end
 
-  scope "/admin", CforumWeb.Admin, as: :admin do
-    pipe_through([:browser, :require_login, :require_admin])
-    resources("/forums", ForumController, except: [:show])
-    resources("/groups", GroupController, except: [:show])
-  end
+    scope "/users", Users do
+      get("/password", PasswordController, :new)
+      post("/password", PasswordController, :create)
+      get("/password/reset", PasswordController, :edit_reset)
+      post("/password/reset", PasswordController, :update_reset)
 
-  scope "/users", CforumWeb.Users do
-    pipe_through(:browser)
+      get("/:id/messages", UserController, :show_messages)
+      get("/:id/scores", UserController, :show_scores)
+      get("/:id/votes", UserController, :show_votes)
+      get("/:id/delete", UserController, :confirm_delete)
 
-    get("/users/password", PasswordController, :new)
-    post("/users/password", PasswordController, :create)
-    get("/users/password/reset", PasswordController, :edit_reset)
-    post("/users/password/reset", PasswordController, :update_reset)
-
-    get("/users/:id/messages", UserController, :show_messages)
-    get("/users/:id/scores", UserController, :show_scores)
-    get("/users/:id/votes", UserController, :show_votes)
-    get("/users/:id/delete", UserController, :confirm_delete)
-
-    resources "/", UserController, except: [:new, :create] do
-      get("/password", PasswordController, :edit)
-      put("/password", PasswordController, :update)
+      resources "/", UserController, except: [:new, :create] do
+        get("/password", PasswordController, :edit)
+        put("/password", PasswordController, :update)
+      end
     end
-  end
-
-  scope "/", CforumWeb do
-    pipe_through(:browser)
 
     get("/login", Users.SessionController, :new)
     post("/login", Users.SessionController, :create)
@@ -100,8 +82,6 @@ defmodule CforumWeb.Router do
     resources("/cites", CiteController)
 
     scope "/:curr_forum" do
-      pipe_through([:forum_access])
-
       get("/", ThreadController, :index, as: nil)
       get("/new", ThreadController, :new, as: nil)
       post("/new", ThreadController, :create, as: nil)

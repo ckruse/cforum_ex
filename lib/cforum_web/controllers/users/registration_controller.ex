@@ -1,8 +1,6 @@
 defmodule CforumWeb.Users.RegistrationController do
   use CforumWeb, :controller
 
-  plug(CforumWeb.Plug.EnsureAnonymous)
-
   alias Cforum.Accounts.Users
   alias Cforum.Accounts.User
 

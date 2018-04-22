@@ -103,8 +103,8 @@
             <li id="nachricht-feed-rss"><%= link gettext("RSS feed"), to: "" %></li> <!-- TODO rss_url for thread -->
           <% end %>
 
-          <%= if false do %> <!-- TODO current_user.try(:admin) -->
-            <li><%= link gettext("Administration"), "" %></li>
+          <%= if may?(@conn, "admin/") do %>
+            <li><%= link gettext("Administration"), to: admin_user_path(@conn, :index) %></li>
           <% end %>
 
           <%# if current_user.try(:moderate?, current_forum) %>
@@ -143,14 +143,12 @@
             <%# end %>
           <%# end %>
 
-          <%= if assigns[:current_user] do %>
-            <li id="interestings-link"><%= link gettext("interesting messages"), to: interesting_path(@conn, :index) %></li>
-            <li id="subscriptions-link"><%= link gettext("subscribed messages"), to: subscription_path(@conn, :index) %></li>
-            <li id="invisibles-link"><%= link gettext("invisible threads"), to: invisible_thread_path(@conn, :index) %></li>
-          <% end %>
+          <%= if may?(@conn, "messages/interesting") do %><li id="interestings-link"><%= link gettext("interesting messages"), to: interesting_path(@conn, :index) %></li><% end %>
+          <%= if may?(@conn, "messages/subscription") do %><li id="subscriptions-link"><%= link gettext("subscribed messages"), to: subscription_path(@conn, :index) %></li><% end %>
+          <%= if may?(@conn, "threads/invisible") do %><li id="invisibles-link"><%= link gettext("invisible threads"), to: invisible_thread_path(@conn, :index) %></li><% end %>
 
           <%= if controller_module(@conn) == Cforum.ForumController do %>
-            <li id="events-link"><%# cf_link_to t('events.events'), events_path %></li>
+            <li id="events-link"><%# cf_link_to t('events.events'), events_path TODO %></li>
           <% end %>
         </ul>
       </nav>

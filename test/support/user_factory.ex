@@ -12,7 +12,8 @@ defmodule Cforum.UserFactory do
           active: true,
           activity: 0,
           encrypted_password: "",
-          score: 0
+          score: 0,
+          badges: []
         }
       end
 
