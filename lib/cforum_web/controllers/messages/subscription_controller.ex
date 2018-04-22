@@ -1,8 +1,6 @@
 defmodule CforumWeb.Messages.SubscriptionController do
   use CforumWeb, :controller
 
-  plug(CforumWeb.Plug.AuthorizeAccess)
-
   alias Cforum.Forums.{Threads, Messages, Thread, Message}
   alias CforumWeb.Views.Helpers.ReturnUrl
 

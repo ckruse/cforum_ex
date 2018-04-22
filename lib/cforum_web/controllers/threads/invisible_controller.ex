@@ -4,8 +4,6 @@ defmodule CforumWeb.Threads.InvisibleController do
   alias Cforum.Forums.Threads
   alias CforumWeb.Views.Helpers.ReturnUrl
 
-  plug(CforumWeb.Plug.AuthorizeAccess)
-
   def index(conn, params) do
     page = parse_page(params["p"]) - 1
     limit = uconf(conn, "pagination", :int)

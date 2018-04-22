@@ -22,7 +22,7 @@ defmodule CforumWeb.Plug.AuthorizeAccess do
     path = Cforum.Helpers.controller_path(conn)
     action = Phoenix.Controller.action_name(conn)
 
-    if action_valid?(conn, path, action, opts) do
+    if Abilities.may?(conn, path, action) do
       conn
     else
       if Mix.env() == :dev, do: raise("Authorization required")
@@ -32,19 +32,6 @@ defmodule CforumWeb.Plug.AuthorizeAccess do
       |> Plug.Conn.put_status(403)
       |> Phoenix.Controller.redirect(to: session_path(conn, :new))
       |> Plug.Conn.halt()
-    end
-  end
-
-  defp action_valid?(conn, path, action, opts) do
-    cond do
-      is_list(opts[:only]) && !(action in opts[:only]) ->
-        true
-
-      is_list(opts[:only]) && action in opts[:only] ->
-        Abilities.may?(conn, path, action)
-
-      true ->
-        Abilities.may?(conn, path, action)
     end
   end
 end
