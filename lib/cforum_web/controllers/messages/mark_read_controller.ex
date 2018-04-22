@@ -5,8 +5,6 @@ defmodule CforumWeb.Messages.MarkReadController do
   alias Cforum.Forums.Threads
   alias CforumWeb.Views.Helpers.ReturnUrl
 
-  plug(CforumWeb.Plug.AuthorizeAccess)
-
   def mark_read(conn, params) do
     thread =
       Threads.get_thread_by_slug!(

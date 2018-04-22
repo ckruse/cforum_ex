@@ -1,8 +1,6 @@
 defmodule CforumWeb.Messages.InterestingController do
   use CforumWeb, :controller
 
-  plug(CforumWeb.Plug.AuthorizeAccess)
-
   alias Cforum.Forums.{Threads, Thread, Messages, Message}
   alias CforumWeb.Views.Helpers.ReturnUrl
 

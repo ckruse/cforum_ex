@@ -1,8 +1,6 @@
 defmodule CforumWeb.Cite.VoteController do
   use CforumWeb, :controller
 
-  plug(CforumWeb.Plug.AuthorizeAccess)
-
   alias Cforum.Cites
 
   def vote(conn, %{"type" => type} = params) when type in ["up", "down"] do

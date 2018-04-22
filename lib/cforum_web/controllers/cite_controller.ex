@@ -1,8 +1,6 @@
 defmodule CforumWeb.CiteController do
   use CforumWeb, :controller
 
-  plug(CforumWeb.Plug.AuthorizeAccess)
-
   alias Cforum.Cites
   alias Cforum.Cites.Cite
 
