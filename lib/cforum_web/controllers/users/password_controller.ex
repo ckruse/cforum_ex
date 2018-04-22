@@ -1,8 +1,6 @@
 defmodule CforumWeb.Users.PasswordController do
   use CforumWeb, :controller
 
-  plug(CforumWeb.Plug.AuthorizeAccess, only: [:edit, :update])
-
   alias Cforum.Accounts.Users
   alias Cforum.Accounts.User
 

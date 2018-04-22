@@ -2,9 +2,6 @@ defmodule CforumWeb.NotificationController do
   use CforumWeb, :controller
 
   alias Cforum.Accounts.Notifications
-  alias Cforum.Accounts.Notification
-
-  plug(:check_access)
 
   def index(conn, params) do
     {sort_params, conn} = sort_collection(conn, [:created_at, :subject])
@@ -21,8 +18,8 @@ defmodule CforumWeb.NotificationController do
     render(conn, "index.html", notifications: notifications, paging: paging)
   end
 
-  def show(conn, %{"id" => _id}) do
-    notification = conn.assigns[:notification]
+  def show(conn, %{"id" => id}) do
+    notification = Notifications.get_notification!(id)
 
     # we ignore errors in this case; the user doesn't care, he just want's to
     # go to the referenced subject
@@ -30,8 +27,8 @@ defmodule CforumWeb.NotificationController do
     redirect(conn, to: notification.path)
   end
 
-  def update_unread(conn, %{"notification_id" => _id}) do
-    notification = conn.assigns[:notification]
+  def update_unread(conn, %{"notification_id" => id}) do
+    notification = Notifications.get_notification!(id)
 
     case Notifications.update_notification(notification, %{is_read: false}) do
       {:ok, _notification} ->
@@ -46,29 +43,12 @@ defmodule CforumWeb.NotificationController do
     end
   end
 
-  def delete(conn, %{"id" => _id}) do
-    Notifications.delete_notification(conn.assigns[:notification])
+  def delete(conn, %{"id" => id}) do
+    notification = Notifications.get_notification!(id)
+    Notifications.delete_notification(notification)
 
     conn
     |> put_flash(:info, gettext("Notification deleted successfully."))
     |> redirect(to: notification_path(conn, :index))
   end
-
-  defp check_access(conn, %Notification{} = notification) do
-    if conn.assigns[:current_user] == nil || conn.assigns[:current_user].user_id != notification.recipient_id,
-      do: CforumWeb.ErrorHandler.access_forbidden(conn, nil),
-      else: assign(conn, :notification, notification)
-  end
-
-  defp check_access(%Plug.Conn{params: %{"id" => id}} = conn, _) do
-    notification = Notifications.get_notification!(id)
-    check_access(conn, notification)
-  end
-
-  defp check_access(%Plug.Conn{params: %{"notification_id" => id}} = conn, _) do
-    notification = Notifications.get_notification!(id)
-    check_access(conn, notification)
-  end
-
-  defp check_access(conn, _), do: conn
 end

@@ -407,13 +407,13 @@ defmodule Cforum.Accounts.Users do
   Returns true if the user has a badge of the type specified by `badge`
 
   ## Examples
-      iex> has_badge?(%User{}, "seo_profi")
+      iex> badge?(%User{}, "seo_profi")
       true
 
-      iex> has_badge?(%User{}, "seo_profi")
+      iex> badge?(%User{}, "seo_profi")
       false
   """
-  def has_badge?(user, badge) do
+  def badge?(user, badge) do
     Enum.find(user.badges, &(&1.badge_type == badge)) != nil
   end
 
@@ -439,7 +439,7 @@ defmodule Cforum.Accounts.Users do
       )
 
     cond do
-      has_badge?(user, Badge.moderator_tools()) ->
+      badge?(user, Badge.moderator_tools()) ->
         true
 
       Repo.exists?(pm_query) ->

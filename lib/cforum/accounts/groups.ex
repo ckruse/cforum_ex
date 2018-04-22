@@ -7,6 +7,7 @@ defmodule Cforum.Accounts.Groups do
   alias Cforum.Repo
 
   alias Cforum.Accounts.Group
+  alias Cforum.Accounts.ForumGroupPermission
 
   @doc """
   Returns the list of groups.
@@ -105,5 +106,34 @@ defmodule Cforum.Accounts.Groups do
   """
   def change_group(%Group{} = group) do
     Group.changeset(group, %{})
+  end
+
+  def list_permissions_for_user_and_forum(user, forum) do
+    from(
+      fgp in ForumGroupPermission,
+      where:
+        fgp.group_id in fragment("SELECT group_id FROM groups_users WHERE user_id = ?", ^user.user_id) and
+          fgp.forum_id == ^forum.forum_id
+    )
+    |> Repo.all()
+  end
+
+  def permission?(user, forum, permission) when is_bitstring(permission), do: permission?(user, forum, [permission])
+
+  def permission?(user, forum, permission) when is_list(permission) do
+    from(
+      fgp in ForumGroupPermission,
+      where:
+        fgp.group_id in fragment("SELECT group_id FROM groups_users WHERE user_id = ?", ^user.user_id) and
+          fgp.forum_id == ^forum.forum_id and fgp.permission in ^permission
+    )
+    |> Repo.exists?()
+  end
+
+  def permission?(permission_list, permission) when is_bitstring(permission),
+    do: permission?(permission_list, [permission])
+
+  def permission?(permission_list, permissions) when is_list(permissions) do
+    Enum.find(permission_list, &(&1.permission in permissions)) != nil
   end
 end

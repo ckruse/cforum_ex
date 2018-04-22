@@ -1,9 +1,6 @@
 defmodule CforumWeb.Users.SessionController do
   use CforumWeb, :controller
 
-  plug(CforumWeb.Plug.EnsureAnonymous, only: [:new, :create])
-  plug(CforumWeb.Plug.EnsureAuthenticatedAction, only: [:delete])
-
   alias Cforum.Accounts
 
   def new(conn, _params) do

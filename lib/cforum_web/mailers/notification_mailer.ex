@@ -1,6 +1,5 @@
 defmodule CforumWeb.NotificationMailer do
   use Bamboo.Phoenix, view: CforumWeb.NotificationMailerView
-  import CforumWeb.Gettext
 
   def pm_notification_mail(user, pm) do
     new_email()
