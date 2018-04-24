@@ -1,35 +1,31 @@
-<h2 class="cf-heading">Listing forums</h2>
-
 <table class="cf-default-table">
   <thead>
     <tr>
-      <th><%= gettext("Name") %></th>
-      <th><%= gettext("Short name") %></th>
-      <th><%= gettext("Description") %></th>
-      <th><%= gettext("Standard permission") %></th>
-      <th><%= gettext("Keywords") %></th>
-      <th><%= gettext("Position") %></th>
+      <th><%= gettext("name") %></th>
+      <th><%= gettext("short name") %></th>
+      <th><%= gettext("description") %></th>
+      <th><%= gettext("standard permission") %></th>
+      <th><%= gettext("keywords") %></th>
+      <th class="numeric"><%= gettext("position") %></th>
 
       <th></th>
     </tr>
   </thead>
   <tbody>
-<%= for forum <- @forums do %>
-    <tr>
-      <td><%= forum.name %></td>
-      <td><%= forum.short_name %></td>
-      <td><%= forum.description %></td>
-      <td><%= forum.standard_permission %></td>
-      <td><%= forum.keywords %></td>
-      <td><%= forum.position %></td>
+    <%= for forum <- @forums do %>
+      <tr>
+        <td><%= forum.name %></td>
+        <td><%= forum.short_name %></td>
+        <td><%= forum.description %></td>
+        <td><%= l10n_permission(forum.standard_permission) %></td>
+        <td><%= forum.keywords %></td>
+        <td class="numeric"><%= forum.position %></td>
 
-      <td>
-        <%= default_index_link gettext("edit"), to: admin_forum_path(@conn, :edit, forum) %>
-        <%= destructive_index_button gettext("delete"), to: admin_forum_path(@conn, :delete, forum), method: :delete, data: [confirm: gettext("Are you sure?")] %>
-      </td>
-    </tr>
-<% end %>
+        <td class="actions-column">
+          <%= default_index_link gettext("edit"), to: admin_forum_path(@conn, :edit, forum) %>
+          <%= destructive_index_button gettext("delete"), to: admin_forum_path(@conn, :delete, forum), method: :delete, data: [confirm: gettext("Are you sure?")] %>
+        </td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
-
-<%= link gettext("New forum"), to: admin_forum_path(@conn, :new) %>
