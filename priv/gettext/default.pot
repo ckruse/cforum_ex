@@ -27,7 +27,7 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: lib/cforum_web/controllers/users/session_controller.ex:37
+#: lib/cforum_web/controllers/users/session_controller.ex:34
 msgid "Username or password wrong"
 msgstr ""
 
@@ -36,7 +36,7 @@ msgstr ""
 msgid "You don't have access to this page!"
 msgstr ""
 
-#: lib/cforum_web/controllers/users/session_controller.ex:32
+#: lib/cforum_web/controllers/users/session_controller.ex:29
 msgid "You logged in successfully"
 msgstr ""
 
@@ -232,6 +232,7 @@ msgstr ""
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:3
 #: lib/cforum_web/templates/admin/group/form.html.eex:3
+#: lib/cforum_web/templates/admin/user/form.html.eex:3
 #: lib/cforum_web/templates/cite/form.html.eex:2
 #: lib/cforum_web/templates/mail/new.html.eex:2
 #: lib/cforum_web/templates/message/new.html.eex:2
@@ -241,6 +242,7 @@ msgstr ""
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
 
+#: lib/cforum_web/templates/admin/user/form.html.eex:13
 #: lib/cforum_web/templates/message/form.html.eex:22
 #: lib/cforum_web/templates/users/registration/new.html.eex:16
 #: lib/cforum_web/templates/users/user/show.html.eex:21
@@ -248,6 +250,7 @@ msgstr ""
 msgid "email"
 msgstr ""
 
+#: lib/cforum_web/templates/admin/user/form.html.eex:27
 #: lib/cforum_web/templates/users/password/edit.html.eex:4
 #: lib/cforum_web/templates/users/password/edit_reset.html.eex:4
 #: lib/cforum_web/templates/users/registration/new.html.eex:24
@@ -264,6 +267,8 @@ msgstr ""
 msgid "sign up"
 msgstr ""
 
+#: lib/cforum_web/templates/admin/user/form.html.eex:7
+#: lib/cforum_web/templates/admin/user/index.html.eex:5
 #: lib/cforum_web/templates/users/registration/new.html.eex:8
 #: lib/cforum_web/templates/users/user/index.html.eex:5
 #: lib/cforum_web/templates/users/user/show.html.eex:8
@@ -271,17 +276,18 @@ msgstr ""
 msgid "username"
 msgstr ""
 
+#: lib/cforum_web/templates/admin/user/form.html.eex:33
 #: lib/cforum_web/templates/users/password/edit.html.eex:11
 #: lib/cforum_web/templates/users/password/edit_reset.html.eex:11
 #: lib/cforum_web/templates/users/registration/new.html.eex:31
 msgid "password confirmation"
 msgstr ""
 
-#: lib/cforum_web/controllers/users/registration_controller.ex:39
+#: lib/cforum_web/controllers/users/registration_controller.ex:37
 msgid "Account successfully confirmed!"
 msgstr ""
 
-#: lib/cforum_web/controllers/users/registration_controller.ex:24
+#: lib/cforum_web/controllers/users/registration_controller.ex:22
 msgid "Account successfully created. Please follow the confirmation instructions we send you via mail."
 msgstr ""
 
@@ -303,8 +309,8 @@ msgstr ""
 msgid "Hi there, %{name}!"
 msgstr ""
 
-#: lib/cforum_web/controllers/notification_controller.ex:44
-#: lib/cforum_web/controllers/users/registration_controller.ex:44
+#: lib/cforum_web/controllers/notification_controller.ex:41
+#: lib/cforum_web/controllers/users/registration_controller.ex:42
 msgid "Oops, something went wrong!"
 msgstr ""
 
@@ -317,10 +323,11 @@ msgstr ""
 msgid "confirm your registration"
 msgstr ""
 
-#: lib/cforum/accounts/user.ex:127
+#: lib/cforum/accounts/user.ex:142
 msgid "password and password confirmation don't match"
 msgstr ""
 
+#: lib/cforum_web/templates/admin/user/index.html.eex:7
 #: lib/cforum_web/templates/users/user/index.html.eex:7
 msgid "Activity during the last 30 days"
 msgstr ""
@@ -343,7 +350,6 @@ msgstr ""
 msgid "Best scored messages"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:8
 #: lib/cforum_web/templates/users/user/show.html.eex:58
 msgid "Description"
 msgstr ""
@@ -380,10 +386,12 @@ msgstr ""
 msgid "Own votings"
 msgstr ""
 
+#: lib/cforum_web/templates/admin/user/index.html.eex:8
 #: lib/cforum_web/templates/users/user/index.html.eex:8
 msgid "Registration date"
 msgstr ""
 
+#: lib/cforum_web/templates/admin/user/index.html.eex:6
 #: lib/cforum_web/templates/users/user/index.html.eex:6
 msgid "Score"
 msgstr ""
@@ -423,6 +431,7 @@ msgstr ""
 msgid "info"
 msgstr ""
 
+#: lib/cforum_web/templates/admin/user/index.html.eex:18
 #: lib/cforum_web/templates/users/user/index.html.eex:17
 msgid "messages"
 msgstr ""
@@ -514,6 +523,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/forum/edit.html.eex:8
 #: lib/cforum_web/templates/admin/forum/new.html.eex:8
 #: lib/cforum_web/templates/admin/group/form.html.eex:34
+#: lib/cforum_web/templates/admin/user/form.html.eex:39
 #: lib/cforum_web/templates/cite/edit.html.eex:6
 #: lib/cforum_web/templates/cite/new.html.eex:6
 #: lib/cforum_web/templates/mail/new.html.eex:16
@@ -541,6 +551,7 @@ msgid "comfort functions"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:62
+#: lib/cforum_web/templates/admin/forum/index.html.eex:6
 #: lib/cforum_web/templates/users/user/personal_information.html.eex:37
 msgid "description"
 msgstr ""
@@ -666,8 +677,9 @@ msgstr ""
 msgid "yes, notify me"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:28
+#: lib/cforum_web/templates/admin/forum/index.html.eex:26
 #: lib/cforum_web/templates/admin/group/index.html.eex:23
+#: lib/cforum_web/templates/admin/user/index.html.eex:22
 #: lib/cforum_web/templates/notification/index.html.eex:27
 #: lib/cforum_web/views/helpers/button.ex:94
 #: lib/cforum_web/views/helpers/button.ex:103
@@ -718,8 +730,8 @@ msgstr ""
 msgid "Notifications"
 msgstr ""
 
-#: lib/cforum_web/controllers/users/password_controller.ex:48
-#: lib/cforum_web/controllers/users/password_controller.ex:76
+#: lib/cforum_web/controllers/users/password_controller.ex:46
+#: lib/cforum_web/controllers/users/password_controller.ex:74
 msgid "Password updated successfully."
 msgstr ""
 
@@ -755,15 +767,17 @@ msgstr ""
 msgid "Standard permission"
 msgstr ""
 
-#: lib/cforum_web/controllers/users/password_controller.ex:21
+#: lib/cforum_web/controllers/users/password_controller.ex:19
 msgid "The instructions how to reset your password have been sent."
 msgstr ""
 
-#: lib/cforum_web/controllers/users/user_controller.ex:198
+#: lib/cforum_web/controllers/admin/user_controller.ex:57
+#: lib/cforum_web/controllers/users/user_controller.ex:196
 msgid "User deleted successfully."
 msgstr ""
 
-#: lib/cforum_web/controllers/users/user_controller.ex:180
+#: lib/cforum_web/controllers/admin/user_controller.ex:44
+#: lib/cforum_web/controllers/users/user_controller.ex:178
 msgid "User updated successfully."
 msgstr ""
 
@@ -776,7 +790,7 @@ msgstr ""
 msgid "You can reset your password by following the instructions from the link below:"
 msgstr ""
 
-#: lib/cforum_web/controllers/users/session_controller.ex:45
+#: lib/cforum_web/controllers/users/session_controller.ex:42
 msgid "You logged out successfully"
 msgstr ""
 
@@ -796,8 +810,9 @@ msgstr ""
 msgid "created at"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:28
+#: lib/cforum_web/templates/admin/forum/index.html.eex:26
 #: lib/cforum_web/templates/admin/group/index.html.eex:23
+#: lib/cforum_web/templates/admin/user/index.html.eex:22
 #: lib/cforum_web/templates/mail/index.html.eex:30
 #: lib/cforum_web/templates/notification/index.html.eex:27
 msgid "delete"
@@ -807,8 +822,9 @@ msgstr ""
 msgid "delete user"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:27
+#: lib/cforum_web/templates/admin/forum/index.html.eex:25
 #: lib/cforum_web/templates/admin/group/index.html.eex:22
+#: lib/cforum_web/templates/admin/user/index.html.eex:21
 msgid "edit"
 msgstr ""
 
@@ -817,10 +833,12 @@ msgid "edit profile and settings"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:40
+#: lib/cforum_web/views/admin/forum_view.ex:26
 msgid "known-read"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:41
+#: lib/cforum_web/views/admin/forum_view.ex:27
 msgid "known-write"
 msgstr ""
 
@@ -835,11 +853,13 @@ msgid "new mail to %{username}"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:37
+#: lib/cforum_web/views/admin/forum_view.ex:28
 msgid "private"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:38
 #: lib/cforum_web/templates/admin/group/permissions.html.eex:18
+#: lib/cforum_web/views/admin/forum_view.ex:24
 msgid "read"
 msgstr ""
 
@@ -873,6 +893,7 @@ msgstr ""
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:39
 #: lib/cforum_web/templates/admin/group/permissions.html.eex:17
+#: lib/cforum_web/views/admin/forum_view.ex:25
 msgid "write"
 msgstr ""
 
@@ -880,11 +901,11 @@ msgstr ""
 msgid "New forum"
 msgstr ""
 
-#: lib/cforum_web/controllers/notification_controller.ex:53
+#: lib/cforum_web/controllers/notification_controller.ex:51
 msgid "Notification deleted successfully."
 msgstr ""
 
-#: lib/cforum_web/controllers/notification_controller.ex:39
+#: lib/cforum_web/controllers/notification_controller.ex:36
 msgid "Notification successfully marked as unread."
 msgstr ""
 
@@ -1356,47 +1377,47 @@ msgid "overview"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/interesting_controller.ex:59
+#: lib/cforum_web/controllers/messages/interesting_controller.ex:57
 msgid "Interesting mark was successfully removed."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/interesting_controller.ex:42
+#: lib/cforum_web/controllers/messages/interesting_controller.ex:40
 msgid "Message was successfully marked as interesting."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/subscription_controller.ex:42
+#: lib/cforum_web/controllers/messages/subscription_controller.ex:40
 msgid "Message was successfully subscribed."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/subscription_controller.ex:59
+#: lib/cforum_web/controllers/messages/subscription_controller.ex:57
 msgid "Message was successfully unsubscribed."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/open_close_controller.ex:33
+#: lib/cforum_web/controllers/threads/open_close_controller.ex:31
 msgid "Thread has successfully been closed."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/invisible_controller.ex:50
+#: lib/cforum_web/controllers/threads/invisible_controller.ex:48
 msgid "Thread has successfully been hidden."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/mark_read_controller.ex:20
+#: lib/cforum_web/controllers/messages/mark_read_controller.ex:18
 msgid "Thread has successfully been marked as read."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/open_close_controller.ex:19
+#: lib/cforum_web/controllers/threads/open_close_controller.ex:17
 msgid "Thread has successfully been opened."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/invisible_controller.ex:64
+#: lib/cforum_web/controllers/threads/invisible_controller.ex:62
 msgid "Thread has successfully been restored."
 msgstr ""
 
@@ -1419,12 +1440,12 @@ msgid "hide this thread"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:147
+#: lib/cforum_web/templates/layout/page_header.html.eex:146
 msgid "interesting messages"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:149
+#: lib/cforum_web/templates/layout/page_header.html.eex:148
 #: lib/cforum_web/views/threads/invisible_view.ex:4
 msgid "invisible threads"
 msgstr ""
@@ -1480,7 +1501,7 @@ msgid "subscribe message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:148
+#: lib/cforum_web/templates/layout/page_header.html.eex:147
 #: lib/cforum_web/views/messages/subscription_view.ex:4
 msgid "subscribed messages"
 msgstr ""
@@ -1587,6 +1608,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:46
+#: lib/cforum_web/templates/admin/forum/index.html.eex:8
 msgid "keywords"
 msgstr ""
 
@@ -1597,17 +1619,20 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:10
+#: lib/cforum_web/templates/admin/forum/index.html.eex:4
 #: lib/cforum_web/templates/admin/group/form.html.eex:7
 msgid "name"
 msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:54
+#: lib/cforum_web/templates/admin/forum/index.html.eex:9
 msgid "position"
 msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:18
+#: lib/cforum_web/templates/admin/forum/index.html.eex:5
 msgid "short name"
 msgstr ""
 
@@ -1618,6 +1643,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:34
+#: lib/cforum_web/templates/admin/forum/index.html.eex:7
 msgid "standard permission"
 msgstr ""
 
@@ -1696,7 +1722,7 @@ msgid "submitted by"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/cite/vote_controller.ex:21
+#: lib/cforum_web/controllers/cite/vote_controller.ex:19
 msgid "Successfully voted for cite."
 msgstr ""
 
@@ -1736,11 +1762,6 @@ msgid "forums"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/subnav.html.eex:6
-msgid "group"
-msgstr ""
-
-#, elixir-format
 #: lib/cforum_web/templates/admin/group/index.html.eex:4
 msgid "group name"
 msgstr ""
@@ -1768,6 +1789,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/group/form.html.eex:33
+#: lib/cforum_web/templates/admin/user/form.html.eex:38
 msgid "save"
 msgstr ""
 
@@ -1825,4 +1847,56 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/widgets/users_selector.html.eex:6
 msgid "remove user"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/controllers/admin/user_controller.ex:24
+msgid "The user has been created successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/admin/forum_view.ex:4
+msgid "administrate forums"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/admin/user_view.ex:4
+msgid "administrate users"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/admin/forum_view.ex:8
+msgid "edit forum „%{name}“"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/admin/user_view.ex:8
+msgid "edit user „%{name}“"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/subnav.html.eex:6
+msgid "groups"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/forum/subnav.html.eex:4
+#: lib/cforum_web/views/admin/forum_view.ex:5
+msgid "new forum"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/user/subnav.html.eex:4
+#: lib/cforum_web/views/admin/user_view.ex:5
+msgid "new user"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/user/form.html.eex:23
+msgid "user is active"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/user/form.html.eex:19
+msgid "user is an administrator"
 msgstr ""
