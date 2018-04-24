@@ -1,0 +1,5 @@
+<%= render CforumWeb.AdminView, "subnav.html", assigns %>
+
+<ul>
+  <li><%= link gettext("new forum"), to: admin_forum_path(@conn, :new) %></li>
+</ul>
