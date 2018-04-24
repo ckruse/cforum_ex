@@ -3,6 +3,7 @@ defmodule Cforum.Accounts.User do
   use Arc.Ecto.Schema
 
   import CforumWeb.Gettext
+  import Cforum.Helpers, only: [blank?: 1]
   alias Phoenix.Token
 
   alias Cforum.Accounts.User
@@ -84,6 +85,16 @@ defmodule Cforum.Accounts.User do
     |> unique_constraint(:confirmation_token, name: :users_confirmation_token_idx)
   end
 
+  def admin_changeset(%User{} = struct, params \\ %{}) do
+    struct
+    |> cast(params, [:username, :email, :password, :password_confirmation, :active, :admin])
+    |> validate_required([:username, :email])
+    |> unique_constraint(:username, name: :users_username_idx)
+    |> unique_constraint(:email, name: :users_email_idx)
+    |> maybe_confirm_password()
+    |> maybe_put_password()
+  end
+
   def register_changeset(%User{} = struct, params \\ %{}) do
     struct
     |> cast(params, [:username, :email, :password, :password_confirmation])
@@ -117,6 +128,10 @@ defmodule Cforum.Accounts.User do
     |> unique_constraint(:reset_password_token, name: :users_reset_password_token_idx)
   end
 
+  defp maybe_confirm_password(changeset) do
+    if blank?(get_field(changeset, :password)), do: changeset, else: confirm_password(changeset)
+  end
+
   defp confirm_password(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: pass, password_confirmation: confirmed_pass}}
@@ -126,6 +141,10 @@ defmodule Cforum.Accounts.User do
       _ ->
         add_error(changeset, :password, gettext("password and password confirmation don't match"))
     end
+  end
+
+  defp maybe_put_password(changeset) do
+    if blank?(get_field(changeset, :password)), do: changeset, else: put_password_hash(changeset)
   end
 
   defp put_password_hash(changeset) do

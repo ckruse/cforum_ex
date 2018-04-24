@@ -176,6 +176,24 @@ defmodule Cforum.Accounts.Users do
   end
 
   @doc """
+  Creates a new user as allowed by admins.
+
+  ## Examples
+
+      iex> create_user(%{field: value})
+      {:ok, %User{}}
+
+      iex> create_user(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def admin_create_user(attrs) do
+    %User{}
+    |> User.admin_changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
   Updates a user.
 
   ## Examples
@@ -190,6 +208,24 @@ defmodule Cforum.Accounts.Users do
   def update_user(%User{} = user, attrs) do
     user
     |> User.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Updates a user as allowed for admins.
+
+  ## Examples
+
+      iex> admin_update_user(user, %{field: new_value})
+      {:ok, %User{}}
+
+      iex> admin_update_user(user, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def admin_update_user(%User{} = user, attrs) do
+    user
+    |> User.admin_changeset(attrs)
     |> Repo.update()
   end
 
@@ -256,6 +292,19 @@ defmodule Cforum.Accounts.Users do
 
   """
   def change_user(%User{} = user) do
+    User.changeset(user, %{})
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking user changes as allowed for admins.
+
+  ## Examples
+
+      iex> admin_change_user(user)
+      %Ecto.Changeset{source: %User{}}
+
+  """
+  def admin_change_user(%User{} = user) do
     User.changeset(user, %{})
   end
 
