@@ -3,8 +3,8 @@
   <thead>
     <tr>
       <th><%= sortable(@conn, gettext("username"), :username, &user_path/3) %></th>
-      <th class="nummeric"><%= sortable(@conn, gettext("Score"), :score, &user_path/3) %></th>
-      <th class="nummeric"><%= sortable(@conn, gettext("Activity during the last 30 days"), :activity, &user_path/3) %></th>
+      <th class="numeric"><%= sortable(@conn, gettext("Score"), :score, &user_path/3) %></th>
+      <th class="numeric"><%= sortable(@conn, gettext("Activity during the last 30 days"), :activity, &user_path/3) %></th>
       <th><%= sortable(@conn, gettext("Registration date"), :created_at, &user_path/3) %></th>
     </tr>
   </thead>
@@ -13,8 +13,8 @@
     <%= for user <- @users do %>
       <tr>
         <td><%= link user.username, to: user_path(@conn, :show, user) %></td>
-        <td class="nummeric"><%= user.score %></td>
-        <td class="nummeric"><%= user.activity %> <%= gettext("messages") %></td>
+        <td class="numeric"><%= user.score %></td>
+        <td class="numeric"><%= user.activity %> <%= gettext("messages") %></td>
         <td><%= format_date(@conn, user.created_at) %></td>
       </tr>
     <% end %>
