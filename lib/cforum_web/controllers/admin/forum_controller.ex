@@ -3,6 +3,7 @@ defmodule CforumWeb.Admin.ForumController do
 
   alias Cforum.Forums
   alias Cforum.Forums.Forum
+  alias Cforum.Accounts.Setting
 
   def index(conn, _params) do
     forums = Forums.list_forums()
@@ -11,7 +12,7 @@ defmodule CforumWeb.Admin.ForumController do
 
   def new(conn, _params) do
     changeset = Forums.change_forum(%Forum{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, forum: %Forum{setting: %Setting{}})
   end
 
   def create(conn, %{"forum" => forum_params}) do
@@ -22,7 +23,7 @@ defmodule CforumWeb.Admin.ForumController do
         |> redirect(to: admin_forum_path(conn, :edit, forum))
 
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, forum: %Forum{setting: %Setting{}})
     end
   end
 
