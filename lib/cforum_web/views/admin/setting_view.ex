@@ -8,6 +8,9 @@ defmodule CforumWeb.Admin.SettingView do
   def body_classes(:edit, _), do: "admin settings edit"
   def body_classes(:update, _), do: "admin settings update"
 
+  def conf_set?(nil, _), do: false
+  def conf_set?(settings, key), do: !blank?(settings.options[key])
+
   def conf_val_or_default(conn, name) do
     if blank?(conn.assigns[:forum]),
       do: Cforum.ConfigManager.defaults()[Atom.to_string(name)],
@@ -28,6 +31,8 @@ defmodule CforumWeb.Admin.SettingView do
       "newest-first" -> gettext("newest first")
       "ascending" -> gettext("ascending")
       "descending" -> gettext("descending")
+      "close" -> gettext("close subtree")
+      "hide" -> gettext("hide („delete“) subtree")
       "" -> gettext("empty value")
       nil -> gettext("empty value")
       _ -> val
@@ -53,7 +58,7 @@ defmodule CforumWeb.Admin.SettingView do
       name: input_name(form, key),
       value: "_DEFAULT_",
       type: "checkbox",
-      checked: blank?(settings.options[Atom.to_string(key)])
+      checked: !conf_set?(settings, Atom.to_string(key))
     )
   end
 end

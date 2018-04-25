@@ -1,37 +1,10 @@
-<nav class="cf-tab-list">
-  <ul>
-    <li><a href="#general-settings"><%= gettext("general settings") %></a></li>
-    <li><a href="#pagination-settings"><%= gettext("pagination settings") %></a></li>
-    <li><a href="#archiver-settings"><%= gettext("archiver settings") %></a></li>
-    <li><a href="#editing-settings"><%= gettext("editing settings") %></a></li>
-    <li><a href="#date-format-settings"><%= gettext("date format settings") %></a></li>
-    <li><a href="#voting-and-scoring-settings"><%= gettext("voting and scoring settings") %></a></li>
-    <li><a href="#close-and-reopen-vote-settings"><%= gettext("close and reopen vote settings") %></a></li>
-    <li><a href="#anti-spam-settings"><%= gettext("anti spam settings") %></a></li>
-  </ul>
-</nav>
-
-<template id="tablist">
-  <div role="tablist" class="cf-tab-list">
-    <button role="tab" id="general-setting-tab" aria-controls="general-settings" aria-selected="false" tabindex="-1"><%= gettext("general settings") %></button>
-    <button role="tab" id="pagination-settings-tab" aria-controls="pagination-settings" aria-selected="false" tabindex="-1"><%= gettext("pagination settings") %></button>
-    <button role="tab" id="archiver-settings-tab" aria-controls="archiver-settings" aria-selected="false" tabindex="-1"><%= gettext("archiver settings") %></button>
-    <button role="tab" id="editing-settings-tab" aria-controls="editing-settings" aria-selected="false" tabindex="-1"><%= gettext("editing settings") %></button>
-    <button role="tab" id="date-format-settings-tab" aria-controls="date-format-settings" aria-selected="false" tabindex="-1"><%= gettext("date format settings") %></button>
-    <button role="tab" id="voting-and-scoring-settings-tab" aria-controls="voting-and-scoring-settings" aria-selected="false" tabindex="-1"><%= gettext("voting and scoring settings") %></button>
-    <button role="tab" id="close-and-reopen-vote-settings-tab" aria-controls="close-and-reopen-vote-settings" aria-selected="false" tabindex="-1"><%= gettext("close and reopen vote settings") %></button>
-    <button role="tab" id="anti-spam-settings-tab" aria-controls="anti-spam-settings" aria-selected="false" tabindex="-1"><%= gettext("anti spam settings") %></button>
-  </div>
-</template>
-
-
 <fieldset id="general-settings">
   <legend><%= gettext("general settings") %></legend>
 
   <div class="cf-cgroup">
     <label class="radio"><%= radio_button @fo, :locked, "yes" %> <%= gettext("forum instance is locked") %></label>
     <label class="radio"><%= radio_button @fo, :locked, "no" %> <%= gettext("forum instance is not locked")%> </label>
-    <label class="radio"><%= radio_button @fo, :locked, "_DEFAULT_", checked: blank?(@settings.options["locked"]) %> <%= default_value(@conn, :locked) %> </label>
+    <label class="radio"><%= radio_button @fo, :locked, "_DEFAULT_", checked: !conf_set?(@settings, "locked") %> <%= default_value(@conn, :locked) %> </label>
   </div>
 
   <div class="cf-cgroup">
@@ -81,7 +54,7 @@
     <label for="settings-standard_view-thread"><%= gettext("default view for threads") %></label>
     <label class="radio"><%= radio_button @fo, :standard_view, "thread-view", id: "settings-standard_view-thread" %> <%= gettext("thread view") %></label>
     <label class="radio"><%= radio_button @fo, :standard_view, "nested-view", id: "settings-standard_view-nested" %> <%= gettext("nested view") %></label>
-    <label class="radio"><%= radio_button @fo, :standard_view, "_DEFAULT_", id: "settings-standard_view-default", checked: blank?(@settings.options["standard_view"]) %> <%= default_value(@conn, :standard_view) %></label>
+    <label class="radio"><%= radio_button @fo, :standard_view, "_DEFAULT_", id: "settings-standard_view-default", checked: !conf_set?(@settings, "standard_view") %> <%= default_value(@conn, :standard_view) %></label>
   </div>
 
   <div class="cf-cgroup">
@@ -89,7 +62,7 @@
     <label class="radio"><%= radio_button @fo, :sort_threads, "descending", id: "settings-sort_threads-descending" %> <%= gettext("descending") %></label>
     <label class="radio"><%= radio_button @fo, :sort_threads, "ascending", id: "settings-sort_threads-ascending" %> <%= gettext("ascending") %></label>
     <label class="radio"><%= radio_button @fo, :sort_threads, "newest-first", id: "settings-sort_threads-newest-first" %> <%= gettext("newest first") %></label>
-    <label class="radio"><%= radio_button @fo, :sort_threads, "_DEFAULT_", checked: blank?(@settings.options["sort_threads"]), id: "settings-sort_threads-default" %> <%= default_value(@conn, :sort_threads) %></label>
+    <label class="radio"><%= radio_button @fo, :sort_threads, "_DEFAULT_", checked: !conf_set?(@settings, "sort_threads"), id: "settings-sort_threads-default" %> <%= default_value(@conn, :sort_threads) %></label>
   </div>
 
   <%= if blank?(assigns[:forum]) do %>
@@ -152,7 +125,7 @@
   <div class="cf-cgroup">
     <label class="radio"><%= radio_button @fo, :editing_enabled, "yes" %> <%= gettext("users may edit their postings") %></label>
     <label class="radio"><%= radio_button @fo, :editing_enabled, "no" %> <%= gettext("users may not edit their postings") %></label>
-    <label class="radio"><%= radio_button @fo, :editing_enabled, "_DEFAULT_", checked: blank?(@settings.options["editing_enabled"]) %> <%= default_value(@conn, :editing_enabled) %></label>
+    <label class="radio"><%= radio_button @fo, :editing_enabled, "_DEFAULT_", checked: !conf_set?(@settings, "editing_enabled") %> <%= default_value(@conn, :editing_enabled) %></label>
   </div>
 
   <div class="cf-cgroup">
@@ -164,7 +137,7 @@
   <div class="cf-cgroup">
     <label class="radio"><%= radio_button @fo, :edit_until_has_answer, "yes" %> <%= gettext("postings are editable until the first answer has been written") %></label>
     <label class="radio"><%= radio_button @fo, :edit_until_has_answer, "no" %> <%= gettext("postings are always editable") %></label>
-    <label class="radio"><%= radio_button @fo, :edit_until_has_answer, "_DEFAULT_", checked: blank?(@settings.options["edit_until_has_answer"]) %> <%= default_value(@conn, :edit_until_has_answer) %></label>
+    <label class="radio"><%= radio_button @fo, :edit_until_has_answer, "_DEFAULT_", checked: !conf_set?(@settings, "edit_until_has_answer") %> <%= default_value(@conn, :edit_until_has_answer) %></label>
   </div>
 </fieldset>
 
@@ -237,42 +210,42 @@
     <label for="settings-close_vote-off-topic"><%= gettext("result for off-topic posting close votes") %></label>
     <label class="radio"><%= radio_button @fo, :"close_vote_action_off-topic", "close" %> <%= gettext("close subtree") %></label>
     <label class="radio"><%= radio_button @fo, :"close_vote_action_off-topic", "hide" %> <%= gettext("hide („delete“) subtree") %></label>
-    <label class="radio"><%= radio_button @fo, :"close_vote_action_off-topic", "_DEFAULT_", checked: blank?(@settings.options["close_vote_action_off-topic"]) %> <%= default_value(@conn, :close_vote_votes) %></label>
+    <label class="radio"><%= radio_button @fo, :"close_vote_action_off-topic", "_DEFAULT_", checked: !conf_set?(@settings, "close_vote_action_off-topic") %> <%= default_value(@conn, :"close_vote_action_off-topic") %></label>
   </div>
 
   <div class="cf-cgroup">
     <label for="settings-close_vote-not-constructive"><%= gettext("result for unconstructive posting close votes") %></label>
     <label class="radio"><%= radio_button @fo, :"close_vote_action_not-constructive", "close" %> <%= gettext("close subtree") %></label>
     <label class="radio"><%= radio_button @fo, :"close_vote_action_not-constructive", "hide" %> <%= gettext("hide („delete“) subtree") %></label>
-    <label class="radio"><%= radio_button @fo, :"close_vote_action_not-constructive", "_DEFAULT_", checked: blank?(@settings.options["close_vote_action_not-constructive"]) %> <%= default_value(@conn, :close_vote_votes) %></label>
+    <label class="radio"><%= radio_button @fo, :"close_vote_action_not-constructive", "_DEFAULT_", checked: !conf_set?(@settings, "close_vote_action_not-constructive") %> <%= default_value(@conn, :"close_vote_action_not-constructive") %></label>
   </div>
 
   <div class="cf-cgroup">
     <label for="settings-close_vote-illegal"><%= gettext("result for illegal posting close votes") %></label>
     <label class="radio"><%= radio_button @fo, :close_vote_action_illegal, "close" %> <%= gettext("close subtree") %></label>
     <label class="radio"><%= radio_button @fo, :close_vote_action_illegal, "hide" %> <%= gettext("hide („delete“) subtree") %></label>
-    <label class="radio"><%= radio_button @fo, :close_vote_action_illegal, "_DEFAULT_", checked: blank?(@settings.options["close_vote_action_illegal"]) %> <%= default_value(@conn, :close_vote_votes) %></label>
+    <label class="radio"><%= radio_button @fo, :close_vote_action_illegal, "_DEFAULT_", checked: !conf_set?(@settings, "close_vote_action_illegal") %> <%= default_value(@conn, :close_vote_action_illegal) %></label>
   </div>
 
   <div class="cf-cgroup">
     <label for="settings-close_vote-duplicate"><%= gettext("result for duplicate posting close votes") %></label>
     <label class="radio"><%= radio_button @fo, :close_vote_action_duplicate, "close" %> <%= gettext("close subtree") %></label>
     <label class="radio"><%= radio_button @fo, :close_vote_action_duplicate, "hide" %> <%= gettext("hide („delete“) subtree") %></label>
-    <label class="radio"><%= radio_button @fo, :close_vote_action_duplicate, "_DEFAULT_", checked: blank?(@settings.options["close_vote_action_duplicate"]) %> <%= default_value(@conn, :close_vote_votes) %></label>
+    <label class="radio"><%= radio_button @fo, :close_vote_action_duplicate, "_DEFAULT_", checked: !conf_set?(@settings, "close_vote_action_duplicate") %> <%= default_value(@conn, :close_vote_action_duplicate) %></label>
   </div>
 
   <div class="cf-cgroup">
     <label for="settings-close_vote-custom"><%= gettext("result for custom close votes") %></label>
     <label class="radio"><%= radio_button @fo, :close_vote_action_custom, "close" %> <%= gettext("close subtree") %></label>
     <label class="radio"><%= radio_button @fo, :close_vote_action_custom, "hide" %> <%= gettext("hide („delete“) subtree") %></label>
-    <label class="radio"><%= radio_button @fo, :close_vote_action_custom, "_DEFAULT_", checked: blank?(@settings.options["close_vote_action_custom"]) %> <%= default_value(@conn, :close_vote_votes) %></label>
+    <label class="radio"><%= radio_button @fo, :close_vote_action_custom, "_DEFAULT_", checked: !conf_set?(@settings, "close_vote_action_custom") %> <%= default_value(@conn, :close_vote_action_custom) %></label>
   </div>
 
   <div class="cf-cgroup">
     <label for="settings-close_vote-spam"><%= gettext("result for spam close votes") %></label>
     <label class="radio"><%= radio_button @fo, :close_vote_action_spam, "close" %> <%= gettext("close subtree") %></label>
     <label class="radio"><%= radio_button @fo, :close_vote_action_spam, "hide" %> <%= gettext("hide („delete“) subtree") %></label>
-    <label class="radio"><%= radio_button @fo, :close_vote_action_spam, "_DEFAULT_", checked: blank?(@settings.options["close_vote_action_spam"]) %> <%= default_value(@conn, :close_vote_votes) %></label>
+    <label class="radio"><%= radio_button @fo, :close_vote_action_spam, "_DEFAULT_", checked: !conf_set?(@settings, "close_vote_action_spam") %> <%= default_value(@conn, :close_vote_action_spam) %></label>
   </div>
 </fieldset>
 

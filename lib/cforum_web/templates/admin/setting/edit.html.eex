@@ -1,5 +1,32 @@
 <%= form_for @changeset, admin_setting_path(@conn, :update), [class: "cf-form"], fn f -> %>
   <%= sub_inputs f, :options, fn(fo) -> %>
+
+    <nav class="cf-tab-list">
+      <ul>
+        <li><a href="#general-settings"><%= gettext("general settings") %></a></li>
+        <li><a href="#pagination-settings"><%= gettext("pagination settings") %></a></li>
+        <li><a href="#archiver-settings"><%= gettext("archiver settings") %></a></li>
+        <li><a href="#editing-settings"><%= gettext("editing settings") %></a></li>
+        <li><a href="#date-format-settings"><%= gettext("date format settings") %></a></li>
+        <li><a href="#voting-and-scoring-settings"><%= gettext("voting and scoring settings") %></a></li>
+        <li><a href="#close-and-reopen-vote-settings"><%= gettext("close and reopen vote settings") %></a></li>
+        <li><a href="#anti-spam-settings"><%= gettext("anti spam settings") %></a></li>
+      </ul>
+    </nav>
+
+    <template id="tablist">
+      <div role="tablist" class="cf-tab-list">
+        <button role="tab" id="general-setting-tab" aria-controls="general-settings" aria-selected="false" tabindex="-1"><%= gettext("general settings") %></button>
+        <button role="tab" id="pagination-settings-tab" aria-controls="pagination-settings" aria-selected="false" tabindex="-1"><%= gettext("pagination settings") %></button>
+        <button role="tab" id="archiver-settings-tab" aria-controls="archiver-settings" aria-selected="false" tabindex="-1"><%= gettext("archiver settings") %></button>
+        <button role="tab" id="editing-settings-tab" aria-controls="editing-settings" aria-selected="false" tabindex="-1"><%= gettext("editing settings") %></button>
+        <button role="tab" id="date-format-settings-tab" aria-controls="date-format-settings" aria-selected="false" tabindex="-1"><%= gettext("date format settings") %></button>
+        <button role="tab" id="voting-and-scoring-settings-tab" aria-controls="voting-and-scoring-settings" aria-selected="false" tabindex="-1"><%= gettext("voting and scoring settings") %></button>
+        <button role="tab" id="close-and-reopen-vote-settings-tab" aria-controls="close-and-reopen-vote-settings" aria-selected="false" tabindex="-1"><%= gettext("close and reopen vote settings") %></button>
+        <button role="tab" id="anti-spam-settings-tab" aria-controls="anti-spam-settings" aria-selected="false" tabindex="-1"><%= gettext("anti spam settings") %></button>
+      </div>
+    </template>
+
     <%= render "settings.html", Map.put(assigns, :fo, fo) %>
   <% end %>
 
