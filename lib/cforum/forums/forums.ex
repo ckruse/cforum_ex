@@ -55,6 +55,11 @@ defmodule Cforum.Forums do
   """
   def get_forum_by_slug!(slug), do: Repo.get_by!(Forum, slug: slug)
 
+  def get_forum_by_slug!(slug, :preload_setting) do
+    Repo.get_by!(Forum, slug: slug)
+    |> Repo.preload(:setting)
+  end
+
   @doc """
   Creates a forum.
 

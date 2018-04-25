@@ -1,10 +1,8 @@
-<h2 class="cf-heading"><%= gettext("New Forum") %></h2>
-
 <%= form_for @changeset, admin_forum_path(@conn, :create), [class: "cf-form"], fn f -> %>
-  <%= render "form.html", changeset: @changeset, f: f %>
+  <%= render "form.html", Map.put(assigns, :f, f) %>
 
   <p class="form-actions">
-    <%= primary_submit gettext("Save changes") %>
+    <%= primary_submit gettext("save changes") %>
     <%= default_button_link gettext("cancel"), to: admin_forum_path(@conn, :index) %>
   </p>
 <% end %>
