@@ -18,7 +18,7 @@ defmodule CforumWeb.Plug.AuthorizeAccess do
 
   def init(opts), do: opts
 
-  def call(conn, opts) do
+  def call(conn, _opts) do
     path = Cforum.Helpers.controller_path(conn)
     action = Phoenix.Controller.action_name(conn)
 
