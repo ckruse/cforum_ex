@@ -20,7 +20,7 @@
         <ul>
           <li><%= link gettext("create new thread"), to: thread_path(@conn, :new, @current_forum) %></li>
           <li><%= link gettext("home"), to: root_path(@conn, :index) %></li>
-          <li class="dropdown"><span class="anchor"><%= gettext("Forums") %></span>
+          <li class="dropdown"><span class="anchor"><%= gettext("forums") %></span>
             <ul class="menu">
               <li<% if !@current_forum && controller_module(@conn) == Cforum.ThreadController do %> class="active"<% end %>>
                 <%= link gettext("All forums"), to: forum_path(@conn, :index, "all") %>
