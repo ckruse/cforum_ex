@@ -1,8 +1,6 @@
 defmodule Cforum.Forums.Forum do
   use CforumWeb, :model
 
-  alias Cforum.Accounts.Setting
-
   @primary_key {:forum_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :slug}
 

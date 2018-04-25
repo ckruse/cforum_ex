@@ -14,7 +14,7 @@ defmodule CforumWeb.Admin.SettingView do
   def conf_val_or_default(conn, name) do
     if blank?(conn.assigns[:forum]),
       do: Cforum.ConfigManager.defaults()[Atom.to_string(name)],
-      else: conf(conn, name)
+      else: conf(conn, Atom.to_string(name))
   end
 
   def default_value(conn, key) do
@@ -40,16 +40,9 @@ defmodule CforumWeb.Admin.SettingView do
   end
 
   def global_conf?(conn, key) do
-    cond do
-      blank?(conn.assigns[:forum]) ->
-        false
-
-      blank?(conn.assigns[:global_config]) ->
-        false
-
-      true ->
-        Map.has_key?(conn.assigns[:global_config].options, key)
-    end
+    if blank?(conn.assigns[:global_config]),
+      do: false,
+      else: Map.has_key?(conn.assigns[:global_config].options, Atom.to_string(key))
   end
 
   def default_checkbox(form, settings, key) do
