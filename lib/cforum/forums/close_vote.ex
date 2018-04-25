@@ -4,6 +4,9 @@ defmodule Cforum.Forums.CloseVote do
   @primary_key {:close_vote_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :close_vote_id}
 
+  @reasons ~w(off-topic not-constructive illegal duplicate custom spam)
+  def reasons(), do: @reasons
+
   schema "close_votes" do
     field(:reason, :string)
     field(:duplicate_slug, :string)

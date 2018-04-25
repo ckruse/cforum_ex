@@ -103,6 +103,19 @@ defmodule Cforum.Accounts.Settings do
     |> Repo.update()
   end
 
+  def update_options(setting, options) do
+    options =
+      Enum.reduce(options, %{}, fn {key, value}, acc ->
+        if value == "_DEFAULT_",
+          do: acc,
+          else: Map.put(acc, key, value)
+      end)
+
+    if Cforum.Helpers.blank?(setting.setting_id),
+      do: create_setting(%{"options" => options}),
+      else: update_setting(setting, %{"options" => options})
+  end
+
   @doc """
   Deletes a Setting.
 

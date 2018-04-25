@@ -1,6 +1,6 @@
 <ul>
   <li><%= link gettext("users"), to: "" %></li>
-  <li><%= link gettext("settings"), to: "" %></li>
+  <li><%= link gettext("settings"), to: admin_setting_path(@conn, :edit) %></li>
   <li><%= link gettext("forums"), to: admin_forum_path(@conn, :index) %></li>
   <li><%= link gettext("events"), to: "" %></li>
   <li><%= link gettext("groups"), to: admin_group_path(@conn, :index) %></li>
