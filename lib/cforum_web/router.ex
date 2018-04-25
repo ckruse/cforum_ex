@@ -35,6 +35,9 @@ defmodule CforumWeb.Router do
       resources("/users", UserController, except: [:show])
       resources("/forums", ForumController, except: [:show])
       resources("/groups", GroupController, except: [:show])
+
+      get("/settings", SettingController, :edit, as: :setting)
+      put("/settings", SettingController, :update, as: :setting)
     end
 
     resources "/notifications", NotificationController, only: [:index, :show, :delete] do

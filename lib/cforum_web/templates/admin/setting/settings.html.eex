@@ -1,0 +1,302 @@
+<nav class="cf-tab-list">
+  <ul>
+    <li><a href="#general-settings"><%= gettext("general settings") %></a></li>
+    <li><a href="#pagination-settings"><%= gettext("pagination settings") %></a></li>
+    <li><a href="#archiver-settings"><%= gettext("archiver settings") %></a></li>
+    <li><a href="#editing-settings"><%= gettext("editing settings") %></a></li>
+    <li><a href="#date-format-settings"><%= gettext("date format settings") %></a></li>
+    <li><a href="#voting-and-scoring-settings"><%= gettext("voting and scoring settings") %></a></li>
+    <li><a href="#close-and-reopen-vote-settings"><%= gettext("close and reopen vote settings") %></a></li>
+    <li><a href="#anti-spam-settings"><%= gettext("anti spam settings") %></a></li>
+  </ul>
+</nav>
+
+<template id="tablist">
+  <div role="tablist" class="cf-tab-list">
+    <button role="tab" id="general-setting-tab" aria-controls="general-settings" aria-selected="false" tabindex="-1"><%= gettext("general settings") %></button>
+    <button role="tab" id="pagination-settings-tab" aria-controls="pagination-settings" aria-selected="false" tabindex="-1"><%= gettext("pagination settings") %></button>
+    <button role="tab" id="archiver-settings-tab" aria-controls="archiver-settings" aria-selected="false" tabindex="-1"><%= gettext("archiver settings") %></button>
+    <button role="tab" id="editing-settings-tab" aria-controls="editing-settings" aria-selected="false" tabindex="-1"><%= gettext("editing settings") %></button>
+    <button role="tab" id="date-format-settings-tab" aria-controls="date-format-settings" aria-selected="false" tabindex="-1"><%= gettext("date format settings") %></button>
+    <button role="tab" id="voting-and-scoring-settings-tab" aria-controls="voting-and-scoring-settings" aria-selected="false" tabindex="-1"><%= gettext("voting and scoring settings") %></button>
+    <button role="tab" id="close-and-reopen-vote-settings-tab" aria-controls="close-and-reopen-vote-settings" aria-selected="false" tabindex="-1"><%= gettext("close and reopen vote settings") %></button>
+    <button role="tab" id="anti-spam-settings-tab" aria-controls="anti-spam-settings" aria-selected="false" tabindex="-1"><%= gettext("anti spam settings") %></button>
+  </div>
+</template>
+
+
+<fieldset id="general-settings">
+  <legend><%= gettext("general settings") %></legend>
+
+  <div class="cf-cgroup">
+    <label class="radio"><%= radio_button @fo, :locked, "yes" %> <%= gettext("forum instance is locked") %></label>
+    <label class="radio"><%= radio_button @fo, :locked, "no" %> <%= gettext("forum instance is not locked")%> </label>
+    <label class="radio"><%= radio_button @fo, :locked, "_DEFAULT_", checked: blank?(@settings.options["locked"]) %> <%= default_value(@conn, :locked) %> </label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-css_ressource"><%= gettext("additional CSS resource") %></label>
+    <%= text_input @fo, :css_ressource, id: "settings-css_ressource" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :css_ressource) %> <%= default_value(@conn, :css_ressource) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-js_ressource"><%= gettext("additional JS resource") %></label>
+    <%= text_input @fo, :js_ressource, id: "settings-css_ressource" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :js_ressource) %> <%= default_value(@conn, :js_ressource) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-max_tags_per_message"><%= gettext("maximum number of tags per message") %></label>
+    <%= number_input @fo, :max_tags_per_message, step: 1, minimum: 1, id: "settings-max_tags_per_message" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :max_tags_per_message) %> <%= default_value(@conn, :max_tags_per_message) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-min_tags_per_message"><%= gettext("minimum number of tags per message") %></label>
+    <%= number_input @fo, :min_tags_per_message, step: 1, minimum: 1, id: "settings-min_tags_per_message" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :min_tags_per_message) %> <%= default_value(@conn, :min_tags_per_message) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-header_start_index"><%= gettext("start index for headings") %></label>
+    <%= number_input @fo, :header_start_index, step: 1, minimum: 1, maximum: 6, id: "settings-header_start_index" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :header_start_index) %> <%= default_value(@conn, :header_start_index) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-css_styles"><%= gettext("alternative CSS resoures") %></label>
+    <%= textarea @fo, :css_styles, id: "settings-css_styles" %>
+    <span class="help"><%= gettext("one URL per line") %></span>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :css_styles) %> <%= default_value(@conn, :css_styles) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-motd"><%= gettext("message of the day") %></label>
+    <%= textarea @fo, :motd, id: "settings-motd" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :motd) %> <%= default_value(@conn, :motd) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-standard_view-thread"><%= gettext("default view for threads") %></label>
+    <label class="radio"><%= radio_button @fo, :standard_view, "thread-view", id: "settings-standard_view-thread" %> <%= gettext("thread view") %></label>
+    <label class="radio"><%= radio_button @fo, :standard_view, "nested-view", id: "settings-standard_view-nested" %> <%= gettext("nested view") %></label>
+    <label class="radio"><%= radio_button @fo, :standard_view, "_DEFAULT_", id: "settings-standard_view-default", checked: blank?(@settings.options["standard_view"]) %> <%= default_value(@conn, :standard_view) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-sort_threads-descending"><%= gettext("default sort order for threads") %></label>
+    <label class="radio"><%= radio_button @fo, :sort_threads, "descending", id: "settings-sort_threads-descending" %> <%= gettext("descending") %></label>
+    <label class="radio"><%= radio_button @fo, :sort_threads, "ascending", id: "settings-sort_threads-ascending" %> <%= gettext("ascending") %></label>
+    <label class="radio"><%= radio_button @fo, :sort_threads, "newest-first", id: "settings-sort_threads-newest-first" %> <%= gettext("newest first") %></label>
+    <label class="radio"><%= radio_button @fo, :sort_threads, "_DEFAULT_", checked: blank?(@settings.options["sort_threads"]), id: "settings-sort_threads-default" %> <%= default_value(@conn, :sort_threads) %></label>
+  </div>
+
+  <%= if blank?(assigns[:forum]) do %>
+    <div class="cf-cgroup">
+      <label for="settings-links_white_list"><%= gettext("white list for links") %></label>
+      <%= textarea @fo, :links_white_list, id: "settings-links_white_list" %>
+      <span class="help"><%= gettext("one pattern per line; links in postings to URLs macthing to one of these patterns don't get rel=nofollow set") %></span>
+      <label class="checkbox"><%= default_checkbox(@fo, @settings, :links_white_list) %> <%= default_value(@conn, :links_white_list) %></label>
+    </div>
+
+    <div class="cf-cgroup">
+      <label for="settings-max_image_filesize"><%= gettext("maximum filesize for images") %></label>
+      <%= number_input @fo, :max_image_filesize, id: "settings-max_image_filesize" %>
+      <label class="checkbox"><%= default_checkbox(@fo, @settings, :max_image_filesize) %> <%= default_value(@conn, :max_image_filesize) %></label>
+    </div>
+  <% end %>
+</fieldset>
+
+<fieldset id="pagination-settings">
+  <legend><%= gettext("pagination settings") %></legend>
+
+  <div class="cf-cgroup">
+    <label for="pagination-settings"><%= gettext("items per page") %></label>
+    <%= number_input @fo, :pagination, step: 1, minimum: 1, id: "pagination-settings" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :pagination) %> <%= default_value(@conn, :pagination) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="pagination-settings-users"><%= gettext("users per page") %></label>
+    <%= number_input @fo, :pagination_users, step: 1, minimum: 1, id: "pagination-settings-users" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :pagination_users) %> <%= default_value(@conn, :pagination_users) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="pagination-settings_search"><%= gettext("search results per page") %></label>
+    <%= number_input @fo, :pagination_search, step: 1, minimum: 1, id: "pagination-settings_search" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :pagination_search) %> <%= default_value(@conn, :pagination_search) %></label>
+  </div>
+</fieldset>
+
+<fieldset id="archiver-settings">
+  <legend><%= gettext("archiver settings") %></legend>
+
+  <div class="cf-cgroup">
+    <label for="settings-max_threads"><%= gettext("maximum number of threads") %></label>
+    <%= number_input @fo, :max_threads, step: 1, minimum: 1, id: "settings-max_threads" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :max_threads) %> <%= default_value(@conn, :max_threads) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-max_messages_per_thread"><%= gettext("maximum number of messages per thread") %></label>
+    <%= number_input @fo, :max_messages_per_thread, step: 1, minimum: 1, id: "settings-max_messages_per_thread" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :max_messages_per_thread) %> <%= default_value(@conn, :max_messages_per_thread) %></label>
+  </div>
+</fieldset>
+
+<fieldset id="editing-settings">
+  <legend><%= gettext("editing settings") %></legend>
+
+  <div class="cf-cgroup">
+    <label class="radio"><%= radio_button @fo, :editing_enabled, "yes" %> <%= gettext("users may edit their postings") %></label>
+    <label class="radio"><%= radio_button @fo, :editing_enabled, "no" %> <%= gettext("users may not edit their postings") %></label>
+    <label class="radio"><%= radio_button @fo, :editing_enabled, "_DEFAULT_", checked: blank?(@settings.options["editing_enabled"]) %> <%= default_value(@conn, :editing_enabled) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-max_editable_age"><%= gettext("maximum editable age of posting in minutes") %></label>
+    <%= number_input @fo, :max_editable_age, step: 1, minimum: 1, id: "settings-max_editable_age" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :max_editable_age) %> <%= default_value(@conn, :max_editable_age) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label class="radio"><%= radio_button @fo, :edit_until_has_answer, "yes" %> <%= gettext("postings are editable until the first answer has been written") %></label>
+    <label class="radio"><%= radio_button @fo, :edit_until_has_answer, "no" %> <%= gettext("postings are always editable") %></label>
+    <label class="radio"><%= radio_button @fo, :edit_until_has_answer, "_DEFAULT_", checked: blank?(@settings.options["edit_until_has_answer"]) %> <%= default_value(@conn, :edit_until_has_answer) %></label>
+  </div>
+</fieldset>
+
+<fieldset id="date-format-settings">
+  <legend><%= gettext("date format settings") %></legend>
+
+  <div class="cf-cgroup">
+    <label for="settings-date_format_index"><%= gettext("date format for the index and the thread tree") %></label>
+    <%= text_input @fo, :date_format_index, id: "settings-date_format_index" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :date_format_index) %> <%= default_value(@conn, :date_format_index) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-date_format_post"><%= gettext("date format for the postings") %></label>
+    <%= text_input @fo, :date_format_post, id: "settings-date_format_post" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :date_format_post) %> <%= default_value(@conn, :date_format_post) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-date_format_search"><%= gettext("date format for search results") %></label>
+    <%= text_input @fo, :date_format_search, id: "settings-date_format_search" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :date_format_search) %> <%= default_value(@conn, :date_format_search) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-date_format_default"><%= gettext("default date format") %></label>
+    <%= text_input @fo, :date_format_default, id: "settings-date_format_default" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :date_format_default) %> <%= default_value(@conn, :date_format_default) %></label>
+  </div>
+</fieldset>
+
+<fieldset id="voting-and-scoring-settings">
+  <legend><%= gettext("voting and scoring settings") %></legend>
+
+  <div class="cf-cgroup">
+    <label for="settings-vote_up_value"><%= gettext("upvote score") %></label>
+    <%= number_input @fo, :vote_up_value, minimum: 0, step: 1, id: "settings-vote_up_value" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :vote_up_value) %> <%= default_value(@conn, :vote_up_value) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-vote_down_value"><%= gettext("downvote score") %></label>
+    <%= number_input @fo, :vote_down_value, id: "settings-vote_down_value" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :vote_down_value) %> <%= default_value(@conn, :vote_down_value) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-accept_value"><%= gettext("accept score") %></label>
+    <%= number_input @fo, :accept_value, id: "settings-accept_value" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :accept_value) %> <%= default_value(@conn, :accept_value) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-accept_self_value"><%= gettext("accept score for self-accepted answers") %></label>
+    <%= number_input @fo, :accept_self_value, id: "settings-accept_self_value" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :accept_self_value) %> <%= default_value(@conn, :accept_self_value) %></label>
+  </div>
+</fieldset>
+
+<fieldset id="close-and-reopen-vote-settings">
+  <legend><%= gettext("close and reopen vote settings") %></legend>
+
+  <div class="cf-cgroup">
+    <label for="settings-close_vote_votes"><%= gettext("Number of votes necessary to close a vote") %></label>
+    <%= number_input @fo, :close_vote_votes, id: "settings-close_vote_votes" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :close_vote_votes) %> <%= default_value(@conn, :close_vote_votes) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-close_vote-off-topic"><%= gettext("result for off-topic posting close votes") %></label>
+    <label class="radio"><%= radio_button @fo, :"close_vote_action_off-topic", "close" %> <%= gettext("close subtree") %></label>
+    <label class="radio"><%= radio_button @fo, :"close_vote_action_off-topic", "hide" %> <%= gettext("hide („delete“) subtree") %></label>
+    <label class="radio"><%= radio_button @fo, :"close_vote_action_off-topic", "_DEFAULT_", checked: blank?(@settings.options["close_vote_action_off-topic"]) %> <%= default_value(@conn, :close_vote_votes) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-close_vote-not-constructive"><%= gettext("result for unconstructive posting close votes") %></label>
+    <label class="radio"><%= radio_button @fo, :"close_vote_action_not-constructive", "close" %> <%= gettext("close subtree") %></label>
+    <label class="radio"><%= radio_button @fo, :"close_vote_action_not-constructive", "hide" %> <%= gettext("hide („delete“) subtree") %></label>
+    <label class="radio"><%= radio_button @fo, :"close_vote_action_not-constructive", "_DEFAULT_", checked: blank?(@settings.options["close_vote_action_not-constructive"]) %> <%= default_value(@conn, :close_vote_votes) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-close_vote-illegal"><%= gettext("result for illegal posting close votes") %></label>
+    <label class="radio"><%= radio_button @fo, :close_vote_action_illegal, "close" %> <%= gettext("close subtree") %></label>
+    <label class="radio"><%= radio_button @fo, :close_vote_action_illegal, "hide" %> <%= gettext("hide („delete“) subtree") %></label>
+    <label class="radio"><%= radio_button @fo, :close_vote_action_illegal, "_DEFAULT_", checked: blank?(@settings.options["close_vote_action_illegal"]) %> <%= default_value(@conn, :close_vote_votes) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-close_vote-duplicate"><%= gettext("result for duplicate posting close votes") %></label>
+    <label class="radio"><%= radio_button @fo, :close_vote_action_duplicate, "close" %> <%= gettext("close subtree") %></label>
+    <label class="radio"><%= radio_button @fo, :close_vote_action_duplicate, "hide" %> <%= gettext("hide („delete“) subtree") %></label>
+    <label class="radio"><%= radio_button @fo, :close_vote_action_duplicate, "_DEFAULT_", checked: blank?(@settings.options["close_vote_action_duplicate"]) %> <%= default_value(@conn, :close_vote_votes) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-close_vote-custom"><%= gettext("result for custom close votes") %></label>
+    <label class="radio"><%= radio_button @fo, :close_vote_action_custom, "close" %> <%= gettext("close subtree") %></label>
+    <label class="radio"><%= radio_button @fo, :close_vote_action_custom, "hide" %> <%= gettext("hide („delete“) subtree") %></label>
+    <label class="radio"><%= radio_button @fo, :close_vote_action_custom, "_DEFAULT_", checked: blank?(@settings.options["close_vote_action_custom"]) %> <%= default_value(@conn, :close_vote_votes) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-close_vote-spam"><%= gettext("result for spam close votes") %></label>
+    <label class="radio"><%= radio_button @fo, :close_vote_action_spam, "close" %> <%= gettext("close subtree") %></label>
+    <label class="radio"><%= radio_button @fo, :close_vote_action_spam, "hide" %> <%= gettext("hide („delete“) subtree") %></label>
+    <label class="radio"><%= radio_button @fo, :close_vote_action_spam, "_DEFAULT_", checked: blank?(@settings.options["close_vote_action_spam"]) %> <%= default_value(@conn, :close_vote_votes) %></label>
+  </div>
+</fieldset>
+
+<fieldset id="anti-spam-settings">
+  <legend><%= gettext("anti spam settings") %></legend>
+
+  <div class="cf-cgroup">
+    <label for="settings-subject_black_list"><%= gettext("blacklist patterns for posting subjects") %></label>
+    <%= textarea @fo, :subject_black_list, id: "settings-subject_black_list" %>
+    <span class="help"><%= gettext("one pattern per line") %></span>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :subject_black_list) %> <%= default_value(@conn, :subject_black_list) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-content_black_list"><%= gettext("blacklist patterns for posting content") %></label>
+    <%= textarea @fo, :content_black_list, id: "settings-content_black_list" %>
+    <span class="help"><%= gettext("one pattern per line") %></span>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :content_black_list) %> <%= default_value(@conn, :content_black_list) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-nick_black_list"><%= gettext("nickname black list") %></label>
+    <%= textarea @fo, :nick_black_list, id: "settings-nick_black_list" %>
+    <span class="help"><%= gettext("one pattern per line") %></span>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :nick_black_list) %> <%= default_value(@conn, :nick_black_list) %></label>
+  </div>
+</fieldset>

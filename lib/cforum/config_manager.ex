@@ -39,7 +39,6 @@ defmodule Cforum.ConfigManager do
     "accept_self_value" => 15,
     "vote_down_value" => -1,
     "vote_up_value" => 10,
-    "vote_up_value_user" => 10,
     "date_format_index" => "%d.%m.%Y %H:%M",
     "date_format_index_sameday" => "%H:%M",
     "date_format_post" => "%d.%m.%Y %H:%M",
