@@ -1,3 +1,32 @@
+<nav class="cf-tab-list">
+  <ul>
+    <li><a href="#forum-settings"><%= gettext("forum settings") %></a></li>
+    <li><a href="#general-settings"><%= gettext("general settings") %></a></li>
+    <li><a href="#pagination-settings"><%= gettext("pagination settings") %></a></li>
+    <li><a href="#archiver-settings"><%= gettext("archiver settings") %></a></li>
+    <li><a href="#editing-settings"><%= gettext("editing settings") %></a></li>
+    <li><a href="#date-format-settings"><%= gettext("date format settings") %></a></li>
+    <li><a href="#voting-and-scoring-settings"><%= gettext("voting and scoring settings") %></a></li>
+    <li><a href="#close-and-reopen-vote-settings"><%= gettext("close and reopen vote settings") %></a></li>
+    <li><a href="#anti-spam-settings"><%= gettext("anti spam settings") %></a></li>
+  </ul>
+</nav>
+
+<template id="tablist">
+  <div role="tablist" class="cf-tab-list">
+    <button role="tab" id="forum-settings-tab" aria-controls="forum-settings" aria-selected="false" tabindex="-1"><%= gettext("forum settings") %></button>
+    <button role="tab" id="general-setting-tab" aria-controls="general-settings" aria-selected="false" tabindex="-1"><%= gettext("general settings") %></button>
+    <button role="tab" id="pagination-settings-tab" aria-controls="pagination-settings" aria-selected="false" tabindex="-1"><%= gettext("pagination settings") %></button>
+    <button role="tab" id="archiver-settings-tab" aria-controls="archiver-settings" aria-selected="false" tabindex="-1"><%= gettext("archiver settings") %></button>
+    <button role="tab" id="editing-settings-tab" aria-controls="editing-settings" aria-selected="false" tabindex="-1"><%= gettext("editing settings") %></button>
+    <button role="tab" id="date-format-settings-tab" aria-controls="date-format-settings" aria-selected="false" tabindex="-1"><%= gettext("date format settings") %></button>
+    <button role="tab" id="voting-and-scoring-settings-tab" aria-controls="voting-and-scoring-settings" aria-selected="false" tabindex="-1"><%= gettext("voting and scoring settings") %></button>
+    <button role="tab" id="close-and-reopen-vote-settings-tab" aria-controls="close-and-reopen-vote-settings" aria-selected="false" tabindex="-1"><%= gettext("close and reopen vote settings") %></button>
+    <button role="tab" id="anti-spam-settings-tab" aria-controls="anti-spam-settings" aria-selected="false" tabindex="-1"><%= gettext("anti spam settings") %></button>
+  </div>
+</template>
+
+
 <%= if @changeset.action do %>
   <div class="alert alert-danger">
     <p><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
@@ -5,62 +34,72 @@
 <% end %>
 
 
-<div class="cf-cgroup">
-  <%= label @f, :name do %>
-    <%= gettext("name") %>
-    <%= error_tag @f, :name %>
-  <% end %>
-  <%= text_input @f, :name %>
-</div>
+<fieldset id="forum-settings">
+  <legend><%= gettext("forum settings") %></legend>
 
-<div class="cf-cgroup">
-  <%= label @f, :short_name do %>
-    <%= gettext("short name") %>
-    <%= error_tag @f, :short_name %>
-  <% end %>
-  <%= text_input @f, :short_name %>
-</div>
+  <div class="cf-cgroup">
+    <%= label @f, :name do %>
+      <%= gettext("name") %>
+      <%= error_tag @f, :name %>
+    <% end %>
+    <%= text_input @f, :name %>
+  </div>
 
-<div class="cf-cgroup">
-  <%= label @f, :slug do %>
-    <%= gettext("slug") %>
-    <%= error_tag @f, :slug %>
-  <% end %>
-  <%= text_input @f, :slug %>
-</div>
+  <div class="cf-cgroup">
+    <%= label @f, :short_name do %>
+      <%= gettext("short name") %>
+      <%= error_tag @f, :short_name %>
+    <% end %>
+    <%= text_input @f, :short_name %>
+  </div>
 
-<div class="cf-cgroup">
-  <%= label @f, :standard_permission do %>
-    <%= gettext("standard permission") %>
-    <%= error_tag @f, :standard_permission %>
-  <% end %>
-  <%= select(@f, :standard_permission, [{gettext("private"), "private"},
-                                        {gettext("read"), Cforum.Forums.Forum.read()},
-                                        {gettext("write"), Cforum.Forums.Forum.write()},
-                                        {gettext("known-read"), Cforum.Forums.Forum.known_read()},
-                                        {gettext("known-write"), Cforum.Forums.Forum.known_write()}]) %>
-</div>
+  <div class="cf-cgroup">
+    <%= label @f, :slug do %>
+      <%= gettext("slug") %>
+      <%= error_tag @f, :slug %>
+    <% end %>
+    <%= text_input @f, :slug %>
+  </div>
 
-<div class="cf-cgroup">
-  <%= label @f, :keywords do %>
-    <%= gettext("keywords") %>
-    <%= error_tag @f, :keywords %>
-  <% end %>
-  <%= text_input @f, :keywords %>
-</div>
+  <div class="cf-cgroup">
+    <%= label @f, :standard_permission do %>
+      <%= gettext("standard permission") %>
+      <%= error_tag @f, :standard_permission %>
+    <% end %>
+    <%= select(@f, :standard_permission, [{gettext("private"), "private"},
+      {gettext("read"), Cforum.Forums.Forum.read()},
+      {gettext("write"), Cforum.Forums.Forum.write()},
+      {gettext("known-read"), Cforum.Forums.Forum.known_read()},
+      {gettext("known-write"), Cforum.Forums.Forum.known_write()}]) %>
+  </div>
 
-<div class="cf-cgroup">
-  <%= label @f, :position do %>
-    <%= gettext("position") %>
-    <%= error_tag @f, :position %>
-  <% end %>
-  <%= number_input @f, :position %>
-</div>
+  <div class="cf-cgroup">
+    <%= label @f, :keywords do %>
+      <%= gettext("keywords") %>
+      <%= error_tag @f, :keywords %>
+    <% end %>
+    <%= text_input @f, :keywords %>
+  </div>
 
-<div class="cf-cgroup">
-  <%= label @f, :description do %>
-    <%= gettext("description") %>
-    <%= error_tag @f, :description %>
+  <div class="cf-cgroup">
+    <%= label @f, :position do %>
+      <%= gettext("position") %>
+      <%= error_tag @f, :position %>
+    <% end %>
+    <%= number_input @f, :position %>
+  </div>
+
+  <div class="cf-cgroup">
+    <%= label @f, :description do %>
+      <%= gettext("description") %>
+      <%= error_tag @f, :description %>
+    <% end %>
+    <%= textarea @f, :description %>
+  </div>
+</fieldset>
+
+<%= inputs_for @f, :setting, fn(fs) -> %>
+  <%= sub_inputs fs, :options, fn(fo) -> %>
+    <%= render CforumWeb.Admin.SettingView, "settings.html", Map.merge(assigns, %{fo: fo, settings: @forum.setting}) %>
   <% end %>
-  <%= textarea @f, :description %>
-</div>
+<% end %>
