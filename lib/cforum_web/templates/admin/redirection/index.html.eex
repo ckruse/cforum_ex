@@ -1,0 +1,31 @@
+<table class="cf-default-table">
+  <thead>
+    <tr>
+      <th><%= sortable(@conn, gettext("id"), :redirection_id, &admin_redirection_path/3) %></th>
+      <th><%= gettext("HTTP status code") %></th>
+      <th><%= sortable(@conn, gettext("path"), :path, &admin_redirection_path/3) %></th>
+      <th><%= sortable(@conn, gettext("destination"), :destination, &admin_redirection_path/3) %></th>
+      <th><%= gettext("comment") %></th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for redirection <- @redirections do %>
+      <tr>
+        <td><%= redirection.redirection_id %></td>
+        <td><%= redirection.http_status %></td>
+        <td><%= redirection.path %></td>
+        <td><%= redirection.destination %></td>
+        <td><%= redirection.comment %></td>
+
+        <td class="actions-column">
+          <%= default_index_link(gettext("edit"), to: admin_redirection_path(@conn, :edit, redirection)) %>
+          <%= destructive_index_button(gettext("delete"), to: admin_redirection_path(@conn, :delete, redirection), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= pagination @conn, @paging, &admin_redirection_path/3 %>

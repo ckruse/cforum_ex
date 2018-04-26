@@ -16,4 +16,6 @@ defmodule Cforum.Factory do
   use Cforum.MessageFactory
 
   use Cforum.CiteFactory
+
+  use Cforum.RedirectionFactory
 end

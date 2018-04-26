@@ -9,5 +9,5 @@
   <li><%= link gettext("images"), to: "" %></li>
   <li><%= link gettext("audit log"), to: "" %></li>
   <li><%= link gettext("background tasks"), to: "" %></li>
-  <li><%= link gettext("redirects"), to: "" %></li>
+  <li><%= link gettext("redirections"), to: admin_redirection_path(@conn, :index) %></li>
 </ul>

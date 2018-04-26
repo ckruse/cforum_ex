@@ -1,0 +1,34 @@
+<%= form_for @changeset, @action, [class: "cf-form"], fn f -> %>
+  <%= if @changeset.action do %>
+    <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
+  <% end %>
+
+  <div class="cf-cgroup <%= error_class(f, :http_status) %>">
+    <%= label f, :http_status, gettext("HTTP status code") %>
+    <%= number_input f, :http_status %>
+    <%= error_tag f, :http_status %>
+  </div>
+
+  <div class="cf-cgroup <%= error_class(f, :path) %>">
+    <%= label f, :path, gettext("path") %>
+    <%= text_input f, :path %>
+    <%= error_tag f, :path %>
+  </div>
+
+  <div class="cf-cgroup <%= error_class(f, :destination) %>">
+    <%= label f, :destination, gettext("destination") %>
+    <%= text_input f, :destination %>
+    <%= error_tag f, :destination %>
+  </div>
+
+  <div class="cf-cgroup <%= error_class(f, :comment) %>">
+    <%= label f, :comment, gettext("comment") %>
+    <%= textarea f, :comment %>
+    <%= error_tag f, :comment %>
+  </div>
+
+  <p class="form-actions">
+    <%= primary_submit gettext("save") %>
+    <%= default_button_link gettext("cancel"), to: @back %>
+  </p>
+<% end %>
