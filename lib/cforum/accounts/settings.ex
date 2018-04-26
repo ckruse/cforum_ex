@@ -68,6 +68,25 @@ defmodule Cforum.Accounts.Settings do
   end
 
   @doc """
+  Gets the global setting object.
+
+  Returns `nil` if there is no global settings object.
+
+  ## Examples
+
+  iex> get_global_setting()
+  %Setting{}
+
+  """
+  def get_global_setting() do
+    from(
+      setting in Setting,
+      where: is_nil(setting.forum_id) and is_nil(setting.user_id)
+    )
+    |> Repo.one()
+  end
+
+  @doc """
   Creates a setting.
 
   ## Examples
