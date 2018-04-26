@@ -4,7 +4,7 @@
   <li><%= link gettext("forums"), to: admin_forum_path(@conn, :index) %></li>
   <li><%= link gettext("events"), to: "" %></li>
   <li><%= link gettext("groups"), to: admin_group_path(@conn, :index) %></li>
-  <li><%= link gettext("badges"), to: "" %></li>
+  <li><%= link gettext("badges"), to: admin_badge_path(@conn, :index) %></li>
   <li><%= link gettext("search sections"), to: "" %></li>
   <li><%= link gettext("images"), to: "" %></li>
   <li><%= link gettext("audit log"), to: "" %></li>

@@ -1,0 +1,28 @@
+<table class="cf-default-table">
+  <thead>
+    <tr>
+      <th><%= gettext("name") %></th>
+      <th><%= gettext("score needed") %></th>
+      <th><%= gettext("badge type") %></th>
+      <th><%= gettext("medal type") %></th>
+
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= for badge <- @badges do %>
+      <tr>
+        <td><%= badge.name %></td>
+        <td><%= badge.score_needed %></td>
+        <td><%= l10n_badge_type(badge.badge_type) %></td>
+        <td><%= l10n_medal_type(badge.badge_medal_type) %></td>
+
+        <td class="actions-column">
+          <%= default_index_link(gettext("edit"), to: admin_badge_path(@conn, :edit, badge)) %>
+          <%= destructive_index_button(gettext("delete"), to: admin_badge_path(@conn, :delete, badge), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

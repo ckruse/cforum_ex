@@ -134,6 +134,19 @@ defmodule CforumWeb.Views.Helpers do
   def l10n_medal_type("gold"), do: gettext("gold medal")
   def l10n_medal_type(v), do: raise(inspect(v))
 
+  def l10n_badge_type("upvote"), do: gettext("upvote")
+  def l10n_badge_type("downvote"), do: gettext("downvote")
+  def l10n_badge_type("retag"), do: gettext("retag")
+  def l10n_badge_type("visit_close_reopen"), do: gettext("visit close and reopen votes")
+  def l10n_badge_type("create_tag"), do: gettext("create tags")
+  def l10n_badge_type("create_tag_synonym"), do: gettext("create tag synonyms")
+  def l10n_badge_type("edit_question"), do: gettext("edit questions")
+  def l10n_badge_type("edit_answer"), do: gettext("edit answers")
+  def l10n_badge_type("create_close_reopen_vote"), do: gettext("create close and reopen votes")
+  def l10n_badge_type("moderator_tools"), do: gettext("moderator tools")
+  def l10n_badge_type("seo_profi"), do: gettext("seo profi")
+  def l10n_badge_type("custom"), do: gettext("custom")
+
   def user_link(conn, user, additional_classes \\ [], username \\ "") do
     user_name = if Cforum.Helpers.blank?(username), do: "", else: " #{username}"
 

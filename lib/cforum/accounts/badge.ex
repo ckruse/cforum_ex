@@ -10,9 +10,6 @@ defmodule Cforum.Accounts.Badge do
   @downvote "downvote"
   def downvote, do: @downvote
 
-  @flag "flag"
-  def flag, do: @flag
-
   @retag "retag"
   def retag, do: @retag
 
@@ -43,7 +40,6 @@ defmodule Cforum.Accounts.Badge do
   @badge_types [
     @upvote,
     @downvote,
-    @flag,
     @retag,
     @visit_close_reopen,
     @create_tags,
@@ -55,8 +51,10 @@ defmodule Cforum.Accounts.Badge do
     @seo_profi,
     "custom"
   ]
+  def badge_types(), do: @badge_types
 
   @badge_medal_types ~w[bronze silver gold]
+  def badge_medal_types(), do: @badge_medal_types
 
   schema "badges" do
     field(:score_needed, :integer)
@@ -80,16 +78,9 @@ defmodule Cforum.Accounts.Badge do
     struct
     |> cast(params, [:score_needed, :name, :description, :slug, :badge_medal_type, :badge_type, :order])
     |> validate_required([:name, :slug, :badge_medal_type, :badge_type, :order])
-    |> unique_constraint(:slug)
+    |> unique_constraint(:slug, name: :badges_slug_key)
+    |> unique_constraint(:badge_type, name: :badges_badge_type_idx)
     |> validate_inclusion(:badge_type, @badge_types)
     |> validate_inclusion(:badge_medal_type, @badge_medal_types)
-    |> maybe_unique_badge_medal_type
-  end
-
-  defp maybe_unique_badge_medal_type(changeset) do
-    case get_field(changeset, :badge_type) do
-      "custom" -> changeset
-      _ -> unique_constraint(changeset, :badge_medal_type)
-    end
   end
 end
