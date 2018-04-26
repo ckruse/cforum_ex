@@ -42,12 +42,12 @@ defmodule CforumWeb.Users.PasswordControllerTest do
     assert html_response(conn, 200) =~ gettext("change password")
   end
 
-  test "redirects for anonymous users", %{conn: conn} do
+  test "shows 403 for anonymous users", %{conn: conn} do
     user = insert(:user)
     conn = get(conn, user_password_path(conn, :edit, user))
 
-    assert redirected_to(conn, 403) == session_path(conn, :new)
-    assert get_flash(conn, :error) == gettext("You don't have access to this page!")
+    assert response(conn, 403)
+    assert get_flash(conn, :error) == gettext("You have to be logged in to see this page!")
   end
 
   test "changes password", %{conn: conn} do
