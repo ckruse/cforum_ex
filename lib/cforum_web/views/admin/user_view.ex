@@ -13,11 +13,11 @@ defmodule CforumWeb.Admin.UserView do
   def body_id(:edit), do: "admin-users-edit"
   def body_id(:update), do: "admin-users-update"
 
-  def body_classes(:index, _), do: "admin groups index"
-  def body_classes(:new, _), do: "admin groups new"
-  def body_classes(:create, _), do: "admin groups create"
-  def body_classes(:edit, _), do: "admin groups edit"
-  def body_classes(:update, _), do: "admin groups update"
+  def body_classes(:index, _), do: "admin users index"
+  def body_classes(:new, _), do: "admin users new"
+  def body_classes(:create, _), do: "admin users create"
+  def body_classes(:edit, _), do: "admin users edit"
+  def body_classes(:update, _), do: "admin users update"
 
   def page_heading(action, assigns), do: page_title(action, assigns)
 end
