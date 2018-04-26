@@ -12,7 +12,6 @@ defmodule CforumWeb.Plug.AuthorizeAccess do
       # Authorize acess only for some actions:
       plug AuthorizeAccess, only: [:new, :create]
   """
-  import CforumWeb.Router.Helpers
   import CforumWeb.Gettext
   alias Cforum.Abilities
 
@@ -27,11 +26,19 @@ defmodule CforumWeb.Plug.AuthorizeAccess do
     else
       if Mix.env() == :dev, do: raise("Authorization required")
 
-      conn
-      |> Phoenix.Controller.put_flash(:error, gettext("You don't have access to this page!"))
-      |> Plug.Conn.put_status(403)
-      |> Phoenix.Controller.redirect(to: session_path(conn, :new))
-      |> Plug.Conn.halt()
+      if conn.assigns[:current_user] do
+        conn
+        |> Plug.Conn.put_status(403)
+        |> Phoenix.Controller.put_flash(:error, gettext("You don't have access to this page!"))
+        |> Phoenix.Controller.render(CforumWeb.ErrorView, "403.html")
+        |> Plug.Conn.halt()
+      else
+        conn
+        |> Plug.Conn.put_status(403)
+        |> Phoenix.Controller.put_flash(:error, gettext("You have to be logged in to see this page!"))
+        |> Phoenix.Controller.render(CforumWeb.ErrorView, "403.html")
+        |> Plug.Conn.halt()
+      end
     end
   end
 end

@@ -6,14 +6,15 @@ defmodule CforumWeb.Users.RegistrationControllerTest do
     assert html_response(conn, 200) =~ gettext("Login")
   end
 
-  test "redirects for already logged-in users", %{conn: conn} do
+  test "shows a 403 for already logged-in users", %{conn: conn} do
     user = insert(:user)
 
     conn =
       login(conn, user)
       |> get(registration_path(conn, :new))
 
-    assert redirected_to(conn) == root_path(conn, :index)
+    assert response(conn, 403)
+    assert get_flash(conn, :error) == gettext("You don't have access to this page!")
   end
 
   test "registers a new user", %{conn: conn} do
@@ -41,8 +42,8 @@ defmodule CforumWeb.Users.RegistrationControllerTest do
         user: %{username: "foobar", email: "foo@example.org", password: "1234", password_confirmation: "1234"}
       )
 
-    assert redirected_to(conn) == root_path(conn, :index)
-    assert get_flash(conn, :error) == gettext("You are already logged in")
+    assert response(conn, 403)
+    assert get_flash(conn, :error) == gettext("You don't have access to this page!")
   end
 
   test "confirms a new user", %{conn: conn} do

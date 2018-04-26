@@ -6,14 +6,14 @@ defmodule CforumWeb.Users.SessionControllerTest do
     assert html_response(conn, 200) =~ gettext("Login")
   end
 
-  test "redirects for already logged-in users", %{conn: conn} do
+  test "sends 403 for already logged-in users", %{conn: conn} do
     user = insert(:user)
 
     conn =
       login(conn, user)
       |> get(session_path(conn, :new))
 
-    assert redirected_to(conn) == root_path(conn, :index)
+    assert response(conn, 403)
   end
 
   test "logs in successfully with right password", %{conn: conn} do
@@ -41,7 +41,7 @@ defmodule CforumWeb.Users.SessionControllerTest do
     assert get_flash(conn, :error) == gettext("Username or password wrong")
   end
 
-  test "redirects on delete for already logged in users", %{conn: conn} do
+  test "shows 403 on create for already logged in users", %{conn: conn} do
     user =
       build(:user)
       |> with_password("1234")
@@ -51,8 +51,8 @@ defmodule CforumWeb.Users.SessionControllerTest do
       login(conn, user)
       |> post(session_path(conn, :create, user: %{login: user.username, password: "12345", remember_me: "true"}))
 
-    assert redirected_to(conn) == root_path(conn, :index)
-    assert get_flash(conn, :error) == gettext("You are already logged in")
+    assert response(conn, 403)
+    assert get_flash(conn, :error) == gettext("You don't have access to this page!")
   end
 
   test "logs out the user", %{conn: conn} do
@@ -84,10 +84,10 @@ defmodule CforumWeb.Users.SessionControllerTest do
     assert conn.cookies["remember_me"] == nil
   end
 
-  test "redirects to new session path when not logged in", %{conn: conn} do
+  test "shows 403 path when not logged in", %{conn: conn} do
     conn = delete(conn, session_path(conn, :delete))
 
-    assert redirected_to(conn, 403) == session_path(conn, :new)
+    assert response(conn, 403)
     assert get_flash(conn, :error) == gettext("You have to be logged in to see this page!")
   end
 end
