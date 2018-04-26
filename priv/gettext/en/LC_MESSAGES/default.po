@@ -238,6 +238,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/badge/form.html.eex:3
 #: lib/cforum_web/templates/admin/forum/form.html.eex:32
 #: lib/cforum_web/templates/admin/group/form.html.eex:3
+#: lib/cforum_web/templates/admin/redirection/form.html.eex:3
 #: lib/cforum_web/templates/admin/user/form.html.eex:3
 #: lib/cforum_web/templates/cite/form.html.eex:2
 #: lib/cforum_web/templates/mail/new.html.eex:2
@@ -529,6 +530,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/forum/edit.html.eex:6
 #: lib/cforum_web/templates/admin/forum/new.html.eex:6
 #: lib/cforum_web/templates/admin/group/form.html.eex:34
+#: lib/cforum_web/templates/admin/redirection/form.html.eex:32
 #: lib/cforum_web/templates/admin/setting/edit.html.eex:35
 #: lib/cforum_web/templates/admin/user/form.html.eex:39
 #: lib/cforum_web/templates/cite/edit.html.eex:6
@@ -688,6 +690,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/badge/index.html.eex:23
 #: lib/cforum_web/templates/admin/forum/index.html.eex:26
 #: lib/cforum_web/templates/admin/group/index.html.eex:23
+#: lib/cforum_web/templates/admin/redirection/index.html.eex:24
 #: lib/cforum_web/templates/admin/user/index.html.eex:22
 #: lib/cforum_web/templates/notification/index.html.eex:27
 #: lib/cforum_web/views/helpers/button.ex:94
@@ -822,6 +825,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/badge/index.html.eex:23
 #: lib/cforum_web/templates/admin/forum/index.html.eex:26
 #: lib/cforum_web/templates/admin/group/index.html.eex:23
+#: lib/cforum_web/templates/admin/redirection/index.html.eex:24
 #: lib/cforum_web/templates/admin/user/index.html.eex:22
 #: lib/cforum_web/templates/mail/index.html.eex:30
 #: lib/cforum_web/templates/notification/index.html.eex:27
@@ -835,6 +839,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/badge/index.html.eex:22
 #: lib/cforum_web/templates/admin/forum/index.html.eex:25
 #: lib/cforum_web/templates/admin/group/index.html.eex:22
+#: lib/cforum_web/templates/admin/redirection/index.html.eex:23
 #: lib/cforum_web/templates/admin/user/index.html.eex:21
 msgid "edit"
 msgstr ""
@@ -1810,13 +1815,9 @@ msgid "new group"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/subnav.html.eex:12
-msgid "redirects"
-msgstr ""
-
-#, elixir-format
 #: lib/cforum_web/templates/admin/badge/form.html.eex:49
 #: lib/cforum_web/templates/admin/group/form.html.eex:33
+#: lib/cforum_web/templates/admin/redirection/form.html.eex:31
 #: lib/cforum_web/templates/admin/user/form.html.eex:38
 msgid "save"
 msgstr ""
@@ -2395,4 +2396,69 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/admin/badge/form.html.eex:19
 msgid "order"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/redirection/form.html.eex:7
+#: lib/cforum_web/templates/admin/redirection/index.html.eex:5
+msgid "HTTP status code"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/controllers/admin/redirection_controller.ex:24
+msgid "Redirection created successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/controllers/admin/redirection_controller.ex:57
+msgid "Redirection deleted successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/controllers/admin/redirection_controller.ex:44
+msgid "Redirection updated successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/admin/redirection_view.ex:4
+msgid "administrate redirections"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/redirection/form.html.eex:25
+#: lib/cforum_web/templates/admin/redirection/index.html.eex:8
+msgid "comment"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/redirection/form.html.eex:19
+#: lib/cforum_web/templates/admin/redirection/index.html.eex:7
+msgid "destination"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/admin/redirection_view.ex:6
+msgid "edit redirection"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/redirection/subnav.html.eex:4
+#: lib/cforum_web/views/admin/redirection_view.ex:5
+msgid "new redirection"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/redirection/form.html.eex:13
+#: lib/cforum_web/templates/admin/redirection/index.html.eex:6
+msgid "path"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/subnav.html.eex:12
+msgid "redirections"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/redirection/index.html.eex:4
+msgid "id"
 msgstr ""
