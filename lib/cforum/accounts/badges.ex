@@ -18,7 +18,8 @@ defmodule Cforum.Accounts.Badges do
 
   """
   def list_badges do
-    Repo.all(Badge)
+    from(badge in Badge, order_by: [asc: :order])
+    |> Repo.all()
   end
 
   @doc """

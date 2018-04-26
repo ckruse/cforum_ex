@@ -1,0 +1,5 @@
+<%= render CforumWeb.AdminView, "subnav.html", assigns %>
+
+<ul>
+  <li><%= link gettext("new badge"), to: admin_badge_path(@conn, :new) %></li>
+</ul>
