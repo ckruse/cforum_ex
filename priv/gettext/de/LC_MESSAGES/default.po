@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2018-04-25 15:29+0200\n"
+"PO-Revision-Date: 2018-04-26 10:27+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "nicht angemeldet"
 msgid "You have to be logged in and an admin to see this page!"
 msgstr "Sie müssen sich einloggen und über Administrator-Rechte verfügen, um diese Seite sehen zu dürfen!"
 
-#: lib/cforum_web/error_handler.ex:9
+#: lib/cforum_web/error_handler.ex:9 lib/cforum_web/plug/authorize_access.ex:38
 msgid "You have to be logged in to see this page!"
 msgstr "Sie müssen sich einloggen, um diese Seite sehen zu dürfen!"
 
@@ -45,7 +45,7 @@ msgid "Username or password wrong"
 msgstr "Benutzername oder Passwort sind falsch."
 
 #: lib/cforum_web/error_handler.ex:25 lib/cforum_web/error_handler.ex:33
-#: lib/cforum_web/plug/authorize_access.ex:31
+#: lib/cforum_web/plug/authorize_access.ex:32
 msgid "You don't have access to this page!"
 msgstr "Sie haben keinen Zugriff auf diese Seite!"
 
@@ -248,6 +248,7 @@ msgstr "Benachrichtigungen"
 msgid "settings"
 msgstr "Einstellungen"
 
+#: lib/cforum_web/templates/admin/badge/form.html.eex:3
 #: lib/cforum_web/templates/admin/forum/form.html.eex:32
 #: lib/cforum_web/templates/admin/group/form.html.eex:3
 #: lib/cforum_web/templates/admin/user/form.html.eex:3
@@ -540,6 +541,7 @@ msgstr "Änderungen speichern"
 msgid "avatar"
 msgstr "Avatar"
 
+#: lib/cforum_web/templates/admin/badge/form.html.eex:50
 #: lib/cforum_web/templates/admin/forum/edit.html.eex:6
 #: lib/cforum_web/templates/admin/forum/new.html.eex:6
 #: lib/cforum_web/templates/admin/group/form.html.eex:34
@@ -571,6 +573,7 @@ msgstr "Hallo {$vname}"
 msgid "comfort functions"
 msgstr "Komfort-Funktionen"
 
+#: lib/cforum_web/templates/admin/badge/form.html.eex:43
 #: lib/cforum_web/templates/admin/forum/form.html.eex:94
 #: lib/cforum_web/templates/admin/forum/index.html.eex:6
 #: lib/cforum_web/templates/users/user/personal_information.html.eex:37
@@ -698,6 +701,7 @@ msgstr "benachrichtige mich über neue Threads"
 msgid "yes, notify me"
 msgstr "ja, benachrichtige mich"
 
+#: lib/cforum_web/templates/admin/badge/index.html.eex:23
 #: lib/cforum_web/templates/admin/forum/index.html.eex:26
 #: lib/cforum_web/templates/admin/group/index.html.eex:23
 #: lib/cforum_web/templates/admin/user/index.html.eex:22
@@ -719,15 +723,15 @@ msgstr "Sind Sie sicher?"
 msgid "Edit Forum „%{forum}“"
 msgstr "Forum „%{forum}“ bearbeiten"
 
-#: lib/cforum_web/controllers/admin/forum_controller.ex:21
+#: lib/cforum_web/controllers/admin/forum_controller.ex:22
 msgid "Forum created successfully."
 msgstr "Forum erfolgreich erstellt."
 
-#: lib/cforum_web/controllers/admin/forum_controller.ex:54
+#: lib/cforum_web/controllers/admin/forum_controller.ex:55
 msgid "Forum deleted successfully."
 msgstr "Forum erfolgreich gelöscht."
 
-#: lib/cforum_web/controllers/admin/forum_controller.ex:41
+#: lib/cforum_web/controllers/admin/forum_controller.ex:42
 msgid "Forum updated successfully."
 msgstr "Forum erfolgreich geändert."
 
@@ -831,6 +835,7 @@ msgstr "Passwort ändern: %{username}"
 msgid "created at"
 msgstr "Erstellungszeitpunkt"
 
+#: lib/cforum_web/templates/admin/badge/index.html.eex:23
 #: lib/cforum_web/templates/admin/forum/index.html.eex:26
 #: lib/cforum_web/templates/admin/group/index.html.eex:23
 #: lib/cforum_web/templates/admin/user/index.html.eex:22
@@ -843,6 +848,7 @@ msgstr "löschen"
 msgid "delete user"
 msgstr "Benutzer löschen"
 
+#: lib/cforum_web/templates/admin/badge/index.html.eex:22
 #: lib/cforum_web/templates/admin/forum/index.html.eex:25
 #: lib/cforum_web/templates/admin/group/index.html.eex:22
 #: lib/cforum_web/templates/admin/user/index.html.eex:21
@@ -1313,7 +1319,7 @@ msgid "voluntary, will be publicly visible"
 msgstr "freiwillig, öffentlich sichtbar"
 
 #: lib/cforum_web/templates/forum/message_header.html.eex:4
-#: lib/cforum_web/views/helpers.ex:150
+#: lib/cforum_web/views/helpers.ex:163
 msgid "link to profile of"
 msgstr "Link zum Profil von"
 
@@ -1323,7 +1329,7 @@ msgid "search"
 msgstr "suchen"
 
 #: lib/cforum_web/templates/forum/message_header.html.eex:6
-#: lib/cforum_web/views/helpers.ex:142 lib/cforum_web/views/helpers.ex:155
+#: lib/cforum_web/views/helpers.ex:155 lib/cforum_web/views/helpers.ex:168
 msgid "user %{user}"
 msgstr "Benutzer %{user}"
 
@@ -1651,6 +1657,8 @@ msgid "message content"
 msgstr "Beitragstext"
 
 #, elixir-format
+#: lib/cforum_web/templates/admin/badge/form.html.eex:7
+#: lib/cforum_web/templates/admin/badge/index.html.eex:4
 #: lib/cforum_web/templates/admin/forum/form.html.eex:42
 #: lib/cforum_web/templates/admin/forum/index.html.eex:4
 #: lib/cforum_web/templates/admin/group/form.html.eex:7
@@ -1670,6 +1678,7 @@ msgid "short name"
 msgstr "Kurzname"
 
 #, elixir-format
+#: lib/cforum_web/templates/admin/badge/form.html.eex:13
 #: lib/cforum_web/templates/admin/forum/form.html.eex:58
 msgid "slug"
 msgstr "Slug"
@@ -1805,7 +1814,7 @@ msgstr "Gruppen-Name"
 #, elixir-format
 #: lib/cforum_web/templates/admin/subnav.html.eex:9
 msgid "images"
-msgstr "Seitenauswahl"
+msgstr "Bilder"
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/group/index.html.eex:5
@@ -1824,6 +1833,7 @@ msgid "redirects"
 msgstr "Weiterleitungen"
 
 #, elixir-format
+#: lib/cforum_web/templates/admin/badge/form.html.eex:49
 #: lib/cforum_web/templates/admin/group/form.html.eex:33
 #: lib/cforum_web/templates/admin/user/form.html.eex:38
 msgid "save"
@@ -2284,9 +2294,123 @@ msgstr "Bewertungen und Punkte"
 msgid "Settings updated successfully."
 msgstr "Einstellungen erfolgreich gespeichert."
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:3
 #: lib/cforum_web/templates/admin/forum/form.html.eex:17
 #: lib/cforum_web/templates/admin/forum/form.html.eex:38
 msgid "forum settings"
 msgstr "Foren-Einstellungen"
+
+#, elixir-format
+#: lib/cforum_web/controllers/admin/badge_controller.ex:20
+msgid "Badge created successfully."
+msgstr "Medaille erfolgreich erstellt."
+
+#, elixir-format
+#: lib/cforum_web/controllers/admin/badge_controller.ex:53
+msgid "Badge deleted successfully."
+msgstr "Medaille erfolgreich gelöscht."
+
+#, elixir-format
+#: lib/cforum_web/controllers/admin/badge_controller.ex:40
+msgid "Badge updated successfully."
+msgstr "Medaille erfolgreich geändert."
+
+#, elixir-format
+#: lib/cforum_web/views/admin/badge_view.ex:4
+msgid "administrate badges"
+msgstr "Medaillen verwalten"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/badge/form.html.eex:37
+#: lib/cforum_web/templates/admin/badge/index.html.eex:6
+msgid "badge type"
+msgstr "Medaillen-Art"
+
+#, elixir-format
+#: lib/cforum_web/views/helpers.ex:145
+msgid "create close and reopen votes"
+msgstr "Recht Sperr-/Entsperr-Abstimmungen zu erstellen"
+
+#, elixir-format
+#: lib/cforum_web/views/helpers.ex:142
+msgid "create tag synonyms"
+msgstr "Recht Tag-Synonyme zu erstellen"
+
+#, elixir-format
+#: lib/cforum_web/views/helpers.ex:141
+msgid "create tags"
+msgstr "Recht Tags zu erstellen"
+
+#, elixir-format
+#: lib/cforum_web/views/helpers.ex:148
+msgid "custom"
+msgstr "benutzerdefiniert"
+
+#, elixir-format
+#: lib/cforum_web/views/helpers.ex:138
+msgid "downvote"
+msgstr "Downvote"
+
+#, elixir-format
+#: lib/cforum_web/views/helpers.ex:144
+msgid "edit answers"
+msgstr "Recht Antworten zu editieren"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/badge_view.ex:8
+msgid "edit badge „%{name}“"
+msgstr "Medaille „%{name}“ bearbeiten"
+
+#, elixir-format
+#: lib/cforum_web/views/helpers.ex:143
+msgid "edit questions"
+msgstr "Recht Fragen zu editieren"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/badge/form.html.eex:31
+#: lib/cforum_web/templates/admin/badge/index.html.eex:7
+msgid "medal type"
+msgstr "Medaillen-Stufe"
+
+#, elixir-format
+#: lib/cforum_web/views/helpers.ex:146
+msgid "moderator tools"
+msgstr "Zugriff auf Moderationstools"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/badge/subnav.html.eex:4
+#: lib/cforum_web/views/admin/badge_view.ex:5
+msgid "new badge"
+msgstr "neue Medaille"
+
+#, elixir-format
+#: lib/cforum_web/views/helpers.ex:139
+msgid "retag"
+msgstr "Recht neu zu taggen"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/badge/form.html.eex:25
+#: lib/cforum_web/templates/admin/badge/index.html.eex:5
+msgid "score needed"
+msgstr "benötigte Punkte"
+
+#, elixir-format
+#: lib/cforum_web/views/helpers.ex:147
+msgid "seo profi"
+msgstr "SEO-Profi"
+
+#, elixir-format
+#: lib/cforum_web/views/helpers.ex:137
+msgid "upvote"
+msgstr "Upvote"
+
+#, elixir-format
+#: lib/cforum_web/views/helpers.ex:140
+msgid "visit close and reopen votes"
+msgstr "Abstimmungsrecht über Sperr-/Entsperr-Abstimmungen"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/badge/form.html.eex:19
+msgid "order"
+msgstr "Reihenfolge"
