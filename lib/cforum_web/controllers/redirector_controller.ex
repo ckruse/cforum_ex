@@ -14,7 +14,7 @@ defmodule CforumWeb.RedirectorController do
         |> String.replace(~r/_\d+$/, "")
         |> String.to_integer()
 
-      redirect(conn, to: archive_path(conn, :months, conn.assigns[:current_forum] || "all", year))
+      redirect(conn, to: archive_path(conn, :months, conn.assigns[:current_forum], {{year, 1, 1}, {12, 0, 0}}))
     else
       conn
       |> put_status(:not_found)
@@ -51,12 +51,7 @@ defmodule CforumWeb.RedirectorController do
       year = String.replace(year, ~r/_\d+$/, "")
       {:ok, date} = NaiveDateTime.new(String.to_integer(year), String.to_integer(month), 1, 12, 0, 0)
 
-      mon =
-        date.month
-        |> Timex.month_shortname()
-        |> String.downcase()
-
-      redirect(conn, to: archive_path(conn, :postings, conn.assigns[:current_forum] || "all", date.year, mon))
+      redirect(conn, to: archive_path(conn, :threads, conn.assigns[:current_forum], date))
     else
       conn
       |> put_status(:not_found)
