@@ -172,7 +172,7 @@ defmodule CforumWeb.MessageView do
   def tags_changed?(_, nil), do: true
   def tags_changed?(msg, parent), do: parent.tags != msg.tags
 
-  def show_subject?(nil, _, _), do: false
+  def show_subject?(true, _, _), do: false
 
   def show_subject?(parent, message, opts),
     do: (opts[:hide_repeating_subjects] && subject_changed?(message, parent)) || !opts[:hide_repeating_subjects]
