@@ -16,7 +16,7 @@ defmodule CforumWeb.LayoutView do
 
   def body_classes(conn, assigns) do
     try do
-      {:safe, " class=\"" <> apply(view_module(conn), :body_classes, [action_name(conn), assigns]) <> "\""}
+      {:safe, " class=\"#{apply(view_module(conn), :body_classes, [action_name(conn), assigns])}\""}
     rescue
       UndefinedFunctionError -> ""
       FunctionClauseError -> ""
@@ -25,7 +25,7 @@ defmodule CforumWeb.LayoutView do
 
   def body_id(conn, assigns) do
     try do
-      {:safe, " id=\"" <> apply(view_module(conn), :body_id, [action_name(conn), assigns]) <> "\""}
+      {:safe, " id=\"#{apply(view_module(conn), :body_id, [action_name(conn), assigns])}\""}
     rescue
       UndefinedFunctionError -> ""
       FunctionClauseError -> ""
