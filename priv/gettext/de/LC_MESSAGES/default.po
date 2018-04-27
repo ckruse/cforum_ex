@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2018-04-26 11:35+0200\n"
+"PO-Revision-Date: 2018-04-27 10:57+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2480,3 +2480,13 @@ msgstr "Weiterleitungen"
 #: lib/cforum_web/templates/admin/redirection/index.html.eex:4
 msgid "id"
 msgstr "ID"
+
+#, elixir-format
+#: lib/cforum_web/templates/redirector/redirect_archive_thread.html.eex:1
+msgid "Because of historical reasons the thread id of the old archive is not unique. Found the following threads with the same TID:"
+msgstr "Aus historischen Gründen ist die Thread-ID aus den Jahren 1998-2005 nicht zwangsläufig eindeutig. Es wurden folgende Threads mit der gleichen Thread-ID gefunden:"
+
+#, elixir-format
+#: lib/cforum_web/views/redirector_view.ex:4
+msgid "found multiple threads with this thread id"
+msgstr "Es wurden mehrere Threads mit der gleichen ID gefunden"

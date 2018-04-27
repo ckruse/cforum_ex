@@ -112,7 +112,31 @@ defmodule Cforum.Forums.Threads do
       ** (Ecto.NoResultsError)
 
   """
-  def get_thread!(id), do: Repo.get!(Thread, id)
+  def get_thread!(user, id, opts \\ []) do
+    opts =
+      Keyword.merge(
+        [
+          view_all: false,
+          message_order: "ascending",
+          hide_read_threads: false,
+          only_wo_answer: false,
+          thread_modifier: nil,
+          use_paging: false
+        ],
+        opts
+      )
+
+    q = from(thread in Thread, where: thread.thread_id == ^id)
+    ret = get_normal_threads(q, user, [desc: :created_at], 0, opts)
+
+    case ret do
+      {_, []} ->
+        raise Ecto.NoResultsError, queryable: q
+
+      {_, [thread]} ->
+        thread
+    end
+  end
 
   @doc """
   Gets a single thread by its slug.
@@ -156,6 +180,51 @@ defmodule Cforum.Forums.Threads do
 
       {_, [thread]} ->
         thread
+    end
+  end
+
+  @doc """
+  Gets threads by their tid. Tids are historically not unique, so you might get more than one thread.
+
+  Raises `Ecto.NoResultsError` if no thread could be found.
+
+  ## Examples
+
+      iex> get_threads_by_tid!(1)
+      [%Thread{}]
+
+      iex> get_thread!(-1)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_threads_by_tid!(user, tid, opts \\ []) do
+    opts =
+      Keyword.merge(
+        [
+          view_all: false,
+          message_order: "ascending",
+          hide_read_threads: false,
+          only_wo_answer: false,
+          thread_modifier: nil,
+          use_paging: false
+        ],
+        opts
+      )
+
+    q =
+      from(
+        thread in Thread,
+        where: thread.tid == ^tid
+      )
+
+    ret = get_normal_threads(q, user, [desc: :created_at], 0, opts)
+
+    case ret do
+      {_, []} ->
+        raise Ecto.NoResultsError, queryable: q
+
+      {_, threads} ->
+        threads
     end
   end
 

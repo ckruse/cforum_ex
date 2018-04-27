@@ -86,11 +86,25 @@ defmodule CforumWeb.Router do
     post("/cites/:id/vote", Cite.VoteController, :vote, as: :cite)
     resources("/cites", CiteController)
 
+    #
+    # backward compatibility and redirection routes
+    #
+    get("/archiv", RedirectorController, :redirect_to_archive)
+    get("/archiv/:year", RedirectorController, :redirect_to_year)
+    get("/archiv/:year/t:tid", RedirectorController, :redirect_to_thread)
+    get("/archiv/:year/:month", RedirectorController, :redirect_to_month)
+    get("/archiv/:year/:month/t:tid", RedirectorController, :redirect_to_thread)
+    get("/m:id", RedirectorController, :redirect_to_message)
+
     scope "/:curr_forum" do
       get("/", ThreadController, :index, as: nil)
       get("/new", ThreadController, :new, as: nil)
       post("/new", ThreadController, :create, as: nil)
       resources("/tags", TagController)
+
+      get("/archive", ArchiveController, :years, as: :archive)
+      get("/:year", ArchiveController, :months, as: :archive)
+      get("/:year/:month", ArchiveController, :postings, as: :archive)
 
       post("/:year/:month/:day/:slug/mark-read", Messages.MarkReadController, :mark_read, as: nil)
 

@@ -33,6 +33,9 @@ defmodule Cforum.Abilities do
   use Cforum.Abilities.Admin
   use Cforum.Abilities.V1.Api
 
+  def may?(_conn, "redirector", _, _), do: true
+  def may?(conn, "archive", _, _), do: access_forum?(conn.assigns[:current_user], conn.assigns[:current_forum])
+
   def may?(_conn, path, action, _) do
     Logger.debug(fn -> "--- CAUTION: no ability defined for path #{path} and action #{action}" end)
     false
