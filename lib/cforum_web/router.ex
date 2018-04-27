@@ -102,9 +102,9 @@ defmodule CforumWeb.Router do
       post("/new", ThreadController, :create, as: nil)
       resources("/tags", TagController)
 
-      get("/archive", ArchiveController, :years, as: :archive)
-      get("/:year", ArchiveController, :months, as: :archive)
-      get("/:year/:month", ArchiveController, :postings, as: :archive)
+      get("/archive", ArchiveController, :years, as: nil)
+      get("/:year", ArchiveController, :months, as: nil)
+      get("/:year/:month", ArchiveController, :threads, as: nil)
 
       post("/:year/:month/:day/:slug/mark-read", Messages.MarkReadController, :mark_read, as: nil)
 

@@ -76,6 +76,55 @@ defmodule Cforum.Forums.Threads do
     {all_threads_count, sticky_threads ++ threads}
   end
 
+  def list_archived_threads(forum, visible_forums, user, from, to, opts \\ []) do
+    opts =
+      Keyword.merge(
+        [
+          page: 0,
+          limit: 50,
+          view_all: false,
+          leave_out_invisible: true,
+          order: "newest-first",
+          message_order: "ascending",
+          thread_modifier: nil,
+          use_paging: true,
+          close_read_threads: false,
+          open_close_default_state: "open",
+          thread_conditions: %{},
+          predicate: nil
+        ],
+        opts
+      )
+
+    order =
+      case opts[:order] do
+        "descending" ->
+          [desc: :created_at]
+
+        "ascending" ->
+          [asc: :created_at]
+
+        # falling back to "newest-first" for all other cases
+        _ ->
+          [desc: :latest_message]
+      end
+
+    threads_query =
+      get_archived_threads(
+        forum,
+        user,
+        visible_forums,
+        from,
+        to,
+        view_all: opts[:view_all],
+        leave_out_invisible: opts[:leave_out_invisible],
+        thread_conditions: opts[:thread_conditions],
+        predicate: opts[:predicate]
+      )
+
+    get_normal_threads(threads_query, user, order, 0, opts)
+  end
+
   def list_invisible_threads(forum, visible_forums, user, opts \\ []) do
     opts =
       Keyword.merge(
@@ -97,6 +146,37 @@ defmodule Cforum.Forums.Threads do
 
     list_threads(forum, visible_forums, user, opts)
   end
+
+  def list_archive_years(forum, visible_forums) do
+    from(
+      thread in Thread,
+      select: fragment("DATE_TRUNC('year', created_at) AS year"),
+      where: thread.deleted == false,
+      group_by: fragment("1"),
+      order_by: fragment("1 DESC")
+    )
+    |> set_forum_id(visible_forums, forum)
+    |> Repo.all()
+  end
+
+  def list_archive_months(forum, visible_forums, year) do
+    from(
+      thread in Thread,
+      select: fragment("DATE_TRUNC('month', created_at) AS year"),
+      where: thread.deleted == false and fragment("EXTRACT('year' from ?)", thread.created_at) == type(^year, :integer),
+      group_by: fragment("1"),
+      order_by: fragment("1 DESC")
+    )
+    |> set_forum_id(visible_forums, forum)
+    |> Repo.all()
+  end
+
+  defp set_forum_id(q, visible_forums, nil) do
+    visible_forums = Enum.map(visible_forums, & &1.forum_id)
+    from(thread in q, where: thread.forum_id in ^visible_forums)
+  end
+
+  defp set_forum_id(q, _, forum), do: from(thread in q, where: thread.forum_id == ^forum.forum_id)
 
   @doc """
   Gets a single thread.
