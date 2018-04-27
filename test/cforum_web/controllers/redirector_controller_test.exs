@@ -102,14 +102,14 @@ defmodule CforumWeb.RedirectorControllerTest do
     assert_error_sent(404, fn -> get(conn, "/archiv/1999/1/t1") end)
   end
 
-  test "redirects to message on /m:mid", %{conn: conn} do
+  test "redirects to message on /m/:mid", %{conn: conn} do
     thread = insert(:thread)
     message = insert(:message, thread: thread, forum: thread.forum)
-    conn = get(conn, "/m#{message.message_id}")
+    conn = get(conn, "/m/#{message.message_id}")
     assert redirected_to(conn) == CforumWeb.Views.Helpers.Path.message_path(conn, :show, message.thread, message)
   end
 
-  test "fails on /m:mid with non-existant mid", %{conn: conn} do
-    assert_error_sent(404, fn -> get(conn, "/m0") end)
+  test "fails on /m/:mid with non-existant mid", %{conn: conn} do
+    assert_error_sent(404, fn -> get(conn, "/m/0") end)
   end
 end
