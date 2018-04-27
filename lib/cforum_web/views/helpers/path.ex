@@ -19,6 +19,19 @@ defmodule CforumWeb.Views.Helpers.Path do
   def forum_url(conn, :index, slug, params \\ []),
     do: "#{root_url(conn, :index)}#{forum_slug(slug)}#{encode_query_string(params)}"
 
+  def archive_path(conn, action, forum, year_or_params \\ [], params \\ [])
+
+  def archive_path(conn, :years, forum, params, _),
+    do: "#{forum_path(conn, :index, forum)}/archive#{encode_query_string(params)}"
+
+  def archive_path(conn, :months, forum, {{year, _, _}, _}, params),
+    do: "#{forum_path(conn, :index, forum)}/#{year}#{encode_query_string(params)}"
+
+  def archive_path(conn, :threads, forum, month, params) do
+    part = month |> Timex.lformat!("%Y/%b", "en", :strftime) |> String.downcase()
+    "#{forum_path(conn, :index, forum)}/#{part}#{encode_query_string(params)}"
+  end
+
   @doc """
   Generates URL path part to the thread (w/o message part). Mainly
   used internally, but in case you need it, it is there. Waiting

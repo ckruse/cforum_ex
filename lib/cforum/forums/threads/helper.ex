@@ -129,6 +129,30 @@ defmodule Cforum.Forums.Threads.Helper do
     {sticky_threads_query, threads_query}
   end
 
+  def get_archived_threads(forum, user, visible_forums, from, to, opts \\ []) do
+    defaults = [
+      view_all: false,
+      hide_read_threads: false,
+      only_wo_answer: false,
+      thread_conditions: %{},
+      leave_out_invisible: true,
+      predicate: nil
+    ]
+
+    opts = Keyword.merge(defaults, opts)
+
+    threads_query =
+      from(thread in Thread, where: thread.created_at >= ^from and thread.created_at <= ^to)
+      |> apply_thread_conditions(opts[:thread_conditions])
+      |> apply_predicate(opts[:predicate])
+      |> set_forum_id(forum, visible_forums)
+      |> set_view_all(opts[:view_all])
+      |> leave_out_invisible(user, opts[:view_all] || !opts[:leave_out_invisible])
+      |> only_wo_answer(opts[:only_wo_answer], visible_forums)
+
+    threads_query
+  end
+
   def get_sticky_threads(_, _, _, _, false), do: []
   def get_sticky_threads(_, _, _, _, nil), do: []
 
