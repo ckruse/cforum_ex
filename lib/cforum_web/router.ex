@@ -94,7 +94,7 @@ defmodule CforumWeb.Router do
     get("/archiv/:year/t:tid", RedirectorController, :redirect_to_thread)
     get("/archiv/:year/:month", RedirectorController, :redirect_to_month)
     get("/archiv/:year/:month/t:tid", RedirectorController, :redirect_to_thread)
-    get("/m:id", RedirectorController, :redirect_to_message)
+    get("/m/:id", RedirectorController, :redirect_to_message)
 
     scope "/:curr_forum" do
       get("/", ThreadController, :index, as: nil)
