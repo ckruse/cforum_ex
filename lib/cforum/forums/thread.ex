@@ -64,7 +64,11 @@ defmodule Cforum.Forums.Thread do
 
       subject ->
         now = Timex.local()
-        s = Timex.format!(now, "/%Y/%b/%d/", :strftime) <> maybe_add_num(num) <> to_url(subject)
+
+        s =
+          (now
+           |> Timex.lformat!("/%Y/%b/%d/", "en", :strftime)
+           |> String.downcase()) <> maybe_add_num(num) <> to_url(subject)
 
         if Cforum.Forums.Threads.slug_taken?(s),
           do: gen_slug(changeset, num + 1),
