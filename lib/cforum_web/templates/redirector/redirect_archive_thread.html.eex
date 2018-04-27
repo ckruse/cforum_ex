@@ -1,0 +1,9 @@
+<p><%= gettext("Because of historical reasons the thread id of the old archive is not unique. Found the following threads with the same TID:") %></p>
+
+<div class="cf-thread-list">
+  <%= for thread <- @threads do %>
+    <article class="cf-thread threadlist">
+      <%= CforumWeb.MessageView.header(@conn, thread, thread.message, show_votes: true, noid: true)  %>
+    </article>
+  <% end %>
+</div>

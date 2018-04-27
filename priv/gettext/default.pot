@@ -2462,3 +2462,13 @@ msgstr ""
 #: lib/cforum_web/templates/admin/redirection/index.html.eex:4
 msgid "id"
 msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/redirector/redirect_archive_thread.html.eex:1
+msgid "Because of historical reasons the thread id of the old archive is not unique. Found the following threads with the same TID:"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/redirector_view.ex:4
+msgid "found multiple threads with this thread id"
+msgstr ""
