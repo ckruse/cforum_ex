@@ -7,7 +7,7 @@ defmodule Cforum.Forums.Tags do
   alias Cforum.Repo
 
   alias Cforum.Forums.Tag
-  # alias Cforum.Forums.TagSynonym
+  alias Cforum.Forums.TagSynonym
 
   @doc """
   Returns the list of tags.
@@ -18,8 +18,18 @@ defmodule Cforum.Forums.Tags do
       [%Tag{}, ...]
 
   """
-  def list_tags do
-    Repo.all(Tag)
+  def list_tags(forum_or_nil, visible_forums)
+
+  def list_tags(nil, visible_forums) do
+    forum_ids = Enum.map(visible_forums, & &1.forum_id)
+
+    from(tag in Tag, where: tag.forum_id in ^forum_ids, order_by: [asc: :tag_name])
+    |> Repo.all()
+  end
+
+  def list_tags(forum, _) do
+    from(tag in Tag, where: tag.forum_id == ^forum.forum_id, order_by: [asc: :tag_name])
+    |> Repo.all()
   end
 
   @doc """
@@ -36,7 +46,16 @@ defmodule Cforum.Forums.Tags do
       ** (Ecto.NoResultsError)
 
   """
-  def get_tag!(id), do: Repo.get!(Tag, id)
+  def get_tag!(id) do
+    Repo.get!(Tag, id)
+    |> Repo.preload([:synonyms])
+  end
+
+  def get_tag_by_slug!(forum, slug) do
+    Tag
+    |> Repo.get_by!(forum_id: forum.forum_id, slug: slug)
+    |> Repo.preload([:synonyms])
+  end
 
   def get_tags(tags, %Cforum.Forums.Forum{} = forum), do: get_tags(tags, forum.forum_id)
 
@@ -64,9 +83,15 @@ defmodule Cforum.Forums.Tags do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_tag(attrs \\ %{}) do
+  def create_tag(forum, attrs \\ %{}) do
     %Tag{}
-    |> Tag.changeset(attrs)
+    |> Tag.changeset(forum, attrs)
+    |> Repo.insert()
+  end
+
+  def create_tag_synonym(tag, attrs \\ %{}) do
+    %TagSynonym{tag_id: tag.tag_id, forum_id: tag.forum_id}
+    |> TagSynonym.changeset(attrs)
     |> Repo.insert()
   end
 
@@ -84,7 +109,7 @@ defmodule Cforum.Forums.Tags do
   """
   def update_tag(%Tag{} = tag, attrs) do
     tag
-    |> Tag.changeset(attrs)
+    |> Tag.changeset(nil, attrs)
     |> Repo.update()
   end
 
@@ -104,6 +129,25 @@ defmodule Cforum.Forums.Tags do
     Repo.delete(tag)
   end
 
+  def merge_tag(old_tag, new_tag) do
+    Repo.transaction(fn ->
+      from(mtag in "messages_tags", where: mtag.tag_id == ^old_tag.tag_id)
+      |> Repo.update_all(set: [tag_id: new_tag.tag_id])
+
+      from(syn in TagSynonym, where: syn.tag_id == ^old_tag.tag_id)
+      |> Repo.update_all(set: [tag_id: new_tag.tag_id])
+
+      with {:ok, %TagSynonym{}} <- create_tag_synonym(new_tag, %{synonym: old_tag.tag_name}),
+           {:ok, %Tag{}} <- delete_tag(old_tag),
+           tag = %Tag{} = get_tag!(new_tag.tag_id) do
+        tag
+      else
+        _ ->
+          Repo.rollback(nil)
+      end
+    end)
+  end
+
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking tag changes.
 
@@ -114,6 +158,6 @@ defmodule Cforum.Forums.Tags do
 
   """
   def change_tag(%Tag{} = tag) do
-    Tag.changeset(tag, %{})
+    Tag.changeset(tag, nil, %{})
   end
 end

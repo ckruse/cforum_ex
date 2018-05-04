@@ -100,7 +100,11 @@ defmodule CforumWeb.Router do
       get("/", ThreadController, :index, as: nil)
       get("/new", ThreadController, :new, as: nil)
       post("/new", ThreadController, :create, as: nil)
-      resources("/tags", TagController)
+
+      resources("/tags", TagController, as: nil) do
+        get("/merge", TagController, :edit_merge, as: nil)
+        post("/merge", TagController, :merge, as: nil)
+      end
 
       get("/archive", ArchiveController, :years, as: nil)
       get("/:year", ArchiveController, :months, as: nil)

@@ -32,6 +32,27 @@ defmodule CforumWeb.Views.Helpers.Path do
     "#{forum_path(conn, :index, forum)}/#{part}#{encode_query_string(params)}"
   end
 
+  def tag_path(conn, action, forum, tag_or_params \\ [], params \\ [])
+
+  def tag_path(conn, :index, forum, params, _),
+    do: "#{forum_path(conn, :index, forum)}/tags#{encode_query_string(params)}"
+
+  def tag_path(conn, :show, forum, tag, params),
+    do: "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}#{encode_query_string(params)}"
+
+  def tag_path(conn, :edit, forum, tag, params),
+    do: "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}/edit#{encode_query_string(params)}"
+
+  def tag_path(conn, :new, forum, params, _),
+    do: "#{forum_path(conn, :index, forum)}/tags/new#{encode_query_string(params)}"
+
+  def tag_path(conn, :create, forum, params, _), do: tag_path(conn, :index, forum, params)
+
+  def tag_path(conn, :delete, forum, tag, params), do: tag_path(conn, :show, forum, tag, params)
+
+  def tag_path(conn, :merge, forum, tag, params),
+    do: "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}/merge#{encode_query_string(params)}"
+
   @doc """
   Generates URL path part to the thread (w/o message part). Mainly
   used internally, but in case you need it, it is there. Waiting
