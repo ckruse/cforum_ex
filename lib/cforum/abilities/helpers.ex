@@ -38,6 +38,11 @@ defmodule Cforum.Abilities.Helpers do
   def admin?(%User{} = user), do: user.admin
   def admin?(_), do: false
 
+  def badge?(conn_or_user, badge_type)
+  def badge?(%Plug.Conn{} = conn, badge_type), do: badge?(conn.assigns[:current_user], badge_type)
+  def badge?(%User{} = user, badge_type), do: Users.badge?(user, badge_type)
+  def badge?(_, _), do: false
+
   @doc """
   Returns true if the user may access the given forum
 
@@ -55,7 +60,10 @@ defmodule Cforum.Abilities.Helpers do
       iex> access_forum?(%User{}, %Forum{standard_permission: "read})
       true
   """
-  def access_forum?(nil_conn_or_user, forum, permission \\ :read)
+  def access_forum?(nil_conn_or_user, forum_or_permission \\ :read, permission \\ :read)
+
+  def access_forum?(%Plug.Conn{} = conn, permission, _) when permission in [:read, :write, :moderate],
+    do: access_forum?(conn.assigns[:current_user], conn.assigns[:current_forum], permission)
 
   def access_forum?(%Plug.Conn{} = conn, forum, permission),
     do: access_forum?(conn.assigns[:current_user], forum, permission)
