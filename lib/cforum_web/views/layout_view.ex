@@ -130,4 +130,11 @@ defmodule CforumWeb.LayoutView do
       ]
     end
   end
+
+  def show?(conn, :archive) do
+    Enum.member?(
+      [CforumWeb.ThreadController, CforumWeb.MessageController, CforumWeb.ArchiveController],
+      controller_module(conn)
+    )
+  end
 end
