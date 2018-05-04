@@ -1,35 +1,25 @@
-<%= form_for @changeset, @action, fn f -> %>
+<%= form_for @changeset, @action, [class: "cf-form"], fn f -> %>
   <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
-    </div>
+    <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
   <% end %>
 
-  <div class="form-group">
-    <%= label f, :tag_name, class: "control-label" %>
-    <%= text_input f, :tag_name, class: "form-control" %>
-    <%= error_tag f, :tag_name %>
+  <div class="cf-cgroup <%= error_class(f, :tag_name) %>">
+    <%= label f, :tag_name do %>
+      <%= gettext("tag name") %>
+      <%= error_tag f, :tag_name %>
+    <% end %>
+    <%= text_input f, :tag_name %>
   </div>
 
-  <div class="form-group">
-    <%= label f, :slug, class: "control-label" %>
-    <%= text_input f, :slug, class: "form-control" %>
-    <%= error_tag f, :slug %>
+  <div class="cf-cgroup">
+    <%= label f, :suggest, class: "checkbox" do %>
+      <%= checkbox f, :suggest %>
+      <%= gettext("suggest this tag") %>
+    <% end %>
   </div>
 
-  <div class="form-group">
-    <%= label f, :num_messages, class: "control-label" %>
-    <%= number_input f, :num_messages, class: "form-control" %>
-    <%= error_tag f, :num_messages %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :suggest, class: "control-label" %>
-    <%= checkbox f, :suggest, class: "form-control" %>
-    <%= error_tag f, :suggest %>
-  </div>
-
-  <div class="form-group">
-    <%= submit "Submit", class: "btn btn-primary" %>
-  </div>
+  <p class="form-actions">
+    <%= primary_submit gettext("save") %>
+    <%= default_button_link gettext("cancel"), to: @back %>
+  </p>
 <% end %>

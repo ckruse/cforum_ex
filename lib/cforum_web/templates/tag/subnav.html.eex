@@ -1,0 +1,3 @@
+<ul>
+  <%= if may?(@conn, "tag", :new) do %><li><%= link gettext("new tag"), to: tag_path(@conn, :new, assigns[:current_forum]) %></li><% end %>
+</ul>

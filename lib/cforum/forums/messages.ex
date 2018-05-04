@@ -59,6 +59,30 @@ defmodule Cforum.Forums.Messages do
     |> Repo.one()
   end
 
+  def list_messages_for_tag(forum, tag, query_params \\ [order: nil, limit: [offset: 0, quantity: 50]]) do
+    from(
+      m in Message,
+      inner_join: t in "messages_tags",
+      on: t.message_id == m.message_id,
+      preload: [:user, :tags, [votes: :voters, thread: :forum]],
+      where: t.tag_id == ^tag.tag_id and m.deleted == false and m.forum_id == ^forum.forum_id
+    )
+    |> Cforum.PagingApi.set_limit(query_params[:limit])
+    |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
+    |> Repo.all()
+  end
+
+  def count_messages_for_tag(forum, tag, query_params \\ [order: nil, limit: [offset: 0, quantity: 50]]) do
+    from(
+      m in Message,
+      inner_join: t in "messages_tags",
+      on: t.message_id == m.message_id,
+      where: t.tag_id == ^tag.tag_id and m.deleted == false and m.forum_id == ^forum.forum_id,
+      select: count("*")
+    )
+    |> Repo.one()
+  end
+
   @doc """
   Lists the `limit` best scored messages for a user (limited to forums listed in `forum_ids`).
 

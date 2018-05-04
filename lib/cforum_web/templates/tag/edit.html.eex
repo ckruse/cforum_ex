@@ -1,6 +1,1 @@
-<h2 class="cf-heading">Edit tag</h2>
-
-<%= render "form.html", changeset: @changeset,
-                        action: tag_path(@conn, :update, @current_forum, @tag) %>
-
-<%= link "Back", to: tag_path(@conn, :index, @current_forum) %>
+<%= render "form.html", Map.merge(assigns, %{action: tag_path(@conn, :show, @current_forum, @tag), back: tag_path(@conn, :index, @current_forum)}) %>
