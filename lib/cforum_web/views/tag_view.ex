@@ -4,10 +4,10 @@ defmodule CforumWeb.TagView do
   def page_title(:index, assigns), do: gettext("tags for forum %{forum}", forum: assigns[:current_forum].name)
 
   def page_title(:show, assigns),
-    do: gettext("%{forum}: tag %{tag}", forum: assigns[:current_forum].name, tag: assigns[:tag].tag_name)
+    do: gettext("%{forum}: tag “%{tag}”", forum: assigns[:current_forum].name, tag: assigns[:tag].tag_name)
 
   def page_title(action, assigns) when action in [:edit, :update],
-    do: gettext("edit tag %{tag}", tag: assigns[:tag].tag_name)
+    do: gettext("edit tag “%{tag}”", tag: assigns[:tag].tag_name)
 
   def page_title(action, _) when action in [:new, :create], do: gettext("create new tag")
 
@@ -26,13 +26,13 @@ defmodule CforumWeb.TagView do
   def body_id(:merge, _), do: "tag-merge"
 
   def body_classes(:index, _), do: "tag index"
-  def body_classes(:show, assigns), do: "tag show #{assigns[:tag].tag_name}"
+  def body_classes(:show, assigns), do: "tag show #{assigns[:tag].slug}"
   def body_classes(:new, _), do: "tag new"
   def body_classes(:create, _), do: "tag create"
-  def body_classes(:edit, assigns), do: "tag edit #{assigns[:tag].tag_name}"
-  def body_classes(:update, assigns), do: "tag update #{assigns[:tag].tag_name}"
-  def body_classes(:edit_merge, assigns), do: "tag edit-merge #{assigns[:tag].tag_name}"
-  def body_classes(:merge, assigns), do: "tag merge #{assigns[:tag].tag_name}"
+  def body_classes(:edit, assigns), do: "tag edit #{assigns[:tag].slug}"
+  def body_classes(:update, assigns), do: "tag update #{assigns[:tag].slug}"
+  def body_classes(:edit_merge, assigns), do: "tag edit-merge #{assigns[:tag].slug}"
+  def body_classes(:merge, assigns), do: "tag merge #{assigns[:tag].slug}"
 
   @f_max 4
   @f_min 1

@@ -1,0 +1,1 @@
+<%= render "form.html", Map.merge(assigns, %{action: tag_synonym_path(@conn, :create, @current_forum, @tag), back: tag_path(@conn, :show, @current_forum, @tag)}) %>

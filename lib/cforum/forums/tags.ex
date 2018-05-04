@@ -47,7 +47,8 @@ defmodule Cforum.Forums.Tags do
 
   """
   def get_tag!(id) do
-    Repo.get!(Tag, id)
+    Tag
+    |> Repo.get!(id)
     |> Repo.preload([:synonyms])
   end
 
@@ -86,12 +87,6 @@ defmodule Cforum.Forums.Tags do
   def create_tag(forum, attrs \\ %{}) do
     %Tag{}
     |> Tag.changeset(forum, attrs)
-    |> Repo.insert()
-  end
-
-  def create_tag_synonym(tag, attrs \\ %{}) do
-    %TagSynonym{tag_id: tag.tag_id, forum_id: tag.forum_id}
-    |> TagSynonym.changeset(attrs)
     |> Repo.insert()
   end
 
@@ -159,5 +154,27 @@ defmodule Cforum.Forums.Tags do
   """
   def change_tag(%Tag{} = tag) do
     Tag.changeset(tag, nil, %{})
+  end
+
+  def get_tag_synonym!(%Tag{} = tag, id), do: Repo.get_by!(TagSynonym, tag_synonym_id: id, tag_id: tag.tag_id)
+
+  def create_tag_synonym(%Tag{} = tag, attrs \\ %{}) do
+    %TagSynonym{}
+    |> TagSynonym.changeset(tag, attrs)
+    |> Repo.insert()
+  end
+
+  def update_tag_synonym(%Tag{} = tag, %TagSynonym{} = synonym, attrs) do
+    synonym
+    |> TagSynonym.changeset(tag, attrs)
+    |> Repo.update()
+  end
+
+  def delete_tag_synonym(synonym) do
+    Repo.delete(synonym)
+  end
+
+  def change_synonym(tag, %TagSynonym{} = synonym) do
+    TagSynonym.changeset(synonym, tag, %{})
   end
 end

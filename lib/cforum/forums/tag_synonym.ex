@@ -13,10 +13,12 @@ defmodule Cforum.Forums.TagSynonym do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
-  def changeset(struct, params \\ %{}) do
+  def changeset(struct, tag, params \\ %{}) do
     struct
     |> cast(params, [:synonym])
-    |> validate_required([:synonym, :tag_id])
+    |> put_change(:tag_id, tag.tag_id)
+    |> put_change(:forum_id, tag.forum_id)
+    |> validate_required([:synonym, :tag_id, :forum_id])
     |> unique_constraint(:synonym, name: :tag_synonyms_forum_id_synonym_idx)
   end
 end
