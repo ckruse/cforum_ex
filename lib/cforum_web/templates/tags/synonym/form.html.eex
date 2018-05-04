@@ -1,0 +1,18 @@
+<%= form_for @changeset, @action, [class: "cf-form"], fn f -> %>
+  <%= if @changeset.action do %>
+    <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
+  <% end %>
+
+  <div class="cf-cgroup <%= error_class(f, :synonym) %>">
+    <%= label f, :synonym do %>
+      <%= gettext("synonym") %>
+      <%= error_tag f, :synonym %>
+    <% end %>
+    <%= text_input f, :synonym %>
+  </div>
+
+  <p class="form-actions">
+    <%= primary_submit gettext("save") %>
+    <%= default_button_link gettext("cancel"), to: @back %>
+  </p>
+<% end %>

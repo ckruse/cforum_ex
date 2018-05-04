@@ -29,6 +29,7 @@ defmodule Cforum.Abilities do
   use Cforum.Abilities.Cite
   use Cforum.Abilities.Message
   use Cforum.Abilities.Tag
+  use Cforum.Abilities.Tags.Synonym
   use Cforum.Abilities.Badge
 
   use Cforum.Abilities.Admin

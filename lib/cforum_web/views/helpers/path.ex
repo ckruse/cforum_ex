@@ -53,6 +53,29 @@ defmodule CforumWeb.Views.Helpers.Path do
   def tag_path(conn, :merge, forum, tag, params),
     do: "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}/merge#{encode_query_string(params)}"
 
+  def tag_synonym_path(conn, action, forum, tag, synonym \\ [], params \\ [])
+
+  def tag_synonym_path(conn, :new, forum, tag, params, _),
+    do: "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}/synonyms/new#{encode_query_string(params)}"
+
+  def tag_synonym_path(conn, :create, forum, tag, params, _),
+    do: "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}/synonyms#{encode_query_string(params)}"
+
+  def tag_synonym_path(conn, :edit, forum, tag, synonym, params) do
+    "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}/synonyms/" <>
+      "#{synonym.tag_synonym_id}/edit#{encode_query_string(params)}"
+  end
+
+  def tag_synonym_path(conn, :update, forum, tag, synonym, params) do
+    "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}/synonyms/" <>
+      "#{synonym.tag_synonym_id}#{encode_query_string(params)}"
+  end
+
+  def tag_synonym_path(conn, :delete, forum, tag, synonym, params) do
+    "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}/synonyms/" <>
+      "#{synonym.tag_synonym_id}#{encode_query_string(params)}"
+  end
+
   @doc """
   Generates URL path part to the thread (w/o message part). Mainly
   used internally, but in case you need it, it is there. Waiting

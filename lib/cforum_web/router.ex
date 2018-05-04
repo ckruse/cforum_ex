@@ -104,6 +104,8 @@ defmodule CforumWeb.Router do
       resources("/tags", TagController, as: nil) do
         get("/merge", TagController, :edit_merge, as: nil)
         post("/merge", TagController, :merge, as: nil)
+
+        resources("/synonyms", Tags.SynonymController, only: [:edit, :update, :new, :create, :delete], as: nil)
       end
 
       get("/archive", ArchiveController, :years, as: nil)

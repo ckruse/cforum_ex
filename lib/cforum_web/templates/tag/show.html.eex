@@ -4,7 +4,7 @@
   <%= if may?(@conn, "tag", :edit, @tag) do %><%= default_button_link gettext("edit tag"), to: tag_path(@conn, :edit, @current_forum, @tag) %><% end %>
   <%= if may?(@conn, "tag", :merge, @tag) do %><%= default_button_link gettext("merge tag"), to: tag_path(@conn, :merge, @current_forum, @tag) %><% end %>
   <%= if may?(@conn, "tag", :delete, @tag) do %><%= destructive_button(gettext("delete tag"), to: tag_path(@conn, :delete, @current_forum, @tag), method: :delete, data: [confirm: gettext("Are you sure?")]) %><% end %>
-    <%# if may?(@conn, "tag", :edit, @tag) do %><%# default_button_link gettext("new synonym"), to: "" #tag_path(@conn, :new, @current_forum, @tag) %><%# end %>
+  <%= if may?(@conn, "tags/synonym", :new) do %><%= default_button_link gettext("new synonym"), to: tag_synonym_path(@conn, :new, @current_forum, @tag) %><% end %>
 </div>
 
 <h2><%= gettext("synonyms") %></h2>
@@ -14,12 +14,10 @@
 <% else %>
   <ul class="cf-tags-list">
     <%= for synonym <- @tag.synonyms do %>
-      <li class="cf-tag">
-        <%= synonym.synonym %>
-        <%# if current_user.try(:admin) %>
-        <%# cf_link_to "", edit_tag_synonym_path(current_forum.slug, @tag, syn), class: 'icon-edit-tag-synonym' %>
-        <%# cf_link_to "", tag_synonym_path(current_forum.slug, @tag, syn), class: 'icon-delete-tag-synonym', method: :delete, data: {'cf-confirm' => t('global.are_you_sure')} %>
-        <%# end %>
+      <li>
+        <span class="cf-tag"><%= synonym.synonym %></span>
+        <%= if may?(@conn, "tags/synonym", :edit, synonym), do: default_index_button_link(gettext("edit synonym"), to: tag_synonym_path(@conn, :edit, @current_forum, @tag, synonym)) %>
+        <%= if may?(@conn, "tags/synonym", :delete, synonym), do: destructive_index_button(gettext("delete synonym"), to: tag_synonym_path(@conn, :delete, @current_forum, @tag, synonym), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
       </li>
     <% end %>
   </ul>
