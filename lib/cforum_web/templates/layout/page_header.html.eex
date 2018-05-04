@@ -123,8 +123,8 @@
           <%# end %>
           <%# end %>
 
-          <% if Enum.member?([ThreadController, MessageController, ArchiveController], controller_module(@conn)) do %>
-            <li id="link-archiv"><%= link gettext("archive"), to: "" %></li>
+          <%= if show?(@conn, :archive) do %>
+            <li id="link-archiv"><%= link gettext("archive"), to: archive_path(@conn, :years, assigns[:current_forum]) %></li>
           <% end %>
 
           <%# if threads && current_user && !controller_path.in?(%w(interesting_messages_plugin hidden_threads_plugin)) %>
