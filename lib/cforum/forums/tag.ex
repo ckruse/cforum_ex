@@ -36,8 +36,7 @@ defmodule Cforum.Forums.Tag do
   end
 
   defp maybe_set_slug(%Changeset{valid?: true} = changeset) do
-    with slug when is_nil(slug) <- Changeset.get_field(changeset, :slug),
-         name when not is_nil(name) <- Changeset.get_field(changeset, :tag_name) do
+    with name when not is_nil(name) <- Changeset.get_field(changeset, :tag_name) do
       slug = name |> Slug.slugify() |> String.downcase()
       Changeset.put_change(changeset, :slug, slug)
     else
