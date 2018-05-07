@@ -43,6 +43,9 @@ defmodule CforumWeb.Views.Helpers.Path do
   def tag_path(conn, :edit, forum, tag, params),
     do: "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}/edit#{encode_query_string(params)}"
 
+  def tag_path(conn, :update, forum, tag, params),
+    do: "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}#{encode_query_string(params)}"
+
   def tag_path(conn, :new, forum, params, _),
     do: "#{forum_path(conn, :index, forum)}/tags/new#{encode_query_string(params)}"
 
