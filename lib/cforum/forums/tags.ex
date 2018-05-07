@@ -18,9 +18,9 @@ defmodule Cforum.Forums.Tags do
       [%Tag{}, ...]
 
   """
-  def list_tags(forum_or_nil, visible_forums)
+  def list_tags(forum_or_nil, visible_forums \\ nil)
 
-  def list_tags(nil, visible_forums) do
+  def list_tags(nil, visible_forums) when not is_nil(visible_forums) do
     forum_ids = Enum.map(visible_forums, & &1.forum_id)
 
     from(tag in Tag, where: tag.forum_id in ^forum_ids, order_by: [asc: :tag_name])
@@ -58,9 +58,25 @@ defmodule Cforum.Forums.Tags do
     |> Repo.preload([:synonyms])
   end
 
-  def get_tags(tags, %Cforum.Forums.Forum{} = forum), do: get_tags(tags, forum.forum_id)
+  @doc """
+  Gets a list of tags identified by forum and tag name.
 
-  def get_tags(tags, forum_id) do
+  ## Arguments
+
+  - `forum`: the forum the tags belong to
+  - `tags`: a list of tag names
+
+  ## Examples
+
+  iex> get_tags(%Cforum.Forums.Forum{}, ["menschelei", "zu diesem forum"])
+  [%Tag{}, %Tag{}]
+
+  """
+  def get_tags(%Cforum.Forums.Forum{} = forum, tags), do: get_tags(forum.forum_id, tags)
+
+  def get_tags(forum_id, tags) do
+    tags = Enum.map(tags, &String.downcase(&1))
+
     from(
       tag in Tag,
       left_join: syn in assoc(tag, :synonyms),
@@ -124,6 +140,17 @@ defmodule Cforum.Forums.Tags do
     Repo.delete(tag)
   end
 
+  @doc """
+  Merges two tags so that all messages with belong to the tag
+  `old_tag` now belong to the tag `new_tag`. It also adds the old tag
+  as a synonym to the new tag.
+
+  ## Examples
+
+      iex> merge_tag(%Tag{}, %Tag{})
+      {:ok, %Tag{}}
+
+  """
   def merge_tag(old_tag, new_tag) do
     Repo.transaction(fn ->
       from(mtag in "messages_tags", where: mtag.tag_id == ^old_tag.tag_id)
@@ -156,25 +183,83 @@ defmodule Cforum.Forums.Tags do
     Tag.changeset(tag, nil, %{})
   end
 
+  @doc """
+  Gets a single tag synonym of a tag.
+
+  Raises `Ecto.NoResultsError` if the Tag does not exist.
+
+  ## Examples
+
+      iex> get_tag_synonym!(%Tag{}, 123)
+      %TagSynonym{}
+
+      iex> get_tag!(%Tag{}, 456)
+      ** (Ecto.NoResultsError)
+
+  """
   def get_tag_synonym!(%Tag{} = tag, id), do: Repo.get_by!(TagSynonym, tag_synonym_id: id, tag_id: tag.tag_id)
 
+  @doc """
+  Creates a tag synonym for the given `tag`.
+
+  ## Examples
+
+      iex> create_tag_synonym(%Tag{}, %{synonym: value})
+      {:ok, %TagSynonym{}}
+
+      iex> create_tag(%Tag{}, %{synonym: bad_value})
+      {:error, %Ecto.Changeset{}}
+  """
   def create_tag_synonym(%Tag{} = tag, attrs \\ %{}) do
     %TagSynonym{}
     |> TagSynonym.changeset(tag, attrs)
     |> Repo.insert()
   end
 
+  @doc """
+  Updates a tag synonym.
+
+  ## Examples
+
+      iex> update_tag_synonym(%Tag{}, synonym, %{field: new_value})
+      {:ok, %TagSynonym{}}
+
+      iex> update_tag_synonym(%Tag{}, synonym, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
   def update_tag_synonym(%Tag{} = tag, %TagSynonym{} = synonym, attrs) do
     synonym
     |> TagSynonym.changeset(tag, attrs)
     |> Repo.update()
   end
 
-  def delete_tag_synonym(synonym) do
+  @doc """
+  Deletes a Tag synonym.
+
+  ## Examples
+
+      iex> delete_tag_synonym(synonym)
+      {:ok, %TagSynonym{}}
+
+      iex> delete_tag_synonym(synonym)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_tag_synonym(%TagSynonym{} = synonym) do
     Repo.delete(synonym)
   end
 
-  def change_synonym(tag, %TagSynonym{} = synonym) do
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking tag synonym changes.
+
+  ## Examples
+
+      iex> change_tag_synonym(%Tag{}, synonym)
+      %Ecto.Changeset{source: %TagSynonym{}}
+
+  """
+  def change_tag_synonym(%Tag{} = tag, %TagSynonym{} = synonym) do
     TagSynonym.changeset(synonym, tag, %{})
   end
 end

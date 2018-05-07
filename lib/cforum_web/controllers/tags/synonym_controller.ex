@@ -5,7 +5,7 @@ defmodule CforumWeb.Tags.SynonymController do
 
   def new(conn, %{"tag_id" => tag_id}) do
     tag = Tags.get_tag_by_slug!(conn.assigns[:current_forum], tag_id)
-    changeset = Tags.change_synonym(tag, %TagSynonym{})
+    changeset = Tags.change_tag_synonym(tag, %TagSynonym{})
     render(conn, "new.html", tag: tag, changeset: changeset)
   end
 
@@ -26,7 +26,7 @@ defmodule CforumWeb.Tags.SynonymController do
   def edit(conn, %{"tag_id" => tag_id, "id" => id}) do
     tag = Tags.get_tag_by_slug!(conn.assigns[:current_forum], tag_id)
     synonym = Tags.get_tag_synonym!(tag, id)
-    changeset = Tags.change_synonym(tag, synonym)
+    changeset = Tags.change_tag_synonym(tag, synonym)
 
     render(conn, "edit.html", tag: tag, synonym: synonym, changeset: changeset)
   end

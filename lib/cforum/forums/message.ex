@@ -118,7 +118,7 @@ defmodule Cforum.Forums.Message do
       |> Enum.map(&String.trim/1)
       |> Enum.map(&String.downcase/1)
 
-    known_tags = Cforum.Forums.Tags.get_tags(tags, get_field(changeset, :forum_id))
+    known_tags = Cforum.Forums.Tags.get_tags(get_field(changeset, :forum_id), tags)
 
     unknown_tags =
       Enum.filter(tags, fn tag ->

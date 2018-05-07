@@ -14,6 +14,7 @@ defmodule Cforum.Factory do
 
   use Cforum.ThreadFactory
   use Cforum.MessageFactory
+  use Cforum.TagFactory
 
   use Cforum.CiteFactory
 
