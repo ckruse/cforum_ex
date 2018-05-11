@@ -25,4 +25,15 @@
     display: block;
     margin: 0 0 0 2em;
   }
+
+  .visited,
+  a.visited {
+    color: $visited_link_color;
+  }
+
+  a.visited:hover,
+  a.visited:active,
+  a.visited:focus {
+    color: $active_link_color;
+  }
 }

@@ -29,6 +29,8 @@ $tag_border_color: #a1c6d7;
 $active_tag_border_color: #5983ab;
 $tag_visited_border_color: #c4c4c4;
 
+$active_posting_color: #00a1e2;
+
 @mixin focus-w-shadow() {
   border-color: $focus_color;
   outline: 0px none;
