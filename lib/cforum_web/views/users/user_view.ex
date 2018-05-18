@@ -1,6 +1,8 @@
 defmodule CforumWeb.Users.UserView do
   use CforumWeb, :view
 
+  alias Cforum.Forums.Tag
+
   def page_title(:index, _), do: gettext("Users")
   def page_title(:show, assigns), do: gettext("User %{username}", username: assigns[:user].username)
 

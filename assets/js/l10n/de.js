@@ -15,5 +15,44 @@ export const lang = {
   "remove user": "Benutzer entfernen",
   cancel: "abbrechen",
   "add new element": "neues Element hinzufügen",
-  "remove element": "Element entfernen"
+  "remove element": "Element entfernen",
+  threads: "Threads",
+  messages: "Beiträge",
+  "number of threads": "Anzahl Threads",
+  "number of messages": "Anzahl Beiträge",
+  "number of users": "Anzahl Benutzer",
+  users: "Benutzer",
+
+  highcharts: {
+    decimalPoint: ",",
+    thousandsSep: ".",
+    loading: "Daten werden geladen...",
+    months: [
+      "Januar",
+      "Februar",
+      "März",
+      "April",
+      "Mai",
+      "Juni",
+      "Juli",
+      "August",
+      "September",
+      "Oktober",
+      "November",
+      "Dezember"
+    ],
+    weekdays: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
+    shortMonths: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+    exportButtonTitle: "Exportieren",
+    printButtonTitle: "Drucken",
+    rangeSelectorFrom: "Von",
+    rangeSelectorTo: "Bis",
+    rangeSelectorZoom: "Zeitraum",
+    downloadPNG: "Download als PNG-Bild",
+    downloadJPEG: "Download als JPEG-Bild",
+    downloadPDF: "Download als PDF-Dokument",
+    downloadSVG: "Download als SVG-Bild",
+    resetZoom: "Zoom zurücksetzen",
+    resetZoomTitle: "Zoom zurücksetzen"
+  }
 };

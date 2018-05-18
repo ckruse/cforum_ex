@@ -24,7 +24,7 @@
             <ul class="menu">
               <li<% if !@current_forum && controller_module(@conn) == Cforum.ThreadController do %> class="active"<% end %>>
                 <%= link gettext("All forums"), to: forum_path(@conn, :index, "all") %>
-                <%= link to: "", title: gettext("Statistics"), class: "stats" do %>
+                <%= link to: forum_path(@conn, :stats, "all"), title: gettext("Statistics"), class: "stats" do %>
                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="22" height="14" viewBox="0, 0, 22, 14">
                     <g id="stats-icon">
                       <path d="M-0.001,13 L21.999,13 L21.999,14 L-0.001,14 z" fill="#BFBFBF"/>
@@ -39,7 +39,7 @@
               <%= for f <- @visible_forums do %>
                 <li<%= if @current_forum == f do %> class="active"<% end %>>
                   <%= link f.name, to: forum_path(@conn, :index, f) %>
-                  <%= link to: "", title: gettext("Statistics"), class: "stats" do %>
+                  <%= link to: forum_path(@conn, :stats, f), title: gettext("Statistics"), class: "stats" do %>
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="22" height="14" viewBox="0, 0, 22, 14">
                       <use xlink:href="#stats-icon"></use>
                     </svg>

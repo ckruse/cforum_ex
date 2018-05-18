@@ -536,6 +536,21 @@ defmodule Cforum.Forums.Messages do
     end
   end
 
+  def count_unread_messages(user)
+  def count_unread_messages(nil), do: 0
+
+  def count_unread_messages(user) do
+    from(
+      msg in Message,
+      inner_join: thr in assoc(msg, :thread),
+      left_join: rm in ReadMessage,
+      on: rm.message_id == msg.message_id and rm.user_id == ^user.user_id,
+      where: msg.deleted == false and thr.archived == false and is_nil(rm.message_id),
+      select: {fragment("COUNT(DISTINCT ?)", msg.thread_id), count("*")}
+    )
+    |> Repo.one()
+  end
+
   alias Cforum.Forums.Subscription
 
   def subscribe_message(user, message) do

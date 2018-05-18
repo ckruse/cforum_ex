@@ -13,11 +13,21 @@ defmodule CforumWeb.Views.Helpers.Path do
   def forum_slug(%Forum{} = forum, _), do: forum.slug
   def forum_slug(slug, _), do: slug
 
-  def forum_path(conn, :index, slug, params \\ []),
+  def forum_path(conn, action, slug, params \\ [])
+
+  def forum_path(conn, :index, slug, params),
     do: "#{root_path(conn, :index)}#{forum_slug(slug)}#{encode_query_string(params)}"
 
-  def forum_url(conn, :index, slug, params \\ []),
+  def forum_path(conn, :stats, slug, params),
+    do: "#{root_path(conn, :index)}#{forum_slug(slug)}/stats#{encode_query_string(params)}"
+
+  def forum_url(conn, action, slug, params \\ [])
+
+  def forum_url(conn, :index, slug, params),
     do: "#{root_url(conn, :index)}#{forum_slug(slug)}#{encode_query_string(params)}"
+
+  def forum_url(conn, :stats, slug, params),
+    do: "#{root_url(conn, :index)}#{forum_slug(slug)}/stats#{encode_query_string(params)}"
 
   def archive_path(conn, action, forum, year_or_params \\ [], params \\ [])
 

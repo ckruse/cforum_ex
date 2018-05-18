@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2018-05-04 12:16+0200\n"
+"PO-Revision-Date: 2018-05-18 12:18+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -357,13 +357,13 @@ msgstr "Passwort und Passwort-Bestätigung stimmen nicht überein"
 msgid "Activity during the last 30 days"
 msgstr "Aktivität in den letzten 30 Tagen"
 
-#: lib/cforum_web/views/users/user_view.ex:8
-#: lib/cforum_web/views/users/user_view.ex:22
+#: lib/cforum_web/views/users/user_view.ex:10
+#: lib/cforum_web/views/users/user_view.ex:24
 msgid "All messages for user %{username}"
 msgstr "alle Beiträge von Benutzer „%{username}“"
 
-#: lib/cforum_web/views/users/user_view.ex:11
-#: lib/cforum_web/views/users/user_view.ex:25
+#: lib/cforum_web/views/users/user_view.ex:13
+#: lib/cforum_web/views/users/user_view.ex:27
 msgid "All scores for user %{username}"
 msgstr "alle Punkte für Benutzer „%{username}“"
 
@@ -426,8 +426,8 @@ msgstr "Punkte"
 msgid "Twitter handle"
 msgstr "Twitter-Handle"
 
-#: lib/cforum_web/views/users/user_view.ex:5
-#: lib/cforum_web/views/users/user_view.ex:19
+#: lib/cforum_web/views/users/user_view.ex:7
+#: lib/cforum_web/views/users/user_view.ex:21
 msgid "User %{username}"
 msgstr "Benutzer %{username}"
 
@@ -435,8 +435,8 @@ msgstr "Benutzer %{username}"
 msgid "User activity"
 msgstr "Benutzer-Aktivität"
 
-#: lib/cforum_web/views/users/user_view.ex:4
-#: lib/cforum_web/views/users/user_view.ex:18
+#: lib/cforum_web/views/users/user_view.ex:6
+#: lib/cforum_web/views/users/user_view.ex:20
 msgid "Users"
 msgstr "Benutzer"
 
@@ -504,8 +504,8 @@ msgstr[0] "Bewertung: keine Bewertung"
 msgstr[1] "Bewertung: %{score}, %{count} Stimme"
 msgstr[2] "Bewertung: %{score}, %{count} Stimmen"
 
-#: lib/cforum_web/views/users/user_view.ex:13
-#: lib/cforum_web/views/users/user_view.ex:28
+#: lib/cforum_web/views/users/user_view.ex:15
+#: lib/cforum_web/views/users/user_view.ex:30
 msgid "All votes for user %{username}"
 msgstr "alle Bewertungen vom Benutzer „%{username}”"
 
@@ -517,8 +517,8 @@ msgstr "erhaltene Bewertungen"
 msgid "Caution!"
 msgstr "Achtung!"
 
-#: lib/cforum_web/views/users/user_view.ex:14
-#: lib/cforum_web/views/users/user_view.ex:30
+#: lib/cforum_web/views/users/user_view.ex:16
+#: lib/cforum_web/views/users/user_view.ex:32
 msgid "Delete user %{username}"
 msgstr "Benutzer „%{username}” löschen"
 
@@ -534,7 +534,7 @@ msgstr "Ja, Benutzer löschen"
 msgid "You can't undo the deletion of this account, all data will be irretrievable lost! Are you sure that you wan't to delete the account?"
 msgstr "Das Löschen dieses Accounts kann nicht rückgängig gemacht werden. Wenn das Profil erst einmal gelöscht worden ist, dann ist es endgültig weg. Sind Sie sicher, dass Sie das wollen?"
 
-#: lib/cforum_web/views/users/user_view.ex:15
+#: lib/cforum_web/views/users/user_view.ex:17
 msgid "Edit profile: %{username}"
 msgstr "Profil editieren: %{username}"
 
@@ -2504,7 +2504,7 @@ msgid "found multiple threads with this thread id"
 msgstr "Es wurden mehrere Threads mit der gleichen ID gefunden"
 
 #, elixir-format
-#: lib/cforum_web/views/tag_view.ex:7
+#: lib/cforum_web/views/tag_view.ex:10
 msgid "%{forum}: tag “%{tag}”"
 msgstr "%{forum}: Tag „%{tag}“"
 
@@ -2549,7 +2549,7 @@ msgid "archive: %{year}"
 msgstr "archivierte Beiträge"
 
 #, elixir-format
-#: lib/cforum_web/views/tag_view.ex:12
+#: lib/cforum_web/views/tag_view.ex:15
 msgid "create new tag"
 msgstr "neuer Beitrag"
 
@@ -2574,7 +2574,7 @@ msgid "edit tag synonym “%{synonym}” for tag “%{tag}”"
 msgstr "Tag-Synonym „%{synonym}“ für Tag „%{tag}“ bearbeiten"
 
 #, elixir-format
-#: lib/cforum_web/views/tag_view.ex:10
+#: lib/cforum_web/views/tag_view.ex:13
 msgid "edit tag “%{tag}”"
 msgstr "Tag „%{tag}“ bearbeiten"
 
@@ -2589,7 +2589,7 @@ msgid "merge tag"
 msgstr "Tag zusammenführen"
 
 #, elixir-format
-#: lib/cforum_web/views/tag_view.ex:15
+#: lib/cforum_web/views/tag_view.ex:18
 msgid "merge tag %{tag}"
 msgstr "Tag „%{tag}“ zusammenführen"
 
@@ -2634,36 +2634,141 @@ msgid "tag name"
 msgstr "Tag-Name"
 
 #, elixir-format
-#: lib/cforum_web/views/tag_view.ex:4
+#: lib/cforum_web/views/tag_view.ex:5
 msgid "tags for forum %{forum}"
 msgstr "Tags für das Forum „%{forum}“"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/controllers/tags/synonym_controller.ex:18
 msgid "Tag synonym created successfully."
 msgstr "Das Tag-Synonym wurde erfolgreich erstellt."
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/controllers/tags/synonym_controller.ex:56
 msgid "Tag synonym deleted successfully."
 msgstr "Das Tag-Synonym wurde erfolgreich gelöscht."
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/controllers/tags/synonym_controller.ex:41
 msgid "Tag synonym updated successfully."
 msgstr "Das Tag-Synonym wurde erfolgreich geändert."
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/tag/show.html.eex:20
 msgid "delete synonym"
 msgstr "Synonym löschen"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/tag/show.html.eex:19
 msgid "edit synonym"
 msgstr "Synonym bearbeiten"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/tags/synonym/form.html.eex:8
 msgid "synonym"
 msgstr "Synonym"
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/stats.html.eex:34
+msgid "%{messages} messages in %{threads} threads by %{users} users"
+msgstr "%{messages} Beiträge in %{threads} Threads von %{users} Autoren"
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/index.html.eex:8
+msgid "%{num_messages} unread messages in %{num_threads} threads"
+msgstr "%{num_messages} ungelesene Beiträge in %{num_threads} Threads"
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/stats.html.eex:10
+msgid "The forum „%{name}“ has been created at %{created} and contains <strong>%{no_messages}</strong> messages in <strong>%{no_threads}</strong> threads."
+msgstr "Das Forum „%{name}“ wurde am %{created} Uhr erstellt und enthält <strong>%{no_messages}</strong> Beiträge in <strong>%{no_threads}</strong> Threads."
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/stats.html.eex:8
+msgid "The oldest forum has been created at %{created}. All forums contain <strong>%{no_messages}</strong> messages in <strong>%{no_threads}</strong> threads."
+msgstr "Das älteste Forum wurde am %{created} Uhr erstellt. Alle Foren enthalten <strong>%{no_messages}</strong> Beiträge in <strong>%{no_threads}</strong> Threads."
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/stats.html.eex:5
+msgid "There are no visible forums available."
+msgstr "Es gibt keine sichtbaren Foren."
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/stats.html.eex:59
+msgid "five most active users"
+msgstr "die fünf aktivsten Benutzer"
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/stats.html.eex:42
+msgid "five most used tags"
+msgstr "die fünf am häufigsten benutzten Tags"
+
+#, elixir-format
+#: lib/cforum_web/views/forum_view.ex:9
+msgid "forum statistics for all forums"
+msgstr "Foren-Statistiken für alle Foren"
+
+#, elixir-format
+#: lib/cforum_web/views/forum_view.ex:7
+msgid "forum statistics for forum „%{forum}“"
+msgstr "Foren-Statistiken für das Forum „%{forum}“"
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/stats.html.eex:63
+msgid "no users found"
+msgstr "keine Benutzer gefunden"
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/stats.html.eex:23
+msgid "number of authors per month in the last 12 months"
+msgstr "Anzahl Autoren pro Monat über die letzten 12 Monate"
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/stats.html.eex:77
+msgid "number of threads and messages per month during the last 48 months"
+msgstr "Anzahl Threads und Nachrichten pro Monat über die letzten 48 Monate"
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/stats.html.eex:17
+msgid "number of threads and messages per month in the last 12 months"
+msgstr "Anzahl Threads und Nachrichten pro Monat über die letzten 12 Monate"
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/stats.html.eex:83
+msgid "number of threads and messages per month overall"
+msgstr "Anzahl Threads und Nachrichten pro Monat über die gesamte Zeit"
+
+#, elixir-format
+#: lib/cforum_web/views/forum_view.ex:26
+msgid "state %{day} last week"
+msgstr "Status %{day} vor einer Woche"
+
+#, elixir-format
+#: lib/cforum_web/views/forum_view.ex:28
+msgid "state of the last 30 days"
+msgstr "Status der letzten dreißig Tage"
+
+#, elixir-format
+#: lib/cforum_web/views/forum_view.ex:29
+msgid "state of the last 360 days"
+msgstr "Status der letzten 360 Tage"
+
+#, elixir-format
+#: lib/cforum_web/views/forum_view.ex:27
+msgid "state of the last seven days"
+msgstr "Status der letzten sieben Tage"
+
+#, elixir-format
+#: lib/cforum_web/views/forum_view.ex:25
+msgid "state today"
+msgstr "Status heute"
+
+#, elixir-format
+#: lib/cforum_web/views/tag_view.ex:7
+msgid "tags for all forum"
+msgstr "Tags für alle Foren"
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/forum/stats.html.eex:46
+msgid "no tags found"
+msgstr "keine Tags gefunden"

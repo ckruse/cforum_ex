@@ -1,0 +1,80 @@
+@charset "utf-8";
+
+.cf-portal-forums-list {
+  &,
+  & ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .thread {
+    border: 0;
+    background: none;
+    margin: 0 0 1.5em;
+    padding: 0.2em 0 0.2em 0.75em;
+    border-left: 5px solid $standard_hr_color;
+    border-radius: 0;
+  }
+
+  a.thread-info {
+    font-weight: bold;
+  }
+
+  .last-answer,
+  .first-unread {
+    display: block;
+    margin: 0 0 0 2em;
+  }
+
+  .visited,
+  a.visited {
+    color: $visited_link_color;
+  }
+
+  a.visited:hover,
+  a.visited:active,
+  a.visited:focus {
+    color: $active_link_color;
+  }
+
+  h2 {
+    border-top: 2px solid $standard_hr_color;
+    margin: 1em 0em;
+    padding: 0.7em 0 0;
+  }
+}
+
+.cf-stats-list {
+  display: grid;
+  grid-template-columns: calc(49% - 1em) calc(49% - 1em);
+  grid-column-gap: 2em;
+  grid-row-gap: 1em;
+
+  section {
+    border-top: 2px solid $standard_hr_color;
+  }
+
+  section:first-child {
+    grid-column: 1 / 3;
+    border-top: 0;
+  }
+  section:last-child {
+    grid-column: 1 / 3;
+  }
+}
+
+.cf-stats-users-list {
+  list-style-type: none;
+  padding-left: 0;
+
+  .user-link {
+    display: inline-block;
+    min-width: 10em;
+  }
+
+  .cnt {
+    display: inline-block;
+    text-align: right;
+    min-width: 5em;
+  }
+}
