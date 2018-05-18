@@ -42,7 +42,8 @@ module.exports = function(env = {}) {
   return {
     target: "web",
     entry: {
-      app: ["./js/app.js", "./css/app.scss"]
+      app: ["./js/app.js", "./css/app.scss"],
+      stats: "./js/stats.js"
     },
 
     output: {

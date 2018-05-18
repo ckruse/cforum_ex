@@ -28,3 +28,6 @@ import "./modules/tabs.js";
 import "./modules/show-password.js";
 import "./modules/user-selector";
 import "./modules/autolist";
+
+// site specific JS
+import "./forum-stats";

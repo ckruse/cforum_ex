@@ -55,7 +55,7 @@ defmodule Cforum.Forums.Tags do
   def get_tag_by_slug!(forum, slug) do
     Tag
     |> Repo.get_by!(forum_id: forum.forum_id, slug: slug)
-    |> Repo.preload([:synonyms])
+    |> Repo.preload([:synonyms, :forum])
   end
 
   @doc """
@@ -86,6 +86,17 @@ defmodule Cforum.Forums.Tags do
       order_by: [desc: :tag_name]
     )
     |> Repo.all()
+    |> Repo.preload([:synonyms, :forum])
+  end
+
+  def get_tags_by_ids(tag_ids) do
+    from(
+      tag in Tag,
+      where: tag.tag_id in ^tag_ids,
+      order_by: [asc: :tag_name]
+    )
+    |> Repo.all()
+    |> Repo.preload([:synonyms, :forum])
   end
 
   @doc """

@@ -1,0 +1,92 @@
+<div class="cf-stats-list">
+  <section id="overview">
+    <p>
+      <%= if blank?(@oldest_forum) do %>
+        <%= gettext("There are no visible forums available.") %>
+      <% else %>
+        <%= if blank?(@current_forum) do %>
+          <%= {:safe, gettext("The oldest forum has been created at %{created}. All forums contain <strong>%{no_messages}</strong> messages in <strong>%{no_threads}</strong> threads.", created: format_date(assigns[:conn], @oldest_forum.created_at), no_messages: @no_messages, no_threads: @no_threads)} %>
+        <% else %>
+          <%= {:safe, gettext("The forum „%{name}“ has been created at %{created} and contains <strong>%{no_messages}</strong> messages in <strong>%{no_threads}</strong> threads.", name: @current_forum.name, created: format_date(assigns[:conn], @oldest_forum.created_at), no_messages: @no_messages, no_threads: @no_threads)} %>
+        <% end %>
+      <% end %>
+    </p>
+  </section>
+
+  <section id="chart-last-year">
+    <h2><%= gettext("number of threads and messages per month in the last 12 months") %></h2>
+
+    <div class="chart-year chart"></div>
+  </section>
+
+  <section id="chart-last-year">
+    <h2><%= gettext("number of authors per month in the last 12 months") %></h2>
+
+    <div class="chart-users-year chart"></div>
+  </section>
+
+
+  <%= for type <- [:today, :last_week, :week, :month, :year] do %>
+    <section id="stats-<%= type %>">
+      <h2><%= state_heading(type) %></h2>
+
+      <p>
+        <%= gettext(
+              "%{messages} messages in %{threads} threads by %{users} users",
+              messages: number_to_delimited(@state[type].messages, precision: 0),
+              threads: number_to_delimited(@state[type].threads, precision: 0),
+              users: number_to_delimited(@state[type].num_users, precision: 0)
+            ) %>
+      </p>
+
+      <h3><%= gettext("five most used tags") %></h3>
+
+      <ul class="cf-counted-tags-list">
+        <%= if blank?(@state[type].tags) do %>
+          <li><%= gettext("no tags found") %></li>
+        <% end %>
+
+        <%= for tag <- @state[type].tags do %>
+          <li>
+            <%= link to: tag_path(@conn, :show, tag.tag.forum, tag.tag), class: "cf-tag" do %>
+              <%= tag_name(@conn, tag) %>
+            <% end %>
+            <span class="cnt"><%= number_to_delimited(tag.cnt, precision: 0) %></span>
+          </li>
+        <% end %>
+      </ul>
+
+      <h3><%= gettext("five most active users") %></h3>
+
+      <ul class="cf-stats-users-list">
+        <%= if blank?(@state[type].users) do %>
+          <li><%= gettext("no users found") %></li>
+        <% end %>
+
+        <%= for user <- @state[type].users do %>
+          <li>
+            <%= user_link(@conn, user.user, [], user.user.username) %>
+            <span class="cnt"><%= number_to_delimited(user.cnt, precision: 0) %></span>
+          </li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+
+  <section id="chart-last-48-months">
+    <h2><%= gettext("number of threads and messages per month during the last 48 months") %></h2>
+
+    <div class="chart-48-months chart"></div>
+  </section>
+
+  <section id="chart-overall">
+    <h2><%= gettext("number of threads and messages per month overall") %></h2>
+
+    <div class="chart-all chart"></div>
+  </section>
+</div>
+
+<script>
+  window.forumStatsValues = <%= stats_json(@stats) %>;
+  window.forumStatsUsersTwelveMonths = <%= user_json(@users_twelve_months) %>;
+</script>

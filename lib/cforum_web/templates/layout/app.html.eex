@@ -41,6 +41,7 @@
     <%= render "footer.html", assigns %>
 
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <%= additional_js(@conn, assigns) %>
     <%= own_js_file(@conn) %>
     <%= own_js(@conn) %>
 

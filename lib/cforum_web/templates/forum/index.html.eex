@@ -1,18 +1,18 @@
 <%= if signed_in?(@conn) do %>
-  <%# render 'portal' %>
+  <%# render 'portal' TODO %>
 <% end %>
 
 <h1><%= gettext("forums") %></h1>
 
 <%= if signed_in?(@conn) do %>
-  <p><%# TODO gettext("forums.new_threads_new_messages", count: @new_threads, new_messages_text: t('forums.new_messages_text', count: @new_messages)) %></p>
+  <p><%= gettext("%{num_messages} unread messages in %{num_threads} threads", num_messages: @unread_messages, num_threads: @unread_threads) %></p>
 <% end %>
 
 <ol class="cf-portal-forums-list">
   <li>
     <h2 class="forum-name">
       <%= link gettext("all forums"), to: forum_path(@conn, :index, "all") %>
-      <%= link to: "", title: gettext("Statistics") do %> <!-- TODO stats path -->
+      <%= link to: forum_path(@conn, :stats, "all"), title: gettext("Statistics") do %>
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="27" height="17" viewBox="0, 0, 22, 14">
           <use xlink:href="#stats-icon"></use>
         </svg>
@@ -32,7 +32,7 @@
     <li>
       <h2 class="forum-name">
         <%= link forum.name, to: forum_path(@conn, :index, forum) %>
-        <%= link to: "", title: gettext("Statistics") do %><!-- TODO stats path -->
+        <%= link to: forum_path(@conn, :stats, forum), title: gettext("Statistics") do %>
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="27" height="17" viewBox="0, 0, 22, 14">
             <use xlink:href="#stats-icon"></use>
           </svg>
@@ -53,7 +53,7 @@
 </ol>
 
 
-<%# unless @open_threads.blank? %>
+<%# unless @open_threads.blank? TODO %>
 <%# render 'open_threads' %>
 <%# end %>
 

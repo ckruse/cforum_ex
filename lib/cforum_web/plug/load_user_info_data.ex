@@ -5,6 +5,7 @@ defmodule CforumWeb.Plug.LoadUserInfoData do
   """
 
   alias Cforum.Accounts
+  alias Cforum.Forums.Messages
 
   def init(opts), do: opts
 
@@ -14,9 +15,13 @@ defmodule CforumWeb.Plug.LoadUserInfoData do
         conn
 
       user ->
+        {num_threads, num_messages} = Messages.count_unread_messages(user)
+
         conn
         |> Plug.Conn.assign(:unread_notifications, Accounts.Notifications.count_notifications(user, true))
         |> Plug.Conn.assign(:unread_mails, Accounts.PrivMessages.count_priv_messages(user, true))
+        |> Plug.Conn.assign(:unread_threads, num_threads)
+        |> Plug.Conn.assign(:unread_messages, num_messages)
     end
   end
 end

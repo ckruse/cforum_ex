@@ -2,12 +2,12 @@ defmodule CforumWeb.LayoutView do
   use CforumWeb, :view
 
   def page_title(conn, assigns) do
-    try do
-      apply(view_module(conn), :page_title, [action_name(conn), assigns]) <> " — SELFHTML Forum"
-    rescue
-      UndefinedFunctionError -> default_page_title(conn, assigns)
-      FunctionClauseError -> default_page_title(conn, assigns)
-    end
+    # try do
+    apply(view_module(conn), :page_title, [action_name(conn), assigns]) <> " — SELFHTML Forum"
+    # rescue
+    #   UndefinedFunctionError -> default_page_title(conn, assigns)
+    #   FunctionClauseError -> default_page_title(conn, assigns)
+    # end
   end
 
   def default_page_title(_conn, _assigns) do
@@ -35,6 +35,21 @@ defmodule CforumWeb.LayoutView do
   def page_heading(conn, assigns) do
     try do
       [{:safe, "<h1>"} | [apply(view_module(conn), :page_heading, [action_name(conn), assigns]) | {:safe, "</h1>"}]]
+    rescue
+      UndefinedFunctionError -> ""
+      FunctionClauseError -> ""
+    end
+  end
+
+  def additional_js(conn, assigns) do
+    try do
+      case apply(view_module(conn), :additional_js, [action_name(conn), assigns]) do
+        nil ->
+          ""
+
+        path ->
+          [{:safe, "<script src=\""}, path, {:safe, "\"></script>"}]
+      end
     rescue
       UndefinedFunctionError -> ""
       FunctionClauseError -> ""

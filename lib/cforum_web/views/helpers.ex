@@ -156,7 +156,7 @@ defmodule CforumWeb.Views.Helpers do
       class: "user-link"
     ) do
       [
-        {:safe, "<span class=\"registered-user\""},
+        {:safe, "<span class=\"registered-user "},
         additional_classes,
         {:safe, "\">"},
         {:safe, "<span class=\"visually-hidden\">"},

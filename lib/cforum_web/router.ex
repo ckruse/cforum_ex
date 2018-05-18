@@ -2,9 +2,7 @@ defmodule CforumWeb.Router do
   use CforumWeb, :router
 
   # email preview
-  if Mix.env() == :dev do
-    forward("/sent_emails", Bamboo.EmailPreviewPlug)
-  end
+  if Mix.env() == :dev, do: forward("/sent_emails", Bamboo.EmailPreviewPlug)
 
   pipeline :browser do
     plug(:accepts, ["html"])
@@ -100,6 +98,8 @@ defmodule CforumWeb.Router do
       get("/", ThreadController, :index, as: nil)
       get("/new", ThreadController, :new, as: nil)
       post("/new", ThreadController, :create, as: nil)
+
+      get("/stats", ForumController, :stats, as: nil)
 
       resources("/tags", TagController, as: nil) do
         get("/merge", TagController, :edit_merge, as: nil)

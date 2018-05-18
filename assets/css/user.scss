@@ -40,38 +40,6 @@
   }
 }
 
-.cf-user-info-tags-list {
-  @extend .cf-tags-list;
-
-  vertical-align: top;
-
-  li {
-    display: inline-block;
-    font-size: 0.9em;
-    margin-bottom: 0.5em;
-    margin-right: 0.5em;
-  }
-
-  .cf-tag {
-    margin-left: 0;
-    font-weight: normal;
-
-    span {
-      margin-right: 0.5em;
-    }
-  }
-
-  .cnt {
-    margin-left: 0.25em;
-    display: inline-block;
-    text-align: center;
-    padding: 0.1em 0.6em 0 0.6em;
-    border-radius: 0 0.3em 0.3em;
-    color: #5d7380;
-    border: 1px solid #c4c4c4;
-  }
-}
-
 .cf-user-info-table {
   border-collapse: collapse;
 
