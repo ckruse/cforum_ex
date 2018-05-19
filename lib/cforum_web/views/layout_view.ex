@@ -152,4 +152,24 @@ defmodule CforumWeb.LayoutView do
       controller_module(conn)
     )
   end
+
+  def numeric_infos(conn, %{current_user: user} = assigns) when not is_nil(user) do
+    str =
+      ""
+      |> unread_notifications(uconf(conn, "show_unread_notifications_in_title"), assigns)
+      |> unread_pms(uconf(conn, "show_unread_pms_in_title"), assigns)
+      |> new_messages(uconf(conn, "show_new_messages_since_last_visit_in_title"), assigns)
+      |> String.trim("/")
+
+    if present?(str), do: "(#{str}) ", else: ""
+  end
+
+  def numeric_infos(_, _), do: ""
+
+  defp unread_notifications(str, "no", _), do: str
+  defp unread_notifications(str, "yes", assigns), do: "#{str}#{assigns[:unread_notifications]}"
+  defp unread_pms(str, "no", _), do: str
+  defp unread_pms(str, "yes", assigns), do: "#{str}/#{assigns[:unread_mails]}"
+  defp new_messages(str, "no", _), do: str
+  defp new_messages(str, "yes", assigns), do: "#{str}/#{assigns[:unread_messages]}"
 end

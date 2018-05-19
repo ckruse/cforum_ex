@@ -8,7 +8,7 @@
     <%= own_css(@conn) %>
     <%= css_ressource(@conn) %>
 
-    <title><%= page_title(@conn, assigns) %></title>
+    <title><%= numeric_infos(@conn, assigns) %><%= page_title(@conn, assigns) %></title>
   </head>
 
   <body data-controller="<%= controller_module(@conn) %>" data-action="<%= action_name(@conn) %>"<%= body_classes(@conn, assigns) %><%= body_id(@conn, assigns) %>>
