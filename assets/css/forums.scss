@@ -64,17 +64,19 @@
 }
 
 .cf-stats-users-list {
-  list-style-type: none;
-  padding-left: 0;
-
-  .user-link {
-    display: inline-block;
-    min-width: 10em;
+  dl {
+    display: inline-grid;
+    grid-template-columns: max-content min-content;
+    grid-column-gap: 2em;
   }
 
-  .cnt {
-    display: inline-block;
+  dt,
+  dd {
+    margin: 0;
+  }
+
+  dd {
     text-align: right;
-    min-width: 5em;
+    align-self: end;
   }
 }
