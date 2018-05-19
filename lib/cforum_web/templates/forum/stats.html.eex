@@ -58,18 +58,18 @@
 
       <h3><%= gettext("five most active users") %></h3>
 
-      <ul class="cf-stats-users-list">
-        <%= if blank?(@state[type].users) do %>
-          <li><%= gettext("no users found") %></li>
-        <% end %>
+      <%= if blank?(@state[type].users) do %>
+        <p><%= gettext("no users found") %></p>
+      <% end %>
 
-        <%= for user <- @state[type].users do %>
-          <li>
-            <%= user_link(@conn, user.user, [], user.user.username) %>
-            <span class="cnt"><%= number_to_delimited(user.cnt, precision: 0) %></span>
-          </li>
-        <% end %>
-      </ul>
+      <div class="cf-stats-users-list">
+        <dl>
+          <%= for user <- @state[type].users do %>
+            <dt><%= user_link(@conn, user.user, [], user.user.username) %></dt>
+            <dd><%= number_to_delimited(user.cnt, precision: 0) %></dd>
+          <% end %>
+        </dl>
+      </div>
     </section>
   <% end %>
 
