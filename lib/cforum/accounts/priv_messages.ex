@@ -47,6 +47,17 @@ defmodule Cforum.Accounts.PrivMessages do
     )
   end
 
+  def list_unread_priv_messages(user, query_params \\ [order: nil, limit: nil]) do
+    from(
+      pm in PrivMessage,
+      where: pm.owner_id == ^user.user_id and pm.is_read == false,
+      preload: [:recipient, :sender]
+    )
+    |> Cforum.PagingApi.set_limit(query_params[:limit])
+    |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
+    |> Repo.all()
+  end
+
   @doc """
   Returns the list of the newest priv_messages of a user for each thread.
 

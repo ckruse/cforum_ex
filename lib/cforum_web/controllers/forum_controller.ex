@@ -7,7 +7,22 @@ defmodule CforumWeb.ForumController do
     {latest_threads, newest_thread} =
       Stats.threads_for_overview(conn.assigns[:current_user], conn.assigns[:visible_forums])
 
-    render(conn, "index.html", newest_thread: newest_thread, latest_threads: latest_threads)
+    {priv_messages, notifications} =
+      if conn.assigns[:current_user] do
+        {Cforum.Accounts.PrivMessages.list_unread_priv_messages(conn.assigns[:current_user]),
+         Cforum.Accounts.Notifications.list_unread_notifications(conn.assigns[:current_user])}
+      else
+        {[], []}
+      end
+
+    render(
+      conn,
+      "index.html",
+      newest_thread: newest_thread,
+      latest_threads: latest_threads,
+      notifications: notifications,
+      priv_messages: priv_messages
+    )
   end
 
   def stats(conn, _params) do
