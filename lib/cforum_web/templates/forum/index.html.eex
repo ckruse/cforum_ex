@@ -21,7 +21,9 @@
 
     <%= unless blank?(@newest_thread) do %>
       <ul>
-        <li class="thread"><%= render "thread_infos.html", conn: @conn, thread: @newest_thread %></li>
+        <li class="thread">
+          <%= render "thread_infos.html", conn: @conn, thread: @newest_thread, latest: @newest_thread.attribs[:latest_message], first: @newest_thread.attribs[:first_message] %>
+        </li>
       </ul>
     <% end %>
 
@@ -42,7 +44,9 @@
       <%= if !blank?(@latest_threads[forum.forum_id]) do %>
         <ul>
           <%= for thread <- @latest_threads[forum.forum_id] do %>
-            <li class="thread"><%= render "thread_infos.html", conn: @conn, thread: thread %></li>
+            <li class="thread">
+              <%= render "thread_infos.html", conn: @conn, thread: thread, latest: thread.attribs[:latest_message], first: thread.attribs[:first_message] %>
+            </li>
           <% end %>
        </ul>
        <% end %>
