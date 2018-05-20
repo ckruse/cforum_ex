@@ -16,7 +16,7 @@ defmodule CforumWeb.ForumController do
       end
 
     {_, unanswered_threads} =
-      Threads.list_unanswered_threads(conn.assigns[:visible_forums], conn.assigns[:current_user], limit: 3)
+      Threads.list_unanswered_threads(nil, conn.assigns[:visible_forums], conn.assigns[:current_user], limit: 3)
 
     render(
       conn,

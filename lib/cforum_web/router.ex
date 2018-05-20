@@ -96,6 +96,7 @@ defmodule CforumWeb.Router do
 
     scope "/:curr_forum" do
       get("/", ThreadController, :index, as: nil)
+      get("/unanswered", ThreadController, :index_unanswered, as: nil)
       get("/new", ThreadController, :new, as: nil)
       post("/new", ThreadController, :create, as: nil)
 

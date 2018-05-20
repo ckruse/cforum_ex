@@ -147,8 +147,11 @@ defmodule Cforum.Forums.Threads do
     list_threads(forum, visible_forums, user, opts)
   end
 
-  def list_unanswered_threads(visible_forums, user, opts \\ []) do
-    fids = Enum.map(visible_forums, & &1.forum_id)
+  def list_unanswered_threads(forum, visible_forums, user, opts \\ []) do
+    fids =
+      if forum,
+        do: [forum.forum_id],
+        else: Enum.map(visible_forums, & &1.forum_id)
 
     opts =
       Keyword.merge(
@@ -176,7 +179,7 @@ defmodule Cforum.Forums.Threads do
         opts
       )
 
-    list_threads(nil, visible_forums, user, opts)
+    list_threads(forum, visible_forums, user, opts)
   end
 
   def list_archive_years(forum, visible_forums) do
