@@ -1,5 +1,5 @@
 <%= if signed_in?(@conn) do %>
-  <%# render 'portal' TODO %>
+  <%= render "portal.html", assigns %>
 <% end %>
 
 <h1><%= gettext("forums") %></h1>

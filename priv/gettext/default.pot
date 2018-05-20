@@ -2696,7 +2696,7 @@ msgid "forum statistics for forum „%{forum}“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/stats.html.eex:63
+#: lib/cforum_web/templates/forum/stats.html.eex:62
 msgid "no users found"
 msgstr ""
 
@@ -2753,4 +2753,33 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/forum/stats.html.eex:46
 msgid "no tags found"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/portal.html.eex:19
+msgid "%{count} new mail"
+msgid_plural "%{count} new mails"
+msgstr[0] ""
+msgstr[1] ""
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/portal.html.eex:5
+msgid "%{count} new notification"
+msgid_plural "%{count} new notifications"
+msgstr[0] ""
+msgstr[1] ""
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/portal.html.eex:2
+msgid "activity"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/portal.html.eex:30
+msgid "show all mails"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/portal.html.eex:15
+msgid "show all notifications"
 msgstr ""

@@ -44,6 +44,16 @@ defmodule Cforum.Accounts.Notifications do
     |> Repo.one()
   end
 
+  def list_unread_notifications(user, query_params \\ [order: nil, limit: nil]) do
+    from(
+      notification in Notification,
+      where: notification.recipient_id == ^user.user_id and notification.is_read == false
+    )
+    |> Cforum.PagingApi.set_limit(query_params[:limit])
+    |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
+    |> Repo.all()
+  end
+
   @doc """
   Gets a single notification.
 
