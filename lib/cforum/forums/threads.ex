@@ -147,6 +147,38 @@ defmodule Cforum.Forums.Threads do
     list_threads(forum, visible_forums, user, opts)
   end
 
+  def list_unanswered_threads(visible_forums, user, opts \\ []) do
+    fids = Enum.map(visible_forums, & &1.forum_id)
+
+    opts =
+      Keyword.merge(
+        [
+          predicate: fn query ->
+            from(
+              thread in query,
+              where:
+                fragment(
+                  """
+                  ? IN (SELECT threads.thread_id FROM threads
+                         INNER JOIN messages USING(thread_id)
+                         WHERE archived = false AND threads.deleted = false AND
+                           messages.deleted = false AND threads.forum_id = ANY(?) AND
+                           (messages.flags->>'no-answer-admin' = 'no' OR (messages.flags->>'no-answer-admin') IS NULL) AND
+                           (messages.flags->>'no-answer' = 'no' OR (messages.flags->>'no-answer') IS NULL)
+                           GROUP BY threads.thread_id HAVING COUNT(*) <= 1)
+                  """,
+                  thread.thread_id,
+                  type(^fids, {:array, :integer})
+                )
+            )
+          end
+        ],
+        opts
+      )
+
+    list_threads(nil, visible_forums, user, opts)
+  end
+
   def list_archive_years(forum, visible_forums) do
     from(
       thread in Thread,

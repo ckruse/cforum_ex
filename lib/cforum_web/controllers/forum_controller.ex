@@ -1,7 +1,7 @@
 defmodule CforumWeb.ForumController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.Stats
+  alias Cforum.Forums.{Stats, Threads}
 
   def index(conn, _params) do
     {latest_threads, newest_thread} =
@@ -15,13 +15,17 @@ defmodule CforumWeb.ForumController do
         {[], []}
       end
 
+    {_, unanswered_threads} =
+      Threads.list_unanswered_threads(conn.assigns[:visible_forums], conn.assigns[:current_user], limit: 3)
+
     render(
       conn,
       "index.html",
       newest_thread: newest_thread,
       latest_threads: latest_threads,
       notifications: notifications,
-      priv_messages: priv_messages
+      priv_messages: priv_messages,
+      unanswered_threads: unanswered_threads
     )
   end
 
