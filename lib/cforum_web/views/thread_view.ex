@@ -24,7 +24,14 @@ defmodule CforumWeb.ThreadView do
     f = assigns[:current_forum]
 
     title = if f, do: f.name, else: gettext("all forums")
-    gettext("overview") <> " — " <> title
+    gettext("overview — %{forum}", forum: title)
+  end
+
+  def page_title(:index_unanswered, assigns) do
+    f = assigns[:current_forum]
+
+    title = if f, do: f.name, else: gettext("all forums")
+    gettext("unanswered threads  — %{forum}", forum: title)
   end
 
   def page_title(action, _assigns) when action in [:new, :create], do: gettext("new thread")

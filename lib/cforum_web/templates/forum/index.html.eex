@@ -27,7 +27,7 @@
       </ul>
     <% end %>
 
-    <p><%= link gettext("show all"), to: forum_path(@conn, :index, "all") %></p>
+    <p><%= link gettext("show all threads"), to: forum_path(@conn, :index, "all") %></p>
   </li>
 
   <%= for forum <- @visible_forums do %>
@@ -51,21 +51,23 @@
        </ul>
        <% end %>
 
-      <p><%= link gettext("show all"), to: forum_path(@conn, :index, forum) %></p>
+      <p><%= link gettext("show all threads"), to: forum_path(@conn, :index, forum) %></p>
     </li>
   <% end %>
 
   <%= if present?(@unanswered_threads) do %>
     <li>
-      <h2 class="forum-name"><%= link gettext("Threads without answer"), to: forum_path(@conn, :index, "all", only_wo_answer: "yes") %></h2>
+      <h2 class="forum-name"><%= link gettext("Threads without answer"), to: forum_path(@conn, :unanswered, "all") %></h2>
 
-        <ul>
-          <%= for thread <- @unanswered_threads do %>
-            <li class="thread">
-              <%= render "thread_infos.html", conn: @conn, thread: thread, latest: thread.message, first: thread.message %>
-            </li>
-          <% end %>
-       </ul>
+      <ul>
+        <%= for thread <- @unanswered_threads do %>
+          <li class="thread">
+            <%= render "thread_infos.html", conn: @conn, thread: thread, latest: thread.message, first: thread.message %>
+          </li>
+        <% end %>
+      </ul>
+
+      <p><%= link gettext("show all threads"), to: forum_path(@conn, :unanswered, "all") %></p>
     </li>
   <% end %>
 </ol>

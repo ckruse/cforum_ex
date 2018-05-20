@@ -34,6 +34,36 @@ defmodule CforumWeb.ThreadController do
     |> render("index.html", threads: threads, all_threads_count: all_threads_count, page: p)
   end
 
+  def index_unanswered(conn, params) do
+    page = parse_page(params["p"]) - 1
+    limit = uconf(conn, "pagination", :int)
+    user = conn.assigns[:current_user]
+    {set_order_cookie, ordering} = get_ordering(conn, user)
+
+    {all_threads_count, threads} =
+      Threads.list_unanswered_threads(
+        conn.assigns[:current_forum],
+        conn.assigns[:visible_forums],
+        user,
+        page: page,
+        limit: limit,
+        order: ordering,
+        view_all: conn.assigns[:view_all],
+        hide_read_threads: hide_read_threads?(conn),
+        only_wo_answer: conn.params["only_wo_answer"] != nil,
+        message_order: uconf(conn, "sort_messages"),
+        use_paging: uconf(conn, "page_messages") == "yes",
+        close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
+        open_close_default_state: uconf(conn, "open_close_default")
+      )
+
+    p = paginate(all_threads_count, per_page: limit, page: page + 1)
+
+    conn
+    |> maybe_set_cookie(set_order_cookie, ordering)
+    |> render("index_unanswered.html", threads: threads, all_threads_count: all_threads_count, page: p)
+  end
+
   def new(conn, _params) do
     changeset =
       Messages.new_message_changeset(

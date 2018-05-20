@@ -104,7 +104,7 @@ msgid "Search"
 msgstr ""
 
 #: lib/cforum_web/templates/forum/index.html.eex:15
-#: lib/cforum_web/templates/forum/index.html.eex:35
+#: lib/cforum_web/templates/forum/index.html.eex:37
 #: lib/cforum_web/templates/layout/page_header.html.eex:27
 #: lib/cforum_web/templates/layout/page_header.html.eex:42
 msgid "Statistics"
@@ -1266,7 +1266,7 @@ msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">
 msgstr ""
 
 #: lib/cforum_web/controllers/message_controller.ex:43
-#: lib/cforum_web/controllers/thread_controller.ex:49
+#: lib/cforum_web/controllers/thread_controller.ex:79
 msgid "all"
 msgstr ""
 
@@ -1367,7 +1367,7 @@ msgstr ""
 msgid "unknown tags given: %{tags}"
 msgstr ""
 
-#: lib/cforum_web/controllers/thread_controller.ex:85
+#: lib/cforum_web/controllers/thread_controller.ex:115
 msgid "Thread created successfully."
 msgstr ""
 
@@ -1388,7 +1388,7 @@ msgstr ""
 msgid "gold medal"
 msgstr ""
 
-#: lib/cforum_web/views/thread_view.ex:30
+#: lib/cforum_web/views/thread_view.ex:37
 msgid "new thread"
 msgstr ""
 
@@ -1397,18 +1397,13 @@ msgid "silver medal"
 msgstr ""
 
 #: lib/cforum_web/templates/forum/index.html.eex:14
-#: lib/cforum_web/views/thread_view.ex:26
+#: lib/cforum_web/views/thread_view.ex:26 lib/cforum_web/views/thread_view.ex:33
 msgid "all forums"
 msgstr ""
 
 #: lib/cforum_web/templates/forum/index.html.eex:28
 #: lib/cforum_web/templates/forum/index.html.eex:50
 msgid "show all"
-msgstr ""
-
-#, elixir-format
-#: lib/cforum_web/views/thread_view.ex:27
-msgid "overview"
 msgstr ""
 
 #, elixir-format
@@ -2755,7 +2750,7 @@ msgstr ""
 msgid "no tags found"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/forum/portal.html.eex:19
 msgid "%{count} new mail"
 msgid_plural "%{count} new mails"
@@ -2769,12 +2764,12 @@ msgid_plural "%{count} new notifications"
 msgstr[0] ""
 msgstr[1] ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/forum/portal.html.eex:2
 msgid "activity"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/forum/portal.html.eex:30
 msgid "show all mails"
 msgstr ""
@@ -2782,4 +2777,26 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/forum/portal.html.eex:15
 msgid "show all notifications"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/index.html.eex:60
+msgid "Threads without answer"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/index.html.eex:30
+#: lib/cforum_web/templates/forum/index.html.eex:54
+#: lib/cforum_web/templates/forum/index.html.eex:70
+msgid "show all threads"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/views/thread_view.ex:27
+msgid "overview — %{forum}"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/thread_view.ex:34
+msgid "unanswered threads  — %{forum}"
 msgstr ""
