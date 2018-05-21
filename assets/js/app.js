@@ -28,6 +28,7 @@ import "./modules/tabs.js";
 import "./modules/show-password.js";
 import "./modules/user-selector";
 import "./modules/autolist";
+import "./modules/dropdown";
 
 // site specific JS
 import "./forum-stats";

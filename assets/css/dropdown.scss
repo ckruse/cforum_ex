@@ -1,0 +1,79 @@
+.cf-dropdown {
+  padding-right: 0;
+
+  .anchor {
+    display: none;
+  }
+
+  .menu {
+    li:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+    }
+    li:last-of-type {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+}
+
+@media only screen and (min-width: 35em) {
+  .cf-dropdown {
+    padding-right: 0;
+
+    li {
+      margin: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      font-size: 1em;
+    }
+
+    &.js {
+      .menu {
+        padding: 0 0 0.5em;
+        margin: 0.45em 0 0;
+        border: 1px solid $grey_border;
+        border-top: 0;
+        border-radius: 0 0 0.5em 0.5em;
+        position: absolute;
+        background-color: $grey_background;
+        display: none;
+      }
+
+      &.open .menu {
+        display: block;
+      }
+
+      li {
+        padding: 0.5em 1em 0;
+        display: block;
+      }
+
+      .anchor {
+        display: inline;
+        color: $link_color;
+
+        button {
+          background-color: inherit;
+          border: 0;
+          font-size: 1em;
+          color: $link_color;
+          padding: 0;
+        }
+
+        button:active,
+        button:focus,
+        button:hover {
+          color: $active_link_color;
+          cursor: pointer;
+        }
+
+        button::after {
+          content: "▼";
+          font-size: 0.6em;
+          padding-left: 0.5em;
+        }
+      }
+    }
+  }
+}
