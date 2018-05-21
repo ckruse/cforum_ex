@@ -11,12 +11,14 @@ defmodule CforumWeb.Plug.LoadUserInfoData do
 
   def call(%{assigns: %{current_user: user}} = conn, _opts) when not is_nil(user) do
     {num_threads, num_messages} = Messages.count_unread_messages(user)
+    undeceided_cites = Cforum.Cites.count_undecided_cites(user)
 
     conn
     |> Plug.Conn.assign(:unread_notifications, Accounts.Notifications.count_notifications(user, true))
     |> Plug.Conn.assign(:unread_mails, Accounts.PrivMessages.count_priv_messages(user, true))
     |> Plug.Conn.assign(:unread_threads, num_threads)
     |> Plug.Conn.assign(:unread_messages, num_messages)
+    |> Plug.Conn.assign(:undecided_cites, undeceided_cites)
   end
 
   def call(conn, _opts), do: conn

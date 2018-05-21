@@ -38,6 +38,21 @@ defmodule Cforum.Cites do
     |> Repo.one()
   end
 
+  def count_undecided_cites(user) do
+    from(
+      cite in Cite,
+      where:
+        cite.archived == false and
+          fragment(
+            "NOT EXISTS (SELECT cite_id FROM cites_votes WHERE cite_id = ? AND user_id = ?)",
+            cite.cite_id,
+            ^user.user_id
+          ),
+      select: count("*")
+    )
+    |> Repo.one!()
+  end
+
   @doc """
   Gets a single cite.
 

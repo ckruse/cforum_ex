@@ -153,6 +153,22 @@ defmodule CforumWeb.LayoutView do
     )
   end
 
+  def show?(conn, :events), do: controller_module(conn) == Cforum.ForumController
+  def show?(conn, :thread_feeds), do: present?(conn.assigns[:thread]) && present?(conn.assigns[:thread].thread_id)
+  def show?(conn, :sort_links), do: controller_module(conn) == CforumWeb.Threads && blank?(conn.assigns[:current_user])
+
+  def show?(conn, :thread_nested),
+    do:
+      present?(conn.assigns[:message]) && present?(conn.assigns[:thread]) && present?(conn.assigns[:message].message_id)
+
+  def show?(conn, :view_all) do
+    Cforum.Abilities.Helpers.access_forum?(conn, :moderate) &&
+      Enum.member?(
+        [CforumWeb.ThreadController, CforumWeb.MessageController, CforumWeb.ArchiveController],
+        controller_module(conn)
+      )
+  end
+
   def numeric_infos(conn, %{current_user: user} = assigns) when not is_nil(user) do
     str =
       ""
@@ -172,4 +188,26 @@ defmodule CforumWeb.LayoutView do
   defp unread_pms(str, "yes", assigns), do: "#{str}/#{assigns[:unread_mails]}"
   defp new_messages(str, "no", _), do: str
   defp new_messages(str, "yes", assigns), do: "#{str}/#{assigns[:unread_messages]}"
+
+  def view_all_link(conn) do
+    view_all = if conn.assigns[:view_all], do: nil, else: "yes"
+
+    path =
+      if present?(conn.assigns[:message]),
+        do: message_path(conn, :show, conn.assigns[:thread], conn.assigns[:message], view_all: view_all),
+        else: forum_path(conn, :index, conn.assigns[:current_forum], view_all: view_all)
+
+    if conn.assigns[:view_all],
+      do: link(gettext("normal view"), to: path),
+      else: link(gettext("administrative view"), to: path)
+  end
+
+  def chat_nick_name(conn) do
+    nick =
+      if conn.assigns[:current_user],
+        do: conn.assigns[:current_user].username,
+        else: "Guest_" <> Integer.to_string(Enum.random(1..9999))
+
+    encode_query_string(%{"nick" => nick})
+  end
 end

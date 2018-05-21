@@ -51,10 +51,10 @@
           </li>
           <li class="cites">
             <%= link gettext("cites"), to: cite_path(@conn, :index) %>
-            <%= if false do %>(<%= link "#{@undeceided_cites}", to: "" %>)<% end %><!-- TODO -->
+            <%= if signed_in?(@conn) do %>(<%= link "#{@undecided_cites}", to: cite_path(@conn, :index_voting) %>)<% end %>
           </li>
           <li><%= link gettext("search"), to: "" %></li>
-          <li><%= link gettext("chat"), to: "https://kiwiirc.com/client/irc.epd-me.net/?nick=&channel=#selfhtml", rel: "nofollow" %></li> <!-- TODO (current_user.try(:username) || "Guest%7C" + rand(9999).to_s) -->
+          <li><%= link gettext("chat"), to: "https://kiwiirc.com/client/irc.epd-me.net/#{chat_nick_name(@conn)}&channel=#selfhtml", rel: "nofollow" %></li>
           <li><%= link(gettext("help"), to: page_path(@conn, :help)) %></li>
           <%= if controller_module(@conn) != Cforum.SearchController do %>
             <li class="search">
@@ -79,15 +79,15 @@
             <li><%= link @current_forum.name, to: forum_path(@conn, :index, @current_forum) %></li>
           <% end %>
 
-          <%= if assigns[:message] != nil && assigns[:thread] != nil && !blank?(@message.message_id) do %>
-            <%= if @read_mode != "thread-view" do %>
+          <%= if show?(@conn, :thread_nested) do %>
+            <%= if @read_mode == "nested" do %>
               <li><%= link(gettext("thread view"), to: message_path(@conn, :show, @thread, @message, rm: "thread")) %></li>
             <% else %>
               <li><%= link(gettext("nested view"), to: message_path(@conn, :show, @thread, @message, rm: "nested")) %></li>
             <% end %>
           <% end %>
 
-          <%= if controller_module(@conn) == CforumWeb.Threads && @current_user == nil do %>
+          <%= if show?(@conn, :sort_links) do %>
             <%= if @order != "ascending" do %>
               <li><%= link(gettext("sort ascending"), to: forum_path(@conn, :index, @current_forum, p: @page, order: "ascending")) %></li>
             <% end %>
@@ -99,7 +99,7 @@
             <% end %>
           <% end %>
 
-          <%= if assigns[:thread] != nil && !blank?(@thread.thread_id) do %>
+          <%= if show?(@conn, :thread_feeds) do %>
             <li id="nachricht-feed-atom"><%= link gettext("Atom feed"), to: "" %></li> <!-- TODO atom_url for thread -->
             <li id="nachricht-feed-rss"><%= link gettext("RSS feed"), to: "" %></li> <!-- TODO rss_url for thread -->
           <% end %>
@@ -108,21 +108,9 @@
             <li><%= link gettext("Administration"), to: admin_user_path(@conn, :index) %></li>
           <% end %>
 
-          <%# if current_user.try(:moderate?, current_forum) %>
-          <%#
-          path = nil
-          if @message.blank?
-          path = cf_threads_path(current_forum, view_all: @view_all ? nil : "yes")
-          else
-          path = message_path(@thread, @message, view_all: @view_all ? nil : "yes")
-          end
-          %>
-          <%# if @view_all %>
-          <!--li id="admin-view"><%# cf_link_to t("forums.normal_view"), path %></li> -->
-          <%# else %>
-          <!--li id="admin-view"><%# cf_link_to t("forums.admin_view"), path %></li> -->
-          <%# end %>
-          <%# end %>
+          <%= if show?(@conn, :view_all) do %>
+            <li id="admin-view"><%= view_all_link(@conn) %></li>
+          <% end %>
 
           <%= if show?(@conn, :archive) do %>
             <li id="link-archiv"><%= link gettext("archive"), to: archive_path(@conn, :years, assigns[:current_forum]) %></li>
@@ -148,7 +136,7 @@
           <%= if may?(@conn, "messages/subscription") do %><li id="subscriptions-link"><%= link gettext("subscribed messages"), to: subscription_path(@conn, :index) %></li><% end %>
           <%= if may?(@conn, "threads/invisible") do %><li id="invisibles-link"><%= link gettext("invisible threads"), to: invisible_thread_path(@conn, :index) %></li><% end %>
 
-          <%= if controller_module(@conn) == Cforum.ForumController do %>
+          <%= if show?(@conn, :events) do %>
             <li id="events-link"><%# cf_link_to t('events.events'), events_path TODO %></li>
           <% end %>
         </ul>
