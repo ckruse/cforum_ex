@@ -127,9 +127,11 @@ defmodule CforumWeb.Views.Helpers.Path do
   defp to_param(true), do: "true"
   defp to_param(data), do: Phoenix.Param.to_param(data)
 
-  defp encode_query_string([]), do: ""
+  def encode_query_string([]), do: ""
 
-  defp encode_query_string(query) do
+  def encode_query_string(query) do
+    query = Enum.filter(query, fn {k, v} -> k != nil && v != nil end)
+
     case Plug.Conn.Query.encode(query, &to_param/1) do
       "" -> ""
       qstr -> "?" <> qstr
