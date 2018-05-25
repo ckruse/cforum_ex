@@ -5,14 +5,8 @@
           <%= link to: root_path(@conn, :index), class: "home" do %><span><%= gettext("home") %></span><% end %>
         </h1>
 
-        <%= if @current_forum do %>
-          <%= link(img_tag(static_path(@conn, "/images/feed-rss.svg"), alt: gettext("RSS feed (%{forum})", forum: @current_forum.name)), to: rss_url(@conn), title: gettext("RSS feed (%{forum})", forum: @current_forum.name), class: "rss") %>
-          <%= link(img_tag(static_path(@conn, "/images/feed-atom.svg"), alt: gettext("Atom feed (%{forum})", forum: @current_forum.name)), to: atom_url(@conn), title: gettext("Atom feed (%{forum})", forum: @current_forum.name), class: "atom") %>
-        <% else %>
-          <%= link(img_tag(static_path(@conn, "/images/feed-rss.svg"), alt: gettext("RSS feed (%{forum})", forum: gettext("All forums"))), to: rss_url(@conn), title: gettext("RSS feed (%{forum})", forum: gettext("All forums")), class: "rss") %>
-          <%= link(img_tag(static_path(@conn, "/images/feed-atom.svg"), alt: gettext("Atom feed (%{forum})", forum: gettext("All forums"))), to: atom_url(@conn), title: gettext("Atom feed (%{forum})", forum: gettext("All forums")), class: "atom") %>
-        <% end %>
-
+        <%= link(img_tag(static_path(@conn, "/images/feed-atom.svg"), alt: gettext("Atom feed (%{forum})", forum: forum_name(@current_forum))), to: forum_url(@conn, :atom, @current_forum), title: gettext("Atom feed (%{forum})", forum: forum_name(@current_forum)), class: "atom") %>
+        <%= link(img_tag(static_path(@conn, "/images/feed-rss.svg"), alt: gettext("RSS feed (%{forum})", forum: forum_name(@current_forum))), to: forum_url(@conn, :rss, @current_forum), title: gettext("RSS feed (%{forum})", forum: forum_name(@current_forum)), class: "rss") %>
         <%= link(img_tag(static_path(@conn, "/images/donate.svg"), alt: gettext("donate")), to: "https://selfhtml.org/spenden.html", title: gettext("donate"), class: "donate") %>
       </div>
 
@@ -24,8 +18,8 @@
             <span class="anchor"><%= gettext("forums") %></span>
             <ul class="menu">
               <li<% if !@current_forum && controller_module(@conn) == Cforum.ThreadController do %> class="active"<% end %>>
-                <%= link gettext("All forums"), to: forum_path(@conn, :index, "all") %>
-                <%= link to: forum_path(@conn, :stats, "all"), title: gettext("Statistics"), class: "stats" do %>
+                <%= link gettext("all forums"), to: forum_path(@conn, :index, "all") %>
+                <%= link to: forum_path(@conn, :stats, "all"), title: gettext("statistics"), class: "stats" do %>
                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="22" height="14" viewBox="0, 0, 22, 14">
                     <g id="stats-icon">
                       <path d="M-0.001,13 L21.999,13 L21.999,14 L-0.001,14 z" fill="#BFBFBF"/>
@@ -40,7 +34,7 @@
               <%= for f <- @visible_forums do %>
                 <li<%= if @current_forum == f do %> class="active"<% end %>>
                   <%= link f.name, to: forum_path(@conn, :index, f) %>
-                  <%= link to: forum_path(@conn, :stats, f), title: gettext("Statistics"), class: "stats" do %>
+                  <%= link to: forum_path(@conn, :stats, f), title: gettext("statistics"), class: "stats" do %>
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="22" height="14" viewBox="0, 0, 22, 14">
                       <use xlink:href="#stats-icon"></use>
                     </svg>
@@ -56,7 +50,7 @@
           <li><%= link gettext("search"), to: "" %></li>
           <li><%= link gettext("chat"), to: "https://kiwiirc.com/client/irc.epd-me.net/#{chat_nick_name(@conn)}&channel=#selfhtml", rel: "nofollow" %></li>
           <li><%= link(gettext("help"), to: page_path(@conn, :help)) %></li>
-          <%= if controller_module(@conn) != Cforum.SearchController do %>
+          <%= if false and controller_module(@conn) != Cforum.SearchController do %><%# TODO search field %>
             <li class="search">
               <form>
                 <input type="search" placeholder="<%= gettext("search") %>">
@@ -66,7 +60,7 @@
               <%# hidden_field_tag 'sections[]', 2, id: nil %>
               <%# search_field_tag 'term', params[:term], placeholder: t('search.search_top') %>
               <%# end %>
-            </li> <!-- TODO -->
+            </li>
           <% end %>
         </ul>
       </nav>
@@ -100,8 +94,8 @@
           <% end %>
 
           <%= if show?(@conn, :thread_feeds) do %>
-            <li id="nachricht-feed-atom"><%= link gettext("Atom feed"), to: "" %></li> <!-- TODO atom_url for thread -->
-            <li id="nachricht-feed-rss"><%= link gettext("RSS feed"), to: "" %></li> <!-- TODO rss_url for thread -->
+            <li id="nachricht-feed-atom"><%= link gettext("Atom feed"), to: thread_path(@conn, :atom, assigns[:thread]) %></li>
+            <li id="nachricht-feed-rss"><%= link gettext("RSS feed"), to: thread_path(@conn, :rss, assigns[:thread]) %></li>
           <% end %>
 
           <%= if may?(@conn, "admin/") do %>

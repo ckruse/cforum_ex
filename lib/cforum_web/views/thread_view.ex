@@ -40,4 +40,20 @@ defmodule CforumWeb.ThreadView do
 
   def body_id(:index, _assigns), do: "threads-index"
   def body_classes(:index, assigns), do: "threads forum-#{forum_slug(assigns[:current_forum])}"
+
+  alias CforumWeb.Views.Helpers.Feeds
+
+  def render("index.atom", %{threads: threads, conn: conn}) do
+    xml_threads = Enum.map(threads, &Feeds.atom_feed_thread(conn, &1))
+
+    Feeds.atom_feed_head(conn, xml_threads, List.first(threads).created_at)
+    |> XmlBuilder.generate()
+  end
+
+  def render("index.rss", %{threads: threads, conn: conn}) do
+    xml_threads = Enum.map(threads, &Feeds.rss_feed_thread(conn, &1))
+
+    Feeds.rss_feed_head(conn, xml_threads)
+    |> XmlBuilder.generate()
+  end
 end

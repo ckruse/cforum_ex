@@ -59,7 +59,7 @@ msgstr ""
 msgid "Cites"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:107
+#: lib/cforum_web/templates/layout/page_header.html.eex:102
 msgid "Administration"
 msgstr ""
 
@@ -69,16 +69,13 @@ msgstr ""
 msgid "Forums"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:102
+#: lib/cforum_web/templates/layout/page_header.html.eex:97
 msgid "Atom feed"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/link.html.eex:16
-#: lib/cforum_web/templates/layout/link.html.eex:19
-#: lib/cforum_web/templates/layout/page_header.html.eex:10
-#: lib/cforum_web/templates/layout/page_header.html.eex:10
-#: lib/cforum_web/templates/layout/page_header.html.eex:13
-#: lib/cforum_web/templates/layout/page_header.html.eex:13
+#: lib/cforum_web/templates/layout/link.html.eex:15
+#: lib/cforum_web/templates/layout/page_header.html.eex:8
+#: lib/cforum_web/templates/layout/page_header.html.eex:8
 msgid "Atom feed (%{forum})"
 msgstr ""
 
@@ -86,16 +83,13 @@ msgstr ""
 msgid "Chat"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:103
+#: lib/cforum_web/templates/layout/page_header.html.eex:98
 msgid "RSS feed"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/link.html.eex:17
-#: lib/cforum_web/templates/layout/link.html.eex:20
+#: lib/cforum_web/templates/layout/link.html.eex:16
 #: lib/cforum_web/templates/layout/page_header.html.eex:9
 #: lib/cforum_web/templates/layout/page_header.html.eex:9
-#: lib/cforum_web/templates/layout/page_header.html.eex:12
-#: lib/cforum_web/templates/layout/page_header.html.eex:12
 msgid "RSS feed (%{forum})"
 msgstr ""
 
@@ -110,13 +104,13 @@ msgstr ""
 msgid "Statistics"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:16
-#: lib/cforum_web/templates/layout/page_header.html.eex:16
+#: lib/cforum_web/templates/layout/page_header.html.eex:10
+#: lib/cforum_web/templates/layout/page_header.html.eex:10
 msgid "donate"
 msgstr ""
 
 #: lib/cforum_web/templates/layout/page_header.html.eex:5
-#: lib/cforum_web/templates/layout/page_header.html.eex:22
+#: lib/cforum_web/templates/layout/page_header.html.eex:16
 msgid "home"
 msgstr ""
 
@@ -129,7 +123,7 @@ msgid "login"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:56
-#: lib/cforum_web/templates/layout/page_header.html.eex:85
+#: lib/cforum_web/templates/layout/page_header.html.eex:80
 #: lib/cforum_web/views/admin/setting_view.ex:29
 msgid "nested view"
 msgstr ""
@@ -144,20 +138,20 @@ msgstr ""
 msgid "register"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:91
+#: lib/cforum_web/templates/layout/page_header.html.eex:86
 msgid "sort ascending"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:94
+#: lib/cforum_web/templates/layout/page_header.html.eex:89
 msgid "sort descending"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:97
+#: lib/cforum_web/templates/layout/page_header.html.eex:92
 msgid "sort newest first"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:55
-#: lib/cforum_web/templates/layout/page_header.html.eex:83
+#: lib/cforum_web/templates/layout/page_header.html.eex:78
 #: lib/cforum_web/views/admin/setting_view.ex:30
 msgid "thread view"
 msgstr ""
@@ -170,12 +164,12 @@ msgstr ""
 msgid "keywords_text"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:127
+#: lib/cforum_web/templates/layout/page_header.html.eex:110
 #: lib/cforum_web/views/archive_view.ex:4
 msgid "archive"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:21
+#: lib/cforum_web/templates/layout/page_header.html.eex:15
 msgid "create new thread"
 msgstr ""
 
@@ -237,6 +231,7 @@ msgid "settings"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/badge/form.html.eex:3
+#: lib/cforum_web/templates/admin/event/form.html.eex:3
 #: lib/cforum_web/templates/admin/forum/form.html.eex:32
 #: lib/cforum_web/templates/admin/group/form.html.eex:3
 #: lib/cforum_web/templates/admin/redirection/form.html.eex:3
@@ -531,6 +526,7 @@ msgid "avatar"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/badge/form.html.eex:50
+#: lib/cforum_web/templates/admin/event/form.html.eex:48
 #: lib/cforum_web/templates/admin/forum/edit.html.eex:6
 #: lib/cforum_web/templates/admin/forum/new.html.eex:6
 #: lib/cforum_web/templates/admin/group/form.html.eex:34
@@ -567,6 +563,7 @@ msgid "comfort functions"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/badge/form.html.eex:43
+#: lib/cforum_web/templates/admin/event/form.html.eex:29
 #: lib/cforum_web/templates/admin/forum/form.html.eex:94
 #: lib/cforum_web/templates/admin/forum/index.html.eex:6
 #: lib/cforum_web/templates/users/user/personal_information.html.eex:37
@@ -695,6 +692,7 @@ msgid "yes, notify me"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/badge/index.html.eex:23
+#: lib/cforum_web/templates/admin/event/index.html.eex:24
 #: lib/cforum_web/templates/admin/forum/index.html.eex:26
 #: lib/cforum_web/templates/admin/group/index.html.eex:23
 #: lib/cforum_web/templates/admin/redirection/index.html.eex:24
@@ -832,6 +830,7 @@ msgid "created at"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/badge/index.html.eex:23
+#: lib/cforum_web/templates/admin/event/index.html.eex:24
 #: lib/cforum_web/templates/admin/forum/index.html.eex:26
 #: lib/cforum_web/templates/admin/group/index.html.eex:23
 #: lib/cforum_web/templates/admin/redirection/index.html.eex:24
@@ -846,6 +845,7 @@ msgid "delete user"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/badge/index.html.eex:22
+#: lib/cforum_web/templates/admin/event/index.html.eex:23
 #: lib/cforum_web/templates/admin/forum/index.html.eex:25
 #: lib/cforum_web/templates/admin/group/index.html.eex:22
 #: lib/cforum_web/templates/admin/redirection/index.html.eex:23
@@ -1040,6 +1040,7 @@ msgstr ""
 msgid "newest first"
 msgstr ""
 
+#: lib/cforum_web/templates/admin/event/index.html.eex:20
 #: lib/cforum_web/templates/users/user/comfort.html.eex:31
 #: lib/cforum_web/templates/users/user/notifications.html.eex:81
 #: lib/cforum_web/templates/users/user/notifications.html.eex:90
@@ -1139,6 +1140,7 @@ msgstr ""
 msgid "via email"
 msgstr ""
 
+#: lib/cforum_web/templates/admin/event/index.html.eex:20
 #: lib/cforum_web/templates/users/user/comfort.html.eex:30
 #: lib/cforum_web/templates/users/user/notifications.html.eex:80
 #: lib/cforum_web/templates/users/user/notifications.html.eex:89
@@ -1266,7 +1268,7 @@ msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">
 msgstr ""
 
 #: lib/cforum_web/controllers/message_controller.ex:43
-#: lib/cforum_web/controllers/thread_controller.ex:79
+#: lib/cforum_web/controllers/thread_controller.ex:113
 msgid "all"
 msgstr ""
 
@@ -1321,8 +1323,8 @@ msgstr ""
 msgid "link to profile of"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:55
-#: lib/cforum_web/templates/layout/page_header.html.eex:61
+#: lib/cforum_web/templates/layout/page_header.html.eex:50
+#: lib/cforum_web/templates/layout/page_header.html.eex:56
 msgid "search"
 msgstr ""
 
@@ -1367,7 +1369,7 @@ msgstr ""
 msgid "unknown tags given: %{tags}"
 msgstr ""
 
-#: lib/cforum_web/controllers/thread_controller.ex:115
+#: lib/cforum_web/controllers/thread_controller.ex:149
 msgid "Thread created successfully."
 msgstr ""
 
@@ -1397,6 +1399,8 @@ msgid "silver medal"
 msgstr ""
 
 #: lib/cforum_web/templates/forum/index.html.eex:14
+#: lib/cforum_web/templates/layout/page_header.html.eex:21
+#: lib/cforum_web/views/layout_view.ex:194
 #: lib/cforum_web/views/thread_view.ex:26 lib/cforum_web/views/thread_view.ex:33
 msgid "all forums"
 msgstr ""
@@ -1470,12 +1474,12 @@ msgid "hide this thread"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:146
+#: lib/cforum_web/templates/layout/page_header.html.eex:129
 msgid "interesting messages"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:148
+#: lib/cforum_web/templates/layout/page_header.html.eex:131
 #: lib/cforum_web/views/threads/invisible_view.ex:4
 msgid "invisible threads"
 msgstr ""
@@ -1531,7 +1535,7 @@ msgid "subscribe message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:147
+#: lib/cforum_web/templates/layout/page_header.html.eex:130
 #: lib/cforum_web/views/messages/subscription_view.ex:4
 msgid "subscribed messages"
 msgstr ""
@@ -1650,6 +1654,8 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/admin/badge/form.html.eex:7
 #: lib/cforum_web/templates/admin/badge/index.html.eex:4
+#: lib/cforum_web/templates/admin/event/form.html.eex:7
+#: lib/cforum_web/templates/admin/event/index.html.eex:4
 #: lib/cforum_web/templates/admin/forum/form.html.eex:42
 #: lib/cforum_web/templates/admin/forum/index.html.eex:4
 #: lib/cforum_web/templates/admin/group/form.html.eex:7
@@ -1686,18 +1692,18 @@ msgid "username or email"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:56
+#: lib/cforum_web/templates/layout/page_header.html.eex:51
 msgid "chat"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:52
+#: lib/cforum_web/templates/layout/page_header.html.eex:47
 #: lib/cforum_web/views/cite_view.ex:6
 msgid "cites"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:57
+#: lib/cforum_web/templates/layout/page_header.html.eex:52
 msgid "help"
 msgstr ""
 
@@ -1786,13 +1792,14 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/subnav.html.eex:5
+#: lib/cforum_web/views/admin/event_view.ex:4
 msgid "events"
 msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/subnav.html.eex:4
 #: lib/cforum_web/templates/forum/index.html.eex:5
-#: lib/cforum_web/templates/layout/page_header.html.eex:23
+#: lib/cforum_web/templates/layout/page_header.html.eex:18
 #: lib/cforum_web/views/forum_view.ex:4
 msgid "forums"
 msgstr ""
@@ -1820,6 +1827,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/badge/form.html.eex:49
+#: lib/cforum_web/templates/admin/event/form.html.eex:47
 #: lib/cforum_web/templates/admin/group/form.html.eex:33
 #: lib/cforum_web/templates/admin/redirection/form.html.eex:31
 #: lib/cforum_web/templates/admin/user/form.html.eex:38
@@ -2791,7 +2799,7 @@ msgstr ""
 msgid "show all threads"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/views/thread_view.ex:27
 msgid "overview — %{forum}"
 msgstr ""
@@ -2799,4 +2807,92 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/views/thread_view.ex:34
 msgid "unanswered threads  — %{forum}"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/layout/meta.html.eex:7
+#: lib/cforum_web/views/helpers/feeds.ex:62
+msgid "TODO description_text"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/layout/meta.html.eex:8
+msgid "TODO keywords_text"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/layout_view.ex:182
+msgid "administrative view"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/layout_view.ex:181
+msgid "normal view"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/forum/index.html.eex:15
+#: lib/cforum_web/templates/forum/index.html.eex:37
+#: lib/cforum_web/templates/layout/page_header.html.eex:22
+#: lib/cforum_web/templates/layout/page_header.html.eex:37
+msgid "statistics"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/controllers/admin/event_controller.ex:25
+msgid "Event created successfully."
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/controllers/admin/event_controller.ex:58
+msgid "Event deleted successfully."
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/controllers/admin/event_controller.ex:45
+msgid "Event updated successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/event/form.html.eex:41
+msgid "Google maps link"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/views/admin/event_view.ex:8
+msgid "edit event %{name}"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/event/form.html.eex:19
+#: lib/cforum_web/templates/admin/event/index.html.eex:7
+msgid "end date"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/event/form.html.eex:25
+msgid "event is visible"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/event/form.html.eex:35
+#: lib/cforum_web/templates/admin/event/index.html.eex:5
+msgid "location"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/event/subnav.html.eex:4
+#: lib/cforum_web/views/admin/event_view.ex:5
+msgid "new event"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/admin/event/form.html.eex:13
+#: lib/cforum_web/templates/admin/event/index.html.eex:6
+msgid "start date"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/event/index.html.eex:8
+msgid "visible"
 msgstr ""
