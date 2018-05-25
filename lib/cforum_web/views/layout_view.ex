@@ -56,26 +56,6 @@ defmodule CforumWeb.LayoutView do
     end
   end
 
-  def rss_url(conn) do
-    case conn.assigns[:current_forum] do
-      nil ->
-        forum_url(conn, :index, "all") <> ".rss"
-
-      forum ->
-        forum_url(conn, :index, forum.slug) <> ".rss"
-    end
-  end
-
-  def atom_url(conn) do
-    case conn.assigns[:current_forum] do
-      nil ->
-        forum_url(conn, :index, "all") <> ".atom"
-
-      forum ->
-        forum_url(conn, :index, forum.slug) <> ".atom"
-    end
-  end
-
   def meta_refresh(conn) do
     path = Cforum.Helpers.controller_path(conn)
     action = Phoenix.Controller.action_name(conn)
@@ -210,4 +190,7 @@ defmodule CforumWeb.LayoutView do
 
     encode_query_string(%{"nick" => nick})
   end
+
+  def forum_name(nil), do: gettext("all forums")
+  def forum_name(forum), do: forum.name
 end

@@ -64,6 +64,40 @@ defmodule CforumWeb.ThreadController do
     |> render("index_unanswered.html", threads: threads, all_threads_count: all_threads_count, page: p)
   end
 
+  def index_atom(conn, _params) do
+    user = conn.assigns[:current_user]
+    {_, ordering} = get_ordering(conn, user)
+
+    {_, threads} =
+      Threads.list_unanswered_threads(
+        conn.assigns[:current_forum],
+        conn.assigns[:visible_forums],
+        user,
+        order: ordering,
+        message_order: uconf(conn, "sort_messages"),
+        use_paging: false
+      )
+
+    render(conn, "index.atom", threads: threads)
+  end
+
+  def index_rss(conn, _params) do
+    user = conn.assigns[:current_user]
+    {_, ordering} = get_ordering(conn, user)
+
+    {_, threads} =
+      Threads.list_unanswered_threads(
+        conn.assigns[:current_forum],
+        conn.assigns[:visible_forums],
+        user,
+        order: ordering,
+        message_order: uconf(conn, "sort_messages"),
+        use_paging: false
+      )
+
+    render(conn, "index.rss", threads: threads)
+  end
+
   def new(conn, _params) do
     changeset =
       Messages.new_message_changeset(

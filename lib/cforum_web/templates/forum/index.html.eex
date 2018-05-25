@@ -12,7 +12,7 @@
   <li>
     <h2 class="forum-name">
       <%= link gettext("all forums"), to: forum_path(@conn, :index, "all") %>
-      <%= link to: forum_path(@conn, :stats, "all"), title: gettext("Statistics") do %>
+      <%= link to: forum_path(@conn, :stats, "all"), title: gettext("statistics") do %>
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="27" height="17" viewBox="0, 0, 22, 14">
           <use xlink:href="#stats-icon"></use>
         </svg>
@@ -34,7 +34,7 @@
     <li>
       <h2 class="forum-name">
         <%= link forum.name, to: forum_path(@conn, :index, forum) %>
-        <%= link to: forum_path(@conn, :stats, forum), title: gettext("Statistics") do %>
+        <%= link to: forum_path(@conn, :stats, forum), title: gettext("statistics") do %>
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="27" height="17" viewBox="0, 0, 22, 14">
             <use xlink:href="#stats-icon"></use>
           </svg>

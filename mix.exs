@@ -52,6 +52,7 @@ defmodule Cforum.Mixfile do
       {:porcelain, "~> 2.0"},
       {:poison, "~> 3.1"},
       {:slugify, "~> 1.1"},
+      {:xml_builder, "~> 2.0.0"},
 
       # testing
       {:ex_guard, "~> 1.3", only: :dev},

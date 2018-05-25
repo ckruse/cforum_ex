@@ -12,11 +12,6 @@
 
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>" media="all" title="SELFHTML Forum Stylesheet">
 
-    <%= if @current_forum do %>
-      <link rel="alternate" title="<%= gettext("Atom feed (%{forum})", forum: @current_forum.name) %>" type="application/atom+xml" href="<%= atom_url(@conn) %>">
-      <link rel="alternate" title="<%= gettext("RSS feed (%{forum})", forum: @current_forum.name) %>" type="application/rss+xml" href="<%= rss_url(@conn) %>">
-    <% else %>
-      <link rel="alternate" title="<%= gettext("Atom feed (%{forum})", forum: gettext("All forums")) %>" type="application/atom+xml" href="<%= atom_url(@conn) %>">
-      <link rel="alternate" title="<%= gettext("RSS feed (%{forum})", forum: gettext("All forums")) %>" type="application/rss+xml" href="<%= rss_url(@conn) %>">
-    <% end %>
+    <link rel="alternate" title="<%= gettext("Atom feed (%{forum})", forum: forum_name(@current_forum)) %>" type="application/atom+xml" href="<%= forum_url(@conn, :atom, @current_forum) %>">
+    <link rel="alternate" title="<%= gettext("RSS feed (%{forum})", forum: forum_name(@current_forum)) %>" type="application/rss+xml" href="<%= forum_url(@conn, :rss, @current_forum) %>">
 

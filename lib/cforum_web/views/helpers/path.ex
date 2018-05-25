@@ -18,6 +18,12 @@ defmodule CforumWeb.Views.Helpers.Path do
   def forum_path(conn, :index, slug, params),
     do: "#{root_path(conn, :index)}#{forum_slug(slug)}#{encode_query_string(params)}"
 
+  def forum_path(conn, :atom, slug, params),
+    do: "#{root_path(conn, :index)}#{forum_slug(slug)}/feeds/atom#{encode_query_string(params)}"
+
+  def forum_path(conn, :rss, slug, params),
+    do: "#{root_path(conn, :index)}#{forum_slug(slug)}/feeds/rss#{encode_query_string(params)}"
+
   def forum_path(conn, :stats, slug, params),
     do: "#{root_path(conn, :index)}#{forum_slug(slug)}/stats#{encode_query_string(params)}"
 
@@ -28,6 +34,12 @@ defmodule CforumWeb.Views.Helpers.Path do
 
   def forum_url(conn, :index, slug, params),
     do: "#{root_url(conn, :index)}#{forum_slug(slug)}#{encode_query_string(params)}"
+
+  def forum_url(conn, :atom, slug, params),
+    do: "#{root_url(conn, :index)}#{forum_slug(slug)}/feeds/atom#{encode_query_string(params)}"
+
+  def forum_url(conn, :rss, slug, params),
+    do: "#{root_url(conn, :index)}#{forum_slug(slug)}/feeds/rss#{encode_query_string(params)}"
 
   def forum_url(conn, :stats, slug, params),
     do: "#{root_url(conn, :index)}#{forum_slug(slug)}/stats#{encode_query_string(params)}"
@@ -114,11 +126,28 @@ defmodule CforumWeb.Views.Helpers.Path do
     "#{root}#{thread.slug}#{encode_query_string(params)}"
   end
 
+  def thread_path(conn, :rss, %Thread{} = thread, params) do
+    root = forum_path(conn, :index, thread.forum.slug)
+    "#{root}/feeds/rss/#{thread.thread_id}#{encode_query_string(params)}"
+  end
+
+  def thread_path(conn, :atom, %Thread{} = thread, params) do
+    root = forum_path(conn, :index, thread.forum.slug)
+    "#{root}/feeds/atom/#{thread.thread_id}#{encode_query_string(params)}"
+  end
+
   def thread_path(conn, :new, %Forum{} = forum, params), do: thread_path(conn, :new, forum.slug, params)
 
   def thread_path(conn, :new, forum, params) do
     root = forum_path(conn, :index, forum)
     "#{root}/new#{encode_query_string(params)}"
+  end
+
+  def thread_url(conn, action, resource, params \\ [])
+
+  def thread_url(conn, :show, %Thread{} = thread, params) do
+    root = forum_url(conn, :index, thread.forum.slug)
+    "#{root}#{thread.slug}#{encode_query_string(params)}"
   end
 
   defp to_param(int) when is_integer(int), do: Integer.to_string(int)
@@ -141,6 +170,9 @@ defmodule CforumWeb.Views.Helpers.Path do
   defp int_message_path(conn, thread, message, params \\ []),
     do: "#{thread_path(conn, :show, thread)}/#{message.message_id}#{encode_query_string(params)}"
 
+  defp int_message_url(conn, thread, message, params \\ []),
+    do: "#{thread_url(conn, :show, thread)}/#{message.message_id}#{encode_query_string(params)}"
+
   @doc """
   Generates URL path part to the `message`. Uses the thread from the
   `message` struct.
@@ -160,6 +192,11 @@ defmodule CforumWeb.Views.Helpers.Path do
 
   def message_path(conn, :new, %Thread{} = thread, %Message{} = msg, params),
     do: "#{int_message_path(conn, thread, msg)}/new#{encode_query_string(params)}"
+
+  def message_url(conn, action, thread, message, params \\ [])
+
+  def message_url(conn, :show, %Thread{} = thread, %Message{} = msg, params),
+    do: "#{int_message_url(conn, thread, msg, params)}#m#{msg.message_id}"
 
   def subscribe_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/subscribe#{encode_query_string(params)}"

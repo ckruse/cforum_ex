@@ -26,6 +26,16 @@ defmodule CforumWeb.Router do
     plug(CforumWeb.Plug.CurrentUser)
   end
 
+  scope "/api", CforumWeb.Api, as: :api do
+    pipe_through(:api)
+
+    scope "/v1", V1 do
+      get("/users", UserController, :index)
+      post("/users", UserController, :index)
+      get("/users/:id", UserController, :show)
+    end
+  end
+
   scope "/", CforumWeb do
     pipe_through(:browser)
 
@@ -97,6 +107,10 @@ defmodule CforumWeb.Router do
 
     scope "/:curr_forum" do
       get("/", ThreadController, :index, as: nil)
+
+      get("/feeds/atom", ThreadController, :index_atom, as: nil)
+      get("/feeds/rss", ThreadController, :index_rss, as: nil)
+
       get("/unanswered", ThreadController, :index_unanswered, as: nil)
       get("/new", ThreadController, :new, as: nil)
       post("/new", ThreadController, :create, as: nil)
@@ -114,6 +128,9 @@ defmodule CforumWeb.Router do
       get("/:year", ArchiveController, :months, as: nil)
       get("/:year/:month", ArchiveController, :threads, as: nil)
 
+      get("/feeds/atom/:id", ThreadController, :show_atom, as: nil)
+      get("/feeds/rss/:id", ThreadController, :show_rss, as: nil)
+
       post("/:year/:month/:day/:slug/mark-read", Messages.MarkReadController, :mark_read, as: nil)
 
       post("/:year/:month/:day/:slug/hide", Threads.InvisibleController, :hide, as: nil)
@@ -130,17 +147,6 @@ defmodule CforumWeb.Router do
       post("/:year/:month/:day/:slug/:mid/unsubscribe", Messages.SubscriptionController, :unsubscribe, as: nil)
       post("/:year/:month/:day/:slug/:mid/interesting", Messages.InterestingController, :interesting, as: nil)
       post("/:year/:month/:day/:slug/:mid/boring", Messages.InterestingController, :boring, as: nil)
-    end
-  end
-
-  # Other scopes may use custom stacks.
-  scope "/api", CforumWeb.Api do
-    pipe_through(:api)
-
-    scope "/v1", V1 do
-      get("/users", UserController, :index)
-      post("/users", UserController, :index)
-      get("/users/:id", UserController, :show)
     end
   end
 end

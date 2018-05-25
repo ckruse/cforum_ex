@@ -4,8 +4,8 @@
 
     <%= render_existing @view_module, "robots.html", assigns %>
 
-    <meta name="description" content="<%= if @current_forum && @current_forum.description, do: @current_forum.description, else: gettext("description_text") %>">
-    <meta name="keywords" content="<%= if @current_forum && @current_forum.keywords, do: @current_forum.keywords, else: gettext("keywords_text") %>">
+    <meta name="description" content="<%= if @current_forum && @current_forum.description, do: @current_forum.description, else: gettext("TODO description_text") %>">
+    <meta name="keywords" content="<%= if @current_forum && @current_forum.keywords, do: @current_forum.keywords, else: gettext("TODO keywords_text") %>">
 
     <meta name="DC.Publisher" content="<%= gettext("publisher") %>">
     <meta name="DC.Identifier" content="<%= controller_path(@conn) %>/<%= action_name(@conn) %>">
