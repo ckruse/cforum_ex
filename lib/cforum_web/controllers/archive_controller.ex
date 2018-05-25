@@ -38,6 +38,6 @@ defmodule CforumWeb.ArchiveController do
 
     p = paginate(count, per_page: limit, page: page + 1)
 
-    render(conn, "threads.html", threads: threads, page: p)
+    render(conn, "threads.html", threads: threads, page: p, start_date: start_date)
   end
 end
