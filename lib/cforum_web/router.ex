@@ -35,6 +35,7 @@ defmodule CforumWeb.Router do
       resources("/groups", GroupController, except: [:show])
       resources("/badges", BadgeController, except: [:show])
       resources("/redirections", RedirectionController, except: [:show])
+      resources("/events", EventController, except: [:show])
 
       get("/settings", SettingController, :edit, as: :setting)
       put("/settings", SettingController, :update, as: :setting)

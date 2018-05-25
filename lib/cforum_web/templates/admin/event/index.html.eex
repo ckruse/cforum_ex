@@ -1,0 +1,31 @@
+<table class="cf-default-table">
+  <thead>
+    <tr>
+      <th><%= sortable(@conn, gettext("name"), :name, &admin_event_path/3) %></th>
+      <th><%= sortable(@conn, gettext("location"), :location, &admin_event_path/3) %></th>
+      <th><%= sortable(@conn, gettext("start date"), :start_date, &admin_event_path/3) %></th>
+      <th><%= sortable(@conn, gettext("end date"), :end_date, &admin_event_path/3) %></th>
+      <th><%= sortable(@conn, gettext("visible"), :visible, &admin_event_path/3) %></th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for event <- @events do %>
+      <tr>
+        <td><%= event.name %></td>
+        <td><%= event.location %></td>
+        <td><%= format_date(@conn, event.start_date, "date_format_date") %></td>
+        <td><%= format_date(@conn, event.end_date, "date_format_date") %></td>
+        <td><%= if event.visible, do: gettext("yes"), else: gettext("no") %></td>
+
+        <td class="actions-column">
+          <%= default_index_link(gettext("edit"), to: admin_event_path(@conn, :edit, event)) %>
+          <%= destructive_index_button(gettext("delete"), to: admin_event_path(@conn, :delete, event), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= pagination @conn, @page, &admin_event_path/3 %>
