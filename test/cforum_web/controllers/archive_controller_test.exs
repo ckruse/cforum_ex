@@ -80,7 +80,7 @@ defmodule CforumWeb.ArchiveControllerTest do
     assert html_response(conn, 200) =~ message.subject
   end
 
-  test "/all/archive/year/month doesn't fail when there are no postings", %{conn: conn} do
+  test "/all/year/month doesn't fail when there are no postings", %{conn: conn} do
     conn = get(conn, "/all/1998/jan")
     assert html_response(conn, 200)
   end
