@@ -64,18 +64,19 @@ defmodule CforumWeb.Views.Helpers do
   @doc """
   Generates a time tag with the correct `datetime` attribute and the given content
   """
-  def time_tag(time, opts, do: content) do
-    timestamp = DateTime.to_iso8601(time)
-    content_tag(:time, content, Keyword.merge([datetime: timestamp], opts))
-  end
+  def time_tag(time, opts, do: content), do: time_tag(time, content, opts)
 
   @doc """
   Generates a time tag with the correct `datetime` attribute and the given content
   """
-  def time_tag(content, time, opts) do
-    timestamp = DateTime.to_iso8601(time)
+  def time_tag(time, content, opts) do
+    timestamp = time_tag_timestamp(time)
     content_tag(:time, content, Keyword.merge([datetime: timestamp], opts))
   end
+
+  defp time_tag_timestamp(%NaiveDateTime{} = time), do: NaiveDateTime.to_iso8601(time)
+  defp time_tag_timestamp(%DateTime{} = time), do: DateTime.to_iso8601(time)
+  defp time_tag_timestamp(%Date{} = time), do: Date.to_iso8601(time)
 
   @doc """
   Renders a localized version of the template.
