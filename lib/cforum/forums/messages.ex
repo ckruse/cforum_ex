@@ -626,4 +626,18 @@ defmodule Cforum.Forums.Messages do
     )
     |> Repo.one()
   end
+
+  def get_parent_message(thread, message)
+  def get_parent_message(_, %Message{parent_id: nil}), do: nil
+
+  def get_parent_message(thread, %Message{parent_id: mid}),
+    do: Enum.find(thread.sorted_messages, &(&1.message_id == mid))
+
+  def parent_subscribed?(thread, message)
+  def parent_subscribed?(_, %Message{parent_id: nil}), do: false
+
+  def parent_subscribed?(thread, message) do
+    parent = get_parent_message(thread, message)
+    parent.attribs[:is_subscribed] == true || parent_subscribed?(thread, parent)
+  end
 end
