@@ -3,6 +3,7 @@ defmodule CforumWeb.MessageView do
 
   alias Cforum.Forums.Thread
   alias Cforum.Forums.Message
+  alias Cforum.Forums.Messages
 
   def first_class(classes, %{first: true}), do: ["first" | classes]
   def first_class(classes, _), do: classes

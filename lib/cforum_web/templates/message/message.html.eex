@@ -68,19 +68,15 @@
           <%= default_button(gettext("mark message as boring"), to: boring_message_path(@conn, @thread, @message), params: std_args(@conn)) %>
         <% end %>
 
-        <%# unless parent_subscribed?(m) %>
-          <%# if m.attribs[:is_subscribed] %>
-            <%#= cf_button_to(unsubscribe_message_path(@thread, m),
-                              params: std_args,
-                              class: 'cf-btn unsubscribe-message',
-                              title: t('plugins.subscriptions.unsubscribe_message')) do %><%# t('plugins.subscriptions.unsubscribe_message') %><%# end %>
-          <%# else %>
-            <%#= cf_button_to(subscribe_message_path(@thread, m),
-                              params: std_args,
-                              class: 'cf-btn subscribe-message',
-                              title: t('plugins.subscriptions.subscribe_message')) do %><%# t('plugins.subscriptions.subscribe_message') %><%# end %>
-          <%# end %>
-        <%# end %>
+        <%= unless Messages.parent_subscribed?(@thread, @message) do %>
+          <%= if may?(@conn, "messages/subscription", :subscribe, @message) do %>
+            <%= default_button(gettext("subscribe message"), to: subscribe_message_path(@conn, @thread, @message), params: std_args(@conn)) %>
+          <% end %>
+
+          <%= if may?(@conn, "messages/subscription", :unsubscribe, @message) do %>
+            <%= default_button(gettext("unsubscribe message"), to: unsubscribe_message_path(@conn, @thread, @message), params: std_args(@conn)) %>
+          <% end %>
+        <% end %>
       </div>
     <% end %>
   </div>
