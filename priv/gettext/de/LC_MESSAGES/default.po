@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2018-05-25 09:19+0200\n"
+"PO-Revision-Date: 2018-06-03 07:30+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -713,6 +713,7 @@ msgstr "ja, benachrichtige mich"
 #: lib/cforum_web/templates/admin/group/index.html.eex:23
 #: lib/cforum_web/templates/admin/redirection/index.html.eex:24
 #: lib/cforum_web/templates/admin/user/index.html.eex:22
+#: lib/cforum_web/templates/event/attendee.html.eex:44
 #: lib/cforum_web/templates/notification/index.html.eex:27
 #: lib/cforum_web/templates/tag/show.html.eex:6
 #: lib/cforum_web/templates/tag/show.html.eex:20
@@ -720,12 +721,12 @@ msgstr "ja, benachrichtige mich"
 #: lib/cforum_web/views/helpers/button.ex:103
 #: lib/cforum_web/views/helpers/button.ex:116
 #: lib/cforum_web/views/helpers/button.ex:125
-#: lib/cforum_web/views/helpers/button.ex:269
-#: lib/cforum_web/views/helpers/button.ex:278
-#: lib/cforum_web/views/helpers/button.ex:292
-#: lib/cforum_web/views/helpers/button.ex:301
-#: lib/cforum_web/views/helpers/button.ex:356
-#: lib/cforum_web/views/helpers/button.ex:365
+#: lib/cforum_web/views/helpers/button.ex:276
+#: lib/cforum_web/views/helpers/button.ex:285
+#: lib/cforum_web/views/helpers/button.ex:299
+#: lib/cforum_web/views/helpers/button.ex:308
+#: lib/cforum_web/views/helpers/button.ex:363
+#: lib/cforum_web/views/helpers/button.ex:372
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
 
@@ -765,8 +766,8 @@ msgstr "Keine Benachrichtigungen gefunden"
 msgid "Notifications"
 msgstr "Benachrichtigungen"
 
-#: lib/cforum_web/controllers/users/password_controller.ex:46
-#: lib/cforum_web/controllers/users/password_controller.ex:74
+#: lib/cforum_web/controllers/users/password_controller.ex:47
+#: lib/cforum_web/controllers/users/password_controller.ex:75
 msgid "Password updated successfully."
 msgstr "Passwort erfolgreich geändert."
 
@@ -774,7 +775,7 @@ msgstr "Passwort erfolgreich geändert."
 msgid "Position"
 msgstr "Position"
 
-#: lib/cforum_web/views/users/password_view.ex:6
+#: lib/cforum_web/views/users/password_view.ex:5
 msgid "Reset my password"
 msgstr "Mein Passwort zurücksetzen"
 
@@ -802,7 +803,7 @@ msgstr "Slug"
 msgid "Standard permission"
 msgstr "Standard-Berechtigung"
 
-#: lib/cforum_web/controllers/users/password_controller.ex:19
+#: lib/cforum_web/controllers/users/password_controller.ex:20
 msgid "The instructions how to reset your password have been sent."
 msgstr "Die Anweisungen, wie Sie Ihr Passwort zurücksetzen können, wurden verschickt."
 
@@ -866,6 +867,7 @@ msgstr "Benutzer löschen"
 #: lib/cforum_web/templates/admin/group/index.html.eex:22
 #: lib/cforum_web/templates/admin/redirection/index.html.eex:23
 #: lib/cforum_web/templates/admin/user/index.html.eex:21
+#: lib/cforum_web/templates/event/attendee.html.eex:43
 msgid "edit"
 msgstr "bearbeiten"
 
@@ -1335,7 +1337,7 @@ msgid "voluntary, will be publicly visible"
 msgstr "freiwillig, öffentlich sichtbar"
 
 #: lib/cforum_web/templates/forum/message_header.html.eex:4
-#: lib/cforum_web/views/helpers.ex:163
+#: lib/cforum_web/views/helpers.ex:164
 msgid "link to profile of"
 msgstr "Link zum Profil von"
 
@@ -1345,7 +1347,7 @@ msgid "search"
 msgstr "suchen"
 
 #: lib/cforum_web/templates/forum/message_header.html.eex:6
-#: lib/cforum_web/views/helpers.ex:155 lib/cforum_web/views/helpers.ex:168
+#: lib/cforum_web/views/helpers.ex:156 lib/cforum_web/views/helpers.ex:169
 msgid "user %{user}"
 msgstr "Benutzer %{user}"
 
@@ -1395,7 +1397,7 @@ msgstr "Thread erfolgreich erstellt."
 msgid "User %{user}"
 msgstr "Benutzer %{user}"
 
-#: lib/cforum_web/views/helpers.ex:132
+#: lib/cforum_web/views/helpers.ex:133
 msgid "bronze medal"
 msgstr "Bronze-Medaille"
 
@@ -1404,7 +1406,7 @@ msgstr "Bronze-Medaille"
 msgid "forum"
 msgstr "Forum"
 
-#: lib/cforum_web/views/helpers.ex:134
+#: lib/cforum_web/views/helpers.ex:135
 msgid "gold medal"
 msgstr "Gold-Medaille"
 
@@ -1412,7 +1414,7 @@ msgstr "Gold-Medaille"
 msgid "new thread"
 msgstr "neuer Thread"
 
-#: lib/cforum_web/views/helpers.ex:133
+#: lib/cforum_web/views/helpers.ex:134
 msgid "silver medal"
 msgstr "Silber-Medaille"
 
@@ -1429,12 +1431,12 @@ msgid "show all"
 msgstr "alle anzeigen"
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/interesting_controller.ex:57
+#: lib/cforum_web/controllers/messages/interesting_controller.ex:39
 msgid "Interesting mark was successfully removed."
 msgstr "Die Interessant-Markierung wurde erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/interesting_controller.ex:40
+#: lib/cforum_web/controllers/messages/interesting_controller.ex:31
 msgid "Message was successfully marked as interesting."
 msgstr "Der Beitrag wurde erfolgreich als interessant markiert."
 
@@ -1511,6 +1513,7 @@ msgstr "Diesen Thread wieder einblenden"
 #, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:14
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:16
+#: lib/cforum_web/templates/message/message.html.eex:64
 msgid "mark message as interesting"
 msgstr "Beitrag als interessant markieren"
 
@@ -1613,17 +1616,17 @@ msgid "answer without cite"
 msgstr "ohne Zitat antworten"
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:76
+#: lib/cforum_web/controllers/mail_controller.ex:77
 msgid "Mail created successfully."
 msgstr "Mail erfolgreich gespeichert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:101
+#: lib/cforum_web/controllers/mail_controller.ex:102
 msgid "Mail deleted successfully."
 msgstr "Mail erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:89
+#: lib/cforum_web/controllers/mail_controller.ex:90
 msgid "Mail successfully marked as unread."
 msgstr "Mail erfolgreich als ungelesen markiert."
 
@@ -1639,7 +1642,7 @@ msgstr "Empfänger"
 
 #, elixir-format
 #: lib/cforum_web/controllers/mail_controller.ex:42
-#: lib/cforum_web/controllers/mail_controller.ex:55
+#: lib/cforum_web/controllers/mail_controller.ex:56
 msgid "you"
 msgstr "du"
 
@@ -1677,6 +1680,8 @@ msgstr "Beitragstext"
 #: lib/cforum_web/templates/admin/forum/form.html.eex:42
 #: lib/cforum_web/templates/admin/forum/index.html.eex:4
 #: lib/cforum_web/templates/admin/group/form.html.eex:7
+#: lib/cforum_web/templates/event/attendee.html.eex:2
+#: lib/cforum_web/templates/event/index.html.eex:4
 msgid "name"
 msgstr "Name"
 
@@ -1811,6 +1816,7 @@ msgstr "Erstellungszeitpunkt"
 #, elixir-format
 #: lib/cforum_web/templates/admin/subnav.html.eex:5
 #: lib/cforum_web/views/admin/event_view.ex:4
+#: lib/cforum_web/views/event_view.ex:4
 msgid "events"
 msgstr "Ereignisse"
 
@@ -2344,32 +2350,32 @@ msgid "badge type"
 msgstr "Medaillen-Art"
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:145
+#: lib/cforum_web/views/helpers.ex:146
 msgid "create close and reopen votes"
 msgstr "Recht Sperr-/Entsperr-Abstimmungen zu erstellen"
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:142
+#: lib/cforum_web/views/helpers.ex:143
 msgid "create tag synonyms"
 msgstr "Recht Tag-Synonyme zu erstellen"
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:141
+#: lib/cforum_web/views/helpers.ex:142
 msgid "create tags"
 msgstr "Recht Tags zu erstellen"
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:148
+#: lib/cforum_web/views/helpers.ex:149
 msgid "custom"
 msgstr "benutzerdefiniert"
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:138
+#: lib/cforum_web/views/helpers.ex:139
 msgid "downvote"
 msgstr "Downvote"
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:144
+#: lib/cforum_web/views/helpers.ex:145
 msgid "edit answers"
 msgstr "Recht Antworten zu editieren"
 
@@ -2379,7 +2385,7 @@ msgid "edit badge „%{name}“"
 msgstr "Medaille „%{name}“ bearbeiten"
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:143
+#: lib/cforum_web/views/helpers.ex:144
 msgid "edit questions"
 msgstr "Recht Fragen zu editieren"
 
@@ -2390,7 +2396,7 @@ msgid "medal type"
 msgstr "Medaillen-Stufe"
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:146
+#: lib/cforum_web/views/helpers.ex:147
 msgid "moderator tools"
 msgstr "Zugriff auf Moderationstools"
 
@@ -2401,7 +2407,7 @@ msgid "new badge"
 msgstr "neue Medaille"
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:139
+#: lib/cforum_web/views/helpers.ex:140
 msgid "retag"
 msgstr "Recht neu zu taggen"
 
@@ -2412,17 +2418,17 @@ msgid "score needed"
 msgstr "benötigte Punkte"
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:147
+#: lib/cforum_web/views/helpers.ex:148
 msgid "seo profi"
 msgstr "SEO-Profi"
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:137
+#: lib/cforum_web/views/helpers.ex:138
 msgid "upvote"
 msgstr "Upvote"
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:140
+#: lib/cforum_web/views/helpers.ex:141
 msgid "visit close and reopen votes"
 msgstr "Abstimmungsrecht über Sperr-/Entsperr-Abstimmungen"
 
@@ -2858,17 +2864,17 @@ msgstr "Administrator-Ansicht deaktivieren"
 msgid "statistics"
 msgstr "Statistiken"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/controllers/admin/event_controller.ex:25
 msgid "Event created successfully."
 msgstr "Ereignis erfolgreich erstellt."
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/controllers/admin/event_controller.ex:58
 msgid "Event deleted successfully."
 msgstr "Ereignis erfolgreich gelöscht."
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/controllers/admin/event_controller.ex:45
 msgid "Event updated successfully."
 msgstr "Ereignis erfolgreich geändert."
@@ -2878,7 +2884,7 @@ msgstr "Ereignis erfolgreich geändert."
 msgid "Google maps link"
 msgstr "Google-Maps-Link"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/views/admin/event_view.ex:8
 msgid "edit event %{name}"
 msgstr "Ereignis „%{name}“ bearbeiten"
@@ -2886,6 +2892,7 @@ msgstr "Ereignis „%{name}“ bearbeiten"
 #, elixir-format
 #: lib/cforum_web/templates/admin/event/form.html.eex:19
 #: lib/cforum_web/templates/admin/event/index.html.eex:7
+#: lib/cforum_web/templates/event/index.html.eex:7
 msgid "end date"
 msgstr "End-Datum"
 
@@ -2897,6 +2904,7 @@ msgstr "Ereignis ist sichtbar"
 #, elixir-format
 #: lib/cforum_web/templates/admin/event/form.html.eex:35
 #: lib/cforum_web/templates/admin/event/index.html.eex:5
+#: lib/cforum_web/templates/event/index.html.eex:5
 msgid "location"
 msgstr "Ort"
 
@@ -2906,9 +2914,10 @@ msgstr "Ort"
 msgid "new event"
 msgstr "neues Ereignis"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/admin/event/form.html.eex:13
 #: lib/cforum_web/templates/admin/event/index.html.eex:6
+#: lib/cforum_web/templates/event/index.html.eex:6
 msgid "start date"
 msgstr "Start-Datum"
 
@@ -2916,3 +2925,119 @@ msgstr "Start-Datum"
 #: lib/cforum_web/templates/admin/event/index.html.eex:8
 msgid "visible"
 msgstr "sichtbar"
+
+#, elixir-format
+#: lib/cforum_web/templates/event/show.html.eex:11
+msgid "in %{location}"
+msgstr "in <span class=\"p-location\">%{location}</span>"
+
+#, elixir-format
+#: lib/cforum_web/templates/message/message.html.eex:24
+msgid "This message got cited in cite %{cite_links}"
+msgid_plural "This message got cited in cites %{cite_links}"
+msgstr[0] "Grundlage für kein Zitat."
+msgstr[1] "Grundlage für Zitat %{cite_links}."
+msgstr[2] "Grundlage für die Zitate %{cite_links}."
+
+#, elixir-format
+#: lib/cforum_web/templates/event/show.html.eex:27
+msgid "no attendees"
+msgid_plural "%{count} attendees"
+msgstr[0] "keine Teilnehmer"
+msgstr[1] "ein Teilnehmer"
+msgstr[2] "%{count} Teilnehmer"
+
+#, elixir-format
+#: lib/cforum_web/templates/event/show.html.eex:30
+msgid "No attendees, yet."
+msgstr "Bisher keine Teilnehmer."
+
+#, elixir-format
+#: lib/cforum_web/templates/message/message.html.eex:60
+msgid "Start a close vote"
+msgstr "Abstimmung über Beitrag starten"
+
+#, elixir-format
+#: lib/cforum_web/templates/event/attendee.html.eex:44
+msgid "delete attendee"
+msgstr "Teilnehmer entfernen"
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/message/message.html.eex:52
+msgid "edit message"
+msgstr "Beitrag bearbeiten"
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/message/message.html.eex:48
+msgid "flag message"
+msgstr "Beitrag melden"
+
+#, elixir-format
+#: lib/cforum_web/templates/message/message.html.eex:40
+msgid "mail to author"
+msgstr "Nachricht an den Autor"
+
+#, elixir-format
+#: lib/cforum_web/templates/event/show.html.eex:21
+msgid "map of the event location area"
+msgstr "Karte der Zielregion"
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/message/message.html.eex:68
+msgid "mark message as boring"
+msgstr "Interessant-Markierung entfernen"
+
+#, elixir-format
+#: lib/cforum_web/templates/event/attendee.html.eex:22
+msgid "planned arrival"
+msgstr "geplante Ankunft"
+
+#, elixir-format
+#: lib/cforum_web/templates/event/attendee.html.eex:27
+msgid "planned leave"
+msgstr "geplante Abreise"
+
+#, elixir-format
+#: lib/cforum_web/templates/event/attendee.html.eex:17
+msgid "planned start"
+msgstr "geplanter Reisebeginn"
+
+#, elixir-format
+#: lib/cforum_web/views/message_view.ex:221
+msgid "regarding your message %{subject} from %{time}"
+msgstr "Dein Beitrag „%{subject}“ vom %{time}"
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/message/message.html.eex:44
+msgid "retag message"
+msgstr "Tags neu vergeben"
+
+#, elixir-format
+#: lib/cforum_web/templates/event/attendee.html.eex:32
+msgid "seats available"
+msgstr "Sitzplätze verfügbar"
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/message/message.html.eex:56
+msgid "split thread"
+msgstr "Thread teilen"
+
+#, elixir-format
+#: lib/cforum_web/templates/event/attendee.html.eex:12
+msgid "starts at location"
+msgstr "Start-Ort"
+
+#, elixir-format
+#: lib/cforum_web/views/events/attendee_view.ex:5
+msgid "take place in event „%{event}“"
+msgstr "An „%{event}“ teilnehmen"
+
+#, elixir-format
+#: lib/cforum_web/templates/message/message.html.eex:32
+msgid "write a new answer"
+msgstr "Antwort verfassen"
+
+#, elixir-format
+#: lib/cforum_web/templates/message/message.html.eex:35
+msgid "write a new answer with quoting"
+msgstr "Antwort mit Zitat verfassen"
