@@ -138,7 +138,7 @@ defmodule CforumWeb.Views.Helpers.Button do
         <input name="_csrf_token" value="">
         <button type="submit">hello</button>
       </form>
-    
+
       button("hello", to: "/world", method: "get", class: "btn")
       #=> <form action="/world" class="btn" method="get">
         <button type="submit">hello</button>
@@ -153,28 +153,35 @@ defmodule CforumWeb.Views.Helpers.Button do
   All other options are forwarded to the underlying button input.
   """
   def cf_button(opts, do: contents) do
-    {to, form, opts} = extract_button_options(opts)
+    {to, form, params, opts} = extract_button_options(opts)
 
     form_tag to, form do
-      Phoenix.HTML.Form.submit(opts, do: contents)
+      [params_to_inputs(params) | Phoenix.HTML.Form.submit(opts, do: contents)]
     end
   end
 
   def cf_button(text, opts) do
-    {to, form, opts} = extract_button_options(opts)
+    {to, form, params, opts} = extract_button_options(opts)
 
     form_tag to, form do
-      Phoenix.HTML.Form.submit(text, opts)
+      [params_to_inputs(params) | Phoenix.HTML.Form.submit(text, opts)]
     end
+  end
+
+  defp params_to_inputs(params) do
+    Enum.map(params, fn {k, v} ->
+      [{:safe, "<input type=\"hidden\" name=\""}, "#{k}", {:safe, "\" value=\""}, v, {:safe, "\">"}]
+    end)
   end
 
   defp extract_button_options(opts) do
     {to, opts} = pop_required_option!(opts, :to, "option :to is required in button/2")
     {method, opts} = Keyword.pop(opts, :method, :post)
+    {params, opts} = Keyword.pop(opts, :params, [])
 
     {form, opts} = form_options(opts, method, "cf-inline-form")
 
-    {to, form, opts}
+    {to, form, params, opts}
   end
 
   defp pop_required_option!(opts, key, error_message) do
