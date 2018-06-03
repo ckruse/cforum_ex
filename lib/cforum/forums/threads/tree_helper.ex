@@ -1,15 +1,13 @@
 defmodule Cforum.Forums.Threads.TreeHelper do
   alias Cforum.Forums.Thread
   alias Cforum.Forums.Message
+  alias Cforum.Helpers
 
   def sort_threads(threads, direction, thread_modifier),
     do: Enum.map(threads, &sort_thread(direction, thread_modifier, &1))
 
   def sort_thread(direction, modifier, thread, message \\ nil)
   def sort_thread(direction, modifier, thread, nil), do: gen_thread_tree(modifier, thread, direction)
-
-  defp to_int(nil), do: 0
-  defp to_int(v), do: v
 
   def gen_thread_tree(modifier, thread, direction \\ "ascending") do
     sorted_messages =
@@ -24,7 +22,7 @@ defmodule Cforum.Forums.Threads.TreeHelper do
             v == 1 || v == 0
 
           true ->
-            to_int(a.parent_id) <= to_int(b.parent_id)
+            Helpers.to_int(a.parent_id) <= Helpers.to_int(b.parent_id)
         end
       end)
 
