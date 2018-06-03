@@ -10,6 +10,7 @@ defmodule Cforum.MarkdownRenderer do
   # alias Porcelain.Result
 
   alias Cforum.Cites.Cite
+  alias Cforum.Events.Event
   alias Cforum.Forums.Message
   alias Cforum.Accounts.PrivMessage
   # alias Cforum.Accounts.User
@@ -39,6 +40,13 @@ defmodule Cforum.MarkdownRenderer do
   def to_html(%Cite{} = cite, _user) do
     # TODO handle user specific foo
     {:ok, html} = render_doc(cite.cite)
+    {:safe, html}
+    # [{:safe, "<pre>"}, message.content, {:safe, "</pre>"}]
+  end
+
+  def to_html(%Event{} = event, _user) do
+    # TODO handle user specific foo
+    {:ok, html} = render_doc(event.description)
     {:safe, html}
     # [{:safe, "<pre>"}, message.content, {:safe, "</pre>"}]
   end

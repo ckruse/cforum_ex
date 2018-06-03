@@ -5,6 +5,7 @@ defmodule Cforum.Abilities do
 
   require Logger
   import Cforum.Abilities.Helpers
+  import Cforum.Helpers
 
   @doc """
   Returns `true` if the user may access the given path, `false` otherwise
@@ -31,6 +32,8 @@ defmodule Cforum.Abilities do
   use Cforum.Abilities.Tag
   use Cforum.Abilities.Tags.Synonym
   use Cforum.Abilities.Badge
+  use Cforum.Abilities.Event
+  use Cforum.Abilities.Events.Attendee
 
   use Cforum.Abilities.Admin
   use Cforum.Abilities.V1.Api

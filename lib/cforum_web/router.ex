@@ -58,6 +58,10 @@ defmodule CforumWeb.Router do
     resources("/mails", MailController, except: [:edit, :update])
     post("/mails/:id/unread", MailController, :update_unread, as: :mail)
 
+    resources("/events", EventController, only: [:index, :show]) do
+      resources("/attendees", Events.AttendeeController, except: [:index, :show])
+    end
+
     get("/invisible", Threads.InvisibleController, :index)
     get("/subscriptions", Messages.SubscriptionController, :index)
     get("/interesting", Messages.InterestingController, :index)

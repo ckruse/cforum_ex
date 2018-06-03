@@ -1,0 +1,70 @@
+.cf-event {
+  @extend .cf-thread-message;
+
+  header {
+    @extend .cf-message-header;
+
+    h2 {
+      margin-left: 0;
+    }
+  }
+
+  .event-content {
+    @extend .cf-posting-content;
+  }
+
+  .location-area {
+    border: 0;
+    width: 100%;
+    height: 30em;
+  }
+
+  .attendees-list {
+    list-style-type: none;
+    padding-left: 0;
+
+    li {
+      padding-bottom: 1em;
+      margin-bottom: 1em;
+      border-bottom: 1px solid $standard_hr_color;
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    li:last-of-type {
+      border-bottom: none;
+    }
+
+    dt,
+    dd {
+      padding: 0;
+      margin: 0;
+    }
+    dt {
+      font-weight: bold;
+    }
+  }
+}
+
+@media only screen and (min-width: 35em) {
+  .cf-event {
+    dt {
+      display: inline-block;
+      min-width: 10em;
+    }
+
+    dd {
+      display: inline;
+    }
+
+    dt:after {
+      content: ":";
+    }
+    dd:after {
+      content: "\A";
+      white-space: pre;
+    }
+  }
+}

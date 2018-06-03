@@ -8,11 +8,13 @@ defmodule Cforum.Events.Event do
   schema "events" do
     field(:name, :string)
     field(:description, :string)
-    field(:start_date, :date)
-    field(:end_date, :date)
+    field(:start_date, Timex.Ecto.Date)
+    field(:end_date, Timex.Ecto.Date)
     field(:location, :string)
     field(:maps_link, :string)
     field(:visible, :boolean, default: false)
+
+    has_many(:attendees, Cforum.Events.Attendee, foreign_key: :event_id)
 
     timestamps(inserted_at: :created_at)
   end
