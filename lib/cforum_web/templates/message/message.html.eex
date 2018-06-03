@@ -1,7 +1,7 @@
 <div class="posting-header">
   <%= header(@conn, @thread, @message, first: @first, do_parent: assigns[:do_parent], tree: false, show_editor: true, author_link_to_message: false) %>
 
-  <%# if m.flags["no-answer"] != 'yes' && m.flags['no-answer-admin'] != 'yes' && controls == :yes && !m.deleted %>
+  <%# if m.flags["no-answer"] != 'yes' && m.flags['no-answer-admin'] != 'yes' && controls == :yes && !m.deleted %> <!-- TODO -->
     <%# render 'votes_accept', m: m %>
   <%# end %>
 </div>
@@ -15,5 +15,74 @@
 </div>
 
 <div class="posting-footer">
+  <%# if m.flags["no-answer"] != 'yes' && m.flags['no-answer-admin'] != 'yes' && controls == :yes && !m.deleted %><!-- TODO -->
+    <%# render 'votes_accept', m: m, bottom: true %>
+  <%# end %>
+
+  <div class="message-links">
+    <%= if present?(@message.cites) do %>
+      <p class="message-cite"><%= {:safe, ngettext("This message got cited in cite %{cite_links}",
+                                                   "This message got cited in cites %{cite_links}",
+                                                   length(@message.cites), cite_links: cite_links(@conn, @message))} %></p>
+    <% end %>
+
+    <%= if assigns[:controls] && !@message.deleted do %>
+      <div class="controls">
+        <%= if may?(@conn, "message", :create, @message) do %>
+          <%= default_button_link(gettext("write a new answer"), to: message_path(@conn, :new, @thread, @message), rel: "nofollow") %>
+
+          <%= if uconf(@conn, "quote_by_default") == "button" do %>
+            <%= default_button_link(gettext("write a new answer with quoting"), to: message_path(@conn, :new, @thread, @message, with_quote: "yes"), rel: "nofollow") %>
+          <% end %>
+        <% end %>
+
+        <%= if show?(:mail_to_author, assigns[:current_user], @message.user) do %>
+          <%= default_button_link(gettext("mail to author"), to: mail_path(@conn, :new, new_mail_params(@conn, @message)), rel: "nofollow") %>
+        <% end %>
+
+        <%= if may?(@conn, "messages/retag", :retag, @message) do %>
+          <%= default_button_link(gettext("retag message"), to: "retag_message_path(@thread, m)TODO", rel: "nofollow") %>
+        <% end %>
+
+        <%= if may?(@conn, "messages/flag", :flag, @message) do %>
+          <%= default_button_link(gettext("flag message"), to: "flag_message_path(@thread, m) TODO", rel: "nofollow") %>
+        <% end %>
+
+        <%= if may?(@conn, "message", :edit, @message) do %>
+          <%= default_button_link(gettext("edit message"), to: "message_path @conn, edit, @thread, @messageTODO", rel: "nofollow") %>
+        <% end %>
+
+        <%= if may?(@conn, "threads/split", :split, @message) do %>
+          <%= default_button_link(gettext("split thread"), to: "split_thread_path @thread, m TODO", rel: "nofollow") %>
+        <% end %>
+
+        <%= if may?(@conn, "message/open-close-vote", :new_close, @message) do %>
+          <%= default_button_link(gettext("Start a close vote"), to: "close_message_path(@thread, m) TODO", rel: "nofollow") %>
+        <% end %>
+
+        <%= if may?(@conn, "messages/interesting", :interesting, @message) do %>
+          <%= default_button(gettext("mark message as interesting"), to: interesting_message_path(@conn, @thread, @message), params: std_args(@conn)) %>
+        <% end %>
+
+        <%= if may?(@conn, "messages/interesting", :boring, @message) do %>
+          <%= default_button(gettext("mark message as boring"), to: boring_message_path(@conn, @thread, @message), params: std_args(@conn)) %>
+        <% end %>
+
+        <%# unless parent_subscribed?(m) %>
+          <%# if m.attribs[:is_subscribed] %>
+            <%#= cf_button_to(unsubscribe_message_path(@thread, m),
+                              params: std_args,
+                              class: 'cf-btn unsubscribe-message',
+                              title: t('plugins.subscriptions.unsubscribe_message')) do %><%# t('plugins.subscriptions.unsubscribe_message') %><%# end %>
+          <%# else %>
+            <%#= cf_button_to(subscribe_message_path(@thread, m),
+                              params: std_args,
+                              class: 'cf-btn subscribe-message',
+                              title: t('plugins.subscriptions.subscribe_message')) do %><%# t('plugins.subscriptions.subscribe_message') %><%# end %>
+          <%# end %>
+        <%# end %>
+      </div>
+    <% end %>
+  </div>
 
 </div>
