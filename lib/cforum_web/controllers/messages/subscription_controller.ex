@@ -25,36 +25,37 @@ defmodule CforumWeb.Messages.SubscriptionController do
   end
 
   def subscribe(conn, params) do
-    {thread, message} =
-      Messages.get_message_from_slug_and_mid!(
-        conn.assigns[:current_forum],
-        conn.assigns[:current_user],
-        Threads.slug_from_params(params),
-        params["mid"],
-        message_order: uconf(conn, "sort_messages")
-      )
-
-    Messages.subscribe_message(conn.assigns[:current_user], message)
+    Messages.subscribe_message(conn.assigns[:current_user], conn.assigns.message)
 
     conn
     |> put_flash(:info, gettext("Message was successfully subscribed."))
-    |> redirect(to: ReturnUrl.return_path(conn, params, thread))
+    |> redirect(to: ReturnUrl.return_path(conn, params, conn.assigns.thread))
   end
 
   def unsubscribe(conn, params) do
-    {thread, message} =
-      Messages.get_message_from_slug_and_mid!(
-        conn.assigns[:current_forum],
-        conn.assigns[:current_user],
-        Threads.slug_from_params(params),
-        params["mid"],
-        message_order: uconf(conn, "sort_messages")
-      )
-
-    Messages.unsubscribe_message(conn.assigns[:current_user], message)
+    Messages.unsubscribe_message(conn.assigns[:current_user], conn.assigns.message)
 
     conn
     |> put_flash(:info, gettext("Message was successfully unsubscribed."))
-    |> redirect(to: ReturnUrl.return_path(conn, params, thread))
+    |> redirect(to: ReturnUrl.return_path(conn, params, conn.assigns.thread))
+  end
+
+  def load_resource(conn) do
+    if Phoenix.Controller.action_name(conn) == :index do
+      conn
+    else
+      {thread, message} =
+        Messages.get_message_from_slug_and_mid!(
+          conn.assigns[:current_forum],
+          conn.assigns[:current_user],
+          Threads.slug_from_params(conn.params),
+          conn.params["mid"],
+          message_order: uconf(conn, "sort_messages")
+        )
+
+      conn
+      |> Plug.Conn.assign(:thread, thread)
+      |> Plug.Conn.assign(:message, message)
+    end
   end
 end
