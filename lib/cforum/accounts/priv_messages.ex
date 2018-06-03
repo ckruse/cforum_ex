@@ -326,7 +326,7 @@ defmodule Cforum.Accounts.PrivMessages do
       %Ecto.Changeset{source: %PrivMessage{}}
 
   """
-  def new_changeset(%PrivMessage{} = priv_message, opts \\ []) do
+  def new_changeset(%PrivMessage{} = priv_message, params \\ %{}, opts \\ []) do
     opts =
       Keyword.merge(
         [
@@ -345,7 +345,7 @@ defmodule Cforum.Accounts.PrivMessages do
       |> CompositionHelpers.maybe_add_farewell(opts[:farewell])
       |> CompositionHelpers.maybe_add_signature(opts[:signature])
 
-    change_priv_message(priv_message, %{body: content})
+    change_priv_message(%PrivMessage{priv_message | body: content}, params)
   end
 
   @doc """
