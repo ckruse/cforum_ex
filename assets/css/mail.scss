@@ -4,11 +4,6 @@
 
 .cf-mail-header {
   @extend .cf-message-header;
-
-  h2,
-  h3 {
-    margin-left: 0;
-  }
 }
 
 .cf-mail-content {
