@@ -35,7 +35,13 @@ var PLUGINS = [
 ];
 
 if (IS_PROD) {
-  PLUGINS = PLUGINS.concat([new Webpack.optimize.UglifyJsPlugin({ compress: true })]);
+  PLUGINS = PLUGINS.concat([
+    new Webpack.optimize.UglifyJsPlugin({
+      cache: true,
+      parallel: true,
+      sourceMap: true
+    })
+  ]);
 }
 
 module.exports = function(env = {}) {
