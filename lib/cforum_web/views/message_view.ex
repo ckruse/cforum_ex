@@ -182,6 +182,9 @@ defmodule CforumWeb.MessageView do
   def show_tags?(parent, message, opts),
     do: !blank?(message.tags) && opts[:tags] && (!opts[:hide_repeating_tags] || tags_changed?(message, parent))
 
+  def show?(:mail_to_author, cuser, muser) when is_nil(cuser) or is_nil(muser), do: false
+  def show?(:mail_to_author, cuser, muser), do: cuser.user_id != muser.user_id
+
   def original_poster_class(thread, message) do
     if message.message_id != thread.message.message_id && message.user_id == thread.message.user_id,
       do: "original-poster",
@@ -199,5 +202,28 @@ defmodule CforumWeb.MessageView do
       true ->
         message.author
     end
+  end
+
+  def cite_links(conn, message) do
+    message.cites
+    |> Enum.map(fn cite ->
+      {:safe, link} = link("##{cite.cite_id}", to: cite_path(conn, :show, cite))
+      link
+    end)
+    |> Enum.join(", ")
+  end
+
+  def new_mail_params(conn, message) do
+    %{
+      priv_message: %{
+        recipient_id: message.user_id,
+        subject:
+          gettext(
+            "regarding your message %{subject} from %{time}",
+            subject: message.subject,
+            time: format_date(conn, message.created_at, "date_format_post")
+          )
+      }
+    }
   end
 end
