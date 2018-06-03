@@ -45,10 +45,11 @@ defmodule CforumWeb.MailController do
     render(conn, "new.html", changeset: changeset, parent: parent)
   end
 
-  def new(conn, _params) do
+  def new(conn, params) do
     changeset =
       PrivMessages.new_changeset(
         %PrivMessage{},
+        params["priv_message"] || %{},
         greeting: uconf(conn, "greeting"),
         farewell: uconf(conn, "farewell"),
         signature: uconf(conn, "signature"),
