@@ -1,0 +1,39 @@
+<article class="cf-event h-event">
+  <header>
+    <h2><%= link @event.name, to: event_path(@conn, :show, @event), class: "p-name u-url" %></h2>
+
+    <div class="details">
+      <%= time_tag @event.start_date, format_date(@conn, @event.start_date, "date_format_date"), class: "dt-start" %>
+      <%= unless Timex.equal?(@event.start_date, @event.end_date) do %>
+        – <%= time_tag @event.end_date, format_date(@conn, @event.end_date, "date_format_date"), class: "dt-end" %>
+      <% end %>
+
+      <%= {:safe, gettext("in %{location}", location: @event.location)} %>
+    </div>
+  </header>
+
+  <div class="event-content p-description">
+    <%= Cforum.MarkdownRenderer.to_html(@event, assigns[:current_user]) %>
+  </div>
+
+  <%= if present?(@event.maps_link) do %>
+    <section>
+      <h3><%= gettext("map of the event location area") %></h3>
+      <iframe class="location-area" src="<%= @event.maps_link %>"></iframe>
+    </section>
+  <% end %>
+
+  <section>
+    <h3><%= ngettext("no attendees", "%{count} attendees", length(@event.attendees)) %></h3>
+
+    <%= if blank?(@event.attendees) do %>
+      <p><%= gettext("No attendees, yet.") %></p>
+    <% else %>
+      <ul class="attendees-list">
+        <%= for attendee <- @event.attendees do %>
+          <li><%= render "attendee.html", Map.put(assigns, :attendee, attendee) %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </section>
+</article>

@@ -17,18 +17,24 @@ defmodule Cforum.Events do
       [%Event{}, ...]
 
   """
-  def list_events(query_params \\ [order: nil, limit: nil]) do
+  def list_events(query_params \\ [order: nil, limit: nil, only_visible: false]) do
     Event
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
+    |> set_only_visible(query_params[:only_visible])
     |> Repo.all()
+    |> Repo.preload(attendees: :user)
   end
 
-  def count_events() do
+  def count_events(only_visible \\ false) do
     Event
     |> select(count("*"))
+    |> set_only_visible(only_visible)
     |> Repo.one()
   end
+
+  def set_only_visible(q, true), do: from(ev in q, where: ev.visible == true)
+  def set_only_visible(q, _), do: q
 
   @doc """
   Gets a single event.
@@ -44,7 +50,12 @@ defmodule Cforum.Events do
       ** (Ecto.NoResultsError)
 
   """
-  def get_event!(id), do: Repo.get!(Event, id)
+  def get_event!(id, only_visible \\ false) do
+    from(event in Event, where: event.event_id == ^id)
+    |> set_only_visible(only_visible)
+    |> Repo.one!()
+    |> Repo.preload(attendees: :user)
+  end
 
   @doc """
   Creates a event.
@@ -109,5 +120,20 @@ defmodule Cforum.Events do
   """
   def change_event(%Event{} = event) do
     Event.changeset(event, %{})
+  end
+
+  alias Cforum.Events.Attendee
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking attendee changes.
+
+  ## Examples
+
+      iex> change_attendee(attendee)
+      %Ecto.Changeset{source: %Attendee{}}
+
+  """
+  def change_attendee(%Attendee{} = attendee) do
+    Attendee.changeset(attendee, %{})
   end
 end

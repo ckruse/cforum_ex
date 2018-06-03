@@ -1,0 +1,46 @@
+<dl>
+  <dt><%= gettext("name") %></dt>
+  <dd class="p-attendee h-card">
+    <%= if present?(@attendee.user_id) do %>
+      <%= user_link(@conn, @attendee.user, ["p-name u-uid u-url"], @attendee.name) %>
+    <% else %>
+      <span class="p-name"><%= @attendee.name %></span>
+    <% end %>
+  </dd>
+
+  <%= if present?(@attendee.starts_at) do %>
+    <dt><%= gettext("starts at location") %></dt>
+    <dd><%= @attendee.starts_at %></dd>
+  <% end %>
+
+  <%= if present?(@attendee.planned_start) do %>
+    <dt><%= gettext("planned start") %></dt>
+    <dd><%= format_date(@conn, @attendee.planned_start) %></dd>
+  <% end %>
+
+  <%= if present?(@attendee.planned_arrival) do %>
+    <dt><%= gettext("planned arrival") %></dt>
+    <dd><%= format_date(@conn, @attendee.planned_arrival) %></dd>
+  <% end %>
+
+  <%= if present?(@attendee.planned_leave) do %>
+    <dt><%= gettext("planned leave") %></dt>
+    <dd><%= format_date(@conn, @attendee.planned_leave) %></dd>
+  <% end %>
+
+  <%= if present?(@attendee.seats) do %>
+    <dt><%= gettext("seats available") %></dt>
+    <dd><%= @attendee.seats %></dd>
+  <% end %>
+</dl>
+
+<%= if present?(@attendee.comment) do %>
+  <p><%= @attendee.comment %>
+<% end %>
+
+<%= if may?(@conn, "events/attendee", :delete, @attendee) do %>
+  <div class="controls">
+    <%= default_button_link gettext("edit"), to: "" %>
+    <%= destructive_button(gettext("delete attendee"), to: "", method: :delete, data: [confirm: gettext("Are you sure?")]) %>
+  </div>
+<% end %>
