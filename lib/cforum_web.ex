@@ -46,6 +46,7 @@ defmodule CforumWeb do
 
       import CforumWeb.Views.Helpers.Path
 
+      plug(CforumWeb.Plug.LoadResource)
       plug(CforumWeb.Plug.AuthorizeAccess)
     end
   end
