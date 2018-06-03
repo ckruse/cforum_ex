@@ -8,19 +8,6 @@ defmodule Cforum.Forums.Threads.TreeHelper do
   def sort_thread(direction, modifier, thread, message \\ nil)
   def sort_thread(direction, modifier, thread, nil), do: gen_thread_tree(modifier, thread, direction)
 
-  def sort_thread(direction, _modifier, _thread, message) do
-    # messages =
-    case direction do
-      "ascending" ->
-        Enum.sort(message.messages, &(&1.created_at <= &2.created_at))
-
-      _ ->
-        Enum.sort(message.messages, &(&1.created_at <= &2.created_at))
-    end
-
-    # TODO!
-  end
-
   defp to_int(nil), do: 0
   defp to_int(v), do: v
 
