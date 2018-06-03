@@ -6,6 +6,17 @@ defmodule Cforum.Abilities.Message do
 
       def may?(conn, "messages/mark_read", _, _), do: signed_in?(conn)
       def may?(conn, "messages/subscription", _, _), do: signed_in?(conn)
+
+      def may?(conn, "messages/interesting", :interesting, message) do
+        message = message || conn.assigns.message
+        signed_in?(conn) && message.attribs[:is_interesting] != true
+      end
+
+      def may?(conn, "messages/interesting", :boring, message) do
+        message = message || conn.assigns.message
+        signed_in?(conn) && message.attribs[:is_interesting] == true
+      end
+
       def may?(conn, "messages/interesting", _, _), do: signed_in?(conn)
     end
   end
