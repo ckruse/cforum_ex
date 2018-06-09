@@ -88,15 +88,6 @@ defmodule Cforum.Helpers do
   def map_maybe_delete(map, key, true), do: Map.delete(map, key)
   def map_maybe_delete(map, _, _), do: map
 
-  def controller_path(conn) do
-    conn
-    |> Phoenix.Controller.controller_module()
-    |> Atom.to_string()
-    |> String.replace(~r{^Elixir\.CforumWeb\.}, "")
-    |> String.replace(~r{Controller$}, "")
-    |> Macro.underscore()
-  end
-
   def score_str(votes, _score) when votes == 0, do: "–"
   def score_str(_votes, score) when score == 0, do: "±0"
   def score_str(_votes, score) when score < 0, do: "−" <> Integer.to_string(abs(score))

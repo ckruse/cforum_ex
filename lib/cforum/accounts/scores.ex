@@ -90,6 +90,16 @@ defmodule Cforum.Accounts.Scores do
     Repo.delete(score)
   end
 
+  def delete_scores_by_vote_id(vote_id) do
+    from(score in Score, where: score.vote_id == ^vote_id)
+    |> Repo.delete_all()
+  end
+
+  def delete_score_by_message_id_and_user_id(message_id, user_id) do
+    from(score in Score, where: score.message_id == ^message_id and score.user_id == ^user_id)
+    |> Repo.delete_all()
+  end
+
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking score changes.
 

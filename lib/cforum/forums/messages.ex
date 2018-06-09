@@ -13,6 +13,7 @@ defmodule Cforum.Forums.Messages do
   alias Cforum.Forums.Tag
   alias Cforum.Forums.MessageTag
   alias Cforum.Forums.Vote
+  alias Cforum.Accounts.Scores
 
   alias Cforum.Accounts.User
   alias Cforum.Accounts.Score
@@ -34,7 +35,7 @@ defmodule Cforum.Forums.Messages do
   def list_messages_for_user(user, forum_ids, query_params \\ [order: nil, limit: nil]) do
     from(
       m in Message,
-      preload: [:user, :tags, [votes: :voters, thread: :forum]],
+      preload: [:user, :tags, [thread: :forum]],
       where: m.user_id == ^user.user_id and m.deleted == false and m.forum_id in ^forum_ids
     )
     |> Cforum.PagingApi.set_limit(query_params[:limit])
@@ -64,7 +65,7 @@ defmodule Cforum.Forums.Messages do
       m in Message,
       inner_join: t in "messages_tags",
       on: t.message_id == m.message_id,
-      preload: [:user, :tags, [votes: :voters, thread: :forum]],
+      preload: [:user, :tags, [thread: :forum]],
       where: t.tag_id == ^tag.tag_id and m.deleted == false and m.forum_id == ^forum.forum_id
     )
     |> Cforum.PagingApi.set_limit(query_params[:limit])
@@ -72,7 +73,7 @@ defmodule Cforum.Forums.Messages do
     |> Repo.all()
   end
 
-  def count_messages_for_tag(forum, tag, query_params \\ [order: nil, limit: [offset: 0, quantity: 50]]) do
+  def count_messages_for_tag(forum, tag) do
     from(
       m in Message,
       inner_join: t in "messages_tags",
@@ -97,7 +98,7 @@ defmodule Cforum.Forums.Messages do
   def list_best_scored_messages_for_user(user, forum_ids, limit \\ 10) do
     from(
       m in Message,
-      preload: [:user, :tags, [votes: :voters, thread: :forum]],
+      preload: [:user, :tags, [thread: :forum]],
       where: m.deleted == false and m.upvotes > 0 and m.user_id == ^user.user_id and m.forum_id in ^forum_ids,
       order_by: fragment("upvotes - downvotes DESC"),
       limit: ^limit
@@ -112,8 +113,8 @@ defmodule Cforum.Forums.Messages do
     from(
       s in Score,
       preload: [
-        message: [:user, :tags, [thread: :forum, votes: :voters]],
-        vote: [message: [:user, :tags, [thread: :forum, votes: :voters]]]
+        message: [:user, :tags, [thread: :forum]],
+        vote: [message: [:user, :tags, [thread: :forum]]]
       ],
       left_join: m1 in Message,
       on: m1.message_id == s.message_id,
@@ -135,8 +136,8 @@ defmodule Cforum.Forums.Messages do
     from(
       s in Score,
       preload: [
-        message: [:user, :tags, [thread: :forum, votes: :voters]],
-        vote: [message: [:user, :tags, [thread: :forum, votes: :voters]]]
+        message: [:user, :tags, [thread: :forum]],
+        vote: [message: [:user, :tags, [thread: :forum]]]
       ],
       left_join: m1 in Message,
       on: m1.message_id == s.message_id,
@@ -572,7 +573,7 @@ defmodule Cforum.Forums.Messages do
       msg in Message,
       join: s in Subscription,
       where: s.message_id == msg.message_id and s.user_id == ^user.user_id,
-      preload: [:user, :tags, [votes: :voters, thread: :forum]]
+      preload: [:user, :tags, [thread: :forum]]
     )
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
@@ -610,7 +611,7 @@ defmodule Cforum.Forums.Messages do
       msg in Message,
       join: s in InterestingMessage,
       where: s.message_id == msg.message_id and s.user_id == ^user.user_id,
-      preload: [:user, :tags, [votes: :voters, thread: :forum]]
+      preload: [:user, :tags, [thread: :forum]]
     )
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
@@ -639,5 +640,43 @@ defmodule Cforum.Forums.Messages do
   def parent_subscribed?(thread, message) do
     parent = get_parent_message(thread, message)
     parent.attribs[:is_subscribed] == true || parent_subscribed?(thread, parent)
+  end
+
+  def score_down_message(message, by \\ 1) do
+    from(
+      msg in Message,
+      where: msg.message_id == ^message.message_id,
+      update: [inc: [downvotes: ^by]]
+    )
+    |> Repo.update_all([])
+  end
+
+  def score_up_message(message, by \\ 1) do
+    from(
+      msg in Message,
+      where: msg.message_id == ^message.message_id,
+      update: [inc: [upvotes: ^by]]
+    )
+    |> Repo.update_all([])
+  end
+
+  def accept_message(message, user, points) do
+    Repo.transaction(fn ->
+      message
+      |> Ecto.Changeset.change(flags: Map.merge(message.flags, %{"accepted" => "yes"}))
+      |> Repo.update!()
+
+      {:ok, _score} = Scores.create_score(%{message_id: message.message_id, user_id: user.user_id, value: points})
+    end)
+  end
+
+  def unaccept_message(message, user) do
+    Repo.transaction(fn ->
+      message
+      |> Ecto.Changeset.change(flags: Map.delete(message.flags, "accepted"))
+      |> Repo.update!()
+
+      Scores.delete_score_by_message_id_and_user_id(message.message_id, user.user_id)
+    end)
   end
 end

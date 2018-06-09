@@ -4,6 +4,7 @@ defmodule CforumWeb.MessageView do
   alias Cforum.Forums.Thread
   alias Cforum.Forums.Message
   alias Cforum.Forums.Messages
+  alias Cforum.Forums.Votes
 
   def first_class(classes, %{first: true}), do: ["first" | classes]
   def first_class(classes, _), do: classes
@@ -226,5 +227,13 @@ defmodule CforumWeb.MessageView do
           )
       }
     }
+  end
+
+  def active_upvoting_button?(message, user) do
+    if Votes.upvoted?(message, user), do: " active"
+  end
+
+  def active_downvoting_button?(message, user) do
+    if Votes.downvoted?(message, user), do: " active"
   end
 end

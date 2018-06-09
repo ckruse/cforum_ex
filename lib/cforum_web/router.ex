@@ -149,8 +149,15 @@ defmodule CforumWeb.Router do
 
       post("/:year/:month/:day/:slug/:mid/subscribe", Messages.SubscriptionController, :subscribe, as: nil)
       post("/:year/:month/:day/:slug/:mid/unsubscribe", Messages.SubscriptionController, :unsubscribe, as: nil)
+
       post("/:year/:month/:day/:slug/:mid/interesting", Messages.InterestingController, :interesting, as: nil)
       post("/:year/:month/:day/:slug/:mid/boring", Messages.InterestingController, :boring, as: nil)
+
+      post("/:year/:month/:day/:slug/:mid/upvote", Messages.VoteController, :upvote, as: nil)
+      post("/:year/:month/:day/:slug/:mid/downvote", Messages.VoteController, :downvote, as: nil)
+
+      post("/:year/:month/:day/:slug/:mid/accept", Messages.AcceptController, :accept, as: nil)
+      post("/:year/:month/:day/:slug/:mid/unaccept", Messages.AcceptController, :unaccept, as: nil)
     end
   end
 end

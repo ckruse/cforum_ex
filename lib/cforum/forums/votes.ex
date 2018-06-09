@@ -6,8 +6,11 @@ defmodule Cforum.Forums.Votes do
   import Ecto.Query, warn: false
   alias Cforum.Repo
 
+  import Cforum.Helpers
+
+  alias Cforum.Accounts.Scores
   alias Cforum.Forums.Vote
-  alias Cforum.Forums.Message
+  alias Cforum.Forums.{Messages, Message}
 
   @doc """
   Returns the list of votes.
@@ -63,6 +66,24 @@ defmodule Cforum.Forums.Votes do
 
   """
   def get_vote!(id), do: Repo.get!(Vote, id)
+
+  def get_vote!(message, user) do
+    from(
+      vote in Vote,
+      where: vote.user_id == ^user.user_id and vote.message_id == ^message.message_id,
+      preload: [:score, message: ^Message.default_preloads()]
+    )
+    |> Repo.one!()
+  end
+
+  def get_vote(message, user) do
+    from(
+      vote in Vote,
+      where: vote.user_id == ^user.user_id and vote.message_id == ^message.message_id,
+      preload: [:score, message: ^Message.default_preloads()]
+    )
+    |> Repo.one()
+  end
 
   @doc """
   Creates a vote.
@@ -127,5 +148,63 @@ defmodule Cforum.Forums.Votes do
   """
   def change_vote(%Vote{} = vote) do
     Vote.changeset(vote, %{})
+  end
+
+  def voted?(message, user, type) when not is_nil(user) and type in ["upvote", "downvote"],
+    do: present?(Enum.find(message.votes, fn vote -> vote.user_id == user.user_id && vote.vtype == type end))
+
+  def voted?(_, _, _), do: false
+
+  def downvoted?(message, user) when not is_nil(user), do: voted?(message, user, "downvote")
+  def downvoted?(_, _), do: false
+  def upvoted?(message, user) when not is_nil(user), do: voted?(message, user, "upvote")
+  def upvoted?(_, _), do: false
+
+  def take_back_vote(message, user) do
+    Repo.transaction(fn ->
+      remove_vote(message, user)
+    end)
+  end
+
+  def upvote(message, user, points) do
+    Repo.transaction(fn ->
+      remove_vote(message, user)
+      Messages.score_up_message(message)
+
+      {:ok, vote} = create_vote(%{message_id: message.message_id, user_id: user.user_id, vtype: "upvote"})
+
+      if present?(message.user_id) do
+        {:ok, _score} = Scores.create_score(%{vote_id: vote.vote_id, user_id: message.user_id, value: points})
+      end
+    end)
+  end
+
+  def downvote(message, user, points) do
+    Repo.transaction(fn ->
+      remove_vote(message, user)
+      Messages.score_down_message(message)
+
+      {:ok, vote} = create_vote(%{message_id: message.message_id, user_id: user.user_id, vtype: "downvote"})
+      {:ok, _score} = Scores.create_score(%{vote_id: vote.vote_id, user_id: user.user_id, value: points})
+
+      if present?(message.user_id) do
+        {:ok, _score} = Scores.create_score(%{vote_id: vote.vote_id, user_id: message.user_id, value: points})
+      end
+    end)
+  end
+
+  defp remove_vote(message, user) do
+    case get_vote(message, user) do
+      nil ->
+        nil
+
+      vote ->
+        if vote.vtype == Vote.upvote(),
+          do: Messages.score_up_message(message, -1),
+          else: Messages.score_down_message(message, -1)
+
+        Scores.delete_scores_by_vote_id(vote.vote_id)
+        delete_vote(vote)
+    end
   end
 end
