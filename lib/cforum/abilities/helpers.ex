@@ -6,6 +6,8 @@ defmodule Cforum.Abilities.Helpers do
   alias Cforum.Accounts.User
   alias Cforum.Accounts.Badge
 
+  alias Cforum.Forums.Message
+
   import Cforum.Helpers
 
   @doc """
@@ -42,6 +44,22 @@ defmodule Cforum.Abilities.Helpers do
   def badge?(%Plug.Conn{} = conn, badge_type), do: badge?(conn.assigns[:current_user], badge_type)
   def badge?(%User{} = user, badge_type), do: Users.badge?(user, badge_type)
   def badge?(_, _), do: false
+
+  def accept?(conn, message) do
+    allowed =
+      cond do
+        (signed_in?(conn) && message.user_id == conn.assigns[:current_user].user_id) || admin?(conn) ->
+          true
+
+        present?(message.uuid) && present?(conn.cookies["cforum_user"]) && message.uuid == conn.cookies["cforum_user"] ->
+          true
+
+        true ->
+          false
+      end
+
+    access_forum?(conn, :write) && !Message.closed?(message) && allowed
+  end
 
   @doc """
   Returns true if the user may access the given forum
