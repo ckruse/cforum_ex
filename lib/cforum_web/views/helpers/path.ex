@@ -210,6 +210,18 @@ defmodule CforumWeb.Views.Helpers.Path do
   def boring_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/boring#{encode_query_string(params)}"
 
+  def upvote_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
+    do: "#{int_message_path(conn, thread, msg)}/upvote#{encode_query_string(params)}"
+
+  def downvote_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
+    do: "#{int_message_path(conn, thread, msg)}/downvote#{encode_query_string(params)}"
+
+  def accept_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
+    do: "#{int_message_path(conn, thread, msg)}/accept#{encode_query_string(params)}"
+
+  def unaccept_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
+    do: "#{int_message_path(conn, thread, msg)}/unaccept#{encode_query_string(params)}"
+
   def mark_read_path(conn, :mark_read, %Thread{} = thread, params \\ []),
     do: "#{thread_path(conn, :show, thread)}/mark-read#{encode_query_string(params)}"
 

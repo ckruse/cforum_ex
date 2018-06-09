@@ -1,9 +1,6 @@
 <div class="posting-header">
   <%= header(@conn, @thread, @message, first: @first, do_parent: assigns[:do_parent], tree: false, show_editor: true, author_link_to_message: false) %>
-
-  <%# if m.flags["no-answer"] != 'yes' && m.flags['no-answer-admin'] != 'yes' && controls == :yes && !m.deleted %> <!-- TODO -->
-    <%# render 'votes_accept', m: m %>
-  <%# end %>
+  <%= render "votes_accept.html", Map.put(assigns, :top, true) %>
 </div>
 
 <%= unless blank?(@message.problematic_site) do %>
@@ -15,10 +12,6 @@
 </div>
 
 <div class="posting-footer">
-  <%# if m.flags["no-answer"] != 'yes' && m.flags['no-answer-admin'] != 'yes' && controls == :yes && !m.deleted %><!-- TODO -->
-    <%# render 'votes_accept', m: m, bottom: true %>
-  <%# end %>
-
   <div class="message-links">
     <%= if present?(@message.cites) do %>
       <p class="message-cite"><%= {:safe, ngettext("This message got cited in cite %{cite_links}",
@@ -80,5 +73,7 @@
       </div>
     <% end %>
   </div>
+
+  <%= render "votes_accept.html", Map.put(assigns, :top, false) %>
 
 </div>

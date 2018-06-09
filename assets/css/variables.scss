@@ -31,6 +31,8 @@ $tag_visited_border_color: #c4c4c4;
 
 $active_posting_color: #00a1e2;
 
+$votes_color: #8a9da8;
+
 @mixin focus-w-shadow() {
   border-color: $focus_color;
   outline: 0px none;

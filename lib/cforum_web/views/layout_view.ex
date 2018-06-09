@@ -57,7 +57,7 @@ defmodule CforumWeb.LayoutView do
   end
 
   def meta_refresh(conn) do
-    path = Cforum.Helpers.controller_path(conn)
+    path = controller_path(conn)
     action = Phoenix.Controller.action_name(conn)
     refresh = uconf(conn, "autorefresh", :int)
 

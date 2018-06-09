@@ -1,0 +1,134 @@
+.cf-voting-area {
+  white-space: nowrap;
+  text-align: right;
+
+  &.top {
+    vertical-align: bottom;
+  }
+  &.bottom {
+    vertical-align: top;
+  }
+
+  button {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .votes {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: $votes_color;
+    cursor: default;
+    vertical-align: middle;
+  }
+
+  .cf-inline-form {
+    vertical-align: top;
+  }
+
+  .accept,
+  .vote-button,
+  .infos {
+    background: none no-repeat center scroll transparent;
+    background-size: contain;
+    font: 0/0 serif;
+    padding: 0.5rem;
+  }
+
+  span.vote-button,
+  span.accept,
+  .infos {
+    vertical-align: middle;
+  }
+
+  span.vote-button,
+  span.accept {
+    margin-right: 0.25rem;
+  }
+
+  .vote-down[disabled],
+  .vote-down[disabled]:hover,
+  .vote-down.disabled,
+  .vote-down.disabled:hover {
+    background-image: url(/images/bewertung-minus-grau.svg);
+  }
+  .vote-up[disabled],
+  .vote-up[disabled]:hover,
+  .vote-up.disabled,
+  .vote-up.disabled:hover {
+    background-image: url(/images/bewertung-plus-grau.svg);
+  }
+
+  .vote-down,
+  .vote-down.active:hover {
+    background-image: url(/images/bewertung-minus-gelb.svg);
+  }
+  .vote-up,
+  .vote-up.active:hover {
+    background-image: url(/images/bewertung-plus-gelb.svg);
+  }
+  .vote-down.active,
+  .vote-down:hover {
+    background-image: url(/images/bewertung-minus-rot.svg);
+  }
+  .vote-up.active,
+  .vote-up:hover {
+    background-image: url(/images/bewertung-plus-gruen.svg);
+  }
+  .vote-down.disabled {
+    background-image: url(/images/bewertung-minus-grau.svg);
+  }
+  .vote-up.disabled {
+    background-image: url(/images/bewertung-plus-grau.svg);
+  }
+
+  .unaccepted-answer,
+  button.accepted-answer:hover {
+    background-image: url(/images/bewertung-ok-gelb.svg);
+  }
+  .accepted-answer,
+  button.unaccepted-answer:hover {
+    background-image: url(/images/bewertung-ok-gruen.svg);
+  }
+
+  .infos {
+    background-image: url(/images/bewertung-info-blaugrau.svg);
+  }
+  .infos:hover {
+    background-image: url(/images/bewertung-info-rot.svg);
+  }
+}
+
+@media screen and (min-width: 35em) {
+  .posting-footer {
+    display: flex;
+    flex-direction: row;
+
+    .message-links {
+      flex: 1 1 auto;
+      align-self: flex-start;
+    }
+
+    .cf-voting-area {
+      flex: 0 0 auto;
+      align-self: flex-start;
+    }
+  }
+
+  .posting-header {
+    display: flex;
+    flex-direction: row;
+
+    .cf-message-header {
+      flex: 1 1 auto;
+      align-self: flex-start;
+    }
+
+    .cf-voting-area {
+      flex: 0 0 auto;
+      align-self: flex-start;
+    }
+  }
+}

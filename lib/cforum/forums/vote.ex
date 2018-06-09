@@ -20,8 +20,8 @@ defmodule Cforum.Forums.Vote do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:vtype])
-    |> validate_required([:vtype])
+    |> cast(params, [:vtype, :user_id, :message_id])
+    |> validate_required([:vtype, :user_id, :message_id])
     |> validate_inclusion(:vtype, @valid_vtypes)
   end
 

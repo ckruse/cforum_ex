@@ -1,0 +1,61 @@
+<div class="cf-voting-area <%= if @top, do: "top", else: "bottom" %>">
+  <%= unless @top do %>
+    <%= if may?(@conn, "messages/accept", :accept, @message) do %>
+      <%= cf_button(
+          gettext("accept answer"),
+          to: accept_message_path(@conn, @thread, @message),
+          class: "unaccepted-answer accept",
+          params: std_args(@conn)
+        ) %>
+    <% end %>
+
+    <%= if may?(@conn, "messages/accept", :unaccept, @message) do %>
+      <%= cf_button(
+          gettext("unaccept answer"),
+          to: unaccept_message_path(@conn, @thread, @message),
+          class: "accepted-answer accept",
+          params: std_args(@conn)
+        ) %>
+    <% end %>
+  <% end %>
+
+  <%= if Message.accepted?(@message) && (@top || !accept?(@conn, @message)) do %>
+    <span class="accepted-answer accept"> </span>
+  <% end %>
+
+  <%= unless @top do %>
+    <%= if may?(@conn, "messages/vote", :downvote, @message) do %>
+      <%= cf_button(
+          gettext("vote down"),
+          to: downvote_message_path(@conn, @thread, @message),
+          class: "vote-button vote-down #{active_downvoting_button?(@message, @current_user)}",
+          params: std_args(@conn)
+        ) %>
+    <% else %>
+      <span class="vote-button vote-down disabled" disabled> </span>
+    <% end %>
+  <% end %>
+
+  <span class="votes" title="<%= ngettext("Score: no score", "Score: %{score}", Message.no_votes(@message), score: Message.score_str(@message)) %>">
+    <%= Message.score_str(@message) %>
+  </span>
+
+  <%= unless @top do %>
+    <%= if may?(@conn, "messages/vote", :upvote, @message) do %>
+      <%= cf_button(
+          gettext("vote up"),
+          to: upvote_message_path(@conn, @thread, @message),
+          class: "vote-button vote-up #{active_upvoting_button?(@message, @current_user)}",
+          params: std_args(@conn)
+        ) %>
+    <% else %>
+      <span class="vote-button vote-up disabled" disabled> </span>
+    <% end %>
+  <% end %>
+
+  <%= link(
+      gettext("information about the voting rules"),
+      to: "https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Bewertungsregeln",
+      class: "infos"
+    ) %>
+</div>
