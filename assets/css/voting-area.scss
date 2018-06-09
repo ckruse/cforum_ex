@@ -1,13 +1,7 @@
 .cf-voting-area {
   white-space: nowrap;
   text-align: right;
-
-  &.top {
-    vertical-align: bottom;
-  }
-  &.bottom {
-    vertical-align: top;
-  }
+  margin-left: 1em;
 
   button {
     border: 0;
@@ -16,35 +10,42 @@
     cursor: pointer;
   }
 
-  .votes {
+  .votes,
+  .accept,
+  .vote-button,
+  .infos {
     font-size: 1.5em;
     font-weight: bold;
     color: $votes_color;
     cursor: default;
-    vertical-align: middle;
-  }
-
-  .cf-inline-form {
-    vertical-align: top;
   }
 
   .accept,
-  .vote-button,
-  .infos {
+  .vote-button {
+    text-indent: -9999px;
     background: none no-repeat center scroll transparent;
     background-size: contain;
-    font: 0/0 serif;
     padding: 0.5rem;
   }
 
-  span.vote-button,
-  span.accept,
-  .infos {
-    vertical-align: middle;
+  .infos span {
+    position: absolute;
+    left: -9999px;
   }
 
-  span.vote-button,
-  span.accept {
+  .infos svg {
+    max-width: 0.75em;
+    max-height: 0.75em;
+  }
+
+  .infos:hover svg g,
+  .infos:active svg g,
+  .infos:focus svg g {
+    fill: #990909;
+  }
+
+  span.accept,
+  span.vote-button {
     margin-right: 0.25rem;
   }
 
@@ -93,12 +94,12 @@
     background-image: url(/images/bewertung-ok-gruen.svg);
   }
 
-  .infos {
-    background-image: url(/images/bewertung-info-blaugrau.svg);
-  }
-  .infos:hover {
-    background-image: url(/images/bewertung-info-rot.svg);
-  }
+  // .infos {
+  //   background-image: url(/images/bewertung-info-blaugrau.svg);
+  // }
+  // .infos:hover {
+  //   background-image: url(/images/bewertung-info-rot.svg);
+  // }
 }
 
 @media screen and (min-width: 35em) {
