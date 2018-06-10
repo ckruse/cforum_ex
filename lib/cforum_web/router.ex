@@ -158,6 +158,12 @@ defmodule CforumWeb.Router do
 
       post("/:year/:month/:day/:slug/:mid/accept", Messages.AcceptController, :accept, as: nil)
       post("/:year/:month/:day/:slug/:mid/unaccept", Messages.AcceptController, :unaccept, as: nil)
+
+      get("/:year/:month/:day/:slug/:mid/flag", Messages.FlagController, :edit, as: nil)
+      post("/:year/:month/:day/:slug/:mid/flag", Messages.FlagController, :update, as: nil)
+
+      get("/:year/:month/:day/:slug/:mid/retag", Messages.RetagController, :edit, as: nil)
+      post("/:year/:month/:day/:slug/:mid/retag", Messages.RetagController, :update, as: nil)
     end
   end
 end

@@ -198,6 +198,12 @@ defmodule CforumWeb.Views.Helpers.Path do
   def message_url(conn, :show, %Thread{} = thread, %Message{} = msg, params),
     do: "#{int_message_url(conn, thread, msg, params)}#m#{msg.message_id}"
 
+  def retag_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
+    do: "#{int_message_path(conn, thread, msg)}/retag#{encode_query_string(params)}"
+
+  def flag_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
+    do: "#{int_message_path(conn, thread, msg)}/flag#{encode_query_string(params)}"
+
   def subscribe_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/subscribe#{encode_query_string(params)}"
 

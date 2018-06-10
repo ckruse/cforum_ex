@@ -34,11 +34,11 @@
         <% end %>
 
         <%= if may?(@conn, "messages/retag", :retag, @message) do %>
-          <%= default_button_link(gettext("retag message"), to: "retag_message_path(@thread, m)TODO", rel: "nofollow") %>
+          <%= default_button_link(gettext("retag message"), to: retag_message_path(@conn, @thread, @message), rel: "nofollow") %>
         <% end %>
 
         <%= if may?(@conn, "messages/flag", :flag, @message) do %>
-          <%= default_button_link(gettext("flag message"), to: "flag_message_path(@thread, m) TODO", rel: "nofollow") %>
+          <%= default_button_link(gettext("flag message"), to: flag_message_path(@conn, @thread, @message), rel: "nofollow") %>
         <% end %>
 
         <%= if may?(@conn, "message", :edit, @message) do %>

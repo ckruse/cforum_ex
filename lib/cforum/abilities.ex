@@ -30,8 +30,10 @@ defmodule Cforum.Abilities do
   use Cforum.Abilities.Cite
   use Cforum.Abilities.Message
   use Cforum.Abilities.Messages.Accept
+  use Cforum.Abilities.Messages.Flag
   use Cforum.Abilities.Messages.Interesting
   use Cforum.Abilities.Messages.MarkRead
+  use Cforum.Abilities.Messages.Retag
   use Cforum.Abilities.Messages.Subscription
   use Cforum.Abilities.Messages.Vote
   use Cforum.Abilities.Tag
