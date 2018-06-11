@@ -13,8 +13,8 @@ defmodule Cforum.Forums.Message do
   def default_preloads, do: @default_preloads
 
   schema "messages" do
-    field(:upvotes, :integer)
-    field(:downvotes, :integer)
+    field(:upvotes, :integer, default: 0)
+    field(:downvotes, :integer, default: 0)
     field(:deleted, :boolean, default: false)
     field(:mid, :integer)
     field(:author, :string)
