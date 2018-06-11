@@ -8,12 +8,14 @@ defmodule Cforum.EventsTest do
 
     test "list_events/0 returns all events" do
       event = insert(:event)
-      assert Events.list_events() == [event]
+      events = Events.list_events()
+      assert Enum.map(events, & &1.event_id) == [event.event_id]
     end
 
     test "get_event!/1 returns the event with given id" do
       event = insert(:event)
-      assert Events.get_event!(event.event_id) == event
+      new_event = Events.get_event!(event.event_id)
+      assert event.event_id == new_event.event_id
     end
 
     test "create_event/1 with valid data creates a event" do
@@ -49,7 +51,8 @@ defmodule Cforum.EventsTest do
     test "update_event/2 with invalid data returns error changeset" do
       event = insert(:event)
       assert {:error, %Ecto.Changeset{}} = Events.update_event(event, %{name: ""})
-      assert event == Events.get_event!(event.event_id)
+      loaded_event = Events.get_event!(event.event_id)
+      assert event.event_id == loaded_event.event_id
     end
 
     test "delete_event/1 deletes the event" do
