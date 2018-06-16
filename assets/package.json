@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "a11y-dialog": "^4.0.1",
+    "flatpickr": "^4.5.0",
     "highcharts": "^6.1.0",
     "moment": "^2.22.1",
     "phoenix": "file:../deps/phoenix",

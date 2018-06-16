@@ -54,5 +54,9 @@ export const lang = {
     downloadSVG: "Download als SVG-Bild",
     resetZoom: "Zoom zurücksetzen",
     resetZoomTitle: "Zoom zurücksetzen"
-  }
+  },
+
+  dateTimeInputLocalFormat: "l, j. F Y, H:i \\U\\h\\r",
+  dateInputFormat: "l, j. F Y",
+  timeInputFormat: "H:i"
 };
