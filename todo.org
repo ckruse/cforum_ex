@@ -1,0 +1,12 @@
+* CForum Todos
+** TODO attend events
+** TODO flag messages
+** TODO open & close votes
+
+** Messages
+*** TODO better JS markdown parser
+*** TODO refactoring of message creation
+
+** Usability
+*** TODO voting via JS
+*** TODO live preview
