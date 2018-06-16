@@ -29,6 +29,7 @@ import "./modules/show-password.js";
 import "./modules/user-selector";
 import "./modules/autolist";
 import "./modules/dropdown";
+import "./modules/datetime-polyfill";
 
 // site specific JS
 import "./forum-stats";
