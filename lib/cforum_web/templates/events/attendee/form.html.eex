@@ -1,0 +1,73 @@
+<%= form_for @changeset, @action, [class: "cf-form"], fn f -> %>
+  <%= if @changeset.action do %>
+    <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
+  <% end %>
+
+  <%= unless signed_in?(@conn) do %>
+    <div class="cf-cgroup <%= error_class(f, :name) %>">
+      <%= label f, :name do %>
+        <%= gettext("name") %>
+        <%= error_tag f, :name %>
+      <% end %>
+      <%= text_input f, :name, maxlength: 250, required: true %>
+    </div>
+  <% end %>
+
+  <div class="cf-cgroup <%= error_class(f, :name) %>">
+    <%= label f, :starts_at do %>
+      <%= gettext("starting at location") %>
+      <%= error_tag(f, :starts_at) %>
+    <% end %>
+    <%= text_input f, :starts_at, placeholder: gettext("Steinfurt"), maxlength: 255 %>
+  </div>
+
+  <div class="cf-cgroup <%= error_class(f, :seats) %>">
+    <%= label f, :seats do %>
+      <%= gettext("seats") %>
+      <%= error_tag(f, :seats) %>
+    <% end %>
+    <%= number_input f, :seats, step: 1, min: 0, placeholder: '2' %>
+  </div>
+
+  <div class="cf-cgroup <%= error_class(f, :planned_start) %>">
+    <%= label f, :planned_start do %>
+      <%= gettext("planned start") %>
+      <%= error_tag(f, :planned_start) %>
+    <% end %>
+
+    <%= datetime_local_input f, :planned_start %>
+  </div>
+
+  <div class="cf-cgroup <%= error_class(f, :planned_arrival) %>">
+    <%= label f, :planned_arrival do %>
+      <%= gettext("planned arrival") %>
+      <%= error_tag(f, :planned_arrival) %>
+    <% end %>
+
+    <%= datetime_local_input f, :planned_arrival, required: true %>
+  </div>
+
+  <div class="cf-cgroup <%= error_class(f, :planned_leave) %>">
+    <%= label f, :planned_leave do %>
+      <%= gettext("planned leave") %>
+      <%= error_tag(f, :planned_leave) %>
+    <% end %>
+
+    <%= datetime_local_input f, :planned_leave %>
+  </div>
+
+  <div class="cf-cgroup <%= error_tag(f, :comment) %>">
+    <%= label f, :comment do %>
+      <%= gettext("comment") %>
+      <%= error_tag(f, :comment) %>
+    <% end %>
+
+    <%= textarea f, :comment %>
+  </div>
+
+
+  <p class="form-actions">
+    <%= primary_submit gettext("save") %>
+    <%= default_button_link gettext("cancel"), to: @back %>
+  </p>
+<% end %>

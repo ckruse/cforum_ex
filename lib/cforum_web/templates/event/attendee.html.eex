@@ -40,7 +40,7 @@
 
 <%= if may?(@conn, "events/attendee", :delete, @attendee) do %>
   <div class="controls">
-    <%= default_button_link gettext("edit"), to: "" %>
-    <%= destructive_button(gettext("delete attendee"), to: "", method: :delete, data: [confirm: gettext("Are you sure?")]) %>
+    <%= default_button_link gettext("edit"), to: event_attendee_path(@conn, :edit, @event, @attendee) %>
+    <%= destructive_button(gettext("delete attendee"), to: event_attendee_path(@conn, :delete, @event, @attendee), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
   </div>
 <% end %>

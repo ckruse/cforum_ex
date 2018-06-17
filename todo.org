@@ -10,3 +10,5 @@
 ** Usability
 *** TODO voting via JS
 *** TODO live preview
+*** TODO use a different solution for maps
+  [[file:lib/cforum_web/templates/event/show.html.eex::<%25=%20if%20present?(@event.maps_link)%20do%20%25>]]
