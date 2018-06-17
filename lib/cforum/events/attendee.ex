@@ -1,5 +1,6 @@
 defmodule Cforum.Events.Attendee do
   use Ecto.Schema
+  alias Ecto.Changeset
   import Ecto.Changeset
 
   @primary_key {:attendee_id, :id, autogenerate: true}
@@ -21,10 +22,21 @@ defmodule Cforum.Events.Attendee do
   end
 
   @doc false
-  def changeset(event, attrs) do
+  def changeset(event, attrs, user \\ nil) do
     event
     |> cast(attrs, [:name, :comment, :starts_at, :planned_start, :planned_arrival, :planned_leave, :seats])
-    |> validate_required([:name])
+    |> maybe_set_user(user)
+    |> validate_required([:name, :planned_arrival])
     |> unique_constraint(:user_id, name: :attendees_event_id_user_id_key)
   end
+
+  defp maybe_set_user(changeset, nil), do: changeset
+
+  defp maybe_set_user(%Changeset{valid?: true} = changeset, user) do
+    changeset
+    |> put_change(:name, user.username)
+    |> put_change(:user_id, user.user_id)
+  end
+
+  defp maybe_set_user(changeset, _), do: changeset
 end

@@ -6,7 +6,7 @@ defmodule Cforum.Events do
   import Ecto.Query, warn: false
   alias Cforum.Repo
 
-  alias Cforum.Events.Event
+  alias Cforum.Events.{Event, Attendee}
 
   @doc """
   Returns the list of events.
@@ -23,7 +23,15 @@ defmodule Cforum.Events do
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
     |> set_only_visible(query_params[:only_visible])
     |> Repo.all()
-    |> Repo.preload(attendees: :user)
+    |> Repo.preload(
+      attendees:
+        from(
+          a in Attendee,
+          left_join: user in assoc(a, :user),
+          order_by: user.username,
+          preload: [user: user]
+        )
+    )
   end
 
   def count_events(only_visible \\ false) do
@@ -54,7 +62,15 @@ defmodule Cforum.Events do
     from(event in Event, where: event.event_id == ^id)
     |> set_only_visible(only_visible)
     |> Repo.one!()
-    |> Repo.preload(attendees: :user)
+    |> Repo.preload(
+      attendees:
+        from(
+          a in Attendee,
+          left_join: user in assoc(a, :user),
+          order_by: user.username,
+          preload: [user: user]
+        )
+    )
   end
 
   @doc """
@@ -122,18 +138,5 @@ defmodule Cforum.Events do
     Event.changeset(event, %{})
   end
 
-  alias Cforum.Events.Attendee
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking attendee changes.
-
-  ## Examples
-
-      iex> change_attendee(attendee)
-      %Ecto.Changeset{source: %Attendee{}}
-
-  """
-  def change_attendee(%Attendee{} = attendee) do
-    Attendee.changeset(attendee, %{})
-  end
+  def open?(event), do: event.visible && Timex.before?(Timex.now(), event.end_date)
 end
