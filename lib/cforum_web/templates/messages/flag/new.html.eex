@@ -1,0 +1,36 @@
+<%= form_for @changeset, flag_message_path(@conn, @thread, @message), [class: "cf-form"], fn f -> %>
+  <%= if @changeset.action do %>
+    <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
+  <% end %>
+
+  <%= hidden_input f, :message_id, value: @message.message_id %>
+
+  <div class="cf-cgroup">
+    <%= for reason <- ModerationQueueEntry.reasons() do %>
+      <label class="radio"><%= radio_button f, :reason, reason %> <%= l10n_reason(reason) %></label>
+    <% end %>
+  </div>
+
+  <div class="cf-cgroup <%= error_class(f, :duplicate_url) %>">
+    <%= label f, :duplicate_url do %>
+      <%= gettext("URL of the original message") %>
+      <%= error_tag f, :duplicate_url %>
+    <% end %>
+    <%= url_input f, :duplicate_url %>
+  </div>
+
+  <div class="cf-cgroup <%= error_class(f, :custom_reason) %>">
+    <%= label f, :custom_reason do %>
+      <%= gettext("Custom reason") %>
+      <%= error_tag f, :custom_reason %>
+    <% end %>
+    <%= text_input f, :custom_reason %>
+  </div>
+
+
+  <p class="form-actions">
+    <%= primary_submit gettext("flag message") %>
+    <%= default_button_link gettext("cancel"), to: message_path(@conn, :show, @thread, @message) %>
+  </p>
+<% end %>
+
