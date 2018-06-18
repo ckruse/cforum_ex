@@ -1,7 +1,9 @@
 const path = require("path");
 const Webpack = require("webpack");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const config = require("./package");
 
 const ENV = process.env.MIX_ENV || "dev";
@@ -9,7 +11,8 @@ const IS_PROD = ENV === "prod";
 const OUTPUT_PATH = path.resolve(__dirname, "..", "priv", "static");
 
 const ExtractCSS = new ExtractTextPlugin({
-  filename: "css/[name].css"
+  filename: IS_PROD ? "[name].[hash].css" : "[name].css",
+  chunkFilename: IS_PROD ? "[id].[hash].css" : "[id].css"
 });
 
 var PLUGINS = [
@@ -33,16 +36,6 @@ var PLUGINS = [
     // }
   ])
 ];
-
-if (IS_PROD) {
-  PLUGINS = PLUGINS.concat([
-    new Webpack.optimize.UglifyJsPlugin({
-      cache: true,
-      parallel: true,
-      sourceMap: true
-    })
-  ]);
-}
 
 module.exports = function(env = {}) {
   return {
@@ -71,45 +64,16 @@ module.exports = function(env = {}) {
           loader: "babel-loader"
         },
         {
-          test: /\.css$/,
-          loader: ExtractCSS.extract({
-            use: [
-              {
-                loader: "css-loader",
-                options: { sourceMap: IS_PROD ? false : true }
-              },
-              {
-                loader: "postcss-loader",
-                options: { sourceMap: IS_PROD ? false : true }
-              }
-            ],
-            fallback: "style-loader"
-          })
-        },
-        {
-          test: /\.scss$/,
-          loader: ExtractCSS.extract({
-            use: [
-              {
-                loader: "css-loader",
-                options: { sourceMap: IS_PROD ? false : true }
-              },
-              {
-                loader: "postcss-loader",
-                options: { sourceMap: IS_PROD ? false : true }
-              },
-              {
-                loader: "sass-loader",
-                options: IS_PROD
-                  ? {}
-                  : {
-                      sourceMap: true,
-                      outputStyle: "expanded"
-                    }
-              }
-            ],
-            fallback: "style-loader"
-          })
+          test: /\.(sa|sc|c)ss$/,
+          use: [
+            {
+              loader: IS_PROD ? ExtractTextPlugin.loader : "style-loader",
+              options: { sourceMap: IS_PROD ? false : true }
+            },
+            { loader: "css-loader", options: { sourceMap: IS_PROD ? false : true } },
+            { loader: "postcss-loader", options: { sourceMap: IS_PROD ? false : true } },
+            { loader: "sass-loader", options: { sourceMap: IS_PROD ? false : true } }
+          ]
         },
         {
           test: /\.(eot|svg|ttf|woff|woff2)$/,
@@ -118,10 +82,20 @@ module.exports = function(env = {}) {
       ]
     },
 
-    plugins: PLUGINS,
+    optimization: {
+      minimizer: [
+        new UglifyJsPlugin({
+          cache: true,
+          parallel: true,
+          sourceMap: true // set to true if you want JS source maps
+        }),
+        new OptimizeCSSAssetsPlugin({})
+      ]
+    },
 
-    stats: {
-      colors: true
-    }
+    plugins: PLUGINS,
+    //optimization: { minimize: IS_PROD },
+    stats: { colors: true },
+    mode: IS_PROD ? "production" : "development"
   };
 };
