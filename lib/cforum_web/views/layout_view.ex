@@ -137,9 +137,10 @@ defmodule CforumWeb.LayoutView do
   def show?(conn, :thread_feeds), do: present?(conn.assigns[:thread]) && present?(conn.assigns[:thread].thread_id)
   def show?(conn, :sort_links), do: controller_module(conn) == CforumWeb.Threads && blank?(conn.assigns[:current_user])
 
-  def show?(conn, :thread_nested),
-    do:
-      present?(conn.assigns[:message]) && present?(conn.assigns[:thread]) && present?(conn.assigns[:message].message_id)
+  def show?(conn, :thread_nested) do
+    present?(conn.assigns[:message]) && present?(conn.assigns[:thread]) && present?(conn.assigns[:read_mode]) &&
+      present?(conn.assigns[:message].message_id)
+  end
 
   def show?(conn, :view_all) do
     Cforum.Abilities.Helpers.access_forum?(conn, :moderate) &&
