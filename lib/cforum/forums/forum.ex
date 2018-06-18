@@ -42,6 +42,6 @@ defmodule Cforum.Forums.Forum do
     |> cast_assoc(:setting)
     |> validate_required([:slug, :short_name, :name, :description, :standard_permission, :position])
     |> validate_inclusion(:standard_permission, @permissions)
-    |> unique_constraint(:slug)
+    |> unique_constraint(:slug, name: :forums_slug_idx)
   end
 end
