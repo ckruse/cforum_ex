@@ -118,4 +118,66 @@ defmodule Cforum.System do
   def change_redirection(%Redirection{} = redirection) do
     Redirection.changeset(redirection, %{})
   end
+
+  alias Cforum.System.Auditing
+
+  @doc """
+  Returns the list of auditing.
+
+  ## Examples
+
+      iex> list_auditing()
+      [%Auditing{}, ...]
+
+  """
+  def list_auditing do
+    Repo.all(Auditing)
+  end
+
+  @doc """
+  Gets a single auditing.
+
+  Raises `Ecto.NoResultsError` if the Auditing does not exist.
+
+  ## Examples
+
+      iex> get_auditing!(123)
+      %Auditing{}
+
+      iex> get_auditing!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_auditing!(id), do: Repo.get!(Auditing, id)
+
+  @doc """
+  Creates a auditing.
+
+  ## Examples
+
+      iex> create_auditing(%{field: value})
+      {:ok, %Auditing{}}
+
+      iex> create_auditing(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_auditing(attrs \\ %{}) do
+    %Auditing{}
+    |> Auditing.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking auditing changes.
+
+  ## Examples
+
+      iex> change_auditing(auditing)
+      %Ecto.Changeset{source: %Auditing{}}
+
+  """
+  def change_auditing(%Auditing{} = auditing) do
+    Auditing.changeset(auditing, %{})
+  end
 end

@@ -64,4 +64,47 @@ defmodule Cforum.SystemTest do
       assert %Ecto.Changeset{} = System.change_redirection(redirection)
     end
   end
+
+  describe "auditing" do
+    alias Cforum.System.Auditing
+
+    @valid_attrs %{act: "some act", contents: %{}, relation: "some relation", relid: 42}
+    @invalid_attrs %{act: nil, contents: nil, relation: nil, relid: nil}
+
+    def auditing_fixture(attrs \\ %{}) do
+      {:ok, auditing} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> System.create_auditing()
+
+      auditing
+    end
+
+    test "list_auditing/0 returns all auditing" do
+      auditing = auditing_fixture()
+      assert System.list_auditing() == [auditing]
+    end
+
+    test "get_auditing!/1 returns the auditing with given id" do
+      auditing = auditing_fixture()
+      assert System.get_auditing!(auditing.auditing_id) == auditing
+    end
+
+    test "create_auditing/1 with valid data creates a auditing" do
+      assert {:ok, %Auditing{} = auditing} = System.create_auditing(@valid_attrs)
+      assert auditing.act == "some act"
+      assert auditing.contents == %{}
+      assert auditing.relation == "some relation"
+      assert auditing.relid == 42
+    end
+
+    test "create_auditing/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = System.create_auditing(@invalid_attrs)
+    end
+
+    test "change_auditing/1 returns a auditing changeset" do
+      auditing = auditing_fixture()
+      assert %Ecto.Changeset{} = System.change_auditing(auditing)
+    end
+  end
 end
