@@ -58,10 +58,4 @@ defmodule CforumWeb.RedirectorController do
       |> render(CforumWeb.ErrorView, "404.html", error: "Year or month is invalid")
     end
   end
-
-  def redirect_to_message(conn, %{"id" => id}) do
-    message = Messages.get_message!(id)
-    thread = Threads.get_thread!(conn.assigns[:current_user], message.thread_id)
-    redirect(conn, to: message_path(conn, :show, thread, message))
-  end
 end
