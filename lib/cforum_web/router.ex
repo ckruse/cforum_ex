@@ -48,6 +48,8 @@ defmodule CforumWeb.Router do
       resources("/redirections", RedirectionController, except: [:show])
       resources("/events", EventController, except: [:show])
 
+      get("/audit", AuditController, :index)
+
       get("/settings", SettingController, :edit, as: :setting)
       put("/settings", SettingController, :update, as: :setting)
     end

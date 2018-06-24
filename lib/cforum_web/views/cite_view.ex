@@ -28,7 +28,7 @@ defmodule CforumWeb.CiteView do
 
   def url_link_title(cite), do: if(blank?(cite.message_id), do: cite.url, else: cite.message.subject)
 
-  def votable?(conn, cite), do: signed_in?(conn) && !cite.archived
+  def votable?(conn, cite), do: signed_in?(conn) && !cite.archived && !blank?(cite.cite_id)
 
   def path_args(conn) do
     if action_name(conn) == :index, do: [conn, :index], else: [conn, :index_voting]

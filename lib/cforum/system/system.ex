@@ -130,8 +130,27 @@ defmodule Cforum.System do
       [%Auditing{}, ...]
 
   """
-  def list_auditing do
-    Repo.all(Auditing)
+  def list_auditing(changeset, query_params) do
+    start_date = Ecto.Changeset.get_field(changeset, :from)
+    end_date = Ecto.Changeset.get_field(changeset, :to)
+
+    from(
+      auditing in Auditing,
+      where: auditing.created_at >= ^start_date and auditing.created_at <= ^end_date,
+      preload: [:user],
+      order_by: [desc: :created_at]
+    )
+    |> Cforum.PagingApi.set_limit(query_params[:limit])
+    |> Repo.all()
+  end
+
+  def count_auditing(changeset) do
+    start_date = Ecto.Changeset.get_field(changeset, :from)
+    end_date = Ecto.Changeset.get_field(changeset, :to)
+
+    from(auditing in Auditing, where: auditing.created_at >= ^start_date and auditing.created_at <= ^end_date)
+    |> select(count("*"))
+    |> Repo.one()
   end
 
   @doc """
