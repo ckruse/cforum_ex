@@ -84,3 +84,11 @@ defmodule Cforum.Accounts.Badge do
     |> validate_inclusion(:badge_medal_type, @badge_medal_types)
   end
 end
+
+defimpl Cforum.System.AuditingProtocol, for: Cforum.Accounts.Badge do
+  def audit_json(badge) do
+    badge
+    |> Map.from_struct()
+    |> Map.drop([:badge_users, :users, :__meta__])
+  end
+end

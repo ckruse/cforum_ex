@@ -190,7 +190,7 @@ defmodule CforumWeb.Users.UserController do
 
   def delete(conn, %{"id" => id}) do
     user = Users.get_user!(id)
-    {:ok, _user} = Users.delete_user(user)
+    {:ok, _user} = Users.delete_user(nil, user)
 
     conn
     |> put_flash(:info, gettext("User deleted successfully."))

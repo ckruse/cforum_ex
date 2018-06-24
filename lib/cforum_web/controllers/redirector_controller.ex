@@ -1,7 +1,7 @@
 defmodule CforumWeb.RedirectorController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.{Threads, Messages}
+  alias Cforum.Forums.Threads
 
   def redirect_to_archive(conn, _params) do
     redirect(conn, to: archive_path(conn, :years, conn.assigns[:current_forum] || "all"))
