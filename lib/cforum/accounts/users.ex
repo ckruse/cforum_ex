@@ -170,9 +170,11 @@ defmodule Cforum.Accounts.Users do
 
   """
   def create_user(attrs) do
-    %User{}
-    |> User.changeset(attrs)
-    |> Repo.insert()
+    Cforum.System.audited("create", nil, fn ->
+      %User{}
+      |> User.changeset(attrs)
+      |> Repo.insert()
+    end)
   end
 
   @doc """
@@ -187,10 +189,12 @@ defmodule Cforum.Accounts.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  def admin_create_user(attrs) do
-    %User{}
-    |> User.admin_changeset(attrs)
-    |> Repo.insert()
+  def admin_create_user(current_user, attrs) do
+    Cforum.System.audited("create", current_user, fn ->
+      %User{}
+      |> User.admin_changeset(attrs)
+      |> Repo.insert()
+    end)
   end
 
   @doc """
@@ -223,10 +227,12 @@ defmodule Cforum.Accounts.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  def admin_update_user(%User{} = user, attrs) do
-    user
-    |> User.admin_changeset(attrs)
-    |> Repo.update()
+  def admin_update_user(current_user, %User{} = user, attrs) do
+    Cforum.System.audited("update", current_user, fn ->
+      user
+      |> User.admin_changeset(attrs)
+      |> Repo.update()
+    end)
   end
 
   @doc """
@@ -278,8 +284,10 @@ defmodule Cforum.Accounts.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_user(%User{} = user) do
-    Repo.delete(user)
+  def delete_user(current_user, %User{} = user) do
+    Cforum.System.audited("destroy", current_user, fn ->
+      Repo.delete(user)
+    end)
   end
 
   @doc """
@@ -334,9 +342,11 @@ defmodule Cforum.Accounts.Users do
 
   """
   def register_user(attrs) do
-    %User{active: true}
-    |> User.register_changeset(attrs)
-    |> Repo.insert()
+    Cforum.System.audited("create", nil, fn ->
+      %User{active: true}
+      |> User.register_changeset(attrs)
+      |> Repo.insert()
+    end)
   end
 
   @doc """
@@ -357,7 +367,9 @@ defmodule Cforum.Accounts.Users do
         {:error, nil}
 
       user ->
-        update_user(user, %{confirmed_at: Timex.now()})
+        Cforum.System.audited("confirm", user, fn ->
+          update_user(user, %{confirmed_at: Timex.now()})
+        end)
     end
   end
 

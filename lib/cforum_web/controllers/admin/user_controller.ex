@@ -18,7 +18,7 @@ defmodule CforumWeb.Admin.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    case Users.admin_create_user(user_params) do
+    case Users.admin_create_user(conn.assigns.current_user, user_params) do
       {:ok, user} ->
         conn
         |> put_flash(:info, gettext("The user has been created successfully."))
@@ -38,7 +38,7 @@ defmodule CforumWeb.Admin.UserController do
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Users.get_user!(id)
 
-    case Users.admin_update_user(user, user_params) do
+    case Users.admin_update_user(conn.assigns.current_user, user, user_params) do
       {:ok, user} ->
         conn
         |> put_flash(:info, gettext("User updated successfully."))
@@ -51,7 +51,7 @@ defmodule CforumWeb.Admin.UserController do
 
   def delete(conn, %{"id" => id}) do
     user = Users.get_user!(id)
-    {:ok, _user} = Users.delete_user(user)
+    {:ok, _user} = Users.delete_user(conn.assigns.current_user, user)
 
     conn
     |> put_flash(:info, gettext("User deleted successfully."))

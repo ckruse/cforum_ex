@@ -199,4 +199,33 @@ defmodule Cforum.System do
   def change_auditing(%Auditing{} = auditing) do
     Auditing.changeset(auditing, %{})
   end
+
+  def audit_object(object, action, user \\ nil) do
+    pid_field = object.__struct__.__schema__(:primary_key) |> List.first()
+    user_id = if user, do: user.user_id, else: nil
+
+    create_auditing(%{
+      relation: object.__struct__.__schema__(:source),
+      relid: Map.get(object, pid_field),
+      act: action,
+      contents: Cforum.System.AuditingProtocol.audit_json(object),
+      user_id: user_id
+    })
+  end
+
+  def audited(action, user, fun) do
+    {_, val} =
+      Repo.transaction(fn ->
+        case fun.() do
+          {:ok, object} ->
+            {:ok, _} = audit_object(object, action, user)
+            {:ok, object}
+
+          val ->
+            Repo.rollback(val)
+        end
+      end)
+
+    val
+  end
 end
