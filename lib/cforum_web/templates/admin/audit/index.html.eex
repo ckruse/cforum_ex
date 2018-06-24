@@ -1,0 +1,43 @@
+<%= form_for @changeset, admin_audit_path(@conn, :index), [as: :search, method: :get, class: "cf-form"], fn f -> %>
+  <div class="cf-cgroup">
+    <%= label f, :from, gettext("start date") %>
+    <%= datetime_local_input f, :from %>
+  </div>
+
+  <div class="cf-cgroup">
+    <%= label f, :to, gettext("end date") %>
+    <%= datetime_local_input f, :to %>
+  </div>
+
+  <p class="form-actions">
+    <%= primary_submit gettext("search") %>
+  </p>
+<% end %>
+
+<h2><%= gettext("auditing entries") %></h2>
+
+<%= pagination @conn, @paging, &admin_audit_path/3, url_params: url_params(@changeset) %>
+
+<table class="cf-default-table">
+  <thead>
+    <tr>
+      <th><%= gettext("action") %></th>
+      <th><%= gettext("user") %></th>
+      <th><%= gettext("object") %></th>
+      <th><%= gettext("timestamp") %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= for entry <- @audit_entries do %>
+      <tr>
+        <td><%= l10n_audit_act(entry) %></td>
+        <td><%= if present?(entry.user_id), do: user_link(@conn, entry.user, [], entry.user.username) %></td>
+        <td><%= render_object(@conn, entry) %></td>
+        <td><%= format_date(@conn, entry.created_at) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= pagination @conn, @paging, &admin_audit_path/3, url_params: url_params(@changeset) %>

@@ -1,0 +1,1 @@
+<%= render CforumWeb.CiteView, "cite.html", cite: Cforum.Cites.cite_from_json(@entry.contents), conn: @conn %>

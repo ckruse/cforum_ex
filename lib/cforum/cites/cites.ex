@@ -134,8 +134,8 @@ defmodule Cforum.Cites do
       %Ecto.Changeset{source: %Cite{}}
 
   """
-  def change_cite(%Cite{} = cite) do
-    Cite.changeset(cite, %{})
+  def change_cite(%Cite{} = cite, attrs \\ %{}) do
+    Cite.changeset(cite, attrs)
   end
 
   def score(cite) do
@@ -172,5 +172,11 @@ defmodule Cforum.Cites do
     %Vote{}
     |> Vote.changeset(%{cite_id: cite.cite_id, user_id: user.user_id, vote_type: Vote.vtype(type)})
     |> Repo.insert()
+  end
+
+  def cite_from_json(object) do
+    Cforum.Cites.change_cite(%Cforum.Cites.Cite{}, object)
+    |> Ecto.Changeset.apply_changes()
+    |> Repo.preload([:user, :creator_user])
   end
 end

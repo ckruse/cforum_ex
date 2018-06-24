@@ -1,7 +1,9 @@
 <article class="cf-cite h-cite">
   <div class="posting-header">
     <header class="cf-cite-header">
-      <h2><%= link gettext("cite %{id}", id: @cite.cite_id), to: cite_path(@conn, :show, @cite) %></h2>
+      <%= if present?(@cite.cite_id) do %>
+        <h2><%= link gettext("cite %{id}", id: @cite.cite_id), to: cite_path(@conn, :show, @cite) %></h2>
+      <% end %>
 
       <%= if link_to_url?(@conn, @cite) do %>
         <h3 class="origin"><%= link url_link_title(@cite), to: @cite.url, class: "p-name u-uid u-url" %></h3>
@@ -16,7 +18,7 @@
           <% end %>
         </span>
 
-        <time datetime="<%= NaiveDateTime.to_iso8601(@cite.cite_date) %>" class="dt-published">
+        <time datetime="<%= time_tag_timestamp(@cite.cite_date) %>" class="dt-published">
           <%= if link_to_url?(@conn, @cite) do %>
             <%= link format_date(@conn, @cite.cite_date), to: @cite.url %>
           <% else %>
@@ -59,8 +61,6 @@
       </span>
     <% end %>
 
-    <time datetime="<%= NaiveDateTime.to_iso8601(@cite.created_at) %>" class="dt-accessed">
-      <%= format_date(@conn, @cite.created_at) %>
-    </time>
+    <%= if @cite.created_at, do: time_tag(@cite.created_at, format_date(@conn, @cite.created_at), class: "dt-accessed") %>
   </div>
 </article>

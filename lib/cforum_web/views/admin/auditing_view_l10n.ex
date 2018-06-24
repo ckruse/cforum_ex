@@ -1,0 +1,98 @@
+defmodule CforumWeb.AuditingViewL10n do
+  import CforumWeb.Gettext
+  alias Cforum.System.Auditing
+
+  # user actions
+  def l10n_audit_act(%Auditing{relation: "users", act: "create"}), do: gettext("auditing: create user")
+  def l10n_audit_act(%Auditing{relation: "users", act: "update"}), do: gettext("auditing: update user")
+  def l10n_audit_act(%Auditing{relation: "users", act: "destroy"}), do: gettext("auditing: destroy user")
+  def l10n_audit_act(%Auditing{relation: "users", act: "autodestroy"}), do: gettext("auditing: autodestroy user")
+  def l10n_audit_act(%Auditing{relation: "users", act: "confirm"}), do: gettext("auditing: confirm user")
+  def l10n_audit_act(%Auditing{relation: "users", act: "badge-gained"}), do: gettext("auditing: user gained badge")
+
+  def l10n_audit_act(%Auditing{relation: "scores", act: "accepted-score"}), do: gettext("auditing: accepted score")
+
+  def l10n_audit_act(%Auditing{relation: "scores", act: "accepted-no-unscore"}),
+    do: gettext("auditing: accepted unscore")
+
+  def l10n_audit_act(%Auditing{relation: "tags", act: "create"}), do: gettext("auditing: tags: create")
+  def l10n_audit_act(%Auditing{relation: "tags", act: "update"}), do: gettext("auditing: tags: update")
+  def l10n_audit_act(%Auditing{relation: "tags", act: "destroy"}), do: gettext("auditing: tags: destroy")
+  def l10n_audit_act(%Auditing{relation: "tags", act: "merge"}), do: gettext("auditing: tags: merge")
+
+  def l10n_audit_act(%Auditing{relation: "tag_synonyms", act: "create"}), do: gettext("auditing: tag_synonyms: create")
+
+  def l10n_audit_act(%Auditing{relation: "tag_synonyms", act: "destroy"}),
+    do: gettext("auditing: tag_synonyms: destroy")
+
+  def l10n_audit_act(%Auditing{relation: "close_votes", act: "create"}), do: gettext("auditing: close_votes: create")
+
+  def l10n_audit_act(%Auditing{relation: "close_votes", act: "finished"}),
+    do: gettext("auditing: close_votes: finished")
+
+  def l10n_audit_act(%Auditing{relation: "media", act: "create"}), do: gettext("auditing: media: create")
+  def l10n_audit_act(%Auditing{relation: "media", act: "destroy"}), do: gettext("auditing: media: destroy")
+
+  def l10n_audit_act(%Auditing{relation: "cites", act: "create"}), do: gettext("auditing: cites: create")
+  def l10n_audit_act(%Auditing{relation: "cites", act: "update"}), do: gettext("auditing: cites: update")
+  def l10n_audit_act(%Auditing{relation: "cites", act: "destroy"}), do: gettext("auditing: cites: destroy")
+  def l10n_audit_act(%Auditing{relation: "cites", act: "archive"}), do: gettext("auditing: cites: archive")
+
+  def l10n_audit_act(%Auditing{relation: "threads", act: "create"}), do: gettext("auditing: threads: create")
+  def l10n_audit_act(%Auditing{relation: "threads", act: "destroy"}), do: gettext("auditing: threads: destroy")
+  def l10n_audit_act(%Auditing{relation: "threads", act: "archive"}), do: gettext("auditing: threads: archive")
+  def l10n_audit_act(%Auditing{relation: "threads", act: "move"}), do: gettext("auditing: threads: move")
+  def l10n_audit_act(%Auditing{relation: "threads", act: "sticky"}), do: gettext("auditing: threads: sticky")
+  def l10n_audit_act(%Auditing{relation: "threads", act: "unsticky"}), do: gettext("auditing: threads: unsticky")
+
+  def l10n_audit_act(%Auditing{relation: "threads", act: "no-archive-yes"}),
+    do: gettext("auditing: threads: no-archive-yes")
+
+  def l10n_audit_act(%Auditing{relation: "threads", act: "no-archive-no"}),
+    do: gettext("auditing: threads: no-archive-no")
+
+  # message actions
+  def l10n_audit_act(%Auditing{relation: "messages", act: "create"}), do: gettext("auditing: messages: create")
+  def l10n_audit_act(%Auditing{relation: "messages", act: "update"}), do: gettext("auditing: messages: update")
+  def l10n_audit_act(%Auditing{relation: "messages", act: "retag"}), do: gettext("auditing: messages: retag")
+  def l10n_audit_act(%Auditing{relation: "messages", act: "delete"}), do: gettext("auditing: messages: delete")
+  def l10n_audit_act(%Auditing{relation: "messages", act: "restore"}), do: gettext("auditing: messages: restore")
+  def l10n_audit_act(%Auditing{relation: "messages", act: "move"}), do: gettext("auditing: messages: move")
+  def l10n_audit_act(%Auditing{relation: "messages", act: "unflagged"}), do: gettext("auditing: messages: unflagged")
+
+  def l10n_audit_act(%Auditing{relation: "messages", act: "del_versions"}),
+    do: gettext("auditing: messages: del_versions")
+
+  def l10n_audit_act(%Auditing{relation: "messages", act: "accepted-yes"}),
+    do: gettext("auditing: messages: accepted-yes")
+
+  def l10n_audit_act(%Auditing{relation: "messages", act: "accepted-no"}),
+    do: gettext("auditing: messages: accepted-no")
+
+  def l10n_audit_act(%Auditing{relation: "messages", act: "flagged-off-topic"}),
+    do: gettext("auditing: messages: flagged-off-topic")
+
+  def l10n_audit_act(%Auditing{relation: "messages", act: "flagged-not-constructive"}),
+    do: gettext("auditing: messages: flagged-not-constructive")
+
+  def l10n_audit_act(%Auditing{relation: "messages", act: "flagged-duplicate"}),
+    do: gettext("auditing: messages: flagged-duplicate")
+
+  def l10n_audit_act(%Auditing{relation: "messages", act: "flagged-spam"}),
+    do: gettext("auditing: messages: flagged-spam")
+
+  def l10n_audit_act(%Auditing{relation: "messages", act: "flagged-custom"}),
+    do: gettext("auditing: messages: flagged-custom")
+
+  def l10n_audit_act(%Auditing{relation: "messages", act: "no-answer-admin-yes"}),
+    do: gettext("auditing: messages: no-answer-admin-yes")
+
+  def l10n_audit_act(%Auditing{relation: "messages", act: "no-answer-admin-no"}),
+    do: gettext("auditing: messages: no-answer-admin-no")
+
+  def l10n_audit_act(%Auditing{relation: "messages", act: "no-answer"}),
+    do: gettext("auditing: messages: no-answer")
+
+  def l10n_audit_act(%Auditing{relation: "messages", act: "no-answer-no"}),
+    do: gettext("auditing: messages: no-answer-no")
+end

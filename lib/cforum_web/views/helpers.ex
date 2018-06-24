@@ -74,9 +74,9 @@ defmodule CforumWeb.Views.Helpers do
     content_tag(:time, content, Keyword.merge([datetime: timestamp], opts))
   end
 
-  defp time_tag_timestamp(%NaiveDateTime{} = time), do: NaiveDateTime.to_iso8601(time)
-  defp time_tag_timestamp(%DateTime{} = time), do: DateTime.to_iso8601(time)
-  defp time_tag_timestamp(%Date{} = time), do: Date.to_iso8601(time)
+  def time_tag_timestamp(%NaiveDateTime{} = time), do: NaiveDateTime.to_iso8601(time)
+  def time_tag_timestamp(%DateTime{} = time), do: DateTime.to_iso8601(time)
+  def time_tag_timestamp(%Date{} = time), do: Date.to_iso8601(time)
 
   @doc """
   Renders a localized version of the template.

@@ -1,0 +1,11 @@
+<%=
+link(
+  List.first(@entry.contents["messages"])["subject"],
+  to: root_path(@conn, :index) <>
+    @entry.contents["forum"]["slug"] <>
+    @entry.contents["slug"] <> "/" <>
+    to_string(List.first(@entry.contents["messages"])["message_id"]) <>
+    "?view_all=true#m" <>
+    to_string(List.first(@entry.contents["messages"])["message_id"])
+)
+%> <%= gettext("by") %> <%= List.first(@entry.contents["messages"])["author"] %>
