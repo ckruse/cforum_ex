@@ -20,10 +20,10 @@ defmodule CforumWeb.CiteController do
   end
 
   def create(conn, %{"cite" => cite_params}) do
-    case Cites.create_cite(cite_params, conn.assigns[:current_user]) do
+    case Cites.create_cite(conn.assigns[:current_user], cite_params) do
       {:ok, cite} ->
         conn
-        |> put_flash(:info, "Cite created successfully.")
+        |> put_flash(:info, gettext("Cite created successfully."))
         |> redirect(to: cite_path(conn, :show, cite))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -45,10 +45,10 @@ defmodule CforumWeb.CiteController do
   def update(conn, %{"id" => id, "cite" => cite_params}) do
     cite = Cites.get_cite!(id)
 
-    case Cites.update_cite(cite, cite_params) do
+    case Cites.update_cite(conn.assigns.current_user, cite, cite_params) do
       {:ok, cite} ->
         conn
-        |> put_flash(:info, "Cite updated successfully.")
+        |> put_flash(:info, gettext("Cite updated successfully."))
         |> redirect(to: cite_path(conn, :show, cite))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -58,10 +58,10 @@ defmodule CforumWeb.CiteController do
 
   def delete(conn, %{"id" => id}) do
     cite = Cites.get_cite!(id)
-    {:ok, _cite} = Cites.delete_cite(cite)
+    {:ok, _cite} = Cites.delete_cite(conn.assigns.current_user, cite)
 
     conn
-    |> put_flash(:info, "Cite deleted successfully.")
+    |> put_flash(:info, gettext("Cite deleted successfully."))
     |> redirect(to: cite_path(conn, :index))
   end
 end

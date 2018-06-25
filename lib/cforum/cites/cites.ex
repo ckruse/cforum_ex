@@ -8,6 +8,7 @@ defmodule Cforum.Cites do
 
   alias Cforum.Cites.Cite
   alias Cforum.Cites.Vote
+  alias Cforum.System
 
   @doc """
   Returns the list of cites.
@@ -85,10 +86,12 @@ defmodule Cforum.Cites do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_cite(attrs, current_user \\ nil) do
-    %Cite{}
-    |> Cite.changeset(attrs, current_user)
-    |> Repo.insert()
+  def create_cite(current_user, attrs) do
+    System.audited("create", current_user, fn ->
+      %Cite{}
+      |> Cite.changeset(attrs, current_user)
+      |> Repo.insert()
+    end)
   end
 
   @doc """
@@ -103,10 +106,12 @@ defmodule Cforum.Cites do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_cite(%Cite{} = cite, attrs) do
-    cite
-    |> Cite.changeset(attrs)
-    |> Repo.update()
+  def update_cite(current_user, %Cite{} = cite, attrs) do
+    System.audited("update", current_user, fn ->
+      cite
+      |> Cite.changeset(attrs)
+      |> Repo.update()
+    end)
   end
 
   @doc """
@@ -121,8 +126,10 @@ defmodule Cforum.Cites do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_cite(%Cite{} = cite) do
-    Repo.delete(cite)
+  def delete_cite(current_user, %Cite{} = cite) do
+    System.audited("destroy", current_user, fn ->
+      Repo.delete(cite)
+    end)
   end
 
   @doc """
