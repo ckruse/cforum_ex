@@ -7,6 +7,7 @@ defmodule Cforum.Accounts.Badges do
   alias Cforum.Repo
 
   alias Cforum.Accounts.Badge
+  alias Cforum.System
 
   @doc """
   Returns the list of badges.
@@ -50,10 +51,12 @@ defmodule Cforum.Accounts.Badges do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_badge(attrs \\ %{}) do
-    %Badge{}
-    |> Badge.changeset(attrs)
-    |> Repo.insert()
+  def create_badge(current_user, attrs \\ %{}) do
+    System.audited("create", current_user, fn ->
+      %Badge{}
+      |> Badge.changeset(attrs)
+      |> Repo.insert()
+    end)
   end
 
   @doc """
@@ -68,10 +71,12 @@ defmodule Cforum.Accounts.Badges do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_badge(%Badge{} = badge, attrs) do
-    badge
-    |> Badge.changeset(attrs)
-    |> Repo.update()
+  def update_badge(current_user, %Badge{} = badge, attrs) do
+    System.audited("update", current_user, fn ->
+      badge
+      |> Badge.changeset(attrs)
+      |> Repo.update()
+    end)
   end
 
   @doc """
@@ -86,8 +91,10 @@ defmodule Cforum.Accounts.Badges do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_badge(%Badge{} = badge) do
-    Repo.delete(badge)
+  def delete_badge(current_user, %Badge{} = badge) do
+    System.audited("destroy", current_user, fn ->
+      Repo.delete(badge)
+    end)
   end
 
   @doc """

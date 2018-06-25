@@ -16,7 +16,7 @@ defmodule CforumWeb.Admin.ForumController do
   end
 
   def create(conn, %{"forum" => forum_params}) do
-    case Forums.create_forum(forum_params) do
+    case Forums.create_forum(conn.assigns.current_user, forum_params) do
       {:ok, forum} ->
         conn
         |> put_flash(:info, gettext("Forum created successfully."))
@@ -36,7 +36,7 @@ defmodule CforumWeb.Admin.ForumController do
   def update(conn, %{"id" => slug, "forum" => forum_params}) do
     forum = Forums.get_forum_by_slug!(slug, :preload_setting)
 
-    case Forums.update_forum(forum, forum_params) do
+    case Forums.update_forum(conn.assigns.current_user, forum, forum_params) do
       {:ok, forum} ->
         conn
         |> put_flash(:info, gettext("Forum updated successfully."))
@@ -49,7 +49,7 @@ defmodule CforumWeb.Admin.ForumController do
 
   def delete(conn, %{"id" => slug}) do
     forum = Forums.get_forum_by_slug!(slug)
-    {:ok, _forum} = Forums.delete_forum(forum)
+    {:ok, _forum} = Forums.delete_forum(conn.assigns.current_user, forum)
 
     conn
     |> put_flash(:info, gettext("Forum deleted successfully."))

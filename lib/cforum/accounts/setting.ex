@@ -37,3 +37,11 @@ defmodule Cforum.Accounts.Setting do
   defp defaults_reduce({_key, "_DEFAULT_"}, acc), do: acc
   defp defaults_reduce({key, value}, acc), do: Map.put(acc, key, value)
 end
+
+defimpl Cforum.System.AuditingProtocol, for: Cforum.Accounts.Setting do
+  def audit_json(setting) do
+    setting
+    |> Map.from_struct()
+    |> Map.drop([:__meta__, :user, :forum])
+  end
+end

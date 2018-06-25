@@ -46,6 +46,28 @@ defmodule CforumWeb.AuditingViewL10n do
   def l10n_audit_act(%Auditing{relation: "attendees", act: "update"}), do: gettext("auditing: attendees: update")
   def l10n_audit_act(%Auditing{relation: "attendees", act: "destroy"}), do: gettext("auditing: attendees: destroy")
 
+  def l10n_audit_act(%Auditing{relation: "settings", act: "create"}), do: gettext("auditing: settings: create")
+  def l10n_audit_act(%Auditing{relation: "settings", act: "update"}), do: gettext("auditing: settings: update")
+  def l10n_audit_act(%Auditing{relation: "settings", act: "destroy"}), do: gettext("auditing: settings: destroy")
+
+  def l10n_audit_act(%Auditing{relation: "forums", act: "create"}), do: gettext("auditing: forums: create")
+  def l10n_audit_act(%Auditing{relation: "forums", act: "update"}), do: gettext("auditing: forums: update")
+  def l10n_audit_act(%Auditing{relation: "forums", act: "destroy"}), do: gettext("auditing: forums: destroy")
+
+  def l10n_audit_act(%Auditing{relation: "groups", act: "create"}), do: gettext("auditing: groups: create")
+  def l10n_audit_act(%Auditing{relation: "groups", act: "update"}), do: gettext("auditing: groups: update")
+  def l10n_audit_act(%Auditing{relation: "groups", act: "destroy"}), do: gettext("auditing: groups: destroy")
+
+  def l10n_audit_act(%Auditing{relation: "badges", act: "create"}), do: gettext("auditing: badges: create")
+  def l10n_audit_act(%Auditing{relation: "badges", act: "update"}), do: gettext("auditing: badges: update")
+  def l10n_audit_act(%Auditing{relation: "badges", act: "destroy"}), do: gettext("auditing: badges: destroy")
+
+  def l10n_audit_act(%Auditing{relation: "redirections", act: "create"}), do: gettext("auditing: redirections: create")
+  def l10n_audit_act(%Auditing{relation: "redirections", act: "update"}), do: gettext("auditing: redirections: update")
+
+  def l10n_audit_act(%Auditing{relation: "redirections", act: "destroy"}),
+    do: gettext("auditing: redirections: destroy")
+
   def l10n_audit_act(%Auditing{relation: "threads", act: "create"}), do: gettext("auditing: threads: create")
   def l10n_audit_act(%Auditing{relation: "threads", act: "destroy"}), do: gettext("auditing: threads: destroy")
   def l10n_audit_act(%Auditing{relation: "threads", act: "archive"}), do: gettext("auditing: threads: archive")

@@ -7,6 +7,7 @@ defmodule Cforum.Forums do
   alias Cforum.Repo
 
   alias Cforum.Forums.Forum
+  alias Cforum.System
 
   @doc """
   Returns the list of forums.
@@ -72,10 +73,12 @@ defmodule Cforum.Forums do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_forum(attrs \\ %{}) do
-    %Forum{}
-    |> Forum.changeset(attrs)
-    |> Repo.insert()
+  def create_forum(current_user, attrs \\ %{}) do
+    System.audited("create", current_user, fn ->
+      %Forum{}
+      |> Forum.changeset(attrs)
+      |> Repo.insert()
+    end)
   end
 
   @doc """
@@ -90,10 +93,12 @@ defmodule Cforum.Forums do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_forum(%Forum{} = forum, attrs) do
-    forum
-    |> Forum.changeset(attrs)
-    |> Repo.update()
+  def update_forum(current_user, %Forum{} = forum, attrs) do
+    System.audited("update", current_user, fn ->
+      forum
+      |> Forum.changeset(attrs)
+      |> Repo.update()
+    end)
   end
 
   @doc """
@@ -108,8 +113,10 @@ defmodule Cforum.Forums do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_forum(%Forum{} = forum) do
-    Repo.delete(forum)
+  def delete_forum(current_user, %Forum{} = forum) do
+    System.audited("destroy", current_user, fn ->
+      Repo.delete(forum)
+    end)
   end
 
   @doc """
