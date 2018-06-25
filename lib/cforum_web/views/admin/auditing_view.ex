@@ -20,6 +20,11 @@ defmodule CforumWeb.Admin.AuditView do
     ]
   end
 
+  def is_object_checked?(changeset, type) do
+    objects = Ecto.Changeset.get_field(changeset, :objects)
+    Enum.find(objects, &(&1 == type)) != nil
+  end
+
   alias Cforum.System.Auditing
   import CforumWeb.AuditingViewL10n
 
