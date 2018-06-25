@@ -32,7 +32,7 @@ defmodule Cforum.Cites.Cite do
     |> maybe_set_message_and_user_id()
     |> maybe_set_creator(current_user)
     |> set_cite_date()
-    |> validate_required([:cite, :author, :creator])
+    |> validate_required([:cite, :author, :creator, :url])
   end
 
   defp maybe_set_message_and_user_id(%Changeset{valid?: true} = changeset) do
