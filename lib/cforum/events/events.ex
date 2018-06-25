@@ -7,6 +7,7 @@ defmodule Cforum.Events do
   alias Cforum.Repo
 
   alias Cforum.Events.{Event, Attendee}
+  alias Cforum.System
 
   @doc """
   Returns the list of events.
@@ -85,10 +86,12 @@ defmodule Cforum.Events do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_event(attrs \\ %{}) do
-    %Event{}
-    |> Event.changeset(attrs)
-    |> Repo.insert()
+  def create_event(current_user, attrs \\ %{}) do
+    System.audited("create", current_user, fn ->
+      %Event{}
+      |> Event.changeset(attrs)
+      |> Repo.insert()
+    end)
   end
 
   @doc """
@@ -103,10 +106,12 @@ defmodule Cforum.Events do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_event(%Event{} = event, attrs) do
-    event
-    |> Event.changeset(attrs)
-    |> Repo.update()
+  def update_event(current_user, %Event{} = event, attrs) do
+    System.audited("update", current_user, fn ->
+      event
+      |> Event.changeset(attrs)
+      |> Repo.update()
+    end)
   end
 
   @doc """
@@ -121,8 +126,10 @@ defmodule Cforum.Events do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_event(%Event{} = event) do
-    Repo.delete(event)
+  def delete_event(current_user, %Event{} = event) do
+    System.audited("destroy", current_user, fn ->
+      Repo.delete(event)
+    end)
   end
 
   @doc """

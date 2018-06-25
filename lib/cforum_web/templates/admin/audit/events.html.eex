@@ -1,0 +1,4 @@
+<%= @entry.contents["name"] %>:
+<%= format_date(@conn, Timex.parse!(@entry.contents["start_date"], "{YYYY}-{0M}-{0D}"), "date_format_date") %> -
+<%= format_date(@conn, Timex.parse!(@entry.contents["end_date"], "{YYYY}-{0M}-{0D}"), "date_format_date") %>,
+<%= gettext("location") %> <%= @entry.contents["location"] %>

@@ -19,7 +19,7 @@ defmodule CforumWeb.Admin.EventController do
   end
 
   def create(conn, %{"event" => event_params}) do
-    case Events.create_event(event_params) do
+    case Events.create_event(conn.assigns.current_user, event_params) do
       {:ok, event} ->
         conn
         |> put_flash(:info, gettext("Event created successfully."))
@@ -39,7 +39,7 @@ defmodule CforumWeb.Admin.EventController do
   def update(conn, %{"id" => id, "event" => event_params}) do
     event = Events.get_event!(id)
 
-    case Events.update_event(event, event_params) do
+    case Events.update_event(conn.assigns.current_user, event, event_params) do
       {:ok, event} ->
         conn
         |> put_flash(:info, gettext("Event updated successfully."))
@@ -52,7 +52,7 @@ defmodule CforumWeb.Admin.EventController do
 
   def delete(conn, %{"id" => id}) do
     event = Events.get_event!(id)
-    {:ok, _event} = Events.delete_event(event)
+    {:ok, _event} = Events.delete_event(conn.assigns.current_user, event)
 
     conn
     |> put_flash(:info, gettext("Event deleted successfully."))
