@@ -9,6 +9,22 @@
     <%= datetime_local_input f, :to %>
   </div>
 
+  <div class="cf-cgroup">
+    <div class="checkbox">
+      <label><input name="search[objects][]" type="checkbox" value="threads"<%= if is_object_checked?(@changeset, "threads"), do: " checked" %>> <%= gettext("threads") %></label>
+      <label><input name="search[objects][]" type="checkbox" value="messages"<%= if is_object_checked?(@changeset, "messages"), do: " checked" %>> <%= gettext("messages") %></label>
+      <label><input name="search[objects][]" type="checkbox" value="cites"<%= if is_object_checked?(@changeset, "cites"), do: " checked" %>> <%= gettext("cites") %></label>
+      <label><input name="search[objects][]" type="checkbox" value="users"<%= if is_object_checked?(@changeset, "users"), do: " checked" %>> <%= gettext("users") %></label>
+      <label><input name="search[objects][]" type="checkbox" value="scores"<%= if is_object_checked?(@changeset, "scores"), do: " checked" %>> <%= gettext("scores") %></label>
+      <label><input name="search[objects][]" type="checkbox" value="tags"<%= if is_object_checked?(@changeset, "tags"), do: " checked" %>> <%= gettext("tags") %></label>
+      <label><input name="search[objects][]" type="checkbox" value="tag_synonyms"<%= if is_object_checked?(@changeset, "tag_synonyms"), do: " checked" %>> <%= gettext("tag_synonyms") %></label>
+      <label><input name="search[objects][]" type="checkbox" value="close_votes"<%= if is_object_checked?(@changeset, "close_votes"), do: " checked" %>> <%= gettext("close_votes") %></label>
+      <label><input name="search[objects][]" type="checkbox" value="media"<%= if is_object_checked?(@changeset, "media"), do: " checked" %>> <%= gettext("media") %></label>
+      <label><input name="search[objects][]" type="checkbox" value="events"<%= if is_object_checked?(@changeset, "events"), do: " checked" %>> <%= gettext("events") %></label>
+      <label><input name="search[objects][]" type="checkbox" value="attendees"<%= if is_object_checked?(@changeset, "attendees"), do: " checked" %>> <%= gettext("attendees") %></label>
+    </div>
+  </div>
+
   <p class="form-actions">
     <%= primary_submit gettext("search") %>
   </p>

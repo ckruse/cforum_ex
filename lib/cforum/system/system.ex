@@ -121,6 +121,19 @@ defmodule Cforum.System do
 
   alias Cforum.System.Auditing
 
+  defp maybe_add_object_list(q, changeset) do
+    case Ecto.Changeset.get_field(changeset, :objects) do
+      nil ->
+        q
+
+      [] ->
+        q
+
+      objects ->
+        from(auditing in q, where: auditing.relation in ^objects)
+    end
+  end
+
   @doc """
   Returns the list of auditing.
 
@@ -140,6 +153,7 @@ defmodule Cforum.System do
       preload: [:user],
       order_by: [desc: :created_at]
     )
+    |> maybe_add_object_list(changeset)
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Repo.all()
   end
@@ -149,6 +163,7 @@ defmodule Cforum.System do
     end_date = Ecto.Changeset.get_field(changeset, :to)
 
     from(auditing in Auditing, where: auditing.created_at >= ^start_date and auditing.created_at <= ^end_date)
+    |> maybe_add_object_list(changeset)
     |> select(count("*"))
     |> Repo.one()
   end

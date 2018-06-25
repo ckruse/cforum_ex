@@ -5,9 +5,12 @@ defmodule CforumWeb.Admin.AuditController do
 
   def index(conn, params) do
     changeset =
-      {%{from: Timex.subtract(Timex.now(), Timex.Duration.from_hours(4)), to: Timex.now()},
-       %{from: Timex.Ecto.DateTime, to: Timex.Ecto.DateTime}}
-      |> Ecto.Changeset.cast(params["search"] || %{}, [:from, :to])
+      {%{
+         from: Timex.beginning_of_day(NaiveDateTime.utc_now()),
+         to: Timex.end_of_day(NaiveDateTime.utc_now()),
+         objects: []
+       }, %{from: Timex.Ecto.DateTimeWithTimezone, to: Timex.Ecto.DateTimeWithTimezone, objects: {:array, :string}}}
+      |> Ecto.Changeset.cast(params["search"] || %{}, [:from, :to, :objects])
 
     count = System.count_auditing(changeset)
     paging = paginate(count, page: params["p"])
