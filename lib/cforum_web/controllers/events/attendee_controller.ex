@@ -27,7 +27,7 @@ defmodule CforumWeb.Events.AttendeeController do
   end
 
   def update(conn, %{"attendee" => attendee_params}) do
-    case Attendees.update_attendee(conn.assigns.attendee, attendee_params) do
+    case Attendees.update_attendee(conn.assigns.current_user, conn.assigns.attendee, attendee_params) do
       {:ok, _attendee} ->
         conn
         |> put_flash(:info, gettext("Your registration was successfully updated."))
@@ -39,7 +39,7 @@ defmodule CforumWeb.Events.AttendeeController do
   end
 
   def delete(conn, _params) do
-    {:ok, _attendee} = Attendees.delete_attendee(conn.assigns.attendee)
+    {:ok, _attendee} = Attendees.delete_attendee(conn.assigns.current_user, conn.assigns.attendee)
 
     conn
     |> put_flash(:info, gettext("Attendee deleted successfully."))

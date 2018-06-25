@@ -8,6 +8,7 @@ defmodule Cforum.Events.Attendees do
 
   alias Cforum.Events.Event
   alias Cforum.Events.Attendee
+  alias Cforum.System
 
   @doc """
   Returns the list of attendees.
@@ -59,9 +60,11 @@ defmodule Cforum.Events.Attendees do
 
   """
   def create_attendee(%Event{} = event, user, attrs \\ %{}) do
-    %Attendee{event_id: event.event_id}
-    |> Attendee.changeset(attrs, user)
-    |> Repo.insert()
+    System.audited("create", user, fn ->
+      %Attendee{event_id: event.event_id}
+      |> Attendee.changeset(attrs, user)
+      |> Repo.insert()
+    end)
   end
 
   @doc """
@@ -76,10 +79,12 @@ defmodule Cforum.Events.Attendees do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_attendee(%Attendee{} = attendee, attrs) do
-    attendee
-    |> Attendee.changeset(attrs)
-    |> Repo.update()
+  def update_attendee(current_user, %Attendee{} = attendee, attrs) do
+    System.audited("update", current_user, fn ->
+      attendee
+      |> Attendee.changeset(attrs)
+      |> Repo.update()
+    end)
   end
 
   @doc """
@@ -94,8 +99,10 @@ defmodule Cforum.Events.Attendees do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_attendee(%Attendee{} = attendee) do
-    Repo.delete(attendee)
+  def delete_attendee(current_user, %Attendee{} = attendee) do
+    System.audited("destroy", current_user, fn ->
+      Repo.delete(attendee)
+    end)
   end
 
   @doc """

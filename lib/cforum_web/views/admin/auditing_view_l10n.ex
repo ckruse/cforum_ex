@@ -38,6 +38,14 @@ defmodule CforumWeb.AuditingViewL10n do
   def l10n_audit_act(%Auditing{relation: "cites", act: "destroy"}), do: gettext("auditing: cites: destroy")
   def l10n_audit_act(%Auditing{relation: "cites", act: "archive"}), do: gettext("auditing: cites: archive")
 
+  def l10n_audit_act(%Auditing{relation: "events", act: "create"}), do: gettext("auditing: events: create")
+  def l10n_audit_act(%Auditing{relation: "events", act: "update"}), do: gettext("auditing: events: update")
+  def l10n_audit_act(%Auditing{relation: "events", act: "destroy"}), do: gettext("auditing: events: destroy")
+
+  def l10n_audit_act(%Auditing{relation: "attendees", act: "create"}), do: gettext("auditing: attendees: create")
+  def l10n_audit_act(%Auditing{relation: "attendees", act: "update"}), do: gettext("auditing: attendees: update")
+  def l10n_audit_act(%Auditing{relation: "attendees", act: "destroy"}), do: gettext("auditing: attendees: destroy")
+
   def l10n_audit_act(%Auditing{relation: "threads", act: "create"}), do: gettext("auditing: threads: create")
   def l10n_audit_act(%Auditing{relation: "threads", act: "destroy"}), do: gettext("auditing: threads: destroy")
   def l10n_audit_act(%Auditing{relation: "threads", act: "archive"}), do: gettext("auditing: threads: archive")
@@ -90,8 +98,7 @@ defmodule CforumWeb.AuditingViewL10n do
   def l10n_audit_act(%Auditing{relation: "messages", act: "no-answer-admin-no"}),
     do: gettext("auditing: messages: no-answer-admin-no")
 
-  def l10n_audit_act(%Auditing{relation: "messages", act: "no-answer"}),
-    do: gettext("auditing: messages: no-answer")
+  def l10n_audit_act(%Auditing{relation: "messages", act: "no-answer"}), do: gettext("auditing: messages: no-answer")
 
   def l10n_audit_act(%Auditing{relation: "messages", act: "no-answer-no"}),
     do: gettext("auditing: messages: no-answer-no")
