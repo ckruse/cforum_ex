@@ -45,3 +45,14 @@ defmodule Cforum.Forums.Forum do
     |> unique_constraint(:slug, name: :forums_slug_idx)
   end
 end
+
+defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Forum do
+  def audit_json(forum) do
+    setting = Cforum.System.AuditingProtocol.audit_json(forum.setting)
+
+    forum
+    |> Map.from_struct()
+    |> Map.drop([:__meta__, :threads, :messages, :permissions])
+    |> Map.put(:setting, setting)
+  end
+end

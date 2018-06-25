@@ -17,11 +17,16 @@
       <label><input name="search[objects][]" type="checkbox" value="users"<%= if is_object_checked?(@changeset, "users"), do: " checked" %>> <%= gettext("users") %></label>
       <label><input name="search[objects][]" type="checkbox" value="scores"<%= if is_object_checked?(@changeset, "scores"), do: " checked" %>> <%= gettext("scores") %></label>
       <label><input name="search[objects][]" type="checkbox" value="tags"<%= if is_object_checked?(@changeset, "tags"), do: " checked" %>> <%= gettext("tags") %></label>
-      <label><input name="search[objects][]" type="checkbox" value="tag_synonyms"<%= if is_object_checked?(@changeset, "tag_synonyms"), do: " checked" %>> <%= gettext("tag_synonyms") %></label>
-      <label><input name="search[objects][]" type="checkbox" value="close_votes"<%= if is_object_checked?(@changeset, "close_votes"), do: " checked" %>> <%= gettext("close_votes") %></label>
+      <label><input name="search[objects][]" type="checkbox" value="tag_synonyms"<%= if is_object_checked?(@changeset, "tag_synonyms"), do: " checked" %>> <%= gettext("tag synonyms") %></label>
+      <label><input name="search[objects][]" type="checkbox" value="close_votes"<%= if is_object_checked?(@changeset, "close_votes"), do: " checked" %>> <%= gettext("close votes") %></label>
       <label><input name="search[objects][]" type="checkbox" value="media"<%= if is_object_checked?(@changeset, "media"), do: " checked" %>> <%= gettext("media") %></label>
       <label><input name="search[objects][]" type="checkbox" value="events"<%= if is_object_checked?(@changeset, "events"), do: " checked" %>> <%= gettext("events") %></label>
       <label><input name="search[objects][]" type="checkbox" value="attendees"<%= if is_object_checked?(@changeset, "attendees"), do: " checked" %>> <%= gettext("attendees") %></label>
+      <label><input name="search[objects][]" type="checkbox" value="settings"<%= if is_object_checked?(@changeset, "settings"), do: " checked" %>> <%= gettext("settings") %></label>
+      <label><input name="search[objects][]" type="checkbox" value="forums"<%= if is_object_checked?(@changeset, "forums"), do: " checked" %>> <%= gettext("forums") %></label>
+      <label><input name="search[objects][]" type="checkbox" value="groups"<%= if is_object_checked?(@changeset, "groups"), do: " checked" %>> <%= gettext("groups") %></label>
+      <label><input name="search[objects][]" type="checkbox" value="badges"<%= if is_object_checked?(@changeset, "badges"), do: " checked" %>> <%= gettext("badges") %></label>
+      <label><input name="search[objects][]" type="checkbox" value="redirections"<%= if is_object_checked?(@changeset, "redirections"), do: " checked" %>> <%= gettext("redirections") %></label>
     </div>
   </div>
 

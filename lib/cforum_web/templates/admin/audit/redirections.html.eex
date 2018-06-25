@@ -1,0 +1,2 @@
+<%= @entry.contents["path"] %> ⇒ <%= @entry.contents["destination"] %>
+(<%= @entry.contents["http_status"] %>, <%= @entry.contents["comment"] %>)

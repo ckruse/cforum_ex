@@ -66,10 +66,12 @@ defmodule Cforum.System do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_redirection(attrs \\ %{}) do
-    %Redirection{}
-    |> Redirection.changeset(attrs)
-    |> Repo.insert()
+  def create_redirection(current_user, attrs \\ %{}) do
+    audited("create", current_user, fn ->
+      %Redirection{}
+      |> Redirection.changeset(attrs)
+      |> Repo.insert()
+    end)
   end
 
   @doc """
@@ -84,10 +86,12 @@ defmodule Cforum.System do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_redirection(%Redirection{} = redirection, attrs) do
-    redirection
-    |> Redirection.changeset(attrs)
-    |> Repo.update()
+  def update_redirection(current_user, %Redirection{} = redirection, attrs) do
+    audited("update", current_user, fn ->
+      redirection
+      |> Redirection.changeset(attrs)
+      |> Repo.update()
+    end)
   end
 
   @doc """
@@ -102,8 +106,10 @@ defmodule Cforum.System do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_redirection(%Redirection{} = redirection) do
-    Repo.delete(redirection)
+  def delete_redirection(current_user, %Redirection{} = redirection) do
+    audited("destroy", current_user, fn ->
+      Repo.delete(redirection)
+    end)
   end
 
   @doc """

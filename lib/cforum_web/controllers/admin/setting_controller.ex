@@ -12,7 +12,7 @@ defmodule CforumWeb.Admin.SettingController do
   def update(conn, %{"setting" => %{"options" => setting_params}}) do
     settings = conn.assigns[:global_config] || %Setting{}
 
-    case Settings.update_options(settings, setting_params) do
+    case Settings.update_options(conn.assigns.current_user, settings, setting_params) do
       {:ok, _settings} ->
         conn
         |> put_flash(:info, gettext("Settings updated successfully."))

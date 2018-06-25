@@ -8,6 +8,7 @@ defmodule Cforum.Accounts.Groups do
 
   alias Cforum.Accounts.Group
   alias Cforum.Accounts.ForumGroupPermission
+  alias Cforum.System
 
   @doc """
   Returns the list of groups.
@@ -55,10 +56,12 @@ defmodule Cforum.Accounts.Groups do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_group(attrs \\ %{}) do
-    %Group{}
-    |> Group.changeset(attrs)
-    |> Repo.insert()
+  def create_group(current_user, attrs \\ %{}) do
+    System.audited("create", current_user, fn ->
+      %Group{}
+      |> Group.changeset(attrs)
+      |> Repo.insert()
+    end)
   end
 
   @doc """
@@ -73,10 +76,12 @@ defmodule Cforum.Accounts.Groups do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_group(%Group{} = group, attrs) do
-    group
-    |> Group.changeset(attrs)
-    |> Repo.update()
+  def update_group(current_user, %Group{} = group, attrs) do
+    System.audited("update", current_user, fn ->
+      group
+      |> Group.changeset(attrs)
+      |> Repo.update()
+    end)
   end
 
   @doc """
@@ -91,8 +96,10 @@ defmodule Cforum.Accounts.Groups do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_group(%Group{} = group) do
-    Repo.delete(group)
+  def delete_group(current_user, %Group{} = group) do
+    System.audited("destroy", current_user, fn ->
+      Repo.delete(group)
+    end)
   end
 
   @doc """

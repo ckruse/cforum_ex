@@ -14,7 +14,7 @@ defmodule CforumWeb.Admin.BadgeController do
   end
 
   def create(conn, %{"badge" => badge_params}) do
-    case Badges.create_badge(badge_params) do
+    case Badges.create_badge(conn.assigns.current_user, badge_params) do
       {:ok, badge} ->
         conn
         |> put_flash(:info, gettext("Badge created successfully."))
@@ -34,7 +34,7 @@ defmodule CforumWeb.Admin.BadgeController do
   def update(conn, %{"id" => id, "badge" => badge_params}) do
     badge = Badges.get_badge!(id)
 
-    case Badges.update_badge(badge, badge_params) do
+    case Badges.update_badge(conn.assigns.current_user, badge, badge_params) do
       {:ok, badge} ->
         conn
         |> put_flash(:info, gettext("Badge updated successfully."))
@@ -47,7 +47,7 @@ defmodule CforumWeb.Admin.BadgeController do
 
   def delete(conn, %{"id" => id}) do
     badge = Badges.get_badge!(id)
-    {:ok, _badge} = Badges.delete_badge(badge)
+    {:ok, _badge} = Badges.delete_badge(conn.assigns.current_user, badge)
 
     conn
     |> put_flash(:info, gettext("Badge deleted successfully."))

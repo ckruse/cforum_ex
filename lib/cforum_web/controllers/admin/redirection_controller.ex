@@ -18,7 +18,7 @@ defmodule CforumWeb.Admin.RedirectionController do
   end
 
   def create(conn, %{"redirection" => redirection_params}) do
-    case System.create_redirection(redirection_params) do
+    case System.create_redirection(conn.assigns.current_user, redirection_params) do
       {:ok, redirection} ->
         conn
         |> put_flash(:info, gettext("Redirection created successfully."))
@@ -38,7 +38,7 @@ defmodule CforumWeb.Admin.RedirectionController do
   def update(conn, %{"id" => id, "redirection" => redirection_params}) do
     redirection = System.get_redirection!(id)
 
-    case System.update_redirection(redirection, redirection_params) do
+    case System.update_redirection(conn.assigns.current_user, redirection, redirection_params) do
       {:ok, redirection} ->
         conn
         |> put_flash(:info, gettext("Redirection updated successfully."))
@@ -51,7 +51,7 @@ defmodule CforumWeb.Admin.RedirectionController do
 
   def delete(conn, %{"id" => id}) do
     redirection = System.get_redirection!(id)
-    {:ok, _redirection} = System.delete_redirection(redirection)
+    {:ok, _redirection} = System.delete_redirection(conn.assigns.current_user, redirection)
 
     conn
     |> put_flash(:info, gettext("Redirection deleted successfully."))

@@ -9,6 +9,7 @@ defmodule Cforum.Accounts.Settings do
   alias Cforum.Accounts.Setting
   alias Cforum.Accounts.User
   alias Cforum.Forums.Forum
+  alias Cforum.System
 
   @doc """
   Returns the list of settings for a user.
@@ -98,10 +99,16 @@ defmodule Cforum.Accounts.Settings do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_setting(attrs) do
-    %Setting{}
-    |> Setting.changeset(attrs)
-    |> Repo.insert()
+  def create_setting(current_user, attrs) do
+    changeset = Setting.changeset(%Setting{}, attrs)
+
+    if Ecto.Changeset.get_field(changeset, :user_id) == nil do
+      System.audited("create", current_user, fn ->
+        Repo.insert(changeset)
+      end)
+    else
+      Repo.insert(changeset)
+    end
   end
 
   @doc """
@@ -116,16 +123,22 @@ defmodule Cforum.Accounts.Settings do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_setting(%Setting{} = setting, attrs) do
-    setting
-    |> Setting.changeset(attrs)
-    |> Repo.update()
+  def update_setting(current_user, %Setting{} = setting, attrs) do
+    changeset = Setting.changeset(setting, attrs)
+
+    if Ecto.Changeset.get_field(changeset, :user_id) == nil do
+      System.audited("update", current_user, fn ->
+        Repo.update(changeset)
+      end)
+    else
+      Repo.update(changeset)
+    end
   end
 
-  def update_options(setting, options) do
+  def update_options(current_user, setting, options) do
     if Cforum.Helpers.blank?(setting.setting_id),
-      do: create_setting(%{"options" => options}),
-      else: update_setting(setting, %{"options" => options})
+      do: create_setting(current_user, %{"options" => options}),
+      else: update_setting(current_user, setting, %{"options" => options})
   end
 
   @doc """
@@ -140,8 +153,14 @@ defmodule Cforum.Accounts.Settings do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_setting(%Setting{} = setting) do
-    Repo.delete(setting)
+  def delete_setting(current_user, %Setting{} = setting) do
+    if setting.user_id == nil do
+      System.audited("destroy", current_user, fn ->
+        Repo.delete(setting)
+      end)
+    else
+      Repo.delete(setting)
+    end
   end
 
   @doc """

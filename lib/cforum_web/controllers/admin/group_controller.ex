@@ -16,7 +16,7 @@ defmodule CforumWeb.Admin.GroupController do
   end
 
   def create(conn, %{"group" => group_params}) do
-    case Groups.create_group(group_params) do
+    case Groups.create_group(conn.assigns.current_user, group_params) do
       {:ok, group} ->
         conn
         |> put_flash(:info, gettext("The group has been created successfully."))
@@ -38,7 +38,7 @@ defmodule CforumWeb.Admin.GroupController do
   def update(conn, %{"id" => id, "group" => group_params}) do
     group = Groups.get_group!(id)
 
-    case Groups.update_group(group, group_params) do
+    case Groups.update_group(conn.assigns.current_user, group, group_params) do
       {:ok, group} ->
         conn
         |> put_flash(:info, gettext("The group has been updated successfully."))
@@ -52,7 +52,7 @@ defmodule CforumWeb.Admin.GroupController do
 
   def delete(conn, %{"id" => id}) do
     group = Groups.get_group!(id)
-    {:ok, _group} = Groups.delete_group(group)
+    {:ok, _group} = Groups.delete_group(conn.assigns.current_user, group)
 
     conn
     |> put_flash(:info, gettext("The group has been deleted successfully."))
