@@ -1,5 +1,5 @@
 <ul class="cf-tags-list">
   <%= for tag <- @tags do %>
-    <li class="cf-tag<%= unless tag.suggest, do: " cf-tag-hidden" %>" style="font-size: <%= font_size(tag.num_messages, @min_cnt, @max_cnt) %>em"<%= unless tag.suggest do %> title="<%= gettext("not applicable for suggestions") %>"<% end %>><%= link tag.tag_name, to: tag_path(@conn, :show, @current_forum, tag) %></li>
+    <li class="cf-tag<%= unless tag.suggest, do: " cf-tag-hidden" %>" style="font-size: <%= font_size(tag.num_messages, @min_cnt, @max_cnt) %>em"<%= unless tag.suggest do %> title="<%= gettext("not applicable for suggestions") %>"<% end %>><%= link tag.tag_name, to: tag_path(@conn, :show, tag.forum, tag) %></li>
   <% end %>
 </ul>

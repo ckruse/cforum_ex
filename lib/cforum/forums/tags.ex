@@ -23,12 +23,12 @@ defmodule Cforum.Forums.Tags do
   def list_tags(nil, visible_forums) when not is_nil(visible_forums) do
     forum_ids = Enum.map(visible_forums, & &1.forum_id)
 
-    from(tag in Tag, where: tag.forum_id in ^forum_ids, order_by: [asc: :tag_name])
+    from(tag in Tag, where: tag.forum_id in ^forum_ids, order_by: [asc: :tag_name], preload: [:forum])
     |> Repo.all()
   end
 
   def list_tags(forum, _) do
-    from(tag in Tag, where: tag.forum_id == ^forum.forum_id, order_by: [asc: :tag_name])
+    from(tag in Tag, where: tag.forum_id == ^forum.forum_id, order_by: [asc: :tag_name], preload: [:forum])
     |> Repo.all()
   end
 
