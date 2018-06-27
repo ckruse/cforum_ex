@@ -123,10 +123,8 @@ defmodule Cforum.Forums.Messages do
       left_join: m2 in Message,
       on: v.message_id == m2.message_id,
       where: s.user_id == ^user.user_id,
-      where: is_nil(m1.message_id) or m1.forum_id in ^forum_ids,
-      where: is_nil(m2.message_id) or m2.forum_id in ^forum_ids,
-      where: is_nil(m1.message_id) or m1.deleted == false,
-      where: is_nil(m2.message_id) or m2.deleted == false,
+      where: is_nil(m1.message_id) or (m1.forum_id in ^forum_ids and m1.deleted == false),
+      where: is_nil(m2.message_id) or (m2.forum_id in ^forum_ids and m2.deleted == false),
       order_by: [desc: :created_at]
     )
     |> Cforum.PagingApi.set_limit(limit)
@@ -146,11 +144,9 @@ defmodule Cforum.Forums.Messages do
       left_join: m2 in Message,
       on: v.message_id == m2.message_id,
       where: s.user_id == ^user.user_id,
-      where: is_nil(m1.message_id) or m1.forum_id in ^forum_ids,
-      where: is_nil(m2.message_id) or m2.forum_id in ^forum_ids,
-      where: is_nil(m1.message_id) or m1.deleted == false,
-      where: is_nil(m2.message_id) or m2.deleted == false,
-      where: m2.user_id == ^user.user_id,
+      where: is_nil(m1.message_id) or (m1.forum_id in ^forum_ids and m1.deleted == false),
+      where:
+        is_nil(m2.message_id) or (m2.forum_id in ^forum_ids and m2.deleted == false and m2.user_id == ^user.user_id),
       where: s.value > 0,
       order_by: [desc: :created_at]
     )
