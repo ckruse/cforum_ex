@@ -2555,12 +2555,12 @@ msgstr "archivierte Beiträge für %{month}"
 #, elixir-format
 #: lib/cforum_web/views/archive_view.ex:5
 msgid "archive: %{year}"
-msgstr "archivierte Beiträge"
+msgstr "archivierte Beiträge für %{year}"
 
 #, elixir-format
 #: lib/cforum_web/views/tag_view.ex:15
 msgid "create new tag"
-msgstr "neuer Beitrag"
+msgstr "neues Tag erstellen"
 
 #, elixir-format
 #: lib/cforum_web/views/tags/synonym_view.ex:13
@@ -2570,12 +2570,12 @@ msgstr "Neues Synonym für Tag „%{tag}“ erstellen"
 #, elixir-format
 #: lib/cforum_web/templates/tag/show.html.eex:6
 msgid "delete tag"
-msgstr "löschen"
+msgstr "Tag löschen"
 
 #, elixir-format
 #: lib/cforum_web/templates/tag/show.html.eex:4
 msgid "edit tag"
-msgstr "bearbeiten"
+msgstr "Tag bearbeiten"
 
 #, elixir-format
 #: lib/cforum_web/views/tags/synonym_view.ex:5
@@ -2610,12 +2610,12 @@ msgstr "neues Synonym"
 #, elixir-format
 #: lib/cforum_web/templates/tag/subnav.html.eex:2
 msgid "new tag"
-msgstr "neue Medaille"
+msgstr "neues Tag"
 
 #, elixir-format
 #: lib/cforum_web/templates/tag/show.html.eex:29
 msgid "no messages found"
-msgstr "Beiträge"
+msgstr "keine Beiträge gefunden"
 
 #, elixir-format
 #: lib/cforum_web/templates/tag/show.html.eex:13
