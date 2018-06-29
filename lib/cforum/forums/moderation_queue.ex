@@ -85,11 +85,11 @@ defmodule Cforum.Forums.ModerationQueue do
         create_entry(attrs)
 
       entry ->
-        increate_reported_count(entry)
+        increase_reported_count(entry)
     end
   end
 
-  def increate_reported_count(entry) do
+  def increase_reported_count(entry) do
     {1, [ent]} =
       from(e in ModerationQueueEntry, where: e.moderation_queue_entry_id == ^entry.moderation_queue_entry_id)
       |> Repo.update_all([inc: [reported: 1]], returning: true)
