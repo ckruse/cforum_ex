@@ -1,1 +1,1 @@
-<%= @entry.contents["value"] %>
+<%= gettext("%{score} points for %{user}", score: @entry.contents["value"], user: score_username(@entry.contents["user_id"])) %>
