@@ -19,6 +19,8 @@ defmodule Cforum.Forums.Messages do
   alias Cforum.Accounts.User
   alias Cforum.Accounts.Score
 
+  alias Cforum.System
+
   alias Cforum.Forums.Threads
 
   alias Cforum.Forums.ReadMessage
@@ -665,7 +667,15 @@ defmodule Cforum.Forums.Messages do
       |> Ecto.Changeset.change(flags: Map.merge(message.flags, %{"accepted" => "yes"}))
       |> Repo.update!()
 
-      {:ok, _score} = Scores.create_score(%{message_id: message.message_id, user_id: user.user_id, value: points})
+      maybe_give_accept_score(message, user, points)
+    end)
+  end
+
+  def maybe_give_accept_score(%Message{user_id: nil}, _, _), do: nil
+
+  def maybe_give_accept_score(message, user, points) do
+    System.audited("accepted-score", user, fn ->
+      {:ok, _score} = Scores.create_score(%{message_id: message.message_id, user_id: message.user_id, value: points})
     end)
   end
 
@@ -675,7 +685,15 @@ defmodule Cforum.Forums.Messages do
       |> Ecto.Changeset.change(flags: Map.delete(message.flags, "accepted"))
       |> Repo.update!()
 
-      Scores.delete_score_by_message_id_and_user_id(message.message_id, user.user_id)
+      maybe_take_accept_score(message, user)
+    end)
+  end
+
+  def maybe_take_accept_score(%Message{user_id: nil}, _), do: nil
+
+  def maybe_take_accept_score(message, user) do
+    System.audited("accepted-no-unscore", user, fn ->
+      Scores.delete_score_by_message_id_and_user_id(message.message_id, message.user_id)
     end)
   end
 end

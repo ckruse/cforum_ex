@@ -40,7 +40,7 @@ defmodule CforumWeb.TagController do
   end
 
   def create(conn, %{"tag" => tag_params}) do
-    case Tags.create_tag(conn.assigns[:current_forum], tag_params) do
+    case Tags.create_tag(conn.assigns.current_user, conn.assigns[:current_forum], tag_params) do
       {:ok, tag} ->
         conn
         |> put_flash(:info, gettext("Tag created successfully."))
@@ -60,7 +60,7 @@ defmodule CforumWeb.TagController do
   def update(conn, %{"id" => id, "tag" => tag_params}) do
     tag = Tags.get_tag_by_slug!(conn.assigns[:current_forum], id)
 
-    case Tags.update_tag(tag, tag_params) do
+    case Tags.update_tag(conn.assigns.current_user, tag, tag_params) do
       {:ok, tag} ->
         conn
         |> put_flash(:info, gettext("Tag updated successfully."))
@@ -82,7 +82,7 @@ defmodule CforumWeb.TagController do
     old_tag = Tags.get_tag_by_slug!(conn.assigns[:current_forum], id)
     new_tag = Tags.get_tag!(existing_tag_id)
 
-    case Tags.merge_tag(old_tag, new_tag) do
+    case Tags.merge_tag(conn.assigns.current_user, old_tag, new_tag) do
       {:ok, _tag} ->
         conn
         |> put_flash(
@@ -103,7 +103,7 @@ defmodule CforumWeb.TagController do
 
   def delete(conn, %{"id" => id}) do
     tag = Tags.get_tag_by_slug!(conn.assigns[:current_forum], id)
-    Tags.delete_tag(tag)
+    Tags.delete_tag(conn.assigns.current_user, tag)
 
     conn
     |> put_flash(:info, gettext("Tag deleted successfully."))

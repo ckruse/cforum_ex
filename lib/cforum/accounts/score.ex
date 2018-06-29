@@ -27,3 +27,11 @@ defmodule Cforum.Accounts.Score do
   def get_message(score = %Cforum.Accounts.Score{vote_id: vid}) when vid == nil, do: score.message
   def get_message(score), do: score.vote.message
 end
+
+defimpl Cforum.System.AuditingProtocol, for: Cforum.Accounts.Score do
+  def audit_json(score) do
+    score
+    |> Map.from_struct()
+    |> Map.drop([:user, :vote, :message, :__meta__])
+  end
+end
