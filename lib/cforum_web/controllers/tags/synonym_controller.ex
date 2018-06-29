@@ -12,7 +12,7 @@ defmodule CforumWeb.Tags.SynonymController do
   def create(conn, %{"tag_id" => tag_id, "tag_synonym" => synonym_params}) do
     tag = Tags.get_tag_by_slug!(conn.assigns[:current_forum], tag_id)
 
-    case Tags.create_tag_synonym(tag, synonym_params) do
+    case Tags.create_tag_synonym(conn.assigns.current_user, tag, synonym_params) do
       {:ok, _synonym} ->
         conn
         |> put_flash(:info, gettext("Tag synonym created successfully."))
@@ -35,7 +35,7 @@ defmodule CforumWeb.Tags.SynonymController do
     tag = Tags.get_tag_by_slug!(conn.assigns[:current_forum], tag_id)
     synonym = Tags.get_tag_synonym!(tag, id)
 
-    case Tags.update_tag_synonym(tag, synonym, synonym_params) do
+    case Tags.update_tag_synonym(conn.assigns.current_user, tag, synonym, synonym_params) do
       {:ok, _synonym} ->
         conn
         |> put_flash(:info, gettext("Tag synonym updated successfully."))
@@ -50,7 +50,7 @@ defmodule CforumWeb.Tags.SynonymController do
     tag = Tags.get_tag_by_slug!(conn.assigns[:current_forum], tag_id)
     synonym = Tags.get_tag_synonym!(tag, id)
 
-    Tags.delete_tag_synonym(synonym)
+    Tags.delete_tag_synonym(conn.assigns.current_user, synonym)
 
     conn
     |> put_flash(:info, gettext("Tag synonym deleted successfully."))

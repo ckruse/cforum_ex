@@ -8,6 +8,7 @@ defmodule Cforum.Forums.Tags do
 
   alias Cforum.Forums.Tag
   alias Cforum.Forums.TagSynonym
+  alias Cforum.System
 
   @doc """
   Returns the list of tags.
@@ -111,10 +112,12 @@ defmodule Cforum.Forums.Tags do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_tag(forum, attrs \\ %{}) do
-    %Tag{}
-    |> Tag.changeset(forum, attrs)
-    |> Repo.insert()
+  def create_tag(current_user, forum, attrs \\ %{}) do
+    System.audited("create", current_user, fn ->
+      %Tag{}
+      |> Tag.changeset(forum, attrs)
+      |> Repo.insert()
+    end)
   end
 
   @doc """
@@ -129,10 +132,12 @@ defmodule Cforum.Forums.Tags do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_tag(%Tag{} = tag, attrs) do
-    tag
-    |> Tag.changeset(nil, attrs)
-    |> Repo.update()
+  def update_tag(current_user, %Tag{} = tag, attrs) do
+    System.audited("update", current_user, fn ->
+      tag
+      |> Tag.changeset(nil, attrs)
+      |> Repo.update()
+    end)
   end
 
   @doc """
@@ -147,8 +152,10 @@ defmodule Cforum.Forums.Tags do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_tag(%Tag{} = tag) do
-    Repo.delete(tag)
+  def delete_tag(current_user, %Tag{} = tag) do
+    System.audited("destroy", current_user, fn ->
+      Repo.delete(tag)
+    end)
   end
 
   @doc """
@@ -162,8 +169,8 @@ defmodule Cforum.Forums.Tags do
       {:ok, %Tag{}}
 
   """
-  def merge_tag(old_tag, new_tag) do
-    Repo.transaction(fn ->
+  def merge_tag(current_user, old_tag, new_tag) do
+    System.audited("merge", current_user, fn ->
       from(mtag in "messages_tags", where: mtag.tag_id == ^old_tag.tag_id)
       |> Repo.update_all(set: [tag_id: new_tag.tag_id])
 
@@ -171,9 +178,9 @@ defmodule Cforum.Forums.Tags do
       |> Repo.update_all(set: [tag_id: new_tag.tag_id])
 
       with {:ok, %TagSynonym{}} <- create_tag_synonym(new_tag, %{synonym: old_tag.tag_name}),
-           {:ok, %Tag{}} <- delete_tag(old_tag),
+           {:ok, %Tag{}} <- Repo.delete(old_tag),
            tag = %Tag{} = get_tag!(new_tag.tag_id) do
-        tag
+        {:ok, tag}
       else
         _ ->
           Repo.rollback(nil)
@@ -192,6 +199,17 @@ defmodule Cforum.Forums.Tags do
   """
   def change_tag(%Tag{} = tag) do
     Tag.changeset(tag, nil, %{})
+  end
+
+  def list_tag_synonyms(tag) do
+    case tag.synonyms do
+      %Ecto.Association.NotLoaded{} ->
+        from(tag_synonym in TagSynonym, where: tag_synonym.tag_id == ^tag.tag_id)
+        |> Repo.all()
+
+      synonyms ->
+        synonyms
+    end
   end
 
   @doc """
@@ -221,10 +239,12 @@ defmodule Cforum.Forums.Tags do
       iex> create_tag(%Tag{}, %{synonym: bad_value})
       {:error, %Ecto.Changeset{}}
   """
-  def create_tag_synonym(%Tag{} = tag, attrs \\ %{}) do
-    %TagSynonym{}
-    |> TagSynonym.changeset(tag, attrs)
-    |> Repo.insert()
+  def create_tag_synonym(current_user, %Tag{} = tag, attrs \\ %{}) do
+    System.audited("create", current_user, fn ->
+      %TagSynonym{}
+      |> TagSynonym.changeset(tag, attrs)
+      |> Repo.insert()
+    end)
   end
 
   @doc """
@@ -239,10 +259,12 @@ defmodule Cforum.Forums.Tags do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_tag_synonym(%Tag{} = tag, %TagSynonym{} = synonym, attrs) do
-    synonym
-    |> TagSynonym.changeset(tag, attrs)
-    |> Repo.update()
+  def update_tag_synonym(current_user, %Tag{} = tag, %TagSynonym{} = synonym, attrs) do
+    System.audited("update", current_user, fn ->
+      synonym
+      |> TagSynonym.changeset(tag, attrs)
+      |> Repo.update()
+    end)
   end
 
   @doc """
@@ -257,8 +279,10 @@ defmodule Cforum.Forums.Tags do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_tag_synonym(%TagSynonym{} = synonym) do
-    Repo.delete(synonym)
+  def delete_tag_synonym(current_user, %TagSynonym{} = synonym) do
+    System.audited("destroy", current_user, fn ->
+      Repo.delete(synonym)
+    end)
   end
 
   @doc """
