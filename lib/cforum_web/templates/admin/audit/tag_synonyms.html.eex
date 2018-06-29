@@ -1,1 +1,1 @@
-<%= @entry.contents["tag"]["tag_name"] <> ": " + @entry.contents["synonym"] %>
+<%= @entry.contents["tag"]["tag_name"] <> ": " <> @entry.contents["synonym"] %>

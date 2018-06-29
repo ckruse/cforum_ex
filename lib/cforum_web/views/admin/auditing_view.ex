@@ -25,6 +25,11 @@ defmodule CforumWeb.Admin.AuditView do
     Enum.find(objects, &(&1 == type)) != nil
   end
 
+  def score_username(uid) do
+    user = Cforum.Accounts.Users.get_user(uid)
+    if user == nil, do: gettext("(unknown)"), else: user.username
+  end
+
   alias Cforum.System.Auditing
   import CforumWeb.AuditingViewL10n
 
