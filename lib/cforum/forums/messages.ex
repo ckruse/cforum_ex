@@ -9,6 +9,7 @@ defmodule Cforum.Forums.Messages do
   import Cforum.Helpers
 
   alias Cforum.Forums.Forum
+  alias Cforum.Forums.InvisibleThread
   alias Cforum.Forums.Message
   alias Cforum.Forums.Tag
   alias Cforum.Forums.MessageTag
@@ -542,7 +543,9 @@ defmodule Cforum.Forums.Messages do
       inner_join: thr in assoc(msg, :thread),
       left_join: rm in ReadMessage,
       on: rm.message_id == msg.message_id and rm.user_id == ^user.user_id,
-      where: msg.deleted == false and thr.archived == false and is_nil(rm.message_id),
+      left_join: inv in InvisibleThread,
+      on: inv.thread_id == thr.thread_id,
+      where: msg.deleted == false and thr.archived == false and is_nil(rm.message_id) and is_nil(inv.thread_id),
       select: {fragment("COUNT(DISTINCT ?)", msg.thread_id), count("*")}
     )
     |> Repo.one()
