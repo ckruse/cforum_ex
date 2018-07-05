@@ -92,11 +92,8 @@ defmodule CforumWeb.MailController do
   end
 
   def delete(conn, %{"id" => id}) do
-    priv_message = Repo.get!(PrivMessage, id)
-
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(priv_message)
+    priv_message = PrivMessages.get_priv_message!(conn.assigns[:current_user], id)
+    PrivMessages.delete_priv_message(priv_message)
 
     conn
     |> put_flash(:info, gettext("Mail deleted successfully."))
