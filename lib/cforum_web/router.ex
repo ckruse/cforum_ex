@@ -14,7 +14,6 @@ defmodule CforumWeb.Router do
     plug(CforumWeb.Plug.CurrentUser)
     plug(CforumWeb.Plug.RememberMe)
     plug(CforumWeb.Plug.ShortcutPlug)
-    plug(CforumWeb.Plug.CurrentForum)
     plug(CforumWeb.Plug.VisibleForums)
     plug(CforumWeb.Plug.LoadSettings)
     plug(CforumWeb.Plug.LoadUserInfoData)
@@ -111,7 +110,7 @@ defmodule CforumWeb.Router do
     get("/archiv/:year/:month", RedirectorController, :redirect_to_month)
     get("/archiv/:year/:month/t:tid", RedirectorController, :redirect_to_thread)
 
-    scope "/:curr_forum" do
+    scope "/__forum" do
       get("/", ThreadController, :index, as: nil)
 
       get("/feeds/atom", ThreadController, :index_atom, as: nil)

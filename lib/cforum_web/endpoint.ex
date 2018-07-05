@@ -27,6 +27,7 @@ defmodule CforumWeb.Endpoint do
 
   plug(Plug.RequestId)
   plug(Plug.Logger)
+  plug(CforumWeb.Plug.CurrentForum)
 
   plug(
     Plug.Parsers,
