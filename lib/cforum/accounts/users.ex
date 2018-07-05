@@ -488,6 +488,8 @@ defmodule Cforum.Accounts.Users do
       iex> moderator?(%User{})
       false
   """
+  def moderator?(nil), do: false
+
   def moderator?(%User{admin: true}), do: true
 
   def moderator?(user) do
