@@ -63,7 +63,7 @@ defmodule Cforum.Forums.TagsTest do
     test "create_tag/2 with valid data creates a tag" do
       forum = insert(:forum)
       attrs = params_for(:tag)
-      assert {:ok, %Tag{} = tag} = Tags.create_tag(forum, attrs)
+      assert {:ok, %Tag{} = tag} = Tags.create_tag(nil, forum, attrs)
       assert tag.tag_name == attrs[:tag_name]
       assert tag.slug == attrs[:slug]
       assert tag.suggest == attrs[:suggest]
@@ -71,19 +71,19 @@ defmodule Cforum.Forums.TagsTest do
 
     test "create_tag/2 with invalid data returns error changeset" do
       forum = insert(:forum)
-      assert {:error, %Ecto.Changeset{}} = Tags.create_tag(forum, %{})
+      assert {:error, %Ecto.Changeset{}} = Tags.create_tag(nil, forum, %{})
     end
 
     test "update_tag/2 with valid data updates the tag" do
       tag = insert(:tag, suggest: false)
-      assert {:ok, tag} = Tags.update_tag(tag, %{suggest: true})
+      assert {:ok, tag} = Tags.update_tag(nil, tag, %{suggest: true})
       assert %Tag{} = tag
       assert tag.suggest == true
     end
 
     test "update_tag/2 with invalid data returns error changeset" do
       tag = insert(:tag)
-      assert {:error, %Ecto.Changeset{}} = Tags.update_tag(tag, %{tag_name: ""})
+      assert {:error, %Ecto.Changeset{}} = Tags.update_tag(nil, tag, %{tag_name: ""})
 
       tag1 = Tags.get_tag!(tag.tag_id)
 
@@ -100,7 +100,7 @@ defmodule Cforum.Forums.TagsTest do
       thread = insert(:thread, forum: forum)
       message = insert(:message, thread: thread, forum: forum, tags: [tag])
 
-      assert {:ok, %Tag{} = new_tag} = Tags.merge_tag(tag, new_tag)
+      assert {:ok, %Tag{} = new_tag} = Tags.merge_tag(nil, tag, new_tag)
       assert_raise Ecto.NoResultsError, fn -> Tags.get_tag!(tag.tag_id) end
       [new_message] = Messages.list_messages_for_tag(forum, new_tag)
 
@@ -110,7 +110,7 @@ defmodule Cforum.Forums.TagsTest do
 
     test "delete_tag/1 deletes the tag" do
       tag = insert(:tag)
-      assert {:ok, %Tag{}} = Tags.delete_tag(tag)
+      assert {:ok, %Tag{}} = Tags.delete_tag(nil, tag)
       assert_raise Ecto.NoResultsError, fn -> Tags.get_tag!(tag.tag_id) end
     end
 
@@ -128,11 +128,11 @@ defmodule Cforum.Forums.TagsTest do
       assert Tags.get_tag_synonym!(synonym.tag, synonym.tag_synonym_id).tag_synonym_id == synonym.tag_synonym_id
     end
 
-    test "create_tag_synonym/2 with valid data creates a tag synonym" do
+    test "create_tag_synonym/3 with valid data creates a tag synonym" do
       forum = insert(:forum)
       tag = insert(:tag, forum: forum)
       attrs = params_for(:tag_synonym)
-      assert {:ok, %TagSynonym{} = tag} = Tags.create_tag_synonym(tag, attrs)
+      assert {:ok, %TagSynonym{} = tag} = Tags.create_tag_synonym(nil, tag, attrs)
       assert tag.synonym == attrs[:synonym]
       assert tag.tag_id == tag.tag_id
       assert tag.forum_id == forum.forum_id
@@ -141,14 +141,14 @@ defmodule Cforum.Forums.TagsTest do
     test "create_tag_synonym/2 with invalid data returns error changeset" do
       forum = insert(:forum)
       tag = insert(:tag, forum: forum)
-      assert {:error, %Ecto.Changeset{}} = Tags.create_tag(tag, %{})
+      assert {:error, %Ecto.Changeset{}} = Tags.create_tag(nil, tag, %{})
     end
 
     test "update_tag_synonym/2 with valid data updates the tag synonym" do
       forum = insert(:forum)
       tag = insert(:tag, forum: forum)
       synonym = insert(:tag_synonym, tag: tag, forum: forum)
-      assert {:ok, tag_synonym} = Tags.update_tag_synonym(tag, synonym, %{synonym: "foo"})
+      assert {:ok, tag_synonym} = Tags.update_tag_synonym(nil, tag, synonym, %{synonym: "foo"})
       assert %TagSynonym{} = tag_synonym
 
       assert tag_synonym.synonym == "foo"
@@ -161,7 +161,7 @@ defmodule Cforum.Forums.TagsTest do
       tag = insert(:tag, forum: forum)
       synonym = insert(:tag_synonym, tag: tag, forum: forum)
 
-      assert {:error, %Ecto.Changeset{}} = Tags.update_tag_synonym(tag, synonym, %{synonym: ""})
+      assert {:error, %Ecto.Changeset{}} = Tags.update_tag_synonym(nil, tag, synonym, %{synonym: ""})
 
       tag_synonym = Tags.get_tag_synonym!(tag, synonym.tag_synonym_id)
 
@@ -175,7 +175,7 @@ defmodule Cforum.Forums.TagsTest do
       tag = insert(:tag, forum: forum)
       synonym = insert(:tag_synonym, tag: tag, forum: forum)
 
-      assert {:ok, %TagSynonym{}} = Tags.delete_tag_synonym(synonym)
+      assert {:ok, %TagSynonym{}} = Tags.delete_tag_synonym(nil, synonym)
       assert_raise Ecto.NoResultsError, fn -> Tags.get_tag_synonym!(tag, synonym.tag_synonym_id) end
     end
 

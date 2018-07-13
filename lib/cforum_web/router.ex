@@ -13,8 +13,8 @@ defmodule CforumWeb.Router do
 
     plug(CforumWeb.Plug.CurrentUser)
     plug(CforumWeb.Plug.RememberMe)
-    plug(CforumWeb.Plug.ShortcutPlug)
     plug(CforumWeb.Plug.VisibleForums)
+    # plug(CforumWeb.Plug.ShortcutPlug)
     plug(CforumWeb.Plug.LoadSettings)
     plug(CforumWeb.Plug.LoadUserInfoData)
     plug(CforumWeb.Plug.SetViewAll)
@@ -68,6 +68,9 @@ defmodule CforumWeb.Router do
     get("/subscriptions", Messages.SubscriptionController, :index)
     get("/interesting", Messages.InterestingController, :index)
 
+    get("/moderation/open", ModerationController, :index_open)
+    resources("/moderation", ModerationController, except: [:new, :create, :delete])
+
     scope "/users", Users do
       get("/password", PasswordController, :new)
       post("/password", PasswordController, :create)
@@ -110,7 +113,7 @@ defmodule CforumWeb.Router do
     get("/archiv/:year/:month", RedirectorController, :redirect_to_month)
     get("/archiv/:year/:month/t:tid", RedirectorController, :redirect_to_thread)
 
-    scope "/__forum" do
+    scope "/all" do
       get("/", ThreadController, :index, as: nil)
 
       get("/feeds/atom", ThreadController, :index_atom, as: nil)
@@ -166,5 +169,7 @@ defmodule CforumWeb.Router do
       get("/:year/:month/:day/:slug/:mid/retag", Messages.RetagController, :edit, as: nil)
       post("/:year/:month/:day/:slug/:mid/retag", Messages.RetagController, :update, as: nil)
     end
+
+    get("/m:id", RedirectorController, :redirect_to_message)
   end
 end

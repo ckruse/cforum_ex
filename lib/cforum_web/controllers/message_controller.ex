@@ -93,7 +93,9 @@ defmodule CforumWeb.MessageController do
       conn.assigns[:current_user],
       Threads.slug_from_params(params),
       mid,
-      message_order: uconf(conn, "sort_messages")
+      message_order: uconf(conn, "sort_messages"),
+      view_all: conn.assigns.view_all,
+      leave_out_invisible: !conn.assigns.view_all
     )
   end
 

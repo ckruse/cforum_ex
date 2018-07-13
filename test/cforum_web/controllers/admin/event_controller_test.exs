@@ -22,7 +22,7 @@ defmodule CforumWeb.Admin.EventControllerTest do
       params = params_for(:event)
       conn = post(conn, admin_event_path(conn, :create), event: params)
 
-      assert %{id: id} = redirected_params(conn)
+      assert %{id: id} = cf_redirected_params(conn)
       assert redirected_to(conn) == admin_event_path(conn, :edit, id)
 
       conn = get(conn, admin_event_path(conn, :edit, id))

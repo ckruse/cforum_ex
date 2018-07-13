@@ -19,34 +19,34 @@ defmodule Cforum.Accounts.BadgesTest do
     assert badge1.badge_id == badge.badge_id
   end
 
-  test "create_badge/1 with valid data creates a badge" do
+  test "create_badge/2 with valid data creates a badge" do
     params = params_for(:badge)
-    assert {:ok, %Badge{} = badge} = Badges.create_badge(params)
+    assert {:ok, %Badge{} = badge} = Badges.create_badge(nil, params)
     assert badge.name == params[:name]
   end
 
-  test "create_badge/1 with invalid data returns error changeset" do
-    assert {:error, %Ecto.Changeset{}} = Badges.create_badge(%{})
+  test "create_badge/2 with invalid data returns error changeset" do
+    assert {:error, %Ecto.Changeset{}} = Badges.create_badge(nil, %{})
   end
 
-  test "update_badge/2 with valid data updates the badge" do
+  test "update_badge/3 with valid data updates the badge" do
     badge = insert(:badge)
-    assert {:ok, badge1} = Badges.update_badge(badge, %{name: "Foobar"})
+    assert {:ok, badge1} = Badges.update_badge(nil, badge, %{name: "Foobar"})
     assert %Badge{} = badge1
     assert badge1.name == "Foobar"
   end
 
-  test "update_badge/2 with invalid data returns error changeset" do
+  test "update_badge/3 with invalid data returns error changeset" do
     badge = insert(:badge)
-    assert {:error, %Ecto.Changeset{}} = Badges.update_badge(badge, %{name: nil})
+    assert {:error, %Ecto.Changeset{}} = Badges.update_badge(nil, badge, %{name: nil})
     badge1 = Badges.get_badge!(badge.badge_id)
     assert %Badge{} = badge1
     assert badge1.name == badge.name
   end
 
-  test "delete_badge/1 deletes the badge" do
+  test "delete_badge/2 deletes the badge" do
     badge = insert(:badge)
-    assert {:ok, %Badge{}} = Badges.delete_badge(badge)
+    assert {:ok, %Badge{}} = Badges.delete_badge(nil, badge)
     assert_raise Ecto.NoResultsError, fn -> Badges.get_badge!(badge.badge_id) end
   end
 

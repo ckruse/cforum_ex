@@ -9,7 +9,8 @@ defmodule Cforum.Mixfile do
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
-      test_coverage: [tool: Coverex.Task, ignore_modules: ignored_modules()],
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
       aliases: aliases(),
       deps: deps()
     ]
@@ -56,7 +57,7 @@ defmodule Cforum.Mixfile do
 
       # testing
       {:ex_guard, "~> 1.3", only: :dev},
-      {:coverex, "~> 1.4.15", only: :test},
+      {:excoveralls, "~> 0.8", only: :test},
       {:ex_machina, "~> 2.1", only: :test},
       {:faker, "~> 0.9", only: :test},
       {:credo, "~> 0.8", only: [:dev, :test], runtime: false}
@@ -75,29 +76,6 @@ defmodule Cforum.Mixfile do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       "ecto.init": ["ecto.create", "ecto.load"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"]
-    ]
-  end
-
-  defp ignored_modules do
-    [
-      Elixir.Phoenix.Param.Cforum.Accounts.Badge,
-      Elixir.Phoenix.Param.Cforum.Accounts.BadgeUser,
-      Elixir.Phoenix.Param.Cforum.Accounts.Notification,
-      Elixir.Phoenix.Param.Cforum.Accounts.PrivMessage,
-      Elixir.Phoenix.Param.Cforum.Accounts.Score,
-      Elixir.Phoenix.Param.Cforum.Accounts.Setting,
-      Elixir.Phoenix.Param.Cforum.Accounts.User,
-      Elixir.Phoenix.Param.Cforum.Forums.CloseVote,
-      Elixir.Phoenix.Param.Cforum.Forums.CloseVoteVoter,
-      Elixir.Phoenix.Param.Cforum.Forums.Forum,
-      Elixir.Phoenix.Param.Cforum.Forums.InterestingMessage,
-      Elixir.Phoenix.Param.Cforum.Forums.Message,
-      Elixir.Phoenix.Param.Cforum.Forums.MessageTag,
-      Elixir.Phoenix.Param.Cforum.Forums.ReadMessage,
-      Elixir.Phoenix.Param.Cforum.Forums.Subscription,
-      Elixir.Phoenix.Param.Cforum.Forums.Tag,
-      Elixir.Phoenix.Param.Cforum.Forums.Thread,
-      Elixir.Phoenix.Param.Cforum.Forums.Vote
     ]
   end
 end

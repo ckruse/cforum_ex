@@ -31,7 +31,7 @@ defmodule CforumWeb.Admin.ForumControllerTest do
       login(conn, user)
       |> post(admin_forum_path(conn, :create), forum: params_for(:forum))
 
-    assert %{id: id} = redirected_params(conn)
+    assert %{id: id} = cf_redirected_params(conn)
     assert redirected_to(conn) == admin_forum_path(conn, :edit, id)
 
     conn = get(conn, admin_forum_path(conn, :edit, id))

@@ -21,7 +21,7 @@ defmodule CforumWeb.Admin.RedirectionControllerTest do
     test "redirects to edit when data is valid", %{conn: conn} do
       conn = post(conn, admin_redirection_path(conn, :create), redirection: params_for(:redirection))
 
-      assert %{id: id} = redirected_params(conn)
+      assert %{id: id} = cf_redirected_params(conn)
       assert redirected_to(conn) == admin_redirection_path(conn, :edit, id)
 
       conn = get(conn, admin_redirection_path(conn, :edit, id))

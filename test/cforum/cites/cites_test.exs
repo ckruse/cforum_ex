@@ -49,9 +49,9 @@ defmodule Cforum.CitesTest do
       assert Cites.get_cite!(cite.cite_id).cite_id == cite.cite_id
     end
 
-    test "create_cite/1 with valid data creates a cite" do
+    test "create_cite/2 with valid data creates a cite" do
       attrs = params_for(:cite)
-      assert {:ok, %Cite{} = cite} = Cites.create_cite(attrs)
+      assert {:ok, %Cite{} = cite} = Cites.create_cite(nil, attrs)
       assert cite.archived == attrs[:archived]
       assert cite.author == attrs[:author]
       assert cite.user_id == nil
@@ -62,11 +62,11 @@ defmodule Cforum.CitesTest do
       assert cite.url == attrs[:url]
     end
 
-    test "create_cite/1 with a user overwrites creator and sets creator_user" do
+    test "create_cite/3 with a user overwrites creator and sets creator_user" do
       attrs = params_for(:cite)
       user = insert(:user)
 
-      assert {:ok, %Cite{} = cite} = Cites.create_cite(attrs, user)
+      assert {:ok, %Cite{} = cite} = Cites.create_cite(user, attrs)
       assert cite.archived == attrs[:archived]
       assert cite.author == attrs[:author]
       assert cite.user_id == nil
@@ -77,14 +77,14 @@ defmodule Cforum.CitesTest do
       assert cite.url == attrs[:url]
     end
 
-    test "create_cite/1 with a URL to a message sets message_id, user_id and overwrites author" do
+    test "create_cite/2 with a URL to a message sets message_id, user_id and overwrites author" do
       forum = insert(:public_forum)
       thread = insert(:thread, forum: forum)
       message = insert(:message, thread: thread, forum: forum, tags: [])
 
       attrs = params_for(:cite, url: "http://localhost:4000/#{forum.slug}#{thread.slug}/#{message.message_id}")
 
-      assert {:ok, %Cite{} = cite} = Cites.create_cite(attrs)
+      assert {:ok, %Cite{} = cite} = Cites.create_cite(nil, attrs)
       assert cite.archived == attrs[:archived]
       assert cite.author == message.author
       assert cite.user_id == message.user_id
@@ -95,20 +95,20 @@ defmodule Cforum.CitesTest do
       assert cite.url == attrs[:url]
     end
 
-    test "create_cite/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Cites.create_cite(@invalid_attrs)
+    test "create_cite/2 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Cites.create_cite(nil, @invalid_attrs)
     end
 
-    test "update_cite/2 with valid data updates the cite" do
+    test "update_cite/3 with valid data updates the cite" do
       cite = insert(:cite)
-      assert {:ok, cite} = Cites.update_cite(cite, %{author: "foobar"})
+      assert {:ok, cite} = Cites.update_cite(nil, cite, %{author: "foobar"})
       assert %Cite{} = cite
       assert cite.author == "foobar"
     end
 
-    test "update_cite/2 with invalid data returns error changeset" do
+    test "update_cite/3 with invalid data returns error changeset" do
       cite = insert(:cite)
-      assert {:error, %Ecto.Changeset{}} = Cites.update_cite(cite, @invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Cites.update_cite(nil, cite, @invalid_attrs)
 
       cite1 = Cites.get_cite!(cite.cite_id)
 
@@ -122,9 +122,9 @@ defmodule Cforum.CitesTest do
       assert cite.url == cite1.url
     end
 
-    test "delete_cite/1 deletes the cite" do
+    test "delete_cite/2 deletes the cite" do
       cite = insert(:cite)
-      assert {:ok, %Cite{}} = Cites.delete_cite(cite)
+      assert {:ok, %Cite{}} = Cites.delete_cite(nil, cite)
       assert_raise Ecto.NoResultsError, fn -> Cites.get_cite!(cite.cite_id) end
     end
 

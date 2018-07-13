@@ -179,30 +179,3 @@ defmodule Cforum.Accounts.User do
     |> String.replace_leading("/priv", "")
   end
 end
-
-defimpl Cforum.System.AuditingProtocol, for: Cforum.Accounts.User do
-  def audit_json(user) do
-    badges =
-      case user.badges do
-        %Ecto.Association.NotLoaded{} ->
-          []
-
-        badges_list ->
-          Enum.map(badges_list, &Cforum.System.AuditingProtocol.audit_json(&1))
-      end
-
-    user
-    |> Map.from_struct()
-    |> Map.drop([
-      :encrypted_password,
-      :authentication_token,
-      :email,
-      :settings,
-      :badges_users,
-      :groups,
-      :cites,
-      :__meta__
-    ])
-    |> Map.put(:badges, badges)
-  end
-end

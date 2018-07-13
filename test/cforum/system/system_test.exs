@@ -18,7 +18,7 @@ defmodule Cforum.SystemTest do
 
     test "create_redirection/1 with valid data creates a redirection" do
       params = params_for(:redirection, comment: "For the rebellion")
-      assert {:ok, %Redirection{} = redirection} = System.create_redirection(params)
+      assert {:ok, %Redirection{} = redirection} = System.create_redirection(nil, params)
       assert redirection.destination == params[:destination]
       assert redirection.http_status == params[:http_status]
       assert redirection.path == params[:path]
@@ -26,14 +26,14 @@ defmodule Cforum.SystemTest do
     end
 
     test "create_redirection/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = System.create_redirection(%{})
+      assert {:error, %Ecto.Changeset{}} = System.create_redirection(nil, %{})
     end
 
     test "update_redirection/2 with valid data updates the redirection" do
       redirection = insert(:redirection)
 
       assert {:ok, redirection} =
-               System.update_redirection(redirection, %{
+               System.update_redirection(nil, redirection, %{
                  path: "/foo/bar",
                  destination: "/bar/foo",
                  http_status: 302,
@@ -49,13 +49,13 @@ defmodule Cforum.SystemTest do
 
     test "update_redirection/2 with invalid data returns error changeset" do
       redirection = insert(:redirection)
-      assert {:error, %Ecto.Changeset{}} = System.update_redirection(redirection, %{path: nil})
+      assert {:error, %Ecto.Changeset{}} = System.update_redirection(nil, redirection, %{path: nil})
       assert redirection == System.get_redirection!(redirection.redirection_id)
     end
 
     test "delete_redirection/1 deletes the redirection" do
       redirection = insert(:redirection)
-      assert {:ok, %Redirection{}} = System.delete_redirection(redirection)
+      assert {:ok, %Redirection{}} = System.delete_redirection(nil, redirection)
       assert_raise Ecto.NoResultsError, fn -> System.get_redirection!(redirection.redirection_id) end
     end
 
@@ -82,7 +82,16 @@ defmodule Cforum.SystemTest do
 
     test "list_auditing/0 returns all auditing" do
       auditing = auditing_fixture()
-      assert System.list_auditing() == [auditing]
+
+      changeset =
+        {%{
+           from: Timex.beginning_of_day(NaiveDateTime.utc_now()),
+           to: Timex.end_of_day(NaiveDateTime.utc_now()),
+           objects: []
+         }, %{from: Timex.Ecto.DateTimeWithTimezone, to: Timex.Ecto.DateTimeWithTimezone, objects: {:array, :string}}}
+        |> Ecto.Changeset.cast(%{}, [:from, :to, :objects])
+
+      assert System.list_auditing(changeset) == [%Auditing{auditing | user: nil}]
     end
 
     test "get_auditing!/1 returns the auditing with given id" do

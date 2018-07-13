@@ -40,6 +40,12 @@ defmodule Cforum.Forums do
   """
   def get_forum!(id), do: Repo.get!(Forum, id)
 
+  def get_forum!(id, :preload_setting) do
+    Forum
+    |> Repo.get!(id)
+    |> Repo.preload(:setting)
+  end
+
   @doc """
   Gets a single forum by its slug.
 
@@ -177,5 +183,29 @@ defmodule Cforum.Forums do
 
   defp ordered(query) do
     query |> order_by([n], asc: n.position)
+  end
+
+  def list_forums_by_permission(user, permission)
+
+  def list_forums_by_permission(%User{admin: true}, _) do
+    Forum
+    |> ordered()
+    |> Repo.all()
+  end
+
+  def list_forums_by_permission(%User{} = user, permission) do
+    from(
+      f in Forum,
+      where:
+        f.standard_permission == ^permission or
+          fragment(
+            "? IN (SELECT forum_id FROM forums_groups_permissions fgp INNER JOIN groups_users USING(group_id) WHERE fgp.permission = ? AND user_id = ?)",
+            f.forum_id,
+            ^permission,
+            ^user.user_id
+          )
+    )
+    |> ordered
+    |> Repo.all()
   end
 end

@@ -45,6 +45,8 @@ defmodule Cforum.Abilities do
   use Cforum.Abilities.Admin
   use Cforum.Abilities.V1.Api
 
+  use Cforum.Abilities.Moderation
+
   def may?(_conn, "redirector", _, _), do: true
   def may?(conn, "archive", _, _), do: access_forum?(conn.assigns[:current_user], conn.assigns[:current_forum])
 

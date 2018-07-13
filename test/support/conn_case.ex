@@ -21,6 +21,7 @@ defmodule CforumWeb.ConnCase do
       use Phoenix.ConnTest
 
       import Plug.Test
+      import Cforum.TestHelpers
 
       import CforumWeb.Router.Helpers
       import CforumWeb.Views.Helpers.Path

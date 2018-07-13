@@ -22,7 +22,7 @@ defmodule CforumWeb.Admin.GroupControllerTest do
       params = params_for(:group)
       conn = post(conn, admin_group_path(conn, :create), group: params)
 
-      assert %{id: id} = redirected_params(conn)
+      assert %{id: id} = cf_redirected_params(conn)
       assert redirected_to(conn) == admin_group_path(conn, :edit, id)
 
       conn = get(conn, admin_group_path(conn, :edit, id))

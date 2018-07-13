@@ -21,35 +21,35 @@ defmodule Cforum.GroupsTest do
       assert group.group_id == group.group_id
     end
 
-    test "create_group/1 with valid data creates a group" do
+    test "create_group/2 with valid data creates a group" do
       p = params_for(:group)
-      assert {:ok, %Group{} = group} = Groups.create_group(p)
+      assert {:ok, %Group{} = group} = Groups.create_group(nil, p)
       assert group.name == p[:name]
     end
 
-    test "create_group/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Groups.create_group(%{name: nil})
+    test "create_group/2 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Groups.create_group(nil, %{name: nil})
     end
 
-    test "update_group/2 with valid data updates the group" do
+    test "update_group/3 with valid data updates the group" do
       group = insert(:group)
-      assert {:ok, group} = Groups.update_group(group, %{name: "Foo"})
+      assert {:ok, group} = Groups.update_group(nil, group, %{name: "Foo"})
       assert %Group{} = group
       assert group.name == "Foo"
     end
 
-    test "update_group/2 with invalid data returns error changeset" do
+    test "update_group/3 with invalid data returns error changeset" do
       group = insert(:group)
-      assert {:error, %Ecto.Changeset{}} = Groups.update_group(group, %{name: nil})
+      assert {:error, %Ecto.Changeset{}} = Groups.update_group(nil, group, %{name: nil})
       group1 = Groups.get_group!(group.group_id)
       assert %Group{} = group1
       assert group.name == group1.name
       assert group.group_id == group1.group_id
     end
 
-    test "delete_group/1 deletes the group" do
+    test "delete_group/2 deletes the group" do
       group = insert(:group)
-      assert {:ok, %Group{}} = Groups.delete_group(group)
+      assert {:ok, %Group{}} = Groups.delete_group(nil, group)
       assert_raise Ecto.NoResultsError, fn -> Groups.get_group!(group.group_id) end
     end
 

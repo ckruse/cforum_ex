@@ -24,7 +24,7 @@ defmodule CforumWeb.CiteControllerTest do
       attrs = params_for(:cite)
       conn = post(conn, cite_path(conn, :create), cite: attrs)
 
-      assert %{id: id} = redirected_params(conn)
+      assert %{id: id} = cf_redirected_params(conn)
       assert redirected_to(conn) == cite_path(conn, :show, id)
 
       conn = get(conn, cite_path(conn, :show, id))

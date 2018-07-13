@@ -103,10 +103,11 @@ defmodule CforumWeb.RedirectorControllerTest do
   end
 
   test "redirects to message on /m:mid", %{conn: conn} do
-    thread = insert(:thread)
-    message = insert(:message, thread: thread, forum: thread.forum)
+    forum = insert(:public_forum)
+    thread = insert(:thread, forum: forum)
+    message = insert(:message, thread: thread, forum: forum)
     conn = get(conn, "/m#{message.message_id}")
-    assert redirected_to(conn) == CforumWeb.Views.Helpers.Path.message_path(conn, :show, message.thread, message)
+    assert redirected_to(conn) == CforumWeb.Views.Helpers.Path.message_path(conn, :show, thread, message)
   end
 
   test "fails on /m:mid with non-existant mid", %{conn: conn} do

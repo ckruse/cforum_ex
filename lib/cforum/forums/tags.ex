@@ -177,7 +177,7 @@ defmodule Cforum.Forums.Tags do
       from(syn in TagSynonym, where: syn.tag_id == ^old_tag.tag_id)
       |> Repo.update_all(set: [tag_id: new_tag.tag_id])
 
-      with {:ok, %TagSynonym{}} <- create_tag_synonym(new_tag, %{synonym: old_tag.tag_name}),
+      with {:ok, %TagSynonym{}} <- create_tag_synonym(current_user, new_tag, %{synonym: old_tag.tag_name}),
            {:ok, %Tag{}} <- Repo.delete(old_tag),
            tag = %Tag{} = get_tag!(new_tag.tag_id) do
         {:ok, tag}

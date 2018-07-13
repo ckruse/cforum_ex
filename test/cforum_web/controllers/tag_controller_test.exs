@@ -22,7 +22,8 @@ defmodule CforumWeb.TagControllerTest do
 
   test "creates resource and redirects when data is valid", %{conn: conn, forum: forum} do
     conn = post(conn, tag_path(conn, :create, forum), tag: params_for(:tag))
-    assert %{id: id} = redirected_params(conn)
+
+    assert %{id: id} = cf_redirected_params(conn)
     assert redirected_to(conn) == tag_path(conn, :show, forum, %Tag{slug: id})
 
     conn = get(conn, tag_path(conn, :show, forum, %Tag{slug: id}))

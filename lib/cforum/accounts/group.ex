@@ -41,16 +41,3 @@ defmodule Cforum.Accounts.Group do
   defp maybe_put_users(changeset, nil), do: changeset
   defp maybe_put_users(changeset, users), do: put_assoc(changeset, :users, Cforum.Accounts.Users.get_users(users))
 end
-
-defimpl Cforum.System.AuditingProtocol, for: Cforum.Accounts.Group do
-  def audit_json(group) do
-    users = Enum.map(group.users, &Cforum.System.AuditingProtocol.audit_json(&1))
-    permissions = Enum.map(group.permissions, &Cforum.System.AuditingProtocol.audit_json(&1))
-
-    group
-    |> Map.from_struct()
-    |> Map.drop([:__meta__])
-    |> Map.put(:users, users)
-    |> Map.put(:permissions, permissions)
-  end
-end

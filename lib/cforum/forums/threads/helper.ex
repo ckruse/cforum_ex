@@ -77,6 +77,16 @@ defmodule Cforum.Forums.Threads.Helper do
   defp apply_predicate(q, p) when is_function(p), do: p.(q)
   defp apply_predicate(q, _), do: q
 
+  def basic_conditions(query, user, forum, visible_forums, opts) do
+    query
+    |> apply_thread_conditions(opts[:thread_conditions])
+    |> apply_predicate(opts[:predicate])
+    |> set_forum_id(forum, visible_forums)
+    |> set_view_all(opts[:view_all])
+    |> leave_out_invisible(user, opts[:view_all] || !opts[:leave_out_invisible])
+    |> only_wo_answer(opts[:only_wo_answer], visible_forums)
+  end
+
   def get_threads(forum, user, visible_forums, opts \\ []) do
     defaults = [
       sticky: false,
@@ -99,28 +109,15 @@ defmodule Cforum.Forums.Threads.Helper do
 
     threads_query =
       also_query_sticky
-      |> apply_thread_conditions(opts[:thread_conditions])
-      |> apply_predicate(opts[:predicate])
-      |> set_forum_id(forum, visible_forums)
-      |> set_view_all(opts[:view_all])
+      |> basic_conditions(user, forum, visible_forums, opts)
       |> hide_read_threads(user, opts[:hide_read_threads])
-      |> leave_out_invisible(user, opts[:view_all] || !opts[:leave_out_invisible])
-      |> only_wo_answer(opts[:only_wo_answer], visible_forums)
 
     sticky_threads_query =
       case opts[:sticky] do
         true ->
-          from(
-            thread in Thread,
-            where: thread.archived == false and thread.sticky == true
-          )
-          |> apply_thread_conditions(opts[:thread_conditions])
-          |> apply_predicate(opts[:predicate])
-          |> set_forum_id(forum, visible_forums)
-          |> set_view_all(opts[:view_all])
+          from(thread in Thread, where: thread.archived == false and thread.sticky == true)
+          |> basic_conditions(user, forum, visible_forums, opts)
           |> hide_read_threads(user, opts[:hide_read_threads])
-          |> leave_out_invisible(user, opts[:view_all] || !opts[:leave_out_invisible])
-          |> only_wo_answer(opts[:only_wo_answer], visible_forums)
 
         _ ->
           nil
@@ -143,12 +140,7 @@ defmodule Cforum.Forums.Threads.Helper do
 
     threads_query =
       from(thread in Thread, where: thread.created_at >= ^from and thread.created_at <= ^to)
-      |> apply_thread_conditions(opts[:thread_conditions])
-      |> apply_predicate(opts[:predicate])
-      |> set_forum_id(forum, visible_forums)
-      |> set_view_all(opts[:view_all])
-      |> leave_out_invisible(user, opts[:view_all] || !opts[:leave_out_invisible])
-      |> only_wo_answer(opts[:only_wo_answer], visible_forums)
+      |> basic_conditions(user, forum, visible_forums, opts)
 
     threads_query
   end
