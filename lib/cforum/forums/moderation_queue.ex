@@ -7,6 +7,8 @@ defmodule Cforum.Forums.ModerationQueue do
   alias Cforum.Repo
 
   alias Cforum.Forums.ModerationQueueEntry
+  alias Cforum.System
+  alias Cforum.Forums.{Threads, Messages}
 
   @doc """
   Returns the list of entries.
@@ -17,23 +19,36 @@ defmodule Cforum.Forums.ModerationQueue do
       [%ModerationQueueEntry{}, ...]
 
   """
-  def list_entries(query_params \\ [order: nil, limit: nil]) do
+  def list_entries(forums, query_params \\ [order: nil, limit: nil, only_open: false]) do
+    fids = Enum.map(forums, & &1.forum_id)
+
     from(
       entry in ModerationQueueEntry,
-      preload: [:closer, message: [thread: :forum]]
+      inner_join: m in assoc(entry, :message),
+      where: m.forum_id in ^fids,
+      preload: [:closer, message: [:user, thread: :forum]],
+      order_by: [desc: :created_at]
     )
+    |> maybe_only_open(query_params[:only_open])
     |> Cforum.PagingApi.set_limit(query_params[:limit])
-    |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
     |> Repo.all()
   end
 
-  def count_entries() do
+  def count_entries(forums, only_open \\ false) do
+    fids = Enum.map(forums, & &1.forum_id)
+
     from(
       entry in ModerationQueueEntry,
-      select: count("*")
+      inner_join: m in assoc(entry, :message),
+      select: count("*"),
+      where: m.forum_id in ^fids
     )
+    |> maybe_only_open(only_open)
     |> Repo.one()
   end
+
+  defp maybe_only_open(q, true), do: from(e in q, where: e.cleared == false)
+  defp maybe_only_open(q, _), do: q
 
   @doc """
   Gets a single entry.
@@ -52,13 +67,13 @@ defmodule Cforum.Forums.ModerationQueue do
   def get_entry!(id) do
     ModerationQueueEntry
     |> Repo.get!(id)
-    |> Repo.preload(:closer, message: [thread: :forum])
+    |> Repo.preload([:closer, message: [thread: :forum]])
   end
 
   def get_entry_by_message_id(mid) do
     ModerationQueueEntry
     |> Repo.get_by(message_id: mid)
-    |> Repo.preload(:closer, message: [thread: :forum])
+    |> Repo.preload([:closer, message: [thread: :forum]])
   end
 
   @doc """
@@ -143,4 +158,42 @@ defmodule Cforum.Forums.ModerationQueue do
   def change_create_entry(%ModerationQueueEntry{} = entry) do
     ModerationQueueEntry.create_changeset(entry, %{})
   end
+
+  def change_resolve_entry(current_user, %ModerationQueueEntry{} = entry) do
+    ModerationQueueEntry.resolve_changeset(current_user, entry, %{})
+  end
+
+  def resolve_entry(user, %ModerationQueueEntry{message: message} = entry, attrs) do
+    System.audited("update", user, fn ->
+      {:ok, entry} =
+        user
+        |> ModerationQueueEntry.resolve_changeset(entry, attrs)
+        |> Repo.update()
+
+      apply_resolution_action(entry.resolution_action, user, message)
+
+      {:ok, entry}
+    end)
+  end
+
+  defp apply_resolution_action("close", user, message) do
+    {_, message} =
+      Messages.get_message_and_thread!(nil, nil, user, message.thread_id, message.message_id, view_all: true)
+
+    {:ok, _msg} = Messages.flag_no_answer(user, message)
+  end
+
+  defp apply_resolution_action("delete", user, message) do
+    {_, message} =
+      Messages.get_message_and_thread!(nil, nil, user, message.thread_id, message.message_id, view_all: true)
+
+    {:ok, _msg} = Messages.delete_message(user, message)
+  end
+
+  defp apply_resolution_action("no-archive", user, message) do
+    thread = Threads.get_thread!(nil, nil, user, message.thread_id, view_all: true)
+    {:ok, _thread} = Threads.flag_thread_no_archive(user, thread)
+  end
+
+  defp apply_resolution_action(_, _, _), do: nil
 end

@@ -42,6 +42,14 @@
   .posting-footer .cf-btn {
     margin-bottom: 0.25em;
   }
+
+  .cf-flagged-message {
+    border: 1px solid #ebccd1;
+    border-radius: 0px 0.7em 0.7em;
+    color: #a94442;
+    margin: 0.5em 0px;
+    padding: 0.8em 1em 1em;
+  }
 }
 
 @media only screen and (min-width: 35em) {

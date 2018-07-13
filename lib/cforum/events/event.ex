@@ -27,11 +27,3 @@ defmodule Cforum.Events.Event do
     |> unique_constraint(:name, name: :events_lower_idx)
   end
 end
-
-defimpl Cforum.System.AuditingProtocol, for: Cforum.Events.Event do
-  def audit_json(event) do
-    event
-    |> Map.from_struct()
-    |> Map.drop([:attendees, :__meta__])
-  end
-end

@@ -42,17 +42,32 @@ defmodule Cforum.Forums.Forum do
     |> cast_assoc(:setting)
     |> validate_required([:slug, :short_name, :name, :description, :standard_permission, :position])
     |> validate_inclusion(:standard_permission, @permissions)
-    |> unique_constraint(:slug, name: :forums_slug_idx)
+    |> validate_slug()
   end
-end
 
-defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Forum do
-  def audit_json(forum) do
-    setting = Cforum.System.AuditingProtocol.audit_json(forum.setting)
-
-    forum
-    |> Map.from_struct()
-    |> Map.drop([:__meta__, :threads, :messages, :permissions])
-    |> Map.put(:setting, setting)
+  defp validate_slug(changeset) do
+    changeset
+    |> validate_exclusion(:slug, [
+      "api",
+      "admin",
+      "notifications",
+      "mails",
+      "events",
+      "invisible",
+      "subscriptions",
+      "interesting",
+      "moderation",
+      "login",
+      "logout",
+      "registrations",
+      "help",
+      "badges",
+      "cites",
+      "archiv",
+      "images"
+    ])
+    |> validate_format(:slug, ~r/^[a-z0-9-]{2,}$/)
+    |> validate_length(:slug, min: 2, max: 50)
+    |> unique_constraint(:slug, name: :forums_slug_idx)
   end
 end

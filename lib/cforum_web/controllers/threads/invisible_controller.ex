@@ -38,7 +38,9 @@ defmodule CforumWeb.Threads.InvisibleController do
   def hide(conn, params) do
     thread =
       Threads.get_thread_by_slug!(
-        conn.assigns[:current_user],
+        conn.assigns.current_forum,
+        conn.assigns.visible_forums,
+        conn.assigns.current_user,
         Threads.slug_from_params(params)
       )
 
@@ -52,7 +54,9 @@ defmodule CforumWeb.Threads.InvisibleController do
   def unhide(conn, params) do
     thread =
       Threads.get_thread_by_slug!(
-        conn.assigns[:current_user],
+        conn.assigns.current_forum,
+        conn.assigns.visible_forums,
+        conn.assigns.current_user,
         Threads.slug_from_params(params)
       )
 

@@ -18,9 +18,9 @@ defmodule Cforum.EventsTest do
       assert event.event_id == new_event.event_id
     end
 
-    test "create_event/1 with valid data creates a event" do
+    test "create_event/2 with valid data creates a event" do
       params = params_for(:event)
-      assert {:ok, %Event{} = event} = Events.create_event(params)
+      assert {:ok, %Event{} = event} = Events.create_event(nil, params)
       assert event.name == params[:name]
       assert event.start_date == params[:start_date]
       assert event.end_date == params[:end_date]
@@ -30,14 +30,14 @@ defmodule Cforum.EventsTest do
       assert event.visible == params[:visible]
     end
 
-    test "create_event/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Events.create_event(%{})
+    test "create_event/2 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Events.create_event(nil, %{})
     end
 
-    test "update_event/2 with valid data updates the event" do
+    test "update_event/3 with valid data updates the event" do
       event = insert(:event)
       params = params_for(:event)
-      assert {:ok, event} = Events.update_event(event, params)
+      assert {:ok, event} = Events.update_event(nil, event, params)
       assert %Event{} = event
       assert event.name == params[:name]
       assert event.start_date == params[:start_date]
@@ -48,16 +48,16 @@ defmodule Cforum.EventsTest do
       assert event.visible == params[:visible]
     end
 
-    test "update_event/2 with invalid data returns error changeset" do
+    test "update_event/3 with invalid data returns error changeset" do
       event = insert(:event)
-      assert {:error, %Ecto.Changeset{}} = Events.update_event(event, %{name: ""})
+      assert {:error, %Ecto.Changeset{}} = Events.update_event(nil, event, %{name: ""})
       loaded_event = Events.get_event!(event.event_id)
       assert event.event_id == loaded_event.event_id
     end
 
-    test "delete_event/1 deletes the event" do
+    test "delete_event/2 deletes the event" do
       event = insert(:event)
-      assert {:ok, %Event{}} = Events.delete_event(event)
+      assert {:ok, %Event{}} = Events.delete_event(nil, event)
       assert_raise Ecto.NoResultsError, fn -> Events.get_event!(event.event_id) end
     end
 

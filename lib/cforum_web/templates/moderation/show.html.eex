@@ -1,0 +1,3 @@
+<div class="cf-moderation-queue">
+  <%= render "entry.html", assigns %>
+</div>

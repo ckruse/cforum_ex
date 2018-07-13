@@ -1,0 +1,39 @@
+<%= form_for @changeset, moderation_path(@conn, :update, @entry), [class: "cf-form"], fn f -> %>
+  <%= if @changeset.action do %>
+    <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
+  <% end %>
+
+  <div class="cf-cgroup <%= error_class(f, :resolution_action) %>">
+    <%= label f, :resolution_action do %>
+      <%= gettext("resolution action") %>
+      <%= error_tag f, :resolution_action %>
+    <% end %>
+
+    <%= select(
+      f,
+      :resolution_action,
+      [
+        {gettext("choose an action"), ""},
+        {gettext("no action"), "none"},
+        {gettext("manual intervention"), "manual"},
+        {gettext("set message and children to no archive"), "no-archive"},
+        {gettext("close message and children"), "close"},
+        {gettext("delete message and children"), "delete"}
+      ]
+    ) %>
+  </div>
+
+  <div class="cf-cgroup <%= error_class(f, :resolution) %>">
+    <%= label f, :resolution do %>
+      <%= gettext("resolution action") %>
+      <%= error_tag f, :resolution %>
+    <% end %>
+
+    <%= textarea f, :resolution, maxlength: 12288, class: 'big', required: true %>
+  </div>
+
+  <p class="form-actions">
+    <%= primary_submit gettext("save") %>
+    <%= default_button_link gettext("cancel"), to: moderation_path(@conn, :index) %>
+  </p>
+<% end %>

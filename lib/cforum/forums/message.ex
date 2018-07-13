@@ -68,6 +68,7 @@ defmodule Cforum.Forums.Message do
     |> maybe_put_change(:forum_id, forum_id)
     |> validate_forum_id(visible_forums)
     |> maybe_set_author(user)
+    |> Cforum.Helpers.strip_changeset_changes()
     |> parse_tags(params)
   end
 
@@ -139,8 +140,14 @@ defmodule Cforum.Forums.Message do
   defp parse_tags(changeset, _), do: changeset
 
   defp maybe_set_author(changeset, %User{} = author) do
-    changeset
-    |> put_change(:author, author.username)
+    case get_field(changeset, :author) do
+      nil ->
+        changeset
+        |> put_change(:author, author.username)
+
+      _ ->
+        changeset
+    end
     |> put_change(:user_id, author.user_id)
   end
 

@@ -22,7 +22,7 @@ defmodule CforumWeb.Admin.BadgeControllerTest do
       params = params_for(:badge)
       conn = post(conn, admin_badge_path(conn, :create), badge: params)
 
-      assert %{id: id} = redirected_params(conn)
+      assert %{id: id} = cf_redirected_params(conn)
       assert redirected_to(conn) == admin_badge_path(conn, :edit, id)
 
       conn = get(conn, admin_badge_path(conn, :edit, id))

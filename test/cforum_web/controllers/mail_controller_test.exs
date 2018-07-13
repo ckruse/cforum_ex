@@ -27,7 +27,7 @@ defmodule CforumWeb.MailControllerTest do
       attrs = params_for(:priv_message, recipient_name: nil, sender_name: nil, recipient_id: user.user_id)
       conn = post(conn, mail_path(conn, :create), priv_message: attrs)
 
-      assert %{id: id} = redirected_params(conn)
+      assert %{id: id} = cf_redirected_params(conn)
       assert redirected_to(conn) =~ mail_path(conn, :show, id)
 
       conn = get(conn, mail_path(conn, :show, id))

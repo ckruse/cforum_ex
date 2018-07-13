@@ -8,7 +8,9 @@ defmodule CforumWeb.Messages.MarkReadController do
   def mark_read(conn, params) do
     thread =
       Threads.get_thread_by_slug!(
-        conn.assigns[:current_user],
+        conn.assigns.current_forum,
+        conn.assigns.visible_forums,
+        conn.assigns.current_user,
         Threads.slug_from_params(params)
       )
 

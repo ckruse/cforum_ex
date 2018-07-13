@@ -1,0 +1,9 @@
+<div class="cf-moderation-queue">
+  <%= if blank?(@moderation_queue_entries) do %>
+    <p class="no-data"><%= gettext("No moderation queue entries found") %></p>
+  <% end %>
+
+  <%= for entry <- @moderation_queue_entries do %>
+    <%= render "entry.html", Map.put(assigns, :entry, entry) %>
+  <% end %>
+</div>

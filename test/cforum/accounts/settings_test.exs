@@ -26,33 +26,33 @@ defmodule Cforum.Accounts.SettingsTest do
     assert setting1.setting_id == setting.setting_id
   end
 
-  test "create_setting/1 with valid data creates a setting" do
+  test "create_setting/2 with valid data creates a setting" do
     params = params_for(:setting)
-    assert {:ok, %Setting{}} = Settings.create_setting(params)
+    assert {:ok, %Setting{}} = Settings.create_setting(nil, params)
   end
 
-  test "create_setting/1 with invalid data returns error changeset" do
-    assert {:error, %Ecto.Changeset{}} = Settings.create_setting(%{})
+  test "create_setting/2 with invalid data returns error changeset" do
+    assert {:error, %Ecto.Changeset{}} = Settings.create_setting(nil, %{})
   end
 
-  test "update_setting/2 with valid data updates the setting" do
+  test "update_setting/3 with valid data updates the setting" do
     setting = insert(:setting)
-    assert {:ok, setting1} = Settings.update_setting(setting, %{options: %{"lulu" => "lala"}})
+    assert {:ok, setting1} = Settings.update_setting(nil, setting, %{options: %{"lulu" => "lala"}})
     assert %Setting{} = setting1
     assert setting1.options["lulu"] == "lala"
   end
 
-  test "update_setting/2 with invalid data returns error changeset" do
+  test "update_setting/3 with invalid data returns error changeset" do
     setting = insert(:setting)
-    assert {:error, %Ecto.Changeset{}} = Settings.update_setting(setting, %{options: nil})
+    assert {:error, %Ecto.Changeset{}} = Settings.update_setting(nil, setting, %{options: nil})
     setting1 = Settings.get_setting!(setting.setting_id)
     assert %Setting{} = setting1
     assert setting1.options == setting.options
   end
 
-  test "delete_setting/1 deletes the setting" do
+  test "delete_setting/2 deletes the setting" do
     setting = insert(:setting)
-    assert {:ok, %Setting{}} = Settings.delete_setting(setting)
+    assert {:ok, %Setting{}} = Settings.delete_setting(nil, setting)
     assert_raise Ecto.NoResultsError, fn -> Settings.get_setting!(setting.setting_id) end
   end
 

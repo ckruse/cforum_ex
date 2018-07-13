@@ -1,0 +1,45 @@
+<article class="cf-moderation-queue-entry">
+  <div class="posting-header">
+    <%= CforumWeb.MessageView.header(
+      @conn,
+      @entry.message.thread,
+      @entry.message,
+      first: true,
+      show_icons: false,
+      tree: false,
+      show_editor: true,
+      author_link_to_message: false
+    ) %>
+    <%= render CforumWeb.MessageView, "votes_accept.html", Map.merge(assigns, %{top: true, message: @entry.message}) %>
+  </div>
+
+  <%= unless blank?(@entry.message.problematic_site) do %>
+    <p class="problematic-site"><%= link gettext("problematic site"), to: @entry.message.problematic_site, rel: "nofollow" %></p>
+  <% end %>
+
+  <div class="cf-posting-content<%= if @entry.message.deleted, do: " deleted" %> e-content">
+    <%= Cforum.MarkdownRenderer.to_html(@entry.message, assigns[:current_user]) %>
+  </div>
+
+  <p class="cf-flagged-message">
+    <%= gettext("This message has been flagged: %{reason}", reason: l10n_report_reason(@entry)) %>
+  </p>
+
+  <div class="moderation-section">
+    <%= if @entry.cleared do %>
+      <p class="cf-resolution">
+        <%=
+        {:safe, gettext(
+          "This moderation case has been solved by %{user}: %{resolution}",
+          user: closer_link(@conn, @entry),
+          resolution: l10n_resolution_action(@entry.resolution_action)
+        )} %><br>
+        <%= @entry.resolution %>
+      </p>
+    <% end %>
+
+    <%= if may?(@conn, "moderation", :update, @entry) do %>
+      <%= primary_button_link(gettext("solve"), to: moderation_path(@conn, :edit, @entry)) %>
+    <% end %>
+  </div>
+</article>

@@ -84,24 +84,24 @@ defmodule CforumWeb.ThreadControllerTest do
 
     test "creates a thread", %{conn: conn, forum: forum} do
       conn = post(conn, thread_path(conn, :new, forum), message: params_for(:message, forum_id: nil))
-      assert %{curr_forum: f, year: y, month: m, day: d, slug: s, mid: mid} = redirected_params(conn)
+      assert %{curr_forum: f, year: y, month: m, day: d, slug: s, mid: mid} = cf_redirected_params(conn)
       assert redirected_to(conn) == "/#{f}/#{y}/#{m}/#{d}/#{s}/#{mid}#m#{mid}"
     end
 
     test "creates a thread in /all", %{conn: conn, forum: forum} do
       conn = post(conn, thread_path(conn, :new, nil), message: params_for(:message, forum_id: forum.forum_id))
-      assert %{curr_forum: f, year: y, month: m, day: d, slug: s, mid: mid} = redirected_params(conn)
+      assert %{curr_forum: f, year: y, month: m, day: d, slug: s, mid: mid} = cf_redirected_params(conn)
       assert redirected_to(conn) == "/#{f}/#{y}/#{m}/#{d}/#{s}/#{mid}#m#{mid}"
     end
 
     test "creates a thread with forum_id from path", %{conn: conn, forum: forum} do
-      f1 = insert(:forum)
+      f1 = insert(:public_forum)
       conn = post(conn, thread_path(conn, :new, forum), message: params_for(:message, forum_id: f1.forum_id))
-      assert %{curr_forum: f, year: y, month: m, day: d, slug: s, mid: mid} = redirected_params(conn)
+      assert %{curr_forum: f, year: y, month: m, day: d, slug: s, mid: mid} = cf_redirected_params(conn)
       assert redirected_to(conn) == "/#{f}/#{y}/#{m}/#{d}/#{s}/#{mid}#m#{mid}"
       assert f == forum.slug
 
-      t = Threads.get_thread_by_slug!(nil, "/#{y}/#{m}/#{d}/#{s}", [])
+      t = Threads.get_thread_by_slug!(nil, nil, nil, "/#{y}/#{m}/#{d}/#{s}")
       assert t.forum_id == forum.forum_id
       m = Messages.get_message!(mid)
       assert m.forum_id == forum.forum_id

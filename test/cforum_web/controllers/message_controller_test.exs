@@ -114,7 +114,7 @@ defmodule CforumWeb.MessageControllerTest do
     test "post /new creates a new answer", %{conn: conn, thread: t, message: m} do
       conn = post(conn, message_path(conn, :new, t, m), message: params_for(:message))
 
-      assert %{curr_forum: f, year: y, month: m, day: d, slug: s, mid: mid} = redirected_params(conn)
+      assert %{curr_forum: f, year: y, month: m, day: d, slug: s, mid: mid} = cf_redirected_params(conn)
       assert redirected_to(conn) == "/#{f}/#{y}/#{m}/#{d}/#{s}/#{mid}#m#{mid}"
     end
 
@@ -123,7 +123,7 @@ defmodule CforumWeb.MessageControllerTest do
         login(conn, user)
         |> post(message_path(conn, :new, t, m), message: params_for(:message))
 
-      assert %{curr_forum: _f, year: _y, month: _m, day: _d, slug: _s, mid: mid} = redirected_params(conn)
+      assert %{curr_forum: _f, year: _y, month: _m, day: _d, slug: _s, mid: mid} = cf_redirected_params(conn)
 
       msg = Cforum.Forums.Messages.get_message!(mid)
       assert msg.user_id == user.user_id
@@ -164,7 +164,7 @@ defmodule CforumWeb.MessageControllerTest do
         login(conn, user)
         |> post(message_path(conn, :new, t, m), message: Map.delete(params_for(:message), :author))
 
-      assert %{curr_forum: _f, year: _y, month: _m, day: _d, slug: _s, mid: _mid} = redirected_params(conn)
+      assert %{curr_forum: _f, year: _y, month: _m, day: _d, slug: _s, mid: _mid} = cf_redirected_params(conn)
     end
 
     test "posting anonymous requires a name", %{conn: conn, thread: t, message: m} do

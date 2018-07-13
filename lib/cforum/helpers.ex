@@ -93,4 +93,15 @@ defmodule Cforum.Helpers do
   def score_str(_votes, score) when score == 0, do: "±0"
   def score_str(_votes, score) when score < 0, do: "−" <> Integer.to_string(abs(score))
   def score_str(_votes, score), do: "+" <> Integer.to_string(abs(score))
+
+  def strip_changeset_changes(changeset) do
+    str_changes =
+      changeset.changes
+      |> Map.keys()
+      |> Enum.filter(&(changeset.data.__struct__.__schema__(:type, &1) == :string))
+
+    Enum.reduce(str_changes, changeset, fn key, changeset ->
+      Ecto.Changeset.update_change(changeset, key, &String.trim/1)
+    end)
+  end
 end

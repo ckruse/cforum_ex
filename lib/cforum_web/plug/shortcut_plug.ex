@@ -13,7 +13,14 @@ defmodule CforumWeb.Plug.ShortcutPlug do
     case Regex.named_captures(~r{^/m(?<mid>\d+)}, conn.request_path) do
       %{"mid" => id} ->
         message = Messages.get_message!(id)
-        thread = Threads.get_thread!(conn.assigns[:current_user], message.thread_id)
+
+        thread =
+          Threads.get_thread!(
+            conn.assigns.current_forum,
+            conn.assigns.visible_forums,
+            conn.assigns.current_user,
+            message.thread_id
+          )
 
         conn
         |> Phoenix.Controller.redirect(to: Path.message_path(conn, :show, thread, message))

@@ -149,7 +149,7 @@ defmodule Cforum.System do
       [%Auditing{}, ...]
 
   """
-  def list_auditing(changeset, query_params) do
+  def list_auditing(changeset, query_params \\ [limit: nil]) do
     start_date = Ecto.Changeset.get_field(changeset, :from)
     end_date = Ecto.Changeset.get_field(changeset, :to)
 
@@ -234,7 +234,7 @@ defmodule Cforum.System do
     })
   end
 
-  def audited(action, user, fun) do
+  def audited(action, user, fun) when is_bitstring(action) and is_function(fun) do
     {_, val} =
       Repo.transaction(fn ->
         case fun.() do

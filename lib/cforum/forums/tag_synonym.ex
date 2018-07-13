@@ -22,15 +22,3 @@ defmodule Cforum.Forums.TagSynonym do
     |> unique_constraint(:synonym, name: :tag_synonyms_forum_id_synonym_idx)
   end
 end
-
-defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.TagSynonym do
-  def audit_json(synonym) do
-    tag =
-      case synonym.tag do
-        %Ecto.Association.NotLoaded{} -> Cforum.Forums.Tags.get_tag!(synonym.tag_id)
-        tag -> tag
-      end
-
-    %{"synonym" => synonym.synonym, "tag" => %{"tag_name" => tag.tag_name, "tag_id" => tag.tag_id}}
-  end
-end

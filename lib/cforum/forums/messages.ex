@@ -32,7 +32,7 @@ defmodule Cforum.Forums.Messages do
 
   ## Examples
 
-      iex> list_messages_for_user(%User{}, [1, 2], quantity: 10, offset: 0)
+      iex> list_messages_for_user(%User{}, [1, 2], limin: [quantity: 10, offset: 0])
       [%Message{}, ...]
   """
   def list_messages_for_user(user, forum_ids, query_params \\ [order: nil, limit: nil]) do
@@ -63,7 +63,15 @@ defmodule Cforum.Forums.Messages do
     |> Repo.one()
   end
 
-  def list_messages_for_tag(forum, tag, query_params \\ [order: nil, limit: [offset: 0, quantity: 50]]) do
+  @doc """
+  Returns a list of messages for a tag, limited to the forum specified in `forum`
+
+  ## Examples
+
+      iex> list_messages_for_tag(%Forum{}, %Tag{}, limit: [quantity: 10, offset: 0])
+      [%Message{}, ...]
+  """
+  def list_messages_for_tag(forum, tag, query_params \\ [order: nil, limit: nil]) do
     from(
       m in Message,
       inner_join: t in "messages_tags",
@@ -76,6 +84,14 @@ defmodule Cforum.Forums.Messages do
     |> Repo.all()
   end
 
+  @doc """
+  Counts the messages for a tag, limited to the forum specified in `forum`
+
+  ## Examples
+
+      iex> count_messages_for_tag(%Forum{}, %Tag{})
+      10
+  """
   def count_messages_for_tag(forum, tag) do
     from(
       m in Message,
@@ -270,10 +286,97 @@ defmodule Cforum.Forums.Messages do
       else: Repo.get_by!(Message, message_id: id, deleted: false)
   end
 
+  @doc """
+  Gets a single message.
+
+  Leaves out deleted messages by default; if you want to retrieve
+  deleted messages, set `view_all: true` as second parameter
+
+  Returns nil if the Message does not exist.
+
+  ## Examples
+
+      iex> get_message(123)
+      %Message{}
+
+      iex> get_message(456)
+      nil
+
+  """
   def get_message(id, opts \\ []) do
     if opts[:view_all],
       do: Repo.get(Message, id),
       else: Repo.get_by(Message, message_id: id, deleted: false)
+  end
+
+  @doc """
+  Gets a thread with all messages and a single message. Returns a
+  tuple `{%Thread{}, %Message{}}`.
+
+  Leaves out deleted messages by default; if you want to retrieve
+  deleted messages, set `view_all: true` as second parameter
+
+  Raises `Ecto.NoResultsError` if the Message does not exist.
+
+  - `forum` is the current forum
+  - `visible_forums` is a list of forums the user may look at
+  - `user` is the current user
+  - `thread_id` is the thread id
+  - `message_id` is the message id
+  - `opts` is an option list as defined by `Cforum.Forums.Threads.list_threads/4`
+
+  ## Examples
+
+      iex> get_message_and_thread!(nil, nil, nil, 1, 2)
+      {%Thread{}, %Message{}}
+
+      iex> get_message_and_thread(nil, nil, nil, -1, 1)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_message_and_thread!(forum, visible_forums, user, thread_id, message_id, opts \\ []) do
+    thread = Threads.get_thread!(forum, visible_forums, user, thread_id, opts)
+
+    case find_message(thread, &(&1.message_id == message_id)) do
+      nil ->
+        raise Ecto.NoResultsError, queryable: Message
+
+      msg ->
+        {thread, msg}
+    end
+  end
+
+  @doc """
+  Finds a message in a thread or in a list of messages. Returns nil if
+  the Message does not exist.
+
+  ## Examples
+
+      iex> find_message(%Thread{tree: %Message{}}, & &1.message_id == 1)
+      %Message{}
+
+      iex> find_message([%Message{}], & &1.message_id == 1)
+      %Message{}
+
+      iex> find_message([], & &1.message_id == 1)
+      nil
+  """
+  def find_message(list_of_messages_or_thread, fun)
+  def find_message(%Cforum.Forums.Thread{tree: %Message{}} = thread, fun), do: find_message([thread.tree], fun)
+  def find_message([], _), do: nil
+
+  def find_message([msg | tail], fun) do
+    if fun.(msg) do
+      msg
+    else
+      case find_message(msg.messages, fun) do
+        nil ->
+          find_message(tail, fun)
+
+        msg ->
+          msg
+      end
+    end
   end
 
   @doc """
@@ -290,18 +393,16 @@ defmodule Cforum.Forums.Messages do
   """
   def get_message_from_slug_and_mid!(forum, user, slug, mid, opts \\ [])
 
-  def get_message_from_slug_and_mid!(forum, user, slug, mid, opts) when is_bitstring(mid) do
-    get_message_from_slug_and_mid!(forum, user, slug, String.to_integer(mid, 10), opts)
-  end
+  def get_message_from_slug_and_mid!(forum, user, slug, mid, opts) when is_bitstring(mid),
+    do: get_message_from_slug_and_mid!(forum, user, slug, String.to_integer(mid, 10), opts)
 
   def get_message_from_slug_and_mid!(forum, user, slug, mid, opts) do
-    thread = Threads.get_thread_by_slug!(user, slug, opts)
+    thread = Threads.get_thread_by_slug!(forum, nil, user, slug, opts)
 
-    if forum == nil || thread.forum_id != forum.forum_id do
-      raise Ecto.NoResultsError, queryable: Message
-    end
+    if forum == nil || thread.forum_id != forum.forum_id,
+      do: raise(Ecto.NoResultsError, queryable: Message)
 
-    case Enum.find(thread.sorted_messages, &(&1.message_id == mid)) do
+    case find_message(thread, &(&1.message_id == mid)) do
       nil ->
         raise Ecto.NoResultsError, queryable: Message
 
@@ -353,13 +454,15 @@ defmodule Cforum.Forums.Messages do
 
     found =
       from(u in User, where: fragment("lower(?)", u.username) == fragment("lower(?)", ^clean_name))
-      |> Repo.one()
+      |> Repo.exists?()
 
-    found == nil
+    found == false
   end
 
   defp may_user_post_with_name?(user, name) do
-    if String.downcase(user.username) == String.downcase(name),
+    clean_name = name |> String.trim() |> String.downcase()
+
+    if String.downcase(user.username) == clean_name,
       do: true,
       else: may_user_post_with_name?(nil, name)
   end
@@ -423,8 +526,17 @@ defmodule Cforum.Forums.Messages do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_message(%Message{} = message) do
-    Repo.update(Ecto.Changeset.change(message, deleted: true))
+  def delete_message(user, %Message{} = message) do
+    System.audited("destroy", user, fn ->
+      new_message =
+        message
+        |> Ecto.Changeset.change(deleted: true)
+        |> Repo.update!()
+
+      Enum.each(message.messages, &delete_message(user, &1))
+
+      {:ok, new_message}
+    end)
   end
 
   @doc """
@@ -530,14 +642,28 @@ defmodule Cforum.Forums.Messages do
 
   def mark_messages_read(user, messages) do
     for msg <- messages do
-      %ReadMessage{}
-      |> ReadMessage.changeset(%{message_id: msg.message_id, user_id: user.user_id})
-      |> Repo.insert()
+      {:ok, rm} =
+        %ReadMessage{}
+        |> ReadMessage.changeset(%{message_id: msg.message_id, user_id: user.user_id})
+        |> Repo.insert()
+
+      rm
     end
   end
 
+  @doc """
+  Counts the number of unread threads and messages for a user. Returns a tuple
+  `{number of unread threads, number of unread messages}`. A thread is counted
+  as unread if it contains unread messages; so a return value of `{1, 5}` means
+  five unread messages in one thread.
+
+  ## Examples
+
+      iex> count_unread_messages(%User{})
+      {1, 5}
+  """
   def count_unread_messages(user)
-  def count_unread_messages(nil), do: 0
+  def count_unread_messages(nil), do: {0, 0}
 
   def count_unread_messages(user) do
     from(
@@ -555,12 +681,28 @@ defmodule Cforum.Forums.Messages do
 
   alias Cforum.Forums.Subscription
 
+  @doc """
+  Subscribes a message for a user.
+
+  ## Examples
+
+      iex> subscribe_message(%User{}, %Message{})
+      {:ok, %Subscription{}}
+  """
   def subscribe_message(user, message) do
     %Subscription{}
     |> Subscription.changeset(%{user_id: user.user_id, message_id: message.message_id})
     |> Repo.insert()
   end
 
+  @doc """
+  Deletes the subscription of a user for a message.
+
+  ## Examples
+
+      iex> unsubscribe_message(%User{}, %Message{})
+      {:ok, %Subscription{}}
+  """
   def unsubscribe_message(user, message) do
     subscription =
       Subscription
@@ -569,6 +711,14 @@ defmodule Cforum.Forums.Messages do
     if subscription, do: Repo.delete(subscription), else: nil
   end
 
+  @doc """
+  Lists the subscribed messages for a user.
+
+  ## Examples
+
+      iex> list_subscriptions(%User{})
+      [%Message{}, ...]
+  """
   def list_subscriptions(user, query_params \\ [order: nil, limit: nil]) do
     from(
       msg in Message,
@@ -581,6 +731,14 @@ defmodule Cforum.Forums.Messages do
     |> Repo.all()
   end
 
+  @doc """
+  Counts the subscribed messages for a user.
+
+  ## Examples
+
+      iex> count_subscriptions(%User{})
+      0
+  """
   def count_subscriptions(user) do
     from(
       msg in Message,
@@ -593,12 +751,28 @@ defmodule Cforum.Forums.Messages do
 
   alias Cforum.Forums.InterestingMessage
 
+  @doc """
+  Marks a message as interesting for a user.
+
+  ## Examples
+
+      iex> mark_message_interesting(%User{}, %Message{})
+      {:ok, %InterestingMessage{}}
+  """
   def mark_message_interesting(user, message) do
     %InterestingMessage{}
     |> InterestingMessage.changeset(%{user_id: user.user_id, message_id: message.message_id})
     |> Repo.insert()
   end
 
+  @doc """
+  Removes the interesting mark of a message for a user.
+
+  ## Examples
+
+      iex> mark_message_boring(%User{}, %Message{})
+      {:ok, %InterestingMessage{}}
+  """
   def mark_message_boring(user, message) do
     interesting_message =
       InterestingMessage
@@ -607,6 +781,14 @@ defmodule Cforum.Forums.Messages do
     if interesting_message, do: Repo.delete(interesting_message), else: nil
   end
 
+  @doc """
+  Lists the messages marked as interesting for a user.
+
+  ## Examples
+
+      iex> list_interesting_messages(%User{})
+      [%Message{}, ...]
+  """
   def list_interesting_messages(user, query_params \\ [order: nil, limit: nil]) do
     from(
       msg in Message,
@@ -619,6 +801,14 @@ defmodule Cforum.Forums.Messages do
     |> Repo.all()
   end
 
+  @doc """
+  Counts the messages marked as interesting for a user.
+
+  ## Examples
+
+      iex> count_interesting_messages(%User{})
+      1
+  """
   def count_interesting_messages(user) do
     from(
       msg in Message,
@@ -629,20 +819,45 @@ defmodule Cforum.Forums.Messages do
     |> Repo.one()
   end
 
-  def get_parent_message(thread, message)
-  def get_parent_message(_, %Message{parent_id: nil}), do: nil
+  @doc """
+  Returns the parent message of a message. Returns nil if there is no parent
+  message or the parent message could not be found.
 
-  def get_parent_message(thread, %Message{parent_id: mid}),
-    do: Enum.find(thread.sorted_messages, &(&1.message_id == mid))
+  ## Examples
 
+      iex> parent_message(%Thread{}, %Message{})
+      %Message{}
+  """
+  def parent_message(thread, message)
+  def parent_message(_, %Message{parent_id: nil}), do: nil
+
+  def parent_message(thread, %Message{parent_id: mid}), do: find_message(thread, &(&1.message_id == mid))
+
+  @doc """
+  Returns true if the parent message is marked interesting.
+
+  ## Examples
+
+      iex> parent_subscribed?(%Thread{}, %Message{})
+      true
+  """
   def parent_subscribed?(thread, message)
   def parent_subscribed?(_, %Message{parent_id: nil}), do: false
 
   def parent_subscribed?(thread, message) do
-    parent = get_parent_message(thread, message)
+    parent = parent_message(thread, message)
     parent.attribs[:is_subscribed] == true || parent_subscribed?(thread, parent)
   end
 
+  @doc """
+  Increases the `downvotes` field of a message by `by`. `by` can also be
+  negative.
+
+  ## Examples
+
+      iex> score_down_message(%Message{})
+      {1, nil}
+  """
   def score_down_message(message, by \\ 1) do
     from(
       msg in Message,
@@ -652,6 +867,15 @@ defmodule Cforum.Forums.Messages do
     |> Repo.update_all([])
   end
 
+  @doc """
+  Increases the `upvotes` field of a message by `by`. `by` can also be
+  negative.
+
+  ## Examples
+
+      iex> score_up_message(%Message{})
+      {1, nil}
+  """
   def score_up_message(message, by \\ 1) do
     from(
       msg in Message,
@@ -661,39 +885,132 @@ defmodule Cforum.Forums.Messages do
     |> Repo.update_all([])
   end
 
+  @doc """
+  Accepts a message (sets the `"accept"` flag value to `"yes"`) if not yet
+  accepted. Credits `points` points to the author of the message.
+
+  - `message` is the message to accept
+  - `user` is the current user (relevant for the audit log)
+  - `points` are the points to credit to the user
+
+  ## Examples
+
+      iex> accept_message(%Message{}, %User{}, 15)
+      {:ok, _}
+  """
+  def accept_message(message, user, points)
+  def accept_message(%Message{flags: %{"accepted" => "yes"}}, _, _), do: nil
+
   def accept_message(message, user, points) do
     Repo.transaction(fn ->
       message
-      |> Ecto.Changeset.change(flags: Map.merge(message.flags, %{"accepted" => "yes"}))
+      |> Ecto.Changeset.change(flags: Map.put(message.flags, "accepted", "yes"))
       |> Repo.update!()
 
-      maybe_give_accept_score(message, user, points)
+      case maybe_give_accept_score(message, user, points) do
+        nil ->
+          :ok
+
+        {:ok, _} ->
+          :ok
+
+        _ ->
+          Repo.rollback(nil)
+      end
     end)
   end
 
-  def maybe_give_accept_score(%Message{user_id: nil}, _, _), do: nil
+  defp maybe_give_accept_score(%Message{user_id: nil}, _, _), do: nil
 
-  def maybe_give_accept_score(message, user, points) do
+  defp maybe_give_accept_score(message, user, points) do
     System.audited("accepted-score", user, fn ->
-      {:ok, _score} = Scores.create_score(%{message_id: message.message_id, user_id: message.user_id, value: points})
+      Scores.create_score(%{message_id: message.message_id, user_id: message.user_id, value: points})
     end)
   end
 
+  @doc """
+  Removes the accepted flag from a message
+
+  - `message` is the message to accept
+  - `user` is the current user (relevant for the audit log)
+
+  ## Examples
+
+      iex> unaccept_message(%Message{}, %User{})
+      {:ok, _}
+  """
   def unaccept_message(message, user) do
     Repo.transaction(fn ->
-      message
-      |> Ecto.Changeset.change(flags: Map.delete(message.flags, "accepted"))
-      |> Repo.update!()
+      message =
+        message
+        |> Ecto.Changeset.change(flags: Map.delete(message.flags, "accepted"))
+        |> Repo.update!()
 
-      maybe_take_accept_score(message, user)
+      case maybe_take_accept_score(message, user) do
+        nil ->
+          {:ok, message}
+
+        {:ok, msg} ->
+          {:ok, msg}
+
+        _ ->
+          Repo.rollback(nil)
+      end
     end)
   end
 
-  def maybe_take_accept_score(%Message{user_id: nil}, _), do: nil
+  defp maybe_take_accept_score(%Message{user_id: nil}, _), do: nil
 
-  def maybe_take_accept_score(message, user) do
+  defp maybe_take_accept_score(message, user) do
     System.audited("accepted-no-unscore", user, fn ->
       Scores.delete_score_by_message_id_and_user_id(message.message_id, message.user_id)
+      {:ok, message}
+    end)
+  end
+
+  @doc """
+  Sets a flag to the message and its subtree
+
+  - `message` is the message to flag
+  - `flag` is the flag to set
+  - `value` is the value to set the flag to
+
+  ## Examples
+
+      iex> flag_message_subtree(%Message{}, "no-answer", "yes")
+      {:ok, %Message{}}
+  """
+  def flag_message_subtree(message, flag, value) do
+    flags = Map.put(message.flags, flag, value)
+
+    messages =
+      Enum.map(message.messages, fn msg ->
+        {:ok, msg} = flag_message_subtree(msg, flag, value)
+        msg
+      end)
+
+    msg = %Message{message | messages: messages}
+
+    msg
+    |> Ecto.Changeset.change(flags: flags)
+    |> Repo.update()
+  end
+
+  @doc """
+  Sets a the no answer flag of the message and its subtree to yes
+
+  - `user` the current user
+  - `message` is the message to flag
+  - `type` is the no answer type, one of `"no-answer"` or `"no-answer-admin"`
+
+  ## Examples
+
+      iex> flag_no_answer(%User{}, %Message{})
+      {:ok, %Message{}}
+  """
+  def flag_no_answer(user, message, type \\ "no-answer-admin") when type in ~w(no-answer-admin no-answer) do
+    System.audited("flag-no-answer", user, fn ->
+      flag_message_subtree(message, type, "yes")
     end)
   end
 end

@@ -1,7 +1,7 @@
 defmodule CforumWeb.RedirectorController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.Threads
+  alias Cforum.Forums.{Threads, Messages}
 
   def redirect_to_archive(conn, _params) do
     redirect(conn, to: archive_path(conn, :years, conn.assigns[:current_forum] || "all"))
@@ -56,6 +56,26 @@ defmodule CforumWeb.RedirectorController do
       conn
       |> put_status(:not_found)
       |> render(CforumWeb.ErrorView, "404.html", error: "Year or month is invalid")
+    end
+  end
+
+  def redirect_to_message(conn, %{"id" => _mid}) do
+    case Regex.named_captures(~r{^/m(?<mid>\d+)}, conn.request_path) do
+      %{"mid" => id} ->
+        message = Messages.get_message!(id)
+
+        thread =
+          Threads.get_thread!(
+            conn.assigns.current_forum,
+            conn.assigns.visible_forums,
+            conn.assigns.current_user,
+            message.thread_id
+          )
+
+        redirect(conn, to: message_path(conn, :show, thread, message))
+
+      _ ->
+        raise(Phoenix.ActionClauseError, message: "no suitable action found")
     end
   end
 end

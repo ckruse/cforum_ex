@@ -6,13 +6,13 @@ defmodule Cforum.Forums.ModerationQueueTest do
 
   test "list_entries/1 returns all archived entries", %{message: message} do
     entry = insert(:moderation_queue_entry, message: message)
-    entries = ModerationQueue.list_entries()
+    entries = ModerationQueue.list_entries([message.forum])
     assert Enum.map(entries, & &1.moderation_queue_entry_id) == [entry.moderation_queue_entry_id]
   end
 
   test "count_entries/1 counts all entries", %{message: message} do
     insert(:moderation_queue_entry, message: message)
-    assert ModerationQueue.count_entries() == 1
+    assert ModerationQueue.count_entries([message.forum]) == 1
   end
 
   test "get_entry!/1 returns the entry with given id", %{message: message} do

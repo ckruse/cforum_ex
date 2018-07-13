@@ -98,9 +98,15 @@ defmodule Cforum.Accounts.Scores do
   def delete_score_by_message_id_and_user_id(message_id, user_id) do
     score =
       from(score in Score, where: score.message_id == ^message_id and score.user_id == ^user_id)
-      |> Repo.one!()
+      |> Repo.one()
 
-    Repo.delete(score)
+    case score do
+      nil ->
+        nil
+
+      score ->
+        Repo.delete(score)
+    end
   end
 
   @doc """

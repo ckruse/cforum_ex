@@ -22,7 +22,7 @@ defmodule CforumWeb.Admin.UserControllerTest do
       params = params_for(:user)
       conn = post(conn, admin_user_path(conn, :create), user: params)
 
-      assert %{id: id} = redirected_params(conn)
+      assert %{id: id} = cf_redirected_params(conn)
       assert redirected_to(conn) == admin_user_path(conn, :edit, id)
 
       conn = get(conn, admin_user_path(conn, :edit, id))

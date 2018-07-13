@@ -10,6 +10,7 @@ defmodule Cforum.Forums.Threads do
 
   alias Cforum.Forums.{Thread, InvisibleThread, OpenCloseState}
   alias Cforum.Forums.Messages
+  alias Cforum.System
 
   @doc """
   Returns the list of threads.
@@ -227,7 +228,9 @@ defmodule Cforum.Forums.Threads do
       ** (Ecto.NoResultsError)
 
   """
-  def get_thread!(user, id, opts \\ []) do
+  def get_thread!(id), do: Repo.get_by!(Thread, thread_id: id)
+
+  def get_thread!(forum, visible_forums, user, id, opts \\ []) do
     opts =
       Keyword.merge(
         [
@@ -241,7 +244,10 @@ defmodule Cforum.Forums.Threads do
         opts
       )
 
-    q = from(thread in Thread, where: thread.thread_id == ^id)
+    q =
+      from(thread in Thread, where: thread.thread_id == ^id)
+      |> basic_conditions(user, forum, visible_forums, opts)
+
     ret = get_normal_threads(q, user, [desc: :created_at], 0, opts)
 
     case ret do
@@ -267,7 +273,7 @@ defmodule Cforum.Forums.Threads do
       ** (Ecto.NoResultsError)
 
   """
-  def get_thread_by_slug!(user, slug, opts \\ []) do
+  def get_thread_by_slug!(forum, visible_forums, user, slug, opts \\ []) do
     opts =
       Keyword.merge(
         [
@@ -282,10 +288,8 @@ defmodule Cforum.Forums.Threads do
       )
 
     q =
-      from(
-        thread in Thread,
-        where: thread.slug == ^slug
-      )
+      from(thread in Thread, where: thread.slug == ^slug)
+      |> basic_conditions(user, forum, visible_forums, opts)
 
     ret = get_normal_threads(q, user, [desc: :created_at], 0, opts)
 
@@ -327,10 +331,8 @@ defmodule Cforum.Forums.Threads do
       )
 
     q =
-      from(
-        thread in Thread,
-        where: thread.tid == ^tid
-      )
+      from(thread in Thread, where: thread.tid == ^tid)
+      |> basic_conditions(user, nil, nil, opts)
 
     ret = get_normal_threads(q, user, [desc: :created_at], 0, opts)
 
@@ -541,5 +543,19 @@ defmodule Cforum.Forums.Threads do
       |> OpenCloseState.changeset(%{user_id: user.user_id, thread_id: thread.thread_id, state: "closed"})
       |> Repo.insert()
     end
+  end
+
+  def flag_thread(thread, flag, value) do
+    flags = Map.put(thread.flags, flag, value)
+
+    thread
+    |> Ecto.Changeset.change(flags: flags)
+    |> Repo.update()
+  end
+
+  def flag_thread_no_archive(user, thread) do
+    System.audited("flag-no-archive", user, fn ->
+      flag_thread(thread, "no-archive", "yes")
+    end)
   end
 end

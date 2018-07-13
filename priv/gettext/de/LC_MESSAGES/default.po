@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2018-06-03 07:30+0200\n"
+"PO-Revision-Date: 2018-07-12 06:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2525,17 +2525,17 @@ msgstr "Das Tag „%{old_tag}“ wurde erfolgreich mit dem Tag „%{new_tag}“ 
 #, elixir-format
 #: lib/cforum_web/controllers/tag_controller.ex:46
 msgid "Tag created successfully."
-msgstr "Mail erfolgreich gespeichert."
+msgstr "Tag erfolgreich erstellt."
 
 #, elixir-format
 #: lib/cforum_web/controllers/tag_controller.ex:109
 msgid "Tag deleted successfully."
-msgstr "Mail erfolgreich gelöscht."
+msgstr "Tag erfolgreich gelöscht."
 
 #, elixir-format
 #: lib/cforum_web/controllers/tag_controller.ex:66
 msgid "Tag updated successfully."
-msgstr "Medaille erfolgreich geändert."
+msgstr "Tag erfolgreich geändert."
 
 #, elixir-format
 #: lib/cforum_web/templates/tag/show.html.eex:1
