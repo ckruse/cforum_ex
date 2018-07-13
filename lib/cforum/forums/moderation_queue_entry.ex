@@ -42,6 +42,7 @@ defmodule Cforum.Forums.ModerationQueueEntry do
     struct
     |> cast(attrs, [:resolution, :resolution_action])
     |> set_closer(current_user)
+    |> put_change(:cleared, true)
     |> validate_required([:resolution, :resolution_action])
     |> validate_inclusion(:resolution_action, @resolution_actions)
   end
