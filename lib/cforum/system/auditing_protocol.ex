@@ -41,7 +41,7 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Thread do
 
     thread
     |> Map.from_struct()
-    |> Map.drop([:__meta__, :messages])
+    |> Map.drop([:__meta__, :messages, :sorted_messages, :message, :tree])
     |> Map.put(:forum, forum)
   end
 end
@@ -50,7 +50,7 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.ModerationQueueEntry 
   def audit_json(entry) do
     entry
     |> Map.from_struct()
-    |> Map.drop([:__meta__, :message, :user])
+    |> Map.drop([:__meta__, :message, :closer])
   end
 end
 
