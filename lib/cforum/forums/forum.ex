@@ -69,5 +69,6 @@ defmodule Cforum.Forums.Forum do
     |> validate_format(:slug, ~r/^[a-z0-9-]{2,}$/)
     |> validate_length(:slug, min: 2, max: 50)
     |> unique_constraint(:slug, name: :forums_slug_idx)
+    |> validate_inclusion(:standard_permission, @permissions)
   end
 end
