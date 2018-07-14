@@ -185,7 +185,27 @@ defmodule Cforum.Forums do
     query |> order_by([n], asc: n.position)
   end
 
+  @doc """
+  Returns an ordered list of %Forum{} the user has the specified permission to
+
+  ## Examples
+
+      iex> list_forums_by_permission(%User{}, "read)
+      [%Forum{}]
+
+  """
   def list_forums_by_permission(user, permission)
+
+  def list_forums_by_permission(nil, permission) when permission in ~w(read write) do
+    plist =
+      if permission == "write",
+        do: ~w(write),
+        else: ~w(write read)
+
+    from(f in Forum, where: f.standard_permission in ^plist)
+    |> ordered
+    |> Repo.all()
+  end
 
   def list_forums_by_permission(%User{admin: true}, _) do
     Forum
@@ -193,15 +213,24 @@ defmodule Cforum.Forums do
     |> Repo.all()
   end
 
-  def list_forums_by_permission(%User{} = user, permission) do
+  def list_forums_by_permission(%User{} = user, "moderate"),
+    do: list_forums_by_perms(user, ~w(moderate), [])
+
+  def list_forums_by_permission(%User{} = user, "write"),
+    do: list_forums_by_perms(user, ~w(moderate write), ~w(known-write write))
+
+  def list_forums_by_permission(%User{} = user, "read"),
+    do: list_forums_by_perms(user, ~w(moderate write read), ~w(known-write write known-read read))
+
+  defp list_forums_by_perms(%User{} = user, permissions, std_permissions) do
     from(
       f in Forum,
       where:
-        f.standard_permission == ^permission or
+        f.standard_permission in ^std_permissions or
           fragment(
-            "? IN (SELECT forum_id FROM forums_groups_permissions fgp INNER JOIN groups_users USING(group_id) WHERE fgp.permission = ? AND user_id = ?)",
+            "? IN (SELECT forum_id FROM forums_groups_permissions fgp INNER JOIN groups_users USING(group_id) WHERE fgp.permission = ANY(?) AND user_id = ?)",
             f.forum_id,
-            ^permission,
+            ^permissions,
             ^user.user_id
           )
     )
