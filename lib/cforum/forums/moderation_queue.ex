@@ -256,14 +256,19 @@ defmodule Cforum.Forums.ModerationQueue do
   """
   def resolve_entry(user, %ModerationQueueEntry{message: message} = entry, attrs) do
     System.audited("update", user, fn ->
-      {:ok, entry} =
+      ret =
         user
         |> ModerationQueueEntry.resolve_changeset(entry, attrs)
         |> Repo.update()
 
-      apply_resolution_action(entry.resolution_action, user, message)
+      case ret do
+        {:ok, entry} ->
+          apply_resolution_action(entry.resolution_action, user, message)
+          {:ok, entry}
 
-      {:ok, entry}
+        _ ->
+          ret
+      end
     end)
   end
 
