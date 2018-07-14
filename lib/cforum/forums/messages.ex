@@ -642,13 +642,20 @@ defmodule Cforum.Forums.Messages do
 
   def mark_messages_read(user, messages) do
     for msg <- messages do
-      {:ok, rm} =
+      ret =
         %ReadMessage{}
         |> ReadMessage.changeset(%{message_id: msg.message_id, user_id: user.user_id})
         |> Repo.insert()
 
-      rm
+      case ret do
+        {:ok, rm} ->
+          rm
+
+        {:error, _} ->
+          nil
+      end
     end
+    |> Enum.filter(&(!is_nil(&1)))
   end
 
   @doc """
