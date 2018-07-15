@@ -16,12 +16,7 @@ defmodule CforumWeb.Messages.SubscriptionController do
         %Message{msg | thread: thread}
       end)
 
-    render(
-      conn,
-      "index.html",
-      messages: messages,
-      paging: paging
-    )
+    render(conn, "index.html", messages: messages, paging: paging)
   end
 
   def subscribe(conn, params) do
