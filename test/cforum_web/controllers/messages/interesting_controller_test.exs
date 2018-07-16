@@ -29,8 +29,7 @@ defmodule CforumWeb.Messages.InterestingControllerTest do
 
     test "responds with 403 on interesting messages", %{conn: conn, user: user, thread: thread, message: message} do
       Messages.mark_message_interesting(user, message)
-      conn = post(conn, interesting_message_path(conn, thread, message))
-      assert html_response(conn, 403)
+      assert_error_sent(403, fn -> post(conn, interesting_message_path(conn, thread, message)) end)
     end
   end
 
@@ -43,8 +42,7 @@ defmodule CforumWeb.Messages.InterestingControllerTest do
     end
 
     test "responds with 403 on already boring messages", %{conn: conn, thread: thread, message: message} do
-      conn = post(conn, boring_message_path(conn, thread, message))
-      assert html_response(conn, 403)
+      assert_error_sent(403, fn -> post(conn, boring_message_path(conn, thread, message)) end)
     end
   end
 
