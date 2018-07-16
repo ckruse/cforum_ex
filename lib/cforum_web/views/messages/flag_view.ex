@@ -14,10 +14,10 @@ defmodule CforumWeb.Messages.FlagView do
   def l10n_reason("off-topic"), do: gettext("Message is off topic.")
 
   def l10n_reason("not-constructive"),
-    do: gettext("Message is unconstructive or provocative and contributes to a deterioration of sentiment.")
+    do: gettext("message is unconstructive or provocative and contributes to a deterioration of sentiment")
 
-  def l10n_reason("illegal"), do: gettext("Message is illegal.")
-  def l10n_reason("duplicate"), do: gettext("Message is a duplicate of another message.")
+  def l10n_reason("illegal"), do: gettext("message is illegal")
+  def l10n_reason("duplicate"), do: gettext("message is a duplicate of another message")
   def l10n_reason("custom"), do: gettext("custom reason")
-  def l10n_reason("spam"), do: gettext("Message is spam.")
+  def l10n_reason("spam"), do: gettext("message is spam")
 end

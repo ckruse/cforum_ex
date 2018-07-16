@@ -16,7 +16,7 @@
         {gettext("choose an action"), ""},
         {gettext("no action"), "none"},
         {gettext("manual intervention"), "manual"},
-        {gettext("set message and children to no archive"), "no-archive"},
+        {gettext("set message and children to „no archive“"), "no-archive"},
         {gettext("close message and children"), "close"},
         {gettext("delete message and children"), "delete"}
       ]

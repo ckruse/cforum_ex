@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2018-07-12 06:53+0200\n"
+"PO-Revision-Date: 2018-07-16 09:12+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "nicht angemeldet"
 msgid "You have to be logged in and an admin to see this page!"
 msgstr "Sie müssen sich einloggen und über Administrator-Rechte verfügen, um diese Seite sehen zu dürfen!"
 
-#: lib/cforum_web/error_handler.ex:9 lib/cforum_web/plug/authorize_access.ex:38
+#: lib/cforum_web/error_handler.ex:9
 msgid "You have to be logged in to see this page!"
 msgstr "Sie müssen sich einloggen, um diese Seite sehen zu dürfen!"
 
@@ -45,7 +45,6 @@ msgid "Username or password wrong"
 msgstr "Benutzername oder Passwort sind falsch."
 
 #: lib/cforum_web/error_handler.ex:25 lib/cforum_web/error_handler.ex:33
-#: lib/cforum_web/plug/authorize_access.ex:32
 msgid "You don't have access to this page!"
 msgstr "Sie haben keinen Zugriff auf diese Seite!"
 
@@ -72,7 +71,7 @@ msgstr "alle anzeigen"
 msgid "Cites"
 msgstr "Zitatesammlung"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:102
+#: lib/cforum_web/templates/layout/page_header.html.eex:108
 msgid "Administration"
 msgstr "Verwaltung"
 
@@ -82,7 +81,7 @@ msgstr "Verwaltung"
 msgid "Forums"
 msgstr "Foren"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:97
+#: lib/cforum_web/templates/layout/page_header.html.eex:103
 msgid "Atom feed"
 msgstr "Atom-Feed"
 
@@ -96,7 +95,7 @@ msgstr "Atom-Feed (%{forum})"
 msgid "Chat"
 msgstr "Chat"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:98
+#: lib/cforum_web/templates/layout/page_header.html.eex:104
 msgid "RSS feed"
 msgstr "RSS-Feed"
 
@@ -136,7 +135,7 @@ msgid "login"
 msgstr "anmelden"
 
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:56
-#: lib/cforum_web/templates/layout/page_header.html.eex:80
+#: lib/cforum_web/templates/layout/page_header.html.eex:86
 #: lib/cforum_web/views/admin/setting_view.ex:29
 msgid "nested view"
 msgstr "Nested-Ansicht"
@@ -151,20 +150,20 @@ msgstr "SELFHTML Forum"
 msgid "register"
 msgstr "Benutzerkonto erstellen"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:86
+#: lib/cforum_web/templates/layout/page_header.html.eex:92
 msgid "sort ascending"
 msgstr "aufsteigend sortieren"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:89
+#: lib/cforum_web/templates/layout/page_header.html.eex:95
 msgid "sort descending"
 msgstr "absteigend sortieren"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:92
+#: lib/cforum_web/templates/layout/page_header.html.eex:98
 msgid "sort newest first"
 msgstr "nach neuestem Beitrag sortieren"
 
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:55
-#: lib/cforum_web/templates/layout/page_header.html.eex:78
+#: lib/cforum_web/templates/layout/page_header.html.eex:84
 #: lib/cforum_web/views/admin/setting_view.ex:30
 msgid "thread view"
 msgstr "Thread-Ansicht"
@@ -177,7 +176,7 @@ msgstr "Forum als Ergänzung zum SELFHTML-Wiki und zur Dokumentation SELFHTML"
 msgid "keywords_text"
 msgstr "SELFHTML Forum, SELFHTML, Forum, SELFForum"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:110
+#: lib/cforum_web/templates/layout/page_header.html.eex:116
 #: lib/cforum_web/views/archive_view.ex:4
 msgid "archive"
 msgstr "archivierte Beiträge"
@@ -237,6 +236,7 @@ msgstr "neue Benachrichtigungen"
 msgid "notifications"
 msgstr "Benachrichtigungen"
 
+#: lib/cforum_web/templates/admin/audit/index.html.eex:25
 #: lib/cforum_web/templates/admin/subnav.html.eex:3
 #: lib/cforum_web/templates/layout/personal_links.html.eex:10
 #: lib/cforum_web/views/admin/setting_view.ex:4
@@ -250,8 +250,11 @@ msgstr "Einstellungen"
 #: lib/cforum_web/templates/admin/redirection/form.html.eex:3
 #: lib/cforum_web/templates/admin/user/form.html.eex:3
 #: lib/cforum_web/templates/cite/form.html.eex:2
+#: lib/cforum_web/templates/events/attendee/form.html.eex:3
 #: lib/cforum_web/templates/mail/new.html.eex:2
 #: lib/cforum_web/templates/message/new.html.eex:2
+#: lib/cforum_web/templates/messages/flag/new.html.eex:3
+#: lib/cforum_web/templates/moderation/edit.html.eex:3
 #: lib/cforum_web/templates/tag/form.html.eex:3
 #: lib/cforum_web/templates/tags/synonym/form.html.eex:3
 #: lib/cforum_web/templates/thread/new.html.eex:2
@@ -451,6 +454,7 @@ msgstr "alle Bewertungen"
 msgid "info"
 msgstr "Informationen"
 
+#: lib/cforum_web/templates/admin/audit/index.html.eex:15
 #: lib/cforum_web/templates/admin/user/index.html.eex:18
 #: lib/cforum_web/templates/tag/show.html.eex:26
 #: lib/cforum_web/templates/users/user/index.html.eex:17
@@ -489,10 +493,11 @@ msgstr "Registriert seit"
 msgid "this thread is sticky"
 msgstr "Der Thread ist angepinnt."
 
-#: lib/cforum_web/templates/cite/cite.html.eex:37
+#: lib/cforum_web/templates/cite/cite.html.eex:39
 #: lib/cforum_web/templates/message/header.html.eex:9
 #: lib/cforum_web/templates/message/header_votes.html.eex:2
 #: lib/cforum_web/templates/message/header_votes.html.eex:3
+#: lib/cforum_web/templates/message/votes_accept.html.eex:39
 msgid "Score: no score"
 msgid_plural "Score: %{score}"
 msgstr[0] "Bewertung: keine Bewertung"
@@ -551,8 +556,11 @@ msgstr "Avatar"
 #: lib/cforum_web/templates/admin/user/form.html.eex:39
 #: lib/cforum_web/templates/cite/edit.html.eex:6
 #: lib/cforum_web/templates/cite/new.html.eex:6
+#: lib/cforum_web/templates/events/attendee/form.html.eex:71
 #: lib/cforum_web/templates/mail/new.html.eex:16
 #: lib/cforum_web/templates/message/new.html.eex:21
+#: lib/cforum_web/templates/messages/flag/new.html.eex:33
+#: lib/cforum_web/templates/moderation/edit.html.eex:37
 #: lib/cforum_web/templates/tag/edit_merge.html.eex:13
 #: lib/cforum_web/templates/tag/form.html.eex:23
 #: lib/cforum_web/templates/tags/synonym/form.html.eex:16
@@ -708,10 +716,12 @@ msgid "yes, notify me"
 msgstr "ja, benachrichtige mich"
 
 #: lib/cforum_web/templates/admin/badge/index.html.eex:23
+#: lib/cforum_web/templates/admin/event/form.html.eex:53
 #: lib/cforum_web/templates/admin/event/index.html.eex:24
 #: lib/cforum_web/templates/admin/forum/index.html.eex:26
 #: lib/cforum_web/templates/admin/group/index.html.eex:23
 #: lib/cforum_web/templates/admin/redirection/index.html.eex:24
+#: lib/cforum_web/templates/admin/user/form.html.eex:44
 #: lib/cforum_web/templates/admin/user/index.html.eex:22
 #: lib/cforum_web/templates/event/attendee.html.eex:44
 #: lib/cforum_web/templates/notification/index.html.eex:27
@@ -847,10 +857,12 @@ msgid "created at"
 msgstr "Erstellungszeitpunkt"
 
 #: lib/cforum_web/templates/admin/badge/index.html.eex:23
+#: lib/cforum_web/templates/admin/event/form.html.eex:53
 #: lib/cforum_web/templates/admin/event/index.html.eex:24
 #: lib/cforum_web/templates/admin/forum/index.html.eex:26
 #: lib/cforum_web/templates/admin/group/index.html.eex:23
 #: lib/cforum_web/templates/admin/redirection/index.html.eex:24
+#: lib/cforum_web/templates/admin/user/form.html.eex:44
 #: lib/cforum_web/templates/admin/user/index.html.eex:22
 #: lib/cforum_web/templates/mail/index.html.eex:30
 #: lib/cforum_web/templates/notification/index.html.eex:27
@@ -1254,12 +1266,14 @@ msgstr "weniger als fünf Sekunden"
 msgid "less than a minute"
 msgstr "weniger als einer Minute"
 
-#: lib/cforum_web/views/message_view.ex:80
+#: lib/cforum_web/templates/admin/audit/threads.html.eex:11
+#: lib/cforum_web/views/message_view.ex:82
 msgid "by"
 msgstr "von"
 
 #: lib/cforum_web/templates/message/form.html.eex:40
-#: lib/cforum_web/templates/message/message.html.eex:10
+#: lib/cforum_web/templates/message/message.html.eex:7
+#: lib/cforum_web/templates/moderation/entry.html.eex:17
 msgid "problematic site"
 msgstr "problematische Seite"
 
@@ -1273,7 +1287,7 @@ msgstr "Beitrag lesen"
 msgid "user information"
 msgstr "Benutzer-Informationen"
 
-#: lib/cforum_web/views/message_view.ex:85
+#: lib/cforum_web/views/message_view.ex:87
 msgid "new answer to %{name}"
 msgstr "Antwort an „%{name}“ verfassen"
 
@@ -1326,6 +1340,7 @@ msgstr "float:left mit einem Flexbox-Konstrukt ersetzen"
 msgid "show preview"
 msgstr "Vorschau"
 
+#: lib/cforum_web/templates/admin/audit/index.html.eex:19
 #: lib/cforum_web/templates/message/form.html.eex:61
 msgid "tags"
 msgstr "Tags"
@@ -1341,8 +1356,9 @@ msgstr "freiwillig, öffentlich sichtbar"
 msgid "link to profile of"
 msgstr "Link zum Profil von"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:50
+#: lib/cforum_web/templates/admin/audit/index.html.eex:34
 #: lib/cforum_web/templates/layout/page_header.html.eex:56
+#: lib/cforum_web/templates/layout/page_header.html.eex:62
 msgid "search"
 msgstr "suchen"
 
@@ -1385,7 +1401,7 @@ msgstr "Seitenauswahl"
 msgid "previous page"
 msgstr "eine Seite zurück"
 
-#: lib/cforum/forums/message.ex:134
+#: lib/cforum/forums/message.ex:136
 msgid "unknown tags given: %{tags}"
 msgstr "Folgende Tags sind unbekannt: %{tags}."
 
@@ -1420,7 +1436,7 @@ msgstr "Silber-Medaille"
 
 #: lib/cforum_web/templates/forum/index.html.eex:14
 #: lib/cforum_web/templates/layout/page_header.html.eex:21
-#: lib/cforum_web/views/layout_view.ex:194
+#: lib/cforum_web/views/layout_view.ex:195
 #: lib/cforum_web/views/thread_view.ex:26 lib/cforum_web/views/thread_view.ex:33
 msgid "all forums"
 msgstr "alle Foren"
@@ -1441,37 +1457,37 @@ msgid "Message was successfully marked as interesting."
 msgstr "Der Beitrag wurde erfolgreich als interessant markiert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/subscription_controller.ex:40
+#: lib/cforum_web/controllers/messages/subscription_controller.ex:26
 msgid "Message was successfully subscribed."
 msgstr "Der Baum wurde erfolgreich abonniert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/subscription_controller.ex:57
+#: lib/cforum_web/controllers/messages/subscription_controller.ex:34
 msgid "Message was successfully unsubscribed."
 msgstr "Der Baum wurde erfolgreich deabonniert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/open_close_controller.ex:31
+#: lib/cforum_web/controllers/threads/open_close_controller.ex:35
 msgid "Thread has successfully been closed."
 msgstr "Der Thread wurde erfolgreich zugeklappt."
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/invisible_controller.ex:48
+#: lib/cforum_web/controllers/threads/invisible_controller.ex:50
 msgid "Thread has successfully been hidden."
 msgstr "Der Thread wurde erfolgreich ausgeblendet."
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/mark_read_controller.ex:18
+#: lib/cforum_web/controllers/messages/mark_read_controller.ex:20
 msgid "Thread has successfully been marked as read."
 msgstr "Der Thread wurde erfolgreich als gelesen markiert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/open_close_controller.ex:17
+#: lib/cforum_web/controllers/threads/open_close_controller.ex:19
 msgid "Thread has successfully been opened."
 msgstr "Der Thread wurde erfolgreich aufgeklappt."
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/invisible_controller.ex:62
+#: lib/cforum_web/controllers/threads/invisible_controller.ex:66
 msgid "Thread has successfully been restored."
 msgstr "Der Thread wurde erfolgreich wiederhergestellt."
 
@@ -1494,12 +1510,12 @@ msgid "hide this thread"
 msgstr "Diesen Thread ausblenden"
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:129
+#: lib/cforum_web/templates/layout/page_header.html.eex:135
 msgid "interesting messages"
 msgstr "als interessant markierte Beiträge"
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:131
+#: lib/cforum_web/templates/layout/page_header.html.eex:137
 #: lib/cforum_web/views/threads/invisible_view.ex:4
 msgid "invisible threads"
 msgstr "ausgeblendete Threads"
@@ -1513,7 +1529,7 @@ msgstr "Diesen Thread wieder einblenden"
 #, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:14
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:16
-#: lib/cforum_web/templates/message/message.html.eex:64
+#: lib/cforum_web/templates/message/message.html.eex:57
 msgid "mark message as interesting"
 msgstr "Beitrag als interessant markieren"
 
@@ -1552,11 +1568,12 @@ msgstr "Interessant-Markierung entfernen"
 #, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:29
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:31
+#: lib/cforum_web/templates/message/message.html.eex:66
 msgid "subscribe message"
 msgstr "Baum abonnieren"
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:130
+#: lib/cforum_web/templates/layout/page_header.html.eex:136
 #: lib/cforum_web/views/messages/subscription_view.ex:4
 msgid "subscribed messages"
 msgstr "abonnierte Beiträge"
@@ -1564,6 +1581,7 @@ msgstr "abonnierte Beiträge"
 #, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:23
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:25
+#: lib/cforum_web/templates/message/message.html.eex:70
 msgid "unsubscribe message"
 msgstr "Baum deabonnieren"
 
@@ -1621,7 +1639,7 @@ msgid "Mail created successfully."
 msgstr "Mail erfolgreich gespeichert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:102
+#: lib/cforum_web/controllers/mail_controller.ex:99
 msgid "Mail deleted successfully."
 msgstr "Mail erfolgreich gelöscht."
 
@@ -1682,6 +1700,7 @@ msgstr "Beitragstext"
 #: lib/cforum_web/templates/admin/group/form.html.eex:7
 #: lib/cforum_web/templates/event/attendee.html.eex:2
 #: lib/cforum_web/templates/event/index.html.eex:4
+#: lib/cforum_web/templates/events/attendee/form.html.eex:9
 msgid "name"
 msgstr "Name"
 
@@ -1715,29 +1734,30 @@ msgid "username or email"
 msgstr "Benutzername oder Email-Adresse"
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:51
+#: lib/cforum_web/templates/layout/page_header.html.eex:57
 msgid "chat"
 msgstr "Chat"
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:47
+#: lib/cforum_web/templates/admin/audit/index.html.eex:16
+#: lib/cforum_web/templates/layout/page_header.html.eex:53
 #: lib/cforum_web/views/cite_view.ex:6
 msgid "cites"
 msgstr "Zitatesammlung"
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:52
+#: lib/cforum_web/templates/layout/page_header.html.eex:58
 msgid "help"
 msgstr "Hilfe"
 
 #, elixir-format
-#: lib/cforum_web/templates/cite/cite.html.eex:4
+#: lib/cforum_web/templates/cite/cite.html.eex:5
 #: lib/cforum_web/views/cite_view.ex:8
 msgid "cite %{id}"
 msgstr "Zitat #%{id}"
 
 #, elixir-format
-#: lib/cforum_web/templates/cite/cite.html.eex:52
+#: lib/cforum_web/templates/cite/cite.html.eex:54
 msgid "created by"
 msgstr "erstellt von"
 
@@ -1795,6 +1815,8 @@ msgstr "Gruppen verwalten"
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/subnav.html.eex:10
+#: lib/cforum_web/views/admin/auditing_view.ex:4
+#: lib/cforum_web/views/admin/auditing_view.ex:5
 msgid "audit log"
 msgstr "Audit-Log"
 
@@ -1804,7 +1826,10 @@ msgid "background tasks"
 msgstr "Hintergrundaufträge"
 
 #, elixir-format
+#: lib/cforum_web/templates/admin/audit/index.html.eex:28
+#: lib/cforum_web/templates/admin/audit/users.html.eex:2
 #: lib/cforum_web/templates/admin/subnav.html.eex:7
+#: lib/cforum_web/views/badge_view.ex:4
 msgid "badges"
 msgstr "Medaillen"
 
@@ -1814,6 +1839,7 @@ msgid "created"
 msgstr "Erstellungszeitpunkt"
 
 #, elixir-format
+#: lib/cforum_web/templates/admin/audit/index.html.eex:23
 #: lib/cforum_web/templates/admin/subnav.html.eex:5
 #: lib/cforum_web/views/admin/event_view.ex:4
 #: lib/cforum_web/views/event_view.ex:4
@@ -1821,6 +1847,7 @@ msgid "events"
 msgstr "Ereignisse"
 
 #, elixir-format
+#: lib/cforum_web/templates/admin/audit/index.html.eex:26
 #: lib/cforum_web/templates/admin/subnav.html.eex:4
 #: lib/cforum_web/templates/forum/index.html.eex:5
 #: lib/cforum_web/templates/layout/page_header.html.eex:18
@@ -1855,6 +1882,8 @@ msgstr "neue Gruppe"
 #: lib/cforum_web/templates/admin/group/form.html.eex:33
 #: lib/cforum_web/templates/admin/redirection/form.html.eex:31
 #: lib/cforum_web/templates/admin/user/form.html.eex:38
+#: lib/cforum_web/templates/events/attendee/form.html.eex:70
+#: lib/cforum_web/templates/moderation/edit.html.eex:36
 #: lib/cforum_web/templates/tag/edit_merge.html.eex:12
 #: lib/cforum_web/templates/tag/form.html.eex:22
 #: lib/cforum_web/templates/tags/synonym/form.html.eex:15
@@ -1872,6 +1901,7 @@ msgid "updated"
 msgstr "geändert"
 
 #, elixir-format
+#: lib/cforum_web/templates/admin/audit/index.html.eex:17
 #: lib/cforum_web/templates/admin/group/form.html.eex:13
 #: lib/cforum_web/templates/admin/subnav.html.eex:2
 msgid "users"
@@ -1943,6 +1973,7 @@ msgid "edit user „%{name}“"
 msgstr "Gruppe „%{name}“ bearbeiten"
 
 #, elixir-format
+#: lib/cforum_web/templates/admin/audit/index.html.eex:27
 #: lib/cforum_web/templates/admin/subnav.html.eex:6
 msgid "groups"
 msgstr "Gruppen"
@@ -2466,6 +2497,7 @@ msgstr "Weiterleitungen verwalten"
 #, elixir-format
 #: lib/cforum_web/templates/admin/redirection/form.html.eex:25
 #: lib/cforum_web/templates/admin/redirection/index.html.eex:8
+#: lib/cforum_web/templates/events/attendee/form.html.eex:61
 msgid "comment"
 msgstr "Kommentar"
 
@@ -2493,6 +2525,7 @@ msgid "path"
 msgstr "Pfad"
 
 #, elixir-format
+#: lib/cforum_web/templates/admin/audit/index.html.eex:29
 #: lib/cforum_web/templates/admin/subnav.html.eex:12
 msgid "redirections"
 msgstr "Weiterleitungen"
@@ -2847,12 +2880,12 @@ msgid "TODO keywords_text"
 msgstr "SELFHTML Forum, SELFHTML, Forum, SELFForum"
 
 #, elixir-format
-#: lib/cforum_web/views/layout_view.ex:182
+#: lib/cforum_web/views/layout_view.ex:183
 msgid "administrative view"
 msgstr "Administrator-Ansicht"
 
 #, elixir-format
-#: lib/cforum_web/views/layout_view.ex:181
+#: lib/cforum_web/views/layout_view.ex:182
 msgid "normal view"
 msgstr "Administrator-Ansicht deaktivieren"
 
@@ -2890,6 +2923,7 @@ msgid "edit event %{name}"
 msgstr "Ereignis „%{name}“ bearbeiten"
 
 #, elixir-format
+#: lib/cforum_web/templates/admin/audit/index.html.eex:8
 #: lib/cforum_web/templates/admin/event/form.html.eex:19
 #: lib/cforum_web/templates/admin/event/index.html.eex:7
 #: lib/cforum_web/templates/event/index.html.eex:7
@@ -2902,6 +2936,7 @@ msgid "event is visible"
 msgstr "Ereignis ist sichtbar"
 
 #, elixir-format
+#: lib/cforum_web/templates/admin/audit/events.html.eex:4
 #: lib/cforum_web/templates/admin/event/form.html.eex:35
 #: lib/cforum_web/templates/admin/event/index.html.eex:5
 #: lib/cforum_web/templates/event/index.html.eex:5
@@ -2915,6 +2950,7 @@ msgid "new event"
 msgstr "neues Ereignis"
 
 #, elixir-format
+#: lib/cforum_web/templates/admin/audit/index.html.eex:3
 #: lib/cforum_web/templates/admin/event/form.html.eex:13
 #: lib/cforum_web/templates/admin/event/index.html.eex:6
 #: lib/cforum_web/templates/event/index.html.eex:6
@@ -2932,7 +2968,7 @@ msgid "in %{location}"
 msgstr "in <span class=\"p-location\">%{location}</span>"
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message.html.eex:24
+#: lib/cforum_web/templates/message/message.html.eex:17
 msgid "This message got cited in cite %{cite_links}"
 msgid_plural "This message got cited in cites %{cite_links}"
 msgstr[0] "Grundlage für kein Zitat."
@@ -2948,12 +2984,12 @@ msgstr[1] "ein Teilnehmer"
 msgstr[2] "%{count} Teilnehmer"
 
 #, elixir-format
-#: lib/cforum_web/templates/event/show.html.eex:30
+#: lib/cforum_web/templates/event/show.html.eex:34
 msgid "No attendees, yet."
 msgstr "Bisher keine Teilnehmer."
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message.html.eex:60
+#: lib/cforum_web/templates/message/message.html.eex:53
 msgid "Start a close vote"
 msgstr "Abstimmung über Beitrag starten"
 
@@ -2962,18 +2998,19 @@ msgstr "Abstimmung über Beitrag starten"
 msgid "delete attendee"
 msgstr "Teilnehmer entfernen"
 
-#, elixir-format, fuzzy
-#: lib/cforum_web/templates/message/message.html.eex:52
+#, elixir-format
+#: lib/cforum_web/templates/message/message.html.eex:45
 msgid "edit message"
 msgstr "Beitrag bearbeiten"
 
-#, elixir-format, fuzzy
-#: lib/cforum_web/templates/message/message.html.eex:48
+#, elixir-format
+#: lib/cforum_web/templates/message/message.html.eex:41
+#: lib/cforum_web/templates/messages/flag/new.html.eex:32
 msgid "flag message"
 msgstr "Beitrag melden"
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message.html.eex:40
+#: lib/cforum_web/templates/message/message.html.eex:33
 msgid "mail to author"
 msgstr "Nachricht an den Autor"
 
@@ -2982,33 +3019,36 @@ msgstr "Nachricht an den Autor"
 msgid "map of the event location area"
 msgstr "Karte der Zielregion"
 
-#, elixir-format, fuzzy
-#: lib/cforum_web/templates/message/message.html.eex:68
+#, elixir-format
+#: lib/cforum_web/templates/message/message.html.eex:61
 msgid "mark message as boring"
 msgstr "Interessant-Markierung entfernen"
 
 #, elixir-format
 #: lib/cforum_web/templates/event/attendee.html.eex:22
+#: lib/cforum_web/templates/events/attendee/form.html.eex:43
 msgid "planned arrival"
 msgstr "geplante Ankunft"
 
 #, elixir-format
 #: lib/cforum_web/templates/event/attendee.html.eex:27
+#: lib/cforum_web/templates/events/attendee/form.html.eex:52
 msgid "planned leave"
 msgstr "geplante Abreise"
 
 #, elixir-format
 #: lib/cforum_web/templates/event/attendee.html.eex:17
+#: lib/cforum_web/templates/events/attendee/form.html.eex:34
 msgid "planned start"
 msgstr "geplanter Reisebeginn"
 
 #, elixir-format
-#: lib/cforum_web/views/message_view.ex:221
+#: lib/cforum_web/views/message_view.ex:223
 msgid "regarding your message %{subject} from %{time}"
 msgstr "Dein Beitrag „%{subject}“ vom %{time}"
 
-#, elixir-format, fuzzy
-#: lib/cforum_web/templates/message/message.html.eex:44
+#, elixir-format
+#: lib/cforum_web/templates/message/message.html.eex:37
 msgid "retag message"
 msgstr "Tags neu vergeben"
 
@@ -3017,8 +3057,8 @@ msgstr "Tags neu vergeben"
 msgid "seats available"
 msgstr "Sitzplätze verfügbar"
 
-#, elixir-format, fuzzy
-#: lib/cforum_web/templates/message/message.html.eex:56
+#, elixir-format
+#: lib/cforum_web/templates/message/message.html.eex:49
 msgid "split thread"
 msgstr "Thread teilen"
 
@@ -3033,11 +3073,700 @@ msgid "take place in event „%{event}“"
 msgstr "An „%{event}“ teilnehmen"
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message.html.eex:32
+#: lib/cforum_web/templates/message/message.html.eex:25
 msgid "write a new answer"
 msgstr "Antwort verfassen"
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message.html.eex:35
+#: lib/cforum_web/templates/message/message.html.eex:28
 msgid "write a new answer with quoting"
 msgstr "Antwort mit Zitat verfassen"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/audit/scores.html.eex:1
+msgid "%{score} points for %{user}"
+msgstr "%{score} Punkte für %{user}"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view.ex:30
+msgid "(unknown)"
+msgstr "(unbekannt)"
+
+#, elixir-format
+#: lib/cforum_web/controllers/events/attendee_controller.ex:45
+msgid "Attendee deleted successfully."
+msgstr "Teilnehmer erfolgreich gelöscht."
+
+#, elixir-format
+#: lib/cforum_web/templates/badge/index.html.eex:1
+msgid "Be aware of the scoring rules!"
+msgstr "Beachten Sie die <a href=\"https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Bewertungsregeln\">Bewertungsregeln</a> und die <a href=\"https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Rechte\">Rechte</a>, die erworben werden können!"
+
+#, elixir-format
+#: lib/cforum_web/controllers/cite_controller.ex:26
+msgid "Cite created successfully."
+msgstr "Zitat erfolgreich erstellt."
+
+#, elixir-format
+#: lib/cforum_web/controllers/cite_controller.ex:64
+msgid "Cite deleted successfully."
+msgstr "Zitat erfolgreich gelöscht."
+
+#, elixir-format
+#: lib/cforum_web/controllers/cite_controller.ex:51
+msgid "Cite updated successfully."
+msgstr "Zitat erfolgreich geändert."
+
+#, elixir-format
+#: lib/cforum_web/controllers/messages/accept_controller.ex:11
+msgid "Message has successfully been accepted as a solving answer"
+msgstr "Der Beitrag wurde erfolgreich als Lösung akzeptiert"
+
+#, elixir-format
+#: lib/cforum_web/controllers/messages/flag_controller.ex:16
+msgid "Message has successfully been flagged."
+msgstr "Der Beitrag wurde erfolgreich gemeldet."
+
+#, elixir-format
+#: lib/cforum_web/controllers/messages/accept_controller.ex:19
+msgid "Message has successfully been unaccepted as a solving answer"
+msgstr "Der Beitrag wird nicht länger als Lösung akzeptiert"
+
+#, elixir-format
+#: lib/cforum_web/views/messages/flag_view.ex:14
+msgid "Message is off topic."
+msgstr "Der Beitrag ist außerhalb des durch dieses Forum abgedeckten Themenbereichs."
+
+#, elixir-format
+#: lib/cforum_web/controllers/moderation_controller.ex:65
+msgid "Moderation case successfully solved."
+msgstr "Der Moderations-Fall wurde erfolgreich als geklärt markiert."
+
+#, elixir-format
+#: lib/cforum_web/templates/moderation/index.html.eex:3
+msgid "No moderation queue entries found"
+msgstr "Keine Moderations-Fälle gefunden."
+
+#, elixir-format
+#: lib/cforum_web/templates/events/attendee/form.html.eex:21
+msgid "Steinfurt"
+msgstr "Steinfurt"
+
+#, elixir-format
+#: lib/cforum_web/controllers/messages/vote_controller.ex:29
+msgid "Successfully downvoted message"
+msgstr "Der Beitrag wurde erfolgreich negativ bewertet"
+
+#, elixir-format
+#: lib/cforum_web/controllers/messages/vote_controller.ex:11
+#: lib/cforum_web/controllers/messages/vote_controller.ex:26
+msgid "Successfully took back vote"
+msgstr "Die Wahl wurde erfolgreich zurück genommen"
+
+#, elixir-format
+#: lib/cforum_web/controllers/messages/vote_controller.ex:14
+msgid "Successfully upvoted message"
+msgstr "Der Beitrag wurde erfolgreich positiv bewertet"
+
+#, elixir-format
+#: lib/cforum_web/templates/moderation/entry.html.eex:25
+msgid "This message has been flagged: %{reason}"
+msgstr "Diese Nachricht wurde gemeldet: %{reason}"
+
+#, elixir-format
+#: lib/cforum_web/templates/moderation/entry.html.eex:32
+msgid "This moderation case has been solved by %{user}: %{resolution}"
+msgstr "Dieser Moderations-Fall wurde durch %{user} geklärt: %{resolution}"
+
+#, elixir-format
+#: lib/cforum_web/templates/messages/flag/new.html.eex:16
+msgid "URL of the original message"
+msgstr "URL der Original-Nachricht"
+
+#, elixir-format
+#: lib/cforum_web/controllers/events/attendee_controller.ex:16
+msgid "You registered successfully."
+msgstr "Sie haben sich erfolgreich am Ereignis angemeldet."
+
+#, elixir-format
+#: lib/cforum_web/controllers/events/attendee_controller.ex:33
+msgid "Your registration was successfully updated."
+msgstr "Ihre Anmeldung wurde erfolgreich geändert."
+
+#, elixir-format
+#: lib/cforum_web/templates/message/votes_accept.html.eex:5
+msgid "accept answer"
+msgstr "Antwort akzeptieren"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/audit/index.html.eex:45
+msgid "action"
+msgstr "Aktion"
+
+#, elixir-format
+#: lib/cforum_web/templates/event/show.html.eex:30
+msgid "attend event"
+msgstr "an Ereignis teilnehmen"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/audit/attendees.html.eex:2
+msgid "attendee %{name}"
+msgstr "Teilnehmer „%{name}“"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/audit/index.html.eex:24
+msgid "attendees"
+msgstr "Teilnehmer"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/audit/index.html.eex:38
+msgid "auditing entries"
+msgstr "Audit-Einträge"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:13
+msgid "auditing: accepted score"
+msgstr "Akzeptieren-Punkte vergeben"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:16
+msgid "auditing: accepted unscore"
+msgstr "Akzeptieren-Punkte zurückgenommen"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:45
+msgid "auditing: attendees: create"
+msgstr "Teilnehmer erstellt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:47
+msgid "auditing: attendees: destroy"
+msgstr "Teilnehmer gelöscht"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:46
+msgid "auditing: attendees: update"
+msgstr "Teilnehmer geändert"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:9
+msgid "auditing: autodestroy user"
+msgstr "Benutzer automatisch gelöscht"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:61
+msgid "auditing: badges: create"
+msgstr "Medaille erstellt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:63
+msgid "auditing: badges: destroy"
+msgstr "Medaille gelöscht"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:62
+msgid "auditing: badges: update"
+msgstr "Medaille geändert"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:39
+msgid "auditing: cites: archive"
+msgstr "Zitat archiviert"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:36
+msgid "auditing: cites: create"
+msgstr "Zitat erstellt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:38
+msgid "auditing: cites: destroy"
+msgstr "Zitat gelöscht"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:37
+msgid "auditing: cites: update"
+msgstr "Zitat geändert"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:28
+msgid "auditing: close_votes: create"
+msgstr "Sperr-/Entsperr-Abstimmung erstellt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:31
+msgid "auditing: close_votes: finished"
+msgstr "Sperr-/Entsperr-Abstimmung beendet"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:10
+msgid "auditing: confirm user"
+msgstr "Benutzer bestätigt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:6
+msgid "auditing: create user"
+msgstr "Benutzer erstellt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:8
+msgid "auditing: destroy user"
+msgstr "Benutzer gelöscht"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:41
+msgid "auditing: events: create"
+msgstr "Ereignis erstellt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:43
+msgid "auditing: events: destroy"
+msgstr "Ereignis gelöscht"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:42
+msgid "auditing: events: update"
+msgstr "Ereignis geändert"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:53
+msgid "auditing: forums: create"
+msgstr "Forum erstellt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:55
+msgid "auditing: forums: destroy"
+msgstr "Forum gelöscht"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:54
+msgid "auditing: forums: update"
+msgstr "Forum geändert"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:57
+msgid "auditing: groups: create"
+msgstr "Gruppe erstellt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:59
+msgid "auditing: groups: destroy"
+msgstr "Gruppe gelöscht"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:58
+msgid "auditing: groups: update"
+msgstr "Gruppe geändert"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:33
+msgid "auditing: media: create"
+msgstr "Medium erstellt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:34
+msgid "auditing: media: destroy"
+msgstr "Medium gelöscht"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:100
+msgid "auditing: messages: accepted-no"
+msgstr "Beitrag nicht länger akzeptiert"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:97
+msgid "auditing: messages: accepted-yes"
+msgstr "Beitrag akzeptiert"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:85
+msgid "auditing: messages: create"
+msgstr "Beitrag erstellt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:94
+msgid "auditing: messages: del_versions"
+msgstr "alte Versionen des Beitrags gelöscht"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:88
+msgid "auditing: messages: delete"
+msgstr "Beitrag gelöscht"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:115
+msgid "auditing: messages: flagged-custom"
+msgstr "Beitrag gemeldet: sonstiger Grund"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:109
+msgid "auditing: messages: flagged-duplicate"
+msgstr "Beitrag gemeldet: Doppelposting"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:106
+msgid "auditing: messages: flagged-not-constructive"
+msgstr "Beitrag gemeldet: unkonstruktiv oder provokativ"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:103
+msgid "auditing: messages: flagged-off-topic"
+msgstr "Beitrag gemeldet: Off-Topic"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:112
+msgid "auditing: messages: flagged-spam"
+msgstr "Beitrag gemeldet: Spam"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:90
+msgid "auditing: messages: move"
+msgstr "Beitrag verschoben"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:123
+msgid "auditing: messages: no-answer"
+msgstr "Beitrag geschlossen"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:121
+msgid "auditing: messages: no-answer-admin-no"
+msgstr "Beitrag nicht länger geschlossen (Admin)"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:118
+msgid "auditing: messages: no-answer-admin-yes"
+msgstr "Beitrag geschlossen (Admin)"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:126
+msgid "auditing: messages: no-answer-no"
+msgstr "Beitrag nicht länger geschlossen"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:89
+msgid "auditing: messages: restore"
+msgstr "Beitrag wiederhergestellt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:87
+msgid "auditing: messages: retag"
+msgstr "Tags neu vergeben"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:91
+msgid "auditing: messages: unflagged"
+msgstr "Beitrag nicht länger gemeldet"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:86
+msgid "auditing: messages: update"
+msgstr "Beitrag geändert"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:65
+msgid "auditing: redirections: create"
+msgstr "Weiterleitung erstellt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:69
+msgid "auditing: redirections: destroy"
+msgstr "Weiterleitung gelöscht"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:66
+msgid "auditing: redirections: update"
+msgstr "Weiterleitung geändert"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:49
+msgid "auditing: settings: create"
+msgstr "Einstellungen erstellt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:51
+msgid "auditing: settings: destroy"
+msgstr "Einstellungen gelöscht"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:50
+msgid "auditing: settings: update"
+msgstr "Einstellungen geändert"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:23
+msgid "auditing: tag_synonyms: create"
+msgstr "Tag-Synonym erstellt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:26
+msgid "auditing: tag_synonyms: destroy"
+msgstr "Tag-Synonym gelöscht"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:18
+msgid "auditing: tags: create"
+msgstr "Tag erstellt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:20
+msgid "auditing: tags: destroy"
+msgstr "Tag gelöscht"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:21
+msgid "auditing: tags: merge"
+msgstr "Tags zusammengeführt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:19
+msgid "auditing: tags: update"
+msgstr "Tag geändert"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:73
+msgid "auditing: threads: archive"
+msgstr "Thread archiviert"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:71
+msgid "auditing: threads: create"
+msgstr "Thread erstellt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:72
+msgid "auditing: threads: destroy"
+msgstr "Thread gelöscht"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:74
+msgid "auditing: threads: move"
+msgstr "Thread verschoben"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:82
+msgid "auditing: threads: no-archive-no"
+msgstr "Thread wird archiviert"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:79
+msgid "auditing: threads: no-archive-yes"
+msgstr "Thread wird nicht archiviert"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:75
+msgid "auditing: threads: sticky"
+msgstr "Thread ist angepinnt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:76
+msgid "auditing: threads: unsticky"
+msgstr "Thread nicht länger angepinnt"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:7
+msgid "auditing: update user"
+msgstr "Benutzer geändert"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:11
+msgid "auditing: user gained badge"
+msgstr "Benutzer hat Badge erhalten"
+
+#, elixir-format
+#: lib/cforum_web/views/badge_view.ex:5
+msgid "badge %{name}"
+msgstr "Medaille „%{name}“"
+
+#, elixir-format
+#: lib/cforum_web/templates/moderation/edit.html.eex:16
+msgid "choose an action"
+msgstr "Wählen Sie eine Aktion"
+
+#, elixir-format
+#: lib/cforum_web/templates/moderation/edit.html.eex:20
+#: lib/cforum_web/views/moderation_view.ex:23
+msgid "close message and children"
+msgstr "Beitrag und Kind-Beiträge schliessen"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/audit/index.html.eex:21
+msgid "close votes"
+msgstr "Sperr-Abstimmungen"
+
+#, elixir-format
+#: lib/cforum_web/templates/messages/flag/new.html.eex:24
+#: lib/cforum_web/views/messages/flag_view.ex:21
+msgid "custom reason"
+msgstr "sonstiger Grund"
+
+#, elixir-format
+#: lib/cforum_web/templates/moderation/edit.html.eex:21
+#: lib/cforum_web/views/moderation_view.ex:24
+msgid "delete message and children"
+msgstr "Beitrag und Kind-Beiträge löschen"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/audit/attendees.html.eex:1
+msgid "event %{no}"
+msgstr "Ereignis %{no}"
+
+#, elixir-format
+#: lib/cforum_web/views/messages/flag_view.ex:7
+msgid "flag message %{subject} by %{author}"
+msgstr "Beitrag %{subject} von %{author} melden"
+
+#, elixir-format
+#: lib/cforum_web/templates/message/votes_accept.html.eex:57
+msgid "information about the voting rules"
+msgstr "Informationen zu den Bewertungsregeln"
+
+#, elixir-format
+#: lib/cforum_web/templates/moderation/edit.html.eex:18
+#: lib/cforum_web/views/moderation_view.ex:26
+msgid "manual intervention"
+msgstr "manueller Eingriff"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/audit/index.html.eex:22
+msgid "media"
+msgstr "Medien"
+
+#, elixir-format
+#: lib/cforum_web/views/moderation_view.ex:21
+msgid "message is a duplicate of %{url}"
+msgstr "Beitrag ist ein Duplikat von %{url}"
+
+#, elixir-format
+#: lib/cforum_web/views/messages/flag_view.ex:19
+#: lib/cforum_web/views/moderation_view.ex:16
+msgid "message is illegal"
+msgstr "Beitrag ist rechtlich problematisch"
+
+#, elixir-format
+#: lib/cforum_web/views/moderation_view.ex:15
+msgid "message is not constructive"
+msgstr "Beitrag ist unkonstruktiv"
+
+#, elixir-format
+#: lib/cforum_web/views/moderation_view.ex:14
+msgid "message is off topic"
+msgstr "Beitrag ist außerhalb des durch dieses Forum abgedeckten Themenbereichs"
+
+#, elixir-format
+#: lib/cforum_web/views/messages/flag_view.ex:22
+#: lib/cforum_web/views/moderation_view.ex:17
+msgid "message is spam"
+msgstr "Beitrag ist Spam"
+
+#, elixir-format
+#: lib/cforum_web/views/moderation_view.ex:8
+msgid "moderation"
+msgstr "Moderation"
+
+#, elixir-format
+#: lib/cforum_web/templates/layout/page_header.html.eex:48
+msgid "moderation queue"
+msgstr "Moderations-Queue"
+
+#, elixir-format
+#: lib/cforum_web/templates/moderation/edit.html.eex:17
+msgid "no action"
+msgstr "keine Aktion"
+
+#, elixir-format
+#: lib/cforum_web/views/moderation_view.ex:27
+msgid "no intervention"
+msgstr "nicht eingreifen"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/audit/users.html.eex:4
+msgid "none"
+msgstr "keine"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/audit/index.html.eex:47
+msgid "object"
+msgstr "Objekt"
+
+#, elixir-format
+#: lib/cforum_web/templates/moderation/edit.html.eex:8
+#: lib/cforum_web/templates/moderation/edit.html.eex:28
+msgid "resolution action"
+msgstr "Lösung"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/audit/index.html.eex:18
+msgid "scores"
+msgstr "Punkte"
+
+#, elixir-format
+#: lib/cforum_web/templates/events/attendee/form.html.eex:26
+msgid "seats"
+msgstr "Sitzplätze"
+
+#, elixir-format
+#: lib/cforum_web/templates/moderation/edit.html.eex:19
+#: lib/cforum_web/views/moderation_view.ex:25
+msgid "set message and children to „no archive“"
+msgstr "Setze Thread auf „nicht archivieren“"
+
+#, elixir-format
+#: lib/cforum_web/templates/moderation/entry.html.eex:42
+msgid "solve"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/events/attendee/form.html.eex:18
+msgid "starting at location"
+msgstr "Start-Ort"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/audit/index.html.eex:20
+msgid "tag synonyms"
+msgstr "Synonyme"
+
+#, elixir-format
+#: lib/cforum_web/views/events/attendee_view.ex:8
+msgid "take place in event „%{event}“: attendee „%{attendee}“"
+msgstr "An „%{event}“ teilnehmen: Teilnehmer „%{attendee}“"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/audit/index.html.eex:14
+msgid "threads"
+msgstr "Threads"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/audit/index.html.eex:48
+msgid "timestamp"
+msgstr "Zeitstempel"
+
+#, elixir-format
+#: lib/cforum_web/templates/message/votes_accept.html.eex:14
+msgid "unaccept answer"
+msgstr "Beitrag nicht länger als Lösung akzeptieren"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/audit/index.html.eex:46
+msgid "user"
+msgstr "Benutzer"
+
+#, elixir-format
+#: lib/cforum_web/templates/message/votes_accept.html.eex:29
+msgid "vote down"
+msgstr "negativ bewerten"
+
+#, elixir-format
+#: lib/cforum_web/templates/message/votes_accept.html.eex:46
+msgid "vote up"
+msgstr "positiv bewerten"
+
+#, elixir-format
+#: lib/cforum_web/views/messages/flag_view.ex:20
+msgid "message is a duplicate of another message"
+msgstr "Der Beitrag ist ein Duplikat eines anderen Beitrags."
+
+#, elixir-format
+#: lib/cforum_web/views/messages/flag_view.ex:17
+msgid "message is unconstructive or provocative and contributes to a deterioration of sentiment"
+msgstr "Der Beitrag ist unkonstruktiv oder provokativ und trägt zu einer Verschlechterung der Stimmung bei."
