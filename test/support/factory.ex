@@ -20,6 +20,7 @@ defmodule Cforum.Factory do
   use Cforum.CiteFactory
 
   use Cforum.EventFactory
+  use Cforum.AttendeeFactory
 
   use Cforum.RedirectionFactory
 end
