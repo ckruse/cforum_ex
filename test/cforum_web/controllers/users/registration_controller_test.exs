@@ -8,13 +8,7 @@ defmodule CforumWeb.Users.RegistrationControllerTest do
 
   test "shows a 403 for already logged-in users", %{conn: conn} do
     user = insert(:user)
-
-    conn =
-      login(conn, user)
-      |> get(registration_path(conn, :new))
-
-    assert response(conn, 403)
-    assert get_flash(conn, :error) == gettext("You don't have access to this page!")
+    assert_error_sent(403, fn -> get(login(conn, user), registration_path(conn, :new)) end)
   end
 
   test "registers a new user", %{conn: conn} do
@@ -33,17 +27,14 @@ defmodule CforumWeb.Users.RegistrationControllerTest do
 
   test "does not register a new user when logged in", %{conn: conn} do
     user = insert(:user)
-    conn = login(conn, user)
 
-    conn =
+    assert_error_sent(403, fn ->
       post(
-        conn,
+        login(conn, user),
         registration_path(conn, :create),
         user: %{username: "foobar", email: "foo@example.org", password: "1234", password_confirmation: "1234"}
       )
-
-    assert response(conn, 403)
-    assert get_flash(conn, :error) == gettext("You don't have access to this page!")
+    end)
   end
 
   test "confirms a new user", %{conn: conn} do

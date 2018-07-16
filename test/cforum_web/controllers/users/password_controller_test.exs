@@ -44,10 +44,7 @@ defmodule CforumWeb.Users.PasswordControllerTest do
 
   test "shows 403 for anonymous users", %{conn: conn} do
     user = insert(:user)
-    conn = get(conn, user_password_path(conn, :edit, user))
-
-    assert response(conn, 403)
-    assert get_flash(conn, :error) == gettext("You have to be logged in to see this page!")
+    assert_error_sent(403, fn -> get(conn, user_password_path(conn, :edit, user)) end)
   end
 
   test "changes password", %{conn: conn} do

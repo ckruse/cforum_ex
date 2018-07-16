@@ -29,8 +29,7 @@ defmodule CforumWeb.Messages.SubscriptionControllerTest do
 
     test "responds with 403 on already subscribed messages", %{conn: conn, thread: thread, message: message} do
       conn = post(conn, subscribe_message_path(conn, thread, message))
-      conn = post(conn, subscribe_message_path(conn, thread, message))
-      assert html_response(conn, 403)
+      assert_error_sent(403, fn -> post(conn, subscribe_message_path(conn, thread, message)) end)
     end
   end
 
@@ -43,8 +42,7 @@ defmodule CforumWeb.Messages.SubscriptionControllerTest do
     end
 
     test "doesn't fail on not subscribed messages", %{conn: conn, thread: thread, message: message} do
-      conn = post(conn, unsubscribe_message_path(conn, thread, message))
-      assert html_response(conn, 403)
+      assert_error_sent(403, fn -> post(conn, unsubscribe_message_path(conn, thread, message)) end)
     end
   end
 
