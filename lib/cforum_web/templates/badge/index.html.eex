@@ -1,0 +1,28 @@
+<p><%= {:safe, gettext("Be aware of the scoring rules!")} %></p>
+
+<table class="cf-default-table">
+  <thead>
+    <tr>
+      <th><%= gettext("order") %></th>
+      <th><%= gettext("badge medal type") %></th>
+      <th><%= gettext("name") %></th>
+      <th><%= gettext("score needed") %></th>
+      <th><%= gettext("number of users") %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= for badge <- @badges do %>
+      <tr>
+        <td><%= badge.order %></td>
+        <td><img src="<%= badge_image(@conn, badge) %>"></td>
+        <td><%= link badge.name, to: badge_path(@conn, :show, badge) %></td>
+        <td><%= badge.score_needed %></td>
+        <td><%= length(Badges.unique_users(badge)) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
+
+<%= pagination @conn, @page, &badge_path/3 %>

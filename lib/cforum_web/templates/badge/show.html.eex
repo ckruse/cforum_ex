@@ -1,0 +1,10 @@
+<%= Cforum.MarkdownRenderer.to_html(@badge, assigns[:current_user]) %>
+
+<ul class="cf-badge-user-list">
+  <%= for user <- Badges.unique_users(@badge) do %>
+    <li>
+      <%= user_link(@conn, user.user, [], user.user.username) %>
+      <%= if user.times > 1 do %>× <%= user.times %><% end %> (<%= format_date(@conn, user.created_at) %>)
+    </li>
+  <% end %>
+</ul>

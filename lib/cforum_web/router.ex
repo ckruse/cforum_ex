@@ -99,7 +99,7 @@ defmodule CforumWeb.Router do
     get("/", ForumController, :index, as: :root)
     get("/help", PageController, :help)
 
-    resources("/badges", BadgeController)
+    resources("/badges", BadgeController, only: [:index, :show])
     get("/cites/voting", CiteController, :index_voting, as: :cite)
     post("/cites/:id/vote", Cite.VoteController, :vote, as: :cite)
     resources("/cites", CiteController)

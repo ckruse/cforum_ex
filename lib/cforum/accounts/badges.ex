@@ -18,9 +18,28 @@ defmodule Cforum.Accounts.Badges do
       [%Badge{}, ...]
 
   """
-  def list_badges do
-    from(badge in Badge, order_by: [asc: :order])
+  def list_badges(query_params \\ [order: nil, limit: nil, search: nil]) do
+    from(badge in Badge, preload: [badges_users: :user])
+    |> Cforum.PagingApi.set_limit(query_params[:limit])
+    |> Cforum.OrderApi.set_ordering(query_params[:order], asc: :order)
     |> Repo.all()
+  end
+
+  @doc """
+  Counts the number of badges.
+
+  ## Examples
+
+      iex> count_badges()
+      1
+
+  """
+  def count_badges() do
+    from(
+      badge in Badge,
+      select: count("*")
+    )
+    |> Repo.one()
   end
 
   @doc """
@@ -37,7 +56,10 @@ defmodule Cforum.Accounts.Badges do
       ** (Ecto.NoResultsError)
 
   """
-  def get_badge!(id), do: Repo.get!(Badge, id)
+  def get_badge!(id) do
+    Repo.get!(Badge, id)
+    |> Repo.preload(badges_users: :user)
+  end
 
   @doc """
   Creates a badge.
@@ -108,5 +130,15 @@ defmodule Cforum.Accounts.Badges do
   """
   def change_badge(%Badge{} = badge) do
     Badge.changeset(badge, %{})
+  end
+
+  def unique_users(%Badge{} = badge) do
+    badge.badges_users
+    |> Enum.reduce(%{}, fn bu, acc ->
+      Map.update(acc, bu.user_id, %{user: bu.user, times: 1, created_at: bu.created_at}, fn mp ->
+        %{mp | times: mp[:times] + 1}
+      end)
+    end)
+    |> Map.values()
   end
 end
