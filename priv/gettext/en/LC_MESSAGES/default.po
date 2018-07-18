@@ -1680,6 +1680,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/forum/form.html.eex:42
 #: lib/cforum_web/templates/admin/forum/index.html.eex:4
 #: lib/cforum_web/templates/admin/group/form.html.eex:7
+#: lib/cforum_web/templates/badge/index.html.eex:8
 #: lib/cforum_web/templates/event/attendee.html.eex:2
 #: lib/cforum_web/templates/event/index.html.eex:4
 #: lib/cforum_web/templates/events/attendee/form.html.eex:9
@@ -1811,7 +1812,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/audit/index.html.eex:28
 #: lib/cforum_web/templates/admin/audit/users.html.eex:2
 #: lib/cforum_web/templates/admin/subnav.html.eex:7
-#: lib/cforum_web/views/badge_view.ex:4
+#: lib/cforum_web/views/badge_view.ex:6
 msgid "badges"
 msgstr ""
 
@@ -2427,6 +2428,7 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/admin/badge/form.html.eex:25
 #: lib/cforum_web/templates/admin/badge/index.html.eex:5
+#: lib/cforum_web/templates/badge/index.html.eex:9
 msgid "score needed"
 msgstr ""
 
@@ -2447,6 +2449,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/badge/form.html.eex:19
+#: lib/cforum_web/templates/badge/index.html.eex:6
 msgid "order"
 msgstr ""
 
@@ -3552,7 +3555,7 @@ msgid "auditing: user gained badge"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/badge_view.ex:5
+#: lib/cforum_web/views/badge_view.ex:7
 msgid "badge %{name}"
 msgstr ""
 
@@ -3747,4 +3750,14 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/views/messages/flag_view.ex:17
 msgid "message is unconstructive or provocative and contributes to a deterioration of sentiment"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/badge/index.html.eex:7
+msgid "badge medal type"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/badge/index.html.eex:10
+msgid "number of users"
 msgstr ""

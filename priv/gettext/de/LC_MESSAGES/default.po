@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2018-07-16 09:12+0200\n"
+"PO-Revision-Date: 2018-07-16 19:45+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1698,6 +1698,7 @@ msgstr "Beitragstext"
 #: lib/cforum_web/templates/admin/forum/form.html.eex:42
 #: lib/cforum_web/templates/admin/forum/index.html.eex:4
 #: lib/cforum_web/templates/admin/group/form.html.eex:7
+#: lib/cforum_web/templates/badge/index.html.eex:8
 #: lib/cforum_web/templates/event/attendee.html.eex:2
 #: lib/cforum_web/templates/event/index.html.eex:4
 #: lib/cforum_web/templates/events/attendee/form.html.eex:9
@@ -1829,7 +1830,7 @@ msgstr "Hintergrundaufträge"
 #: lib/cforum_web/templates/admin/audit/index.html.eex:28
 #: lib/cforum_web/templates/admin/audit/users.html.eex:2
 #: lib/cforum_web/templates/admin/subnav.html.eex:7
-#: lib/cforum_web/views/badge_view.ex:4
+#: lib/cforum_web/views/badge_view.ex:6
 msgid "badges"
 msgstr "Medaillen"
 
@@ -2445,6 +2446,7 @@ msgstr "Recht neu zu taggen"
 #, elixir-format
 #: lib/cforum_web/templates/admin/badge/form.html.eex:25
 #: lib/cforum_web/templates/admin/badge/index.html.eex:5
+#: lib/cforum_web/templates/badge/index.html.eex:9
 msgid "score needed"
 msgstr "benötigte Punkte"
 
@@ -2465,6 +2467,7 @@ msgstr "Abstimmungsrecht über Sperr-/Entsperr-Abstimmungen"
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/badge/form.html.eex:19
+#: lib/cforum_web/templates/badge/index.html.eex:6
 msgid "order"
 msgstr "Reihenfolge"
 
@@ -3574,7 +3577,7 @@ msgid "auditing: user gained badge"
 msgstr "Benutzer hat Badge erhalten"
 
 #, elixir-format
-#: lib/cforum_web/views/badge_view.ex:5
+#: lib/cforum_web/views/badge_view.ex:7
 msgid "badge %{name}"
 msgstr "Medaille „%{name}“"
 
@@ -3770,3 +3773,13 @@ msgstr "Der Beitrag ist ein Duplikat eines anderen Beitrags."
 #: lib/cforum_web/views/messages/flag_view.ex:17
 msgid "message is unconstructive or provocative and contributes to a deterioration of sentiment"
 msgstr "Der Beitrag ist unkonstruktiv oder provokativ und trägt zu einer Verschlechterung der Stimmung bei."
+
+#, elixir-format
+#: lib/cforum_web/templates/badge/index.html.eex:7
+msgid "badge medal type"
+msgstr "Medaillen-Stufe"
+
+#, elixir-format
+#: lib/cforum_web/templates/badge/index.html.eex:10
+msgid "number of users"
+msgstr "Anzahl Benutzer"
