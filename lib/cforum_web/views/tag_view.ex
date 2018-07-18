@@ -44,8 +44,12 @@ defmodule CforumWeb.TagView do
     divisor = if @f_max - @f_min == 0, do: 1, else: @f_max - @f_min
     constant = :math.log(max_cnt - (min_cnt - 1)) / divisor
 
-    cnt = count - (min_cnt - 1)
-    cnt = if cnt < 0, do: 0, else: cnt
-    Float.round(:math.log(cnt) / constant + @f_min, 5)
+    if constant == 0 do
+      0
+    else
+      cnt = count - (min_cnt - 1)
+      cnt = if cnt < 0, do: 0, else: cnt
+      Float.round(:math.log(cnt) / constant + @f_min, 5)
+    end
   end
 end
