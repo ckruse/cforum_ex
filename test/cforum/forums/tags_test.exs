@@ -43,6 +43,11 @@ defmodule Cforum.Forums.TagsTest do
       assert Tags.get_tag!(tag.tag_id).tag_id == tag.tag_id
     end
 
+    test "get_tag_by_slug!/2 returns the tag with given slug" do
+      tag = insert(:tag, synonyms: [], num_messages: 0)
+      assert Tags.get_tag_by_slug!(tag.forum, tag.slug) == tag
+    end
+
     test "get_tags/2 returns a list of existing tags ordered by name" do
       forum = insert(:public_forum)
 
@@ -58,6 +63,11 @@ defmodule Cforum.Forums.TagsTest do
 
       assert length(tags_list) == length(tags)
       assert Enum.map(tags_list, & &1.tag_name) == Enum.map(tags, & &1.tag_name)
+    end
+
+    test "get_tags_by_ids/1 returns a list of tags with the given IDs" do
+      tags = insert_list(3, :tag, synonyms: [], num_messages: 0)
+      assert Tags.get_tags_by_ids(Enum.map(tags, & &1.tag_id)) == tags
     end
 
     test "create_tag/2 with valid data creates a tag" do
@@ -121,6 +131,14 @@ defmodule Cforum.Forums.TagsTest do
   end
 
   describe "synonyms" do
+    test "list_tag_synonyms/1 lists all synonyms for a tag" do
+      forum = insert(:forum)
+      tag = insert(:tag, forum: forum)
+      synonym = insert(:tag_synonym, tag: tag, forum: forum)
+
+      assert Tags.list_tag_synonyms(tag) == [unload_relations(synonym, [:forum, :tag])]
+    end
+
     test "get_tag_synonym!/2 returns the tag synonym with given id" do
       forum = insert(:forum)
       tag = insert(:tag, forum: forum)

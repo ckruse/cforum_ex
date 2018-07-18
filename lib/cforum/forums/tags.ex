@@ -53,6 +53,19 @@ defmodule Cforum.Forums.Tags do
     |> Repo.preload([:synonyms])
   end
 
+  @doc """
+  Gets a single tag by its slug.
+
+  Raises `Ecto.NoResultsError` if the Tag does not exist.
+
+  ## Examples
+
+      iex> get_tag_by_slug!("rebellion")
+      %Tag{}
+
+      iex> get_tag!("imperium")
+      ** (Ecto.NoResultsError)
+  """
   def get_tag_by_slug!(forum, slug) do
     Tag
     |> Repo.get_by!(forum_id: forum.forum_id, slug: slug)
@@ -90,6 +103,19 @@ defmodule Cforum.Forums.Tags do
     |> Repo.preload([:synonyms, :forum])
   end
 
+  @doc """
+  Gets a list of tags identified by their `tag_id`
+
+  ## Arguments
+
+  - `tag_ids`: a list of tag IDs
+
+  ## Examples
+
+  iex> get_tags_by_tag_ids([1, 2, -1])
+  [%Tag{}, %Tag{}]
+
+  """
   def get_tags_by_ids(tag_ids) do
     from(
       tag in Tag,
@@ -201,6 +227,15 @@ defmodule Cforum.Forums.Tags do
     Tag.changeset(tag, nil, %{})
   end
 
+  @doc """
+  Returns the list of tag synonyms for a tag.
+
+  ## Examples
+
+      iex> list_tag_synonyms(%Tag{})
+      [%TagSynonym{}, ...]
+
+  """
   def list_tag_synonyms(tag) do
     case tag.synonyms do
       %Ecto.Association.NotLoaded{} ->
