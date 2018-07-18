@@ -18,6 +18,8 @@ defmodule Cforum.DataCase do
     quote do
       alias Cforum.Repo
 
+      import Cforum.TestHelpers
+
       import Ecto
       import Ecto.Changeset
       import Ecto.Query

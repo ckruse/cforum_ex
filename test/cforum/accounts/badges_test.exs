@@ -12,6 +12,12 @@ defmodule Cforum.Accounts.BadgesTest do
     assert Enum.map(badges, & &1.badge_id) == [badge.badge_id]
   end
 
+  test "count_badges/0 counts all badges" do
+    assert Badges.count_badges() == 0
+    insert(:badge)
+    assert Badges.count_badges() == 1
+  end
+
   test "get_badge!/1 returns the badge with given id" do
     badge = insert(:badge)
     badge1 = Badges.get_badge!(badge.badge_id)
@@ -53,5 +59,18 @@ defmodule Cforum.Accounts.BadgesTest do
   test "change_badge/1 returns a badge changeset" do
     badge = insert(:badge)
     assert %Ecto.Changeset{} = Badges.change_badge(badge)
+  end
+
+  test "unique_users/1 returns a unique list of users and badge counts" do
+    user = insert(:user)
+    badge = insert(:badge)
+    ub = insert(:badge_user, user: user, badge: badge)
+    insert(:badge_user, user: user, badge: badge)
+
+    badge = Badges.get_badge!(badge.badge_id)
+
+    assert Badges.unique_users(badge) == [
+             %{user: unload_relations(user, [:badges]), created_at: ub.created_at, times: 2}
+           ]
   end
 end

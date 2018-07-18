@@ -133,7 +133,7 @@ defmodule CforumWeb.LayoutView do
     )
   end
 
-  def show?(conn, :events), do: controller_module(conn) == Cforum.ForumController
+  def show?(conn, link) when link in [:events, :badges], do: controller_module(conn) == CforumWeb.ForumController
   def show?(conn, :thread_feeds), do: present?(conn.assigns[:thread]) && present?(conn.assigns[:thread].thread_id)
   def show?(conn, :sort_links), do: controller_module(conn) == CforumWeb.Threads && blank?(conn.assigns[:current_user])
 
@@ -143,7 +143,7 @@ defmodule CforumWeb.LayoutView do
   end
 
   def show?(conn, :view_all) do
-    Cforum.Abilities.Helpers.access_forum?(conn, :moderate) &&
+    access_forum?(conn, :moderate) &&
       Enum.member?(
         [CforumWeb.ThreadController, CforumWeb.MessageController, CforumWeb.ArchiveController],
         controller_module(conn)

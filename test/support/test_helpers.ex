@@ -38,4 +38,21 @@ defmodule Cforum.TestHelpers do
         {nil, [slug] ++ tail}
     end
   end
+
+  def unload_relations(obj, to_remove \\ nil) do
+    assocs =
+      if to_remove == nil,
+        do: obj.__struct__.__schema__(:associations),
+        else: Enum.filter(obj.__struct__.__schema__(:associations), &(&1 in to_remove))
+
+    Enum.reduce(assocs, obj, fn assoc, obj ->
+      assoc_meta = obj.__struct__.__schema__(:association, assoc)
+
+      Map.put(obj, assoc, %Ecto.Association.NotLoaded{
+        __field__: assoc,
+        __owner__: assoc_meta.owner,
+        __cardinality__: assoc_meta.cardinality
+      })
+    end)
+  end
 end

@@ -13,6 +13,7 @@ defmodule Cforum.MarkdownRenderer do
   alias Cforum.Events.Event
   alias Cforum.Forums.Message
   alias Cforum.Accounts.PrivMessage
+  alias Cforum.Accounts.Badge
   # alias Cforum.Accounts.User
 
   def start_link(opts \\ []) do
@@ -63,6 +64,12 @@ defmodule Cforum.MarkdownRenderer do
     {:ok, html} = render_doc(message.body)
     {:safe, html}
     # [{:safe, "<pre>"}, message.content, {:safe, "</pre>"}]
+  end
+
+  def to_html(%Badge{} = badge, _user) do
+    # TODO handle user specific foo
+    {:ok, html} = render_doc(badge.description)
+    {:safe, html}
   end
 
   def render_doc(markdown) do
