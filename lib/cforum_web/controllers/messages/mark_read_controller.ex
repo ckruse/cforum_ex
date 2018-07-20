@@ -20,4 +20,6 @@ defmodule CforumWeb.Messages.MarkReadController do
     |> put_flash(:info, gettext("Thread has successfully been marked as read."))
     |> redirect(to: ReturnUrl.return_path(conn, params, thread))
   end
+
+  def allowed?(conn, _, _), do: signed_in?(conn)
 end

@@ -110,4 +110,27 @@ defmodule CforumWeb.MailController do
       params["quote"] == "yes"
     end
   end
+
+  # TODO use load_ressource plug
+
+  def allowed?(conn, :index, _), do: signed_in?(conn)
+
+  def allowed?(conn, :show, resource) do
+    resource = resource || PrivMessages.get_priv_message_thread!(conn.assigns[:current_user], conn.params["id"])
+    signed_in?(conn) && conn.assigns[:current_user].user_id == List.first(resource).owner_id
+  end
+
+  def allowed?(conn, action, resource) when action in [:new, :create] do
+    if conn.params["parent_id"] || resource do
+      resource = resource || PrivMessages.get_priv_message!(conn.assigns[:current_user], conn.params["parent_id"])
+      signed_in?(conn) && conn.assigns[:current_user].user_id == resource.owner_id
+    else
+      signed_in?(conn)
+    end
+  end
+
+  def allowed?(conn, _, resource) do
+    resource = resource || PrivMessages.get_priv_message!(conn.assigns[:current_user], conn.params["id"])
+    signed_in?(conn) && conn.assigns[:current_user].user_id == resource.owner_id
+  end
 end

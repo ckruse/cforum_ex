@@ -57,4 +57,6 @@ defmodule CforumWeb.Admin.RedirectionController do
     |> put_flash(:info, gettext("Redirection deleted successfully."))
     |> redirect(to: admin_redirection_path(conn, :index))
   end
+
+  def allowed?(conn, _, _), do: admin?(conn)
 end

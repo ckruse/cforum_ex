@@ -23,4 +23,6 @@ defmodule CforumWeb.Api.V1.UserController do
     user = Cforum.Accounts.Users.get_user!(id)
     render(conn, "show.json", user: user)
   end
+
+  def allowed?(_conn, _, _), do: true
 end

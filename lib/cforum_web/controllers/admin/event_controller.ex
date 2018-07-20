@@ -58,4 +58,6 @@ defmodule CforumWeb.Admin.EventController do
     |> put_flash(:info, gettext("Event deleted successfully."))
     |> redirect(to: admin_event_path(conn, :index))
   end
+
+  def allowed?(conn, _, _), do: admin?(conn)
 end

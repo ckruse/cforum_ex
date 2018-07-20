@@ -35,4 +35,6 @@ defmodule CforumWeb.Messages.FlagController do
     |> Plug.Conn.assign(:thread, thread)
     |> Plug.Conn.assign(:message, message)
   end
+
+  def allowed?(_conn, _, _), do: true
 end

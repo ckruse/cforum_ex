@@ -2,6 +2,7 @@ defmodule CforumWeb.Tags.SynonymController do
   use CforumWeb, :controller
 
   alias Cforum.Forums.{Tags, TagSynonym}
+  alias Cforum.Accounts.Badge
 
   def new(conn, %{"tag_id" => tag_id}) do
     tag = Tags.get_tag_by_slug!(conn.assigns[:current_forum], tag_id)
@@ -55,5 +56,10 @@ defmodule CforumWeb.Tags.SynonymController do
     conn
     |> put_flash(:info, gettext("Tag synonym deleted successfully."))
     |> redirect(to: tag_path(conn, :show, conn.assigns[:current_forum], tag))
+  end
+
+  def allowed?(conn, _, _) do
+    access_forum?(conn) &&
+      (badge?(conn, Badge.create_tag_synonym()) || badge?(conn, Badge.moderator_tools()) || admin?(conn))
   end
 end

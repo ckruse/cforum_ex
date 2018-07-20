@@ -63,4 +63,7 @@ defmodule CforumWeb.ForumController do
   def get_oldest_forum(nil, []), do: nil
   def get_oldest_forum(nil, visible_forums), do: Enum.min_by(visible_forums, & &1.created_at)
   def get_oldest_forum(forum, _), do: forum
+
+  def allowed?(_, action, _) when action in [:index, :stats], do: true
+  def allowed?(_, _, _), do: false
 end

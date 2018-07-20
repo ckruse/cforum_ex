@@ -22,4 +22,6 @@ defmodule CforumWeb.Admin.SettingController do
         render(conn, "edit.html", settings: settings, changeset: changeset)
     end
   end
+
+  def allowed?(conn, _, _), do: admin?(conn)
 end

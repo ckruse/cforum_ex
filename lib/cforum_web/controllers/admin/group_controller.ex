@@ -58,4 +58,6 @@ defmodule CforumWeb.Admin.GroupController do
     |> put_flash(:info, gettext("The group has been deleted successfully."))
     |> redirect(to: admin_group_path(conn, :index))
   end
+
+  def allowed?(conn, _, _), do: admin?(conn)
 end

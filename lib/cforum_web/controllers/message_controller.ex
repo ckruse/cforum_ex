@@ -127,4 +127,7 @@ defmodule CforumWeb.MessageController do
       do: put_resp_cookie(conn, "cf_readmode", read_mode, max_age: 360 * 24 * 60 * 60),
       else: conn
   end
+
+  # TODO implement proper rights
+  def allowed?(conn, _, _), do: access_forum?(conn)
 end

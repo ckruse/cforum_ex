@@ -49,7 +49,7 @@
           <%= default_button_link(gettext("split thread"), to: "split_thread_path @thread, m TODO", rel: "nofollow") %>
         <% end %>
 
-        <%= if may?(@conn, "message/open-close-vote", :new_close, @message) do %>
+        <%= if may?(@conn, "messages/open_close_vote", :new_close, @message) do %>
           <%= default_button_link(gettext("Start a close vote"), to: "close_message_path(@thread, m) TODO", rel: "nofollow") %>
         <% end %>
 

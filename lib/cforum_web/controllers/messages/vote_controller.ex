@@ -1,7 +1,7 @@
 defmodule CforumWeb.Messages.VoteController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.{Votes, Messages, Threads}
+  alias Cforum.Forums.{Votes, Messages, Threads, Message}
   alias CforumWeb.Views.Helpers.ReturnUrl
 
   def upvote(conn, params) do
@@ -48,4 +48,19 @@ defmodule CforumWeb.Messages.VoteController do
     |> Plug.Conn.assign(:thread, thread)
     |> Plug.Conn.assign(:message, message)
   end
+
+  def allowed?(conn, :upvote, msg) do
+    msg = msg || conn.assigns.message
+
+    signed_in?(conn) && access_forum?(conn, :write) && (admin?(conn) || badge?(conn, "upvote")) && !Message.closed?(msg)
+  end
+
+  def allowed?(conn, :downvote, msg) do
+    msg = msg || conn.assigns.message
+
+    signed_in?(conn) && access_forum?(conn, :write) && (admin?(conn) || badge?(conn, "downvote")) &&
+      !Message.closed?(msg) && conn.assigns.current_user.score > 0
+  end
+
+  def allowed?(_, _, _), do: false
 end

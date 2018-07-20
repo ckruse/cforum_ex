@@ -14,4 +14,6 @@ defmodule CforumWeb.BadgeController do
     badge = Badges.get_badge!(id)
     render(conn, "show.html", badge: badge)
   end
+
+  def allowed?(_conn, _, _), do: true
 end

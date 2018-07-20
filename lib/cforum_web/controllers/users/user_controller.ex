@@ -196,4 +196,28 @@ defmodule CforumWeb.Users.UserController do
     |> put_flash(:info, gettext("User deleted successfully."))
     |> redirect(to: user_path(conn, :index))
   end
+
+  def allowed?(_conn, action, _) when action in [:index, :show, :show_messages, :show_scores], do: true
+
+  def allowed?(conn, :update, resource) do
+    cuser = conn.assigns[:current_user]
+
+    uid =
+      if resource != nil,
+        do: resource.user_id,
+        else: String.to_integer(conn.params["user_id"] || conn.params["id"])
+
+    cuser != nil && (admin?(cuser) || uid == cuser.user_id)
+  end
+
+  def allowed?(conn, action, resource) when action in [:edit, :delete, :confirm_delete],
+    do: allowed?(conn, :update, resource)
+
+  def allowed?(conn, :show_votes, resource) do
+    cuser = conn.assigns[:current_user]
+    uid = if resource != nil, do: resource.user_id, else: String.to_integer(conn.params["id"])
+    cuser != nil && uid == cuser.user_id
+  end
+
+  def allowed?(_, _, _), do: false
 end
