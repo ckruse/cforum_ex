@@ -3,8 +3,10 @@ defmodule CforumWeb.Cite.VoteControllerTest do
 
   alias Cforum.Cites
 
+  setup [:create_cite]
+
   describe "vote" do
-    setup [:create_cite]
+    setup [:setup_login]
 
     test "votes down for a cite", %{conn: conn, cite: cite, user: user} do
       conn = post(conn, cite_path(conn, :vote, cite), %{type: "down"})
@@ -45,9 +47,41 @@ defmodule CforumWeb.Cite.VoteControllerTest do
     end
   end
 
-  defp create_cite(%{conn: conn}) do
-    cite = insert(:cite)
+  describe "access rights" do
+    test "anonymous mustn't vote", %{conn: conn, cite: cite} do
+      assert_error_sent(403, fn -> post(conn, cite_path(conn, :vote, cite), type: "down") end)
+    end
+
+    test "logged in user may vote", %{conn: conn, cite: cite} do
+      user = insert(:user)
+
+      conn =
+        conn
+        |> login(user)
+        |> post(cite_path(conn, :vote, cite), type: "down")
+
+      assert redirected_to(conn) == cite_path(conn, :show, cite)
+    end
+
+    test "archived cites may not be voted", %{conn: conn} do
+      cite = insert(:cite, archived: true)
+      user = insert(:user, admin: true)
+
+      assert_error_sent(403, fn ->
+        conn
+        |> login(user)
+        |> post(cite_path(conn, :vote, cite), type: "down")
+      end)
+    end
+  end
+
+  defp setup_login(%{conn: conn}) do
     user = build(:user) |> as_admin |> insert
-    {:ok, cite: cite, user: user, conn: login(conn, user)}
+    {:ok, user: user, conn: login(conn, user)}
+  end
+
+  defp create_cite(_) do
+    cite = insert(:cite)
+    {:ok, cite: cite}
   end
 end
