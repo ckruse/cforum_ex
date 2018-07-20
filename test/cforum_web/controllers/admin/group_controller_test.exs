@@ -1,9 +1,9 @@
 defmodule CforumWeb.Admin.GroupControllerTest do
   use CforumWeb.ConnCase
 
-  setup [:setup_login]
-
   describe "index" do
+    setup [:setup_login]
+
     test "lists all groups", %{conn: conn} do
       conn = get(conn, admin_group_path(conn, :index))
       assert html_response(conn, 200) =~ gettext("administrate groups")
@@ -11,6 +11,8 @@ defmodule CforumWeb.Admin.GroupControllerTest do
   end
 
   describe "new group" do
+    setup [:setup_login]
+
     test "renders form", %{conn: conn} do
       conn = get(conn, admin_group_path(conn, :new))
       assert html_response(conn, 200) =~ gettext("new group")
@@ -18,6 +20,8 @@ defmodule CforumWeb.Admin.GroupControllerTest do
   end
 
   describe "create group" do
+    setup [:setup_login]
+
     test "redirects to show when data is valid", %{conn: conn} do
       params = params_for(:group)
       conn = post(conn, admin_group_path(conn, :create), group: params)
@@ -36,7 +40,7 @@ defmodule CforumWeb.Admin.GroupControllerTest do
   end
 
   describe "edit group" do
-    setup [:create_group]
+    setup [:setup_login, :create_group]
 
     test "renders form for editing chosen group", %{conn: conn, group: group} do
       conn = get(conn, admin_group_path(conn, :edit, group))
@@ -45,7 +49,7 @@ defmodule CforumWeb.Admin.GroupControllerTest do
   end
 
   describe "update group" do
-    setup [:create_group]
+    setup [:setup_login, :create_group]
 
     test "redirects when data is valid", %{conn: conn, group: group} do
       conn = put(conn, admin_group_path(conn, :update, group), group: %{name: "Rebellion"})
@@ -62,7 +66,7 @@ defmodule CforumWeb.Admin.GroupControllerTest do
   end
 
   describe "delete group" do
-    setup [:create_group]
+    setup [:setup_login, :create_group]
 
     test "deletes chosen group", %{conn: conn, group: group} do
       conn = delete(conn, admin_group_path(conn, :delete, group))
@@ -71,6 +75,29 @@ defmodule CforumWeb.Admin.GroupControllerTest do
       assert_error_sent(404, fn ->
         get(conn, admin_group_path(conn, :edit, group))
       end)
+    end
+  end
+
+  describe "access rights" do
+    test "anonymous isn't allowed to access", %{conn: conn} do
+      assert_error_sent(403, fn -> get(conn, admin_group_path(conn, :index)) end)
+    end
+
+    test "non-admin user isn't allowed to access", %{conn: conn} do
+      user = insert(:user)
+      conn = login(conn, user)
+      assert_error_sent(403, fn -> get(conn, admin_group_path(conn, :index)) end)
+    end
+
+    test "admin is allowed", %{conn: conn} do
+      user = insert(:user, admin: true)
+
+      conn =
+        conn
+        |> login(user)
+        |> get(admin_group_path(conn, :index))
+
+      assert html_response(conn, 200) =~ gettext("administrate groups")
     end
   end
 

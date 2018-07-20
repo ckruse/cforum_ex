@@ -14,7 +14,7 @@ defmodule CforumWeb.Admin.ForumControllerTest do
       login(conn, user)
       |> get(admin_forum_path(conn, :index))
 
-    assert html_response(conn, 200) =~ gettext("Forums")
+    assert html_response(conn, 200) =~ gettext("administrate forums")
     assert html_response(conn, 200) =~ forum.name
   end
 
@@ -88,9 +88,29 @@ defmodule CforumWeb.Admin.ForumControllerTest do
       |> delete(admin_forum_path(conn, :delete, forum))
 
     assert redirected_to(conn) == admin_forum_path(conn, :index)
+    assert_error_sent(404, fn -> get(conn, admin_forum_path(conn, :edit, forum)) end)
+  end
 
-    assert_error_sent(404, fn ->
-      get(conn, admin_forum_path(conn, :edit, forum))
-    end)
+  describe "access rights" do
+    test "anonymous isn't allowed to access", %{conn: conn} do
+      assert_error_sent(403, fn -> get(conn, admin_forum_path(conn, :index)) end)
+    end
+
+    test "non-admin user isn't allowed to access", %{conn: conn} do
+      user = insert(:user)
+      conn = login(conn, user)
+      assert_error_sent(403, fn -> get(conn, admin_forum_path(conn, :index)) end)
+    end
+
+    test "admin is allowed", %{conn: conn} do
+      user = insert(:user, admin: true)
+
+      conn =
+        conn
+        |> login(user)
+        |> get(admin_forum_path(conn, :index))
+
+      assert html_response(conn, 200) =~ gettext("administrate forums")
+    end
   end
 end

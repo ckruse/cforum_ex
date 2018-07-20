@@ -1,7 +1,7 @@
 defmodule CforumWeb.Admin.EventView do
   use CforumWeb, :view
 
-  def page_title(:index, _), do: gettext("events")
+  def page_title(:index, _), do: gettext("administrate events")
   def page_title(action, _) when action in [:new, :create], do: gettext("new event")
 
   def page_title(action, assigns) when action in [:edit, :update],
