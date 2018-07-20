@@ -2,41 +2,74 @@ defmodule CforumWeb.Admin.SettingControllerTest do
   use CforumWeb.ConnCase
   alias Cforum.Accounts.{Setting, Settings}
 
-  setup [:setup_login]
+  describe "edit" do
+    setup [:setup_login]
 
-  test "edits with non-existing settings", %{conn: conn} do
-    conn = get(conn, admin_setting_path(conn, :edit))
-    assert html_response(conn, 200) =~ gettext("settings")
+    test "edits with non-existing settings", %{conn: conn} do
+      conn = get(conn, admin_setting_path(conn, :edit))
+      assert html_response(conn, 200) =~ gettext("settings")
+    end
+
+    test "edits with existing settings", %{conn: conn} do
+      insert(:setting)
+
+      conn = put(conn, admin_setting_path(conn, :update), setting: %{options: %{"pagination" => 20}})
+      assert redirected_to(conn) == admin_setting_path(conn, :edit)
+
+      conn = get(conn, admin_setting_path(conn, :edit))
+      assert html_response(conn, 200) =~ gettext("settings")
+
+      setting = Settings.get_global_setting()
+      assert %Setting{options: %{"pagination" => 20}} = setting
+    end
   end
 
-  test "updates existing settings", %{conn: conn} do
-    insert(:setting)
-    conn = get(conn, admin_setting_path(conn, :edit))
-    assert html_response(conn, 200) =~ gettext("settings")
+  describe "update" do
+    setup [:setup_login]
+
+    test "updates existing settings", %{conn: conn} do
+      insert(:setting)
+      conn = get(conn, admin_setting_path(conn, :edit))
+      assert html_response(conn, 200) =~ gettext("settings")
+    end
   end
 
-  test "creates new settings", %{conn: conn} do
-    conn = put(conn, admin_setting_path(conn, :update), setting: %{options: %{}})
-    assert redirected_to(conn) == admin_setting_path(conn, :edit)
+  describe "create" do
+    setup [:setup_login]
 
-    conn = get(conn, admin_setting_path(conn, :edit))
-    assert html_response(conn, 200) =~ gettext("settings")
+    test "creates new settings", %{conn: conn} do
+      conn = put(conn, admin_setting_path(conn, :update), setting: %{options: %{}})
+      assert redirected_to(conn) == admin_setting_path(conn, :edit)
 
-    setting = Settings.get_global_setting()
-    assert setting
+      conn = get(conn, admin_setting_path(conn, :edit))
+      assert html_response(conn, 200) =~ gettext("settings")
+
+      setting = Settings.get_global_setting()
+      assert setting
+    end
   end
 
-  test "edits with existing settings", %{conn: conn} do
-    insert(:setting)
+  describe "access rights" do
+    test "anonymous isn't allowed to access", %{conn: conn} do
+      assert_error_sent(403, fn -> get(conn, admin_setting_path(conn, :edit)) end)
+    end
 
-    conn = put(conn, admin_setting_path(conn, :update), setting: %{options: %{"pagination" => 20}})
-    assert redirected_to(conn) == admin_setting_path(conn, :edit)
+    test "non-admin user isn't allowed to access", %{conn: conn} do
+      user = insert(:user)
+      conn = login(conn, user)
+      assert_error_sent(403, fn -> get(conn, admin_setting_path(conn, :edit)) end)
+    end
 
-    conn = get(conn, admin_setting_path(conn, :edit))
-    assert html_response(conn, 200) =~ gettext("settings")
+    test "admin is allowed", %{conn: conn} do
+      user = insert(:user, admin: true)
 
-    setting = Settings.get_global_setting()
-    assert %Setting{options: %{"pagination" => 20}} = setting
+      conn =
+        conn
+        |> login(user)
+        |> get(admin_setting_path(conn, :edit))
+
+      assert html_response(conn, 200) =~ gettext("settings")
+    end
   end
 
   defp setup_login(%{conn: conn}) do

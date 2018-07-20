@@ -1,9 +1,9 @@
 defmodule CforumWeb.Admin.BadgeControllerTest do
   use CforumWeb.ConnCase
 
-  setup [:setup_login]
-
   describe "index" do
+    setup [:setup_login]
+
     test "lists all badges", %{conn: conn} do
       conn = get(conn, admin_badge_path(conn, :index))
       assert html_response(conn, 200) =~ gettext("administrate badges")
@@ -11,6 +11,8 @@ defmodule CforumWeb.Admin.BadgeControllerTest do
   end
 
   describe "new badge" do
+    setup [:setup_login]
+
     test "renders form", %{conn: conn} do
       conn = get(conn, admin_badge_path(conn, :new))
       assert html_response(conn, 200) =~ gettext("new badge")
@@ -18,6 +20,8 @@ defmodule CforumWeb.Admin.BadgeControllerTest do
   end
 
   describe "create badge" do
+    setup [:setup_login]
+
     test "redirects to show when data is valid", %{conn: conn} do
       params = params_for(:badge)
       conn = post(conn, admin_badge_path(conn, :create), badge: params)
@@ -36,7 +40,7 @@ defmodule CforumWeb.Admin.BadgeControllerTest do
   end
 
   describe "edit badge" do
-    setup [:create_badge]
+    setup [:setup_login, :create_badge]
 
     test "renders form for editing chosen badge", %{conn: conn, badge: badge} do
       conn = get(conn, admin_badge_path(conn, :edit, badge))
@@ -45,7 +49,7 @@ defmodule CforumWeb.Admin.BadgeControllerTest do
   end
 
   describe "update badge" do
-    setup [:create_badge]
+    setup [:setup_login, :create_badge]
 
     test "redirects when data is valid", %{conn: conn, badge: badge} do
       conn = put(conn, admin_badge_path(conn, :update, badge), badge: %{name: "Rebellion"})
@@ -62,7 +66,7 @@ defmodule CforumWeb.Admin.BadgeControllerTest do
   end
 
   describe "delete badge" do
-    setup [:create_badge]
+    setup [:setup_login, :create_badge]
 
     test "deletes chosen badge", %{conn: conn, badge: badge} do
       conn = delete(conn, admin_badge_path(conn, :delete, badge))
@@ -71,6 +75,29 @@ defmodule CforumWeb.Admin.BadgeControllerTest do
       assert_error_sent(404, fn ->
         get(conn, admin_badge_path(conn, :edit, badge))
       end)
+    end
+  end
+
+  describe "access rights" do
+    test "anonymous isn't allowed to access", %{conn: conn} do
+      assert_error_sent(403, fn -> get(conn, admin_badge_path(conn, :index)) end)
+    end
+
+    test "non-admin user isn't allowed to access", %{conn: conn} do
+      user = insert(:user)
+      conn = login(conn, user)
+      assert_error_sent(403, fn -> get(conn, admin_badge_path(conn, :index)) end)
+    end
+
+    test "admin is allowed", %{conn: conn} do
+      user = insert(:user, admin: true)
+
+      conn =
+        conn
+        |> login(user)
+        |> get(admin_badge_path(conn, :index))
+
+      assert html_response(conn, 200) =~ gettext("administrate badges")
     end
   end
 

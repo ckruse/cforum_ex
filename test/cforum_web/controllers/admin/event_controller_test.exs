@@ -1,16 +1,18 @@
 defmodule CforumWeb.Admin.EventControllerTest do
   use CforumWeb.ConnCase
 
-  setup [:setup_login]
-
   describe "index" do
+    setup [:setup_login]
+
     test "lists all events", %{conn: conn} do
       conn = get(conn, admin_event_path(conn, :index))
-      assert html_response(conn, 200) =~ gettext("events")
+      assert html_response(conn, 200) =~ gettext("administrate events")
     end
   end
 
   describe "new event" do
+    setup [:setup_login]
+
     test "renders form", %{conn: conn} do
       conn = get(conn, admin_event_path(conn, :new))
       assert html_response(conn, 200) =~ gettext("new event")
@@ -18,6 +20,8 @@ defmodule CforumWeb.Admin.EventControllerTest do
   end
 
   describe "create event" do
+    setup [:setup_login]
+
     test "redirects to edit when data is valid", %{conn: conn} do
       params = params_for(:event)
       conn = post(conn, admin_event_path(conn, :create), event: params)
@@ -36,7 +40,7 @@ defmodule CforumWeb.Admin.EventControllerTest do
   end
 
   describe "edit event" do
-    setup [:create_event]
+    setup [:setup_login, :create_event]
 
     test "renders form for editing chosen event", %{conn: conn, event: event} do
       conn = get(conn, admin_event_path(conn, :edit, event))
@@ -45,7 +49,7 @@ defmodule CforumWeb.Admin.EventControllerTest do
   end
 
   describe "update event" do
-    setup [:create_event]
+    setup [:setup_login, :create_event]
 
     test "redirects when data is valid", %{conn: conn, event: event} do
       conn = put(conn, admin_event_path(conn, :update, event), event: %{name: "foo bar"})
@@ -62,7 +66,7 @@ defmodule CforumWeb.Admin.EventControllerTest do
   end
 
   describe "delete event" do
-    setup [:create_event]
+    setup [:setup_login, :create_event]
 
     test "deletes chosen event", %{conn: conn, event: event} do
       conn = delete(conn, admin_event_path(conn, :delete, event))
@@ -71,6 +75,29 @@ defmodule CforumWeb.Admin.EventControllerTest do
       assert_error_sent(404, fn ->
         get(conn, admin_event_path(conn, :edit, event))
       end)
+    end
+  end
+
+  describe "access rights" do
+    test "anonymous isn't allowed to access", %{conn: conn} do
+      assert_error_sent(403, fn -> get(conn, admin_event_path(conn, :index)) end)
+    end
+
+    test "non-admin user isn't allowed to access", %{conn: conn} do
+      user = insert(:user)
+      conn = login(conn, user)
+      assert_error_sent(403, fn -> get(conn, admin_event_path(conn, :index)) end)
+    end
+
+    test "admin is allowed", %{conn: conn} do
+      user = insert(:user, admin: true)
+
+      conn =
+        conn
+        |> login(user)
+        |> get(admin_event_path(conn, :index))
+
+      assert html_response(conn, 200) =~ gettext("administrate events")
     end
   end
 

@@ -1,9 +1,9 @@
 defmodule CforumWeb.Admin.RedirectionControllerTest do
   use CforumWeb.ConnCase
 
-  setup [:setup_login]
-
   describe "index" do
+    setup [:setup_login]
+
     test "lists all redirections", %{conn: conn} do
       conn = get(conn, admin_redirection_path(conn, :index))
       assert html_response(conn, 200) =~ gettext("administrate redirections")
@@ -11,6 +11,8 @@ defmodule CforumWeb.Admin.RedirectionControllerTest do
   end
 
   describe "new redirection" do
+    setup [:setup_login]
+
     test "renders form", %{conn: conn} do
       conn = get(conn, admin_redirection_path(conn, :new))
       assert html_response(conn, 200) =~ gettext("new redirection")
@@ -18,6 +20,8 @@ defmodule CforumWeb.Admin.RedirectionControllerTest do
   end
 
   describe "create redirection" do
+    setup [:setup_login]
+
     test "redirects to edit when data is valid", %{conn: conn} do
       conn = post(conn, admin_redirection_path(conn, :create), redirection: params_for(:redirection))
 
@@ -35,7 +39,7 @@ defmodule CforumWeb.Admin.RedirectionControllerTest do
   end
 
   describe "edit redirection" do
-    setup [:create_redirection]
+    setup [:setup_login, :create_redirection]
 
     test "renders form for editing chosen redirection", %{conn: conn, redirection: redirection} do
       conn = get(conn, admin_redirection_path(conn, :edit, redirection))
@@ -44,7 +48,7 @@ defmodule CforumWeb.Admin.RedirectionControllerTest do
   end
 
   describe "update redirection" do
-    setup [:create_redirection]
+    setup [:setup_login, :create_redirection]
 
     test "redirects when data is valid", %{conn: conn, redirection: redirection} do
       conn = put(conn, admin_redirection_path(conn, :update, redirection), redirection: %{path: "/foo/bar"})
@@ -61,7 +65,7 @@ defmodule CforumWeb.Admin.RedirectionControllerTest do
   end
 
   describe "delete redirection" do
-    setup [:create_redirection]
+    setup [:setup_login, :create_redirection]
 
     test "deletes chosen redirection", %{conn: conn, redirection: redirection} do
       conn = delete(conn, admin_redirection_path(conn, :delete, redirection))
@@ -70,6 +74,29 @@ defmodule CforumWeb.Admin.RedirectionControllerTest do
       assert_error_sent(404, fn ->
         get(conn, admin_redirection_path(conn, :edit, redirection))
       end)
+    end
+  end
+
+  describe "access rights" do
+    test "anonymous isn't allowed to access", %{conn: conn} do
+      assert_error_sent(403, fn -> get(conn, admin_redirection_path(conn, :index)) end)
+    end
+
+    test "non-admin user isn't allowed to access", %{conn: conn} do
+      user = insert(:user)
+      conn = login(conn, user)
+      assert_error_sent(403, fn -> get(conn, admin_redirection_path(conn, :index)) end)
+    end
+
+    test "admin is allowed", %{conn: conn} do
+      user = insert(:user, admin: true)
+
+      conn =
+        conn
+        |> login(user)
+        |> get(admin_redirection_path(conn, :index))
+
+      assert html_response(conn, 200) =~ gettext("administrate redirections")
     end
   end
 
