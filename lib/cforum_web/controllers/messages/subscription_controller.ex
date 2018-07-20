@@ -53,4 +53,16 @@ defmodule CforumWeb.Messages.SubscriptionController do
       |> Plug.Conn.assign(:message, message)
     end
   end
+
+  def allowed?(conn, :subscribe, message) do
+    message = message || conn.assigns.message
+    signed_in?(conn) && message.attribs[:is_subscribed] != true
+  end
+
+  def allowed?(conn, :unsubscribe, message) do
+    message = message || conn.assigns.message
+    signed_in?(conn) && message.attribs[:is_subscribed] == true
+  end
+
+  def allowed?(conn, _, _), do: signed_in?(conn)
 end

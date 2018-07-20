@@ -35,4 +35,6 @@ defmodule CforumWeb.Threads.OpenCloseController do
     |> put_flash(:info, gettext("Thread has successfully been closed."))
     |> redirect(to: ReturnUrl.return_path(conn, params, thread))
   end
+
+  def allowed?(conn, _, _), do: signed_in?(conn)
 end

@@ -19,4 +19,6 @@ defmodule CforumWeb.Cite.VoteController do
     |> put_flash(:info, gettext("Successfully voted for cite."))
     |> redirect(to: cite_path(conn, :show, cite))
   end
+
+  def allowed?(conn, _, _), do: signed_in?(conn)
 end

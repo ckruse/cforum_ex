@@ -104,7 +104,7 @@
             <li id="nachricht-feed-rss"><%= link gettext("RSS feed"), to: thread_path(@conn, :rss, assigns[:thread]) %></li>
           <% end %>
 
-          <%= if may?(@conn, "admin/") do %>
+          <%= if may?(@conn, "admin/user") do %>
             <li><%= link gettext("Administration"), to: admin_user_path(@conn, :index) %></li>
           <% end %>
 

@@ -4,12 +4,12 @@ defmodule CforumWeb.Plug.SetViewAll do
   the user may use it and if it is present in the query parameters
   """
 
-  alias Cforum.Abilities.Helpers
+  alias Cforum.Abilities
 
   def init(opts), do: opts
 
   def call(conn, _) do
-    if conn.params["view_all"] && Helpers.access_forum?(conn, :moderate),
+    if conn.params["view_all"] && Abilities.access_forum?(conn, :moderate),
       do: Plug.Conn.assign(conn, :view_all, true),
       else: Plug.Conn.assign(conn, :view_all, false)
   end

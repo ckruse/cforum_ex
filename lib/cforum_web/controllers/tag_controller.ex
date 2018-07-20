@@ -109,4 +109,20 @@ defmodule CforumWeb.TagController do
     |> put_flash(:info, gettext("Tag deleted successfully."))
     |> redirect(to: tag_path(conn, :index, conn.assigns[:current_forum]))
   end
+
+  def allowed?(conn, action, _) when action in [:index, :show], do: access_forum?(conn)
+
+  def allowed?(conn, action, _) when action in [:new, :create] do
+    access_forum?(conn) && (admin?(conn) || badge?(conn, "create_tag") || badge?(conn, "moderator_tools"))
+  end
+
+  def allowed?(conn, action, _) when action in [:edit, :update, :edit_merge, :merge] do
+    access_forum?(conn) && (admin?(conn) || badge?(conn, "moderator_tools"))
+  end
+
+  def allowed?(conn, :delete, _) do
+    access_forum?(conn) && (admin?(conn) || badge?(conn, "moderator_tools"))
+  end
+
+  def allowed?(_, _, _), do: false
 end

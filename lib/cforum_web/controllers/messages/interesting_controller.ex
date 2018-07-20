@@ -58,4 +58,16 @@ defmodule CforumWeb.Messages.InterestingController do
       |> Plug.Conn.assign(:message, message)
     end
   end
+
+  def allowed?(conn, :interesting, message) do
+    message = message || conn.assigns.message
+    signed_in?(conn) && message.attribs[:is_interesting] != true
+  end
+
+  def allowed?(conn, :boring, message) do
+    message = message || conn.assigns.message
+    signed_in?(conn) && message.attribs[:is_interesting] == true
+  end
+
+  def allowed?(conn, _, _), do: signed_in?(conn)
 end

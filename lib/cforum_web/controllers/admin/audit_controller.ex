@@ -18,4 +18,6 @@ defmodule CforumWeb.Admin.AuditController do
 
     render(conn, "index.html", paging: paging, audit_entries: audit_entries, changeset: changeset)
   end
+
+  def allowed?(conn, _, _), do: admin?(conn)
 end

@@ -78,4 +78,6 @@ defmodule CforumWeb.RedirectorController do
         raise(Phoenix.ActionClauseError, message: "no suitable action found")
     end
   end
+
+  def allowed?(_, _, _), do: true
 end

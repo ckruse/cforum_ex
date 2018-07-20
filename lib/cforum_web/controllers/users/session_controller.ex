@@ -43,4 +43,8 @@ defmodule CforumWeb.Users.SessionController do
     |> delete_resp_cookie("remember_me")
     |> redirect(to: root_path(conn, :index))
   end
+
+  def allowed?(conn, :delete, _), do: signed_in?(conn)
+  def allowed?(conn, action, _) when action in [:new, :create], do: !signed_in?(conn)
+  def allowed?(_, _, _), do: false
 end

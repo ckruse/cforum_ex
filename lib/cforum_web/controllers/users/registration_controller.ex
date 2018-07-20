@@ -43,4 +43,6 @@ defmodule CforumWeb.Users.RegistrationController do
         |> redirect(to: root_path(conn, :index))
     end
   end
+
+  def allowed?(conn, _, _), do: !signed_in?(conn)
 end

@@ -43,11 +43,14 @@ defmodule CforumWeb do
       import CforumWeb.Sortable
       import Cforum.Helpers
       import Cforum.ConfigManager
+      import Cforum.Abilities
 
       import CforumWeb.Views.Helpers.Path
 
       plug(CforumWeb.Plug.LoadResource)
       plug(CforumWeb.Plug.AuthorizeAccess)
+
+      @behaviour Cforum.Abilities
     end
   end
 
@@ -73,7 +76,6 @@ defmodule CforumWeb do
       import CforumWeb.Paginator
       import CforumWeb.Sortable
       import Cforum.Abilities
-      import Cforum.Abilities.Helpers
       import Cforum.Helpers
       import Cforum.ConfigManager
 

@@ -16,4 +16,8 @@ defmodule CforumWeb.EventController do
     event = Events.get_event!(id, true)
     render(conn, "show.html", event: event)
   end
+
+  def allowed?(_conn, :index, _), do: true
+  def allowed?(_conn, :show, _), do: true
+  def allowed?(_, _, _), do: false
 end

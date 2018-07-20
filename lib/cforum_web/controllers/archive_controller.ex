@@ -40,4 +40,6 @@ defmodule CforumWeb.ArchiveController do
 
     render(conn, "threads.html", threads: threads, page: p, start_date: start_date)
   end
+
+  def allowed?(conn, _, _), do: access_forum?(conn)
 end

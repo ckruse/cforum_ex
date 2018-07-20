@@ -79,4 +79,12 @@ defmodule CforumWeb.Users.PasswordController do
         render(conn, "edit.html", user: user, changeset: changeset)
     end
   end
+
+  def allowed?(conn, action, _resource) when action in [:new, :create, :edit_reset, :update_reset],
+    do: !signed_in?(conn)
+
+  def allowed?(conn, action, resource) when action in [:edit, :update],
+    do: CforumWeb.Users.UserController.allowed?(conn, :update, resource)
+
+  def allowed?(_, _, _), do: false
 end

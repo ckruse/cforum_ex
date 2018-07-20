@@ -55,4 +55,6 @@ defmodule CforumWeb.Admin.ForumController do
     |> put_flash(:info, gettext("Forum deleted successfully."))
     |> redirect(to: admin_forum_path(conn, :index))
   end
+
+  def allowed?(conn, _, _), do: admin?(conn)
 end

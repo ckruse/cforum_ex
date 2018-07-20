@@ -53,4 +53,6 @@ defmodule CforumWeb.Admin.BadgeController do
     |> put_flash(:info, gettext("Badge deleted successfully."))
     |> redirect(to: admin_badge_path(conn, :index))
   end
+
+  def allowed?(conn, _, _), do: admin?(conn)
 end

@@ -64,4 +64,8 @@ defmodule CforumWeb.CiteController do
     |> put_flash(:info, gettext("Cite deleted successfully."))
     |> redirect(to: cite_path(conn, :index))
   end
+
+  def allowed?(_conn, action, _) when action in [:index, :show, :new, :create], do: true
+  def allowed?(conn, action, _) when action not in [:index, :show, :new, :create], do: admin?(conn)
+  def allowed?(_, _, _), do: false
 end

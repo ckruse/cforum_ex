@@ -57,4 +57,6 @@ defmodule CforumWeb.Admin.UserController do
     |> put_flash(:info, gettext("User deleted successfully."))
     |> redirect(to: admin_user_path(conn, :index))
   end
+
+  def allowed?(conn, _, _), do: admin?(conn)
 end

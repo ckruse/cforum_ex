@@ -176,4 +176,7 @@ defmodule CforumWeb.ThreadController do
 
   # "srt" as in „show read threads“
   defp hide_read_threads?(conn), do: uconf(conn, "hide_read_threads") == "yes" && conn.params["srt"] != "yes"
+
+  # TODO proper access rights
+  def allowed?(conn, _, _), do: access_forum?(conn)
 end
