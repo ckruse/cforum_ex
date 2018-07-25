@@ -26,3 +26,4 @@ node_modules
 /priv/uploads/*
 /cover/*
 /.elixir_ls/*
+.dir-locals.el
