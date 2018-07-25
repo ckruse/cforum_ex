@@ -55,13 +55,6 @@ defmodule Cforum.Forums.Message do
     timestamps(inserted_at: :created_at)
   end
 
-  def accepted?(message), do: message.flags["accepted"] == "yes"
-  def no_answer?(message), do: message.flags["no-answer"] == "yes" || message.flags["no-answer-admin"] == "yes"
-  def closed?(message), do: message.deleted || no_answer?(message)
-  def score(msg), do: msg.upvotes - msg.downvotes
-  def no_votes(msg), do: msg.upvotes + msg.downvotes
-  def score_str(msg), do: Cforum.Helpers.score_str(no_votes(msg), score(msg))
-
   defp base_changeset(struct, params, user, forum_id, visible_forums) do
     struct
     |> cast(params, [:author, :email, :homepage, :subject, :content, :problematic_site, :tags_str, :forum_id])

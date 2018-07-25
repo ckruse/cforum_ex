@@ -40,7 +40,7 @@ defmodule Cforum.Abilities do
   alias Cforum.Accounts.User
   alias Cforum.Accounts.Badge
 
-  alias Cforum.Forums.Message
+  alias Cforum.Forums.Messages
 
   import Cforum.Helpers
 
@@ -92,7 +92,7 @@ defmodule Cforum.Abilities do
           false
       end
 
-    access_forum?(conn, :write) && !Message.closed?(message) && allowed
+    access_forum?(conn, :write) && !Messages.closed?(message) && allowed
   end
 
   @doc """

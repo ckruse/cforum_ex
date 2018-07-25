@@ -1,5 +1,5 @@
     <%= if @opts[:show_votes] do %>
-      <span class="votes" title="<%= ngettext("Score: no score", "Score: %{score}", Message.no_votes(@message), score: Message.score_str(@message)) %>">
-        <%= ngettext("Score: no score", "Score: %{score}", Message.no_votes(@message), score: Message.score_str(@message)) %>
+      <span class="votes" title="<%= ngettext("Score: no score", "Score: %{score}", Messages.no_votes(@message), score: Messages.score_str(@message)) %>">
+        <%= ngettext("Score: no score", "Score: %{score}", Messages.no_votes(@message), score: Messages.score_str(@message)) %>
       </span>
     <% end %>
