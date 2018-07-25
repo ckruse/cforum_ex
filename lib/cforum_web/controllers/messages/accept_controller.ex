@@ -1,7 +1,7 @@
 defmodule CforumWeb.Messages.AcceptController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.{Messages, Threads, Message}
+  alias Cforum.Forums.{Messages, Threads}
   alias CforumWeb.Views.Helpers.ReturnUrl
 
   def accept(conn, params) do
@@ -37,12 +37,12 @@ defmodule CforumWeb.Messages.AcceptController do
 
   def allowed?(conn, :accept, msg) do
     msg = msg || conn.assigns.message
-    accept?(conn, msg) && !Message.accepted?(msg)
+    accept?(conn, msg) && !Messages.accepted?(msg)
   end
 
   def allowed?(conn, :unaccept, msg) do
     msg = msg || conn.assigns.message
-    accept?(conn, msg) && Message.accepted?(msg)
+    accept?(conn, msg) && Messages.accepted?(msg)
   end
 
   def allowed?(_, _, _), do: false

@@ -1020,4 +1020,76 @@ defmodule Cforum.Forums.Messages do
       flag_message_subtree(message, type, "yes")
     end)
   end
+
+  @doc """
+  Returns true if a message has been accepted as a solving answer
+
+  ## Examples
+
+      iex> accepted?(%Message{flags: %{"accepted" => "yes"}})
+      true
+  """
+  def accepted?(message), do: message.flags["accepted"] == "yes"
+
+  @doc """
+  Returns true if answering to a message has been forbidden
+
+  ## Examples
+
+      iex> no_answer?(%Message{flags: %{"no-answer" => "yes"}})
+      true
+  """
+  def no_answer?(message), do: message.flags["no-answer"] == "yes" || message.flags["no-answer-admin"] == "yes"
+
+  @doc """
+  Returns true if answering to a message has been forbidden or allowed by an admin
+
+  ## Examples
+
+      iex> accepted?(%Message{flags: %{"no-answer-admin" => "yes"}})
+      true
+  """
+  def admin_decision?(message), do: Map.has_key?(message.flags, "no-answer-admin")
+
+  @doc """
+  Returns true if a message is „closed“ (as in: answering isn't possible). This
+  is the case when a message has been deleted or a message has been set to
+  „no answer“
+
+  ## Examples
+
+      iex> closed?(%Message{deleted: true})
+      true
+  """
+  def closed?(message), do: message.deleted || no_answer?(message)
+
+  @doc """
+  Returns the score of a message
+
+  ## Examples
+
+      iex> score(%Message{upscore: 2, downscore: 1})
+      1
+  """
+  def score(msg), do: msg.upvotes - msg.downvotes
+
+  @doc """
+  Returns the number of votes for a message
+
+  ## Examples
+
+      iex> no_votes(%Message{upscore: 2, downscore: 1})
+      3
+  """
+  def no_votes(msg), do: msg.upvotes + msg.downvotes
+
+  @doc """
+  Returns a localized, stringified version of the message score
+
+  ## Examples
+
+      iex> score_str(%Message{upvotes: 2, downvotes: 1})
+      "+3"
+  """
+  def score_str(msg), do: Cforum.Helpers.score_str(no_votes(msg), score(msg))
 end

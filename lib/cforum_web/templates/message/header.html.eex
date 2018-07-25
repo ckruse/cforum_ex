@@ -6,8 +6,8 @@
   <% end %>
 
   <%= if @opts[:show_icons] do %>
-    <span class="votes" title="<%= ngettext("Score: no score", "Score: %{score}", Message.no_votes(@message), score: Message.score_str(@message)) %>">
-      <%= Message.score(@message) %>
+    <span class="votes" title="<%= ngettext("Score: no score", "Score: %{score}", Messages.no_votes(@message), score: Messages.score_str(@message)) %>">
+      <%= Messages.score(@message) %>
     </span>
 
     <%= if @opts[:first], do: render "header_num_infos.html", assigns %>
