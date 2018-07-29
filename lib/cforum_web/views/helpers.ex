@@ -66,14 +66,14 @@ defmodule CforumWeb.Views.Helpers do
   """
   def time_tag(time, opts, do: content), do: time_tag(time, content, opts)
 
-  @doc """
-  Generates a time tag with the correct `datetime` attribute and the given content
-  """
   def time_tag(time, content, opts) do
     timestamp = time_tag_timestamp(time)
     content_tag(:time, content, Keyword.merge([datetime: timestamp], opts))
   end
 
+  @doc """
+  Generates a textual timestamp representation suitable for a <time> tag
+  """
   def time_tag_timestamp(%NaiveDateTime{} = time), do: NaiveDateTime.to_iso8601(time)
   def time_tag_timestamp(%DateTime{} = time), do: DateTime.to_iso8601(time)
   def time_tag_timestamp(%Date{} = time), do: Date.to_iso8601(time)
