@@ -679,7 +679,7 @@ defmodule Cforum.Forums.Messages do
       left_join: rm in ReadMessage,
       on: rm.message_id == msg.message_id and rm.user_id == ^user.user_id,
       left_join: inv in InvisibleThread,
-      on: inv.thread_id == thr.thread_id,
+      on: inv.thread_id == thr.thread_id and inv.user_id == ^user.user_id,
       where: msg.deleted == false and thr.archived == false and is_nil(rm.message_id) and is_nil(inv.thread_id),
       select: {fragment("COUNT(DISTINCT ?)", msg.thread_id), count("*")}
     )
