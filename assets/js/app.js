@@ -18,6 +18,8 @@
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
+import "../css/app.scss";
+
 import "whatwg-fetch";
 import "./modules/closest.js";
 
