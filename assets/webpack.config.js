@@ -11,8 +11,8 @@ const IS_PROD = ENV === "prod";
 const OUTPUT_PATH = path.resolve(__dirname, "..", "priv", "static");
 
 const ExtractCSS = new ExtractTextPlugin({
-  filename: IS_PROD ? "[name].[hash].css" : "[name].css",
-  chunkFilename: IS_PROD ? "[id].[hash].css" : "[id].css"
+  filename: "css/[name].css",
+  chunkFilename: IS_PROD ? "css/[id].[hash].css" : "css/[id].css"
 });
 
 var PLUGINS = [
@@ -41,7 +41,7 @@ module.exports = function(env = {}) {
   return {
     target: "web",
     entry: {
-      app: ["./js/app.js", "./css/app.scss"],
+      app: "./js/app.js",
       stats: "./js/stats.js"
     },
 

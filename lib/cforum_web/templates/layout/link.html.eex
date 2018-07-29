@@ -10,7 +10,9 @@
     <!--link rel="search" href="<%# search_url %>" title="<%# gettext("SELFHTML Search") %>" -->
     <%= if assigns[:link_tags], do: @link_tags %>
 
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>" media="all" title="SELFHTML Forum Stylesheet">
+    <%= if Application.get_env(:cforum, :environment) == :prod do %>
+      <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>" media="all" title="SELFHTML Forum Stylesheet">
+    <% end %>
 
     <link rel="alternate" title="<%= gettext("Atom feed (%{forum})", forum: forum_name(@current_forum)) %>" type="application/atom+xml" href="<%= forum_url(@conn, :atom, @current_forum) %>">
     <link rel="alternate" title="<%= gettext("RSS feed (%{forum})", forum: forum_name(@current_forum)) %>" type="application/rss+xml" href="<%= forum_url(@conn, :rss, @current_forum) %>">
