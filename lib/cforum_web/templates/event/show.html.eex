@@ -16,6 +16,7 @@
     <%= Cforum.MarkdownRenderer.to_html(@event, assigns[:current_user]) %>
   </div>
 
+  <%# TODO create a better solution for maps %>
   <%= if present?(@event.maps_link) do %>
     <section>
       <h3><%= gettext("map of the event location area") %></h3>
