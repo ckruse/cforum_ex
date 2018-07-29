@@ -3,7 +3,7 @@ defmodule CforumWeb.Cite.VoteController do
 
   alias Cforum.Cites
 
-  def vote(conn, %{"type" => type} = params) when type in ["up", "down"] do
+  def vote(conn, %{"type" => type}) when type in ["up", "down"] do
     # take back the current vote in all cases; if the type is the same
     # as already voted, we just take it back. If it is different, whe
     # create a new vote with the chosen new value
