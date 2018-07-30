@@ -546,7 +546,7 @@ msgstr ""
 #: lib/cforum_web/templates/mail/new.html.eex:16
 #: lib/cforum_web/templates/message/new.html.eex:21
 #: lib/cforum_web/templates/messages/flag/new.html.eex:33
-#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:31
+#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:34
 #: lib/cforum_web/templates/messages/open_close_vote/new_open.html.eex:17
 #: lib/cforum_web/templates/moderation/edit.html.eex:37
 #: lib/cforum_web/templates/tag/edit_merge.html.eex:13
@@ -1255,7 +1255,7 @@ msgid "less than a minute"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/audit/threads.html.eex:11
-#: lib/cforum_web/views/message_view.ex:84
+#: lib/cforum_web/views/message_view.ex:82
 msgid "by"
 msgstr ""
 
@@ -1275,7 +1275,7 @@ msgstr ""
 msgid "user information"
 msgstr ""
 
-#: lib/cforum_web/views/message_view.ex:89
+#: lib/cforum_web/views/message_view.ex:87
 msgid "new answer to %{name}"
 msgstr ""
 
@@ -3029,7 +3029,7 @@ msgid "planned start"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/message_view.ex:225
+#: lib/cforum_web/views/message_view.ex:223
 msgid "regarding your message %{subject} from %{time}"
 msgstr ""
 
@@ -3168,7 +3168,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/messages/flag/new.html.eex:16
-#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:14
+#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:17
 msgid "URL of the original message"
 msgstr ""
 
@@ -3414,7 +3414,8 @@ msgid "auditing: messages: move"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:130
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:131
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:134
 msgid "auditing: messages: no-answer"
 msgstr ""
 
@@ -3429,7 +3430,7 @@ msgid "auditing: messages: no-answer-admin-yes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:133
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:137
 msgid "auditing: messages: no-answer-no"
 msgstr ""
 
@@ -3586,7 +3587,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/messages/flag/new.html.eex:24
-#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:22
+#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:25
 #: lib/cforum_web/templates/messages/open_close_vote/new_open.html.eex:8
 #: lib/cforum_web/views/messages/flag_view.ex:21
 #: lib/cforum_web/views/messages/open_close_vote_view.ex:25
@@ -3785,11 +3786,13 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/message/close_vote.html.eex:14
+#: lib/cforum_web/templates/message/reopen_vote.html.eex:14
 msgid "I agree"
 msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/message/close_vote.html.eex:12
+#: lib/cforum_web/templates/message/reopen_vote.html.eex:12
 msgid "I changed my mind"
 msgstr ""
 
@@ -3825,6 +3828,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/message/close_vote.html.eex:5
+#: lib/cforum_web/templates/message/reopen_vote.html.eex:5
 msgid "The given reason:"
 msgstr ""
 
@@ -3849,7 +3853,7 @@ msgid "close vote (%{votes}/%{votes_needed})"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:30
+#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:33
 msgid "create close vote"
 msgstr ""
 
@@ -3868,7 +3872,17 @@ msgstr ""
 msgid "message and answers have been deleted"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:37
 msgid "auditing: close_votes_voters: unvote"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:140
+msgid "auditing: messages: unflag-no-answer"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/message/reopen_vote.html.eex:1
+msgid "reopen vote (%{votes}/%{votes_needed})"
 msgstr ""

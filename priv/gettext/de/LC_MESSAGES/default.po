@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2018-07-29 10:17+0200\n"
+"PO-Revision-Date: 2018-07-30 09:01+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -562,7 +562,7 @@ msgstr "Avatar"
 #: lib/cforum_web/templates/mail/new.html.eex:16
 #: lib/cforum_web/templates/message/new.html.eex:21
 #: lib/cforum_web/templates/messages/flag/new.html.eex:33
-#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:31
+#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:34
 #: lib/cforum_web/templates/messages/open_close_vote/new_open.html.eex:17
 #: lib/cforum_web/templates/moderation/edit.html.eex:37
 #: lib/cforum_web/templates/tag/edit_merge.html.eex:13
@@ -1271,7 +1271,7 @@ msgid "less than a minute"
 msgstr "weniger als einer Minute"
 
 #: lib/cforum_web/templates/admin/audit/threads.html.eex:11
-#: lib/cforum_web/views/message_view.ex:84
+#: lib/cforum_web/views/message_view.ex:82
 msgid "by"
 msgstr "von"
 
@@ -1291,7 +1291,7 @@ msgstr "Beitrag lesen"
 msgid "user information"
 msgstr "Benutzer-Informationen"
 
-#: lib/cforum_web/views/message_view.ex:89
+#: lib/cforum_web/views/message_view.ex:87
 msgid "new answer to %{name}"
 msgstr "Antwort an „%{name}“ verfassen"
 
@@ -3051,7 +3051,7 @@ msgid "planned start"
 msgstr "geplanter Reisebeginn"
 
 #, elixir-format
-#: lib/cforum_web/views/message_view.ex:225
+#: lib/cforum_web/views/message_view.ex:223
 msgid "regarding your message %{subject} from %{time}"
 msgstr "Dein Beitrag „%{subject}“ vom %{time}"
 
@@ -3190,7 +3190,7 @@ msgstr "Dieser Moderations-Fall wurde durch %{user} geklärt: %{resolution}"
 
 #, elixir-format
 #: lib/cforum_web/templates/messages/flag/new.html.eex:16
-#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:14
+#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:17
 msgid "URL of the original message"
 msgstr "URL der Original-Nachricht"
 
@@ -3436,7 +3436,8 @@ msgid "auditing: messages: move"
 msgstr "Beitrag verschoben"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:130
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:131
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:134
 msgid "auditing: messages: no-answer"
 msgstr "Beitrag geschlossen"
 
@@ -3451,7 +3452,7 @@ msgid "auditing: messages: no-answer-admin-yes"
 msgstr "Beitrag geschlossen (Admin)"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:133
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:137
 msgid "auditing: messages: no-answer-no"
 msgstr "Beitrag nicht länger geschlossen"
 
@@ -3608,7 +3609,7 @@ msgstr "Sperr-Abstimmungen"
 
 #, elixir-format
 #: lib/cforum_web/templates/messages/flag/new.html.eex:24
-#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:22
+#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:25
 #: lib/cforum_web/templates/messages/open_close_vote/new_open.html.eex:8
 #: lib/cforum_web/views/messages/flag_view.ex:21
 #: lib/cforum_web/views/messages/open_close_vote_view.ex:25
@@ -3807,11 +3808,13 @@ msgstr "Die Entsperr-Abstimmung wurde erfolgreich erstellt."
 
 #, elixir-format
 #: lib/cforum_web/templates/message/close_vote.html.eex:14
+#: lib/cforum_web/templates/message/reopen_vote.html.eex:14
 msgid "I agree"
 msgstr "Ich stimme zu"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/close_vote.html.eex:12
+#: lib/cforum_web/templates/message/reopen_vote.html.eex:12
 msgid "I changed my mind"
 msgstr "Ich habe meine Meinung geändert"
 
@@ -3847,6 +3850,7 @@ msgstr "Erfolgreich abgestimmt."
 
 #, elixir-format
 #: lib/cforum_web/templates/message/close_vote.html.eex:5
+#: lib/cforum_web/templates/message/reopen_vote.html.eex:5
 msgid "The given reason:"
 msgstr "Der angegebene Grund:"
 
@@ -3871,7 +3875,7 @@ msgid "close vote (%{votes}/%{votes_needed})"
 msgstr "Sperr-Abstimmung (%{votes}/%{votes_needed})"
 
 #, elixir-format
-#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:30
+#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:33
 msgid "create close vote"
 msgstr "Sperr-Abstimmung erstellen"
 
@@ -3890,7 +3894,17 @@ msgstr "Der Beitrag und die folgenden Nachrichten wurden geschlossen."
 msgid "message and answers have been deleted"
 msgstr "Der Beitrag und die folgenden Antworten wurden gelöscht."
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:37
 msgid "auditing: close_votes_voters: unvote"
 msgstr "Stimme für Sperr-/Entsperr-Abstimmung zurück genommen"
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:140
+msgid "auditing: messages: unflag-no-answer"
+msgstr "„antworten verboten“-Markierung entfernt"
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/message/reopen_vote.html.eex:1
+msgid "reopen vote (%{votes}/%{votes_needed})"
+msgstr "Entsperr-Abstimmung (%{votes}/%{votes_needed})"
