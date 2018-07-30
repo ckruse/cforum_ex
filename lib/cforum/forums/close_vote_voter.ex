@@ -16,7 +16,8 @@ defmodule Cforum.Forums.CloseVoteVoter do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [])
-    |> validate_required([])
+    |> cast(params, [:close_vote_id, :user_id])
+    |> validate_required([:close_vote_id, :user_id])
+    |> unique_constraint(:user_id, name: :close_votes_voters_close_vote_id_user_id_key)
   end
 end

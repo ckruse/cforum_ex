@@ -540,6 +540,31 @@ defmodule Cforum.Forums.Messages do
   end
 
   @doc """
+  Restores a Message.
+
+  ## Examples
+
+      iex> restore_message(message)
+      {:ok, %Message{}}
+
+      iex> restore_message(message)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def restore_message(user, %Message{} = message) do
+    System.audited("restore", user, fn ->
+      new_message =
+        message
+        |> Ecto.Changeset.change(deleted: false)
+        |> Repo.update!()
+
+      Enum.each(message.messages, &restore_message(user, &1))
+
+      {:ok, new_message}
+    end)
+  end
+
+  @doc """
   Returns an `%Ecto.Changeset{}` for tracking message changes.
 
   ## Examples
@@ -1004,6 +1029,33 @@ defmodule Cforum.Forums.Messages do
   end
 
   @doc """
+  Removes a flag from the message and its subtree
+
+  - `message` is the message to flag
+  - `flag` is the flag to set
+
+  ## Examples
+
+      iex> unflag_message_subtree(%Message{}, "no-answer")
+      {:ok, %Message{}}
+  """
+  def unflag_message_subtree(message, flag) do
+    flags = Map.delete(message.flags, flag)
+
+    messages =
+      Enum.map(message.messages, fn msg ->
+        {:ok, msg} = unflag_message_subtree(msg, flag)
+        msg
+      end)
+
+    msg = %Message{message | messages: messages}
+
+    msg
+    |> Ecto.Changeset.change(flags: flags)
+    |> Repo.update()
+  end
+
+  @doc """
   Sets a the no answer flag of the message and its subtree to yes
 
   - `user` the current user
@@ -1018,6 +1070,24 @@ defmodule Cforum.Forums.Messages do
   def flag_no_answer(user, message, type \\ "no-answer-admin") when type in ~w(no-answer-admin no-answer) do
     System.audited("flag-no-answer", user, fn ->
       flag_message_subtree(message, type, "yes")
+    end)
+  end
+
+  @doc """
+  Removes a the no answer flag of the message and its subtree
+
+  - `user` the current user
+  - `message` is the message to flag
+  - `type` is the no answer type, one of `"no-answer"` or `"no-answer-admin"`
+
+  ## Examples
+
+      iex> unflag_no_answer(%User{}, %Message{})
+      {:ok, %Message{}}
+  """
+  def unflag_no_answer(user, message, type \\ "no-answer-admin") when type in ~w(no-answer-admin no-answer) do
+    System.audited("unflag-no-answer", user, fn ->
+      unflag_message_subtree(message, type)
     end)
   end
 

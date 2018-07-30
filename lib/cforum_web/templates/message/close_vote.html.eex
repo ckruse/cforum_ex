@@ -1,0 +1,17 @@
+<h3><%= gettext("close vote (%{votes}/%{votes_needed})", votes: CloseVotes.no_votes(@close_vote), votes_needed: conf(@conn, "close_vote_votes")) %></h3>
+
+<p>
+  <%= OpenCloseVoteView.l10n_action(@conn, @close_vote) %>
+  <%= gettext("The given reason:") %>
+  <em><%= if @close_vote.reason == "custom", do: @close_vote.custom_reason, else: OpenCloseVoteView.l10n_reason(@close_vote.reason) %></em>
+</p>
+
+<%= if may?(@conn, "messages/open_close_vote", :vote, %CloseVote{@close_vote | message: @message}) do %>
+  <p>
+    <%= if CloseVotes.has_voted?(@current_user, @close_vote) do %>
+      <%= default_button(gettext("I changed my mind"), to: oc_vote_path(@conn, @thread, @message, @close_vote), method: :patch) %>
+    <% else %>
+      <%= default_button(gettext("I agree"), to: oc_vote_path(@conn, @thread, @message, @close_vote), method: :patch) %>
+    <% end %>
+  </p>
+<% end %>

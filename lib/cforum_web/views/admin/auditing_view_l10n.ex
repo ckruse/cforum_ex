@@ -30,6 +30,12 @@ defmodule CforumWeb.AuditingViewL10n do
   def l10n_audit_act(%Auditing{relation: "close_votes", act: "finished"}),
     do: gettext("auditing: close_votes: finished")
 
+  def l10n_audit_act(%Auditing{relation: "close_votes_voters", act: "vote"}),
+    do: gettext("auditing: close_votes_voters: vote")
+
+  def l10n_audit_act(%Auditing{relation: "close_votes_voters", act: "unvote"}),
+    do: gettext("auditing: close_votes_voters: unvote")
+
   def l10n_audit_act(%Auditing{relation: "media", act: "create"}), do: gettext("auditing: media: create")
   def l10n_audit_act(%Auditing{relation: "media", act: "destroy"}), do: gettext("auditing: media: destroy")
 
@@ -86,6 +92,7 @@ defmodule CforumWeb.AuditingViewL10n do
   def l10n_audit_act(%Auditing{relation: "messages", act: "update"}), do: gettext("auditing: messages: update")
   def l10n_audit_act(%Auditing{relation: "messages", act: "retag"}), do: gettext("auditing: messages: retag")
   def l10n_audit_act(%Auditing{relation: "messages", act: "delete"}), do: gettext("auditing: messages: delete")
+  def l10n_audit_act(%Auditing{relation: "messages", act: "destroy"}), do: gettext("auditing: messages: delete")
   def l10n_audit_act(%Auditing{relation: "messages", act: "restore"}), do: gettext("auditing: messages: restore")
   def l10n_audit_act(%Auditing{relation: "messages", act: "move"}), do: gettext("auditing: messages: move")
   def l10n_audit_act(%Auditing{relation: "messages", act: "unflagged"}), do: gettext("auditing: messages: unflagged")
@@ -124,4 +131,7 @@ defmodule CforumWeb.AuditingViewL10n do
 
   def l10n_audit_act(%Auditing{relation: "messages", act: "no-answer-no"}),
     do: gettext("auditing: messages: no-answer-no")
+
+  def l10n_audit_act(log),
+    do: raise("unknown entry for relation:#{log.relation}, action:#{log.act}")
 end

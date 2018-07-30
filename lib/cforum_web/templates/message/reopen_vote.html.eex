@@ -1,0 +1,17 @@
+<h3><%= gettext("reopen vote (%{votes}/%{votes_needed})", votes: CloseVotes.no_votes(@reopen_vote), votes_needed: conf(@conn, "close_vote_votes")) %></h3>
+
+<p>
+  <%= OpenCloseVoteView.l10n_action(@conn, @reopen_vote) %>
+  <%= gettext("The given reason:") %>
+  <em><%= @reopen_vote.custom_reason %></em>
+</p>
+
+<%= if may?(@conn, "messages/open_close_vote", :vote, %CloseVote{@reopen_vote | message: @message}) do %>
+  <p>
+    <%= if CloseVotes.has_voted?(@current_user, @reopen_vote) do %>
+      <%= default_button(gettext("I changed my mind"), to: oc_vote_path(@conn, @thread, @message, @reopen_vote), method: :patch) %>
+    <% else %>
+      <%= default_button(gettext("I agree"), to: oc_vote_path(@conn, @thread, @message, @reopen_vote), method: :patch) %>
+    <% end %>
+  </p>
+<% end %>

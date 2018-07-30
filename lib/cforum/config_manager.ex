@@ -24,6 +24,7 @@ defmodule Cforum.ConfigManager do
     "close_vote_action_off-topic" => "close",
     "close_vote_action_not-constructive" => "close",
     "close_vote_action_illegal" => "hide",
+    "close_vote_action_spam" => "hide",
     "close_vote_action_duplicate" => "close",
     "close_vote_action_custom" => "close",
     "header_start_index" => 2,
@@ -182,8 +183,18 @@ defmodule Cforum.ConfigManager do
     supported. If `:int` is specified, we cast the value with
     `String.to_integer/1`
   """
-  def conf(conn_or_forum, name, type \\ :none)
-  def conf(conn_or_forum, name, :int), do: to_int(conf(conn_or_forum, name))
+  def conf(conn_setting_or_forum, name, type \\ :none)
+  def conf(conn_setting_or_forum, name, :int), do: to_int(conf(conn_setting_or_forum, name))
+
+  def conf(%Cforum.Accounts.Setting{} = setting, name, _) do
+    confs = %{
+      global: setting,
+      forum: nil,
+      user: nil
+    }
+
+    get(confs, name, nil, nil) || @defaults[name]
+  end
 
   def conf(%Cforum.Forums.Forum{} = forum, name, _) do
     settings = Cforum.Accounts.Settings.load_relevant_settings(forum, nil)

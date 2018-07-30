@@ -4,7 +4,7 @@ defmodule Cforum.Forums.CloseVote do
   @primary_key {:close_vote_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :close_vote_id}
 
-  @reasons ~w(off-topic not-constructive illegal duplicate custom spam)
+  @reasons ~w(off-topic not-constructive illegal duplicate spam custom)
   def reasons(), do: @reasons
 
   schema "close_votes" do
@@ -23,9 +23,35 @@ defmodule Cforum.Forums.CloseVote do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
-  def changeset(struct, params \\ %{}) do
+  def new_changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:reason, :duplicate_slug, :custom_reason, :finished, :vote_type])
-    |> validate_required([:reason, :duplicate_slug, :custom_reason, :finished, :vote_type])
+    |> cast(params, [:reason, :duplicate_slug, :custom_reason])
+    |> put_change(:vote_type, false)
+    |> validate_required([:reason])
+    |> maybe_require_others()
+    |> validate_inclusion(:reason, @reasons)
+    |> unique_constraint(:message_id, name: :close_votes_message_id_vote_type_key)
+  end
+
+  def new_open_changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:custom_reason])
+    |> put_change(:vote_type, true)
+    |> put_change(:reason, "custom")
+    |> validate_required([:custom_reason])
+    |> unique_constraint(:message_id, name: :close_votes_message_id_vote_type_key)
+  end
+
+  def finish_changeset(struct) do
+    struct
+    |> cast(%{finished: true}, [:finished])
+  end
+
+  defp maybe_require_others(changeset) do
+    case get_field(changeset, :reason) do
+      "duplicate" -> validate_required(changeset, [:duplicate_url])
+      "custom" -> validate_required(changeset, [:custom_reason])
+      _ -> changeset
+    end
   end
 end
