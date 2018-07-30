@@ -127,10 +127,17 @@ defmodule CforumWeb.AuditingViewL10n do
   def l10n_audit_act(%Auditing{relation: "messages", act: "no-answer-admin-no"}),
     do: gettext("auditing: messages: no-answer-admin-no")
 
-  def l10n_audit_act(%Auditing{relation: "messages", act: "no-answer"}), do: gettext("auditing: messages: no-answer")
+  def l10n_audit_act(%Auditing{relation: "messages", act: "no-answer"}),
+    do: gettext("auditing: messages: no-answer")
+
+  def l10n_audit_act(%Auditing{relation: "messages", act: "flag-no-answer"}),
+    do: gettext("auditing: messages: no-answer")
 
   def l10n_audit_act(%Auditing{relation: "messages", act: "no-answer-no"}),
     do: gettext("auditing: messages: no-answer-no")
+
+  def l10n_audit_act(%Auditing{relation: "messages", act: "unflag-no-answer"}),
+    do: gettext("auditing: messages: unflag-no-answer")
 
   def l10n_audit_act(log),
     do: raise("unknown entry for relation:#{log.relation}, action:#{log.act}")
