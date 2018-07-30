@@ -1,10 +1,10 @@
 defmodule CforumWeb.MessageView do
   use CforumWeb, :view
 
-  alias Cforum.Forums.Thread
-  alias Cforum.Forums.Message
-  alias Cforum.Forums.Messages
+  alias Cforum.Forums.{Messages, Thread, Message}
+  alias Cforum.Forums.{CloseVotes, CloseVote}
   alias Cforum.Forums.Votes
+  alias CforumWeb.Messages.OpenCloseVoteView
 
   def first_class(classes, %{first: true}), do: ["first" | classes]
   def first_class(classes, _), do: classes

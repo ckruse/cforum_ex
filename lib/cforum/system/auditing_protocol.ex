@@ -184,6 +184,28 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Cites.Cite do
   end
 end
 
+defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.CloseVote do
+  def audit_json(vote) do
+    vote = Cforum.Repo.preload(vote, [:message])
+
+    vote
+    |> Map.from_struct()
+    |> Map.drop([:__meta__, :voters])
+    |> Map.put(:message, Cforum.System.AuditingProtocol.audit_json(vote.message))
+  end
+end
+
+defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.CloseVoteVoter do
+  def audit_json(voter) do
+    voter = Cforum.Repo.preload(voter, [:close_vote])
+
+    voter
+    |> Map.from_struct()
+    |> Map.drop([:__meta__, :user])
+    |> Map.put(:close_vote, Cforum.System.AuditingProtocol.audit_json(voter.close_vote))
+  end
+end
+
 defimpl Cforum.System.AuditingProtocol, for: List do
   def audit_json(list), do: Enum.map(list, &Cforum.System.AuditingProtocol.audit_json(&1))
 end

@@ -168,6 +168,12 @@ defmodule CforumWeb.Router do
 
       get("/:year/:month/:day/:slug/:mid/retag", Messages.RetagController, :edit, as: nil)
       post("/:year/:month/:day/:slug/:mid/retag", Messages.RetagController, :update, as: nil)
+
+      get("/:year/:month/:day/:slug/:mid/close-vote", Messages.OpenCloseVoteController, :new_close, as: nil)
+      post("/:year/:month/:day/:slug/:mid/close-vote", Messages.OpenCloseVoteController, :create_close, as: nil)
+      get("/:year/:month/:day/:slug/:mid/open-vote", Messages.OpenCloseVoteController, :new_open, as: nil)
+      post("/:year/:month/:day/:slug/:mid/open-vote", Messages.OpenCloseVoteController, :create_open, as: nil)
+      patch("/:year/:month/:day/:slug/:mid/oc-vote/:id", Messages.OpenCloseVoteController, :vote, as: nil)
     end
 
     get("/m:id", RedirectorController, :redirect_to_message)

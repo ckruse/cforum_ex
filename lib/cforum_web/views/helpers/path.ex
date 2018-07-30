@@ -4,6 +4,7 @@ defmodule CforumWeb.Views.Helpers.Path do
   alias Cforum.Forums.Message
   alias Cforum.Forums.Thread
   alias Cforum.Forums.Forum
+  alias Cforum.Forums.CloseVote
 
   import CforumWeb.Router.Helpers
 
@@ -227,6 +228,15 @@ defmodule CforumWeb.Views.Helpers.Path do
 
   def unaccept_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/unaccept#{encode_query_string(params)}"
+
+  def close_vote_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
+    do: "#{int_message_path(conn, thread, msg)}/close-vote#{encode_query_string(params)}"
+
+  def open_vote_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
+    do: "#{int_message_path(conn, thread, msg)}/open-vote#{encode_query_string(params)}"
+
+  def oc_vote_path(conn, %Thread{} = thread, %Message{} = message, %CloseVote{} = vote, params \\ []),
+    do: "#{int_message_path(conn, thread, message)}/oc-vote/#{vote.close_vote_id}#{encode_query_string(params)}"
 
   def mark_read_path(conn, :mark_read, %Thread{} = thread, params \\ []),
     do: "#{thread_path(conn, :show, thread)}/mark-read#{encode_query_string(params)}"

@@ -49,12 +49,12 @@
           <%= default_button_link(gettext("split thread"), to: "split_thread_path @thread, m TODO", rel: "nofollow") %>
         <% end %>
 
-        <%= if may?(@conn, "messages/close_vote", :new, @message) do %>
+        <%= if may?(@conn, "messages/open_close_vote", :new_close, @message) do %>
           <%= default_button_link(gettext("Start a close vote"), to: close_vote_path(@conn, @thread, @message), rel: "nofollow") %>
         <% end %>
 
-        <%= if may?(@conn, "messages/open_vote", :new, @message) do %>
-          <%= default_button_link(gettext("Start an open vote"), to: "close_message_path(@thread, m) TODO", rel: "nofollow") %>
+        <%= if may?(@conn, "messages/open_close_vote", :create_open, @message) do %>
+          <%= default_button_link(gettext("Start an open vote"), to: open_vote_path(@conn, @thread, @message), rel: "nofollow") %>
         <% end %>
 
         <%= if may?(@conn, "messages/interesting", :interesting, @message) do %>
@@ -79,5 +79,22 @@
   </div>
 
   <%= render "votes_accept.html", Map.put(assigns, :top, false) %>
-
 </div>
+
+<%= if present?(CloseVotes.get_close_vote(@message)) do %>
+  <%= render "close_vote.html", Map.put(assigns, :close_vote, CloseVotes.get_close_vote(@message)) %>
+<% end %>
+
+<%= if present?(CloseVotes.get_reopen_vote(@message)) do %>
+  <%= render "reopen_vote.html", Map.put(assigns, :reopen_vote, CloseVotes.get_reopen_vote(@message)) %>
+<% end %>
+
+<%= if @message.message_id == @thread.message.message_id and present?(@thread.accepted) do %>
+  <h3><%= gettext("accepted answers") %></h3>
+
+  <%= for msg <- @thread.accepted do %>
+    <article class="cf-thread threadlist">
+      <%= header(@conn, @thread, msg, id: false, show_votes: true) %>
+    </article>
+  <% end %>
+<% end %>
