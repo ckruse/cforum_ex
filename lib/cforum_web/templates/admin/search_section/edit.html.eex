@@ -1,0 +1,1 @@
+<%= render "form.html", Map.merge(assigns, %{action: admin_search_section_path(@conn, :update, @section), back: admin_search_section_path(@conn, :index)}) %>

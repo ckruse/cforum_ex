@@ -1,0 +1,32 @@
+<%= form_for @changeset, @action, [class: "cf-form"], fn f -> %>
+  <%= if @changeset.action do %>
+    <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
+  <% end %>
+
+  <div class="cf-cgroup <%= error_class(f, :name) %>">
+    <%= label f, :name, gettext("name") %>
+    <%= text_input f, :name %>
+    <%= error_tag f, :name %>
+  </div>
+
+  <div class="cf-cgroup <%= error_class(f, :position) %>">
+    <%= label f, :position, gettext("position") %>
+    <%= number_input f, :position %>
+    <%= error_tag f, :position %>
+  </div>
+
+  <div class="cf-cgroup <%= error_class(f, :forum_id) %>">
+    <%= label f, :forum_id, gettext("forum") %>
+    <%= select f, :forum_id, Enum.map(@forums, &{&1.name, &1.forum_id}), prompt: "" %>
+    <%= error_tag f, :forum_id %>
+  </div>
+
+  <div class="cf-cgroup">
+    <label class="checkbox"><%= checkbox f, :active_by_default %> <%= gettext("active by default") %></label>
+  </div>
+
+  <p class="form-actions">
+    <%= primary_submit gettext("save") %>
+    <%= default_button_link gettext("cancel"), to: @back %>
+  </p>
+<% end %>

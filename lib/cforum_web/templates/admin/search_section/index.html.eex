@@ -1,0 +1,29 @@
+<table class="cf-default-table">
+  <thead>
+    <tr>
+      <th><%= gettext("search section name") %></th>
+      <th><%= gettext("position") %></th>
+      <th><%= gettext("forum") %>
+      <th><%= gettext("active by default") %></th>
+
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= for section <- @search_sections do %>
+      <tr>
+        <td><%= section.name %></td>
+        <td><%= section.position %></td>
+        <td><%= if present?(section.forum_id), do: section.forum.name, else: "" %></td>
+        <td><%= if section.active_by_default, do: gettext("yes"), else: gettext("no") %></td>
+
+        <td class="actions-column">
+          <%= default_index_link(gettext("edit"), to: admin_search_section_path(@conn, :edit, section)) %>
+          <%= destructive_index_button(gettext("delete"), to: admin_search_section_path(@conn, :delete, section), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
