@@ -135,7 +135,7 @@ defmodule CforumWeb.Paginator do
 
   defp page(text, path_helper, conn, page_number, opts) do
     page_param = opts[:page_param] || :p
-    params_with_page = Keyword.merge(opts[:url_params] || [], [{page_param, page_number}])
+    params_with_page = merge(opts[:url_params] || [], [{page_param, page_number}])
     args = opts[:path_args] || [conn, :index]
 
     to = apply(path_helper, args ++ [params_with_page])
@@ -146,4 +146,7 @@ defmodule CforumWeb.Paginator do
       content_tag(:a, text)
     end
   end
+
+  defp merge(%{} = params, new_params), do: Map.merge(params, Enum.into(new_params, %{}))
+  defp merge(params, new_params), do: Keyword.merge(params, new_params)
 end
