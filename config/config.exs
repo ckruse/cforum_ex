@@ -30,12 +30,11 @@ config :cforum,
     per_page: 50,
     distance: 3
   ],
-  base_url: "http://localhost:4000/"
+  base_url: "http://localhost:4000/",
+  search_dict: "german"
 
 config :arc, storage: Arc.Storage.Local
-
 config :porcelain, driver: Porcelain.Driver.Basic
-
 config :timex, default_locale: "de"
 
 # Import environment specific config. This must remain at the bottom

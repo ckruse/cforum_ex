@@ -53,7 +53,7 @@
             <%= link gettext("cites"), to: cite_path(@conn, :index) %>
             <%= if signed_in?(@conn) do %>(<%= link "#{@undecided_cites}", to: cite_path(@conn, :index_voting) %>)<% end %>
           </li>
-          <li><%= link gettext("search"), to: "" %></li>
+          <li><%= link gettext("search"), to: search_path(@conn, :show) %></li>
           <li><%= link gettext("chat"), to: "https://kiwiirc.com/client/irc.epd-me.net/#{chat_nick_name(@conn)}&channel=#selfhtml", rel: "nofollow" %></li>
           <li><%= link(gettext("help"), to: page_path(@conn, :help)) %></li>
           <%= if false and controller_module(@conn) != Cforum.SearchController do %><%# TODO search field %>

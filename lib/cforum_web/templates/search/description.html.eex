@@ -1,0 +1,18 @@
+<ol>
+  <%= if should_show_title?(@result.headline_author) do %>
+    <li class="headline-author"><%= {:safe, @result.headline_author} %></li>
+  <% end %>
+  <%= if should_show_title?(@result.headline_title) do %>
+    <li class="headline-title"><%= {:safe, @result.headline_title} %></li>
+  <% end %>
+  <%= if should_show_title?(@result.headline_all) do %>
+    <li class="headline-doc"><%= {:safe, @result.headline_all} %></li>
+  <% end %>
+  <%= if should_show_title?(@result.headline_content) do %>
+    <li class="headline-content"><%= {:safe, @result.headline_content} %></li>
+  <% end %>
+
+  <%= if should_show_desc?(@result) do %>
+    <li class="content-truncated p-content"><%= truncate_words(@result.content, 30) %></li>
+  <% end %>
+</ol>

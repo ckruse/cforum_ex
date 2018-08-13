@@ -12,4 +12,26 @@ defmodule Cforum.Repo do
       [] -> false
     end
   end
+
+  def execute_and_load(sql, params, schema, postprocess \\ nil)
+
+  def execute_and_load(sql, params, schema, nil) do
+    result = query!(sql, params)
+    Enum.map(result.rows, &load(schema, {result.columns, &1}))
+  end
+
+  def execute_and_load(sql, params, schema, postprocess) do
+    result = query!(sql, params)
+
+    Enum.map(result.rows, fn row ->
+      obj = load(schema, {result.columns, row})
+
+      if postprocess do
+        fields = Enum.into(Enum.zip(result.columns, row), %{})
+        postprocess.(fields, obj)
+      else
+        obj
+      end
+    end)
+  end
 end

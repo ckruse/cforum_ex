@@ -197,4 +197,26 @@ defmodule Cforum.Factory do
       http_status: 301
     }
   end
+
+  def search_section_factory do
+    %Cforum.Search.Section{
+      active_by_default: false,
+      name: sequence("Section "),
+      position: sequence(:position, & &1)
+    }
+  end
+
+  def search_document_factory do
+    %Cforum.Search.Document{
+      author: sequence("Author "),
+      content: Faker.Lorem.paragraph(%Range{first: 1, last: 2}),
+      document_created: Timex.now(),
+      lang: "german",
+      relevance: 1.0,
+      tags: [],
+      title: Faker.Lorem.sentence(%Range{first: 1, last: 10}),
+      url: sequence("https://example.org/search-"),
+      search_section: build(:search_section)
+    }
+  end
 end
