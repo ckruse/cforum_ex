@@ -46,6 +46,7 @@ defmodule CforumWeb.Router do
       resources("/badges", BadgeController, except: [:show])
       resources("/redirections", RedirectionController, except: [:show])
       resources("/events", EventController, except: [:show])
+      resources("/search_sections", SearchSectionController, except: [:show])
 
       get("/audit", AuditController, :index)
 
@@ -70,6 +71,8 @@ defmodule CforumWeb.Router do
 
     get("/moderation/open", ModerationController, :index_open)
     resources("/moderation", ModerationController, except: [:new, :create, :delete])
+
+    get("/search", SearchController, :show)
 
     scope "/users", Users do
       get("/password", PasswordController, :new)

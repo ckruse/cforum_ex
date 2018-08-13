@@ -104,4 +104,23 @@ defmodule Cforum.Helpers do
       Ecto.Changeset.update_change(changeset, key, &String.trim/1)
     end)
   end
+
+  @doc """
+  Truncates the string `str` after `words_count` words
+  """
+  def truncate_words(str, words_count, options \\ [omission: "…", separator: "\\s+"]) do
+    sep = options[:separator] || "\\s+"
+    {:ok, re} = Regex.compile("\\A((?>.+?#{sep}){#{words_count - 1}}.+?)#{sep}.*")
+
+    case Regex.run(re, str) do
+      nil ->
+        str
+
+      [_, val] ->
+        val <> (options[:omission] || "…")
+
+      v ->
+        raise inspect(v)
+    end
+  end
 end

@@ -1,0 +1,4 @@
+<article class="cf-thread searchresult h-cite">
+  <%= render "header.html", assigns %>
+  <%= render "description.html", assigns %>
+</article>

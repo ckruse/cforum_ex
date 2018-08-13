@@ -1,0 +1,55 @@
+<%= form_for @changeset, search_path(@conn, :show) <> "#results", [method: :get, class: "cf-form", rel: "nofollow", as: :search], fn f -> %>
+  <%= if @changeset.action do %>
+    <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
+  <% end %>
+
+  <div class="cf-cgroup <%= error_class(f, :term) %>">
+    <%= label f, :term, gettext("search term") %>
+    <%= text_input f, :term %>
+    <%= error_tag f, :term %>
+  </div>
+
+  <%= l10n_render @view_module, "explanation.html", assigns %>
+
+  <div class="cf-cgroup">
+    <%= for section <- @visible_sections do %>
+      <label class="checkbox">
+        <input type="checkbox" name="search[sections][]" value="<%= section.search_section_id %>"<%= if checked?(section, f), do: " checked=\"checked\"" %>>
+        <%= section.name %>
+      </label>
+    <% end %>
+  </div>
+
+  <div class="cf-cgroup <%= error_class(f, :start_date) %>">
+    <%= label f, :start_date, gettext("start date") %>
+    <%= date_input f, :start_date %>
+    <%= error_tag f, :start_date %>
+  </div>
+
+  <div class="cf-cgroup <%= error_class(f, :end_date) %>">
+    <%= label f, :end_date, gettext("end date") %>
+    <%= date_input f, :end_date %>
+    <%= error_tag f, :end_date %>
+  </div>
+
+  <div class="cf-cgroup">
+    <label class="radio"><%= radio_button f, :order, "relevance" %> <%= gettext("sort by relevance") %></label>
+    <label class="radio"><%= radio_button f, :order, "date" %> <%= gettext("sort by date") %></label>
+  </div>
+
+  <p class="form-actions">
+    <%= primary_submit gettext("search") %>
+  </p>
+<% end %>
+
+<%= if assigns[:results] do %>
+  <h2 id="results"><%= gettext("%{count} search results", count: @paging.all_entries_count) %></h2>
+
+  <%= pagination @conn, @paging, &search_path/3, [path_args: [@conn, :show], url_params: @params] %>
+
+  <div class="cf-thread-list cf-search-results">
+    <%= for result <- @results, do: render("result.html", Map.put(assigns, :result, result)) %>
+  </div>
+
+  <%= pagination @conn, @paging, &search_path/3, [path_args: [@conn, :show], url_params: @params] %>
+<% end %>

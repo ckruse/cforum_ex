@@ -1,0 +1,8 @@
+<ul class="search-explanation">
+  <li>Ein Minuszeichen vor einem Begriff schließt diesen aus der Suche aus.</li>
+  <li>Mehrere durch Leerzeichen getrennte Begriffe werden mit <strong>und</strong> verknüpft ausgewertet.</li>
+  <li>In "Gänsefüßchen" eingeschlossene Zeichenketten dürfen auch Leerzeichen enthalten.</li>
+  <li><code>author:term</code> sucht <code>term</code> nur im Verfasser, <code>tag:term</code> nur im Tag,
+    <code>title:term</code> nur im Titel, <code>body:term</code> nur im Text der Nachricht.</li>
+  <li>Es können jeweils mehrere Begriffe angegeben werden, z.B. sucht <code>tag:html tag:css</code> nach Beiträgen mit den Tags <code>css</code> und <code>html</code></li>
+</ul>
