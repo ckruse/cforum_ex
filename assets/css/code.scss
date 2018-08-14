@@ -1,0 +1,47 @@
+code,
+kbd {
+  font-family: Consolas, "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Andale Mono", "Droid Sans Mono",
+    "Lucida Console", monospace;
+  background-color: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  color: #0000c0;
+  border-radius: 0 0.4em 0.4em;
+  padding: 0 0.3em;
+}
+
+/* Code-Blöcke */
+code.block {
+  display: block;
+  white-space: pre;
+  white-space: pre-wrap;
+  margin-top: 0.5em;
+  padding: 0.3em 0.4em 0.3em 0.5em;
+  line-height: 1.2em;
+  border-left: 0.3em solid #8a9da8;
+  border-radius: 0 0.4em 0.4em 0;
+  background-color: white;
+}
+
+blockquote {
+  code.block {
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+  code.good {
+    background-color: #dff0d8;
+  }
+  code.bad {
+    background-color: #f2dede;
+  }
+}
+
+code.good {
+  color: #3c763d;
+  background-color: #dff0d8;
+}
+
+code.bad {
+  color: #a94442;
+  background-color: #f2dede;
+}
+/* end Code-Blöcke */

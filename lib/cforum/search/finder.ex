@@ -6,12 +6,150 @@ defmodule Cforum.Search.Finder do
   alias Cforum.Search.Document
   alias Cforum.Search.Query
 
+  def count_interesting_messages_results(current_user, changeset) do
+    search_dict = Application.get_env(:cforum, :search_dict, "english")
+    query = Query.parse(Ecto.Changeset.get_field(changeset, :term))
+    sections = Ecto.Changeset.get_field(changeset, :sections)
+    start_date = date_from_changeset(changeset, :start_date)
+    end_date = date_from_changeset(changeset, :end_date, &Timex.end_of_day/1)
+
+    {_, conditions, ordering, args, args_cnt} =
+      {[], [], "", [], 0}
+      |> maybe_add_search(query.all, search_dict, "ts_document")
+      |> maybe_add_search(query.title, search_dict, "ts_title")
+      |> maybe_add_search(query.content, search_dict, "ts_content")
+      |> maybe_add_search(query.author, "simple", "ts_author")
+      |> maybe_add_search(query.tags, nil, :tags)
+      |> add_sections(sections)
+
+    conditions =
+      conditions
+      |> Enum.map(&"(#{&1})")
+      |> Enum.join(" AND ")
+
+    subquery = """
+    SELECT COUNT(*) FROM search_documents
+      INNER JOIN interesting_messages im ON im.message_id = search_documents.reference_id
+        AND im.user_id = $#{args_cnt + 1}
+      WHERE #{conditions}
+    """
+
+    rslt = Repo.query!(subquery, args ++ [current_user.user_id])
+    rslt.rows |> List.first() |> List.first()
+  end
+
+  def search_interesting_messages(current_user, changeset, paging \\ [offset: 0, quantity: 50]) do
+    search_dict = Application.get_env(:cforum, :search_dict, "english")
+    query = Query.parse(Ecto.Changeset.get_field(changeset, :term))
+    sections = Ecto.Changeset.get_field(changeset, :sections)
+    start_date = date_from_changeset(changeset, :start_date)
+    end_date = date_from_changeset(changeset, :end_date, &Timex.end_of_day/1)
+
+    {_, conditions, ordering, args, args_cnt} =
+      {[], [], "", [], 0}
+      |> maybe_add_search(query.all, search_dict, "ts_document")
+      |> maybe_add_search(query.title, search_dict, "ts_title")
+      |> maybe_add_search(query.content, search_dict, "ts_content")
+      |> maybe_add_search(query.author, "simple", "ts_author")
+      |> maybe_add_search(query.tags, nil, :tags)
+      |> add_sections(sections)
+      |> add_result_order("date", query, search_dict, false)
+
+    conditions =
+      conditions
+      |> Enum.map(&"(#{&1})")
+      |> Enum.join(" AND ")
+
+    subquery = """
+    SELECT reference_id FROM search_documents
+      INNER JOIN interesting_messages im ON im.message_id = search_documents.reference_id
+        AND im.user_id = $#{args_cnt + 1}
+      WHERE #{conditions}
+      ORDER BY #{ordering}
+      LIMIT #{paging[:quantity]} OFFSET #{paging[:offset]}
+    """
+
+    result = Repo.query!(subquery, args ++ [current_user.user_id])
+
+    message_ids = Enum.map(result.rows, &List.first/1)
+    Cforum.Forums.Messages.list_messages(current_user, message_ids)
+  end
+
+  def count_subscribed_messages_results(current_user, changeset) do
+    search_dict = Application.get_env(:cforum, :search_dict, "english")
+    query = Query.parse(Ecto.Changeset.get_field(changeset, :term))
+    sections = Ecto.Changeset.get_field(changeset, :sections)
+    start_date = date_from_changeset(changeset, :start_date)
+    end_date = date_from_changeset(changeset, :end_date, &Timex.end_of_day/1)
+
+    {_, conditions, ordering, args, args_cnt} =
+      {[], [], "", [], 0}
+      |> maybe_add_search(query.all, search_dict, "ts_document")
+      |> maybe_add_search(query.title, search_dict, "ts_title")
+      |> maybe_add_search(query.content, search_dict, "ts_content")
+      |> maybe_add_search(query.author, "simple", "ts_author")
+      |> maybe_add_search(query.tags, nil, :tags)
+      |> add_sections(sections)
+
+    conditions =
+      conditions
+      |> Enum.map(&"(#{&1})")
+      |> Enum.join(" AND ")
+
+    subquery = """
+    SELECT COUNT(*) FROM search_documents
+      INNER JOIN subscriptions sm ON sm.message_id = search_documents.reference_id
+        AND sm.user_id = $#{args_cnt + 1}
+      WHERE #{conditions}
+    """
+
+    rslt = Repo.query!(subquery, args ++ [current_user.user_id])
+    rslt.rows |> List.first() |> List.first()
+  end
+
+  def search_subscribed_messages(current_user, changeset, paging \\ [offset: 0, quantity: 50]) do
+    search_dict = Application.get_env(:cforum, :search_dict, "english")
+    query = Query.parse(Ecto.Changeset.get_field(changeset, :term))
+    sections = Ecto.Changeset.get_field(changeset, :sections)
+    start_date = date_from_changeset(changeset, :start_date)
+    end_date = date_from_changeset(changeset, :end_date, &Timex.end_of_day/1)
+
+    {_, conditions, ordering, args, args_cnt} =
+      {[], [], "", [], 0}
+      |> maybe_add_search(query.all, search_dict, "ts_document")
+      |> maybe_add_search(query.title, search_dict, "ts_title")
+      |> maybe_add_search(query.content, search_dict, "ts_content")
+      |> maybe_add_search(query.author, "simple", "ts_author")
+      |> maybe_add_search(query.tags, nil, :tags)
+      |> add_sections(sections)
+      |> add_result_order("date", query, search_dict, false)
+
+    conditions =
+      conditions
+      |> Enum.map(&"(#{&1})")
+      |> Enum.join(" AND ")
+
+    subquery = """
+    SELECT reference_id FROM search_documents
+      INNER JOIN subscriptions sm ON sm.message_id = search_documents.reference_id
+        AND sm.user_id = $#{args_cnt + 1}
+      WHERE #{conditions}
+      ORDER BY #{ordering}
+      LIMIT #{paging[:quantity]} OFFSET #{paging[:offset]}
+    """
+
+    result = Repo.query!(subquery, args ++ [current_user.user_id])
+
+    message_ids = Enum.map(result.rows, &List.first/1)
+    Cforum.Forums.Messages.list_messages(current_user, message_ids)
+  end
+
   def count_results(changeset) do
     search_dict = Application.get_env(:cforum, :search_dict, "english")
     query = Query.parse(Ecto.Changeset.get_field(changeset, :term))
     sections = Ecto.Changeset.get_field(changeset, :sections)
-    start_date = changeset |> Ecto.Changeset.get_field(:start_date) |> Timex.to_datetime() |> Timex.beginning_of_day()
-    end_date = changeset |> Ecto.Changeset.get_field(:end_date) |> Timex.to_datetime() |> Timex.end_of_day()
+    start_date = date_from_changeset(changeset, :start_date)
+    end_date = date_from_changeset(changeset, :end_date, &Timex.end_of_day/1)
 
     {_, conditions, _, args, _} =
       {[], [], "", [], 0}
@@ -20,7 +158,8 @@ defmodule Cforum.Search.Finder do
       |> maybe_add_search(query.content, search_dict, "ts_content")
       |> maybe_add_search(query.author, "simple", "ts_author")
       |> maybe_add_search(query.tags, nil, :tags)
-      |> add_start_end_date(start_date, end_date)
+      |> add_start_date(start_date)
+      |> add_end_date(end_date)
       |> add_sections(sections)
 
     conditions =
@@ -36,8 +175,8 @@ defmodule Cforum.Search.Finder do
     search_dict = Application.get_env(:cforum, :search_dict, "english")
     query = Query.parse(Ecto.Changeset.get_field(changeset, :term))
     sections = Ecto.Changeset.get_field(changeset, :sections)
-    start_date = changeset |> Ecto.Changeset.get_field(:start_date) |> Timex.to_datetime() |> Timex.beginning_of_day()
-    end_date = changeset |> Ecto.Changeset.get_field(:end_date) |> Timex.to_datetime() |> Timex.end_of_day()
+    start_date = date_from_changeset(changeset, :start_date)
+    end_date = date_from_changeset(changeset, :end_date, &Timex.end_of_day/1)
     order = Ecto.Changeset.get_field(changeset, :order)
 
     {_, sub_conditions, ordering, sub_args, args_cnt} =
@@ -47,7 +186,8 @@ defmodule Cforum.Search.Finder do
       |> maybe_add_search(query.content, search_dict, "ts_content")
       |> maybe_add_search(query.author, "simple", "ts_author")
       |> maybe_add_search(query.tags, nil, :tags)
-      |> add_start_end_date(start_date, end_date)
+      |> add_start_date(start_date)
+      |> add_end_date(end_date)
       |> add_sections(sections)
       |> add_result_order(order, query, search_dict, false)
 
@@ -109,10 +249,15 @@ defmodule Cforum.Search.Finder do
   defp add_sections({selects, conditions, order, args, args_cnt}, sections),
     do: {selects, conditions ++ ["search_section_id = ANY($#{args_cnt + 1})"], order, args ++ [sections], args_cnt + 1}
 
-  defp add_start_end_date({selects, conditions, order, args, args_cnt}, start_date, end_date) do
-    {selects, conditions ++ ["document_created BETWEEN $#{args_cnt + 1} AND $#{args_cnt + 2}"], order,
-     args ++ [start_date, end_date], args_cnt + 2}
-  end
+  defp add_start_date(q, nil), do: q
+
+  defp add_start_date({selects, conditions, order, args, args_cnt}, start_date),
+    do: {selects, conditions ++ ["document_created >= $#{args_cnt + 1}"], order, args ++ [start_date], args_cnt + 1}
+
+  defp add_end_date(q, nil), do: q
+
+  defp add_end_date({selects, conditions, order, args, args_cnt}, end_date),
+    do: {selects, conditions ++ ["document_created <= $#{args_cnt + 1}"], order, args ++ [end_date], args_cnt + 1}
 
   defp maybe_add_search(q, %{include: [], exclude: []}, _, _), do: q
 
@@ -201,5 +346,12 @@ defmodule Cforum.Search.Finder do
       |> Enum.filter(&Cforum.Helpers.present?(&1))
 
     Enum.join(includes ++ excludes, " & ")
+  end
+
+  defp date_from_changeset(changeset, name, rounding \\ &Timex.beginning_of_day/1) do
+    changeset
+    |> Ecto.Changeset.get_field(name)
+    |> Timex.to_datetime()
+    |> Timex.beginning_of_day()
   end
 end

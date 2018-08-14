@@ -3,8 +3,34 @@ defmodule CforumWeb.Messages.SubscriptionController do
 
   alias Cforum.Forums.{Threads, Messages, Thread, Message}
   alias CforumWeb.Views.Helpers.ReturnUrl
+  alias Cforum.Search
+  alias Cforum.Search.Finder
+
+  def index(conn, %{"search" => search_params} = params) do
+    visible_sections = Search.list_visible_search_sections(conn.assigns.visible_forums)
+
+    changeset =
+      Search.search_changeset(
+        visible_sections,
+        Map.put(search_params, "sections", Enum.map(visible_sections, & &1.search_section_id))
+      )
+
+    count = Finder.count_subscribed_messages_results(conn.assigns[:current_user], changeset)
+    paging = paginate(count, page: params["p"])
+
+    messages =
+      Finder.search_subscribed_messages(conn.assigns.current_user, changeset, paging.params)
+      |> Enum.map(fn msg ->
+        thread = %Thread{msg.thread | message: msg}
+        %Message{msg | thread: thread}
+      end)
+
+    render(conn, "index.html", messages: messages, paging: paging, changeset: changeset)
+  end
 
   def index(conn, params) do
+    visible_sections = Search.list_visible_search_sections(conn.assigns.visible_forums)
+    changeset = Search.search_changeset(visible_sections)
     count = Messages.count_subscriptions(conn.assigns[:current_user])
     paging = paginate(count, page: params["p"])
 
@@ -16,7 +42,7 @@ defmodule CforumWeb.Messages.SubscriptionController do
         %Message{msg | thread: thread}
       end)
 
-    render(conn, "index.html", messages: messages, paging: paging)
+    render(conn, "index.html", messages: messages, paging: paging, changeset: changeset)
   end
 
   def subscribe(conn, params) do

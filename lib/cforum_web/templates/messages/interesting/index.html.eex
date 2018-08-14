@@ -1,3 +1,13 @@
+<%= form_for @changeset, interesting_path(@conn, :index), [method: :get, class: "cf-form", rel: "nofollow", as: :search], fn f -> %>
+  <div class="cf-cgroup <%= error_class(f, :term) %>">
+    <%= label f, :term, gettext("search term") %>
+    <%= text_input f, :term %>
+    <%= error_tag f, :term %>
+  </div>
+
+  <%= l10n_render CforumWeb.SearchView, "explanation.html", assigns %>
+<% end %>
+
 <%= if blank?(@messages) do %>
   <p><%= gettext("no messages marked as interesting, yet") %></p>
 <% else %>

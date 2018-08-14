@@ -27,6 +27,17 @@ defmodule Cforum.Forums.Messages do
 
   alias Cforum.Helpers.CompositionHelpers
 
+  def list_messages(user, message_ids, opts \\ []) do
+    threads = Threads.get_threads_by_message_ids(user, message_ids, opts)
+
+    threads
+    |> Enum.map(fn thread ->
+      Enum.map(thread.messages, &%Message{&1 | thread: thread})
+    end)
+    |> List.flatten()
+    |> Enum.filter(&(&1.message_id in message_ids))
+  end
+
   @doc """
   Returns a list of messages for a user, limited to the forums specified in `forum_ids`
 
