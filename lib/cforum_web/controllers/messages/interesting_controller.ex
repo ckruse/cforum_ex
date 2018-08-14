@@ -3,8 +3,41 @@ defmodule CforumWeb.Messages.InterestingController do
 
   alias Cforum.Forums.{Threads, Thread, Messages, Message}
   alias CforumWeb.Views.Helpers.ReturnUrl
+  alias Cforum.Search
+  alias Cforum.Search.Finder
+
+  def index(conn, %{"search" => search_params} = params) do
+    visible_sections = Search.list_visible_search_sections(conn.assigns.visible_forums)
+
+    changeset =
+      Search.search_changeset(
+        visible_sections,
+        Map.put(search_params, "sections", Enum.map(visible_sections, & &1.search_section_id))
+      )
+
+    count = Finder.count_interesting_messages_results(conn.assigns[:current_user], changeset)
+    paging = paginate(count, page: params["p"])
+
+    messages =
+      Finder.search_interesting_messages(conn.assigns.current_user, changeset, paging.params)
+      |> Enum.map(fn msg ->
+        thread = %Thread{msg.thread | message: msg}
+        %Message{msg | thread: thread}
+      end)
+
+    render(
+      conn,
+      "index.html",
+      messages: messages,
+      paging: paging,
+      changeset: changeset
+    )
+  end
 
   def index(conn, params) do
+    visible_sections = Search.list_visible_search_sections(conn.assigns.visible_forums)
+    changeset = Search.search_changeset(visible_sections)
+
     count = Messages.count_interesting_messages(conn.assigns[:current_user])
     paging = paginate(count, page: params["p"])
 
@@ -20,7 +53,8 @@ defmodule CforumWeb.Messages.InterestingController do
       conn,
       "index.html",
       messages: messages,
-      paging: paging
+      paging: paging,
+      changeset: changeset
     )
   end
 

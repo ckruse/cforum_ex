@@ -345,6 +345,42 @@ defmodule Cforum.Forums.Threads do
     end
   end
 
+  def get_threads_by_message_ids(user, message_ids, opts \\ []) do
+    opts =
+      Keyword.merge(
+        [
+          view_all: false,
+          message_order: "ascending",
+          hide_read_threads: false,
+          only_wo_answer: false,
+          thread_modifier: nil,
+          use_paging: false
+        ],
+        opts
+      )
+
+    q =
+      from(
+        t in Thread,
+        where:
+          t.thread_id in fragment(
+            "SELECT thread_id FROM messages WHERE message_id = ANY(?) AND deleted = false",
+            ^message_ids
+          )
+      )
+      |> basic_conditions(user, nil, nil, opts)
+
+    ret = get_normal_threads(q, user, [desc: :created_at], 0, opts)
+
+    case ret do
+      {_, []} ->
+        []
+
+      {_, threads} ->
+        threads
+    end
+  end
+
   def slug_taken?(slug) do
     from(t in Thread, where: t.slug == ^slug)
     |> Repo.exists?()
