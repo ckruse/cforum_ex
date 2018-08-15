@@ -10,10 +10,8 @@ defmodule Cforum.Search.Finder do
     search_dict = Application.get_env(:cforum, :search_dict, "english")
     query = Query.parse(Ecto.Changeset.get_field(changeset, :term))
     sections = Ecto.Changeset.get_field(changeset, :sections)
-    start_date = date_from_changeset(changeset, :start_date)
-    end_date = date_from_changeset(changeset, :end_date, &Timex.end_of_day/1)
 
-    {_, conditions, ordering, args, args_cnt} =
+    {_, conditions, _, args, args_cnt} =
       {[], [], "", [], 0}
       |> maybe_add_search(query.all, search_dict, "ts_document")
       |> maybe_add_search(query.title, search_dict, "ts_title")
@@ -42,8 +40,6 @@ defmodule Cforum.Search.Finder do
     search_dict = Application.get_env(:cforum, :search_dict, "english")
     query = Query.parse(Ecto.Changeset.get_field(changeset, :term))
     sections = Ecto.Changeset.get_field(changeset, :sections)
-    start_date = date_from_changeset(changeset, :start_date)
-    end_date = date_from_changeset(changeset, :end_date, &Timex.end_of_day/1)
 
     {_, conditions, ordering, args, args_cnt} =
       {[], [], "", [], 0}
@@ -79,10 +75,8 @@ defmodule Cforum.Search.Finder do
     search_dict = Application.get_env(:cforum, :search_dict, "english")
     query = Query.parse(Ecto.Changeset.get_field(changeset, :term))
     sections = Ecto.Changeset.get_field(changeset, :sections)
-    start_date = date_from_changeset(changeset, :start_date)
-    end_date = date_from_changeset(changeset, :end_date, &Timex.end_of_day/1)
 
-    {_, conditions, ordering, args, args_cnt} =
+    {_, conditions, _, args, args_cnt} =
       {[], [], "", [], 0}
       |> maybe_add_search(query.all, search_dict, "ts_document")
       |> maybe_add_search(query.title, search_dict, "ts_title")
@@ -111,8 +105,6 @@ defmodule Cforum.Search.Finder do
     search_dict = Application.get_env(:cforum, :search_dict, "english")
     query = Query.parse(Ecto.Changeset.get_field(changeset, :term))
     sections = Ecto.Changeset.get_field(changeset, :sections)
-    start_date = date_from_changeset(changeset, :start_date)
-    end_date = date_from_changeset(changeset, :end_date, &Timex.end_of_day/1)
 
     {_, conditions, ordering, args, args_cnt} =
       {[], [], "", [], 0}
