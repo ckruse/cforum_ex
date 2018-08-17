@@ -30,6 +30,9 @@ defmodule Cforum.Cites.Vote do
     |> unique_constraint(:cite_id, name: :cites_votes_cite_id_user_id_idx)
   end
 
+  @spec vtype(:up | :down | String.t()) :: 0 | 1
   def vtype("up"), do: @upvote
   def vtype("down"), do: @downvote
+  def vtype(:up), do: @upvote
+  def vtype(:down), do: @downvote
 end
