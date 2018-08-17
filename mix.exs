@@ -54,6 +54,7 @@ defmodule Cforum.Mixfile do
       {:poison, "~> 3.1"},
       {:slugify, "~> 1.1"},
       {:xml_builder, "~> 2.0.0"},
+      {:quantum, "~> 2.3"},
 
       # testing
       {:ex_guard, "~> 1.3", only: :dev},
