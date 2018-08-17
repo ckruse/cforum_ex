@@ -14,6 +14,7 @@ defmodule Cforum.Application do
       supervisor(CforumWeb.Endpoint, []),
       # Start your own worker by calling: Cforum.Worker.start_link(arg1, arg2, arg3)
       # worker(Cforum.Worker, [arg1, arg2, arg3]),
+      worker(Cforum.Scheduler, []),
       :poolboy.child_spec(Cforum.MarkdownRenderer.pool_name(), poolboy_config(:markdown), [])
     ]
 

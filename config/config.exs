@@ -31,6 +31,7 @@ config :cforum,
     distance: 3
   ],
   base_url: "http://localhost:4000/",
+  environment: Mix.env(),
   search_dict: "german"
 
 config :arc, storage: Arc.Storage.Local
