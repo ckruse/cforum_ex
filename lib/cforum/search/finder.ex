@@ -344,6 +344,6 @@ defmodule Cforum.Search.Finder do
     changeset
     |> Ecto.Changeset.get_field(name)
     |> Timex.to_datetime()
-    |> Timex.beginning_of_day()
+    |> rounding.()
   end
 end
