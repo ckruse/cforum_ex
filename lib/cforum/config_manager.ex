@@ -183,8 +183,12 @@ defmodule Cforum.ConfigManager do
     supported. If `:int` is specified, we cast the value with
     `String.to_integer/1`
   """
+  @spec conf(%Cforum.Accounts.Setting{} | %Cforum.Forums.Forum{} | %Plug.Conn{} | nil, String.t(), :none | :int) ::
+          nil | String.t() | integer()
   def conf(conn_setting_or_forum, name, type \\ :none)
   def conf(conn_setting_or_forum, name, :int), do: to_int(conf(conn_setting_or_forum, name))
+
+  def conf(nil, name, _), do: @defaults[name]
 
   def conf(%Cforum.Accounts.Setting{} = setting, name, _) do
     confs = %{

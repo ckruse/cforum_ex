@@ -44,6 +44,22 @@ defmodule Cforum.CitesTest do
       assert Cites.count_cites(true) == 1
     end
 
+    test "count_undecided_cites/1 counts all undecided cites" do
+      user = insert(:user)
+      assert Cites.count_undecided_cites(user) == 0
+
+      insert(:cite)
+      build(:cite) |> archived_cite |> insert
+
+      assert Cites.count_undecided_cites(user) == 1
+    end
+
+    test "list_cites_to_archive/1 lists all cites with age > min age" do
+      cite = insert(:cite, created_at: Timex.shift(Timex.now(), weeks: -2))
+      insert(:cite)
+      assert Enum.map(Cites.list_cites_to_archive(2), & &1.cite_id) == [cite.cite_id]
+    end
+
     test "get_cite!/1 returns the cite with given id" do
       cite = insert(:cite)
       assert Cites.get_cite!(cite.cite_id).cite_id == cite.cite_id
@@ -120,6 +136,12 @@ defmodule Cforum.CitesTest do
       assert cite.creator == cite1.creator
       assert cite.creator_user_id == cite1.creator_user_id
       assert cite.url == cite1.url
+    end
+
+    test "archive_cite/1 archives a cite" do
+      cite = insert(:cite)
+      assert {:ok, cite} = Cites.archive_cite(cite)
+      assert cite.archived == true
     end
 
     test "delete_cite/2 deletes the cite" do

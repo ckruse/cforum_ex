@@ -30,15 +30,34 @@ defmodule Cforum.Cites do
     |> Repo.all()
   end
 
+  @doc """
+  Counts all archived (with `archived=true`) or unarchived (with
+  `archived=false`) cites.
+
+  ## Examples
+
+      iex> count_cites()
+      0
+  """
+  @spec count_cites(boolean()) :: integer()
   def count_cites(archived \\ true) do
     from(
       cite in Cite,
       select: count("*"),
       where: cite.archived == ^archived
     )
-    |> Repo.one()
+    |> Repo.one!()
   end
 
+  @doc """
+  Counts votable cites the user has not voted for, yet.
+
+  ## Examples
+
+      iex> count_undecided_cites(%User{})
+      0
+  """
+  @spec count_undecided_cites(%Cforum.Accounts.User{}) :: integer()
   def count_undecided_cites(user) do
     from(
       cite in Cite,
@@ -52,6 +71,24 @@ defmodule Cforum.Cites do
       select: count("*")
     )
     |> Repo.one!()
+  end
+
+  @doc """
+  Lists the cites which are ready to be archived.
+
+  ## Example
+
+      iex> list_cites_to_archive(2)
+      [%Cite{}]
+  """
+  @spec list_cites_to_archive(integer()) :: [%Cite{}]
+  def list_cites_to_archive(min_age) do
+    from(
+      cite in Cite,
+      where: cite.archived == false and datetime_add(cite.created_at, ^min_age, "week") < ^NaiveDateTime.utc_now(),
+      preload: [:votes]
+    )
+    |> Repo.all()
   end
 
   @doc """
@@ -115,6 +152,23 @@ defmodule Cforum.Cites do
   end
 
   @doc """
+  Archives a cite (sets `archived` to `true`)
+
+  ## Examples
+
+      iex> archive_cite(%Cite{})
+      {:ok, %Cite{}}
+  """
+  @spec archive_cite(%Cite{}) :: {:ok, %Cite{}} | {:error, any()}
+  def archive_cite(%Cite{} = cite) do
+    System.audited("archive", nil, fn ->
+      cite
+      |> Ecto.Changeset.change(%{archived: true})
+      |> Repo.update()
+    end)
+  end
+
+  @doc """
   Deletes a Cite.
 
   ## Examples
@@ -126,6 +180,7 @@ defmodule Cforum.Cites do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_cite(%Cforum.Accounts.User{} | nil, %Cite{}) :: {:ok, %Cite{}} | {:error, any()}
   def delete_cite(current_user, %Cite{} = cite) do
     System.audited("destroy", current_user, fn ->
       Repo.delete(cite)
@@ -145,6 +200,15 @@ defmodule Cforum.Cites do
     Cite.changeset(cite, attrs)
   end
 
+  @doc """
+  Calculates the score of a cite (as in upvotes - downvotes)
+
+  ## Examples
+
+      iex> score(%Cite{})
+      1
+  """
+  @spec score(%Cite{}) :: integer()
   def score(cite) do
     Enum.reduce(cite.votes, 0, fn
       %Vote{vote_type: 0}, acc -> acc - 1
@@ -152,22 +216,87 @@ defmodule Cforum.Cites do
     end)
   end
 
+  @doc """
+  Counts the number of votes for a cite
+
+  ## Examples
+
+      iex> no_votes(%Cite{})
+      0
+  """
+  @spec no_votes(%Cite{}) :: non_neg_integer()
   def no_votes(cite), do: length(cite.votes)
+
+  @doc """
+  Generates a score string for a cite
+
+  ## Examples
+
+      iex> score_str(%Cite{})
+      "+1"
+  """
+  @spec score_str(%Cite{}) :: String.t()
   def score_str(cite), do: Cforum.Helpers.score_str(no_votes(cite), score(cite))
 
+  @doc """
+  Return true if the `user` has voted for `cite`
+
+  ## Examples
+
+    iex> voted?(%Cite{}, %User{})
+    true
+  """
+  @spec voted?(%Cite{}, %Cforum.Accounts.User{}) :: boolean()
   def voted?(cite, user) when not is_nil(user),
     do: Enum.find(cite.votes, fn vote -> vote.user_id == user.user_id end) != nil
 
-  def voted?(cite, user, type) when not is_nil(user) and type in ["up", "down"],
+  @doc """
+  Return true if the `user` has voted for `cite` with vote `type` `:up` or `:down`
+
+  ## Examples
+
+    iex> voted?(%Cite{}, %User{}, :up)
+    true
+  """
+  @spec voted?(%Cite{}, %Cforum.Accounts.User{}, :up | :down) :: boolean()
+  def voted?(cite, user, type) when not is_nil(user) and type in [:up, :down],
     do: Enum.find(cite.votes, fn vote -> vote.user_id == user.user_id && vote.vote_type == Vote.vtype(type) end) != nil
 
   def voted?(_, _, _), do: false
 
-  def downvoted?(cite, user) when not is_nil(user), do: voted?(cite, user, "down")
+  @doc """
+  Return true if the `user` has downvoted `cite`
+
+  ## Examples
+
+    iex> downvoted?(%Cite{}, %User{})
+    false
+  """
+  @spec downvoted?(%Cite{}, %Cforum.Accounts.User{} | nil) :: boolean()
+  def downvoted?(cite, user) when not is_nil(user), do: voted?(cite, user, :down)
   def downvoted?(_, _), do: false
-  def upvoted?(cite, user) when not is_nil(user), do: voted?(cite, user, "up")
+
+  @doc """
+  Return true if the `user` has upvoted `cite`
+
+  ## Examples
+
+    iex> upvoted?(%Cite{}, %User{})
+    true
+  """
+  @spec upvoted?(%Cite{}, %Cforum.Accounts.User{} | nil) :: boolean()
+  def upvoted?(cite, user) when not is_nil(user), do: voted?(cite, user, :up)
   def upvoted?(_, _), do: false
 
+  @doc """
+  Take back a vote of a `user` for a `cite`
+
+  ## Examples
+
+    iex> take_back_vote(%Cite{}, %User{})
+    %Vote{}
+  """
+  @spec take_back_vote(%Cite{}, %Cforum.Accounts.User{}) :: nil | %Cite{}
   def take_back_vote(cite, user) do
     v = Enum.find(cite.votes, fn vote -> vote.user_id == user.user_id end)
     if v, do: Repo.delete(v)
@@ -175,12 +304,25 @@ defmodule Cforum.Cites do
     v
   end
 
-  def vote(cite, user, type) when type in ["up", "down"] do
+  @doc """
+  Vote as `user` for a `cite` with the type `type`
+
+  ## Examples
+
+    iex> vote(%Cite{}, %User{}, "up")
+    {:ok, %Vote{}}
+  """
+  @spec vote(%Cite{}, %Cforum.Accounts.User{}, :up | :down | String.t()) :: {:ok, %Cite{}} | {:error, %Ecto.Changeset{}}
+  def vote(cite, user, type) when type in [:up, :down, "up", "down"] do
     %Vote{}
     |> Vote.changeset(%{cite_id: cite.cite_id, user_id: user.user_id, vote_type: Vote.vtype(type)})
     |> Repo.insert()
   end
 
+  @doc """
+  Creates a `%Cite{}` struct from the map `object`
+  """
+  @spec cite_from_json(map()) :: %Cite{}
   def cite_from_json(object) do
     Cforum.Cites.change_cite(%Cforum.Cites.Cite{}, object)
     |> Ecto.Changeset.apply_changes()
