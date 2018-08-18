@@ -79,7 +79,7 @@ defmodule Cforum.Forums.ArchiverJob do
   defp archive_thread(thread) do
     System.audited("archive", nil, fn ->
       thread
-      |> Ecto.Changeset.change(%{archived: true})
+      |> change(%{archived: true})
       |> Repo.update()
       |> maybe_set_ip_nil()
       |> maybe_remove_subscriptions()
