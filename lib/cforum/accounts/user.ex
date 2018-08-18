@@ -129,7 +129,9 @@ defmodule Cforum.Accounts.User do
   end
 
   defp maybe_confirm_password(changeset) do
-    if blank?(get_field(changeset, :password)), do: changeset, else: confirm_password(changeset)
+    if blank?(get_field(changeset, :password)),
+      do: changeset,
+      else: confirm_password(changeset)
   end
 
   defp confirm_password(changeset) do
@@ -144,7 +146,9 @@ defmodule Cforum.Accounts.User do
   end
 
   defp maybe_put_password(changeset) do
-    if blank?(get_field(changeset, :password)), do: changeset, else: put_password_hash(changeset)
+    if blank?(get_field(changeset, :password)),
+      do: changeset,
+      else: put_password_hash(changeset)
   end
 
   defp put_password_hash(changeset) do
@@ -160,7 +164,9 @@ defmodule Cforum.Accounts.User do
   defp put_confirmation_token(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{username: username}} ->
-        put_change(changeset, :confirmation_token, generate_confirmation_token(username))
+        changeset
+        |> put_change(:confirmation_token, generate_confirmation_token(username))
+        |> put_change(:confirmation_sent_at, Timex.now())
 
       _ ->
         changeset
@@ -168,10 +174,7 @@ defmodule Cforum.Accounts.User do
   end
 
   defp generate_confirmation_token(nil), do: nil
-
-  defp generate_confirmation_token(username) do
-    Token.sign(CforumWeb.Endpoint, "user", username)
-  end
+  defp generate_confirmation_token(username), do: Token.sign(CforumWeb.Endpoint, "user", username)
 
   def avatar_path(user, version) do
     {user.avatar_file_name, user}
