@@ -1,7 +1,7 @@
 defmodule Cforum.System.CleanCounterTablesJobTest do
   use Cforum.DataCase
 
-  test "generates stats" do
+  test "cleans counter tables" do
     insert(:forum)
     Cforum.System.CleanCounterTablesJob.clean_tables()
   end
