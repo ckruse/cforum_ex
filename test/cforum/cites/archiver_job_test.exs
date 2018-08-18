@@ -1,7 +1,7 @@
 defmodule Cforum.Cites.ArchiverJobTest do
   use Cforum.DataCase
 
-  alias Cforum.Jobs.CitesArchiverJob
+  alias Cforum.Cites.ArchiverJob
   alias Cforum.Cites
   alias Cforum.Cites.Vote
 
@@ -9,7 +9,7 @@ defmodule Cforum.Cites.ArchiverJobTest do
     cite = insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -2))
     insert(:cite_vote, cite: cite, vote_type: Vote.downvote())
 
-    CitesArchiverJob.archive()
+    ArchiverJob.archive()
 
     assert Cites.list_cites(false) == []
     assert Cites.list_cites(true) == []
@@ -18,7 +18,7 @@ defmodule Cforum.Cites.ArchiverJobTest do
   test "archive/0 deletes an cite with score=0" do
     insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -2))
 
-    CitesArchiverJob.archive()
+    ArchiverJob.archive()
 
     assert Cites.list_cites(false) == []
     assert Cites.list_cites(true) == []
@@ -28,7 +28,7 @@ defmodule Cforum.Cites.ArchiverJobTest do
     cite = insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -2))
     insert(:cite_vote, cite: cite, vote_type: Vote.upvote())
 
-    CitesArchiverJob.archive()
+    ArchiverJob.archive()
 
     assert Cites.list_cites(false) == []
     assert Enum.map(Cites.list_cites(true), & &1.cite_id) == [cite.cite_id]
@@ -38,7 +38,7 @@ defmodule Cforum.Cites.ArchiverJobTest do
     cite = insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -2), archived: true)
     insert(:cite_vote, cite: cite, vote_type: Vote.downvote())
 
-    CitesArchiverJob.archive()
+    ArchiverJob.archive()
 
     assert Cites.list_cites(false) == []
     assert Enum.map(Cites.list_cites(true), & &1.cite_id) == [cite.cite_id]
