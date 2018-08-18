@@ -40,8 +40,9 @@ config :timex, default_locale: "de"
 
 config :cforum, Cforum.Scheduler,
   jobs: [
+    {"@hourly", {Cforum.Forums.ArchiverJob, :archive, []}},
     {"@daily", {Cforum.Cites.ArchiverJob, :archive, []}},
-    {"@hourly", {Cforum.Forums.ArchiverJob, :archive, []}}
+    {"@daily", {Cforum.Accounts.UserCleanupJob, :cleanup, []}}
   ]
 
 # Import environment specific config. This must remain at the bottom
