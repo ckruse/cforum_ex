@@ -526,7 +526,7 @@ defmodule Cforum.Forums.Threads do
   def validated_ordering(order, forum \\ nil) do
     if Enum.member?(~w(ascending descending newest-first), order),
       do: order,
-      else: Cforum.ConfigManager.conf("sort_threads", forum)
+      else: Cforum.ConfigManager.conf(forum, "sort_threads")
   end
 
   @doc """
