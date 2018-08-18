@@ -132,6 +132,9 @@ defmodule Cforum.Search do
   """
   def get_document!(id), do: Repo.get!(Document, id)
 
+  @spec get_document_by_reference_id(non_neg_integer()) :: {:ok, %Document{}} | nil
+  def get_document_by_reference_id(id), do: Repo.get_by(Document, reference_id: id)
+
   @doc """
   Creates a document.
 
