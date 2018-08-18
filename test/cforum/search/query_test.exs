@@ -1,4 +1,4 @@
-defmodule Cforum.ConfigManagerTest do
+defmodule Cforum.Search.QueryTest do
   use Cforum.DataCase
 
   alias Cforum.Search.Query
