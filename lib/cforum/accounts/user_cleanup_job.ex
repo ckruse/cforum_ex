@@ -2,6 +2,8 @@ defmodule Cforum.Accounts.UserCleanupJob do
   alias Cforum.Accounts.{Users, User}
 
   import Ecto.{Query, Changeset}, warn: false
+  require Logger
+
   alias Cforum.Repo
 
   def cleanup do
@@ -11,7 +13,7 @@ defmodule Cforum.Accounts.UserCleanupJob do
     |> Repo.all()
     |> Enum.each(fn user ->
       Logger.info("Automatically deleting user #{user.username}")
-      Users.delete_user(nil, &1)
+      Users.delete_user(nil, user)
     end)
   end
 end
