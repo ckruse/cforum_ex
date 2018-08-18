@@ -42,7 +42,8 @@ config :cforum, Cforum.Scheduler,
   jobs: [
     {"@hourly", {Cforum.Forums.ArchiverJob, :archive, []}},
     {"@daily", {Cforum.Cites.ArchiverJob, :archive, []}},
-    {"@daily", {Cforum.Accounts.UserCleanupJob, :cleanup, []}}
+    {"@daily", {Cforum.Accounts.UserCleanupJob, :cleanup, []}},
+    {"@daily", {Cforum.Forums.ForumStatsJob, :gen_stats, []}}
   ]
 
 # Import environment specific config. This must remain at the bottom
