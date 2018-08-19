@@ -4,6 +4,7 @@ defmodule CforumWeb.MailController do
   alias Cforum.Accounts.PrivMessage
   alias Cforum.Accounts.PrivMessages
 
+  @spec index(%Plug.Conn{}, map()) :: %Plug.Conn{}
   def index(conn, params) do
     sort_dir = uconf(conn, "mail_thread_sort")
     {sort_params, conn} = sort_collection(conn, [:created_at, :subject, :is_read], dir: ordering(sort_dir))
@@ -21,12 +22,13 @@ defmodule CforumWeb.MailController do
     render(conn, "index.html", mails: mails, paging: paging)
   end
 
-  def show(conn, %{"id" => id}) do
-    thread = PrivMessages.get_priv_message_thread!(conn.assigns[:current_user], id)
-    Enum.each(thread, &PrivMessages.mark_priv_message(&1, :read))
-    render(conn, "show.html", pm_thread: thread)
+  @spec show(%Plug.Conn{}, map()) :: %Plug.Conn{}
+  def show(conn, %{"id" => _id}) do
+    Enum.each(conn.assigns.pm_thread, &PrivMessages.mark_priv_message(&1, :read))
+    render(conn, "show.html")
   end
 
+  @spec new(%Plug.Conn{}, map()) :: %Plug.Conn{}
   def new(conn, %{"parent_id" => id} = params) do
     parent = PrivMessages.get_priv_message!(conn.assigns[:current_user], id)
 
@@ -59,6 +61,7 @@ defmodule CforumWeb.MailController do
     render(conn, "new.html", changeset: changeset)
   end
 
+  @spec create(%Plug.Conn{}, map()) :: %Plug.Conn{}
   def create(conn, %{"priv_message" => priv_message_params} = params) do
     if Map.has_key?(params, "preview"),
       do: show_preview(conn, priv_message_params),
@@ -70,7 +73,7 @@ defmodule CforumWeb.MailController do
     render(conn, "new.html", changeset: changeset, priv_message: priv_message, preview: true)
   end
 
-  def create_message(conn, priv_message_params) do
+  defp create_message(conn, priv_message_params) do
     case PrivMessages.create_priv_message(conn.assigns[:current_user], priv_message_params) do
       {:ok, priv_message} ->
         conn
@@ -82,18 +85,18 @@ defmodule CforumWeb.MailController do
     end
   end
 
-  def update_unread(conn, %{"id" => id}) do
-    priv_message = PrivMessages.get_priv_message!(conn.assigns[:current_user], id)
-    PrivMessages.mark_priv_message(priv_message, :unread)
+  @spec update_unread(%Plug.Conn{}, map()) :: %Plug.Conn{}
+  def update_unread(conn, %{"id" => _id}) do
+    PrivMessages.mark_priv_message(conn.assigns.priv_message, :unread)
 
     conn
     |> put_flash(:info, gettext("Mail successfully marked as unread."))
     |> redirect(to: mail_path(conn, :index))
   end
 
-  def delete(conn, %{"id" => id}) do
-    priv_message = PrivMessages.get_priv_message!(conn.assigns[:current_user], id)
-    PrivMessages.delete_priv_message(priv_message)
+  @spec delete(%Plug.Conn{}, map()) :: %Plug.Conn{}
+  def delete(conn, %{"id" => _id}) do
+    PrivMessages.delete_priv_message(conn.assigns.priv_message)
 
     conn
     |> put_flash(:info, gettext("Mail deleted successfully."))
@@ -111,18 +114,37 @@ defmodule CforumWeb.MailController do
     end
   end
 
-  # TODO use load_ressource plug
+  @spec load_resource(%Plug.Conn{}) :: %Plug.Conn{}
+  def load_resource(conn) do
+    cond do
+      action_name(conn) in [:delete, :update_unread] ->
+        pm = PrivMessages.get_priv_message!(conn.assigns[:current_user], conn.params["id"])
+        Plug.Conn.assign(conn, :priv_message, pm)
+
+      action_name(conn) == :show ->
+        thread = PrivMessages.get_priv_message_thread!(conn.assigns[:current_user], conn.params["id"])
+        id = String.to_integer(conn.params["id"])
+        priv_message = Enum.find(thread, &(&1.priv_message_id == id))
+
+        conn
+        |> Plug.Conn.assign(:pm_thread, thread)
+        |> Plug.Conn.assign(:priv_message, priv_message)
+
+      true ->
+        conn
+    end
+  end
 
   def allowed?(conn, :index, _), do: signed_in?(conn)
 
   def allowed?(conn, :show, resource) do
-    resource = resource || PrivMessages.get_priv_message_thread!(conn.assigns[:current_user], conn.params["id"])
+    resource = resource || conn.assigns.pm_thread
     signed_in?(conn) && conn.assigns[:current_user].user_id == List.first(resource).owner_id
   end
 
   def allowed?(conn, action, resource) when action in [:new, :create] do
     if conn.params["parent_id"] || resource do
-      resource = resource || PrivMessages.get_priv_message!(conn.assigns[:current_user], conn.params["parent_id"])
+      resource = resource || conn.assigns.priv_message
       signed_in?(conn) && conn.assigns[:current_user].user_id == resource.owner_id
     else
       signed_in?(conn)
@@ -130,7 +152,7 @@ defmodule CforumWeb.MailController do
   end
 
   def allowed?(conn, _, resource) do
-    resource = resource || PrivMessages.get_priv_message!(conn.assigns[:current_user], conn.params["id"])
+    resource = resource || conn.assigns.priv_message
     signed_in?(conn) && conn.assigns[:current_user].user_id == resource.owner_id
   end
 end
