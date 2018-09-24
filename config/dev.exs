@@ -47,3 +47,17 @@ config :cforum, Cforum.Repo,
   pool_size: 10
 
 config :cforum, Cforum.Mailer, adapter: Bamboo.LocalAdapter
+
+config :cforum,
+  mail_sender: "cforum@wwwtech.de",
+  paginator: [
+    per_page: 50,
+    distance: 3
+  ],
+  base_url: "http://localhost:4000/",
+  environment: Mix.env(),
+  search_dict: "german",
+  cfmarkdown: [
+    cli: "./node_modules/.bin/babel-node ./bin/cfmarkdown2html.js",
+    pwd: "/home/ckruse/dev/cfmarkdown"
+  ]
