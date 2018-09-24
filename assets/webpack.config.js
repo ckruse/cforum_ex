@@ -53,13 +53,14 @@ module.exports = function(env = {}) {
     devtool: IS_PROD ? false : "source-map",
 
     resolve: {
-      modules: ["node_modules", __dirname + "/js"]
+      modules: ["node_modules", __dirname + "/js"],
+      extensions: ["*", ".js", ".jsx"]
     },
 
     module: {
       rules: [
         {
-          test: /\.js$/,
+          test: /\.(js|jsx)$/,
           exclude: /(node_modules|bower_components)/,
           loader: "babel-loader"
         },
@@ -67,7 +68,7 @@ module.exports = function(env = {}) {
           test: /\.(sa|sc|c)ss$/,
           use: [
             {
-              loader: IS_PROD ? ExtractTextPlugin.loader : "style-loader",
+              loader: ExtractTextPlugin.loader,
               options: { sourceMap: IS_PROD ? false : true }
             },
             { loader: "css-loader", options: { sourceMap: IS_PROD ? false : true } },

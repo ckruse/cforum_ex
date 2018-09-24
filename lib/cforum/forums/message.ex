@@ -40,8 +40,6 @@ defmodule Cforum.Forums.Message do
 
     has_many(:cites, Cforum.Cites.Cite, foreign_key: :message_id, on_delete: :nilify_all)
 
-    field(:tags_str, :string, virtual: true)
-
     many_to_many(
       :tags,
       Cforum.Forums.Tag,
@@ -57,7 +55,7 @@ defmodule Cforum.Forums.Message do
 
   defp base_changeset(struct, params, user, forum_id, visible_forums) do
     struct
-    |> cast(params, [:author, :email, :homepage, :subject, :content, :problematic_site, :tags_str, :forum_id])
+    |> cast(params, [:author, :email, :homepage, :subject, :content, :problematic_site, :forum_id])
     |> maybe_put_change(:forum_id, forum_id)
     |> validate_forum_id(visible_forums)
     |> maybe_set_author(user)
@@ -106,11 +104,11 @@ defmodule Cforum.Forums.Message do
     |> validate_required([:author, :subject, :content])
   end
 
-  defp parse_tags(changeset, %{"tags_str" => tags_str}) when is_bitstring(tags_str) do
+  defp parse_tags(changeset, %{"tags" => tags}) when is_list(tags) do
     tags =
-      tags_str
-      |> String.split(~r/,/, trim: true)
+      tags
       |> Enum.map(&String.trim/1)
+      |> Enum.reject(&blank?/1)
       |> Enum.map(&String.downcase/1)
 
     known_tags = Cforum.Forums.Tags.get_tags(get_field(changeset, :forum_id), tags)
