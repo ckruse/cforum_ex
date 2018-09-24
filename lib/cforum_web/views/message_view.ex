@@ -236,4 +236,16 @@ defmodule CforumWeb.MessageView do
   def active_downvoting_button?(message, user) do
     if Votes.downvoted?(message, user), do: " active"
   end
+
+  defp tags_from_changeset(changeset), do: Ecto.Changeset.get_field(changeset, :tags, [])
+  defp tags_and_index_from_changeset(changeset), do: changeset |> tags_from_changeset() |> Enum.with_index()
+
+  defp no_tag_inputs_left(conn, changeset) do
+    cnt = length(tags_from_changeset(changeset))
+    max = conf(conn, "max_tags_per_message")
+
+    if cnt >= max,
+      do: [],
+      else: (cnt + 1)..max
+  end
 end

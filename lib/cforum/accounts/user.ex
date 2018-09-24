@@ -22,10 +22,10 @@ defmodule Cforum.Accounts.User do
     field(:reset_password_token, :string)
     field(:reset_password_sent_at, Timex.Ecto.DateTime)
     field(:confirmation_token, :string)
+    field(:confirmation_captcha, :string)
     field(:confirmed_at, Timex.Ecto.DateTime)
     field(:confirmation_sent_at, Timex.Ecto.DateTime)
-    field(:last_sign_in_at, Timex.Ecto.DateTime)
-    field(:current_sign_in_at, Timex.Ecto.DateTime)
+    field(:last_visit, Timex.Ecto.DateTime)
     field(:avatar_file_name, CforumWeb.Avatar.Type)
     field(:avatar_content_type, :string)
     field(:avatar_updated_at, Timex.Ecto.DateTime)
@@ -68,10 +68,10 @@ defmodule Cforum.Accounts.User do
       :remember_created_at,
       :reset_password_token,
       :confirmation_token,
+      :confirmation_captcha,
       :confirmed_at,
       :confirmation_sent_at,
-      :last_sign_in_at,
-      :current_sign_in_at,
+      :last_visit,
       :avatar_file_name,
       :avatar_content_type,
       :avatar_updated_at

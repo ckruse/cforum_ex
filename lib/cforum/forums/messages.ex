@@ -627,12 +627,6 @@ defmodule Cforum.Forums.Messages do
         do: attribute_value(message, :content, ""),
         else: ""
 
-    tags_str =
-      message
-      |> attribute_value(:tags, [])
-      |> Enum.map(& &1.tag_name)
-      |> Enum.join(", ")
-
     content =
       cnt
       |> CompositionHelpers.quote_from_content(opts[:strip_signature])
@@ -652,7 +646,7 @@ defmodule Cforum.Forums.Messages do
         subject: attribute_value(message, :subject),
         problematic_site: attribute_value(message, :problematic_site),
         content: content,
-        tags_str: tags_str,
+        # tags_str: tags_str,
         tags: attribute_value(message, :tags, [])
       },
       user,
