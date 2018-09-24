@@ -21,14 +21,14 @@ defmodule Cforum.MarkdownRenderer do
   end
 
   def init([]) do
-    md_dir = Application.app_dir(:cforum, "priv")
+    conf = Application.get_env(:cforum, :cfmarkdown)
 
-    proc =
-      Porcelain.spawn_shell(
-        "node #{md_dir}/cf_mdparser/cf_mdparser.js",
-        in: :receive,
-        out: :stream
-      )
+    cli =
+      if conf[:pwd],
+        do: "cd #{conf[:pwd]} && #{conf[:cli]}",
+        else: conf[:cli]
+
+    proc = Porcelain.spawn_shell(cli, in: :receive, out: :stream)
 
     {:ok, proc}
   end
@@ -83,15 +83,23 @@ defmodule Cforum.MarkdownRenderer do
     out = Poison.encode!(%{markdown: markdown}) <> "\n"
     Proc.send_input(proc, out)
     [line] = Enum.take(proc.out, 1)
-
     retval = Poison.decode!(line)
 
     case retval["status"] do
       "ok" ->
+        # {:reply, {:ok, to_html(markdown) <> "<br><br>" <> retval["html"]}, proc}
         {:reply, {:ok, retval["html"]}, proc}
 
       _ ->
         {:reply, {:error, retval["message"]}, proc}
     end
+  end
+
+  def to_html(s) do
+    s
+    |> String.replace("&", "&amp;")
+    |> String.replace("<", "&lt;")
+    |> String.replace(">", "&gt;")
+    |> String.replace("\n", "<br>")
   end
 end

@@ -24,16 +24,6 @@ config :cforum, CforumWeb.Gettext, default_locale: "de"
 
 config :number, delimit: [precision: 2, delimiter: ".", separator: ","]
 
-config :cforum,
-  mail_sender: "cforum@wwwtech.de",
-  paginator: [
-    per_page: 50,
-    distance: 3
-  ],
-  base_url: "http://localhost:4000/",
-  environment: Mix.env(),
-  search_dict: "german"
-
 config :arc, storage: Arc.Storage.Local
 config :porcelain, driver: Porcelain.Driver.Basic
 config :timex, default_locale: "de"
