@@ -1,8 +1,8 @@
-import { ready, bind, preventDefault, stopPropagation } from "./events.js";
-import { when } from "./logic.js";
-import { select, all } from "./selectors.js";
-import { create, clearChildren, focus } from "./elements.js";
-import { pipe } from "./functional.js";
+import { ready, bind, preventDefault, stopPropagation } from "../modules/events.js";
+import { when } from "../modules/logic.js";
+import { select, all } from "../modules/selectors.js";
+import { create, clearChildren, focus } from "../modules/elements.js";
+import { pipe } from "../modules/functional.js";
 
 export class Dropdown {
   constructor(element) {
@@ -26,7 +26,10 @@ export class Dropdown {
 
   setupListeners() {
     bind(this.menuButton, {
-      click: pipe(preventDefault, ev => this.toggleMenu())
+      click: pipe(
+        preventDefault,
+        ev => this.toggleMenu()
+      )
     });
 
     bind(this.rootElement, {
