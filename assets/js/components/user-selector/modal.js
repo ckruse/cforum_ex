@@ -1,7 +1,7 @@
-import { bind } from "../events";
-import { createModal } from "../modal";
-import { parse, clearChildren } from "../elements";
-import { t } from "../i18n";
+import { bind } from "../../modules/events";
+import { createModal } from "../../modules/modal";
+import { parse, clearChildren } from "../../modules/elements";
+import { t } from "../../modules/i18n";
 
 const SEARCH_TIMEOUT = 500;
 

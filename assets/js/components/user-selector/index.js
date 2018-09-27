@@ -1,11 +1,8 @@
-import { ready, bind, preventDefault } from "../events";
-import { all } from "../selectors";
-import { when } from "../logic";
-import { parse, create, parentElement, nextElementSibling, setAttribute, clearChildren } from "../elements";
-import { pipe } from "../functional";
-import { t } from "../i18n";
-import { queryString } from "../helpers";
-import { unique } from "../lists";
+import { ready } from "../../modules/events";
+import { all } from "../../modules/selectors";
+import { when } from "../../modules/logic";
+import { queryString } from "../../modules/helpers";
+import { unique } from "../../modules/lists";
 
 import Modal from "./modal";
 import Widget from "./widget";

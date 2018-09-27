@@ -1,9 +1,9 @@
-import { t } from "../i18n";
-import { ready, bind, preventDefault } from "../events";
-import { when } from "../logic";
-import { select, all } from "../selectors";
-import { parse, firstElementChild } from "../elements";
-import { pipe } from "../functional";
+import { t } from "../../modules/i18n";
+import { ready, bind, preventDefault } from "../../modules/events";
+import { when } from "../../modules/logic";
+import { select, all } from "../../modules/selectors";
+import { parse } from "../../modules/elements";
+import { pipe } from "../../modules/functional";
 
 class Autolist {
   constructor(element) {
@@ -20,7 +20,10 @@ class Autolist {
     this.root.appendChild(this.addButton);
 
     bind(this.addButton, {
-      click: pipe(preventDefault, () => this.addNewElement())
+      click: pipe(
+        preventDefault,
+        () => this.addNewElement()
+      )
     });
 
     const elements = all(this.listElement, this.root);
@@ -31,7 +34,12 @@ class Autolist {
   setupListElement(element) {
     const btn = parse(`<button class="cf-btn" type="button">${t("remove element")}</button>`).firstChild;
     element.appendChild(btn);
-    bind(btn, { click: pipe(preventDefault, () => this.removeElement(element)) });
+    bind(btn, {
+      click: pipe(
+        preventDefault,
+        () => this.removeElement(element)
+      )
+    });
   }
 
   removeElement(element) {

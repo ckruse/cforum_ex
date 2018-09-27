@@ -1,8 +1,8 @@
-import { ready, bind, preventDefault } from "../events";
-import { parse, create, parentElement, nextElementSibling, setAttribute, clearChildren } from "../elements";
-import { select } from "../selectors";
-import { pipe } from "../functional";
-import { t } from "../i18n";
+import { bind, preventDefault } from "../../modules/events";
+import { parse, create, parentElement, nextElementSibling, setAttribute, clearChildren } from "../../modules/elements";
+import { select } from "../../modules/selectors";
+import { pipe } from "../../modules/functional";
+import { t } from "../../modules/i18n";
 
 export default class Widget {
   constructor(single, input, showModalCallback, removeUserCallback, fieldName) {
@@ -26,7 +26,10 @@ export default class Widget {
     btn.textContent = t("search user");
 
     bind(btn, {
-      click: pipe(preventDefault, this.showModalCallback)
+      click: pipe(
+        preventDefault,
+        this.showModalCallback
+      )
     });
 
     return btn;
