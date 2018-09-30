@@ -1,13 +1,9 @@
 import { t } from "../../modules/i18n";
-import { ready, bind, preventDefault } from "../../modules/events";
-import { when } from "../../modules/logic";
-import { select, all } from "../../modules/selectors";
-import { parse } from "../../modules/elements";
-import { pipe } from "../../modules/functional";
+import { parse } from "../../modules/helpers";
 
 class Autolist {
   constructor(element) {
-    const tpl = select("template", element);
+    const tpl = element.querySelector("template");
 
     this.root = element;
     this.template = tpl.content.firstElementChild;
@@ -19,14 +15,12 @@ class Autolist {
     this.addButton = parse(`<button type="button" class="cf-btn">${t("add new element")}</button>`).firstChild;
     this.root.appendChild(this.addButton);
 
-    bind(this.addButton, {
-      click: pipe(
-        preventDefault,
-        () => this.addNewElement()
-      )
+    this.addButton.addEventListener("click", ev => {
+      ev.preventDefault();
+      this.addNewElement();
     });
 
-    const elements = all(this.listElement, this.root);
+    const elements = this.root.querySelectorAll(this.listElement);
     this.index = elements[elements.length - 1].dataset.index || 0;
     elements.forEach(el => this.setupListElement(el));
   }
@@ -34,11 +28,9 @@ class Autolist {
   setupListElement(element) {
     const btn = parse(`<button class="cf-btn" type="button">${t("remove element")}</button>`).firstChild;
     element.appendChild(btn);
-    bind(btn, {
-      click: pipe(
-        preventDefault,
-        () => this.removeElement(element)
-      )
+    btn.addEventListener("click", ev => {
+      ev.preventDefault();
+      this.removeElement(element);
     });
   }
 
@@ -49,7 +41,7 @@ class Autolist {
   addNewElement() {
     const newNode = this.template.cloneNode(true);
     this.index += 1;
-    all("input, textarea, select", newNode).forEach(el => this.updateFieldName(el));
+    newNode.querySelectorAll("input, textarea, select").forEach(el => this.updateFieldName(el));
     this.setupListElement(newNode);
     this.addButton.parentElement.insertBefore(newNode, this.addButton);
   }
@@ -59,10 +51,6 @@ class Autolist {
   }
 }
 
-const setupAutolist = function(elements) {
-  elements.forEach(element => new Autolist(element));
-};
-
-ready(function() {
-  when(elements => elements.length, setupAutolist, all("[data-autolist='yes']"));
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("[data-autolist='yes']").forEach(element => new Autolist(element));
 });

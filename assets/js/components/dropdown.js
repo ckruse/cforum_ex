@@ -1,17 +1,13 @@
-import { ready, bind, preventDefault, stopPropagation } from "../modules/events.js";
-import { when } from "../modules/logic.js";
-import { select, all } from "../modules/selectors.js";
-import { create, clearChildren, focus } from "../modules/elements.js";
-import { pipe } from "../modules/functional.js";
+import { clearChildren } from "../modules/helpers";
 
 export class Dropdown {
   constructor(element) {
     this.rootElement = element;
-    this.menuElement = select(".menu", element);
+    this.menuElement = element.querySelector(".menu");
 
-    let anchor = select(".anchor", element);
+    let anchor = element.querySelector(".anchor");
 
-    this.menuButton = create("button");
+    this.menuButton = document.createElement("button");
     this.menuButton.textContent = anchor.textContent;
     this.menuButton.setAttribute("type", "button");
     this.menuButton.setAttribute("aria-haspopup", "true");
@@ -25,22 +21,16 @@ export class Dropdown {
   }
 
   setupListeners() {
-    bind(this.menuButton, {
-      click: pipe(
-        preventDefault,
-        ev => this.toggleMenu()
-      )
+    this.menuButton.addEventListener("click", ev => {
+      ev.preventDefault();
+      this.toggleMenu();
     });
 
-    bind(this.rootElement, {
-      keypress: ev => this.maybeHideForEsc(ev),
-      keydown: ev => this.handleUpAndDown(ev)
-    });
+    this.rootElement.addEventListener("keypress", ev => this.maybeHideForEsc(ev));
+    this.rootElement.addEventListener("keydown", ev => this.handleUpAndDown(ev));
 
-    all("button, a", this.rootElement).forEach(el => {
-      bind(el, {
-        blur: ev => this.checkForHideOnFocusLoss()
-      });
+    this.rootElement.querySelectorAll("button, a").forEach(el => {
+      el.addEventListener("blur", ev => this.checkForHideOnFocusLoss());
     });
   }
 
@@ -49,17 +39,17 @@ export class Dropdown {
       return;
     }
 
-    preventDefault(ev);
-    stopPropagation(ev);
+    ev.preventDefault();
+    ev.stopPropagation();
 
     this.showMenu(true);
 
-    let links = all("li a:first-of-type", this.menuElement);
-    let active = select("li a:first-of-type:focus", this.menuElement);
+    let links = this.menuElement.querySelectorAll("li a:first-of-type");
+    let active = this.menuElement.querySelector("li a:first-of-type:focus");
     let direction = ev.keyCode == 40 ? 1 : -1;
 
     let el = this.nextFocusElement(links, active, direction);
-    focus(el);
+    el.focus();
   }
 
   nextFocusElement(links, active, direction) {
@@ -88,14 +78,14 @@ export class Dropdown {
 
   maybeHideForEsc(ev) {
     if (ev.keyCode == 27) {
-      preventDefault(ev);
+      ev.preventDefault();
       this.hideMenu(true);
     }
   }
 
   checkForHideOnFocusLoss() {
     window.setTimeout(() => {
-      let focused = all(":focus", this.rootElement);
+      let focused = this.rootElement.querySelectorAll(":focus");
       if (focused.length === 0) {
         this.hideMenu(false);
       }
@@ -107,7 +97,7 @@ export class Dropdown {
     this.menuButton.setAttribute("aria-expanded", "true");
 
     if (!omitFocus) {
-      focus(this.menuButton);
+      this.menuButton.focus();
     }
   }
 
@@ -129,15 +119,11 @@ export class Dropdown {
   }
 }
 
-ready(function() {
+document.addEventListener("DOMContentLoaded", () => {
   var mql = window.matchMedia("only screen and (min-width: 35em)");
   if (!mql.matches) {
     return;
   }
 
-  when(
-    elements => elements.length,
-    elements => elements.forEach(element => new Dropdown(element)),
-    all("[data-dropdown='yes']")
-  );
+  Array.from(document.querySelectorAll("[data-dropdown='yes']")).forEach(element => new Dropdown(element));
 });
