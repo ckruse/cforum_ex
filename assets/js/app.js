@@ -28,7 +28,6 @@ import "./modules/closest.js";
 import "./modules/confirmation.js";
 import "./modules/tabs.js";
 import "./modules/show-password.js";
-import "./components/user-selector";
 import "./components/autolist";
 import "./components/dropdown";
 import "./modules/datetime-polyfill";
@@ -38,3 +37,4 @@ import "./forum-stats";
 import "./flag_message.js";
 
 import "./components/taglist";
+import "./components/user-selector";

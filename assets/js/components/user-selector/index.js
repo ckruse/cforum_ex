@@ -1,141 +1,53 @@
-import { ready } from "../../modules/events";
-import { all } from "../../modules/selectors";
-import { when } from "../../modules/logic";
-import { queryString } from "../../modules/helpers";
-import { unique } from "../../modules/lists";
+import React from "react";
+import { render } from "react-dom";
 
-import Modal from "./modal";
-import Widget from "./widget";
+import SingleUserSelector from "./single_user_selector";
+import MultiUserSelector from "./multi_user_selector";
 
-class UsersSelector {
-  constructor(input) {
-    //this.input = input;
-    this.users = [];
-    this.selectedUsers = [];
-    this.chosenUsers = [];
-
-    this.single = input.dataset.userSelector == "single";
-    this.selfSelectable = "yes";
-
-    if (input.dataset.userSelectorSelf == "no") {
-      this.selfSelectable = "no";
-    }
-
-    if (this.single && input.value) {
-      this.setInitialValue(input.value);
-    } else if (!this.single) {
-      this.fieldName = input.dataset.fieldName;
-      this.setInitialValuesFromList(input);
-    }
-
-    this.widget = new Widget(
-      this.single,
-      input,
-      () => this.showModal(),
-      (user_id, cb) => this.unchooseUser(user_id, cb),
-      this.fieldName
-    );
-
-    this.modal = new Modal(
-      this.single,
-      (value, callback) => this.searchUsers(value, callback),
-      (uid, callback) => this.selectUser(uid, callback),
-      (uid, callback) => this.unselectUser(uid, callback),
-      () => this.chooseUsers()
-    );
-  }
-
-  searchUsers(value, callback) {
-    if (!value) {
-      this.users = [];
-      callback([]);
-      return;
-    }
-
-    const qs = queryString({ s: value });
-    fetch(`/api/v1/users?${qs}&self=${this.selfSelectable}`, { credentials: "same-origin" })
-      .then(response => response.json())
-      .then(json => {
-        this.users = json;
-        callback(this.users);
-      });
-  }
-
-  selectUser(uid, callback) {
-    const user = this.users.find(u => u.user_id == uid);
-    if (this.single) {
-      this.selectedUsers = [user];
+class UserSelector extends React.Component {
+  render() {
+    if (this.props.single) {
+      return <SingleUserSelector {...this.props} />;
     } else {
-      this.selectedUsers.push(user);
+      return <MultiUserSelector {...this.props} />;
     }
-
-    const foundUsers = this.users.filter(user => !this.selectedUsers.includes(user));
-
-    callback(foundUsers, this.selectedUsers);
-  }
-
-  unselectUser(uid, callback) {
-    this.selectedUsers = this.selectedUsers.filter(u => u.user_id != uid);
-    const foundUsers = this.users.filter(user => !this.selectedUsers.includes(user));
-    callback(foundUsers, this.selectedUsers);
-  }
-
-  chooseUsers(event) {
-    if (this.single) {
-      this.chosenUsers = [...this.selectedUsers];
-    } else {
-      this.chosenUsers = [...this.chosenUsers, ...this.selectedUsers];
-    }
-
-    this.chosenUsers = unique(this.chosenUsers, (ary, searchedElem) => {
-      return ary.findIndex(elem => searchedElem.user_id == elem.user_id);
-    });
-
-    this.widget.setUsers(this.chosenUsers);
-    this.modal.hide();
-  }
-
-  unchooseUser(user_id, callback) {
-    this.chosenUsers = this.chosenUsers.filter(user => user.user_id != user_id);
-    callback(this.chosenUsers);
-  }
-
-  setInitialValue(id) {
-    fetch(`/api/v1/users/${id}`, { credentials: "same-origin" })
-      .then(response => response.json())
-      .then(json => {
-        this.chosenUsers = [json];
-        this.widget.setUsers([json]);
-      });
-  }
-
-  setInitialValuesFromList(list) {
-    const formData = new FormData();
-    const ids = all("input[type=hidden]", list);
-    ids.forEach(el => formData.append("ids[]", el.value));
-
-    if (!ids) {
-      return;
-    }
-
-    fetch(`/api/v1/users`, { cedentials: "same-origin", method: "post", body: formData })
-      .then(response => response.json())
-      .then(json => {
-        this.chosenUsers = json;
-        this.widget.setUsers(json);
-      });
-  }
-
-  showModal() {
-    this.selectedUsers = [];
-    this.modal.show(this.users);
   }
 }
 
-function setupUserSelector(inputs) {
-  inputs.forEach(input => new UsersSelector(input));
-}
+const setupSingleSelector = sel => {
+  const userId = sel.value;
+  const selfSelect = sel.dataset.userSelectorSelf == "yes";
+  const root = document.createElement("div");
+  const id = sel.getAttribute("id");
 
-ready(function() {
-  when(inputs => inputs.length, setupUserSelector, all("[data-user-selector='yes'], [data-user-selector='single']"));
+  sel.removeAttribute("id");
+  sel.setAttribute("type", "hidden");
+  sel.parentNode.insertBefore(root, sel);
+
+  return [root, { id, userId, selfSelect, element: sel }];
+};
+
+const setupMultiSelector = element => {
+  const users = Array.from(element.querySelectorAll("input[type=hidden]")).map(inp => inp.value);
+  const selfSelect = element.dataset.userSelectorSelf == "yes";
+  const fieldName = element.dataset.fieldName;
+  const root = document.createElement("div");
+
+  element.parentNode.insertBefore(root, element);
+  element.parentNode.removeChild(element);
+
+  return [root, { users, selfSelect, fieldName }];
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("[data-user-selector='yes'], [data-user-selector='single']").forEach(sel => {
+    let props, root;
+    if (sel.dataset.dataUserSelector == "single") {
+      [root, props] = setupSingleSelector(sel);
+    } else {
+      [root, props] = setupMultiSelector(sel);
+    }
+
+    render(<UserSelector {...props} />, root);
+  });
 });

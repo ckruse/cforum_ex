@@ -12,7 +12,6 @@
     "test": "babel-node spec/support/run.js"
   },
   "dependencies": {
-    "a11y-dialog": "^4.0.1",
     "flatpickr": "^4.5.0",
     "highcharts": "^6.1.0",
     "moment": "^2.22.1",
@@ -21,6 +20,7 @@
     "react": "^16.5.2",
     "react-autosuggest": "^9.4.2",
     "react-dom": "^16.5.2",
+    "react-modal": "^3.6.1",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {

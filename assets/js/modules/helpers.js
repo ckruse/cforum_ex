@@ -9,3 +9,13 @@ export const queryString = function(params) {
     })
     .join("&");
 };
+
+export const unique = (list, finder) => {
+  if (!finder) {
+    finder = (ary, elem) => ary.indexOf(elem);
+  }
+
+  return list.filter((elem, pos, ary) => {
+    return finder(ary, elem) == pos;
+  });
+};
