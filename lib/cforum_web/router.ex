@@ -24,6 +24,9 @@ defmodule CforumWeb.Router do
     plug(:accepts, ["json"])
     plug(:fetch_session)
     plug(CforumWeb.Plug.CurrentUser)
+    plug(CforumWeb.Plug.VisibleForums)
+    plug(CforumWeb.Plug.LoadSettings)
+    plug(CforumWeb.Plug.SetViewAll)
   end
 
   scope "/api", CforumWeb.Api, as: :api do
@@ -33,6 +36,7 @@ defmodule CforumWeb.Router do
       get("/users", UserController, :index)
       post("/users", UserController, :index)
       get("/users/:id", UserController, :show)
+      get("/tags", TagController, :index)
     end
   end
 
