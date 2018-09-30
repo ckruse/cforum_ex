@@ -130,6 +130,10 @@ defmodule CforumWeb.MailController do
         |> Plug.Conn.assign(:pm_thread, thread)
         |> Plug.Conn.assign(:priv_message, priv_message)
 
+      action_name(conn) in [:new, :create] && !blank?(conn.params["parent_id"]) ->
+        pm = PrivMessages.get_priv_message!(conn.assigns[:current_user], conn.params["parent_id"])
+        Plug.Conn.assign(conn, :priv_message, pm)
+
       true ->
         conn
     end
