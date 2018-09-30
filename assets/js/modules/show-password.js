@@ -1,40 +1,33 @@
-import { ready, bind, preventDefault } from "./events.js";
-import { all } from "./selectors.js";
-import { when } from "./logic.js";
-import { create, nextElementSibling, parentElement, getAttribute, setAttribute, focus } from "./elements.js";
-import { compose, pipe } from "./functional.js";
-import { equal } from "./predicates.js";
 import { t } from "./i18n.js";
 
 function toggleInputType(input, button) {
-  if (getAttribute("type", input) == "password") {
-    setAttribute("type", "text", input);
+  if (input.getAttribute("type") == "password") {
+    input.setAttribute("type", "text");
     button.innerText = t("hide password");
   } else {
-    setAttribute("type", "password", input);
+    input.setAttribute("type", "password");
     button.innerText = t("show password");
   }
 
-  focus(input);
+  input.focus();
 }
 
-function setupShowPassword(passwords) {
-  passwords.forEach(input => {
-    const text = t("show password");
-    const anchor = create("button");
+function setupShowPassword(input) {
+  const text = t("show password");
+  const anchor = document.createElement("button");
 
-    anchor.textContent = text;
-    anchor.classList.add("cf-show-password");
-    setAttribute("type", "button", anchor);
+  anchor.textContent = text;
+  anchor.classList.add("cf-show-password");
+  anchor.setAttribute("type", "button");
 
-    bind(anchor, {
-      click: pipe(preventDefault, event => toggleInputType(input, event.target))
-    });
-
-    parentElement(input).insertBefore(anchor, nextElementSibling(input));
+  anchor.addEventListener("click", ev => {
+    ev.preventDefault();
+    toggleInputType(input, ev.target);
   });
+
+  input.parentNode.insertBefore(anchor, input.nextSibling);
 }
 
-ready(function() {
-  when(passwords => passwords.length, setupShowPassword, all("[data-show-password]"));
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("[data-show-password]").forEach(setupShowPassword);
 });

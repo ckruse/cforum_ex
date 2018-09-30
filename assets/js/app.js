@@ -25,16 +25,15 @@ import "./modules/closest.js";
 
 // import socket from "./socket"
 
-import "./modules/confirmation.js";
 import "./modules/tabs.js";
-import "./modules/show-password.js";
+import "./modules/datetime-polyfill";
+import "./modules/confirmation.js";
 import "./components/autolist";
 import "./components/dropdown";
-import "./modules/datetime-polyfill";
+import "./modules/show-password.js";
+import "./components/taglist";
+import "./components/user-selector";
 
 // site specific JS
 import "./forum-stats";
 import "./flag_message.js";
-
-import "./components/taglist";
-import "./components/user-selector";

@@ -19,3 +19,21 @@ export const unique = (list, finder) => {
     return finder(ary, elem) == pos;
   });
 };
+
+export function clearChildren(element) {
+  while (element.firstChild) {
+    element.firstChild.remove();
+  }
+
+  return element;
+}
+
+export function parse(markup) {
+  const fragment = document.createDocumentFragment();
+  const div = document.createElement("div");
+
+  div.innerHTML = markup;
+  Array.from(div.childNodes).forEach(child => fragment.appendChild(child));
+
+  return fragment;
+}
