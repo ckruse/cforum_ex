@@ -38,14 +38,17 @@
 }
 
 @media only screen and (min-width: 35em) {
-  .cf-users-selector.multi {
+  .cf-users-selector.multi,
+  .cf-user-selector-modal .users-selector-found-users-list,
+  .cf-user-selector-modal .users-selector-selected-users-list {
     display: inline-block;
 
     li {
       display: flex;
       margin-bottom: 0.25em;
 
-      .user-link {
+      .user-link,
+      .author {
         flex: 1 1 auto;
         margin-right: 1em;
       }
