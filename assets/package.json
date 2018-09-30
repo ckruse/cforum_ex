@@ -18,11 +18,15 @@
     "moment": "^2.22.1",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
+    "react": "^16.5.2",
+    "react-autosuggest": "^9.4.2",
+    "react-dom": "^16.5.2",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
     "autoprefixer": "^7.2.2",
     "babel-cli": "^6.26.0",
     "babel-loader": "^8.0.2",

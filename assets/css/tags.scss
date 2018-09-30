@@ -34,6 +34,24 @@
       color: $active_link_color;
     }
   }
+
+  button.remove {
+    border: 0;
+    background: transparent;
+    display: inline;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+}
+
+.cf-tag-new-tag {
+  margin-top: 1em;
+}
+
+.cf-form-tagslist {
+  list-style-type: none;
+  padding-left: 0;
 }
 
 .cf-tags-list-thread {

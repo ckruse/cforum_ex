@@ -36,3 +36,5 @@ import "./modules/datetime-polyfill";
 // site specific JS
 import "./forum-stats";
 import "./flag_message.js";
+
+import "./components/taglist";
