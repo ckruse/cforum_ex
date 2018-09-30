@@ -111,6 +111,8 @@ defmodule CforumWeb.Router do
     post("/cites/:id/vote", Cite.VoteController, :vote, as: :cite)
     resources("/cites", CiteController)
 
+    resources("/images", ImageController, only: [:index, :show, :create, :delete])
+
     #
     # backward compatibility and redirection routes
     #
