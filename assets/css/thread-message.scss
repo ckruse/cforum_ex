@@ -34,9 +34,16 @@
     }
   }
 
-  .posting-header .cf-message-header h2,
-  .posting-header .cf-message-header h3 {
+  details,
+  .details {
     display: block;
+  }
+
+  header .avatar {
+    margin-left: 0;
+    margin-top: 0.3em;
+    max-height: 1.2em;
+    border-radius: 0 0.3em 0.3em;
   }
 
   .posting-footer .cf-btn {
