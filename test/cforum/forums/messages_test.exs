@@ -331,12 +331,6 @@ defmodule Cforum.Forums.MessagesTest do
     test "new_message_changeset/3 returns a message changeset", %{user: user, forum: forum} do
       assert %Ecto.Changeset{} = Messages.new_message_changeset(nil, user, [forum])
     end
-
-    test "new_message_changeset/3 returns a message changeset with tags", %{user: u, forum: f, message: m, tag: t} do
-      changeset = Messages.new_message_changeset(%Message{m | tags: [t]}, u, [f])
-      assert %Ecto.Changeset{} = changeset
-      assert Ecto.Changeset.get_field(changeset, :tags_str) == t.tag_name
-    end
   end
 
   describe "creating messages: may user post with name?" do

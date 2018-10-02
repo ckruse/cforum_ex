@@ -4,9 +4,9 @@
 
 <article class="cf-thread-message <%= if assigns[:preview], do: "preview" %>">
   <%= if !assigns[:preview] do %>
-    <%= render(CforumWeb.MessageView, "message.html", Map.merge(assigns, %{controls: :no, first: true, message: @parent})) %>
+    <%= render("message.html", Map.merge(assigns, %{controls: false, first: true, message: @parent})) %>
   <% else %>
-    <%= render(CforumWeb.MessageView, "message.html", Map.merge(assigns, %{controls: :no, first: true})) %>
+    <%= render("message.html", Map.merge(assigns, %{controls: false, first: true})) %>
   <% end %>
 </article>
 
