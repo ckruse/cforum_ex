@@ -150,6 +150,8 @@ defmodule Cforum.Forums.Votes do
     Vote.changeset(vote, %{})
   end
 
+  def voted?(%Message{__meta__: %{state: :built}}, _, _), do: false
+
   def voted?(message, user, type) when not is_nil(user) and type in ["upvote", "downvote"],
     do: present?(Enum.find(message.votes, fn vote -> vote.user_id == user.user_id && vote.vtype == type end))
 
