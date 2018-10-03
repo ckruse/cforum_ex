@@ -7,7 +7,7 @@ defmodule CforumWeb.Api.V1.Messages.InterestingController do
   def interesting(conn, %{"slug" => slug, "message_id" => mid, "forum" => fslug}) do
     forum = Enum.find(conn.assigns.visible_forums, &(&1.slug == fslug))
 
-    {thread, message} =
+    {_thread, message} =
       Messages.get_message_from_slug_and_mid!(forum, conn.assigns.current_user, slug, mid,
         message_order: uconf(conn, "sort_messages")
       )
@@ -29,7 +29,7 @@ defmodule CforumWeb.Api.V1.Messages.InterestingController do
   def boring(conn, %{"slug" => slug, "message_id" => mid, "forum" => fslug}) do
     forum = Enum.find(conn.assigns.visible_forums, &(&1.slug == fslug))
 
-    {thread, message} =
+    {_thread, message} =
       Messages.get_message_from_slug_and_mid!(forum, conn.assigns.current_user, slug, mid,
         message_order: uconf(conn, "sort_messages")
       )
