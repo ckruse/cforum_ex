@@ -13,8 +13,8 @@
     </div>
 
     <div class="cf-cgroup">
-      <%= label @f, :avatar, gettext("avatar") %>
-      <%= file_input @f, :avatar %>
+      <%= label @f, :avatar_file_name, gettext("avatar") %>
+      <%= file_input @f, :avatar_file_name %>
     </div>
   </fieldset>
 </div>
