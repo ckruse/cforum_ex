@@ -177,8 +177,11 @@ defmodule Cforum.Accounts.User do
   defp generate_confirmation_token(username), do: Token.sign(CforumWeb.Endpoint, "user", username)
 
   def avatar_path(user, version) do
+    path = Application.get_env(:cforum, :avatar_dir)
+    url = Application.get_env(:cforum, :avatar_url)
+
     {user.avatar_file_name, user}
     |> CforumWeb.Avatar.url(version)
-    |> String.replace_leading("/priv", "")
+    |> String.replace_leading(path, url)
   end
 end
