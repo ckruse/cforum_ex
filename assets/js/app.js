@@ -25,7 +25,7 @@ import "./modules/closest.js";
 
 // import socket from "./socket"
 
-import "./modules/tabs.js";
+// import "./modules/tabs.js";
 import "./modules/datetime-polyfill";
 import "./modules/confirmation.js";
 import "./components/autolist";
@@ -36,4 +36,5 @@ import "./components/user-selector";
 
 // site specific JS
 import "./forum-stats";
-import "./flag_message.js";
+import "./flag_message";
+import "./thread_actions";
