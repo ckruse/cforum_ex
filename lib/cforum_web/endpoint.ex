@@ -17,7 +17,7 @@ defmodule CforumWeb.Endpoint do
 
   plug(Plug.Static,
     at: "/uploads",
-    from: Application.get_env(:cforum, :uploads_path, Path.expand("./priv/uploads")),
+    from: Application.get_env(:cforum, :uploads_dir, Path.expand("./priv/uploads")),
     gzip: false
   )
 
