@@ -17,7 +17,7 @@
       (<span class="mails new" id="mails" title="<%= gettext("%{count} new mails", count: @unread_mails) %>"><%= @unread_mails %></span>)</li>
     <li id="optionen-logout"><%= cf_button(gettext("logout"), to: session_path(@conn, :delete), method: :delete, class: "btn-link") %></li>
   <% else %>
-    <li id="user-not-signed-in"><%= img_tag(static_path(@conn, "/images/missing.png")) %> <%= gettext("not logged in") %></li>
+    <li id="user-not-signed-in"><%= img_tag(CforumWeb.Avatar.default_url(:thumb, nil)) %> <%= gettext("not logged in") %></li>
     <li id="optionen-help"><%= link(gettext("Help"), to: page_path(@conn, :help)) %></li>
     <li id="optionen-my"><%= link(gettext("login"), to: session_path(@conn, :new), rel: "nofollow") %></li>
     <li id="optionen-myadmin"><%= link(gettext("register"), to: registration_path(@conn, :new), rel: "nofollow") %></li>

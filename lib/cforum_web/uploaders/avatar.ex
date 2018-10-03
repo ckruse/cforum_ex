@@ -34,7 +34,7 @@ defmodule CforumWeb.Avatar do
 
   # Override the storage directory:
   def storage_dir(version, {_, scope}) do
-    "priv/uploads/users/avatars/#{id_partition(scope.user_id)}/#{version}/"
+    "#{Application.get_env(:cforum, :avatar_dir)}/#{id_partition(scope.user_id)}/#{version}/"
   end
 
   # Provide a default URL if there hasn't been a file uploaded
