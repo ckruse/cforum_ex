@@ -37,6 +37,16 @@ defmodule CforumWeb.Router do
       post("/users", UserController, :index)
       get("/users/:id", UserController, :show)
       get("/tags", TagController, :index)
+
+      post("/threads/hide", Threads.InvisibleController, :hide)
+      post("/threads/unhide", Threads.InvisibleController, :unhide)
+      post("/threads/open", Threads.OpenCloseController, :open)
+      post("/threads/close", Threads.OpenCloseController, :close)
+      post("/messages/mark-read", Messages.MarkReadController, :mark_read)
+      post("/messages/interesting", Messages.InterestingController, :interesting)
+      post("/messages/boring", Messages.InterestingController, :boring)
+      post("/messages/subscribe", Messages.SubscriptionController, :subscribe)
+      post("/messages/unsubscribe", Messages.SubscriptionController, :unsubscribe)
     end
   end
 

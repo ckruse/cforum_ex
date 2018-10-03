@@ -20,15 +20,15 @@ export const unique = (list, finder) => {
   });
 };
 
-export function clearChildren(element) {
+export const clearChildren = element => {
   while (element.firstChild) {
     element.firstChild.remove();
   }
 
   return element;
-}
+};
 
-export function parse(markup) {
+export const parse = markup => {
   const fragment = document.createDocumentFragment();
   const div = document.createElement("div");
 
@@ -36,4 +36,21 @@ export function parse(markup) {
   Array.from(div.childNodes).forEach(child => fragment.appendChild(child));
 
   return fragment;
-}
+};
+
+export const parseMessageUrl = url => {
+  url = new URL(url);
+  const path = url.pathname;
+  const ret = {};
+
+  if (path.match(/^(?:\/(\w+))?(\/\d{4}\/\w{3}\/\d{1,2}\/[\w-]+)(?:\/(\d+))?(?:\/([\w-]+))?$/)) {
+    ret.forum = RegExp.$1;
+    ret.slug = RegExp.$2;
+    ret.messageId = RegExp.$3;
+    ret.action = RegExp.$4;
+
+    return ret;
+  }
+
+  return null;
+};
