@@ -62,27 +62,14 @@ defmodule Cforum.Accounts.User do
     |> cast(params, [
       :username,
       :email,
-      :unconfirmed_email,
-      :admin,
-      :active,
-      :remember_created_at,
-      :reset_password_token,
-      :confirmation_token,
-      :confirmation_captcha,
-      :confirmed_at,
-      :confirmation_sent_at,
-      :last_visit,
-      :avatar_file_name,
-      :avatar_content_type,
-      :avatar_updated_at
+      :unconfirmed_email
     ])
     |> cast_assoc(:settings)
+    |> cast_attachments(params, [:avatar_file_name])
     |> validate_required([:username, :email, :admin, :active])
     |> unique_constraint(:username, name: :users_username_idx)
     |> unique_constraint(:email, name: :users_email_idx)
     |> unique_constraint(:unconfirmed_email)
-    |> unique_constraint(:reset_password_token)
-    |> unique_constraint(:confirmation_token, name: :users_confirmation_token_idx)
   end
 
   def admin_changeset(%User{} = struct, params \\ %{}) do

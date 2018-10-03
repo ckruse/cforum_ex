@@ -25,6 +25,10 @@ defmodule CforumWeb.Avatar do
   #   version
   # end
 
+  def transform(:thumb, _), do: {:convert, "-strip -thumbnail 20x20^ -gravity center -extent 20x20"}
+  def transform(:medium, _), do: {:convert, "-strip -thumbnail 100x100^ -gravity center -extent 100x100"}
+  def transform(:original, _), do: :noaction
+
   defp id_partition(id) do
     Integer.to_string(id)
     |> String.pad_leading(9, "0")
