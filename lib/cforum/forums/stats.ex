@@ -28,7 +28,9 @@ defmodule Cforum.Forums.Stats do
     {threads, latest_message}
   end
 
-  defp get_latest_message(nil, maybe_new_latest), do: maybe_new_latest
+  defp get_latest_message(nil, nil), do: nil
+  defp get_latest_message(latest, nil) when not is_nil(latest), do: latest
+  defp get_latest_message(nil, maybe_new_latest) when not is_nil(maybe_new_latest), do: maybe_new_latest
 
   defp get_latest_message(latest, maybe_new_latest) do
     if Timex.after?(maybe_new_latest.latest_message, latest.latest_message),
