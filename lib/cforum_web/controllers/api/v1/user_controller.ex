@@ -24,5 +24,9 @@ defmodule CforumWeb.Api.V1.UserController do
     render(conn, "show.json", user: user)
   end
 
+  def show_self(conn, _params) do
+    render(conn, "show_self.json", user: conn.assigns.current_user)
+  end
+
   def allowed?(_conn, _, _), do: true
 end
