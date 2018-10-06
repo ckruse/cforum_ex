@@ -3,20 +3,52 @@ import { render } from "react-dom";
 
 import Tag from "./tag";
 import NewTagInput from "./new_tag_input";
+import { conf } from "../../modules/helpers";
+import { t } from "../../modules/i18n";
 
 class TagList extends React.Component {
   constructor(props) {
     super(props);
 
+    document.addEventListener("cf:configDidLoad", () => {
+      const minTags = conf("min_tags_per_message") || 1;
+      const maxTags = conf("max_tags_per_message") || 3;
+      this.setState({ ...this.state, minTags: minTags, maxTags: maxTags });
+    });
+
+    const minTags = conf("min_tags_per_message") || 1;
+    const maxTags = conf("max_tags_per_message") || 3;
+
     this.state = {
-      tags: [...this.props.tags]
+      tags: [...this.props.tags],
+      allTags: [],
+      minTags: minTags,
+      maxTags: maxTags
     };
 
     this.addTag = this.addTag.bind(this);
+    this.checkForError = this.checkForError.bind(this);
+
+    const slug = document.location.pathname.split("/")[1];
+    fetch(`/api/v1/tags?f=${slug}`, { credentials: "same-origin" })
+      .then(json => json.json())
+      .then(json => {
+        json.sort((a, b) => b.num_messages - a.num_messages);
+        this.setState({ ...this.state, allTags: json });
+      })
+      .catch(e => console.log(e));
+  }
+
+  checkForError(tag) {
+    if (!this.state.allTags.includes(tag)) {
+      return t("is unknown");
+    }
+
+    return null;
   }
 
   addTag(tag) {
-    this.setState({ ...this.state, tags: [...this.state.tags, [tag, null]] });
+    this.setState({ ...this.state, tags: [...this.state.tags, [tag, this.checkForError(tag)]] });
   }
 
   removeTag(tagToRemove) {
@@ -30,8 +62,8 @@ class TagList extends React.Component {
           <Tag key={tag} tag={tag} error={err} onClick={() => this.removeTag(tag)} />
         ))}
 
-        {this.state.tags.length < this.props.maxTags && (
-          <NewTagInput onChoose={this.addTag} existingTags={this.state.tags} />
+        {this.state.tags.length < this.state.maxTags && (
+          <NewTagInput onChoose={this.addTag} existingTags={this.state.tags} allTags={this.state.allTags} />
         )}
       </ul>
     );
@@ -39,10 +71,6 @@ class TagList extends React.Component {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // TODO get these values from config
-  const maxTags = 3;
-  const minTags = 1;
-
   document.querySelectorAll('[data-tags-list="form"]').forEach(el => {
     const tags = Array.from(el.querySelectorAll('input[data-tag="yes"]'))
       .filter(t => !!t.value)
@@ -51,6 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return [t.value, elem ? elem.textContent : null];
       });
 
-    render(<TagList tags={tags} maxTags={maxTags} minTags={minTags} />, el.parentNode);
+    render(<TagList tags={tags} />, el.parentNode);
   });
 });
