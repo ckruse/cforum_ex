@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const elem = document.querySelector("#alerts-container");
   elem.addEventListener("click", event => {
-    if (event.target.matches(".cf-alert button, .cf-alert button span")) {
+    if (event.target.matches(".cf-alert button, .cf-alert button span, .cf-alert")) {
       event.target.closest(".cf-alert").remove();
     }
   });
