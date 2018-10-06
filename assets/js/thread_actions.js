@@ -10,6 +10,8 @@ import {
   subscribeMessageHelper,
   unsubscribeMessageHelper
 } from "./thread_actions/helpers";
+import { alertError } from "./alerts";
+import { t } from "./modules/i18n";
 
 document.addEventListener("DOMContentLoaded", () => {
   const element = document.querySelector(".cf-thread-list");
@@ -46,7 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fetch(url, requestParams).then(response => {
       if (!response.ok) {
-        return; // TODO error handling
+        alertError(t("Oops, something went wrong!"));
+        return;
       }
 
       if (afterAction) {

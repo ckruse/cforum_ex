@@ -1,4 +1,6 @@
 import { parseMessageUrl } from "../modules/helpers";
+import { alertError } from "../alerts";
+import { t } from "../modules/i18n";
 
 export const openThreadHelper = (requestParams, form) => {
   const parsedUrl = parseMessageUrl(form.action);
@@ -25,9 +27,10 @@ export const hideThreadHelper = (requestParams, form) => {
     url: "/api/v1/threads/hide",
     afterAction: response => {
       response.json().then(json => {
-        // TODO error handling
         if (json.status == "ok") {
           form.closest(".cf-thread").remove();
+        } else {
+          alertError(t("Oops, something went wrong!"));
         }
       });
     }
@@ -43,9 +46,10 @@ export const unhideThreadHelper = (requestParams, form) => {
     url: "/api/v1/threads/unhide",
     afterAction: response => {
       response.json().then(json => {
-        // TODO error handling
         if (json.status == "ok") {
           form.closest(".cf-thread").remove();
+        } else {
+          alertError(t("Oops, something went wrong!"));
         }
       });
     }
