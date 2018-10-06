@@ -56,7 +56,7 @@
 </fieldset>
 
 <fieldset>
-  <ul class="cf-cgroup cf-form-tagslist <%= error_class(@f, :tags) %>" data-tags-list="form">
+  <ul class="cf-form-tagslist" data-tags-list="form">
     <%= render "form_tags.html", assigns %>
   </ul>
 </fieldset>

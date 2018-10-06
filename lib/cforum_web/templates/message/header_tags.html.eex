@@ -1,7 +1,7 @@
     <%= if show_tags?(@opts[:parent], @message, @opts) do %>
       <ul class="cf-tags-list-thread">
         <%= for t <- @message.tags do %>
-          <li class="cf-tag"><%= link(t.tag_name, to: tag_path(@conn, :show, @thread.forum.slug, t)) %></li>
+          <li class="cf-tag"><%= link(t.tag_name, to: tag_path(@conn, :show, forum_slug(@thread.forum), t)) %></li>
         <% end %>
       </ul>
     <% end %>

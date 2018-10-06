@@ -85,7 +85,7 @@ msgstr "Foren"
 msgid "Atom feed"
 msgstr "Atom-Feed"
 
-#: lib/cforum_web/templates/layout/link.html.eex:17
+#: lib/cforum_web/templates/layout/link.html.eex:15
 #: lib/cforum_web/templates/layout/page_header.html.eex:8
 #: lib/cforum_web/templates/layout/page_header.html.eex:8
 msgid "Atom feed (%{forum})"
@@ -99,7 +99,7 @@ msgstr "Chat"
 msgid "RSS feed"
 msgstr "RSS-Feed"
 
-#: lib/cforum_web/templates/layout/link.html.eex:18
+#: lib/cforum_web/templates/layout/link.html.eex:16
 #: lib/cforum_web/templates/layout/page_header.html.eex:9
 #: lib/cforum_web/templates/layout/page_header.html.eex:9
 msgid "RSS feed (%{forum})"
@@ -350,7 +350,7 @@ msgstr "Sie können Ihr Benutzerkonto über den Link unten bestätigen:"
 msgid "confirm your registration"
 msgstr "Benutzerkonto bestätigen"
 
-#: lib/cforum/accounts/user.ex:142
+#: lib/cforum/accounts/user.ex:131
 msgid "password and password confirmation don't match"
 msgstr "Passwort und Passwort-Bestätigung stimmen nicht überein"
 
@@ -1289,7 +1289,7 @@ msgstr "von"
 msgid "problematic site"
 msgstr "problematische Seite"
 
-#: lib/cforum_web/templates/message/show-thread.html.eex:6
+#: thread.html.eex:6
 msgid "read message"
 msgstr "Beitrag lesen"
 
@@ -1353,7 +1353,6 @@ msgid "show preview"
 msgstr "Vorschau"
 
 #: lib/cforum_web/templates/admin/audit/index.html.eex:19
-#: lib/cforum_web/templates/message/form.html.eex:61
 msgid "tags"
 msgstr "Tags"
 
@@ -1414,7 +1413,7 @@ msgstr "Seitenauswahl"
 msgid "previous page"
 msgstr "eine Seite zurück"
 
-#: lib/cforum/forums/message.ex:129
+#: lib/cforum/forums/message.ex:122 lib/cforum/forums/message.ex:140
 msgid "unknown tags given: %{tags}"
 msgstr "Folgende Tags sind unbekannt: %{tags}."
 
@@ -1462,22 +1461,22 @@ msgid "show all"
 msgstr "alle anzeigen"
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/interesting_controller.ex:39
+#: lib/cforum_web/controllers/messages/interesting_controller.ex:73
 msgid "Interesting mark was successfully removed."
 msgstr "Die Interessant-Markierung wurde erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/interesting_controller.ex:31
+#: lib/cforum_web/controllers/messages/interesting_controller.ex:65
 msgid "Message was successfully marked as interesting."
 msgstr "Der Beitrag wurde erfolgreich als interessant markiert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/subscription_controller.ex:26
+#: lib/cforum_web/controllers/messages/subscription_controller.ex:52
 msgid "Message was successfully subscribed."
 msgstr "Der Baum wurde erfolgreich abonniert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/subscription_controller.ex:34
+#: lib/cforum_web/controllers/messages/subscription_controller.ex:60
 msgid "Message was successfully unsubscribed."
 msgstr "Der Baum wurde erfolgreich deabonniert."
 
@@ -1565,12 +1564,12 @@ msgid "no invisible threads, yet"
 msgstr "Sie haben bisher keine Threads ausgeblendet."
 
 #, elixir-format
-#: lib/cforum_web/templates/messages/interesting/index.html.eex:2
+#: lib/cforum_web/templates/messages/interesting/index.html.eex:12
 msgid "no messages marked as interesting, yet"
 msgstr "Sie haben bisher keine Beiträge als interessant markiert."
 
 #, elixir-format
-#: lib/cforum_web/templates/messages/subscription/index.html.eex:2
+#: lib/cforum_web/templates/messages/subscription/index.html.eex:12
 msgid "no subscribed messages, yet"
 msgstr "Sie haben bisher keine Beiträge abonniert."
 
@@ -1649,17 +1648,17 @@ msgid "answer without cite"
 msgstr "ohne Zitat antworten"
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:77
+#: lib/cforum_web/controllers/mail_controller.ex:80
 msgid "Mail created successfully."
 msgstr "Mail erfolgreich gespeichert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:99
+#: lib/cforum_web/controllers/mail_controller.ex:102
 msgid "Mail deleted successfully."
 msgstr "Mail erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:90
+#: lib/cforum_web/controllers/mail_controller.ex:93
 msgid "Mail successfully marked as unread."
 msgstr "Mail erfolgreich als ungelesen markiert."
 
@@ -1674,8 +1673,8 @@ msgid "recpient"
 msgstr "Empfänger"
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:42
-#: lib/cforum_web/controllers/mail_controller.ex:56
+#: lib/cforum_web/controllers/mail_controller.ex:44
+#: lib/cforum_web/controllers/mail_controller.ex:58
 msgid "you"
 msgstr "du"
 
@@ -3931,22 +3930,22 @@ msgstr "Entsperr-Abstimmung (%{votes}/%{votes_needed})"
 msgid "%{count} search results"
 msgstr "%{count} Suchergebnisse"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/controllers/admin/search_section_controller.ex:22
 msgid "Search section created successfully."
 msgstr "Such-Sektion erfolgreich erstellt."
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/controllers/admin/search_section_controller.ex:55
 msgid "Search section deleted successfully."
 msgstr "Such-Sektion erfolgreich gelöscht."
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/controllers/admin/search_section_controller.ex:42
 msgid "Search section updated successfully."
 msgstr "Such-Sektion erfolgreich geändert."
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/views/messages/open_close_vote_view.ex:15
 msgid "Start a reopen vote for message %{subject} by %{author}"
 msgstr "Eine Entsperr-Abstimmung für den Beitrag „%{subject}“ von %{author} erstellen"
@@ -3957,33 +3956,35 @@ msgstr "Eine Entsperr-Abstimmung für den Beitrag „%{subject}“ von %{author}
 msgid "active by default"
 msgstr "aktiv per Default"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/views/admin/search_section_view.ex:4
 msgid "administrate search sections"
 msgstr "Such-Sektionen verwalten"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/views/admin/search_section_view.ex:8
 msgid "edit search section „%{name}“"
 msgstr "Such-Sektion „%{name}“ bearbeiten"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/views/search_view.ex:4
 msgid "forum search"
 msgstr "Foren-Suche"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/admin/search_section/subnav.html.eex:4
 #: lib/cforum_web/views/admin/search_section_view.ex:5
 msgid "new search section"
 msgstr "neue Such-Sektion"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/admin/search_section/index.html.eex:4
 msgid "search section name"
 msgstr "Such-Sektionsname"
 
-#, elixir-format, fuzzy
+#, elixir-format
+#: lib/cforum_web/templates/messages/interesting/index.html.eex:3
+#: lib/cforum_web/templates/messages/subscription/index.html.eex:3
 #: lib/cforum_web/templates/search/show.html.eex:7
 msgid "search term"
 msgstr "Suchbegriff"
@@ -3997,3 +3998,14 @@ msgstr "Sortierung nach Datum"
 #: lib/cforum_web/templates/search/show.html.eex:36
 msgid "sort by relevance"
 msgstr "Sortierung nach Relevanz"
+
+#, elixir-format
+#: lib/cforum_web/templates/message/form_tags.html.eex:3
+#: lib/cforum_web/templates/message/form_tags.html.eex:9
+msgid "Tag %{no}"
+msgstr "Tag %{no}"
+
+#, elixir-format, fuzzy
+#: lib/cforum/forums/message.ex:149
+msgid "is unknown"
+msgstr "ist unbekannt"

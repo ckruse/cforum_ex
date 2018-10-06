@@ -1,4 +1,4 @@
-<%= if @changeset.action do %>
+<%= if @changeset.action && !assigns[:preview] do %>
   <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
 <% end %>
 

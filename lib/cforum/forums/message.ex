@@ -111,7 +111,20 @@ defmodule Cforum.Forums.Message do
       |> Enum.reject(&blank?/1)
       |> Enum.map(&String.downcase/1)
 
-    known_tags = Cforum.Forums.Tags.get_tags(get_field(changeset, :forum_id), tags)
+    parse_tags(changeset, tags, get_field(changeset, :forum_id))
+  end
+
+  defp parse_tags(changeset, _), do: changeset
+
+  defp parse_tags(changeset, tags, nil) do
+    changeset
+    |> put_assoc(:tags, Enum.map(tags, &%Cforum.Forums.Tag{tag_name: &1}))
+    |> add_error(:tags, gettext("unknown tags given: %{tags}", tags: Enum.join(tags, ", ")))
+    |> add_tag_errors(tags)
+  end
+
+  defp parse_tags(changeset, tags, forum_id) do
+    known_tags = Cforum.Forums.Tags.get_tags(forum_id, tags)
 
     unknown_tags =
       Enum.filter(tags, fn tag ->
@@ -123,12 +136,22 @@ defmodule Cforum.Forums.Message do
       put_assoc(changeset, :tags, known_tags)
     else
       changeset
-      |> put_assoc(:tags, known_tags)
+      |> put_assoc(:tags, Enum.map(tags, &%Cforum.Forums.Tag{tag_name: &1}))
       |> add_error(:tags, gettext("unknown tags given: %{tags}", tags: Enum.join(unknown_tags, ", ")))
+      |> add_tag_errors(unknown_tags)
     end
   end
 
-  defp parse_tags(changeset, _), do: changeset
+  defp add_tag_errors(changeset, unknown_tags) do
+    tags =
+      Enum.map(get_change(changeset, :tags, []), fn tag ->
+        if Enum.find(unknown_tags, &(&1 == get_field(tag, :tag_name))) != nil,
+          do: add_error(tag, :tag_name, gettext("is unknown")),
+          else: tag
+      end)
+
+    put_change(changeset, :tags, tags)
+  end
 
   defp maybe_set_author(changeset, %User{} = author) do
     case get_field(changeset, :author) do

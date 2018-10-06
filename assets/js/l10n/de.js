@@ -23,6 +23,8 @@ export const lang = {
   "number of users": "Anzahl Benutzer",
   users: "Benutzer",
 
+  "enter new tag": "neuen Tag eingeben",
+
   highcharts: {
     decimalPoint: ",",
     thousandsSep: ".",

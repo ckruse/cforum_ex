@@ -95,6 +95,17 @@
     }
   }
 
+  .cf-form-tagslist .has-error {
+    color: $error_color;
+    padding-right: 0.5em;
+
+    .cf-tag {
+      border: 2px solid $error_color;
+      margin-right: 0.25em;
+      //color: $error_color;
+    }
+  }
+
   fieldset {
     min-width: 0;
     padding: 0;
