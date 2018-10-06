@@ -54,3 +54,5 @@ export const parseMessageUrl = url => {
 
   return null;
 };
+
+export const conf = nam => (window.currentConfig && window.currentConfig[nam]) || null;
