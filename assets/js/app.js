@@ -23,6 +23,7 @@ import "../css/app.scss";
 import "whatwg-fetch";
 import "./modules/closest.js";
 import "./init.js";
+import "./alerts.js";
 
 // import socket from "./socket"
 
