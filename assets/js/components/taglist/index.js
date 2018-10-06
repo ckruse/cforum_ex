@@ -16,18 +16,18 @@ class TagList extends React.Component {
   }
 
   addTag(tag) {
-    this.setState({ ...this.state, tags: [...this.state.tags, tag] });
+    this.setState({ ...this.state, tags: [...this.state.tags, [tag, null]] });
   }
 
   removeTag(tagToRemove) {
-    this.setState({ ...this.state, tags: this.state.tags.filter(t => t != tagToRemove) });
+    this.setState({ ...this.state, tags: this.state.tags.filter(([t, _]) => t != tagToRemove) });
   }
 
   render() {
     return (
       <ul className="cf-cgroup cf-form-tagslist cf-tags-list" aria-live="polite">
-        {this.state.tags.map(t => (
-          <Tag key={t} tag={t} onClick={() => this.removeTag(t)} />
+        {this.state.tags.map(([tag, err]) => (
+          <Tag key={tag} tag={tag} error={err} onClick={() => this.removeTag(tag)} />
         ))}
 
         {this.state.tags.length < this.props.maxTags && (
@@ -45,8 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll('[data-tags-list="form"]').forEach(el => {
     const tags = Array.from(el.querySelectorAll('input[data-tag="yes"]'))
-      .map(t => t.value)
-      .filter(t => !!t);
+      .filter(t => !!t.value)
+      .map(t => {
+        const elem = t.previousElementSibling.querySelector(".error");
+        return [t.value, elem ? elem.textContent : null];
+      });
 
     render(<TagList tags={tags} maxTags={maxTags} minTags={minTags} />, el.parentNode);
   });

@@ -504,7 +504,7 @@ defmodule Cforum.Forums.Messages do
         user: user
     }
 
-    {msg, changeset}
+    {msg, %Ecto.Changeset{changeset | action: :insert}}
   end
 
   @doc """

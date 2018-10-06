@@ -123,21 +123,21 @@ defmodule CforumWeb.Views.Helpers.Path do
   def thread_path(conn, action, resource, params \\ [])
 
   def thread_path(conn, :show, %Thread{} = thread, params) do
-    root = forum_path(conn, :index, thread.forum.slug)
+    root = forum_path(conn, :index, forum_slug(thread.forum))
     "#{root}#{thread.slug}#{encode_query_string(params)}"
   end
 
   def thread_path(conn, :rss, %Thread{} = thread, params) do
-    root = forum_path(conn, :index, thread.forum.slug)
+    root = forum_path(conn, :index, forum_slug(thread.forum))
     "#{root}/feeds/rss/#{thread.thread_id}#{encode_query_string(params)}"
   end
 
   def thread_path(conn, :atom, %Thread{} = thread, params) do
-    root = forum_path(conn, :index, thread.forum.slug)
+    root = forum_path(conn, :index, forum_slug(thread.forum))
     "#{root}/feeds/atom/#{thread.thread_id}#{encode_query_string(params)}"
   end
 
-  def thread_path(conn, :new, %Forum{} = forum, params), do: thread_path(conn, :new, forum.slug, params)
+  def thread_path(conn, :new, %Forum{} = forum, params), do: thread_path(conn, :new, forum_slug(forum), params)
 
   def thread_path(conn, :new, forum, params) do
     root = forum_path(conn, :index, forum)
@@ -147,7 +147,7 @@ defmodule CforumWeb.Views.Helpers.Path do
   def thread_url(conn, action, resource, params \\ [])
 
   def thread_url(conn, :show, %Thread{} = thread, params) do
-    root = forum_url(conn, :index, thread.forum.slug)
+    root = forum_url(conn, :index, forum_slug(thread.forum))
     "#{root}#{thread.slug}#{encode_query_string(params)}"
   end
 

@@ -2,7 +2,7 @@
   <%= render "header_message_icons.html", assigns %>
 
   <%= if @opts[:first] && (!@conn.assigns[:current_forum] || @opts[:plate]) do %>
-    <%= link @thread.forum.short_name, to: forum_path(@conn, :index, @thread.forum), class: "cf-thread-forum-plate" %>
+   <%= if @thread.forum, do: link(@thread.forum.short_name, to: forum_path(@conn, :index, @thread.forum), class: "cf-thread-forum-plate") %>
   <% end %>
 
   <%= if @opts[:show_icons] do %>
