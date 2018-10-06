@@ -24,6 +24,7 @@ export const lang = {
   users: "Benutzer",
 
   "enter new tag": "neuen Tag eingeben",
+  "is unknown": "ist unbekannt",
 
   highcharts: {
     decimalPoint: ",",

@@ -14,28 +14,19 @@ export default class NewTagInput extends React.Component {
     this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
     this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
     this.onChange = this.onChange.bind(this);
+  }
 
-    const slug = document.location.pathname.split("/")[1];
-    fetch(`/api/v1/tags?f=${slug}`, { credentials: "same-origin" })
-      .then(json => json.json())
-      .then(json => {
-        json.sort((a, b) => b.num_messages - a.num_messages);
-
-        const newState = { ...this.state, tags: json };
-        if (this.state.value == "") {
-          newState.suggestions = newState.tags;
-        }
-
-        this.setState(newState);
-      })
-      .catch(e => console.log(e));
+  componentWillReceiveProps(props) {
+    if (this.state.value == "") {
+      this.state.suggestions = this.props.allTags;
+    }
   }
 
   getSuggestions(value) {
     const inputValue = value.trim().toLowerCase();
     const rx = new RegExp("^" + inputValue, "i");
 
-    return this.state.tags
+    return this.props.allTags
       .filter(tag => !this.props.existingTags.includes(tag.tag_name) && rx.test(tag.tag_name))
       .slice(0, 25);
   }
