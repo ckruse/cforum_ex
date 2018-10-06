@@ -28,5 +28,6 @@ defmodule CforumWeb.Api.V1.UserController do
     render(conn, "show_self.json", user: conn.assigns.current_user)
   end
 
+  def allowed?(conn, :show_self, _), do: signed_in?(conn)
   def allowed?(_conn, _, _), do: true
 end
