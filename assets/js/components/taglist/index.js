@@ -40,7 +40,7 @@ class TagList extends React.Component {
   }
 
   checkForError(tag) {
-    if (!this.state.allTags.includes(tag)) {
+    if (!this.state.allTags.find(tg => tg.tag_name == tag)) {
       return t("is unknown");
     }
 
