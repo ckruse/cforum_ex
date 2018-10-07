@@ -82,26 +82,31 @@ export default class SearchModal extends React.Component {
     return (
       <div>
         <h2>{t("selected users")}</h2>
-        <ul className="users-selector-selected-users-list" aria-live="assertive">
-          <CSSTransitionGroup transitionName="fade-in" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
-            {this.state.selectedUsers.length == 0 && (
-              <li className="no-data" key="no-data">
-                {t("none selected")}
-              </li>
-            )}
-            {this.state.selectedUsers.map(user => (
-              <li key={user.user_id}>
-                <span className="author">
-                  <img src={user.avatar.thumb} className="avatar" />
-                   {user.username}
-                </span>
-                <button type="button" className="cf-primary-index-btn" onClick={() => this.unchooseUser(user)}>
-                  {t("unselect user")}
-                </button>
-              </li>
-            ))}
-          </CSSTransitionGroup>
-        </ul>
+        <CSSTransitionGroup
+          component="ul"
+          className="users-selector-selected-users-list"
+          aria-live="assertive"
+          transitionName="fade-in"
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}
+        >
+          {this.state.selectedUsers.length == 0 && (
+            <li className="no-data" key="no-data">
+              {t("none selected")}
+            </li>
+          )}
+          {this.state.selectedUsers.map(user => (
+            <li key={user.user_id}>
+              <span className="author">
+                <img src={user.avatar.thumb} className="avatar" />
+                 {user.username}
+              </span>
+              <button type="button" className="cf-primary-index-btn" onClick={() => this.unchooseUser(user)}>
+                {t("unselect user")}
+              </button>
+            </li>
+          ))}
+        </CSSTransitionGroup>
       </div>
     );
   }
@@ -123,11 +128,16 @@ export default class SearchModal extends React.Component {
           </div>
 
           <h2>{t("found users")}</h2>
-          <ul className="users-selector-found-users-list" aria-live="assertive">
-            <CSSTransitionGroup transitionName="fade-in" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
-              {this.renderFoundUsers()}
-            </CSSTransitionGroup>
-          </ul>
+          <CSSTransitionGroup
+            component="ul"
+            className="users-selector-found-users-list"
+            aria-live="assertive"
+            transitionName="fade-in"
+            transitionEnterTimeout={300}
+            transitionLeaveTimeout={300}
+          >
+            {this.renderFoundUsers()}
+          </CSSTransitionGroup>
 
           {!this.props.single && this.renderSelectedUsers()}
 

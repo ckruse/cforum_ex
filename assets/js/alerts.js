@@ -35,23 +35,26 @@ class AlertsContainer extends React.Component {
 
   render() {
     return (
-      <div id="alerts-container">
-        <CSSTransitionGroup transitionName="fade-in" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
-          {this.state.alerts.map(alert => (
-            <div
-              key={alert.id}
-              className={`cf-${alert.type} cf-alert fade in`}
-              role="alert"
-              onClick={() => this.removeAlert(alert)}
-            >
-              <button type="button" className="close" aria-label={t("close")}>
-                <span aria-hidden="true">&times;</span>
-              </button>
-              {alert.text}
-            </div>
-          ))}
-        </CSSTransitionGroup>
-      </div>
+      <CSSTransitionGroup
+        component="div"
+        transitionName="fade-in"
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={300}
+      >
+        {this.state.alerts.map(alert => (
+          <div
+            key={alert.id}
+            className={`cf-${alert.type} cf-alert fade in`}
+            role="alert"
+            onClick={() => this.removeAlert(alert)}
+          >
+            <button type="button" className="close" aria-label={t("close")}>
+              <span aria-hidden="true">&times;</span>
+            </button>
+            {alert.text}
+          </div>
+        ))}
+      </CSSTransitionGroup>
     );
   }
 }
