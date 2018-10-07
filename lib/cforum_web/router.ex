@@ -12,9 +12,9 @@ defmodule CforumWeb.Router do
     plug(:put_secure_browser_headers)
 
     plug(CforumWeb.Plug.CurrentUser)
+    plug(CforumWeb.Plug.UpdateLastVisit)
     plug(CforumWeb.Plug.RememberMe)
     plug(CforumWeb.Plug.VisibleForums)
-    # plug(CforumWeb.Plug.ShortcutPlug)
     plug(CforumWeb.Plug.LoadSettings)
     plug(CforumWeb.Plug.LoadUserInfoData)
     plug(CforumWeb.Plug.SetViewAll)

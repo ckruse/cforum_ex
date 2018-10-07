@@ -215,6 +215,11 @@ defmodule Cforum.Accounts.Users do
     |> Repo.update()
   end
 
+  def update_last_visit(%User{} = user) do
+    from(user in User, where: user.user_id == ^user.user_id)
+    |> Repo.update_all(set: [last_visit: Timex.now()])
+  end
+
   @doc """
   Updates a user as allowed for admins.
 
