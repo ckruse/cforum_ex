@@ -18,7 +18,8 @@ defmodule CforumWeb.Endpoint do
   plug(Plug.Static,
     at: "/uploads",
     from: Application.get_env(:cforum, :uploads_dir, Path.expand("./priv/uploads")),
-    gzip: false
+    gzip: false,
+    cache_control_for_etags: "public, max-age=31536000"
   )
 
   # Code reloading can be explicitly enabled under the
