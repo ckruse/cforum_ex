@@ -645,13 +645,13 @@ defmodule Cforum.Forums.Messages do
         homepage: opts[:homepage],
         subject: attribute_value(message, :subject),
         problematic_site: attribute_value(message, :problematic_site),
-        content: content,
+        content: content
         # tags_str: tags_str,
-        tags: attribute_value(message, :tags, [])
       },
       user,
       visible_forums
     )
+    |> Ecto.Changeset.put_assoc(:tags, attribute_value(message, :tags, []))
   end
 
   @doc """
