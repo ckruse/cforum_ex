@@ -24,7 +24,7 @@ const setupSingleSelector = sel => {
   sel.setAttribute("type", "hidden");
   sel.parentNode.insertBefore(root, sel);
 
-  return [root, { id, userId, selfSelect, element: sel }];
+  return [root, { id, userId, selfSelect, single: true, element: sel }];
 };
 
 const setupMultiSelector = element => {
@@ -42,7 +42,8 @@ const setupMultiSelector = element => {
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("[data-user-selector='yes'], [data-user-selector='single']").forEach(sel => {
     let props, root;
-    if (sel.dataset.dataUserSelector == "single") {
+
+    if (sel.dataset.userSelector == "single") {
       [root, props] = setupSingleSelector(sel);
     } else {
       [root, props] = setupMultiSelector(sel);
