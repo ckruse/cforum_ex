@@ -56,3 +56,8 @@ export const parseMessageUrl = url => {
 };
 
 export const conf = nam => (window.currentConfig && window.currentConfig[nam]) || null;
+
+export const uniqueId = (len = 5) =>
+  Math.random()
+    .toString(36)
+    .substr(2, len);
