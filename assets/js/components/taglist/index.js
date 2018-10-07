@@ -1,5 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
+import { CSSTransitionGroup } from "react-transition-group";
 
 import Tag from "./tag";
 import NewTagInput from "./new_tag_input";
@@ -57,7 +58,13 @@ class TagList extends React.Component {
 
   render() {
     return (
-      <ul className="cf-cgroup cf-form-tagslist cf-tags-list" aria-live="polite">
+        <CSSTransitionGroup
+          component="ul"
+          className="cf-cgroup cf-form-tagslist cf-tags-list" aria-live="polite"
+          transitionName="fade-in"
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}
+        >
         {this.state.tags.map(([tag, err]) => (
           <Tag key={tag} tag={tag} error={err} onClick={() => this.removeTag(tag)} />
         ))}
@@ -65,7 +72,7 @@ class TagList extends React.Component {
         {this.state.tags.length < this.state.maxTags && (
           <NewTagInput onChoose={this.addTag} existingTags={this.state.tags} allTags={this.state.allTags} />
         )}
-      </ul>
+      </CSSTransitionGroup>
     );
   }
 }
