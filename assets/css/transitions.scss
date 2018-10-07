@@ -15,3 +15,20 @@
   opacity: 0.01;
   transition: opacity 300ms ease-in;
 }
+
+.ReactModalPortal {
+  & > div {
+    opacity: 0;
+  }
+
+  .ReactModal__Overlay {
+    transition: opacity 300ms ease-in-out;
+    background: rgba(0, 0, 0, 0.15);
+    &--after-open {
+      opacity: 1;
+    }
+    &--before-close {
+      opacity: 0;
+    }
+  }
+}

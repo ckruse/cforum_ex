@@ -1,5 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
+import { CSSTransitionGroup } from "react-transition-group";
 
 import { t } from "../../modules/i18n";
 import { queryString } from "../../modules/helpers";
@@ -47,6 +48,10 @@ export default class SearchModal extends React.Component {
     }
   }
 
+  unchooseUser(user) {
+    this.setState({ ...this.state, selectedUsers: this.state.selectedUsers.filter(u => u.user_id != user.user_id) });
+  }
+
   selectUsers() {
     this.props.selectUser(this.state.selectedUsers);
   }
@@ -78,18 +83,24 @@ export default class SearchModal extends React.Component {
       <div>
         <h2>{t("selected users")}</h2>
         <ul className="users-selector-selected-users-list" aria-live="assertive">
-          {this.state.selectedUsers.length == 0 && <li className="no-data">{t("none selected")}</li>}
-          {this.state.selectedUsers.map(user => (
-            <li key={user.user_id}>
-              <span className="author">
-                <img src={user.avatar.thumb} className="avatar" />
-                 {user.username}
-              </span>
-              <button type="button" className="cf-primary-index-btn">
-                {t("select user")}
-              </button>
-            </li>
-          ))}
+          <CSSTransitionGroup transitionName="fade-in" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
+            {this.state.selectedUsers.length == 0 && (
+              <li className="no-data" key="no-data">
+                {t("none selected")}
+              </li>
+            )}
+            {this.state.selectedUsers.map(user => (
+              <li key={user.user_id}>
+                <span className="author">
+                  <img src={user.avatar.thumb} className="avatar" />
+                   {user.username}
+                </span>
+                <button type="button" className="cf-primary-index-btn" onClick={() => this.unchooseUser(user)}>
+                  {t("unselect user")}
+                </button>
+              </li>
+            ))}
+          </CSSTransitionGroup>
         </ul>
       </div>
     );
@@ -103,6 +114,7 @@ export default class SearchModal extends React.Component {
         contentLabel={t("Search user")}
         onRequestClose={this.props.close}
         onAfterOpen={this.clearResults}
+        closeTimeoutMS={300}
       >
         <div className="cf-form cf-user-selector-modal">
           <div className="cf-cgroup">
@@ -112,7 +124,9 @@ export default class SearchModal extends React.Component {
 
           <h2>{t("found users")}</h2>
           <ul className="users-selector-found-users-list" aria-live="assertive">
-            {this.renderFoundUsers()}
+            <CSSTransitionGroup transitionName="fade-in" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
+              {this.renderFoundUsers()}
+            </CSSTransitionGroup>
           </ul>
 
           {!this.props.single && this.renderSelectedUsers()}
