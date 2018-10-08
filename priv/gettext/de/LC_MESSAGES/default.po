@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2018-10-08 12:47+0200\n"
+"PO-Revision-Date: 2018-10-08 12:58+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1340,7 +1340,7 @@ msgstr "z.B. „https://example.com“"
 
 #: lib/cforum_web/templates/message/form.html.eex:43
 msgid "https://example.com/float-example.html"
-msgstr "„https://example.com/float-example.html“"
+msgstr "z.B. „https://example.com/float-example.html“"
 
 #: lib/cforum_web/templates/message/form.html.eex:7
 msgid "replace float:left with a flexbox construct"
