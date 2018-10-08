@@ -197,7 +197,7 @@ defmodule CforumWeb.LayoutView do
 
   def user_id(conn) do
     if conn.assigns[:current_user],
-      do: {:safe, "data-user-id=#{conn.assigns.current_user.user_id}"},
+      do: {:safe, " data-user-id=\"#{conn.assigns.current_user.user_id}\""},
       else: ""
   end
 end
