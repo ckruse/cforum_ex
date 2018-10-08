@@ -1,4 +1,6 @@
 <ul>
   <li><%= link gettext("suggest new cite"), to: cite_path(@conn, :new) %></li>
-  <li><%= link gettext("vote for cites"), to: cite_path(@conn, :index_voting) %></li>
+  <%= if may?(@conn, "cite", :index_voting) do %>
+    <li><%= link gettext("vote for cites"), to: cite_path(@conn, :index_voting) %></li>
+  <% end %>
 </ul>
