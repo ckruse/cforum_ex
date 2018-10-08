@@ -20,9 +20,9 @@
   </div>
 </template>
 
-<%= render "user_information.html", f: @original_f, user: @user %>
-<%= render "personal_information.html", f: @f, user: @user %>
-<%= render "comfort.html", f: @f, user: @user %>
-<%= render "notifications.html", f: @f, user: @user %>
-<%= render "personalization.html", f: @f, user: @user %>
-<%= render "readability_overview.html", f: @f, user: @user %>
+<%= render "user_information.html", Map.put(assigns, :f, @original_f) %>
+<%= render "personal_information.html", assigns %>
+<%= render "comfort.html", assigns %>
+<%= render "notifications.html", assigns %>
+<%= render "personalization.html", assigns %>
+<%= render "readability_overview.html", assigns %>
