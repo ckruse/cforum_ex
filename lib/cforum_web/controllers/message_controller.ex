@@ -32,7 +32,7 @@ defmodule CforumWeb.MessageController do
         message,
         conn.assigns[:current_user],
         conn.assigns[:visible_forums],
-        strip_signature: uconf(conn, "quote_signature") != "yes",
+        strip_signature: uconf(conn, "quote_signature") == "no",
         author: author_from_conn(conn),
         email: email_from_conn(conn),
         homepage: homepage_from_conn(conn),
