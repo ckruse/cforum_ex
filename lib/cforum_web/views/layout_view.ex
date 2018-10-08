@@ -194,4 +194,10 @@ defmodule CforumWeb.LayoutView do
 
   def forum_name(nil), do: gettext("all forums")
   def forum_name(forum), do: forum.name
+
+  def user_id(conn) do
+    if conn.assigns[:current_user],
+      do: {:safe, "data-user-id=#{conn.assigns.current_user.user_id}"},
+      else: ""
+  end
 end
