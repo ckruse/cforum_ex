@@ -60,7 +60,6 @@ defmodule Cforum.ConfigManager do
     "greeting" => nil,
     "farewell" => nil,
     "signature" => nil,
-    "flattr" => nil,
     "autorefresh" => 0,
     "quote_signature" => "no",
     "show_unread_notifications_in_title" => "no",
