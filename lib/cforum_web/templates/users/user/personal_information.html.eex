@@ -19,11 +19,6 @@
     <% end %>
 
     <div class="cf-cgroup">
-      <%= label @f, :flattr, gettext("flattr id") %>
-      <%= text_input @f, :flattr %>
-    </div>
-
-    <div class="cf-cgroup">
       <%= label @f, :jabber_id, gettext("jabber id") %>
       <%= text_input @f, :jabber_id %>
     </div>
