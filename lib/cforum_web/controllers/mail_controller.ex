@@ -36,7 +36,7 @@ defmodule CforumWeb.MailController do
       PrivMessages.answer_changeset(
         %PrivMessage{},
         parent,
-        strip_signature: uconf(conn, "quote_signature") != "yes",
+        strip_signature: uconf(conn, "quote_signature") == "no",
         greeting: uconf(conn, "greeting"),
         farewell: uconf(conn, "farewell"),
         signature: uconf(conn, "signature"),
