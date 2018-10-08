@@ -71,7 +71,7 @@ defmodule Cforum.Helpers.CompositionHelpers do
     parts =
       content
       |> String.reverse()
-      |> String.split("\n --\n", parts: 2)
+      |> String.split(~r/(?:\015\012|\012|\015) --(?:\015\012|\012|\015)/, parts: 2)
 
     case parts do
       [_, part] ->
