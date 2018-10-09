@@ -45,7 +45,7 @@ defmodule CforumWeb.Views.Helpers do
   with that namespace. If i.e. called with `field` set to `foo[bar]` the generated
   field names look like this: `foo[bar][baz]`
   """
-  def sub_inputs(form, field, _options \\ [], fun) do
+  def sub_inputs(form, field, options \\ [], fun) do
     # options =
     #   form.options
     #   |> Keyword.take([:multipart])
@@ -53,12 +53,19 @@ defmodule CforumWeb.Views.Helpers do
 
     attr = Map.get(form.data, field) || %{}
     symbolized_attr = Enum.reduce(Map.keys(attr), %{}, fn key, map -> Map.put(map, String.to_atom(key), attr[key]) end)
-    types = Enum.reduce(Map.keys(symbolized_attr), %{}, fn key, map -> Map.put(map, key, :string) end)
 
-    changeset = Ecto.Changeset.cast({symbolized_attr, types}, form.params, Map.keys(symbolized_attr))
+    merged_attr =
+      if options[:merge_callback],
+        do: options[:merge_callback].(symbolized_attr),
+        else: symbolized_attr
+
+    types = Enum.reduce(Map.keys(merged_attr), %{}, fn key, map -> Map.put(map, key, :string) end)
+
+    changeset = Ecto.Changeset.cast({merged_attr, types}, form.params, Map.keys(merged_attr))
+    id = form.id <> "_#{field}"
     forms = Phoenix.HTML.FormData.to_form(changeset, as: form.name <> "[#{field}]")
 
-    fun.(forms)
+    fun.(%Phoenix.HTML.Form{forms | id: id})
   end
 
   @doc """

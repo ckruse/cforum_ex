@@ -21,8 +21,22 @@
     </div>
 
     <div class="cf-cgroup">
+      <label><%= gettext("automatically subscribe threads when answering") %></label>
+      <label class="radio"><%= radio_button @f, :autosubscribe_on_post, "no", checked: blank_or_value?(@f.data, :autosubscribe_on_post, "no") %> <%= gettext("no, don't automatically subscribe") %></label>
+      <label class="radio"><%= radio_button @f, :autosubscribe_on_post, "yes" %> <%= gettext("automatically subscribe the parent posting") %></label>
+      <label class="radio"><%= radio_button @f, :autosubscribe_on_post, "own" %> <%= gettext("automatically subscribe the own posting") %></label>
+      <label class="radio"><%= radio_button @f, :autosubscribe_on_post, "root" %> <%= gettext("automatically subscribe the first posting of the thread") %></label>
+    </div>
+
+    <div class="cf-cgroup">
       <label class="checkbox">
-        <%= checkbox @f, :notify_on_abonement_activity, checked_value: "email", unchecked_value: "no" %> <%= gettext("notify me via email on activity in subscribed threads") %>
+        <%= checkbox @f, :notify_on_abonement_activity, checked_value: "email", unchecked_value: "no" %> <%= gettext("notify me via email on activity in subscribed messages") %>
+      </label>
+    </div>
+
+    <div class="cf-cgroup">
+      <label class="checkbox">
+        <%= checkbox @f, :delete_read_notifications_on_abonements, checked_value: "yes", unchecked_value: "no" %> <%= gettext("automatically delete read notifications for activity in subscribed threads") %>
       </label>
     </div>
 
@@ -59,36 +73,21 @@
       </label>
     </div>
 
-    <div class="cf-cgroup">
-      <label class="checkbox">
-        <%= checkbox @f, :delete_read_notifications_on_abonements, checked_value: "yes", unchecked_value: "no" %> <%= gettext("automatically delete read notifications for activity in subscribed threads") %>
-      </label>
-    </div>
-
-    <div class="cf-cgroup">
-      <label><%= gettext("automatically subscribe threads when answering") %></label>
-      <label class="radio"><%= radio_button @f, :autosubscribe_on_post, "no", checked: blank_or_value?(@f.data, :autosubscribe_on_post, "no") %> <%= gettext("no, don't automatically subscribe") %></label>
-      <label class="radio"><%= radio_button @f, :autosubscribe_on_post, "yes" %> <%= gettext("automatically subscribe the parent posting") %></label>
-      <label class="radio"><%= radio_button @f, :autosubscribe_on_post, "own" %> <%= gettext("automatically subscribe the own posting") %></label>
-      <label class="radio"><%= radio_button @f, :autosubscribe_on_post, "root" %> <%= gettext("automatically subscribe the first posting of the thread") %></label>
-    </div>
-
-
     <%= if Cforum.Accounts.Users.moderator?(@user) do %>
       <div class="cf-cgroup">
-        <%= label @f, :notification_on_flagged, gettext("send me a notification on flagged messages") %>
-        <label class="radio"><%= radio_button @f, :notification_on_flagged, "yes" %> <%= gettext("yes") %></label>
-        <label class="radio"><%= radio_button @f, :notification_on_flagged, "no" %> <%= gettext("no") %></label>
-        <label class="radio"><%= radio_button @f, :notification_on_flagged, "email" %> <%= gettext("via email") %></label>
+        <label><%= gettext("send me a notification on flagged messages") %></label>
+        <label class="radio"><%= radio_button @f, :notify_on_flagged, "yes" %> <%= gettext("yes") %></label>
+        <label class="radio"><%= radio_button @f, :notify_on_flagged, "no" %> <%= gettext("no") %></label>
+        <label class="radio"><%= radio_button @f, :notify_on_flagged, "email" %> <%= gettext("via email") %></label>
       </div>
     <% end %>
 
     <%= if Cforum.Accounts.Users.badge?(@user, "visit_close_reopen") do %>
       <div class="cf-cgroup">
         <label><%= gettext("send me a notification on close and re-open votes") %></label>
-        <label class="radio"><%= radio_button @f, :notification_on_open_close_vote, "yes" %> <%= gettext("yes") %></label>
-        <label class="radio"><%= radio_button @f, :notification_on_open_close_vote, "no" %> <%= gettext("no") %></label>
-        <label class="radio"><%= radio_button @f, :notification_on_open_close_vote, "email" %> <%= gettext("via email") %></label>
+        <label class="radio"><%= radio_button @f, :notify_on_open_close_vote, "yes" %> <%= gettext("yes") %></label>
+        <label class="radio"><%= radio_button @f, :notify_on_open_close_vote, "no" %> <%= gettext("no") %></label>
+        <label class="radio"><%= radio_button @f, :notify_on_open_close_vote, "email" %> <%= gettext("via email") %></label>
       </div>
     <% end %>
 
