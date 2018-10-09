@@ -22,7 +22,6 @@ import "../css/app.scss";
 
 import "whatwg-fetch";
 import "./modules/closest.js";
-import "./init.js";
 import "./alerts.js";
 
 // import socket from "./socket"
@@ -40,3 +39,5 @@ import "./components/user-selector";
 import "./forum-stats";
 import "./flag_message";
 import "./thread_actions";
+
+import "./init.js";
