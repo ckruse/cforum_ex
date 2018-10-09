@@ -52,11 +52,11 @@ defmodule CforumWeb.Users.UserView do
   def body_classes(:update, _), do: "users edit"
   def body_classes(:edit, conn), do: body_classes(:update, conn)
 
-  def merge_default_config(conn, options) do
+  def merge_default_config(setting, options) do
     Enum.reduce(ConfigManager.user_config_keys(), options, fn key, opts ->
       if Map.has_key?(opts, key),
         do: opts,
-        else: Map.put(opts, String.to_atom(key), uconf(conn, key))
+        else: Map.put(opts, String.to_atom(key), conf(setting, key))
     end)
   end
 end
