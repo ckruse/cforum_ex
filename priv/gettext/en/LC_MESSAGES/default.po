@@ -344,13 +344,13 @@ msgstr ""
 msgid "Activity during the last 30 days"
 msgstr ""
 
-#: lib/cforum_web/views/users/user_view.ex:10
-#: lib/cforum_web/views/users/user_view.ex:24
+#: lib/cforum_web/views/users/user_view.ex:11
+#: lib/cforum_web/views/users/user_view.ex:25
 msgid "All messages for user %{username}"
 msgstr ""
 
-#: lib/cforum_web/views/users/user_view.ex:13
-#: lib/cforum_web/views/users/user_view.ex:27
+#: lib/cforum_web/views/users/user_view.ex:14
+#: lib/cforum_web/views/users/user_view.ex:28
 msgid "All scores for user %{username}"
 msgstr ""
 
@@ -408,13 +408,13 @@ msgstr ""
 msgid "Score"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personal_information.html.eex:32
+#: lib/cforum_web/templates/users/user/personal_information.html.eex:27
 #: lib/cforum_web/templates/users/user/show.html.eex:45
 msgid "Twitter handle"
 msgstr ""
 
-#: lib/cforum_web/views/users/user_view.ex:7
-#: lib/cforum_web/views/users/user_view.ex:21
+#: lib/cforum_web/views/users/user_view.ex:8
+#: lib/cforum_web/views/users/user_view.ex:22
 msgid "User %{username}"
 msgstr ""
 
@@ -422,8 +422,8 @@ msgstr ""
 msgid "User activity"
 msgstr ""
 
-#: lib/cforum_web/views/users/user_view.ex:6
-#: lib/cforum_web/views/users/user_view.ex:20
+#: lib/cforum_web/views/users/user_view.ex:7
+#: lib/cforum_web/views/users/user_view.ex:21
 msgid "Users"
 msgstr ""
 
@@ -492,8 +492,8 @@ msgid_plural "Score: %{score}"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/cforum_web/views/users/user_view.ex:15
-#: lib/cforum_web/views/users/user_view.ex:30
+#: lib/cforum_web/views/users/user_view.ex:16
+#: lib/cforum_web/views/users/user_view.ex:31
 msgid "All votes for user %{username}"
 msgstr ""
 
@@ -505,8 +505,8 @@ msgstr ""
 msgid "Caution!"
 msgstr ""
 
-#: lib/cforum_web/views/users/user_view.ex:16
-#: lib/cforum_web/views/users/user_view.ex:32
+#: lib/cforum_web/views/users/user_view.ex:17
+#: lib/cforum_web/views/users/user_view.ex:33
 msgid "Delete user %{username}"
 msgstr ""
 
@@ -522,7 +522,7 @@ msgstr ""
 msgid "You can't undo the deletion of this account, all data will be irretrievable lost! Are you sure that you wan't to delete the account?"
 msgstr ""
 
-#: lib/cforum_web/views/users/user_view.ex:17
+#: lib/cforum_web/views/users/user_view.ex:18
 msgid "Edit profile: %{username}"
 msgstr ""
 
@@ -581,7 +581,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/event/form.html.eex:29
 #: lib/cforum_web/templates/admin/forum/form.html.eex:94
 #: lib/cforum_web/templates/admin/forum/index.html.eex:6
-#: lib/cforum_web/templates/users/user/personal_information.html.eex:37
+#: lib/cforum_web/templates/users/user/personal_information.html.eex:32
 msgid "description"
 msgstr ""
 
@@ -598,7 +598,7 @@ msgstr ""
 msgid "homepage"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personal_information.html.eex:27
+#: lib/cforum_web/templates/users/user/personal_information.html.eex:22
 msgid "jabber id"
 msgstr ""
 
@@ -632,15 +632,15 @@ msgstr ""
 msgid "use JavaScript for notifications"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:64
+#: lib/cforum_web/templates/users/user/notifications.html.eex:39
 msgid "automatically delete read notifications for activity in subscribed threads"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:45
+#: lib/cforum_web/templates/users/user/notifications.html.eex:59
 msgid "automatically delete read notifications for mentions"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:58
+#: lib/cforum_web/templates/users/user/notifications.html.eex:72
 msgid "automatically delete read notifications for new cites"
 msgstr ""
 
@@ -648,35 +648,35 @@ msgstr ""
 msgid "automatically delete read notifications for new mails"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:73
+#: lib/cforum_web/templates/users/user/notifications.html.eex:28
 msgid "automatically subscribe the first posting of the thread"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:72
+#: lib/cforum_web/templates/users/user/notifications.html.eex:27
 msgid "automatically subscribe the own posting"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:71
+#: lib/cforum_web/templates/users/user/notifications.html.eex:26
 msgid "automatically subscribe the parent posting"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:69
+#: lib/cforum_web/templates/users/user/notifications.html.eex:24
 msgid "automatically subscribe threads when answering"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:70
+#: lib/cforum_web/templates/users/user/notifications.html.eex:25
 msgid "no, don't automatically subscribe"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:32
-#: lib/cforum_web/templates/users/user/notifications.html.eex:39
-#: lib/cforum_web/templates/users/user/notifications.html.eex:52
+#: lib/cforum_web/templates/users/user/notifications.html.eex:46
+#: lib/cforum_web/templates/users/user/notifications.html.eex:53
+#: lib/cforum_web/templates/users/user/notifications.html.eex:66
 msgid "no, don't notify me"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:33
-#: lib/cforum_web/templates/users/user/notifications.html.eex:40
-#: lib/cforum_web/templates/users/user/notifications.html.eex:53
+#: lib/cforum_web/templates/users/user/notifications.html.eex:47
+#: lib/cforum_web/templates/users/user/notifications.html.eex:54
+#: lib/cforum_web/templates/users/user/notifications.html.eex:67
 msgid "notify me via email"
 msgstr ""
 
@@ -684,15 +684,15 @@ msgstr ""
 msgid "notify me via email on activity in subscribed threads"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:30
+#: lib/cforum_web/templates/users/user/notifications.html.eex:44
 msgid "notify me when a thread gets moved to a different forum"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:50
+#: lib/cforum_web/templates/users/user/notifications.html.eex:64
 msgid "notify me when someone creates a new cite"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:37
+#: lib/cforum_web/templates/users/user/notifications.html.eex:51
 msgid "notify me when someone mentions me"
 msgstr ""
 
@@ -700,9 +700,9 @@ msgstr ""
 msgid "notify on new threads"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:31
-#: lib/cforum_web/templates/users/user/notifications.html.eex:38
-#: lib/cforum_web/templates/users/user/notifications.html.eex:51
+#: lib/cforum_web/templates/users/user/notifications.html.eex:45
+#: lib/cforum_web/templates/users/user/notifications.html.eex:52
+#: lib/cforum_web/templates/users/user/notifications.html.eex:65
 msgid "yes, notify me"
 msgstr ""
 
@@ -972,7 +972,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:63
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:38
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:44
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:66
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:62
 #: lib/cforum_web/views/admin/setting_view.ex:32
 msgid "ascending"
 msgstr ""
@@ -1001,7 +1001,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:62
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:39
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:45
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:67
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:63
 #: lib/cforum_web/views/admin/setting_view.ex:33
 msgid "descending"
 msgstr ""
@@ -1067,12 +1067,12 @@ msgstr ""
 #: lib/cforum_web/templates/admin/event/index.html.eex:20
 #: lib/cforum_web/templates/admin/search_section/index.html.eex:19
 #: lib/cforum_web/templates/users/user/comfort.html.eex:31
-#: lib/cforum_web/templates/users/user/notifications.html.eex:81
-#: lib/cforum_web/templates/users/user/notifications.html.eex:90
+#: lib/cforum_web/templates/users/user/notifications.html.eex:80
+#: lib/cforum_web/templates/users/user/notifications.html.eex:89
 msgid "no"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:71
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:67
 msgid "number of diff context lines shown"
 msgstr ""
 
@@ -1092,11 +1092,11 @@ msgstr ""
 msgid "remove rel=nofollow from my homepage URL"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:88
+#: lib/cforum_web/templates/users/user/notifications.html.eex:87
 msgid "send me a notification on close and re-open votes"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:79
+#: lib/cforum_web/templates/users/user/notifications.html.eex:78
 msgid "send me a notification on flagged messages"
 msgstr ""
 
@@ -1140,7 +1140,7 @@ msgstr ""
 msgid "signature"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:65
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:61
 msgid "sort mail threads…"
 msgstr ""
 
@@ -1160,16 +1160,16 @@ msgstr ""
 msgid "use inline answer forms"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:82
-#: lib/cforum_web/templates/users/user/notifications.html.eex:91
+#: lib/cforum_web/templates/users/user/notifications.html.eex:81
+#: lib/cforum_web/templates/users/user/notifications.html.eex:90
 msgid "via email"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/event/index.html.eex:20
 #: lib/cforum_web/templates/admin/search_section/index.html.eex:19
 #: lib/cforum_web/templates/users/user/comfort.html.eex:30
-#: lib/cforum_web/templates/users/user/notifications.html.eex:80
-#: lib/cforum_web/templates/users/user/notifications.html.eex:89
+#: lib/cforum_web/templates/users/user/notifications.html.eex:79
+#: lib/cforum_web/templates/users/user/notifications.html.eex:88
 msgid "yes"
 msgstr ""
 
@@ -1287,7 +1287,7 @@ msgstr ""
 msgid "new answer to %{name}"
 msgstr ""
 
-#: lib/cforum_web/controllers/message_controller.ex:66
+#: lib/cforum_web/controllers/message_controller.ex:64
 msgid "Message created successfully."
 msgstr ""
 
@@ -1295,7 +1295,7 @@ msgstr ""
 msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">documentation</a>"
 msgstr ""
 
-#: lib/cforum_web/controllers/message_controller.ex:43
+#: lib/cforum_web/controllers/message_controller.ex:39
 #: lib/cforum_web/controllers/thread_controller.ex:113
 msgid "all"
 msgstr ""
@@ -1347,7 +1347,7 @@ msgid "voluntary, will be publicly visible"
 msgstr ""
 
 #: lib/cforum_web/templates/forum/message_header.html.eex:4
-#: lib/cforum_web/views/helpers.ex:164
+#: lib/cforum_web/views/helpers.ex:171
 msgid "link to profile of"
 msgstr ""
 
@@ -1359,7 +1359,7 @@ msgid "search"
 msgstr ""
 
 #: lib/cforum_web/templates/forum/message_header.html.eex:6
-#: lib/cforum_web/views/helpers.ex:156 lib/cforum_web/views/helpers.ex:169
+#: lib/cforum_web/views/helpers.ex:163 lib/cforum_web/views/helpers.ex:176
 msgid "user %{user}"
 msgstr ""
 
@@ -1407,7 +1407,7 @@ msgstr ""
 msgid "User %{user}"
 msgstr ""
 
-#: lib/cforum_web/views/helpers.ex:133
+#: lib/cforum_web/views/helpers.ex:140
 msgid "bronze medal"
 msgstr ""
 
@@ -1418,7 +1418,7 @@ msgstr ""
 msgid "forum"
 msgstr ""
 
-#: lib/cforum_web/views/helpers.ex:135
+#: lib/cforum_web/views/helpers.ex:142
 msgid "gold medal"
 msgstr ""
 
@@ -1426,7 +1426,7 @@ msgstr ""
 msgid "new thread"
 msgstr ""
 
-#: lib/cforum_web/views/helpers.ex:134
+#: lib/cforum_web/views/helpers.ex:141
 msgid "silver medal"
 msgstr ""
 
@@ -1768,7 +1768,7 @@ msgid "suggest new cite"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/cite/subnav.html.eex:3
+#: lib/cforum_web/templates/cite/subnav.html.eex:4
 #: lib/cforum_web/views/cite_view.ex:7
 msgid "vote for cites"
 msgstr ""
@@ -2383,32 +2383,32 @@ msgid "badge type"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:146
+#: lib/cforum_web/views/helpers.ex:153
 msgid "create close and reopen votes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:143
+#: lib/cforum_web/views/helpers.ex:150
 msgid "create tag synonyms"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:142
+#: lib/cforum_web/views/helpers.ex:149
 msgid "create tags"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:149
+#: lib/cforum_web/views/helpers.ex:156
 msgid "custom"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:139
+#: lib/cforum_web/views/helpers.ex:146
 msgid "downvote"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:145
+#: lib/cforum_web/views/helpers.ex:152
 msgid "edit answers"
 msgstr ""
 
@@ -2418,7 +2418,7 @@ msgid "edit badge „%{name}“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:144
+#: lib/cforum_web/views/helpers.ex:151
 msgid "edit questions"
 msgstr ""
 
@@ -2429,7 +2429,7 @@ msgid "medal type"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:147
+#: lib/cforum_web/views/helpers.ex:154
 msgid "moderator tools"
 msgstr ""
 
@@ -2440,7 +2440,7 @@ msgid "new badge"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:140
+#: lib/cforum_web/views/helpers.ex:147
 msgid "retag"
 msgstr ""
 
@@ -2452,17 +2452,17 @@ msgid "score needed"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:148
+#: lib/cforum_web/views/helpers.ex:155
 msgid "seo profi"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:138
+#: lib/cforum_web/views/helpers.ex:145
 msgid "upvote"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/helpers.ex:141
+#: lib/cforum_web/views/helpers.ex:148
 msgid "visit close and reopen votes"
 msgstr ""
 
@@ -3983,7 +3983,28 @@ msgstr ""
 msgid "Tag %{no}"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum/forums/message.ex:149
 msgid "is unknown"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:74
+msgid "A comma separated list of poster names"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/layout/alerts.html.eex:4
+#: lib/cforum_web/templates/layout/alerts.html.eex:13
+msgid "close"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:72
+msgid "highlighted users"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/users/user/notifications.html.eex:33
+msgid "notify me via email on activity in subscribed messages"
 msgstr ""
