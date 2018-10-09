@@ -2,6 +2,7 @@ defmodule CforumWeb.Users.UserView do
   use CforumWeb, :view
 
   alias Cforum.Forums.Tag
+  alias Cforum.ConfigManager
 
   def page_title(:index, _), do: gettext("Users")
   def page_title(:show, assigns), do: gettext("User %{username}", username: assigns[:user].username)
@@ -50,4 +51,12 @@ defmodule CforumWeb.Users.UserView do
   def body_classes(:confirm_delete, _), do: "users destroy"
   def body_classes(:update, _), do: "users edit"
   def body_classes(:edit, conn), do: body_classes(:update, conn)
+
+  def merge_default_config(conn, options) do
+    Enum.reduce(ConfigManager.user_config_keys(), options, fn key, opts ->
+      if Map.has_key?(opts, key),
+        do: opts,
+        else: Map.put(opts, String.to_atom(key), uconf(conn, key))
+    end)
+  end
 end

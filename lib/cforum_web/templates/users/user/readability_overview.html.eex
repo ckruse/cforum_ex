@@ -58,10 +58,6 @@
     </div>
 
     <div class="cf-cgroup">
-      <label class="checkbox"><%= checkbox @f, :mail_index_grouped, unchecked_value: "no", checked_value: "yes" %> <%= gettext("show mail index grouped by thread") %></label>
-    </div>
-
-    <div class="cf-cgroup">
       <label><%= gettext("sort mail threads…") %></label>
       <label class="radio"><%= radio_button @f, :mail_thread_sort, "ascending" %> <%= gettext("ascending") %></label>
       <label class="radio"><%= radio_button @f, :mail_thread_sort, "descending" %> <%= gettext("descending") %></label>

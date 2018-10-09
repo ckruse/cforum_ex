@@ -46,7 +46,7 @@
 
     <div class="cf-cgroup">
       <%= label @f, :autorefresh, gettext("automatically refresh forum index page") %>
-      <%= number_input(@f, :refresh) %>
+      <%= number_input(@f, :autorefresh) %>
     </div>
 
     <div class="cf-cgroup">
