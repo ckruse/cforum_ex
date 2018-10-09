@@ -68,7 +68,10 @@
       <%= number_input @f, :diff_context_lines %>
     </div>
 
-    <%# TODO users selector for highlighted users %>
-    <%#= render 'widgets/users_selector', desc: t('users.settings.highlighted_users'), name: "settings[highlighted_users][]", id: "settings_highlighted_users", users: @highlighted_users_list %>
+    <div class="cf-cgroup">
+      <%= label @f, :highlighted_users, gettext("highlighted users") %>
+      <%= text_input @f, :highlighted_users %>
+      <span class="help"><%= gettext("A comma separated list of poster names") %></span>
+    </div>
   </fieldset>
 </div>
