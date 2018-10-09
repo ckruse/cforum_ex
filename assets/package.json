@@ -7,8 +7,8 @@
     "printWidth": 120
   },
   "scripts": {
-    "dev": "MIX_ENV=dev webpack --watch-stdin --progress --color",
-    "deploy": "MIX_ENV=prod webpack -p",
+    "dev": "webpack --mode development --watch-stdin",
+    "deploy": "webpack --mode production",
     "test": "babel-node spec/support/run.js"
   },
   "dependencies": {

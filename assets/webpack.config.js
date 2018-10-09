@@ -8,41 +8,41 @@ const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const config = require("./package");
 
 const ENV = process.env.MIX_ENV || "dev";
-const IS_PROD = ENV === "prod";
 const OUTPUT_PATH = path.resolve(__dirname, "..", "priv", "static");
 
-const ExtractCSS = new ExtractTextPlugin({
-  filename: "css/[name].css",
-  chunkFilename: IS_PROD ? "css/[id].[hash].css" : "css/[id].css"
-});
+module.exports = function(env = {}, argv) {
+  const IS_PROD = ENV === "prod";
+  const ExtractCSS = new ExtractTextPlugin({
+    filename: "css/[name].css",
+    chunkFilename: IS_PROD ? "css/[id].[hash].css" : "css/[id].css"
+  });
 
-var PLUGINS = [
-  ExtractCSS,
-  new Webpack.DefinePlugin({
-    APP_NAME: JSON.stringify(config.app_name),
-    VERSION: JSON.stringify(config.version),
-    ENV: JSON.stringify(ENV)
-  }),
-  new CopyWebpackPlugin([
-    {
-      context: "./static",
-      from: "**/*",
-      to: "."
-    }
-    // maybe later; let's try to not use font-awesome
-    // {
-    //   context: "./node_modules/font-awesome/fonts",
-    //   from: "*",
-    //   to: "./fonts"
-    // }
-  ])
-];
+  var PLUGINS = [
+    ExtractCSS,
+    new Webpack.DefinePlugin({
+      APP_NAME: JSON.stringify(config.app_name),
+      VERSION: JSON.stringify(config.version),
+      ENV: JSON.stringify(ENV)
+    }),
+    new CopyWebpackPlugin([
+      {
+        context: "./static",
+        from: "**/*",
+        to: "."
+      }
+      // maybe later; let's try to not use font-awesome
+      // {
+      //   context: "./node_modules/font-awesome/fonts",
+      //   from: "*",
+      //   to: "./fonts"
+      // }
+    ])
+  ];
 
-if (IS_PROD) {
-  PLUGINS.push(new CompressionWebpackPlugin());
-}
+  if (IS_PROD) {
+    PLUGINS.push(new CompressionWebpackPlugin());
+  }
 
-module.exports = function(env = {}) {
   return {
     target: "web",
     entry: {
@@ -65,7 +65,7 @@ module.exports = function(env = {}) {
     module: {
       rules: [
         {
-          test: /\.(js|jsx)$/,
+          test: /\.jsx?$/,
           exclude: /(node_modules|bower_components)/,
           loader: "babel-loader"
         },

@@ -13,10 +13,10 @@ config :cforum, CforumWeb.Endpoint,
   check_origin: false,
   watchers: [
     node: [
-      "node_modules/.bin/webpack",
+      "node_modules/webpack/bin/webpack.js",
+      "--mode",
+      "development",
       "--watch-stdin",
-      "--progress",
-      "--color",
       cd: Path.expand("../assets", __DIR__)
     ]
   ]
