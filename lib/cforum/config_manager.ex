@@ -5,6 +5,8 @@ defmodule Cforum.ConfigManager do
   """
 
   alias Cforum.Accounts.Setting
+  alias Cforum.Accounts.User
+  alias Cforum.Forums.Forum
 
   import Cforum.Helpers
 
@@ -217,7 +219,7 @@ defmodule Cforum.ConfigManager do
   def uconf(conn_or_user, name, type \\ :none)
   def uconf(conn, name, :int), do: to_int(uconf(conn, name))
 
-  def uconf(%Cforum.Accounts.User{} = user, name, _) do
+  def uconf(%User{} = user, name, _) do
     settings = Cforum.Accounts.Settings.load_relevant_settings(nil, user)
     confs = map_from_confs(settings)
 
@@ -228,6 +230,8 @@ defmodule Cforum.ConfigManager do
     confs = map_from_conn(conn)
     get(confs, name, conn.assigns[:current_user], conn.assigns[:current_forum]) || @defaults[name]
   end
+
+  def uconf(%{} = confs, name, _), do: get(confs, name, %User{}, %Forum{}) || @defaults[name]
 
   @doc """
   Returns the config value we're searching for ignoring the user
@@ -242,7 +246,7 @@ defmodule Cforum.ConfigManager do
     supported. If `:int` is specified, we cast the value with
     `String.to_integer/1`
   """
-  @spec conf(%Cforum.Accounts.Setting{} | %Cforum.Forums.Forum{} | %Plug.Conn{} | nil, String.t(), :none | :int) ::
+  @spec conf(%Cforum.Accounts.Setting{} | %Forum{} | %Plug.Conn{} | nil, String.t(), :none | :int) ::
           nil | String.t() | integer()
   def conf(conn_setting_or_forum, name, type \\ :none)
   def conf(conn_setting_or_forum, name, :int), do: to_int(conf(conn_setting_or_forum, name))
@@ -259,7 +263,7 @@ defmodule Cforum.ConfigManager do
     get(confs, name, nil, nil) || @defaults[name]
   end
 
-  def conf(%Cforum.Forums.Forum{} = forum, name, _) do
+  def conf(%Forum{} = forum, name, _) do
     settings = Cforum.Accounts.Settings.load_relevant_settings(forum, nil)
 
     confs = %{
@@ -290,5 +294,10 @@ defmodule Cforum.ConfigManager do
       conf = %Setting{user_id: nil}, acc -> Map.put(acc, :forum, conf)
       conf = %Setting{forum_id: nil}, acc -> Map.put(acc, :user, conf)
     end)
+  end
+
+  def settings_map(forum, user) do
+    settings = Cforum.Accounts.Settings.load_relevant_settings(forum, user)
+    map_from_confs(settings)
   end
 end

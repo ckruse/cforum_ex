@@ -21,17 +21,15 @@
 import "../css/app.scss";
 
 import "whatwg-fetch";
-import "./modules/closest.js";
-import "./alerts.js";
-
-// import socket from "./socket"
+import "./modules/closest";
+import "./alerts";
 
 // import "./modules/tabs.js";
 import "./modules/datetime-polyfill";
-import "./modules/confirmation.js";
+import "./modules/confirmation";
 import "./components/autolist";
 import "./components/dropdown";
-import "./modules/show-password.js";
+import "./modules/show-password";
 import "./components/taglist";
 import "./components/user-selector";
 
@@ -40,4 +38,6 @@ import "./forum-stats";
 import "./flag_message";
 import "./thread_actions";
 
-import "./init.js";
+import "./init";
+
+import "./modules/user-notifications";
