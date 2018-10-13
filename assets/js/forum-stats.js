@@ -1,7 +1,6 @@
-import { ready } from "./modules/events";
 import { t } from "./modules/i18n.js";
 
-ready(function() {
+document.addEventListener("DOMContentLoaded", () => {
   if (document.body.id != "forums-stats") {
     return;
   }

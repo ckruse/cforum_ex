@@ -2,12 +2,9 @@ import flatpickr from "flatpickr";
 import { German } from "flatpickr/dist/l10n/de.js";
 import "flatpickr/dist/themes/light.css";
 
-import { ready } from "./events.js";
-import { all } from "./selectors.js";
-import { create } from "./elements.js";
 import { t } from "./i18n";
 
-ready(function() {
+document.addEventListener("DOMContentLoaded", () => {
   const replacements = [
     {
       type: "datetime-local",
@@ -36,11 +33,11 @@ ready(function() {
   ];
 
   replacements.forEach(replacement => {
-    const field = create("input");
+    const field = document.createElement("input");
     field.type = replacement.type;
 
     if (field.type != replacement.type) {
-      all("[type='" + replacement.type + "']").forEach(el => {
+      document.querySelectorAll("[type='" + replacement.type + "']").forEach(el => {
         flatpickr(el, {
           ...replacement,
           time_24hr: true,
