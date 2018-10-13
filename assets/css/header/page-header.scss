@@ -67,6 +67,11 @@
         display: none;
       }
     }
+
+    li.moderation-queue a,
+    li.cites a {
+      display: inline;
+    }
   }
 
   .search {
