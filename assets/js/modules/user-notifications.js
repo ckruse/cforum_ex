@@ -58,4 +58,14 @@ document.addEventListener("cf:userPrivate", event => {
       elem.setAttribute("title", t("{score} points", { score: data.score }));
     }
   });
+
+  channel.on("new_notification", data => {
+    const elem = document.getElementById("notifications-display");
+    if (elem) {
+      elem.innerText = `(${data.unread})`;
+      elem.setAttribute("title", t("{count} new notifications"));
+    }
+
+    alertInfo(t("You've got a new notification: {subject}", { subject: data.notification.subject }));
+  });
 });

@@ -27,8 +27,10 @@ export const lang = {
   "is unknown": "ist unbekannt",
 
   "{count} unread mails": "{count} ungelesene Mails",
-  "You've got a new mail from {sender}: {subject}": "Neue Mail von {sender}: „{subject}“",
+  "You've got a new mail from {sender}: {subject}": "neue Mail von {sender}: „{subject}“",
   "{points} points": "{points} Punkte",
+  "{count} new notifications": "{count} neue Benachrichtigungen",
+  "You've got a new notification: {subject}": "{subject}",
 
   highcharts: {
     decimalPoint: ",",
