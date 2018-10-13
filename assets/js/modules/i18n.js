@@ -6,11 +6,16 @@ const l10nData = {
 
 const defaultLanguage = de;
 
-export const t = function(key) {
+export const t = function(key, placeholders = {}) {
   const lang = l10nData[window.navigator.language] || defaultLanguage;
   if (!lang[key]) {
     return key;
   }
 
-  return lang[key];
+  let msg = lang[key] || key;
+  Object.keys(placeholders).forEach(key => {
+    msg = msg.replace(new RegExp(`\{${key}\}`, "g"), placeholders[key]);
+  });
+
+  return msg;
 };
