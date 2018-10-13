@@ -1,29 +1,19 @@
-document.addEventListener("DOMContentLoaded", () => {
-  if (document.body.dataset.userId) {
-    fetch("/api/v1/users/self", { credentials: "same-origin" })
-      .then(rsp => {
-        if (rsp.ok) {
-          return rsp.json();
-        }
+if (document.body.dataset.userId) {
+  document.addEventListener("cf:userPrivate", event => {
+    const channel = event.detail;
 
-        return null;
-      })
-      .then(json => {
-        window.currentUser = json;
-        document.dispatchEvent(new CustomEvent("cf:userDidLoad", { detail: json }));
-      });
-  }
-
-  fetch("/api/v1/config", { credentials: "same-origin" })
-    .then(rsp => {
-      if (rsp.ok) {
-        return rsp.json();
-      }
-
-      return null;
-    })
-    .then(json => {
-      window.currentConfig = json;
-      document.dispatchEvent(new CustomEvent("cf:configDidLoad", { detail: json }));
+    channel.push("current_user", {}).receive("ok", user => {
+      window.currentUser = user;
+      document.dispatchEvent(new CustomEvent("cf:userDidLoad", { detail: user }));
     });
+  });
+}
+
+document.addEventListener("cf:userLobby", event => {
+  const channel = event.detail;
+
+  channel.push("settings", {}).receive("ok", config => {
+    window.currentConfig = config;
+    document.dispatchEvent(new CustomEvent("cf:configDidLoad", { detail: config }));
+  });
 });

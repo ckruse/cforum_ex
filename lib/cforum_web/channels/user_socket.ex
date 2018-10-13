@@ -3,6 +3,7 @@ defmodule CforumWeb.UserSocket do
 
   ## Channels
   # channel "room:*", Cforum.RoomChannel
+  channel("users:*", CforumWeb.UsersChannel)
 
   ## Transports
   transport(:websocket, Phoenix.Transports.WebSocket)
