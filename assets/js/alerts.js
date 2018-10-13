@@ -28,7 +28,7 @@ class AlertsContainer extends React.Component {
       alerts: [...this.state.alerts, alrtWithId]
     });
 
-    if (alrtWithId.type == "success") {
+    if (alrtWithId.type == "success" || alrtWithId.type == "info") {
       window.setTimeout(() => this.removeAlert(alrtWithId), 10000);
     }
   }
@@ -63,9 +63,18 @@ let alertsContainer = null;
 document.addEventListener("DOMContentLoaded", () => {
   const elem = document.querySelector("#alerts-container");
   const existingAlerts = Array.from(elem.querySelectorAll(".cf-alert")).map(alert => {
+    let type;
+    if (alert.classList.contains("cf-error")) {
+      type = "error";
+    } else if (alert.classList.contains("cf-success")) {
+      type = "success";
+    } else {
+      type = "info";
+    }
+
     return {
       id: uniqueId(),
-      type: alert.classList.contains("cf-error") ? "error" : "success",
+      type: type,
       text: alert.querySelector("button").nextSibling.textContent
     };
   });
@@ -84,3 +93,4 @@ document.addEventListener("DOMContentLoaded", () => {
 export const alert = (type, text) => alertsContainer.addAlert({ type, text });
 export const alertError = text => alert("error", text);
 export const alertSuccess = text => alert("success", text);
+export const alertInfo = text => alert("info", text);
