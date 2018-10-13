@@ -39,7 +39,7 @@ document.addEventListener("cf:userPrivate", event => {
     const elem = document.getElementById("mails");
     if (elem) {
       elem.innerText = data.unread;
-      elem.title = t("{count} unread mails", { unread: data.unread });
+      elem.setAttribute("title", t("{count} unread mails", { unread: data.unread }));
     }
 
     alertInfo(
@@ -48,5 +48,14 @@ document.addEventListener("cf:userPrivate", event => {
         subject: data.priv_message.subject
       })
     );
+  });
+
+  channel.on("score-update", data => {
+    const elem = document.querySelector("#user-info .score");
+
+    if (elem) {
+      elem.innerText = `(${data.score})`;
+      elem.setAttribute("title", t("{score} points", { score: data.score }));
+    }
   });
 });
