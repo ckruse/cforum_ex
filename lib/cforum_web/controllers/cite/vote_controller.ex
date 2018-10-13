@@ -11,7 +11,8 @@ defmodule CforumWeb.Cite.VoteController do
     only_take_back = Cites.voted?(conn.assigns.cite, conn.assigns[:current_user], type)
     Cites.take_back_vote(conn.assigns.cite, conn.assigns[:current_user])
 
-    if not only_take_back, do: Cites.vote(conn.assigns.cite, conn.assigns[:current_user], type)
+    if not only_take_back,
+      do: Cites.vote(conn.assigns.cite, conn.assigns[:current_user], type)
 
     conn
     |> put_flash(:info, gettext("Successfully voted for cite."))

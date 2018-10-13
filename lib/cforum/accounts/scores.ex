@@ -54,6 +54,7 @@ defmodule Cforum.Accounts.Scores do
     %Score{}
     |> Score.changeset(attrs)
     |> Repo.insert()
+    |> notify_user()
   end
 
   @doc """
@@ -72,6 +73,7 @@ defmodule Cforum.Accounts.Scores do
     score
     |> Score.changeset(attrs)
     |> Repo.update()
+    |> notify_user()
   end
 
   @doc """
@@ -87,7 +89,9 @@ defmodule Cforum.Accounts.Scores do
 
   """
   def delete_score(%Score{} = score) do
-    Repo.delete(score)
+    score
+    |> Repo.delete()
+    |> notify_user()
   end
 
   def delete_scores_by_vote_id(vote_id) do
@@ -105,7 +109,9 @@ defmodule Cforum.Accounts.Scores do
         nil
 
       score ->
-        Repo.delete(score)
+        score
+        |> Repo.delete()
+        |> notify_user()
     end
   end
 
@@ -121,4 +127,20 @@ defmodule Cforum.Accounts.Scores do
   def change_score(%Score{} = score) do
     Score.changeset(score, %{})
   end
+
+  def notify_user({:ok, score}) do
+    notify_user(score)
+    {:ok, score}
+  end
+
+  def notify_user(%Score{} = score) do
+    Task.async(fn ->
+      user = Cforum.Accounts.Users.get_user!(score.user_id)
+      CforumWeb.Endpoint.broadcast!("users:#{user.user_id}", "score-update", %{value: score.value, score: user.score})
+    end)
+
+    score
+  end
+
+  def notify_user(retval), do: retval
 end
