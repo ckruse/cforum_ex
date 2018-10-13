@@ -15,5 +15,13 @@ defmodule CforumWeb.Plug.CurrentUser do
     conn
     |> Plug.Conn.assign(:current_user, current_user)
     |> Plug.Conn.assign(:is_moderator, Users.moderator?(current_user))
+    |> put_user_token(current_user)
+  end
+
+  defp put_user_token(conn, nil), do: conn
+
+  defp put_user_token(conn, current_user) do
+    token = Phoenix.Token.sign(conn, "user socket", current_user.user_id)
+    Plug.Conn.assign(conn, :user_token, token)
   end
 end

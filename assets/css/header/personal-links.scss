@@ -42,6 +42,10 @@
   .btn-link:active {
     color: $active_link_color;
   }
+
+  .connected a {
+    color: $connected_color;
+  }
 }
 
 @media only screen and (min-width: 35em) {

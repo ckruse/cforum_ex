@@ -19,6 +19,17 @@ defmodule CforumWeb.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
+  def connect(%{"token" => token}, socket) do
+    # max_age: 2592000 is equivalent to 30 days in seconds
+    case Phoenix.Token.verify(socket, "user socket", token, max_age: 2_592_000) do
+      {:ok, user_id} ->
+        {:ok, assign(socket, :current_user, Cforum.Accounts.Users.get_user(user_id))}
+
+      {:error, _reason} ->
+        :error
+    end
+  end
+
   def connect(_params, socket) do
     {:ok, socket}
   end
@@ -33,5 +44,6 @@ defmodule CforumWeb.UserSocket do
   #     CforumWeb.Endpoint.broadcast("users_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
+  def id(%{assigns: %{current_user: user}}) when not is_nil(user), do: "users:#{user.user_id}"
   def id(_socket), do: nil
 end
