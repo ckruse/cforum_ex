@@ -485,6 +485,11 @@ defmodule Cforum.Accounts.PrivMessages do
 
   """
   def notify_user(priv_message) do
+    CforumWeb.Endpoint.broadcast!("users:#{priv_message.recipient_id}", "new_priv_message", %{
+      unread: count_priv_messages(priv_message.recipient, true),
+      priv_message: priv_message
+    })
+
     user = Cforum.Accounts.Users.get_user!(priv_message.recipient_id)
 
     if Cforum.ConfigManager.uconf(user, "notify_on_new_mail") == "email" do

@@ -1,4 +1,6 @@
 import socket from "../socket";
+import { t } from "./i18n";
+import { alertInfo } from "../alerts";
 
 export let allUsersChannel = socket.channel(`users:lobby`, {});
 allUsersChannel
@@ -29,3 +31,22 @@ if (document.body.dataset.userId) {
       document.dispatchEvent(new CustomEvent("cf:userPrivateFailed"));
     });
 }
+
+document.addEventListener("cf:userPrivate", event => {
+  let channel = event.detail;
+
+  channel.on("new_priv_message", data => {
+    const elem = document.getElementById("mails");
+    if (elem) {
+      elem.innerText = data.unread;
+      elem.title = t("{count} unread mails", { unread: data.unread });
+    }
+
+    alertInfo(
+      t("You've got a new mail from {sender}: {subject}", {
+        sender: data.priv_message.sender_name,
+        subject: data.priv_message.subject
+      })
+    );
+  });
+});

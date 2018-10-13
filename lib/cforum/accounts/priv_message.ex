@@ -5,6 +5,19 @@ defmodule Cforum.Accounts.PrivMessage do
 
   @primary_key {:priv_message_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :priv_message_id}
+  @derive {Poison.Encoder,
+           only: [
+             :is_read,
+             :subject,
+             :body,
+             :sender_name,
+             :recipient_name,
+             :thread_id,
+             :sender,
+             :recipient,
+             :created_at,
+             :updated_at
+           ]}
 
   schema "priv_messages" do
     field(:is_read, :boolean, default: false)
