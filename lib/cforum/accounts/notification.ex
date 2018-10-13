@@ -3,6 +3,7 @@ defmodule Cforum.Accounts.Notification do
 
   @primary_key {:notification_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :notification_id}
+  @derive {Poison.Encoder, only: [:is_read, :subject, :path, :icon, :oid, :otype, :description, :recipient]}
 
   schema "notifications" do
     field(:is_read, :boolean, default: false)

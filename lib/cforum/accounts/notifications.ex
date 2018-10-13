@@ -86,6 +86,7 @@ defmodule Cforum.Accounts.Notifications do
     %Notification{}
     |> Notification.changeset(attrs)
     |> Repo.insert()
+    |> notify_user()
   end
 
   @doc """
@@ -134,4 +135,25 @@ defmodule Cforum.Accounts.Notifications do
   def change_notification(%Notification{} = notification) do
     Notification.changeset(notification, %{})
   end
+
+  def notify_user({:ok, %Notification{} = notification}) do
+    notify_user(notification)
+    {:ok, notification}
+  end
+
+  def notify_user(%Notification{} = notification) do
+    Task.async(fn ->
+      notification = Repo.preload(notification, [:recipient])
+      unread_notifications = count_notifications(notification.recipient, true)
+
+      CforumWeb.Endpoint.broadcast!("users:#{notification.recipient_id}", "new_notification", %{
+        unread: unread_notifications,
+        notification: notification
+      })
+    end)
+
+    notification
+  end
+
+  def notify_user(retval), do: retval
 end
