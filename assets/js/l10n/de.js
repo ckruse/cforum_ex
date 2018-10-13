@@ -26,6 +26,9 @@ export const lang = {
   "enter new tag": "neuen Tag eingeben",
   "is unknown": "ist unbekannt",
 
+  "{count} unread mails": "{count} ungelesene Mails",
+  "You've got a new mail from {sender}: {subject}": "Neue Mail von {sender}: „{subject}“",
+
   highcharts: {
     decimalPoint: ",",
     thousandsSep: ".",
