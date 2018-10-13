@@ -1,8 +1,4 @@
-import { ready, bind } from "./modules/events";
-import { select, all } from "./modules/selectors";
-import { toggleHiddenState } from "./modules/elements";
-
-ready(function() {
+document.addEventListener("DOMContentLoaded", () => {
   if (!["flag-message", "close-vote-message-new"].includes(document.body.id)) {
     return;
   }
@@ -28,26 +24,24 @@ ready(function() {
 
     switch (value) {
       case "duplicate":
-        select(elements.url).closest(".cf-cgroup").hidden = false;
-        select(elements.custom).closest(".cf-cgroup").hidden = true;
+        document.querySelector(elements.url).closest(".cf-cgroup").hidden = false;
+        document.querySelector(elements.custom).closest(".cf-cgroup").hidden = true;
         break;
 
       case "custom":
-        select(elements.url).closest(".cf-cgroup").hidden = true;
-        select(elements.custom).closest(".cf-cgroup").hidden = false;
+        document.querySelector(elements.url).closest(".cf-cgroup").hidden = true;
+        document.querySelector(elements.custom).closest(".cf-cgroup").hidden = false;
         break;
 
       default:
-        select(elements.url).closest(".cf-cgroup").hidden = true;
-        select(elements.custom).closest(".cf-cgroup").hidden = true;
+        document.querySelector(elements.url).closest(".cf-cgroup").hidden = true;
+        document.querySelector(elements.custom).closest(".cf-cgroup").hidden = true;
     }
   };
 
   showOrHide();
 
-  all("[name='" + elements.option + "']").forEach(element => {
-    bind(element, {
-      change: showOrHide
-    });
+  document.querySelectorAll("[name='" + elements.option + "']").forEach(element => {
+    element.addEventListener("change", showOrHide);
   });
 });
