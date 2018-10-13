@@ -243,7 +243,7 @@ defmodule Cforum.Accounts.PrivMessages do
         case pm do
           {:ok, foreign_pm} ->
             priv_message = Repo.get!(PrivMessage, foreign_pm.priv_message_id)
-            notify_user(priv_message)
+            Task.async(fn -> notify_user(priv_message) end)
 
             %PrivMessage{
               is_read: true,
@@ -485,6 +485,8 @@ defmodule Cforum.Accounts.PrivMessages do
 
   """
   def notify_user(priv_message) do
+    priv_message = Repo.preload(priv_message, [:recipient, :sender])
+
     CforumWeb.Endpoint.broadcast!("users:#{priv_message.recipient_id}", "new_priv_message", %{
       unread: count_priv_messages(priv_message.recipient, true),
       priv_message: priv_message
