@@ -5,7 +5,7 @@ defmodule Cforum.Abilities do
 
   require Logger
 
-  @callback allowed?(%Plug.Conn{}, Any, Any) :: true | false
+  @callback allowed?(%Plug.Conn{}, Atom, Any) :: true | false
 
   @doc """
   Returns `true` if the user may access the given path, `false` otherwise
