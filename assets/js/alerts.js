@@ -5,13 +5,17 @@ import { CSSTransitionGroup } from "react-transition-group";
 import { t } from "./modules/i18n";
 import { uniqueId } from "./modules/helpers";
 
+const SUCCESS_TIMEOUT = 5;
+const INFO_TIMEOUT = 10;
+const ERROR_TIMEOUT = 0;
+
 class AlertsContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = { alerts: [...this.props.existingAlerts] };
 
-    this.state.alerts.filter(alrt => alrt.type == "success").forEach(alrt => {
-      window.setTimeout(() => this.removeAlert(alrt), 10000);
+    this.state.alerts.filter(alrt => !!alrt.timeout).forEach(alrt => {
+      window.setTimeout(() => this.removeAlert(alrt), alrt.timeout * 1000);
     });
   }
 
@@ -28,8 +32,8 @@ class AlertsContainer extends React.Component {
       alerts: [...this.state.alerts, alrtWithId]
     });
 
-    if (alrtWithId.type == "success" || alrtWithId.type == "info") {
-      window.setTimeout(() => this.removeAlert(alrtWithId), 10000);
+    if (alrtWithId.timeout) {
+      window.setTimeout(() => this.removeAlert(alrtWithId), alrtWithId.timeout * 1000);
     }
   }
 
@@ -63,18 +67,22 @@ let alertsContainer = null;
 document.addEventListener("DOMContentLoaded", () => {
   const elem = document.querySelector("#alerts-container");
   const existingAlerts = Array.from(elem.querySelectorAll(".cf-alert")).map(alert => {
-    let type;
+    let type, timeout;
     if (alert.classList.contains("cf-error")) {
       type = "error";
+      timeout = ERROR_TIMEOUT;
     } else if (alert.classList.contains("cf-success")) {
       type = "success";
+      timeout = SUCCESS_TIMEOUT;
     } else {
       type = "info";
+      timeout = INFO_TIMEOUT;
     }
 
     return {
       id: uniqueId(),
-      type: type,
+      type,
+      timeout,
       text: alert.querySelector("button").nextSibling.textContent
     };
   });
@@ -90,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 });
 
-export const alert = (type, text) => alertsContainer.addAlert({ type, text });
-export const alertError = text => alert("error", text);
-export const alertSuccess = text => alert("success", text);
-export const alertInfo = text => alert("info", text);
+export const alert = (type, text, timeout) => alertsContainer.addAlert({ type, text, timeout });
+export const alertError = (text, timeout = ERROR_TIMEOUT) => alert("error", text, timeout);
+export const alertSuccess = (text, timeout = SUCCESS_TIMEOUT) => alert("success", text, timeout);
+export const alertInfo = (text, timeout = INFO_TIMEOUT) => alert("info", text, timeout);
