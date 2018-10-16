@@ -107,6 +107,18 @@ defmodule Cforum.Helpers do
     end)
   end
 
+  def changeset_changes_to_normalized_newline(changeset) do
+    str_changes =
+      changeset.changes
+      |> Map.keys()
+      |> Enum.filter(&(changeset.data.__struct__.__schema__(:type, &1) == :string))
+      |> Enum.filter(&(Ecto.Changeset.get_change(changeset, &1) != nil))
+
+    Enum.reduce(str_changes, changeset, fn key, changeset ->
+      Ecto.Changeset.update_change(changeset, key, &Regex.replace(~r/\015\012|\015|\012/, &1, "\n"))
+    end)
+  end
+
   @doc """
   Truncates the string `str` after `words_count` words
   """
