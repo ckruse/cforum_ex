@@ -1167,4 +1167,18 @@ defmodule Cforum.Forums.Messages do
       "+3"
   """
   def score_str(msg), do: Cforum.Helpers.score_str(no_votes(msg), score(msg))
+
+  def answer?(thread, message),
+    do: Enum.find(thread.messages, &(&1.parent_id == message.message_id)) != nil
+
+  def editable_age?(msg, max_age \\ [minutes: 10]),
+    do: Timex.before?(Timex.now(), Timex.shift(msg.created_at, max_age))
+
+  def owner?(conn, message) do
+    cond do
+      conn.assigns[:current_user] && conn.assigns[:current_user].user_id == message.user_id -> true
+      conn.cookies["cforum_user"] == message.uuid -> true
+      true -> false
+    end
+  end
 end
