@@ -18,7 +18,7 @@ defmodule CforumWeb.UsersChannel do
     settings = Cforum.ConfigManager.settings_map(nil, socket.assigns[:current_user])
 
     config =
-      Enum.reduce(Cforum.ConfigManager.user_config_keys(), %{}, fn key, opts ->
+      Enum.reduce(Cforum.ConfigManager.visible_config_keys(), %{}, fn key, opts ->
         Map.put(opts, key, Cforum.ConfigManager.uconf(settings, key))
       end)
 
