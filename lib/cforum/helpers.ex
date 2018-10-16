@@ -9,6 +9,7 @@ defmodule Cforum.Helpers do
       iex> blank?("foo")
       false
   """
+  @spec blank?(any()) :: boolean()
   def blank?(nil), do: true
   def blank?(""), do: true
   def blank?(0), do: true
@@ -29,6 +30,7 @@ defmodule Cforum.Helpers do
       iex> present?("")
       false
   """
+  @spec present?(any()) :: boolean()
   def present?(v), do: not blank?(v)
 
   @doc """
@@ -51,6 +53,7 @@ defmodule Cforum.Helpers do
       iex> to_int(3.1)
       3
   """
+  @spec to_int(any()) :: integer()
   def to_int(v) when is_nil(v), do: 0
   def to_int(""), do: 0
   def to_int([]), do: 0
@@ -67,6 +70,7 @@ defmodule Cforum.Helpers do
 
   returns `default_value` otherwise
   """
+  @spec attribute_value(struct() | nil, atom(), any()) :: any()
   def attribute_value(struct, attribute, default_value \\ nil)
   def attribute_value(nil, _, default), do: default
 
@@ -83,9 +87,11 @@ defmodule Cforum.Helpers do
   @doc """
   Adds a value to a list if the test is true
   """
+  @spec add_if(list(), boolean(), any()) :: list()
   def add_if(list, true, value), do: [value | list]
   def add_if(list, _, _value), do: list
 
+  @spec map_maybe_delete(map(), any(), boolean()) :: map()
   def map_maybe_delete(map, key, true), do: Map.delete(map, key)
   def map_maybe_delete(map, _, _), do: map
 
@@ -95,6 +101,7 @@ defmodule Cforum.Helpers do
   def score_str(_votes, score) when score < 0, do: "−" <> Integer.to_string(abs(score))
   def score_str(_votes, score), do: "+" <> Integer.to_string(abs(score))
 
+  @spec strip_changeset_changes(%Ecto.Changeset{}) :: %Ecto.Changeset{}
   def strip_changeset_changes(changeset) do
     str_changes =
       changeset.changes
@@ -107,6 +114,7 @@ defmodule Cforum.Helpers do
     end)
   end
 
+  @spec changeset_changes_to_normalized_newline(%Ecto.Changeset{}) :: %Ecto.Changeset{}
   def changeset_changes_to_normalized_newline(changeset) do
     str_changes =
       changeset.changes
@@ -122,6 +130,7 @@ defmodule Cforum.Helpers do
   @doc """
   Truncates the string `str` after `words_count` words
   """
+  @spec truncate_words(String.t(), integer(), omission: String.t(), separator: String.t()) :: String.t()
   def truncate_words(str, words_count, options \\ [omission: "…", separator: "\\s+"]) do
     sep = options[:separator] || "\\s+"
     {:ok, re} = Regex.compile("\\A((?>.+?#{sep}){#{words_count - 1}}.+?)#{sep}.*")
