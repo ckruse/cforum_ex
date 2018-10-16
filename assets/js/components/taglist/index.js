@@ -14,7 +14,7 @@ class TagList extends React.Component {
     document.addEventListener("cf:configDidLoad", () => {
       const minTags = conf("min_tags_per_message") || 1;
       const maxTags = conf("max_tags_per_message") || 3;
-      this.setState({ ...this.state, minTags: minTags, maxTags: maxTags });
+      this.setState({ minTags, maxTags });
     });
 
     const minTags = conf("min_tags_per_message") || 1;
@@ -23,8 +23,8 @@ class TagList extends React.Component {
     this.state = {
       tags: [...this.props.tags],
       allTags: [],
-      minTags: minTags,
-      maxTags: maxTags
+      minTags,
+      maxTags
     };
 
     this.addTag = this.addTag.bind(this);
@@ -35,7 +35,7 @@ class TagList extends React.Component {
       .then(json => json.json())
       .then(json => {
         json.sort((a, b) => b.num_messages - a.num_messages);
-        this.setState({ ...this.state, allTags: json });
+        this.setState({ allTags: json });
       })
       .catch(e => console.log(e));
   }
@@ -49,22 +49,23 @@ class TagList extends React.Component {
   }
 
   addTag(tag) {
-    this.setState({ ...this.state, tags: [...this.state.tags, [tag, this.checkForError(tag)]] });
+    this.setState({ tags: [...this.state.tags, [tag, this.checkForError(tag)]] });
   }
 
   removeTag(tagToRemove) {
-    this.setState({ ...this.state, tags: this.state.tags.filter(([t, _]) => t != tagToRemove) });
+    this.setState({ tags: this.state.tags.filter(([t, _]) => t != tagToRemove) });
   }
 
   render() {
     return (
-        <CSSTransitionGroup
-          component="ul"
-          className="cf-cgroup cf-form-tagslist cf-tags-list" aria-live="polite"
-          transitionName="fade-in"
-          transitionEnterTimeout={300}
-          transitionLeaveTimeout={300}
-        >
+      <CSSTransitionGroup
+        component="ul"
+        className="cf-cgroup cf-form-tagslist cf-tags-list"
+        aria-live="polite"
+        transitionName="fade-in"
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={300}
+      >
         {this.state.tags.map(([tag, err]) => (
           <Tag key={tag} tag={tag} error={err} onClick={() => this.removeTag(tag)} />
         ))}
