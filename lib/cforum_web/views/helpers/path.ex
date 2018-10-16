@@ -194,6 +194,9 @@ defmodule CforumWeb.Views.Helpers.Path do
   def message_path(conn, :new, %Thread{} = thread, %Message{} = msg, params),
     do: "#{int_message_path(conn, thread, msg)}/new#{encode_query_string(params)}"
 
+  def message_path(conn, :edit, %Thread{} = thread, %Message{} = msg, params),
+    do: "#{int_message_path(conn, thread, msg)}/edit#{encode_query_string(params)}"
+
   def message_url(conn, action, thread, message, params \\ [])
 
   def message_url(conn, :show, %Thread{} = thread, %Message{} = msg, params),
