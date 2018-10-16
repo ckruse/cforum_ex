@@ -100,6 +100,7 @@ defmodule Cforum.Helpers do
       changeset.changes
       |> Map.keys()
       |> Enum.filter(&(changeset.data.__struct__.__schema__(:type, &1) == :string))
+      |> Enum.filter(&(Ecto.Changeset.get_change(changeset, &1) != nil))
 
     Enum.reduce(str_changes, changeset, fn key, changeset ->
       Ecto.Changeset.update_change(changeset, key, &String.trim/1)
