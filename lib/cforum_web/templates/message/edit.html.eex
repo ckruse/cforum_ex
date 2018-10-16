@@ -1,0 +1,19 @@
+<%= if @changeset.action && !assigns[:preview] do %>
+  <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
+<% end %>
+
+<article class="cf-thread-message preview">
+  <%= render("message.html", Map.merge(assigns, %{controls: false, first: true})) %>
+</article>
+
+<%= form_for @changeset, message_path(@conn, :edit, @thread, @message), [class: "cf-form", method: :put], fn f -> %>
+  <%= render("form.html", Map.merge(assigns, %{f: f})) %>
+
+  <%= l10n_render @view_module, "post-notes.html", assigns %>
+
+  <p class="form-actions">
+    <%= default_submit gettext("show preview"), name: "preview" %>
+    <%= primary_submit gettext("create message") %>
+    <%= default_button_link gettext("cancel"), to: message_path(@conn, :show, @thread, @message) %>
+  </p>
+<% end %>

@@ -70,11 +70,25 @@ defmodule CforumWeb.MessageController do
   end
 
   def edit(conn, _params) do
-    conn
+    changeset = Messages.change_message(conn.assigns.message, conn.assigns[:current_user], conn.assigns.visible_forums)
+    render(conn, "edit.html", changeset: changeset)
   end
 
-  def update(conn, _params) do
-    conn
+  def update(conn, %{"message" => message_params} = params) do
+    if Map.has_key?(params, "preview") do
+      {message, changeset} =
+        Messages.preview_message(
+          message_params,
+          conn.assigns[:current_user],
+          conn.assigns.thread,
+          nil,
+          conn.assigns.message
+        )
+
+      render(conn, "edit.html", message: message, changeset: changeset, preview: true)
+    else
+      conn
+    end
   end
 
   def delete(conn, _params) do

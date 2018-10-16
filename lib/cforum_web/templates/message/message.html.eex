@@ -41,8 +41,8 @@
           <%= default_button_link(gettext("flag message"), to: flag_message_path(@conn, @thread, @message), rel: "nofollow") %>
         <% end %>
 
-          <%= default_button_link(gettext("edit message"), to: "message_path @conn, edit, @thread, @messageTODO", rel: "nofollow") %>
         <%= if may?(@conn, "message", :edit, {@thread, @message}) do %>
+          <%= default_button_link(gettext("edit message"), to: message_path(@conn, :edit, @thread, @message), rel: "nofollow") %>
         <% end %>
 
         <%= if may?(@conn, "threads/split", :split, @message) do %>
