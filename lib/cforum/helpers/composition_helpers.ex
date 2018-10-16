@@ -12,6 +12,7 @@ defmodule Cforum.Helpers.CompositionHelpers do
   - `strip_signature` a boolean to decide whether the signature should
     be dropped or not
   """
+  @spec quote_from_content(String.t(), boolean()) :: String.t()
   def quote_from_content(content, strip_signature) do
     content
     |> remove_signature(strip_signature)
@@ -31,6 +32,7 @@ defmodule Cforum.Helpers.CompositionHelpers do
   - `name` the name of the person to greet, for the `{$name}` and `{$vname}` placeholders
   - `std_replacement` the standard replacement value for the `{$name}` and `{$vname}` placeholders
   """
+  @spec maybe_add_greeting(String.t(), String.t(), String.t() | nil, String.t()) :: String.t()
   def maybe_add_greeting(content, greeting, name, std_replacement)
   def maybe_add_greeting(content, greeting, _, _) when greeting == nil or greeting == "", do: content
   def maybe_add_greeting(content, greeting, nil, std), do: [name_replacements(greeting, std) | ["\n" | content]]
@@ -50,6 +52,7 @@ defmodule Cforum.Helpers.CompositionHelpers do
   - `content` the content to add the farewell to
   - `farewell` the farewell phrase
   """
+  @spec maybe_add_farewell(String.t(), String.t() | nil) :: String.t()
   def maybe_add_farewell(content, farewell) when farewell == nil or farewell == "", do: content
   def maybe_add_farewell(content, farewell), do: [content | ["\n\n" | farewell]]
 
@@ -62,6 +65,7 @@ defmodule Cforum.Helpers.CompositionHelpers do
   - `content` the content to add the farewell to
   - `signature` the signature
   """
+  @spec maybe_add_signature(String.t(), String.t() | nil) :: String.t()
   def maybe_add_signature(content, signature) when signature == nil or signature == "", do: content
   def maybe_add_signature(content, signature), do: [content | ["\n-- \n" | signature]]
 
@@ -91,6 +95,7 @@ defmodule Cforum.Helpers.CompositionHelpers do
   - `subject` the subject to inspect and prepend to
   - `prefix` the prefix to prepend
   """
+  @spec subject_from_parent(Sttring.t(), String.t()) :: String.t()
   def subject_from_parent(subject, prefix) do
     if String.starts_with?(subject, prefix),
       do: subject,
