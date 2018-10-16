@@ -60,6 +60,7 @@ defmodule Cforum.Forums.Message do
     |> validate_forum_id(visible_forums)
     |> maybe_set_author(user)
     |> Cforum.Helpers.strip_changeset_changes()
+    |> Cforum.Helpers.changeset_changes_to_normalized_newline()
     |> parse_tags(params)
   end
 
