@@ -159,7 +159,11 @@ defmodule Cforum.ConfigManager do
     "highlighted_users"
   ]
 
+  @visible_config ["max_tags_per_message", "min_tags_per_message"] ++ @user_config_keys
+
   def user_config_keys, do: @user_config_keys
+
+  def visible_config_keys, do: @visible_config
 
   @doc """
   Returns the default configuration of the forum
