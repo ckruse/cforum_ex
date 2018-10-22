@@ -17,6 +17,7 @@ defmodule Cforum.Abilities do
   - `action`: the action on the path, e.g. `:index`
   - `args`: additional arguments, e.g. the resource in question
   """
+  @spec may?(Plug.Conn.t(), String.t() | atom(), atom(), any()) :: boolean()
   def may?(conn, path, action \\ :index, args \\ nil)
 
   def may?(conn, controller_path, action, resource) when is_bitstring(controller_path) do

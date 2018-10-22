@@ -442,20 +442,22 @@ defmodule Cforum.Forums.Messages do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_message(attrs, user, visible_forums, thread, parent \\ nil) do
-    changeset =
-      %Message{}
-      |> Message.changeset(attrs, user, visible_forums, thread, parent)
+  def create_message(attrs, user, visible_forums, thread, parent \\ nil, opts \\ [create_tags: false]) do
+    System.audited("create", user, fn ->
+      changeset =
+        %Message{}
+        |> Message.changeset(attrs, user, visible_forums, thread, parent, opts)
 
-    author = Ecto.Changeset.get_field(changeset, :author)
+      author = Ecto.Changeset.get_field(changeset, :author)
 
-    case may_user_post_with_name?(user, author) do
-      true ->
-        Repo.insert(changeset)
+      case may_user_post_with_name?(user, author) do
+        true ->
+          Repo.insert(changeset)
 
-      _ ->
-        {:error, Ecto.Changeset.add_error(changeset, :author, "already taken")}
-    end
+        _ ->
+          {:error, Ecto.Changeset.add_error(changeset, :author, "already taken")}
+      end
+    end)
   end
 
   defp may_user_post_with_name?(_, nil), do: true
@@ -517,9 +519,9 @@ defmodule Cforum.Forums.Messages do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_message(%Message{} = message, attrs, user, visible_forums) do
+  def update_message(%Message{} = message, attrs, user, visible_forums, opts \\ [create_tags: false]) do
     message
-    |> Message.changeset(attrs, user, visible_forums)
+    |> Message.new_or_update_changeset(attrs, user, visible_forums, opts)
     |> Repo.update()
   end
 
@@ -583,7 +585,7 @@ defmodule Cforum.Forums.Messages do
 
   """
   def change_message(%Message{} = message, user, visible_forums) do
-    Message.changeset(message, %{}, user, visible_forums)
+    Message.new_or_update_changeset(message, %{}, user, visible_forums)
   end
 
   @doc """

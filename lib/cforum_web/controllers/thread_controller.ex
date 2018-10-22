@@ -140,7 +140,8 @@ defmodule CforumWeb.ThreadController do
         params,
         conn.assigns[:current_user],
         conn.assigns[:current_forum],
-        conn.assigns[:visible_forums]
+        conn.assigns[:visible_forums],
+        create_tags: may?(conn, "tag", :new)
       )
 
     case create_val do

@@ -3,6 +3,7 @@ defmodule CforumWeb.MessageController do
 
   alias Cforum.Forums.Messages
   alias Cforum.Forums.Threads
+  alias Cforum.Accounts.Badge
 
   def show(conn, params) do
     # parameter overwrites cookie overwrites config; validation
@@ -57,8 +58,9 @@ defmodule CforumWeb.MessageController do
     cu = conn.assigns[:current_user]
     vis_forums = conn.assigns.visible_forums
     parent = conn.assigns.parent
+    opts = [create_tags: may?(conn, "tag", :new)]
 
-    case Messages.create_message(params, cu, vis_forums, thread, parent) do
+    case Messages.create_message(params, cu, vis_forums, thread, parent, opts) do
       {:ok, message} ->
         conn
         |> put_flash(:info, gettext("Message created successfully."))

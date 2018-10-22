@@ -53,7 +53,7 @@ defmodule Cforum.Forums.Message do
     timestamps(inserted_at: :created_at)
   end
 
-  defp base_changeset(struct, params, user, forum_id, visible_forums) do
+  defp base_changeset(struct, params, user, forum_id, visible_forums, opts \\ [create_tags: false]) do
     struct
     |> cast(params, [:author, :email, :homepage, :subject, :content, :problematic_site, :forum_id])
     |> maybe_put_change(:forum_id, forum_id)
@@ -61,7 +61,7 @@ defmodule Cforum.Forums.Message do
     |> maybe_set_author(user)
     |> Cforum.Helpers.strip_changeset_changes()
     |> Cforum.Helpers.changeset_changes_to_normalized_newline()
-    |> parse_tags(params)
+    |> parse_tags(params, user, opts[:create_tags])
   end
 
   defp maybe_put_change(changeset, _, nil), do: changeset
@@ -82,57 +82,51 @@ defmodule Cforum.Forums.Message do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
-  def changeset(struct, params, user, visible_forums, thread, message \\ nil)
+  def changeset(struct, params, user, visible_forums, thread, message \\ nil, opts \\ [create_tags: false])
 
-  def changeset(struct, params, user, visible_forums, thread, nil) do
+  def changeset(struct, params, user, visible_forums, thread, nil, opts) do
     struct
-    |> base_changeset(params, user, thread.forum_id, visible_forums)
+    |> base_changeset(params, user, thread.forum_id, visible_forums, opts)
     |> put_change(:thread_id, thread.thread_id)
     |> validate_required([:author, :subject, :content, :forum_id, :thread_id])
   end
 
-  def changeset(struct, params, user, visible_forums, thread, message) do
+  def changeset(struct, params, user, visible_forums, thread, message, opts) do
     struct
-    |> base_changeset(params, user, thread.forum_id, visible_forums)
+    |> base_changeset(params, user, thread.forum_id, visible_forums, opts)
     |> put_change(:thread_id, thread.thread_id)
     |> put_change(:parent_id, message.message_id)
     |> validate_required([:author, :subject, :content, :forum_id, :thread_id])
   end
 
-  def changeset(struct, params, user, visible_forums) do
+  def new_or_update_changeset(struct, params, user, visible_forums, opts \\ [create_tags: false]) do
     struct
-    |> base_changeset(params, user, nil, visible_forums)
+    |> base_changeset(params, user, nil, visible_forums, opts)
     |> validate_required([:author, :subject, :content])
   end
 
-  defp parse_tags(changeset, %{"tags" => tags}) when is_list(tags) do
+  defp parse_tags(changeset, %{"tags" => tags}, user, create_tags) when is_list(tags) do
     tags =
       tags
       |> Enum.map(&String.trim/1)
       |> Enum.reject(&blank?/1)
       |> Enum.map(&String.downcase/1)
 
-    parse_tags(changeset, tags, get_field(changeset, :forum_id))
+    parse_tags(changeset, tags, get_field(changeset, :forum_id), user, create_tags)
   end
 
-  defp parse_tags(changeset, _), do: changeset
+  defp parse_tags(changeset, _, _, _), do: changeset
 
-  defp parse_tags(changeset, tags, nil) do
+  defp parse_tags(changeset, tags, nil, _user, _create_tags) do
     changeset
     |> put_assoc(:tags, Enum.map(tags, &%Cforum.Forums.Tag{tag_name: &1}))
     |> add_error(:tags, gettext("unknown tags given: %{tags}", tags: Enum.join(tags, ", ")))
     |> add_tag_errors(tags)
   end
 
-  defp parse_tags(changeset, tags, forum_id) do
-    known_tags = Cforum.Forums.Tags.get_tags(forum_id, tags)
+  defp parse_tags(changeset, tags, forum_id, user, create_tags) do
+    {known_tags, unknown_tags} = maybe_create_tags(tags, forum_id, user, create_tags)
 
-    unknown_tags =
-      Enum.filter(tags, fn tag ->
-        Enum.find(known_tags, &(&1.tag_name == tag)) == nil
-      end)
-
-    # TODO for now we just error out on unknown tags
     if blank?(unknown_tags) do
       put_assoc(changeset, :tags, known_tags)
     else
@@ -141,6 +135,31 @@ defmodule Cforum.Forums.Message do
       |> add_error(:tags, gettext("unknown tags given: %{tags}", tags: Enum.join(unknown_tags, ", ")))
       |> add_tag_errors(unknown_tags)
     end
+  end
+
+  defp maybe_create_tags(tags, forum_id, _user, false) do
+    known_tags = Cforum.Forums.Tags.get_tags(forum_id, tags)
+
+    unknown_tags =
+      Enum.filter(tags, fn tag ->
+        Enum.find(known_tags, &(&1.tag_name == tag)) == nil
+      end)
+
+    {known_tags, unknown_tags}
+  end
+
+  defp maybe_create_tags(tags, forum_id, user, true) do
+    known_tags = Cforum.Forums.Tags.get_tags(forum_id, tags)
+
+    unknown_tags =
+      tags
+      |> Enum.filter(fn tag -> Enum.find(known_tags, &(&1.tag_name == tag)) == nil end)
+      |> Enum.map(fn tag ->
+        {:ok, tag} = Cforum.Forums.Tags.create_tag(user, %Cforum.Forums.Forum{forum_id: forum_id}, %{tag_name: tag})
+        tag
+      end)
+
+    {known_tags ++ unknown_tags, []}
   end
 
   defp add_tag_errors(changeset, unknown_tags) do
