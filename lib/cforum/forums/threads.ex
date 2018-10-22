@@ -398,7 +398,7 @@ defmodule Cforum.Forums.Threads do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_thread(attrs, user, forum, visible_forums) do
+  def create_thread(attrs, user, forum, visible_forums, opts \\ [create_tags: false]) do
     retval =
       Repo.transaction(fn ->
         retval =
@@ -408,7 +408,7 @@ defmodule Cforum.Forums.Threads do
 
         case retval do
           {:ok, thread} ->
-            create_message(attrs, user, visible_forums, thread)
+            create_message(attrs, user, visible_forums, thread, opts)
 
           {:error, t_changeset} ->
             thread = Ecto.Changeset.apply_changes(t_changeset)
@@ -426,8 +426,8 @@ defmodule Cforum.Forums.Threads do
     end
   end
 
-  defp create_message(attrs, user, visible_forums, thread) do
-    case Messages.create_message(attrs, user, visible_forums, thread) do
+  defp create_message(attrs, user, visible_forums, thread, opts \\ [create_tags: false]) do
+    case Messages.create_message(attrs, user, visible_forums, thread, nil, opts) do
       {:ok, message} ->
         {:ok, thread, message}
 
