@@ -6,6 +6,9 @@ defmodule Cforum.Search.Finder do
   alias Cforum.Search.Document
   alias Cforum.Search.Query
 
+  alias Cforum.Accounts.User
+
+  @spec count_interesting_messages_results(%User{}, Ecto.Changeset.t()) :: integer()
   def count_interesting_messages_results(current_user, changeset) do
     search_dict = Application.get_env(:cforum, :search_dict, "english")
     query = Query.parse(Ecto.Changeset.get_field(changeset, :term))
@@ -36,6 +39,7 @@ defmodule Cforum.Search.Finder do
     rslt.rows |> List.first() |> List.first()
   end
 
+  @spec search_interesting_messages(%User{}, Ecto.Changeset.t(), keyword() | map()) :: [%Document{}]
   def search_interesting_messages(current_user, changeset, paging \\ [offset: 0, quantity: 50]) do
     search_dict = Application.get_env(:cforum, :search_dict, "english")
     query = Query.parse(Ecto.Changeset.get_field(changeset, :term))
@@ -71,6 +75,7 @@ defmodule Cforum.Search.Finder do
     Cforum.Forums.Messages.list_messages(current_user, message_ids)
   end
 
+  @spec count_subscribed_messages_results(%User{}, Ecto.Changeset.t()) :: integer()
   def count_subscribed_messages_results(current_user, changeset) do
     search_dict = Application.get_env(:cforum, :search_dict, "english")
     query = Query.parse(Ecto.Changeset.get_field(changeset, :term))
@@ -101,6 +106,7 @@ defmodule Cforum.Search.Finder do
     rslt.rows |> List.first() |> List.first()
   end
 
+  @spec search_subscribed_messages(%User{}, Ecto.Changeset.t(), keyword() | map()) :: [%Document{}]
   def search_subscribed_messages(current_user, changeset, paging \\ [offset: 0, quantity: 50]) do
     search_dict = Application.get_env(:cforum, :search_dict, "english")
     query = Query.parse(Ecto.Changeset.get_field(changeset, :term))
@@ -136,6 +142,7 @@ defmodule Cforum.Search.Finder do
     Cforum.Forums.Messages.list_messages(current_user, message_ids)
   end
 
+  @spec count_results(Ecto.Changeset.t()) :: integer()
   def count_results(changeset) do
     search_dict = Application.get_env(:cforum, :search_dict, "english")
     query = Query.parse(Ecto.Changeset.get_field(changeset, :term))
@@ -163,6 +170,7 @@ defmodule Cforum.Search.Finder do
     rslt.rows |> List.first() |> List.first()
   end
 
+  @spec search(Ecto.Changeset.t(), keyword() | map()) :: [%Document{}]
   def search(changeset, paging \\ [offset: 0, quantity: 50]) do
     search_dict = Application.get_env(:cforum, :search_dict, "english")
     query = Query.parse(Ecto.Changeset.get_field(changeset, :term))
@@ -241,12 +249,8 @@ defmodule Cforum.Search.Finder do
   defp add_sections({selects, conditions, order, args, args_cnt}, sections),
     do: {selects, conditions ++ ["search_section_id = ANY($#{args_cnt + 1})"], order, args ++ [sections], args_cnt + 1}
 
-  defp add_start_date(q, nil), do: q
-
   defp add_start_date({selects, conditions, order, args, args_cnt}, start_date),
     do: {selects, conditions ++ ["document_created >= $#{args_cnt + 1}"], order, args ++ [start_date], args_cnt + 1}
-
-  defp add_end_date(q, nil), do: q
 
   defp add_end_date({selects, conditions, order, args, args_cnt}, end_date),
     do: {selects, conditions ++ ["document_created <= $#{args_cnt + 1}"], order, args ++ [end_date], args_cnt + 1}
@@ -308,42 +312,44 @@ defmodule Cforum.Search.Finder do
     {s <> " + ts_rank_cd(#{field}, to_tsquery('#{dict}', $#{cnt + 1}), 32)", args ++ [expression], cnt + 1}
   end
 
+  @spec to_tsquery([String.t()], [String.t()]) :: String.t()
   defp to_tsquery(includes, excludes) do
     includes =
       includes
-      |> Enum.map(fn term ->
-        term =
-          if String.last(term) == "*" do
-            String.slice(term, 1..-2) <> "*"
-          else
-            term
-          end
-
-        String.replace(term, "\\", "\\\\")
-      end)
-      |> Enum.filter(&present?(&1))
+      |> Enum.map(&ts_term/1)
+      |> Enum.filter(&present?/1)
 
     excludes =
       excludes
-      |> Enum.map(fn term ->
-        term =
-          if String.last(term) == "*" do
-            "!" <> String.slice(term, 1..-2) <> "*"
-          else
-            "!" <> term
-          end
-
-        String.replace(term, "\\", "\\\\")
-      end)
-      |> Enum.filter(&Cforum.Helpers.present?(&1))
+      |> Enum.map(fn term -> ts_term(term, "!") end)
+      |> Enum.filter(&Cforum.Helpers.present?/1)
 
     Enum.join(includes ++ excludes, " & ")
   end
 
+  @spec date_from_changeset(Ecto.Changeset.t(), atom(), (DateTime.t() -> DateTime.t())) :: DateTime.t()
   defp date_from_changeset(changeset, name, rounding \\ &Timex.beginning_of_day/1) do
     changeset
     |> Ecto.Changeset.get_field(name)
     |> Timex.to_datetime()
     |> rounding.()
+  end
+
+  @spec ts_term(String.t(), String.t()) :: String.t()
+  defp ts_term(term, prefix \\ "") do
+    prefix <>
+      if String.last(term) == "*",
+        do: db_quote(String.slice(term, 0..-2)) <> ":*",
+        else: db_quote(term)
+  end
+
+  @spec db_quote(String.t()) :: String.t()
+  defp db_quote(term) do
+    s =
+      term
+      |> String.replace("'", "''")
+      |> String.replace("\\", "\\\\")
+
+    "'#{s}'"
   end
 end
