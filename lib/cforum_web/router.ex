@@ -132,6 +132,13 @@ defmodule CforumWeb.Router do
     get("/archiv/:year/:month", RedirectorController, :redirect_to_month)
     get("/archiv/:year/:month/t:tid", RedirectorController, :redirect_to_thread)
 
+    resources("/tags", TagController, as: nil) do
+      get("/merge", TagController, :edit_merge, as: nil)
+      post("/merge", TagController, :merge, as: nil)
+
+      resources("/synonyms", Tags.SynonymController, only: [:edit, :update, :new, :create, :delete], as: nil)
+    end
+
     scope "/all" do
       get("/", ThreadController, :index, as: nil)
 
@@ -143,13 +150,6 @@ defmodule CforumWeb.Router do
       post("/new", ThreadController, :create, as: nil)
 
       get("/stats", ForumController, :stats, as: nil)
-
-      resources("/tags", TagController, as: nil) do
-        get("/merge", TagController, :edit_merge, as: nil)
-        post("/merge", TagController, :merge, as: nil)
-
-        resources("/synonyms", Tags.SynonymController, only: [:edit, :update, :new, :create, :delete], as: nil)
-      end
 
       get("/archive", ArchiveController, :years, as: nil)
       get("/:year", ArchiveController, :months, as: nil)

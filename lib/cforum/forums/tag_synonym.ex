@@ -7,7 +7,6 @@ defmodule Cforum.Forums.TagSynonym do
   schema "tag_synonyms" do
     field(:synonym, :string)
     belongs_to(:tag, Cforum.Forums.Tag, references: :tag_id)
-    belongs_to(:forum, Cforum.Forums.Forum, references: :forum_id)
   end
 
   @doc """
@@ -17,8 +16,7 @@ defmodule Cforum.Forums.TagSynonym do
     struct
     |> cast(params, [:synonym])
     |> put_change(:tag_id, tag.tag_id)
-    |> put_change(:forum_id, tag.forum_id)
-    |> validate_required([:synonym, :tag_id, :forum_id])
-    |> unique_constraint(:synonym, name: :tag_synonyms_forum_id_synonym_idx)
+    |> validate_required([:synonym, :tag_id])
+    |> unique_constraint(:synonym, name: :tag_synonyms_synonym_idx)
   end
 end

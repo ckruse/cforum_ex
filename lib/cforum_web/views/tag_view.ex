@@ -1,13 +1,11 @@
 defmodule CforumWeb.TagView do
   use CforumWeb, :view
 
-  def page_title(:index, %{current_forum: forum}) when not is_nil(forum),
-    do: gettext("tags for forum %{forum}", forum: forum.name)
-
-  def page_title(:index, _), do: gettext("tags for all forum")
+  def page_title(:index, _),
+    do: gettext("tags list")
 
   def page_title(:show, assigns),
-    do: gettext("%{forum}: tag “%{tag}”", forum: assigns[:current_forum].name, tag: assigns[:tag].tag_name)
+    do: gettext("tag “%{tag}”", tag: assigns[:tag].tag_name)
 
   def page_title(action, assigns) when action in [:edit, :update],
     do: gettext("edit tag “%{tag}”", tag: assigns[:tag].tag_name)

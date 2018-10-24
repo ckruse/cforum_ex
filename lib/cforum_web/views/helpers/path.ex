@@ -4,6 +4,7 @@ defmodule CforumWeb.Views.Helpers.Path do
   alias Cforum.Forums.Message
   alias Cforum.Forums.Thread
   alias Cforum.Forums.Forum
+  alias Cforum.Forums.{Tag, TagSynonym}
   alias Cforum.Forums.CloseVote
 
   import CforumWeb.Router.Helpers
@@ -61,52 +62,48 @@ defmodule CforumWeb.Views.Helpers.Path do
     "#{forum_path(conn, :index, forum)}/#{part}#{encode_query_string(params)}"
   end
 
-  def tag_path(conn, action, forum, tag_or_params \\ [], params \\ [])
+  @spec tag_path(Plug.Conn.t(), atom(), %Tag{} | [], []) :: String.t()
+  def tag_path(conn, action, tag_or_params \\ [], params \\ [])
 
-  def tag_path(conn, :index, forum, params, _),
-    do: "#{forum_path(conn, :index, forum)}/tags#{encode_query_string(params)}"
+  def tag_path(conn, :index, params, _),
+    do: "#{root_path(conn, :index)}tags#{encode_query_string(params)}"
 
-  def tag_path(conn, :show, forum, tag, params),
-    do: "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}#{encode_query_string(params)}"
+  def tag_path(conn, :show, tag, params),
+    do: "#{root_path(conn, :index)}tags/#{tag.slug}#{encode_query_string(params)}"
 
-  def tag_path(conn, :edit, forum, tag, params),
-    do: "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}/edit#{encode_query_string(params)}"
+  def tag_path(conn, :edit, tag, params),
+    do: "#{root_path(conn, :index)}tags/#{tag.slug}/edit#{encode_query_string(params)}"
 
-  def tag_path(conn, :update, forum, tag, params),
-    do: "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}#{encode_query_string(params)}"
+  def tag_path(conn, :update, tag, params),
+    do: "#{root_path(conn, :index)}tags/#{tag.slug}#{encode_query_string(params)}"
 
-  def tag_path(conn, :new, forum, params, _),
-    do: "#{forum_path(conn, :index, forum)}/tags/new#{encode_query_string(params)}"
+  def tag_path(conn, :new, params, _),
+    do: "#{root_path(conn, :index)}tags/new#{encode_query_string(params)}"
 
-  def tag_path(conn, :create, forum, params, _), do: tag_path(conn, :index, forum, params)
+  def tag_path(conn, :create, params, _), do: tag_path(conn, :index, params)
 
-  def tag_path(conn, :delete, forum, tag, params), do: tag_path(conn, :show, forum, tag, params)
+  def tag_path(conn, :delete, tag, params), do: tag_path(conn, :show, tag, params)
 
-  def tag_path(conn, :merge, forum, tag, params),
-    do: "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}/merge#{encode_query_string(params)}"
+  def tag_path(conn, :merge, tag, params),
+    do: "#{root_path(conn, :index)}tags/#{tag.slug}/merge#{encode_query_string(params)}"
 
-  def tag_synonym_path(conn, action, forum, tag, synonym \\ [], params \\ [])
+  @spec tag_synonym_path(Plug.Conn.t(), atom(), %Tag{}, %TagSynonym{} | [], []) :: String.t()
+  def tag_synonym_path(conn, action, tag, synonym \\ [], params \\ [])
 
-  def tag_synonym_path(conn, :new, forum, tag, params, _),
-    do: "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}/synonyms/new#{encode_query_string(params)}"
+  def tag_synonym_path(conn, :new, tag, params, _),
+    do: "#{tag_path(conn, :show, tag)}/synonyms/new#{encode_query_string(params)}"
 
-  def tag_synonym_path(conn, :create, forum, tag, params, _),
-    do: "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}/synonyms#{encode_query_string(params)}"
+  def tag_synonym_path(conn, :create, tag, params, _),
+    do: "#{tag_path(conn, :show, tag)}/synonyms#{encode_query_string(params)}"
 
-  def tag_synonym_path(conn, :edit, forum, tag, synonym, params) do
-    "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}/synonyms/" <>
-      "#{synonym.tag_synonym_id}/edit#{encode_query_string(params)}"
-  end
+  def tag_synonym_path(conn, :edit, tag, synonym, params),
+    do: "#{tag_path(conn, :show, tag)}/synonyms/" <> "#{synonym.tag_synonym_id}/edit#{encode_query_string(params)}"
 
-  def tag_synonym_path(conn, :update, forum, tag, synonym, params) do
-    "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}/synonyms/" <>
-      "#{synonym.tag_synonym_id}#{encode_query_string(params)}"
-  end
+  def tag_synonym_path(conn, :update, tag, synonym, params),
+    do: "#{tag_path(conn, :show, tag)}/synonyms/" <> "#{synonym.tag_synonym_id}#{encode_query_string(params)}"
 
-  def tag_synonym_path(conn, :delete, forum, tag, synonym, params) do
-    "#{forum_path(conn, :index, forum)}/tags/#{tag.slug}/synonyms/" <>
-      "#{synonym.tag_synonym_id}#{encode_query_string(params)}"
-  end
+  def tag_synonym_path(conn, :delete, tag, synonym, params),
+    do: "#{tag_path(conn, :show, tag)}/synonyms/" <> "#{synonym.tag_synonym_id}#{encode_query_string(params)}"
 
   @doc """
   Generates URL path part to the thread (w/o message part). Mainly

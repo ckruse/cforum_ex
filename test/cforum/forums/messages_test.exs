@@ -9,7 +9,7 @@ defmodule Cforum.Forums.MessagesTest do
     forum = insert(:public_forum)
     thread = insert(:thread, forum: forum)
     message = insert(:message, thread: thread, forum: forum, user: user, tags: [])
-    tag = insert(:tag, forum: forum, messages: [message])
+    tag = insert(:tag, messages: [message])
 
     {:ok, user: user, forum: forum, thread: thread, message: message, tag: tag}
   end
@@ -28,7 +28,7 @@ defmodule Cforum.Forums.MessagesTest do
     end
 
     test "list_messages_for_tag/2 returns a list of messages", %{forum: f, tag: t, message: message} do
-      messages = Messages.list_messages_for_tag(f, t)
+      messages = Messages.list_messages_for_tag([f], t)
 
       assert length(messages) == 1
       assert [%Message{}] = messages
@@ -36,7 +36,7 @@ defmodule Cforum.Forums.MessagesTest do
     end
 
     test "count_messages_for_tag/2 counts the messages of a tag", %{forum: f, tag: t} do
-      cnt = Messages.count_messages_for_tag(f, t)
+      cnt = Messages.count_messages_for_tag([f], t)
       assert cnt == 1
     end
 
@@ -116,11 +116,9 @@ defmodule Cforum.Forums.MessagesTest do
     test "count_messages_per_tag_for_user/2 counts the messages per tag of a user", %{user: u, forum: f, tag: t} do
       messages = Messages.count_messages_per_tag_for_user(u, [f.forum_id])
       assert length(messages) == 1
-      assert [{t_slug, t_name, f_slug, f_name, 1}] = messages
+      assert [{t_slug, t_name, 1}] = messages
       assert t_slug == t.slug
       assert t_name == t.tag_name
-      assert f_slug == f.slug
-      assert f_name == f.short_name
     end
   end
 

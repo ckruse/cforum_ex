@@ -1,4 +1,4 @@
-<%= form_for @conn, tag_path(@conn, :merge, @current_forum, @tag), [class: "cf-form"], fn f -> %>
+<%= form_for @conn, tag_path(@conn, :merge, @tag), [class: "cf-form"], fn f -> %>
 
   <div class="cf-cgroup <%= error_class(f, :existing_tag_id) %>">
     <%= label f, :existing_tag_id do %>
@@ -10,6 +10,6 @@
 
   <p class="form-actions">
     <%= primary_submit gettext("save") %>
-    <%= default_button_link gettext("cancel"), to: tag_path(@conn, :show, @current_forum, @tag) %>
+    <%= default_button_link gettext("cancel"), to: tag_path(@conn, :show, @tag) %>
   </p>
 <% end %>

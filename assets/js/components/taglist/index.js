@@ -30,8 +30,7 @@ class TagList extends React.Component {
     this.addTag = this.addTag.bind(this);
     this.checkForError = this.checkForError.bind(this);
 
-    const slug = document.location.pathname.split("/")[1];
-    fetch(`/api/v1/tags?f=${slug}`, { credentials: "same-origin" })
+    fetch(`/api/v1/tags`, { credentials: "same-origin" })
       .then(json => json.json())
       .then(json => {
         json.sort((a, b) => b.num_messages - a.num_messages);

@@ -8,7 +8,6 @@ defmodule Cforum.Forums.Messages do
 
   import Cforum.Helpers
 
-  alias Cforum.Forums.Forum
   alias Cforum.Forums.InvisibleThread
   alias Cforum.Forums.Message
   alias Cforum.Forums.Tag
@@ -75,20 +74,22 @@ defmodule Cforum.Forums.Messages do
   end
 
   @doc """
-  Returns a list of messages for a tag, limited to the forum specified in `forum`
+  Returns a list of messages for a tag, limited to the forums specified in `visible_forums`
 
   ## Examples
 
-      iex> list_messages_for_tag(%Forum{}, %Tag{}, limit: [quantity: 10, offset: 0])
+      iex> list_messages_for_tag([%Forum{}], %Tag{}, limit: [quantity: 10, offset: 0])
       [%Message{}, ...]
   """
-  def list_messages_for_tag(forum, tag, query_params \\ [order: nil, limit: nil]) do
+  def list_messages_for_tag(visible_forums, tag, query_params \\ [order: nil, limit: nil]) do
+    forum_ids = Enum.map(visible_forums, & &1.forum_id)
+
     from(
       m in Message,
       inner_join: t in "messages_tags",
       on: t.message_id == m.message_id,
       preload: [:user, :tags, [thread: :forum]],
-      where: t.tag_id == ^tag.tag_id and m.deleted == false and m.forum_id == ^forum.forum_id
+      where: t.tag_id == ^tag.tag_id and m.deleted == false and m.forum_id in ^forum_ids
     )
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
@@ -96,19 +97,21 @@ defmodule Cforum.Forums.Messages do
   end
 
   @doc """
-  Counts the messages for a tag, limited to the forum specified in `forum`
+  Counts the messages for a tag, limited to the forums specified in `visible_forums`
 
   ## Examples
 
-      iex> count_messages_for_tag(%Forum{}, %Tag{})
+      iex> count_messages_for_tag([%Forum{}], %Tag{})
       10
   """
-  def count_messages_for_tag(forum, tag) do
+  def count_messages_for_tag(visible_forums, tag) do
+    forum_ids = Enum.map(visible_forums, & &1.forum_id)
+
     from(
       m in Message,
       inner_join: t in "messages_tags",
       on: t.message_id == m.message_id,
-      where: t.tag_id == ^tag.tag_id and m.deleted == false and m.forum_id == ^forum.forum_id,
+      where: t.tag_id == ^tag.tag_id and m.deleted == false and m.forum_id in ^forum_ids,
       select: count("*")
     )
     |> Repo.one()
@@ -263,11 +266,9 @@ defmodule Cforum.Forums.Messages do
       on: m.message_id == mt.message_id,
       inner_join: t in Tag,
       on: mt.tag_id == t.tag_id,
-      inner_join: f in Forum,
-      on: f.forum_id == t.forum_id,
-      select: {t.slug, t.tag_name, f.slug, f.short_name, count("*")},
+      select: {t.slug, t.tag_name, count("*")},
       where: m.deleted == false and m.user_id == ^user.user_id and m.forum_id in ^forum_ids,
-      group_by: [t.slug, t.tag_name, f.forum_id, f.short_name],
+      group_by: [t.slug, t.tag_name],
       order_by: fragment("COUNT(*) DESC"),
       limit: ^limit
     )
