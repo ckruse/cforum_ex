@@ -5,35 +5,9 @@ defmodule Cforum.Forums.TagsTest do
 
   describe "tags" do
     test "list_tags/2 lists all tags for one forum" do
-      forum = insert(:public_forum)
-      tags = insert_list(3, :tag, forum: forum) |> Enum.sort(&(&1.tag_name <= &2.tag_name))
+      tags = insert_list(3, :tag) |> Enum.sort(&(&1.tag_name <= &2.tag_name))
 
-      found = Tags.list_tags(forum)
-      assert length(found) == 3
-      assert Enum.map(tags, & &1.tag_id) == Enum.map(found, & &1.tag_id)
-    end
-
-    test "list_tags/2 lists all tags for all accessible forums" do
-      forum = insert(:public_forum)
-      forum1 = insert(:public_forum)
-
-      tags =
-        (insert_list(3, :tag, forum: forum) ++ insert_list(3, :tag, forum: forum1))
-        |> Enum.sort(&(&1.tag_name <= &2.tag_name))
-
-      found = Tags.list_tags(nil, [forum, forum1])
-      assert length(found) == 6
-      assert Enum.map(tags, & &1.tag_id) == Enum.map(found, & &1.tag_id)
-    end
-
-    test "list_tags/2 doesn't list tags from forums not accessible" do
-      forum = insert(:public_forum)
-      forum1 = insert(:public_forum)
-      tags = insert_list(3, :tag, forum: forum) |> Enum.sort(&(&1.tag_name <= &2.tag_name))
-
-      insert_list(3, :tag, forum: forum1)
-
-      found = Tags.list_tags(nil, [forum])
+      found = Tags.list_tags()
       assert length(found) == 3
       assert Enum.map(tags, & &1.tag_id) == Enum.map(found, & &1.tag_id)
     end
@@ -43,23 +17,21 @@ defmodule Cforum.Forums.TagsTest do
       assert Tags.get_tag!(tag.tag_id).tag_id == tag.tag_id
     end
 
-    test "get_tag_by_slug!/2 returns the tag with given slug" do
+    test "get_tag_by_slug!/1 returns the tag with given slug" do
       tag = insert(:tag, synonyms: [], num_messages: 0)
-      assert Tags.get_tag_by_slug!(tag.forum, tag.slug) == tag
+      assert Tags.get_tag_by_slug!(tag.slug) == tag
     end
 
-    test "get_tags/2 returns a list of existing tags ordered by name" do
-      forum = insert(:public_forum)
-
+    test "get_tags/1 returns a list of existing tags ordered by name" do
       tags =
-        (insert_list(3, :tag, forum: forum) ++ [insert(:tag, tag_name: "000 foo", forum: forum)])
+        (insert_list(3, :tag) ++ [insert(:tag, tag_name: "000 foo")])
         |> Enum.sort(&(String.downcase(&2.tag_name) <= String.downcase(&1.tag_name)))
 
       tag_names =
         (Enum.map(tags, & &1.tag_name) ++ ["foo", "bar"])
         |> Enum.sort(&(String.downcase(&1) <= String.downcase(&2)))
 
-      tags_list = Tags.get_tags(forum, tag_names)
+      tags_list = Tags.get_tags(tag_names)
 
       assert length(tags_list) == length(tags)
       assert Enum.map(tags_list, & &1.tag_name) == Enum.map(tags, & &1.tag_name)
@@ -71,17 +43,15 @@ defmodule Cforum.Forums.TagsTest do
     end
 
     test "create_tag/2 with valid data creates a tag" do
-      forum = insert(:forum)
       attrs = params_for(:tag)
-      assert {:ok, %Tag{} = tag} = Tags.create_tag(nil, forum, attrs)
+      assert {:ok, %Tag{} = tag} = Tags.create_tag(nil, attrs)
       assert tag.tag_name == attrs[:tag_name]
       assert tag.slug == attrs[:slug]
       assert tag.suggest == attrs[:suggest]
     end
 
     test "create_tag/2 with invalid data returns error changeset" do
-      forum = insert(:forum)
-      assert {:error, %Ecto.Changeset{}} = Tags.create_tag(nil, forum, %{})
+      assert {:error, %Ecto.Changeset{}} = Tags.create_tag(nil, %{})
     end
 
     test "update_tag/2 with valid data updates the tag" do
@@ -104,15 +74,15 @@ defmodule Cforum.Forums.TagsTest do
 
     test "merge_tag/2" do
       forum = insert(:forum)
-      tag = insert(:tag, forum: forum)
-      new_tag = insert(:tag, forum: forum)
+      tag = insert(:tag)
+      new_tag = insert(:tag)
 
       thread = insert(:thread, forum: forum)
       message = insert(:message, thread: thread, forum: forum, tags: [tag])
 
       assert {:ok, %Tag{} = new_tag} = Tags.merge_tag(nil, tag, new_tag)
       assert_raise Ecto.NoResultsError, fn -> Tags.get_tag!(tag.tag_id) end
-      [new_message] = Messages.list_messages_for_tag(forum, new_tag)
+      [new_message] = Messages.list_messages_for_tag([forum], new_tag)
 
       assert message.message_id == new_message.message_id
       assert List.first(new_tag.synonyms).synonym == tag.tag_name
@@ -132,40 +102,34 @@ defmodule Cforum.Forums.TagsTest do
 
   describe "synonyms" do
     test "list_tag_synonyms/1 lists all synonyms for a tag" do
-      forum = insert(:forum)
-      tag = insert(:tag, forum: forum)
-      synonym = insert(:tag_synonym, tag: tag, forum: forum)
+      tag = insert(:tag)
+      synonym = insert(:tag_synonym, tag: tag)
 
-      assert Tags.list_tag_synonyms(tag) == [unload_relations(synonym, [:forum, :tag])]
+      assert Tags.list_tag_synonyms(tag) == [unload_relations(synonym, [:tag])]
     end
 
     test "get_tag_synonym!/2 returns the tag synonym with given id" do
-      forum = insert(:forum)
-      tag = insert(:tag, forum: forum)
-      synonym = insert(:tag_synonym, tag: tag, forum: forum)
+      tag = insert(:tag)
+      synonym = insert(:tag_synonym, tag: tag)
       assert Tags.get_tag_synonym!(synonym.tag, synonym.tag_synonym_id).tag_synonym_id == synonym.tag_synonym_id
     end
 
     test "create_tag_synonym/3 with valid data creates a tag synonym" do
-      forum = insert(:forum)
-      tag = insert(:tag, forum: forum)
+      tag = insert(:tag)
       attrs = params_for(:tag_synonym)
       assert {:ok, %TagSynonym{} = tag} = Tags.create_tag_synonym(nil, tag, attrs)
       assert tag.synonym == attrs[:synonym]
       assert tag.tag_id == tag.tag_id
-      assert tag.forum_id == forum.forum_id
     end
 
     test "create_tag_synonym/2 with invalid data returns error changeset" do
-      forum = insert(:forum)
-      tag = insert(:tag, forum: forum)
+      tag = insert(:tag)
       assert {:error, %Ecto.Changeset{}} = Tags.create_tag(nil, tag, %{})
     end
 
     test "update_tag_synonym/2 with valid data updates the tag synonym" do
-      forum = insert(:forum)
-      tag = insert(:tag, forum: forum)
-      synonym = insert(:tag_synonym, tag: tag, forum: forum)
+      tag = insert(:tag)
+      synonym = insert(:tag_synonym, tag: tag)
       assert {:ok, tag_synonym} = Tags.update_tag_synonym(nil, tag, synonym, %{synonym: "foo"})
       assert %TagSynonym{} = tag_synonym
 
@@ -175,9 +139,8 @@ defmodule Cforum.Forums.TagsTest do
     end
 
     test "update_tag_synonym/2 with invalid data returns error changeset" do
-      forum = insert(:forum)
-      tag = insert(:tag, forum: forum)
-      synonym = insert(:tag_synonym, tag: tag, forum: forum)
+      tag = insert(:tag)
+      synonym = insert(:tag_synonym, tag: tag)
 
       assert {:error, %Ecto.Changeset{}} = Tags.update_tag_synonym(nil, tag, synonym, %{synonym: ""})
 
@@ -189,18 +152,16 @@ defmodule Cforum.Forums.TagsTest do
     end
 
     test "delete_tag_synonym/1 deletes the tag synonym" do
-      forum = insert(:forum)
-      tag = insert(:tag, forum: forum)
-      synonym = insert(:tag_synonym, tag: tag, forum: forum)
+      tag = insert(:tag)
+      synonym = insert(:tag_synonym, tag: tag)
 
       assert {:ok, %TagSynonym{}} = Tags.delete_tag_synonym(nil, synonym)
       assert_raise Ecto.NoResultsError, fn -> Tags.get_tag_synonym!(tag, synonym.tag_synonym_id) end
     end
 
     test "change_tag_synonym/2 returns a tag synonym changeset" do
-      forum = insert(:forum)
-      tag = insert(:tag, forum: forum)
-      synonym = insert(:tag_synonym, tag: tag, forum: forum)
+      tag = insert(:tag)
+      synonym = insert(:tag_synonym, tag: tag)
 
       assert %Ecto.Changeset{} = Tags.change_tag_synonym(tag, synonym)
     end

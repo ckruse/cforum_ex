@@ -108,7 +108,6 @@ defmodule Cforum.Factory do
     %Cforum.Forums.Tag{
       tag_name: sequence("Tag "),
       slug: sequence("tag-"),
-      forum: build(:public_forum),
       suggest: true
     }
   end
@@ -116,8 +115,7 @@ defmodule Cforum.Factory do
   def tag_synonym_factory do
     %Cforum.Forums.TagSynonym{
       tag: build(:tag),
-      synonym: sequence("Tag Synonym "),
-      forum: build(:forum)
+      synonym: sequence("Tag Synonym ")
     }
   end
 

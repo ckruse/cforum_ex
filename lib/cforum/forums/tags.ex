@@ -19,17 +19,9 @@ defmodule Cforum.Forums.Tags do
       [%Tag{}, ...]
 
   """
-  def list_tags(forum_or_nil, visible_forums \\ nil)
-
-  def list_tags(nil, visible_forums) when not is_nil(visible_forums) do
-    forum_ids = Enum.map(visible_forums, & &1.forum_id)
-
-    from(tag in Tag, where: tag.forum_id in ^forum_ids, order_by: [asc: :tag_name], preload: [:forum, :synonyms])
-    |> Repo.all()
-  end
-
-  def list_tags(forum, _) do
-    from(tag in Tag, where: tag.forum_id == ^forum.forum_id, order_by: [asc: :tag_name], preload: [:forum, :synonyms])
+  @spec list_tags() :: [%Tag{}]
+  def list_tags() do
+    from(tag in Tag, order_by: [asc: :tag_name], preload: [:synonyms])
     |> Repo.all()
   end
 
@@ -47,6 +39,7 @@ defmodule Cforum.Forums.Tags do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_tag!(String.t() | integer()) :: %Tag{}
   def get_tag!(id) do
     Tag
     |> Repo.get!(id)
@@ -66,41 +59,38 @@ defmodule Cforum.Forums.Tags do
       iex> get_tag!("imperium")
       ** (Ecto.NoResultsError)
   """
-  def get_tag_by_slug!(forum, slug) do
+  @spec get_tag_by_slug!(String.t()) :: %Tag{}
+  def get_tag_by_slug!(slug) do
     Tag
-    |> Repo.get_by!(forum_id: forum.forum_id, slug: slug)
-    |> Repo.preload([:synonyms, :forum])
+    |> Repo.get_by!(slug: slug)
+    |> Repo.preload([:synonyms])
   end
 
   @doc """
-  Gets a list of tags identified by forum and tag name.
+  Gets a list of tags identified by tag name.
 
   ## Arguments
 
-  - `forum`: the forum the tags belong to
   - `tags`: a list of tag names
 
   ## Examples
 
-  iex> get_tags(%Cforum.Forums.Forum{}, ["menschelei", "zu diesem forum"])
+  iex> get_tags(["menschelei", "zu diesem forum"])
   [%Tag{}, %Tag{}]
 
   """
-  def get_tags(%Cforum.Forums.Forum{} = forum, tags), do: get_tags(forum.forum_id, tags)
-
-  def get_tags(forum_id, tags) do
+  @spec get_tags([String.t()]) :: [%Tag{}]
+  def get_tags(tags) do
     tags = Enum.map(tags, &String.downcase(&1))
 
     from(
       tag in Tag,
       left_join: syn in assoc(tag, :synonyms),
-      where:
-        (fragment("lower(?)", tag.tag_name) in ^tags or fragment("lower(?)", syn.synonym) in ^tags) and
-          tag.forum_id == ^forum_id,
+      where: fragment("lower(?)", tag.tag_name) in ^tags or fragment("lower(?)", syn.synonym) in ^tags,
       order_by: [desc: :tag_name]
     )
     |> Repo.all()
-    |> Repo.preload([:synonyms, :forum])
+    |> Repo.preload([:synonyms])
   end
 
   @doc """
@@ -116,6 +106,7 @@ defmodule Cforum.Forums.Tags do
   [%Tag{}, %Tag{}]
 
   """
+  @spec get_tags_by_ids([String.t() | integer()]) :: %Tag{}
   def get_tags_by_ids(tag_ids) do
     from(
       tag in Tag,
@@ -123,7 +114,7 @@ defmodule Cforum.Forums.Tags do
       order_by: [asc: :tag_name]
     )
     |> Repo.all()
-    |> Repo.preload([:synonyms, :forum])
+    |> Repo.preload([:synonyms])
   end
 
   @doc """
@@ -138,10 +129,11 @@ defmodule Cforum.Forums.Tags do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_tag(current_user, forum, attrs \\ %{}) do
+  @spec create_tag(%Cforum.Accounts.User{}, map()) :: {:ok, %Tag{}} | {:error, Ecto.Changeset.t()}
+  def create_tag(current_user, attrs \\ %{}) do
     System.audited("create", current_user, fn ->
       %Tag{}
-      |> Tag.changeset(forum, attrs)
+      |> Tag.changeset(attrs)
       |> Repo.insert()
     end)
   end
@@ -158,10 +150,11 @@ defmodule Cforum.Forums.Tags do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_tag(%Cforum.Accounts.User{}, %Tag{}, map()) :: {:ok, %Tag{}} | {:error, Ecto.Changeset.t()}
   def update_tag(current_user, %Tag{} = tag, attrs) do
     System.audited("update", current_user, fn ->
       tag
-      |> Tag.changeset(nil, attrs)
+      |> Tag.changeset(attrs)
       |> Repo.update()
     end)
   end
@@ -178,6 +171,7 @@ defmodule Cforum.Forums.Tags do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_tag(%Cforum.Accounts.User{}, %Tag{}) :: {:ok, %Tag{}}
   def delete_tag(current_user, %Tag{} = tag) do
     System.audited("destroy", current_user, fn ->
       Repo.delete(tag)
@@ -195,7 +189,8 @@ defmodule Cforum.Forums.Tags do
       {:ok, %Tag{}}
 
   """
-  def merge_tag(current_user, old_tag, new_tag) do
+  @spec merge_tag(%Cforum.Accounts.User{}, %Tag{}, %Tag{}) :: {:ok, %Tag{}} | {:error, Ecto.Changeset.t()}
+  def merge_tag(current_user, %Tag{} = old_tag, %Tag{} = new_tag) do
     System.audited("merge", current_user, fn ->
       from(mtag in "messages_tags", where: mtag.tag_id == ^old_tag.tag_id)
       |> Repo.update_all(set: [tag_id: new_tag.tag_id])
@@ -223,8 +218,9 @@ defmodule Cforum.Forums.Tags do
       %Ecto.Changeset{source: %Tag{}}
 
   """
+  @spec change_tag(%Tag{}) :: Ecto.Changeset.t()
   def change_tag(%Tag{} = tag) do
-    Tag.changeset(tag, nil, %{})
+    Tag.changeset(tag, %{})
   end
 
   @doc """

@@ -53,7 +53,7 @@ defmodule Cforum.Forums.Message do
     timestamps(inserted_at: :created_at)
   end
 
-  defp base_changeset(struct, params, user, forum_id, visible_forums, opts \\ [create_tags: false]) do
+  defp base_changeset(struct, params, user, forum_id, visible_forums, opts) do
     struct
     |> cast(params, [:author, :email, :homepage, :subject, :content, :problematic_site, :forum_id])
     |> maybe_put_change(:forum_id, forum_id)
@@ -105,27 +105,20 @@ defmodule Cforum.Forums.Message do
     |> validate_required([:author, :subject, :content])
   end
 
-  defp parse_tags(changeset, %{"tags" => tags}, user, create_tags) when is_list(tags) do
+  defp parse_tags(changeset, %{"tags" => tags}, user, create_tags) do
     tags =
       tags
       |> Enum.map(&String.trim/1)
       |> Enum.reject(&blank?/1)
       |> Enum.map(&String.downcase/1)
 
-    parse_tags(changeset, tags, get_field(changeset, :forum_id), user, create_tags)
+    parse_tags(changeset, tags, user, create_tags)
   end
 
-  defp parse_tags(changeset, _, _, _), do: changeset
+  defp parse_tags(changeset, %{}, _, _), do: changeset
 
-  defp parse_tags(changeset, tags, nil, _user, _create_tags) do
-    changeset
-    |> put_assoc(:tags, Enum.map(tags, &%Cforum.Forums.Tag{tag_name: &1}))
-    |> add_error(:tags, gettext("unknown tags given: %{tags}", tags: Enum.join(tags, ", ")))
-    |> add_tag_errors(tags)
-  end
-
-  defp parse_tags(changeset, tags, forum_id, user, create_tags) do
-    {known_tags, unknown_tags} = maybe_create_tags(tags, forum_id, user, create_tags)
+  defp parse_tags(changeset, tags, user, create_tags) do
+    {known_tags, unknown_tags} = maybe_create_tags(tags, user, create_tags)
 
     if blank?(unknown_tags) do
       put_assoc(changeset, :tags, known_tags)
@@ -137,8 +130,8 @@ defmodule Cforum.Forums.Message do
     end
   end
 
-  defp maybe_create_tags(tags, forum_id, _user, false) do
-    known_tags = Cforum.Forums.Tags.get_tags(forum_id, tags)
+  defp maybe_create_tags(tags, _user, false) do
+    known_tags = Cforum.Forums.Tags.get_tags(tags)
 
     unknown_tags =
       Enum.filter(tags, fn tag ->
@@ -148,14 +141,14 @@ defmodule Cforum.Forums.Message do
     {known_tags, unknown_tags}
   end
 
-  defp maybe_create_tags(tags, forum_id, user, true) do
-    known_tags = Cforum.Forums.Tags.get_tags(forum_id, tags)
+  defp maybe_create_tags(tags, user, true) do
+    known_tags = Cforum.Forums.Tags.get_tags(tags)
 
     unknown_tags =
       tags
       |> Enum.filter(fn tag -> Enum.find(known_tags, &(&1.tag_name == tag)) == nil end)
       |> Enum.map(fn tag ->
-        {:ok, tag} = Cforum.Forums.Tags.create_tag(user, %Cforum.Forums.Forum{forum_id: forum_id}, %{tag_name: tag})
+        {:ok, tag} = Cforum.Forums.Tags.create_tag(user, %{tag_name: tag})
         tag
       end)
 

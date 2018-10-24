@@ -1,1 +1,1 @@
-<%= render "form.html", Map.merge(assigns, %{action: tag_path(@conn, :create, @current_forum), back: tag_path(@conn, :index, @current_forum)}) %>
+<%= render "form.html", Map.merge(assigns, %{action: tag_path(@conn, :create), back: tag_path(@conn, :index)}) %>

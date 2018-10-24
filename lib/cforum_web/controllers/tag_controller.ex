@@ -4,7 +4,7 @@ defmodule CforumWeb.TagController do
   alias Cforum.Forums.{Tags, Messages, Thread, Message, Tag}
 
   def index(conn, _params) do
-    tags = Tags.list_tags(conn.assigns[:current_forum], conn.assigns[:visible_forums])
+    tags = Tags.list_tags()
 
     {min_cnt, max_cnt} =
       Enum.reduce(tags, {-1, 0}, fn
@@ -19,11 +19,11 @@ defmodule CforumWeb.TagController do
   end
 
   def show(conn, %{"id" => id} = params) do
-    tag = Tags.get_tag_by_slug!(conn.assigns[:current_forum], id)
+    tag = Tags.get_tag_by_slug!(id)
 
-    count = Messages.count_messages_for_tag(conn.assigns[:current_forum], tag)
+    count = Messages.count_messages_for_tag(conn.assigns[:visible_forums], tag)
     paging = paginate(count, page: params["p"])
-    entries = Messages.list_messages_for_tag(conn.assigns[:current_forum], tag, limit: paging.params)
+    entries = Messages.list_messages_for_tag(conn.assigns[:visible_forums], tag, limit: paging.params)
 
     messages =
       Enum.map(entries, fn msg ->
@@ -40,11 +40,11 @@ defmodule CforumWeb.TagController do
   end
 
   def create(conn, %{"tag" => tag_params}) do
-    case Tags.create_tag(conn.assigns.current_user, conn.assigns[:current_forum], tag_params) do
+    case Tags.create_tag(conn.assigns.current_user, tag_params) do
       {:ok, tag} ->
         conn
         |> put_flash(:info, gettext("Tag created successfully."))
-        |> redirect(to: tag_path(conn, :show, conn.assigns[:current_forum], tag))
+        |> redirect(to: tag_path(conn, :show, tag))
 
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -52,19 +52,19 @@ defmodule CforumWeb.TagController do
   end
 
   def edit(conn, %{"id" => id}) do
-    tag = Tags.get_tag_by_slug!(conn.assigns[:current_forum], id)
+    tag = Tags.get_tag_by_slug!(id)
     changeset = Tags.change_tag(tag)
     render(conn, "edit.html", tag: tag, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "tag" => tag_params}) do
-    tag = Tags.get_tag_by_slug!(conn.assigns[:current_forum], id)
+    tag = Tags.get_tag_by_slug!(id)
 
     case Tags.update_tag(conn.assigns.current_user, tag, tag_params) do
       {:ok, tag} ->
         conn
         |> put_flash(:info, gettext("Tag updated successfully."))
-        |> redirect(to: tag_path(conn, :show, conn.assigns[:current_forum], tag))
+        |> redirect(to: tag_path(conn, :show, tag))
 
       {:error, changeset} ->
         render(conn, "edit.html", tag: tag, changeset: changeset)
@@ -72,14 +72,14 @@ defmodule CforumWeb.TagController do
   end
 
   def edit_merge(conn, %{"tag_id" => id}) do
-    tag = Tags.get_tag_by_slug!(conn.assigns[:current_forum], id)
-    tags = Tags.list_tags(conn.assigns[:current_forum], conn.assigns[:visible_forums])
+    tag = Tags.get_tag_by_slug!(id)
+    tags = Tags.list_tags()
 
     render(conn, "edit_merge.html", tag: tag, tags: tags)
   end
 
   def merge(conn, %{"tag_id" => id, "existing_tag_id" => existing_tag_id}) do
-    old_tag = Tags.get_tag_by_slug!(conn.assigns[:current_forum], id)
+    old_tag = Tags.get_tag_by_slug!(id)
     new_tag = Tags.get_tag!(existing_tag_id)
 
     case Tags.merge_tag(conn.assigns.current_user, old_tag, new_tag) do
@@ -93,36 +93,36 @@ defmodule CforumWeb.TagController do
             new_tag: new_tag.tag_name
           )
         )
-        |> redirect(to: tag_path(conn, :show, conn.assigns[:current_forum], new_tag))
+        |> redirect(to: tag_path(conn, :show, new_tag))
 
       {:error, _} ->
-        tags = Tags.list_tags(conn.assigns[:current_forum], conn.assigns[:visible_forums])
+        tags = Tags.list_tags()
         render(conn, "edit_merge.html", tag: old_tag, tags: tags)
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    tag = Tags.get_tag_by_slug!(conn.assigns[:current_forum], id)
+    tag = Tags.get_tag_by_slug!(id)
     Tags.delete_tag(conn.assigns.current_user, tag)
 
     conn
     |> put_flash(:info, gettext("Tag deleted successfully."))
-    |> redirect(to: tag_path(conn, :index, conn.assigns[:current_forum]))
+    |> redirect(to: tag_path(conn, :index))
   end
 
-  def allowed?(conn, action, _) when action in [:index, :show], do: access_forum?(conn)
+  @spec allowed?(Plug.Conn.t(), atom(), any()) :: boolean()
+  def allowed?(_conn, action, _) when action in [:index, :show],
+    do: true
 
-  def allowed?(conn, action, _) when action in [:new, :create] do
-    access_forum?(conn) && (admin?(conn) || badge?(conn, "create_tag") || badge?(conn, "moderator_tools"))
-  end
+  def allowed?(conn, action, _) when action in [:new, :create],
+    do: access_forum?(conn) && (admin?(conn) || badge?(conn, "create_tag") || badge?(conn, "moderator_tools"))
 
-  def allowed?(conn, action, _) when action in [:edit, :update, :edit_merge, :merge] do
-    access_forum?(conn) && (admin?(conn) || badge?(conn, "moderator_tools"))
-  end
+  def allowed?(conn, action, _) when action in [:edit, :update, :edit_merge, :merge],
+    do: access_forum?(conn) && (admin?(conn) || badge?(conn, "moderator_tools"))
 
-  def allowed?(conn, :delete, _) do
-    access_forum?(conn) && (admin?(conn) || badge?(conn, "moderator_tools"))
-  end
+  def allowed?(conn, :delete, _),
+    do: access_forum?(conn) && (admin?(conn) || badge?(conn, "moderator_tools"))
 
-  def allowed?(_, _, _), do: false
+  def allowed?(_, _, _),
+    do: false
 end

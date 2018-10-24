@@ -68,12 +68,10 @@
   </div>
 
   <ul class="cf-counted-tags-list">
-    <%= for {tag_slug, tag_name, forum_slug, short_name, cnt} <- @tags_cnt do %>
+    <%= for {tag_slug, tag_name, cnt} <- @tags_cnt do %>
       <li>
-        <%= link to: tag_path(@conn, :show, forum_slug, %Tag{slug: tag_slug}), class: "cf-tag" do %>
-          <span><%= short_name %>:</span> <%= tag_name %>
-        <% end %>
-        <span class="cnt"><%= Number.Delimit.number_to_delimited(cnt, precision: 0) %></span></li>
+        <%= link tag_name, to: tag_path(@conn, :show, %Tag{slug: tag_slug}), class: "cf-tag" %>
+        <span class="cnt"><%= Number.Delimit.number_to_delimited(cnt, precision: 0) %></span>
       </li>
     <% end %>
   </ul>
