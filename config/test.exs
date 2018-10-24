@@ -28,7 +28,10 @@ config :cforum,
   base_url: "http://localhost:4000/",
   environment: Mix.env(),
   search_dict: "german",
+  uploads_dir: "/home/ckruse/sites/cforum_elixir/priv/uploads",
   media_dir: "/home/ckruse/sites/cforum_elixir/priv/uploads/pictures",
+  avatar_dir: "/home/ckruse/sites/cforum_elixir/priv/uploads/users/avatars",
+  avatar_url: "/uploads/users/avatars",
   cfmarkdown: [
     cli: "./node_modules/.bin/babel-node ./bin/cfmarkdown2html.js",
     pwd: "/home/ckruse/dev/cfmarkdown"
