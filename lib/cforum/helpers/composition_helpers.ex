@@ -95,7 +95,7 @@ defmodule Cforum.Helpers.CompositionHelpers do
   - `subject` the subject to inspect and prepend to
   - `prefix` the prefix to prepend
   """
-  @spec subject_from_parent(Sttring.t(), String.t()) :: String.t()
+  @spec subject_from_parent(String.t(), String.t()) :: String.t()
   def subject_from_parent(subject, prefix) do
     if String.starts_with?(subject, prefix),
       do: subject,
