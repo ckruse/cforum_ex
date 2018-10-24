@@ -1,20 +1,22 @@
 defmodule CforumWeb.Views.Helpers.Path do
   @moduledoc "Contains all path helpers"
 
-  alias Cforum.Forums.Message
-  alias Cforum.Forums.Thread
-  alias Cforum.Forums.Forum
+  alias Cforum.Accounts.PrivMessage
+
+  alias Cforum.Forums.{Forum, Thread, Message}
   alias Cforum.Forums.{Tag, TagSynonym}
   alias Cforum.Forums.CloseVote
 
   import CforumWeb.Router.Helpers
 
+  @spec forum_slug(%Forum{} | nil | String.t(), boolean()) :: String.t() | nil
   def forum_slug(forum, with_all \\ true)
   def forum_slug(nil, true), do: "all"
   def forum_slug(nil, _), do: nil
   def forum_slug(%Forum{} = forum, _), do: forum.slug
   def forum_slug(slug, _), do: slug
 
+  @spec forum_path(Plug.Conn.t(), atom(), String.t() | %Forum{} | nil, []) :: String.t()
   def forum_path(conn, action, slug, params \\ [])
 
   def forum_path(conn, :index, slug, params),
@@ -32,6 +34,7 @@ defmodule CforumWeb.Views.Helpers.Path do
   def forum_path(conn, :unanswered, slug, params),
     do: "#{root_path(conn, :index)}#{forum_slug(slug)}/unanswered#{encode_query_string(params)}"
 
+  @spec forum_url(Plug.Conn.t(), atom(), String.t() | %Forum{} | nil, []) :: String.t()
   def forum_url(conn, action, slug, params \\ [])
 
   def forum_url(conn, :index, slug, params),
@@ -49,6 +52,16 @@ defmodule CforumWeb.Views.Helpers.Path do
   def forum_url(conn, :unanswered, slug, params),
     do: "#{root_url(conn, :index)}#{forum_slug(slug)}/unanswered#{encode_query_string(params)}"
 
+  @spec archive_path(
+          Plug.Conn.t(),
+          atom(),
+          %Forum{},
+          []
+          | tuple()
+          | DateTime.t()
+          | Date.t(),
+          []
+        ) :: String.t()
   def archive_path(conn, action, forum, year_or_params \\ [], params \\ [])
 
   def archive_path(conn, :years, forum, params, _),
@@ -117,6 +130,7 @@ defmodule CforumWeb.Views.Helpers.Path do
   - `resource` - the thread to generate the path to, the forum or `"/all"` (for :new)
   - `params` - an optional query string as a dict
   """
+  @spec thread_path(Plug.Conn.t(), atom(), %Thread{} | %Forum{} | String.t(), []) :: String.t()
   def thread_path(conn, action, resource, params \\ [])
 
   def thread_path(conn, :show, %Thread{} = thread, params) do
@@ -134,13 +148,15 @@ defmodule CforumWeb.Views.Helpers.Path do
     "#{root}/feeds/atom/#{thread.thread_id}#{encode_query_string(params)}"
   end
 
-  def thread_path(conn, :new, %Forum{} = forum, params), do: thread_path(conn, :new, forum_slug(forum), params)
+  def thread_path(conn, :new, %Forum{} = forum, params),
+    do: thread_path(conn, :new, forum_slug(forum), params)
 
   def thread_path(conn, :new, forum, params) do
     root = forum_path(conn, :index, forum)
     "#{root}/new#{encode_query_string(params)}"
   end
 
+  @spec thread_url(Plug.Conn.t(), :show, %Thread{}, []) :: String.t()
   def thread_url(conn, action, resource, params \\ [])
 
   def thread_url(conn, :show, %Thread{} = thread, params) do
@@ -154,7 +170,8 @@ defmodule CforumWeb.Views.Helpers.Path do
   defp to_param(true), do: "true"
   defp to_param(data), do: Phoenix.Param.to_param(data)
 
-  def encode_query_string([]), do: ""
+  @spec encode_query_string([] | %{}) :: String.t()
+  def encode_query_string(query) when query == [] or query == %{}, do: ""
 
   def encode_query_string(query) do
     query = Enum.filter(query, fn {k, v} -> k != nil && v != nil end)
@@ -168,7 +185,7 @@ defmodule CforumWeb.Views.Helpers.Path do
   defp int_message_path(conn, thread, message, params \\ []),
     do: "#{thread_path(conn, :show, thread)}/#{message.message_id}#{encode_query_string(params)}"
 
-  defp int_message_url(conn, thread, message, params \\ []),
+  defp int_message_url(conn, thread, message, params),
     do: "#{thread_url(conn, :show, thread)}/#{message.message_id}#{encode_query_string(params)}"
 
   @doc """
@@ -183,6 +200,7 @@ defmodule CforumWeb.Views.Helpers.Path do
   - `action` - the action for the path, defaults to `:show`
   - `params` - an optional query string as a dict
   """
+  @spec message_path(Plug.Conn.t(), atom(), %Thread{}, %Message{}, []) :: String.t()
   def message_path(conn, action, thread, message, params \\ [])
 
   def message_path(conn, :show, %Thread{} = thread, %Message{} = msg, params),
@@ -194,53 +212,69 @@ defmodule CforumWeb.Views.Helpers.Path do
   def message_path(conn, :edit, %Thread{} = thread, %Message{} = msg, params),
     do: "#{int_message_path(conn, thread, msg)}/edit#{encode_query_string(params)}"
 
+  @spec message_url(Plug.Conn.t(), atom(), %Thread{}, %Message{}, []) :: String.t()
   def message_url(conn, action, thread, message, params \\ [])
 
   def message_url(conn, :show, %Thread{} = thread, %Message{} = msg, params),
     do: "#{int_message_url(conn, thread, msg, params)}#m#{msg.message_id}"
 
+  @spec retag_message_path(Plug.Conn.t(), %Thread{}, %Message{}, []) :: String.t()
   def retag_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/retag#{encode_query_string(params)}"
 
+  @spec flag_message_path(Plug.Conn.t(), %Thread{}, %Message{}, []) :: String.t()
   def flag_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/flag#{encode_query_string(params)}"
 
+  @spec subscribe_message_path(Plug.Conn.t(), %Thread{}, %Message{}, []) :: String.t()
   def subscribe_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/subscribe#{encode_query_string(params)}"
 
+  @spec unsubscribe_message_path(Plug.Conn.t(), %Thread{}, %Message{}, []) :: String.t()
   def unsubscribe_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/unsubscribe#{encode_query_string(params)}"
 
+  @spec interesting_message_path(Plug.Conn.t(), %Thread{}, %Message{}, []) :: String.t()
   def interesting_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/interesting#{encode_query_string(params)}"
 
+  @spec boring_message_path(Plug.Conn.t(), %Thread{}, %Message{}, []) :: String.t()
   def boring_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/boring#{encode_query_string(params)}"
 
+  @spec upvote_message_path(Plug.Conn.t(), %Thread{}, %Message{}, []) :: String.t()
   def upvote_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/upvote#{encode_query_string(params)}"
 
+  @spec downvote_message_path(Plug.Conn.t(), %Thread{}, %Message{}, []) :: String.t()
   def downvote_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/downvote#{encode_query_string(params)}"
 
+  @spec accept_message_path(Plug.Conn.t(), %Thread{}, %Message{}, []) :: String.t()
   def accept_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/accept#{encode_query_string(params)}"
 
+  @spec unaccept_message_path(Plug.Conn.t(), %Thread{}, %Message{}, []) :: String.t()
   def unaccept_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/unaccept#{encode_query_string(params)}"
 
+  @spec close_vote_path(Plug.Conn.t(), %Thread{}, %Message{}, []) :: String.t()
   def close_vote_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/close-vote#{encode_query_string(params)}"
 
+  @spec open_vote_path(Plug.Conn.t(), %Thread{}, %Message{}, []) :: String.t()
   def open_vote_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/open-vote#{encode_query_string(params)}"
 
+  @spec oc_vote_path(Plug.Conn.t(), %Thread{}, %Message{}, %CloseVote{}, []) :: String.t()
   def oc_vote_path(conn, %Thread{} = thread, %Message{} = message, %CloseVote{} = vote, params \\ []),
     do: "#{int_message_path(conn, thread, message)}/oc-vote/#{vote.close_vote_id}#{encode_query_string(params)}"
 
+  @spec mark_read_path(Plug.Conn.t(), :mark_read, %Thread{}, []) :: String.t()
   def mark_read_path(conn, :mark_read, %Thread{} = thread, params \\ []),
     do: "#{thread_path(conn, :show, thread)}/mark-read#{encode_query_string(params)}"
 
+  @spec invisible_thread_path(Plug.Conn.t(), atom(), %Thread{} | nil, []) :: String.t()
   def invisible_thread_path(conn, action, thread \\ nil, params \\ [])
 
   def invisible_thread_path(conn, :hide, %Thread{} = thread, params),
@@ -252,12 +286,15 @@ defmodule CforumWeb.Views.Helpers.Path do
   def invisible_thread_path(conn, :index, nil, params),
     do: "#{root_path(conn, :index)}invisible#{encode_query_string(params)}"
 
+  @spec open_thread_path(Plug.Conn.t(), %Thread{}, []) :: String.t()
   def open_thread_path(conn, %Thread{} = thread, params \\ []),
     do: "#{thread_path(conn, :show, thread)}/open#{encode_query_string(params)}"
 
+  @spec close_thread_path(Plug.Conn.t(), %Thread{}, []) :: String.t()
   def close_thread_path(conn, %Thread{} = thread, params \\ []),
     do: "#{thread_path(conn, :show, thread)}/close#{encode_query_string(params)}"
 
+  @spec mail_thread_path(Plug.Conn.t(), :show, %PrivMessage{}, []) :: String.t()
   def mail_thread_path(conn, :show, pm, params \\ []),
     do: "#{root_path(conn, :index)}mails/#{pm.thread_id}#{encode_query_string(params)}#pm#{pm.priv_message_id}"
 end
