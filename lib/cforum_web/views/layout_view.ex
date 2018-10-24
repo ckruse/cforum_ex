@@ -171,12 +171,12 @@ defmodule CforumWeb.LayoutView do
   defp new_messages(str, "yes", assigns), do: "#{str}/#{assigns[:unread_messages]}"
 
   def view_all_link(conn) do
-    view_all = if conn.assigns[:view_all], do: nil, else: "yes"
+    opts = if conn.assigns[:view_all], do: [], else: [view_all: "yes"]
 
     path =
       if present?(conn.assigns[:message]),
-        do: message_path(conn, :show, conn.assigns[:thread], conn.assigns[:message], view_all: view_all),
-        else: forum_path(conn, :index, conn.assigns[:current_forum], view_all: view_all)
+        do: message_path(conn, :show, conn.assigns[:thread], conn.assigns[:message], opts),
+        else: forum_path(conn, :index, conn.assigns[:current_forum], opts)
 
     if conn.assigns[:view_all],
       do: link(gettext("normal view"), to: path),
