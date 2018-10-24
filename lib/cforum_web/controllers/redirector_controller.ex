@@ -4,7 +4,7 @@ defmodule CforumWeb.RedirectorController do
   alias Cforum.Forums.{Threads, Messages}
 
   def redirect_to_archive(conn, _params) do
-    redirect(conn, to: archive_path(conn, :years, conn.assigns[:current_forum] || "all"))
+    redirect(conn, to: archive_path(conn, :years, conn.assigns[:current_forum]))
   end
 
   def redirect_to_year(conn, %{"year" => year}) do
@@ -18,7 +18,8 @@ defmodule CforumWeb.RedirectorController do
     else
       conn
       |> put_status(:not_found)
-      |> render(CforumWeb.ErrorView, "404.html", error: "Year is invalid")
+      |> put_view(CforumWeb.ErrorView)
+      |> render("404.html", error: "Year is invalid")
     end
   end
 
@@ -55,7 +56,8 @@ defmodule CforumWeb.RedirectorController do
     else
       conn
       |> put_status(:not_found)
-      |> render(CforumWeb.ErrorView, "404.html", error: "Year or month is invalid")
+      |> put_view(CforumWeb.ErrorView)
+      |> render("404.html", error: "Year or month is invalid")
     end
   end
 
