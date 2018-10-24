@@ -15,30 +15,26 @@ defmodule Cforum.Search.Query do
   @typep term_type :: :include | :exclude | nil
 
   @spec parse(String.t()) :: %Query{}
-  def parse(search_string) do
-    {nil, query} = parse_search_terms(skip_whitespaces(search_string))
-    query
-  end
+  def parse(search_string), do: parse_search_terms(skip_whitespaces(search_string))
 
-  @spec parse_search_terms(String.t() | nil, %Query{}, section(), term_type()) :: {String.t() | nil, %Query{}}
+  @spec parse_search_terms(String.t() | nil, %Query{}, section(), term_type()) :: %Query{}
   defp parse_search_terms(search_string, query \\ %Query{}, current \\ :all, current_type \\ nil)
-  defp parse_search_terms("", query, _current, _current_type), do: {nil, query}
-  defp parse_search_terms(nil, query, _current, _current_type), do: {nil, query}
+  defp parse_search_terms("", query, _current, _current_type), do: query
 
   defp parse_search_terms("-" <> rest, query, current, _), do: parse_search_terms(rest, query, current, :exclude)
   defp parse_search_terms("+" <> rest, query, current, _), do: parse_search_terms(rest, query, current, :include)
 
-  defp parse_search_terms("author:" <> rest, query, current, current_type),
-    do: continue_parse_search_terms(rest, query, :author, current_type, current)
+  defp parse_search_terms("author:" <> rest, query, _current, current_type),
+    do: parse_search_terms(skip_whitespaces(rest), query, :author, current_type)
 
-  defp parse_search_terms("title:" <> rest, query, current, current_type),
-    do: continue_parse_search_terms(rest, query, :title, current_type, current)
+  defp parse_search_terms("title:" <> rest, query, _current, current_type),
+    do: parse_search_terms(skip_whitespaces(rest), query, :title, current_type)
 
-  defp parse_search_terms("body:" <> rest, query, current, current_type),
-    do: continue_parse_search_terms(rest, query, :content, current_type, current)
+  defp parse_search_terms("body:" <> rest, query, _current, current_type),
+    do: parse_search_terms(skip_whitespaces(rest), query, :content, current_type)
 
-  defp parse_search_terms("tag:" <> rest, query, current, current_type),
-    do: continue_parse_search_terms(rest, query, :tags, current_type, current)
+  defp parse_search_terms("tag:" <> rest, query, _current, current_type),
+    do: parse_search_terms(skip_whitespaces(rest), query, :tags, current_type)
 
   defp parse_search_terms("\"" <> rest, query, current, current_type) do
     {rest, str} = read_string(rest)
@@ -52,18 +48,8 @@ defmodule Cforum.Search.Query do
         parse_search_terms(skip_whitespaces(rest), set_search_term(query, word, current, current_type), :all)
 
       _ ->
-        {nil, query}
+        query
     end
-  end
-
-  @spec continue_parse_search_terms(String.t() | nil, %Query{}, section(), term_type(), section()) ::
-          {String.t() | nil, %Query{}}
-  defp continue_parse_search_terms(rest, query, current_section, current_type, last_section) do
-    {rest, query} = parse_search_terms(skip_whitespaces(rest), query, current_section, current_type)
-
-    if is_nil(rest),
-      do: {nil, query},
-      else: parse_search_terms(skip_whitespaces(rest), query, last_section)
   end
 
   @spec skip_whitespaces(String.t()) :: String.t()
