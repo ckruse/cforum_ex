@@ -12,7 +12,8 @@ defmodule Cforum.Mixfile do
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      dialyzer: [plt_add_deps: :transitive, ignore_warnings: ".dialyzer_ignore.exs"]
     ]
   end
 
@@ -62,7 +63,8 @@ defmodule Cforum.Mixfile do
       {:excoveralls, "~> 0.8", only: :test},
       {:ex_machina, "~> 2.1", only: :test},
       {:faker, "~> 0.9", only: :test},
-      {:credo, "~> 0.8", only: [:dev, :test], runtime: false}
+      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.0.0-rc.3", only: [:dev], runtime: false}
     ]
   end
 
