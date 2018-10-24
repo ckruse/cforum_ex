@@ -3,7 +3,6 @@ defmodule CforumWeb.MessageController do
 
   alias Cforum.Forums.Messages
   alias Cforum.Forums.Threads
-  alias Cforum.Accounts.Badge
 
   def show(conn, params) do
     # parameter overwrites cookie overwrites config; validation
