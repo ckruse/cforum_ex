@@ -258,7 +258,7 @@ defmodule Cforum.Cites do
     iex> voted?(%Cite{}, %User{}, :up)
     true
   """
-  @spec voted?(%Cite{}, %Cforum.Accounts.User{}, :up | :down) :: boolean()
+  @spec voted?(%Cite{}, %Cforum.Accounts.User{}, :up | :down | String.t()) :: boolean()
   def voted?(cite, user, type) when not is_nil(user) and type in [:up, :down],
     do: Enum.find(cite.votes, fn vote -> vote.user_id == user.user_id && vote.vote_type == Vote.vtype(type) end) != nil
 
