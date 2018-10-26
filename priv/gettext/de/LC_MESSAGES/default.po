@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2018-10-26 15:42+0200\n"
+"PO-Revision-Date: 2018-10-26 16:41+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1305,7 +1305,7 @@ msgstr "Benutzer-Informationen"
 msgid "new answer to %{name}"
 msgstr "Antwort an „%{name}“ verfassen"
 
-#: lib/cforum_web/controllers/message_controller.ex:69
+#: lib/cforum_web/controllers/message_controller.ex:71
 msgid "Message created successfully."
 msgstr "Nachricht erfolgreich gespeichert."
 
@@ -1313,7 +1313,7 @@ msgstr "Nachricht erfolgreich gespeichert."
 msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">documentation</a>"
 msgstr "SELFHTML Forum - Ergänzung zur <a href=\"https://wiki.selfhtml.org\">Dokumentation</a>"
 
-#: lib/cforum_web/controllers/message_controller.ex:39
+#: lib/cforum_web/controllers/message_controller.ex:41
 #: lib/cforum_web/controllers/thread_controller.ex:113
 msgid "all"
 msgstr "alle"
@@ -4023,19 +4023,24 @@ msgstr "Benachrichtige mich via Email über Aktivität bei einem abonnierten Bei
 #, elixir-format
 #: lib/cforum/forums/notify_users_message_job.ex:35
 msgid "%{nick} wrote a new message: %{subject}"
-msgstr "%{nick} hat einen neuen Beitrag geschrieben: %{subject}"
+msgstr "%{nick} hat einen neuen Beitrag geschrieben: „%{subject}“"
 
 #, elixir-format
 #: lib/cforum/forums/notify_users_message_job.ex:30
 msgid "%{nick} wrote a reply to your message: %{subject}"
-msgstr "%{nick} hat auf Ihren Beitrag geantwortet: %{subject}"
+msgstr "%{nick} hat auf Ihren Beitrag geantwortet: „%{subject}“"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/views/tag_view.ex:8
 msgid "tag “%{tag}”"
 msgstr "Tag „%{tag}“"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/views/tag_view.ex:5
 msgid "tags list"
 msgstr "Tags"
+
+#, elixir-format
+#: lib/cforum/forums/notify_users_message_job.ex:73
+msgid "new thread by %{nick}: %{subject}"
+msgstr "neuer Thread von %{nick}: „%{subject}“"
