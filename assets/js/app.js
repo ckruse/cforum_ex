@@ -27,9 +27,9 @@ import "./alerts";
 // import "./modules/tabs.js";
 import "./modules/datetime-polyfill";
 import "./modules/confirmation";
+import "./modules/show-password";
 import "./components/autolist";
 import "./components/dropdown";
-import "./modules/show-password";
 import "./components/taglist";
 import "./components/user-selector";
 
