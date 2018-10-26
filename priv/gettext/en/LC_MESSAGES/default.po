@@ -1289,7 +1289,7 @@ msgstr ""
 msgid "new answer to %{name}"
 msgstr ""
 
-#: lib/cforum_web/controllers/message_controller.ex:69
+#: lib/cforum_web/controllers/message_controller.ex:71
 msgid "Message created successfully."
 msgstr ""
 
@@ -1297,7 +1297,7 @@ msgstr ""
 msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">documentation</a>"
 msgstr ""
 
-#: lib/cforum_web/controllers/message_controller.ex:39
+#: lib/cforum_web/controllers/message_controller.ex:41
 #: lib/cforum_web/controllers/thread_controller.ex:113
 msgid "all"
 msgstr ""
@@ -4008,12 +4008,17 @@ msgstr ""
 msgid "%{nick} wrote a reply to your message: %{subject}"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/views/tag_view.ex:8
 msgid "tag “%{tag}”"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/views/tag_view.ex:5
 msgid "tags list"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum/forums/notify_users_message_job.ex:73
+msgid "new thread by %{nick}: %{subject}"
 msgstr ""
