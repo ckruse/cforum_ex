@@ -141,7 +141,8 @@ defmodule CforumWeb.ThreadController do
         conn.assigns[:current_user],
         conn.assigns[:current_forum],
         conn.assigns[:visible_forums],
-        create_tags: may?(conn, "tag", :new)
+        create_tags: may?(conn, "tag", :new),
+        autosubscribe: Messages.autosubscribe?(conn.assigns.current_user, uconf(conn, "autosubscribe_on_post"))
       )
 
     case create_val do

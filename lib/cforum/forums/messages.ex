@@ -443,7 +443,9 @@ defmodule Cforum.Forums.Messages do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_message(attrs, user, visible_forums, thread, parent \\ nil, opts \\ [create_tags: false]) do
+  def create_message(attrs, user, visible_forums, thread, parent \\ nil, opts \\ []) do
+    opts = Keyword.merge([create_tags: false, autosubscribe: false], opts)
+
     System.audited("create", user, fn ->
       changeset =
         %Message{}
@@ -459,6 +461,7 @@ defmodule Cforum.Forums.Messages do
           {:error, Ecto.Changeset.add_error(changeset, :author, "already taken")}
       end
     end)
+    |> maybe_autosubscribe(opts[:autosubscribe], user, thread, parent)
   end
 
   defp may_user_post_with_name?(_, nil), do: true
@@ -479,6 +482,31 @@ defmodule Cforum.Forums.Messages do
     if String.downcase(user.username) == clean_name,
       do: true,
       else: may_user_post_with_name?(nil, name)
+  end
+
+  defp maybe_autosubscribe({:error, changeset}, _, _, _, _), do: {:error, changeset}
+  defp maybe_autosubscribe(val, false, _, _, _), do: val
+
+  defp maybe_autosubscribe({:ok, message}, subtype, user, thread, parent) do
+    cond do
+      parent_subscribed?(thread, message) ->
+        :ignore
+
+      subtype == "yes" && parent ->
+        subscribe_message(user, parent)
+
+      # subscribe own message on new threads
+      subtype == "own" || is_nil(message.parent_id) ->
+        subscribe_message(user, message)
+
+      subtype == "root" ->
+        subscribe_message(user, thread.message)
+
+      true ->
+        :ignore
+    end
+
+    {:ok, message}
   end
 
   @doc """
@@ -1182,4 +1210,8 @@ defmodule Cforum.Forums.Messages do
       true -> false
     end
   end
+
+  def autosubscribe?(user, config_value)
+  def autosubscribe?(user, val) when is_nil(user) or val == "no", do: false
+  def autosubscribe?(_, val), do: val
 end
