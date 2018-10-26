@@ -13,10 +13,10 @@ defmodule Cforum.Forums.Messages do
   alias Cforum.Forums.Tag
   alias Cforum.Forums.MessageTag
   alias Cforum.Forums.Vote
-  alias Cforum.Accounts.Scores
 
+  alias Cforum.Accounts.{Scores, Score}
   alias Cforum.Accounts.User
-  alias Cforum.Accounts.Score
+  alias Cforum.Accounts.Notifications
 
   alias Cforum.System
 
@@ -517,6 +517,15 @@ defmodule Cforum.Forums.Messages do
   def maybe_notify_users({:ok, message}, thread) do
     Cforum.Forums.NotifyUsersMessageJob.notify_users_about_new_message(thread, message)
     {:ok, message}
+  end
+
+  def unnotify_user(user, message) when is_nil(user) or is_nil(message), do: nil
+
+  def unnotify_user(user, message) do
+    Notifications.delete_notification_for_object(user, message.message_id, [
+      "message:create-answer",
+      "message:create-activity"
+    ])
   end
 
   @doc """

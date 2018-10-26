@@ -107,6 +107,13 @@ defmodule Cforum.Accounts.Notifications do
     |> Repo.update()
   end
 
+  def delete_notification_for_object(user, oid, type) do
+    from(notification in Notification,
+      where: notification.recipient_id == ^user.user_id and notification.oid == ^oid and notification.otype in ^type
+    )
+    |> Repo.delete_all()
+  end
+
   @doc """
   Deletes a Notification.
 
