@@ -142,7 +142,7 @@ defmodule Cforum.Accounts.Notifications do
   end
 
   def notify_user(%Notification{} = notification) do
-    Task.async(fn ->
+    Task.start(fn ->
       notification = Repo.preload(notification, [:recipient])
       unread_notifications = count_notifications(notification.recipient, true)
 
