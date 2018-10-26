@@ -57,7 +57,11 @@ defmodule CforumWeb.MessageController do
     cu = conn.assigns[:current_user]
     vis_forums = conn.assigns.visible_forums
     parent = conn.assigns.parent
-    opts = [create_tags: may?(conn, "tag", :new)]
+
+    opts = [
+      create_tags: may?(conn, "tag", :new),
+      autosubscribe: Messages.autosubscribe?(cu, uconf(conn, "autosubscribe_on_post"))
+    ]
 
     case Messages.create_message(params, cu, vis_forums, thread, parent, opts) do
       {:ok, message} ->
