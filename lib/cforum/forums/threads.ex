@@ -424,6 +424,7 @@ defmodule Cforum.Forums.Threads do
       _ ->
         retval
     end
+    |> maybe_notify_users()
   end
 
   defp create_message(attrs, user, visible_forums, thread, opts \\ [create_tags: false]) do
@@ -435,6 +436,13 @@ defmodule Cforum.Forums.Threads do
         Repo.rollback(changeset)
     end
   end
+
+  def maybe_notify_users({:ok, thread, message}) do
+    Cforum.Forums.NotifyUsersMessageJob.notify_users_about_new_thread(thread, message)
+    {:ok, thread, message}
+  end
+
+  def maybe_notify_users(val), do: val
 
   @doc """
   Updates a thread.

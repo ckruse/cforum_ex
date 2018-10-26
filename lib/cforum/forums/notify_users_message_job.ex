@@ -3,7 +3,7 @@ defmodule Cforum.Forums.NotifyUsersMessageJob do
 
   alias Cforum.Forums.{Thread, Message}
   alias Cforum.Forums.Messages
-  alias Cforum.Accounts.{Settings, Notifications}
+  alias Cforum.Accounts.{Settings, Notifications, Users}
   alias CforumWeb.Views.Helpers.Path
 
   @spec notify_users_about_new_message(%Thread{}, %Message{}) :: any()
@@ -14,6 +14,7 @@ defmodule Cforum.Forums.NotifyUsersMessageJob do
       |> Enum.reduce(%{}, fn sub, acc -> Map.put(acc, sub.user_id, sub.user) end)
       |> Map.values()
       |> Enum.reject(fn user -> user.user_id == message.user_id end)
+      |> Enum.filter(fn user -> may_view?(user, thread, message) end)
       |> Enum.each(fn user -> notify_user_message(user, thread, message) end)
     end)
   end
@@ -57,5 +58,33 @@ defmodule Cforum.Forums.NotifyUsersMessageJob do
   defp parent_messages(thread, message, acc) do
     parent = Messages.parent_message(thread, message)
     parent_messages(thread, parent, [parent | acc])
+  end
+
+  def notify_users_about_new_thread(thread, message) do
+    Task.start(fn ->
+      Users.list_users_by_config_option("notify_on_new_thread", "yes")
+      |> Enum.reject(fn user -> user.user_id == message.user_id end)
+      |> Enum.filter(fn user -> may_view?(user, thread, message) end)
+      |> Enum.each(fn user -> notify_user_thread(user, thread, message) end)
+    end)
+  end
+
+  defp notify_user_thread(user, thread, message) do
+    Notifications.create_notification(%{
+      recipient_id: user.user_id,
+      subject: gettext("new thread by %{nick}: %{subject}", nick: message.author, subject: message.subject),
+      oid: message.message_id,
+      otype: "message:create-answer",
+      path: Path.message_path(CforumWeb.Endpoint, :show, thread, message)
+    })
+  end
+
+  defp may_view?(user, thread, message) do
+    Cforum.Abilities.may?(
+      %Plug.Conn{assigns: %{current_user: user, current_forum: thread.forum}},
+      CforumWeb.MessageController,
+      :show,
+      {thread, message}
+    )
   end
 end
