@@ -68,6 +68,15 @@ defmodule Cforum.Accounts.Settings do
     |> Repo.one()
   end
 
+  @spec get_setting_for_user(%User{}) :: %Setting{} | nil
+  def get_setting_for_user(%User{} = user) do
+    from(
+      setting in Setting,
+      where: setting.user_id == ^user.user_id
+    )
+    |> Repo.one()
+  end
+
   @doc """
   Gets the global setting object.
 
