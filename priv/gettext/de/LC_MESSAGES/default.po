@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2018-10-09 10:43+0200\n"
+"PO-Revision-Date: 2018-10-26 15:42+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -253,6 +253,7 @@ msgstr "Einstellungen"
 #: lib/cforum_web/templates/cite/form.html.eex:2
 #: lib/cforum_web/templates/events/attendee/form.html.eex:3
 #: lib/cforum_web/templates/mail/new.html.eex:2
+#: lib/cforum_web/templates/message/edit.html.eex:2
 #: lib/cforum_web/templates/message/new.html.eex:2
 #: lib/cforum_web/templates/messages/flag/new.html.eex:3
 #: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:3
@@ -369,11 +370,11 @@ msgstr "alle Beiträge von Benutzer „%{username}“"
 msgid "All scores for user %{username}"
 msgstr "alle Punkte für Benutzer „%{username}“"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:157
+#: lib/cforum_web/templates/users/user/show.html.eex:155
 msgid "Badges"
 msgstr "Medaillen"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:102
+#: lib/cforum_web/templates/users/user/show.html.eex:100
 msgid "Best scored messages"
 msgstr "am besten bewertete Beiträge"
 
@@ -393,15 +394,15 @@ msgstr "Jabber-ID"
 msgid "Message closed, answering not allowed"
 msgstr "Dieser Beitrag ist gesperrt, antworten ist nicht erlaubt."
 
-#: lib/cforum_web/templates/users/user/show.html.eex:88
+#: lib/cforum_web/templates/users/user/show.html.eex:86
 msgid "Newest messages"
 msgstr "neueste Beiträge"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:91
+#: lib/cforum_web/templates/users/user/show.html.eex:89
 msgid "No messages so far"
 msgstr "bisher keine Beiträge"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:105
+#: lib/cforum_web/templates/users/user/show.html.eex:103
 msgid "No scored messages so far"
 msgstr "bisher keine bewerteten Beiträge"
 
@@ -409,7 +410,7 @@ msgstr "bisher keine bewerteten Beiträge"
 msgid "Number of messages"
 msgstr "Beiträge"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:115
+#: lib/cforum_web/templates/users/user/show.html.eex:113
 msgid "Own votings"
 msgstr "Bewertungsverlauf"
 
@@ -433,7 +434,7 @@ msgstr "Twitter-Handle"
 msgid "User %{username}"
 msgstr "Benutzer %{username}"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:82
+#: lib/cforum_web/templates/users/user/show.html.eex:80
 msgid "User activity"
 msgstr "Benutzer-Aktivität"
 
@@ -442,19 +443,19 @@ msgstr "Benutzer-Aktivität"
 msgid "Users"
 msgstr "Benutzer"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:100
+#: lib/cforum_web/templates/users/user/show.html.eex:98
 msgid "all messages"
 msgstr "alle Beiträge"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:150
+#: lib/cforum_web/templates/users/user/show.html.eex:148
 msgid "all scores"
 msgstr "alle Punkte"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:152
+#: lib/cforum_web/templates/users/user/show.html.eex:150
 msgid "all votes"
 msgstr "alle Bewertungen"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:157
+#: lib/cforum_web/templates/users/user/show.html.eex:155
 msgid "info"
 msgstr "Informationen"
 
@@ -469,7 +470,7 @@ msgstr "Beiträge"
 msgid "no archive"
 msgstr "Dieser Thread wird nicht archiviert."
 
-#: lib/cforum_web/templates/users/user/show.html.eex:160
+#: lib/cforum_web/templates/users/user/show.html.eex:158
 msgid "no badges so far"
 msgstr "bisher keine Medaillen"
 
@@ -477,7 +478,7 @@ msgstr "bisher keine Medaillen"
 msgid "no description given"
 msgstr "Bisher keine Beschreibung angegeben."
 
-#: lib/cforum_web/templates/users/user/show.html.eex:118
+#: lib/cforum_web/templates/users/user/show.html.eex:116
 msgid "no scored messages so far"
 msgstr "bisher keine bewerteten Beiträge"
 
@@ -513,7 +514,7 @@ msgstr[2] "Bewertung: %{score}, %{count} Stimmen"
 msgid "All votes for user %{username}"
 msgstr "alle Bewertungen vom Benutzer „%{username}”"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:115
+#: lib/cforum_web/templates/users/user/show.html.eex:113
 msgid "Received votings"
 msgstr "erhaltene Bewertungen"
 
@@ -563,6 +564,7 @@ msgstr "Avatar"
 #: lib/cforum_web/templates/cite/new.html.eex:6
 #: lib/cforum_web/templates/events/attendee/form.html.eex:71
 #: lib/cforum_web/templates/mail/new.html.eex:16
+#: lib/cforum_web/templates/message/edit.html.eex:17
 #: lib/cforum_web/templates/message/new.html.eex:21
 #: lib/cforum_web/templates/messages/flag/new.html.eex:33
 #: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:34
@@ -851,7 +853,7 @@ msgstr "Sie wurden erfolgreich ausgeloggt"
 #: lib/cforum_web/templates/users/password/edit.html.eex:16
 #: lib/cforum_web/templates/users/password/edit_reset.html.eex:16
 #: lib/cforum_web/templates/users/user/edit.html.eex:7
-#: lib/cforum_web/templates/users/user/show.html.eex:176
+#: lib/cforum_web/templates/users/user/show.html.eex:174
 msgid "change password"
 msgstr "Passwort ändern"
 
@@ -878,7 +880,7 @@ msgstr "Erstellungszeitpunkt"
 msgid "delete"
 msgstr "löschen"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:175
+#: lib/cforum_web/templates/users/user/show.html.eex:173
 msgid "delete user"
 msgstr "Benutzer löschen"
 
@@ -893,7 +895,7 @@ msgstr "Benutzer löschen"
 msgid "edit"
 msgstr "bearbeiten"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:174
+#: lib/cforum_web/templates/users/user/show.html.eex:172
 msgid "edit profile and settings"
 msgstr "Profil und Einstellungen bearbeiten"
 
@@ -913,7 +915,7 @@ msgstr "schreiben für Angemeldete"
 msgid "mark unread"
 msgstr "ungelesen markieren"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:177
+#: lib/cforum_web/templates/users/user/show.html.eex:175
 msgid "new mail to %{username}"
 msgstr "Neue Mail an %{username}"
 
@@ -1303,7 +1305,7 @@ msgstr "Benutzer-Informationen"
 msgid "new answer to %{name}"
 msgstr "Antwort an „%{name}“ verfassen"
 
-#: lib/cforum_web/controllers/message_controller.ex:64
+#: lib/cforum_web/controllers/message_controller.ex:69
 msgid "Message created successfully."
 msgstr "Nachricht erfolgreich gespeichert."
 
@@ -1325,6 +1327,7 @@ msgstr "Autor"
 msgid "comma separated list, e.g. „css, html“"
 msgstr "Komma-separierte Liste, z.B. “css, html“"
 
+#: lib/cforum_web/templates/message/edit.html.eex:16
 #: lib/cforum_web/templates/message/new.html.eex:20
 #: lib/cforum_web/templates/thread/new.html.eex:28
 msgid "create message"
@@ -1347,6 +1350,7 @@ msgid "replace float:left with a flexbox construct"
 msgstr "z.B. „float:left mit einem Flexbox-Konstrukt ersetzen“"
 
 #: lib/cforum_web/templates/mail/new.html.eex:14
+#: lib/cforum_web/templates/message/edit.html.eex:15
 #: lib/cforum_web/templates/message/new.html.eex:19
 #: lib/cforum_web/templates/thread/new.html.eex:27
 msgid "show preview"
@@ -1413,11 +1417,11 @@ msgstr "Seitenauswahl"
 msgid "previous page"
 msgstr "eine Seite zurück"
 
-#: lib/cforum/forums/message.ex:122 lib/cforum/forums/message.ex:140
+#: lib/cforum/forums/message.ex:128
 msgid "unknown tags given: %{tags}"
 msgstr "Folgende Tags sind unbekannt: %{tags}."
 
-#: lib/cforum_web/controllers/thread_controller.ex:149
+#: lib/cforum_web/controllers/thread_controller.ex:151
 msgid "Thread created successfully."
 msgstr "Thread erfolgreich erstellt."
 
@@ -1822,7 +1826,7 @@ msgid "submitted by"
 msgstr "eingereicht von"
 
 #, elixir-format
-#: lib/cforum_web/controllers/cite/vote_controller.ex:17
+#: lib/cforum_web/controllers/cite/vote_controller.ex:18
 msgid "Successfully voted for cite."
 msgstr "Sie haben erfolgreich über das Zitat abgestimmt."
 
@@ -2568,11 +2572,6 @@ msgid "found multiple threads with this thread id"
 msgstr "Es wurden mehrere Threads mit der gleichen ID gefunden"
 
 #, elixir-format
-#: lib/cforum_web/views/tag_view.ex:10
-msgid "%{forum}: tag “%{tag}”"
-msgstr "%{forum}: Tag „%{tag}“"
-
-#, elixir-format
 #: lib/cforum_web/controllers/tag_controller.ex:90
 msgid "Tag %{old_tag} got successfully merged to tag %{new_tag}"
 msgstr "Das Tag „%{old_tag}“ wurde erfolgreich mit dem Tag „%{new_tag}“ zusammengeführt."
@@ -2613,7 +2612,7 @@ msgid "archive: %{year}"
 msgstr "archivierte Beiträge für %{year}"
 
 #, elixir-format
-#: lib/cforum_web/views/tag_view.ex:15
+#: lib/cforum_web/views/tag_view.ex:13
 msgid "create new tag"
 msgstr "neues Tag erstellen"
 
@@ -2638,7 +2637,7 @@ msgid "edit tag synonym “%{synonym}” for tag “%{tag}”"
 msgstr "Tag-Synonym „%{synonym}“ für Tag „%{tag}“ bearbeiten"
 
 #, elixir-format
-#: lib/cforum_web/views/tag_view.ex:13
+#: lib/cforum_web/views/tag_view.ex:11
 msgid "edit tag “%{tag}”"
 msgstr "Tag „%{tag}“ bearbeiten"
 
@@ -2653,7 +2652,7 @@ msgid "merge tag"
 msgstr "Tag zusammenführen"
 
 #, elixir-format
-#: lib/cforum_web/views/tag_view.ex:18
+#: lib/cforum_web/views/tag_view.ex:16
 msgid "merge tag %{tag}"
 msgstr "Tag „%{tag}“ zusammenführen"
 
@@ -2698,22 +2697,17 @@ msgid "tag name"
 msgstr "Tag-Name"
 
 #, elixir-format
-#: lib/cforum_web/views/tag_view.ex:5
-msgid "tags for forum %{forum}"
-msgstr "Tags für das Forum „%{forum}“"
-
-#, elixir-format
-#: lib/cforum_web/controllers/tags/synonym_controller.ex:19
+#: lib/cforum_web/controllers/tags/synonym_controller.ex:16
 msgid "Tag synonym created successfully."
 msgstr "Das Tag-Synonym wurde erfolgreich erstellt."
 
 #, elixir-format
-#: lib/cforum_web/controllers/tags/synonym_controller.ex:57
+#: lib/cforum_web/controllers/tags/synonym_controller.ex:45
 msgid "Tag synonym deleted successfully."
 msgstr "Das Tag-Synonym wurde erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/tags/synonym_controller.ex:42
+#: lib/cforum_web/controllers/tags/synonym_controller.ex:33
 msgid "Tag synonym updated successfully."
 msgstr "Das Tag-Synonym wurde erfolgreich geändert."
 
@@ -2826,11 +2820,6 @@ msgstr "Status der letzten sieben Tage"
 #: lib/cforum_web/views/forum_view.ex:25
 msgid "state today"
 msgstr "Status heute"
-
-#, elixir-format
-#: lib/cforum_web/views/tag_view.ex:7
-msgid "tags for all forum"
-msgstr "Tags für alle Foren"
 
 #, elixir-format
 #: lib/cforum_web/templates/forum/stats.html.eex:46
@@ -4006,7 +3995,7 @@ msgid "Tag %{no}"
 msgstr "Tag %{no}"
 
 #, elixir-format
-#: lib/cforum/forums/message.ex:149
+#: lib/cforum/forums/message.ex:162
 msgid "is unknown"
 msgstr "ist unbekannt"
 
@@ -4015,7 +4004,7 @@ msgstr "ist unbekannt"
 msgid "A comma separated list of poster names"
 msgstr "Eine Komma-separierte Liste von Autoren-Namen"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/layout/alerts.html.eex:4
 #: lib/cforum_web/templates/layout/alerts.html.eex:13
 msgid "close"
@@ -4026,7 +4015,27 @@ msgstr "schließen"
 msgid "highlighted users"
 msgstr "hervorgehobene Benutzer"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/users/user/notifications.html.eex:33
 msgid "notify me via email on activity in subscribed messages"
 msgstr "Benachrichtige mich via Email über Aktivität bei einem abonnierten Beitrag"
+
+#, elixir-format
+#: lib/cforum/forums/notify_users_message_job.ex:35
+msgid "%{nick} wrote a new message: %{subject}"
+msgstr "%{nick} hat einen neuen Beitrag geschrieben: %{subject}"
+
+#, elixir-format
+#: lib/cforum/forums/notify_users_message_job.ex:30
+msgid "%{nick} wrote a reply to your message: %{subject}"
+msgstr "%{nick} hat auf Ihren Beitrag geantwortet: %{subject}"
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/views/tag_view.ex:8
+msgid "tag “%{tag}”"
+msgstr "Tag „%{tag}“"
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/views/tag_view.ex:5
+msgid "tags list"
+msgstr "Tags"
