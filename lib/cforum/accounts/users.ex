@@ -44,6 +44,14 @@ defmodule Cforum.Accounts.Users do
     from(u in query, where: like(fragment("LOWER(?)", u.username), fragment("LOWER(?)", ^clean_term)))
   end
 
+  def list_users_by_config_option(option, value) do
+    from(user in User,
+      join: setting in assoc(user, :settings),
+      where: fragment("?->>? = ?", setting.options, ^option, ^value)
+    )
+    |> Repo.all()
+  end
+
   def get_users(ids, query_params \\ [order: nil]) do
     from(user in User, where: user.user_id in ^ids)
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
