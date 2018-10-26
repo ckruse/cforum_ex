@@ -62,7 +62,7 @@ document.addEventListener("cf:userPrivate", event => {
   channel.on("new_notification", data => {
     const elem = document.getElementById("notifications-display");
     if (elem) {
-      elem.innerText = `(${data.unread})`;
+      elem.innerText = `${data.unread}`;
       elem.setAttribute("title", t("{count} new notifications"));
     }
 
