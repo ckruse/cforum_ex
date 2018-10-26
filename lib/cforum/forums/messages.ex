@@ -1195,14 +1195,18 @@ defmodule Cforum.Forums.Messages do
       iex> score_str(%Message{upvotes: 2, downvotes: 1})
       "+3"
   """
+  @spec score_str(%Message{}) :: String.t()
   def score_str(msg), do: Cforum.Helpers.score_str(no_votes(msg), score(msg))
 
+  @spec answer?(%Cforum.Forums.Thread{}, %Message{}) :: boolean()
   def answer?(thread, message),
     do: Enum.find(thread.messages, &(&1.parent_id == message.message_id)) != nil
 
+  @spec editable_age?(%Message{}, Timex.shift_options()) :: boolean() | {:error, any()}
   def editable_age?(msg, max_age \\ [minutes: 10]),
     do: Timex.before?(Timex.now(), Timex.shift(msg.created_at, max_age))
 
+  @spec owner?(Plug.Conn.t(), %Message{}) :: boolean()
   def owner?(conn, message) do
     cond do
       conn.assigns[:current_user] && conn.assigns[:current_user].user_id == message.user_id -> true
