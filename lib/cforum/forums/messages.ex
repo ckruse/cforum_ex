@@ -461,6 +461,7 @@ defmodule Cforum.Forums.Messages do
           {:error, Ecto.Changeset.add_error(changeset, :author, "already taken")}
       end
     end)
+    |> maybe_notify_users(thread)
     |> maybe_autosubscribe(opts[:autosubscribe], user, thread, parent)
   end
 
@@ -506,6 +507,15 @@ defmodule Cforum.Forums.Messages do
         :ignore
     end
 
+    {:ok, message}
+  end
+
+  def maybe_notify_users({:error, changeset}, _), do: {:error, changeset}
+  # Don't notify users on new threads
+  def maybe_notify_users({:ok, %Message{parent_id: nil} = message}, _), do: {:ok, message}
+
+  def maybe_notify_users({:ok, message}, thread) do
+    Cforum.Forums.NotifyUsersMessageJob.notify_users_about_new_message(thread, message)
     {:ok, message}
   end
 
@@ -795,6 +805,15 @@ defmodule Cforum.Forums.Messages do
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
     |> Repo.all()
+  end
+
+  @spec list_subscriptions_for_messages([%Message{}]) :: [%Subscription{}]
+  def list_subscriptions_for_messages(messages) do
+    mids = Enum.map(messages, & &1.message_id)
+
+    from(s in Subscription, where: s.message_id in ^mids)
+    |> Repo.all()
+    |> Repo.preload([:user])
   end
 
   @doc """
