@@ -200,7 +200,7 @@ defmodule CforumWeb.Views.Helpers.Path do
   - `action` - the action for the path, defaults to `:show`
   - `params` - an optional query string as a dict
   """
-  @spec message_path(Plug.Conn.t(), atom(), %Thread{}, %Message{}, keyword() | map()) :: String.t()
+  @spec message_path(Plug.Conn.t() | module(), atom(), %Thread{}, %Message{}, keyword() | map()) :: String.t()
   def message_path(conn, action, thread, message, params \\ [])
 
   def message_path(conn, :show, %Thread{} = thread, %Message{} = msg, params),
