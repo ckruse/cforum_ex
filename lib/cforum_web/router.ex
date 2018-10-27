@@ -2,7 +2,7 @@ defmodule CforumWeb.Router do
   use CforumWeb, :router
 
   # email preview
-  if Mix.env() == :dev, do: forward("/sent_emails", Bamboo.EmailPreviewPlug)
+  if Mix.env() == :dev, do: forward("/sent_emails", Bamboo.SentEmailViewerPlug)
 
   pipeline :browser do
     plug(:accepts, ["html"])

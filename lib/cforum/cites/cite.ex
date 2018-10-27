@@ -11,7 +11,7 @@ defmodule Cforum.Cites.Cite do
     field(:archived, :boolean, default: false)
     field(:author, :string)
     field(:cite, :string)
-    field(:cite_date, :naive_datetime)
+    field(:cite_date, Timex.Ecto.DateTime)
     field(:creator, :string)
     field(:old_id, :integer)
     field(:url, :string)

@@ -45,8 +45,8 @@ defmodule Cforum.Mixfile do
       {:comeonin, "~> 4.0"},
       {:bcrypt_elixir, "~> 0.12"},
       {:number, "~> 0.5.1"},
-      {:bamboo, "~> 0.8"},
-      {:bamboo_smtp, "~> 1.4.0"},
+      {:bamboo, "~> 1.1"},
+      {:bamboo_smtp, "~> 1.6.0"},
       {:timex, "~> 3.1"},
       {:timex_ecto, "~> 3.2"},
       {:arc_ecto, "~> 0.7"},
@@ -59,7 +59,6 @@ defmodule Cforum.Mixfile do
       {:quantum, "~> 2.3"},
 
       # testing
-      {:ex_guard, "~> 1.3", only: :dev},
       {:excoveralls, "~> 0.8", only: :test},
       {:ex_machina, "~> 2.1", only: :test},
       {:faker, "~> 0.9", only: :test},
