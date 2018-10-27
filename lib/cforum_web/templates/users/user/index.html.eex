@@ -1,3 +1,11 @@
+<form method="get" class="cf-search-form">
+  <div class="cf-cgroup">
+    <label for="user_search"><%= gettext("username") %></label>
+    <input type="search" id="user_search" name="s" value="<%= @s %>">
+  </div>
+
+  <%= primary_submit gettext("search") %>
+</form>
 
 <table class="cf-default-table">
   <thead>
