@@ -7,9 +7,9 @@ defmodule CforumWeb.Admin.UserController do
     {sort_params, conn} = sort_collection(conn, [:username, :score, :activity, :created_at])
     count = Users.count_users()
     paging = paginate(count, page: params["p"])
-    users = Users.list_users(limit: paging.params, order: sort_params)
+    users = Users.list_users(limit: paging.params, order: sort_params, search: params["s"])
 
-    render(conn, "index.html", users: users, paging: paging)
+    render(conn, "index.html", users: users, paging: paging, s: params["s"])
   end
 
   def new(conn, _params) do

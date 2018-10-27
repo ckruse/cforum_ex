@@ -1,5 +1,17 @@
 @charset "utf-8";
 
+@mixin input-definitions() {
+  padding: 0.5em 1em;
+  color: $default_foreground_color;
+  background-color: $default_background_color;
+  background-image: none;
+  border: 1px solid $grey_border;
+  border-radius: 4px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+  transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+  font-size: 16px;
+}
+
 .cf-form {
   ::-moz-focus-inner {
     padding: 0;
@@ -23,15 +35,7 @@
       width: 100%;
       max-width: 55em;
       display: block;
-      padding: 0.5em 1em;
-      color: $default_foreground_color;
-      background-color: $default_background_color;
-      background-image: none;
-      border: 1px solid $grey_border;
-      border-radius: 4px;
-      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
-      transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-      font-size: 16px;
+      @include input-definitions();
     }
 
     textarea {
@@ -121,6 +125,44 @@
     margin-bottom: 1em;
     margin-top: 1em;
     border-bottom: 2px solid $standard_hr_color;
+  }
+}
+
+.cf-search-form {
+  margin-bottom: 1em;
+  .cf-cgroup {
+    display: inline;
+
+    input,
+    select,
+    textarea {
+      @include input-definitions();
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin-right: 0.5em;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      @include focus-w-shadow();
+    }
+
+    input[disabled],
+    select[disabled],
+    textarea[disabled] {
+      background-color: #eee;
+    }
+
+    label.radio,
+    label.checkbox {
+      input[type="checkbox"],
+      input[type="radio"] {
+        margin-right: 0.25em;
+      }
+    }
   }
 }
 
