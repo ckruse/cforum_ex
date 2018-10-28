@@ -22,6 +22,8 @@ export const lang = {
   "number of messages": "Anzahl Beiträge",
   "number of users": "Anzahl Benutzer",
   users: "Benutzer",
+  active: "aktiv",
+  delete: "löschen",
 
   "enter new tag": "neuen Tag eingeben",
   "is unknown": "ist unbekannt",
@@ -31,6 +33,15 @@ export const lang = {
   "{points} points": "{points} Punkte",
   "{count} new notifications": "{count} neue Benachrichtigungen",
   "You've got a new notification: {subject}": "{subject}",
+
+  "badge management": "Medaillen-Verwaltung",
+  "add new badge": "neue Medaille hinzufügen",
+  "Search badge": "Medaille suchen",
+  "badge name": "Medaillen-Name",
+  "no badges found": "Keine Medaillen gefunden",
+  active: "aktiv",
+  delete: "löschen",
+  "select badge": "Medaille auswählen",
 
   highcharts: {
     decimalPoint: ",",

@@ -3,36 +3,42 @@
     <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
   <% end %>
 
-  <div class="cf-cgroup <%= error_class(f, :username) %>">
-    <%= label f, :username, gettext("username") %>
-    <%= text_input f, :username %>
-    <%= error_tag f, :username %>
-  </div>
+  <fieldset>
+    <legend><%= gettext("user data") %></legend>
 
-  <div class="cf-cgroup <%= error_class(f, :email) %>">
-    <%= label f, :email, gettext("email") %>
-    <%= text_input f, :email %>
-    <%= error_tag f, :email %>
-  </div>
+    <div class="cf-cgroup <%= error_class(f, :username) %>">
+      <%= label f, :username, gettext("username") %>
+      <%= text_input f, :username %>
+      <%= error_tag f, :username %>
+    </div>
 
-  <div class="cf-cgroup">
-    <label class="checkbox"><%= checkbox f, :admin %> <%= gettext("user is an administrator") %></label>
-  </div>
+    <div class="cf-cgroup <%= error_class(f, :email) %>">
+      <%= label f, :email, gettext("email") %>
+      <%= text_input f, :email %>
+      <%= error_tag f, :email %>
+    </div>
 
-  <div class="cf-cgroup">
-    <label class="checkbox"><%= checkbox f, :active %> <%= gettext("user is active") %></label>
-  </div>
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox f, :admin %> <%= gettext("user is an administrator") %></label>
+    </div>
 
-  <div class="cf-cgroup <%= error_class(f, :password) %>">
-    <%= label f, :password, gettext("password") %>
-    <%= password_input f, :password, autocomplete: "off", "data-show-password": true %>
-    <%= error_tag f, :password %>
-  </div>
+    <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox f, :active %> <%= gettext("user is active") %></label>
+    </div>
 
-  <div class="cf-cgroup <%= error_class(f, :password_confirmation) %>">
-    <%= label f, :password_confirmation, gettext("password confirmation") %>
-    <%= password_input f, :password_confirmation, autocomplete: "off" %>
-  </div>
+    <div class="cf-cgroup <%= error_class(f, :password) %>">
+      <%= label f, :password, gettext("password") %>
+      <%= password_input f, :password, autocomplete: "off", "data-show-password": true %>
+      <%= error_tag f, :password %>
+    </div>
+
+    <div class="cf-cgroup <%= error_class(f, :password_confirmation) %>">
+      <%= label f, :password_confirmation, gettext("password confirmation") %>
+      <%= password_input f, :password_confirmation, autocomplete: "off" %>
+    </div>
+  </fieldset>
+
+  <div data-js="badge-management" data-user-id="<%= @user.user_id %>"></div>
 
   <p class="form-actions">
     <%= primary_submit gettext("save") %>

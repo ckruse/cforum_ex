@@ -37,7 +37,7 @@ defmodule Cforum.Accounts.User do
     field(:login, :string, virtual: true)
 
     has_one(:settings, Cforum.Accounts.Setting, foreign_key: :user_id)
-    has_many(:badges_users, Cforum.Accounts.BadgeUser, foreign_key: :user_id)
+    has_many(:badges_users, Cforum.Accounts.BadgeUser, foreign_key: :user_id, on_replace: :delete)
     has_many(:badges, through: [:badges_users, :badge])
 
     has_many(:cites, Cforum.Cites.Cite, foreign_key: :user_id)
@@ -74,7 +74,15 @@ defmodule Cforum.Accounts.User do
 
   def admin_changeset(%User{} = struct, params \\ %{}) do
     struct
-    |> cast(params, [:username, :email, :password, :password_confirmation, :active, :admin])
+    |> cast(Map.put_new(params, "badges_users", []), [
+      :username,
+      :email,
+      :password,
+      :password_confirmation,
+      :active,
+      :admin
+    ])
+    |> cast_assoc(:badges_users)
     |> validate_required([:username, :email])
     |> unique_constraint(:username, name: :users_username_idx)
     |> unique_constraint(:email, name: :users_email_idx)
