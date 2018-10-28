@@ -255,7 +255,7 @@ msgstr ""
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
 
-#: lib/cforum_web/templates/admin/user/form.html.eex:13
+#: lib/cforum_web/templates/admin/user/form.html.eex:16
 #: lib/cforum_web/templates/message/form.html.eex:22
 #: lib/cforum_web/templates/users/registration/new.html.eex:16
 #: lib/cforum_web/templates/users/user/show.html.eex:21
@@ -263,7 +263,7 @@ msgstr ""
 msgid "email"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/user/form.html.eex:27
+#: lib/cforum_web/templates/admin/user/form.html.eex:30
 #: lib/cforum_web/templates/users/password/edit.html.eex:4
 #: lib/cforum_web/templates/users/password/edit_reset.html.eex:4
 #: lib/cforum_web/templates/users/registration/new.html.eex:24
@@ -280,16 +280,18 @@ msgstr ""
 msgid "sign up"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/user/form.html.eex:7
-#: lib/cforum_web/templates/admin/user/index.html.eex:5
+#: lib/cforum_web/templates/admin/user/form.html.eex:10
+#: lib/cforum_web/templates/admin/user/index.html.eex:3
+#: lib/cforum_web/templates/admin/user/index.html.eex:14
 #: lib/cforum_web/templates/users/registration/new.html.eex:8
-#: lib/cforum_web/templates/users/user/index.html.eex:5
+#: lib/cforum_web/templates/users/user/index.html.eex:3
+#: lib/cforum_web/templates/users/user/index.html.eex:13
 #: lib/cforum_web/templates/users/user/show.html.eex:8
 #: lib/cforum_web/templates/users/user/user_information.html.eex:6
 msgid "username"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/user/form.html.eex:33
+#: lib/cforum_web/templates/admin/user/form.html.eex:36
 #: lib/cforum_web/templates/users/password/edit.html.eex:11
 #: lib/cforum_web/templates/users/password/edit_reset.html.eex:11
 #: lib/cforum_web/templates/users/registration/new.html.eex:31
@@ -336,12 +338,12 @@ msgstr ""
 msgid "confirm your registration"
 msgstr ""
 
-#: lib/cforum/accounts/user.ex:131
+#: lib/cforum/accounts/user.ex:139
 msgid "password and password confirmation don't match"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/user/index.html.eex:7
-#: lib/cforum_web/templates/users/user/index.html.eex:7
+#: lib/cforum_web/templates/admin/user/index.html.eex:16
+#: lib/cforum_web/templates/users/user/index.html.eex:15
 msgid "Activity during the last 30 days"
 msgstr ""
 
@@ -399,13 +401,13 @@ msgstr ""
 msgid "Own votings"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/user/index.html.eex:8
-#: lib/cforum_web/templates/users/user/index.html.eex:8
+#: lib/cforum_web/templates/admin/user/index.html.eex:17
+#: lib/cforum_web/templates/users/user/index.html.eex:16
 msgid "Registration date"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/user/index.html.eex:6
-#: lib/cforum_web/templates/users/user/index.html.eex:6
+#: lib/cforum_web/templates/admin/user/index.html.eex:15
+#: lib/cforum_web/templates/users/user/index.html.eex:14
 msgid "Score"
 msgstr ""
 
@@ -445,9 +447,9 @@ msgid "info"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/audit/index.html.eex:15
-#: lib/cforum_web/templates/admin/user/index.html.eex:18
+#: lib/cforum_web/templates/admin/user/index.html.eex:27
 #: lib/cforum_web/templates/tag/show.html.eex:26
-#: lib/cforum_web/templates/users/user/index.html.eex:17
+#: lib/cforum_web/templates/users/user/index.html.eex:25
 msgid "messages"
 msgstr ""
 
@@ -543,7 +545,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/redirection/form.html.eex:32
 #: lib/cforum_web/templates/admin/search_section/form.html.eex:30
 #: lib/cforum_web/templates/admin/setting/edit.html.eex:35
-#: lib/cforum_web/templates/admin/user/form.html.eex:39
+#: lib/cforum_web/templates/admin/user/form.html.eex:45
 #: lib/cforum_web/templates/cite/edit.html.eex:6
 #: lib/cforum_web/templates/cite/new.html.eex:6
 #: lib/cforum_web/templates/events/attendee/form.html.eex:71
@@ -715,8 +717,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/group/index.html.eex:23
 #: lib/cforum_web/templates/admin/redirection/index.html.eex:24
 #: lib/cforum_web/templates/admin/search_section/index.html.eex:23
-#: lib/cforum_web/templates/admin/user/form.html.eex:44
-#: lib/cforum_web/templates/admin/user/index.html.eex:22
+#: lib/cforum_web/templates/admin/user/index.html.eex:31
 #: lib/cforum_web/templates/event/attendee.html.eex:44
 #: lib/cforum_web/templates/notification/index.html.eex:27
 #: lib/cforum_web/templates/tag/show.html.eex:6
@@ -857,8 +858,8 @@ msgstr ""
 #: lib/cforum_web/templates/admin/group/index.html.eex:23
 #: lib/cforum_web/templates/admin/redirection/index.html.eex:24
 #: lib/cforum_web/templates/admin/search_section/index.html.eex:23
-#: lib/cforum_web/templates/admin/user/form.html.eex:44
-#: lib/cforum_web/templates/admin/user/index.html.eex:22
+#: lib/cforum_web/templates/admin/user/form.html.eex:50
+#: lib/cforum_web/templates/admin/user/index.html.eex:31
 #: lib/cforum_web/templates/mail/index.html.eex:30
 #: lib/cforum_web/templates/notification/index.html.eex:27
 msgid "delete"
@@ -874,7 +875,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/group/index.html.eex:22
 #: lib/cforum_web/templates/admin/redirection/index.html.eex:23
 #: lib/cforum_web/templates/admin/search_section/index.html.eex:22
-#: lib/cforum_web/templates/admin/user/index.html.eex:21
+#: lib/cforum_web/templates/admin/user/index.html.eex:30
 #: lib/cforum_web/templates/event/attendee.html.eex:43
 msgid "edit"
 msgstr ""
@@ -1289,7 +1290,7 @@ msgstr ""
 msgid "new answer to %{name}"
 msgstr ""
 
-#: lib/cforum_web/controllers/message_controller.ex:71
+#: lib/cforum_web/controllers/message_controller.ex:72
 msgid "Message created successfully."
 msgstr ""
 
@@ -1297,7 +1298,7 @@ msgstr ""
 msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">documentation</a>"
 msgstr ""
 
-#: lib/cforum_web/controllers/message_controller.ex:41
+#: lib/cforum_web/controllers/message_controller.ex:42
 #: lib/cforum_web/controllers/thread_controller.ex:113
 msgid "all"
 msgstr ""
@@ -1356,9 +1357,11 @@ msgid "link to profile of"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/audit/index.html.eex:34
+#: lib/cforum_web/templates/admin/user/index.html.eex:7
 #: lib/cforum_web/templates/layout/page_header.html.eex:56
 #: lib/cforum_web/templates/layout/page_header.html.eex:62
 #: lib/cforum_web/templates/search/show.html.eex:41
+#: lib/cforum_web/templates/users/user/index.html.eex:7
 msgid "search"
 msgstr ""
 
@@ -1887,7 +1890,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/group/form.html.eex:33
 #: lib/cforum_web/templates/admin/redirection/form.html.eex:31
 #: lib/cforum_web/templates/admin/search_section/form.html.eex:29
-#: lib/cforum_web/templates/admin/user/form.html.eex:38
+#: lib/cforum_web/templates/admin/user/form.html.eex:44
 #: lib/cforum_web/templates/events/attendee/form.html.eex:70
 #: lib/cforum_web/templates/moderation/edit.html.eex:36
 #: lib/cforum_web/templates/tag/edit_merge.html.eex:12
@@ -1997,12 +2000,12 @@ msgid "new user"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/user/form.html.eex:23
+#: lib/cforum_web/templates/admin/user/form.html.eex:26
 msgid "user is active"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/user/form.html.eex:19
+#: lib/cforum_web/templates/admin/user/form.html.eex:22
 msgid "user is an administrator"
 msgstr ""
 
@@ -4019,6 +4022,11 @@ msgid "tags list"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/forums/notify_users_message_job.ex:73
+#: lib/cforum/forums/notify_users_message_job.ex:75
 msgid "new thread by %{nick}: %{subject}"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/user/form.html.eex:7
+msgid "user data"
 msgstr ""
