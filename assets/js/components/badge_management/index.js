@@ -8,12 +8,14 @@ import NewBadgeModal from "./new_badge_modal";
 class BadgeManager extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = { user: null, showModal: false, lastAdded: 0 };
 
     this.changeActive = this.changeActive.bind(this);
     this.deleteBadge = this.deleteBadge.bind(this);
     this.showNewBadgeModal = this.showNewBadgeModal.bind(this);
     this.selectBadge = this.selectBadge.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +41,10 @@ class BadgeManager extends React.Component {
     this.setState({ showModal: true });
   }
 
+  closeModal() {
+    this.setState({ showModal: false });
+  }
+
   selectBadge(badge) {
     this.setState({
       showModal: false,
@@ -57,7 +63,7 @@ class BadgeManager extends React.Component {
       <fieldset>
         <legend>{t("badge management")}</legend>
 
-        <NewBadgeModal show={this.state.showModal} selectBadge={this.selectBadge} />
+        <NewBadgeModal show={this.state.showModal} selectBadge={this.selectBadge} onClose={this.closeModal} />
 
         <p>
           <button type="button" onClick={this.showNewBadgeModal} className="cf-btn">

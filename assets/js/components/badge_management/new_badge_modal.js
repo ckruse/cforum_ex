@@ -47,7 +47,7 @@ class NewBadgeModal extends React.Component {
         isOpen={this.props.show}
         appElement={document.body}
         contentLabel={t("Search badge")}
-        onRequestClose={this.props.close}
+        onRequestClose={this.props.onClose}
         closeTimeoutMS={300}
       >
         <div className="cf-form cf-new-badge-modal">
@@ -65,6 +65,12 @@ class NewBadgeModal extends React.Component {
             <FoundBadge key={b.badge_id} badge={b} selectBadge={this.props.selectBadge} />
           ))}
         </ul>
+
+        <p>
+          <button type="button" className="cf-btn" onClick={this.props.onClose}>
+            {t("cancel")}
+          </button>
+        </p>
       </Modal>
     );
   }
