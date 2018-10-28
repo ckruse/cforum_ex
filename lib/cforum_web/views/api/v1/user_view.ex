@@ -19,8 +19,14 @@ defmodule CforumWeb.Api.V1.UserView do
       },
       badges:
         Enum.map(
-          user.badges,
-          &%{name: &1.name, slug: &1.slug, badge_medal_type: &1.badge_medal_type, badge_type: &1.badge_type}
+          user.badges_users,
+          &%{
+            name: &1.badge.name,
+            slug: &1.badge.slug,
+            badge_medal_type: &1.badge.badge_medal_type,
+            badge_type: &1.badge.badge_type,
+            active: &1.active
+          }
         )
     }
   end

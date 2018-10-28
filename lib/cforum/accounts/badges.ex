@@ -18,8 +18,8 @@ defmodule Cforum.Accounts.Badges do
       [%Badge{}, ...]
 
   """
-  def list_badges(query_params \\ [order: nil, limit: nil, search: nil]) do
-    from(badge in Badge, preload: [badges_users: :user])
+  def list_badges(query_params \\ [order: nil, limit: nil, search: nil, preload: [badges_users: :user]]) do
+    from(badge in Badge, preload: ^query_params[:preload])
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], asc: :order)
     |> Repo.all()

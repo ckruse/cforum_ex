@@ -5,6 +5,8 @@ defmodule Cforum.Accounts.BadgeUser do
   @derive {Phoenix.Param, key: :badge_user_id}
 
   schema "badges_users" do
+    field(:active, :boolean, default: true)
+
     belongs_to(:badge, Cforum.Accounts.Badge, references: :badge_id)
     belongs_to(:user, Cforum.Accounts.User, references: :user_id)
 
@@ -16,7 +18,7 @@ defmodule Cforum.Accounts.BadgeUser do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:reason, :duplicate_slug, :custom_reason, :finished, :vote_type])
-    |> validate_required([:reason, :duplicate_slug, :custom_reason, :finished, :vote_type])
+    |> cast(params, [:active, :badge_id, :user_id])
+    |> validate_required([:active, :badge_id, :user_id])
   end
 end

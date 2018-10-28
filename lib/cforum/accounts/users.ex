@@ -488,7 +488,7 @@ defmodule Cforum.Accounts.Users do
       false
   """
   def badge?(user, badge) do
-    Enum.find(user.badges, &(&1.badge_type == badge)) != nil
+    Enum.find(user.badges_users, &(&1.badge.badge_type == badge && &1.active)) != nil
   end
 
   @doc """
