@@ -76,11 +76,37 @@ defmodule Cforum.MarkdownRenderer do
     :poolboy.transaction(pool_name(), fn pid -> :gen_server.call(pid, {:render_doc, markdown}) end)
   end
 
+  @spec to_plain(%Message{}) :: String.t()
+  def to_plain(%Message{} = message) do
+    {:ok, html} = render_plain(message.content)
+    html
+  end
+
+  def render_plain(markdown) do
+    :poolboy.transaction(pool_name(), fn pid -> :gen_server.call(pid, {:render_plain, markdown}) end)
+  end
+
   #
   # server callbacks
   #
   def handle_call({:render_doc, markdown}, _sender, proc) do
     out = Poison.encode!(%{markdown: markdown}) <> "\n"
+    Proc.send_input(proc, out)
+    [line] = Enum.take(proc.out, 1)
+    retval = Poison.decode!(line)
+
+    case retval["status"] do
+      "ok" ->
+        # {:reply, {:ok, to_html(markdown) <> "<br><br>" <> retval["html"]}, proc}
+        {:reply, {:ok, retval["html"]}, proc}
+
+      _ ->
+        {:reply, {:error, retval["message"]}, proc}
+    end
+  end
+
+  def handle_call({:render_plain, markdown}, _sender, proc) do
+    out = Poison.encode!(%{markdown: markdown, target: "plain"}) <> "\n"
     Proc.send_input(proc, out)
     [line] = Enum.take(proc.out, 1)
     retval = Poison.decode!(line)

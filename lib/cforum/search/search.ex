@@ -50,6 +50,22 @@ defmodule Cforum.Search do
   def get_section!(id), do: Repo.get!(Section, id)
 
   @doc """
+  Gets a single section by the `forum_id`.
+
+  Returns `nil` if the Section does not exist.
+
+  ## Examples
+
+      iex> get_section_by_forum_id(123)
+      %Section{}
+
+      iex> get_section_by_forum_id(456)
+      nil
+
+  """
+  def get_section_by_forum_id(id), do: Repo.get_by(Section, forum_id: id)
+
+  @doc """
   Creates a section.
 
   ## Examples
