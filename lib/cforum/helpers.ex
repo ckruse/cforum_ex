@@ -66,6 +66,38 @@ defmodule Cforum.Helpers do
   def to_int(_v), do: 0
 
   @doc """
+  Converts values to float, depending on the value itself:
+
+  - When nil, empty string, empty list or empty map return 0.0
+  - When true return 1.0
+  - When value is a String try to parse it to an Float
+  - Return the value itself when it is an Float
+  - Return zero otherwise
+
+  ### Examples
+
+      iex> to_float(10)
+      10.0
+
+      iex> to_float("10")
+      10.0
+
+      iex> to_float(3.1)
+      3.0
+  """
+  @spec to_int(any()) :: float()
+  def to_float(v) when is_nil(v), do: 0.0
+  def to_float(""), do: 0.0
+  def to_float([]), do: 0.0
+  def to_float(true), do: 1.0
+  def to_float(false), do: 0.0
+  def to_float(map) when map == %{}, do: 0.0
+  def to_float(v) when is_bitstring(v), do: String.to_float(v)
+  def to_float(v) when is_float(v), do: v
+  def to_float(v) when is_number(v), do: v / 1
+  def to_float(_v), do: 0.0
+
+  @doc """
   Returns the `attribute` value of a `struct` when it is not `nil` and the attribute value is set
 
   returns `default_value` otherwise

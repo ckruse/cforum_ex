@@ -21,7 +21,7 @@ defmodule Cforum.Forums.Messages do
   alias Cforum.System
 
   alias Cforum.Forums.Threads
-
+  alias Cforum.Forums.MessageIndexerJob
   alias Cforum.Forums.ReadMessage
 
   alias Cforum.Helpers.CompositionHelpers
@@ -463,6 +463,7 @@ defmodule Cforum.Forums.Messages do
     end)
     |> maybe_notify_users(thread)
     |> maybe_autosubscribe(opts[:autosubscribe], user, thread, parent)
+    |> index_message(thread)
   end
 
   defp may_user_post_with_name?(_, nil), do: true
@@ -510,14 +511,21 @@ defmodule Cforum.Forums.Messages do
     {:ok, message}
   end
 
-  def maybe_notify_users({:error, changeset}, _), do: {:error, changeset}
+  defp maybe_notify_users({:error, changeset}, _), do: {:error, changeset}
   # Don't notify users on new threads
-  def maybe_notify_users({:ok, %Message{parent_id: nil} = message}, _), do: {:ok, message}
+  defp maybe_notify_users({:ok, %Message{parent_id: nil} = message}, _), do: {:ok, message}
 
-  def maybe_notify_users({:ok, message}, thread) do
+  defp maybe_notify_users({:ok, message}, thread) do
     Cforum.Forums.NotifyUsersMessageJob.notify_users_about_new_message(thread, message)
     {:ok, message}
   end
+
+  defp index_message({:ok, message}, thread) do
+    MessageIndexerJob.index_message(Repo.preload(thread, [:forum]), message)
+    {:ok, message}
+  end
+
+  defp index_message(val, _), do: val
 
   def unnotify_user(user, message) when is_nil(user) or is_nil(message), do: nil
 
@@ -952,6 +960,7 @@ defmodule Cforum.Forums.Messages do
       iex> score_down_message(%Message{})
       {1, nil}
   """
+  @spec score_down_message(%Message{}, integer()) :: any()
   def score_down_message(message, by \\ 1) do
     from(
       msg in Message,
@@ -959,6 +968,8 @@ defmodule Cforum.Forums.Messages do
       update: [inc: [downvotes: ^by]]
     )
     |> Repo.update_all([])
+
+    MessageIndexerJob.rescore_message(message)
   end
 
   @doc """
@@ -970,6 +981,7 @@ defmodule Cforum.Forums.Messages do
       iex> score_up_message(%Message{})
       {1, nil}
   """
+  @spec score_up_message(%Message{}, integer()) :: any()
   def score_up_message(message, by \\ 1) do
     from(
       msg in Message,
@@ -977,6 +989,8 @@ defmodule Cforum.Forums.Messages do
       update: [inc: [upvotes: ^by]]
     )
     |> Repo.update_all([])
+
+    MessageIndexerJob.rescore_message(message)
   end
 
   @doc """
@@ -1003,9 +1017,11 @@ defmodule Cforum.Forums.Messages do
 
       case maybe_give_accept_score(message, user, points) do
         nil ->
+          MessageIndexerJob.rescore_message(message)
           :ok
 
         {:ok, _} ->
+          MessageIndexerJob.rescore_message(message)
           :ok
 
         _ ->
@@ -1042,9 +1058,11 @@ defmodule Cforum.Forums.Messages do
 
       case maybe_take_accept_score(message, user) do
         nil ->
+          MessageIndexerJob.rescore_message(message)
           {:ok, message}
 
         {:ok, msg} ->
+          MessageIndexerJob.rescore_message(message)
           {:ok, msg}
 
         _ ->

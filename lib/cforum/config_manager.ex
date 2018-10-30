@@ -222,6 +222,7 @@ defmodule Cforum.ConfigManager do
   """
   def uconf(conn_or_user, name, type \\ :none)
   def uconf(conn, name, :int), do: to_int(uconf(conn, name))
+  def uconf(conn, name, :float), do: to_float(uconf(conn, name))
 
   def uconf(%User{} = user, name, _) do
     settings = Cforum.Accounts.Settings.load_relevant_settings(nil, user)
@@ -254,6 +255,7 @@ defmodule Cforum.ConfigManager do
           nil | String.t() | integer()
   def conf(conn_setting_or_forum, name, type \\ :none)
   def conf(conn_setting_or_forum, name, :int), do: to_int(conf(conn_setting_or_forum, name))
+  def conf(conn_setting_or_forum, name, :float), do: to_float(conf(conn_setting_or_forum, name))
 
   def conf(nil, name, _), do: @defaults[name]
 
