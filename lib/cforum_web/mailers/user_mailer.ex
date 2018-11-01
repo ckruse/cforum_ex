@@ -2,6 +2,7 @@ defmodule CforumWeb.UserMailer do
   use Bamboo.Phoenix, view: CforumWeb.UserMailerView
   import CforumWeb.Gettext
 
+  @spec confirmation_mail(%Cforum.Accounts.User{}) :: Bamboo.Email.t()
   def confirmation_mail(user) do
     new_email()
     |> from(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))
@@ -11,6 +12,7 @@ defmodule CforumWeb.UserMailer do
     |> render(:confirmation_mail, user: user)
   end
 
+  @spec reset_password_mail(%Cforum.Accounts.User{}) :: Bamboo.Email.t()
   def reset_password_mail(user) do
     new_email()
     |> from(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))

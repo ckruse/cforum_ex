@@ -38,8 +38,10 @@ defmodule Cforum.Forums do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_forum!(String.t() | integer()) :: %Forum{}
   def get_forum!(id), do: Repo.get!(Forum, id)
 
+  @spec get_forum!(String.t() | integer(), atom()) :: %Forum{}
   def get_forum!(id, :preload_setting) do
     Forum
     |> Repo.get!(id)
