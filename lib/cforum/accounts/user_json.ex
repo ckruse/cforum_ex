@@ -1,4 +1,9 @@
-defimpl Poison.Encoder, for: Cforum.Accounts.User do
+alias Cforum.Accounts.User
+
+defimpl Poison.Encoder, for: User do
+  def encode(%User{badges_users: %Ecto.Association.NotLoaded{}} = user, options),
+    do: encode(%User{user | badges_users: []}, options)
+
   def encode(user, options) do
     Poison.Encoder.Map.encode(
       %{
