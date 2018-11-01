@@ -4,6 +4,7 @@ defmodule Cforum.Forums.ArchiverJob do
   alias Cforum.Forums.{Threads, Thread, Message, Subscription, OpenCloseState, InvisibleThread}
   alias Cforum.System
   alias Cforum.Search
+  alias Cforum.Search.Document
 
   import Ecto.{Query, Changeset}, warn: false
 
@@ -65,7 +66,7 @@ defmodule Cforum.Forums.ArchiverJob do
       Threads.delete_thread(thread)
 
       case Search.get_document_by_reference_id(thread.thread_id) do
-        {:ok, document} ->
+        %Document{} = document ->
           Search.delete_document(document)
 
         _ ->
