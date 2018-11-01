@@ -34,7 +34,7 @@ defmodule Cforum.Forums.MessageIndexerJob do
     Task.start(fn ->
       doc = Search.get_document_by_reference_id(msg.message_id)
 
-      if doc,
+      if !is_nil(doc),
         do: Search.delete_document(doc)
 
       Enum.each(msg.messages, &unindex_message_with_answers(&1))

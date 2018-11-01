@@ -85,7 +85,7 @@ defmodule Cforum.Helpers do
       iex> to_float(3.1)
       3.0
   """
-  @spec to_int(any()) :: float()
+  @spec to_float(any()) :: float()
   def to_float(v) when is_nil(v), do: 0.0
   def to_float(""), do: 0.0
   def to_float([]), do: 0.0
