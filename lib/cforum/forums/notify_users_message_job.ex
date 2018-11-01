@@ -81,7 +81,7 @@ defmodule Cforum.Forums.NotifyUsersMessageJob do
 
   defp may_view?(user, thread, message) do
     Cforum.Abilities.may?(
-      %Plug.Conn{assigns: %{current_user: user, current_forum: thread.forum}},
+      %{current_user: user, current_forum: thread.forum},
       CforumWeb.MessageController,
       :show,
       {thread, message}

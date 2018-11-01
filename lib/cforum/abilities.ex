@@ -5,6 +5,8 @@ defmodule Cforum.Abilities do
 
   require Logger
 
+  alias Cforum.Accounts.{Settings, Setting}
+
   @callback allowed?(Plug.Conn.t(), atom(), any()) :: boolean()
 
   @doc """
@@ -17,10 +19,10 @@ defmodule Cforum.Abilities do
   - `action`: the action on the path, e.g. `:index`
   - `args`: additional arguments, e.g. the resource in question
   """
-  @spec may?(Plug.Conn.t(), String.t() | module(), atom(), any()) :: boolean()
+  @spec may?(Plug.Conn.t() | map(), String.t() | atom(), atom(), any()) :: boolean()
   def may?(conn, path, action \\ :index, args \\ nil)
 
-  def may?(conn, controller_path, action, resource) when is_bitstring(controller_path) do
+  def may?(%Plug.Conn{} = conn, controller_path, action, resource) when is_bitstring(controller_path) do
     nam =
       controller_path
       |> String.capitalize()
@@ -31,8 +33,28 @@ defmodule Cforum.Abilities do
     may?(conn, controller, action, resource)
   end
 
-  def may?(conn, controller_module, action, resource),
+  def may?(%Plug.Conn{} = conn, controller_module, action, resource),
     do: controller_module.allowed?(conn, action, resource)
+
+  def may?(%{} = assigns, controller_module, action, resource) do
+    conn =
+      %Plug.Conn{private: %{phoenix_endpoint: CforumWeb.Endpoint}, assigns: assigns}
+      |> maybe_set_confs()
+
+    may?(conn, controller_module, action, resource)
+  end
+
+  defp maybe_set_confs(%Plug.Conn{assigns: %{global_config: conf}} = conn) when not is_nil(conf), do: conn
+
+  defp maybe_set_confs(%Plug.Conn{} = conn) do
+    settings = Settings.load_relevant_settings(conn.assigns[:current_forum], conn.assigns[:current_user])
+
+    Enum.reduce(settings, conn, fn
+      conf = %Setting{user_id: nil, forum_id: nil}, conn -> Plug.Conn.assign(conn, :global_config, conf)
+      conf = %Setting{forum_id: nil}, conn -> Plug.Conn.assign(conn, :user_config, conf)
+      conf = %Setting{user_id: nil}, conn -> Plug.Conn.assign(conn, :forum_config, conf)
+    end)
+  end
 
   alias Cforum.Accounts.Groups
   alias Cforum.Accounts.Users

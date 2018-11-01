@@ -4,7 +4,7 @@ defmodule Cforum.ConfigManager do
   increasing specifity
   """
 
-  alias Cforum.Accounts.Setting
+  alias Cforum.Accounts.{Setting, Settings}
   alias Cforum.Accounts.User
   alias Cforum.Forums.Forum
 
@@ -220,12 +220,13 @@ defmodule Cforum.ConfigManager do
     supported. If `:int` is specified, we cast the value with
     `String.to_integer/1`
   """
+  @spec uconf(%User{} | Plug.Conn.t(), String.t(), :none | :int | :float) :: nil | String.t() | integer() | float()
   def uconf(conn_or_user, name, type \\ :none)
   def uconf(conn, name, :int), do: to_int(uconf(conn, name))
   def uconf(conn, name, :float), do: to_float(uconf(conn, name))
 
   def uconf(%User{} = user, name, _) do
-    settings = Cforum.Accounts.Settings.load_relevant_settings(nil, user)
+    settings = Settings.load_relevant_settings(nil, user)
     confs = map_from_confs(settings)
 
     get(confs, name, user, nil) || @defaults[name]
@@ -251,15 +252,15 @@ defmodule Cforum.ConfigManager do
     supported. If `:int` is specified, we cast the value with
     `String.to_integer/1`
   """
-  @spec conf(%Cforum.Accounts.Setting{} | %Forum{} | %Plug.Conn{} | nil, String.t(), :none | :int) ::
-          nil | String.t() | integer()
+  @spec conf(%Setting{} | %Forum{} | %Plug.Conn{} | nil, String.t(), :none | :int | :float) ::
+          nil | String.t() | integer() | float()
   def conf(conn_setting_or_forum, name, type \\ :none)
   def conf(conn_setting_or_forum, name, :int), do: to_int(conf(conn_setting_or_forum, name))
   def conf(conn_setting_or_forum, name, :float), do: to_float(conf(conn_setting_or_forum, name))
 
   def conf(nil, name, _), do: @defaults[name]
 
-  def conf(%Cforum.Accounts.Setting{} = setting, name, _) do
+  def conf(%Setting{} = setting, name, _) do
     confs = %{
       global: setting,
       forum: nil,
@@ -270,7 +271,7 @@ defmodule Cforum.ConfigManager do
   end
 
   def conf(%Forum{} = forum, name, _) do
-    settings = Cforum.Accounts.Settings.load_relevant_settings(forum, nil)
+    settings = Settings.load_relevant_settings(forum, nil)
 
     confs = %{
       global: List.first(settings),
@@ -303,7 +304,7 @@ defmodule Cforum.ConfigManager do
   end
 
   def settings_map(forum, user) do
-    settings = Cforum.Accounts.Settings.load_relevant_settings(forum, user)
+    settings = Settings.load_relevant_settings(forum, user)
     map_from_confs(settings)
   end
 end
