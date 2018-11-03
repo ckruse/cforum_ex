@@ -23,8 +23,9 @@ defmodule CforumWeb.CiteView do
   def body_classes(action, _) when action in [:new, :create], do: "cites new"
   def body_classes(action, _) when action in [:edit, :update], do: "cites edit"
 
-  def link_to_url?(conn, cite),
-    do: !blank?(cite.url) && (blank?(cite.message_id) || may?(conn, "message", :show, cite.message))
+  def link_to_url?(conn, cite) do
+    !blank?(cite.url) && (blank?(cite.message_id) || may?(conn, "message", :show, {cite.message.thread, cite.message}))
+  end
 
   def url_link_title(cite), do: if(blank?(cite.message_id), do: cite.url, else: cite.message.subject)
 
