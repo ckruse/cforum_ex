@@ -65,7 +65,7 @@ defmodule Cforum.Forums.MessageIndexerJob do
   end
 
   defp maybe_create_section(nil, forum),
-    do: Search.create_section(%{name: forum.name, position: -1, forum_id: forum.forum_id})
+    do: Search.create_section(%{name: forum.name, position: -1, forum_id: forum.forum_id, section_type: "forum"})
 
   defp maybe_create_section(section, _), do: section
 
