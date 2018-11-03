@@ -23,7 +23,7 @@ defmodule Cforum.Cites do
     from(
       cite in Cite,
       where: cite.archived == ^archived,
-      preload: [:votes, :user, :creator_user, [message: :forum]]
+      preload: [:votes, :user, :creator_user, message: [:forum, :thread]]
     )
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :cite_id)
@@ -108,7 +108,7 @@ defmodule Cforum.Cites do
   def get_cite!(id) do
     Cite
     |> Repo.get!(id)
-    |> Repo.preload([:votes, :user, :creator_user, message: :forum])
+    |> Repo.preload([:votes, :user, :creator_user, message: [:forum, :thread]])
   end
 
   @doc """
