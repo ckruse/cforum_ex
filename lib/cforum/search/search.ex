@@ -65,6 +65,8 @@ defmodule Cforum.Search do
   """
   def get_section_by_forum_id(id), do: Repo.get_by(Section, forum_id: id)
 
+  def get_section_by_section_type(type), do: Repo.get_by(Section, section_type: type)
+
   @doc """
   Creates a section.
 
@@ -150,6 +152,9 @@ defmodule Cforum.Search do
 
   @spec get_document_by_reference_id(non_neg_integer()) :: %Document{} | nil
   def get_document_by_reference_id(id), do: Repo.get_by(Document, reference_id: id)
+
+  @spec get_document_by_reference_id(String.t()) :: %Document{} | nil
+  def get_document_by_url(url), do: Repo.get_by(Document, url: url)
 
   @doc """
   Creates a document.

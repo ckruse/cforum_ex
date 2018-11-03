@@ -129,6 +129,7 @@ defmodule Cforum.Cites do
       |> Cite.changeset(attrs, current_user)
       |> Repo.insert()
     end)
+    |> maybe_index_cite()
   end
 
   @doc """
@@ -149,6 +150,7 @@ defmodule Cforum.Cites do
       |> Cite.changeset(attrs)
       |> Repo.update()
     end)
+    |> maybe_index_cite()
   end
 
   @doc """
@@ -166,7 +168,15 @@ defmodule Cforum.Cites do
       |> Ecto.Changeset.change(%{archived: true})
       |> Repo.update()
     end)
+    |> maybe_index_cite()
   end
+
+  defp maybe_index_cite({:ok, cite}) do
+    Cforum.Cites.CiteIndexerJob.index_cite(cite)
+    {:ok, cite}
+  end
+
+  defp maybe_index_cite(val), do: val
 
   @doc """
   Deletes a Cite.
@@ -185,7 +195,15 @@ defmodule Cforum.Cites do
     System.audited("destroy", current_user, fn ->
       Repo.delete(cite)
     end)
+    |> maybe_unindex_cite()
   end
+
+  defp maybe_unindex_cite({:ok, cite}) do
+    Cforum.Cites.CiteIndexerJob.unindex_cite(cite)
+    {:ok, cite}
+  end
+
+  defp maybe_unindex_cite(val), do: val
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking cite changes.
