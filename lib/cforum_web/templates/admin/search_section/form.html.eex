@@ -21,6 +21,12 @@
     <%= error_tag f, :forum_id %>
   </div>
 
+  <div class="cf-cgroup <%= error_class(f, :section_type) %>">
+    <%= label f, :section_type, gettext("section type") %>
+    <%= select f, :section_type, [{gettext("forum"), "forum"}, {gettext("cites"), "cites"}], prompt: "" %>
+    <%= error_tag f, :section_type %>
+  </div>
+
   <div class="cf-cgroup">
     <label class="checkbox"><%= checkbox f, :active_by_default %> <%= gettext("active by default") %></label>
   </div>
