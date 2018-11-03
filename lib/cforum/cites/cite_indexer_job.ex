@@ -1,0 +1,63 @@
+defmodule Cforum.Cites.CiteIndexerJob do
+  import CforumWeb.Gettext
+
+  alias Cforum.ConfigManager
+  alias Cforum.Search
+  alias Cforum.Cites.Cite
+
+  alias Cforum.MarkdownRenderer
+
+  alias CforumWeb.Router.Helpers
+
+  @spec index_cite(%Cite{}) :: any()
+  def index_cite(%Cite{} = cite) do
+    # Task.start(fn ->
+    doc = Search.get_document_by_url(Helpers.cite_url(CforumWeb.Endpoint, :show, cite))
+    plain = MarkdownRenderer.to_plain(cite)
+    base_relevance = ConfigManager.conf(nil, "search_cites_relevance", :float)
+
+    section =
+      "cites"
+      |> Search.get_section_by_section_type()
+      |> maybe_create_section()
+
+    update_document(section, doc, cite, plain, base_relevance)
+    # end)
+  end
+
+  @spec unindex_cite(%Cite{}) :: any()
+  def unindex_cite(%Cite{} = cite) do
+    doc = Search.get_document_by_url(Helpers.cite_url(CforumWeb.Endpoint, :show, cite))
+
+    if !is_nil(doc),
+      do: Search.delete_document(doc)
+  end
+
+  defp maybe_create_section(nil),
+    do: Search.create_section(%{name: gettext("cites"), section_type: "cites", position: -1})
+
+  defp maybe_create_section(sect), do: sect
+
+  defp update_document(section, nil, cite, plain, relevance),
+    do: Search.create_document(document_params(section, cite, plain, relevance))
+
+  defp update_document(section, doc, cite, plain, relevance),
+    do: Search.update_document(doc, document_params(section, cite, plain, relevance))
+
+  defp document_params(section, cite, plain, relevance) do
+    search_dict = Application.get_env(:cforum, :search_dict, "english")
+
+    %{
+      author: cite.author,
+      user_id: cite.user_id,
+      title: gettext("cite %{id}", id: cite.cite_id),
+      content: plain,
+      search_section_id: section.search_section_id,
+      relevance: relevance,
+      lang: search_dict,
+      document_created: cite.created_at,
+      tags: [],
+      url: Helpers.cite_url(CforumWeb.Endpoint, :show, cite)
+    }
+  end
+end

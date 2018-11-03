@@ -76,10 +76,15 @@ defmodule Cforum.MarkdownRenderer do
     :poolboy.transaction(pool_name(), fn pid -> :gen_server.call(pid, {:render_doc, markdown}) end)
   end
 
-  @spec to_plain(%Message{}) :: String.t()
+  @spec to_plain(%Message{} | %Cite{}) :: String.t()
   def to_plain(%Message{} = message) do
-    {:ok, html} = render_plain(message.content)
-    html
+    {:ok, text} = render_plain(message.content)
+    text
+  end
+
+  def to_plain(%Cite{} = cite) do
+    {:ok, text} = render_plain(cite.cite)
+    text
   end
 
   def render_plain(markdown) do
