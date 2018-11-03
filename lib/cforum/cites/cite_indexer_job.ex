@@ -11,18 +11,18 @@ defmodule Cforum.Cites.CiteIndexerJob do
 
   @spec index_cite(%Cite{}) :: any()
   def index_cite(%Cite{} = cite) do
-    # Task.start(fn ->
-    doc = Search.get_document_by_url(Helpers.cite_url(CforumWeb.Endpoint, :show, cite))
-    plain = MarkdownRenderer.to_plain(cite)
-    base_relevance = ConfigManager.conf(nil, "search_cites_relevance", :float)
+    Task.start(fn ->
+      doc = Search.get_document_by_url(Helpers.cite_url(CforumWeb.Endpoint, :show, cite))
+      plain = MarkdownRenderer.to_plain(cite)
+      base_relevance = ConfigManager.conf(nil, "search_cites_relevance", :float)
 
-    section =
-      "cites"
-      |> Search.get_section_by_section_type()
-      |> maybe_create_section()
+      section =
+        "cites"
+        |> Search.get_section_by_section_type()
+        |> maybe_create_section()
 
-    update_document(section, doc, cite, plain, base_relevance)
-    # end)
+      update_document(section, doc, cite, plain, base_relevance)
+    end)
   end
 
   @spec unindex_cite(%Cite{}) :: any()
