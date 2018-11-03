@@ -33,8 +33,10 @@ defmodule Cforum.Cites.CiteIndexerJob do
       do: Search.delete_document(doc)
   end
 
-  defp maybe_create_section(nil),
-    do: Search.create_section(%{name: gettext("cites"), section_type: "cites", position: -1})
+  defp maybe_create_section(nil) do
+    {:ok, section} = Search.create_section(%{name: gettext("cites"), section_type: "cites", position: -1})
+    section
+  end
 
   defp maybe_create_section(sect), do: sect
 

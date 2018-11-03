@@ -64,8 +64,12 @@ defmodule Cforum.Forums.MessageIndexerJob do
     Search.update_document(doc, doc_params(section, thread, msg, plaintext, search_dict, base_relevance))
   end
 
-  defp maybe_create_section(nil, forum),
-    do: Search.create_section(%{name: forum.name, position: -1, forum_id: forum.forum_id, section_type: "forum"})
+  defp maybe_create_section(nil, forum) do
+    {:ok, section} =
+      Search.create_section(%{name: forum.name, position: -1, forum_id: forum.forum_id, section_type: "forum"})
+
+    section
+  end
 
   defp maybe_create_section(section, _), do: section
 
