@@ -9,6 +9,7 @@ defmodule Cforum.Search.Section do
     field(:active_by_default, :boolean, default: false)
     field(:name, :string)
     field(:position, :integer)
+    field(:section_type, :string)
 
     belongs_to(:forum, Cforum.Forums.Forum, references: :forum_id)
   end
@@ -16,7 +17,8 @@ defmodule Cforum.Search.Section do
   @doc false
   def changeset(section, attrs) do
     section
-    |> cast(attrs, [:name, :position, :active_by_default, :forum_id])
-    |> validate_required([:name, :position])
+    |> cast(attrs, [:name, :position, :active_by_default, :forum_id, :section_type])
+    |> validate_required([:name, :position, :section_type])
+    |> validate_inclusion(:section_type, ["forum", "cites"])
   end
 end
