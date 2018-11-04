@@ -27,6 +27,9 @@ export const lang = {
 
   "enter new tag": "neuen Tag eingeben",
   "is unknown": "ist unbekannt",
+  "tag suggestions": "Tag-Vorschläge",
+  "no tag suggestions available": "keine Vorschläge verfügbar",
+  "add tag": "Tag hinzufügen",
 
   "{count} unread mails": "{count} ungelesene Mails",
   "You've got a new mail from {sender}: {subject}": "neue Mail von {sender}: „{subject}“",
