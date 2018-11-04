@@ -45,6 +45,7 @@
   </div>
 </fieldset>
 
+<div class="cf-posting-form">
 <fieldset>
   <div class="cf-cgroup cf-textarea-only <%= error_class(@f, :content) %>">
     <%= label @f, :content, for: "message_input" do %>
@@ -60,3 +61,4 @@
     <%= render "form_tags.html", assigns %>
   </ul>
 </fieldset>
+</div>

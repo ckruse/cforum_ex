@@ -24,11 +24,11 @@ defmodule Cforum.Accounts.Users do
       [%User{}, ...]
 
   """
-  def list_users(query_params \\ [order: nil, limit: nil, search: nil, include_self: true, user: nil]) do
+  def list_users(query_params \\ [order: nil, limit: nil, search: nil, include_self: true, user: nil, prefix: false]) do
     User
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
-    |> search_users(query_params[:search])
+    |> search_users(query_params[:search], query_params[:prefix])
     |> maybe_leave_out_self(!query_params[:include_self], query_params[:user])
     |> Repo.all()
   end
@@ -37,10 +37,14 @@ defmodule Cforum.Accounts.Users do
   defp maybe_leave_out_self(q, _, nil), do: q
   defp maybe_leave_out_self(q, _, self), do: from(u in q, where: u.user_id != ^self.user_id)
 
-  defp search_users(query, term) when is_nil(term) or term == "", do: query
+  defp search_users(query, term, _) when is_nil(term) or term == "", do: query
 
-  defp search_users(query, term) do
-    clean_term = "%" <> String.trim(term) <> "%"
+  defp search_users(query, term, prefix) do
+    clean_term =
+      if prefix,
+        do: String.trim(term) <> "%",
+        else: "%" <> String.trim(term) <> "%"
+
     from(u in query, where: like(fragment("LOWER(?)", u.username), fragment("LOWER(?)", ^clean_term)))
   end
 

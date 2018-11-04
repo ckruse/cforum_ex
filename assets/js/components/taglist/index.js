@@ -77,15 +77,4 @@ class TagList extends React.Component {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll('[data-tags-list="form"]').forEach(el => {
-    const tags = Array.from(el.querySelectorAll('input[data-tag="yes"]'))
-      .filter(t => !!t.value)
-      .map(t => {
-        const elem = t.previousElementSibling.querySelector(".error");
-        return [t.value, elem ? elem.textContent : null];
-      });
-
-    render(<TagList tags={tags} />, el.parentNode);
-  });
-});
+export default TagList;
