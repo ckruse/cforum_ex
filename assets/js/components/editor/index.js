@@ -6,6 +6,7 @@ import DefaultReplacements from "./default_replacements";
 import EmojiReplacements from "./emojis";
 import MentionsReplacements from "./mentions";
 import SmileyReplacements from "./smileys";
+import LivePreview from "./live_preview";
 
 class CfEditor extends React.Component {
   constructor(props) {
@@ -27,20 +28,24 @@ class CfEditor extends React.Component {
     const { name, mentions } = this.props;
 
     return (
-      <div className="cf-cgroup cf-textarea-only cf-editor">
-        <MentionsInput
-          value={this.state.value}
-          name={name}
-          className="cf-posting-input"
-          onChange={this.valueChanged}
-          markup="[__display__](__type__:__id__)"
-        >
-          <Mention {...SmileyReplacements} />
-          <Mention {...DefaultReplacements} />
-          <Mention {...EmojiReplacements} />
-          {mentions && <Mention {...MentionsReplacements} />}
-        </MentionsInput>
-      </div>
+      <fieldset>
+        <div className="cf-cgroup cf-textarea-only cf-editor">
+          <MentionsInput
+            value={this.state.value}
+            name={name}
+            className="cf-posting-input"
+            onChange={this.valueChanged}
+            markup="[__display__](__type__:__id__)"
+          >
+            <Mention {...SmileyReplacements} />
+            <Mention {...DefaultReplacements} />
+            <Mention {...EmojiReplacements} />
+            {mentions && <Mention {...MentionsReplacements} />}
+          </MentionsInput>
+        </div>
+
+        <LivePreview content={this.state.value} />
+      </fieldset>
     );
   }
 }

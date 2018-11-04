@@ -47,6 +47,8 @@ export const lang = {
   "(en dash sign)": "(Halbgeviertstrich/Bis-Strich/Gedankenstrich, U+2013)",
   "(em dash sign)": "(Geviertstrich, U+2014)",
 
+  preview: "Vorschau",
+
   highcharts: {
     decimalPoint: ",",
     thousandsSep: ".",
