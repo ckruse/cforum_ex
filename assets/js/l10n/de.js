@@ -39,9 +39,10 @@ export const lang = {
   "Search badge": "Medaille suchen",
   "badge name": "Medaillen-Name",
   "no badges found": "Keine Medaillen gefunden",
-  active: "aktiv",
-  delete: "löschen",
   "select badge": "Medaille auswählen",
+  "(minus sign)": "(Minus-Sybmol, U+2212)",
+  "(en dash sign)": "(Halbgeviertstrich/Bis-Strich/Gedankenstrich, U+2013)",
+  "(em dash sign)": "(Geviertstrich, U+2014)",
 
   highcharts: {
     decimalPoint: ",",

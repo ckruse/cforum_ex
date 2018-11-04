@@ -32,6 +32,7 @@ import "./components/autolist";
 import "./components/dropdown";
 import "./components/taglist";
 import "./components/user-selector";
+import "./components/postingform";
 
 // site specific JS
 import "./forum-stats";

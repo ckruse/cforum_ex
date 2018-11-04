@@ -13,6 +13,7 @@ defmodule CforumWeb.Api.V1.UserController do
         limit: [quantity: 20, offset: 0],
         order: [desc: :activity],
         include_self: params["self"] != "no",
+        prefix: params["prefix"] == "yes",
         user: conn.assigns[:current_user]
       )
 
