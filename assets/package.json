@@ -12,6 +12,7 @@
     "test": "babel-node spec/support/run.js"
   },
   "dependencies": {
+    "cfmarkdown": "https://code.wwwtech.de/ckruse/cfmarkdown.git",
     "emoji-mart": "^2.8.1",
     "flatpickr": "^4.5.0",
     "highcharts": "^6.1.0",

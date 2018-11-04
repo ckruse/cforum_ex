@@ -20,10 +20,7 @@ class CfPostingForm extends React.Component {
   render() {
     return (
       <div>
-        <fieldset>
-          <CfEditor text={this.props.text} name={this.props.name} mentions={true} onChange={this.refreshSuggestions} />
-        </fieldset>
-
+        <CfEditor text={this.props.text} name={this.props.name} mentions={true} onChange={this.refreshSuggestions} />
         <TagList tags={this.props.tags} postingText={this.state.value} />
       </div>
     );
