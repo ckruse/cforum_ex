@@ -5,16 +5,26 @@ import CfEditor from "../editor";
 import TagList from "../taglist";
 
 class CfPostingForm extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { value: this.props.text };
+
+    this.refreshSuggestions = this.refreshSuggestions.bind(this);
+  }
+
+  refreshSuggestions(newValue) {
+    this.setState({ value: newValue });
+  }
+
   render() {
     return (
       <div>
         <fieldset>
-          <CfEditor text={this.props.text} name={this.props.name} mentions={true} />
+          <CfEditor text={this.props.text} name={this.props.name} mentions={true} onChange={this.refreshSuggestions} />
         </fieldset>
 
-        <fieldset>
-          <TagList tags={this.props.tags} />
-        </fieldset>
+        <TagList tags={this.props.tags} postingText={this.state.value} />
       </div>
     );
   }

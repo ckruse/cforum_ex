@@ -17,6 +17,10 @@ class CfEditor extends React.Component {
 
   valueChanged(ev) {
     this.setState({ value: ev.target.value });
+
+    if (this.props.onChange) {
+      this.props.onChange(ev.target.value);
+    }
   }
 
   render() {

@@ -35,7 +35,8 @@
     }
   }
 
-  button.remove {
+  button.remove,
+  button.add {
     border: 0;
     background: transparent;
     display: inline;
