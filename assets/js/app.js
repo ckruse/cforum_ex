@@ -35,7 +35,6 @@ import "./components/user-selector";
 import "./components/postingform";
 
 // site specific JS
-import "./forum-stats";
 import "./flag_message";
 import "./thread_actions";
 
