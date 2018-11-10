@@ -7,11 +7,11 @@
   transition: opacity 300ms ease-in;
 }
 
-.fade-in-leave {
+.fade-in-exit {
   opacity: 1;
 }
 
-.fade-in-leave.fade-in-leave-active {
+.fade-in-exit.fade-in-exit-active {
   opacity: 0.01;
   transition: opacity 300ms ease-in;
 }
