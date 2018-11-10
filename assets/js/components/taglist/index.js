@@ -1,5 +1,6 @@
 import React from "react";
-import { CSSTransitionGroup } from "react-transition-group";
+import { TransitionGroup } from "react-transition-group";
+import { FadeTransition } from "../transitions";
 
 import Tag from "./tag";
 import NewTagInput from "./new_tag_input";
@@ -75,9 +76,11 @@ class TagList extends React.Component {
     const tokens = text.split(/[^a-z0-9äöüß-]+/i);
     const words = {};
 
-    tokens.filter(tok => tok.match(/^[a-z0-9äöüß-]+$/i)).forEach(tok => {
-      words[tok.toLowerCase()] = 1;
-    });
+    tokens
+      .filter(tok => tok.match(/^[a-z0-9äöüß-]+$/i))
+      .forEach(tok => {
+        words[tok.toLowerCase()] = 1;
+      });
 
     return Object.keys(words);
   }
@@ -128,22 +131,17 @@ class TagList extends React.Component {
       <fieldset>
         {this.state.tags.length < 3 && <Suggestions suggestions={this.state.suggestions} onClick={this.addTag} />}
 
-        <CSSTransitionGroup
-          component="ul"
-          className="cf-cgroup cf-form-tagslist cf-tags-list"
-          aria-live="polite"
-          transitionName="fade-in"
-          transitionEnterTimeout={300}
-          transitionLeaveTimeout={300}
-        >
+        <TransitionGroup component="ul" className="cf-cgroup cf-form-tagslist cf-tags-list" aria-live="polite">
           {this.state.tags.map(([tag, err]) => (
-            <Tag key={tag} tag={tag} error={err} onClick={() => this.removeTag(tag)} />
+            <FadeTransition key={tag}>
+              <Tag tag={tag} error={err} onClick={() => this.removeTag(tag)} />
+            </FadeTransition>
           ))}
 
           {this.state.tags.length < this.state.maxTags && (
             <NewTagInput onChoose={this.addTag} existingTags={this.state.tags} allTags={this.state.allTags} />
           )}
-        </CSSTransitionGroup>
+        </TransitionGroup>
       </fieldset>
     );
   }

@@ -1,6 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
-import { CSSTransitionGroup } from "react-transition-group";
+import { TransitionGroup } from "react-transition-group";
+import { FadeTransition } from "./components/transitions";
 
 import { t } from "./modules/i18n";
 import { uniqueId } from "./modules/helpers";
@@ -14,9 +15,11 @@ class AlertsContainer extends React.Component {
     super(props);
     this.state = { alerts: [...this.props.existingAlerts] };
 
-    this.state.alerts.filter(alrt => !!alrt.timeout).forEach(alrt => {
-      window.setTimeout(() => this.removeAlert(alrt), alrt.timeout * 1000);
-    });
+    this.state.alerts
+      .filter(alrt => !!alrt.timeout)
+      .forEach(alrt => {
+        window.setTimeout(() => this.removeAlert(alrt), alrt.timeout * 1000);
+      });
   }
 
   removeAlert(alert) {
@@ -39,26 +42,23 @@ class AlertsContainer extends React.Component {
 
   render() {
     return (
-      <CSSTransitionGroup
-        component="div"
-        transitionName="fade-in"
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={300}
-      >
+      <TransitionGroup component="div">
         {this.state.alerts.map(alert => (
-          <div
-            key={alert.id}
-            className={`cf-${alert.type} cf-alert fade in`}
-            role="alert"
-            onClick={() => this.removeAlert(alert)}
-          >
-            <button type="button" className="close" aria-label={t("close")}>
-              <span aria-hidden="true">&times;</span>
-            </button>
-            {alert.text}
-          </div>
+          <FadeTransition>
+            <div
+              key={alert.id}
+              className={`cf-${alert.type} cf-alert fade in`}
+              role="alert"
+              onClick={() => this.removeAlert(alert)}
+            >
+              <button type="button" className="close" aria-label={t("close")}>
+                <span aria-hidden="true">&times;</span>
+              </button>
+              {alert.text}
+            </div>
+          </FadeTransition>
         ))}
-      </CSSTransitionGroup>
+      </TransitionGroup>
     );
   }
 }
