@@ -13,10 +13,10 @@
   },
   "dependencies": {
     "cfmarkdown": "https://code.wwwtech.de/ckruse/cfmarkdown.git",
+    "date-fns": "^1.29.0",
     "emoji-mart": "^2.8.1",
     "flatpickr": "^4.5.0",
     "highcharts": "^6.1.0",
-    "moment": "^2.22.1",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
     "react": "^16.5.2",
