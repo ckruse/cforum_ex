@@ -28,12 +28,6 @@ defmodule CforumWeb.ForumView do
   def state_heading(:month), do: gettext("state of the last 30 days")
   def state_heading(:year), do: gettext("state of the last 360 days")
 
-  def tag_name(conn, tag) do
-    if blank?(conn.assigns[:current_forum]),
-      do: [{:safe, "<span>"}, "#{tag[:tag].forum.short_name}: #{tag[:tag].tag_name}", {:safe, "</span>"}],
-      else: tag[:tag].tag_name
-  end
-
   def additional_js(:stats, assigns), do: static_path(assigns[:conn], "/js/stats.js")
 
   def stats_json(stats) do
