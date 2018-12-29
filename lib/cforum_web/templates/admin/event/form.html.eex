@@ -50,5 +50,5 @@
 <% end %>
 
 <%= if assigns[:event] do %>
-  <%= destructive_button(gettext("delete"), to: admin_event_path(@conn, :delete, @event), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
+  <%= destructive_button(gettext("delete"), to: Routes.admin_event_path(@conn, :delete, @event), method: :delete) %>
 <% end %>

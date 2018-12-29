@@ -70,7 +70,7 @@
   <ul class="cf-counted-tags-list">
     <%= for {tag_slug, tag_name, cnt} <- @tags_cnt do %>
       <li>
-        <%= link tag_name, to: tag_path(@conn, :show, %Tag{slug: tag_slug}), class: "cf-tag" %>
+        <%= link tag_name, to: Path.tag_path(@conn, :show, %Tag{slug: tag_slug}), class: "cf-tag" %>
         <span class="cnt"><%= Number.Delimit.number_to_delimited(cnt, precision: 0) %></span>
       </li>
     <% end %>
@@ -95,7 +95,7 @@
   </article>
 <% end %>
 
-<p><%= link gettext("all messages"), to: user_path(@conn, :show_messages, @user) %></p>
+<p><%= link gettext("all messages"), to: Routes.user_path(@conn, :show_messages, @user) %></p>
 
 <h2 class="cf-heading"><%= gettext("Best scored messages") %></h2>
 
@@ -145,22 +145,22 @@
 <% end %>
 
 <p>
-  <%= link gettext("all scores"), to: user_path(@conn, :show_scores, @user) %>
+  <%= link gettext("all scores"), to: Routes.user_path(@conn, :show_scores, @user) %>
   <%= if may?(@conn, "users/user", :show_votes, @user) do %>
-    <%= link gettext("all votes"), to: user_path(@conn, :show_votes, @user) %>
+    <%= link gettext("all votes"), to: Routes.user_path(@conn, :show_votes, @user) %>
   <% end %>
 </p>
 
 
-<h2 class="cf-heading"><%= gettext("Badges") %> <%= link(to: "#badges", title: gettext("info")) do %><%= img_tag(static_path(@conn, "/images/bewertung-info-blaugrau.svg"), class: "cf-info-icon") %><% end %></h2><!-- TODO link to help_path -->
+<h2 class="cf-heading"><%= gettext("Badges") %> <%= link(to: "#badges", title: gettext("info")) do %><%= img_tag(Routes.static_path(@conn, "/images/bewertung-info-blaugrau.svg"), class: "cf-info-icon") %><% end %></h2><!-- TODO link to help_path -->
 
 <%= if blank?(@badges) do %>
   <p><%= gettext("no badges so far") %></p>
 <% else %>
   <ul class="cf-badge-user-list">
     <%= for ub <- @badges do %>
-      <li><%= img_tag(static_path(@conn, "/images/" <> ub[:badge].badge_medal_type <> ".png"), class: "medal-image", alt: l10n_medal_type(ub[:badge].badge_medal_type)) %>
-        <%= link ub[:badge].name, to: badge_path(@conn, :show, ub[:badge]) %>
+      <li><%= img_tag(Routes.static_path(@conn, "/images/" <> ub[:badge].badge_medal_type <> ".png"), class: "medal-image", alt: l10n_medal_type(ub[:badge].badge_medal_type)) %>
+        <%= link ub[:badge].name, to: Routes.badge_path(@conn, :show, ub[:badge]) %>
         <%= if ub[:times] > 1, do: "× #{ub[:times]}" %> (<%= format_date(@conn, ub[:created_at]) %>)</li>
     <% end %>
   </ul>
@@ -169,9 +169,9 @@
 
 <%= if @current_user != nil do %>
   <p class="form-actions">
-    <%= if may?(@conn, "users/user", :edit, @user), do: default_button_link(gettext("edit profile and settings"), to: user_path(@conn, :edit, @user)) %>
-    <%= if may?(@conn, "users/user", :delete, @user), do: default_button_link(gettext("delete user"), to: user_path(@conn, :confirm_delete, @user)) %>
-    <%= if may?(@conn, "users/password", :edit, @user), do: default_button_link(gettext("change password"), to: user_password_path(@conn, :edit, @user)) %>
-    <%= if @user.user_id != @current_user.user_id, do: default_button_link(gettext("new mail to %{username}", username: @user.username), to: mail_path(@conn, :new, priv_message: [recipient_id: @user.user_id]), rel: "nofollow") %>
+    <%= if may?(@conn, "users/user", :edit, @user), do: default_button_link(gettext("edit profile and settings"), to: Routes.user_path(@conn, :edit, @user)) %>
+    <%= if may?(@conn, "users/user", :delete, @user), do: default_button_link(gettext("delete user"), to: Routes.user_path(@conn, :confirm_delete, @user)) %>
+    <%= if may?(@conn, "users/password", :edit, @user), do: default_button_link(gettext("change password"), to: Routes.user_password_path(@conn, :edit, @user)) %>
+    <%= if @user.user_id != @current_user.user_id, do: default_button_link(gettext("new mail to %{username}", username: @user.username), to: Routes.mail_path(@conn, :new, priv_message: [recipient_id: @user.user_id]), rel: "nofollow") %>
   </p>
 <% end %>

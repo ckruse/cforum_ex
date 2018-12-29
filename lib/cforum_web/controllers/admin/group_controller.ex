@@ -20,7 +20,7 @@ defmodule CforumWeb.Admin.GroupController do
       {:ok, group} ->
         conn
         |> put_flash(:info, gettext("The group has been created successfully."))
-        |> redirect(to: admin_group_path(conn, :edit, group))
+        |> redirect(to: Routes.admin_group_path(conn, :edit, group))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         forums = Cforum.Forums.list_forums()
@@ -42,7 +42,7 @@ defmodule CforumWeb.Admin.GroupController do
       {:ok, group} ->
         conn
         |> put_flash(:info, gettext("The group has been updated successfully."))
-        |> redirect(to: admin_group_path(conn, :edit, group))
+        |> redirect(to: Routes.admin_group_path(conn, :edit, group))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         forums = Cforum.Forums.list_forums()
@@ -56,7 +56,7 @@ defmodule CforumWeb.Admin.GroupController do
 
     conn
     |> put_flash(:info, gettext("The group has been deleted successfully."))
-    |> redirect(to: admin_group_path(conn, :index))
+    |> redirect(to: Routes.admin_group_path(conn, :index))
   end
 
   def allowed?(conn, _, _), do: admin?(conn)

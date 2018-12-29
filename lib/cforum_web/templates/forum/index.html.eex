@@ -11,8 +11,8 @@
 <ol class="cf-portal-forums-list">
   <li>
     <h2 class="forum-name">
-      <%= link gettext("all forums"), to: forum_path(@conn, :index, "all") %>
-      <%= link to: forum_path(@conn, :stats, "all"), title: gettext("statistics") do %>
+      <%= link gettext("all forums"), to: Path.forum_path(@conn, :index, "all") %>
+      <%= link to: Path.forum_path(@conn, :stats, "all"), title: gettext("statistics") do %>
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="27" height="17" viewBox="0, 0, 22, 14">
           <use xlink:href="#stats-icon"></use>
         </svg>
@@ -27,14 +27,14 @@
       </ul>
     <% end %>
 
-    <p><%= link gettext("show all threads"), to: forum_path(@conn, :index, "all") %></p>
+    <p><%= link gettext("show all threads"), to: Path.forum_path(@conn, :index, "all") %></p>
   </li>
 
   <%= for forum <- @visible_forums do %>
     <li>
       <h2 class="forum-name">
-        <%= link forum.name, to: forum_path(@conn, :index, forum) %>
-        <%= link to: forum_path(@conn, :stats, forum), title: gettext("statistics") do %>
+        <%= link forum.name, to: Path.forum_path(@conn, :index, forum) %>
+        <%= link to: Path.forum_path(@conn, :stats, forum), title: gettext("statistics") do %>
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="27" height="17" viewBox="0, 0, 22, 14">
             <use xlink:href="#stats-icon"></use>
           </svg>
@@ -51,13 +51,13 @@
        </ul>
        <% end %>
 
-      <p><%= link gettext("show all threads"), to: forum_path(@conn, :index, forum) %></p>
+      <p><%= link gettext("show all threads"), to: Path.forum_path(@conn, :index, forum) %></p>
     </li>
   <% end %>
 
   <%= if present?(@unanswered_threads) do %>
     <li>
-      <h2 class="forum-name"><%= link gettext("Threads without answer"), to: forum_path(@conn, :unanswered, "all") %></h2>
+      <h2 class="forum-name"><%= link gettext("Threads without answer"), to: Path.forum_path(@conn, :unanswered, "all") %></h2>
 
       <ul>
         <%= for thread <- @unanswered_threads do %>
@@ -67,7 +67,7 @@
         <% end %>
       </ul>
 
-      <p><%= link gettext("show all threads"), to: forum_path(@conn, :unanswered, "all") %></p>
+      <p><%= link gettext("show all threads"), to: Path.forum_path(@conn, :unanswered, "all") %></p>
     </li>
   <% end %>
 </ol>

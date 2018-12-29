@@ -243,7 +243,7 @@ defmodule Cforum.Accounts.PrivMessages do
         case pm do
           {:ok, foreign_pm} ->
             priv_message = Repo.get!(PrivMessage, foreign_pm.priv_message_id)
-            Task.start(fn -> notify_user(priv_message) end)
+            Cforum.Helpers.AsyncHelper.run_async(fn -> notify_user(priv_message) end)
 
             %PrivMessage{
               is_read: true,

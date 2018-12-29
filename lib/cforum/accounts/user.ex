@@ -18,17 +18,17 @@ defmodule Cforum.Accounts.User do
     field(:admin, :boolean, default: false)
     field(:active, :boolean, default: false)
     field(:encrypted_password, :string)
-    field(:remember_created_at, Timex.Ecto.DateTime)
+    field(:remember_created_at, :utc_datetime)
     field(:reset_password_token, :string)
-    field(:reset_password_sent_at, Timex.Ecto.DateTime)
+    field(:reset_password_sent_at, :utc_datetime)
     field(:confirmation_token, :string)
     field(:confirmation_captcha, :string)
-    field(:confirmed_at, Timex.Ecto.DateTime)
-    field(:confirmation_sent_at, Timex.Ecto.DateTime)
-    field(:last_visit, Timex.Ecto.DateTime)
+    field(:confirmed_at, :utc_datetime)
+    field(:confirmation_sent_at, :utc_datetime)
+    field(:last_visit, :utc_datetime)
     field(:avatar_file_name, CforumWeb.Avatar.Type)
     field(:avatar_content_type, :string)
-    field(:avatar_updated_at, Timex.Ecto.DateTime)
+    field(:avatar_updated_at, :utc_datetime)
     field(:score, :integer)
     field(:activity, :integer)
 
@@ -161,7 +161,7 @@ defmodule Cforum.Accounts.User do
       %Ecto.Changeset{valid?: true, changes: %{username: username}} ->
         changeset
         |> put_change(:confirmation_token, generate_confirmation_token(username))
-        |> put_change(:confirmation_sent_at, Timex.now())
+        |> put_change(:confirmation_sent_at, DateTime.truncate(Timex.now(), :second))
 
       _ ->
         changeset

@@ -33,34 +33,36 @@ defmodule Cforum.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.3.0"},
+      {:phoenix, "~> 1.4.0"},
       {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix_ecto, "~> 3.2"},
+      {:ecto_sql, "~> 3.0"},
+      {:phoenix_ecto, "~> 4.0"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
-      {:cowboy, "~> 1.0"},
-      {:plug_cowboy, "~> 1.0"},
+      {:plug_cowboy, "~> 2.0"},
+      {:plug, "~> 1.7"},
       {:comeonin, "~> 4.0"},
       {:bcrypt_elixir, "~> 0.12"},
       {:number, "~> 0.5.1"},
       {:bamboo, "~> 1.1"},
       {:bamboo_smtp, "~> 1.6.0"},
       {:timex, "~> 3.1"},
-      {:timex_ecto, "~> 3.2"},
       {:arc_ecto, "~> 0.7"},
       {:arc, "~> 0.8"},
       {:poolboy, "~> 1.5.1"},
       {:porcelain, "~> 2.0"},
+      # TODO remove poison, one json parser is enough
       {:poison, "~> 3.1"},
+      {:jason, "~> 1.0"},
       {:slugify, "~> 1.1"},
       {:xml_builder, "~> 2.0.0"},
       {:quantum, "~> 2.3"},
 
       # testing
       {:excoveralls, "~> 0.8", only: :test},
-      {:ex_machina, "~> 2.1", only: :test},
+      {:ex_machina, "~> 2.2", only: :test},
       {:faker, "~> 0.9", only: :test},
       {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0.0-rc.3", only: [:dev], runtime: false}

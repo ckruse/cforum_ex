@@ -20,6 +20,8 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+config :phoenix, :json_library, Jason
+
 config :cforum, CforumWeb.Gettext, default_locale: "de"
 
 config :number, delimit: [precision: 2, delimiter: ".", separator: ","]

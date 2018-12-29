@@ -1,1 +1,1 @@
-<%= render "form.html", Map.merge(assigns, %{action: admin_group_path(@conn, :update, @group), back: admin_group_path(@conn, :index)}) %>
+<%= render "form.html", Map.merge(assigns, %{action: Routes.admin_group_path(@conn, :update, @group), back: Routes.admin_group_path(@conn, :index)}) %>

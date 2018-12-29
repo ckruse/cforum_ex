@@ -1,4 +1,4 @@
-<%= form_for @changeset, moderation_path(@conn, :update, @entry), [class: "cf-form"], fn f -> %>
+<%= form_for @changeset, Routes.moderation_path(@conn, :update, @entry), [class: "cf-form"], fn f -> %>
   <%= if @changeset.action do %>
     <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
   <% end %>
@@ -34,6 +34,6 @@
 
   <p class="form-actions">
     <%= primary_submit gettext("save") %>
-    <%= default_button_link gettext("cancel"), to: moderation_path(@conn, :index) %>
+    <%= default_button_link gettext("cancel"), to: Routes.moderation_path(@conn, :index) %>
   </p>
 <% end %>

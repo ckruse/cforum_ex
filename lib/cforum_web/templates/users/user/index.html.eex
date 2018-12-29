@@ -10,17 +10,17 @@
 <table class="cf-default-table">
   <thead>
     <tr>
-      <th><%= sortable(@conn, gettext("username"), :username, &user_path/3) %></th>
-      <th class="numeric"><%= sortable(@conn, gettext("Score"), :score, &user_path/3) %></th>
-      <th class="numeric"><%= sortable(@conn, gettext("Activity during the last 30 days"), :activity, &user_path/3) %></th>
-      <th><%= sortable(@conn, gettext("Registration date"), :created_at, &user_path/3) %></th>
+      <th><%= sortable(@conn, gettext("username"), :username, &Routes.user_path/3) %></th>
+      <th class="numeric"><%= sortable(@conn, gettext("Score"), :score, &Routes.user_path/3) %></th>
+      <th class="numeric"><%= sortable(@conn, gettext("Activity during the last 30 days"), :activity, &Routes.user_path/3) %></th>
+      <th><%= sortable(@conn, gettext("Registration date"), :created_at, &Routes.user_path/3) %></th>
     </tr>
   </thead>
 
   <tbody>
     <%= for user <- @users do %>
       <tr>
-        <td><%= link user.username, to: user_path(@conn, :show, user) %></td>
+        <td><%= link user.username, to: Routes.user_path(@conn, :show, user) %></td>
         <td class="numeric"><%= user.score %></td>
         <td class="numeric"><%= user.activity %> <%= gettext("messages") %></td>
         <td><%= format_date(@conn, user.created_at) %></td>
@@ -29,4 +29,4 @@
   </tbody>
 </table>
 
-<%= pagination @conn, @paging, &user_path/3 %>
+<%= pagination @conn, @paging, &Routes.user_path/3 %>

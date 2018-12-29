@@ -1,13 +1,13 @@
 <ul>
-  <li><%= link gettext("users"), to: admin_user_path(@conn, :index) %></li>
-  <li><%= link gettext("settings"), to: admin_setting_path(@conn, :edit) %></li>
-  <li><%= link gettext("forums"), to: admin_forum_path(@conn, :index) %></li>
-  <li><%= link gettext("events"), to: admin_event_path(@conn, :index) %></li>
-  <li><%= link gettext("groups"), to: admin_group_path(@conn, :index) %></li>
-  <li><%= link gettext("badges"), to: admin_badge_path(@conn, :index) %></li>
-  <li><%= link gettext("search sections"), to: admin_search_section_path(@conn, :index) %></li>
+  <li><%= link gettext("users"), to: Routes.admin_user_path(@conn, :index) %></li>
+  <li><%= link gettext("settings"), to: Routes.admin_setting_path(@conn, :edit) %></li>
+  <li><%= link gettext("forums"), to: Routes.admin_forum_path(@conn, :index) %></li>
+  <li><%= link gettext("events"), to: Routes.admin_event_path(@conn, :index) %></li>
+  <li><%= link gettext("groups"), to: Routes.admin_group_path(@conn, :index) %></li>
+  <li><%= link gettext("badges"), to: Routes.admin_badge_path(@conn, :index) %></li>
+  <li><%= link gettext("search sections"), to: Routes.admin_search_section_path(@conn, :index) %></li>
   <li><%= link gettext("images"), to: "" %></li>
-  <li><%= link gettext("audit log"), to: admin_audit_path(@conn, :index) %></li>
+  <li><%= link gettext("audit log"), to: Routes.admin_audit_path(@conn, :index) %></li>
   <li><%= link gettext("background tasks"), to: "" %></li>
-  <li><%= link gettext("redirections"), to: admin_redirection_path(@conn, :index) %></li>
+  <li><%= link gettext("redirections"), to: Routes.admin_redirection_path(@conn, :index) %></li>
 </ul>

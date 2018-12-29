@@ -402,7 +402,7 @@ defmodule Cforum.Forums.Threads do
     retval =
       Repo.transaction(fn ->
         retval =
-          %Thread{latest_message: Timex.local()}
+          %Thread{latest_message: DateTime.truncate(Timex.now(), :second)}
           |> Thread.changeset(attrs, forum, visible_forums)
           |> Repo.insert()
 

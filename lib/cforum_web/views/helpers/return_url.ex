@@ -13,7 +13,8 @@ defmodule CforumWeb.Views.Helpers.ReturnUrl do
     int_return_path(conn, params, thread, message, args)
   end
 
-  defp int_return_path(conn, _, nil, nil, args), do: Path.forum_path(conn, :index, conn.assigns[:current_forum], args)
+  defp int_return_path(conn, _, nil, nil, args),
+    do: Path.forum_path(conn, :index, conn.assigns[:current_forum], args)
 
   defp int_return_path(conn, params, thread, message, args) do
     forum_slug = get_forum_slug(conn, params)

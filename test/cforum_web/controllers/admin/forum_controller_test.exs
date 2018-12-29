@@ -12,7 +12,7 @@ defmodule CforumWeb.Admin.ForumControllerTest do
 
     conn =
       login(conn, user)
-      |> get(admin_forum_path(conn, :index))
+      |> get(Routes.admin_forum_path(conn, :index))
 
     assert html_response(conn, 200) =~ gettext("administrate forums")
     assert html_response(conn, 200) =~ forum.name
@@ -21,7 +21,7 @@ defmodule CforumWeb.Admin.ForumControllerTest do
   test "renders form for new forum", %{conn: conn, user: user} do
     conn =
       login(conn, user)
-      |> get(admin_forum_path(conn, :new))
+      |> get(Routes.admin_forum_path(conn, :new))
 
     assert html_response(conn, 200) =~ gettext("New Forum")
   end
@@ -29,12 +29,12 @@ defmodule CforumWeb.Admin.ForumControllerTest do
   test "creates forum and redirects to show when data is valid", %{conn: conn, user: user} do
     conn =
       login(conn, user)
-      |> post(admin_forum_path(conn, :create), forum: params_for(:forum))
+      |> post(Routes.admin_forum_path(conn, :create), forum: params_for(:forum))
 
     assert %{id: id} = cf_redirected_params(conn)
-    assert redirected_to(conn) == admin_forum_path(conn, :edit, id)
+    assert redirected_to(conn) == Routes.admin_forum_path(conn, :edit, id)
 
-    conn = get(conn, admin_forum_path(conn, :edit, id))
+    conn = get(conn, Routes.admin_forum_path(conn, :edit, id))
     forum = Forums.get_forum_by_slug!(id)
     assert html_response(conn, 200) =~ gettext("Show Forum „%{forum}“", forum: forum.name)
   end
@@ -42,7 +42,7 @@ defmodule CforumWeb.Admin.ForumControllerTest do
   test "does not create forum and renders errors when data is invalid", %{conn: conn, user: user} do
     conn =
       login(conn, user)
-      |> post(admin_forum_path(conn, :create), forum: %{params_for(:forum) | slug: nil})
+      |> post(Routes.admin_forum_path(conn, :create), forum: %{params_for(:forum) | slug: nil})
 
     assert html_response(conn, 200) =~ gettext("New Forum")
   end
@@ -52,7 +52,7 @@ defmodule CforumWeb.Admin.ForumControllerTest do
 
     conn =
       login(conn, user)
-      |> get(admin_forum_path(conn, :edit, forum))
+      |> get(Routes.admin_forum_path(conn, :edit, forum))
 
     assert html_response(conn, 200) =~ gettext("Edit Forum „%{forum}“", forum: forum.name)
   end
@@ -62,11 +62,11 @@ defmodule CforumWeb.Admin.ForumControllerTest do
 
     conn =
       login(conn, user)
-      |> put(admin_forum_path(conn, :update, forum), forum: %{name: "Foobar"})
+      |> put(Routes.admin_forum_path(conn, :update, forum), forum: %{name: "Foobar"})
 
-    assert redirected_to(conn) == admin_forum_path(conn, :edit, forum)
+    assert redirected_to(conn) == Routes.admin_forum_path(conn, :edit, forum)
 
-    conn = get(conn, admin_forum_path(conn, :edit, forum))
+    conn = get(conn, Routes.admin_forum_path(conn, :edit, forum))
     assert html_response(conn, 200) =~ "Foobar"
   end
 
@@ -75,7 +75,7 @@ defmodule CforumWeb.Admin.ForumControllerTest do
 
     conn =
       login(conn, user)
-      |> put(admin_forum_path(conn, :update, forum), forum: %{slug: nil})
+      |> put(Routes.admin_forum_path(conn, :update, forum), forum: %{slug: nil})
 
     assert html_response(conn, 200) =~ gettext("Edit Forum „%{forum}“", forum: forum.name)
   end
@@ -85,21 +85,21 @@ defmodule CforumWeb.Admin.ForumControllerTest do
 
     conn =
       login(conn, user)
-      |> delete(admin_forum_path(conn, :delete, forum))
+      |> delete(Routes.admin_forum_path(conn, :delete, forum))
 
-    assert redirected_to(conn) == admin_forum_path(conn, :index)
-    assert_error_sent(404, fn -> get(conn, admin_forum_path(conn, :edit, forum)) end)
+    assert redirected_to(conn) == Routes.admin_forum_path(conn, :index)
+    assert_error_sent(404, fn -> get(conn, Routes.admin_forum_path(conn, :edit, forum)) end)
   end
 
   describe "access rights" do
     test "anonymous isn't allowed to access", %{conn: conn} do
-      assert_error_sent(403, fn -> get(conn, admin_forum_path(conn, :index)) end)
+      assert_error_sent(403, fn -> get(conn, Routes.admin_forum_path(conn, :index)) end)
     end
 
     test "non-admin user isn't allowed to access", %{conn: conn} do
       user = insert(:user)
       conn = login(conn, user)
-      assert_error_sent(403, fn -> get(conn, admin_forum_path(conn, :index)) end)
+      assert_error_sent(403, fn -> get(conn, Routes.admin_forum_path(conn, :index)) end)
     end
 
     test "admin is allowed", %{conn: conn} do
@@ -108,7 +108,7 @@ defmodule CforumWeb.Admin.ForumControllerTest do
       conn =
         conn
         |> login(user)
-        |> get(admin_forum_path(conn, :index))
+        |> get(Routes.admin_forum_path(conn, :index))
 
       assert html_response(conn, 200) =~ gettext("administrate forums")
     end

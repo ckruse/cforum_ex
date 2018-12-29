@@ -1,4 +1,4 @@
-<%= form_for @changeset, password_path(@conn, :update_reset, token: @token), [method: :post, class: "cf-form"], fn f -> %>
+<%= form_for @changeset, Routes.password_path(@conn, :update_reset, token: @token), [method: :post, class: "cf-form"], fn f -> %>
   <div class="cf-cgroup <%= error_class(f, :password) %>">
     <%= label f, :password do %>
       <%= gettext("password") %>
@@ -14,6 +14,6 @@
 
   <p class="form-actions">
     <%= primary_submit gettext("change password") %>
-    <%= default_button_link gettext("cancel"), to: user_path(@conn, :show, @user) %>
+    <%= default_button_link gettext("cancel"), to: Routes.user_path(@conn, :show, @user) %>
   </p>
 <% end %>

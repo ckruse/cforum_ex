@@ -1,1 +1,1 @@
-<%= render "form.html", Map.merge(assigns, %{action: tag_synonym_path(@conn, :update, @tag, @synonym), back: tag_path(@conn, :show, @tag)}) %>
+<%= render "form.html", Map.merge(assigns, %{action: Path.tag_synonym_path(@conn, :update, @tag, @synonym), back: Path.tag_path(@conn, :show, @tag)}) %>

@@ -6,23 +6,23 @@ defmodule CforumWeb.ModerationControllerTest do
   describe "index" do
     test "lists all entries", %{conn: conn, message: message} do
       insert(:moderation_queue_entry, message: message)
-      conn = get(conn, moderation_path(conn, :index))
+      conn = get(conn, Routes.moderation_path(conn, :index))
       assert html_response(conn, 200) =~ gettext("moderation")
     end
 
     test "shows a „none found“ message", %{conn: conn} do
-      conn = get(conn, moderation_path(conn, :index))
+      conn = get(conn, Routes.moderation_path(conn, :index))
       assert html_response(conn, 200) =~ gettext("No moderation queue entries found")
     end
 
     test "lists all open entries", %{conn: conn, message: message} do
       insert(:moderation_queue_entry, message: message)
-      conn = get(conn, moderation_path(conn, :index_open))
+      conn = get(conn, Routes.moderation_path(conn, :index_open))
       assert html_response(conn, 200) =~ gettext("moderation")
     end
 
     test "index_open shows a „none found“ message", %{conn: conn} do
-      conn = get(conn, moderation_path(conn, :index_open))
+      conn = get(conn, Routes.moderation_path(conn, :index_open))
       assert html_response(conn, 200) =~ gettext("No moderation queue entries found")
     end
   end
@@ -31,7 +31,7 @@ defmodule CforumWeb.ModerationControllerTest do
     setup [:create_moderation_queue_entry]
 
     test "shows chosen resource", %{conn: conn, entry: entry} do
-      conn = get(conn, moderation_path(conn, :show, entry))
+      conn = get(conn, Routes.moderation_path(conn, :show, entry))
       assert html_response(conn, 200) =~ gettext("moderation")
     end
   end
@@ -40,7 +40,7 @@ defmodule CforumWeb.ModerationControllerTest do
     setup [:create_moderation_queue_entry]
 
     test "renders form for editing chosen entry", %{conn: conn, entry: entry} do
-      conn = get(conn, moderation_path(conn, :edit, entry))
+      conn = get(conn, Routes.moderation_path(conn, :edit, entry))
       assert html_response(conn, 200) =~ gettext("moderation")
     end
   end
@@ -52,18 +52,18 @@ defmodule CforumWeb.ModerationControllerTest do
       conn =
         put(
           conn,
-          moderation_path(conn, :update, entry),
+          Routes.moderation_path(conn, :update, entry),
           moderation_queue_entry: %{resolution: "none", resolution_action: "none"}
         )
 
-      assert redirected_to(conn) == moderation_path(conn, :index)
+      assert redirected_to(conn) == Routes.moderation_path(conn, :index)
     end
 
     test "renders errors when data is invalid", %{conn: conn, entry: entry} do
       conn =
         put(
           conn,
-          moderation_path(conn, :update, entry),
+          Routes.moderation_path(conn, :update, entry),
           moderation_queue_entry: %{resolution: nil, resolution_action: nil}
         )
 

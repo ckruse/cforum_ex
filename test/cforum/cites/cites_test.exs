@@ -55,7 +55,7 @@ defmodule Cforum.CitesTest do
     end
 
     test "list_cites_to_archive/1 lists all cites with age > min age" do
-      cite = insert(:cite, created_at: Timex.shift(Timex.now(), weeks: -2))
+      cite = insert(:cite, created_at: Timex.shift(Timex.now(), weeks: -3))
       insert(:cite)
       assert Enum.map(Cites.list_cites_to_archive(2), & &1.cite_id) == [cite.cite_id]
     end

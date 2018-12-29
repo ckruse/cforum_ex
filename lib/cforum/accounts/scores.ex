@@ -134,7 +134,7 @@ defmodule Cforum.Accounts.Scores do
   end
 
   def notify_user(%Score{} = score) do
-    Task.start(fn ->
+    Cforum.Helpers.AsyncHelper.run_async(fn ->
       user = Cforum.Accounts.Users.get_user!(score.user_id)
       CforumWeb.Endpoint.broadcast!("users:#{user.user_id}", "score-update", %{value: score.value, score: user.score})
     end)

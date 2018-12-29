@@ -38,7 +38,9 @@
     </div>
   </fieldset>
 
-  <div data-js="badge-management" data-user-id="<%= @user.user_id %>"></div>
+  <%= if present?(assigns[:user]) do %>
+    <div data-js="badge-management" data-user-id="<%= @user.user_id %>"></div>
+  <% end %>
 
   <p class="form-actions">
     <%= primary_submit gettext("save") %>
@@ -47,5 +49,5 @@
 <% end %>
 
 <%= if present?(assigns[:user]) do %>
-  <%= destructive_button(gettext("delete"), to: admin_user_path(@conn, :delete, @user), method: :delete) %>
+  <%= destructive_button(gettext("delete"), to: Routes.admin_user_path(@conn, :delete, @user), method: :delete) %>
 <% end %>

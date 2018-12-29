@@ -1,6 +1,5 @@
 defmodule Cforum.Cites.Vote do
-  use Ecto.Schema
-  import Ecto.Changeset
+  use CforumWeb, :model
 
   @primary_key {:cite_vote_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :cite_vote_id}

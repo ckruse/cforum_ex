@@ -1,7 +1,7 @@
 <%= if blank?(@threads) do %>
   <p><%= gettext("no invisible threads, yet") %></p>
 <% else %>
-  <%= pagination @conn, @page, &invisible_thread_path/3, path_args: [@conn, :index] %>
+  <%= pagination @conn, @page, &Path.invisible_thread_path/3, path_args: [@conn, :index] %>
 
   <div class="cf-thread-list">
     <%= for thread <- @threads do %>
@@ -9,5 +9,5 @@
     <% end %>
   </div>
 
-  <%= pagination @conn, @page, &invisible_thread_path/3, path_args: [@conn, :index] %>
+  <%= pagination @conn, @page, &Path.invisible_thread_path/3, path_args: [@conn, :index] %>
 <% end %>

@@ -2,24 +2,24 @@
       <div class="logo">
         <h1>
           <span><%= {:safe, gettext("SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">documentation</a>")} %></span>
-          <%= link to: root_path(@conn, :index), class: "home" do %><span><%= gettext("home") %></span><% end %>
+          <%= link to: Routes.root_path(@conn, :index), class: "home" do %><span><%= gettext("home") %></span><% end %>
         </h1>
 
-        <%= link(img_tag(static_path(@conn, "/images/feed-atom.svg"), alt: gettext("Atom feed (%{forum})", forum: forum_name(@current_forum))), to: forum_url(@conn, :atom, @current_forum), title: gettext("Atom feed (%{forum})", forum: forum_name(@current_forum)), class: "atom") %>
-        <%= link(img_tag(static_path(@conn, "/images/feed-rss.svg"), alt: gettext("RSS feed (%{forum})", forum: forum_name(@current_forum))), to: forum_url(@conn, :rss, @current_forum), title: gettext("RSS feed (%{forum})", forum: forum_name(@current_forum)), class: "rss") %>
-        <%= link(img_tag(static_path(@conn, "/images/donate.svg"), alt: gettext("donate")), to: "https://selfhtml.org/spenden.html", title: gettext("donate"), class: "donate") %>
+        <%= link(img_tag(Routes.static_path(@conn, "/images/feed-atom.svg"), alt: gettext("Atom feed (%{forum})", forum: forum_name(@current_forum))), to: Path.forum_url(@conn, :atom, @current_forum), title: gettext("Atom feed (%{forum})", forum: forum_name(@current_forum)), class: "atom") %>
+        <%= link(img_tag(Routes.static_path(@conn, "/images/feed-rss.svg"), alt: gettext("RSS feed (%{forum})", forum: forum_name(@current_forum))), to: Path.forum_url(@conn, :rss, @current_forum), title: gettext("RSS feed (%{forum})", forum: forum_name(@current_forum)), class: "rss") %>
+        <%= link(img_tag(Routes.static_path(@conn, "/images/donate.svg"), alt: gettext("donate")), to: "https://selfhtml.org/spenden.html", title: gettext("donate"), class: "donate") %>
       </div>
 
       <nav class="quicklinks">
         <ul>
-          <li><%= link gettext("create new thread"), to: thread_path(@conn, :new, @current_forum) %></li>
-          <li><%= link gettext("home"), to: root_path(@conn, :index) %></li>
+          <li><%= link gettext("create new thread"), to: Path.thread_path(@conn, :new, @current_forum) %></li>
+          <li><%= link gettext("home"), to: Routes.root_path(@conn, :index) %></li>
           <li class="cf-dropdown" data-dropdown="yes">
             <span class="anchor"><%= gettext("forums") %></span>
             <ul class="menu">
               <li<% if !@current_forum && controller_module(@conn) == Cforum.ThreadController do %> class="active"<% end %>>
-                <%= link gettext("all forums"), to: forum_path(@conn, :index, "all") %>
-                <%= link to: forum_path(@conn, :stats, "all"), title: gettext("statistics"), class: "stats" do %>
+                <%= link gettext("all forums"), to: Path.forum_path(@conn, :index, "all") %>
+                <%= link to: Path.forum_path(@conn, :stats, "all"), title: gettext("statistics"), class: "stats" do %>
                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="22" height="14" viewBox="0, 0, 22, 14">
                     <g id="stats-icon">
                       <path d="M-0.001,13 L21.999,13 L21.999,14 L-0.001,14 z" fill="#BFBFBF"/>
@@ -33,8 +33,8 @@
               </li>
               <%= for f <- @visible_forums do %>
                 <li<%= if @current_forum == f do %> class="active"<% end %>>
-                  <%= link f.name, to: forum_path(@conn, :index, f) %>
-                  <%= link to: forum_path(@conn, :stats, f), title: gettext("statistics"), class: "stats" do %>
+                  <%= link f.name, to: Path.forum_path(@conn, :index, f) %>
+                  <%= link to: Path.forum_path(@conn, :stats, f), title: gettext("statistics"), class: "stats" do %>
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="22" height="14" viewBox="0, 0, 22, 14">
                       <use xlink:href="#stats-icon"></use>
                     </svg>
@@ -45,23 +45,23 @@
           </li>
           <%= if may?(@conn, "moderation", :index) do %>
             <li class="moderation-queue">
-              <%= link gettext("moderation queue"), to: moderation_path(@conn, :index) %>
-              (<%= link "#{@undecided_moderation_queue_entries}", to: moderation_path(@conn, :index_open) %>)
+              <%= link gettext("moderation queue"), to: Routes.moderation_path(@conn, :index) %>
+              (<%= link "#{@undecided_moderation_queue_entries}", to: Routes.moderation_path(@conn, :index_open) %>)
             </li>
           <% end %>
           <li class="cites">
-            <%= link gettext("cites"), to: cite_path(@conn, :index) %>
-            <%= if signed_in?(@conn) do %>(<%= link "#{@undecided_cites}", to: cite_path(@conn, :index_voting) %>)<% end %>
+            <%= link gettext("cites"), to: Routes.cite_path(@conn, :index) %>
+            <%= if signed_in?(@conn) do %>(<%= link "#{@undecided_cites}", to: Routes.cite_path(@conn, :index_voting) %>)<% end %>
           </li>
-          <li><%= link gettext("search"), to: search_path(@conn, :show) %></li>
+          <li><%= link gettext("search"), to: Routes.search_path(@conn, :show) %></li>
           <li><%= link gettext("chat"), to: "https://kiwiirc.com/client/irc.epd-me.net/#{chat_nick_name(@conn)}&channel=#selfhtml", rel: "nofollow" %></li>
-          <li><%= link(gettext("help"), to: page_path(@conn, :help)) %></li>
+          <li><%= link(gettext("help"), to: Routes.page_path(@conn, :help)) %></li>
           <%= if false and controller_module(@conn) != Cforum.SearchController do %><%# TODO search field %>
             <li class="search">
               <form>
                 <input type="search" placeholder="<%= gettext("search") %>">
               </form>
-              <%# form_tag search_path + '#results', method: 'get', rel: 'nofollow' do %>
+              <%# form_tag Routes.search_path + '#results', method: 'get', rel: 'nofollow' do %>
               <%# hidden_field_tag 'sections[]', 1, id: nil %>
               <%# hidden_field_tag 'sections[]', 2, id: nil %>
               <%# search_field_tag 'term', params[:term], placeholder: t('search.search_top') %>
@@ -76,36 +76,36 @@
 
         <ul>
           <%= if @current_forum do %>
-            <li><%= link @current_forum.name, to: forum_path(@conn, :index, @current_forum) %></li>
+            <li><%= link @current_forum.name, to: Path.forum_path(@conn, :index, @current_forum) %></li>
           <% end %>
 
           <%= if show?(@conn, :thread_nested) do %>
             <%= if @read_mode == "nested" do %>
-              <li><%= link(gettext("thread view"), to: message_path(@conn, :show, @thread, @message, rm: "thread")) %></li>
+              <li><%= link(gettext("thread view"), to: Path.message_path(@conn, :show, @thread, @message, rm: "thread")) %></li>
             <% else %>
-              <li><%= link(gettext("nested view"), to: message_path(@conn, :show, @thread, @message, rm: "nested")) %></li>
+              <li><%= link(gettext("nested view"), to: Path.message_path(@conn, :show, @thread, @message, rm: "nested")) %></li>
             <% end %>
           <% end %>
 
           <%= if show?(@conn, :sort_links) do %>
             <%= if @order != "ascending" do %>
-              <li><%= link(gettext("sort ascending"), to: forum_path(@conn, :index, @current_forum, p: @page, order: "ascending")) %></li>
+              <li><%= link(gettext("sort ascending"), to: Path.forum_path(@conn, :index, @current_forum, p: @page, order: "ascending")) %></li>
             <% end %>
             <%= if @order != "descending" do %>
-              <li><%= link(gettext("sort descending"), to: forum_path(@conn, :index, @current_forum, p: @page, order: "descending")) %></li>
+              <li><%= link(gettext("sort descending"), to: Path.forum_path(@conn, :index, @current_forum, p: @page, order: "descending")) %></li>
             <% end %>
             <%= if @order != "newest-first" do %>
-              <li><%= link(gettext("sort newest first"), to: forum_path(@conn, :index, @current_forum, p: @page, order: "newest-first")) %></li>
+              <li><%= link(gettext("sort newest first"), to: Path.forum_path(@conn, :index, @current_forum, p: @page, order: "newest-first")) %></li>
             <% end %>
           <% end %>
 
           <%= if show?(@conn, :thread_feeds) do %>
-            <li id="nachricht-feed-atom"><%= link gettext("Atom feed"), to: thread_path(@conn, :atom, assigns[:thread]) %></li>
-            <li id="nachricht-feed-rss"><%= link gettext("RSS feed"), to: thread_path(@conn, :rss, assigns[:thread]) %></li>
+            <li id="nachricht-feed-atom"><%= link gettext("Atom feed"), to: Path.thread_path(@conn, :atom, assigns[:thread]) %></li>
+            <li id="nachricht-feed-rss"><%= link gettext("RSS feed"), to: Path.thread_path(@conn, :rss, assigns[:thread]) %></li>
           <% end %>
 
           <%= if may?(@conn, "admin/user") do %>
-            <li><%= link gettext("Administration"), to: admin_user_path(@conn, :index) %></li>
+            <li><%= link gettext("Administration"), to: Routes.admin_user_path(@conn, :index) %></li>
           <% end %>
 
           <%= if show?(@conn, :view_all) do %>
@@ -113,7 +113,7 @@
           <% end %>
 
           <%= if show?(@conn, :archive) do %>
-            <li id="link-archiv"><%= link gettext("archive"), to: archive_path(@conn, :years, assigns[:current_forum]) %></li>
+            <li id="link-archiv"><%= link gettext("archive"), to: Path.archive_path(@conn, :years, assigns[:current_forum]) %></li>
           <% end %>
 
           <%# if threads && current_user && !controller_path.in?(%w(interesting_messages_plugin hidden_threads_plugin)) %>
@@ -125,23 +125,23 @@
 
           <%# if uconf('hide_read_threads') == 'yes' %>
           <%# if session[:srt] %>
-          <!--li id="optionen-hide-read-threads"><%# cf_link_to t('plugins.hide_read_threads.hide_read_threads'), forum_path(current_forum, 'srt' => 'no') %></li> -->
+          <!--li id="optionen-hide-read-threads"><%# cf_link_to t('plugins.hide_read_threads.hide_read_threads'), Path.forum_path(current_forum, 'srt' => 'no') %></li> -->
               <%# else %>
-          <!--li id="optionen-show-read-threads"><%# cf_link_to t('plugins.hide_read_threads.show_read_threads'), forum_path(current_forum, 'srt' => 'yes') %></li> -->
+          <!--li id="optionen-show-read-threads"><%# cf_link_to t('plugins.hide_read_threads.show_read_threads'), Path.forum_path(current_forum, 'srt' => 'yes') %></li> -->
               <%# end %>
             <%# end %>
           <%# end %>
 
-          <%= if may?(@conn, "messages/interesting") do %><li id="interestings-link"><%= link gettext("interesting messages"), to: interesting_path(@conn, :index) %></li><% end %>
-          <%= if may?(@conn, "messages/subscription") do %><li id="subscriptions-link"><%= link gettext("subscribed messages"), to: subscription_path(@conn, :index) %></li><% end %>
-          <%= if may?(@conn, "threads/invisible") do %><li id="invisibles-link"><%= link gettext("invisible threads"), to: invisible_thread_path(@conn, :index) %></li><% end %>
+          <%= if may?(@conn, "messages/interesting") do %><li id="interestings-link"><%= link gettext("interesting messages"), to: Routes.interesting_path(@conn, :index) %></li><% end %>
+          <%= if may?(@conn, "messages/subscription") do %><li id="subscriptions-link"><%= link gettext("subscribed messages"), to: Routes.subscription_path(@conn, :index) %></li><% end %>
+          <%= if may?(@conn, "threads/invisible") do %><li id="invisibles-link"><%= link gettext("invisible threads"), to: Path.invisible_thread_path(@conn, :index) %></li><% end %>
 
           <%= if show?(@conn, :badges) do %>
-            <li id="badges-link"><%= link gettext("badges"), to: badge_path(@conn, :index) %></li>
+            <li id="badges-link"><%= link gettext("badges"), to: Routes.badge_path(@conn, :index) %></li>
           <% end %>
 
           <%= if show?(@conn, :events) do %>
-            <li id="events-link"><%= link gettext("events"), to: event_path(@conn, :index) %></li>
+            <li id="events-link"><%= link gettext("events"), to: Routes.event_path(@conn, :index) %></li>
           <% end %>
         </ul>
       </nav>

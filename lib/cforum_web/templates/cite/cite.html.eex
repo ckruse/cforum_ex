@@ -2,7 +2,7 @@
   <div class="posting-header">
     <header class="cf-cite-header">
       <%= if present?(@cite.cite_id) do %>
-        <h2><%= link gettext("cite %{id}", id: @cite.cite_id), to: cite_path(@conn, :show, @cite) %></h2>
+        <h2><%= link gettext("cite %{id}", id: @cite.cite_id), to: Routes.cite_path(@conn, :show, @cite) %></h2>
       <% end %>
 
       <%= if link_to_url?(@conn, @cite) do %>
@@ -30,7 +30,7 @@
 
     <%= if votable?(@conn, @cite) do %>
       <div class="voting">
-        <%= form_tag cite_path(@conn, :vote, @cite), method: :post do %>
+        <%= form_tag Routes.cite_path(@conn, :vote, @cite), method: :post do %>
           <button name="type"
                   value="down"
                   title="<%# downvote_msg %>"
@@ -64,6 +64,6 @@
     <%= if @cite.created_at, do: time_tag(@cite.created_at, format_date(@conn, @cite.created_at), class: "dt-accessed") %>
   </div>
 
-  <%= if may?(@conn, "cite", :edit, @cite), do: default_button_link(gettext("edit"), to: cite_path(@conn, :edit, @cite)) %>
-  <%= if may?(@conn, "cite", :delete, @cite), do: destructive_button(gettext("delete"), to: cite_path(@conn, :delete, @cite), method: :delete) %>
+  <%= if may?(@conn, "cite", :edit, @cite), do: default_button_link(gettext("edit"), to: Routes.cite_path(@conn, :edit, @cite)) %>
+  <%= if may?(@conn, "cite", :delete, @cite), do: destructive_button(gettext("delete"), to: Routes.cite_path(@conn, :delete, @cite), method: :delete) %>
 </article>

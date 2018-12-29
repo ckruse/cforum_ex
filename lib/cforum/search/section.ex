@@ -1,6 +1,5 @@
 defmodule Cforum.Search.Section do
-  use Ecto.Schema
-  import Ecto.Changeset
+  use CforumWeb, :model
 
   @primary_key {:search_section_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :search_section_id}

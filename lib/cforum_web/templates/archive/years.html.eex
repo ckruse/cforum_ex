@@ -1,5 +1,5 @@
 <ul>
   <%= for year <- @years do %>
-    <li><%= link Timex.format!(year, "%Y", :strftime), to: archive_path(@conn, :months, assigns[:current_forum], year) %>
+    <li><%= link Timex.format!(year, "%Y", :strftime), to: Path.archive_path(@conn, :months, assigns[:current_forum], year) %>
   <% end %>
 </ul>

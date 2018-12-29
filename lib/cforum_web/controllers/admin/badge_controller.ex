@@ -18,7 +18,7 @@ defmodule CforumWeb.Admin.BadgeController do
       {:ok, badge} ->
         conn
         |> put_flash(:info, gettext("Badge created successfully."))
-        |> redirect(to: admin_badge_path(conn, :edit, badge))
+        |> redirect(to: Routes.admin_badge_path(conn, :edit, badge))
 
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -38,7 +38,7 @@ defmodule CforumWeb.Admin.BadgeController do
       {:ok, badge} ->
         conn
         |> put_flash(:info, gettext("Badge updated successfully."))
-        |> redirect(to: admin_badge_path(conn, :edit, badge))
+        |> redirect(to: Routes.admin_badge_path(conn, :edit, badge))
 
       {:error, changeset} ->
         render(conn, "edit.html", badge: badge, changeset: changeset)
@@ -51,7 +51,7 @@ defmodule CforumWeb.Admin.BadgeController do
 
     conn
     |> put_flash(:info, gettext("Badge deleted successfully."))
-    |> redirect(to: admin_badge_path(conn, :index))
+    |> redirect(to: Routes.admin_badge_path(conn, :index))
   end
 
   def allowed?(conn, _, _), do: admin?(conn)

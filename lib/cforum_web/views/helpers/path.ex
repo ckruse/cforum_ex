@@ -7,7 +7,7 @@ defmodule CforumWeb.Views.Helpers.Path do
   alias Cforum.Forums.{Tag, TagSynonym}
   alias Cforum.Forums.CloseVote
 
-  import CforumWeb.Router.Helpers
+  alias CforumWeb.Router.Helpers, as: Routes
 
   @spec forum_slug(%Forum{} | nil | String.t(), boolean()) :: String.t() | nil
   def forum_slug(forum, with_all \\ true)
@@ -21,38 +21,38 @@ defmodule CforumWeb.Views.Helpers.Path do
   def forum_path(conn, action, slug, params \\ [])
 
   def forum_path(conn, :index, slug, params),
-    do: "#{root_path(conn, :index)}#{forum_slug(slug)}#{encode_query_string(params)}"
+    do: "#{Routes.root_path(conn, :index)}#{forum_slug(slug)}#{encode_query_string(params)}"
 
   def forum_path(conn, :atom, slug, params),
-    do: "#{root_path(conn, :index)}#{forum_slug(slug)}/feeds/atom#{encode_query_string(params)}"
+    do: "#{Routes.root_path(conn, :index)}#{forum_slug(slug)}/feeds/atom#{encode_query_string(params)}"
 
   def forum_path(conn, :rss, slug, params),
-    do: "#{root_path(conn, :index)}#{forum_slug(slug)}/feeds/rss#{encode_query_string(params)}"
+    do: "#{Routes.root_path(conn, :index)}#{forum_slug(slug)}/feeds/rss#{encode_query_string(params)}"
 
   def forum_path(conn, :stats, slug, params),
-    do: "#{root_path(conn, :index)}#{forum_slug(slug)}/stats#{encode_query_string(params)}"
+    do: "#{Routes.root_path(conn, :index)}#{forum_slug(slug)}/stats#{encode_query_string(params)}"
 
   def forum_path(conn, :unanswered, slug, params),
-    do: "#{root_path(conn, :index)}#{forum_slug(slug)}/unanswered#{encode_query_string(params)}"
+    do: "#{Routes.root_path(conn, :index)}#{forum_slug(slug)}/unanswered#{encode_query_string(params)}"
 
   @spec forum_url(Plug.Conn.t() | CforumWeb.Endpoint, atom(), String.t() | %Forum{} | nil, keyword() | map()) ::
           String.t()
   def forum_url(conn, action, slug, params \\ [])
 
   def forum_url(conn, :index, slug, params),
-    do: "#{root_url(conn, :index)}#{forum_slug(slug)}#{encode_query_string(params)}"
+    do: "#{Routes.root_url(conn, :index)}#{forum_slug(slug)}#{encode_query_string(params)}"
 
   def forum_url(conn, :atom, slug, params),
-    do: "#{root_url(conn, :index)}#{forum_slug(slug)}/feeds/atom#{encode_query_string(params)}"
+    do: "#{Routes.root_url(conn, :index)}#{forum_slug(slug)}/feeds/atom#{encode_query_string(params)}"
 
   def forum_url(conn, :rss, slug, params),
-    do: "#{root_url(conn, :index)}#{forum_slug(slug)}/feeds/rss#{encode_query_string(params)}"
+    do: "#{Routes.root_url(conn, :index)}#{forum_slug(slug)}/feeds/rss#{encode_query_string(params)}"
 
   def forum_url(conn, :stats, slug, params),
-    do: "#{root_url(conn, :index)}#{forum_slug(slug)}/stats#{encode_query_string(params)}"
+    do: "#{Routes.root_url(conn, :index)}#{forum_slug(slug)}/stats#{encode_query_string(params)}"
 
   def forum_url(conn, :unanswered, slug, params),
-    do: "#{root_url(conn, :index)}#{forum_slug(slug)}/unanswered#{encode_query_string(params)}"
+    do: "#{Routes.root_url(conn, :index)}#{forum_slug(slug)}/unanswered#{encode_query_string(params)}"
 
   @spec archive_path(
           Plug.Conn.t() | CforumWeb.Endpoint,
@@ -73,6 +73,15 @@ defmodule CforumWeb.Views.Helpers.Path do
   def archive_path(conn, :months, forum, {{year, _, _}, _}, params),
     do: "#{forum_path(conn, :index, forum)}/#{year}#{encode_query_string(params)}"
 
+  def archive_path(conn, :months, forum, %Date{} = date, params),
+    do: "#{forum_path(conn, :index, forum)}/#{date.year}#{encode_query_string(params)}"
+
+  def archive_path(conn, :months, forum, %DateTime{} = date, params),
+    do: archive_path(conn, :months, forum, DateTime.to_date(date), params)
+
+  def archive_path(conn, :months, forum, %NaiveDateTime{} = date, params),
+    do: archive_path(conn, :months, forum, NaiveDateTime.to_date(date), params)
+
   def archive_path(conn, :threads, forum, month, params) do
     part = month |> Timex.lformat!("%Y/%b", "en", :strftime) |> String.downcase()
     "#{forum_path(conn, :index, forum)}/#{part}#{encode_query_string(params)}"
@@ -82,26 +91,26 @@ defmodule CforumWeb.Views.Helpers.Path do
   def tag_path(conn, action, tag_or_params \\ [], params \\ [])
 
   def tag_path(conn, :index, params, _),
-    do: "#{root_path(conn, :index)}tags#{encode_query_string(params)}"
+    do: "#{Routes.root_path(conn, :index)}tags#{encode_query_string(params)}"
 
   def tag_path(conn, :show, tag, params),
-    do: "#{root_path(conn, :index)}tags/#{tag.slug}#{encode_query_string(params)}"
+    do: "#{Routes.root_path(conn, :index)}tags/#{tag.slug}#{encode_query_string(params)}"
 
   def tag_path(conn, :edit, tag, params),
-    do: "#{root_path(conn, :index)}tags/#{tag.slug}/edit#{encode_query_string(params)}"
+    do: "#{Routes.root_path(conn, :index)}tags/#{tag.slug}/edit#{encode_query_string(params)}"
 
   def tag_path(conn, :update, tag, params),
-    do: "#{root_path(conn, :index)}tags/#{tag.slug}#{encode_query_string(params)}"
+    do: "#{Routes.root_path(conn, :index)}tags/#{tag.slug}#{encode_query_string(params)}"
 
   def tag_path(conn, :new, params, _),
-    do: "#{root_path(conn, :index)}tags/new#{encode_query_string(params)}"
+    do: "#{Routes.root_path(conn, :index)}tags/new#{encode_query_string(params)}"
 
   def tag_path(conn, :create, params, _), do: tag_path(conn, :index, params)
 
   def tag_path(conn, :delete, tag, params), do: tag_path(conn, :show, tag, params)
 
   def tag_path(conn, :merge, tag, params),
-    do: "#{root_path(conn, :index)}tags/#{tag.slug}/merge#{encode_query_string(params)}"
+    do: "#{Routes.root_path(conn, :index)}tags/#{tag.slug}/merge#{encode_query_string(params)}"
 
   @spec tag_synonym_path(Plug.Conn.t() | CforumWeb.Endpoint, atom(), %Tag{}, %TagSynonym{} | [], keyword() | map()) ::
           String.t()
@@ -134,8 +143,12 @@ defmodule CforumWeb.Views.Helpers.Path do
   - `resource` - the thread to generate the path to, the forum or `"/all"` (for :new)
   - `params` - an optional query string as a dict
   """
-  @spec thread_path(Plug.Conn.t() | CforumWeb.Endpoint, atom(), %Thread{} | %Forum{} | String.t(), keyword() | map()) ::
-          String.t()
+  @spec thread_path(
+          Plug.Conn.t() | CforumWeb.Endpoint,
+          atom(),
+          %Thread{} | %Forum{} | String.t(),
+          keyword() | map()
+        ) :: String.t()
   def thread_path(conn, action, resource, params \\ [])
 
   def thread_path(conn, :show, %Thread{} = thread, params) do
@@ -296,7 +309,7 @@ defmodule CforumWeb.Views.Helpers.Path do
     do: "#{thread_path(conn, :show, thread)}/unhide#{encode_query_string(params)}"
 
   def invisible_thread_path(conn, :index, nil, params),
-    do: "#{root_path(conn, :index)}invisible#{encode_query_string(params)}"
+    do: "#{Routes.root_path(conn, :index)}invisible#{encode_query_string(params)}"
 
   @spec open_thread_path(Plug.Conn.t() | CforumWeb.Endpoint, %Thread{}, keyword() | map()) :: String.t()
   def open_thread_path(conn, %Thread{} = thread, params \\ []),
@@ -308,5 +321,5 @@ defmodule CforumWeb.Views.Helpers.Path do
 
   @spec mail_thread_path(Plug.Conn.t() | CforumWeb.Endpoint, :show, %PrivMessage{}, keyword() | map()) :: String.t()
   def mail_thread_path(conn, :show, pm, params \\ []),
-    do: "#{root_path(conn, :index)}mails/#{pm.thread_id}#{encode_query_string(params)}#pm#{pm.priv_message_id}"
+    do: "#{Routes.root_path(conn, :index)}mails/#{pm.thread_id}#{encode_query_string(params)}#pm#{pm.priv_message_id}"
 end

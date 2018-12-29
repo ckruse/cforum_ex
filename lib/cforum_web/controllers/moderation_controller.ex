@@ -63,7 +63,7 @@ defmodule CforumWeb.ModerationController do
       {:ok, _entry} ->
         conn
         |> put_flash(:info, gettext("Moderation case successfully solved."))
-        |> redirect(to: moderation_path(conn, :index))
+        |> redirect(to: Routes.moderation_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", changeset: changeset)

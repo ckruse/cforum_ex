@@ -2,8 +2,8 @@
   <thead>
     <tr>
       <th> </th>
-      <th><%= sortable(@conn, gettext("subject"), :subject, &notification_path/3) %></th>
-      <th><%= sortable(@conn, gettext("created at"), :created_at, &notification_path/3) %></th>
+      <th><%= sortable(@conn, gettext("subject"), :subject, &Routes.notification_path/3) %></th>
+      <th><%= sortable(@conn, gettext("created at"), :created_at, &Routes.notification_path/3) %></th>
       <th> </th>
     </tr>
   </thead>
@@ -17,16 +17,16 @@
       <tr<%= if notification.is_read do %> class="visited"<% end %>>
         <td><%= unless blank?(notification.icon) do %><%= link("", to: notification.path, class: "icon " <> notification.icon) %><% end %></td>
         <td>
-          <%= link(notification.subject, to: notification_path(@conn, :show, notification)) %>
+          <%= link(notification.subject, to: Routes.notification_path(@conn, :show, notification)) %>
           <%= unless blank?(notification.description) do %>
             <div class="notification-description"><%= notification.description %></div>
           <% end %>
         </td>
         <td><%= format_date(@conn, notification.created_at) %></td>
         <td>
-          <%= destructive_index_button(gettext("delete"), to: notification_path(@conn, :delete, notification), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
+          <%= destructive_index_button(gettext("delete"), to: Routes.notification_path(@conn, :delete, notification), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
           <%= if notification.is_read do %>
-            <%= default_index_button(gettext("mark unread"), to: notification_unread_path(@conn, :update_unread, notification), method: :put) %>
+            <%= default_index_button(gettext("mark unread"), to: Routes.notification_unread_path(@conn, :update_unread, notification), method: :put) %>
           <% end %>
         </td>
       </tr>
@@ -35,4 +35,4 @@
 
 </table>
 
-<%= pagination @conn, @paging, &notification_path/3 %>
+<%= pagination @conn, @paging, &Routes.notification_path/3 %>

@@ -149,7 +149,7 @@ defmodule CforumWeb.ThreadController do
       {:ok, thread, message} ->
         conn
         |> put_flash(:info, gettext("Thread created successfully."))
-        |> redirect(to: message_path(conn, :show, thread, message))
+        |> redirect(to: Path.message_path(conn, :show, thread, message))
 
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)

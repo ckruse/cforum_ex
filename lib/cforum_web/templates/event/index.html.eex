@@ -1,16 +1,16 @@
 <table class="cf-default-table">
   <thead>
     <tr>
-      <th><%= sortable(@conn, gettext("name"), :name, &event_path/3) %></th>
-      <th><%= sortable(@conn, gettext("location"), :location, &event_path/3) %></th>
-      <th><%= sortable(@conn, gettext("start date"), :start_date, &event_path/3) %></th>
-      <th><%= sortable(@conn, gettext("end date"), :end_date, &event_path/3) %></th>
+      <th><%= sortable(@conn, gettext("name"), :name, &Routes.event_path/3) %></th>
+      <th><%= sortable(@conn, gettext("location"), :location, &Routes.event_path/3) %></th>
+      <th><%= sortable(@conn, gettext("start date"), :start_date, &Routes.event_path/3) %></th>
+      <th><%= sortable(@conn, gettext("end date"), :end_date, &Routes.event_path/3) %></th>
     </tr>
   </thead>
   <tbody>
     <%= for event <- @events do %>
       <tr class="h-event">
-        <td><%= link event.name, to: event_path(@conn, :show, event), class: "p-name u-url" %></td>
+        <td><%= link event.name, to: Routes.event_path(@conn, :show, event), class: "p-name u-url" %></td>
         <td><%= event.location %></td>
         <td><%= time_tag event.start_date, format_date(@conn, event.start_date, "date_format_date"), class: "dt-start" %></td>
         <td><%= time_tag event.end_date, format_date(@conn, event.end_date, "date_format_date"), class: "dt-end" %></td>
@@ -19,4 +19,4 @@
   </tbody>
 </table>
 
-<%= pagination @conn, @page, &event_path/3 %>
+<%= pagination @conn, @page, &Routes.event_path/3 %>

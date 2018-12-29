@@ -14,7 +14,7 @@ defmodule CforumWeb.ArchiveController do
   end
 
   def threads(conn, %{"year" => year, "month" => month_name} = params) do
-    {:ok, month} = Date.new(String.to_integer(year), Timex.month_to_num(month_name), 1)
+    {:ok, month} = NaiveDateTime.new(String.to_integer(year), Timex.month_to_num(month_name), 1, 0, 0, 0)
     start_date = Timex.beginning_of_month(month)
     end_date = Timex.end_of_month(month)
     page = parse_page(params["p"]) - 1

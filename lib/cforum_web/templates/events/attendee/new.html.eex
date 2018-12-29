@@ -1,1 +1,1 @@
-<%= render "form.html", Map.merge(assigns, %{action: event_attendee_path(@conn, :create, @event), back: event_path(@conn, :show, @event)}) %>
+<%= render "form.html", Map.merge(assigns, %{action: Routes.event_attendee_path(@conn, :create, @event), back: Routes.event_path(@conn, :show, @event)}) %>

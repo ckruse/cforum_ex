@@ -1,5 +1,5 @@
 <%= render CforumWeb.AdminView, "subnav.html", assigns %>
 
 <ul>
-  <li><%= link gettext("new event"), to: admin_event_path(@conn, :new) %></li>
+  <li><%= link gettext("new event"), to: Routes.admin_event_path(@conn, :new) %></li>
 </ul>

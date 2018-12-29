@@ -7,39 +7,39 @@ defmodule CforumWeb.Messages.VoteControllerTest do
 
   describe "upvote" do
     test "votes up", %{conn: conn, thread: thread, message: message, forum: forum} do
-      conn = post(conn, upvote_message_path(conn, thread, message, f: forum.slug, r: "message"))
-      assert redirected_to(conn) == message_path(conn, :show, thread, message)
+      conn = post(conn, Path.upvote_message_path(conn, thread, message, f: forum.slug, r: "message"))
+      assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
       assert get_flash(conn, :info) == gettext("Successfully upvoted message")
     end
 
     test "takes back a vote", %{conn: conn, thread: thread, message: message, forum: forum} do
-      conn = post(conn, upvote_message_path(conn, thread, message))
-      conn = post(conn, upvote_message_path(conn, thread, message, f: forum.slug, r: "message"))
-      assert redirected_to(conn) == message_path(conn, :show, thread, message)
+      conn = post(conn, Path.upvote_message_path(conn, thread, message))
+      conn = post(conn, Path.upvote_message_path(conn, thread, message, f: forum.slug, r: "message"))
+      assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
       assert get_flash(conn, :info) == gettext("Successfully took back vote")
     end
   end
 
   describe "downvote" do
     test "votes down", %{conn: conn, thread: thread, message: message, forum: forum} do
-      conn = post(conn, downvote_message_path(conn, thread, message, f: forum.slug, r: "message"))
-      assert redirected_to(conn) == message_path(conn, :show, thread, message)
+      conn = post(conn, Path.downvote_message_path(conn, thread, message, f: forum.slug, r: "message"))
+      assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
       assert get_flash(conn, :info) == gettext("Successfully downvoted message")
     end
 
     test "takes back a vote", %{conn: conn, thread: thread, message: message, forum: forum} do
-      conn = post(conn, downvote_message_path(conn, thread, message))
-      conn = post(conn, downvote_message_path(conn, thread, message, f: forum.slug, r: "message"))
-      assert redirected_to(conn) == message_path(conn, :show, thread, message)
+      conn = post(conn, Path.downvote_message_path(conn, thread, message))
+      conn = post(conn, Path.downvote_message_path(conn, thread, message, f: forum.slug, r: "message"))
+      assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
       assert get_flash(conn, :info) == gettext("Successfully took back vote")
     end
   end
 
   describe "inverting" do
     test "takes back a an upvote and creates a downvote", %{conn: conn, thread: thread, message: message, forum: forum} do
-      conn = post(conn, upvote_message_path(conn, thread, message))
-      conn = post(conn, downvote_message_path(conn, thread, message, f: forum.slug, r: "message"))
-      assert redirected_to(conn) == message_path(conn, :show, thread, message)
+      conn = post(conn, Path.upvote_message_path(conn, thread, message))
+      conn = post(conn, Path.downvote_message_path(conn, thread, message, f: forum.slug, r: "message"))
+      assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
       assert get_flash(conn, :info) == gettext("Successfully downvoted message")
 
       message = Messages.get_message!(message.message_id)
@@ -48,9 +48,9 @@ defmodule CforumWeb.Messages.VoteControllerTest do
     end
 
     test "takes back a downvote and creates an upvote", %{conn: conn, thread: thread, message: message, forum: forum} do
-      conn = post(conn, downvote_message_path(conn, thread, message))
-      conn = post(conn, upvote_message_path(conn, thread, message, f: forum.slug, r: "message"))
-      assert redirected_to(conn) == message_path(conn, :show, thread, message)
+      conn = post(conn, Path.downvote_message_path(conn, thread, message))
+      conn = post(conn, Path.upvote_message_path(conn, thread, message, f: forum.slug, r: "message"))
+      assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
       assert get_flash(conn, :info) == gettext("Successfully upvoted message")
 
       message = Messages.get_message!(message.message_id)

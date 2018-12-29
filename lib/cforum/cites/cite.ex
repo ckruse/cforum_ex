@@ -1,7 +1,6 @@
 defmodule Cforum.Cites.Cite do
-  use Ecto.Schema
-  import Ecto.Changeset
-  alias Ecto.Changeset
+  use CforumWeb, :model
+
   alias Cforum.Forums.Messages
 
   @primary_key {:cite_id, :id, autogenerate: true}
@@ -11,7 +10,7 @@ defmodule Cforum.Cites.Cite do
     field(:archived, :boolean, default: false)
     field(:author, :string)
     field(:cite, :string)
-    field(:cite_date, Timex.Ecto.DateTime)
+    field(:cite_date, :utc_datetime)
     field(:creator, :string)
     field(:old_id, :integer)
     field(:url, :string)
@@ -35,8 +34,8 @@ defmodule Cforum.Cites.Cite do
     |> validate_required([:cite, :author, :creator, :url])
   end
 
-  defp maybe_set_message_and_user_id(%Changeset{valid?: true} = changeset) do
-    url = Changeset.get_change(changeset, :url) || ""
+  defp maybe_set_message_and_user_id(%Ecto.Changeset{valid?: true} = changeset) do
+    url = get_change(changeset, :url) || ""
     base_url = Application.get_env(:cforum, :base_url)
 
     part = String.slice(url, 0..(String.length(base_url) - 1))
@@ -57,24 +56,24 @@ defmodule Cforum.Cites.Cite do
 
   defp set_message_and_user_id(changeset, message) do
     changeset
-    |> Changeset.put_change(:author, message.author)
-    |> Changeset.put_change(:user_id, message.user_id)
-    |> Changeset.put_change(:message_id, message.message_id)
-    |> Changeset.put_change(:cite_date, message.created_at)
+    |> put_change(:author, message.author)
+    |> put_change(:user_id, message.user_id)
+    |> put_change(:message_id, message.message_id)
+    |> put_change(:cite_date, message.created_at)
   end
 
   defp maybe_set_creator(changeset, nil), do: changeset
 
   defp maybe_set_creator(changeset, user) do
     changeset
-    |> Changeset.put_change(:creator_user_id, user.user_id)
-    |> Changeset.put_change(:creator, user.username)
+    |> put_change(:creator_user_id, user.user_id)
+    |> put_change(:creator, user.username)
   end
 
-  defp set_cite_date(%Changeset{valid?: true} = changeset) do
-    case Changeset.get_field(changeset, :cite_date) do
+  defp set_cite_date(%Ecto.Changeset{valid?: true} = changeset) do
+    case get_field(changeset, :cite_date) do
       nil ->
-        Changeset.put_change(changeset, :cite_date, Timex.now())
+        put_change(changeset, :cite_date, DateTime.truncate(Timex.now(), :second))
 
       _ ->
         changeset

@@ -44,7 +44,7 @@ defmodule CforumWeb.TagController do
       {:ok, tag} ->
         conn
         |> put_flash(:info, gettext("Tag created successfully."))
-        |> redirect(to: tag_path(conn, :show, tag))
+        |> redirect(to: Path.tag_path(conn, :show, tag))
 
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -64,7 +64,7 @@ defmodule CforumWeb.TagController do
       {:ok, tag} ->
         conn
         |> put_flash(:info, gettext("Tag updated successfully."))
-        |> redirect(to: tag_path(conn, :show, tag))
+        |> redirect(to: Path.tag_path(conn, :show, tag))
 
       {:error, changeset} ->
         render(conn, "edit.html", tag: tag, changeset: changeset)
@@ -93,7 +93,7 @@ defmodule CforumWeb.TagController do
             new_tag: new_tag.tag_name
           )
         )
-        |> redirect(to: tag_path(conn, :show, new_tag))
+        |> redirect(to: Path.tag_path(conn, :show, new_tag))
 
       {:error, _} ->
         tags = Tags.list_tags()
@@ -107,7 +107,7 @@ defmodule CforumWeb.TagController do
 
     conn
     |> put_flash(:info, gettext("Tag deleted successfully."))
-    |> redirect(to: tag_path(conn, :index))
+    |> redirect(to: Path.tag_path(conn, :index))
   end
 
   @spec allowed?(Plug.Conn.t(), atom(), any()) :: boolean()

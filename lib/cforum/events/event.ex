@@ -1,6 +1,5 @@
 defmodule Cforum.Events.Event do
-  use Ecto.Schema
-  import Ecto.Changeset
+  use CforumWeb, :model
 
   @primary_key {:event_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :event_id}
@@ -8,8 +7,8 @@ defmodule Cforum.Events.Event do
   schema "events" do
     field(:name, :string)
     field(:description, :string)
-    field(:start_date, Timex.Ecto.Date)
-    field(:end_date, Timex.Ecto.Date)
+    field(:start_date, :date)
+    field(:end_date, :date)
     field(:location, :string)
     field(:maps_link, :string)
     field(:visible, :boolean, default: false)

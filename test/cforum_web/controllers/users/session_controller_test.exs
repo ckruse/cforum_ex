@@ -2,13 +2,13 @@ defmodule CforumWeb.Users.SessionControllerTest do
   use CforumWeb.ConnCase
 
   test "renders the login form for anonymous users", %{conn: conn} do
-    conn = get(conn, session_path(conn, :new))
+    conn = get(conn, Routes.session_path(conn, :new))
     assert html_response(conn, 200) =~ gettext("Login")
   end
 
   test "sends 403 for already logged-in users", %{conn: conn} do
     user = insert(:user)
-    assert_error_sent(403, fn -> get(login(conn, user), session_path(conn, :new)) end)
+    assert_error_sent(403, fn -> get(login(conn, user), Routes.session_path(conn, :new)) end)
   end
 
   test "logs in successfully with right password", %{conn: conn} do
@@ -17,9 +17,13 @@ defmodule CforumWeb.Users.SessionControllerTest do
       |> with_password("1234")
       |> insert
 
-    conn = post(conn, session_path(conn, :create, user: %{login: user.username, password: "1234", remember_me: "true"}))
+    conn =
+      post(
+        conn,
+        Routes.session_path(conn, :create, user: %{login: user.username, password: "1234", remember_me: "true"})
+      )
 
-    assert redirected_to(conn) == root_path(conn, :index)
+    assert redirected_to(conn) == Routes.root_path(conn, :index)
     assert get_flash(conn, :info) == gettext("You logged in successfully")
   end
 
@@ -30,7 +34,10 @@ defmodule CforumWeb.Users.SessionControllerTest do
       |> insert
 
     conn =
-      post(conn, session_path(conn, :create, user: %{login: user.username, password: "12345", remember_me: "true"}))
+      post(
+        conn,
+        Routes.session_path(conn, :create, user: %{login: user.username, password: "12345", remember_me: "true"})
+      )
 
     assert html_response(conn, 200) =~ gettext("Login")
     assert get_flash(conn, :error) == gettext("Username or password wrong")
@@ -44,7 +51,7 @@ defmodule CforumWeb.Users.SessionControllerTest do
 
     assert_error_sent(403, fn ->
       login(conn, user)
-      |> post(session_path(conn, :create, user: %{login: user.username, password: "12345", remember_me: "true"}))
+      |> post(Routes.session_path(conn, :create, user: %{login: user.username, password: "12345", remember_me: "true"}))
     end)
   end
 
@@ -56,9 +63,9 @@ defmodule CforumWeb.Users.SessionControllerTest do
 
     conn =
       login(conn, user)
-      |> delete(session_path(conn, :delete))
+      |> delete(Routes.session_path(conn, :delete))
 
-    assert redirected_to(conn) == root_path(conn, :index)
+    assert redirected_to(conn) == Routes.root_path(conn, :index)
     assert get_flash(conn, :info) == gettext("You logged out successfully")
   end
 
@@ -68,16 +75,20 @@ defmodule CforumWeb.Users.SessionControllerTest do
       |> with_password("1234")
       |> insert
 
-    conn = post(conn, session_path(conn, :create, user: %{login: user.username, password: "1234", remember_me: "true"}))
+    conn =
+      post(
+        conn,
+        Routes.session_path(conn, :create, user: %{login: user.username, password: "1234", remember_me: "true"})
+      )
 
-    conn = delete(conn, session_path(conn, :delete))
+    conn = delete(conn, Routes.session_path(conn, :delete))
 
-    assert redirected_to(conn) == root_path(conn, :index)
+    assert redirected_to(conn) == Routes.root_path(conn, :index)
     assert get_flash(conn, :info) == gettext("You logged out successfully")
     assert conn.cookies["remember_me"] == nil
   end
 
   test "shows 403 path when not logged in", %{conn: conn} do
-    assert_error_sent(403, fn -> delete(conn, session_path(conn, :delete)) end)
+    assert_error_sent(403, fn -> delete(conn, Routes.session_path(conn, :delete)) end)
   end
 end

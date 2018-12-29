@@ -14,11 +14,12 @@ defmodule Cforum.Forums.MessageIndexerJob do
 
   @spec index_message(%Thread{}, %Message{}) :: any()
   def index_message(%Thread{} = thread, %Message{} = msg) do
-    Task.start(fn ->
+    Cforum.Helpers.AsyncHelper.run_async(fn ->
       doc = Search.get_document_by_reference_id(msg.message_id)
       plain = MarkdownRenderer.to_plain(msg)
       forum = Forums.get_forum!(msg.forum_id)
       base_relevance = ConfigManager.conf(forum, "search_forum_relevance", :float)
+      msg = Cforum.Repo.preload(msg, [:tags])
 
       section =
         forum.forum_id
@@ -31,7 +32,7 @@ defmodule Cforum.Forums.MessageIndexerJob do
 
   @spec unindex_message_with_answers(%Message{}) :: any()
   def unindex_message_with_answers(%Message{} = msg) do
-    Task.start(fn ->
+    Cforum.Helpers.AsyncHelper.run_async(fn ->
       doc = Search.get_document_by_reference_id(msg.message_id)
 
       if !is_nil(doc),

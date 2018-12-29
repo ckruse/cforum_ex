@@ -141,27 +141,28 @@ defmodule Cforum.Accounts.UsersTest do
   end
 
   test "conf will return settings for user with a settings object" do
-    user =
-      %User{build(:user) | settings: %Setting{options: %{"pagination" => "60"}}}
-      |> insert
-
+    user = build(:user, settings: %Setting{options: %{"pagination" => "60"}}) |> insert
     u = Users.get_user!(user.user_id)
     assert Users.conf(u, "pagination") == "60"
   end
 
   test "moderator? returns true for admins" do
-    user = build(:user) |> as_admin
+    user = build(:user) |> as_admin |> insert
     assert Users.moderator?(user) == true
   end
 
   test "moderator? returns true for users with moderator badge" do
-    badge = build(:badge, badge_type: Badge.moderator_tools())
-    user = build(:user, badges: [badge])
+    badge = insert(:badge, badge_type: Badge.moderator_tools())
+    user = insert(:user)
+    insert(:badge_user, user: user, badge: badge)
+
+    user = Cforum.Repo.preload(user, badges_users: :badge)
+
     assert Users.moderator?(user) == true
   end
 
   test "moderator? returns true for users with a moderator permission" do
-    user = insert(:user, badges: [])
+    user = insert(:user, badges: [], badges_users: [])
     group = insert(:group, users: [user])
     insert(:forum_group_permission, permission: ForumGroupPermission.moderate(), group: group)
 
@@ -169,7 +170,7 @@ defmodule Cforum.Accounts.UsersTest do
   end
 
   test "moderator? returns false for normal users" do
-    user = build(:user, badges: [])
+    user = insert(:user, badges: [], badges_users: [])
     assert Users.moderator?(user) == false
 
     group = insert(:group, users: [user])

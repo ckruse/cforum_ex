@@ -78,7 +78,7 @@ defmodule CforumWeb.MailController do
       {:ok, priv_message} ->
         conn
         |> put_flash(:info, gettext("Mail created successfully."))
-        |> redirect(to: mail_thread_path(conn, :show, priv_message))
+        |> redirect(to: Path.mail_thread_path(conn, :show, priv_message))
 
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -91,7 +91,7 @@ defmodule CforumWeb.MailController do
 
     conn
     |> put_flash(:info, gettext("Mail successfully marked as unread."))
-    |> redirect(to: mail_path(conn, :index))
+    |> redirect(to: Routes.mail_path(conn, :index))
   end
 
   @spec delete(%Plug.Conn{}, map()) :: %Plug.Conn{}
@@ -100,7 +100,7 @@ defmodule CforumWeb.MailController do
 
     conn
     |> put_flash(:info, gettext("Mail deleted successfully."))
-    |> redirect(to: mail_path(conn, :index))
+    |> redirect(to: Routes.mail_path(conn, :index))
   end
 
   defp ordering("ascending"), do: :asc

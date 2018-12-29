@@ -1,4 +1,4 @@
-<%= form_for @changeset, registration_path(@conn, :create), [class: "cf-form"], fn f -> %>
+<%= form_for @changeset, Routes.registration_path(@conn, :create), [class: "cf-form"], fn f -> %>
 <%= if @changeset.action do %>
   <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
 <% end %>

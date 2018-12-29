@@ -1,6 +1,5 @@
 defmodule Cforum.System.Auditing do
-  use Ecto.Schema
-  import Ecto.Changeset
+  use CforumWeb, :model
 
   @primary_key {:auditing_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :auditing_id}

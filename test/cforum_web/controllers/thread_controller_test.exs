@@ -18,12 +18,12 @@ defmodule CforumWeb.ThreadControllerTest do
       thread1 = insert(:thread, forum: forum1)
       message1 = insert(:message, thread: thread1, forum: forum1)
 
-      conn = get(conn, forum_path(conn, :index, forum.slug))
+      conn = get(conn, Path.forum_path(conn, :index, forum.slug))
 
       assert html_response(conn, 200) =~ message.subject
       refute html_response(conn, 200) =~ message1.subject
 
-      conn = get(conn, forum_path(conn, :index, forum1.slug))
+      conn = get(conn, Path.forum_path(conn, :index, forum1.slug))
 
       refute html_response(conn, 200) =~ message.subject
       assert html_response(conn, 200) =~ message1.subject
@@ -37,7 +37,7 @@ defmodule CforumWeb.ThreadControllerTest do
       thread1 = insert(:thread, forum: forum1)
       message1 = insert(:message, thread: thread1, forum: forum1)
 
-      conn = get(conn, forum_path(conn, :index, "all"))
+      conn = get(conn, Path.forum_path(conn, :index, "all"))
 
       assert html_response(conn, 200) =~ ~r/<article class="cf-thread/
       assert html_response(conn, 200) =~ message.subject
@@ -47,18 +47,18 @@ defmodule CforumWeb.ThreadControllerTest do
 
   describe "new" do
     test "renders form", %{conn: conn, forum: forum} do
-      conn = get(conn, thread_path(conn, :new, forum))
+      conn = get(conn, Path.thread_path(conn, :new, forum))
       assert html_response(conn, 200) =~ gettext("new thread")
     end
 
     test "renders form for /all with forum select", %{conn: conn} do
-      conn = get(conn, thread_path(conn, :new, "all"))
+      conn = get(conn, Path.thread_path(conn, :new, "all"))
       assert html_response(conn, 200) =~ gettext("new thread")
       assert html_response(conn, 200) =~ ~r/name="message\[forum_id\]"/
     end
 
     test "renders form for a forum w/o forum select", %{conn: conn, forum: forum} do
-      conn = get(conn, thread_path(conn, :new, forum))
+      conn = get(conn, Path.thread_path(conn, :new, forum))
       assert html_response(conn, 200) =~ gettext("new thread")
       refute html_response(conn, 200) =~ ~r/name="message\[forum_id\]"/
     end
@@ -66,7 +66,7 @@ defmodule CforumWeb.ThreadControllerTest do
 
   describe "create" do
     test "renders a preview", %{conn: conn, forum: forum} do
-      conn = post(conn, thread_path(conn, :new, forum), message: params_for(:message), preview: "yes")
+      conn = post(conn, Path.thread_path(conn, :new, forum), message: params_for(:message), preview: "yes")
       assert html_response(conn, 200) =~ ~r/<article class="cf-thread-message preview/
     end
 
@@ -74,7 +74,7 @@ defmodule CforumWeb.ThreadControllerTest do
       conn =
         post(
           conn,
-          thread_path(conn, :new, nil),
+          Path.thread_path(conn, :new, nil),
           message: params_for(:message, forum_id: forum.forum_id),
           preview: "yes"
         )
@@ -83,20 +83,20 @@ defmodule CforumWeb.ThreadControllerTest do
     end
 
     test "creates a thread", %{conn: conn, forum: forum} do
-      conn = post(conn, thread_path(conn, :new, forum), message: params_for(:message, forum_id: nil))
+      conn = post(conn, Path.thread_path(conn, :new, forum), message: params_for(:message, forum_id: nil))
       assert %{curr_forum: f, year: y, month: m, day: d, slug: s, mid: mid} = cf_redirected_params(conn)
       assert redirected_to(conn) == "/#{f}/#{y}/#{m}/#{d}/#{s}/#{mid}#m#{mid}"
     end
 
     test "creates a thread in /all", %{conn: conn, forum: forum} do
-      conn = post(conn, thread_path(conn, :new, nil), message: params_for(:message, forum_id: forum.forum_id))
+      conn = post(conn, Path.thread_path(conn, :new, nil), message: params_for(:message, forum_id: forum.forum_id))
       assert %{curr_forum: f, year: y, month: m, day: d, slug: s, mid: mid} = cf_redirected_params(conn)
       assert redirected_to(conn) == "/#{f}/#{y}/#{m}/#{d}/#{s}/#{mid}#m#{mid}"
     end
 
     test "creates a thread with forum_id from path", %{conn: conn, forum: forum} do
       f1 = insert(:public_forum)
-      conn = post(conn, thread_path(conn, :new, forum), message: params_for(:message, forum_id: f1.forum_id))
+      conn = post(conn, Path.thread_path(conn, :new, forum), message: params_for(:message, forum_id: f1.forum_id))
       assert %{curr_forum: f, year: y, month: m, day: d, slug: s, mid: mid} = cf_redirected_params(conn)
       assert redirected_to(conn) == "/#{f}/#{y}/#{m}/#{d}/#{s}/#{mid}#m#{mid}"
       assert f == forum.slug
@@ -108,13 +108,13 @@ defmodule CforumWeb.ThreadControllerTest do
     end
 
     test "does not create a thread with missing params", %{conn: conn, forum: forum} do
-      conn = post(conn, thread_path(conn, :new, nil), message: params_for(:message, forum_id: nil))
+      conn = post(conn, Path.thread_path(conn, :new, nil), message: params_for(:message, forum_id: nil))
       assert html_response(conn, 200) =~ gettext("new thread")
 
-      conn = post(conn, thread_path(conn, :new, forum), message: params_for(:message, subject: ""))
+      conn = post(conn, Path.thread_path(conn, :new, forum), message: params_for(:message, subject: ""))
       assert html_response(conn, 200) =~ gettext("new thread")
 
-      conn = post(conn, thread_path(conn, :new, forum), message: params_for(:message, content: ""))
+      conn = post(conn, Path.thread_path(conn, :new, forum), message: params_for(:message, content: ""))
       assert html_response(conn, 200) =~ gettext("new thread")
     end
   end

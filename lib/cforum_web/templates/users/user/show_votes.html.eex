@@ -1,4 +1,4 @@
-<%= pagination @conn, @paging, &user_path/4, path_args: [@conn, :show_votes, @user] %>
+<%= pagination @conn, @paging, &Routes.user_path/4, path_args: [@conn, :show_votes, @user] %>
 
 <table class="cf-score-table">
   <%= for vote <- @votes do %>
@@ -17,4 +17,4 @@
 </table>
 
 
-<%= pagination @conn, @paging, &user_path/4, path_args: [@conn, :show_votes, @user] %>
+<%= pagination @conn, @paging, &Routes.user_path/4, path_args: [@conn, :show_votes, @user] %>

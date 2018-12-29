@@ -6,13 +6,13 @@
     <ul>
       <%= for notification <- @notifications do %>
         <li>
-          <%= link notification.subject, to: notification_path(@conn, :show, notification) %>
+          <%= link notification.subject, to: Routes.notification_path(@conn, :show, notification) %>
           (<%= format_date(@conn, notification.created_at) %>)
         </li>
       <% end %>
     </ul>
 
-    <p><%= link gettext("show all notifications"), to: notification_path(@conn, :index) %></p>
+    <p><%= link gettext("show all notifications"), to: Routes.notification_path(@conn, :index) %></p>
   <% end %>
 
   <%= if present?(@priv_messages) do %>
@@ -21,12 +21,12 @@
       <%= for mail <- @priv_messages do %>
         <li>
           <%= if blank?(mail.sender_id), do: mail.sender_name, else: user_link(@conn, mail.sender, ["original-poster"], mail.sender_name) %>:
-          <%= link mail.subject, to: mail_thread_path(@conn, :show, mail) %>
+          <%= link mail.subject, to: Path.mail_thread_path(@conn, :show, mail) %>
           (<%= format_date(@conn, mail.created_at, "date_format_post") %>)
         </li>
       <% end %>
     </ul>
 
-    <p><%= link gettext("show all mails"), to: mail_path(@conn, :index) %></p>
+    <p><%= link gettext("show all mails"), to: Routes.mail_path(@conn, :index) %></p>
   <% end %>
 <% end %>
