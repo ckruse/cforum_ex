@@ -1,6 +1,11 @@
 import { Socket } from "phoenix";
 
-let socket = new Socket("/socket", { params: { token: window.userToken } });
+const params = {};
+if (window.userToken) {
+  params.token = window.userToken;
+}
+
+let socket = new Socket("/socket", { params });
 socket.connect();
 
 socket.onOpen(() => {
