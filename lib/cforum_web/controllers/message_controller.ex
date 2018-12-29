@@ -70,7 +70,7 @@ defmodule CforumWeb.MessageController do
       {:ok, message} ->
         conn
         |> put_flash(:info, gettext("Message created successfully."))
-        |> redirect(to: message_path(conn, :show, thread, message))
+        |> redirect(to: Path.message_path(conn, :show, thread, message))
 
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)

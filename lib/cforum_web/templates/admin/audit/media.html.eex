@@ -1,1 +1,1 @@
-<%= link @entry.contents["filename"], to: root_path(@conn, :index) <> "images/" <> @entry.contents["filename"] %>
+<%= link @entry.contents["filename"], to: Routes.root_path(@conn, :index) <> "images/" <> @entry.contents["filename"] %>

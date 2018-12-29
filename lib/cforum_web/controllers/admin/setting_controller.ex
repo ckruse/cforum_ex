@@ -16,7 +16,7 @@ defmodule CforumWeb.Admin.SettingController do
       {:ok, _settings} ->
         conn
         |> put_flash(:info, gettext("Settings updated successfully."))
-        |> redirect(to: admin_setting_path(conn, :edit))
+        |> redirect(to: Routes.admin_setting_path(conn, :edit))
 
       {:error, changeset} ->
         render(conn, "edit.html", settings: settings, changeset: changeset)

@@ -28,7 +28,7 @@ defmodule CforumWeb.ForumView do
   def state_heading(:month), do: gettext("state of the last 30 days")
   def state_heading(:year), do: gettext("state of the last 360 days")
 
-  def additional_js(:stats, assigns), do: static_path(assigns[:conn], "/js/stats.js")
+  def additional_js(:stats, assigns), do: Routes.static_path(assigns[:conn], "/js/stats.js")
 
   def stats_json(stats) do
     {:safe,

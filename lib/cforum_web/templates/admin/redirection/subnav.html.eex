@@ -1,5 +1,5 @@
 <%= render CforumWeb.AdminView, "subnav.html", assigns %>
 
 <ul>
-  <li><%= link gettext("new redirection"), to: admin_redirection_path(@conn, :new) %></li>
+  <li><%= link gettext("new redirection"), to: Routes.admin_redirection_path(@conn, :new) %></li>
 </ul>

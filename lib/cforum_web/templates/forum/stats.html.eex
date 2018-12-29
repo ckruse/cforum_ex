@@ -48,7 +48,7 @@
 
         <%= for tag <- @state[type].tags do %>
           <li>
-            <%= link tag[:tag].tag_name, to: tag_path(@conn, :show, tag.tag), class: "cf-tag" %>
+            <%= link tag[:tag].tag_name, to: Path.tag_path(@conn, :show, tag.tag), class: "cf-tag" %>
             <span class="cnt"><%= number_to_delimited(tag.cnt, precision: 0) %></span>
           </li>
         <% end %>

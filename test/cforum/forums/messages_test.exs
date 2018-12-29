@@ -293,7 +293,10 @@ defmodule Cforum.Forums.MessagesTest do
 
     test "create_message/5 creates a child message", %{user: user, thread: thread, forum: forum, message: message} do
       params = params_for(:message)
-      assert {:ok, %Message{} = message1} = Messages.create_message(params, user, [forum], thread, message)
+
+      assert {:ok, %Message{} = message1} =
+               Messages.create_message(params, user, [forum], %Thread{thread | tree: message}, message)
+
       assert message1.user_id == user.user_id
       assert message1.subject == params[:subject]
       assert message1.parent_id == message.message_id

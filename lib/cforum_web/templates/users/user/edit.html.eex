@@ -1,11 +1,11 @@
-<%= form_for @changeset, user_path(@conn, :update, @user), [class: "cf-form", multipart: true], fn f -> %>
+<%= form_for @changeset, Routes.user_path(@conn, :update, @user), [class: "cf-form", multipart: true], fn f -> %>
 
   <%= render "form.html", Map.merge(assigns, %{changeset: @changeset, f: f, user: @user}) %>
 
   <p class="form-actions">
     <%= primary_submit gettext("save changes") %>
-    <%= if may?(@conn, "users/password", :edit, @user), do: default_button_link(gettext("change password"), to: user_password_path(@conn, :edit, @user)) %>
-    <%= default_button_link gettext("cancel"), to: user_path(@conn, :show, @user) %>
+    <%= if may?(@conn, "users/password", :edit, @user), do: default_button_link(gettext("change password"), to: Routes.user_password_path(@conn, :edit, @user)) %>
+    <%= default_button_link gettext("cancel"), to: Routes.user_path(@conn, :show, @user) %>
   </p>
 
 <% end %>

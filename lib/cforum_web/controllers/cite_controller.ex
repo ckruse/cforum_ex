@@ -24,7 +24,7 @@ defmodule CforumWeb.CiteController do
       {:ok, cite} ->
         conn
         |> put_flash(:info, gettext("Cite created successfully."))
-        |> redirect(to: cite_path(conn, :show, cite))
+        |> redirect(to: Routes.cite_path(conn, :show, cite))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -49,7 +49,7 @@ defmodule CforumWeb.CiteController do
       {:ok, cite} ->
         conn
         |> put_flash(:info, gettext("Cite updated successfully."))
-        |> redirect(to: cite_path(conn, :show, cite))
+        |> redirect(to: Routes.cite_path(conn, :show, cite))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", cite: cite, changeset: changeset)
@@ -62,7 +62,7 @@ defmodule CforumWeb.CiteController do
 
     conn
     |> put_flash(:info, gettext("Cite deleted successfully."))
-    |> redirect(to: cite_path(conn, :index))
+    |> redirect(to: Routes.cite_path(conn, :index))
   end
 
   def allowed?(_conn, action, _) when action in [:index, :show, :new, :create], do: true

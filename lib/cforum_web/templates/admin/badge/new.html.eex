@@ -1,1 +1,1 @@
-<%= render "form.html", Map.merge(assigns, %{action: admin_badge_path(@conn, :create), back: admin_badge_path(@conn, :index)}) %>
+<%= render "form.html", Map.merge(assigns, %{action: Routes.admin_badge_path(@conn, :create), back: Routes.admin_badge_path(@conn, :index)}) %>

@@ -88,7 +88,7 @@ defmodule Cforum.SystemTest do
            from: Timex.beginning_of_day(NaiveDateTime.utc_now()),
            to: Timex.end_of_day(NaiveDateTime.utc_now()),
            objects: []
-         }, %{from: Timex.Ecto.DateTimeWithTimezone, to: Timex.Ecto.DateTimeWithTimezone, objects: {:array, :string}}}
+         }, %{from: :utc_datetime, to: :utc_datetime, objects: {:array, :string}}}
         |> Ecto.Changeset.cast(%{}, [:from, :to, :objects])
 
       assert System.list_auditing(changeset) == [%Auditing{auditing | user: nil}]

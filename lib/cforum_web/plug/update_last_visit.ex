@@ -10,7 +10,7 @@ defmodule CforumWeb.Plug.UpdateLastVisit do
 
   def call(conn, _opts) do
     if conn.assigns[:current_user],
-      do: Task.start(fn -> Users.update_last_visit(conn.assigns[:current_user]) end)
+      do: Cforum.Helpers.AsyncHelper.run_async(fn -> Users.update_last_visit(conn.assigns[:current_user]) end)
 
     conn
   end

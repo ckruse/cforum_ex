@@ -27,7 +27,7 @@ defmodule CforumWeb.Users.SessionController do
         |> put_session(:user_id, user.user_id)
         |> configure_session(renew: true)
         |> put_flash(:info, gettext("You logged in successfully"))
-        |> redirect(to: root_path(conn, :index))
+        |> redirect(to: Routes.root_path(conn, :index))
 
       {:error, changeset} ->
         conn
@@ -41,7 +41,7 @@ defmodule CforumWeb.Users.SessionController do
     |> configure_session(drop: true)
     |> put_flash(:info, gettext("You logged out successfully"))
     |> delete_resp_cookie("remember_me")
-    |> redirect(to: root_path(conn, :index))
+    |> redirect(to: Routes.root_path(conn, :index))
   end
 
   def allowed?(conn, :delete, _), do: signed_in?(conn)

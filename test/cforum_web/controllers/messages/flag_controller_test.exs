@@ -6,7 +6,7 @@ defmodule CforumWeb.Messages.FlagControllerTest do
   alias Cforum.Forums.ModerationQueue
 
   test "shows a new form", %{conn: conn, thread: thread, message: message} do
-    conn = get(conn, flag_message_path(conn, thread, message))
+    conn = get(conn, Path.flag_message_path(conn, thread, message))
 
     assert html_response(conn, 200) =~
              gettext("flag message %{subject} by %{author}", subject: message.subject, author: message.author)
@@ -16,11 +16,11 @@ defmodule CforumWeb.Messages.FlagControllerTest do
     conn =
       post(
         conn,
-        flag_message_path(conn, thread, message),
+        Path.flag_message_path(conn, thread, message),
         moderation_queue_entry: %{reason: "off-topic", message_id: message.message_id}
       )
 
-    assert redirected_to(conn) == message_path(conn, :show, thread, message)
+    assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
     assert get_flash(conn, :info) == gettext("Message has successfully been flagged.")
   end
 
@@ -30,17 +30,19 @@ defmodule CforumWeb.Messages.FlagControllerTest do
     conn =
       post(
         conn,
-        flag_message_path(conn, thread, message),
+        Path.flag_message_path(conn, thread, message),
         moderation_queue_entry: %{reason: "off-topic", message_id: message.message_id}
       )
 
-    assert redirected_to(conn) == message_path(conn, :show, thread, message)
+    assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
     assert get_flash(conn, :info) == gettext("Message has successfully been flagged.")
   end
 
   test "shows a new form on invalid data", %{conn: conn, thread: thread, message: message} do
     conn =
-      post(conn, flag_message_path(conn, thread, message), moderation_queue_entry: %{message_id: message.message_id})
+      post(conn, Path.flag_message_path(conn, thread, message),
+        moderation_queue_entry: %{message_id: message.message_id}
+      )
 
     assert html_response(conn, 200) =~
              gettext("flag message %{subject} by %{author}", subject: message.subject, author: message.author)

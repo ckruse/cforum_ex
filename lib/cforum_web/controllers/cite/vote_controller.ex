@@ -16,7 +16,7 @@ defmodule CforumWeb.Cite.VoteController do
 
     conn
     |> put_flash(:info, gettext("Successfully voted for cite."))
-    |> redirect(to: cite_path(conn, :show, conn.assigns.cite))
+    |> redirect(to: Routes.cite_path(conn, :show, conn.assigns.cite))
   end
 
   def load_resource(conn), do: Plug.Conn.assign(conn, :cite, Cites.get_cite!(conn.params["id"]))

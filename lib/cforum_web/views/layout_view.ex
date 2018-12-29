@@ -66,7 +66,7 @@ defmodule CforumWeb.LayoutView do
         {:safe, "<meta http-equiv=\"refresh\" content=\""},
         Integer.to_string(refresh * 60),
         {:safe, "; URL="},
-        forum_url(conn, :index, conn.assigns[:current_forum]),
+        Path.forum_url(conn, :index, conn.assigns[:current_forum]),
         {:safe, "\">"}
       ]
     else
@@ -175,8 +175,8 @@ defmodule CforumWeb.LayoutView do
 
     path =
       if present?(conn.assigns[:message]),
-        do: message_path(conn, :show, conn.assigns[:thread], conn.assigns[:message], opts),
-        else: forum_path(conn, :index, conn.assigns[:current_forum], opts)
+        do: Path.message_path(conn, :show, conn.assigns[:thread], conn.assigns[:message], opts),
+        else: Path.forum_path(conn, :index, conn.assigns[:current_forum], opts)
 
     if conn.assigns[:view_all],
       do: link(gettext("normal view"), to: path),
@@ -189,7 +189,7 @@ defmodule CforumWeb.LayoutView do
         do: conn.assigns[:current_user].username,
         else: "Guest_" <> Integer.to_string(Enum.random(1..9999))
 
-    encode_query_string(%{"nick" => nick})
+    Path.encode_query_string(%{"nick" => nick})
   end
 
   def forum_name(nil), do: gettext("all forums")

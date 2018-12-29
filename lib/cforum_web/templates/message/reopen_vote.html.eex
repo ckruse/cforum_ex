@@ -9,9 +9,9 @@
 <%= if may?(@conn, "messages/open_close_vote", :vote, %CloseVote{@reopen_vote | message: @message}) do %>
   <p>
     <%= if CloseVotes.has_voted?(@current_user, @reopen_vote) do %>
-      <%= default_button(gettext("I changed my mind"), to: oc_vote_path(@conn, @thread, @message, @reopen_vote), method: :patch) %>
+      <%= default_button(gettext("I changed my mind"), to: Path.oc_vote_path(@conn, @thread, @message, @reopen_vote), method: :patch) %>
     <% else %>
-      <%= default_button(gettext("I agree"), to: oc_vote_path(@conn, @thread, @message, @reopen_vote), method: :patch) %>
+      <%= default_button(gettext("I agree"), to: Path.oc_vote_path(@conn, @thread, @message, @reopen_vote), method: :patch) %>
     <% end %>
   </p>
 <% end %>

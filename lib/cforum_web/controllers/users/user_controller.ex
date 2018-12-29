@@ -176,7 +176,7 @@ defmodule CforumWeb.Users.UserController do
       {:ok, user} ->
         conn
         |> put_flash(:info, gettext("User updated successfully."))
-        |> redirect(to: user_path(conn, :edit, user))
+        |> redirect(to: Routes.user_path(conn, :edit, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)
@@ -194,7 +194,7 @@ defmodule CforumWeb.Users.UserController do
 
     conn
     |> put_flash(:info, gettext("User deleted successfully."))
-    |> redirect(to: user_path(conn, :index))
+    |> redirect(to: Routes.user_path(conn, :index))
   end
 
   def allowed?(_conn, action, _) when action in [:index, :show, :show_messages, :show_scores], do: true

@@ -1,6 +1,5 @@
 defmodule Cforum.System.Redirection do
-  use Ecto.Schema
-  import Ecto.Changeset
+  use CforumWeb, :model
 
   @primary_key {:redirection_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :redirection_id}

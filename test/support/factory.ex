@@ -18,6 +18,11 @@ defmodule Cforum.Factory do
   def as_admin(user), do: %{user | admin: true}
   def with_password(user, pass), do: %{user | encrypted_password: Comeonin.Bcrypt.hashpwsalt(pass)}
 
+  def with_badge(user, badge) do
+    insert(:badge_user, user: user, badge: badge)
+    Cforum.Repo.preload(user, badges_users: :badge)
+  end
+
   def notification_factory do
     %Cforum.Accounts.Notification{
       is_read: false,
@@ -200,7 +205,8 @@ defmodule Cforum.Factory do
     %Cforum.Search.Section{
       active_by_default: false,
       name: sequence("Section "),
-      position: sequence(:position, & &1)
+      position: sequence(:position, & &1),
+      section_type: "cites"
     }
   end
 
@@ -208,7 +214,7 @@ defmodule Cforum.Factory do
     %Cforum.Search.Document{
       author: sequence("Author "),
       content: Faker.Lorem.paragraph(%Range{first: 1, last: 2}),
-      document_created: Timex.now(),
+      document_created: DateTime.truncate(Timex.now(), :second),
       lang: "german",
       relevance: 1.0,
       tags: [],

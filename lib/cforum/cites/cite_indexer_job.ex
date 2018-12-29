@@ -11,7 +11,7 @@ defmodule Cforum.Cites.CiteIndexerJob do
 
   @spec index_cite(%Cite{}) :: any()
   def index_cite(%Cite{} = cite) do
-    Task.start(fn ->
+    Cforum.Helpers.AsyncHelper.run_async(fn ->
       doc = Search.get_document_by_url(Helpers.cite_url(CforumWeb.Endpoint, :show, cite))
       plain = MarkdownRenderer.to_plain(cite)
       base_relevance = ConfigManager.conf(nil, "search_cites_relevance", :float)

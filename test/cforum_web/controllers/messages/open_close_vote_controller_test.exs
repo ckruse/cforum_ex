@@ -10,7 +10,7 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
       conn =
         conn
         |> login(user)
-        |> get(close_vote_path(conn, thread, message))
+        |> get(Path.close_vote_path(conn, thread, message))
 
       assert html_response(conn, 200) =~
                gettext("Start a close vote for message %{subject} by %{author}",
@@ -26,7 +26,7 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
       assert_error_sent(403, fn ->
         conn
         |> login(user)
-        |> get(close_vote_path(conn, thread, message))
+        |> get(Path.close_vote_path(conn, thread, message))
       end)
     end
   end
@@ -39,7 +39,7 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
       conn =
         conn
         |> login(user)
-        |> get(open_vote_path(conn, thread, message))
+        |> get(Path.open_vote_path(conn, thread, message))
 
       assert html_response(conn, 200) =~
                gettext("Start a reopen vote for message %{subject} by %{author}",
@@ -52,7 +52,7 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
       assert_error_sent(403, fn ->
         conn
         |> login(user)
-        |> get(open_vote_path(conn, thread, message))
+        |> get(Path.open_vote_path(conn, thread, message))
       end)
     end
   end
@@ -67,9 +67,9 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
       conn =
         conn
         |> login(user)
-        |> post(close_vote_path(conn, thread, message), close_vote: params_for(:close_vote))
+        |> post(Path.close_vote_path(conn, thread, message), close_vote: params_for(:close_vote))
 
-      assert redirected_to(conn) == message_path(conn, :show, thread, message)
+      assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
     end
 
     test "does not create close vote and renders errors when data is invalid", %{
@@ -81,7 +81,7 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
       conn =
         conn
         |> login(user)
-        |> post(close_vote_path(conn, thread, message), close_vote: %{})
+        |> post(Path.close_vote_path(conn, thread, message), close_vote: %{})
 
       assert html_response(conn, 200) =~
                gettext("Start a close vote for message %{subject} by %{author}",
@@ -99,9 +99,9 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
       conn =
         conn
         |> login(user)
-        |> post(open_vote_path(conn, thread, message), close_vote: %{reason: "custom", custom_reason: "foo"})
+        |> post(Path.open_vote_path(conn, thread, message), close_vote: %{reason: "custom", custom_reason: "foo"})
 
-      assert redirected_to(conn) == message_path(conn, :show, thread, message)
+      assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
     end
 
     test "does not create reopen vote and renders errors when data is invalid", %{conn: conn, user: user, message: m} do
@@ -111,7 +111,7 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
       conn =
         conn
         |> login(user)
-        |> post(open_vote_path(conn, thread, message), close_vote: %{})
+        |> post(Path.open_vote_path(conn, thread, message), close_vote: %{})
 
       assert html_response(conn, 200) =~
                gettext("Start a reopen vote for message %{subject} by %{author}",
@@ -128,9 +128,9 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
       conn =
         conn
         |> login(user)
-        |> patch(oc_vote_path(conn, t, m, vote))
+        |> patch(Path.oc_vote_path(conn, t, m, vote))
 
-      assert redirected_to(conn) == message_path(conn, :show, t, m)
+      assert redirected_to(conn) == Path.message_path(conn, :show, t, m)
       assert [%CloseVoteVoter{}] = CloseVotes.list_voters(vote)
     end
 
@@ -141,9 +141,9 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
       conn =
         conn
         |> login(user)
-        |> patch(oc_vote_path(conn, thread, message, vote))
+        |> patch(Path.oc_vote_path(conn, thread, message, vote))
 
-      assert redirected_to(conn) == message_path(conn, :show, thread, message)
+      assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
       assert [%CloseVoteVoter{}] = CloseVotes.list_voters(vote)
     end
 
@@ -160,7 +160,7 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
       assert_error_sent(403, fn ->
         conn
         |> login(user)
-        |> patch(oc_vote_path(conn, thread, message, vote))
+        |> patch(Path.oc_vote_path(conn, thread, message, vote))
       end)
     end
 
@@ -168,13 +168,13 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
       conn =
         conn
         |> login(user)
-        |> patch(oc_vote_path(conn, t, m, vote))
+        |> patch(Path.oc_vote_path(conn, t, m, vote))
 
-      assert redirected_to(conn) == message_path(conn, :show, t, m)
+      assert redirected_to(conn) == Path.message_path(conn, :show, t, m)
       assert [%CloseVoteVoter{}] = CloseVotes.list_voters(vote)
 
-      conn = patch(conn, oc_vote_path(conn, t, m, vote))
-      assert redirected_to(conn) == message_path(conn, :show, t, m)
+      conn = patch(conn, Path.oc_vote_path(conn, t, m, vote))
+      assert redirected_to(conn) == Path.message_path(conn, :show, t, m)
       assert [] = CloseVotes.list_voters(vote)
     end
   end

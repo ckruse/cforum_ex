@@ -8,7 +8,7 @@ defmodule Cforum.Forums.NotifyUsersMessageJob do
 
   @spec notify_users_about_new_message(%Thread{}, %Message{}) :: any()
   def notify_users_about_new_message(thread, message) do
-    Task.start(fn ->
+    Cforum.Helpers.AsyncHelper.run_async(fn ->
       parent_messages(thread, message)
       |> Messages.list_subscriptions_for_messages()
       |> Enum.reduce(%{}, fn sub, acc -> Map.put(acc, sub.user_id, sub.user) end)
@@ -61,7 +61,7 @@ defmodule Cforum.Forums.NotifyUsersMessageJob do
   end
 
   def notify_users_about_new_thread(thread, message) do
-    Task.start(fn ->
+    Cforum.Helpers.AsyncHelper.run_async(fn ->
       Users.list_users_by_config_option("notify_on_new_thread", "yes")
       |> Enum.reject(fn user -> user.user_id == message.user_id end)
       |> Enum.filter(fn user -> may_view?(user, thread, message) end)

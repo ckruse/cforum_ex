@@ -6,7 +6,7 @@ defmodule Cforum.Cites.ArchiverJobTest do
   alias Cforum.Cites.Vote
 
   test "archive/0 deletes an cite with negative score" do
-    cite = insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -2))
+    cite = insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -3))
     insert(:cite_vote, cite: cite, vote_type: Vote.downvote())
 
     ArchiverJob.archive()
@@ -16,7 +16,7 @@ defmodule Cforum.Cites.ArchiverJobTest do
   end
 
   test "archive/0 deletes an cite with score=0" do
-    insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -2))
+    insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -3))
 
     ArchiverJob.archive()
 
@@ -25,7 +25,7 @@ defmodule Cforum.Cites.ArchiverJobTest do
   end
 
   test "archive/0 archives an cite with positive score" do
-    cite = insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -2))
+    cite = insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -3))
     insert(:cite_vote, cite: cite, vote_type: Vote.upvote())
 
     ArchiverJob.archive()
@@ -35,7 +35,7 @@ defmodule Cforum.Cites.ArchiverJobTest do
   end
 
   test "archive/0 ignores already archived cites" do
-    cite = insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -2), archived: true)
+    cite = insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -3), archived: true)
     insert(:cite_vote, cite: cite, vote_type: Vote.downvote())
 
     ArchiverJob.archive()

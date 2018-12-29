@@ -4,7 +4,7 @@ defmodule CforumWeb.RedirectorController do
   alias Cforum.Forums.{Threads, Messages}
 
   def redirect_to_archive(conn, _params) do
-    redirect(conn, to: archive_path(conn, :years, conn.assigns[:current_forum]))
+    redirect(conn, to: Path.archive_path(conn, :years, conn.assigns[:current_forum]))
   end
 
   def redirect_to_year(conn, %{"year" => year}) do
@@ -14,7 +14,7 @@ defmodule CforumWeb.RedirectorController do
         |> String.replace(~r/_\d+$/, "")
         |> String.to_integer()
 
-      redirect(conn, to: archive_path(conn, :months, conn.assigns[:current_forum], {{year, 1, 1}, {12, 0, 0}}))
+      redirect(conn, to: Path.archive_path(conn, :months, conn.assigns[:current_forum], {{year, 1, 1}, {12, 0, 0}}))
     else
       conn
       |> put_status(:not_found)
@@ -44,7 +44,7 @@ defmodule CforumWeb.RedirectorController do
 
     if blank?(t),
       do: render(conn, "redirect_archive_thread.html", threads: threads),
-      else: redirect(conn, to: message_path(conn, :show, t, t.message))
+      else: redirect(conn, to: Path.message_path(conn, :show, t, t.message))
   end
 
   def redirect_to_month(conn, %{"year" => year, "month" => month}) do
@@ -52,7 +52,7 @@ defmodule CforumWeb.RedirectorController do
       year = String.replace(year, ~r/_\d+$/, "")
       {:ok, date} = NaiveDateTime.new(String.to_integer(year), String.to_integer(month), 1, 12, 0, 0)
 
-      redirect(conn, to: archive_path(conn, :threads, conn.assigns[:current_forum], date))
+      redirect(conn, to: Path.archive_path(conn, :threads, conn.assigns[:current_forum], date))
     else
       conn
       |> put_status(:not_found)
@@ -74,7 +74,7 @@ defmodule CforumWeb.RedirectorController do
             message.thread_id
           )
 
-        redirect(conn, to: message_path(conn, :show, thread, message))
+        redirect(conn, to: Path.message_path(conn, :show, thread, message))
 
       _ ->
         raise(Phoenix.ActionClauseError, message: "no suitable action found")

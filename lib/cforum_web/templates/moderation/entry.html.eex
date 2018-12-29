@@ -39,7 +39,7 @@
     <% end %>
 
     <%= if may?(@conn, "moderation", :update, @entry) do %>
-      <%= primary_button_link(gettext("solve"), to: moderation_path(@conn, :edit, @entry)) %>
+      <%= primary_button_link(gettext("solve"), to: Routes.moderation_path(@conn, :edit, @entry)) %>
     <% end %>
   </div>
 </article>

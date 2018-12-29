@@ -1,7 +1,7 @@
 <%=
 link(
   @entry.contents["close_vote"]["message"]["subject"],
-  to: root_path(@conn, :index) <>
+  to: Routes.root_path(@conn, :index) <>
         @entry.contents["close_vote"]["message"]["thread"]["forum"]["slug"] <>
         @entry.contents["close_vote"]["message"]["thread"]["slug"] <> "/" <>
         to_string(@entry.contents["close_vote"]["message"]["message_id"]) <>

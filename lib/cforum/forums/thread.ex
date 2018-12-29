@@ -13,7 +13,7 @@ defmodule Cforum.Forums.Thread do
     field(:deleted, :boolean, default: false)
     field(:sticky, :boolean, default: false)
     field(:flags, :map, default: %{})
-    field(:latest_message, Timex.Ecto.DateTime)
+    field(:latest_message, :utc_datetime)
     field(:slug, :string)
     field(:subject, :string, virtual: true)
 

@@ -1,7 +1,5 @@
 defmodule Cforum.Events.Attendee do
-  use Ecto.Schema
-  alias Ecto.Changeset
-  import Ecto.Changeset
+  use CforumWeb, :model
 
   @primary_key {:attendee_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :attendee_id}
@@ -10,9 +8,9 @@ defmodule Cforum.Events.Attendee do
     field(:name, :string)
     field(:comment, :string)
     field(:starts_at, :string)
-    field(:planned_start, Timex.Ecto.DateTime)
-    field(:planned_arrival, Timex.Ecto.DateTime)
-    field(:planned_leave, Timex.Ecto.DateTime)
+    field(:planned_start, :utc_datetime)
+    field(:planned_arrival, :utc_datetime)
+    field(:planned_leave, :utc_datetime)
     field(:seats, :integer)
 
     belongs_to(:event, Cforum.Events.Event, references: :event_id)
@@ -32,7 +30,7 @@ defmodule Cforum.Events.Attendee do
 
   defp maybe_set_user(changeset, nil), do: changeset
 
-  defp maybe_set_user(%Changeset{valid?: true} = changeset, user) do
+  defp maybe_set_user(%Ecto.Changeset{valid?: true} = changeset, user) do
     changeset
     |> put_change(:name, user.username)
     |> put_change(:user_id, user.user_id)

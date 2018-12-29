@@ -39,7 +39,7 @@ defmodule CforumWeb.ThreadView do
   def page_heading(action, assigns) when action in [:new, :create], do: page_title(action, assigns)
 
   def body_id(:index, _assigns), do: "threads-index"
-  def body_classes(:index, assigns), do: "threads forum-#{forum_slug(assigns[:current_forum])}"
+  def body_classes(:index, assigns), do: "threads forum-#{Path.forum_slug(assigns[:current_forum])}"
 
   alias CforumWeb.Views.Helpers.Feeds
 

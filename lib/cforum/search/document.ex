@@ -1,6 +1,5 @@
 defmodule Cforum.Search.Document do
-  use Ecto.Schema
-  import Ecto.Changeset
+  use CforumWeb, :model
 
   @primary_key {:search_document_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :search_document_id}
@@ -8,7 +7,7 @@ defmodule Cforum.Search.Document do
   schema "search_documents" do
     field(:author, :string)
     field(:content, :string)
-    field(:document_created, Timex.Ecto.DateTime)
+    field(:document_created, :utc_datetime)
     field(:lang, :string)
     field(:reference_id, :integer)
     field(:relevance, :float)

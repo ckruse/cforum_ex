@@ -174,37 +174,37 @@ defmodule Cforum.AbilitiesTest do
     end
 
     test "users may not write-access read forums" do
-      user = insert(:user)
+      user = insert(:user, badges_users: [])
       forum = insert(:forum, standard_permission: "read")
       refute Abilities.access_forum?(user, forum, :write)
     end
 
     test "users may write-access write forums" do
-      user = insert(:user)
+      user = insert(:user, badges_users: [])
       forum = insert(:forum, standard_permission: "write")
       assert Abilities.access_forum?(user, forum, :write)
     end
 
     test "users may not write-access known-read forums" do
-      user = insert(:user)
+      user = insert(:user, badges_users: [])
       forum = insert(:forum, standard_permission: "known-read")
       refute Abilities.access_forum?(user, forum, :write)
     end
 
     test "users may access known-write forums" do
-      user = insert(:user)
+      user = insert(:user, badges_users: [])
       forum = insert(:forum, standard_permission: "known-write")
       assert Abilities.access_forum?(user, forum, :write)
     end
 
     test "users may not access private forums" do
-      user = insert(:user)
+      user = insert(:user, badges_users: [])
       forum = insert(:forum, standard_permission: "private")
       refute Abilities.access_forum?(user, forum, :write)
     end
 
     test "user in group with read acess may not write-access private forum" do
-      user = insert(:user)
+      user = insert(:user, badges_users: [])
       forum = insert(:forum, standard_permission: "private")
       group = insert(:group, users: [user])
       insert(:forum_group_permission, permission: "read", forum: forum, group: group)
@@ -212,7 +212,7 @@ defmodule Cforum.AbilitiesTest do
     end
 
     test "user in group with write acess may write-access private forum" do
-      user = insert(:user)
+      user = insert(:user, badges_users: [])
       forum = insert(:forum, standard_permission: "private")
       group = insert(:group, users: [user])
       insert(:forum_group_permission, permission: "write", forum: forum, group: group)
@@ -220,7 +220,7 @@ defmodule Cforum.AbilitiesTest do
     end
 
     test "user in group with moderate acess may write-access private forum" do
-      user = insert(:user)
+      user = insert(:user, badges_users: [])
       forum = insert(:forum, standard_permission: "private")
       group = insert(:group, users: [user])
       insert(:forum_group_permission, permission: "moderate", forum: forum, group: group)
@@ -229,7 +229,7 @@ defmodule Cforum.AbilitiesTest do
 
     test "user with read permission and moderator badge may write-access forum" do
       badge = insert(:badge, badge_type: "moderator_tools")
-      user = insert(:user, badges: [badge])
+      user = insert(:user) |> with_badge(badge)
       forum = insert(:forum, standard_permission: "private")
       group = insert(:group, users: [user])
       insert(:forum_group_permission, permission: "read", forum: forum, group: group)
@@ -237,7 +237,7 @@ defmodule Cforum.AbilitiesTest do
     end
 
     test "admin user may read-access private forum" do
-      user = build(:user) |> as_admin |> insert
+      user = build(:user, badges_users: []) |> as_admin |> insert
       forum = insert(:forum, standard_permission: "private")
       assert Abilities.access_forum?(user, forum, :write)
     end
@@ -270,37 +270,37 @@ defmodule Cforum.AbilitiesTest do
     end
 
     test "users may not moderate read forums" do
-      user = insert(:user)
+      user = insert(:user, badges_users: [])
       forum = insert(:forum, standard_permission: "read")
       refute Abilities.access_forum?(user, forum, :moderate)
     end
 
     test "users may not moderate write forums" do
-      user = insert(:user)
+      user = insert(:user, badges_users: [])
       forum = insert(:forum, standard_permission: "write")
       refute Abilities.access_forum?(user, forum, :moderate)
     end
 
     test "users may not moderate known-read forums" do
-      user = insert(:user)
+      user = insert(:user, badges_users: [])
       forum = insert(:forum, standard_permission: "known-read")
       refute Abilities.access_forum?(user, forum, :moderate)
     end
 
     test "users may not moderate known-write forums" do
-      user = insert(:user)
+      user = insert(:user, badges_users: [])
       forum = insert(:forum, standard_permission: "known-write")
       refute Abilities.access_forum?(user, forum, :moderate)
     end
 
     test "users may not moderate private forums" do
-      user = insert(:user)
+      user = insert(:user, badges_users: [])
       forum = insert(:forum, standard_permission: "private")
       refute Abilities.access_forum?(user, forum, :moderate)
     end
 
     test "user in group with read acess may not moderate private forum" do
-      user = insert(:user)
+      user = insert(:user, badges_users: [])
       forum = insert(:forum, standard_permission: "private")
       group = insert(:group, users: [user])
       insert(:forum_group_permission, permission: "read", forum: forum, group: group)
@@ -308,7 +308,7 @@ defmodule Cforum.AbilitiesTest do
     end
 
     test "user in group with write acess may not moderate private forum" do
-      user = insert(:user)
+      user = insert(:user, badges_users: [])
       forum = insert(:forum, standard_permission: "private")
       group = insert(:group, users: [user])
       insert(:forum_group_permission, permission: "write", forum: forum, group: group)
@@ -316,7 +316,7 @@ defmodule Cforum.AbilitiesTest do
     end
 
     test "user in group with moderate acess may moderate private forum" do
-      user = insert(:user)
+      user = insert(:user, badges_users: [])
       forum = insert(:forum, standard_permission: "private")
       group = insert(:group, users: [user])
       insert(:forum_group_permission, permission: "moderate", forum: forum, group: group)
@@ -325,7 +325,7 @@ defmodule Cforum.AbilitiesTest do
 
     test "user with read permission and moderator badge may moderate forum" do
       badge = insert(:badge, badge_type: "moderator_tools")
-      user = insert(:user, badges: [badge])
+      user = insert(:user) |> with_badge(badge)
       forum = insert(:forum, standard_permission: "private")
       group = insert(:group, users: [user])
       insert(:forum_group_permission, permission: "read", forum: forum, group: group)
@@ -333,7 +333,7 @@ defmodule Cforum.AbilitiesTest do
     end
 
     test "admin user may moderate private forum" do
-      user = build(:user) |> as_admin |> insert
+      user = build(:user, badges_users: []) |> as_admin |> insert
       forum = insert(:forum, standard_permission: "private")
       assert Abilities.access_forum?(user, forum, :moderate)
     end

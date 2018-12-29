@@ -14,7 +14,7 @@ defmodule CforumWeb.Tags.SynonymController do
       {:ok, _synonym} ->
         conn
         |> put_flash(:info, gettext("Tag synonym created successfully."))
-        |> redirect(to: tag_path(conn, :show, conn.assigns.tag))
+        |> redirect(to: Path.tag_path(conn, :show, conn.assigns.tag))
 
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -31,7 +31,7 @@ defmodule CforumWeb.Tags.SynonymController do
       {:ok, _synonym} ->
         conn
         |> put_flash(:info, gettext("Tag synonym updated successfully."))
-        |> redirect(to: tag_path(conn, :show, conn.assigns.tag))
+        |> redirect(to: Path.tag_path(conn, :show, conn.assigns.tag))
 
       {:error, changeset} ->
         render(conn, "edit.html", changeset: changeset)
@@ -43,7 +43,7 @@ defmodule CforumWeb.Tags.SynonymController do
 
     conn
     |> put_flash(:info, gettext("Tag synonym deleted successfully."))
-    |> redirect(to: tag_path(conn, :show, conn.assigns.tag))
+    |> redirect(to: Path.tag_path(conn, :show, conn.assigns.tag))
   end
 
   def load_resource(conn) do

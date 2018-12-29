@@ -1,5 +1,5 @@
 <ul>
   <%= for month <- @months do %>
-    <li><%= link Timex.format!(month, "%B", :strftime), to: archive_path(@conn, :threads, assigns[:current_forum], month) %></li>
+    <li><%= link Timex.format!(month, "%B", :strftime), to: Path.archive_path(@conn, :threads, assigns[:current_forum], month) %></li>
   <% end %>
 </ul>

@@ -41,7 +41,6 @@ config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
 config :cforum, Cforum.Repo,
-  adapter: Ecto.Adapters.Postgres,
   database: "cforum_development",
   hostname: "localhost",
   pool_size: 10

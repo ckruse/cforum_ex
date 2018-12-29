@@ -1,4 +1,4 @@
-<%= form_for @changeset, admin_setting_path(@conn, :update), [class: "cf-form"], fn f -> %>
+<%= form_for @changeset, Routes.admin_setting_path(@conn, :update), [class: "cf-form"], fn f -> %>
   <%= sub_inputs f, :options, fn(fo) -> %>
 
     <nav class="cf-tab-list">
@@ -32,6 +32,6 @@
 
   <p class="form-actions">
     <%= primary_submit gettext("save changes") %>
-    <%= default_button_link gettext("cancel"), to: admin_forum_path(@conn, :index) %>
+    <%= default_button_link gettext("cancel"), to: Routes.admin_forum_path(@conn, :index) %>
   </p>
 <% end %>

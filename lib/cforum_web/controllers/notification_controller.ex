@@ -32,12 +32,12 @@ defmodule CforumWeb.NotificationController do
       {:ok, _notification} ->
         conn
         |> put_flash(:info, gettext("Notification successfully marked as unread."))
-        |> redirect(to: notification_path(conn, :index))
+        |> redirect(to: Routes.notification_path(conn, :index))
 
       {:error, _changeset} ->
         conn
         |> put_flash(:error, gettext("Oops, something went wrong!"))
-        |> redirect(to: notification_path(conn, :index))
+        |> redirect(to: Routes.notification_path(conn, :index))
     end
   end
 
@@ -46,7 +46,7 @@ defmodule CforumWeb.NotificationController do
 
     conn
     |> put_flash(:info, gettext("Notification deleted successfully."))
-    |> redirect(to: notification_path(conn, :index))
+    |> redirect(to: Routes.notification_path(conn, :index))
   end
 
   def load_resource(conn) do

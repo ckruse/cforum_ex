@@ -1,6 +1,5 @@
 defmodule Cforum.Media.Image do
-  use Ecto.Schema
-  import Ecto.Changeset
+  use CforumWeb, :model
 
   @primary_key {:medium_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :medium_id}

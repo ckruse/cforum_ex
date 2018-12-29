@@ -24,7 +24,7 @@ defmodule CforumWeb do
       import Ecto.Changeset
       import Ecto.Query
 
-      @timestamps_opts [type: Timex.Ecto.DateTime, autogenerate: {Timex.Ecto.DateTime, :autogenerate, []}]
+      @timestamps_opts [type: :utc_datetime]
     end
   end
 
@@ -36,7 +36,7 @@ defmodule CforumWeb do
       import Ecto
       import Ecto.Query
 
-      import CforumWeb.Router.Helpers
+      alias CforumWeb.Router.Helpers, as: Routes
       import CforumWeb.Gettext
       import CforumWeb.Views.Helpers
       import CforumWeb.Paginator
@@ -45,7 +45,7 @@ defmodule CforumWeb do
       import Cforum.ConfigManager
       import Cforum.Abilities
 
-      import CforumWeb.Views.Helpers.Path
+      alias CforumWeb.Views.Helpers.Path
 
       plug(CforumWeb.Plug.LoadResource)
       plug(CforumWeb.Plug.AuthorizeAccess)
@@ -65,13 +65,13 @@ defmodule CforumWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import CforumWeb.Router.Helpers
+      alias CforumWeb.Router.Helpers, as: Routes
       import CforumWeb.ErrorHelpers
       import CforumWeb.Gettext
       import CforumWeb.Views.Helpers
       import CforumWeb.Views.Helpers.Button
       import CforumWeb.Views.Helpers.Links
-      import CforumWeb.Views.Helpers.Path
+      alias CforumWeb.Views.Helpers.Path
       import CforumWeb.Views.Helpers.RelativeTime
       import CforumWeb.Paginator
       import CforumWeb.Sortable

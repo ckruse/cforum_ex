@@ -14,7 +14,7 @@ defmodule CforumWeb.Messages.FlagController do
       {:ok, _entry} ->
         conn
         |> put_flash(:info, gettext("Message has successfully been flagged."))
-        |> redirect(to: message_path(conn, :show, conn.assigns.thread, conn.assigns.message))
+        |> redirect(to: Path.message_path(conn, :show, conn.assigns.thread, conn.assigns.message))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)

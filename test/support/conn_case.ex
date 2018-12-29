@@ -22,11 +22,11 @@ defmodule CforumWeb.ConnCase do
 
       import Plug.Test
       import Cforum.TestHelpers
-
-      import CforumWeb.Router.Helpers
-      import CforumWeb.Views.Helpers.Path
       import CforumWeb.Gettext
       import Cforum.Factory
+
+      alias CforumWeb.Router.Helpers, as: Routes
+      alias CforumWeb.Views.Helpers.Path
 
       # The default endpoint for testing
       @endpoint CforumWeb.Endpoint

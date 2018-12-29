@@ -1,17 +1,17 @@
 defmodule Cforum.Repo do
-  use Ecto.Repo, otp_app: :cforum
+  use Ecto.Repo, otp_app: :cforum, adapter: Ecto.Adapters.Postgres
   import Ecto.Query, warn: false
 
-  def exists?(queryable) do
-    query =
-      Ecto.Query.from(x in queryable, select: 1, limit: 1)
-      |> Ecto.Queryable.to_query()
+  # def exists?(queryable) do
+  #   query =
+  #     Ecto.Query.from(x in queryable, select: 1, limit: 1)
+  #     |> Ecto.Queryable.to_query()
 
-    case all(query) do
-      [1] -> true
-      [] -> false
-    end
-  end
+  #   case all(query) do
+  #     [1] -> true
+  #     [] -> false
+  #   end
+  # end
 
   def execute_and_load(sql, params, schema, postprocess \\ nil)
 

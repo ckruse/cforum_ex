@@ -14,7 +14,7 @@ defmodule CforumWeb.Messages.OpenCloseVoteController do
       {:ok, _vote} ->
         conn
         |> put_flash(:info, gettext("Close vote has successfully been created."))
-        |> redirect(to: message_path(conn, :show, conn.assigns.thread, conn.assigns.message))
+        |> redirect(to: Path.message_path(conn, :show, conn.assigns.thread, conn.assigns.message))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new_close.html", changeset: changeset)
@@ -31,7 +31,7 @@ defmodule CforumWeb.Messages.OpenCloseVoteController do
       {:ok, _vote} ->
         conn
         |> put_flash(:info, gettext("Reopen vote has successfully been created."))
-        |> redirect(to: message_path(conn, :show, conn.assigns.thread, conn.assigns.message))
+        |> redirect(to: Path.message_path(conn, :show, conn.assigns.thread, conn.assigns.message))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new_open.html", changeset: changeset)
@@ -52,7 +52,7 @@ defmodule CforumWeb.Messages.OpenCloseVoteController do
 
     conn
     |> put_flash(:info, info)
-    |> redirect(to: message_path(conn, :show, conn.assigns.thread, conn.assigns.message))
+    |> redirect(to: Path.message_path(conn, :show, conn.assigns.thread, conn.assigns.message))
   end
 
   def load_resource(conn) do

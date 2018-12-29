@@ -8,7 +8,7 @@ defmodule CforumWeb.Events.AttendeeControllerTest do
       conn =
         conn
         |> login(user)
-        |> get(event_attendee_path(conn, :new, event))
+        |> get(Routes.event_attendee_path(conn, :new, event))
 
       assert html_response(conn, 200) =~ gettext("take place in event „%{event}“", event: event.name)
     end
@@ -19,12 +19,12 @@ defmodule CforumWeb.Events.AttendeeControllerTest do
 
     test "redirects to event#show when data is valid", %{conn: conn, event: event} do
       attrs = params_for(:attendee, event: event)
-      conn = post(conn, event_attendee_path(conn, :create, event), attendee: attrs)
+      conn = post(conn, Routes.event_attendee_path(conn, :create, event), attendee: attrs)
 
       assert %{id: id} = cf_redirected_params(conn)
-      assert redirected_to(conn) =~ event_path(conn, :show, id)
+      assert redirected_to(conn) =~ Routes.event_path(conn, :show, id)
 
-      conn = get(conn, event_path(conn, :show, id))
+      conn = get(conn, Routes.event_path(conn, :show, id))
       assert html_response(conn, 200) =~ attrs[:name]
     end
 
@@ -34,17 +34,17 @@ defmodule CforumWeb.Events.AttendeeControllerTest do
       conn =
         conn
         |> login(user)
-        |> post(event_attendee_path(conn, :create, event), attendee: attrs)
+        |> post(Routes.event_attendee_path(conn, :create, event), attendee: attrs)
 
       assert %{id: id} = cf_redirected_params(conn)
-      assert redirected_to(conn) =~ event_path(conn, :show, id)
+      assert redirected_to(conn) =~ Routes.event_path(conn, :show, id)
 
-      conn = get(conn, event_path(conn, :show, id))
+      conn = get(conn, Routes.event_path(conn, :show, id))
       assert html_response(conn, 200) =~ user.username
     end
 
     test "renders errors when data is invalid", %{conn: conn, event: event} do
-      conn = post(conn, event_attendee_path(conn, :create, event), attendee: %{})
+      conn = post(conn, Routes.event_attendee_path(conn, :create, event), attendee: %{})
       assert html_response(conn, 200) =~ gettext("take place in event „%{event}“", event: event.name)
     end
   end
@@ -56,7 +56,7 @@ defmodule CforumWeb.Events.AttendeeControllerTest do
       conn =
         conn
         |> login(admin)
-        |> get(event_attendee_path(conn, :edit, event, attendee))
+        |> get(Routes.event_attendee_path(conn, :edit, event, attendee))
 
       assert html_response(conn, 200) =~
                gettext(
@@ -74,11 +74,11 @@ defmodule CforumWeb.Events.AttendeeControllerTest do
       conn =
         conn
         |> login(admin)
-        |> put(event_attendee_path(conn, :update, event, attendee), attendee: %{name: "Luke Skywalker"})
+        |> put(Routes.event_attendee_path(conn, :update, event, attendee), attendee: %{name: "Luke Skywalker"})
 
-      assert redirected_to(conn) == event_path(conn, :show, event)
+      assert redirected_to(conn) == Routes.event_path(conn, :show, event)
 
-      conn = get(conn, event_path(conn, :show, event))
+      conn = get(conn, Routes.event_path(conn, :show, event))
       assert html_response(conn, 200) =~ "Luke Skywalker"
     end
 
@@ -86,7 +86,7 @@ defmodule CforumWeb.Events.AttendeeControllerTest do
       conn =
         conn
         |> login(admin)
-        |> put(event_attendee_path(conn, :update, event, attendee), attendee: %{name: nil})
+        |> put(Routes.event_attendee_path(conn, :update, event, attendee), attendee: %{name: nil})
 
       assert html_response(conn, 200) =~
                gettext(
@@ -104,10 +104,10 @@ defmodule CforumWeb.Events.AttendeeControllerTest do
       conn =
         conn
         |> login(admin)
-        |> delete(event_attendee_path(conn, :delete, event, attendee))
+        |> delete(Routes.event_attendee_path(conn, :delete, event, attendee))
 
-      assert redirected_to(conn) == event_path(conn, :show, event)
-      assert_error_sent(404, fn -> get(conn, event_attendee_path(conn, :edit, event, attendee)) end)
+      assert redirected_to(conn) == Routes.event_path(conn, :show, event)
+      assert_error_sent(404, fn -> get(conn, Routes.event_attendee_path(conn, :edit, event, attendee)) end)
     end
   end
 
@@ -115,7 +115,7 @@ defmodule CforumWeb.Events.AttendeeControllerTest do
     setup [:setup_tests, :create_attendee]
 
     test "new is allowed as anonymous", %{conn: conn, event: event} do
-      conn = get(conn, event_attendee_path(conn, :new, event))
+      conn = get(conn, Routes.event_attendee_path(conn, :new, event))
       assert html_response(conn, 200) =~ gettext("take place in event „%{event}“", event: event.name)
     end
 
@@ -123,7 +123,7 @@ defmodule CforumWeb.Events.AttendeeControllerTest do
       conn =
         conn
         |> login(user)
-        |> get(event_attendee_path(conn, :new, event))
+        |> get(Routes.event_attendee_path(conn, :new, event))
 
       assert html_response(conn, 200) =~ gettext("take place in event „%{event}“", event: event.name)
     end
@@ -132,19 +132,19 @@ defmodule CforumWeb.Events.AttendeeControllerTest do
       assert_error_sent(403, fn ->
         conn
         |> login(user)
-        |> get(event_attendee_path(conn, :new, event))
+        |> get(Routes.event_attendee_path(conn, :new, event))
       end)
     end
 
     test "responds with 403 on invisible event", %{conn: conn, hidden_event: event} do
-      assert_error_sent(403, fn -> get(conn, event_attendee_path(conn, :new, event)) end)
+      assert_error_sent(403, fn -> get(conn, Routes.event_attendee_path(conn, :new, event)) end)
     end
 
     test "create is allowed as anonymous", %{conn: conn, event: event} do
       attrs = params_for(:attendee, event: event)
-      conn = post(conn, event_attendee_path(conn, :create, event), attendee: attrs)
+      conn = post(conn, Routes.event_attendee_path(conn, :create, event), attendee: attrs)
       assert %{id: id} = cf_redirected_params(conn)
-      assert redirected_to(conn) =~ event_path(conn, :show, id)
+      assert redirected_to(conn) =~ Routes.event_path(conn, :show, id)
     end
 
     test "create is allowed as logged in user", %{conn: conn, user1: user, event: event} do
@@ -153,35 +153,35 @@ defmodule CforumWeb.Events.AttendeeControllerTest do
       conn =
         conn
         |> login(user)
-        |> post(event_attendee_path(conn, :create, event), attendee: attrs)
+        |> post(Routes.event_attendee_path(conn, :create, event), attendee: attrs)
 
       assert %{id: id} = cf_redirected_params(conn)
-      assert redirected_to(conn) =~ event_path(conn, :show, id)
+      assert redirected_to(conn) =~ Routes.event_path(conn, :show, id)
     end
 
     test "edit is not allowed for anonymous users", %{conn: conn, event: event, attendee: attendee} do
-      assert_error_sent(403, fn -> get(conn, event_attendee_path(conn, :edit, event, attendee)) end)
+      assert_error_sent(403, fn -> get(conn, Routes.event_attendee_path(conn, :edit, event, attendee)) end)
     end
 
     test "edit is allowed for logged in users", %{conn: conn, user: user, event: event, attendee: attendee} do
       conn =
         conn
         |> login(user)
-        |> get(event_attendee_path(conn, :edit, event, attendee))
+        |> get(Routes.event_attendee_path(conn, :edit, event, attendee))
 
       assert html_response(conn, 200)
     end
 
     test "edit is not allowed for logged in users on foreign attendees", %{conn: conn, event: event, user: user} do
       attendee = insert(:attendee, event: event)
-      assert_error_sent(403, fn -> get(login(conn, user), event_attendee_path(conn, :edit, event, attendee)) end)
+      assert_error_sent(403, fn -> get(login(conn, user), Routes.event_attendee_path(conn, :edit, event, attendee)) end)
     end
 
     test "edit is allowed for admins on foreign attendees", %{conn: conn, event: event, attendee: attendee, admin: user} do
       conn =
         conn
         |> login(user)
-        |> get(event_attendee_path(conn, :edit, event, attendee))
+        |> get(Routes.event_attendee_path(conn, :edit, event, attendee))
 
       assert html_response(conn, 200)
     end

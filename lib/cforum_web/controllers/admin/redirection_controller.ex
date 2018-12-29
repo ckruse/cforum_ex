@@ -22,7 +22,7 @@ defmodule CforumWeb.Admin.RedirectionController do
       {:ok, redirection} ->
         conn
         |> put_flash(:info, gettext("Redirection created successfully."))
-        |> redirect(to: admin_redirection_path(conn, :edit, redirection))
+        |> redirect(to: Routes.admin_redirection_path(conn, :edit, redirection))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -42,7 +42,7 @@ defmodule CforumWeb.Admin.RedirectionController do
       {:ok, redirection} ->
         conn
         |> put_flash(:info, gettext("Redirection updated successfully."))
-        |> redirect(to: admin_redirection_path(conn, :edit, redirection))
+        |> redirect(to: Routes.admin_redirection_path(conn, :edit, redirection))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", redirection: redirection, changeset: changeset)
@@ -55,7 +55,7 @@ defmodule CforumWeb.Admin.RedirectionController do
 
     conn
     |> put_flash(:info, gettext("Redirection deleted successfully."))
-    |> redirect(to: admin_redirection_path(conn, :index))
+    |> redirect(to: Routes.admin_redirection_path(conn, :index))
   end
 
   def allowed?(conn, _, _), do: admin?(conn)

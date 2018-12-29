@@ -932,7 +932,6 @@ defmodule Cforum.Forums.Messages do
   """
   def parent_message(thread, message)
   def parent_message(_, %Message{parent_id: nil}), do: nil
-
   def parent_message(thread, %Message{parent_id: mid}), do: find_message(thread, &(&1.message_id == mid))
 
   @doc """
@@ -962,14 +961,17 @@ defmodule Cforum.Forums.Messages do
   """
   @spec score_down_message(%Message{}, integer()) :: any()
   def score_down_message(message, by \\ 1) do
-    from(
-      msg in Message,
-      where: msg.message_id == ^message.message_id,
-      update: [inc: [downvotes: ^by]]
-    )
-    |> Repo.update_all([])
+    ret =
+      from(
+        msg in Message,
+        where: msg.message_id == ^message.message_id,
+        update: [inc: [downvotes: ^by]]
+      )
+      |> Repo.update_all([])
 
     MessageIndexerJob.rescore_message(message)
+
+    ret
   end
 
   @doc """
@@ -983,14 +985,17 @@ defmodule Cforum.Forums.Messages do
   """
   @spec score_up_message(%Message{}, integer()) :: any()
   def score_up_message(message, by \\ 1) do
-    from(
-      msg in Message,
-      where: msg.message_id == ^message.message_id,
-      update: [inc: [upvotes: ^by]]
-    )
-    |> Repo.update_all([])
+    ret =
+      from(
+        msg in Message,
+        where: msg.message_id == ^message.message_id,
+        update: [inc: [upvotes: ^by]]
+      )
+      |> Repo.update_all([])
 
     MessageIndexerJob.rescore_message(message)
+
+    ret
   end
 
   @doc """

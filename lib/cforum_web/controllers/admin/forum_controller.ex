@@ -20,7 +20,7 @@ defmodule CforumWeb.Admin.ForumController do
       {:ok, forum} ->
         conn
         |> put_flash(:info, gettext("Forum created successfully."))
-        |> redirect(to: admin_forum_path(conn, :edit, forum))
+        |> redirect(to: Routes.admin_forum_path(conn, :edit, forum))
 
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset, forum: %Forum{setting: %Setting{}})
@@ -40,7 +40,7 @@ defmodule CforumWeb.Admin.ForumController do
       {:ok, forum} ->
         conn
         |> put_flash(:info, gettext("Forum updated successfully."))
-        |> redirect(to: admin_forum_path(conn, :edit, forum))
+        |> redirect(to: Routes.admin_forum_path(conn, :edit, forum))
 
       {:error, changeset} ->
         render(conn, "edit.html", forum: forum, changeset: changeset)
@@ -53,7 +53,7 @@ defmodule CforumWeb.Admin.ForumController do
 
     conn
     |> put_flash(:info, gettext("Forum deleted successfully."))
-    |> redirect(to: admin_forum_path(conn, :index))
+    |> redirect(to: Routes.admin_forum_path(conn, :index))
   end
 
   def allowed?(conn, _, _), do: admin?(conn)

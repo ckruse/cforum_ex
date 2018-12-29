@@ -1,4 +1,4 @@
-<%= pagination @conn, @paging, &user_path/4, path_args: [@conn, :show_messages, @user] %>
+<%= pagination @conn, @paging, &Routes.user_path/4, path_args: [@conn, :show_messages, @user] %>
 
 <div class="cf-thread-list">
   <%= for m <- @messages do %>
@@ -8,4 +8,4 @@
   <% end %>
 </div>
 
-<%= pagination @conn, @paging, &user_path/4, path_args: [@conn, :show_messages, @user] %>
+<%= pagination @conn, @paging, &Routes.user_path/4, path_args: [@conn, :show_messages, @user] %>

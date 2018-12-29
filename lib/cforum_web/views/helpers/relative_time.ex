@@ -7,25 +7,14 @@ defmodule CforumWeb.Views.Helpers.RelativeTime do
 
   @doc """
   Generates a relative time text, e.g. "less than 5 seconds" or "about an hour".
-  `time` may be an `Ecto.DateTime{}`, a `%DateTime{}` or the number of seconds
-  for the duration.
+  `time` may be a `%DateTime{}` or the number of seconds for the duration.
   """
-  def relative_time(%Ecto.DateTime{} = time) do
-    relative_time(ecto_to_seconds(time))
-  end
-
-  def relative_time(%DateTime{} = time) do
-    relative_time(Timex.diff(Timex.now(), time, :seconds))
-  end
+  def relative_time(%DateTime{} = time), do: relative_time(Timex.diff(Timex.now(), time, :seconds))
+  def relative_time(%NaiveDateTime{} = time), do: relative_time(Timex.diff(Timex.now(), time, :seconds))
 
   def relative_time(seconds) do
     minutes = round(seconds / 60)
     time_as_relative_text(minutes, seconds)
-  end
-
-  defp ecto_to_seconds(datetime) do
-    :calendar.datetime_to_gregorian_seconds(:calendar.local_time()) -
-      :calendar.datetime_to_gregorian_seconds(Ecto.DateTime.to_erl(datetime))
   end
 
   defp time_as_relative_text(minutes, seconds) when minutes in 0..1 do

@@ -1,3 +1,3 @@
 <ul>
-  <%= if may?(@conn, "tag", :new) do %><li><%= link gettext("new tag"), to: tag_path(@conn, :new) %></li><% end %>
+  <%= if may?(@conn, "tag", :new) do %><li><%= link gettext("new tag"), to: Path.tag_path(@conn, :new) %></li><% end %>
 </ul>

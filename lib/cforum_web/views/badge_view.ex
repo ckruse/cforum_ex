@@ -24,5 +24,5 @@ defmodule CforumWeb.BadgeView do
   def body_classes(:index, _), do: "badges index"
   def body_classes(:show, _), do: "badges show"
 
-  def badge_image(conn, badge), do: static_path(conn, "/images/#{badge.badge_medal_type}.png")
+  def badge_image(conn, badge), do: Routes.static_path(conn, "/images/#{badge.badge_medal_type}.png")
 end

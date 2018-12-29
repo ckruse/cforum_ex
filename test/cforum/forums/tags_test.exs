@@ -124,7 +124,7 @@ defmodule Cforum.Forums.TagsTest do
 
     test "create_tag_synonym/2 with invalid data returns error changeset" do
       tag = insert(:tag)
-      assert {:error, %Ecto.Changeset{}} = Tags.create_tag(nil, tag, %{})
+      assert {:error, %Ecto.Changeset{}} = Tags.create_tag_synonym(nil, tag, %{})
     end
 
     test "update_tag_synonym/2 with valid data updates the tag synonym" do
@@ -135,7 +135,6 @@ defmodule Cforum.Forums.TagsTest do
 
       assert tag_synonym.synonym == "foo"
       assert tag_synonym.tag_id == synonym.tag_id
-      assert tag_synonym.forum_id == synonym.forum_id
     end
 
     test "update_tag_synonym/2 with invalid data returns error changeset" do
@@ -148,7 +147,6 @@ defmodule Cforum.Forums.TagsTest do
 
       assert tag_synonym.synonym == synonym.synonym
       assert tag_synonym.tag_id == synonym.tag_id
-      assert tag_synonym.forum_id == synonym.forum_id
     end
 
     test "delete_tag_synonym/1 deletes the tag synonym" do

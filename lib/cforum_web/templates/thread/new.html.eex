@@ -8,7 +8,7 @@
   </article>
 <% end %>
 
-<%= form_for @changeset, thread_path(@conn, :new, @current_forum), [class: "cf-form"], fn f -> %>
+<%= form_for @changeset, Path.thread_path(@conn, :new, @current_forum), [class: "cf-form"], fn f -> %>
   <%= if blank?(@current_forum) do %>
     <div class="cf-cgroup <%= error_class(f, :forum_id) %>">
       <%= label f, :forum_id do %>
@@ -26,6 +26,6 @@
   <p class="form-actions">
     <%= default_submit gettext("show preview"), name: "preview" %>
     <%= primary_submit gettext("create message") %>
-    <%= default_button_link gettext("cancel"), to: forum_path(@conn, :index, @current_forum) %>
+    <%= default_button_link gettext("cancel"), to: Path.forum_path(@conn, :index, @current_forum) %>
   </p>
 <% end %>

@@ -91,7 +91,7 @@ defmodule CforumWeb.MessageView do
   def body_id(:show, assigns), do: "message-#{assigns[:read_mode]}"
 
   def body_classes(:show, assigns) do
-    classes = "messages #{assigns[:read_mode]}-view forum-#{forum_slug(assigns[:current_forum])}"
+    classes = "messages #{assigns[:read_mode]}-view forum-#{Path.forum_slug(assigns[:current_forum])}"
     if assigns[:thread].archived, do: ["archived " | classes], else: classes
   end
 
@@ -152,7 +152,7 @@ defmodule CforumWeb.MessageView do
         p: conn.params["p"],
         page: conn.params["page"],
         r: controller_path(conn),
-        f: forum_slug(conn.assigns[:current_forum])
+        f: Path.forum_slug(conn.assigns[:current_forum])
       }
       |> Enum.filter(fn {_k, v} -> !blank?(v) end)
       |> Enum.into(%{})
@@ -196,10 +196,10 @@ defmodule CforumWeb.MessageView do
   def author_name(conn, thread, message, opts) do
     cond do
       opts[:author_link_to_message] ->
-        link(message.author, to: message_path(conn, :show, thread, message), aria: [hidden: "true"])
+        link(message.author, to: Path.message_path(conn, :show, thread, message), aria: [hidden: "true"])
 
       !blank?(message.user_id) ->
-        link(message.author, to: user_path(conn, :show, message.user_id))
+        link(message.author, to: Routes.user_path(conn, :show, message.user_id))
 
       true ->
         message.author
@@ -209,7 +209,7 @@ defmodule CforumWeb.MessageView do
   def cite_links(conn, message) do
     message.cites
     |> Enum.map(fn cite ->
-      {:safe, link} = link("##{cite.cite_id}", to: cite_path(conn, :show, cite))
+      {:safe, link} = link("##{cite.cite_id}", to: Routes.cite_path(conn, :show, cite))
       link
     end)
     |> Enum.join(", ")

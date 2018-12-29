@@ -9,28 +9,28 @@ defmodule CforumWeb.Cite.VoteControllerTest do
     setup [:setup_login]
 
     test "votes down for a cite", %{conn: conn, cite: cite, user: user} do
-      conn = post(conn, cite_path(conn, :vote, cite), %{type: "down"})
+      conn = post(conn, Routes.cite_path(conn, :vote, cite), %{type: "down"})
       cite = Cites.get_cite!(cite.cite_id)
 
-      assert redirected_to(conn) == cite_path(conn, :show, cite)
+      assert redirected_to(conn) == Routes.cite_path(conn, :show, cite)
       assert Cites.downvoted?(cite, user)
     end
 
     test "votes up for a cite", %{conn: conn, cite: cite, user: user} do
-      conn = post(conn, cite_path(conn, :vote, cite), %{type: "up"})
+      conn = post(conn, Routes.cite_path(conn, :vote, cite), %{type: "up"})
       cite = Cites.get_cite!(cite.cite_id)
 
-      assert redirected_to(conn) == cite_path(conn, :show, cite)
+      assert redirected_to(conn) == Routes.cite_path(conn, :show, cite)
       assert Cites.upvoted?(cite, user)
     end
 
     test "changes a vote for a cite", %{conn: conn, cite: cite, user: user} do
       insert(:cite_vote, user: user, cite: cite)
 
-      conn = post(conn, cite_path(conn, :vote, cite), %{type: "down"})
+      conn = post(conn, Routes.cite_path(conn, :vote, cite), %{type: "down"})
       cite = Cites.get_cite!(cite.cite_id)
 
-      assert redirected_to(conn) == cite_path(conn, :show, cite)
+      assert redirected_to(conn) == Routes.cite_path(conn, :show, cite)
       assert Cites.downvoted?(cite, user)
       refute Cites.upvoted?(cite, user)
     end
@@ -38,10 +38,10 @@ defmodule CforumWeb.Cite.VoteControllerTest do
     test "takes back a vote for a cite", %{conn: conn, cite: cite, user: user} do
       insert(:cite_vote, user: user, cite: cite)
 
-      conn = post(conn, cite_path(conn, :vote, cite), %{type: "up"})
+      conn = post(conn, Routes.cite_path(conn, :vote, cite), %{type: "up"})
       cite = Cites.get_cite!(cite.cite_id)
 
-      assert redirected_to(conn) == cite_path(conn, :show, cite)
+      assert redirected_to(conn) == Routes.cite_path(conn, :show, cite)
       refute Cites.downvoted?(cite, user)
       refute Cites.upvoted?(cite, user)
     end
@@ -49,7 +49,7 @@ defmodule CforumWeb.Cite.VoteControllerTest do
 
   describe "access rights" do
     test "anonymous mustn't vote", %{conn: conn, cite: cite} do
-      assert_error_sent(403, fn -> post(conn, cite_path(conn, :vote, cite), type: "down") end)
+      assert_error_sent(403, fn -> post(conn, Routes.cite_path(conn, :vote, cite), type: "down") end)
     end
 
     test "logged in user may vote", %{conn: conn, cite: cite} do
@@ -58,9 +58,9 @@ defmodule CforumWeb.Cite.VoteControllerTest do
       conn =
         conn
         |> login(user)
-        |> post(cite_path(conn, :vote, cite), type: "down")
+        |> post(Routes.cite_path(conn, :vote, cite), type: "down")
 
-      assert redirected_to(conn) == cite_path(conn, :show, cite)
+      assert redirected_to(conn) == Routes.cite_path(conn, :show, cite)
     end
 
     test "archived cites may not be voted", %{conn: conn} do
@@ -70,7 +70,7 @@ defmodule CforumWeb.Cite.VoteControllerTest do
       assert_error_sent(403, fn ->
         conn
         |> login(user)
-        |> post(cite_path(conn, :vote, cite), type: "down")
+        |> post(Routes.cite_path(conn, :vote, cite), type: "down")
       end)
     end
   end
