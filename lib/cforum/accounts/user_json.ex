@@ -1,11 +1,11 @@
 alias Cforum.Accounts.User
 
-defimpl Poison.Encoder, for: User do
+defimpl Jason.Encoder, for: User do
   def encode(%User{badges_users: %Ecto.Association.NotLoaded{}} = user, options),
     do: encode(%User{user | badges_users: []}, options)
 
   def encode(user, options) do
-    Poison.Encoder.Map.encode(
+    Jason.Encode.map(
       %{
         user_id: user.user_id,
         username: user.username,

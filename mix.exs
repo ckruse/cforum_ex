@@ -53,8 +53,6 @@ defmodule Cforum.Mixfile do
       {:arc, "~> 0.8"},
       {:poolboy, "~> 1.5.1"},
       {:porcelain, "~> 2.0"},
-      # TODO remove poison, one json parser is enough
-      {:poison, "~> 3.1"},
       {:jason, "~> 1.0"},
       {:slugify, "~> 1.1"},
       {:xml_builder, "~> 2.0.0"},

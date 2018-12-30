@@ -36,7 +36,7 @@ defmodule CforumWeb.ForumView do
      |> Enum.map(fn {mon, threads, messages} ->
        %{mon: Timex.lformat!(mon, "%FT%T%:z", "en", :strftime), threads: threads, messages: messages}
      end)
-     |> Poison.encode!()}
+     |> Jason.encode!()}
   end
 
   def user_json(users) do
@@ -45,6 +45,6 @@ defmodule CforumWeb.ForumView do
      |> Enum.map(fn {mon, users} ->
        %{mon: Timex.lformat!(mon, "%FT%T%:z", "en", :strftime), cnt: users}
      end)
-     |> Poison.encode!()}
+     |> Jason.encode!()}
   end
 end
