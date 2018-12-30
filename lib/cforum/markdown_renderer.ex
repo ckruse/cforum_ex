@@ -95,10 +95,10 @@ defmodule Cforum.MarkdownRenderer do
   # server callbacks
   #
   def handle_call({:render_doc, markdown}, _sender, proc) do
-    out = Poison.encode!(%{markdown: markdown}) <> "\n"
+    out = Jason.encode!(%{markdown: markdown}) <> "\n"
     Proc.send_input(proc, out)
     [line] = Enum.take(proc.out, 1)
-    retval = Poison.decode!(line)
+    retval = Jason.decode!(line)
 
     case retval["status"] do
       "ok" ->
@@ -111,10 +111,10 @@ defmodule Cforum.MarkdownRenderer do
   end
 
   def handle_call({:render_plain, markdown}, _sender, proc) do
-    out = Poison.encode!(%{markdown: markdown, target: "plain"}) <> "\n"
+    out = Jason.encode!(%{markdown: markdown, target: "plain"}) <> "\n"
     Proc.send_input(proc, out)
     [line] = Enum.take(proc.out, 1)
-    retval = Poison.decode!(line)
+    retval = Jason.decode!(line)
 
     case retval["status"] do
       "ok" ->

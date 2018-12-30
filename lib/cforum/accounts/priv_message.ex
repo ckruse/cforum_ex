@@ -5,7 +5,7 @@ defmodule Cforum.Accounts.PrivMessage do
 
   @primary_key {:priv_message_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :priv_message_id}
-  @derive {Poison.Encoder,
+  @derive {Jason.Encoder,
            only: [
              :is_read,
              :subject,
