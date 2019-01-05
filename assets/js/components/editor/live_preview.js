@@ -3,6 +3,8 @@ import React from "react";
 import { t } from "../../modules/i18n";
 import CfMarkdown from "cfmarkdown";
 
+document.removeEventListener("DOMContentLoaded", Prism.highlightAll);
+
 class LivePreview extends React.Component {
   constructor(props) {
     super(props);
