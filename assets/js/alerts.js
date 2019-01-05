@@ -30,10 +30,7 @@ class AlertsContainer extends React.Component {
     const id = alert.id || uniqueId();
     const alrtWithId = { ...alert, id: id };
 
-    this.setState({
-      ...this.state,
-      alerts: [...this.state.alerts, alrtWithId]
-    });
+    this.setState({ alerts: [...this.state.alerts, alrtWithId] });
 
     if (alrtWithId.timeout) {
       window.setTimeout(() => this.removeAlert(alrtWithId), alrtWithId.timeout * 1000);
@@ -44,13 +41,8 @@ class AlertsContainer extends React.Component {
     return (
       <TransitionGroup component="div">
         {this.state.alerts.map(alert => (
-          <FadeTransition>
-            <div
-              key={alert.id}
-              className={`cf-${alert.type} cf-alert fade in`}
-              role="alert"
-              onClick={() => this.removeAlert(alert)}
-            >
+          <FadeTransition key={alert.id}>
+            <div className={`cf-${alert.type} cf-alert fade in`} role="alert" onClick={() => this.removeAlert(alert)}>
               <button type="button" className="close" aria-label={t("close")}>
                 <span aria-hidden="true">&times;</span>
               </button>
