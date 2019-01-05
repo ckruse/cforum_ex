@@ -3,20 +3,26 @@ import { Picker } from "emoji-mart";
 
 import { t } from "../../modules/i18n";
 import {
-  getSelection,
-  replaceAt,
-  insertBlockAtFirstNewline,
-  toggleInAccent,
-  getSelectedText,
-  leadingNewlines,
-  isPreviousLineList,
-  isBeginningOfLine
-} from "./helpers";
+  addEmoji,
+  toggleBold,
+  toggleItalic,
+  toggleStrikeThrough,
+  toggleHeader,
+  toggleCite,
+  toggleOl,
+  toggleUl,
+  toggleCode,
+  addCodeBlockFromModal,
+  togglePicker,
+  hideCodeModal,
+  hideLinkModal,
+  addLinkFromModal,
+  addLink
+} from "./toolbar_methods";
 
 import LinkModal from "./link_modal";
 
 import "emoji-mart/css/emoji-mart.css";
-import { alertError } from "../../alerts";
 import CodeModal from "./code_modal";
 
 class Toolbar extends React.Component {
@@ -31,253 +37,21 @@ class Toolbar extends React.Component {
       code: ""
     };
 
-    this.addEmoji = this.addEmoji.bind(this);
-    this.togglePicker = this.togglePicker.bind(this);
-    this.toggleBold = this.toggleBold.bind(this);
-    this.toggleItalic = this.toggleItalic.bind(this);
-    this.toggleStrikeThrough = this.toggleStrikeThrough.bind(this);
-    this.toggleHeader = this.toggleHeader.bind(this);
-    this.toggleCite = this.toggleCite.bind(this);
-    this.addLink = this.addLink.bind(this);
-    this.addLinkFromModal = this.addLinkFromModal.bind(this);
-    this.hideLinkModal = this.hideLinkModal.bind(this);
-    this.toggleUl = this.toggleUl.bind(this);
-    this.toggleOl = this.toggleOl.bind(this);
-    this.toggleCode = this.toggleCode.bind(this);
-    this.hideCodeModal = this.hideCodeModal.bind(this);
-    this.addCodeBlockFromModal = this.addCodeBlockFromModal.bind(this);
-  }
-
-  addEmoji(emoji) {
-    const { start, end } = getSelection(this.props.textarea);
-    const val = replaceAt(this.props.value, emoji.native, start, end);
-    const len = emoji.native.length;
-
-    this.props.changeValue(val, { start: start + len, end: end + len });
-    this.props.textarea.focus();
-    this.togglePicker();
-  }
-
-  togglePicker() {
-    this.setState({ pickerVisible: !this.state.pickerVisible });
-  }
-
-  toggleBold() {
-    const { start, end, len } = getSelection(this.props.textarea);
-    const { val, pos } = toggleInAccent(this.props.value, t("strong text"), "**", start, end, len);
-    this.props.changeValue(val, { ...pos });
-    this.props.textarea.focus();
-  }
-
-  toggleItalic() {
-    const { start, end, len } = getSelection(this.props.textarea);
-    const { val, pos } = toggleInAccent(this.props.value, t("italic text"), "*", start, end, len);
-    this.props.changeValue(val, { ...pos });
-    this.props.textarea.focus();
-  }
-
-  toggleStrikeThrough() {
-    const { start, end, len } = getSelection(this.props.textarea);
-    const { val, pos } = toggleInAccent(this.props.value, t("text"), "~~", start, end, len);
-    this.props.changeValue(val, { ...pos });
-    this.props.textarea.focus();
-  }
-
-  toggleHeader() {
-    const { start, end } = getSelection(this.props.textarea);
-    const { val, pos } = insertBlockAtFirstNewline(this.props.value, start, end, "# ", /^\s*(#+\s?)/);
-    this.props.changeValue(val, { ...pos });
-    this.props.textarea.focus();
-  }
-
-  toggleCite() {
-    const { start, end } = getSelection(this.props.textarea);
-    const { val, pos } = insertBlockAtFirstNewline(this.props.value, start, end, "> ", /^\s*(>\s?)+/);
-    this.props.changeValue(val, { ...pos });
-    this.props.textarea.focus();
-  }
-
-  addLink() {
-    const text = getSelectedText(this.props.textarea);
-    this.setState({ linkModalVisible: true, linkText: text });
-  }
-
-  addLinkFromModal(text, target) {
-    if (!target) {
-      alertError(t("You have to define at least the URL of the link!"), 10);
-      return;
-    }
-
-    let link = "";
-    if (!text) {
-      link = `<${target}>`;
-    } else {
-      link = `[${text}](${target})`;
-    }
-
-    const { start, end } = getSelection(this.props.textarea);
-    this.setState({ linkModalVisible: false, linkText: "" });
-
-    this.props.changeValue(replaceAt(this.props.value, link, start, end), {
-      start: start + link.length,
-      end: start + link.length
-    });
-    this.props.textarea.focus();
-  }
-
-  hideLinkModal() {
-    this.setState({ linkModalVisible: false, linkText: "" });
-    this.props.textarea.focus();
-  }
-
-  toggleUl() {
-    const selected = getSelectedText(this.props.textarea);
-    const { start, end } = getSelection(this.props.textarea);
-    let chunk, cursorPos, cursorEnd;
-
-    if (selected.length === 0) {
-      chunk = t("list text here");
-      let prefix = "";
-
-      if (isPreviousLineList(this.props.value, start, /-/)) {
-        if (!isBeginningOfLine(this.props.value, start)) {
-          prefix = "\n";
-        }
-      } else {
-        prefix = leadingNewlines(this.props.value, start);
-      }
-
-      chunk = prefix + "- " + chunk;
-      cursorPos = start + 2 + prefix.length;
-      cursorEnd = start + chunk.length;
-    } else {
-      if (selected.indexOf("\n") < 0) {
-        chunk = "- " + selected;
-      } else {
-        chunk =
-          leadingNewlines(this.props.value, start) +
-          selected
-            .split("\n")
-            .map(str => "- " + str)
-            .join("\n");
-      }
-
-      cursorPos = start + chunk.length;
-      cursorEnd = start + chunk.length;
-    }
-
-    this.props.changeValue(replaceAt(this.props.value, chunk, start, end), { start: cursorPos, end: cursorEnd });
-    this.props.textarea.focus();
-  }
-
-  toggleOl() {
-    const selected = getSelectedText(this.props.textarea);
-    const { start, end } = getSelection(this.props.textarea);
-    let chunk, cursorPos, cursorEnd;
-
-    if (selected.length === 0) {
-      let prefix = "";
-      chunk = t("list text here");
-
-      if (isPreviousLineList(this.props.value, start, /\d/)) {
-        if (!isBeginningOfLine(this.props.value, start)) {
-          prefix = "\n";
-        }
-      } else {
-        prefix = leadingNewlines(this.props.value, start);
-      }
-
-      chunk = prefix + "1. " + chunk;
-      cursorPos = start + 3 + prefix.length;
-      cursorEnd = start + chunk.length;
-    } else {
-      if (selected.indexOf("\n") < 0) {
-        chunk = "1. " + selected;
-      } else {
-        chunk =
-          leadingNewlines(this.props.value, start) +
-          selected
-            .split("\n")
-            .map((s, idx) => idx + 1 + ". " + s)
-            .join("\n");
-      }
-
-      cursorPos = start + chunk.length;
-      cursorEnd = start + chunk.length;
-    }
-
-    this.props.changeValue(replaceAt(this.props.value, chunk, start, end), { start: cursorPos, end: cursorEnd });
-    this.props.textarea.focus();
-  }
-
-  toggleCode() {
-    const selected = getSelectedText(this.props.textarea);
-    const { start, end } = getSelection(this.props.textarea);
-    const text = selected.length === 0 ? t("code here") : selected;
-
-    const selectionIsCodeBlock = () =>
-      this.props.value.substr(start - 4, 4) === "~~~\n" && this.props.value.substr(end, 4) === "\n~~~";
-    const selectionIsInlineCode = () =>
-      this.props.value.charAt(start - 1) === "`" && this.props.value.charAt(end) === "`";
-    const selectionContainsNewlines = () => text.indexOf("\n") > -1;
-    const selectionIsPrecededByNewlines = () => this.props.value.substr(start - 2, 2) === "\n\n";
-    const selectionIsWholeLine = () => end === this.props.value.length || this.props.value.charAt(end) === "\n";
-    const languageIsValid = lang => lang != null && lang.length < 20;
-
-    const removeMarkup = function(type) {
-      const characters = { block: 4, inline: 1 }[type];
-      const cursor = start - characters;
-      this.props.changeValue(replaceAt(this.props.value, text, cursur, end + characters), {
-        start: cursor,
-        end: cursor + text.length
-      });
-      this.props.textarea.focus();
-    };
-
-    const createInlineCode = () => {
-      const cursor = start + 1;
-      this.props.changeValue(replaceAt(this.props.value, "`" + text + "`", start, end), {
-        start: cursor,
-        end: cursor + text.length
-      });
-      this.props.textarea.focus();
-    };
-
-    // Do something
-    switch (true) {
-      case selectionIsCodeBlock():
-        removeMarkup("block");
-        break;
-      case selectionIsInlineCode():
-        removeMarkup("inline");
-        break;
-      case selectionContainsNewlines():
-        createCodeBlock();
-        break;
-      case selectionIsPrecededByNewlines() && selectionIsWholeLine():
-        this.setState({ codeModalVisible: true, code: text });
-        break;
-      default:
-        createInlineCode();
-    }
-  }
-
-  hideCodeModal() {
-    this.setState({ codeModalVisible: false, code: "" });
-    this.props.textarea.focus();
-  }
-
-  addCodeBlockFromModal(lang, code) {
-    const { start, end } = getSelection(this.props.textarea);
-    const prefix = leadingNewlines(this.props.value, start);
-    const chunk = prefix + `~~~ ${lang}\n${code}\n~~~`;
-
-    this.setState({ codeModalVisible: false, code: "" });
-    this.props.changeValue(replaceAt(this.props.value, chunk, start, end), {
-      start: start + lang.length + 5,
-      end: start + lang.length + 5 + code.length
-    });
-    this.props.textarea.focus();
+    this.addEmoji = addEmoji.bind(this);
+    this.togglePicker = togglePicker.bind(this);
+    this.toggleBold = toggleBold.bind(this);
+    this.toggleItalic = toggleItalic.bind(this);
+    this.toggleStrikeThrough = toggleStrikeThrough.bind(this);
+    this.toggleHeader = toggleHeader.bind(this);
+    this.toggleCite = toggleCite.bind(this);
+    this.toggleUl = toggleUl.bind(this);
+    this.toggleOl = toggleOl.bind(this);
+    this.toggleCode = toggleCode.bind(this);
+    this.addLink = addLink.bind(this);
+    this.addLinkFromModal = addLinkFromModal.bind(this);
+    this.hideLinkModal = hideLinkModal.bind(this);
+    this.hideCodeModal = hideCodeModal.bind(this);
+    this.addCodeBlockFromModal = addCodeBlockFromModal.bind(this);
   }
 
   render() {
