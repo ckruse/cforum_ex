@@ -60,6 +60,10 @@ export const lang = {
   cite: "Zitat",
   "emoji picker": "Emojis",
 
+  "strong text": "fetter Text",
+  "italic text": "kursiver Text",
+  "strike-through text": "durchgestrichener Text",
+
   "list text here": "Listen-Text hier",
   "code here": "Quelltext hier",
 
@@ -67,6 +71,7 @@ export const lang = {
   "link description": "Linkbeschreibung",
   "link target": "Linkziel",
   "add link": "füge Link hinzu",
+  "You have to define at least the URL of the link!": "Sie müssen mindestens das Linkziel definieren!",
 
   "Add code block": "Quelltext-Block erzeugen",
   "add code block": "erzeuge Quelltext-Block",
