@@ -49,6 +49,29 @@ export const lang = {
 
   preview: "Vorschau",
 
+  bold: "fett",
+  italic: "kursiv",
+  header: "Überschrift",
+  link: "Link",
+  image: "Bild",
+  "unordered list": "Liste",
+  "ordered list": "numerierte Liste",
+  code: "Quelltext",
+  cite: "Zitat",
+  "emoji picker": "Emojis",
+
+  "list text here": "Listen-Text hier",
+  "code here": "Quelltext hier",
+
+  "Add new link": "neuen Link hinzufügen",
+  "link description": "Linkbeschreibung",
+  "link target": "Linkziel",
+  "add link": "füge Link hinzu",
+
+  "Add code block": "Quelltext-Block erzeugen",
+  "add code block": "erzeuge Quelltext-Block",
+  "code language": "Quelltext-Sprache",
+
   highcharts: {
     decimalPoint: ",",
     thousandsSep: ".",
