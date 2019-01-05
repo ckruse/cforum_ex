@@ -4,14 +4,18 @@ defmodule CforumWeb.Plug.UpdateLastVisit do
   current user
   """
 
-  alias Cforum.Accounts.Users
+  alias Cforum.Accounts.{User, Users}
 
   def init(opts), do: opts
 
   def call(conn, _opts) do
-    if conn.assigns[:current_user],
+    if update_last_visit?(conn.assigns[:current_user]),
       do: Cforum.Helpers.AsyncHelper.run_async(fn -> Users.update_last_visit(conn.assigns[:current_user]) end)
 
     conn
   end
+
+  defp update_last_visit?(nil), do: false
+  defp update_last_visit?(%User{last_visit: nil}), do: true
+  defp update_last_visit?(%User{last_visit: lv}), do: Timex.after?(Timex.now(), Timex.shift(lv, minutes: 10))
 end
