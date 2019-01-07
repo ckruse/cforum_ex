@@ -5,7 +5,8 @@ defmodule Cforum.Media do
 
   import Ecto.Query, warn: false
   alias Cforum.Repo
-
+  alias Cforum.System
+  alias Cforum.Accounts.User
   alias Cforum.Media.Image
 
   @doc """
@@ -37,6 +38,7 @@ defmodule Cforum.Media do
   """
   def get_image!(id), do: Repo.get!(Image, id)
 
+  @spec get_image_by_filename!(String.t()) :: %Image{}
   def get_image_by_filename!(filename), do: Repo.get_by!(Image, filename: filename)
 
   @doc """
@@ -51,28 +53,23 @@ defmodule Cforum.Media do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_image(attrs \\ %{}) do
-    %Image{}
-    |> Image.changeset(attrs)
-    |> Repo.insert()
-  end
+  @spec create_image(%User{}, %Plug.Upload{}) :: {:ok, %Image{}} | {:error, %Ecto.Changeset{}}
+  def create_image(user, file) do
+    System.audited("create", user, fn ->
+      ret =
+        %Image{}
+        |> Image.changeset(user, file)
+        |> Repo.insert()
 
-  @doc """
-  Updates a image.
+      with {:ok, img} <- ret do
+        path = future_image_path(img, "orig")
 
-  ## Examples
-
-      iex> update_image(image, %{field: new_value})
-      {:ok, %Image{}}
-
-      iex> update_image(image, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_image(%Image{} = image, attrs) do
-    image
-    |> Image.changeset(attrs)
-    |> Repo.update()
+        if File.cp(file.path, path) == :ok,
+          do: {:ok, img},
+          else: {:error, nil}
+      end
+    end)
+    |> Cforum.Media.ImageResizerJob.resize_image()
   end
 
   @doc """
@@ -91,26 +88,20 @@ defmodule Cforum.Media do
     Repo.delete(image)
   end
 
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking image changes.
-
-  ## Examples
-
-      iex> change_image(image)
-      %Ecto.Changeset{source: %Image{}}
-
-  """
-  def change_image(%Image{} = image) do
-    Image.changeset(image, %{})
-  end
-
   def image_full_path(%Image{} = image, size) do
     path = Application.get_env(:cforum, :media_dir)
     size = valid_size(size)
 
     if File.exists?("#{path}/#{size}/#{image.filename}"),
-      do: "#{path}/#{size}/#{image.filename}",
-      else: "#{path}/#{image.filename}"
+      do: {:ok, "#{path}/#{size}/#{image.filename}"},
+      else: {:fallback, "#{path}/#{image.filename}"}
+  end
+
+  def future_image_path(%Image{} = image, size) do
+    path = Application.get_env(:cforum, :media_dir)
+    size = valid_size(size)
+
+    "#{path}/#{size}/#{image.filename}"
   end
 
   defp valid_size("medium"), do: "medium"

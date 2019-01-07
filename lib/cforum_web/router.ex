@@ -48,6 +48,8 @@ defmodule CforumWeb.Router do
       post("/messages/boring", Messages.InterestingController, :boring)
       post("/messages/subscribe", Messages.SubscriptionController, :subscribe)
       post("/messages/unsubscribe", Messages.SubscriptionController, :unsubscribe)
+
+      post("/images", ImageController, :create)
     end
   end
 
@@ -122,7 +124,7 @@ defmodule CforumWeb.Router do
     post("/cites/:id/vote", Cite.VoteController, :vote, as: :cite)
     resources("/cites", CiteController)
 
-    resources("/images", ImageController, only: [:index, :show, :create, :delete])
+    resources("/images", ImageController, only: [:index, :show, :delete])
 
     #
     # backward compatibility and redirection routes
