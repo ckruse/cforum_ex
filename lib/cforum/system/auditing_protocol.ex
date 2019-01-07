@@ -206,6 +206,14 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.CloseVoteVoter do
   end
 end
 
+defimpl Cforum.System.AuditingProtocol, for: Cforum.Media.Image do
+  def audit_json(img) do
+    img
+    |> Map.from_struct()
+    |> Map.drop([:__meta__, :owner])
+  end
+end
+
 defimpl Cforum.System.AuditingProtocol, for: List do
   def audit_json(list), do: Enum.map(list, &Cforum.System.AuditingProtocol.audit_json(&1))
 end

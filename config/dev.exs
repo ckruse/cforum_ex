@@ -60,6 +60,7 @@ config :cforum,
   media_dir: "/home/ckruse/sites/cforum_elixir/priv/uploads/pictures",
   avatar_dir: "/home/ckruse/sites/cforum_elixir/priv/uploads/users/avatars",
   avatar_url: "/uploads/users/avatars",
+  convert: "/usr/bin/convert",
   cfmarkdown: [
     cli: "./node_modules/.bin/babel-node ./bin/cfmarkdown2html.js",
     pwd: "/home/ckruse/dev/cfmarkdown"

@@ -84,3 +84,45 @@ $radius: 0.3em;
   z-index: 9999;
   background-color: #fff;
 }
+
+.cf-dropzone {
+  display: none;
+}
+
+.cf-dropzone-thumbnail {
+  max-width: 20em;
+}
+
+@media only screen and (min-width: 35em) {
+  .cf-dropzone {
+    height: 3em;
+    border: 1px solid $grey_border;
+    padding: 0.25em;
+    border-radius: 0px 0.5em 0.5em;
+    background-color: #f1f3f4;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+      flex: 1 1 auto;
+      border: 0;
+      background-color: inherit;
+      cursor: pointer;
+    }
+
+    input {
+      display: none;
+    }
+  }
+
+  .cf-dropzone.dragging {
+    height: 70vh;
+  }
+
+  .cf-editor.dragging .cf-posting-input {
+    max-height: 2em;
+    min-height: 0;
+  }
+}

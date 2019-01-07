@@ -8,15 +8,35 @@ defmodule Cforum.Media.Image do
     field(:content_type, :string)
     field(:filename, :string)
     field(:orig_name, :string)
-    field(:owner_id, :id)
+
+    belongs_to(:owner, Cforum.Accounts.User, references: :user_id)
 
     timestamps(inserted_at: :created_at)
   end
 
   @doc false
-  def changeset(image, attrs) do
+  @spec changeset(%Cforum.Media.Image{}, %Cforum.Accounts.User{}, %Plug.Upload{}) :: %Ecto.Changeset{}
+  def changeset(image, user, file) do
     image
-    |> cast(attrs, [:filename, :orig_name, :content_type])
-    |> validate_required([:filename, :orig_name, :content_type])
+    |> cast(%{}, [])
+    |> put_change(:owner_id, user.user_id)
+    |> put_change(:content_type, file.content_type)
+    |> put_change(:orig_name, file.filename)
+    |> put_change(:filename, gen_filename(Path.extname(file.filename)))
+    |> validate_required([:filename, :orig_name, :content_type, :owner_id])
+    |> unique_constraint(:filename, name: :index_media_on_filename)
   end
+
+  defp gen_filename(suffix, tries \\ 0)
+
+  defp gen_filename(suffix, tries) when tries < 15 do
+    fname = UUID.uuid1() <> suffix
+    path = "#{Application.get_env(:cforum, :media_dir)}/#{fname}"
+
+    if File.exists?(path),
+      do: gen_filename(suffix, tries + 1),
+      else: fname
+  end
+
+  defp gen_filename(_, _), do: nil
 end

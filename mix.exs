@@ -57,6 +57,7 @@ defmodule Cforum.Mixfile do
       {:slugify, "~> 1.1"},
       {:xml_builder, "~> 2.0.0"},
       {:quantum, "~> 2.3"},
+      {:elixir_uuid, "~> 1.2"},
 
       # testing
       {:excoveralls, "~> 0.8", only: :test},
