@@ -5,6 +5,15 @@ defmodule CforumWeb.ImageController do
 
   @max_age 30 * 24 * 60 * 60
 
+  def index(conn, params) do
+    {sort_params, conn} = sort_collection(conn, [:created_at, :name], dir: :desc)
+    count = Media.count_images()
+    paging = paginate(count, page: params["p"])
+    images = Media.list_images(limit: paging.params, order: sort_params)
+
+    render(conn, "index.html", images: images, paging: paging)
+  end
+
   def show(conn, %{"id" => id} = params) do
     img = Media.get_image_by_filename!(id)
 
@@ -26,6 +35,15 @@ defmodule CforumWeb.ImageController do
         |> put_resp_header("Cache-Control", "public, max-age=#{@max_age}")
         |> send_file(200, full_path)
     end
+  end
+
+  def delete(conn, %{"id" => id}) do
+    img = Media.get_image!(id)
+    {:ok, _img} = Media.delete_image(img, conn.assigns.current_user)
+
+    conn
+    |> put_flash(:info, gettext("Image deleted successfully."))
+    |> redirect(to: Routes.image_path(conn, :index))
   end
 
   def allowed?(conn, :index, _), do: admin?(conn)

@@ -18,8 +18,18 @@ defmodule Cforum.Media do
       [%Image{}, ...]
 
   """
-  def list_images do
-    Repo.all(Image)
+  def list_images(query_params \\ [order: nil, limit: nil]) do
+    Image
+    |> Cforum.PagingApi.set_limit(query_params[:limit])
+    |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
+    |> Repo.all()
+    |> Repo.preload([:owner])
+  end
+
+  def count_images do
+    Image
+    |> select(count("*"))
+    |> Repo.one()
   end
 
   @doc """
@@ -84,8 +94,20 @@ defmodule Cforum.Media do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_image(%Image{} = image) do
-    Repo.delete(image)
+  def delete_image(%Image{} = image, user) do
+    ret = System.audited("destroy", user, fn ->
+      Repo.delete(image)
+    end)
+
+    with {:ok, img} <- ret do
+      Enum.each(["orig", "thumb", "medium"], fn size ->
+        with {:ok, path} <- image_full_path(image, size) do
+          File.rm(path)
+        end
+      end)
+
+      {:ok, img}
+    end
   end
 
   def image_full_path(%Image{} = image, size) do
