@@ -1,0 +1,25 @@
+<table class="cf-default-table">
+  <thead>
+    <tr>
+      <th> </th>
+      <th><%= sortable(@conn, gettext("name"), :name, &Routes.image_path/3) %></th>
+      <th><%= sortable(@conn, gettext("owner"), :owner, &Routes.image_path/3) %></th>
+      <th><%= sortable(@conn, gettext("created at"), :created_at, &Routes.image_path/3) %></th>
+      <th> </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= for image <- @images do %>
+      <tr>
+        <td><%= link(thumbnail_img(@conn, image), to: Routes.image_path(@conn, :show, image.filename)) %></td>
+        <td><%= image.orig_name %></td>
+        <td><%= if present?(image.owner), do: user_link(@conn, image.owner, [], image.owner.username) %></td>
+        <td><%= format_date(@conn, image.created_at) %></td>
+        <td><%= if may?(@conn, "image", :delete, image), do: destructive_index_button(gettext("delete"), to: Routes.image_path(@conn, :delete, image), method: :delete) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= pagination @conn, @paging, &Routes.image_path/3 %>
