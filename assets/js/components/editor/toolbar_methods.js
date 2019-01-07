@@ -241,3 +241,16 @@ export function hideCodeModal() {
   this.setState({ codeModalVisible: false, code: "" });
   this.props.textarea.focus();
 }
+
+export function hideImageModal() {
+  this.setState({ showImageModal: false });
+}
+
+export function onImageUpload(file, desc, title) {
+  this.setState({ showImageModal: false });
+  this.props.onImageUpload(file, desc, title);
+}
+
+export function addImage() {
+  this.setState({ showImageModal: true });
+}
