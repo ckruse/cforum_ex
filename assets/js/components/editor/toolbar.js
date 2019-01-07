@@ -17,13 +17,17 @@ import {
   hideCodeModal,
   hideLinkModal,
   addLinkFromModal,
-  addLink
+  addLink,
+  hideImageModal,
+  onImageUpload,
+  addImage
 } from "./toolbar_methods";
 
 import LinkModal from "./link_modal";
 
 import "emoji-mart/css/emoji-mart.css";
 import CodeModal from "./code_modal";
+import ImageModal from "./image_modal";
 
 class Toolbar extends React.Component {
   constructor(props) {
@@ -34,7 +38,8 @@ class Toolbar extends React.Component {
       linkModalVisible: false,
       linkText: null,
       codeModalVisible: false,
-      code: ""
+      code: "",
+      showImageModal: false
     };
 
     this.addEmoji = addEmoji.bind(this);
@@ -52,6 +57,10 @@ class Toolbar extends React.Component {
     this.hideLinkModal = hideLinkModal.bind(this);
     this.hideCodeModal = hideCodeModal.bind(this);
     this.addCodeBlockFromModal = addCodeBlockFromModal.bind(this);
+
+    this.hideImageModal = hideImageModal.bind(this);
+    this.onImageUpload = onImageUpload.bind(this);
+    this.addImage = addImage.bind(this);
   }
 
   render() {
@@ -110,18 +119,22 @@ class Toolbar extends React.Component {
         </button>
 
         {this.state.pickerVisible && <Picker set={null} native={true} onSelect={this.addEmoji} />}
+
         <LinkModal
           isOpen={this.state.linkModalVisible}
           linkText={this.state.linkText}
           onOk={this.addLinkFromModal}
           onCancel={this.hideLinkModal}
         />
+
         <CodeModal
           isOpen={this.state.codeModalVisible}
           code={this.state.code}
           onOk={this.addCodeBlockFromModal}
           onCancel={this.hideCodeModal}
         />
+
+        <ImageModal isOpen={this.state.showImageModal} onOk={this.onImageUpload} onCancel={this.hideImageModal} />
       </div>
     );
   }

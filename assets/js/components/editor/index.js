@@ -96,7 +96,12 @@ class CfEditor extends React.Component {
     return (
       <fieldset>
         <div className={`cf-cgroup cf-textarea-only cf-editor ${this.state.dragging ? "dragging" : ""}`}>
-          <Toolbar value={this.state.value} changeValue={this.setValue} textarea={this.state.textarea} />
+          <Toolbar
+            value={this.state.value}
+            changeValue={this.setValue}
+            textarea={this.state.textarea}
+            onImageUpload={this.fileDropped}
+          />
 
           <MentionsInput
             value={this.state.value}
