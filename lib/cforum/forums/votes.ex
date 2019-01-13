@@ -205,7 +205,7 @@ defmodule Cforum.Forums.Votes do
           do: Messages.score_up_message(message, -1),
           else: Messages.score_down_message(message, -1)
 
-        Scores.delete_scores_by_vote_id(vote.vote_id)
+        Scores.delete_scores_by_vote_id(user, vote.vote_id)
         delete_vote(vote)
     end
   end

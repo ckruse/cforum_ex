@@ -17,4 +17,11 @@ defmodule Cforum.Caching do
   def del(cache, key) do
     Cachex.del!(cache, key)
   end
+
+  def update(cache, key, fun) do
+    Cachex.get_and_update!(cache, key, fn
+      nil -> {:ignore, nil}
+      val -> fun.(val)
+    end)
+  end
 end

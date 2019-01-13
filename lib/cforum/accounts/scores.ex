@@ -7,6 +7,8 @@ defmodule Cforum.Accounts.Scores do
   alias Cforum.Repo
 
   alias Cforum.Accounts.Score
+  alias Cforum.Accounts.User
+  alias Cforum.Caching
 
   @doc """
   Returns the list of scores.
@@ -54,26 +56,7 @@ defmodule Cforum.Accounts.Scores do
     %Score{}
     |> Score.changeset(attrs)
     |> Repo.insert()
-    |> notify_user()
-  end
-
-  @doc """
-  Updates a score.
-
-  ## Examples
-
-      iex> update_score(score, %{field: new_value})
-      {:ok, %Score{}}
-
-      iex> update_score(score, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_score(%Score{} = score, attrs) do
-    score
-    |> Score.changeset(attrs)
-    |> Repo.update()
-    |> notify_user()
+    |> notify_user(:create)
   end
 
   @doc """
@@ -91,12 +74,21 @@ defmodule Cforum.Accounts.Scores do
   def delete_score(%Score{} = score) do
     score
     |> Repo.delete()
-    |> notify_user()
+    |> notify_user(:delete)
   end
 
-  def delete_scores_by_vote_id(vote_id) do
-    from(score in Score, where: score.vote_id == ^vote_id)
-    |> Repo.delete_all()
+  def delete_scores_by_vote_id(user, vote_id) do
+    scores = from(score in Score, where: score.vote_id == ^vote_id) |> Repo.all()
+
+    ret =
+      from(score in Score, where: score.vote_id == ^vote_id)
+      |> Repo.delete_all()
+
+    Caching.update(:cforum, "users/#{user.user_id}", fn user ->
+      Enum.reduce(scores, user, fn score, user -> %User{user | score: user.score - score.value} end)
+    end)
+
+    ret
   end
 
   def delete_score_by_message_id_and_user_id(message_id, user_id) do
@@ -111,7 +103,7 @@ defmodule Cforum.Accounts.Scores do
       score ->
         score
         |> Repo.delete()
-        |> notify_user()
+        |> notify_user(:delete)
     end
   end
 
@@ -128,13 +120,19 @@ defmodule Cforum.Accounts.Scores do
     Score.changeset(score, %{})
   end
 
-  def notify_user({:ok, score}) do
-    notify_user(score)
+  def notify_user({:ok, score}, action) do
+    notify_user(score, action)
     {:ok, score}
   end
 
-  def notify_user(%Score{} = score) do
+  def notify_user(%Score{} = score, action) do
     Cforum.Helpers.AsyncHelper.run_async(fn ->
+      Caching.update(:cforum, "users/#{score.user_id}", fn user ->
+        if action == :delete,
+          do: %User{user | score: user.score - score.value},
+          else: %User{user | score: user.score + score.value}
+      end)
+
       user = Cforum.Accounts.Users.get_user!(score.user_id)
       CforumWeb.Endpoint.broadcast!("users:#{user.user_id}", "score-update", %{value: score.value, score: user.score})
     end)
@@ -142,5 +140,5 @@ defmodule Cforum.Accounts.Scores do
     score
   end
 
-  def notify_user(retval), do: retval
+  def notify_user(retval, _), do: retval
 end
