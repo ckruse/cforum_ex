@@ -7,8 +7,15 @@ defmodule Cforum.Accounts.Groups do
   alias Cforum.Repo
 
   alias Cforum.Accounts.Group
-  alias Cforum.Accounts.ForumGroupPermission
   alias Cforum.System
+  alias Cforum.Caching
+
+  def discard_group_cache({:ok, group}) do
+    Caching.del(:cforum, "groups")
+    {:ok, group}
+  end
+
+  def discard_group_cache(val), do: val
 
   @doc """
   Returns the list of groups.
@@ -20,8 +27,10 @@ defmodule Cforum.Accounts.Groups do
 
   """
   def list_groups do
-    from(group in Group, preload: [:users, :permissions], order_by: [desc: :name])
-    |> Repo.all()
+    Caching.fetch(:cforum, "groups", fn ->
+      from(group in Group, preload: [:users, :permissions], order_by: [desc: :name])
+      |> Repo.all()
+    end)
   end
 
   @doc """
@@ -39,9 +48,12 @@ defmodule Cforum.Accounts.Groups do
 
   """
   def get_group!(id) do
-    Group
-    |> Repo.get!(id)
-    |> Repo.preload([:permissions, :users])
+    with {:ok, id} <- Ecto.Type.cast(:integer, id),
+         %Group{} = group <- Enum.find(list_groups(), &(&1.group_id == id)) do
+      group
+    else
+      _ -> raise Ecto.NoResultsError, queryable: Group
+    end
   end
 
   @doc """
@@ -62,6 +74,7 @@ defmodule Cforum.Accounts.Groups do
       |> Group.changeset(attrs)
       |> Repo.insert()
     end)
+    |> discard_group_cache()
   end
 
   @doc """
@@ -82,6 +95,7 @@ defmodule Cforum.Accounts.Groups do
       |> Group.changeset(attrs)
       |> Repo.update()
     end)
+    |> discard_group_cache()
   end
 
   @doc """
@@ -100,6 +114,7 @@ defmodule Cforum.Accounts.Groups do
     System.audited("destroy", current_user, fn ->
       Repo.delete(group)
     end)
+    |> discard_group_cache()
   end
 
   @doc """
@@ -115,32 +130,29 @@ defmodule Cforum.Accounts.Groups do
     Group.changeset(group, %{})
   end
 
+  defp has_user?(users, user), do: Enum.any?(users, &(&1.user_id == user.user_id))
+
   def list_permissions_for_user_and_forum(user, forum) do
-    from(
-      fgp in ForumGroupPermission,
-      where:
-        fgp.group_id in fragment("SELECT group_id FROM groups_users WHERE user_id = ?", ^user.user_id) and
-          fgp.forum_id == ^forum.forum_id
-    )
-    |> Repo.all()
+    list_groups()
+    |> Enum.filter(&has_user?(&1.users, user))
+    |> Enum.map(& &1.permissions)
+    |> List.flatten()
+    |> Enum.filter(&(&1.forum_id == forum.forum_id))
   end
 
   def permission?(user, forum, permission) when is_bitstring(permission), do: permission?(user, forum, [permission])
 
-  def permission?(user, forum, permission) when is_list(permission) do
-    from(
-      fgp in ForumGroupPermission,
-      where:
-        fgp.group_id in fragment("SELECT group_id FROM groups_users WHERE user_id = ?", ^user.user_id) and
-          fgp.forum_id == ^forum.forum_id and fgp.permission in ^permission
-    )
-    |> Repo.exists?()
+  def permission?(user, forum, permissions) when is_list(permissions) do
+    list_groups()
+    |> Enum.filter(&has_user?(&1.users, user))
+    |> Enum.map(& &1.permissions)
+    |> List.flatten()
+    |> Enum.any?(&(&1.forum_id == forum.forum_id && &1.permission in permissions))
   end
 
   def permission?(permission_list, permission) when is_bitstring(permission),
     do: permission?(permission_list, [permission])
 
-  def permission?(permission_list, permissions) when is_list(permissions) do
-    Enum.find(permission_list, &(&1.permission in permissions)) != nil
-  end
+  def permission?(permission_list, permissions) when is_list(permissions),
+    do: Enum.any?(permission_list, &(&1.permission in permissions))
 end
