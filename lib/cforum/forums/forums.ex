@@ -183,22 +183,13 @@ defmodule Cforum.Forums do
     Enum.filter(forums, &(&1.standard_permission in [Forum.read(), Forum.write()]))
   end
 
+  alias Cforum.Accounts.Groups
   # admins may view all forums
   defp visible_forums(forums, %User{admin: true}), do: forums
 
-  defp visible_forums(_forums, %User{} = user) do
-    # TODO write a cache for groups so we can drop this query
-    from(
-      f in Forum,
-      where:
-        f.standard_permission in [^Forum.read(), ^Forum.write(), ^Forum.known_read(), ^Forum.known_write()] or
-          fragment(
-            "? IN (SELECT forum_id FROM forums_groups_permissions INNER JOIN groups_users USING(group_id) WHERE user_id = ?)",
-            f.forum_id,
-            ^user.user_id
-          )
-    )
-    |> Repo.all()
+  defp visible_forums(forums, %User{} = user) do
+    permissions = [Forum.read(), Forum.write(), Forum.known_read(), Forum.known_write()]
+    Enum.filter(forums, &(&1.standard_permission in permissions || Groups.permission?(user, &1, permissions)))
   end
 
   defp ordered(query) do
@@ -238,19 +229,7 @@ defmodule Cforum.Forums do
     do: list_forums_by_perms(user, ~w(moderate write read), ~w(known-write write known-read read))
 
   defp list_forums_by_perms(%User{} = user, permissions, std_permissions) do
-    # TODO caching for groups
-    from(
-      f in Forum,
-      where:
-        f.standard_permission in ^std_permissions or
-          fragment(
-            "? IN (SELECT forum_id FROM forums_groups_permissions fgp INNER JOIN groups_users USING(group_id) WHERE fgp.permission = ANY(?) AND user_id = ?)",
-            f.forum_id,
-            ^permissions,
-            ^user.user_id
-          )
-    )
-    |> ordered
-    |> Repo.all()
+    list_forums()
+    |> Enum.filter(&(&1.standard_permission in std_permissions || Groups.permission?(user, &1, permissions)))
   end
 end
