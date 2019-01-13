@@ -31,21 +31,6 @@ defmodule Cforum.Accounts.ScoresTest do
     assert {:error, %Ecto.Changeset{}} = Scores.create_score(%{})
   end
 
-  test "update_score/2 with valid data updates the score" do
-    score = insert(:score)
-    assert {:ok, score1} = Scores.update_score(score, %{value: -10})
-    assert %Score{} = score1
-    assert score1.value == -10
-  end
-
-  test "update_score/2 with invalid data returns error changeset" do
-    score = insert(:score)
-    assert {:error, %Ecto.Changeset{}} = Scores.update_score(score, %{user_id: nil})
-    score1 = Scores.get_score!(score.score_id)
-    assert %Score{} = score1
-    assert score1.user_id == score.user_id
-  end
-
   test "delete_score/1 deletes the score" do
     score = insert(:score)
     assert {:ok, %Score{}} = Scores.delete_score(score)

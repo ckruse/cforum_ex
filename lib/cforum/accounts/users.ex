@@ -10,6 +10,15 @@ defmodule Cforum.Accounts.Users do
   alias Cforum.Accounts.ForumGroupPermission
   alias Cforum.Accounts.Badge
   alias Cforum.Accounts.Settings
+  alias Cforum.Accounts.Groups
+  alias Cforum.Caching
+
+  def discard_user_cache({:ok, user}) do
+    Caching.del(:cforum, "users/#{user.user_id}")
+    {:ok, user}
+  end
+
+  def discard_user_cache(val), do: val
 
   @doc """
   Returns the list of users.
@@ -92,8 +101,10 @@ defmodule Cforum.Accounts.Users do
 
   """
   def get_user!(id) do
-    from(u in User, preload: [:settings, :badges, [badges_users: :badge]], where: u.user_id == ^id)
-    |> Repo.one!()
+    Caching.fetch(:cforum, "users/#{id}", fn ->
+      from(u in User, preload: [:settings, :badges, [badges_users: :badge]], where: u.user_id == ^id)
+      |> Repo.one!()
+    end)
   end
 
   @doc """
@@ -111,8 +122,10 @@ defmodule Cforum.Accounts.Users do
 
   """
   def get_user(id) do
-    from(u in User, preload: [:settings, :badges, [badges_users: :badge]], where: u.user_id == ^id)
-    |> Repo.one()
+    Caching.fetch(:cforum, "users/#{id}", fn ->
+      from(u in User, preload: [:settings, :badges, [badges_users: :badge]], where: u.user_id == ^id)
+      |> Repo.one()
+    end)
   end
 
   @doc """
@@ -181,6 +194,7 @@ defmodule Cforum.Accounts.Users do
       |> Repo.insert()
     end)
     |> Settings.discard_settings_cache()
+    |> discard_user_cache()
   end
 
   @doc """
@@ -202,6 +216,7 @@ defmodule Cforum.Accounts.Users do
       |> Repo.insert()
     end)
     |> Settings.discard_settings_cache()
+    |> discard_user_cache()
   end
 
   @doc """
@@ -221,11 +236,19 @@ defmodule Cforum.Accounts.Users do
     |> User.changeset(attrs)
     |> Repo.update()
     |> Settings.discard_settings_cache()
+    |> discard_user_cache()
   end
 
   def update_last_visit(%User{} = user) do
-    from(user in User, where: user.user_id == ^user.user_id)
-    |> Repo.update_all(set: [last_visit: Timex.now()])
+    t = Timex.now()
+
+    with {1, v} <-
+           from(user in User, where: user.user_id == ^user.user_id)
+           |> Repo.update_all(set: [last_visit: t]) do
+      Caching.update(:cforum, "users/#{user.user_id}", &{:commit, %User{&1 | last_visit: t}})
+
+      {1, v}
+    end
   end
 
   @doc """
@@ -247,6 +270,7 @@ defmodule Cforum.Accounts.Users do
       |> Repo.update()
     end)
     |> Settings.discard_settings_cache()
+    |> discard_user_cache()
   end
 
   @doc """
@@ -266,6 +290,7 @@ defmodule Cforum.Accounts.Users do
     |> User.password_changeset(attrs)
     |> Ecto.Changeset.change(%{reset_password_token: nil, reset_password_sent_at: nil})
     |> Repo.update()
+    |> discard_user_cache()
   end
 
   @doc """
@@ -284,6 +309,7 @@ defmodule Cforum.Accounts.Users do
     user
     |> User.reset_password_token_changeset(attrs)
     |> Repo.update()
+    |> discard_user_cache()
   end
 
   @doc """
@@ -303,6 +329,7 @@ defmodule Cforum.Accounts.Users do
       Repo.delete(user)
     end)
     |> Settings.discard_settings_cache()
+    |> discard_user_cache()
   end
 
   @doc """
@@ -363,6 +390,7 @@ defmodule Cforum.Accounts.Users do
       |> Repo.insert()
     end)
     |> Settings.discard_settings_cache()
+    |> discard_user_cache()
   end
 
   @doc """
@@ -387,6 +415,7 @@ defmodule Cforum.Accounts.Users do
           update_user(user, %{confirmed_at: Timex.now()})
         end)
     end
+    |> discard_user_cache()
   end
 
   @doc """
@@ -407,6 +436,7 @@ defmodule Cforum.Accounts.Users do
     {:ok, user} =
       update_user_reset_password_token(user, %{reset_password_token: token, reset_password_sent_at: Timex.now()})
 
+    discard_user_cache({:ok, user})
     user
   end
 
@@ -509,19 +539,11 @@ defmodule Cforum.Accounts.Users do
   def moderator?(%User{admin: true}), do: true
 
   def moderator?(user) do
-    pm_query =
-      from(
-        fpm in ForumGroupPermission,
-        where:
-          fpm.group_id in fragment("SELECT group_id FROM groups_users WHERE user_id = ?", ^user.user_id) and
-            fpm.permission == ^ForumGroupPermission.moderate()
-      )
-
     cond do
       badge?(user, Badge.moderator_tools()) ->
         true
 
-      Repo.exists?(pm_query) ->
+      Groups.permission?(Groups.list_permissions_for_user(user), ForumGroupPermission.moderate()) ->
         true
 
       true ->

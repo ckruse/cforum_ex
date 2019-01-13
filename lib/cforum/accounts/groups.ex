@@ -140,6 +140,13 @@ defmodule Cforum.Accounts.Groups do
     |> Enum.filter(&(&1.forum_id == forum.forum_id))
   end
 
+  def list_permissions_for_user(user) do
+    list_groups()
+    |> Enum.filter(&has_user?(&1.users, user))
+    |> Enum.map(& &1.permissions)
+    |> List.flatten()
+  end
+
   def permission?(user, forum, permission) when is_bitstring(permission), do: permission?(user, forum, [permission])
 
   def permission?(user, forum, permissions) when is_list(permissions) do
