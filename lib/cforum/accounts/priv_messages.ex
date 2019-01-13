@@ -8,8 +8,17 @@ defmodule Cforum.Accounts.PrivMessages do
 
   alias Cforum.Repo
   alias Cforum.Accounts.PrivMessage
-
+  alias Cforum.Accounts.User
+  alias Cforum.Caching
   alias Cforum.Helpers.CompositionHelpers
+
+  def discard_pm_cache({:ok, pm}) do
+    Caching.del(:cforum, "notifications/unread/#{pm.owner_id}")
+    {:ok, pm}
+  end
+
+  def discard_pm_cache(%User{} = user), do: Caching.del(:cforum, "notifications/unread/#{user.user_id}")
+  def discard_pm_cache(val), do: val
 
   @doc """
   Returns the list of priv_messages of a user.
@@ -144,8 +153,10 @@ defmodule Cforum.Accounts.PrivMessages do
   end
 
   def count_priv_messages(user, true) do
-    from(pm in PrivMessage, where: pm.owner_id == ^user.user_id and pm.is_read == false, select: count("*"))
-    |> Repo.one()
+    Caching.fetch(:cforum, "notifications/unread/#{user.user_id}", fn ->
+      from(pm in PrivMessage, where: pm.owner_id == ^user.user_id and pm.is_read == false, select: count("*"))
+      |> Repo.one!()
+    end)
   end
 
   @doc """
@@ -239,6 +250,7 @@ defmodule Cforum.Accounts.PrivMessages do
           %PrivMessage{}
           |> PrivMessage.changeset(attrs, owner)
           |> Repo.insert()
+          |> discard_pm_cache()
 
         case pm do
           {:ok, foreign_pm} ->
@@ -279,7 +291,9 @@ defmodule Cforum.Accounts.PrivMessages do
 
   """
   def delete_priv_message(%PrivMessage{} = priv_message) do
-    Repo.delete(priv_message)
+    priv_message
+    |> Repo.delete()
+    |> discard_pm_cache()
   end
 
   @doc """
@@ -419,6 +433,7 @@ defmodule Cforum.Accounts.PrivMessages do
     priv_message
     |> PrivMessage.mark_changeset(%{is_read: mark})
     |> Repo.update()
+    |> discard_pm_cache()
   end
 
   @doc """
