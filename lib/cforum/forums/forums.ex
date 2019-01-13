@@ -8,6 +8,7 @@ defmodule Cforum.Forums do
 
   alias Cforum.Forums.Forum
   alias Cforum.System
+  alias Cforum.Accounts.Settings
 
   @doc """
   Returns the list of forums.
@@ -90,6 +91,7 @@ defmodule Cforum.Forums do
       |> Forum.changeset(attrs)
       |> Repo.insert()
     end)
+    |> Settings.discard_settings_cache()
   end
 
   @doc """
@@ -110,6 +112,7 @@ defmodule Cforum.Forums do
       |> Forum.changeset(attrs)
       |> Repo.update()
     end)
+    |> Settings.discard_settings_cache()
   end
 
   @doc """
@@ -128,6 +131,7 @@ defmodule Cforum.Forums do
     System.audited("destroy", current_user, fn ->
       Repo.delete(forum)
     end)
+    |> Settings.discard_settings_cache()
   end
 
   @doc """

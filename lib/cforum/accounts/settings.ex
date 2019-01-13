@@ -11,22 +11,22 @@ defmodule Cforum.Accounts.Settings do
   alias Cforum.Forums.Forum
   alias Cforum.System
 
-  @doc """
-  Returns the list of settings for a user.
-
-  ## Examples
-
-      iex> list_settings(%User{})
-      [%Setting{}, ...]
-
-  """
-  def list_settings(%User{} = user) do
-    from(
-      setting in Setting,
-      where: setting.user_id == ^user.user_id
-    )
-    |> Repo.all()
+  def discard_settings_cache({:ok, %Setting{user_id: id} = settings}) when not is_nil(id) do
+    Cforum.Caching.del(:cforum, "settings/user/#{id}")
+    {:ok, settings}
   end
+
+  def discard_settings_cache({:ok, %Setting{forum_id: id} = settings}) when not is_nil(id) do
+    Cforum.Caching.del(:cforum, "settings/forum/#{id}")
+    {:ok, settings}
+  end
+
+  def discard_settings_cache({:ok, %Setting{} = settings}) do
+    Cforum.Caching.del(:cforum, "settings/global")
+    {:ok, settings}
+  end
+
+  def discard_settings_cache(val), do: val
 
   @doc """
   Gets a single setting.
@@ -61,20 +61,18 @@ defmodule Cforum.Accounts.Settings do
 
   """
   def get_setting_for_forum(%Forum{} = forum) do
-    from(
-      setting in Setting,
-      where: setting.forum_id == ^forum.forum_id
-    )
-    |> Repo.one()
+    Cforum.Caching.fetch(:cforum, "settings/forum/#{forum.forum_id}", fn ->
+      from(setting in Setting, where: setting.forum_id == ^forum.forum_id)
+      |> Repo.one()
+    end)
   end
 
   @spec get_setting_for_user(%User{}) :: %Setting{} | nil
   def get_setting_for_user(%User{} = user) do
-    from(
-      setting in Setting,
-      where: setting.user_id == ^user.user_id
-    )
-    |> Repo.one()
+    Cforum.Caching.fetch(:cforum, "settings/user/#{user.user_id}", fn ->
+      from(setting in Setting, where: setting.user_id == ^user.user_id)
+      |> Repo.one()
+    end)
   end
 
   @doc """
@@ -89,11 +87,10 @@ defmodule Cforum.Accounts.Settings do
 
   """
   def get_global_setting() do
-    from(
-      setting in Setting,
-      where: is_nil(setting.forum_id) and is_nil(setting.user_id)
-    )
-    |> Repo.one()
+    Cforum.Caching.fetch(:cforum, "settings/global", fn ->
+      from(setting in Setting, where: is_nil(setting.forum_id) and is_nil(setting.user_id))
+      |> Repo.one()
+    end)
   end
 
   @doc """
@@ -118,6 +115,7 @@ defmodule Cforum.Accounts.Settings do
     else
       Repo.insert(changeset)
     end
+    |> discard_settings_cache()
   end
 
   @doc """
@@ -142,6 +140,7 @@ defmodule Cforum.Accounts.Settings do
     else
       Repo.update(changeset)
     end
+    |> discard_settings_cache()
   end
 
   def update_options(current_user, setting, options) do
@@ -170,6 +169,7 @@ defmodule Cforum.Accounts.Settings do
     else
       Repo.delete(setting)
     end
+    |> discard_settings_cache()
   end
 
   @doc """
@@ -206,45 +206,23 @@ defmodule Cforum.Accounts.Settings do
   def load_relevant_settings(forum, user)
 
   def load_relevant_settings(nil, nil) do
-    from(
-      setting in Setting,
-      where: is_nil(setting.forum_id) and is_nil(setting.user_id)
-    )
-    |> Repo.all()
+    [get_global_setting()]
+    |> Enum.reject(&is_nil(&1))
   end
 
   def load_relevant_settings(%Forum{} = forum, nil) do
-    from(
-      setting in Setting,
-      where:
-        (is_nil(setting.forum_id) and is_nil(setting.user_id)) or
-          (is_nil(setting.user_id) and setting.forum_id == ^forum.forum_id),
-      order_by: fragment("? NULLS FIRST", setting.forum_id)
-    )
-    |> Repo.all()
+    [get_global_setting(), get_setting_for_forum(forum)]
+    |> Enum.reject(&is_nil(&1))
   end
 
   def load_relevant_settings(nil, %User{} = user) do
-    from(
-      setting in Setting,
-      where:
-        (is_nil(setting.forum_id) and is_nil(setting.user_id)) or
-          (is_nil(setting.forum_id) and setting.user_id == ^user.user_id),
-      order_by: fragment("? NULLS FIRST", setting.user_id)
-    )
-    |> Repo.all()
+    [get_global_setting(), get_setting_for_user(user)]
+    |> Enum.reject(&is_nil(&1))
   end
 
   def load_relevant_settings(%Forum{} = forum, %User{} = user) do
-    from(
-      setting in Setting,
-      where:
-        (is_nil(setting.forum_id) and is_nil(setting.user_id)) or
-          (is_nil(setting.forum_id) and setting.user_id == ^user.user_id) or
-          (is_nil(setting.user_id) and setting.forum_id == ^forum.forum_id),
-      order_by: fragment("? NULLS FIRST, ? NULLS FIRST", setting.user_id, setting.forum_id)
-    )
-    |> Repo.all()
+    [get_global_setting(), get_setting_for_forum(forum), get_setting_for_user(user)]
+    |> Enum.reject(&is_nil(&1))
   end
 
   @doc """

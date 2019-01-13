@@ -9,6 +9,7 @@ defmodule Cforum.Accounts.Users do
   alias Cforum.Accounts.User
   alias Cforum.Accounts.ForumGroupPermission
   alias Cforum.Accounts.Badge
+  alias Cforum.Accounts.Settings
 
   @doc """
   Returns the list of users.
@@ -91,11 +92,7 @@ defmodule Cforum.Accounts.Users do
 
   """
   def get_user!(id) do
-    from(
-      u in User,
-      preload: [:settings, :badges, [badges_users: :badge]],
-      where: u.user_id == ^id
-    )
+    from(u in User, preload: [:settings, :badges, [badges_users: :badge]], where: u.user_id == ^id)
     |> Repo.one!()
   end
 
@@ -114,11 +111,7 @@ defmodule Cforum.Accounts.Users do
 
   """
   def get_user(id) do
-    from(
-      u in User,
-      preload: [:settings, :badges, [badges_users: :badge]],
-      where: u.user_id == ^id
-    )
+    from(u in User, preload: [:settings, :badges, [badges_users: :badge]], where: u.user_id == ^id)
     |> Repo.one()
   end
 
@@ -187,6 +180,7 @@ defmodule Cforum.Accounts.Users do
       |> User.changeset(attrs)
       |> Repo.insert()
     end)
+    |> Settings.discard_settings_cache()
   end
 
   @doc """
@@ -207,6 +201,7 @@ defmodule Cforum.Accounts.Users do
       |> User.admin_changeset(attrs)
       |> Repo.insert()
     end)
+    |> Settings.discard_settings_cache()
   end
 
   @doc """
@@ -225,6 +220,7 @@ defmodule Cforum.Accounts.Users do
     user
     |> User.changeset(attrs)
     |> Repo.update()
+    |> Settings.discard_settings_cache()
   end
 
   def update_last_visit(%User{} = user) do
@@ -250,6 +246,7 @@ defmodule Cforum.Accounts.Users do
       |> User.admin_changeset(attrs)
       |> Repo.update()
     end)
+    |> Settings.discard_settings_cache()
   end
 
   @doc """
@@ -305,6 +302,7 @@ defmodule Cforum.Accounts.Users do
     Cforum.System.audited("destroy", current_user, fn ->
       Repo.delete(user)
     end)
+    |> Settings.discard_settings_cache()
   end
 
   @doc """
@@ -364,6 +362,7 @@ defmodule Cforum.Accounts.Users do
       |> User.register_changeset(attrs)
       |> Repo.insert()
     end)
+    |> Settings.discard_settings_cache()
   end
 
   @doc """

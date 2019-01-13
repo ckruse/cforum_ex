@@ -31,6 +31,8 @@ defmodule Cforum.DataCase do
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Cforum.Repo)
 
+    Cachex.clear!(:cforum)
+
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Cforum.Repo, {:shared, self()})
     end
