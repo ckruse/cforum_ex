@@ -4,14 +4,6 @@ defmodule Cforum.Accounts.SettingsTest do
   alias Cforum.Accounts.Settings
   alias Cforum.Accounts.Setting
 
-  test "list_settings/2 returns all settings for a user" do
-    setting = build(:setting) |> setting_with_user |> insert
-    settings = Settings.list_settings(setting.user)
-    assert length(settings) == 1
-    assert [%Setting{}] = settings
-    assert Enum.map(settings, & &1.setting_id) == [setting.setting_id]
-  end
-
   test "get_setting!/1 returns the setting with given id" do
     setting = insert(:setting)
     setting1 = Settings.get_setting!(setting.setting_id)
