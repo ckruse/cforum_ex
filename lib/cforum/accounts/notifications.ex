@@ -7,6 +7,16 @@ defmodule Cforum.Accounts.Notifications do
   alias Cforum.Repo
 
   alias Cforum.Accounts.Notification
+  alias Cforum.Caching
+  alias Cforum.Accounts.User
+
+  def discard_unread_cache({:ok, notification}) do
+    Caching.del(:cforum, "notifications/unread_count/#{notification.recipient_id}")
+    {:ok, notification}
+  end
+
+  def discard_unread_cache(%User{} = user), do: Caching.del(:cforum, "notifications/unread_count/#{user.user_id}")
+  def discard_unread_cache(val), do: val
 
   @doc """
   Returns the list of notifications.
@@ -27,21 +37,18 @@ defmodule Cforum.Accounts.Notifications do
   def count_notifications(user, only_unread \\ false)
 
   def count_notifications(user, false) do
-    from(
-      notification in Notification,
-      where: notification.recipient_id == ^user.user_id,
-      select: count("*")
-    )
+    from(notification in Notification, where: notification.recipient_id == ^user.user_id, select: count("*"))
     |> Repo.one()
   end
 
   def count_notifications(user, true) do
-    from(
-      notification in Notification,
-      where: notification.recipient_id == ^user.user_id and notification.is_read == false,
-      select: count("*")
-    )
-    |> Repo.one()
+    Caching.fetch(:cforum, "notifications/unread_count/#{user.user_id}", fn ->
+      from(notification in Notification,
+        where: notification.recipient_id == ^user.user_id and notification.is_read == false,
+        select: count("*")
+      )
+      |> Repo.one()
+    end)
   end
 
   def list_unread_notifications(user, query_params \\ [order: nil, limit: nil]) do
@@ -86,6 +93,7 @@ defmodule Cforum.Accounts.Notifications do
     %Notification{}
     |> Notification.changeset(attrs)
     |> Repo.insert()
+    |> discard_unread_cache()
     |> notify_user()
   end
 
@@ -105,9 +113,12 @@ defmodule Cforum.Accounts.Notifications do
     notification
     |> Notification.changeset(attrs)
     |> Repo.update()
+    |> discard_unread_cache()
   end
 
   def delete_notification_for_object(user, oid, type) do
+    discard_unread_cache(user)
+
     from(notification in Notification,
       where: notification.recipient_id == ^user.user_id and notification.oid == ^oid and notification.otype in ^type
     )
@@ -127,7 +138,9 @@ defmodule Cforum.Accounts.Notifications do
 
   """
   def delete_notification(%Notification{} = notification) do
-    Repo.delete(notification)
+    notification
+    |> Repo.delete()
+    |> discard_unread_cache()
   end
 
   @doc """
