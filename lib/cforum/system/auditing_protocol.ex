@@ -32,7 +32,7 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Thread do
     forum =
       case thread.forum do
         %Ecto.Association.NotLoaded{} ->
-          Cforum.Forums.get_forum!(thread.forum_id, :preload_setting)
+          Cforum.Forums.get_forum!(thread.forum_id)
 
         forum ->
           forum

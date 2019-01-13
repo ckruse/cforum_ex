@@ -28,13 +28,13 @@ defmodule CforumWeb.Admin.ForumController do
   end
 
   def edit(conn, %{"id" => slug}) do
-    forum = Forums.get_forum_by_slug!(slug, :preload_setting)
+    forum = Forums.get_forum_by_slug!(slug)
     changeset = Forums.change_forum(forum)
     render(conn, "edit.html", forum: forum, changeset: changeset)
   end
 
   def update(conn, %{"id" => slug, "forum" => forum_params}) do
-    forum = Forums.get_forum_by_slug!(slug, :preload_setting)
+    forum = Forums.get_forum_by_slug!(slug)
 
     case Forums.update_forum(conn.assigns.current_user, forum, forum_params) do
       {:ok, forum} ->
