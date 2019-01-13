@@ -17,7 +17,7 @@ defmodule Cforum.ForumsTest do
 
   test "get_forum!/1 returns the forum with given id" do
     forum = insert(:forum)
-    assert Forums.get_forum!(forum.forum_id) == forum
+    assert Forums.get_forum!(forum.forum_id) |> Map.drop([:setting]) == forum |> Map.drop([:setting])
   end
 
   test "create_forum/1 with valid data creates a forum", %{user: user} do
@@ -41,7 +41,7 @@ defmodule Cforum.ForumsTest do
   test "update_forum/2 with invalid data returns error changeset", %{user: user} do
     forum = insert(:forum)
     assert {:error, %Ecto.Changeset{}} = Forums.update_forum(user, forum, %{name: ""})
-    assert forum == Forums.get_forum!(forum.forum_id)
+    assert forum |> Map.drop([:setting]) == Forums.get_forum!(forum.forum_id) |> Map.drop([:setting])
   end
 
   test "delete_forum/1 deletes the forum", %{user: user} do

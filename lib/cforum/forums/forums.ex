@@ -8,7 +8,16 @@ defmodule Cforum.Forums do
 
   alias Cforum.Forums.Forum
   alias Cforum.System
+  alias Cforum.Accounts.User
   alias Cforum.Accounts.Settings
+  alias Cforum.Caching
+
+  def discard_forums_cache({:ok, rel}) do
+    Caching.del(:cforum, "forums")
+    {:ok, rel}
+  end
+
+  def discard_forums_cache(val), do: val
 
   @doc """
   Returns the list of forums.
@@ -20,9 +29,11 @@ defmodule Cforum.Forums do
 
   """
   def list_forums do
-    Forum
-    |> ordered
-    |> Repo.all()
+    Caching.fetch(:cforum, "forums", fn ->
+      Forum
+      |> ordered
+      |> Repo.all()
+    end)
   end
 
   @doc """
@@ -40,13 +51,13 @@ defmodule Cforum.Forums do
 
   """
   @spec get_forum!(String.t() | integer()) :: %Forum{}
-  def get_forum!(id), do: Repo.get!(Forum, id)
-
-  @spec get_forum!(String.t() | integer(), atom()) :: %Forum{}
-  def get_forum!(id, :preload_setting) do
-    Forum
-    |> Repo.get!(id)
-    |> Repo.preload(:setting)
+  def get_forum!(id) do
+    with {:ok, id} <- Ecto.Type.cast(:integer, id),
+         %Forum{} = forum <- Enum.find(list_forums(), &(&1.forum_id == id)) do
+      %Forum{forum | setting: Settings.get_setting_for_forum(forum)}
+    else
+      _ -> raise Ecto.NoResultsError, queryable: Forum
+    end
   end
 
   @doc """
@@ -63,15 +74,19 @@ defmodule Cforum.Forums do
       ** (Ecto.NoResultsError)
 
   """
-  def get_forum_by_slug!(slug), do: Repo.get_by!(Forum, slug: slug)
-
-  def get_forum_by_slug!(slug, :preload_setting) do
-    Forum
-    |> Repo.get_by!(slug: slug)
-    |> Repo.preload(:setting)
+  def get_forum_by_slug!(slug) do
+    with %Forum{} = forum <- Enum.find(list_forums(), &(&1.slug == slug)) do
+      %Forum{forum | setting: Settings.get_setting_for_forum(forum)}
+    else
+      _ -> raise Ecto.NoResultsError, queryable: Forum
+    end
   end
 
-  def get_forum_by_slug(slug), do: Repo.get_by(Forum, slug: slug)
+  def get_forum_by_slug(slug) do
+    with %Forum{} = forum <- Enum.find(list_forums(), &(&1.slug == slug)) do
+      %Forum{forum | setting: Settings.get_setting_for_forum(forum)}
+    end
+  end
 
   @doc """
   Creates a forum.
@@ -92,6 +107,7 @@ defmodule Cforum.Forums do
       |> Repo.insert()
     end)
     |> Settings.discard_settings_cache()
+    |> discard_forums_cache()
   end
 
   @doc """
@@ -113,6 +129,7 @@ defmodule Cforum.Forums do
       |> Repo.update()
     end)
     |> Settings.discard_settings_cache()
+    |> discard_forums_cache()
   end
 
   @doc """
@@ -132,6 +149,7 @@ defmodule Cforum.Forums do
       Repo.delete(forum)
     end)
     |> Settings.discard_settings_cache()
+    |> discard_forums_cache()
   end
 
   @doc """
@@ -157,26 +175,21 @@ defmodule Cforum.Forums do
 
   """
   def list_visible_forums(user \\ nil) do
-    Forum
+    list_forums()
     |> visible_forums(user)
-    |> ordered
-    |> Repo.all()
   end
 
-  alias Cforum.Accounts.User
-
-  defp visible_forums(query, nil) do
-    from(f in query, where: f.standard_permission in [^Forum.read(), ^Forum.write()])
+  defp visible_forums(forums, nil) do
+    Enum.filter(forums, &(&1.standard_permission in [Forum.read(), Forum.write()]))
   end
 
   # admins may view all forums
-  defp visible_forums(query, %User{admin: true}) do
-    query
-  end
+  defp visible_forums(forums, %User{admin: true}), do: forums
 
-  defp visible_forums(query, %User{} = user) do
+  defp visible_forums(_forums, %User{} = user) do
+    # TODO write a cache for groups so we can drop this query
     from(
-      f in query,
+      f in Forum,
       where:
         f.standard_permission in [^Forum.read(), ^Forum.write(), ^Forum.known_read(), ^Forum.known_write()] or
           fragment(
@@ -185,6 +198,7 @@ defmodule Cforum.Forums do
             ^user.user_id
           )
     )
+    |> Repo.all()
   end
 
   defp ordered(query) do
@@ -205,19 +219,14 @@ defmodule Cforum.Forums do
   def list_forums_by_permission(nil, permission) when permission in ~w(read write) do
     plist =
       if permission == "write",
-        do: ~w(write),
-        else: ~w(write read)
+        do: [Forum.write()],
+        else: [Forum.write(), Forum.read()]
 
-    from(f in Forum, where: f.standard_permission in ^plist)
-    |> ordered
-    |> Repo.all()
+    list_forums()
+    |> Enum.filter(&(&1.standard_permission in plist))
   end
 
-  def list_forums_by_permission(%User{admin: true}, _) do
-    Forum
-    |> ordered()
-    |> Repo.all()
-  end
+  def list_forums_by_permission(%User{admin: true}, _), do: list_forums()
 
   def list_forums_by_permission(%User{} = user, "moderate"),
     do: list_forums_by_perms(user, ~w(moderate), [])
@@ -229,6 +238,7 @@ defmodule Cforum.Forums do
     do: list_forums_by_perms(user, ~w(moderate write read), ~w(known-write write known-read read))
 
   defp list_forums_by_perms(%User{} = user, permissions, std_permissions) do
+    # TODO caching for groups
     from(
       f in Forum,
       where:
