@@ -186,11 +186,15 @@ defmodule Cforum.Forums.Threads.Helper do
     {all_threads_count, threads_query} =
       gen_normal_threads_query(threads_query, opts[:page], opts[:limit], sticky_len, opts[:use_paging])
 
+    thread_preloads = opts[:with] || Thread.default_preloads()
+    msg_preloads = opts[:messages_with] || Message.default_preloads()
+
     threads =
-      from(thread in threads_query, preload: ^Thread.default_preloads())
+      threads_query
       |> set_ordering(order)
       |> Repo.all()
-      |> Repo.preload(messages: {preload_messages(opts[:view_all]) |> order_messages(), Message.default_preloads()})
+      |> Repo.preload(thread_preloads)
+      |> Repo.preload(messages: {preload_messages(opts[:view_all]) |> order_messages(), msg_preloads})
       |> set_user_attributes(user, opts)
       |> sort_threads(opts[:message_order], opts[:thread_modifier])
 

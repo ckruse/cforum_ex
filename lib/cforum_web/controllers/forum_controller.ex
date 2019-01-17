@@ -5,7 +5,10 @@ defmodule CforumWeb.ForumController do
 
   def index(conn, _params) do
     {latest_threads, newest_thread} =
-      Stats.threads_for_overview(conn.assigns[:current_user], conn.assigns[:visible_forums])
+      Stats.threads_for_overview(conn.assigns[:current_user], conn.assigns[:visible_forums],
+        messages_with: [:user],
+        sticky: nil
+      )
 
     {priv_messages, notifications} =
       if conn.assigns[:current_user] do
@@ -16,7 +19,11 @@ defmodule CforumWeb.ForumController do
       end
 
     {_, unanswered_threads} =
-      Threads.list_unanswered_threads(nil, conn.assigns[:visible_forums], conn.assigns[:current_user], limit: 3)
+      Threads.list_unanswered_threads(nil, conn.assigns[:visible_forums], conn.assigns[:current_user],
+        limit: 3,
+        messages_with: [:user],
+        omit: [:open_close, :subscriptions, :interesting, :read]
+      )
 
     render(
       conn,
