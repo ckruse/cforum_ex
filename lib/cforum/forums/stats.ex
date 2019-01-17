@@ -5,15 +5,18 @@ defmodule Cforum.Forums.Stats do
   alias Cforum.Forums.{Thread, Threads, Message}
   alias Cforum.Forums.ForumStat
 
-  def threads_for_overview(current_user, visible_forums) do
+  def threads_for_overview(current_user, visible_forums, opts \\ []) do
     Enum.reduce(visible_forums, {%{}, nil}, fn f, {acc, latest} ->
-      {threads, latest_message} = get_latest(current_user, f, latest)
+      {threads, latest_message} = get_latest(current_user, f, latest, opts)
       {Map.put(acc, f.forum_id, threads), latest_message}
     end)
   end
 
-  defp get_latest(current_user, f, latest) do
-    {_, threads} = Threads.list_threads(f, nil, current_user, limit: 3, order: "newest-first", sticky: nil)
+  defp get_latest(current_user, f, latest, opts) do
+    defaults = [limit: 3, order: "newest-first", sticky: nil, omit: [:open_close, :subscriptions, :interesting, :read]]
+    opts = Keyword.merge(defaults, opts)
+
+    {_, threads} = Threads.list_threads(f, nil, current_user, opts)
 
     threads =
       Enum.map(threads, fn t ->

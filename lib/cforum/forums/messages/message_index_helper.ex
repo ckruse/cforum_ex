@@ -132,11 +132,12 @@ defmodule Cforum.Forums.Messages.IndexHelper do
 
   def set_user_attributes(threads, user, opts) do
     tids = Enum.map(threads, & &1.thread_id)
+    omits = opts[:omit] || []
 
-    read_messages = get_read_messages(tids, user)
-    subscribed_messages = get_subcribed_messages(tids, user)
-    interesting_messages = get_interesting_messages(tids, user)
-    oc_state = get_open_close_state(tids, user)
+    read_messages = if Enum.member?(omits, :read), do: %{}, else: get_read_messages(tids, user)
+    subscribed_messages = if Enum.member?(omits, :subscriptions), do: %{}, else: get_subcribed_messages(tids, user)
+    interesting_messages = if Enum.member?(omits, :interesting), do: %{}, else: get_interesting_messages(tids, user)
+    oc_state = if Enum.member?(omits, :open_close), do: %{}, else: get_open_close_state(tids, user)
 
     set_message_flags(oc_state, read_messages, interesting_messages, subscribed_messages, threads, opts)
   end

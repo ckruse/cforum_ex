@@ -57,20 +57,7 @@ defmodule Cforum.Forums.Threads do
           [desc: :latest_message]
       end
 
-    {sticky_threads_query, threads_query} =
-      get_threads(
-        forum,
-        user,
-        visible_forums,
-        sticky: opts[:sticky],
-        view_all: opts[:view_all],
-        hide_read_threads: opts[:hide_read_threads],
-        only_wo_answer: opts[:only_wo_answer],
-        leave_out_invisible: opts[:leave_out_invisible],
-        thread_conditions: opts[:thread_conditions],
-        predicate: opts[:predicate]
-      )
-
+    {sticky_threads_query, threads_query} = get_threads(forum, user, visible_forums, opts)
     sticky_threads = get_sticky_threads(sticky_threads_query, user, order, opts, opts[:sticky])
     {all_threads_count, threads} = get_normal_threads(threads_query, user, order, length(sticky_threads), opts)
 
@@ -175,7 +162,8 @@ defmodule Cforum.Forums.Threads do
                   type(^fids, {:array, :integer})
                 )
             )
-          end
+          end,
+          sticky: nil
         ],
         opts
       )
