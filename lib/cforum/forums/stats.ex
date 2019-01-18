@@ -13,7 +13,7 @@ defmodule Cforum.Forums.Stats do
   end
 
   defp get_latest(current_user, f, latest, opts) do
-    defaults = [limit: 3, order: "newest-first", sticky: nil, omit: [:open_close, :subscriptions, :interesting, :read]]
+    defaults = [limit: 3, order: "newest-first", sticky: nil, omit: [:open_close, :subscriptions, :interesting]]
     opts = Keyword.merge(defaults, opts)
 
     {_, threads} = Threads.list_threads(f, nil, current_user, opts)
