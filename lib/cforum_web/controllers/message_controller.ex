@@ -115,7 +115,8 @@ defmodule CforumWeb.MessageController do
       mid,
       message_order: uconf(conn, "sort_messages"),
       view_all: conn.assigns.view_all,
-      leave_out_invisible: !conn.assigns.view_all
+      leave_out_invisible: !conn.assigns.view_all,
+      omit: [:open_close]
     )
   end
 
