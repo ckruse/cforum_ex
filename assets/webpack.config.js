@@ -3,7 +3,7 @@ const Webpack = require("webpack");
 const ExtractTextPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const MinifyPlugin = require("babel-minify-webpack-plugin");
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const config = require("./package");
 
@@ -90,14 +90,7 @@ module.exports = function(env = {}, argv) {
     },
 
     optimization: {
-      minimizer: [
-        new UglifyJsPlugin({
-          cache: true,
-          parallel: true,
-          sourceMap: true // set to true if you want JS source maps
-        }),
-        new OptimizeCSSAssetsPlugin({})
-      ]
+      minimizer: [new MinifyPlugin({}, { cache: true, parallel: true }), new OptimizeCSSAssetsPlugin({})]
     },
 
     plugins: PLUGINS,
