@@ -24,7 +24,8 @@ defmodule CforumWeb.ThreadController do
         message_order: uconf(conn, "sort_messages"),
         use_paging: uconf(conn, "page_messages") == "yes",
         close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
-        open_close_default_state: uconf(conn, "open_close_default")
+        open_close_default_state: uconf(conn, "open_close_default"),
+        messages_with: [:user, :tags]
       )
 
     p = paginate(all_threads_count, per_page: limit, page: page + 1)
@@ -54,7 +55,8 @@ defmodule CforumWeb.ThreadController do
         message_order: uconf(conn, "sort_messages"),
         use_paging: uconf(conn, "page_messages") == "yes",
         close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
-        open_close_default_state: uconf(conn, "open_close_default")
+        open_close_default_state: uconf(conn, "open_close_default"),
+        messages_with: [:user, :tags]
       )
 
     p = paginate(all_threads_count, per_page: limit, page: page + 1)
@@ -75,7 +77,8 @@ defmodule CforumWeb.ThreadController do
         user,
         order: ordering,
         message_order: uconf(conn, "sort_messages"),
-        use_paging: false
+        use_paging: false,
+        messages_with: [:user, :tags]
       )
 
     render(conn, "index.atom", threads: threads)
@@ -92,7 +95,8 @@ defmodule CforumWeb.ThreadController do
         user,
         order: ordering,
         message_order: uconf(conn, "sort_messages"),
-        use_paging: false
+        use_paging: false,
+        messages_with: [:user, :tags]
       )
 
     render(conn, "index.rss", threads: threads)
