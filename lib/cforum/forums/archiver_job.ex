@@ -1,7 +1,7 @@
 defmodule Cforum.Forums.ArchiverJob do
   alias Cforum.Repo
   alias Cforum.Forums
-  alias Cforum.Forums.{Threads, Thread, Message, Subscription, OpenCloseState, InvisibleThread}
+  alias Cforum.Forums.{Threads, Thread, Message, Subscription, OpenCloseState, InvisibleThread, ReadMessage}
   alias Cforum.System
   alias Cforum.Search
   alias Cforum.Search.Document
@@ -86,6 +86,7 @@ defmodule Cforum.Forums.ArchiverJob do
       |> maybe_remove_subscriptions()
       |> maybe_remove_open_close_state()
       |> maybe_remove_invisible_threads()
+      |> maybe_remove_visited_marks()
     end)
   end
 
@@ -122,6 +123,17 @@ defmodule Cforum.Forums.ArchiverJob do
 
   defp maybe_remove_invisible_threads({:ok, thread}) do
     from(iv in InvisibleThread, where: iv.thread_id == ^thread.thread_id)
+    |> Repo.delete_all()
+
+    {:ok, thread}
+  end
+
+  defp maybe_remove_visited_marks({:error, _} = retval), do: retval
+
+  defp maybe_remove_visited_marks({:ok, thread}) do
+    mids = Enum.map(thread.messages, & &1.message_id)
+
+    from(rm in ReadMessage, where: rm.message_id in ^mids)
     |> Repo.delete_all()
 
     {:ok, thread}
