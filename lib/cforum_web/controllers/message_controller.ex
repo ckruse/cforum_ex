@@ -2,7 +2,7 @@ defmodule CforumWeb.MessageController do
   use CforumWeb, :controller
 
   alias Cforum.Forums.Messages
-  alias Cforum.Forums.Threads
+  alias Cforum.Forums.{Thread, Threads}
 
   def show(conn, params) do
     # parameter overwrites cookie overwrites config; validation
@@ -13,9 +13,7 @@ defmodule CforumWeb.MessageController do
       |> parse_readmode(params)
       |> validate_readmode
 
-    if read_mode == "nested",
-      do: Messages.mark_messages_read(conn.assigns[:current_user], conn.assigns.thread.messages),
-      else: Messages.mark_messages_read(conn.assigns[:current_user], conn.assigns.message)
+    mark_messages_read(read_mode, conn.assigns[:current_user], conn.assigns.thread, conn.assigns.message)
 
     if uconf(conn, "delete_read_notifications_on_abonements") == "yes",
       do: Messages.unnotify_user(conn.assigns.current_user, conn.assigns.message)
@@ -148,6 +146,10 @@ defmodule CforumWeb.MessageController do
       do: put_resp_cookie(conn, "cf_readmode", read_mode, max_age: 360 * 24 * 60 * 60),
       else: conn
   end
+
+  defp mark_messages_read(_, _, %Thread{archived: true}, _), do: nil
+  defp mark_messages_read("nested", user, thread, _), do: Messages.mark_messages_read(user, thread.messages)
+  defp mark_messages_read(_, user, _, message), do: Messages.mark_messages_read(user, message)
 
   def load_resource(conn) do
     case action_name(conn) do
