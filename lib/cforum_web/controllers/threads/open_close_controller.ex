@@ -9,9 +9,9 @@ defmodule CforumWeb.Threads.OpenCloseController do
       Threads.get_thread_by_slug!(
         conn.assigns.current_forum,
         conn.assigns.visible_forums,
-        conn.assigns.current_user,
         Threads.slug_from_params(params)
       )
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
 
     Threads.open_thread(conn.assigns[:current_user], thread)
 
@@ -25,9 +25,9 @@ defmodule CforumWeb.Threads.OpenCloseController do
       Threads.get_thread_by_slug!(
         conn.assigns.current_forum,
         conn.assigns.visible_forums,
-        conn.assigns.current_user,
         Threads.slug_from_params(params)
       )
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
 
     Threads.close_thread(conn.assigns[:current_user], thread)
 

@@ -101,7 +101,7 @@ defmodule CforumWeb.ThreadControllerTest do
       assert redirected_to(conn) == "/#{f}/#{y}/#{m}/#{d}/#{s}/#{mid}#m#{mid}"
       assert f == forum.slug
 
-      t = Threads.get_thread_by_slug!(nil, nil, nil, "/#{y}/#{m}/#{d}/#{s}")
+      t = Threads.get_thread_by_slug!(nil, nil, "/#{y}/#{m}/#{d}/#{s}")
       assert t.forum_id == forum.forum_id
       m = Messages.get_message!(mid)
       assert m.forum_id == forum.forum_id

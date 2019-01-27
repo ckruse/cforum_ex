@@ -4,12 +4,9 @@ defmodule Cforum.Forums.Threads.TreeHelper do
   alias Cforum.Helpers
 
   def sort_threads(threads, direction, thread_modifier),
-    do: Enum.map(threads, &sort_thread(direction, thread_modifier, &1))
+    do: Enum.map(threads, &gen_thread_tree(&1, thread_modifier, direction))
 
-  def sort_thread(direction, modifier, thread, message \\ nil)
-  def sort_thread(direction, modifier, thread, nil), do: gen_thread_tree(modifier, thread, direction)
-
-  def gen_thread_tree(modifier, thread, direction \\ "ascending") do
+  def gen_thread_tree(thread, modifier, direction \\ "ascending") do
     sorted_messages =
       Enum.sort(thread.messages, fn a, b ->
         cond do

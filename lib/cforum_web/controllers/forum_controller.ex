@@ -4,12 +4,6 @@ defmodule CforumWeb.ForumController do
   alias Cforum.Forums.{Stats, Threads}
 
   def index(conn, _params) do
-    {latest_threads, newest_thread} =
-      Stats.threads_for_overview(conn.assigns[:current_user], conn.assigns[:visible_forums],
-        messages_with: [:user],
-        sticky: nil
-      )
-
     {priv_messages, notifications} =
       if conn.assigns[:current_user] do
         {Cforum.Accounts.PrivMessages.list_unread_priv_messages(conn.assigns[:current_user]),
@@ -18,12 +12,20 @@ defmodule CforumWeb.ForumController do
         {[], []}
       end
 
-    {_, unanswered_threads} =
-      Threads.list_unanswered_threads(nil, conn.assigns[:visible_forums], conn.assigns[:current_user],
-        limit: 3,
-        messages_with: [:user],
-        omit: [:open_close, :subscriptions, :interesting, :read]
-      )
+    all_threads =
+      Threads.list_threads(nil, conn.assigns[:visible_forums])
+      |> Threads.reject_deleted_threads()
+      |> Threads.reject_invisible_threads(conn.assigns[:current_user])
+
+    {latest_threads, newest_thread} = Stats.threads_for_overview(conn.assigns[:current_user], all_threads)
+
+    unanswered_threads =
+      all_threads
+      |> Threads.filter_wo_answer()
+      |> Threads.sort_threads("descending")
+      |> Threads.paged_thread_list(true, 0, 3)
+      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
+      |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close, :subscriptions, :interesting])
 
     render(
       conn,

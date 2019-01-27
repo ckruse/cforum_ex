@@ -56,4 +56,8 @@ defmodule CforumWeb.ThreadView do
     Feeds.rss_feed_head(conn, xml_threads)
     |> XmlBuilder.generate()
   end
+
+  def show_tree?(thread) do
+    present?(thread.tree.messages) && thread.attribs[:open_state] != "closed"
+  end
 end

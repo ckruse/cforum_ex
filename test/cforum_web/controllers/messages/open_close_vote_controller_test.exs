@@ -1,7 +1,7 @@
 defmodule CforumWeb.OpenCloseVoteControllerTest do
   use CforumWeb.ConnCase
 
-  alias Cforum.Forums.{CloseVotes, CloseVoteVoter, Messages}
+  alias Cforum.Forums.{CloseVotes, CloseVoteVoter, Messages, Threads}
 
   setup [:setup_close_votes]
 
@@ -20,7 +20,11 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
     end
 
     test "responds with 403 for close on closed messages", %{conn: conn, user: user, message: message} do
-      {thread, message} = Messages.get_message_and_thread!(nil, nil, nil, message.thread_id, message.message_id)
+      thread =
+        Threads.get_thread!(message.thread_id)
+        |> Threads.build_message_tree("ascending")
+
+      message = Messages.get_message_from_mid!(thread, message.message_id)
       Messages.flag_no_answer(nil, message, "no-answer")
 
       assert_error_sent(403, fn ->
@@ -33,7 +37,11 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
 
   describe "new reopen vote" do
     test "form for new close votes on closed message", %{conn: conn, user: user, message: message} do
-      {thread, message} = Messages.get_message_and_thread!(nil, nil, nil, message.thread_id, message.message_id)
+      thread =
+        Threads.get_thread!(message.thread_id)
+        |> Threads.build_message_tree("ascending")
+
+      message = Messages.get_message_from_mid!(thread, message.message_id)
       Messages.flag_no_answer(nil, message, "no-answer")
 
       conn =
@@ -93,7 +101,11 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
 
   describe "create reopen vote" do
     test "creates reopen vote and redirects when data is valid", %{conn: conn, user: user, message: message} do
-      {thread, message} = Messages.get_message_and_thread!(nil, nil, nil, message.thread_id, message.message_id)
+      thread =
+        Threads.get_thread!(message.thread_id)
+        |> Threads.build_message_tree("ascending")
+
+      message = Messages.get_message_from_mid!(thread, message.message_id)
       Messages.flag_no_answer(nil, message, "no-answer")
 
       conn =
@@ -105,7 +117,11 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
     end
 
     test "does not create reopen vote and renders errors when data is invalid", %{conn: conn, user: user, message: m} do
-      {thread, message} = Messages.get_message_and_thread!(nil, nil, nil, m.thread_id, m.message_id)
+      thread =
+        Threads.get_thread!(m.thread_id)
+        |> Threads.build_message_tree("ascending")
+
+      message = Messages.get_message_from_mid!(thread, m.message_id)
       Messages.flag_no_answer(nil, message, "no-answer")
 
       conn =
@@ -135,7 +151,11 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
     end
 
     test "votes for a reopen vote", %{conn: conn, visiting_user: user, message: m, reopen_vote: vote} do
-      {thread, message} = Messages.get_message_and_thread!(nil, nil, nil, m.thread_id, m.message_id)
+      thread =
+        Threads.get_thread!(m.thread_id)
+        |> Threads.build_message_tree("ascending")
+
+      message = Messages.get_message_from_mid!(thread, m.message_id)
       Messages.flag_no_answer(nil, message, "no-answer")
 
       conn =

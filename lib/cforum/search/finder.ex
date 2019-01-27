@@ -72,7 +72,7 @@ defmodule Cforum.Search.Finder do
     result = Repo.query!(subquery, args ++ [current_user.user_id])
 
     message_ids = Enum.map(result.rows, &List.first/1)
-    Cforum.Forums.Messages.list_messages(current_user, message_ids)
+    Cforum.Forums.Messages.list_messages(message_ids)
   end
 
   @spec count_subscribed_messages_results(%User{}, Ecto.Changeset.t()) :: integer()
@@ -139,7 +139,7 @@ defmodule Cforum.Search.Finder do
     result = Repo.query!(subquery, args ++ [current_user.user_id])
 
     message_ids = Enum.map(result.rows, &List.first/1)
-    Cforum.Forums.Messages.list_messages(current_user, message_ids)
+    Cforum.Forums.Messages.list_messages(message_ids)
   end
 
   @spec count_results(Ecto.Changeset.t()) :: integer()

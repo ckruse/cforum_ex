@@ -106,16 +106,15 @@ defmodule CforumWeb.MessageController do
   #
 
   defp get_message(conn, %{"mid" => mid} = params) do
-    Messages.get_message_from_slug_and_mid!(
-      conn.assigns[:current_forum],
-      conn.assigns[:current_user],
-      Threads.slug_from_params(params),
-      mid,
-      message_order: uconf(conn, "sort_messages"),
-      view_all: conn.assigns.view_all,
-      leave_out_invisible: !conn.assigns.view_all,
-      omit: [:open_close]
-    )
+    thread =
+      Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, Threads.slug_from_params(params))
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close])
+      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+
+    message = Messages.get_message_from_mid!(thread, mid)
+
+    {thread, message}
   end
 
   defp quote?(conn, params) do

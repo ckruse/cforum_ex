@@ -3,6 +3,7 @@ defmodule Cforum.Forums.ArchiverJob do
   alias Cforum.Forums
   alias Cforum.Forums.{Threads, Thread, Message, Subscription, OpenCloseState, InvisibleThread, ReadMessage}
   alias Cforum.System
+  alias Cforum.Caching
   alias Cforum.Search
   alias Cforum.Search.Document
 
@@ -11,6 +12,11 @@ defmodule Cforum.Forums.ArchiverJob do
   def archive do
     Forums.list_forums()
     |> Enum.each(&archive_for_forum/1)
+  end
+
+  def enforce_archiving(thread) do
+    archive_thread(thread)
+    |> discard_thread_cache()
   end
 
   defp archive_for_forum(forum) do
@@ -32,7 +38,10 @@ defmodule Cforum.Forums.ArchiverJob do
     )
     |> Repo.all()
     |> Repo.preload([:messages])
-    |> Enum.each(&archive_thread/1)
+    |> Enum.each(fn thread ->
+      archive_thread(thread)
+      |> discard_thread_cache()
+    end)
   end
 
   defp archive_max_threads_per_forum(forum) do
@@ -58,7 +67,10 @@ defmodule Cforum.Forums.ArchiverJob do
     )
     |> Repo.all()
     |> Repo.preload([:messages])
-    |> Enum.each(&archive_thread/1)
+    |> Enum.each(fn thread ->
+      archive_thread(thread)
+      |> discard_thread_cache()
+    end)
   end
 
   defp archive_thread(%Thread{flags: %{"no-archive" => "yes"}} = thread) do
@@ -138,4 +150,14 @@ defmodule Cforum.Forums.ArchiverJob do
 
     {:ok, thread}
   end
+
+  defp discard_thread_cache({:ok, %Thread{thread_id: tid}} = val) do
+    Caching.update(:cforum, :threads, fn threads ->
+      Enum.reject(threads, &(&1.thread_id == tid))
+    end)
+
+    val
+  end
+
+  defp discard_thread_cache(val), do: IO.inspect(val)
 end

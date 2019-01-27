@@ -4,16 +4,16 @@ defmodule Cforum.Forums.Threads do
   """
 
   import Ecto.{Query, Changeset}, warn: false
-  import Cforum.Forums.Threads.Helper
 
   alias Cforum.Repo
 
-  alias Cforum.Forums.{Thread, InvisibleThread, OpenCloseState}
+  alias Cforum.Forums.{Thread, InvisibleThread, OpenCloseState, Message}
   alias Cforum.Forums.Messages
   alias Cforum.System
+  alias Cforum.Caching
 
   @doc """
-  Returns the list of threads.
+  Returns the list of unarchived threads.
 
   ## Examples
 
@@ -21,157 +21,192 @@ defmodule Cforum.Forums.Threads do
       [%Thread{}, ...]
 
   """
-  def list_threads(forum, visible_forums, user, opts \\ []) do
-    opts =
-      Keyword.merge(
-        [
-          sticky: true,
-          page: 0,
-          limit: 50,
-          view_all: false,
-          leave_out_invisible: true,
-          order: "newest-first",
-          message_order: "ascending",
-          hide_read_threads: false,
-          only_wo_answer: false,
-          thread_modifier: nil,
-          use_paging: true,
-          close_read_threads: false,
-          open_close_default_state: "open",
-          thread_conditions: %{},
-          predicate: nil
-        ],
-        opts
-      )
+  def list_threads(forum, visible_forums)
+  def list_threads(forum, _) when not is_nil(forum), do: list_threads(nil, [forum])
 
-    order =
-      case opts[:order] do
-        "descending" ->
-          [desc: :created_at]
+  def list_threads(_, forums) do
+    threads =
+      Caching.fetch(:cforum, :threads, fn ->
+        from(thread in Thread, where: thread.archived == false, order_by: [desc: :created_at])
+        |> Repo.all()
+        |> Repo.preload(Thread.default_preloads())
+        |> Repo.preload(
+          messages:
+            {from(m in Message, order_by: [asc: fragment("? NULLS FIRST", m.parent_id), desc: m.created_at]),
+             Message.default_preloads()}
+        )
+      end)
 
-        "ascending" ->
-          [asc: :created_at]
+    if forums == nil || forums == [] do
+      threads
+    else
+      forum_ids = Enum.map(forums, & &1.forum_id)
+      Enum.filter(threads, &(&1.forum_id in forum_ids))
+    end
+  end
 
-        # falling back to "newest-first" for all other cases
-        _ ->
-          [desc: :latest_message]
+  @doc """
+  Rejects deleted message based on a boolean parameter
+  """
+
+  def reject_deleted_threads(threads, view_all \\ false)
+  def reject_deleted_threads(threads, true), do: threads
+
+  def reject_deleted_threads(nil, _), do: nil
+
+  def reject_deleted_threads(%Thread{} = thread, view_all) do
+    reject_deleted_threads([thread], view_all)
+    |> List.first()
+  end
+
+  def reject_deleted_threads(threads, _) do
+    Enum.reduce(threads, [], fn thread, list ->
+      thread = Map.put(thread, :messages, Enum.filter(thread.messages, &(&1.deleted == false)))
+      [thread | list]
+    end)
+    |> Enum.reject(&(&1.messages == []))
+    |> Enum.reverse()
+  end
+
+  @doc """
+  Sort the threads ascending, descending or by the newest message
+  """
+
+  def sort_threads(threads, direction, opts \\ [])
+
+  def sort_threads(threads, "ascending", opts) do
+    Enum.sort(threads, fn a, b ->
+      cond do
+        a.sticky == b.sticky && !opts[:ignore_sticky] -> Timex.compare(a.created_at, b.created_at) <= 0
+        a.sticky && !opts[:ignore_sticky] -> true
+        b.sticky && !opts[:ignore_sticky] -> false
+        true -> Timex.compare(a.created_at, b.created_at) <= 0
       end
-
-    {sticky_threads_query, threads_query} = get_threads(forum, user, visible_forums, opts)
-    sticky_threads = get_sticky_threads(sticky_threads_query, user, order, opts, opts[:sticky])
-    {all_threads_count, threads} = get_normal_threads(threads_query, user, order, length(sticky_threads), opts)
-
-    {all_threads_count, sticky_threads ++ threads}
+    end)
   end
 
-  def list_archived_threads(forum, visible_forums, user, from, to, opts \\ []) do
-    opts =
-      Keyword.merge(
-        [
-          page: 0,
-          limit: 50,
-          view_all: false,
-          leave_out_invisible: true,
-          order: "newest-first",
-          message_order: "ascending",
-          thread_modifier: nil,
-          use_paging: true,
-          close_read_threads: false,
-          open_close_default_state: "open",
-          thread_conditions: %{},
-          predicate: nil
-        ],
-        opts
-      )
-
-    order =
-      case opts[:order] do
-        "descending" ->
-          [desc: :created_at]
-
-        "ascending" ->
-          [asc: :created_at]
-
-        # falling back to "newest-first" for all other cases
-        _ ->
-          [desc: :latest_message]
+  def sort_threads(threads, "descending", opts) do
+    Enum.sort(threads, fn a, b ->
+      cond do
+        a.sticky == b.sticky && !opts[:ignore_sticky] -> Timex.compare(a.created_at, b.created_at) >= 0
+        a.sticky && !opts[:ignore_sticky] -> true
+        b.sticky && !opts[:ignore_sticky] -> false
+        true -> Timex.compare(a.created_at, b.created_at) >= 0
       end
-
-    threads_query =
-      get_archived_threads(
-        forum,
-        user,
-        visible_forums,
-        from,
-        to,
-        view_all: opts[:view_all],
-        leave_out_invisible: opts[:leave_out_invisible],
-        thread_conditions: opts[:thread_conditions],
-        predicate: opts[:predicate]
-      )
-
-    get_normal_threads(threads_query, user, order, 0, opts)
+    end)
   end
 
-  def list_invisible_threads(forum, visible_forums, user, opts \\ []) do
-    opts =
-      Keyword.merge(
-        [
-          predicate: fn query ->
-            from(
-              thread in query,
-              where:
-                fragment(
-                  "EXISTS(SELECT thread_id FROM invisible_threads WHERE user_id = ? AND invisible_threads.thread_id = ?)",
-                  ^user.user_id,
-                  thread.thread_id
-                )
-            )
-          end
-        ],
-        opts
-      )
-
-    list_threads(forum, visible_forums, user, opts)
+  def sort_threads(threads, "newest-first", opts) do
+    Enum.sort(threads, fn a, b ->
+      cond do
+        a.sticky == b.sticky && !opts[:ignore_sticky] -> Timex.compare(a.latest_message, b.latest_message) >= 0
+        a.sticky && !opts[:ignore_sticky] -> true
+        b.sticky && !opts[:ignore_sticky] -> false
+        true -> Timex.compare(a.latest_message, b.latest_message) >= 0
+      end
+    end)
   end
 
-  def list_unanswered_threads(forum, visible_forums, user, opts \\ []) do
-    fids =
-      if forum,
-        do: [forum.forum_id],
-        else: Enum.map(visible_forums, & &1.forum_id)
+  def apply_user_infos(threads, user, opts \\ [])
 
-    opts =
-      Keyword.merge(
-        [
-          predicate: fn query ->
-            from(
-              thread in query,
-              where:
-                fragment(
-                  """
-                  ? IN (SELECT threads.thread_id FROM threads
-                         INNER JOIN messages USING(thread_id)
-                         WHERE archived = false AND threads.deleted = false AND
-                           messages.deleted = false AND threads.forum_id = ANY(?) AND
-                           (messages.flags->>'no-answer-admin' = 'no' OR (messages.flags->>'no-answer-admin') IS NULL) AND
-                           (messages.flags->>'no-answer' = 'no' OR (messages.flags->>'no-answer') IS NULL)
-                           GROUP BY threads.thread_id HAVING COUNT(*) <= 1)
-                  """,
-                  thread.thread_id,
-                  type(^fids, {:array, :integer})
-                )
-            )
-          end,
-          sticky: nil
-        ],
-        opts
-      )
+  def apply_user_infos(%Thread{} = thread, user, opts),
+    do: Cforum.Forums.Messages.IndexHelper.set_user_attributes([thread], user, opts) |> List.first()
 
-    list_threads(forum, visible_forums, user, opts)
+  def apply_user_infos(threads, user, opts),
+    do: Cforum.Forums.Messages.IndexHelper.set_user_attributes(threads, user, opts)
+
+  def build_message_trees(threads, message_order), do: Enum.map(threads, &build_message_tree(&1, message_order))
+
+  def build_message_tree(thread, ordering) do
+    sorted_messages = Messages.sort_messages(thread.messages, ordering)
+
+    tree =
+      sorted_messages
+      |> Enum.reverse()
+      |> Enum.reduce(%{}, fn msg, map ->
+        msg = %Message{msg | messages: Map.get(map, msg.message_id, [])}
+        Map.update(map, msg.parent_id, [msg], fn msgs -> [msg | msgs] end)
+      end)
+      |> Map.get(nil)
+      |> hd
+
+    thread
+    |> Map.put(:sorted_messages, sorted_messages)
+    |> Map.put(:message, tree)
+    |> Map.put(:tree, tree)
+    |> Map.put(:accepted, Enum.filter(sorted_messages, &(&1.flags["accepted"] == "yes")))
   end
 
-  def list_archive_years(forum, visible_forums) do
+  def paged_thread_list(threads, use_paging, page, limit)
+
+  def paged_thread_list(threads, true, page, limit) do
+    {sticky, normal} =
+      Enum.reduce(threads, {[], []}, fn
+        %Thread{sticky: true} = thread, {sticky, normal} -> {[thread | sticky], normal}
+        thread, {sticky, normal} -> {sticky, [thread | normal]}
+      end)
+
+    limit = limit - length(sticky)
+
+    Enum.concat(Enum.reverse(sticky), normal |> Enum.reverse() |> Enum.slice(page * limit, limit))
+  end
+
+  def paged_thread_list(threads, false, _, _), do: threads
+
+  def reject_invisible_threads(threads, user, view_all \\ false)
+  def reject_invisible_threads(threads, _, true), do: threads
+  def reject_invisible_threads(threads, nil, _), do: threads
+
+  def reject_invisible_threads(threads, user, _) do
+    tids = Enum.map(threads, & &1.thread_id)
+
+    invisible =
+      from(iv in InvisibleThread, select: iv.thread_id, where: iv.user_id == ^user.user_id and iv.thread_id in ^tids)
+      |> Repo.all()
+
+    Enum.reject(threads, &Enum.member?(invisible, &1.thread_id))
+  end
+
+  def reject_read_threads(threads, reject)
+
+  def reject_read_threads(threads, false),
+    do: threads
+
+  def reject_read_threads(threads, _),
+    do: Enum.filter(threads, fn thread -> Enum.any?(thread.messages, &(not &1.attribs[:is_read])) end)
+
+  def filter_wo_answer(threads, filter \\ true)
+  def filter_wo_answer(threads, false), do: threads
+
+  def filter_wo_answer(threads, _),
+    do: Enum.filter(threads, &(length(&1.messages) <= 1 && Messages.open?(List.first(&1.messages))))
+
+  def ensure_found!(threads) when threads == [] or threads == nil, do: raise(Ecto.NoResultsError, queryable: Thread)
+  def ensure_found!(threads), do: threads
+
+  def list_archived_threads(forum, visible_forums, from, to, opts \\ []) do
+    opts = Keyword.merge([view_all: false, limit: 50, page: 0, order: "newest-first"], opts)
+
+    from(thread in Thread,
+      where: thread.created_at >= ^from and thread.created_at <= ^to,
+      order_by: ^valid_ordering(opts[:order]),
+      limit: ^opts[:limit],
+      offset: ^(opts[:page] * opts[:limit])
+    )
+    |> set_forum_id(visible_forums, forum)
+    |> set_view_all(opts[:view_all])
+    |> Repo.all()
+    |> Repo.preload(Thread.default_preloads())
+    |> Repo.preload(
+      messages:
+        {from(m in Message, order_by: [asc: fragment("? NULLS FIRST", m.parent_id), desc: m.created_at])
+         |> set_view_all(opts[:view_all]), Message.default_preloads()}
+    )
+  end
+
+  def list_archive_years(forum, visible_forums, opts \\ []) do
+    opts = Keyword.merge([view_all: false], opts)
+
     from(
       thread in Thread,
       select: fragment("DATE_TRUNC('year', created_at) AS year"),
@@ -180,10 +215,13 @@ defmodule Cforum.Forums.Threads do
       order_by: fragment("1 DESC")
     )
     |> set_forum_id(visible_forums, forum)
+    |> set_view_all(opts[:view_all])
     |> Repo.all()
   end
 
-  def list_archive_months(forum, visible_forums, year) do
+  def list_archive_months(forum, visible_forums, year, opts \\ []) do
+    opts = Keyword.merge([view_all: false], opts)
+
     from(
       thread in Thread,
       select: fragment("DATE_TRUNC('month', created_at) AS year"),
@@ -192,8 +230,50 @@ defmodule Cforum.Forums.Threads do
       order_by: fragment("1 DESC")
     )
     |> set_forum_id(visible_forums, forum)
+    |> set_view_all(opts[:view_all])
     |> Repo.all()
   end
+
+  def list_invisible_threads(user, visible_forums, opts \\ []) do
+    opts = Keyword.merge([page: 0, limit: 50, order: "newest-first", view_all: false], opts)
+
+    q =
+      from(thread in Thread,
+        where:
+          fragment(
+            "EXISTS(SELECT thread_id FROM invisible_threads WHERE user_id = ? AND invisible_threads.thread_id = ?)",
+            ^user.user_id,
+            thread.thread_id
+          ),
+        order_by: ^valid_ordering(opts[:order]),
+        limit: ^opts[:limit],
+        offset: ^(opts[:page] * opts[:limit])
+      )
+      |> set_forum_id(visible_forums, nil)
+      |> set_view_all(opts[:view_all])
+
+    cnt =
+      q
+      |> exclude(:select)
+      |> exclude(:order_by)
+      |> select(count("*"))
+      |> Repo.one!()
+
+    threads =
+      q
+      |> Repo.all()
+      |> Repo.preload(Thread.default_preloads())
+      |> Repo.preload(
+        messages:
+          {from(m in Message, order_by: [asc: fragment("? NULLS FIRST", m.parent_id), desc: m.created_at])
+           |> set_view_all(opts[:view_all]), Message.default_preloads()}
+      )
+
+    {cnt, threads}
+  end
+
+  defp set_view_all(q, false), do: from(m in q, where: m.deleted == false)
+  defp set_view_all(q, true), do: q
 
   defp set_forum_id(q, visible_forums, nil) do
     visible_forums = Enum.map(visible_forums, & &1.forum_id)
@@ -201,6 +281,11 @@ defmodule Cforum.Forums.Threads do
   end
 
   defp set_forum_id(q, _, forum), do: from(thread in q, where: thread.forum_id == ^forum.forum_id)
+
+  defp valid_ordering("descending"), do: [desc: :created_at]
+  defp valid_ordering("ascending"), do: [asc: :created_at]
+  # falling back to "newest-first" for all other cases
+  defp valid_ordering(_), do: [desc: :latest_message]
 
   @doc """
   Gets a single thread.
@@ -216,34 +301,38 @@ defmodule Cforum.Forums.Threads do
       ** (Ecto.NoResultsError)
 
   """
-  def get_thread!(id), do: Repo.get_by!(Thread, thread_id: id)
+  def get_thread!(id) do
+    Thread
+    |> Repo.get_by!(thread_id: id)
+    |> Repo.preload(Thread.default_preloads())
+    |> Repo.preload(
+      messages:
+        {from(m in Message, order_by: [asc: fragment("? NULLS FIRST", m.parent_id), desc: m.created_at]),
+         Message.default_preloads()}
+    )
+  end
 
-  def get_thread!(forum, visible_forums, user, id, opts \\ []) do
-    opts =
-      Keyword.merge(
-        [
-          view_all: false,
-          message_order: "ascending",
-          hide_read_threads: false,
-          only_wo_answer: false,
-          thread_modifier: nil,
-          use_paging: false
-        ],
-        opts
-      )
+  def get_thread!(forum, visible_forums, id) do
+    list_threads(forum, visible_forums)
+    |> Enum.find(&(&1.thread_id == id))
+    |> case do
+      nil ->
+        from(thread in Thread, where: thread.thread_id == ^id, order_by: [desc: :created_at])
+        |> set_forum_id(visible_forums, forum)
+        |> Repo.one()
+        |> Repo.preload(Thread.default_preloads())
+        |> Repo.preload(
+          messages:
+            {from(m in Message, order_by: [asc: fragment("? NULLS FIRST", m.parent_id), desc: m.created_at]),
+             Message.default_preloads()}
+        )
 
-    q =
-      from(thread in Thread, where: thread.thread_id == ^id)
-      |> basic_conditions(user, forum, visible_forums, opts)
-
-    ret = get_normal_threads(q, user, [desc: :created_at], 0, opts)
-
-    case ret do
-      {_, []} ->
-        raise Ecto.NoResultsError, queryable: q
-
-      {_, [thread]} ->
+      thread ->
         thread
+    end
+    |> case do
+      nil -> raise Ecto.NoResultsError, queryable: Thread
+      thread -> thread
     end
   end
 
@@ -261,32 +350,27 @@ defmodule Cforum.Forums.Threads do
       ** (Ecto.NoResultsError)
 
   """
-  def get_thread_by_slug!(forum, visible_forums, user, slug, opts \\ []) do
-    opts =
-      Keyword.merge(
-        [
-          view_all: false,
-          message_order: "ascending",
-          hide_read_threads: false,
-          only_wo_answer: false,
-          thread_modifier: nil,
-          use_paging: false
-        ],
-        opts
-      )
+  def get_thread_by_slug!(forum, visible_forums, slug) do
+    list_threads(forum, visible_forums)
+    |> Enum.find(&(&1.slug == slug))
+    |> case do
+      nil ->
+        from(thread in Thread, where: thread.slug == ^slug, order_by: [desc: :created_at])
+        |> set_forum_id(visible_forums, forum)
+        |> Repo.one()
+        |> Repo.preload(Thread.default_preloads())
+        |> Repo.preload(
+          messages:
+            {from(m in Message, order_by: [asc: fragment("? NULLS FIRST", m.parent_id), desc: m.created_at]),
+             Message.default_preloads()}
+        )
 
-    q =
-      from(thread in Thread, where: thread.slug == ^slug)
-      |> basic_conditions(user, forum, visible_forums, opts)
-
-    ret = get_normal_threads(q, user, [desc: :created_at], 0, opts)
-
-    case ret do
-      {_, []} ->
-        raise Ecto.NoResultsError, queryable: q
-
-      {_, [thread]} ->
+      thread ->
         thread
+    end
+    |> case do
+      nil -> raise Ecto.NoResultsError, queryable: Thread
+      thread -> thread
     end
   end
 
@@ -304,69 +388,37 @@ defmodule Cforum.Forums.Threads do
       ** (Ecto.NoResultsError)
 
   """
-  def get_threads_by_tid!(user, tid, opts \\ []) do
-    opts =
-      Keyword.merge(
-        [
-          view_all: false,
-          message_order: "ascending",
-          hide_read_threads: false,
-          only_wo_answer: false,
-          thread_modifier: nil,
-          use_paging: false
-        ],
-        opts
-      )
-
-    q =
-      from(thread in Thread, where: thread.tid == ^tid)
-      |> basic_conditions(user, nil, nil, opts)
-
-    ret = get_normal_threads(q, user, [desc: :created_at], 0, opts)
-
-    case ret do
-      {_, []} ->
-        raise Ecto.NoResultsError, queryable: q
-
-      {_, threads} ->
-        threads
+  def get_threads_by_tid!(tid) do
+    from(thread in Thread, where: thread.tid == ^tid, order_by: [desc: :created_at])
+    |> Repo.all()
+    |> Repo.preload(Thread.default_preloads())
+    |> Repo.preload(
+      messages:
+        {from(m in Message, order_by: [asc: fragment("? NULLS FIRST", m.parent_id), desc: m.created_at]),
+         Message.default_preloads()}
+    )
+    |> case do
+      [] -> raise Ecto.NoResultsError, queryable: Thread
+      threads -> threads
     end
   end
 
-  def get_threads_by_message_ids(user, message_ids, opts \\ []) do
-    opts =
-      Keyword.merge(
-        [
-          view_all: false,
-          message_order: "ascending",
-          hide_read_threads: false,
-          only_wo_answer: false,
-          thread_modifier: nil,
-          use_paging: false
-        ],
-        opts
-      )
-
-    q =
-      from(
-        t in Thread,
-        where:
-          t.thread_id in fragment(
-            "SELECT thread_id FROM messages WHERE message_id = ANY(?) AND deleted = false",
-            ^message_ids
-          )
-      )
-      |> basic_conditions(user, nil, nil, opts)
-
-    ret = get_normal_threads(q, user, [desc: :created_at], 0, opts)
-
-    case ret do
-      {_, []} ->
-        []
-
-      {_, threads} ->
-        threads
-    end
+  def get_threads_by_message_ids(message_ids) do
+    from(thread in Thread,
+      where:
+        thread.thread_id in fragment(
+          "SELECT thread_id FROM messages WHERE message_id = ANY(?) AND deleted = false",
+          ^message_ids
+        ),
+      order_by: [desc: :created_at]
+    )
+    |> Repo.all()
+    |> Repo.preload(Thread.default_preloads())
+    |> Repo.preload(
+      messages:
+        {from(m in Message, order_by: [asc: fragment("? NULLS FIRST", m.parent_id), desc: m.created_at]),
+         Message.default_preloads()}
+    )
   end
 
   def slug_taken?(slug) do
@@ -405,14 +457,11 @@ defmodule Cforum.Forums.Threads do
         end
       end)
 
-    case retval do
-      {:ok, {:ok, thread, message}} ->
-        {:ok, Repo.preload(thread, [:forum]), message}
-
-      _ ->
-        retval
+    with {:ok, {:ok, thread, message}} <- retval do
+      {:ok, Repo.preload(thread, [:forum]), message}
     end
     |> maybe_notify_users()
+    |> add_to_cache()
   end
 
   defp create_message(attrs, user, visible_forums, thread, opts \\ [create_tags: false]) do
@@ -588,6 +637,51 @@ defmodule Cforum.Forums.Threads do
   def flag_thread_no_archive(user, thread) do
     System.audited("flag-no-archive", user, fn ->
       flag_thread(thread, "no-archive", "yes")
+    end)
+  end
+
+  def add_to_cache({:ok, %{thread_id: tid}} = val) do
+    add_to_cache_by_tid(tid)
+    val
+  end
+
+  def add_to_cache({:ok, %{thread_id: tid}, _} = val) do
+    add_to_cache_by_tid(tid)
+    val
+  end
+
+  def add_to_cache(%{thread_id: tid} = val) do
+    add_to_cache_by_tid(tid)
+    val
+  end
+
+  def add_to_cache(val), do: val
+
+  def refresh_cached_thread(%{thread_id: tid} = val) do
+    refresh_cached_thread_by_tid(tid)
+    val
+  end
+
+  def refresh_cached_thread({:ok, %{thread_id: tid}} = val) do
+    refresh_cached_thread_by_tid(tid)
+    val
+  end
+
+  def refresh_cached_thread(v), do: v
+
+  def add_to_cache_by_tid(tid) do
+    thread = get_thread!(tid)
+    Caching.update(:cforum, :threads, &[thread | &1])
+  end
+
+  def refresh_cached_thread_by_tid(tid) do
+    thread = get_thread!(tid)
+
+    Caching.update(:cforum, :threads, fn threads ->
+      Enum.map(threads, fn
+        %Thread{thread_id: ^tid} -> thread
+        thread -> thread
+      end)
     end)
   end
 end

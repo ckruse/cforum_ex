@@ -7,19 +7,23 @@ defmodule CforumWeb.Api.V1.Messages.SubscriptionController do
   def subscribe(conn, %{"slug" => slug, "message_id" => mid, "forum" => fslug}) do
     forum = Enum.find(conn.assigns.visible_forums, &(&1.slug == fslug))
 
-    {_thread, message} =
-      Messages.get_message_from_slug_and_mid!(forum, conn.assigns.current_user, slug, mid,
-        message_order: uconf(conn, "sort_messages")
-      )
+    thread =
+      Threads.get_thread_by_slug!(forum, nil, slug)
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+
+    message = Messages.get_message_from_mid!(thread, mid)
 
     Messages.subscribe_message(conn.assigns[:current_user], message)
 
     thread =
-      Threads.get_thread_by_slug!(forum, conn.assigns.visible_forums, conn.assigns.current_user, slug,
-        message_order: uconf(conn, "sort_messages"),
+      Threads.get_thread_by_slug!(forum, nil, slug)
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.apply_user_infos(conn.assigns.current_user,
         close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
         open_close_default_state: uconf(conn, "open_close_default")
       )
+      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
 
     conn
     |> put_layout(false)
@@ -29,19 +33,23 @@ defmodule CforumWeb.Api.V1.Messages.SubscriptionController do
   def unsubscribe(conn, %{"slug" => slug, "message_id" => mid, "forum" => fslug}) do
     forum = Enum.find(conn.assigns.visible_forums, &(&1.slug == fslug))
 
-    {_thread, message} =
-      Messages.get_message_from_slug_and_mid!(forum, conn.assigns.current_user, slug, mid,
-        message_order: uconf(conn, "sort_messages")
-      )
+    thread =
+      Threads.get_thread_by_slug!(forum, nil, slug)
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+
+    message = Messages.get_message_from_mid!(thread, mid)
 
     Messages.unsubscribe_message(conn.assigns[:current_user], message)
 
     thread =
-      Threads.get_thread_by_slug!(forum, conn.assigns.visible_forums, conn.assigns.current_user, slug,
-        message_order: uconf(conn, "sort_messages"),
+      Threads.get_thread_by_slug!(forum, nil, slug)
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.apply_user_infos(conn.assigns.current_user,
         close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
         open_close_default_state: uconf(conn, "open_close_default")
       )
+      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
 
     conn
     |> put_layout(false)

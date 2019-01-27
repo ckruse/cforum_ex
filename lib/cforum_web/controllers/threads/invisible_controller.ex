@@ -12,27 +12,25 @@ defmodule CforumWeb.Threads.InvisibleController do
 
     {all_threads_count, threads} =
       Threads.list_invisible_threads(
-        conn.assigns[:current_forum],
-        conn.assigns[:visible_forums],
         user,
+        conn.assigns[:visible_forums],
         page: page,
         limit: limit,
         order: ordering,
-        sticky: nil,
-        view_all: conn.assigns[:view_all],
-        leave_out_invisible: false,
-        hide_read_threads: false,
-        only_wo_answer: conn.params["only_wo_answer"] != nil,
-        message_order: uconf(conn, "sort_messages"),
-        use_paging: uconf(conn, "page_messages") == "yes",
+        view_all: conn.assigns[:view_all]
+      )
+
+    threads =
+      threads
+      |> Threads.apply_user_infos(user,
         close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
         open_close_default_state: uconf(conn, "open_close_default")
       )
+      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
 
     p = paginate(all_threads_count, per_page: limit, page: page + 1)
 
-    conn
-    |> render("index.html", threads: threads, all_threads_count: all_threads_count, page: p)
+    render(conn, "index.html", threads: threads, all_threads_count: all_threads_count, page: p)
   end
 
   def hide(conn, params) do
@@ -40,9 +38,9 @@ defmodule CforumWeb.Threads.InvisibleController do
       Threads.get_thread_by_slug!(
         conn.assigns.current_forum,
         conn.assigns.visible_forums,
-        conn.assigns.current_user,
         Threads.slug_from_params(params)
       )
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
 
     Threads.hide_thread(conn.assigns[:current_user], thread)
 
@@ -56,9 +54,9 @@ defmodule CforumWeb.Threads.InvisibleController do
       Threads.get_thread_by_slug!(
         conn.assigns.current_forum,
         conn.assigns.visible_forums,
-        conn.assigns.current_user,
         Threads.slug_from_params(params)
       )
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
 
     Threads.unhide_thread(conn.assigns[:current_user], thread)
 

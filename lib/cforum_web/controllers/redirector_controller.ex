@@ -24,7 +24,9 @@ defmodule CforumWeb.RedirectorController do
   end
 
   def redirect_to_thread(conn, %{"year" => year, "tid" => tid}) do
-    threads = Threads.get_threads_by_tid!(conn.assigns[:current_user], tid)
+    threads =
+      Threads.get_threads_by_tid!(tid)
+      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
 
     year =
       year
@@ -67,12 +69,8 @@ defmodule CforumWeb.RedirectorController do
         message = Messages.get_message!(id)
 
         thread =
-          Threads.get_thread!(
-            conn.assigns.current_forum,
-            conn.assigns.visible_forums,
-            conn.assigns.current_user,
-            message.thread_id
-          )
+          Threads.get_thread!(conn.assigns.current_forum, conn.assigns.visible_forums, message.thread_id)
+          |> Threads.reject_deleted_threads(conn.assigns[:view_all])
 
         redirect(conn, to: Path.message_path(conn, :show, thread, message))
 

@@ -5,7 +5,7 @@ defmodule Cforum.Forums.CloseVotes do
 
   import Ecto.Query, warn: false
   alias Cforum.Repo
-  alias Cforum.Forums.{Message, Messages, CloseVote, CloseVoteVoter}
+  alias Cforum.Forums.{Threads, Message, Messages, CloseVote, CloseVoteVoter}
   alias Cforum.System
 
   @doc """
@@ -192,7 +192,12 @@ defmodule Cforum.Forums.CloseVotes do
 
   defp apply_vote_action(%CloseVote{vote_type: true} = vote, _) do
     m = Messages.get_message!(vote.message_id, view_all: true)
-    {_thread, message} = Messages.get_message_and_thread!(nil, nil, nil, m.thread_id, m.message_id, view_all: true)
+
+    thread =
+      Threads.get_thread!(m.thread_id)
+      |> Threads.build_message_tree("ascending")
+
+    message = Messages.get_message_from_mid!(thread, m.message_id)
 
     with {:ok, _} <- Messages.unflag_no_answer(nil, message, "no-answer"),
          {:ok, _} <- Messages.restore_message(nil, message),
@@ -201,14 +206,25 @@ defmodule Cforum.Forums.CloseVotes do
 
   defp apply_vote_action(vote, "close") do
     m = Messages.get_message!(vote.message_id, view_all: true)
-    {_thread, message} = Messages.get_message_and_thread!(nil, nil, nil, m.thread_id, m.message_id, view_all: true)
+
+    thread =
+      Threads.get_thread!(m.thread_id)
+      |> Threads.build_message_tree("ascending")
+
+    message = Messages.get_message_from_mid!(thread, m.message_id)
 
     Messages.flag_no_answer(nil, message, "no-answer")
   end
 
   defp apply_vote_action(vote, "hide") do
     m = Messages.get_message!(vote.message_id, view_all: true)
-    {_thread, message} = Messages.get_message_and_thread!(nil, nil, nil, m.thread_id, m.message_id, view_all: true)
+
+    thread =
+      Threads.get_thread!(m.thread_id)
+      |> Threads.build_message_tree("ascending")
+
+    message = Messages.get_message_from_mid!(thread, m.message_id)
+
     Messages.delete_message(nil, message)
   end
 
