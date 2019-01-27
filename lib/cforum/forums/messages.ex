@@ -559,8 +559,8 @@ defmodule Cforum.Forums.Messages do
       iex> preview_message(%{}, %User{}, %Thread{})
       {%Message{}, %Ecto.Changeset{}}
   """
-  def preview_message(attrs, user, thread, parent \\ nil, message \\ %Message{created_at: Timex.now()}) do
-    changeset = Message.changeset(message, attrs, user, [], thread, parent)
+  def preview_message(attrs, user, visible_forums, thread, parent \\ nil, message \\ %Message{created_at: Timex.now()}) do
+    changeset = Message.changeset(message, attrs, user, visible_forums, thread, parent)
 
     msg = %Message{
       Ecto.Changeset.apply_changes(changeset)

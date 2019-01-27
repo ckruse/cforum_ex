@@ -536,7 +536,7 @@ defmodule Cforum.Forums.Threads do
       |> Thread.changeset(attrs, forum, visible_forums)
 
     thread = Ecto.Changeset.apply_changes(changeset)
-    {message, msg_changeset} = Messages.preview_message(attrs, user, thread)
+    {message, msg_changeset} = Messages.preview_message(attrs, user, visible_forums, thread)
 
     forum = Enum.find(visible_forums, &(&1.forum_id == message.forum_id))
 
