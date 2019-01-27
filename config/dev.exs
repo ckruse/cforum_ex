@@ -56,12 +56,12 @@ config :cforum,
   base_url: "http://localhost:4000/",
   environment: Mix.env(),
   search_dict: "german",
-  uploads_dir: "/home/ckruse/sites/cforum_elixir/priv/uploads",
-  media_dir: "/home/ckruse/sites/cforum_elixir/priv/uploads/pictures",
-  avatar_dir: "/home/ckruse/sites/cforum_elixir/priv/uploads/users/avatars",
+  uploads_dir: Path.expand("../priv/uploads", __DIR__),
+  media_dir: Path.expand("../priv/uploads/pictures", __DIR__),
+  avatar_dir: Path.expand("../priv/uploads/users/avatars", __DIR__),
   avatar_url: "/uploads/users/avatars",
   convert: "/usr/bin/convert",
   cfmarkdown: [
     cli: "./node_modules/.bin/babel-node ./bin/cfmarkdown2html.js",
-    pwd: "/home/ckruse/dev/cfmarkdown"
+    pwd: Path.expand("~/dev/cfmarkdown")
   ]
