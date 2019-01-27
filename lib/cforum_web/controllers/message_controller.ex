@@ -43,28 +43,31 @@ defmodule CforumWeb.MessageController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"message" => message_params} = params) do
-    if Map.has_key?(params, "preview"),
-      do: show_preview(conn, message_params, conn.assigns.thread),
-      else: create_message(conn, message_params, conn.assigns.thread)
-  end
+  def create(conn, %{"message" => message_params, "preview" => _}) do
+    {message, changeset} =
+      Messages.preview_message(
+        message_params,
+        conn.assigns[:current_user],
+        conn.assigns[:visible_forums],
+        conn.assigns.thread,
+        conn.assigns.parent
+      )
 
-  defp show_preview(conn, params, thread) do
-    {message, changeset} = Messages.preview_message(params, conn.assigns[:current_user], thread, conn.assigns.parent)
     render(conn, "new.html", message: message, changeset: changeset, preview: true)
   end
 
-  defp create_message(conn, params, thread) do
+  def create(conn, %{"message" => message_params}) do
     cu = conn.assigns[:current_user]
     vis_forums = conn.assigns.visible_forums
     parent = conn.assigns.parent
+    thread = conn.assigns.thread
 
     opts = [
       create_tags: may?(conn, "tag", :new),
       autosubscribe: Messages.autosubscribe?(cu, uconf(conn, "autosubscribe_on_post"))
     ]
 
-    case Messages.create_message(params, cu, vis_forums, thread, parent, opts) do
+    case Messages.create_message(message_params, cu, vis_forums, thread, parent, opts) do
       {:ok, message} ->
         conn
         |> put_flash(:info, gettext("Message created successfully."))
@@ -86,6 +89,7 @@ defmodule CforumWeb.MessageController do
         Messages.preview_message(
           message_params,
           conn.assigns[:current_user],
+          conn.assigns[:visible_forums],
           conn.assigns.thread,
           nil,
           conn.assigns.message

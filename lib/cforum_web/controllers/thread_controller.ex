@@ -118,16 +118,10 @@ defmodule CforumWeb.ThreadController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"message" => message_params} = params) do
-    if Map.has_key?(params, "preview"),
-      do: show_preview(conn, message_params),
-      else: create_thread(conn, message_params)
-  end
-
-  def show_preview(conn, params) do
+  def create(conn, %{"message" => message_params, "preview" => _}) do
     {thread, message, changeset} =
       Threads.preview_thread(
-        params,
+        message_params,
         conn.assigns[:current_user],
         conn.assigns[:current_forum],
         conn.assigns[:visible_forums]
@@ -136,10 +130,10 @@ defmodule CforumWeb.ThreadController do
     render(conn, "new.html", thread: thread, message: message, changeset: changeset, preview: true)
   end
 
-  def create_thread(conn, params) do
+  def create(conn, %{"message" => message_params}) do
     create_val =
       Threads.create_thread(
-        params,
+        message_params,
         conn.assigns[:current_user],
         conn.assigns[:current_forum],
         conn.assigns[:visible_forums],
