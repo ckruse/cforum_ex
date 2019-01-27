@@ -56,14 +56,13 @@ defmodule CforumWeb.Messages.OpenCloseVoteController do
   end
 
   def load_resource(conn) do
-    {thread, message} =
-      Messages.get_message_from_slug_and_mid!(
-        conn.assigns[:current_forum],
-        conn.assigns[:current_user],
-        Threads.slug_from_params(conn.params),
-        conn.params["mid"],
-        message_order: uconf(conn, "sort_messages")
-      )
+    thread =
+      Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, Threads.slug_from_params(conn.params))
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:read, :subscriptions, :interesting])
+      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+
+    message = Messages.get_message_from_mid!(thread, conn.params["mid"])
 
     vote =
       if conn.params["id"] do

@@ -15,12 +15,8 @@ defmodule CforumWeb.Plug.ShortcutPlug do
         message = Messages.get_message!(id)
 
         thread =
-          Threads.get_thread!(
-            conn.assigns.current_forum,
-            conn.assigns.visible_forums,
-            conn.assigns.current_user,
-            message.thread_id
-          )
+          Threads.get_thread!(conn.assigns.current_forum, conn.assigns.visible_forums, message.thread_id)
+          |> Threads.reject_deleted_threads(conn.assigns[:view_all])
 
         conn
         |> Phoenix.Controller.redirect(to: Path.message_path(conn, :show, thread, message))

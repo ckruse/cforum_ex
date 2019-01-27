@@ -19,15 +19,16 @@ defmodule Cforum.Forums.Messages do
   alias Cforum.Accounts.Notifications
 
   alias Cforum.System
+  alias Cforum.Caching
 
-  alias Cforum.Forums.Threads
+  alias Cforum.Forums.{Thread, Threads}
   alias Cforum.Forums.MessageIndexerJob
   alias Cforum.Forums.ReadMessage
 
   alias Cforum.Helpers.CompositionHelpers
 
-  def list_messages(user, message_ids, opts \\ []) do
-    threads = Threads.get_threads_by_message_ids(user, message_ids, opts)
+  def list_messages(message_ids) do
+    threads = Threads.get_threads_by_message_ids(message_ids)
 
     threads
     |> Enum.map(fn thread ->
@@ -346,8 +347,10 @@ defmodule Cforum.Forums.Messages do
       ** (Ecto.NoResultsError)
 
   """
-  def get_message_and_thread!(forum, visible_forums, user, thread_id, message_id, opts \\ []) do
-    thread = Threads.get_thread!(forum, visible_forums, user, thread_id, opts)
+  def get_message_and_thread!(forum, visible_forums, thread_id, message_id, opts \\ []) do
+    thread =
+      Threads.get_thread!(forum, visible_forums, thread_id)
+      |> Threads.reject_deleted_threads(opts[:view_all])
 
     case find_message(thread, &(&1.message_id == message_id)) do
       nil ->
@@ -356,6 +359,19 @@ defmodule Cforum.Forums.Messages do
       msg ->
         {thread, msg}
     end
+  end
+
+  @doc """
+  sort messages either ascending or descending
+  """
+  def sort_messages(messages, direction) do
+    Enum.sort(messages, fn a, b ->
+      cond do
+        a.parent_id == b.parent_id && direction == "ascending" -> Timex.compare(a.created_at, b.created_at) <= 0
+        a.parent_id == b.parent_id && direction == "descending" -> Timex.compare(a.created_at, b.created_at) >= 0
+        true -> Cforum.Helpers.to_int(a.parent_id) <= Cforum.Helpers.to_int(b.parent_id)
+      end
+    end)
   end
 
   @doc """
@@ -375,18 +391,17 @@ defmodule Cforum.Forums.Messages do
   """
   def find_message(list_of_messages_or_thread, fun)
   def find_message(%Cforum.Forums.Thread{tree: %Message{}} = thread, fun), do: find_message([thread.tree], fun)
+  def find_message(%Cforum.Forums.Thread{messages: messages}, fun), do: find_message(messages, fun)
   def find_message([], _), do: nil
+  def find_message(nil, _), do: nil
 
   def find_message([msg | tail], fun) do
     if fun.(msg) do
       msg
     else
       case find_message(msg.messages, fun) do
-        nil ->
-          find_message(tail, fun)
-
-        msg ->
-          msg
+        nil -> find_message(tail, fun)
+        msg -> msg
       end
     end
   end
@@ -397,29 +412,21 @@ defmodule Cforum.Forums.Messages do
 
   ## Examples
 
-      iex> get_message_from_slug_and_mid!(%Forum{}, %User{}, "2009/08/25/foo-bar", 222)
+      iex> get_message_from_mid!(%Forum{}, %User{}, "2009/08/25/foo-bar", 222)
       {%Thread{}, %Message{}}
 
-      iex> get_message_from_slug_and_mid!(%Forum{}, %User{}, "2009/08/32/foo-bar", 222)
+      iex> get_message_from_mid!(%Forum{}, %User{}, "2009/08/32/foo-bar", 222)
       ** (Ecto.NoResultsError)
   """
-  def get_message_from_slug_and_mid!(forum, user, slug, mid, opts \\ [])
+  def get_message_from_mid!(thread, mid)
 
-  def get_message_from_slug_and_mid!(forum, user, slug, mid, opts) when is_bitstring(mid),
-    do: get_message_from_slug_and_mid!(forum, user, slug, String.to_integer(mid, 10), opts)
+  def get_message_from_mid!(thread, mid) when is_bitstring(mid),
+    do: get_message_from_mid!(thread, String.to_integer(mid, 10))
 
-  def get_message_from_slug_and_mid!(forum, user, slug, mid, opts) do
-    thread = Threads.get_thread_by_slug!(forum, nil, user, slug, opts)
-
-    if forum == nil || thread.forum_id != forum.forum_id,
-      do: raise(Ecto.NoResultsError, queryable: Message)
-
+  def get_message_from_mid!(%Thread{} = thread, mid) do
     case find_message(thread, &(&1.message_id == mid)) do
-      nil ->
-        raise Ecto.NoResultsError, queryable: Message
-
-      msg ->
-        {thread, msg}
+      nil -> raise Ecto.NoResultsError, queryable: Message
+      msg -> msg
     end
   end
 
@@ -464,6 +471,7 @@ defmodule Cforum.Forums.Messages do
     |> maybe_notify_users(thread)
     |> maybe_autosubscribe(opts[:autosubscribe], user, thread, parent)
     |> index_message(thread)
+    |> Threads.refresh_cached_thread()
   end
 
   defp may_user_post_with_name?(_, nil), do: true
@@ -579,6 +587,7 @@ defmodule Cforum.Forums.Messages do
     message
     |> Message.new_or_update_changeset(attrs, user, visible_forums, opts)
     |> Repo.update()
+    |> update_cached_message()
   end
 
   @doc """
@@ -600,7 +609,10 @@ defmodule Cforum.Forums.Messages do
         |> Ecto.Changeset.change(deleted: true)
         |> Repo.update!()
 
-      Enum.each(message.messages, &delete_message(user, &1))
+      Enum.each(message.messages, fn msg ->
+        delete_message(user, msg)
+        |> update_cached_message(&%Message{&1 | deleted: true})
+      end)
 
       {:ok, new_message}
     end)
@@ -625,7 +637,10 @@ defmodule Cforum.Forums.Messages do
         |> Ecto.Changeset.change(deleted: false)
         |> Repo.update!()
 
-      Enum.each(message.messages, &restore_message(user, &1))
+      Enum.each(message.messages, fn msg ->
+        restore_message(user, msg)
+        |> update_cached_message(&%Message{&1 | deleted: false})
+      end)
 
       {:ok, new_message}
     end)
@@ -970,6 +985,7 @@ defmodule Cforum.Forums.Messages do
       |> Repo.update_all([])
 
     MessageIndexerJob.rescore_message(message)
+    update_cached_message(message, fn msg -> %Message{msg | downvotes: msg.downvotes + by} end)
 
     ret
   end
@@ -994,6 +1010,7 @@ defmodule Cforum.Forums.Messages do
       |> Repo.update_all([])
 
     MessageIndexerJob.rescore_message(message)
+    update_cached_message(message, fn msg -> %Message{msg | upvotes: msg.upvotes + by} end)
 
     ret
   end
@@ -1016,9 +1033,11 @@ defmodule Cforum.Forums.Messages do
 
   def accept_message(message, user, points) do
     Repo.transaction(fn ->
-      message
-      |> Ecto.Changeset.change(flags: Map.put(message.flags, "accepted", "yes"))
-      |> Repo.update!()
+      Message
+      |> where(message_id: ^message.message_id)
+      |> Repo.update_all(set: [flags: Map.put(message.flags, "accepted", "yes")])
+
+      update_cached_message(message, &%Message{&1 | flags: Map.put(&1.flags, "accepted", "yes")})
 
       case maybe_give_accept_score(message, user, points) do
         nil ->
@@ -1056,10 +1075,13 @@ defmodule Cforum.Forums.Messages do
   """
   def unaccept_message(message, user) do
     Repo.transaction(fn ->
-      message =
-        message
-        |> Ecto.Changeset.change(flags: Map.delete(message.flags, "accepted"))
-        |> Repo.update!()
+      message = %Message{message | flags: Map.delete(message.flags, "accepted")}
+
+      Message
+      |> where(message_id: ^message.message_id)
+      |> Repo.update_all(set: [flags: message.flags])
+
+      update_cached_message(message, &%Message{&1 | flags: Map.delete(&1.flags, "accepted")})
 
       case maybe_take_accept_score(message, user) do
         nil ->
@@ -1156,6 +1178,7 @@ defmodule Cforum.Forums.Messages do
     System.audited("flag-no-answer", user, fn ->
       flag_message_subtree(message, type, "yes")
     end)
+    |> Threads.refresh_cached_thread()
   end
 
   @doc """
@@ -1174,6 +1197,7 @@ defmodule Cforum.Forums.Messages do
     System.audited("unflag-no-answer", user, fn ->
       unflag_message_subtree(message, type)
     end)
+    |> Threads.refresh_cached_thread()
   end
 
   @doc """
@@ -1217,6 +1241,8 @@ defmodule Cforum.Forums.Messages do
       true
   """
   def closed?(message), do: message.deleted || no_answer?(message)
+
+  def open?(message), do: not closed?(message)
 
   @doc """
   Returns the score of a message
@@ -1269,4 +1295,71 @@ defmodule Cforum.Forums.Messages do
   def autosubscribe?(user, config_value)
   def autosubscribe?(user, val) when is_nil(user) or val == "no", do: false
   def autosubscribe?(_, val), do: val
+
+  def update_cached_message({:ok, %{message_id: mid}} = val) do
+    update_cached_message_by_mid(mid)
+    val
+  end
+
+  def update_cached_message(%{message_id: mid} = val) do
+    update_cached_message_by_mid(mid)
+    val
+  end
+
+  def update_cached_message(val), do: val
+
+  def update_cached_message({:ok, %{thread_id: tid, message_id: mid}} = val, fun) do
+    update_cached_message_by_tid_and_mid(tid, mid, fun)
+    val
+  end
+
+  def update_cached_message(%{thread_id: tid, message_id: mid} = val, fun) do
+    update_cached_message_by_tid_and_mid(tid, mid, fun)
+    val
+  end
+
+  def update_cached_message_by_mid(mid) do
+    msg = get_message!(mid, view_all: true)
+    tid = msg.thread_id
+
+    Caching.update(:cforum, :threads, fn threads ->
+      threads
+      |> Enum.map(fn
+        %Thread{thread_id: ^tid} = thread -> replace_message(thread, msg)
+        thread -> thread
+      end)
+    end)
+  end
+
+  defp replace_message(%Thread{messages: messages} = thread, %Message{message_id: mid} = msg) do
+    messages =
+      messages
+      |> Enum.map(fn
+        %Message{message_id: ^mid} -> msg
+        message -> message
+      end)
+
+    %Thread{thread | messages: messages}
+  end
+
+  def update_cached_message_by_tid_and_mid(tid, mid, fun) do
+    Caching.update(:cforum, :threads, fn threads ->
+      threads
+      |> Enum.map(fn
+        %Thread{thread_id: ^tid} = thread -> replace_message(thread, mid, fun)
+        thread -> thread
+      end)
+    end)
+  end
+
+  defp replace_message(%Thread{messages: messages} = thread, mid, fun) do
+    messages =
+      messages
+      |> Enum.map(fn
+        %Message{message_id: ^mid} = msg -> fun.(msg)
+        msg -> msg
+      end)
+
+    %Thread{thread | messages: messages}
+  end
 end

@@ -174,6 +174,7 @@ defmodule Cforum.Forums.Votes do
       Messages.score_up_message(message)
 
       {:ok, vote} = create_vote(%{message_id: message.message_id, user_id: user.user_id, vtype: "upvote"})
+      Messages.update_cached_message(message, &%Message{&1 | votes: [vote | &1.votes]})
 
       if present?(message.user_id) do
         {:ok, _score} = Scores.create_score(%{vote_id: vote.vote_id, user_id: message.user_id, value: points})
@@ -188,6 +189,7 @@ defmodule Cforum.Forums.Votes do
 
       {:ok, vote} = create_vote(%{message_id: message.message_id, user_id: user.user_id, vtype: "downvote"})
       {:ok, _score} = Scores.create_score(%{vote_id: vote.vote_id, user_id: user.user_id, value: points})
+      Messages.update_cached_message(message, &%Message{&1 | votes: [vote | &1.votes]})
 
       if present?(message.user_id) do
         {:ok, _score} = Scores.create_score(%{vote_id: vote.vote_id, user_id: message.user_id, value: points})
@@ -206,7 +208,14 @@ defmodule Cforum.Forums.Votes do
           else: Messages.score_down_message(message, -1)
 
         Scores.delete_scores_by_vote_id(user, vote.vote_id)
-        delete_vote(vote)
+
+        with {:ok, vote} <- delete_vote(vote) do
+          Messages.update_cached_message(message, fn msg ->
+            %Message{msg | votes: Enum.reject(msg.votes, &(&1.vote_id == vote.vote_id))}
+          end)
+
+          {:ok, vote}
+        end
     end
   end
 end

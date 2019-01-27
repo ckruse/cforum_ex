@@ -276,21 +276,26 @@ defmodule Cforum.Forums.ModerationQueue do
   end
 
   defp apply_resolution_action("close", user, message) do
-    {_, message} =
-      Messages.get_message_and_thread!(nil, nil, user, message.thread_id, message.message_id, view_all: true)
+    thread =
+      Threads.get_thread!(message.thread_id)
+      |> Threads.build_message_tree("ascending")
+
+    message = Messages.get_message_from_mid!(thread, message.message_id)
 
     {:ok, _msg} = Messages.flag_no_answer(user, message, "no-answer")
   end
 
   defp apply_resolution_action("delete", user, message) do
-    {_, message} =
-      Messages.get_message_and_thread!(nil, nil, user, message.thread_id, message.message_id, view_all: true)
+    thread =
+      Threads.get_thread!(message.thread_id)
+      |> Threads.build_message_tree("ascending")
 
+    message = Messages.get_message_from_mid!(thread, message.message_id)
     {:ok, _msg} = Messages.delete_message(user, message)
   end
 
   defp apply_resolution_action("no-archive", user, message) do
-    thread = Threads.get_thread!(nil, nil, user, message.thread_id, view_all: true)
+    thread = Threads.get_thread!(message.thread_id)
     {:ok, _thread} = Threads.flag_thread_no_archive(user, thread)
   end
 

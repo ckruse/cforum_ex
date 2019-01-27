@@ -242,9 +242,11 @@ defmodule Cforum.Accounts.Users do
   def update_last_visit(%User{} = user) do
     t = Timex.now()
 
-    with {1, v} <-
-           from(user in User, where: user.user_id == ^user.user_id)
-           |> Repo.update_all(set: [last_visit: t]) do
+    retval =
+      from(user in User, where: user.user_id == ^user.user_id)
+      |> Repo.update_all(set: [last_visit: t])
+
+    with {1, v} <- retval do
       Caching.update(:cforum, "users/#{user.user_id}", &{:commit, %User{&1 | last_visit: t}})
 
       {1, v}

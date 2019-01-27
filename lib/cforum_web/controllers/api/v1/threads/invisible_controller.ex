@@ -5,12 +5,8 @@ defmodule CforumWeb.Api.V1.Threads.InvisibleController do
 
   def hide(conn, %{"slug" => slug}) do
     thread =
-      Threads.get_thread_by_slug!(
-        conn.assigns.current_forum,
-        conn.assigns.visible_forums,
-        conn.assigns.current_user,
-        slug
-      )
+      Threads.get_thread_by_slug!(conn.assigns.current_forum, conn.assigns.visible_forums, slug)
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
 
     Threads.hide_thread(conn.assigns[:current_user], thread)
 
@@ -19,12 +15,8 @@ defmodule CforumWeb.Api.V1.Threads.InvisibleController do
 
   def unhide(conn, %{"slug" => slug}) do
     thread =
-      Threads.get_thread_by_slug!(
-        conn.assigns.current_forum,
-        conn.assigns.visible_forums,
-        conn.assigns.current_user,
-        slug
-      )
+      Threads.get_thread_by_slug!(conn.assigns.current_forum, conn.assigns.visible_forums, slug)
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
 
     Threads.unhide_thread(conn.assigns[:current_user], thread)
 

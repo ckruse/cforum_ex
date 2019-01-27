@@ -21,6 +21,11 @@ defmodule Cforum.Accounts.Settings do
     {:ok, settings}
   end
 
+  def discard_settings_cache({:ok, %User{user_id: id} = user}) when not is_nil(id) do
+    Cforum.Caching.del(:cforum, "settings/user/#{id}")
+    {:ok, user}
+  end
+
   def discard_settings_cache({:ok, %Setting{} = settings}) do
     Cforum.Caching.del(:cforum, "settings/global")
     {:ok, settings}

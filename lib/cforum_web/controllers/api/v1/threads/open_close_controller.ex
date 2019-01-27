@@ -5,25 +5,19 @@ defmodule CforumWeb.Api.V1.Threads.OpenCloseController do
 
   def open(conn, %{"slug" => slug}) do
     thread =
-      Threads.get_thread_by_slug!(
-        conn.assigns.current_forum,
-        conn.assigns.visible_forums,
-        conn.assigns.current_user,
-        slug
-      )
+      Threads.get_thread_by_slug!(conn.assigns.current_forum, conn.assigns.visible_forums, slug)
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
 
     Threads.open_thread(conn.assigns[:current_user], thread)
 
     thread =
-      Threads.get_thread_by_slug!(
-        conn.assigns.current_forum,
-        conn.assigns.visible_forums,
-        conn.assigns.current_user,
-        slug,
-        message_order: uconf(conn, "sort_messages"),
+      Threads.get_thread_by_slug!(conn.assigns.current_forum, conn.assigns.visible_forums, slug)
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.apply_user_infos(conn.assigns.current_user,
         close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
         open_close_default_state: uconf(conn, "open_close_default")
       )
+      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
 
     conn
     |> put_layout(false)
@@ -32,25 +26,19 @@ defmodule CforumWeb.Api.V1.Threads.OpenCloseController do
 
   def close(conn, %{"slug" => slug}) do
     thread =
-      Threads.get_thread_by_slug!(
-        conn.assigns.current_forum,
-        conn.assigns.visible_forums,
-        conn.assigns.current_user,
-        slug
-      )
+      Threads.get_thread_by_slug!(conn.assigns.current_forum, conn.assigns.visible_forums, slug)
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
 
     Threads.close_thread(conn.assigns[:current_user], thread)
 
     thread =
-      Threads.get_thread_by_slug!(
-        conn.assigns.current_forum,
-        conn.assigns.visible_forums,
-        conn.assigns.current_user,
-        slug,
-        message_order: uconf(conn, "sort_messages"),
+      Threads.get_thread_by_slug!(conn.assigns.current_forum, conn.assigns.visible_forums, slug)
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.apply_user_infos(conn.assigns.current_user,
         close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
         open_close_default_state: uconf(conn, "open_close_default")
       )
+      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
 
     conn
     |> put_layout(false)

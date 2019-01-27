@@ -183,7 +183,7 @@ defmodule Cforum.Forums.ModerationQueueTest do
       assert {:ok, %ModerationQueueEntry{cleared: true}} =
                ModerationQueue.resolve_entry(u, entry, %{"resolution" => "foobar", "resolution_action" => "close"})
 
-      thread = Threads.get_thread!(nil, nil, nil, m.thread_id)
+      thread = Threads.get_thread!(m.thread_id)
       assert length(Enum.filter(thread.messages, &(&1.flags["no-answer"] == "yes"))) == 2
     end
 
@@ -191,14 +191,18 @@ defmodule Cforum.Forums.ModerationQueueTest do
       assert {:ok, %ModerationQueueEntry{cleared: true}} =
                ModerationQueue.resolve_entry(u, entry, %{"resolution" => "foobar", "resolution_action" => "delete"})
 
-      assert_raise Ecto.NoResultsError, fn -> Threads.get_thread!(nil, nil, nil, m.thread_id) end
+      assert_raise Ecto.NoResultsError, fn ->
+        Threads.get_thread!(m.thread_id)
+        |> Threads.reject_deleted_threads()
+        |> Threads.ensure_found!()
+      end
     end
 
     test "resolve_entry/3 resolves an entry and sets thread to no-archive", %{entry: entry, user: u, message: m} do
       assert {:ok, %ModerationQueueEntry{cleared: true}} =
                ModerationQueue.resolve_entry(u, entry, %{"resolution" => "foobar", "resolution_action" => "no-archive"})
 
-      thread = Threads.get_thread!(nil, nil, nil, m.thread_id)
+      thread = Threads.get_thread!(m.thread_id)
       assert thread.flags["no-archive"] == "yes"
     end
   end

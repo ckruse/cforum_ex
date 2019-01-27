@@ -6,7 +6,7 @@ defmodule CforumWeb.UsersChannel do
   def join("users:lobby", _payload, socket), do: {:ok, socket}
 
   def join("users:" <> user_id, _payload, socket) do
-    if authorized?(socket.assigns.current_user, String.to_integer(user_id)),
+    if authorized?(socket.assigns[:current_user], String.to_integer(user_id)),
       do: {:ok, socket},
       else: {:error, %{reason: "unauthorized"}}
   end

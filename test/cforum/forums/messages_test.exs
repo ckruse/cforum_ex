@@ -172,7 +172,7 @@ defmodule Cforum.Forums.MessagesTest do
     end
 
     test "get_message_and_thread!/5 returns a message and a thread", %{thread: t, message: m} do
-      assert {thread, message} = Messages.get_message_and_thread!(nil, nil, nil, t.thread_id, m.message_id)
+      assert {thread, message} = Messages.get_message_and_thread!(nil, nil, t.thread_id, m.message_id)
       assert thread.thread_id == t.thread_id
       assert message.message_id == m.message_id
     end
@@ -183,13 +183,13 @@ defmodule Cforum.Forums.MessagesTest do
       |> Repo.update!()
 
       assert_raise Ecto.NoResultsError, fn ->
-        Messages.get_message_and_thread!(nil, nil, nil, t.thread_id, m.message_id)
+        Messages.get_message_and_thread!(nil, nil, t.thread_id, m.message_id)
       end
     end
 
     test "get_message_and_thread!/5 raises Ecto.NoResultsError when message doesn't exist", %{thread: t} do
       assert_raise Ecto.NoResultsError, fn ->
-        Messages.get_message_and_thread!(nil, nil, nil, t.thread_id, -1)
+        Messages.get_message_and_thread!(nil, nil, t.thread_id, -1)
       end
     end
 
@@ -201,68 +201,35 @@ defmodule Cforum.Forums.MessagesTest do
       |> Ecto.Changeset.change(deleted: true)
       |> Repo.update!()
 
-      assert {thread, message} =
-               Messages.get_message_and_thread!(nil, nil, nil, t.thread_id, m.message_id, view_all: true)
+      assert {thread, message} = Messages.get_message_and_thread!(nil, nil, t.thread_id, m.message_id, view_all: true)
 
       assert thread.thread_id == t.thread_id
       assert message.message_id == m.message_id
     end
 
-    test "get_message_from_slug_and_mid!/4 returns the message with the given slug & mid", %{
-      user: user,
-      forum: forum,
-      thread: thread,
-      message: message
-    } do
-      thread_and_message = Messages.get_message_from_slug_and_mid!(forum, user, thread.slug, message.message_id)
-      assert {%Thread{}, %Message{} = message1} = thread_and_message
-      assert message1.message_id == message.message_id
-    end
-
-    test "get_message_from_slug_and_mid!/4 raises when forum is nil", %{
-      user: user,
-      thread: thread,
-      message: message
-    } do
-      assert_raise Ecto.NoResultsError, fn ->
-        Messages.get_message_from_slug_and_mid!(nil, user, thread.slug, message.message_id)
-      end
-    end
-
-    test "get_message_from_slug_and_mid!/4 raises when forum is wrong", %{
-      user: user,
-      thread: thread,
-      message: message
-    } do
-      f = insert(:public_forum)
-
-      assert_raise Ecto.NoResultsError, fn ->
-        Messages.get_message_from_slug_and_mid!(f, user, thread.slug, message.message_id)
-      end
-    end
-
-    test "get_message_from_slug_and_mid!/4 raises when message could not be found", %{
-      user: user,
-      forum: forum,
-      thread: thread
-    } do
-      assert_raise Ecto.NoResultsError, fn -> Messages.get_message_from_slug_and_mid!(forum, user, thread.slug, -1) end
-    end
-
     test "find_message/2 finds a message", %{thread: t, message: m} do
-      thread = Threads.get_thread!(nil, nil, nil, t.thread_id)
+      thread =
+        Threads.get_thread!(t.thread_id)
+        |> Threads.build_message_tree("ascending")
+
       found_message = Messages.find_message(thread, &(&1.message_id == m.message_id))
       assert %Message{} = found_message
       assert found_message.message_id == m.message_id
     end
 
     test "find_message/2 returns nil when message could not be found", %{thread: t} do
-      thread = Threads.get_thread!(nil, nil, nil, t.thread_id)
+      thread =
+        Threads.get_thread!(t.thread_id)
+        |> Threads.build_message_tree("ascending")
+
       assert Messages.find_message(thread, fn _ -> false end) == nil
     end
 
     test "find_message/2 finds a message in a message list", %{thread: t, message: m} do
-      thread = Threads.get_thread!(nil, nil, nil, t.thread_id)
+      thread =
+        Threads.get_thread!(t.thread_id)
+        |> Threads.build_message_tree("ascending")
+
       found_message = Messages.find_message([thread.tree], &(&1.message_id == m.message_id))
       assert %Message{} = found_message
       assert found_message.message_id == m.message_id
@@ -270,7 +237,11 @@ defmodule Cforum.Forums.MessagesTest do
 
     test "find_message/2 finds a message in a deeper level", %{forum: f, thread: t, message: m} do
       message = insert(:message, parent_id: m.message_id, thread: t, forum: f)
-      thread = Threads.get_thread!(nil, nil, nil, t.thread_id)
+
+      thread =
+        Threads.get_thread!(t.thread_id)
+        |> Threads.build_message_tree("ascending")
+
       found_message = Messages.find_message(thread, &(&1.message_id == message.message_id))
       assert %Message{} = found_message
       assert found_message.message_id == message.message_id
@@ -382,7 +353,12 @@ defmodule Cforum.Forums.MessagesTest do
   # TODO test update_message()
 
   test "delete_message/1 marks the message as deleted", %{message: message} do
-    {_thread, msg} = Messages.get_message_and_thread!(nil, nil, nil, message.thread_id, message.message_id)
+    thread =
+      Threads.get_thread!(message.thread_id)
+      |> Threads.build_message_tree("ascending")
+
+    msg = Messages.get_message_from_mid!(thread, message.message_id)
+
     assert {:ok, %Message{}} = Messages.delete_message(nil, msg)
     assert_raise Ecto.NoResultsError, fn -> Messages.get_message!(message.message_id) end
     assert %Message{} = Messages.get_message!(message.message_id, view_all: true)
@@ -454,7 +430,12 @@ defmodule Cforum.Forums.MessagesTest do
     } do
       message = insert(:message, parent_id: m.message_id, thread: t, forum: f)
       assert {:ok, %Subscription{}} = Messages.subscribe_message(u, m)
-      thread = Threads.get_thread!(nil, nil, u, t.thread_id)
+
+      thread =
+        Threads.get_thread!(t.thread_id)
+        |> Threads.apply_user_infos(u)
+        |> Threads.build_message_tree("ascending")
+
       assert Messages.parent_subscribed?(thread, message) == true
     end
 
@@ -465,7 +446,12 @@ defmodule Cforum.Forums.MessagesTest do
       user: u
     } do
       message = insert(:message, parent_id: m.message_id, thread: t, forum: f)
-      thread = Threads.get_thread!(nil, nil, u, t.thread_id)
+
+      thread =
+        Threads.get_thread!(t.thread_id)
+        |> Threads.apply_user_infos(u)
+        |> Threads.build_message_tree("ascending")
+
       assert Messages.parent_subscribed?(thread, message) == false
     end
   end
@@ -505,7 +491,11 @@ defmodule Cforum.Forums.MessagesTest do
 
     test "parent_message/2 returns the parent message", %{thread: t, message: m, forum: f} do
       message = insert(:message, parent_id: m.message_id, thread: t, forum: f)
-      thread = Threads.get_thread!(nil, nil, nil, t.thread_id)
+
+      thread =
+        Threads.get_thread!(t.thread_id)
+        |> Threads.build_message_tree("ascending")
+
       found_message = Messages.parent_message(thread, message)
       assert %Message{} = found_message
       assert found_message.message_id == m.message_id
@@ -594,21 +584,39 @@ defmodule Cforum.Forums.MessagesTest do
   describe "flag messages" do
     setup %{message: m, thread: t, forum: f} do
       m1 = insert(:message, parent_id: m.message_id, thread: t, forum: f)
-      {thread, message} = Messages.get_message_and_thread!(nil, nil, nil, t.thread_id, m.message_id)
+      {thread, message} = Messages.get_message_and_thread!(nil, nil, t.thread_id, m.message_id)
 
       {:ok, message1: m1, message: message, thread: thread}
     end
 
     test "it flags a message and its children", %{message: m} do
-      assert {:ok, %Message{}} = Messages.flag_message_subtree(m, "foo", "bar")
-      thread = Threads.get_thread!(nil, nil, nil, m.thread_id)
+      thread =
+        Threads.get_thread!(m.thread_id)
+        |> Threads.build_message_tree("ascending")
+
+      message = Messages.get_message_from_mid!(thread, m.message_id)
+      assert {:ok, %Message{}} = Messages.flag_message_subtree(message, "foo", "bar")
+
+      thread =
+        Threads.get_thread!(m.thread_id)
+        |> Threads.build_message_tree("ascending")
+
       assert thread.tree.flags["foo"] == "bar"
       assert List.first(thread.tree.messages).flags["foo"] == "bar"
     end
 
     test "it flags a message and its children as no-answer", %{user: u, message: m} do
-      assert {:ok, %Message{}} = Messages.flag_no_answer(u, m, "no-answer")
-      thread = Threads.get_thread!(nil, nil, nil, m.thread_id)
+      thread =
+        Threads.get_thread!(m.thread_id)
+        |> Threads.build_message_tree("ascending")
+
+      message = Messages.get_message_from_mid!(thread, m.message_id)
+      assert {:ok, %Message{}} = Messages.flag_no_answer(u, message, "no-answer")
+
+      thread =
+        Threads.get_thread!(m.thread_id)
+        |> Threads.build_message_tree("ascending")
+
       assert thread.tree.flags["no-answer"] == "yes"
       assert List.first(thread.tree.messages).flags["no-answer"] == "yes"
     end

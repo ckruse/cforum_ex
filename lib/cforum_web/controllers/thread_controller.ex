@@ -10,23 +10,24 @@ defmodule CforumWeb.ThreadController do
     user = conn.assigns[:current_user]
     {set_order_cookie, ordering} = get_ordering(conn, user)
 
-    {all_threads_count, threads} =
-      Threads.list_threads(
-        conn.assigns[:current_forum],
-        conn.assigns[:visible_forums],
-        user,
-        page: page,
-        limit: limit,
-        order: ordering,
-        view_all: conn.assigns[:view_all],
-        hide_read_threads: hide_read_threads?(conn),
-        only_wo_answer: conn.params["only_wo_answer"] != nil,
-        message_order: uconf(conn, "sort_messages"),
-        use_paging: uconf(conn, "page_messages") == "yes",
+    threads =
+      Threads.list_threads(conn.assigns[:current_forum], conn.assigns[:visible_forums])
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.reject_invisible_threads(user, conn.assigns[:view_all])
+      |> Threads.apply_user_infos(user,
         close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
-        open_close_default_state: uconf(conn, "open_close_default"),
-        messages_with: [:user, :tags]
+        open_close_default_state: uconf(conn, "open_close_default")
       )
+      |> Threads.reject_read_threads(hide_read_threads?(conn))
+      |> Threads.filter_wo_answer(conn.params["only_wo_answer"] != nil)
+
+    all_threads_count = length(threads)
+
+    threads =
+      threads
+      |> Threads.sort_threads(ordering)
+      |> Threads.paged_thread_list(uconf(conn, "page_messages") == "yes", page, limit)
+      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
 
     p = paginate(all_threads_count, per_page: limit, page: page + 1)
 
@@ -41,23 +42,24 @@ defmodule CforumWeb.ThreadController do
     user = conn.assigns[:current_user]
     {set_order_cookie, ordering} = get_ordering(conn, user)
 
-    {all_threads_count, threads} =
-      Threads.list_unanswered_threads(
-        conn.assigns[:current_forum],
-        conn.assigns[:visible_forums],
-        user,
-        page: page,
-        limit: limit,
-        order: ordering,
-        view_all: conn.assigns[:view_all],
-        hide_read_threads: hide_read_threads?(conn),
-        only_wo_answer: conn.params["only_wo_answer"] != nil,
-        message_order: uconf(conn, "sort_messages"),
-        use_paging: uconf(conn, "page_messages") == "yes",
+    threads =
+      Threads.list_threads(conn.assigns[:current_forum], conn.assigns[:visible_forums])
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.reject_invisible_threads(user, conn.assigns[:view_all])
+      |> Threads.apply_user_infos(user,
         close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
-        open_close_default_state: uconf(conn, "open_close_default"),
-        messages_with: [:user, :tags]
+        open_close_default_state: uconf(conn, "open_close_default")
       )
+      |> Threads.reject_read_threads(hide_read_threads?(conn))
+      |> Threads.filter_wo_answer()
+
+    all_threads_count = length(threads)
+
+    threads =
+      threads
+      |> Threads.sort_threads(ordering)
+      |> Threads.paged_thread_list(uconf(conn, "page_messages") == "yes", page, limit)
+      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
 
     p = paginate(all_threads_count, per_page: limit, page: page + 1)
 
@@ -70,16 +72,14 @@ defmodule CforumWeb.ThreadController do
     user = conn.assigns[:current_user]
     {_, ordering} = get_ordering(conn, user)
 
-    {_, threads} =
-      Threads.list_unanswered_threads(
-        conn.assigns[:current_forum],
-        conn.assigns[:visible_forums],
-        user,
-        order: ordering,
-        message_order: uconf(conn, "sort_messages"),
-        use_paging: false,
-        messages_with: [:user, :tags]
-      )
+    threads =
+      Threads.list_threads(conn.assigns[:current_forum], conn.assigns[:visible_forums])
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.reject_invisible_threads(user, conn.assigns[:view_all])
+      |> Threads.apply_user_infos(user, omit: [:open_close, :subscriptions, :interesting])
+      |> Threads.reject_read_threads(hide_read_threads?(conn))
+      |> Threads.sort_threads(ordering)
+      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
 
     render(conn, "index.atom", threads: threads)
   end
@@ -88,16 +88,14 @@ defmodule CforumWeb.ThreadController do
     user = conn.assigns[:current_user]
     {_, ordering} = get_ordering(conn, user)
 
-    {_, threads} =
-      Threads.list_unanswered_threads(
-        conn.assigns[:current_forum],
-        conn.assigns[:visible_forums],
-        user,
-        order: ordering,
-        message_order: uconf(conn, "sort_messages"),
-        use_paging: false,
-        messages_with: [:user, :tags]
-      )
+    threads =
+      Threads.list_threads(conn.assigns[:current_forum], conn.assigns[:visible_forums])
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.reject_invisible_threads(user, conn.assigns[:view_all])
+      |> Threads.apply_user_infos(user, omit: [:open_close, :subscriptions, :interesting])
+      |> Threads.reject_read_threads(hide_read_threads?(conn))
+      |> Threads.sort_threads(ordering)
+      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
 
     render(conn, "index.rss", threads: threads)
   end

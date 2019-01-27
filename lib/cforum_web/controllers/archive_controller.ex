@@ -20,21 +20,21 @@ defmodule CforumWeb.ArchiveController do
     page = parse_page(params["p"]) - 1
     limit = uconf(conn, "pagination", :int)
 
-    {count, threads} =
-      Threads.list_archived_threads(
-        conn.assigns[:current_forum],
-        conn.assigns[:visible_forums],
-        conn.assigns[:current_user],
-        start_date,
-        end_date,
-        page: page,
-        limit: limit,
-        view_all: conn.assigns[:view_all],
-        message_order: uconf(conn, "sort_messages"),
-        use_paging: uconf(conn, "page_messages") == "yes",
+    threads =
+      Threads.list_archived_threads(conn.assigns[:current_forum], conn.assigns[:visible_forums], start_date, end_date)
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.apply_user_infos(conn.assigns[:current_user],
         close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
         open_close_default_state: uconf(conn, "open_close_default")
       )
+
+    count = length(threads)
+
+    threads =
+      threads
+      |> Threads.sort_threads(uconf(conn, "sort_threads"))
+      |> Threads.paged_thread_list(uconf(conn, "page_messages") == "yes", page, limit)
+      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
 
     p = paginate(count, per_page: limit, page: page + 1)
 

@@ -2,57 +2,57 @@ defmodule Cforum.Forums.Stats do
   import Ecto.Query, warn: false
   alias Cforum.Repo
 
-  alias Cforum.Forums.{Thread, Threads, Message}
+  alias Cforum.Forums.{Threads, Message}
   alias Cforum.Forums.ForumStat
 
-  def threads_for_overview(current_user, visible_forums, opts \\ []) do
-    Enum.reduce(visible_forums, {%{}, nil}, fn f, {acc, latest} ->
-      {threads, latest_message} = get_latest(current_user, f, latest, opts)
-      {Map.put(acc, f.forum_id, threads), latest_message}
+  @spec threads_for_overview(%Cforum.Accounts.User{}, [%Cforum.Forums.Thread{}]) :: {map(), %Cforum.Forums.Thread{}}
+  def threads_for_overview(current_user, all_threads) do
+    latest = Enum.max_by(all_threads, &Timex.to_erl(&1.latest_message), fn -> nil end)
+
+    recent_threads_per_forum = get_recent_threads_per_forum(all_threads)
+    {latest, recent_threads_per_forum} = set_portal_infos(current_user, latest, recent_threads_per_forum)
+    threads_by_forum = Enum.group_by(recent_threads_per_forum, & &1.forum_id)
+
+    {threads_by_forum, latest}
+  end
+
+  defp first_unread(messages) do
+    messages
+    |> Enum.reject(& &1.attribs[:is_read])
+    |> Enum.min_by(&Timex.to_erl(&1.created_at), fn -> nil end)
+  end
+
+  defp set_portal_infos(current_user, nil, threads), do: {nil, set_portal_infos(current_user, threads)}
+
+  defp set_portal_infos(current_user, latest, threads) do
+    [latest | threads] = set_portal_infos(current_user, [latest | threads])
+    {latest, threads}
+  end
+
+  defp set_portal_infos(current_user, threads) do
+    Threads.apply_user_infos(threads, current_user, omit: [:open_close, :subscriptions, :interesting])
+    |> Threads.build_message_trees("ascending")
+    |> Enum.map(fn thread ->
+      attribs =
+        thread.attribs
+        |> Map.put(:latest_message, Enum.max_by(thread.sorted_messages, &Timex.to_erl(&1.created_at)))
+        |> Map.put(:first_message, List.first(thread.sorted_messages))
+        |> Map.put(:first_unread, first_unread(thread.sorted_messages))
+
+      Map.put(thread, :attribs, attribs)
     end)
   end
 
-  defp get_latest(current_user, f, latest, opts) do
-    defaults = [limit: 3, order: "newest-first", sticky: nil, omit: [:open_close, :subscriptions, :interesting]]
-    opts = Keyword.merge(defaults, opts)
-
-    {_, threads} = Threads.list_threads(f, nil, current_user, opts)
-
-    threads =
-      Enum.map(threads, fn t ->
-        attribs = set_latest_and_first_unread(t)
-        %Thread{t | attribs: attribs}
-      end)
-
-    maybe_new_latest = List.first(threads)
-
-    latest_message = get_latest_message(latest, maybe_new_latest)
-
-    {threads, latest_message}
-  end
-
-  defp get_latest_message(nil, nil), do: nil
-  defp get_latest_message(latest, nil) when not is_nil(latest), do: latest
-  defp get_latest_message(nil, maybe_new_latest) when not is_nil(maybe_new_latest), do: maybe_new_latest
-
-  defp get_latest_message(latest, maybe_new_latest) do
-    if Timex.after?(maybe_new_latest.latest_message, latest.latest_message),
-      do: maybe_new_latest,
-      else: latest
-  end
-
-  defp set_latest_and_first_unread(t) do
-    latest_message = Enum.max_by(t.sorted_messages, fn m -> m.created_at end)
-
-    first_unread =
-      t.sorted_messages
-      |> Enum.filter(fn m -> m.attribs[:is_read] != true end)
-      |> Enum.min_by(fn m -> m.created_at end, fn -> nil end)
-
-    t.attribs
-    |> Map.put(:latest_message, latest_message)
-    |> Map.put(:first_message, List.first(t.sorted_messages))
-    |> Map.put(:first_unread, first_unread)
+  defp get_recent_threads_per_forum(all_threads, nthreads \\ 3) do
+    all_threads
+    |> Threads.sort_threads("newest-first", ignore_sticky: true)
+    |> Enum.reduce(%{}, fn t, acc ->
+      if Map.has_key?(acc, t.forum_id) && length(acc[t.forum_id]) >= nthreads,
+        do: acc,
+        else: Map.update(acc, t.forum_id, [t], &(&1 ++ [t]))
+    end)
+    |> Map.values()
+    |> List.flatten()
   end
 
   def forum_stats_overall(forum, visible_forums) do
