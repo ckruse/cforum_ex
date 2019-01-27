@@ -110,6 +110,9 @@ $radius: 0.3em;
       border: 0;
       background-color: inherit;
       cursor: pointer;
+      height: 100%;
+      padding: 0;
+      margin: 0;
     }
 
     input {
@@ -119,10 +122,14 @@ $radius: 0.3em;
 
   .cf-dropzone.dragging {
     height: 70vh;
+    z-index: 99999;
+    position: absolute;
+    width: 100%;
+    max-width: 55em;
   }
 
   .cf-editor.dragging .cf-posting-input {
-    max-height: 2em;
+    max-height: 1em;
     min-height: 0;
   }
 }
