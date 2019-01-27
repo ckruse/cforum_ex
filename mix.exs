@@ -80,6 +80,12 @@ defmodule Cforum.Mixfile do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       "ecto.init": ["ecto.create", "ecto.load"],
+      "migrate.cf4": [
+        "run priv/migrate_db.exs",
+        "run priv/delete_archived_read_messages.exs",
+        "run priv/merge_tags.exs",
+        "ecto.migrate"
+      ],
       test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
