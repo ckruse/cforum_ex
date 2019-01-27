@@ -250,8 +250,8 @@ defmodule Cforum.Forums.MessagesTest do
 
   describe "creating messages" do
     test "preview_message/3 generates a %Message{} and a changeset", %{thread: thread, message: message} do
-      assert {%Message{}, %Ecto.Changeset{}} = Messages.preview_message(%{}, nil, thread)
-      assert {%Message{parent_id: mid}, %Ecto.Changeset{}} = Messages.preview_message(%{}, nil, thread, message)
+      assert {%Message{}, %Ecto.Changeset{}} = Messages.preview_message(%{}, nil, [], thread)
+      assert {%Message{parent_id: mid}, %Ecto.Changeset{}} = Messages.preview_message(%{}, nil, [], thread, message)
       assert mid == message.message_id
     end
 
