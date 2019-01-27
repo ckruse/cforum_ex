@@ -77,6 +77,13 @@ export const lang = {
   "add code block": "erzeuge Quelltext-Block",
   "code language": "Quelltext-Sprache",
 
+  "drop file here or click here to upload": "Bild hier ablegen oder hier klicken, um es hochzuladen",
+  "Add new image": "neues Bild hinzufügen",
+  "choose image": "Bild auswählen",
+  "enter image description": "Bitte geben Sie eine Bild-Beschreibung an",
+  "enter image title": "Bitte geben Sie einen Bild-Titel an",
+  "add image": "Bild hinzufügen",
+
   highcharts: {
     decimalPoint: ",",
     thousandsSep: ".",

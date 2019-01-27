@@ -11,6 +11,8 @@ export default class Dropzone extends React.Component {
 
     this.state = { dragging: false, file: null, showImageModal: false };
     this.onOk = this.onOk.bind(this);
+    this.onCancel = this.onCancel.bind(this);
+    this.showImageModal = this.showImageModal.bind(this);
     this.dragEnterListener = this.dragEnterListener.bind(this);
     this.dragLeaveListener = this.dragLeaveListener.bind(this);
     this.dropListener = this.dropListener.bind(this);
@@ -54,6 +56,7 @@ export default class Dropzone extends React.Component {
   }
 
   dropIgnoreListener(ev) {
+    console.log(ev);
     this.ignoreEvents(ev);
     this.dragEvents = 0;
     this.setState({ dragging: false });
@@ -85,6 +88,7 @@ export default class Dropzone extends React.Component {
   }
 
   dropListener(ev) {
+    console.log("inside", ev);
     this.ignoreEvents(ev);
     this.dragEvents = 0;
     this.setState({ dragging: false });
@@ -98,15 +102,30 @@ export default class Dropzone extends React.Component {
     }
   }
 
+  onCancel() {
+    this.setState({ showImageModal: false });
+  }
+
+  showImageModal() {
+    this.setState({ showImageModal: true });
+  }
+
   render() {
     return (
-      <div className={`cf-dropzone ${this.state.dragging ? "dragging" : ""}`} onDrop={this.dropListener}>
-        <button onClick={this.showImageModal}>
-          <span>{t("drop file here or click here to upload")}</span>
-        </button>
+      <>
+        <div className={`cf-dropzone ${this.state.dragging ? "dragging" : ""}`} onDrop={this.dropListener}>
+          <button onClick={this.showImageModal} type="button">
+            <span>{t("drop file here or click here to upload")}</span>
+          </button>
+        </div>
 
-        <ImageModal isOpen={this.state.showImageModal} file={this.state.file} onOk={this.onOk} />
-      </div>
+        <ImageModal
+          isOpen={this.state.showImageModal}
+          file={this.state.file}
+          onOk={this.onOk}
+          onCancel={this.onCancel}
+        />
+      </>
     );
   }
 }

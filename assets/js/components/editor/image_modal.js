@@ -92,7 +92,7 @@ export default class ImageModal extends React.Component {
 
           <button className="cf-primary-btn" type="button" onClick={this.okPressed}>
             {t("add image")}
-          </button>
+          </button>{" "}
           <button className="cf-btn" type="button" onClick={this.props.onCancel}>
             {t("cancel")}
           </button>
