@@ -22,7 +22,8 @@ defmodule CforumWeb.Api.V1.Messages.MarkReadController do
 
     conn
     |> put_layout(false)
-    |> render(CforumWeb.ThreadView, "thread.html", conn: conn, thread: thread)
+    |> put_view(CforumWeb.ThreadView)
+    |> render("thread.html", conn: conn, thread: thread)
   end
 
   def allowed?(conn, _, _), do: signed_in?(conn)
