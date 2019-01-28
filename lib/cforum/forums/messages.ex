@@ -571,6 +571,18 @@ defmodule Cforum.Forums.Messages do
     {msg, %Ecto.Changeset{changeset | action: :insert}}
   end
 
+  alias Cforum.Forums.MessageVersion
+
+  defp build_version(changeset, message, user) do
+    version =
+      message
+      |> Ecto.build_assoc(:versions)
+      |> MessageVersion.changeset(message, user)
+
+    changeset
+    |> Ecto.Changeset.put_assoc(:versions, [version | message.versions])
+  end
+
   @doc """
   Updates a message.
 
@@ -585,7 +597,8 @@ defmodule Cforum.Forums.Messages do
   """
   def update_message(%Message{} = message, attrs, user, visible_forums, opts \\ [create_tags: false]) do
     message
-    |> Message.new_or_update_changeset(attrs, user, visible_forums, opts)
+    |> Message.update_changeset(attrs, user, visible_forums, opts)
+    |> build_version(message, user)
     |> Repo.update()
     |> update_cached_message()
   end
@@ -1319,7 +1332,10 @@ defmodule Cforum.Forums.Messages do
   end
 
   def update_cached_message_by_mid(mid) do
-    msg = get_message!(mid, view_all: true)
+    msg =
+      get_message!(mid, view_all: true)
+      |> Repo.preload(Message.default_preloads())
+
     tid = msg.thread_id
 
     Caching.update(:cforum, :threads, fn threads ->

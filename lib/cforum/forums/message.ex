@@ -106,6 +106,13 @@ defmodule Cforum.Forums.Message do
     |> validate_required([:author, :subject, :content])
   end
 
+  def update_changeset(struct, params, user, visible_forums, opts \\ [create_tags: false]) do
+    struct
+    |> new_or_update_changeset(params, user, visible_forums, opts)
+    |> maybe_set_editor_id(user)
+    |> set_editor_author(struct, user)
+  end
+
   defp parse_tags(changeset, %{"tags" => tags}, user, create_tags) do
     tags =
       tags
@@ -180,4 +187,9 @@ defmodule Cforum.Forums.Message do
   end
 
   defp maybe_set_author(changeset, nil), do: changeset
+
+  defp maybe_set_editor_id(changeset, nil), do: changeset
+  defp maybe_set_editor_id(changeset, user), do: put_change(changeset, :editor_id, user.user_id)
+  defp set_editor_author(changeset, message, nil), do: put_change(changeset, :edit_author, message.author)
+  defp set_editor_author(changeset, _, user), do: put_change(changeset, :edit_author, user.username)
 end

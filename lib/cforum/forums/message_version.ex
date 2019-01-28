@@ -17,7 +17,7 @@ defmodule Cforum.Forums.MessageVersion do
 
   def changeset(struct, message, user \\ nil) do
     struct
-    |> cast(%{}, [])
+    |> cast(Map.from_struct(message), [:subject, :content])
     |> put_change(:message_id, message.message_id)
     |> put_change(:subject, message.subject)
     |> put_change(:content, message.content)
