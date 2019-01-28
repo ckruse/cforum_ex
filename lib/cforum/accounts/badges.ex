@@ -20,6 +20,7 @@ defmodule Cforum.Accounts.Badges do
   """
   def list_badges(query_params \\ []) do
     query_params = Keyword.merge([order: nil, limit: nil, search: nil, preload: [badges_users: :user]], query_params)
+
     from(badge in Badge, preload: ^query_params[:preload])
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], asc: :order)

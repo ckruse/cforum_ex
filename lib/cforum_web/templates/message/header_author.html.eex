@@ -1,5 +1,5 @@
     <span class="author">
-      <%= if !blank?(@message.user_id) do %>
+      <%= if present?(@message.user_id) do %>
         <%= user_link(@conn, @message.user, [original_poster_class(@thread, @message)], false) %>
       <% else %>
         <%= if (@message.message_id != @thread.message.message_id) && !blank?(@message.uuid) && (@message.uuid == @thread.message.uuid) do %>

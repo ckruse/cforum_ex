@@ -83,21 +83,39 @@ defmodule CforumWeb.MessageController do
     render(conn, "edit.html", changeset: changeset)
   end
 
-  def update(conn, %{"message" => message_params} = params) do
-    if Map.has_key?(params, "preview") do
-      {message, changeset} =
-        Messages.preview_message(
-          message_params,
-          conn.assigns[:current_user],
-          conn.assigns[:visible_forums],
-          conn.assigns.thread,
-          nil,
-          conn.assigns.message
-        )
+  def update(conn, %{"message" => message_params, "preview" => _}) do
+    {message, changeset} =
+      Messages.preview_message(
+        message_params,
+        conn.assigns[:current_user],
+        conn.assigns[:visible_forums],
+        conn.assigns.thread,
+        nil,
+        conn.assigns.message
+      )
 
-      render(conn, "edit.html", message: message, changeset: changeset, preview: true)
-    else
-      conn
+    render(conn, "edit.html", message: message, changeset: changeset, preview: true)
+  end
+
+  def update(conn, %{"message" => message_params} = params) do
+    cu = conn.assigns[:current_user]
+    vis_forums = conn.assigns.visible_forums
+    thread = conn.assigns.thread
+    message = conn.assigns.message
+
+    opts = [
+      create_tags: may?(conn, "tag", :new),
+      remove_previous_versions: admin?(conn) && Map.has_key?(params, "delete_previous_versions")
+    ]
+
+    case Messages.update_message(message, message_params, cu, vis_forums, opts) do
+      {:ok, message} ->
+        conn
+        |> put_flash(:info, gettext("Message created successfully."))
+        |> redirect(to: Path.message_path(conn, :show, thread, message))
+
+      {:error, changeset} ->
+        render(conn, "edit.html", changeset: changeset)
     end
   end
 
