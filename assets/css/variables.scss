@@ -35,6 +35,22 @@ $active_posting_color: #00a1e2;
 
 $votes_color: #8a9da8;
 
+$blue_fg_color: #004085;
+$blue_bg_color: #cce5ff;
+$blue_border_color: #b8daff;
+
+$green_fg_color: #155724;
+$green_bg_color: #d4edda;
+$green_border_color: #c3e6cb;
+
+$red_fg_color: #721c24;
+$red_bg_color: #f8d7da;
+$red_border_color: #f5c6cb;
+
+$yellow_fg_color: #856404;
+$yellow_bg_color: #fff3cd;
+$yellow_border_color: #ffeeba;
+
 @mixin focus-w-shadow() {
   border-color: $focus_color;
   outline: 0px none;
