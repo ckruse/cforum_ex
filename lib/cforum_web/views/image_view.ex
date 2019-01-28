@@ -1,5 +1,5 @@
 defmodule CforumWeb.ImageView do
-	use CforumWeb, :view
+  use CforumWeb, :view
 
   def page_heading(action, assigns), do: page_title(action, assigns)
   def page_title(_, _), do: gettext("images")

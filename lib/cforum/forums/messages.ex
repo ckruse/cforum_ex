@@ -349,7 +349,8 @@ defmodule Cforum.Forums.Messages do
   """
   def get_message_and_thread!(forum, visible_forums, thread_id, message_id, opts \\ []) do
     thread =
-      Threads.get_thread!(forum, visible_forums, thread_id)
+      forum
+      |> Threads.get_thread!(visible_forums, thread_id)
       |> Threads.reject_deleted_threads(opts[:view_all])
 
     case find_message(thread, &(&1.message_id == message_id)) do
@@ -1333,7 +1334,8 @@ defmodule Cforum.Forums.Messages do
 
   def update_cached_message_by_mid(mid) do
     msg =
-      get_message!(mid, view_all: true)
+      mid
+      |> get_message!(view_all: true)
       |> Repo.preload(Message.default_preloads())
 
     tid = msg.thread_id

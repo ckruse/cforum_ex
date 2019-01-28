@@ -95,9 +95,10 @@ defmodule Cforum.Media do
 
   """
   def delete_image(%Image{} = image, user) do
-    ret = System.audited("destroy", user, fn ->
-      Repo.delete(image)
-    end)
+    ret =
+      System.audited("destroy", user, fn ->
+        Repo.delete(image)
+      end)
 
     with {:ok, img} <- ret do
       Enum.each(["orig", "thumb", "medium"], fn size ->
