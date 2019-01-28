@@ -20,30 +20,30 @@
 .cf-success {
   @extend .cf-alert;
 
-  color: #3c763d;
-  background-color: #dff0d8;
-  border-color: #d6e9c6;
+  color: $green_fg_color;
+  background-color: $green_bg_color;
+  border-color: $green_border_color;
 }
 
 .cf-info {
   @extend .cf-alert;
-  color: #31708f;
-  background-color: #d9edf7;
-  border-color: #bce8f1;
+  color: $blue_fg_color;
+  background-color: $blue_bg_color;
+  border-color: $blue_border_color;
 }
 
 .cf-warning {
   @extend .cf-alert;
-  color: #8a6d3b;
-  background-color: #fcf8e3;
-  border-color: #faebcc;
+  color: $yellow_fg_color;
+  background-color: $yellow_bg_color;
+  border-color: $yellow_border_color;
 }
 
 .cf-error {
   @extend .cf-alert;
-  color: #a94442;
-  background-color: #f2dede;
-  border-color: #ebccd1;
+  color: $red_fg_color;
+  background-color: $red_bg_color;
+  border-color: $red_border_color;
 }
 
 .cf-alert .close {
