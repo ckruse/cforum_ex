@@ -1,0 +1,17 @@
+<article class="cf-thread">
+  <time class="cf-message-header">
+    <h2><%= link @version.subject, to: Path.message_path(@conn, :show, @thread, @message) %></h2>
+
+    <%= if blank?(@version.user_id) do %>
+      <span class="editor"><%= @version.author %></span>
+    <% else %>
+      <%= user_link(@conn, @version.user, ["editor"], @version.author) %>
+    <% end %>
+
+    <time datetime="<%= NaiveDateTime.to_iso8601(@message.created_at) %>">
+      <%= format_date(@conn, @version.created_at, "date_format_post") %>
+    </time>
+  </header>
+
+  <div class="cf-posting-content-diff"><%= diff_posting(@prev_content, @diff_content) %></div>
+</article>
