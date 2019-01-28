@@ -7,7 +7,8 @@
             to: Routes.user_path(@conn, :show, @message.user),
             title: gettext("User %{user}", user: @message.user.username), class: "user-link u-uid u-url"
           ) %>
-      <%= link(@message.author, to: Path.message_path(@conn, :show, @thread, @message), class: Enum.join(["p-name" | @message.attribs[:classes]], " ")) %>: </span>
+      <%= link(@message.author, to: Path.message_path(@conn, :show, @thread, @message), class: Enum.join(["p-name" | @message.attribs[:classes]], " ")) %>:
+    </span>
   <% else %>
     <%= link(@message.author, to: Path.message_path(@conn, :show, @thread, @message), class: Enum.join(["p-name" | @message.attribs[:classes]], " ")) %>:
   <% end %>
