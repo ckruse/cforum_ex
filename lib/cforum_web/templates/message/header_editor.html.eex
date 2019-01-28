@@ -1,10 +1,5 @@
-    <%# TODO
-      if opts[:show_editor] && !message.edit_author.blank? && !message.versions.blank?
-        html << ' <span class="versions">(' << cf_link_to(t('messages.versions'),
-                                                          versions_Path.message_path(thread, message),
-                                                          rel: 'nofollow',
-                                                          class: 'version-link')
-
-        html << ')</span>'
-      end
-    %>
+<%= if @opts[:show_editor] && !blank?(@message.edit_author) && !blank?(@message.versions) do %>
+  <span class="versions">
+    (<%= link gettext("versions"), to: Path.message_path(@conn, :versions, @thread, @message), class: "version-link", rel: "nofollow" %>)
+  </span>
+<% end %>

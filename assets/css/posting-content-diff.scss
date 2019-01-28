@@ -1,0 +1,17 @@
+.cf-posting-content-diff {
+  @extend .cf-posting-content;
+
+  white-space: pre-wrap;
+
+  ins {
+    text-decoration: none;
+    color: $green_fg_color;
+    background-color: $green_bg_color;
+  }
+
+  del {
+    text-decoration: none;
+    color: $red_fg_color;
+    background-color: $red_bg_color;
+  }
+}

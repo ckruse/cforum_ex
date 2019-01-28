@@ -174,6 +174,7 @@ defmodule CforumWeb.Router do
       post("/:year/:month/:day/:slug/:mid/new", MessageController, :create, as: nil)
       get("/:year/:month/:day/:slug/:mid/edit", MessageController, :edit, as: nil)
       put("/:year/:month/:day/:slug/:mid/edit", MessageController, :update, as: nil)
+      get("/:year/:month/:day/:slug/:mid/versions", Messages.VersionController, :show, as: nil)
 
       post("/:year/:month/:day/:slug/:mid/subscribe", Messages.SubscriptionController, :subscribe, as: nil)
       post("/:year/:month/:day/:slug/:mid/unsubscribe", Messages.SubscriptionController, :unsubscribe, as: nil)
