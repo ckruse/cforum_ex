@@ -21,7 +21,7 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Message do
 
     message
     |> Map.from_struct()
-    |> Map.drop([:__meta__, :user, :editor, :forum, :messages, :parent, :votes, :cites, :close_votes])
+    |> Map.drop([:__meta__, :user, :editor, :forum, :messages, :parent, :votes, :cites, :close_votes, :versions])
     |> Map.put(:thread, Cforum.System.AuditingProtocol.audit_json(message.thread))
     |> Map.put(:tags, Cforum.System.AuditingProtocol.audit_json(message.tags))
   end
