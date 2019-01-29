@@ -19,6 +19,7 @@ export default class Dropzone extends React.Component {
 
     this.ignoreEvents = this.ignoreEvents.bind(this);
     this.dropIgnoreListener = this.dropIgnoreListener.bind(this);
+    this.onPaste = this.onPaste.bind(this);
   }
 
   componentDidMount() {
@@ -30,6 +31,8 @@ export default class Dropzone extends React.Component {
 
     window.addEventListener("dragenter", this.dragEnterListener);
     window.addEventListener("dragleave", this.dragLeaveListener);
+
+    window.addEventListener("paste", this.onPaste);
 
     this.dragEvents = 0;
   }
@@ -43,6 +46,8 @@ export default class Dropzone extends React.Component {
 
     window.removeEventListener("dragenter", this.dragEnterListener);
     window.removeEventListener("dragleave", this.dragLeaveListener);
+
+    window.removeEventListener("paste", this.onPaste);
   }
 
   onOk(file, desc, title) {
@@ -88,7 +93,6 @@ export default class Dropzone extends React.Component {
   }
 
   dropListener(ev) {
-    console.log("inside", ev);
     this.ignoreEvents(ev);
     this.dragEvents = 0;
     this.setState({ dragging: false });
@@ -99,6 +103,13 @@ export default class Dropzone extends React.Component {
       if (file.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/)) {
         this.setState({ file, showImageModal: true });
       }
+    }
+  }
+
+  onPaste(ev) {
+    if (ev.clipboardData.items[0].type.match(/^image\//)) {
+      this.ignoreEvents(ev);
+      this.setState({ file: ev.clipboardData.items[0].getAsFile(), showImageModal: true });
     }
   }
 
