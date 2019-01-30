@@ -26,7 +26,7 @@ defmodule CforumWeb.MessageView do
   def close_vote_class(classes, _), do: classes
   def open_vote_class(classes, _), do: classes
 
-  def header_classes(thread, message, assigns) do
+  def header_classes(thread, message, active_message, assigns) do
     []
     |> first_class(assigns)
     |> deleted_class(message)
@@ -34,6 +34,7 @@ defmodule CforumWeb.MessageView do
     |> accepted_class(thread, message)
     |> close_vote_class(message)
     |> open_vote_class(message)
+    |> add_if(assigns[:opts][:tree] && active_message && active_message.message_id == message.message_id, "active")
     |> Enum.join(" ")
   end
 

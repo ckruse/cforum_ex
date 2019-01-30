@@ -1,4 +1,4 @@
-<header class="cf-message-header <%= header_classes(@thread, @message, assigns) %>" <%= message_id(@message, @opts) %>>
+<header class="cf-message-header <%= header_classes(@thread, @message, @conn.assigns[:message], assigns) %>" <%= message_id(@message, @opts) %>>
   <%= render "header_message_icons.html", assigns %>
 
   <%= if @opts[:first] && (!@conn.assigns[:current_forum] || @opts[:plate]) do %>
