@@ -16,7 +16,8 @@
             id_prefix: "tree-",
             hide_repeating_subjects: uconf(@conn, "hide_subjects_unchanged") == "yes",
             hide_repeating_tags: uconf(@conn, "hide_repeating_tags") == "yes",
-            parent_subscribed: @thread.message.attribs[:is_subscribed]
+            parent_subscribed: @thread.message.attribs[:is_subscribed],
+            viewed_message: @message
           ) %>
     <% end %>
   </article>
