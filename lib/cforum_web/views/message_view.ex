@@ -34,7 +34,7 @@ defmodule CforumWeb.MessageView do
     |> accepted_class(thread, message)
     |> close_vote_class(message)
     |> open_vote_class(message)
-    |> add_if(assigns[:opts][:tree] && active_message && active_message.message_id == message.message_id, "active")
+    |> add_if(active_message && active_message.message_id == message.message_id, "active")
     |> Enum.join(" ")
   end
 
