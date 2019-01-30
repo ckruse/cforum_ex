@@ -720,4 +720,8 @@ defmodule Cforum.Forums.Threads do
       end)
     end)
   end
+
+  def has_interesting?(%Thread{sorted_messages: msgs}) when not is_nil(msgs), do: has_interesting?(msgs)
+  def has_interesting?(%Thread{messages: msgs}) when not is_nil(msgs), do: has_interesting?(msgs)
+  def has_interesting?(messages), do: Enum.find(messages, & &1.attribs[:is_interesting]) != nil
 end

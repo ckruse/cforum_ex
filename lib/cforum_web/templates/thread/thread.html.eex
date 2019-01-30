@@ -1,9 +1,11 @@
 <article class="cf-thread threadlist <%= thread_classes(@thread) %>" id="<%= @thread.thread_id %>">
   <%= CforumWeb.MessageView.header(@conn, @thread, @thread.tree, first: true, show_icons: true, action: assigns[:action]) %>
 
-  <%= if @thread.flags["no-archive"] == "yes" do %><i class="no-archive-icon" title="<%= gettext("no archive") %>"> </i><% end %>
-  <%= if @thread.sticky do %><i class="sticky-icon" title="<%= gettext("this thread is sticky") %>"> </i><% end %>
-  <%# TODO html << '<i class="has-interesting-icon" title="' + t('threads.has_interesting') + '"> </i>' if thread.attribs[:has_interesting] %>
+  <div class="thread-marker-icons">
+    <%= if @thread.sticky do %><svg class="sticky-icon" title="<%= gettext("this thread is sticky") %>" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#svg-sticky"></use></svg><% end %>
+    <%= if Threads.has_interesting?(@thread) do %><svg class="has-interesting-icon" title="<%= gettext("this thread has interesting messages") %>" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#has-interesting"></use></svg><% end %>
+    <%= if @thread.flags["no-archive"] == "yes" do %><svg class="no-archive-icon" title="<%= gettext("this thread will not be archived") %>" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#svg-no-archive"></use></svg><% end %>
+  </div>
 
   <%= if show_tree?(@thread, @conn.assigns[:view_all]) do %>
     <%= CforumWeb.MessageView.message_tree(@conn, @thread, @thread.tree, @thread.tree.messages) %>
