@@ -22,7 +22,7 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Message do
     message
     |> Map.from_struct()
     |> Map.drop([:__meta__, :user, :editor, :forum, :messages, :parent, :votes, :cites, :close_votes, :versions])
-    |> Map.put(:thread, Cforum.System.AuditingProtocol.audit_json(message.thread))
+    |> Map.put(:thread, Cforum.System.AuditingProtocol.audit_json(%Cforum.Forums.Thread{message.thread | messages: []}))
     |> Map.put(:tags, Cforum.System.AuditingProtocol.audit_json(message.tags))
   end
 end
@@ -39,9 +39,30 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Thread do
       end
       |> Cforum.System.AuditingProtocol.audit_json()
 
+    messages =
+      Enum.map(thread.messages, fn message ->
+        message
+        |> Map.from_struct()
+        |> Map.drop([
+          :__meta__,
+          :user,
+          :editor,
+          :forum,
+          :messages,
+          :parent,
+          :votes,
+          :cites,
+          :close_votes,
+          :versions,
+          :thread
+        ])
+        |> Map.put(:tags, Cforum.System.AuditingProtocol.audit_json(message.tags))
+      end)
+
     thread
     |> Map.from_struct()
-    |> Map.drop([:__meta__, :messages, :sorted_messages, :message, :tree])
+    |> Map.drop([:__meta__, :sorted_messages, :message, :tree])
+    |> Map.put(:messages, messages)
     |> Map.put(:forum, forum)
   end
 end

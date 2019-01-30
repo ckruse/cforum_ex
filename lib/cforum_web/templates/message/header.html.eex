@@ -25,6 +25,12 @@
   </div>
 
   <%= if @opts[:first] && @opts[:show_icons] && signed_in?(@conn) do %>
-    <%= render "header_thread_icons.html", assigns %>
+    <div class="thread-icons">
+      <%= if @conn.assigns[:view_all] do %>
+        <%= render "header_thread_icons_admin.html", assigns %>
+      <% else %>
+        <%= render "header_thread_icons.html", assigns %>
+      <% end %>
+    </div>
   <% end %>
 </header>

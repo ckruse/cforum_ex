@@ -9,6 +9,7 @@ defmodule CforumWeb.Views.Helpers.ReturnUrl do
       |> Map.merge(args)
       |> Enum.filter(fn {_k, v} -> !blank?(v) end)
       |> Enum.into(%{})
+      |> map_maybe_set(:view_all, "yes", conn.assigns[:view_all])
 
     int_return_path(conn, params, thread, message, args)
   end
@@ -25,7 +26,10 @@ defmodule CforumWeb.Views.Helpers.ReturnUrl do
 
       "thread" ->
         r = Path.forum_path(conn, :index, forum_slug, args)
-        if blank?(thread) || blank?(thread.thread_id), do: r, else: r <> "#t#{thread.thread_id}"
+
+        if blank?(thread) || blank?(thread.thread_id),
+          do: r,
+          else: r <> "#t#{thread.thread_id}"
 
       "message" ->
         args =

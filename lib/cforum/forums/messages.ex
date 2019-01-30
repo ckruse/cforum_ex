@@ -618,18 +618,20 @@ defmodule Cforum.Forums.Messages do
   """
   def delete_message(user, %Message{} = message) do
     System.audited("destroy", user, fn ->
-      new_message =
-        message
-        |> Ecto.Changeset.change(deleted: true)
-        |> Repo.update!()
-
-      Enum.each(message.messages, fn msg ->
-        delete_message(user, msg)
-        |> update_cached_message(&%Message{&1 | deleted: true})
-      end)
-
-      {:ok, new_message}
+      do_delete_message(user, message)
     end)
+    |> Threads.refresh_cached_thread()
+  end
+
+  defp do_delete_message(user, message) do
+    new_message =
+      message
+      |> Ecto.Changeset.change(deleted: true)
+      |> Repo.update!()
+
+    Enum.each(message.messages, &do_delete_message(user, &1))
+
+    {:ok, new_message}
   end
 
   @doc """
@@ -646,18 +648,20 @@ defmodule Cforum.Forums.Messages do
   """
   def restore_message(user, %Message{} = message) do
     System.audited("restore", user, fn ->
-      new_message =
-        message
-        |> Ecto.Changeset.change(deleted: false)
-        |> Repo.update!()
-
-      Enum.each(message.messages, fn msg ->
-        restore_message(user, msg)
-        |> update_cached_message(&%Message{&1 | deleted: false})
-      end)
-
-      {:ok, new_message}
+      do_restore_message(user, message)
     end)
+    |> Threads.refresh_cached_thread()
+  end
+
+  def do_restore_message(user, message) do
+    new_message =
+      message
+      |> Ecto.Changeset.change(deleted: false)
+      |> Repo.update!()
+
+    Enum.each(message.messages, &do_restore_message(user, &1))
+
+    {:ok, new_message}
   end
 
   @doc """

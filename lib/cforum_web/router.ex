@@ -43,11 +43,22 @@ defmodule CforumWeb.Router do
       post("/threads/unhide", Threads.InvisibleController, :unhide)
       post("/threads/open", Threads.OpenCloseController, :open)
       post("/threads/close", Threads.OpenCloseController, :close)
+
+      post("/threads/sticky", Threads.AdminController, :sticky, as: nil)
+      post("/threads/unsticky", Threads.AdminController, :unsticky, as: nil)
+      post("/threads/no-archive", Threads.AdminController, :no_archive, as: nil)
+      post("/threads/do-archive", Threads.AdminController, :archive, as: nil)
+
       post("/messages/mark-read", Messages.MarkReadController, :mark_read)
       post("/messages/interesting", Messages.InterestingController, :interesting)
       post("/messages/boring", Messages.InterestingController, :boring)
       post("/messages/subscribe", Messages.SubscriptionController, :subscribe)
       post("/messages/unsubscribe", Messages.SubscriptionController, :unsubscribe)
+
+      post("/messages/delete", Messages.AdminController, :delete)
+      post("/messages/restore", Messages.AdminController, :restore)
+      post("/messages/no-answer", Messages.AdminController, :no_answer)
+      post("/messages/answer", Messages.AdminController, :answer)
 
       post("/images", ImageController, :create)
     end
@@ -169,12 +180,24 @@ defmodule CforumWeb.Router do
       post("/:year/:month/:day/:slug/open", Threads.OpenCloseController, :open, as: nil)
       post("/:year/:month/:day/:slug/close", Threads.OpenCloseController, :close, as: nil)
 
+      post("/:year/:month/:day/:slug/sticky", Threads.AdminController, :sticky, as: nil)
+      post("/:year/:month/:day/:slug/unsticky", Threads.AdminController, :unsticky, as: nil)
+
+      post("/:year/:month/:day/:slug/no-archive", Threads.AdminController, :no_archive, as: nil)
+      post("/:year/:month/:day/:slug/do-archive", Threads.AdminController, :archive, as: nil)
+
       get("/:year/:month/:day/:slug/:mid", MessageController, :show, as: nil)
       get("/:year/:month/:day/:slug/:mid/new", MessageController, :new, as: nil)
       post("/:year/:month/:day/:slug/:mid/new", MessageController, :create, as: nil)
       get("/:year/:month/:day/:slug/:mid/edit", MessageController, :edit, as: nil)
       put("/:year/:month/:day/:slug/:mid/edit", MessageController, :update, as: nil)
       get("/:year/:month/:day/:slug/:mid/versions", Messages.VersionController, :show, as: nil)
+
+      post("/:year/:month/:day/:slug/:mid/delete", Messages.AdminController, :delete, as: nil)
+      post("/:year/:month/:day/:slug/:mid/restore", Messages.AdminController, :restore, as: nil)
+
+      post("/:year/:month/:day/:slug/:mid/no-answer", Messages.AdminController, :no_answer, as: nil)
+      post("/:year/:month/:day/:slug/:mid/answer", Messages.AdminController, :answer, as: nil)
 
       post("/:year/:month/:day/:slug/:mid/subscribe", Messages.SubscriptionController, :subscribe, as: nil)
       post("/:year/:month/:day/:slug/:mid/unsubscribe", Messages.SubscriptionController, :unsubscribe, as: nil)

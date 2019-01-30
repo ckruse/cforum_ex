@@ -8,10 +8,21 @@ import {
   markInterestingHelper,
   markBoringHelper,
   subscribeMessageHelper,
-  unsubscribeMessageHelper
+  unsubscribeMessageHelper,
+  noArchiveHelper,
+  doArchiveHelper,
+  deleteHelper,
+  restoreHelper,
+  noAnswerHelper,
+  doAnswerHelper
 } from "./thread_actions/helpers";
 import { alertError } from "./alerts";
 import { t } from "./modules/i18n";
+
+const buttonElement = el => {
+  if (el.nodeName === "BUTTON") return el;
+  return el.closest("button");
+};
 
 document.addEventListener("DOMContentLoaded", () => {
   const element = document.querySelector(".cf-thread-list");
@@ -26,14 +37,25 @@ document.addEventListener("DOMContentLoaded", () => {
     ".thread-icons .hide": hideThreadHelper,
     ".thread-icons .unhide": unhideThreadHelper,
     ".thread-icons .mark-read": markReadHelper,
+    ".thread-icons .no-archive": noArchiveHelper,
+    ".thread-icons .archive": doArchiveHelper,
     ".message-icons .mark-interesting": markInterestingHelper,
     ".message-icons .boring": markBoringHelper,
     ".message-icons .subscribe": subscribeMessageHelper,
-    ".message-icons .unsubscribe": unsubscribeMessageHelper
+    ".message-icons .unsubscribe": unsubscribeMessageHelper,
+    ".message-icons .delete": deleteHelper,
+    ".message-icons .restore": restoreHelper,
+    ".message-icons .answer": noAnswerHelper,
+    ".message-icons .no-answer": doAnswerHelper
   };
 
   element.addEventListener("click", event => {
-    const element = event.target;
+    const element = buttonElement(event.target);
+
+    if (!element) {
+      return;
+    }
+
     const action = Object.keys(validElements).find(selector => element.matches(selector));
 
     if (!action) {

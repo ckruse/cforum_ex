@@ -3,6 +3,8 @@
     <span class="icon-message no-answer user" title="<% gettext("Message closed, answering not allowed") %>"> </span>
   <% end %>
 
+  <%= if @conn.assigns[:view_all], do: render("header_message_icons_admin.html", assigns) %>
+
   <%= if signed_in?(@conn) && @opts[:show_icons] && !@conn.assigns[:view_all] do %>
     <%= if @message.attribs[:is_interesting] do %>
       <%= cf_button(to: Path.boring_message_path(@conn, @thread, @message), class: "icon-message boring icon-button", title: gettext("remove interesting mark")) do %>
