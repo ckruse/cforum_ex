@@ -51,6 +51,8 @@ $yellow_fg_color: #856404;
 $yellow_bg_color: #fff3cd;
 $yellow_border_color: #ffeeba;
 
+$self_green: #8db243;
+
 @mixin focus-w-shadow() {
   border-color: $focus_color;
   outline: 0px none;

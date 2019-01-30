@@ -159,6 +159,11 @@
       fill: $active_link_color;
     }
   }
+
+  .icon-message.boring {
+    color: $self_green;
+    fill: $self_green;
+  }
 }
 
 .cf-thread-message .cf-message-header {
