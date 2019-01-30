@@ -1,0 +1,27 @@
+<%= if @message.deleted do %>
+  <%= cf_button(to: Path.restore_message_path(@conn, @thread, @message), class: "icon-message restore icon-button", title: gettext("restore this message")) do %>
+    <%= std_args_as_hidden_inputs(@conn) %>
+    <span class="visually-hidden"><%= gettext("restore this message") %></span>
+    <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#svg-restore"></use></svg>
+  <% end %>
+<% else %>
+  <%= cf_button(to: Path.delete_message_path(@conn, @thread, @message), class: "icon-message delete icon-button", title: gettext("delete this message")) do %>
+    <%= std_args_as_hidden_inputs(@conn) %>
+    <span class="visually-hidden"><%= gettext("delete this message") %></span>
+    <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#svg-delete"></use></svg>
+  <% end %>
+<% end %>
+
+<%= if Messages.no_answer?(@message) do %>
+  <%= cf_button(to: Path.answer_message_path(@conn, @thread, @message), class: "icon-message no-answer icon-button", title: gettext("allow answering to this message")) do %>
+    <%= std_args_as_hidden_inputs(@conn) %>
+    <span class="visually-hidden"><%= gettext("allow answering to this message") %></span>
+    <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#no-answer"></use></svg>
+  <% end %>
+<% else %>
+  <%= cf_button(to: Path.no_answer_message_path(@conn, @thread, @message), class: "icon-message answer icon-button", title: gettext("forbid answering to this message")) do %>
+    <%= std_args_as_hidden_inputs(@conn) %>
+    <span class="visually-hidden"><%= gettext("forbid answering to this message") %></span>
+    <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#do-answer"></use></svg>
+  <% end %>
+<% end %>

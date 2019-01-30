@@ -27,7 +27,7 @@ export const hideThreadHelper = (requestParams, form) => {
     url: "/api/v1/threads/hide",
     afterAction: response => {
       response.json().then(json => {
-        if (json.status == "ok") {
+        if (json.status === "ok") {
           form.closest(".cf-thread").remove();
         } else {
           alertError(t("Oops, something went wrong!"));
@@ -46,7 +46,7 @@ export const unhideThreadHelper = (requestParams, form) => {
     url: "/api/v1/threads/unhide",
     afterAction: response => {
       response.json().then(json => {
-        if (json.status == "ok") {
+        if (json.status === "ok") {
           form.closest(".cf-thread").remove();
         } else {
           alertError(t("Oops, something went wrong!"));
@@ -54,6 +54,22 @@ export const unhideThreadHelper = (requestParams, form) => {
       });
     }
   };
+};
+
+export const noArchiveHelper = (requestParams, form) => {
+  const parsedUrl = parseMessageUrl(form.action);
+  requestParams.method = "POST";
+  requestParams.headers = { "Content-Type": "application/json; charset=utf-8" };
+  requestParams.body = JSON.stringify({ slug: parsedUrl.slug });
+  return { url: "/api/v1/threads/no-archive" };
+};
+
+export const doArchiveHelper = (requestParams, form) => {
+  const parsedUrl = parseMessageUrl(form.action);
+  requestParams.method = "POST";
+  requestParams.headers = { "Content-Type": "application/json; charset=utf-8" };
+  requestParams.body = JSON.stringify({ slug: parsedUrl.slug });
+  return { url: "/api/v1/threads/do-archive" };
 };
 
 export const markReadHelper = (requestParams, form) => {
@@ -108,4 +124,37 @@ export const unsubscribeMessageHelper = (requestParams, form) => {
     forum: parsedUrl.forum
   });
   return { url: "/api/v1/messages/unsubscribe" };
+};
+
+export const deleteHelper = (requestParams, form) => {
+  const parsedUrl = parseMessageUrl(form.action);
+  console.log(parsedUrl);
+  requestParams.method = "POST";
+  requestParams.headers = { "Content-Type": "application/json; charset=utf-8" };
+  requestParams.body = JSON.stringify({ slug: parsedUrl.slug, message_id: parsedUrl.messageId });
+  return { url: "/api/v1/messages/delete" };
+};
+export const restoreHelper = (requestParams, form) => {
+  const parsedUrl = parseMessageUrl(form.action);
+  console.log(parsedUrl);
+  requestParams.method = "POST";
+  requestParams.headers = { "Content-Type": "application/json; charset=utf-8" };
+  requestParams.body = JSON.stringify({ slug: parsedUrl.slug, message_id: parsedUrl.messageId });
+  return { url: "/api/v1/messages/restore" };
+};
+export const noAnswerHelper = (requestParams, form) => {
+  const parsedUrl = parseMessageUrl(form.action);
+  console.log(parsedUrl);
+  requestParams.method = "POST";
+  requestParams.headers = { "Content-Type": "application/json; charset=utf-8" };
+  requestParams.body = JSON.stringify({ slug: parsedUrl.slug, message_id: parsedUrl.messageId });
+  return { url: "/api/v1/messages/no-answer" };
+};
+export const doAnswerHelper = (requestParams, form) => {
+  const parsedUrl = parseMessageUrl(form.action);
+  console.log(parsedUrl);
+  requestParams.method = "POST";
+  requestParams.headers = { "Content-Type": "application/json; charset=utf-8" };
+  requestParams.body = JSON.stringify({ slug: parsedUrl.slug, message_id: parsedUrl.messageId });
+  return { url: "/api/v1/messages/answer" };
 };

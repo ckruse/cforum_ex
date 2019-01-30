@@ -57,7 +57,7 @@ defmodule CforumWeb.ThreadView do
     |> XmlBuilder.generate()
   end
 
-  def show_tree?(thread) do
-    present?(thread.tree.messages) && thread.attribs[:open_state] != "closed"
+  def show_tree?(thread, view_all) do
+    present?(thread.tree.messages) && (thread.attribs[:open_state] != "closed" || view_all)
   end
 end

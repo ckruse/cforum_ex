@@ -287,6 +287,17 @@ defmodule CforumWeb.Views.Helpers.Path do
   def unaccept_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/unaccept#{encode_query_string(params)}"
 
+  def delete_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
+    do: "#{int_message_path(conn, thread, msg)}/delete#{encode_query_string(params)}"
+  def restore_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
+    do: "#{int_message_path(conn, thread, msg)}/restore#{encode_query_string(params)}"
+
+  def no_answer_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
+    do: "#{int_message_path(conn, thread, msg)}/no-answer#{encode_query_string(params)}"
+
+  def answer_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
+    do: "#{int_message_path(conn, thread, msg)}/answer#{encode_query_string(params)}"
+
   @spec close_vote_path(Plug.Conn.t() | CforumWeb.Endpoint, %Thread{}, %Message{}, keyword() | map()) :: String.t()
   def close_vote_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/close-vote#{encode_query_string(params)}"
@@ -303,6 +314,25 @@ defmodule CforumWeb.Views.Helpers.Path do
   @spec mark_read_path(Plug.Conn.t() | CforumWeb.Endpoint, :mark_read, %Thread{}, keyword() | map()) :: String.t()
   def mark_read_path(conn, :mark_read, %Thread{} = thread, params \\ []),
     do: "#{thread_path(conn, :show, thread)}/mark-read#{encode_query_string(params)}"
+
+  def move_thread_path(conn, thread = %Thread{}, params \\ []),
+    do: "#{thread_path(conn, :show, thread)}/move#{encode_query_string(params)}"
+
+  def sticky_thread_path(conn, action, thread, params \\ [])
+
+  def sticky_thread_path(conn, :sticky, thread = %Thread{}, params),
+    do: "#{thread_path(conn, :show, thread)}/sticky#{encode_query_string(params)}"
+
+  def sticky_thread_path(conn, :unsticky, thread = %Thread{}, params),
+    do: "#{thread_path(conn, :show, thread)}/unsticky#{encode_query_string(params)}"
+
+  def no_archive_thread_path(conn, action, thread, params \\ [])
+
+  def no_archive_thread_path(conn, :no_archive, thread = %Thread{}, params),
+    do: "#{thread_path(conn, :show, thread)}/no-archive#{encode_query_string(params)}"
+
+  def no_archive_thread_path(conn, :do_archive, thread = %Thread{}, params),
+    do: "#{thread_path(conn, :show, thread)}/do-archive#{encode_query_string(params)}"
 
   @spec invisible_thread_path(Plug.Conn.t() | CforumWeb.Endpoint, atom(), %Thread{} | nil, keyword() | map()) ::
           String.t()

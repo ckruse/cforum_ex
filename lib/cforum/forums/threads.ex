@@ -11,6 +11,7 @@ defmodule Cforum.Forums.Threads do
   alias Cforum.Forums.Messages
   alias Cforum.System
   alias Cforum.Caching
+  alias Cforum.Accounts.User
 
   @doc """
   Returns the list of unarchived threads.
@@ -497,6 +498,25 @@ defmodule Cforum.Forums.Threads do
     thread
     |> thread_changeset(attrs, forum, visible_forums)
     |> Repo.update()
+    |> refresh_cached_thread()
+  end
+
+  def mark_thread_sticky(%User{} = user, %Thread{} = thread) do
+    System.audited("sticky", user, fn ->
+      thread
+      |> Ecto.Changeset.change(sticky: true)
+      |> Repo.update()
+    end)
+    |> refresh_cached_thread()
+  end
+
+  def mark_thread_unsticky(%User{} = user, %Thread{} = thread) do
+    System.audited("unsticky", user, fn ->
+      thread
+      |> Ecto.Changeset.change(sticky: false)
+      |> Repo.update()
+    end)
+    |> refresh_cached_thread()
   end
 
   @doc """
@@ -634,10 +654,26 @@ defmodule Cforum.Forums.Threads do
     |> Repo.update()
   end
 
+  def unflag_thread(thread, flag) do
+    flags = Map.delete(thread.flags, flag)
+
+    thread
+    |> Ecto.Changeset.change(flags: flags)
+    |> Repo.update()
+  end
+
   def flag_thread_no_archive(user, thread) do
-    System.audited("flag-no-archive", user, fn ->
+    System.audited("no-archive-yes", user, fn ->
       flag_thread(thread, "no-archive", "yes")
     end)
+    |> refresh_cached_thread()
+  end
+
+  def flag_thread_archive(user, thread) do
+    System.audited("no-archive-no", user, fn ->
+      unflag_thread(thread, "no-archive")
+    end)
+    |> refresh_cached_thread()
   end
 
   def add_to_cache({:ok, %{thread_id: tid}} = val) do
