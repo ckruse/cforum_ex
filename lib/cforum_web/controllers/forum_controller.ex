@@ -24,8 +24,8 @@ defmodule CforumWeb.ForumController do
       |> Threads.filter_wo_answer()
       |> Threads.sort_threads("descending")
       |> Threads.paged_thread_list(true, 0, 3)
-      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
       |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close, :subscriptions, :interesting])
+      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
 
     render(
       conn,
