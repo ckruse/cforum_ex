@@ -200,4 +200,8 @@ defmodule CforumWeb.LayoutView do
       do: {:safe, " data-user-id=\"#{conn.assigns.current_user.user_id}\""},
       else: ""
   end
+
+  def current_controller(conn) do
+    controller_module(conn) |> Atom.to_string() |> String.replace(~r/Elixir.Cforum(Web)?/, "")
+  end
 end
