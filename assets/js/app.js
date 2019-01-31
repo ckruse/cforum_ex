@@ -37,6 +37,7 @@ import "./components/contentform";
 // site specific JS
 import "./flag_message";
 import "./thread_actions";
+import "./inline_forms";
 
 import "./init";
 

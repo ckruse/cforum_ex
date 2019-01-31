@@ -22,10 +22,10 @@
     <%= if assigns[:controls] && !@message.deleted do %>
       <div class="controls">
         <%= if may?(@conn, "message", :create, {@thread, @message}) do %>
-          <%= default_button_link(gettext("write a new answer"), to: Path.message_path(@conn, :new, @thread, @message), rel: "nofollow") %>
+          <%= default_button_link(gettext("write a new answer"), to: Path.message_path(@conn, :new, @thread, @message), rel: "nofollow", "data-action": "answer") %>
 
           <%= if uconf(@conn, "quote_by_default") == "button" do %>
-            <%= default_button_link(gettext("write a new answer with quoting"), to: Path.message_path(@conn, :new, @thread, @message, with_quote: "yes"), rel: "nofollow") %>
+            <%= default_button_link(gettext("write a new answer with quoting"), to: Path.message_path(@conn, :new, @thread, @message, with_quote: "yes"), rel: "nofollow", "data-action": "answer") %>
           <% end %>
         <% end %>
 

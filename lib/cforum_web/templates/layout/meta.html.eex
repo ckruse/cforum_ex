@@ -14,4 +14,5 @@
     <meta name="application-name" content="SELFHTML | F">
     <meta name="msapplication-TileImage" content="//src.selfhtml.org/logo/s-Logo_kachel_144.png">
     <meta name="msapplication-TileColor" content="#3983ab">
+    <%= csrf_meta_tag() %>
     <%= meta_refresh(@conn) %>
