@@ -24,7 +24,10 @@ defmodule CforumWeb.MailController do
 
   @spec show(%Plug.Conn{}, map()) :: %Plug.Conn{}
   def show(conn, %{"id" => _id}) do
-    Enum.each(conn.assigns.pm_thread, &PrivMessages.mark_priv_message(&1, :read))
+    Cforum.Helpers.AsyncHelper.run_async(fn ->
+      Enum.each(conn.assigns.pm_thread, &PrivMessages.mark_priv_message(&1, :read))
+    end)
+
     render(conn, "show.html")
   end
 

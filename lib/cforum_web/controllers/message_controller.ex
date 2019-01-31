@@ -13,10 +13,14 @@ defmodule CforumWeb.MessageController do
       |> parse_readmode(params)
       |> validate_readmode
 
-    mark_messages_read(read_mode, conn.assigns[:current_user], conn.assigns.thread, conn.assigns.message)
+    if signed_in?(conn) do
+      Cforum.Helpers.AsyncHelper.run_async(fn ->
+        mark_messages_read(read_mode, conn.assigns[:current_user], conn.assigns.thread, conn.assigns.message)
 
-    if uconf(conn, "delete_read_notifications_on_abonements") == "yes",
-      do: Messages.unnotify_user(conn.assigns.current_user, conn.assigns.message)
+        if uconf(conn, "delete_read_notifications_on_abonements") == "yes",
+          do: Messages.unnotify_user(conn.assigns.current_user, conn.assigns.message)
+      end)
+    end
 
     conn
     |> maybe_put_readmode(params, read_mode)
