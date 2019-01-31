@@ -3,7 +3,10 @@
 $default_foreground_color: #333;
 $default_background_color: white;
 
-$default_font_family: Calibri, "PT Sans", sans-serif;
+$default_font_family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+  "Helvetica Neue", sans-serif;
+$default_monospace_font_family: "Source Code Pro", Consolas, "DejaVu Sans Mono", "Bitstream Vera Sans Mono",
+  "Andale Mono", "Droid Sans Mono", "Lucida Console", monospace;
 
 $link_color: #3481cd;
 $active_link_color: #990909;
