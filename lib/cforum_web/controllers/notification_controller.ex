@@ -21,7 +21,10 @@ defmodule CforumWeb.NotificationController do
   def show(conn, %{"id" => _id}) do
     # we ignore errors in this case; the user doesn't care, he just want's to
     # go to the referenced subject
-    Notifications.update_notification(conn.assigns.notification, %{is_read: false})
+    Cforum.Helpers.AsyncHelper.run_async(fn ->
+      Notifications.update_notification(conn.assigns.notification, %{is_read: false})
+    end)
+
     redirect(conn, to: conn.assigns.notification.path)
   end
 
