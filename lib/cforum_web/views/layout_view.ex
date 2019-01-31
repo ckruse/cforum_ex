@@ -202,6 +202,6 @@ defmodule CforumWeb.LayoutView do
   end
 
   def current_controller(conn) do
-    controller_module(conn) |> Atom.to_string() |> String.replace(~r/Elixir.Cforum(Web)?/, "")
+    controller_module(conn) |> Atom.to_string() |> String.replace(~r/Elixir\.Cforum(Web)?\./, "")
   end
 end
