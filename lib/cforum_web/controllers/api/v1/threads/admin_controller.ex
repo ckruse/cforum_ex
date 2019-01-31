@@ -40,7 +40,7 @@ defmodule CforumWeb.Api.V1.Threads.AdminController do
   defp render_thread(conn, slug) do
     thread =
       Threads.get_thread_by_slug!(conn.assigns.current_forum, conn.assigns.visible_forums, slug)
-      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.ensure_found!()
       |> Threads.apply_user_infos(conn.assigns.current_user,
         close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
         open_close_default_state: uconf(conn, "open_close_default")

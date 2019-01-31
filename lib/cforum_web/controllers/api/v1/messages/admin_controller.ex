@@ -1,6 +1,7 @@
 defmodule CforumWeb.Api.V1.Messages.AdminController do
   use CforumWeb, :controller
 
+  alias Cforum.Forums
   alias Cforum.Forums.Threads
   alias Cforum.Forums.Messages
 
@@ -25,6 +26,8 @@ defmodule CforumWeb.Api.V1.Messages.AdminController do
   end
 
   def load_resource(conn) do
+    forum = Forums.get_forum_by_slug(conn.params["forum"])
+
     thread =
       Threads.get_thread_by_slug!(conn.assigns.current_forum, conn.assigns.visible_forums, conn.params["slug"])
       |> Threads.build_message_tree(uconf(conn, "sort_messages"))
@@ -35,6 +38,7 @@ defmodule CforumWeb.Api.V1.Messages.AdminController do
     |> Plug.Conn.assign(:thread, thread)
     |> Plug.Conn.assign(:message, message)
     |> Plug.Conn.assign(:view_all, true)
+    |> Plug.Conn.assign(:current_forum, forum)
   end
 
   def allowed?(conn, _, thread) do
@@ -45,6 +49,7 @@ defmodule CforumWeb.Api.V1.Messages.AdminController do
   defp render_thread(conn, slug) do
     thread =
       Threads.get_thread_by_slug!(conn.assigns.current_forum, conn.assigns.visible_forums, slug)
+      |> Threads.ensure_found!()
       |> Threads.apply_user_infos(conn.assigns[:current_user])
       |> Threads.apply_user_infos(conn.assigns.current_user,
         close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",

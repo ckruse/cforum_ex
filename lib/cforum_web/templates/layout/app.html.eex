@@ -11,7 +11,7 @@
     <title><%= numeric_infos(@conn, assigns) %><%= page_title(@conn, assigns) %></title>
   </head>
 
-  <body data-controller="<%= controller_module(@conn) %>" data-action="<%= action_name(@conn) %>"<%= body_classes(@conn, assigns) %><%= body_id(@conn, assigns) %><%= user_id(@conn) %>>
+  <body data-current-forum="<%= Path.forum_slug(@current_forum) %>" data-controller="<%= current_controller(@conn) %>" data-action="<%= action_name(@conn) %>"<%= body_classes(@conn, assigns) %><%= body_id(@conn, assigns) %><%= user_id(@conn) %>>
 
     <!-- icons -->
     <svg style="display:none" width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path id="svg-check-mark" d="M1671 566q0 40-28 68l-724 724-136 136q-28 28-68 28t-68-28l-136-136-362-362q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 295 656-657q28-28 68-28t68 28l136 136q28 28 28 68z"/></svg>
