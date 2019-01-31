@@ -26,6 +26,8 @@ const showInlineForm = ev => {
     .then(json => showForm(messageElement, json));
 };
 
+const transformNewlines = text => text.replace(/\015\012|\015|\012/g, "\n");
+
 const showForm = (messageElement, json) => {
   const selector = ".posting-header > .cf-message-header > h2 > a, .posting-header > .cf-message-header > h3 > a";
   const href = messageElement.querySelector(selector).href;
@@ -46,7 +48,7 @@ const showForm = (messageElement, json) => {
   render(
     <CfPostingForm
       subject={json.subject}
-      text={json.content}
+      text={transformNewlines(json.content)}
       author={json.author}
       tags={tags}
       problematicSite={json.problematic_site}
