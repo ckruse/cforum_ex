@@ -111,6 +111,7 @@ class CfEditor extends React.Component {
             markup=":CF_INT:__display__:CF_INT:__type__:CF_INT:__id__:CF_INT:"
             inputRef={textarea => this.setState({ textarea })}
             allowSpaceInQuery={false}
+            style={{ input: { overflow: "auto" } }}
           >
             <Mention {...SmileyReplacements} />
             <Mention {...DefaultReplacements} />
