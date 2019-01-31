@@ -32,7 +32,7 @@ import "./components/autolist";
 import "./components/dropdown";
 import "./components/taglist";
 import "./components/user-selector";
-import "./components/postingform";
+import "./components/contentform";
 
 // site specific JS
 import "./flag_message";
