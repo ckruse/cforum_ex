@@ -39,6 +39,8 @@ defmodule CforumWeb.Router do
       get("/tags", TagController, :index)
       get("/badges", BadgeController, :index)
 
+      get("/messages/quote", MessageController, :message_quote)
+
       post("/threads/hide", Threads.InvisibleController, :hide)
       post("/threads/unhide", Threads.InvisibleController, :unhide)
       post("/threads/open", Threads.OpenCloseController, :open)

@@ -129,7 +129,9 @@ class TagList extends React.Component {
   render() {
     return (
       <fieldset>
-        {this.state.tags.length < 3 && <Suggestions suggestions={this.state.suggestions} onClick={this.addTag} />}
+        {this.state.tags.length < this.state.maxTags && (
+          <Suggestions suggestions={this.state.suggestions} onClick={this.addTag} />
+        )}
 
         <TransitionGroup component="ul" className="cf-cgroup cf-form-tagslist cf-tags-list" aria-live="polite">
           {this.state.tags.map(([tag, err]) => (

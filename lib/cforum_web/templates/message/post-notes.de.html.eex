@@ -1,5 +1,5 @@
 <ul id="charta">
   <li>Formulieren Sie bitte <%= link to: "https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Charta_des_SELFHTML-Forums" do %><strong>höflich und wertschätzend</strong><% end %>.</li>
   <li>Im Wiki erhalten Sie <%= link to: "https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Bedienung" do %><strong>Hilfe bei der Formatierung Ihrer Beiträge</strong><% end %>.</li>
-  <li>Ihr Beitrag wird <strong>dauerhaft</strong> <%= link "archiviert", to: "//forum.selfhtml.org/self/archive" %>.</li><!-- TODO use archive path helpers -->
+  <li>Ihr Beitrag wird <strong>dauerhaft</strong> <%= link "archiviert", to: Path.archive_path(@conn, :years, @current_forum) %>.</li>
 </ul>

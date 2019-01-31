@@ -84,6 +84,17 @@ export const lang = {
   "enter image title": "Bitte geben Sie einen Bild-Titel an",
   "add image": "Bild hinzufügen",
 
+  author: "Autor",
+  subject: "Betreff",
+  "e.g. “replace float:left”": "z.B. „float:left mit einem Flexbox-Konstrukt ersetzen“",
+  email: "Email-Adresse",
+  "voluntarily, publicly visible": "freiwillig, öffentlich sichtbar",
+  homepage: "Homepage",
+  "e.g. “http://example.com/”": "z.B. „https://example.com“",
+  "problematic site": "problematische Seite",
+  "e.g. “https://example.com/float-example.html”": "z.B. „https://example.com/float-example.html“",
+  "save message": "Nachricht speichern",
+
   highcharts: {
     decimalPoint: ",",
     thousandsSep: ".",
