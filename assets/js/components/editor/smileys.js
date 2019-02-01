@@ -1,5 +1,5 @@
 const SmileyReplacements = {
-  trigger: /((?<=^|\s)(:-?\)|;-?\)|:-?D|:-?P|:-?\(|:-?O|:-?\||:-?\/|:-?x|m\()$)/i,
+  trigger: /((:-?\)|;-?\)|:-?D|:-?P|:-?\(|:-?O|:-?\||:-?\/|:-?x|m\()$)/i,
   type: "smiley",
   data: term => {
     if (term.length <= 0) {
