@@ -33,7 +33,7 @@ defmodule CforumWeb.ArchiveController do
     threads =
       threads
       |> Threads.sort_threads(uconf(conn, "sort_threads"))
-      |> Threads.paged_thread_list(uconf(conn, "page_messages") == "yes", page, limit)
+      |> Threads.paged_thread_list(page, limit)
       |> Threads.build_message_trees(uconf(conn, "sort_messages"))
 
     p = paginate(count, per_page: limit, page: page + 1)

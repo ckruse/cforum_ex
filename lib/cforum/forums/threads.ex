@@ -138,9 +138,7 @@ defmodule Cforum.Forums.Threads do
     |> Map.put(:accepted, Enum.filter(sorted_messages, &(&1.flags["accepted"] == "yes")))
   end
 
-  def paged_thread_list(threads, use_paging, page, limit)
-
-  def paged_thread_list(threads, true, page, limit) do
+  def paged_thread_list(threads, page, limit) do
     {sticky, normal} =
       Enum.reduce(threads, {[], []}, fn
         %Thread{sticky: true} = thread, {sticky, normal} -> {[thread | sticky], normal}
@@ -151,8 +149,6 @@ defmodule Cforum.Forums.Threads do
 
     Enum.concat(Enum.reverse(sticky), normal |> Enum.reverse() |> Enum.slice(page * limit, limit))
   end
-
-  def paged_thread_list(threads, false, _, _), do: threads
 
   def reject_invisible_threads(threads, user, view_all \\ false)
   def reject_invisible_threads(threads, _, true), do: threads

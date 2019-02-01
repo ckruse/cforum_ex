@@ -26,7 +26,7 @@ defmodule CforumWeb.ThreadController do
     threads =
       threads
       |> Threads.sort_threads(ordering)
-      |> Threads.paged_thread_list(uconf(conn, "page_messages") == "yes", page, limit)
+      |> Threads.paged_thread_list(page, limit)
       |> Threads.build_message_trees(uconf(conn, "sort_messages"))
 
     p = paginate(all_threads_count, per_page: limit, page: page + 1)
@@ -58,7 +58,7 @@ defmodule CforumWeb.ThreadController do
     threads =
       threads
       |> Threads.sort_threads(ordering)
-      |> Threads.paged_thread_list(uconf(conn, "page_messages") == "yes", page, limit)
+      |> Threads.paged_thread_list(page, limit)
       |> Threads.build_message_trees(uconf(conn, "sort_messages"))
 
     p = paginate(all_threads_count, per_page: limit, page: page + 1)
