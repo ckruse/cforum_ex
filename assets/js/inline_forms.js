@@ -16,6 +16,10 @@ const showInlineForm = ev => {
   url.searchParams.append("slug", parsedUrl.slug);
   url.searchParams.append("message_id", messageId.replace(/^m/, ""));
 
+  if (ev.target.dataset.quote === "yes") {
+    url.searchParams.append("with_quote", "yes");
+  }
+
   fetch(url, {
     method: "GET",
     credentials: "same-origin",
