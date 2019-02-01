@@ -1,5 +1,6 @@
 import React from "react";
-import { CSSTransitionGroup } from "react-transition-group";
+import { TransitionGroup } from "react-transition-group";
+import { FadeTransition } from "../transitions";
 
 import { t } from "../../modules/i18n";
 import SearchModal from "./search_modal";
@@ -50,11 +51,11 @@ export default class MultiUserSelector extends React.Component {
 
   render() {
     return (
-      <div>
-        <ul>
-          <CSSTransitionGroup transitionName="fade-in" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
-            {this.state.chosenUsers.map(user => (
-              <li key={user.user_id}>
+      <>
+        <TransitionGroup component="ul">
+          {this.state.chosenUsers.map(user => (
+            <FadeTransition key={user.user_id}>
+              <li>
                 <input type="hidden" name={this.props.fieldName} value={user.user_id} />
 
                 <a className="user-link" href={`/users/${user.user_id}`} title={t(" user") + " " + user.username}>
@@ -69,9 +70,9 @@ export default class MultiUserSelector extends React.Component {
                   {t("remove user")}
                 </button>
               </li>
-            ))}
-          </CSSTransitionGroup>
-        </ul>
+            </FadeTransition>
+          ))}
+        </TransitionGroup>
 
         <button type="button" className="cf-users-selector-btn" onClick={this.showSearchModal}>
           {t("search user")}
@@ -84,7 +85,7 @@ export default class MultiUserSelector extends React.Component {
           close={this.hideSearchModal}
           selectUser={this.selectUsers}
         />
-      </div>
+      </>
     );
   }
 }
