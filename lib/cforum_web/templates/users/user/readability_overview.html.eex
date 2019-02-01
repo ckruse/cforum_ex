@@ -29,10 +29,6 @@
     </div>
 
     <div class="cf-cgroup">
-      <label class="checkbox"><%= checkbox @f, :page_messages, unchecked_value: "no", checked_value: "yes" %> <%= gettext("page messages index") %></label>
-    </div>
-
-    <div class="cf-cgroup">
       <label><%= gettext("sort threads…") %></label>
       <label class="radio"><%= radio_button @f, :sort_threads, "newest-first" %> <%= gettext("newest first") %></label>
       <label class="radio"><%= radio_button @f, :sort_threads, "ascending" %> <%= gettext("ascending") %></label>
