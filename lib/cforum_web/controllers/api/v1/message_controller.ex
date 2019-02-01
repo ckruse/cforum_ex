@@ -5,7 +5,7 @@ defmodule CforumWeb.Api.V1.MessageController do
   alias Cforum.Forums.Threads
   alias Cforum.Forums.Messages
 
-  def message_quote(conn, _params) do
+  def message_quote(conn, params) do
     changeset =
       Messages.new_message_changeset(
         conn.assigns.message,
@@ -18,7 +18,7 @@ defmodule CforumWeb.Api.V1.MessageController do
         greeting: uconf(conn, "greeting"),
         farewell: uconf(conn, "farewell"),
         signature: uconf(conn, "signature"),
-        quote: uconf(conn, "quote_by_default") == "yes",
+        quote: quote?(conn, params),
         std_replacement: gettext("all")
       )
 
@@ -42,4 +42,10 @@ defmodule CforumWeb.Api.V1.MessageController do
   end
 
   def allowed?(_, _, _), do: true
+
+  defp quote?(conn, params) do
+    if blank?(params["with_quote"]),
+      do: uconf(conn, "quote_by_default") == "yes",
+      else: params["with_quote"] == "yes"
+  end
 end

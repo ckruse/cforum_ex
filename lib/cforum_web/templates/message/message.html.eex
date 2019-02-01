@@ -25,7 +25,7 @@
           <%= default_button_link(gettext("write a new answer"), to: Path.message_path(@conn, :new, @thread, @message), rel: "nofollow", "data-action": "answer") %>
 
           <%= if uconf(@conn, "quote_by_default") == "button" do %>
-            <%= default_button_link(gettext("write a new answer with quoting"), to: Path.message_path(@conn, :new, @thread, @message, with_quote: "yes"), rel: "nofollow", "data-action": "answer") %>
+            <%= default_button_link(gettext("write a new answer with quoting"), to: Path.message_path(@conn, :new, @thread, @message, with_quote: "yes"), rel: "nofollow", "data-action": "answer", "data-quote": "yes") %>
           <% end %>
         <% end %>
 
