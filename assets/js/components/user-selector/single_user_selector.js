@@ -40,7 +40,7 @@ export default class SingleUserSelector extends React.Component {
     const username = this.state.chosenUser ? this.state.chosenUser.username : "";
 
     return (
-      <div>
+      <>
         <input id={this.props.id} type="text" readOnly={true} value={username} className="cf-users-selector" />
         <button type="button" className="cf-users-selector-btn" onClick={this.showSearchModal}>
           {t("search user")}
@@ -53,7 +53,7 @@ export default class SingleUserSelector extends React.Component {
           close={this.hideSearchModal}
           selectUser={this.selectUser}
         />
-      </div>
+      </>
     );
   }
 }

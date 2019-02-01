@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
-import { CSSTransitionGroup } from "react-transition-group";
+import { TransitionGroup } from "react-transition-group";
+import { FadeTransition } from "../transitions";
 
 import { t } from "../../modules/i18n";
 import { queryString } from "../../modules/helpers";
@@ -62,52 +63,53 @@ export default class SearchModal extends React.Component {
 
   renderFoundUsers() {
     if (this.state.foundUsers.length == 0) {
-      return <li className="no-data">{t("none found")}</li>;
+      return (
+        <FadeTransition key="no-user-found">
+          <li className="no-data">{t("none found")}</li>
+        </FadeTransition>
+      );
     } else {
       return this.state.foundUsers.map(user => (
-        <li key={user.user_id}>
-          <span className="author">
-            <img src={user.avatar.thumb} className="avatar" />
-             {user.username}
-          </span>
-          <button type="button" className="cf-primary-index-btn" onClick={() => this.chooseUser(user)}>
-            {t("select user")}
-          </button>
-        </li>
+        <FadeTransition key={user.user_id}>
+          <li>
+            <span className="author">
+              <img src={user.avatar.thumb} alt="" className="avatar" /> {user.username}
+            </span>
+            <button type="button" className="cf-primary-index-btn" onClick={() => this.chooseUser(user)}>
+              {t("select user")}
+            </button>
+          </li>
+        </FadeTransition>
       ));
     }
   }
 
   renderSelectedUsers() {
     return (
-      <div>
+      <>
         <h2>{t("selected users")}</h2>
-        <CSSTransitionGroup
-          component="ul"
-          className="users-selector-selected-users-list"
-          aria-live="assertive"
-          transitionName="fade-in"
-          transitionEnterTimeout={300}
-          transitionLeaveTimeout={300}
-        >
-          {this.state.selectedUsers.length == 0 && (
-            <li className="no-data" key="no-data">
-              {t("none selected")}
-            </li>
+        <TransitionGroup component="ul" className="users-selector-selected-users-list" aria-live="assertive">
+          {this.state.selectedUsers.length === 0 && (
+            <FadeTransition key="no-user-selected">
+              <li className="no-data" key="no-data">
+                {t("none selected")}
+              </li>
+            </FadeTransition>
           )}
           {this.state.selectedUsers.map(user => (
-            <li key={user.user_id}>
-              <span className="author">
-                <img src={user.avatar.thumb} className="avatar" />
-                 {user.username}
-              </span>
-              <button type="button" className="cf-primary-index-btn" onClick={() => this.unchooseUser(user)}>
-                {t("unselect user")}
-              </button>
-            </li>
+            <FadeTransition key={user.user_id}>
+              <li>
+                <span className="author">
+                  <img src={user.avatar.thumb} alt="" className="avatar" /> {user.username}
+                </span>
+                <button type="button" className="cf-primary-index-btn" onClick={() => this.unchooseUser(user)}>
+                  {t("unselect user")}
+                </button>
+              </li>
+            </FadeTransition>
           ))}
-        </CSSTransitionGroup>
-      </div>
+        </TransitionGroup>
+      </>
     );
   }
 
@@ -128,16 +130,9 @@ export default class SearchModal extends React.Component {
           </div>
 
           <h2>{t("found users")}</h2>
-          <CSSTransitionGroup
-            component="ul"
-            className="users-selector-found-users-list"
-            aria-live="assertive"
-            transitionName="fade-in"
-            transitionEnterTimeout={300}
-            transitionLeaveTimeout={300}
-          >
+          <TransitionGroup component="ul" className="users-selector-found-users-list" aria-live="assertive">
             {this.renderFoundUsers()}
-          </CSSTransitionGroup>
+          </TransitionGroup>
 
           {!this.props.single && this.renderSelectedUsers()}
 
