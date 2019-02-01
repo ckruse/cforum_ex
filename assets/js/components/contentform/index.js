@@ -22,7 +22,7 @@ class CfContentForm extends React.Component {
 
     return (
       <>
-        <CfEditor text={text} name={name} mentions={true} onChange={this.refreshSuggestions} />
+        <CfEditor text={text} name={name} mentions={true} onChange={this.refreshSuggestions} withImages={true} />
         <TagList tags={tags} postingText={this.state.value} />
       </>
     );

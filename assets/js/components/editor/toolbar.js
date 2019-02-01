@@ -94,9 +94,11 @@ class Toolbar extends React.Component {
           <img src="/images/link.svg" alt="" />
         </button>
 
-        <button type="button" title={t("image")} onClick={this.addImage}>
-          <img src="/images/image.svg" alt="" />
-        </button>
+        {this.props.enableImages && (
+          <button type="button" title={t("image")} onClick={this.addImage}>
+            <img src="/images/image.svg" alt="" />
+          </button>
+        )}
 
         <button type="button" title={t("unordered list")} onClick={this.toggleUl}>
           <img src="/images/list-ul.svg" alt="" />
@@ -134,7 +136,9 @@ class Toolbar extends React.Component {
           onCancel={this.hideCodeModal}
         />
 
-        <ImageModal isOpen={this.state.showImageModal} onOk={this.onImageUpload} onCancel={this.hideImageModal} />
+        {this.props.enableImages && (
+          <ImageModal isOpen={this.state.showImageModal} onOk={this.onImageUpload} onCancel={this.hideImageModal} />
+        )}
       </div>
     );
   }

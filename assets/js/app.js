@@ -33,6 +33,7 @@ import "./components/dropdown";
 import "./components/taglist";
 import "./components/user-selector";
 import "./components/contentform";
+import "./components/editor/autorender";
 
 // site specific JS
 import "./flag_message";

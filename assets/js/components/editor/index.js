@@ -101,6 +101,7 @@ class CfEditor extends React.Component {
             changeValue={this.setValue}
             textarea={this.state.textarea}
             onImageUpload={this.fileDropped}
+            enableImages={this.props.withImages}
           />
 
           <MentionsInput
@@ -116,11 +117,13 @@ class CfEditor extends React.Component {
             <Mention {...SmileyReplacements} />
             <Mention {...DefaultReplacements} />
             <Mention {...EmojiReplacements} />
-            {mentions && <Mention {...MentionsReplacements} />}
+            {mentions ? <Mention {...MentionsReplacements} /> : null}
           </MentionsInput>
         </div>
 
-        <Dropzone onDragStart={this.dragStart} onDragStop={this.dragStop} onDrop={this.fileDropped} />
+        {this.props.withImages && (
+          <Dropzone onDragStart={this.dragStart} onDragStop={this.dragStop} onDrop={this.fileDropped} />
+        )}
 
         <LivePreview content={this.state.value} />
       </fieldset>
