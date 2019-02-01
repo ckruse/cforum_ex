@@ -600,6 +600,7 @@ defmodule Cforum.Forums.Messages do
   def update_message(%Message{} = message, attrs, user, visible_forums, opts \\ [create_tags: false]) do
     message
     |> Message.update_changeset(attrs, user, visible_forums, opts)
+    |> Mentions.parse_mentions()
     |> build_version(message, user)
     |> Repo.update()
     |> update_cached_message()
