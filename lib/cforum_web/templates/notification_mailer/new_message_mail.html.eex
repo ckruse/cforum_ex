@@ -1,1 +1,1 @@
-<%= Cforum.MarkdownRenderer.to_html(@message, @user) %>
+<%= Cforum.MarkdownRenderer.to_html(@message, %{current_user: @user}) %>

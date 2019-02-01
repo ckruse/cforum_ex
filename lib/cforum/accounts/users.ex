@@ -128,6 +128,11 @@ defmodule Cforum.Accounts.Users do
     end)
   end
 
+  def get_user_by_username(username, preloads \\ []) do
+    from(u in User, preload: ^preloads, where: fragment("lower(?)", u.username) == fragment("lower(?)", ^username))
+    |> Repo.one()
+  end
+
   @doc """
   Gets the first user matching in either the username or the email column
 

@@ -8,7 +8,7 @@
 <% end %>
 
 <div class="cf-posting-content<%= if @message.deleted, do: " deleted" %> e-content">
-  <%= Cforum.MarkdownRenderer.to_html(@message, assigns[:current_user]) %>
+  <%= Cforum.MarkdownRenderer.to_html(@message, @conn.assigns) %>
 </div>
 
 <div class="posting-footer">

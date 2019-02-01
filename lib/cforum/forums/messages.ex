@@ -431,6 +431,8 @@ defmodule Cforum.Forums.Messages do
     end
   end
 
+  alias Cforum.Forums.Messages.Mentions
+
   @doc """
   Creates a message.
 
@@ -458,6 +460,7 @@ defmodule Cforum.Forums.Messages do
       changeset =
         %Message{}
         |> Message.changeset(attrs, user, visible_forums, thread, parent, opts)
+        |> Mentions.parse_mentions()
 
       author = Ecto.Changeset.get_field(changeset, :author)
 
@@ -469,7 +472,7 @@ defmodule Cforum.Forums.Messages do
           {:error, Ecto.Changeset.add_error(changeset, :author, "already taken")}
       end
     end)
-    |> maybe_notify_users(thread)
+    |> notify_users(thread)
     |> maybe_autosubscribe(opts[:autosubscribe], user, thread, parent)
     |> index_message(thread)
     |> Threads.refresh_cached_thread()
@@ -520,11 +523,9 @@ defmodule Cforum.Forums.Messages do
     {:ok, message}
   end
 
-  defp maybe_notify_users({:error, changeset}, _), do: {:error, changeset}
-  # Don't notify users on new threads
-  defp maybe_notify_users({:ok, %Message{parent_id: nil} = message}, _), do: {:ok, message}
+  defp notify_users({:error, changeset}, _), do: {:error, changeset}
 
-  defp maybe_notify_users({:ok, message}, thread) do
+  defp notify_users({:ok, message}, thread) do
     Cforum.Forums.NotifyUsersMessageJob.notify_users_about_new_message(thread, message)
     {:ok, message}
   end
@@ -1383,5 +1384,10 @@ defmodule Cforum.Forums.Messages do
       end)
 
     %Thread{thread | messages: messages}
+  end
+
+  def content_with_presentational_filters(assigns, message) do
+    message = Mentions.mentions_markup(message, assigns[:current_user])
+    message.content
   end
 end

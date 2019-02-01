@@ -52,9 +52,10 @@ defmodule Cforum.MarkdownRenderer do
     # [{:safe, "<pre>"}, message.content, {:safe, "</pre>"}]
   end
 
-  def to_html(%Message{} = message, _user) do
+  def to_html(%Message{} = message, assigns) do
     # TODO handle user specific foo
-    {:ok, html} = render_doc(message.content)
+    content = Cforum.Forums.Messages.content_with_presentational_filters(assigns, message)
+    {:ok, html} = render_doc(content)
     {:safe, html}
     # [{:safe, "<pre>"}, message.content, {:safe, "</pre>"}]
   end
