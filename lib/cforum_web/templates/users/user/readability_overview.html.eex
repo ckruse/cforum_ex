@@ -60,11 +60,6 @@
     </div>
 
     <div class="cf-cgroup">
-      <%= label @f, :diff_context_lines, gettext("number of diff context lines shown") %>
-      <%= number_input @f, :diff_context_lines %>
-    </div>
-
-    <div class="cf-cgroup">
       <%= label @f, :highlighted_users, gettext("highlighted users") %>
       <%= text_input @f, :highlighted_users %>
       <span class="help"><%= gettext("A comma separated list of poster names") %></span>

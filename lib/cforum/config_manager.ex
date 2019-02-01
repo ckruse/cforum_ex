@@ -93,7 +93,6 @@ defmodule Cforum.ConfigManager do
     "notify_on_cite" => "yes",
     "delete_read_notifications_on_cite" => "no",
     "max_image_filesize" => 2,
-    "diff_context_lines" => nil,
     "fold_read_nested" => "no"
   }
 
@@ -145,7 +144,6 @@ defmodule Cforum.ConfigManager do
     "fold_quotes",
     "hide_read_threads",
     "mail_thread_sort",
-    "diff_context_lines",
     "highlighted_users"
   ]
 
