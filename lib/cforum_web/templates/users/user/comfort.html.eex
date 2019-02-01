@@ -22,10 +22,6 @@
     </div>
 
     <div class="cf-cgroup">
-      <label class="checkbox"><%= checkbox @f, :inline_answer, checked_value: "yes", unchecked_value: "no" %> <%= gettext("use inline answer forms") %></label>
-    </div>
-
-    <div class="cf-cgroup">
       <label><%= gettext("quote previous message by default") %></label>
       <label class="radio"><%= radio_button @f, :quote_by_default, "yes" %> <%= gettext("yes") %></label>
       <label class="radio"><%= radio_button @f, :quote_by_default, "no" %> <%= gettext("no") %></label>
@@ -47,14 +43,6 @@
     <div class="cf-cgroup">
       <%= label @f, :autorefresh, gettext("automatically refresh forum index page") %>
       <%= number_input(@f, :autorefresh) %>
-    </div>
-
-    <div class="cf-cgroup">
-      <label class="checkbox"><%= checkbox @f, :load_messages_via_js, checked_value: "yes", unchecked_value: "no" %> <%= gettext("use JavaScript to dynamically load new threads and messages from server") %></label>
-    </div>
-
-    <div class="cf-cgroup">
-      <label class="checkbox"><%= checkbox @f, :live_preview, checked_value: "yes", unchecked_value: "no" %> <%= gettext("show the live preview") %></label>
     </div>
   </fieldset>
 </div>

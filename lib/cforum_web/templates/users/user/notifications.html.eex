@@ -4,12 +4,6 @@
 
     <div class="cf-cgroup">
       <label class="checkbox">
-        <%= checkbox @f, :use_javascript_notifications, checked_value: "yes", unchecked_value: "no" %> <%= gettext("use JavaScript for notifications") %>
-      </label>
-    </div>
-
-    <div class="cf-cgroup">
-      <label class="checkbox">
         <%= checkbox @f, :notify_on_new_mail, checked_value: "email", unchecked_value: "no" %> <%= gettext("notify me via email on new mail") %>
       </label>
     </div>
