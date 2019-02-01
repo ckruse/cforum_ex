@@ -20,4 +20,13 @@ defmodule CforumWeb.NotificationMailer do
     |> put_html_layout({CforumWeb.LayoutView, "email.html"})
     |> render(:new_message_mail, user: user, thread: thread, message: message)
   end
+
+  def new_notification_mail(user, thread, message, msg_subject) do
+    new_email()
+    |> from(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))
+    |> to(user.email)
+    |> subject(msg_subject)
+    |> put_html_layout({CforumWeb.LayoutView, "email.html"})
+    |> render(:new_message_mail, user: user, thread: thread, message: message)
+  end
 end

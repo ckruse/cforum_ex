@@ -18,7 +18,7 @@
   <% end %>
 
   <div class="cf-posting-content<%= if @entry.message.deleted, do: " deleted" %> e-content">
-    <%= Cforum.MarkdownRenderer.to_html(@entry.message, assigns[:current_user]) %>
+    <%= Cforum.MarkdownRenderer.to_html(@entry.message, assigns) %>
   </div>
 
   <p class="cf-flagged-message">

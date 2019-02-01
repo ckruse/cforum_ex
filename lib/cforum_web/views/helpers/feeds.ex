@@ -19,7 +19,7 @@ defmodule CforumWeb.Views.Helpers.Feeds do
   end
 
   def atom_feed_thread(conn, thread) do
-    {:safe, html} = Cforum.MarkdownRenderer.to_html(thread.message, conn.assigns[:current_user])
+    {:safe, html} = Cforum.MarkdownRenderer.to_html(thread.message, conn.assigns)
 
     {:entry, nil,
      [
@@ -76,7 +76,7 @@ defmodule CforumWeb.Views.Helpers.Feeds do
   end
 
   def rss_feed_thread(conn, thread) do
-    {:safe, html} = Cforum.MarkdownRenderer.to_html(thread.message, conn.assigns[:current_user])
+    {:safe, html} = Cforum.MarkdownRenderer.to_html(thread.message, conn.assigns)
 
     {:item, nil,
      [
