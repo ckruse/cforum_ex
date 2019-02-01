@@ -23,12 +23,14 @@
   </div>
 </fieldset>
 
-<fieldset>
-  <div class="cf-cgroup cf-textarea-only <%= error_class(@f, :body) %>">
-    <%= label @f, :body do %>
-      <%= gettext("mail content") %>
-      <%= error_tag @f, :body %>
-    <% end %>
-    <%= textarea @f, :body, maxlength: 12288, class: 'big', required: true %>
-  </div>
-</fieldset>
+<div class="cf-editor-form">
+  <fieldset>
+    <div class="cf-cgroup cf-textarea-only <%= error_class(@f, :body) %>">
+      <%= label @f, :body do %>
+        <%= gettext("mail content") %>
+        <%= error_tag @f, :body %>
+      <% end %>
+      <%= textarea @f, :body, maxlength: 12288, class: "big", required: true %>
+    </div>
+  </fieldset>
+</div>
