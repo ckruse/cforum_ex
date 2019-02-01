@@ -14,6 +14,19 @@
   .cf-thread-message.active {
     @include focus-w-shadow();
   }
+
+  .cf-thread-message.folded {
+    .cf-posting-content,
+    .posting-footer {
+      display: none;
+    }
+  }
+
+  .cf-message-header-unfold-button {
+    display: inline;
+    border: 0;
+    float: right;
+  }
 }
 
 @media only screen and (min-width: 35em) {

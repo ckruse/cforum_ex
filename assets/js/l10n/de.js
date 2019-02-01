@@ -130,5 +130,8 @@ export const lang = {
 
   dateTimeInputLocalFormat: "l, j. F Y, H:i \\U\\h\\r",
   dateInputFormat: "l, j. F Y",
-  timeInputFormat: "H:i"
+  timeInputFormat: "H:i",
+
+  fold: "einklappen",
+  unfold: "ausklappen"
 };
