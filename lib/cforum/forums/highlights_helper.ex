@@ -9,21 +9,50 @@ defmodule Cforum.Forums.Messages.HighlightsHelper do
     end)
   end
 
+  defp parse_userlist(nil), do: nil
+  defp parse_userlist(""), do: nil
+
+  defp parse_userlist(list) do
+    list
+    |> String.split(~r/\s*,\s*/)
+    |> Enum.map(&String.trim/1)
+    |> Enum.map(&String.downcase/1)
+    |> Enum.reduce(%{}, fn nam, acc -> Map.put(acc, nam, true) end)
+  end
+
   def apply_highlights_to_messages(messages, conn) do
     mark_suspicious = ConfigManager.uconf(conn, "mark_suspicious") == "yes"
     highlight_self = ConfigManager.uconf(conn, "highlight_self") == "yes"
+    highlight_users = parse_userlist(ConfigManager.uconf(conn, "highlighted_users"))
 
     Enum.map(messages, fn msg ->
       msg
       |> apply_suspicious(mark_suspicious)
-      |> highlight_self(highlight_self, conn.assigns[:current_user])
+      |> apply_highlight_self(highlight_self, conn.assigns[:current_user])
+      |> apply_highlight_users(highlight_users)
     end)
   end
 
-  defp highlight_self(message, false, _), do: message
-  defp highlight_self(message, _, nil), do: message
+  defp apply_highlight_users(message, nil), do: message
 
-  defp highlight_self(message, _, user) do
+  defp apply_highlight_users(message, users) do
+    author =
+      message.author
+      |> String.trim()
+      |> String.downcase()
+
+    if Map.has_key?(users, author) do
+      attribs = Map.update!(message.attribs, :classes, &["highlighted-user" | &1])
+      %Message{message | attribs: attribs}
+    else
+      message
+    end
+  end
+
+  defp apply_highlight_self(message, false, _), do: message
+  defp apply_highlight_self(message, _, nil), do: message
+
+  defp apply_highlight_self(message, _, user) do
     if message.user_id == user.user_id do
       attribs = Map.update!(message.attribs, :classes, &["highlighted-self" | &1])
       %Message{message | attribs: attribs}
