@@ -101,6 +101,7 @@ defmodule Cforum.Forums.Messages.HighlightsHelper do
   end
 
   defp maybe_apply_highlight_self(classes, false, _, _), do: classes
+  defp maybe_apply_highlight_self(classes, _, nil, _), do: classes
 
   defp maybe_apply_highlight_self(classes, _, user, username) do
     if user.username == username,
