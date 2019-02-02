@@ -34,6 +34,19 @@
     color: $active_link_color;
   }
 
+  &.highlighted-user .author a {
+    color: $highlight_user_color;
+  }
+  &.highlighted-self .author a {
+    color: $highlight_self_color;
+  }
+  &.visited.highlighted-user .author a {
+    color: $highlight_user_color_visited;
+  }
+  &.visited.highlighted-self .author a {
+    color: $highlight_self_color_visited;
+  }
+
   .votes,
   .num-infos {
     display: inline-block;

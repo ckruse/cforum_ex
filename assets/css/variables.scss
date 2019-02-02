@@ -56,6 +56,11 @@ $yellow_border_color: #ffeeba;
 
 $self_green: #8db243;
 
+$highlight_user_color: #8ab337;
+$highlight_self_color: #c32e04;
+$highlight_user_color_visited: #bdd886;
+$highlight_self_color_visited: #d37b6d;
+
 @mixin focus-w-shadow() {
   border-color: $focus_color;
   outline: 0px none;
