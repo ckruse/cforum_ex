@@ -116,6 +116,15 @@ defmodule Cforum.Accounts.Notifications do
     |> discard_unread_cache()
   end
 
+  def delete_notification_for_object(user, oid, type) when is_list(oid) do
+    discard_unread_cache(user)
+
+    from(notification in Notification,
+      where: notification.recipient_id == ^user.user_id and notification.oid in ^oid and notification.otype in ^type
+    )
+    |> Repo.delete_all()
+  end
+
   def delete_notification_for_object(user, oid, type) do
     discard_unread_cache(user)
 
