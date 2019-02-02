@@ -86,6 +86,9 @@ const DefaultReplacements = {
       case "=/=":
         found = [{ id: "≠", display: "≠" }, { id: "≈", display: "≈" }];
         break;
+
+      default:
+        found = [];
     }
 
     return found;
