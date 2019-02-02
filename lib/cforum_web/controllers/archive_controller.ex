@@ -27,6 +27,7 @@ defmodule CforumWeb.ArchiveController do
         close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
         open_close_default_state: uconf(conn, "open_close_default")
       )
+      |> Threads.apply_highlights(conn)
 
     count = length(threads)
 

@@ -50,11 +50,11 @@ defmodule CforumWeb.Api.V1.Messages.AdminController do
     thread =
       Threads.get_thread_by_slug!(conn.assigns.current_forum, conn.assigns.visible_forums, slug)
       |> Threads.ensure_found!()
-      |> Threads.apply_user_infos(conn.assigns[:current_user])
       |> Threads.apply_user_infos(conn.assigns.current_user,
         close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
         open_close_default_state: uconf(conn, "open_close_default")
       )
+      |> Threads.apply_highlights(conn)
       |> Threads.build_message_tree(uconf(conn, "sort_messages"))
 
     conn

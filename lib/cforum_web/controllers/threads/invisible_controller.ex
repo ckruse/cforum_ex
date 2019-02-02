@@ -26,6 +26,7 @@ defmodule CforumWeb.Threads.InvisibleController do
         close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
         open_close_default_state: uconf(conn, "open_close_default")
       )
+      |> Threads.apply_highlights(conn)
       |> Threads.build_message_trees(uconf(conn, "sort_messages"))
 
     p = paginate(all_threads_count, per_page: limit, page: page + 1)
