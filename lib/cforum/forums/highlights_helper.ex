@@ -61,21 +61,63 @@ defmodule Cforum.Forums.Messages.HighlightsHelper do
     end
   end
 
-  defp apply_suspicious(message, false), do: message
-
-  defp apply_suspicious(message, _) do
-    String.graphemes(message.author)
+  defp suspicious?(str) do
+    str
+    |> String.graphemes()
     |> Enum.find(fn c ->
       <<v::utf8>> = c
       v < 32 || v > 255
-    end)
-    |> case do
-      nil ->
+    end) != nil
+  end
+
+  defp apply_suspicious(message, false), do: message
+
+  defp apply_suspicious(message, _) do
+    case suspicious?(message.author) do
+      false ->
         message
 
       _ ->
         attribs = Map.update!(message.attribs, :classes, &["suspicious" | &1])
         %Message{message | attribs: attribs}
     end
+  end
+
+  def highlights_for_username(config, user, username) do
+    highlight_users = parse_userlist(ConfigManager.uconf(config, "highlighted_users"))
+
+    []
+    |> maybe_apply_suspicious(ConfigManager.uconf(config, "mark_suspicious") == "yes", username)
+    |> maybe_apply_highlight_self(ConfigManager.uconf(config, "highlight_self") == "yes", user, username)
+    |> maybe_apply_highlighted_user(highlight_users, username)
+  end
+
+  defp maybe_apply_suspicious(classes, false, _), do: classes
+
+  defp maybe_apply_suspicious(classes, _, username) do
+    if suspicious?(username),
+      do: ["suspicious" | classes],
+      else: classes
+  end
+
+  defp maybe_apply_highlight_self(classes, false, _, _), do: classes
+
+  defp maybe_apply_highlight_self(classes, _, user, username) do
+    if user.username == username,
+      do: ["highlighted-self" | classes],
+      else: classes
+  end
+
+  defp maybe_apply_highlighted_user(classes, nil, _), do: classes
+
+  defp maybe_apply_highlighted_user(classes, users, username) do
+    normalized_username =
+      username
+      |> String.trim()
+      |> String.downcase()
+
+    if Map.has_key?(users, normalized_username),
+      do: ["highlighted-user" | classes],
+      else: classes
   end
 end
