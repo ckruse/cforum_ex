@@ -1,6 +1,9 @@
 defmodule Cforum.Forums.Messages.Mentions do
   alias Ecto.Changeset
   alias Cforum.Forums.Message
+  alias Cforum.ConfigManager
+  alias Cforum.Forums.Messages.HighlightsHelper
+
   import Cforum.Helpers, only: [blank?: 1]
 
   def parse_mentions(%Changeset{valid?: true} = changeset) do
@@ -94,14 +97,15 @@ defmodule Cforum.Forums.Messages.Mentions do
     end
   end
 
-  def mentions_markup(%Message{flags: %{"mentions" => mentions}} = msg, _user) when mentions != [] do
+  def mentions_markup(%Message{flags: %{"mentions" => mentions}} = msg, user) when mentions != [] do
+    config = ConfigManager.settings_map(nil, user)
     lines = Regex.split(~r/\015\012|\015|\012/, msg.content)
     mentions = Enum.reduce(mentions, %{}, fn [username, _, _] = mention, acc -> Map.put(acc, username, mention) end)
     names = Map.keys(mentions) |> Enum.map(&"(?:#{Regex.escape(&1)})") |> Enum.join("|")
     rx = Regex.compile!("^@(#{names})\\b")
 
     content =
-      gen_markup(lines, mentions, rx, [])
+      gen_markup(config, user, lines, mentions, rx, [])
       |> Enum.join("\n")
 
     %Message{msg | content: content}
@@ -109,48 +113,54 @@ defmodule Cforum.Forums.Messages.Mentions do
 
   def mentions_markup(msg, _user), do: msg
 
-  defp gen_markup(lines, mentions, regex, new_content)
-  defp gen_markup([], _mentions, _regex, new_content), do: new_content
+  defp gen_markup(config, user, lines, mentions, regex, new_content)
+  defp gen_markup(_config, _user, [], _mentions, _regex, new_content), do: new_content
 
-  defp gen_markup([line | lines], mentions, regex, new_content) do
+  defp gen_markup(config, user, [line | lines], mentions, regex, new_content) do
     cond do
       line =~ ~r/^(?:> *)*\s*~~~\s*\S*$/m ->
         {code_lines, rest} = Enum.split_while(lines, fn line -> !Regex.match?(~r/^(?:> *)*~~~\s*$/m, line) end)
 
         if blank?(rest),
           # unfinished code block
-          do: gen_markup(lines, mentions, regex, new_content ++ line),
+          do: gen_markup(config, user, lines, mentions, regex, new_content ++ line),
           # finished code blocks
-          else: gen_markup(tl(rest), mentions, regex, new_content ++ [line] ++ code_lines ++ [hd(rest)])
+          else: gen_markup(config, user, tl(rest), mentions, regex, new_content ++ [line] ++ code_lines ++ [hd(rest)])
 
       true ->
-        gen_markup(lines, mentions, regex, new_content ++ [parse_line(line, regex, mentions, "")])
+        cnt = new_content ++ [parse_line(config, user, line, regex, mentions, "")]
+        gen_markup(config, user, lines, mentions, regex, cnt)
     end
   end
 
-  defp parse_line("", _regex, _mentions, new_line), do: new_line
+  defp parse_line(_config, _user, "", _regex, _mentions, new_line), do: new_line
 
-  defp parse_line(line, regex, mentions, new_line) do
+  defp parse_line(config, user, line, regex, mentions, new_line) do
     cond do
       match = Regex.run(regex, line, capture: :all_but_first) ->
         name = List.first(match)
         [_, id, _] = mentions[name]
 
+        classes =
+          HighlightsHelper.highlights_for_username(config, user, name)
+          |> Enum.map(&".#{&1}")
+          |> Enum.join(" ")
+
         url = CforumWeb.Router.Helpers.user_path(CforumWeb.Endpoint, :show, id)
-        link = "[@#{name}](#{url}){: .mention .registered-user}"
-        parse_line(String.slice(line, (String.length(name) + 1)..-1), regex, mentions, new_line <> link)
+        link = "[@#{name}](#{url}){: .mention .registered-user #{classes}}"
+        parse_line(config, user, String.slice(line, (String.length(name) + 1)..-1), regex, mentions, new_line <> link)
 
       String.first(line) == "`" ->
         {code, rest} = skip_code(String.slice(line, 1..-1), "`")
 
         if String.first(rest) == "`" && blank?(code),
           # unterminated code
-          do: parse_line(String.slice(rest, 1..-1), regex, mentions, new_line <> "`"),
+          do: parse_line(config, user, String.slice(rest, 1..-1), regex, mentions, new_line <> "`"),
           # terminated code
-          else: parse_line(rest, regex, mentions, new_line <> code)
+          else: parse_line(config, user, rest, regex, mentions, new_line <> code)
 
       true ->
-        parse_line(String.slice(line, 1..-1), regex, mentions, new_line <> String.first(line))
+        parse_line(config, user, String.slice(line, 1..-1), regex, mentions, new_line <> String.first(line))
     end
   end
 
