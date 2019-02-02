@@ -116,6 +116,12 @@ defmodule Cforum.Forums.Threads do
   def apply_user_infos(threads, user, opts),
     do: Cforum.Forums.Messages.IndexHelper.set_user_attributes(threads, user, opts)
 
+  def apply_highlights(%Thread{} = thread, conn),
+    do: Cforum.Forums.Messages.HighlightsHelper.apply_highlights([thread], conn) |> List.first()
+
+  def apply_highlights(threads, conn),
+    do: Cforum.Forums.Messages.HighlightsHelper.apply_highlights(threads, conn)
+
   def build_message_trees(threads, message_order), do: Enum.map(threads, &build_message_tree(&1, message_order))
 
   def build_message_tree(thread, ordering) do

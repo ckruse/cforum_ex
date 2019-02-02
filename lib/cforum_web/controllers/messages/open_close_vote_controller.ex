@@ -60,6 +60,7 @@ defmodule CforumWeb.Messages.OpenCloseVoteController do
       Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, Threads.slug_from_params(conn.params))
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:read, :subscriptions, :interesting])
+      |> Threads.apply_highlights(conn)
       |> Threads.build_message_tree(uconf(conn, "sort_messages"))
 
     message = Messages.get_message_from_mid!(thread, conn.params["mid"])

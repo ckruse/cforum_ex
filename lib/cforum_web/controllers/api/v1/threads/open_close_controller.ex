@@ -38,6 +38,7 @@ defmodule CforumWeb.Api.V1.Threads.OpenCloseController do
         close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
         open_close_default_state: uconf(conn, "open_close_default")
       )
+      |> Threads.apply_highlights(conn)
       |> Threads.build_message_tree(uconf(conn, "sort_messages"))
 
     conn

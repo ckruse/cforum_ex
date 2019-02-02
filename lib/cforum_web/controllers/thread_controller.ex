@@ -19,6 +19,7 @@ defmodule CforumWeb.ThreadController do
         open_close_default_state: uconf(conn, "open_close_default")
       )
       |> Threads.reject_read_threads(hide_read_threads?(conn))
+      |> Threads.apply_highlights(conn)
       |> Threads.filter_wo_answer(conn.params["only_wo_answer"] != nil)
 
     all_threads_count = length(threads)
@@ -51,6 +52,7 @@ defmodule CforumWeb.ThreadController do
         open_close_default_state: uconf(conn, "open_close_default")
       )
       |> Threads.reject_read_threads(hide_read_threads?(conn))
+      |> Threads.apply_highlights(conn)
       |> Threads.filter_wo_answer()
 
     all_threads_count = length(threads)
@@ -78,6 +80,7 @@ defmodule CforumWeb.ThreadController do
       |> Threads.reject_invisible_threads(user, conn.assigns[:view_all])
       |> Threads.apply_user_infos(user, omit: [:open_close, :subscriptions, :interesting])
       |> Threads.reject_read_threads(hide_read_threads?(conn))
+      |> Threads.apply_highlights(conn)
       |> Threads.sort_threads(ordering)
       |> Threads.build_message_trees(uconf(conn, "sort_messages"))
 
@@ -94,6 +97,7 @@ defmodule CforumWeb.ThreadController do
       |> Threads.reject_invisible_threads(user, conn.assigns[:view_all])
       |> Threads.apply_user_infos(user, omit: [:open_close, :subscriptions, :interesting])
       |> Threads.reject_read_threads(hide_read_threads?(conn))
+      |> Threads.apply_highlights(conn)
       |> Threads.sort_threads(ordering)
       |> Threads.build_message_trees(uconf(conn, "sort_messages"))
 
