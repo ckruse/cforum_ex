@@ -64,8 +64,23 @@ const showForm = (messageElement, json) => {
       }}
       onCancel={() => node.remove()}
     />,
-    node
+    node,
+    () => {
+      const el = document.querySelector("[name='message[author]'][value=''], [name='message[content]']");
+      el.focus();
+      setCursorInTextarea(el);
+    }
   );
+};
+
+const setCursorInTextarea = el => {
+  if (el.nodeName !== "TEXTAREA" || !el.value) {
+    return;
+  }
+
+  if (el.value.match(/^(.*\n\n?)/)) {
+    el.setSelectionRange(RegExp.$1.length, RegExp.$1.length);
+  }
 };
 
 if (document.body.dataset.controller === "MessageController" && document.body.dataset.action === "show") {
