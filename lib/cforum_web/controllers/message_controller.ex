@@ -18,7 +18,7 @@ defmodule CforumWeb.MessageController do
         mark_messages_read(read_mode, conn.assigns[:current_user], conn.assigns.thread, conn.assigns.message)
 
         if uconf(conn, "delete_read_notifications_on_abonements") == "yes",
-          do: Messages.unnotify_user(conn.assigns.current_user, conn.assigns.message)
+          do: Messages.unnotify_user(conn.assigns.current_user, read_mode, conn.assigns.thread, conn.assigns.message)
       end)
     end
 
