@@ -108,7 +108,7 @@ defmodule Cforum.Forums.Message do
 
   def update_changeset(struct, params, user, visible_forums, opts \\ [create_tags: false]) do
     struct
-    |> new_or_update_changeset(params, user, visible_forums, opts)
+    |> new_or_update_changeset(params, nil, visible_forums, opts)
     |> maybe_set_editor_id(user)
     |> set_editor_author(struct, user)
   end
