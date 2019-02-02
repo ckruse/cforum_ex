@@ -11,11 +11,25 @@ defmodule Cforum.Forums.Messages.HighlightsHelper do
 
   def apply_highlights_to_messages(messages, conn) do
     mark_suspicious = ConfigManager.uconf(conn, "mark_suspicious") == "yes"
+    highlight_self = ConfigManager.uconf(conn, "highlight_self") == "yes"
 
     Enum.map(messages, fn msg ->
       msg
       |> apply_suspicious(mark_suspicious)
+      |> highlight_self(highlight_self, conn.assigns[:current_user])
     end)
+  end
+
+  defp highlight_self(message, false, _), do: message
+  defp highlight_self(message, _, nil), do: message
+
+  defp highlight_self(message, _, user) do
+    if message.user_id == user.user_id do
+      attribs = Map.update!(message.attribs, :classes, &["highlighted-self" | &1])
+      %Message{message | attribs: attribs}
+    else
+      message
+    end
   end
 
   defp apply_suspicious(message, false), do: message

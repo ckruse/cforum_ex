@@ -35,19 +35,19 @@
       text-decoration: underline;
     }
     &.highlighted-user {
-      color: #8ab337;
+      color: $highlight_user_color;
     }
     &.highlighted-self {
-      color: #c32e04;
+      color: $highlight_self_color;
     }
   }
 
   blockquote a.mention {
     &.highlighted-user {
-      color: #bdd886;
+      color: $highlight_user_color_visited;
     }
     &.highlighted-self {
-      color: #d37b6d;
+      color: $highlight_self_color_visited;
     }
   }
 
