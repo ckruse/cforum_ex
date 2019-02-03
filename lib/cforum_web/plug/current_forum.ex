@@ -32,11 +32,13 @@ defmodule CforumWeb.Plug.CurrentForum do
 
   defp replace_infos_with__forum(conn, slug) do
     {_, pi} = List.pop_at(conn.path_info, 0)
+    orig_path = conn.request_path
 
     %Conn{
       conn
       | path_info: ["all"] ++ pi,
         request_path: String.replace_prefix(conn.request_path, "/" <> slug, "/all")
     }
+    |> Plug.Conn.assign(:original_path, orig_path)
   end
 end
