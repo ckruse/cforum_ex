@@ -44,3 +44,5 @@ import "./collapse_messages";
 import "./init";
 
 import "./modules/user-notifications";
+import "./modules/anonymous.js";
+
