@@ -61,6 +61,8 @@ $highlight_self_color: #c32e04;
 $highlight_user_color_visited: #bdd886;
 $highlight_self_color_visited: #d37b6d;
 
+$max_message_desktop_width: 45em;
+
 @mixin focus-w-shadow() {
   border-color: $focus_color;
   outline: 0px none;

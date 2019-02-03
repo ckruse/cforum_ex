@@ -34,7 +34,7 @@
     select,
     textarea {
       width: 100%;
-      max-width: 55em;
+      max-width: $max_message_desktop_width;
       display: block;
       @include input-definitions();
     }
@@ -65,7 +65,7 @@
     label.radio,
     label.checkbox {
       width: 100%;
-      max-width: 55em;
+      max-width: $max_message_desktop_width;
 
       input[type="checkbox"],
       input[type="radio"] {

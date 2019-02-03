@@ -16,7 +16,7 @@
 
   .react-autosuggest__suggestions-container--open {
     width: 100%;
-    max-width: 55em;
+    max-width: $max_message_desktop_width;
     display: block;
     position: absolute;
     background-color: #fff;
