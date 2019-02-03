@@ -275,6 +275,8 @@ defmodule Cforum.ConfigManager do
     get(confs, name, nil, conn.assigns[:current_forum]) || @defaults[name]
   end
 
+  def conf(%{} = confs, name, _), do: get(confs, name, nil, %Forum{}) || @defaults[name]
+
   defp map_from_conn(conn) do
     %{
       global: conn.assigns[:global_config],

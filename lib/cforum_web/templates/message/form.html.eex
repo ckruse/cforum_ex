@@ -57,6 +57,7 @@
   </fieldset>
 
   <fieldset>
+    <%= error_tag @f, :tags %>
     <ul class="cf-form-tagslist" data-tags-list="form">
       <%= render "form_tags.html", assigns %>
     </ul>

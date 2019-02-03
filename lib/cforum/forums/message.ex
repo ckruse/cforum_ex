@@ -60,6 +60,7 @@ defmodule Cforum.Forums.Message do
     |> maybe_put_change(:forum_id, forum_id)
     |> validate_forum_id(visible_forums)
     |> maybe_set_author(user)
+    |> validate_tags_count()
     |> Cforum.Helpers.strip_changeset_changes()
     |> Cforum.Helpers.changeset_changes_to_normalized_newline()
     |> parse_tags(params, user, opts[:create_tags])
@@ -77,6 +78,31 @@ defmodule Cforum.Forums.Message do
         if Enum.find(visible_forums, &(&1.forum_id == forum_id)) == nil,
           do: add_error(changeset, :forum_id, "is invalid"),
           else: changeset
+    end
+  end
+
+  defp validate_tags_count(changeset) do
+    with id when not is_nil(id) <- get_field(changeset, :forum_id),
+         forum <- Cforum.Forums.get_forum!(id) do
+      settings = Cforum.ConfigManager.settings_map(forum, nil)
+
+      min_tags = Cforum.ConfigManager.conf(settings, "min_tags_per_message")
+      max_tags = Cforum.ConfigManager.conf(settings, "max_tags_per_message")
+
+      no_tags = length(get_field(changeset, :tags, []))
+
+      cond do
+        no_tags < min_tags ->
+          add_error(changeset, :tags, gettext("Please specify at least %{num} tags", num: min_tags))
+
+        no_tags > max_tags ->
+          add_error(changeset, :tags, gettext("Please specify a maximum of %{num} tags", num: max_tags))
+
+        true ->
+          changeset
+      end
+    else
+      _ -> changeset
     end
   end
 
