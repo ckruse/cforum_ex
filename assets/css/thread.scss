@@ -121,6 +121,12 @@
   }
 }
 
+.cf-thread.closed {
+  ol {
+    display: none;
+  }
+}
+
 @media only screen and (min-width: 35em) {
   .cf-thread {
     min-width: 44em;
