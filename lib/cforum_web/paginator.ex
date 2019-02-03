@@ -33,7 +33,7 @@ defmodule CforumWeb.Paginator do
   end
 
   def pagination(conn, page, path_helper, opts \\ [])
-  def pagination(_conn, %Paginator{pages_count: 1}, _, _), do: ""
+  def pagination(_conn, %Paginator{pages_count: n}, _, _) when n == 0 or n == 1, do: ""
 
   def pagination(conn, page, path_helper, opts) do
     content_tag :nav, class: "cf-pages" do
