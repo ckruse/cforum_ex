@@ -23,7 +23,7 @@ class CfContentForm extends React.Component {
     return (
       <>
         <CfEditor text={text} name={name} mentions={true} onChange={this.refreshSuggestions} withImages={true} />
-        <TagList tags={tags} postingText={this.state.value} />
+        <TagList tags={tags} postingText={this.state.value} globalTagsError={this.props.globalTagsError} />
       </>
     );
   }
@@ -40,5 +40,15 @@ document.querySelectorAll(".cf-content-form").forEach(el => {
       return [t.value, elem ? elem.textContent : null];
     });
 
-  render(<CfContentForm text={area.value} name={area.name} tags={tags} />, el);
+  let globalTagsError = null;
+  const globalTagsErrorElement = document
+    .querySelector(".cf-form-tagslist")
+    .closest("fieldset")
+    .querySelector(".help.error");
+
+  if (globalTagsErrorElement) {
+    globalTagsError = globalTagsErrorElement.textContent;
+  }
+
+  render(<CfContentForm text={area.value} name={area.name} tags={tags} globalTagsError={globalTagsError} />, el);
 });

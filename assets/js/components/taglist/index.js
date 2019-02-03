@@ -127,8 +127,12 @@ class TagList extends React.Component {
   }
 
   render() {
+    const globalTagsError = this.props.globalTagsError;
+
     return (
       <fieldset>
+        {globalTagsError && <span className="help error">{globalTagsError}</span>}
+
         {this.state.tags.length < this.state.maxTags && (
           <Suggestions suggestions={this.state.suggestions} onClick={this.addTag} />
         )}

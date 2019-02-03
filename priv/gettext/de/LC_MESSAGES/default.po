@@ -652,15 +652,15 @@ msgstr "Lesbarkeit und Übersicht"
 msgid "use JavaScript for notifications"
 msgstr "Benutze JavaScript für Benachrichtigungen"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:39
+#: lib/cforum_web/templates/users/user/notifications.html.eex:33
 msgid "automatically delete read notifications for activity in subscribed threads"
 msgstr "Benachrichtigungen für Aktivität in abonnierten Nachrichten automatisch löschen"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:59
+#: lib/cforum_web/templates/users/user/notifications.html.eex:53
 msgid "automatically delete read notifications for mentions"
 msgstr "Benachrichtigungen für Erwähnungen automatisch löschen"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:72
+#: lib/cforum_web/templates/users/user/notifications.html.eex:66
 msgid "automatically delete read notifications for new cites"
 msgstr "Benachrichtigungen für neue Zitate automatisch löschen"
 
@@ -668,35 +668,35 @@ msgstr "Benachrichtigungen für neue Zitate automatisch löschen"
 msgid "automatically delete read notifications for new mails"
 msgstr "Benachrichtigungen für neue Post automatisch löschen"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:28
+#: lib/cforum_web/templates/users/user/notifications.html.eex:22
 msgid "automatically subscribe the first posting of the thread"
 msgstr "abonniere den ersten Beitrag des Threads automatisch"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:27
+#: lib/cforum_web/templates/users/user/notifications.html.eex:21
 msgid "automatically subscribe the own posting"
 msgstr "abonniere den eigenen Beitrag automatisch"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:26
+#: lib/cforum_web/templates/users/user/notifications.html.eex:20
 msgid "automatically subscribe the parent posting"
 msgstr "automatisch das Vorgänger-Posting abonnieren"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:24
+#: lib/cforum_web/templates/users/user/notifications.html.eex:18
 msgid "automatically subscribe threads when answering"
 msgstr "Threads Automatisch abonnieren bei Antwort"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:25
+#: lib/cforum_web/templates/users/user/notifications.html.eex:19
 msgid "no, don't automatically subscribe"
 msgstr "Nein, nicht automatisch abonnieren"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:46
-#: lib/cforum_web/templates/users/user/notifications.html.eex:53
-#: lib/cforum_web/templates/users/user/notifications.html.eex:66
+#: lib/cforum_web/templates/users/user/notifications.html.eex:40
+#: lib/cforum_web/templates/users/user/notifications.html.eex:47
+#: lib/cforum_web/templates/users/user/notifications.html.eex:60
 msgid "no, don't notify me"
 msgstr "Nein, benachrichtige mich nicht"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:47
-#: lib/cforum_web/templates/users/user/notifications.html.eex:54
-#: lib/cforum_web/templates/users/user/notifications.html.eex:67
+#: lib/cforum_web/templates/users/user/notifications.html.eex:41
+#: lib/cforum_web/templates/users/user/notifications.html.eex:48
+#: lib/cforum_web/templates/users/user/notifications.html.eex:61
 msgid "notify me via email"
 msgstr "Benachrichtige mich via Email"
 
@@ -704,25 +704,25 @@ msgstr "Benachrichtige mich via Email"
 msgid "notify me via email on activity in subscribed threads"
 msgstr "Benachrichtige mich via Email über Aktivität in einem abonnierten Thread"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:44
+#: lib/cforum_web/templates/users/user/notifications.html.eex:38
 msgid "notify me when a thread gets moved to a different forum"
 msgstr "Benachrichtige mich, wenn ein Thread in ein anderes Forum verschoben wurde"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:64
+#: lib/cforum_web/templates/users/user/notifications.html.eex:58
 msgid "notify me when someone creates a new cite"
 msgstr "Benachrichtige mich, wenn ein neues Zitat erstellt wurde"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:51
+#: lib/cforum_web/templates/users/user/notifications.html.eex:45
 msgid "notify me when someone mentions me"
 msgstr "Benachrichtige mich, wenn mich jemand erwähnt"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:19
+#: lib/cforum_web/templates/users/user/notifications.html.eex:13
 msgid "notify on new threads"
 msgstr "benachrichtige mich über neue Threads"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:45
-#: lib/cforum_web/templates/users/user/notifications.html.eex:52
-#: lib/cforum_web/templates/users/user/notifications.html.eex:65
+#: lib/cforum_web/templates/users/user/notifications.html.eex:39
+#: lib/cforum_web/templates/users/user/notifications.html.eex:46
+#: lib/cforum_web/templates/users/user/notifications.html.eex:59
 msgid "yes, notify me"
 msgstr "ja, benachrichtige mich"
 
@@ -990,14 +990,14 @@ msgid "Roses are red"
 msgstr "Rosen sind rot"
 
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:63
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:38
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:44
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:62
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:34
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:40
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:58
 #: lib/cforum_web/views/admin/setting_view.ex:32
 msgid "ascending"
 msgstr "aufsteigend"
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:48
+#: lib/cforum_web/templates/users/user/comfort.html.eex:44
 msgid "automatically refresh forum index page"
 msgstr "Lade die Threadliste automatisch neu"
 
@@ -1019,9 +1019,9 @@ msgid "default date format"
 msgstr "Standard-Datumsformat"
 
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:62
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:39
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:45
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:63
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:35
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:41
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:59
 #: lib/cforum_web/views/admin/setting_view.ex:33
 msgid "descending"
 msgstr "absteigend"
@@ -1030,7 +1030,7 @@ msgstr "absteigend"
 msgid "farewell"
 msgstr "Verabschiedung"
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:53
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:49
 msgid "fold quotes"
 msgstr "Klappe Zitate zusammen"
 
@@ -1038,7 +1038,7 @@ msgstr "Klappe Zitate zusammen"
 msgid "fold read messages"
 msgstr "Klappe gelesene Nachrichten zusammen"
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:57
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:53
 msgid "hide read threads"
 msgstr "Verstecke vollständig gelesene Threads"
 
@@ -1054,7 +1054,7 @@ msgstr "verstecke unveränderte Betreffe"
 msgid "hide unchanged tags"
 msgstr "verstecke unveränderte Tags"
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:49
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:45
 msgid "highlight myself"
 msgstr "Hebe meine eigenen Beiträge hervor"
 
@@ -1079,16 +1079,16 @@ msgid "mark suspicious usernames"
 msgstr "markiere verdächtige Benutzernamen"
 
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:64
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:37
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:33
 #: lib/cforum_web/views/admin/setting_view.ex:31
 msgid "newest first"
 msgstr "Threads mit neuestem Beitrag zuerst"
 
 #: lib/cforum_web/templates/admin/event/index.html.eex:20
 #: lib/cforum_web/templates/admin/search_section/index.html.eex:19
-#: lib/cforum_web/templates/users/user/comfort.html.eex:31
-#: lib/cforum_web/templates/users/user/notifications.html.eex:80
-#: lib/cforum_web/templates/users/user/notifications.html.eex:89
+#: lib/cforum_web/templates/users/user/comfort.html.eex:27
+#: lib/cforum_web/templates/users/user/notifications.html.eex:74
+#: lib/cforum_web/templates/users/user/notifications.html.eex:83
 msgid "no"
 msgstr "nein"
 
@@ -1100,7 +1100,7 @@ msgstr "Anzahl von Kontext-Zeilen bei Diffs"
 msgid "page messages index"
 msgstr "Zeige die Nachrichten auf Seiten aufgeteilt"
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:29
+#: lib/cforum_web/templates/users/user/comfort.html.eex:25
 msgid "quote previous message by default"
 msgstr "Zitiere die vorherige Nachricht per Default"
 
@@ -1112,11 +1112,11 @@ msgstr "Zitiere die Signatur beim antworten"
 msgid "remove rel=nofollow from my homepage URL"
 msgstr "Verlinke meine Homepage ohne rel=nofollow"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:87
+#: lib/cforum_web/templates/users/user/notifications.html.eex:81
 msgid "send me a notification on close and re-open votes"
 msgstr "Sende eine Benachrichtigung, wenn eine Sperr- oder Entsperr-Abstimmung stattfindet"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:78
+#: lib/cforum_web/templates/users/user/notifications.html.eex:72
 msgid "send me a notification on flagged messages"
 msgstr "Sende eine Benachrichtigung, wenn ein Beitrag Moderation benötigt"
 
@@ -1128,15 +1128,15 @@ msgstr "schliessen"
 msgid "show mail index grouped by thread"
 msgstr "Zeige den Post-Index gruppiert nach Thread"
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:40
+#: lib/cforum_web/templates/users/user/comfort.html.eex:36
 msgid "show number of unread PMs in title"
 msgstr "Zeige die Anzahl ungelesener Post im Titel"
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:44
+#: lib/cforum_web/templates/users/user/comfort.html.eex:40
 msgid "show number of unread messages in title"
 msgstr "Zeige die Anzahl ungelesener Nachrichten im Titel"
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:36
+#: lib/cforum_web/templates/users/user/comfort.html.eex:32
 msgid "show number of unread notifications in title"
 msgstr "Zeige die Anzahl ungelesener Benachrichtigungen im Titel"
 
@@ -1152,7 +1152,7 @@ msgstr "Benutze die Live-Vorschau"
 msgid "show threads in…"
 msgstr "Zeige Threads in…"
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:32
+#: lib/cforum_web/templates/users/user/comfort.html.eex:28
 msgid "show two buttons"
 msgstr "zeige zwei Buttons"
 
@@ -1160,15 +1160,15 @@ msgstr "zeige zwei Buttons"
 msgid "signature"
 msgstr "Signatur"
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:61
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:57
 msgid "sort mail threads…"
 msgstr "Sortiere private Nachrichten…"
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:43
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:39
 msgid "sort messages…"
 msgstr "Sortiere Beiträge"
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:36
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:32
 msgid "sort threads…"
 msgstr "sortiere Threads…"
 
@@ -1180,16 +1180,16 @@ msgstr "JavaScript nutzen, um neue Threads und Nachrichten vom Server zu laden"
 msgid "use inline answer forms"
 msgstr "Inline-Formular zum antworten nutzen"
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:81
-#: lib/cforum_web/templates/users/user/notifications.html.eex:90
+#: lib/cforum_web/templates/users/user/notifications.html.eex:75
+#: lib/cforum_web/templates/users/user/notifications.html.eex:84
 msgid "via email"
 msgstr "via Email"
 
 #: lib/cforum_web/templates/admin/event/index.html.eex:20
 #: lib/cforum_web/templates/admin/search_section/index.html.eex:19
-#: lib/cforum_web/templates/users/user/comfort.html.eex:30
-#: lib/cforum_web/templates/users/user/notifications.html.eex:79
-#: lib/cforum_web/templates/users/user/notifications.html.eex:88
+#: lib/cforum_web/templates/users/user/comfort.html.eex:26
+#: lib/cforum_web/templates/users/user/notifications.html.eex:73
+#: lib/cforum_web/templates/users/user/notifications.html.eex:82
 msgid "yes"
 msgstr "ja"
 
@@ -1318,7 +1318,7 @@ msgstr "SELFHTML Forum - Ergänzung zur <a href=\"https://wiki.selfhtml.org\">Do
 
 #: lib/cforum_web/controllers/api/v1/message_controller.ex:22
 #: lib/cforum_web/controllers/message_controller.ex:44
-#: lib/cforum_web/controllers/thread_controller.ex:115
+#: lib/cforum_web/controllers/thread_controller.ex:119
 msgid "all"
 msgstr "alle"
 
@@ -1423,11 +1423,11 @@ msgstr "Seitenauswahl"
 msgid "previous page"
 msgstr "eine Seite zurück"
 
-#: lib/cforum/forums/message.ex:136
+#: lib/cforum/forums/message.ex:162
 msgid "unknown tags given: %{tags}"
 msgstr "Folgende Tags sind unbekannt: %{tags}."
 
-#: lib/cforum_web/controllers/thread_controller.ex:147
+#: lib/cforum_web/controllers/thread_controller.ex:151
 msgid "Thread created successfully."
 msgstr "Thread erfolgreich erstellt."
 
@@ -1497,7 +1497,7 @@ msgid "Thread has successfully been closed."
 msgstr "Der Thread wurde erfolgreich zugeklappt."
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/invisible_controller.ex:48
+#: lib/cforum_web/controllers/threads/invisible_controller.ex:49
 msgid "Thread has successfully been hidden."
 msgstr "Der Thread wurde erfolgreich ausgeblendet."
 
@@ -1512,7 +1512,7 @@ msgid "Thread has successfully been opened."
 msgstr "Der Thread wurde erfolgreich aufgeklappt."
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/invisible_controller.ex:64
+#: lib/cforum_web/controllers/threads/invisible_controller.ex:65
 msgid "Thread has successfully been restored."
 msgstr "Der Thread wurde erfolgreich wiederhergestellt."
 
@@ -1690,7 +1690,7 @@ msgid "you"
 msgstr "du"
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/notifications.html.eex:13
+#: lib/cforum_web/templates/users/user/notifications.html.eex:7
 msgid "notify me via email on new mail"
 msgstr "benachrichtige mich via Email über neue Post"
 
@@ -4007,12 +4007,12 @@ msgid "Tag %{no}"
 msgstr "Tag %{no}"
 
 #, elixir-format
-#: lib/cforum/forums/message.ex:170
+#: lib/cforum/forums/message.ex:196
 msgid "is unknown"
 msgstr "ist unbekannt"
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:74
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:65
 msgid "A comma separated list of poster names"
 msgstr "Eine Komma-separierte Liste von Autoren-Namen"
 
@@ -4023,12 +4023,12 @@ msgid "close"
 msgstr "schließen"
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:72
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:63
 msgid "highlighted users"
 msgstr "hervorgehobene Benutzer"
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/notifications.html.eex:33
+#: lib/cforum_web/templates/users/user/notifications.html.eex:27
 msgid "notify me via email on activity in subscribed messages"
 msgstr "Benachrichtige mich via Email über Aktivität bei einem abonnierten Beitrag"
 
@@ -4082,12 +4082,12 @@ msgstr "Antworten auf diese Nachricht ist nun verboten."
 msgid "Edit versions of message „%{subject}“"
 msgstr "Versions-Historie der Nachricht „%{subject}“"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/controllers/image_controller.ex:45
 msgid "Image deleted successfully."
 msgstr "Medaille erfolgreich gelöscht."
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/controllers/messages/admin_controller.ex:11
 #: lib/cforum_web/controllers/messages/admin_controller.ex:19
 msgid "Message was successfully deleted."
@@ -4104,7 +4104,7 @@ msgstr "Bewege diesen Thread in ein anderes Forum."
 msgid "Sticky mark has successfully been removed."
 msgstr "Der Thread ist nicht länger angepinnt."
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/controllers/threads/admin_controller.ex:11
 msgid "Thread has successfully been marked as sticky."
 msgstr "Der Thread wurde erfolgreich als gelesen markiert."
@@ -4115,7 +4115,7 @@ msgstr "Der Thread wurde erfolgreich als gelesen markiert."
 msgid "Thread is currently marked sticky. Remove mark."
 msgstr "Dieser Thread ist zur Zeit angepinnt. Löse ihn."
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:8
 #: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:10
 msgid "Thread is currently not marked sticky. Mark it."
@@ -4132,7 +4132,7 @@ msgstr "Dieser Thread wird archiviert."
 msgid "Thread will currently be archived. Don't archive it."
 msgstr "Dieser Thread wird zur Zeit archiviert. Archivierung ausschalten."
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:22
 #: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:24
 msgid "Thread will currently not be archived. Archive it."
@@ -4149,7 +4149,7 @@ msgstr "Dieser Thread wird bei Archivierung gelöscht."
 msgid "allow answering to this message"
 msgstr "antworten auf diese Nachricht erlauben"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:8
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:10
 msgid "delete this message"
@@ -4166,7 +4166,7 @@ msgstr "antworten auf diese Nachricht verbieten"
 msgid "owner"
 msgstr "Besitzer"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:2
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:4
 msgid "restore this message"
@@ -4191,3 +4191,13 @@ msgstr "Dieser Thread wird nicht archiviert"
 #: lib/cforum_web/templates/message/header_editor.html.eex:3
 msgid "versions"
 msgstr "Versionen"
+
+#, elixir-format
+#: lib/cforum/forums/message.ex:99
+msgid "Please specify a maximum of %{num} tags"
+msgstr "Bitte geben Sie höchstens %{num} Tags an"
+
+#, elixir-format
+#: lib/cforum/forums/message.ex:96
+msgid "Please specify at least %{num} tags"
+msgstr "Bitte geben Sie mindestens %{num} Tags an"
