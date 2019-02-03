@@ -4,14 +4,14 @@
   color: #039;
   border: 1px solid #e7c157;
   background: none repeat scroll 0% 0% #fdfcf3;
-  font-family: Consolas, "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Andale Mono", "Droid Sans Mono",
-    "Lucida Console", monospace;
+  font-family: $default_font_family;
   margin: 0.5em 0px;
   padding: 0.8em 0.1em 1em;
   border-radius: 0px 0.5em 0.5em;
   font-size: 0.9em;
   line-height: 1.4em;
   image-orientation: from-image;
+  hyphens: auto;
 
   & > :first-child {
     margin-top: 0;
