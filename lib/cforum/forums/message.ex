@@ -60,10 +60,10 @@ defmodule Cforum.Forums.Message do
     |> maybe_put_change(:forum_id, forum_id)
     |> validate_forum_id(visible_forums)
     |> maybe_set_author(user)
-    |> validate_tags_count()
     |> Cforum.Helpers.strip_changeset_changes()
     |> Cforum.Helpers.changeset_changes_to_normalized_newline()
     |> parse_tags(params, user, opts[:create_tags])
+    |> validate_tags_count()
   end
 
   defp maybe_put_change(changeset, _, nil), do: changeset
