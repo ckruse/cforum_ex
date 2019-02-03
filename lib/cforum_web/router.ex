@@ -11,6 +11,7 @@ defmodule CforumWeb.Router do
     plug(:protect_from_forgery)
     plug(:put_secure_browser_headers)
 
+    plug(CforumWeb.Plug.RedirectionsPlug)
     plug(CforumWeb.Plug.CurrentUser)
     plug(CforumWeb.Plug.UpdateLastVisit)
     plug(CforumWeb.Plug.RememberMe)

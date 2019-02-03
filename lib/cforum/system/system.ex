@@ -54,6 +54,8 @@ defmodule Cforum.System do
   """
   def get_redirection!(id), do: Repo.get!(Redirection, id)
 
+  def get_redirection_by_path(path), do: Repo.get_by(Redirection, path: path)
+
   @doc """
   Creates a redirection.
 
