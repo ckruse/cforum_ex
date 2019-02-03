@@ -41,5 +41,8 @@ document.addEventListener("cf:configDidLoad", () => {
     .querySelectorAll(".cf-thread-nested .cf-thread-message > .posting-header > .cf-message-header.visited")
     .forEach(el => foldMessage(el));
 
-  document.querySelector(".cf-thread-nested .cf-thread-message.active").scrollIntoView();
+  const el = document.querySelector(".cf-thread-nested .cf-thread-message.active");
+  if (el) {
+    el.scrollIntoView();
+  }
 });
