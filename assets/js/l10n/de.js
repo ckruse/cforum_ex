@@ -133,5 +133,6 @@ export const lang = {
   timeInputFormat: "H:i",
 
   fold: "einklappen",
-  unfold: "ausklappen"
+  unfold: "ausklappen",
+  "Oops, something went wrong!": "Uups, etwas ist schief gegangen!"
 };
