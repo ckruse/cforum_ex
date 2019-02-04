@@ -86,7 +86,7 @@ class CfEditor extends React.Component {
       this.state.textarea.selectionEnd = start + image.length;
       this.state.textarea.focus();
     } else {
-      alertError(t("Something went wrong!"));
+      alertError(t("Oops, something went wrong!"));
     }
   }
 
