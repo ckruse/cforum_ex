@@ -19,7 +19,7 @@ defmodule Cforum.Media.Image do
   def changeset(image, user, file) do
     image
     |> cast(%{}, [])
-    |> put_change(:owner_id, user.user_id)
+    |> maybe_set_owner_id(user)
     |> put_change(:content_type, file.content_type)
     |> put_change(:orig_name, file.filename)
     |> put_change(:filename, gen_filename(Path.extname(file.filename)))
@@ -39,4 +39,7 @@ defmodule Cforum.Media.Image do
   end
 
   defp gen_filename(_, _), do: nil
+
+  defp maybe_set_owner_id(changeset, nil), do: changeset
+  defp maybe_set_owner_id(changeset, user), do: put_change(changeset, :owner_id, user.user_id)
 end
