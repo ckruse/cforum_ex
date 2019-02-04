@@ -2,6 +2,7 @@
 
 .cf-thread-list {
   display: inline-block;
+  min-width: $max_message_desktop_width;
 
   ol {
     overflow: hidden;
