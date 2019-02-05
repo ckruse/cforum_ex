@@ -1,6 +1,6 @@
 <div class="cf-voting-area <%= if @top, do: "top", else: "bottom" %>">
   <%= unless @top do %>
-    <%= if may?(@conn, "messages/accept", :accept, @message) do %>
+    <%= if may?(@conn, "messages/accept", :accept, {@thread, @message}) do %>
       <%= cf_button(
           gettext("accept answer"),
           to: Path.accept_message_path(@conn, @thread, @message),
@@ -9,7 +9,7 @@
         ) %>
     <% end %>
 
-    <%= if may?(@conn, "messages/accept", :unaccept, @message) do %>
+    <%= if may?(@conn, "messages/accept", :unaccept, {@thread, @message}) do %>
       <%= cf_button(
           gettext("unaccept answer"),
           to: Path.unaccept_message_path(@conn, @thread, @message),
@@ -24,7 +24,7 @@
   <% end %>
 
   <%= unless @top do %>
-    <%= if may?(@conn, "messages/vote", :downvote, @message) do %>
+    <%= if may?(@conn, "messages/vote", :downvote, {@thread, @message}) do %>
       <%= cf_button(
           gettext("vote down"),
           to: Path.downvote_message_path(@conn, @thread, @message),
@@ -41,7 +41,7 @@
   </span>
 
   <%= unless @top do %>
-    <%= if may?(@conn, "messages/vote", :upvote, @message) do %>
+    <%= if may?(@conn, "messages/vote", :upvote, {@thread, @message}) do %>
       <%= cf_button(
           gettext("vote up"),
           to: Path.upvote_message_path(@conn, @thread, @message),

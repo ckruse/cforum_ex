@@ -33,14 +33,26 @@ defmodule CforumWeb.Messages.AcceptController do
     |> Plug.Conn.assign(:message, message)
   end
 
-  def allowed?(conn, :accept, msg) do
-    msg = msg || conn.assigns.message
-    accept?(conn, msg) && !Messages.accepted?(msg)
+  def allowed?(conn, :accept, resource) do
+    {thread, message} =
+      with {thr, msg} <- resource do
+        {thr, msg}
+      else
+        _ -> {conn.assigns.thread, conn.assigns.message}
+      end
+
+    accept?(conn, message) && !Messages.accepted?(message) && !thread.archived
   end
 
-  def allowed?(conn, :unaccept, msg) do
-    msg = msg || conn.assigns.message
-    accept?(conn, msg) && Messages.accepted?(msg)
+  def allowed?(conn, :unaccept, resource) do
+    {thread, message} =
+      with {thr, msg} <- resource do
+        {thr, msg}
+      else
+        _ -> {conn.assigns.thread, conn.assigns.message}
+      end
+
+    accept?(conn, message) && Messages.accepted?(message) && !thread.archived
   end
 
   def allowed?(_, _, _), do: false

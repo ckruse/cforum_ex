@@ -13,7 +13,7 @@ defmodule CforumWeb.MessageController do
       |> parse_readmode(params)
       |> validate_readmode
 
-    if signed_in?(conn) do
+    if signed_in?(conn) and !conn.assigns.thread.archived do
       Cforum.Helpers.AsyncHelper.run_async(fn ->
         mark_messages_read(read_mode, conn.assigns[:current_user], conn.assigns.thread, conn.assigns.message)
 
