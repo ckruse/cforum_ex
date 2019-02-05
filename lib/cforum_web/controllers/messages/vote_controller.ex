@@ -47,18 +47,28 @@ defmodule CforumWeb.Messages.VoteController do
     |> Plug.Conn.assign(:message, message)
   end
 
-  def allowed?(conn, :upvote, msg) do
-    msg = msg || conn.assigns.message
+  def allowed?(conn, :upvote, resource) do
+    {thread, message} =
+      with {thr, msg} <- resource do
+        {thr, msg}
+      else
+        _ -> {conn.assigns.thread, conn.assigns.message}
+      end
 
     signed_in?(conn) && access_forum?(conn, :write) && (admin?(conn) || badge?(conn, "upvote")) &&
-      !Messages.closed?(msg)
+      !Messages.closed?(message) && !thread.archived
   end
 
-  def allowed?(conn, :downvote, msg) do
-    msg = msg || conn.assigns.message
+  def allowed?(conn, :downvote, resource) do
+    {thread, message} =
+      with {thr, msg} <- resource do
+        {thr, msg}
+      else
+        _ -> {conn.assigns.thread, conn.assigns.message}
+      end
 
     signed_in?(conn) && access_forum?(conn, :write) && (admin?(conn) || badge?(conn, "downvote")) &&
-      !Messages.closed?(msg) && conn.assigns.current_user.score > 0
+      !Messages.closed?(message) && !thread.archived && conn.assigns.current_user.score > 0
   end
 
   def allowed?(_, _, _), do: false
