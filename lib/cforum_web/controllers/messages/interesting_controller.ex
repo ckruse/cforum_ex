@@ -18,20 +18,14 @@ defmodule CforumWeb.Messages.InterestingController do
     count = Finder.count_interesting_messages_results(conn.assigns[:current_user], changeset)
     paging = paginate(count, page: params["p"])
 
-    messages =
+    threads =
       Finder.search_interesting_messages(conn.assigns.current_user, changeset, paging.params)
-      |> Enum.map(fn msg ->
-        thread = %Thread{msg.thread | message: msg}
-        %Message{msg | thread: thread}
-      end)
+      |> Enum.map(fn msg -> %Thread{msg.thread | messages: [msg]} end)
+      |> Threads.apply_user_infos(conn.assigns[:current_user])
+      |> Threads.apply_highlights(conn)
+      |> Enum.map(fn thread -> %Thread{thread | message: List.first(thread.messages)} end)
 
-    render(
-      conn,
-      "index.html",
-      messages: messages,
-      paging: paging,
-      changeset: changeset
-    )
+    render(conn, "index.html", threads: threads, paging: paging, changeset: changeset)
   end
 
   def index(conn, params) do
@@ -41,21 +35,14 @@ defmodule CforumWeb.Messages.InterestingController do
     count = Messages.count_interesting_messages(conn.assigns[:current_user])
     paging = paginate(count, page: params["p"])
 
-    entries = Messages.list_interesting_messages(conn.assigns[:current_user], limit: paging.params)
+    threads =
+      Messages.list_interesting_messages(conn.assigns[:current_user], limit: paging.params)
+      |> Enum.map(fn msg -> %Thread{msg.thread | messages: [msg]} end)
+      |> Threads.apply_user_infos(conn.assigns[:current_user])
+      |> Threads.apply_highlights(conn)
+      |> Enum.map(fn thread -> %Thread{thread | message: List.first(thread.messages)} end)
 
-    messages =
-      Enum.map(entries, fn msg ->
-        thread = %Thread{msg.thread | message: msg}
-        %Message{msg | thread: thread}
-      end)
-
-    render(
-      conn,
-      "index.html",
-      messages: messages,
-      paging: paging,
-      changeset: changeset
-    )
+    render(conn, "index.html", threads: threads, paging: paging, changeset: changeset)
   end
 
   def interesting(conn, params) do
