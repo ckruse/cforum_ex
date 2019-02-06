@@ -123,7 +123,20 @@ export const unsubscribeMessageHelper = (requestParams, form) => {
     message_id: parsedUrl.messageId,
     forum: document.body.dataset.currentForum
   });
-  return { url: "/api/v1/messages/unsubscribe" };
+
+  const retval = { url: "/api/v1/messages/unsubscribe" };
+
+  if (document.body.dataset.controller === "Messages.SubscriptionController") {
+    retval.afterAction = response => {
+      if (response.status == 200) {
+        form.closest(".cf-thread").remove();
+      } else {
+        alertError(t("Oops, something went wrong!"));
+      }
+    };
+  }
+
+  return retval;
 };
 
 export const deleteHelper = (requestParams, form) => {
