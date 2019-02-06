@@ -1,7 +1,7 @@
 defmodule CforumWeb.Messages.InterestingController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.{Threads, Thread, Messages, Message}
+  alias Cforum.Forums.{Threads, Thread, Messages}
   alias CforumWeb.Views.Helpers.ReturnUrl
   alias Cforum.Search
   alias Cforum.Search.Finder
