@@ -431,6 +431,16 @@ defmodule Cforum.Forums.Messages do
     end
   end
 
+  def get_message_from_old_mid!(thread, mid) when is_bitstring(mid),
+    do: get_message_from_old_mid!(thread, String.to_integer(mid, 10))
+
+  def get_message_from_old_mid!(thread, mid) do
+    case find_message(thread, &(&1.mid == mid)) do
+      nil -> raise Ecto.NoResultsError, queryable: Message
+      msg -> msg
+    end
+  end
+
   alias Cforum.Forums.Messages.Mentions
 
   @doc """
