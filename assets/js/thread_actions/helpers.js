@@ -100,7 +100,19 @@ export const markBoringHelper = (requestParams, form) => {
     message_id: parsedUrl.messageId,
     forum: document.body.dataset.currentForum
   });
-  return { url: "/api/v1/messages/boring" };
+  const retval = { url: "/api/v1/messages/boring" };
+
+  if (document.body.dataset.controller === "Messages.InterestingController") {
+    retval.afterAction = response => {
+      if (response.status == 200) {
+        form.closest(".cf-thread").remove();
+      } else {
+        alertError(t("Oops, something went wrong!"));
+      }
+    };
+  }
+
+  return retval;
 };
 
 export const subscribeMessageHelper = (requestParams, form) => {
