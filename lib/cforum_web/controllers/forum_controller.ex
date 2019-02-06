@@ -1,7 +1,24 @@
 defmodule CforumWeb.ForumController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.{Stats, Threads}
+  alias Cforum.Forums.{Stats, Threads, Messages}
+
+  def index(conn, %{"t" => tid, "m" => mid}) do
+    threads =
+      Threads.get_threads_by_tid!(tid)
+      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
+
+    case threads do
+      [thread] ->
+        message = Messages.get_message_from_old_mid!(thread, mid)
+        redirect(conn, to: Path.message_path(conn, :show, thread, message))
+
+      threads ->
+        conn
+        |> put_view(CforumWeb.RedirectorView)
+        |> render("redirect_archive_thread.html", threads: threads)
+    end
+  end
 
   def index(conn, _params) do
     {priv_messages, notifications} =
