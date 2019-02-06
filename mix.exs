@@ -60,6 +60,8 @@ defmodule Cforum.Mixfile do
       {:elixir_uuid, "~> 1.2"},
       {:cachex, "~> 3.1"},
       {:earmark, "~> 1.3.0"},
+      {:html_entities, "~> 0.4"},
+      {:nimble_parsec, "~> 0.2"},
 
       # testing
       {:excoveralls, "~> 0.8", only: :test},

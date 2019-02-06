@@ -52,12 +52,18 @@ defmodule Cforum.MarkdownRenderer do
     # [{:safe, "<pre>"}, message.content, {:safe, "</pre>"}]
   end
 
-  def to_html(%Message{} = message, assigns) do
+  def to_html(%Message{format: "markdown"} = message, assigns) do
     # TODO handle user specific foo
     content = Cforum.Forums.Messages.content_with_presentational_filters(assigns, message)
     {:ok, html} = render_doc(content)
     {:safe, html}
     # [{:safe, "<pre>"}, message.content, {:safe, "</pre>"}]
+  end
+
+  def to_html(%Message{format: "cforum"} = message, assigns) do
+    message
+    |> Cforum.LegacyParser.parse()
+    |> to_html(assigns)
   end
 
   def to_html(%PrivMessage{} = message, _user) do
