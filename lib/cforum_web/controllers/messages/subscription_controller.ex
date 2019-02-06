@@ -1,12 +1,12 @@
 defmodule CforumWeb.Messages.SubscriptionController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.{Threads, Messages, Thread, Message}
+  alias Cforum.Forums.{Threads, Messages, Thread}
   alias CforumWeb.Views.Helpers.ReturnUrl
   alias Cforum.Search
   alias Cforum.Search.Finder
 
-  def index(conn, %{"search" => search_params} = params) do
+  def index(conn, %{"search" => %{"term" => term} = search_params} = params) when not is_nil(term) and term != "" do
     visible_sections = Search.list_visible_search_sections(conn.assigns.visible_forums)
 
     changeset =
@@ -18,14 +18,14 @@ defmodule CforumWeb.Messages.SubscriptionController do
     count = Finder.count_subscribed_messages_results(conn.assigns[:current_user], changeset)
     paging = paginate(count, page: params["p"])
 
-    messages =
+    threads =
       Finder.search_subscribed_messages(conn.assigns.current_user, changeset, paging.params)
-      |> Enum.map(fn msg ->
-        thread = %Thread{msg.thread | message: msg}
-        %Message{msg | thread: thread}
-      end)
+      |> Enum.map(fn msg -> %Thread{msg.thread | messages: [msg]} end)
+      |> Threads.apply_user_infos(conn.assigns[:current_user])
+      |> Threads.apply_highlights(conn)
+      |> Enum.map(fn thread -> %Thread{thread | message: List.first(thread.messages)} end)
 
-    render(conn, "index.html", messages: messages, paging: paging, changeset: changeset)
+    render(conn, "index.html", threads: threads, paging: paging, changeset: changeset)
   end
 
   def index(conn, params) do
@@ -36,13 +36,14 @@ defmodule CforumWeb.Messages.SubscriptionController do
 
     entries = Messages.list_subscriptions(conn.assigns[:current_user], limit: paging.params)
 
-    messages =
-      Enum.map(entries, fn msg ->
-        thread = %Thread{msg.thread | message: msg}
-        %Message{msg | thread: thread}
-      end)
+    threads =
+      entries
+      |> Enum.map(fn msg -> %Thread{msg.thread | messages: [msg]} end)
+      |> Threads.apply_user_infos(conn.assigns[:current_user])
+      |> Threads.apply_highlights(conn)
+      |> Enum.map(fn thread -> %Thread{thread | message: List.first(thread.messages)} end)
 
-    render(conn, "index.html", messages: messages, paging: paging, changeset: changeset)
+    render(conn, "index.html", threads: threads, paging: paging, changeset: changeset)
   end
 
   def subscribe(conn, params) do
