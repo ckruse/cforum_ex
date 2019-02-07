@@ -27,3 +27,4 @@ node_modules
 /cover/*
 /.elixir_ls/*
 .dir-locals.el
+/config/appsignal.exs

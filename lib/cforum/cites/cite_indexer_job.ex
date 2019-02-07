@@ -1,4 +1,6 @@
 defmodule Cforum.Cites.CiteIndexerJob do
+  use Appsignal.Instrumentation.Decorators
+
   import CforumWeb.Gettext
 
   alias Cforum.ConfigManager
@@ -9,6 +11,7 @@ defmodule Cforum.Cites.CiteIndexerJob do
 
   alias CforumWeb.Router.Helpers
 
+  @decorate transaction()
   @spec index_cite(%Cite{}) :: any()
   def index_cite(%Cite{} = cite) do
     Cforum.Helpers.AsyncHelper.run_async(fn ->
@@ -25,6 +28,7 @@ defmodule Cforum.Cites.CiteIndexerJob do
     end)
   end
 
+  @decorate transaction()
   @spec unindex_cite(%Cite{}) :: any()
   def unindex_cite(%Cite{} = cite) do
     doc = Search.get_document_by_url(Helpers.cite_url(CforumWeb.Endpoint, :show, cite))

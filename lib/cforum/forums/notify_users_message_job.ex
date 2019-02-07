@@ -1,4 +1,6 @@
 defmodule Cforum.Forums.NotifyUsersMessageJob do
+  use Appsignal.Instrumentation.Decorators
+
   import CforumWeb.Gettext
 
   alias Cforum.Forums.{Thread, Message}
@@ -6,6 +8,7 @@ defmodule Cforum.Forums.NotifyUsersMessageJob do
   alias Cforum.Accounts.{Settings, Notifications, Users}
   alias CforumWeb.Views.Helpers.Path
 
+  @decorate transaction()
   @spec notify_users_about_new_message(%Thread{}, %Message{}) :: any()
   def notify_users_about_new_message(thread, message) do
     Cforum.Helpers.AsyncHelper.run_async(fn ->
@@ -25,6 +28,7 @@ defmodule Cforum.Forums.NotifyUsersMessageJob do
     end)
   end
 
+  @decorate transaction()
   def notify_users(thread, message, already_notified) do
     parent_messages(thread, message)
     |> Messages.list_subscriptions_for_messages()
@@ -77,6 +81,7 @@ defmodule Cforum.Forums.NotifyUsersMessageJob do
     parent_messages(thread, parent, [parent | acc])
   end
 
+  @decorate transaction()
   def notify_users_about_new_thread(thread, message) do
     Cforum.Helpers.AsyncHelper.run_async(fn ->
       Users.list_users_by_config_option("notify_on_new_thread", "yes")
