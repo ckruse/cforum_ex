@@ -1,4 +1,6 @@
 defmodule Cforum.Forums.Messages do
+  use Appsignal.Instrumentation.Decorators
+
   @moduledoc """
   The boundary for the Forums system.
   """
@@ -780,6 +782,7 @@ defmodule Cforum.Forums.Messages do
   def mark_messages_read(nil, _), do: nil
   def mark_messages_read(user, message) when not is_list(message), do: mark_messages_read(user, [message])
 
+  @decorate transaction()
   def mark_messages_read(user, messages) do
     for msg <- messages do
       ret =

@@ -6,6 +6,13 @@ defmodule Cforum.Application do
   def start(_type, _args) do
     import Supervisor.Spec
 
+    :telemetry.attach(
+      "appsignal-ecto",
+      [:cforum, :repo, :query],
+      &Appsignal.Ecto.handle_event/4,
+      nil
+    )
+
     # Define workers and child supervisors to be supervised
     children = [
       # Start the Ecto repository

@@ -1,4 +1,6 @@
 defmodule Cforum.Accounts.UserCleanupJob do
+  use Appsignal.Instrumentation.Decorators
+
   alias Cforum.Accounts.{Users, User}
 
   import Ecto.{Query, Changeset}, warn: false
@@ -6,6 +8,7 @@ defmodule Cforum.Accounts.UserCleanupJob do
 
   alias Cforum.Repo
 
+  @decorate transaction()
   def cleanup do
     from(user in User,
       where: is_nil(user.confirmed_at) and user.confirmation_sent_at <= datetime_add(^DateTime.utc_now(), -24, "hour")
