@@ -39,6 +39,7 @@ class TagList extends React.Component {
         json.sort((a, b) => b.num_messages - a.num_messages);
         this.setState({ allTags: json });
       })
+      .then(() => this.refreshSuggestions())
       .catch(e => console.log(e));
   }
 
