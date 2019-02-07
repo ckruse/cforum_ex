@@ -33,7 +33,7 @@
           <%= default_button_link(gettext("mail to author"), to: Routes.mail_path(@conn, :new, new_mail_params(@conn, @message)), rel: "nofollow") %>
         <% end %>
 
-        <%= if may?(@conn, "messages/retag", :retag, @message) do %>
+        <%= if may?(@conn, "messages/retag", :retag, {@thread, @message}) do %>
           <%= default_button_link(gettext("retag message"), to: Path.retag_message_path(@conn, @thread, @message), rel: "nofollow") %>
         <% end %>
 
