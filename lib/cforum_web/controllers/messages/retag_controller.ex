@@ -48,7 +48,7 @@ defmodule CforumWeb.Messages.RetagController do
   def allowed?(conn, action, nil), do: allowed?(conn, action, {conn.assigns.thread, conn.assigns.message})
 
   def allowed?(conn, _action, {thread, message}) do
-    access_forum?(conn, :moderate) || may?(conn, "messages", :edit, {thread, message}) ||
+    access_forum?(conn, :moderate) || may?(conn, "message", :edit, {thread, message}) ||
       (badge?(conn, Badge.retag()) && !Messages.closed?(message))
   end
 end
