@@ -26,7 +26,7 @@ defmodule Cforum.Forums.Messages.Mentions do
     blocks
     |> Enum.reject(fn
       %Earmark.Block.Code{} -> true
-      _ -> false
+      rec -> !Map.has_key?(rec, :lines) && !Map.has_key?(rec, :blocks)
     end)
     |> Enum.map(fn
       %Earmark.Block.BlockQuote{} = block ->
