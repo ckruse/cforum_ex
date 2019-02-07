@@ -45,7 +45,8 @@ defmodule Cforum.Forums.Message do
       :tags,
       Cforum.Forums.Tag,
       join_through: Cforum.Forums.MessageTag,
-      join_keys: [message_id: :message_id, tag_id: :tag_id]
+      join_keys: [message_id: :message_id, tag_id: :tag_id],
+      on_replace: :delete
     )
 
     has_many(:votes, Cforum.Forums.Vote, foreign_key: :message_id)
@@ -135,6 +136,15 @@ defmodule Cforum.Forums.Message do
   def update_changeset(struct, params, user, visible_forums, opts \\ [create_tags: false]) do
     struct
     |> new_or_update_changeset(params, nil, visible_forums, opts)
+    |> maybe_set_editor_id(user)
+    |> set_editor_author(struct, user)
+  end
+
+  def retag_changeset(struct, params, user, opts \\ [create_tags: false]) do
+    struct
+    |> cast(%{}, [])
+    |> parse_tags(params, user, opts[:create_tags])
+    |> validate_tags_count()
     |> maybe_set_editor_id(user)
     |> set_editor_author(struct, user)
   end

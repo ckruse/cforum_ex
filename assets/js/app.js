@@ -40,9 +40,9 @@ import "./flag_message";
 import "./thread_actions";
 import "./inline_forms";
 import "./collapse_messages";
+import "./retag";
 
 import "./init";
 
 import "./modules/user-notifications";
 import "./modules/anonymous.js";
-

@@ -629,6 +629,15 @@ defmodule Cforum.Forums.Messages do
     end)
   end
 
+  def retag_message(%Message{} = message, attrs, user, opts \\ [create_tags: false]) do
+    System.audited("retag", user, fn ->
+      message
+      |> Message.retag_changeset(attrs, user, opts)
+      |> Repo.update()
+      |> update_cached_message()
+    end)
+  end
+
   @doc """
   Deletes a Message.
 
