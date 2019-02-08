@@ -128,7 +128,6 @@ if (document.body.dataset.controller === "MessageController" && document.body.cl
     ev.preventDefault();
 
     const newMessageUrl = parseMessageUrl(trgt.href);
-    console.log(newMessageUrl);
     window.history.pushState("#m" + newMessageUrl.messageId, "", trgt.href);
     toggleActiveMessage("m" + newMessageUrl.messageId);
   });
