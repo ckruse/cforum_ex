@@ -63,6 +63,8 @@ $highlight_self_color_visited: #d37b6d;
 
 $max_message_desktop_width: 45em;
 
+$default_border_radius: 0 0.3em 0.3em;
+
 @mixin focus-w-shadow() {
   border-color: $focus_color;
   outline: 0px none;
