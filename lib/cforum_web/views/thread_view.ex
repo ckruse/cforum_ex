@@ -2,6 +2,7 @@ defmodule CforumWeb.ThreadView do
   use CforumWeb, :view
 
   alias Cforum.Forums.{Thread, Threads}
+  alias CforumWeb.Views.Helpers.Feeds
 
   defp archived_class(classes, %Thread{archived: true}), do: ["archived" | classes]
   defp archived_class(classes, _), do: classes
@@ -41,8 +42,6 @@ defmodule CforumWeb.ThreadView do
   def body_id(:index, _assigns), do: "threads-index"
   def body_classes(:index, assigns), do: "threads forum-#{Path.forum_slug(assigns[:current_forum])}"
 
-  alias CforumWeb.Views.Helpers.Feeds
-
   def render("index.atom", %{threads: threads, conn: conn}) do
     xml_threads = Enum.map(threads, &Feeds.atom_feed_thread(conn, &1))
 
@@ -54,6 +53,20 @@ defmodule CforumWeb.ThreadView do
     xml_threads = Enum.map(threads, &Feeds.rss_feed_thread(conn, &1))
 
     Feeds.rss_feed_head(conn, xml_threads)
+    |> XmlBuilder.generate()
+  end
+
+  def render("show.atom", %{conn: conn, thread: thread}) do
+    xml_messages = Enum.map(thread.sorted_messages, &Feeds.atom_feed_message(conn, thread, &1))
+
+    Feeds.atom_feed_head_for_thread(conn, thread, xml_messages)
+    |> XmlBuilder.generate()
+  end
+
+  def render("show.rss", %{conn: conn, thread: thread}) do
+    xml_messages = Enum.map(thread.sorted_messages, &Feeds.rss_feed_message(conn, thread, &1))
+
+    Feeds.rss_feed_head_for_thread(conn, thread, xml_messages)
     |> XmlBuilder.generate()
   end
 

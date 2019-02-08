@@ -104,6 +104,30 @@ defmodule CforumWeb.ThreadController do
     render(conn, "index.rss", threads: threads)
   end
 
+  def show_atom(conn, %{"id" => id}) do
+    thread =
+      Threads.get_thread!(conn.assigns[:current_forum], conn.assigns[:visible_forums], id)
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.ensure_found!()
+      |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close, :subscriptions, :interesting])
+      |> Threads.apply_highlights(conn)
+      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+
+    render(conn, "show.atom", thread: thread)
+  end
+
+  def show_rss(conn, %{"id" => id}) do
+    thread =
+      Threads.get_thread!(conn.assigns[:current_forum], conn.assigns[:visible_forums], id)
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.ensure_found!()
+      |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close, :subscriptions, :interesting])
+      |> Threads.apply_highlights(conn)
+      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+
+    render(conn, "show.rss", thread: thread)
+  end
+
   def new(conn, _params) do
     changeset =
       Messages.new_message_changeset(
