@@ -39,7 +39,7 @@ import "./components/editor/autorender";
 import "./flag_message";
 import "./thread_actions";
 import "./inline_forms";
-import "./collapse_messages";
+import "./nested_view";
 import "./retag";
 
 import "./init";
