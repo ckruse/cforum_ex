@@ -67,6 +67,20 @@ const toggleActiveMessage = (messageId, scrollToIt = true) => {
   }
 };
 
+const toggleAll = ev => {
+  const mode = document.querySelector(".cf-thread-nested-root.folded, .cf-thread-nested-root .folded")
+    ? "unfold"
+    : "fold";
+
+  if (mode === "fold") {
+    document.querySelectorAll(".cf-thread-message:not(.folded)").forEach(el => toggleFolded(el));
+    ev.target.textContent = t("unfold all");
+  } else {
+    document.querySelectorAll(".cf-thread-message.folded").forEach(el => toggleFolded(el));
+    ev.target.textContent = t("fold all");
+  }
+};
+
 if (document.body.dataset.controller === "MessageController" && document.body.classList.contains("nested-view")) {
   document.addEventListener("cf:configDidLoad", () => {
     if (!conf("fold_read_nested")) {
@@ -131,4 +145,11 @@ if (document.body.dataset.controller === "MessageController" && document.body.cl
     window.history.pushState("#m" + newMessageUrl.messageId, "", trgt.href);
     toggleActiveMessage("m" + newMessageUrl.messageId);
   });
+
+  const foldingAllButton = document.createElement("button");
+  foldingAllButton.id = "folding-all-button";
+  foldingAllButton.addEventListener("click", toggleAll);
+  foldingAllButton.appendChild(document.createTextNode(t("unfold all")));
+
+  document.body.appendChild(foldingAllButton);
 }
