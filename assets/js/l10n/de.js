@@ -134,5 +134,7 @@ export const lang = {
 
   fold: "einklappen",
   unfold: "ausklappen",
+  "unfold all": "alle ausklappen",
+  "fold all": "alle einklappen",
   "Oops, something went wrong!": "Uups, etwas ist schief gegangen!"
 };
