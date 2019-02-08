@@ -23,11 +23,16 @@
     }
   }
 
+  .cf-thread-message {
+    position: relative;
+  }
+
   .cf-message-header-unfold-button {
-    display: inline;
     border: 0;
-    float: right;
     cursor: pointer;
+    position: absolute;
+    right: 1em;
+    top: 1em;
   }
 }
 
