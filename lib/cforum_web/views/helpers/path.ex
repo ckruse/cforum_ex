@@ -174,7 +174,7 @@ defmodule CforumWeb.Views.Helpers.Path do
     "#{root}/new#{encode_query_string(params)}"
   end
 
-  @spec thread_url(Plug.Conn.t() | CforumWeb.Endpoint, :show, %Thread{}, keyword() | map()) :: String.t()
+  @spec thread_url(Plug.Conn.t() | CforumWeb.Endpoint, atom(), %Thread{}, keyword() | map()) :: String.t()
   def thread_url(conn, action, resource, params \\ [])
 
   def thread_url(conn, :show, %Thread{} = thread, params) do
