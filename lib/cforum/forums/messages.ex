@@ -795,6 +795,8 @@ defmodule Cforum.Forums.Messages do
 
   @decorate transaction()
   def mark_messages_read(user, messages) do
+    messages = Enum.reject(messages, & &1.attribs[:is_read])
+
     for msg <- messages do
       ret =
         %ReadMessage{}
