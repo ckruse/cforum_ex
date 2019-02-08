@@ -24,7 +24,7 @@
 </div>
 
 <div>
-  <article class="cf-thread-nested <%= CforumWeb.ThreadView.thread_classes(@thread) %>">
+  <article class="cf-thread-nested cf-thread-nested-root <%= CforumWeb.ThreadView.thread_classes(@thread) %>">
     <div class="posting-nested cf-thread-message h-entry <%= message_classes(@conn, @message, @thread, @message.message_id == @thread.message.message_id, :nested) %>">
       <%= render "message.html", Map.merge(assigns, %{first: true, message: @thread.message, controls: true}) %>
     </div>
