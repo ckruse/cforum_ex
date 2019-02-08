@@ -129,7 +129,7 @@
     display: inline-block;
     text-align: center;
     padding: 0.1em 0.6em 0 0.6em;
-    border-radius: 0 0.3em 0.3em;
+    border-radius: $default_border_radius;
     color: #5d7380;
     border: 1px solid #c4c4c4;
   }
