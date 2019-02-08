@@ -182,6 +182,16 @@ defmodule CforumWeb.Views.Helpers.Path do
     "#{root}#{thread.slug}#{encode_query_string(params)}"
   end
 
+  def thread_url(conn, :rss, %Thread{} = thread, params) do
+    root = forum_url(conn, :index, forum_slug(thread.forum))
+    "#{root}/feeds/rss/#{thread.thread_id}#{encode_query_string(params)}"
+  end
+
+  def thread_url(conn, :atom, %Thread{} = thread, params) do
+    root = forum_url(conn, :index, forum_slug(thread.forum))
+    "#{root}/feeds/atom/#{thread.thread_id}#{encode_query_string(params)}"
+  end
+
   defp to_param(int) when is_integer(int), do: Integer.to_string(int)
   defp to_param(bin) when is_binary(bin), do: bin
   defp to_param(false), do: "false"
@@ -289,6 +299,7 @@ defmodule CforumWeb.Views.Helpers.Path do
 
   def delete_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/delete#{encode_query_string(params)}"
+
   def restore_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/restore#{encode_query_string(params)}"
 
