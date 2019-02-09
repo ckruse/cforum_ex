@@ -4,7 +4,8 @@
   position: relative;
 }
 
-.cf-posting-input {
+.cf-posting-input,
+.cf-posting-input__highlighter {
   min-height: 20em;
   max-height: 70vh;
   font-family: $default_monospace_font_family;
