@@ -68,6 +68,9 @@ defmodule CforumWeb.AuditingViewL10n do
   def l10n_audit_act(%Auditing{relation: "badges", act: "update"}), do: gettext("auditing: badges: update")
   def l10n_audit_act(%Auditing{relation: "badges", act: "destroy"}), do: gettext("auditing: badges: destroy")
 
+  def l10n_audit_act(%Auditing{relation: "badges_users", act: "badge-gained"}),
+    do: gettext("auditing: badges_users: gain")
+
   def l10n_audit_act(%Auditing{relation: "redirections", act: "create"}), do: gettext("auditing: redirections: create")
   def l10n_audit_act(%Auditing{relation: "redirections", act: "update"}), do: gettext("auditing: redirections: update")
 

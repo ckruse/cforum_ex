@@ -38,7 +38,8 @@ config :cforum, Cforum.Scheduler,
     {"@daily", {Cforum.Forums.ForumStatsJob, :gen_stats, []}},
     {"@daily", {Cforum.System.CleanCounterTablesJob, :clean_tables, []}},
     {"@monthly", {Cforum.System.DatabaseMaintenanceJob, :maintenance, []}},
-    {"@daily", {Cforum.System.AuditingCleanupJob, :maintenance, []}}
+    {"@daily", {Cforum.System.AuditingCleanupJob, :maintenance, []}},
+    {"@daily", {Cforum.Accounts.YearlingBadgeDistributorJob, :perform, []}}
   ]
 
 # Import environment specific config. This must remain at the bottom

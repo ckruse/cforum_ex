@@ -1,0 +1,2 @@
+<%= gettext("gained badge") %>
+<%= link(@entry.contents["name"], to: "/admin/badges/" <> to_string(@entry.contents["badge_id"]) <> "/edit") %>
