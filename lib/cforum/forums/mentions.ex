@@ -97,6 +97,8 @@ defmodule Cforum.Forums.Messages.Mentions do
     end
   end
 
+  def mentions_markup(%Message{flags: %{"mentions" => mentions}} = msg, _user) when not is_list(mentions), do: msg
+
   def mentions_markup(%Message{flags: %{"mentions" => mentions}} = msg, user) when mentions != [] do
     config = ConfigManager.settings_map(nil, user)
     lines = Regex.split(~r/\015\012|\015|\012/, msg.content)
