@@ -43,6 +43,11 @@ defmodule Cforum.Accounts.Users do
     |> Repo.all()
   end
 
+  def all_users() do
+    from(user in User, order_by: [asc: :user_id])
+    |> Repo.all()
+  end
+
   defp maybe_leave_out_self(q, false, _), do: q
   defp maybe_leave_out_self(q, _, nil), do: q
   defp maybe_leave_out_self(q, _, self), do: from(u in q, where: u.user_id != ^self.user_id)

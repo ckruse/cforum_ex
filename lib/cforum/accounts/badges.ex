@@ -4,9 +4,12 @@ defmodule Cforum.Accounts.Badges do
   """
 
   import Ecto.Query, warn: false
+  import CforumWeb.Gettext
   alias Cforum.Repo
 
   alias Cforum.Accounts.Badge
+  alias Cforum.Accounts.BadgeUser
+  alias Cforum.Accounts.Notifications
   alias Cforum.System
 
   @doc """
@@ -61,6 +64,10 @@ defmodule Cforum.Accounts.Badges do
   def get_badge!(id) do
     Repo.get!(Badge, id)
     |> Repo.preload(badges_users: :user)
+  end
+
+  def get_badge_by(clauses) do
+    Repo.get_by(Badge, clauses)
   end
 
   @doc """
@@ -143,4 +150,29 @@ defmodule Cforum.Accounts.Badges do
     end)
     |> Map.values()
   end
+
+  def grant_badge(badge, user) do
+    System.audited("badge-gained", user, fn ->
+      %BadgeUser{}
+      |> BadgeUser.changeset(%{user_id: user.user_id, badge_id: badge.badge_id})
+      |> Repo.insert()
+    end)
+    |> notify_user(user, badge)
+  end
+
+  def notify_user({:ok, badge_user}, user, badge) do
+    CforumWeb.Endpoint.broadcast!("users:#{user.user_id}", "new_badge_gained", %{badge: badge})
+
+    Notifications.create_notification(%{
+      recipient_id: user.user_id,
+      subject: gettext("You have won the %{mtype} medal “%{name}”!", mtype: badge.badge_medal_type, name: badge.name),
+      oid: badge.badge_id,
+      otype: "badge",
+      path: CforumWeb.Router.Helpers.badge_path(CforumWeb.Endpoint, :show, badge)
+    })
+
+    {:ok, badge_user}
+  end
+
+  def notify_user(val, _, _), do: val
 end
