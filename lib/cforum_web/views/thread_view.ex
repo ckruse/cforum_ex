@@ -42,10 +42,14 @@ defmodule CforumWeb.ThreadView do
   def body_id(:index, _assigns), do: "threads-index"
   def body_classes(:index, assigns), do: "threads forum-#{Path.forum_slug(assigns[:current_forum])}"
 
+  defp get_last_modified(nil), do: Timex.to_datetime({{1998, 7, 26}, {13, 19, 00}}, :local)
+  defp get_last_modified(msg), do: msg.updated_at
+
   def render("index.atom", %{threads: threads, conn: conn}) do
     xml_threads = Enum.map(threads, &Feeds.atom_feed_thread(conn, &1))
+    last_modified = get_last_modified(List.first(threads))
 
-    Feeds.atom_feed_head(conn, xml_threads, List.first(threads).created_at)
+    Feeds.atom_feed_head(conn, xml_threads, last_modified)
     |> XmlBuilder.generate()
   end
 
