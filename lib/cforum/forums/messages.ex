@@ -56,8 +56,8 @@ defmodule Cforum.Forums.Messages do
     )
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
-    |> Repo.preload(tags: from(t in Tag, order_by: [asc: :name]))
     |> Repo.all()
+    |> Repo.preload(tags: from(t in Tag, order_by: [asc: :tag_name]))
   end
 
   @doc """
@@ -97,8 +97,8 @@ defmodule Cforum.Forums.Messages do
     )
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
-    |> Repo.preload(tags: from(t in Tag, order_by: [asc: :name]))
     |> Repo.all()
+    |> Repo.preload(tags: from(t in Tag, order_by: [asc: :tag_name]))
   end
 
   @doc """
@@ -142,7 +142,7 @@ defmodule Cforum.Forums.Messages do
       limit: ^limit
     )
     |> Repo.all()
-    |> Repo.preload(tags: from(t in Tag, order_by: [asc: :name]))
+    |> Repo.preload(tags: from(t in Tag, order_by: [asc: :tag_name]))
   end
 
   defp int_list_scored_msgs_for_user_in_perspective(cuser, user, forum_ids, limit)
@@ -163,10 +163,6 @@ defmodule Cforum.Forums.Messages do
       order_by: [desc: :created_at]
     )
     |> Cforum.PagingApi.set_limit(limit)
-    |> Repo.preload(
-      message: [:user, tags: from(t in Tag, order_by: [asc: :name]), thread: :forum],
-      vote: [message: [:user, tags: from(t in Tag, order_by: [asc: :name]), thread: :forum]]
-    )
   end
 
   defp int_list_scored_msgs_for_user_in_perspective(_, user, forum_ids, limit) do
@@ -186,10 +182,6 @@ defmodule Cforum.Forums.Messages do
       order_by: [desc: :created_at]
     )
     |> Cforum.PagingApi.set_limit(limit)
-    |> Repo.preload(
-      message: [:user, tags: from(t in Tag, order_by: [asc: :name]), thread: :forum],
-      vote: [message: [:user, tags: from(t in Tag, order_by: [asc: :name]), thread: :forum]]
-    )
   end
 
   @doc """
@@ -216,6 +208,10 @@ defmodule Cforum.Forums.Messages do
     current_user
     |> int_list_scored_msgs_for_user_in_perspective(user, forum_ids, limit)
     |> Repo.all()
+    |> Repo.preload(
+      message: [:user, tags: from(t in Tag, order_by: [asc: :tag_name]), thread: :forum],
+      vote: [message: [:user, tags: from(t in Tag, order_by: [asc: :tag_name]), thread: :forum]]
+    )
   end
 
   @doc """
@@ -895,7 +891,7 @@ defmodule Cforum.Forums.Messages do
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
     |> Repo.all()
-    |> Repo.preload(tags: from(t in Tag, order_by: [asc: :name]))
+    |> Repo.preload(tags: from(t in Tag, order_by: [asc: :tag_name]))
   end
 
   @spec list_subscriptions_for_messages([%Message{}]) :: [%Subscription{}]
@@ -975,7 +971,7 @@ defmodule Cforum.Forums.Messages do
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
     |> Repo.all()
-    |> Repo.preload(tags: from(t in Tag, order_by: [asc: :name]))
+    |> Repo.preload(tags: from(t in Tag, order_by: [asc: :tag_name]))
   end
 
   @doc """
