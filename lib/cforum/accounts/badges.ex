@@ -11,6 +11,7 @@ defmodule Cforum.Accounts.Badges do
   alias Cforum.Accounts.BadgeUser
   alias Cforum.Accounts.Notifications
   alias Cforum.System
+  alias Cforum.Accounts.Users
 
   @doc """
   Returns the list of badges.
@@ -151,6 +152,12 @@ defmodule Cforum.Accounts.Badges do
     |> Map.values()
   end
 
+  def grant_badge(type, user) when is_bitstring(type),
+    do: grant_badge(get_badge_by(badge_type: type), user)
+
+  def grant_badge({key, value}, user),
+    do: grant_badge(get_badge_by([{key, value}]), user)
+
   def grant_badge(badge, user) do
     System.audited("badge-gained", user, fn ->
       %BadgeUser{}
@@ -158,10 +165,17 @@ defmodule Cforum.Accounts.Badges do
       |> Repo.insert()
     end)
     |> notify_user(user, badge)
+    |> Users.discard_user_cache()
   end
 
   def notify_user({:ok, badge_user}, user, badge) do
-    CforumWeb.Endpoint.broadcast!("users:#{user.user_id}", "new_badge_gained", %{badge: badge})
+    CforumWeb.Endpoint.broadcast!("users:#{user.user_id}", "new_badge_gained", %{
+      badge: %{
+        name: badge.name,
+        badge_medal_type: badge.badge_medal_type,
+        badge_type: badge.badge_type
+      }
+    })
 
     Notifications.create_notification(%{
       recipient_id: user.user_id,

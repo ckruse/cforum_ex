@@ -555,6 +555,7 @@ msgstr ""
 #: lib/cforum_web/templates/messages/flag/new.html.eex:33
 #: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:34
 #: lib/cforum_web/templates/messages/open_close_vote/new_open.html.eex:17
+#: lib/cforum_web/templates/messages/retag/edit.html.eex:26
 #: lib/cforum_web/templates/moderation/edit.html.eex:37
 #: lib/cforum_web/templates/tag/edit_merge.html.eex:13
 #: lib/cforum_web/templates/tag/form.html.eex:23
@@ -1302,7 +1303,7 @@ msgstr ""
 
 #: lib/cforum_web/controllers/api/v1/message_controller.ex:22
 #: lib/cforum_web/controllers/message_controller.ex:44
-#: lib/cforum_web/controllers/thread_controller.ex:119
+#: lib/cforum_web/controllers/thread_controller.ex:143
 msgid "all"
 msgstr ""
 
@@ -1405,11 +1406,11 @@ msgstr ""
 msgid "previous page"
 msgstr ""
 
-#: lib/cforum/forums/message.ex:162
+#: lib/cforum/forums/message.ex:172
 msgid "unknown tags given: %{tags}"
 msgstr ""
 
-#: lib/cforum_web/controllers/thread_controller.ex:151
+#: lib/cforum_web/controllers/thread_controller.ex:175
 msgid "Thread created successfully."
 msgstr ""
 
@@ -1433,7 +1434,7 @@ msgstr ""
 msgid "gold medal"
 msgstr ""
 
-#: lib/cforum_web/views/thread_view.ex:37
+#: lib/cforum_web/views/thread_view.ex:38
 msgid "new thread"
 msgstr ""
 
@@ -1444,7 +1445,7 @@ msgstr ""
 #: lib/cforum_web/templates/forum/index.html.eex:14
 #: lib/cforum_web/templates/layout/page_header.html.eex:21
 #: lib/cforum_web/views/layout_view.ex:195
-#: lib/cforum_web/views/thread_view.ex:26 lib/cforum_web/views/thread_view.ex:33
+#: lib/cforum_web/views/thread_view.ex:27 lib/cforum_web/views/thread_view.ex:34
 msgid "all forums"
 msgstr ""
 
@@ -1454,22 +1455,22 @@ msgid "show all"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/interesting_controller.ex:73
+#: lib/cforum_web/controllers/messages/interesting_controller.ex:60
 msgid "Interesting mark was successfully removed."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/interesting_controller.ex:65
+#: lib/cforum_web/controllers/messages/interesting_controller.ex:52
 msgid "Message was successfully marked as interesting."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/subscription_controller.ex:52
+#: lib/cforum_web/controllers/messages/subscription_controller.ex:53
 msgid "Message was successfully subscribed."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/subscription_controller.ex:60
+#: lib/cforum_web/controllers/messages/subscription_controller.ex:61
 msgid "Message was successfully unsubscribed."
 msgstr ""
 
@@ -1751,7 +1752,7 @@ msgid "chat"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/cites/cite_indexer_job.ex:37
+#: lib/cforum/cites/cite_indexer_job.ex:41
 #: lib/cforum_web/templates/admin/audit/index.html.eex:16
 #: lib/cforum_web/templates/admin/search_section/form.html.eex:26
 #: lib/cforum_web/templates/layout/page_header.html.eex:53
@@ -1765,7 +1766,7 @@ msgid "help"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/cites/cite_indexer_job.ex:55
+#: lib/cforum/cites/cite_indexer_job.ex:59
 #: lib/cforum_web/templates/cite/cite.html.eex:5
 #: lib/cforum_web/views/cite_view.ex:8
 msgid "cite %{id}"
@@ -1901,6 +1902,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/search_section/form.html.eex:35
 #: lib/cforum_web/templates/admin/user/form.html.eex:46
 #: lib/cforum_web/templates/events/attendee/form.html.eex:70
+#: lib/cforum_web/templates/messages/retag/edit.html.eex:25
 #: lib/cforum_web/templates/moderation/edit.html.eex:36
 #: lib/cforum_web/templates/tag/edit_merge.html.eex:12
 #: lib/cforum_web/templates/tag/form.html.eex:22
@@ -2862,18 +2864,19 @@ msgid "show all threads"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/thread_view.ex:27
+#: lib/cforum_web/views/thread_view.ex:28
 msgid "overview — %{forum}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/thread_view.ex:34
+#: lib/cforum_web/views/thread_view.ex:35
 msgid "unanswered threads  — %{forum}"
 msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/layout/meta.html.eex:7
-#: lib/cforum_web/views/helpers/feeds.ex:62
+#: lib/cforum_web/views/helpers/feeds.ex:103
+#: lib/cforum_web/views/helpers/feeds.ex:126
 msgid "TODO description_text"
 msgstr ""
 
@@ -3375,114 +3378,114 @@ msgid "auditing: media: destroy"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:107
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:110
 msgid "auditing: messages: accepted-no"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:104
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:107
 msgid "auditing: messages: accepted-yes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:91
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:94
 msgid "auditing: messages: create"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:101
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:104
 msgid "auditing: messages: del_versions"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:94
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:95
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:97
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:98
 msgid "auditing: messages: delete"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:122
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:125
 msgid "auditing: messages: flagged-custom"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:116
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:119
 msgid "auditing: messages: flagged-duplicate"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:113
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:116
 msgid "auditing: messages: flagged-not-constructive"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:110
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:113
 msgid "auditing: messages: flagged-off-topic"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:119
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:122
 msgid "auditing: messages: flagged-spam"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:97
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:100
 msgid "auditing: messages: move"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:131
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:134
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:137
 msgid "auditing: messages: no-answer"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:128
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:131
 msgid "auditing: messages: no-answer-admin-no"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:125
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:128
 msgid "auditing: messages: no-answer-admin-yes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:137
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:140
 msgid "auditing: messages: no-answer-no"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:96
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:99
 msgid "auditing: messages: restore"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:93
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:96
 msgid "auditing: messages: retag"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:98
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:101
 msgid "auditing: messages: unflagged"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:92
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:95
 msgid "auditing: messages: update"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:71
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:74
 msgid "auditing: redirections: create"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:75
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:78
 msgid "auditing: redirections: destroy"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:72
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:75
 msgid "auditing: redirections: update"
 msgstr ""
 
@@ -3532,42 +3535,42 @@ msgid "auditing: tags: update"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:79
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:82
 msgid "auditing: threads: archive"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:77
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:80
 msgid "auditing: threads: create"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:78
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:81
 msgid "auditing: threads: destroy"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:80
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:83
 msgid "auditing: threads: move"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:88
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:91
 msgid "auditing: threads: no-archive-no"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:85
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:88
 msgid "auditing: threads: no-archive-yes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:81
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:84
 msgid "auditing: threads: sticky"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:82
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:85
 msgid "auditing: threads: unsticky"
 msgstr ""
 
@@ -3895,7 +3898,7 @@ msgid "auditing: close_votes_voters: unvote"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:140
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:143
 msgid "auditing: messages: unflag-no-answer"
 msgstr ""
 
@@ -3981,11 +3984,13 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/message/form_tags.html.eex:3
 #: lib/cforum_web/templates/message/form_tags.html.eex:9
+#: lib/cforum_web/templates/messages/retag/edit.html.eex:11
+#: lib/cforum_web/templates/messages/retag/edit.html.eex:17
 msgid "Tag %{no}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/forums/message.ex:196
+#: lib/cforum/forums/message.ex:206
 msgid "is unknown"
 msgstr ""
 
@@ -4011,12 +4016,12 @@ msgid "notify me via email on activity in subscribed messages"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/forums/notify_users_message_job.ex:52
+#: lib/cforum/forums/notify_users_message_job.ex:56
 msgid "%{nick} wrote a new message: %{subject}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/forums/notify_users_message_job.ex:47
+#: lib/cforum/forums/notify_users_message_job.ex:51
 msgid "%{nick} wrote a reply to your message: %{subject}"
 msgstr ""
 
@@ -4031,7 +4036,7 @@ msgid "tags list"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/forums/notify_users_message_job.ex:92
+#: lib/cforum/forums/notify_users_message_job.ex:97
 msgid "new thread by %{nick}: %{subject}"
 msgstr ""
 
@@ -4041,7 +4046,7 @@ msgid "user data"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/forums/notify_users_message_job.ex:113
+#: lib/cforum/forums/notify_users_message_job.ex:118
 msgid "%{nick} mentioned you in a new message: “%{subject}”"
 msgstr ""
 
@@ -4171,11 +4176,36 @@ msgid "versions"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/forums/message.ex:99
+#: lib/cforum/forums/message.ex:100
 msgid "Please specify a maximum of %{num} tags"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/forums/message.ex:96
+#: lib/cforum/forums/message.ex:97
 msgid "Please specify at least %{num} tags"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/controllers/messages/retag_controller.ex:24
+msgid "Message has successfully been retagged."
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/messages/retag_view.ex:4
+msgid "Retag message “%{subject}”"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum/accounts/badges.ex:182
+msgid "You have won the %{mtype} medal “%{name}”!"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:72
+msgid "auditing: badges_users: gain"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/admin/audit/badges_users.html.eex:1
+msgid "gained badge"
 msgstr ""
