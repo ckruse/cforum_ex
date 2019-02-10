@@ -12,6 +12,8 @@ defmodule Cforum.Forums.Votes do
   alias Cforum.Forums.Vote
   alias Cforum.Forums.{Messages, Message}
 
+  alias Cforum.Forums.VoteBadgeDistributorJob
+
   @doc """
   Returns the list of votes.
 
@@ -179,7 +181,10 @@ defmodule Cforum.Forums.Votes do
       if present?(message.user_id) do
         {:ok, _score} = Scores.create_score(%{vote_id: vote.vote_id, user_id: message.user_id, value: points})
       end
+
+      vote
     end)
+    |> VoteBadgeDistributorJob.grant_badges()
   end
 
   def downvote(message, user, points) do
@@ -194,7 +199,10 @@ defmodule Cforum.Forums.Votes do
       if present?(message.user_id) do
         {:ok, _score} = Scores.create_score(%{vote_id: vote.vote_id, user_id: message.user_id, value: points})
       end
+
+      vote
     end)
+    |> VoteBadgeDistributorJob.grant_badges()
   end
 
   defp remove_vote(message, user) do
