@@ -46,12 +46,15 @@ defmodule Cforum.Forums.VoteBadgeDistributorJob do
       |> Repo.one!()
 
     voter_badges =
-      from(badge_user in BadgeUser, where: badge_user.user_id == ^user.user_id, select: count("*"))
+      from(badge_user in BadgeUser,
+        where: badge_user.user_id == ^user.user_id and badge_user.badge_id == ^badge.badge_id,
+        select: count("*")
+      )
       |> Repo.one!()
 
     user_should_have_badges =
       Enum.reduce(@voter_badge_limits, 0, fn
-        limit, acc when limit >= all_user_votes -> acc + 1
+        limit, acc when all_user_votes >= limit -> acc + 1
         _, acc -> acc
       end)
 
