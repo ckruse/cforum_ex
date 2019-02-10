@@ -1,16 +1,19 @@
 defmodule Cforum.Forums.Message do
   use CforumWeb, :model
 
+  import Ecto.Query, warn: false
   import CforumWeb.Gettext
   import Cforum.Helpers
 
   alias Cforum.Accounts.User
+  alias Cforum.Forums.Tag
+  alias Cforum.Forums.MessageTag
 
   @primary_key {:message_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :message_id}
 
-  @default_preloads [:user, :tags, :cites, votes: :user, close_votes: :voters, versions: :user]
-  def default_preloads, do: @default_preloads
+  @default_preloads [:user, :cites, votes: :user, close_votes: :voters, versions: :user]
+  def default_preloads, do: @default_preloads ++ [tags: from(t in Tag, order_by: [asc: :tag_name])]
 
   schema "messages" do
     field(:upvotes, :integer, default: 0)
@@ -41,10 +44,8 @@ defmodule Cforum.Forums.Message do
     has_many(:cites, Cforum.Cites.Cite, foreign_key: :message_id, on_delete: :nilify_all)
     has_many(:versions, Cforum.Forums.MessageVersion, foreign_key: :message_id, on_delete: :delete_all)
 
-    many_to_many(
-      :tags,
-      Cforum.Forums.Tag,
-      join_through: Cforum.Forums.MessageTag,
+    many_to_many(:tags, Tag,
+      join_through: MessageTag,
       join_keys: [message_id: :message_id, tag_id: :tag_id],
       on_replace: :delete
     )

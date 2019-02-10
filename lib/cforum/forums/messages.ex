@@ -51,11 +51,12 @@ defmodule Cforum.Forums.Messages do
   def list_messages_for_user(user, forum_ids, query_params \\ [order: nil, limit: nil]) do
     from(
       m in Message,
-      preload: [:user, :tags, [thread: :forum]],
+      preload: [:user, thread: :forum],
       where: m.user_id == ^user.user_id and m.deleted == false and m.forum_id in ^forum_ids
     )
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
+    |> Repo.preload(tags: from(t in Tag, order_by: [asc: :name]))
     |> Repo.all()
   end
 
@@ -91,11 +92,12 @@ defmodule Cforum.Forums.Messages do
       m in Message,
       inner_join: t in "messages_tags",
       on: t.message_id == m.message_id,
-      preload: [:user, :tags, [thread: :forum]],
+      preload: [:user, [thread: :forum]],
       where: t.tag_id == ^tag.tag_id and m.deleted == false and m.forum_id in ^forum_ids
     )
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
+    |> Repo.preload(tags: from(t in Tag, order_by: [asc: :name]))
     |> Repo.all()
   end
 
@@ -134,12 +136,13 @@ defmodule Cforum.Forums.Messages do
   def list_best_scored_messages_for_user(user, forum_ids, limit \\ 10) do
     from(
       m in Message,
-      preload: [:user, :tags, [thread: :forum]],
+      preload: [:user, [thread: :forum]],
       where: m.deleted == false and m.upvotes > 0 and m.user_id == ^user.user_id and m.forum_id in ^forum_ids,
       order_by: fragment("upvotes - downvotes DESC"),
       limit: ^limit
     )
     |> Repo.all()
+    |> Repo.preload(tags: from(t in Tag, order_by: [asc: :name]))
   end
 
   defp int_list_scored_msgs_for_user_in_perspective(cuser, user, forum_ids, limit)
@@ -148,10 +151,6 @@ defmodule Cforum.Forums.Messages do
        when cuid == uid do
     from(
       s in Score,
-      preload: [
-        message: [:user, :tags, [thread: :forum]],
-        vote: [message: [:user, :tags, [thread: :forum]]]
-      ],
       left_join: m1 in Message,
       on: m1.message_id == s.message_id,
       left_join: v in Vote,
@@ -164,15 +163,15 @@ defmodule Cforum.Forums.Messages do
       order_by: [desc: :created_at]
     )
     |> Cforum.PagingApi.set_limit(limit)
+    |> Repo.preload(
+      message: [:user, tags: from(t in Tag, order_by: [asc: :name]), thread: :forum],
+      vote: [message: [:user, tags: from(t in Tag, order_by: [asc: :name]), thread: :forum]]
+    )
   end
 
   defp int_list_scored_msgs_for_user_in_perspective(_, user, forum_ids, limit) do
     from(
       s in Score,
-      preload: [
-        message: [:user, :tags, [thread: :forum]],
-        vote: [message: [:user, :tags, [thread: :forum]]]
-      ],
       left_join: m1 in Message,
       on: m1.message_id == s.message_id,
       left_join: v in Vote,
@@ -187,6 +186,10 @@ defmodule Cforum.Forums.Messages do
       order_by: [desc: :created_at]
     )
     |> Cforum.PagingApi.set_limit(limit)
+    |> Repo.preload(
+      message: [:user, tags: from(t in Tag, order_by: [asc: :name]), thread: :forum],
+      vote: [message: [:user, tags: from(t in Tag, order_by: [asc: :name]), thread: :forum]]
+    )
   end
 
   @doc """
@@ -887,11 +890,12 @@ defmodule Cforum.Forums.Messages do
       msg in Message,
       join: s in Subscription,
       where: s.message_id == msg.message_id and s.user_id == ^user.user_id,
-      preload: [:user, :tags, [thread: :forum]]
+      preload: [:user, thread: :forum]
     )
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
     |> Repo.all()
+    |> Repo.preload(tags: from(t in Tag, order_by: [asc: :name]))
   end
 
   @spec list_subscriptions_for_messages([%Message{}]) :: [%Subscription{}]
@@ -966,11 +970,12 @@ defmodule Cforum.Forums.Messages do
       msg in Message,
       join: s in InterestingMessage,
       where: s.message_id == msg.message_id and s.user_id == ^user.user_id,
-      preload: [:user, :tags, [thread: :forum]]
+      preload: [:user, thread: :forum]
     )
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
     |> Repo.all()
+    |> Repo.preload(tags: from(t in Tag, order_by: [asc: :name]))
   end
 
   @doc """
