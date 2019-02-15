@@ -88,12 +88,19 @@ defmodule Cforum.Forums.Messages.Mentions do
   defp find_mentions("", mentions, _), do: mentions
   defp find_mentions(s, mentions, in_quote), do: find_mentions(String.slice(s, 1..-1), mentions, in_quote)
 
+  defp find_user([]), do: nil
+
   defp find_user(words) do
     username = Enum.join(words, " ")
 
     case Cforum.Accounts.Users.get_user_by_username(username) do
-      nil -> find_user(words |> Enum.reverse() |> tl() |> Enum.reverse())
-      user -> user
+      nil ->
+        if blank?(words),
+          do: nil,
+          else: words |> Enum.reverse() |> tl() |> Enum.reverse() |> find_user()
+
+      user ->
+        user
     end
   end
 
