@@ -2,7 +2,7 @@
   <%= unless @top do %>
     <%= if may?(@conn, "messages/accept", :accept, {@thread, @message}) do %>
       <%= cf_button(
-          gettext("accept answer"),
+          [{:safe, "<span>"}, gettext("accept answer"), {:safe, "</span>"}],
           to: Path.accept_message_path(@conn, @thread, @message),
           class: "unaccepted-answer accept",
           params: std_args(@conn)
@@ -11,7 +11,7 @@
 
     <%= if may?(@conn, "messages/accept", :unaccept, {@thread, @message}) do %>
       <%= cf_button(
-          gettext("unaccept answer"),
+          [{:safe, "<span>"}, gettext("unaccept answer"), {:safe, "</span>"}],
           to: Path.unaccept_message_path(@conn, @thread, @message),
           class: "accepted-answer accept",
           params: std_args(@conn)
@@ -26,7 +26,7 @@
   <%= unless @top do %>
     <%= if may?(@conn, "messages/vote", :downvote, {@thread, @message}) do %>
       <%= cf_button(
-          gettext("vote down"),
+          [{:safe, "<span>"}, gettext("vote down"), {:safe, "</span>"}],
           to: Path.downvote_message_path(@conn, @thread, @message),
           class: "vote-button vote-down #{active_downvoting_button?(@message, @current_user)}",
           params: std_args(@conn)
@@ -43,7 +43,7 @@
   <%= unless @top do %>
     <%= if may?(@conn, "messages/vote", :upvote, {@thread, @message}) do %>
       <%= cf_button(
-          gettext("vote up"),
+          [{:safe, "<span>"}, gettext("vote up"), {:safe, "</span>"}],
           to: Path.upvote_message_path(@conn, @thread, @message),
           class: "vote-button vote-up #{active_upvoting_button?(@message, @current_user)}",
           params: std_args(@conn)

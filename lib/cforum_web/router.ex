@@ -63,6 +63,11 @@ defmodule CforumWeb.Router do
       post("/messages/no-answer", Messages.AdminController, :no_answer)
       post("/messages/answer", Messages.AdminController, :answer)
 
+      post("/messages/upvote", Messages.VoteController, :upvote)
+      post("/messages/downvote", Messages.VoteController, :downvote)
+      post("/messages/accept", Messages.AcceptController, :accept)
+      post("/messages/unaccept", Messages.AcceptController, :unaccept)
+
       post("/images", ImageController, :create)
     end
   end
