@@ -166,7 +166,9 @@ defmodule Cforum.Forums.Votes do
 
   def take_back_vote(message, user) do
     Repo.transaction(fn ->
-      remove_vote(message, user)
+      with {:ok, val} <- remove_vote(message, user) do
+        val
+      end
     end)
   end
 

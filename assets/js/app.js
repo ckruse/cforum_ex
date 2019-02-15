@@ -41,6 +41,7 @@ import "./thread_actions";
 import "./inline_forms";
 import "./nested_view";
 import "./retag";
+import "./voting";
 
 import "./init";
 

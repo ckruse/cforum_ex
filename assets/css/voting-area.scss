@@ -10,6 +10,13 @@
     cursor: pointer;
   }
 
+  button,
+  button:hover,
+  button:focus,
+  button:active {
+    transition: none;
+  }
+
   .votes,
   .accept,
   .vote-button,
@@ -22,15 +29,25 @@
 
   .accept,
   .vote-button {
-    text-indent: -9999px;
     background: none no-repeat center scroll transparent;
     background-size: contain;
     padding: 0.5rem;
+
+    span {
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      display: inline-block;
+      overflow: hidden;
+    }
   }
 
   .infos span {
-    position: absolute;
-    left: -9999px;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    display: inline-block;
+    overflow: hidden;
   }
 
   .infos svg {
@@ -92,6 +109,24 @@
   .accepted-answer,
   button.unaccepted-answer:hover {
     background-image: url(/images/bewertung-ok-gruen.svg);
+  }
+
+  .vote-down.loading,
+  .vote-down.loading[disabled],
+  .vote-up.loading,
+  .vote-up.loading[disabled],
+  .accept.loading,
+  .accept.loading[disabled],
+  .unaccept.loading,
+  .unaccept.loading[disabled] {
+    background: none;
+    padding: 0;
+
+    &::before {
+      padding: 0.5rem;
+      width: auto;
+      height: auto;
+    }
   }
 }
 

@@ -1,0 +1,10 @@
+button {
+  &.loading:before {
+    content: "";
+    background: url(/images/ajax-loader.svg) no-repeat center scroll transparent;
+    background-size: contain;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+  }
+}

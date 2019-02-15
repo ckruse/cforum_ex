@@ -26,7 +26,11 @@ defmodule Cforum.Forums.VoteBadgeDistributorJob do
         grant_badges_by_score(owner)
       end
     end)
+
+    {:ok, vote}
   end
+
+  def grant_badges(value), do: value
 
   @voter_badge_limits [100, 250, 500, 1000, 2500, 5000, 10_000]
   defp grant_voter_badges(vote, user) do
