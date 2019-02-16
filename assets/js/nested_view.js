@@ -81,21 +81,25 @@ const toggleAll = ev => {
   }
 };
 
+const initialFold = () => {
+  if (!conf("fold_read_nested")) {
+    return;
+  }
+
+  document
+    .querySelectorAll(".cf-thread-nested .cf-thread-message > .posting-header > .cf-message-header.visited")
+    .forEach(el => foldMessage(el));
+
+  const el = document.querySelector(".cf-thread-nested .cf-thread-message.active");
+  if (el) {
+    el.scrollIntoView();
+  }
+
+  document.removeEventListener("cf:configDidLoad", initialFold);
+};
+
 if (document.body.dataset.controller === "MessageController" && document.body.classList.contains("nested-view")) {
-  document.addEventListener("cf:configDidLoad", () => {
-    if (!conf("fold_read_nested")) {
-      return;
-    }
-
-    document
-      .querySelectorAll(".cf-thread-nested .cf-thread-message > .posting-header > .cf-message-header.visited")
-      .forEach(el => foldMessage(el));
-
-    const el = document.querySelector(".cf-thread-nested .cf-thread-message.active");
-    if (el) {
-      el.scrollIntoView();
-    }
-  });
+  document.addEventListener("cf:configDidLoad", initialFold);
 
   document.querySelector(".cf-thread-list").addEventListener("click", function(ev) {
     const url = ev.target.href;
