@@ -17,8 +17,6 @@ export function addEmoji(emoji) {
   const len = emoji.native.length;
 
   this.props.changeValue(val, { start: start + len, end: end + len });
-  this.props.textarea.focus();
-  this.togglePicker();
 }
 
 export function togglePicker() {
