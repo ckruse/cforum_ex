@@ -22,7 +22,7 @@ export function addEmoji(emoji) {
 }
 
 export function togglePicker() {
-  this.setState({ pickerVisible: !this.state.pickerVisible });
+  this.setState(state => ({ pickerVisible: !state.pickerVisible }));
 }
 
 export function toggleBold() {
