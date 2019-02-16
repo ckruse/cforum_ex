@@ -137,5 +137,24 @@ export const lang = {
   unfold: "ausklappen",
   "unfold all": "alle ausklappen",
   "fold all": "alle einklappen",
-  "Oops, something went wrong!": "Uups, etwas ist schief gegangen!"
+  "Oops, something went wrong!": "Uups, etwas ist schief gegangen!",
+
+  emojimart: {
+    search: "suchen",
+    notfound: "kein Emoji gefunden",
+    skintext: "Wählen Sie Ihre Default-Emojifarbe",
+    categories: {
+      search: "Suchergebnisse",
+      recent: "häufig genutzt",
+      people: "Smileys & Leute",
+      nature: "Tiere & Natur",
+      foods: "Essen & Getränke",
+      activity: "Aktivitäten",
+      places: "Reisen & Orte",
+      objects: "Objekte",
+      symbols: "Symbole",
+      flags: "Flaggen",
+      custom: "benutzerdefiniert"
+    }
+  }
 };
