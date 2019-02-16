@@ -75,7 +75,7 @@ class Toolbar extends React.Component {
   }
 
   handleClick(event) {
-    if (!this.picker || event.target.classList.contains("emoji-picker-btn")) {
+    if (!this.picker || !this.state.pickerVisible || event.target.classList.contains("emoji-picker-btn")) {
       return;
     }
 
@@ -149,11 +149,11 @@ class Toolbar extends React.Component {
         </button>
 
         <button type="button" title={t("emoji picker")} onClick={this.togglePicker} className="emoji-picker-btn">
-          <img src="/images/smile-o.svg" alt="" />
+          <img src="/images/smile-o.svg" alt="" className="emoji-picker-btn" />
         </button>
 
         {this.state.pickerVisible && (
-          <div onKeyDown={this.handleKeyDown} class="cf-emoji-picker">
+          <div onKeyDown={this.handleKeyDown} className="cf-emoji-picker">
             <Picker
               set={null}
               i18n={t("emojimart")}
