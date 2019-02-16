@@ -39,6 +39,8 @@ const showForm = (messageElement, json) => {
 
   const csrfInfo = document.querySelector("meta[name='csrf-token']");
 
+  document.querySelectorAll(".cf-posting-form").forEach(el => el.remove());
+
   const node = document.createElement("form");
   node.classList.add("cf-form");
   node.classList.add("cf-posting-form");
