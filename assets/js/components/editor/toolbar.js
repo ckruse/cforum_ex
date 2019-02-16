@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import { Picker } from "emoji-mart";
 
 import { t } from "../../modules/i18n";
@@ -61,6 +62,37 @@ class Toolbar extends React.Component {
     this.hideImageModal = hideImageModal.bind(this);
     this.onImageUpload = onImageUpload.bind(this);
     this.addImage = addImage.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener("click", this.handleClick);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleClick);
+  }
+
+  handleClick(event) {
+    if (!this.picker || event.target.classList.contains("emoji-picker-btn")) {
+      return;
+    }
+
+    let node = ReactDOM.findDOMNode(this.picker);
+    if (!node) {
+      return;
+    }
+
+    if (!node.contains(event.target)) {
+      this.togglePicker();
+    }
+  }
+
+  handleKeyDown(ev) {
+    if (ev.keyCode === 27) {
+      this.togglePicker();
+    }
   }
 
   render() {
@@ -116,11 +148,23 @@ class Toolbar extends React.Component {
           <img src="/images/quote-left.svg" alt="" />
         </button>
 
-        <button type="button" title={t("emoji picker")} onClick={this.togglePicker}>
+        <button type="button" title={t("emoji picker")} onClick={this.togglePicker} className="emoji-picker-btn">
           <img src="/images/smile-o.svg" alt="" />
         </button>
 
-        {this.state.pickerVisible && <Picker set={null} native={true} onSelect={this.addEmoji} />}
+        {this.state.pickerVisible && (
+          <div onKeyDown={this.handleKeyDown} class="cf-emoji-picker">
+            <Picker
+              set={null}
+              i18n={t("emojimart")}
+              title="Emojis"
+              native={true}
+              onSelect={this.addEmoji}
+              autoFocus={true}
+              ref={ref => (this.picker = ref)}
+            />
+          </div>
+        )}
 
         <LinkModal
           isOpen={this.state.linkModalVisible}

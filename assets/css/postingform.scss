@@ -19,8 +19,8 @@
 $radius: 0.3em;
 
 .cf-editor-toolbar {
-  button,
-  a {
+  & > button,
+  & > a {
     font-size: 1rem;
     margin-right: 0.25em;
     margin-bottom: 0.25em;
@@ -98,6 +98,10 @@ $radius: 0.3em;
 
 .cf-posting-form {
   margin-bottom: 1em;
+}
+
+.cf-emoji-picker {
+  display: inline-block;
 }
 
 @media only screen and (min-width: 35em) {
