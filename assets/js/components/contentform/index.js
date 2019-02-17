@@ -15,15 +15,37 @@ class CfContentForm extends React.Component {
 
   refreshSuggestions(newValue) {
     this.setState({ value: newValue });
+
+    if (this.props.onTextChange) {
+      this.props.onTextChange(newValue);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.text !== this.props.text) {
+      console.log("change text");
+      this.setState({ value: this.props.text });
+    }
   }
 
   render() {
-    const { text, tags, name } = this.props;
+    const { tags, name } = this.props;
 
     return (
       <>
-        <CfEditor text={text} name={name} mentions={true} onChange={this.refreshSuggestions} withImages={true} />
-        <TagList tags={tags} postingText={this.state.value} globalTagsError={this.props.globalTagsError} />
+        <CfEditor
+          text={this.state.value}
+          name={name}
+          mentions={true}
+          onChange={this.refreshSuggestions}
+          withImages={true}
+        />
+        <TagList
+          tags={tags}
+          postingText={this.state.value}
+          globalTagsError={this.props.globalTagsError}
+          onChange={this.props.onTagChange}
+        />
       </>
     );
   }

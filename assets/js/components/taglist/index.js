@@ -52,7 +52,7 @@ class TagList extends React.Component {
       this.timer = window.setTimeout(this.refreshSuggestions, 500);
     }
 
-    if (prevState.tags != this.state.tags) {
+    if (prevState.tags !== this.state.tags) {
       this.refreshSuggestions();
     }
   }
@@ -66,11 +66,21 @@ class TagList extends React.Component {
   }
 
   addTag(tag) {
-    this.setState({ tags: [...this.state.tags, [tag, this.checkForError(tag)]] });
+    const tags = [...this.state.tags, [tag, this.checkForError(tag)]];
+    this.setState({ tags });
+
+    if (this.props.onChange) {
+      this.props.onChange(tags);
+    }
   }
 
   removeTag(tagToRemove) {
-    this.setState({ tags: this.state.tags.filter(([t, _]) => t != tagToRemove) });
+    const tags = this.state.tags.filter(([t, _]) => t !== tagToRemove);
+    this.setState({ tags });
+
+    if (this.props.onChange) {
+      this.props.onChange(tags);
+    }
   }
 
   wordsFromText(text) {
@@ -120,7 +130,7 @@ class TagList extends React.Component {
     const words = this.wordsFromText(this.removeSomeMarkup(this.props.postingText)).map(w => new RegExp("^" + w));
     const foundTags = this.state.allTags
       .filter(tag => {
-        return this.tagMatches(tag.tag_name, words) && !this.state.tags.find(([t, _]) => t == tag.tag_name);
+        return this.tagMatches(tag.tag_name, words) && !this.state.tags.find(([t, _]) => t === tag.tag_name);
       })
       .slice(0, 3);
 

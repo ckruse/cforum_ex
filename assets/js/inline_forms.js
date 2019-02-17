@@ -53,6 +53,7 @@ const showForm = (messageElement, json) => {
 
   render(
     <CfPostingForm
+      form={node}
       subject={json.subject}
       text={transformNewlines(json.content)}
       author={json.author}
