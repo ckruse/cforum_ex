@@ -7,7 +7,6 @@ export default class Tag extends React.Component {
       <li className={this.props.error ? " has-error" : ""}>
         <div className="cf-tag">
           {this.props.tag}
-
           <button
             type="button"
             className="remove"
@@ -18,7 +17,6 @@ export default class Tag extends React.Component {
               <use xlinkHref="#svg-remove" />
             </svg>
           </button>
-
           <input type="hidden" name={this.props.name || "message[tags][]"} value={this.props.tag} />
         </div>
 
