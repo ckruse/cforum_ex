@@ -22,7 +22,7 @@ class Suggestions extends React.Component {
           {this.props.suggestions.map(tag => (
             <FadeTransition key={tag.tag_id}>
               <li className="cf-tag" key={tag.tag_id}>
-                {tag.tag_name}{" "}
+                {tag.tag_name}
                 <button
                   type="button"
                   className="add"
