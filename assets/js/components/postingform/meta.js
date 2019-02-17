@@ -15,7 +15,8 @@ export default class Meta extends React.PureComponent {
             maxLength="250"
             name="message[subject]"
             placeholder={t("e.g. “replace float:left”")}
-            defaultValue={subject}
+            value={subject}
+            onChange={this.props.onChange}
             required
           />
         </div>
@@ -28,7 +29,8 @@ export default class Meta extends React.PureComponent {
               maxLength="60"
               name="message[author]"
               type="text"
-              defaultValue={author}
+              value={author}
+              onChange={this.props.onChange}
               required
             />
           </div>
@@ -36,7 +38,14 @@ export default class Meta extends React.PureComponent {
 
         <div className="cf-cgroup ">
           <label htmlFor="message_email">{t("email")}</label>
-          <input id="message_email" maxLength="60" name="message[email]" type="text" defaultValue={email} />
+          <input
+            id="message_email"
+            maxLength="60"
+            name="message[email]"
+            type="text"
+            value={email}
+            onChange={this.props.onChange}
+          />
           <span className="help">{t("voluntarily, publicly visible")}</span>
         </div>
 
@@ -48,7 +57,8 @@ export default class Meta extends React.PureComponent {
             name="message[homepage]"
             placeholder={t("e.g. “http://example.com/”")}
             type="text"
-            defaultValue={homepage}
+            value={homepage}
+            onChange={this.props.onChange}
           />
           <span className="help">{t("voluntarily, publicly visible")}</span>
         </div>
@@ -61,7 +71,8 @@ export default class Meta extends React.PureComponent {
             name="message[problematic_site]"
             placeholder={t("e.g. “https://example.com/float-example.html”")}
             type="text"
-            defaultValue={problematicSite}
+            value={problematicSite}
+            onChange={this.props.onChange}
           />
           <span className="help">{t("voluntarily, publicly visible")}</span>
         </div>

@@ -96,6 +96,12 @@ export const lang = {
   "e.g. “https://example.com/float-example.html”": "z.B. „https://example.com/float-example.html“",
   "save message": "Nachricht speichern",
 
+  "There is a saved draft": "Es gibt einen Entwurf",
+  "There is a saved draft for this post. Do you want to restore it?":
+    "Es gibt einen gespeicherten Entwurf für diesen Beitrag. Möchten Sie ihn wiederherstellen?",
+  "Yes, restore the draft": "Ja, Entwurf wiederherstellen",
+  "No, delete the draft": "Nein, Entwurf löschen",
+
   highcharts: {
     decimalPoint: ",",
     thousandsSep: ".",

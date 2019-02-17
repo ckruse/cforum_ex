@@ -28,13 +28,17 @@ class CfEditor extends React.Component {
     this.fileUploadFinished = this.fileUploadFinished.bind(this);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     if (this.setSelection) {
       this.state.textarea.selectionStart = this.setSelection.start;
       this.state.textarea.selectionEnd = this.setSelection.end;
     }
 
     this.setSelection = null;
+
+    if (prevProps.text !== this.props.text) {
+      this.setState({ value: this.props.text });
+    }
   }
 
   valueChanged(ev, markupVal, value) {
