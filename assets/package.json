@@ -17,7 +17,7 @@
   "dependencies": {
     "cfmarkdown": "https://code.wwwtech.de/ckruse/cfmarkdown.git",
     "date-fns": "^1.29.0",
-    "emoji-mart": "^2.8.1",
+    "emoji-mart": "https://code.wwwtech.de/ckruse/emoji-mart.git",
     "flatpickr": "^4.5.0",
     "highcharts": "^6.1.0",
     "phoenix": "file:../deps/phoenix",
