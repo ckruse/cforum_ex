@@ -76,6 +76,10 @@
   }
 }
 
+body.js .cf-form-tagslist[data-no-js="yes"] {
+  display: none;
+}
+
 .cf-tags-list-thread {
   @extend .cf-tags-list;
   margin-right: 1em;
