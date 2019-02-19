@@ -162,6 +162,7 @@ class Toolbar extends React.Component {
               onSelect={this.addEmoji}
               autoFocus={true}
               ref={ref => (this.picker = ref)}
+              unsized={true}
             />
           </div>
         )}
