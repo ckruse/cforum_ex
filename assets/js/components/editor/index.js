@@ -26,6 +26,7 @@ class CfEditor extends React.Component {
 
     this.fileDropped = this.fileDropped.bind(this);
     this.fileUploadFinished = this.fileUploadFinished.bind(this);
+    this.positionCursor = this.positionCursor.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -94,6 +95,22 @@ class CfEditor extends React.Component {
     }
   }
 
+  positionCursor(id, display) {
+    switch (id) {
+      case "„“":
+      case '""':
+      case "‚‘":
+        this.setSelection = {
+          start: this.state.textarea.selectionStart,
+          end: this.state.textarea.selectionEnd
+        };
+        return;
+
+      default:
+        return;
+    }
+  }
+
   render() {
     const { name, mentions } = this.props;
 
@@ -119,7 +136,7 @@ class CfEditor extends React.Component {
             style={{ input: { overflow: "auto" } }}
           >
             <Mention {...SmileyReplacements} />
-            <Mention {...DefaultReplacements} />
+            <Mention {...DefaultReplacements} onAdd={this.positionCursor} />
             <Mention {...EmojiReplacements} />
             {mentions ? <Mention {...MentionsReplacements} /> : null}
           </MentionsInput>
