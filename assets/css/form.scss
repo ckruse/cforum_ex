@@ -10,6 +10,7 @@
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
   transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
   font-size: 16px;
+  height: calc(1.5em + 0.25em + 0.25em + 1px);
 }
 
 .cf-form {
@@ -46,6 +47,7 @@
     input[type="radio"],
     input[type="checkbox"] {
       width: auto;
+      height: auto;
       display: inline;
       margin-right: 0.5em;
     }
