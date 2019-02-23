@@ -503,6 +503,42 @@ defmodule Cforum.Forums.Threads do
     |> refresh_cached_thread()
   end
 
+  def move_thread(%User{} = user, %Thread{} = thread, forum_id, visible_forums) do
+    forum = Cforum.Forums.get_forum!(forum_id)
+
+    thread
+    |> change_thread(forum, visible_forums)
+    |> move_thread(user, forum)
+  end
+
+  defp move_thread(%Ecto.Changeset{valid?: false} = changeset, _user, _forum), do: changeset
+
+  defp move_thread(%Ecto.Changeset{valid?: true, data: thread}, user, forum) do
+    System.audited("move", user, fn ->
+      from(thr in Thread, where: thr.thread_id == ^thread.thread_id)
+      |> Repo.update_all(set: [forum_id: forum.forum_id])
+
+      from(m in Message, where: m.thread_id == ^thread.thread_id)
+      |> Repo.update_all(set: [forum_id: forum.forum_id])
+
+      Enum.each(thread.messages, fn msg ->
+        old_url = CforumWeb.Views.Helpers.Path.int_message_path(CforumWeb.Endpoint, thread, msg)
+        new_url = CforumWeb.Views.Helpers.Path.int_message_path(CforumWeb.Endpoint, %Thread{thread | forum: forum}, msg)
+
+        from(r in Cforum.System.Redirection, where: r.path == ^new_url)
+        |> Repo.delete_all()
+
+        %Cforum.System.Redirection{}
+        |> Ecto.Changeset.change(%{path: old_url, destination: new_url, http_status: 301})
+        |> Repo.insert!()
+      end)
+
+      thread = get_thread!(thread.thread_id)
+      {:ok, thread}
+    end)
+    |> refresh_cached_thread()
+  end
+
   def mark_thread_sticky(%User{} = user, %Thread{} = thread) do
     System.audited("sticky", user, fn ->
       thread

@@ -12,8 +12,7 @@
   <% end %>
 <% end %>
 
-<%= cf_button(to: Path.move_thread_path(@conn, @thread), class: "move icon-button", title: gettext("Move thread to a different forum.")) do %>
-  <%= std_args_as_hidden_inputs(@conn) %>
+<%= cf_button(to: Path.move_thread_path(@conn, @thread), class: "move icon-button", title: gettext("Move thread to a different forum."), method: :get) do %>
   <span class="visually-hidden"><%= gettext("Move thread to a different forum.") %></span>
   <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#svg-move-thread"></use></svg>
 <% end %>

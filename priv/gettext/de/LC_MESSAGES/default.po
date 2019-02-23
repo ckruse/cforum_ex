@@ -263,6 +263,7 @@ msgstr "Einstellungen"
 #: lib/cforum_web/templates/tag/form.html.eex:3
 #: lib/cforum_web/templates/tags/synonym/form.html.eex:3
 #: lib/cforum_web/templates/thread/new.html.eex:2
+#: lib/cforum_web/templates/threads/admin/move.html.eex:3
 #: lib/cforum_web/templates/users/registration/new.html.eex:3
 #: lib/cforum_web/templates/users/user/form.html.eex:2
 msgid "Oops, something went wrong! Please check the errors below."
@@ -577,6 +578,7 @@ msgstr "Avatar"
 #: lib/cforum_web/templates/tag/form.html.eex:23
 #: lib/cforum_web/templates/tags/synonym/form.html.eex:16
 #: lib/cforum_web/templates/thread/new.html.eex:29
+#: lib/cforum_web/templates/threads/admin/move.html.eex:16
 #: lib/cforum_web/templates/users/password/edit.html.eex:17
 #: lib/cforum_web/templates/users/password/edit_reset.html.eex:17
 #: lib/cforum_web/templates/users/password/new.html.eex:12
@@ -1424,7 +1426,7 @@ msgstr "Seitenauswahl"
 msgid "previous page"
 msgstr "eine Seite zurück"
 
-#: lib/cforum/forums/message.ex:172
+#: lib/cforum/forums/message.ex:173
 msgid "unknown tags given: %{tags}"
 msgstr "Folgende Tags sind unbekannt: %{tags}."
 
@@ -1445,6 +1447,7 @@ msgstr "Bronze-Medaille"
 #: lib/cforum_web/templates/admin/search_section/form.html.eex:26
 #: lib/cforum_web/templates/admin/search_section/index.html.eex:6
 #: lib/cforum_web/templates/thread/new.html.eex:15
+#: lib/cforum_web/templates/threads/admin/move.html.eex:8
 msgid "forum"
 msgstr "Forum"
 
@@ -4012,7 +4015,7 @@ msgid "Tag %{no}"
 msgstr "Tag %{no}"
 
 #, elixir-format
-#: lib/cforum/forums/message.ex:206
+#: lib/cforum/forums/message.ex:207
 msgid "is unknown"
 msgstr "ist unbekannt"
 
@@ -4100,7 +4103,7 @@ msgstr "Der Beitrag wurde erfolgreich gemeldet."
 
 #, elixir-format
 #: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:15
-#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:17
+#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:16
 msgid "Move thread to a different forum."
 msgstr "Bewege diesen Thread in ein anderes Forum."
 
@@ -4132,14 +4135,14 @@ msgid "Thread will be archived."
 msgstr "Dieser Thread wird archiviert."
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:28
-#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:30
+#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:27
+#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:29
 msgid "Thread will currently be archived. Don't archive it."
 msgstr "Dieser Thread wird zur Zeit archiviert. Archivierung ausschalten."
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:22
-#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:24
+#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:21
+#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:23
 msgid "Thread will currently not be archived. Archive it."
 msgstr "Dieser Thread wird zur Zeit nicht archiviert. Archivierung wieder einschalten."
 
@@ -4198,12 +4201,12 @@ msgid "versions"
 msgstr "Versionen"
 
 #, elixir-format
-#: lib/cforum/forums/message.ex:100
+#: lib/cforum/forums/message.ex:101
 msgid "Please specify a maximum of %{num} tags"
 msgstr "Bitte geben Sie höchstens %{num} Tags an"
 
 #, elixir-format
-#: lib/cforum/forums/message.ex:97
+#: lib/cforum/forums/message.ex:98
 msgid "Please specify at least %{num} tags"
 msgstr "Bitte geben Sie mindestens %{num} Tags an"
 
@@ -4222,12 +4225,27 @@ msgstr "Nachricht „%{subject}“ neu verschlagworten"
 msgid "You have won the %{mtype} medal “%{name}”!"
 msgstr "Sie haben die %{mtype}-Medaille „%{name}“ gewonnen!"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:72
 msgid "auditing: badges_users: gain"
 msgstr "Medaille gewonnen"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/admin/audit/badges_users.html.eex:1
 msgid "gained badge"
 msgstr "Medaille gewonnen"
+
+#, elixir-format
+#: lib/cforum_web/views/threads/admin_view.ex:5
+msgid "Move thread %{subject} by %{author}"
+msgstr "Thread „%{subject}“ von %{author} verschieben"
+
+#, elixir-format
+#: lib/cforum_web/controllers/threads/admin_controller.ex:48
+msgid "Thread has successfully been moved."
+msgstr "Der Thread wurde erfolgreich verschoben."
+
+#, elixir-format
+#: lib/cforum_web/templates/threads/admin/move.html.eex:15
+msgid "move thread"
+msgstr "Thread verschieben"

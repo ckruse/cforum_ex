@@ -210,10 +210,10 @@ defmodule CforumWeb.Views.Helpers.Path do
     end
   end
 
-  defp int_message_path(conn, thread, message, params \\ []),
+  def int_message_path(conn, thread, message, params \\ []),
     do: "#{thread_path(conn, :show, thread)}/#{message.message_id}#{encode_query_string(params)}"
 
-  defp int_message_url(conn, thread, message, params),
+  def int_message_url(conn, thread, message, params),
     do: "#{thread_url(conn, :show, thread)}/#{message.message_id}#{encode_query_string(params)}"
 
   @doc """

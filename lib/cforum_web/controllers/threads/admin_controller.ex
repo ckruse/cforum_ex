@@ -36,6 +36,23 @@ defmodule CforumWeb.Threads.AdminController do
     |> redirect(to: ReturnUrl.return_path(conn, params, conn.assigns.thread))
   end
 
+  def move(conn, _params) do
+    changeset = Threads.change_thread(conn.assigns.thread)
+    render(conn, "move.html", changeset: changeset, message: List.first(conn.assigns.thread.messages))
+  end
+
+  def do_move(conn, %{"thread" => %{"forum_id" => forum_id}}) do
+    case Threads.move_thread(conn.assigns.current_user, conn.assigns.thread, forum_id, conn.assigns.visible_forums) do
+      {:ok, thread} ->
+        conn
+        |> put_flash(:info, gettext("Thread has successfully been moved."))
+        |> redirect(to: Path.forum_path(conn, :index, thread.forum))
+
+      {:error, changeset} ->
+        render(conn, "move.html", changeset: changeset, message: List.first(conn.assigns.thread.messages))
+    end
+  end
+
   def load_resource(conn) do
     thread =
       Threads.get_thread_by_slug!(
