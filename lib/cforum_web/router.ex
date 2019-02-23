@@ -194,6 +194,9 @@ defmodule CforumWeb.Router do
       post("/:year/:month/:day/:slug/no-archive", Threads.AdminController, :no_archive, as: nil)
       post("/:year/:month/:day/:slug/do-archive", Threads.AdminController, :archive, as: nil)
 
+      get("/:year/:month/:day/:slug/move", Threads.AdminController, :move, as: nil)
+      put("/:year/:month/:day/:slug/move", Threads.AdminController, :do_move, as: nil)
+
       get("/:year/:month/:day/:slug/:mid", MessageController, :show, as: nil)
       get("/:year/:month/:day/:slug/:mid/new", MessageController, :new, as: nil)
       post("/:year/:month/:day/:slug/:mid/new", MessageController, :create, as: nil)
