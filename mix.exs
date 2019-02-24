@@ -88,7 +88,8 @@ defmodule Cforum.Mixfile do
         "run priv/migrate_db.exs",
         "run priv/delete_archived_read_messages.exs",
         "run priv/merge_tags.exs",
-        "ecto.migrate"
+        "ecto.migrate",
+        "run priv/migrate_db_after_migrations.exs"
       ],
       test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
