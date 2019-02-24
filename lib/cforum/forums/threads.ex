@@ -539,6 +539,54 @@ defmodule Cforum.Forums.Threads do
     |> refresh_cached_thread()
   end
 
+  def split_thread(user, thread, message, attrs, visible_forums, opts \\ []) do
+    ret =
+      System.audited("split", user, fn ->
+        message
+        |> Messages.update_message(attrs, user, visible_forums, opts)
+        |> split_thread(message, visible_forums)
+      end)
+
+    with {:ok, new_thread} <- ret do
+      refresh_cached_thread(thread)
+      refresh_cached_thread(new_thread)
+
+      refreshed_thread = get_thread!(new_thread.forum, visible_forums, new_thread.thread_id)
+      message = Messages.get_message_from_mid!(refreshed_thread, message.message_id)
+
+      {:ok, refreshed_thread, message}
+    end
+  end
+
+  defp split_thread({:ok, new_message}, message, visible_forums) do
+    ret =
+      %Thread{latest_message: DateTime.truncate(Timex.now(), :second)}
+      |> Thread.changeset(%{subject: new_message.subject, forum_id: new_message.forum_id}, nil, visible_forums)
+      |> Repo.insert()
+
+    with {:ok, new_thread} <- ret do
+      new_thread = Repo.preload(new_thread, [:forum])
+
+      from(m in Message, where: m.message_id == ^message.message_id)
+      |> Repo.update_all(set: [parent_id: nil])
+
+      message_ids =
+        message
+        |> messages_ids_of_children()
+        |> List.flatten()
+
+      from(m in Message, where: m.message_id in ^message_ids)
+      |> Repo.update_all(set: [thread_id: new_thread.thread_id])
+
+      {:ok, new_thread}
+    end
+  end
+
+  defp split_thread(val, _, _), do: val
+
+  defp messages_ids_of_children(message),
+    do: [message.message_id | Enum.map(message.messages, &messages_ids_of_children/1)]
+
   def mark_thread_sticky(%User{} = user, %Thread{} = thread) do
     System.audited("sticky", user, fn ->
       thread

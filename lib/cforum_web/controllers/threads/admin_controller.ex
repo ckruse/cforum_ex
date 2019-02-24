@@ -1,7 +1,7 @@
 defmodule CforumWeb.Threads.AdminController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.Threads
+  alias Cforum.Forums.{Threads, Messages}
   alias CforumWeb.Views.Helpers.ReturnUrl
 
   def sticky(conn, params) do
@@ -53,6 +53,32 @@ defmodule CforumWeb.Threads.AdminController do
     end
   end
 
+  def split(conn, _params) do
+    changeset = Messages.change_message(conn.assigns.message, conn.assigns.current_user, conn.assigns.visible_forums)
+    render(conn, "split.html", changeset: changeset)
+  end
+
+  def do_split(conn, %{"message" => message_params}) do
+    current_user = conn.assigns[:current_user]
+    vis_forums = conn.assigns.visible_forums
+    thread = conn.assigns.thread
+    message = conn.assigns.message
+    opts = [create_tags: may?(conn, "tag", :new)]
+
+    case Threads.split_thread(current_user, thread, message, message_params, vis_forums, opts) do
+      {:ok, thread, message} ->
+        conn
+        |> put_flash(:info, gettext("Thread was successfully split."))
+        |> redirect(to: Path.message_path(conn, :show, thread, message))
+
+      {:error, changeset} ->
+        render(conn, "split.html", changeset: changeset, message: message)
+
+      nil ->
+        raise "hu?"
+    end
+  end
+
   def load_resource(conn) do
     thread =
       Threads.get_thread_by_slug!(
@@ -60,10 +86,22 @@ defmodule CforumWeb.Threads.AdminController do
         conn.assigns.visible_forums,
         Threads.slug_from_params(conn.params)
       )
+      |> Threads.build_message_tree("ascending")
+
+    message =
+      if present?(conn.params["mid"]),
+        do: Messages.get_message_from_mid!(thread, conn.params["mid"]),
+        else: nil
 
     conn
     |> Plug.Conn.assign(:thread, thread)
+    |> Plug.Conn.assign(:message, message)
     |> Plug.Conn.assign(:view_all, true)
+  end
+
+  def allowed?(conn, action, resource) when action in [:split, :do_split] do
+    resource = resource || conn.assigns.message
+    access_forum?(conn, :moderate) && present?(resource.parent_id)
   end
 
   def allowed?(conn, _, _), do: access_forum?(conn, :moderate)

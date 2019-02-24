@@ -16,46 +16,30 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Tag do
 end
 
 defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Message do
+  @msg_fields [:__meta__, :user, :editor, :forum, :messages, :parent, :votes, :cites, :close_votes, :versions]
+
   def audit_json(message) do
     message = Cforum.Repo.preload(message, [:thread, :tags])
 
     message
     |> Map.from_struct()
-    |> Map.drop([:__meta__, :user, :editor, :forum, :messages, :parent, :votes, :cites, :close_votes, :versions])
+    |> Map.drop(@msg_fields)
     |> Map.put(:thread, Cforum.System.AuditingProtocol.audit_json(%Cforum.Forums.Thread{message.thread | messages: []}))
     |> Map.put(:tags, Cforum.System.AuditingProtocol.audit_json(message.tags))
   end
 end
 
 defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Thread do
-  def audit_json(thread) do
-    forum =
-      case thread.forum do
-        %Ecto.Association.NotLoaded{} ->
-          Cforum.Forums.get_forum!(thread.forum_id)
+  @msg_fields [:__meta__, :user, :editor, :forum, :messages, :parent, :votes, :cites, :close_votes, :versions, :thread]
 
-        forum ->
-          forum
-      end
-      |> Cforum.System.AuditingProtocol.audit_json()
+  def audit_json(thread) do
+    thread = Cforum.Repo.preload(thread, messages: :tags, forum: :setting)
 
     messages =
       Enum.map(thread.messages, fn message ->
         message
         |> Map.from_struct()
-        |> Map.drop([
-          :__meta__,
-          :user,
-          :editor,
-          :forum,
-          :messages,
-          :parent,
-          :votes,
-          :cites,
-          :close_votes,
-          :versions,
-          :thread
-        ])
+        |> Map.drop(@msg_fields)
         |> Map.put(:tags, Cforum.System.AuditingProtocol.audit_json(message.tags))
       end)
 
@@ -63,7 +47,7 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Thread do
     |> Map.from_struct()
     |> Map.drop([:__meta__, :sorted_messages, :message, :tree])
     |> Map.put(:messages, messages)
-    |> Map.put(:forum, forum)
+    |> Map.put(:forum, Cforum.System.AuditingProtocol.audit_json(thread.forum))
   end
 end
 
@@ -101,14 +85,8 @@ end
 
 defimpl Cforum.System.AuditingProtocol, for: Cforum.Accounts.User do
   def audit_json(user) do
-    badges =
-      case user.badges do
-        %Ecto.Association.NotLoaded{} ->
-          []
-
-        badges_list ->
-          Enum.map(badges_list, &Cforum.System.AuditingProtocol.audit_json(&1))
-      end
+    user = Cforum.Repo.preload(user, [:badges])
+    badges = Enum.map(user.badges, &Cforum.System.AuditingProtocol.audit_json(&1))
 
     user
     |> Map.from_struct()
@@ -159,32 +137,19 @@ end
 
 defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.TagSynonym do
   def audit_json(synonym) do
-    tag =
-      case synonym.tag do
-        %Ecto.Association.NotLoaded{} -> Cforum.Forums.Tags.get_tag!(synonym.tag_id)
-        tag -> tag
-      end
+    synonym = Cforum.Repo.preload(synonym, [:tag])
 
-    %{"synonym" => synonym.synonym, "tag" => %{"tag_name" => tag.tag_name, "tag_id" => tag.tag_id}}
+    %{"synonym" => synonym.synonym, "tag" => %{"tag_name" => synonym.tag.tag_name, "tag_id" => synonym.tag.tag_id}}
   end
 end
 
 defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Forum do
   def audit_json(forum) do
-    setting =
-      case forum.setting do
-        %Ecto.Association.NotLoaded{} ->
-          Cforum.Accounts.Settings.get_setting_for_forum(forum)
-
-        setting ->
-          setting
-      end
-      |> Cforum.System.AuditingProtocol.audit_json()
-
     forum
+    |> Cforum.Repo.preload([:setting])
     |> Map.from_struct()
     |> Map.drop([:__meta__, :threads, :messages, :permissions])
-    |> Map.put(:setting, setting)
+    |> Map.put(:setting, Cforum.System.AuditingProtocol.audit_json(forum.setting))
   end
 end
 

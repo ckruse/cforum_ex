@@ -25,3 +25,11 @@
     <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#do-answer"></use></svg>
   <% end %>
 <% end %>
+
+<%= if may?(@conn, "threads/admin", :split, @message) do %>
+  <%= cf_button(to: Path.split_thread_path(@conn, @thread), class: "icon-message split-thread icon-button", title: gettext("split thread with this message as new root"), method: :get) do %>
+    <input type="hidden" name="mid" value="<%= @message.message_id %>">
+    <span class="visually-hidden"><%= gettext("split thread with this message as new root") %></span>
+    <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#svg-split-thread"></use></svg>
+  <% end %>
+<% end %>

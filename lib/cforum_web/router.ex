@@ -197,6 +197,9 @@ defmodule CforumWeb.Router do
       get("/:year/:month/:day/:slug/move", Threads.AdminController, :move, as: nil)
       put("/:year/:month/:day/:slug/move", Threads.AdminController, :do_move, as: nil)
 
+      get("/:year/:month/:day/:slug/split", Threads.AdminController, :split, as: nil)
+      put("/:year/:month/:day/:slug/split", Threads.AdminController, :do_split, as: nil)
+
       get("/:year/:month/:day/:slug/:mid", MessageController, :show, as: nil)
       get("/:year/:month/:day/:slug/:mid/new", MessageController, :new, as: nil)
       post("/:year/:month/:day/:slug/:mid/new", MessageController, :create, as: nil)
