@@ -89,13 +89,13 @@
 
           <%= if show?(@conn, :sort_links) do %>
             <%= if @order != "ascending" do %>
-              <li><%= link(gettext("sort ascending"), to: Path.forum_path(@conn, :index, @current_forum, p: @page, order: "ascending")) %></li>
+              <li><%= link(gettext("sort ascending"), to: Path.forum_path(@conn, :index, @current_forum, p: @page.page, order: "ascending")) %></li>
             <% end %>
             <%= if @order != "descending" do %>
-              <li><%= link(gettext("sort descending"), to: Path.forum_path(@conn, :index, @current_forum, p: @page, order: "descending")) %></li>
+              <li><%= link(gettext("sort descending"), to: Path.forum_path(@conn, :index, @current_forum, p: @page.page, order: "descending")) %></li>
             <% end %>
             <%= if @order != "newest-first" do %>
-              <li><%= link(gettext("sort newest first"), to: Path.forum_path(@conn, :index, @current_forum, p: @page, order: "newest-first")) %></li>
+              <li><%= link(gettext("sort newest first"), to: Path.forum_path(@conn, :index, @current_forum, p: @page.page, order: "newest-first")) %></li>
             <% end %>
           <% end %>
 
