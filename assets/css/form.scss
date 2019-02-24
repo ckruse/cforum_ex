@@ -20,6 +20,10 @@
     border: 0;
   }
 
+  ::placeholder {
+    color: $placeholder_color;
+  }
+
   .cf-cgroup {
     vertical-align: middle;
     margin-bottom: 1em;

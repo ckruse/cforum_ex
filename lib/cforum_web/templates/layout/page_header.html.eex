@@ -56,16 +56,17 @@
           <li><%= link gettext("search"), to: Routes.search_path(@conn, :show) %></li>
           <li><%= link gettext("chat"), to: "https://kiwiirc.com/client/irc.epd-me.net/#{chat_nick_name(@conn)}&channel=#selfhtml", rel: "nofollow" %></li>
           <li><%= link(gettext("help"), to: Routes.page_path(@conn, :help)) %></li>
-          <%= if false and controller_module(@conn) != Cforum.SearchController do %><%# TODO search field %>
+
+          <%= if show?(@conn, :search) do %>
             <li class="search">
-              <form>
-                <input type="search" placeholder="<%= gettext("search") %>">
-              </form>
-              <%# form_tag Routes.search_path + '#results', method: 'get', rel: 'nofollow' do %>
-              <%# hidden_field_tag 'sections[]', 1, id: nil %>
-              <%# hidden_field_tag 'sections[]', 2, id: nil %>
-              <%# search_field_tag 'term', params[:term], placeholder: t('search.search_top') %>
-              <%# end %>
+              <%= form_for search_changeset(@conn), Routes.search_path(@conn, :show), [method: :get, rel: "nofollow", as: :search], fn f -> %>
+                <%= for s <- sections(f) do %>
+                  <input type="hidden" name="search[sections][]" value="<%= s %>">
+                <% end %>
+
+                <label class="visually-hidden" for="search-term-nav"><%= gettext("search term") %></label>
+                <input type="search" id="search-term-nav" placeholder="<%= gettext("search") %>" name="search[term]">
+              <% end %>
             </li>
           <% end %>
         </ul>

@@ -1,6 +1,8 @@
 defmodule CforumWeb.LayoutView do
   use CforumWeb, :view
 
+  alias Cforum.Search
+
   def page_title(conn, assigns) do
     try do
       apply(view_module(conn), :page_title, [action_name(conn), assigns]) <> " — SELFHTML Forum"
@@ -135,6 +137,7 @@ defmodule CforumWeb.LayoutView do
 
   def show?(conn, link) when link in [:events, :badges], do: controller_module(conn) == CforumWeb.ForumController
   def show?(conn, :thread_feeds), do: present?(conn.assigns[:thread]) && present?(conn.assigns[:thread].thread_id)
+  def show?(conn, :search), do: controller_module(conn) != CforumWeb.SearchController
 
   def show?(conn, :sort_links),
     do: controller_module(conn) == CforumWeb.ThreadController && blank?(conn.assigns[:current_user])
@@ -151,6 +154,13 @@ defmodule CforumWeb.LayoutView do
         controller_module(conn)
       )
   end
+
+  def search_changeset(conn) do
+    visible_sections = Search.list_visible_search_sections(conn.assigns.visible_forums, "forum")
+    Search.search_changeset(visible_sections, %{sections: Enum.map(visible_sections, & &1.search_section_id)})
+  end
+
+  def sections(form), do: Ecto.Changeset.get_field(form.source, :sections, [])
 
   def numeric_infos(conn, %{current_user: user} = assigns) when not is_nil(user) do
     str =

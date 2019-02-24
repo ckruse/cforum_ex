@@ -65,6 +65,8 @@ $max_message_desktop_width: 45em;
 
 $default_border_radius: 0 0.3em 0.3em;
 
+$placeholder_color: #4f5250;
+
 @mixin focus-w-shadow() {
   border-color: $focus_color;
   outline: 0px none;
