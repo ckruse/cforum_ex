@@ -46,4 +46,4 @@ import "./voting";
 import "./init";
 
 import "./modules/user-notifications";
-import "./modules/anonymous.js";
+import "./modules/anonymous";
