@@ -1,0 +1,31 @@
+<nav class="forum-links">
+  <ul>
+    <li><%= link gettext("home"), to: Routes.root_path(@conn, :index) %></li>
+    <li><%= link gettext("all forums"), to: Path.forum_path(@conn, :index, "all") %></li>
+    <%= if @current_forum do %>
+      <li><%= link @current_forum.name, to: Path.forum_path(@conn, :index, @current_forum) %></li>
+    <% end %>
+
+    <%= if blank?(@current_user) do %>
+      <li><%= link gettext("login"), to: Routes.session_path(@conn, :new), rel: "nofollow" %></li>
+      <li><%= link gettext("register"), to: Routes.registration_path(@conn, :new), rel: "nofollow" %></li>
+    <% end %>
+
+    <%= if access_forum?(@conn, :moderate) do %>
+      <!-- li><%# cf_link_to t('plugins.twitter.tweet_message'), tweet_message_path(@thread, m) %></li -->
+      <%= if @view_all do %>
+        <li>
+          <%= if @message.deleted do %>
+            <%= link gettext("normal view"), to: Path.forum_path(@conn, :index, @current_forum, view_all: nil), rel: "nofollow" %>
+          <% else %>
+            <%= link gettext("normal view"), to: Path.message_path(@conn, :show, @thread, @message, view_all: nil), rel: "nofollow" %>
+          <% end %>
+        </li>
+      <% else %>
+        <li><%= link gettext("administrative view"), to: Path.message_path(@conn, :show, @thread, @message, view_all: true), rel: "nofollow" %></li>
+      <% end %>
+    <% end %>
+
+    <li><%= link gettext("message in tree"), to: "#tree-m#{@message.message_id}" %></li>
+  </ul>
+</nav>
