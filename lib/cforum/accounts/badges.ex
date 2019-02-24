@@ -7,8 +7,7 @@ defmodule Cforum.Accounts.Badges do
   import CforumWeb.Gettext
   alias Cforum.Repo
 
-  alias Cforum.Accounts.Badge
-  alias Cforum.Accounts.BadgeUser
+  alias Cforum.Accounts.{Badge, BadgeUser, BadgeGroup}
   alias Cforum.Accounts.Notifications
   alias Cforum.System
   alias Cforum.Accounts.Users
@@ -28,6 +27,11 @@ defmodule Cforum.Accounts.Badges do
     from(badge in Badge, preload: ^query_params[:preload])
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], asc: :order)
+    |> Repo.all()
+  end
+
+  def list_badge_groups() do
+    from(bg in BadgeGroup, order_by: [asc: :name], preload: [:badges])
     |> Repo.all()
   end
 

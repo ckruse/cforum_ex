@@ -4312,3 +4312,8 @@ msgstr "Thread lösen"
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:29
 msgid "message in tree"
 msgstr "Beitrag im Thread-Baum"
+
+#, elixir-format
+#: lib/cforum_web/views/page_view.ex:4
+msgid "help & support"
+msgstr "Hilfe & Unterstützung"

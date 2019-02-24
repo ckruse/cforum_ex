@@ -1,11 +1,10 @@
 import Highcharts from "highcharts";
 import { startOfMonth, subMonths, parse, isBefore } from "date-fns";
-//import moment from "moment";
 
 import { t } from "./modules/i18n.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (document.body.id != "forums-stats") {
+  if (document.body.id !== "forums-stats") {
     return;
   }
 

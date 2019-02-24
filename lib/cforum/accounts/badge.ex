@@ -68,6 +68,12 @@ defmodule Cforum.Accounts.Badge do
     has_many(:badges_users, Cforum.Accounts.BadgeUser, foreign_key: :badge_id)
     has_many(:users, through: [:badges_users, :user])
 
+    many_to_many(:badges, Cforum.Accounts.BadgeGroup,
+      join_through: "badges_badge_groups",
+      on_delete: :delete_all,
+      join_keys: [badge_id: :badge_id, badge_group_id: :badge_group_id]
+    )
+
     timestamps(inserted_at: :created_at)
   end
 

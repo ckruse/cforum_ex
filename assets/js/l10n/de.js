@@ -163,5 +163,8 @@ export const lang = {
       flags: "Flaggen",
       custom: "benutzerdefiniert"
     }
-  }
+  },
+
+  "number of new cites": "Anzahl neuer Zitate",
+  "new cites": "neue Zitate"
 };
