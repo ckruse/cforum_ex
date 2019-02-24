@@ -44,6 +44,7 @@ export const lang = {
   "badge name": "Medaillen-Name",
   "no badges found": "Keine Medaillen gefunden",
   "select badge": "Medaille auswählen",
+  "(hyphen minus)": "(Bindestrich-Minus/Mittestrich, U+002D)",
   "(minus sign)": "(Minus-Sybmol, U+2212)",
   "(en dash sign)": "(Halbgeviertstrich/Bis-Strich/Gedankenstrich, U+2013)",
   "(em dash sign)": "(Geviertstrich, U+2014)",

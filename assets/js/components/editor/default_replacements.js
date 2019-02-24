@@ -28,9 +28,9 @@ const DefaultReplacements = {
         break;
       case "-":
         found = [
-          { id: "−", display: "−", desc: `− ${t("(en dash sign)")}` },
-          { id: "–", display: "–", desc: `– ${t("(en dash sign)")}` },
-          { id: "—", display: "—", desc: `— ${t("(em dash sign)")}` }
+          { id: "-", display: "-", desc: `- ${t("(hyphen minus)")}` },
+          { id: "−", display: "−", desc: `− ${t("(minus sign)")}` },
+          { id: "–", display: "–", desc: `– ${t("(en dash sign)")}` }
         ];
         break;
 
