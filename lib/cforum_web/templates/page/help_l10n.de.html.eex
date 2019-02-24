@@ -1,0 +1,162 @@
+<section id="forum-charta">
+  <h2>Charta</h2>
+
+  <p>Das SELFHTML-Forum versteht sich als Ort für Lernende und Lehrende, für Anfänger und für Profis. Klar, dass es
+    dort auch mal zu Missverständnissen, Auseinandersetzungen oder hitzigen Debatten kommen kann. Um diese nicht
+    ausarten zu lassen haben wir eine
+    <%= link "Charta", to: "https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Charta_des_SELFHTML-Forums" %> entwickelt,
+    einen Verhaltenskodex, an den sich bitte jeder halten möge.
+  </p>
+</section>
+
+<section id="markdown">
+  <h2>Formatierung der Beiträge</h2>
+
+  <p>Das SELFHTML-Forum nutzt <%= link "Markdown", to: "https://de.wikipedia.org/wiki/Markdown" %> zur Formatierung
+    der Beiträge. Eine
+    <%= link "Übersicht über die Formatierungsmöglichkeiten", to: "https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Formatierung_der_Beitr%C3%A4ge" %>
+    gibt es im SELFHTML-Wiki.</p>
+</section>
+
+<section id="kontakt">
+  <h2>Kontaktmöglichkeiten</h2>
+
+  <dl>
+    <dt>Anregungen, Fehlermeldungen oder Kritik das Forum betreffend richten Sie bitte an</dt>
+    <dd><%= link "forum@selfhtml.org", to: "mailto:forum@selfhtml.org" %></dd>
+
+    <dt>Eine Issue bei Github eröffnen Sie unter</dt>
+    <dd><%= link "github.com/ckruse/cforum/issues", to: "https://github.com/ckruse/cforum_ex/issues" %></dd>
+
+    <dt>Für allgemeine Fragen wenden Sie sich an den Verein SELFHTML e.V.</dt>
+    <dd><%= link "matthias.apsel@selfhtml.org", to: "mailto:matthias.apsel@selfhtml.org" %></dd>
+  </dd>
+</section>
+
+<section id="tags">
+  <h2>Tags</h2>
+
+  <p>Das SELFHTML-Forum nutzt zur Kategorisierung von Beiträgen sogenannte Tags. Diese Tags oder auch Schlagworte
+    helfen den Lesern des Forums eine Frage oder eine Antwort thematisch einzuordnen und können als
+    <%= link "Such-Kriterium", to: Routes.search_path(@conn, :show) %> genutzt werden. Es gibt eine
+    <%= link "Liste aller verwendeten Tags", to: Path.tag_path(@conn, :index) %>.</p>
+</section>
+
+<section id="search">
+  <h2>Suche</h2>
+
+  <p>Es ist möglich, die Beiträge des Forums zu <%= link "durchsuchen", to: Routes.search_path(@conn, :show) %>.
+    Die Suche berücksichtigt neben den aktuellen Beiträge ggf. auch bereits
+    <%= link "archivierte", to: Path.archive_path(@conn, :years, "all") %> Beiträge. Die Suchergebnisse werden per
+    Default nach Relevanz sortiert; das bedeutet, dass Beiträge mit vielen positiven Bewertungen vor
+    Beiträgen mit weniger positiven Bewertungen gelistet werden und Beiträge mit passenderen Suchtreffern vor Beiträgen
+    mit weniger passenden Suchtreffern erscheinen.</p>
+</section>
+
+<section id="archive">
+  <h2>Archiv</h2>
+
+  <p>Seit 1998 werden die Beiträge dieses Forums für die Nachwelt <%= link "archiviert", to: Path.archive_path(@conn, :years, "all") %>,
+    am 26.&nbsp;Juli&nbsp;1998 schrieb Stefan Münz den <%= link "ersten Forumsbeitrag", to: "https://forum.selfhtml.org/self/1998/jul/26/willkommen-im-forum/1#m1" %>.
+    Es ist interessant, in alten Beiträgen zu schmökern, das Archiv spiegelt schließlich nicht nur die Geschichte von
+    SELFHTML sondern auch zwei Jahrzehnte Webentwicklung wider.</p>
+</section>
+
+<section id="moderators">
+  <h2>Moderatoren des SELFHTML-Forums</h2>
+
+  <p>Zur Zeit gibt es <%# @moderators.count %> Moderatoren:</p>
+
+  <ul>
+    <%= for moderator <- @moderators do %>
+      <li><%= user_link(@conn, moderator, [], moderator.username) %></li>
+    <% end %>
+  </ul>
+
+  <p>Weitere Informationen zu den Moderatoren sind <%= link "im SELFHTML-Wiki", to: "https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Moderatoren" %> einsehbar.</p>
+</section>
+
+<section id="scoring-rules">
+  <h2>Bewertungsregeln</h2>
+
+  <p>Im SELFHTML-Forum gibt es die Möglichkeit, Beiträge zu bewerten, sowohl positiv als auch negativ. Für jede positive
+    Bewertung bekommt der Schreiber des Postings 10 Punkte, für jede negative Bewertung bekommt der Schreiber des
+    Postings -1 Punkt. Die Zahl der Punkte kann nicht unter -1 fallen. Bewerten können alle registrierten Benutzer mit
+    mindestens 50 Punkten.
+    <%= link "Nähere Informationen zu den Bewertungsregeln", to: "https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Bewertungsregeln" %>
+    gibt es <%= link "im SELFHTML-Wiki", to: "https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Bewertungsregeln" %>.</p>
+</section>
+
+<h1>weitere Informationen</h1>
+
+<section id="users">
+  <h2>Benutzer des SELFHTML-Forums</h2>
+
+  <p>Das SELFHTML-Forum kann man grundsätzlich anonym nutzen. Doch der volle Komfort sowie verschiedene Nutzer-Rechte
+    erschliessen sich einem erst, wenn man sich <%= link "registriert", to: Routes.registration_path(@conn, :new) %>.
+    Beachten Sie hierbei unsere
+    <%= link "Datenschutz-Bestimmungen", to: "https://www.selfhtml.org/impressum.html#datenschutz" %>.
+    Es gibt auch eine <%= link "Liste aller registrierten Benutzer", to: Routes.user_path(@conn, :index) %>.</p>
+</section>
+
+<section id="badges">
+  <h2>Rechte-System im Forum</h2>
+
+  <p>Die Rechte-Vergabe im Forum funktioniert derzeit über ein Medaillen-System. Erreicht ein Nutzer eine bestimmte
+    Anzahl von Punkten, so erwirbt er eine Medaille, an die ein bestimmtes Recht gebunden ist. Diese Medaille bleibt
+    auch dann erhalten, wenn die Punkte des Nutzers unter die erforderliche Punktezahl fällt. Dabei wird unterschieden
+    in Gold-, Silber- und Bronze-Medaillen.
+  </p>
+</section>
+
+<%= for badge_group <- @badge_groups do %>
+  <section id="badge-group-<%= badge_group.badge_group_id %>">
+    <h2><%= badge_group.name %></h2>
+
+    <dl>
+      <%= for badge <- badge_group.badges do %>
+        <dt><img src="<%= CforumWeb.BadgeView.badge_image(@conn, badge) %>"> <%= link badge.name, to: Routes.badge_path(@conn, :show, badge) %></dt>
+        <dd><%= if present?(badge.score_needed) do %><strong><%= badge.score_needed %> Punkte:</strong> <% end %><%= badge.description %></dd>
+      <% end %>
+    </dl>
+
+  </section>
+<% end %>
+
+<section id="cites">
+  <h2>Zitatesammlung</h2>
+
+  <p>Das SELFHTML-Forum gibt es <%= link "seit dem 26. Juli 1998", to: "https://forum.selfhtml.org/self/1998/jul/26/willkommen-im-forum/1#m1" %>.
+    In dieser Zeit gab es immer wieder lustige Sprüche oder kluge Wahrheiten, die die Community als erhaltenswert
+    betrachtet. Zu diesem Zweck wurde eine <%= link "Zitatesammlung", to: Routes.cite_path(@conn, :index) %>
+    entwickelt. Dort kann jeder Zitate vorschlagen. Ob ein Zitat in die Sammlung aufgenommen wird, entscheidet die
+    Community. Die
+    <%= link "näheren Regeln zur Zitate-Sammlung", to: "https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Regeln_f%C3%BCr_die_Zitatesammlung" %>
+    sind im SELFHTML-Wiki einsehbar.</p>
+
+  <p>Nachfolgende Grafik zeigt, wieviele neue Zitate in den letzten 12 Monaten hinzugekommen sind.</p>
+
+  <div class="chart-cites chart"></div>
+</section>
+
+<section id="impressum">
+  <h2>Impressum</h2>
+
+  <p>Rechtliche Hinweise finden Sie auf den Seiten des Impressums</p>
+
+  <ul>
+    <li><%= link "Impressum", to: "https://selfhtml.org/impressum.html" %></li>
+    <li><%= link "Datenschutz-Bestimmungen", to: "https://selfhtml.org/impressum.html#datenschutz" %></li>
+    <li><%= link "Nutzungsbedingungen Bilderupload", to: "https://selfhtml.org/impressum.html#upload" %></li>
+  </ul>
+</section>
+
+<section id="donate">
+  <h2>SELFHTML unterstützen</h2>
+
+  <p>Sie können das Projekt sowohl inhaltlich als auch finanziell unterstützen: Die Mitarbeit im
+    <%= link "SELFHTML-Wiki", to: "https://wiki.selfhtml.org/wiki/SELFHTML:Wiki/Mitarbeit_FAQ" %> oder das kompetente
+    Beantworten von Fragen in diesem Forum ist weder an eine Mitgliedschaft noch an eine Anmeldung gebunden.
+    Falls Sie eine Spende in Erwägung ziehen wollen, haben wir die notwendigen
+    <%= link "Informationen", to: "https://selfhtml.org/spenden.html" %> für Sie zusammengestellt.</p>
+</section>

@@ -348,4 +348,17 @@ defmodule Cforum.Cites do
     |> Ecto.Changeset.apply_changes()
     |> Repo.preload([:user, :creator_user])
   end
+
+  def cites_stats(months, :months) do
+    from(cite in Cforum.Cites.Cite,
+      select: {fragment("date_trunc('month', ?) AS created_at", cite.created_at), count("*")},
+      where: cite.created_at >= ago(^months, "month"),
+      group_by: fragment("1"),
+      order_by: fragment("1")
+    )
+    |> Repo.all()
+    |> Enum.map(fn {date, cnt} ->
+      %{cnt: cnt, date: date}
+    end)
+  end
 end

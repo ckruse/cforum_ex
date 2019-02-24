@@ -572,4 +572,21 @@ defmodule Cforum.Accounts.Users do
         false
     end
   end
+
+  def list_moderators() do
+    from(u in User,
+      where:
+        u.admin == true or
+          u.user_id in fragment(
+            "SELECT user_id FROM groups_users WHERE group_id IN (SELECT group_id FROM forums_groups_permissions WHERE permission = ?)",
+            ^ForumGroupPermission.moderate()
+          ) or
+          u.user_id in fragment(
+            "SELECT user_id FROM badges_users INNER JOIN badges USING(badge_id) WHERE badge_type = ?",
+            ^Badge.moderator_tools()
+          ),
+      order_by: [asc: :username]
+    )
+    |> Repo.all()
+  end
 end
