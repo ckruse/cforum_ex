@@ -34,7 +34,7 @@ defmodule CforumWeb.ThreadController do
 
     conn
     |> maybe_set_cookie(set_order_cookie, ordering)
-    |> render("index.html", threads: threads, all_threads_count: all_threads_count, page: p)
+    |> render("index.html", threads: threads, all_threads_count: all_threads_count, page: p, order: ordering)
   end
 
   def index_unanswered(conn, params) do

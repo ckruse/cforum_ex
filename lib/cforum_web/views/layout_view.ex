@@ -135,7 +135,9 @@ defmodule CforumWeb.LayoutView do
 
   def show?(conn, link) when link in [:events, :badges], do: controller_module(conn) == CforumWeb.ForumController
   def show?(conn, :thread_feeds), do: present?(conn.assigns[:thread]) && present?(conn.assigns[:thread].thread_id)
-  def show?(conn, :sort_links), do: controller_module(conn) == CforumWeb.Threads && blank?(conn.assigns[:current_user])
+
+  def show?(conn, :sort_links),
+    do: controller_module(conn) == CforumWeb.ThreadController && blank?(conn.assigns[:current_user])
 
   def show?(conn, :thread_nested) do
     present?(conn.assigns[:message]) && present?(conn.assigns[:thread]) && present?(conn.assigns[:read_mode]) &&
