@@ -22,7 +22,7 @@ defmodule Cforum.Search do
     |> Repo.all()
   end
 
-  def list_visible_search_sections(visible_forums) do
+  def list_visible_search_sections(visible_forums, type \\ nil) do
     visible_forum_ids = Enum.map(visible_forums, & &1.forum_id)
 
     from(s in Section,
@@ -30,8 +30,12 @@ defmodule Cforum.Search do
       preload: [:forum],
       where: is_nil(s.forum_id) or s.forum_id in ^visible_forum_ids
     )
+    |> maybe_set_type(type)
     |> Repo.all()
   end
+
+  defp maybe_set_type(q, nil), do: q
+  defp maybe_set_type(q, type), do: from(s in q, where: s.section_type == ^type)
 
   @doc """
   Gets a single section.

@@ -72,18 +72,18 @@
     li.cites a {
       display: inline;
     }
-  }
 
-  .search {
-    ::input-placeholder {
-      color: white;
-    }
+    .search {
+      ::placeholder {
+        color: $placeholder_color;
+      }
 
-    input[type="search"] {
-      border-radius: 0px 0.5em 0.5em;
-      border: 1px solid $grey_border;
-      padding: 0.2em 0.5em;
-      width: 100%;
+      input[type="search"] {
+        border-radius: 0px 0.5em 0.5em;
+        border: 1px solid $grey_border;
+        padding: 0.2em 0.5em;
+        width: 100%;
+      }
     }
   }
 }
@@ -120,19 +120,33 @@
 
     .quicklinks {
       grid-area: nav;
+
       ul {
-        display: inline;
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 0;
+        margin-bottom: 0;
       }
 
       li {
         display: inline-block;
         margin-right: 1em;
         margin-top: 0.15em;
+        flex: 0 0 auto;
 
         a,
         a:link,
         a:visited {
           display: inline;
+        }
+      }
+
+      .search {
+        flex: 1 1 auto;
+        text-align: right;
+
+        input {
+          max-width: 20em;
         }
       }
     }
