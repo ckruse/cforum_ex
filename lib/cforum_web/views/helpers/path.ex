@@ -366,6 +366,9 @@ defmodule CforumWeb.Views.Helpers.Path do
   def close_thread_path(conn, %Thread{} = thread, params \\ []),
     do: "#{thread_path(conn, :show, thread)}/close#{encode_query_string(params)}"
 
+  def split_thread_path(conn, %Thread{} = thread, params \\ []),
+    do: "#{thread_path(conn, :show, thread)}/split#{encode_query_string(params)}"
+
   @spec mail_thread_path(Plug.Conn.t() | CforumWeb.Endpoint, :show, %PrivMessage{}, keyword() | map()) :: String.t()
   def mail_thread_path(conn, :show, pm, params \\ []),
     do: "#{Routes.root_path(conn, :index)}mails/#{pm.thread_id}#{encode_query_string(params)}#pm#{pm.priv_message_id}"

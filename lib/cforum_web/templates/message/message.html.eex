@@ -45,8 +45,8 @@
           <%= default_button_link(gettext("edit message"), to: Path.message_path(@conn, :edit, @thread, @message), rel: "nofollow") %>
         <% end %>
 
-        <%= if may?(@conn, "threads/split", :split, @message) do %>
-          <%= default_button_link(gettext("split thread"), to: "split_thread_path @thread, m TODO", rel: "nofollow") %>
+        <%= if may?(@conn, "threads/admin", :split, @message) do %>
+          <%= default_button_link(gettext("split thread"), to: Path.split_thread_path(@conn, @thread, [mid: @message.message_id]), rel: "nofollow") %>
         <% end %>
 
         <%= if may?(@conn, "messages/open_close_vote", :new_close, @message) do %>

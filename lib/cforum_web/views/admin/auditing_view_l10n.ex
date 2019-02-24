@@ -90,6 +90,8 @@ defmodule CforumWeb.AuditingViewL10n do
   def l10n_audit_act(%Auditing{relation: "threads", act: "no-archive-no"}),
     do: gettext("auditing: threads: no-archive-no")
 
+  def l10n_audit_act(%Auditing{relation: "threads", act: "split"}), do: gettext("auditing: threads: split")
+
   # message actions
   def l10n_audit_act(%Auditing{relation: "messages", act: "create"}), do: gettext("auditing: messages: create")
   def l10n_audit_act(%Auditing{relation: "messages", act: "update"}), do: gettext("auditing: messages: update")

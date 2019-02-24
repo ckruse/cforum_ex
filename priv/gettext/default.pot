@@ -251,6 +251,7 @@ msgstr ""
 #: lib/cforum_web/templates/tags/synonym/form.html.eex:3
 #: lib/cforum_web/templates/thread/new.html.eex:2
 #: lib/cforum_web/templates/threads/admin/move.html.eex:3
+#: lib/cforum_web/templates/threads/admin/split.html.eex:5
 #: lib/cforum_web/templates/users/registration/new.html.eex:3
 #: lib/cforum_web/templates/users/user/form.html.eex:2
 msgid "Oops, something went wrong! Please check the errors below."
@@ -563,6 +564,7 @@ msgstr ""
 #: lib/cforum_web/templates/tags/synonym/form.html.eex:16
 #: lib/cforum_web/templates/thread/new.html.eex:29
 #: lib/cforum_web/templates/threads/admin/move.html.eex:16
+#: lib/cforum_web/templates/threads/admin/split.html.eex:20
 #: lib/cforum_web/templates/users/password/edit.html.eex:17
 #: lib/cforum_web/templates/users/password/edit_reset.html.eex:17
 #: lib/cforum_web/templates/users/password/new.html.eex:12
@@ -1430,6 +1432,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/search_section/index.html.eex:6
 #: lib/cforum_web/templates/thread/new.html.eex:15
 #: lib/cforum_web/templates/threads/admin/move.html.eex:8
+#: lib/cforum_web/templates/threads/admin/split.html.eex:10
 msgid "forum"
 msgstr ""
 
@@ -3068,6 +3071,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message.html.eex:49
+#: lib/cforum_web/templates/threads/admin/split.html.eex:19
 msgid "split thread"
 msgstr ""
 
@@ -3381,99 +3385,99 @@ msgid "auditing: media: destroy"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:110
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:112
 msgid "auditing: messages: accepted-no"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:107
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:109
 msgid "auditing: messages: accepted-yes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:94
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:96
 msgid "auditing: messages: create"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:104
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:106
 msgid "auditing: messages: del_versions"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:97
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:98
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:99
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:100
 msgid "auditing: messages: delete"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:125
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:127
 msgid "auditing: messages: flagged-custom"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:119
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:121
 msgid "auditing: messages: flagged-duplicate"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:116
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:118
 msgid "auditing: messages: flagged-not-constructive"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:113
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:115
 msgid "auditing: messages: flagged-off-topic"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:122
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:124
 msgid "auditing: messages: flagged-spam"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:100
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:102
 msgid "auditing: messages: move"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:134
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:137
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:136
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:139
 msgid "auditing: messages: no-answer"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:131
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:133
 msgid "auditing: messages: no-answer-admin-no"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:128
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:130
 msgid "auditing: messages: no-answer-admin-yes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:140
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:142
 msgid "auditing: messages: no-answer-no"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:99
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:101
 msgid "auditing: messages: restore"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:96
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:98
 msgid "auditing: messages: retag"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:101
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:103
 msgid "auditing: messages: unflagged"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:95
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:97
 msgid "auditing: messages: update"
 msgstr ""
 
@@ -3901,7 +3905,7 @@ msgid "auditing: close_votes_voters: unvote"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:143
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:145
 msgid "auditing: messages: unflag-no-answer"
 msgstr ""
 
@@ -4226,4 +4230,25 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/threads/admin/move.html.eex:15
 msgid "move thread"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/threads/admin_view.ex:8
+msgid "Split thread at message %{subject} by %{author}"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/controllers/threads/admin_controller.ex:71
+msgid "Thread was successfully split."
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:93
+msgid "auditing: threads: split"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:30
+#: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:32
+msgid "split thread with this message as new root"
 msgstr ""

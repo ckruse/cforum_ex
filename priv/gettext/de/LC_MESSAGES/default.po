@@ -264,6 +264,7 @@ msgstr "Einstellungen"
 #: lib/cforum_web/templates/tags/synonym/form.html.eex:3
 #: lib/cforum_web/templates/thread/new.html.eex:2
 #: lib/cforum_web/templates/threads/admin/move.html.eex:3
+#: lib/cforum_web/templates/threads/admin/split.html.eex:5
 #: lib/cforum_web/templates/users/registration/new.html.eex:3
 #: lib/cforum_web/templates/users/user/form.html.eex:2
 msgid "Oops, something went wrong! Please check the errors below."
@@ -579,6 +580,7 @@ msgstr "Avatar"
 #: lib/cforum_web/templates/tags/synonym/form.html.eex:16
 #: lib/cforum_web/templates/thread/new.html.eex:29
 #: lib/cforum_web/templates/threads/admin/move.html.eex:16
+#: lib/cforum_web/templates/threads/admin/split.html.eex:20
 #: lib/cforum_web/templates/users/password/edit.html.eex:17
 #: lib/cforum_web/templates/users/password/edit_reset.html.eex:17
 #: lib/cforum_web/templates/users/password/new.html.eex:12
@@ -1448,6 +1450,7 @@ msgstr "Bronze-Medaille"
 #: lib/cforum_web/templates/admin/search_section/index.html.eex:6
 #: lib/cforum_web/templates/thread/new.html.eex:15
 #: lib/cforum_web/templates/threads/admin/move.html.eex:8
+#: lib/cforum_web/templates/threads/admin/split.html.eex:10
 msgid "forum"
 msgstr "Forum"
 
@@ -3090,6 +3093,7 @@ msgstr "Sitzplätze verfügbar"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message.html.eex:49
+#: lib/cforum_web/templates/threads/admin/split.html.eex:19
 msgid "split thread"
 msgstr "Thread teilen"
 
@@ -3403,99 +3407,99 @@ msgid "auditing: media: destroy"
 msgstr "Medium gelöscht"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:110
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:112
 msgid "auditing: messages: accepted-no"
 msgstr "Beitrag nicht länger akzeptiert"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:107
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:109
 msgid "auditing: messages: accepted-yes"
 msgstr "Beitrag akzeptiert"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:94
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:96
 msgid "auditing: messages: create"
 msgstr "Beitrag erstellt"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:104
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:106
 msgid "auditing: messages: del_versions"
 msgstr "alte Versionen des Beitrags gelöscht"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:97
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:98
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:99
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:100
 msgid "auditing: messages: delete"
 msgstr "Beitrag gelöscht"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:125
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:127
 msgid "auditing: messages: flagged-custom"
 msgstr "Beitrag gemeldet: sonstiger Grund"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:119
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:121
 msgid "auditing: messages: flagged-duplicate"
 msgstr "Beitrag gemeldet: Doppelposting"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:116
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:118
 msgid "auditing: messages: flagged-not-constructive"
 msgstr "Beitrag gemeldet: unkonstruktiv oder provokativ"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:113
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:115
 msgid "auditing: messages: flagged-off-topic"
 msgstr "Beitrag gemeldet: Off-Topic"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:122
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:124
 msgid "auditing: messages: flagged-spam"
 msgstr "Beitrag gemeldet: Spam"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:100
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:102
 msgid "auditing: messages: move"
 msgstr "Beitrag verschoben"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:134
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:137
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:136
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:139
 msgid "auditing: messages: no-answer"
 msgstr "Beitrag geschlossen"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:131
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:133
 msgid "auditing: messages: no-answer-admin-no"
 msgstr "Beitrag nicht länger geschlossen (Admin)"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:128
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:130
 msgid "auditing: messages: no-answer-admin-yes"
 msgstr "Beitrag geschlossen (Admin)"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:140
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:142
 msgid "auditing: messages: no-answer-no"
 msgstr "Beitrag nicht länger geschlossen"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:99
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:101
 msgid "auditing: messages: restore"
 msgstr "Beitrag wiederhergestellt"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:96
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:98
 msgid "auditing: messages: retag"
 msgstr "Tags neu vergeben"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:101
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:103
 msgid "auditing: messages: unflagged"
 msgstr "Beitrag nicht länger gemeldet"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:95
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:97
 msgid "auditing: messages: update"
 msgstr "Beitrag geändert"
 
@@ -3923,7 +3927,7 @@ msgid "auditing: close_votes_voters: unvote"
 msgstr "Stimme für Sperr-/Entsperr-Abstimmung zurück genommen"
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:143
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:145
 msgid "auditing: messages: unflag-no-answer"
 msgstr "„antworten verboten“-Markierung entfernt"
 
@@ -4249,3 +4253,24 @@ msgstr "Der Thread wurde erfolgreich verschoben."
 #: lib/cforum_web/templates/threads/admin/move.html.eex:15
 msgid "move thread"
 msgstr "Thread verschieben"
+
+#, elixir-format
+#: lib/cforum_web/views/threads/admin_view.ex:8
+msgid "Split thread at message %{subject} by %{author}"
+msgstr "Thread bei Nachricht „%{subject}“ von %{autor} teilen"
+
+#, elixir-format
+#: lib/cforum_web/controllers/threads/admin_controller.ex:71
+msgid "Thread was successfully split."
+msgstr "Der Thread wurde erfolgreich geteilt."
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:93
+msgid "auditing: threads: split"
+msgstr "Thread wurde geteilt"
+
+#, elixir-format
+#: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:30
+#: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:32
+msgid "split thread with this message as new root"
+msgstr "Teile Thread mit dieser Nachricht als neuen Ursprungsbeitrag"
