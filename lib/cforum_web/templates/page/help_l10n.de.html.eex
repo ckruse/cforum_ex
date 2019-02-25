@@ -65,7 +65,7 @@
 <section id="moderators">
   <h2>Moderatoren des SELFHTML-Forums</h2>
 
-  <p>Zur Zeit gibt es <%# @moderators.count %> Moderatoren:</p>
+  <p>Zur Zeit gibt es <%= length(@moderators) %> Moderatoren:</p>
 
   <ul>
     <%= for moderator <- @moderators do %>
