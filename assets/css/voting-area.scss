@@ -132,8 +132,10 @@
 
 @media screen and (min-width: 35em) {
   .posting-footer {
-    display: flex;
-    flex-direction: row;
+    .button-container {
+      display: flex;
+      flex-direction: row;
+    }
 
     .message-links {
       flex: 1 1 auto;

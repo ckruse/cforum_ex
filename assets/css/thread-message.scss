@@ -68,11 +68,13 @@
         padding-left: 0;
 
         li {
-          display: inline;
+          display: inline-block;
           border: 1px solid $grey_border;
           border-radius: $default_border_radius;
           padding: 0.25em 0.5em;
           margin-right: 0.25em;
+          white-space: nowrap;
+          margin-bottom: 0.25em;
         }
       }
     }
