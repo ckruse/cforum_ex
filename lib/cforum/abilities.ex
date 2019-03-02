@@ -194,8 +194,8 @@ defmodule Cforum.Abilities do
   #
   # moderator access
   #
-  defp access_forum_moderate?(_, nil), do: false
   defp access_forum_moderate?(nil, _), do: false
+  defp access_forum_moderate?(user, nil), do: Users.badge?(user, Badge.moderator_tools())
 
   defp access_forum_moderate?(user, forum) do
     permissions = Groups.list_permissions_for_user_and_forum(user, forum)
