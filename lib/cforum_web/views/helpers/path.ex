@@ -240,17 +240,11 @@ defmodule CforumWeb.Views.Helpers.Path do
   def message_path(conn, :edit, %Thread{} = thread, %Message{} = msg, params),
     do: "#{int_message_path(conn, thread, msg)}/edit#{encode_query_string(params)}"
 
-  def message_path(conn, :versions, %Thread{} = thread, %Message{} = msg, params),
-    do: "#{int_message_path(conn, thread, msg)}/versions#{encode_query_string(params)}"
-
   @spec message_url(Plug.Conn.t() | CforumWeb.Endpoint, atom(), %Thread{}, %Message{}, keyword() | map()) :: String.t()
   def message_url(conn, action, thread, message, params \\ [])
 
   def message_url(conn, :show, %Thread{} = thread, %Message{} = msg, params),
     do: "#{int_message_url(conn, thread, msg, params)}#m#{msg.message_id}"
-
-  def message_url(conn, :versions, %Thread{} = thread, %Message{} = msg, params),
-    do: "#{int_message_url(conn, thread, msg, params)}/versions"
 
   @spec retag_message_path(Plug.Conn.t() | CforumWeb.Endpoint, %Thread{}, %Message{}, keyword() | map()) :: String.t()
   def retag_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
@@ -308,6 +302,14 @@ defmodule CforumWeb.Views.Helpers.Path do
 
   def answer_message_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
     do: "#{int_message_path(conn, thread, msg)}/answer#{encode_query_string(params)}"
+
+  def message_version_path(conn, action, thread, msg, params_or_version \\ [], params \\ [])
+
+  def message_version_path(conn, :index, %Thread{} = thread, %Message{} = msg, params, _),
+    do: "#{int_message_path(conn, thread, msg)}/versions#{encode_query_string(params)}"
+
+  def message_version_path(conn, :delete, %Thread{} = thread, %Message{} = msg, version, params),
+    do: "#{int_message_path(conn, thread, msg)}/versions/#{version.message_version_id}#{encode_query_string(params)}"
 
   @spec close_vote_path(Plug.Conn.t() | CforumWeb.Endpoint, %Thread{}, %Message{}, keyword() | map()) :: String.t()
   def close_vote_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),

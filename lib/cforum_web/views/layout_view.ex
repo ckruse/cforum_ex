@@ -147,13 +147,15 @@ defmodule CforumWeb.LayoutView do
       present?(conn.assigns[:message].message_id)
   end
 
-  def show?(conn, :view_all) do
-    access_forum?(conn, :moderate) &&
-      Enum.member?(
-        [CforumWeb.ThreadController, CforumWeb.MessageController, CforumWeb.ArchiveController],
-        controller_module(conn)
-      )
-  end
+  @view_all_enabled_controllers [
+    CforumWeb.ThreadController,
+    CforumWeb.MessageController,
+    CforumWeb.Messages.VersionController,
+    CforumWeb.ArchiveController
+  ]
+
+  def show?(conn, :view_all),
+    do: access_forum?(conn, :moderate) && Enum.member?(@view_all_enabled_controllers, controller_module(conn))
 
   def search_changeset(conn) do
     visible_sections = Search.list_visible_search_sections(conn.assigns.visible_forums, "forum")
@@ -186,9 +188,16 @@ defmodule CforumWeb.LayoutView do
     opts = if conn.assigns[:view_all], do: [], else: [view_all: "yes"]
 
     path =
-      if present?(conn.assigns[:message]),
-        do: Path.message_path(conn, :show, conn.assigns[:thread], conn.assigns[:message], opts),
-        else: Path.forum_path(conn, :index, conn.assigns[:current_forum], opts)
+      cond do
+        controller_module(conn) == CforumWeb.Messages.VersionController ->
+          Path.message_version_path(conn, :index, conn.assigns[:thread], conn.assigns[:message], opts)
+
+        present?(conn.assigns[:message]) ->
+          Path.message_path(conn, :show, conn.assigns[:thread], conn.assigns[:message], opts)
+
+        true ->
+          Path.forum_path(conn, :index, conn.assigns[:current_forum], opts)
+      end
 
     if conn.assigns[:view_all],
       do: link(gettext("normal view"), to: path),

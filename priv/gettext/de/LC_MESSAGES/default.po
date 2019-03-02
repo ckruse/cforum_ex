@@ -1472,7 +1472,7 @@ msgstr "Silber-Medaille"
 #: lib/cforum_web/templates/forum/index.html.eex:14
 #: lib/cforum_web/templates/layout/page_header.html.eex:21
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:4
-#: lib/cforum_web/views/layout_view.ex:207
+#: lib/cforum_web/views/layout_view.ex:216
 #: lib/cforum_web/views/thread_view.ex:27 lib/cforum_web/views/thread_view.ex:34
 msgid "all forums"
 msgstr "alle Foren"
@@ -2917,14 +2917,14 @@ msgstr "SELFHTML Forum, SELFHTML, Forum, SELFForum"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:25
-#: lib/cforum_web/views/layout_view.ex:195
+#: lib/cforum_web/views/layout_view.ex:204
 msgid "administrative view"
 msgstr "Administrator-Ansicht"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:19
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:21
-#: lib/cforum_web/views/layout_view.ex:194
+#: lib/cforum_web/views/layout_view.ex:203
 msgid "normal view"
 msgstr "Administrator-Ansicht deaktivieren"
 
@@ -3009,7 +3009,7 @@ msgid "in %{location}"
 msgstr "in <span class=\"p-location\">%{location}</span>"
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message.html.eex:17
+#: lib/cforum_web/templates/message/message.html.eex:18
 msgid "This message got cited in cite %{cite_links}"
 msgid_plural "This message got cited in cites %{cite_links}"
 msgstr[0] "Grundlage für kein Zitat."
@@ -3889,7 +3889,7 @@ msgid "The given reason:"
 msgstr "Der angegebene Grund:"
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message.html.eex:41
+#: lib/cforum_web/templates/message/message.html.eex:43
 msgid "accepted answers"
 msgstr "akzeptierte Antworten"
 
@@ -4237,7 +4237,7 @@ msgid "Retag message “%{subject}”"
 msgstr "Nachricht „%{subject}“ neu verschlagworten"
 
 #, elixir-format
-#: lib/cforum/accounts/badges.ex:182
+#: lib/cforum/accounts/badges.ex:186
 msgid "You have won the %{mtype} medal “%{name}”!"
 msgstr "Sie haben die %{mtype}-Medaille „%{name}“ gewonnen!"
 
@@ -4317,3 +4317,28 @@ msgstr "Beitrag im Thread-Baum"
 #: lib/cforum_web/views/page_view.ex:4
 msgid "help & support"
 msgstr "Hilfe & Unterstützung"
+
+#, elixir-format
+#: lib/cforum_web/controllers/messages/version_controller.ex:14
+msgid "Message version deleted successfully."
+msgstr "Die Version wurde erfolgreich gelöscht."
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:148
+msgid "auditing: messages: versions: destroy"
+msgstr "Version des Beitrags gelöscht"
+
+#, elixir-format
+#: lib/cforum_web/templates/messages/version/version.html.eex:22
+msgid "delete this version"
+msgstr "diese Version löschen"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/audit/message_versions.html.eex:1
+msgid "message version by “%{user}”, message"
+msgstr "Version von „%{user}“, Beitrag"
+
+#, elixir-format
+#: lib/cforum_web/templates/messages/version/show.html.eex:2
+msgid "no message version found."
+msgstr "keine Versionen gefunden"

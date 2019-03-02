@@ -1,5 +1,5 @@
 <%= if @opts[:show_editor] && !blank?(@message.edit_author) && !blank?(@message.versions) do %>
   <span class="versions">
-    (<%= link gettext("versions"), to: Path.message_path(@conn, :versions, @thread, @message), class: "version-link", rel: "nofollow" %>)
+    (<%= link gettext("versions"), to: Path.message_version_path(@conn, :index, @thread, @message), class: "version-link", rel: "nofollow" %>)
   </span>
 <% end %>

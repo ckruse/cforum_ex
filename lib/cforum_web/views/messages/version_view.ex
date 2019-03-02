@@ -8,7 +8,7 @@ defmodule CforumWeb.Messages.VersionView do
 
   def diff_content(%{subject: subject, content: content}), do: "#{subject}\n\n#{content}"
 
-  def version_list(conn, thread, message) do
+  def version_list(conn, thread, message, assigns) do
     {content, _} =
       message.versions
       |> Enum.sort_by(& &1.message_version_id, &>=/2)
@@ -17,13 +17,16 @@ defmodule CforumWeb.Messages.VersionView do
 
         {[
            content
-           | render("version.html",
-               conn: conn,
-               thread: thread,
-               message: message,
-               version: version,
-               prev_content: dcontent,
-               diff_content: prev_content
+           | render(
+               "version.html",
+               Map.merge(assigns, %{
+                 conn: conn,
+                 thread: thread,
+                 message: message,
+                 version: version,
+                 prev_content: dcontent,
+                 diff_content: prev_content
+               })
              )
          ], dcontent}
       end)

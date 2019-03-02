@@ -51,6 +51,18 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Thread do
   end
 end
 
+defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.MessageVersion do
+  def audit_json(version) do
+    version = Cforum.Repo.preload(version, message: [thread: :forum])
+
+    version
+    |> Map.from_struct()
+    |> Map.drop([:__meta__, :user])
+    |> Map.put(:message, Cforum.System.AuditingProtocol.audit_json(version.message))
+    |> IO.inspect()
+  end
+end
+
 defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.ModerationQueueEntry do
   def audit_json(entry) do
     entry
@@ -86,7 +98,7 @@ end
 defimpl Cforum.System.AuditingProtocol, for: Cforum.Accounts.User do
   def audit_json(user) do
     user = Cforum.Repo.preload(user, [:badges])
-    badges = Enum.map(user.badges, &Cforum.System.AuditingProtocol.audit_json(&1))
+    badges = Enum.map(user.badges, &Cforum.System.AuditingProtocol.audit_json/1)
 
     user
     |> Map.from_struct()
