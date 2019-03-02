@@ -22,7 +22,7 @@
           <% end %>
         </li>
       <% else %>
-        <li><%= link gettext("administrative view"), to: Path.message_path(@conn, :show, @thread, @message, view_all: true), rel: "nofollow" %></li>
+        <li><%= link gettext("administrative view"), to: Path.message_path(@conn, :show, @thread, @message, view_all: "yes"), rel: "nofollow" %></li>
       <% end %>
     <% end %>
 
