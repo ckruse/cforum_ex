@@ -593,18 +593,6 @@ defmodule Cforum.Forums.Messages do
     {msg, %Ecto.Changeset{changeset | action: :insert}}
   end
 
-  alias Cforum.Forums.MessageVersion
-
-  defp build_version(changeset, message, user) do
-    version =
-      message
-      |> Ecto.build_assoc(:versions)
-      |> MessageVersion.changeset(message, user)
-
-    changeset
-    |> Ecto.Changeset.put_assoc(:versions, [version | message.versions])
-  end
-
   @doc """
   Updates a message.
 
@@ -1426,5 +1414,29 @@ defmodule Cforum.Forums.Messages do
   def content_with_presentational_filters(assigns, message) do
     message = Mentions.mentions_markup(message, assigns[:current_user])
     message.content
+  end
+
+  alias Cforum.Forums.MessageVersion
+
+  defp build_version(changeset, message, user) do
+    version =
+      message
+      |> Ecto.build_assoc(:versions)
+      |> MessageVersion.changeset(message, user)
+
+    changeset
+    |> Ecto.Changeset.put_assoc(:versions, [version | message.versions])
+  end
+
+  def get_message_version!(message, id) do
+    from(ver in MessageVersion, where: ver.message_id == ^message.message_id and ver.message_version_id == ^id)
+    |> Repo.one!()
+  end
+
+  def delete_message_version(current_user, version) do
+    Cforum.System.audited("destroy", current_user, fn ->
+      Repo.delete(version)
+    end)
+    |> update_cached_message()
   end
 end

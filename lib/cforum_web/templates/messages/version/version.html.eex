@@ -14,4 +14,14 @@
   </header>
 
   <div class="cf-posting-content-diff"><%= diff_posting(@prev_content, @diff_content) %></div>
+
+  <%= if @view_all && may?(@conn, "messages/version", :delete, @version) do %>
+    <div class="posting-footer">
+      <div class="admin-links">
+        <%= destructive_index_button(to: Path.message_version_path(@conn, :delete, @thread, @message, @version), method: :delete) do %>
+          <%= gettext("delete this version") %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </article>

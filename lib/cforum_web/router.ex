@@ -205,7 +205,9 @@ defmodule CforumWeb.Router do
       post("/:year/:month/:day/:slug/:mid/new", MessageController, :create, as: nil)
       get("/:year/:month/:day/:slug/:mid/edit", MessageController, :edit, as: nil)
       put("/:year/:month/:day/:slug/:mid/edit", MessageController, :update, as: nil)
+
       get("/:year/:month/:day/:slug/:mid/versions", Messages.VersionController, :show, as: nil)
+      delete("/:year/:month/:day/:slug/:mid/versions/:id", Messages.VersionController, :delete, as: nil)
 
       post("/:year/:month/:day/:slug/:mid/delete", Messages.AdminController, :delete, as: nil)
       post("/:year/:month/:day/:slug/:mid/restore", Messages.AdminController, :restore, as: nil)
