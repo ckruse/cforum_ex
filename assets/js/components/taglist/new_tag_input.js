@@ -67,7 +67,7 @@ export default class NewTagInput extends React.Component {
     const { value, suggestions } = this.state;
 
     return (
-      <li className="">
+      <>
         <label htmlFor="new-tag-input">{t("enter new tag")}</label>
         <Autosuggest
           suggestions={suggestions}
@@ -86,7 +86,7 @@ export default class NewTagInput extends React.Component {
           }}
           shouldRenderSuggestions={() => true}
         />
-      </li>
+      </>
     );
   }
 }

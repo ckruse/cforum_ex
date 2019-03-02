@@ -25,12 +25,15 @@ export const lang = {
   active: "aktiv",
   delete: "löschen",
 
+  "chosen tags": "ausgewählte Schlagwörter",
   "enter new tag": "neues Schlagwort eingeben",
   "is unknown": "ist unbekannt",
   "tag suggestions": "Schlagwort-Vorschläge",
   "no tag suggestions available": "keine Vorschläge verfügbar",
   "add tag {tag}": "Schlagwort {tag} hinzufügen",
   "remove tag {tag}": "Schlagwort {tag} entfernen",
+  "click to add tag": "klicken, um das Schlagwort hinzuzufügen",
+  "klick to remove chosen tag": "klicken, um ein ausgewähltes Schlagwort zu entfernen",
 
   "{count} unread mails": "{count} ungelesene Mails",
   "You've got a new mail from {sender}: {subject}": "neue Mail von {sender}: „{subject}“",

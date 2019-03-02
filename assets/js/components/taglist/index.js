@@ -140,25 +140,40 @@ class TagList extends React.Component {
   render() {
     const globalTagsError = this.props.globalTagsError;
 
+    const svg = (
+      <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+        <use xlinkHref="/images/icons.svg#svg-remove" />
+      </svg>
+    );
+
     return (
       <fieldset>
-        {globalTagsError && <span className="help error">{globalTagsError}</span>}
-
         {this.state.tags.length < this.state.maxTags && (
           <Suggestions suggestions={this.state.suggestions} onClick={this.addTag} />
         )}
 
-        <TransitionGroup component="ul" className="cf-cgroup cf-form-tagslist cf-tags-list" aria-live="polite">
-          {this.state.tags.map(([tag, err]) => (
-            <FadeTransition key={tag}>
-              <Tag tag={tag} error={err} onClick={() => this.removeTag(tag)} />
-            </FadeTransition>
-          ))}
+        <h3 className="cf-posting-form-section-header">{t("chosen tags")}</h3>
+        <div id="remove-chosen-tag-help" className="cf-form-block-help-text">
+          {svg} {t("klick to remove chosen tag")}
+        </div>
 
+        {globalTagsError && <span className="help error">{globalTagsError}</span>}
+
+        <div className="cf-cgroup">
+          <TransitionGroup component="ul" className="cf-form-tagslist cf-tags-list" aria-live="polite">
+            {this.state.tags.map(([tag, err]) => (
+              <FadeTransition key={tag}>
+                <Tag tag={tag} error={err} onClick={() => this.removeTag(tag)} />
+              </FadeTransition>
+            ))}
+          </TransitionGroup>
+        </div>
+
+        <div className="cf-cgroup">
           {this.state.tags.length < this.state.maxTags && (
             <NewTagInput onChoose={this.addTag} existingTags={this.state.tags} allTags={this.state.allTags} />
           )}
-        </TransitionGroup>
+        </div>
       </fieldset>
     );
   }
