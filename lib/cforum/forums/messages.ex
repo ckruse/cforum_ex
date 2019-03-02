@@ -1419,13 +1419,29 @@ defmodule Cforum.Forums.Messages do
   alias Cforum.Forums.MessageVersion
 
   defp build_version(changeset, message, user) do
-    version =
-      message
-      |> Ecto.build_assoc(:versions)
-      |> MessageVersion.changeset(message, user)
+    if changed?(changeset, message) do
+      version =
+        message
+        |> Ecto.build_assoc(:versions)
+        |> MessageVersion.changeset(message, user)
 
-    changeset
-    |> Ecto.Changeset.put_assoc(:versions, [version | message.versions])
+      changeset
+      |> Ecto.Changeset.put_assoc(:versions, [version | message.versions])
+    else
+      changeset
+    end
+  end
+
+  defp changed?(changeset, message) do
+    message.content != Ecto.Changeset.get_field(changeset, :content) ||
+      message.subject != Ecto.Changeset.get_field(changeset, :subject) || tags_changed?(changeset, message)
+  end
+
+  defp tags_changed?(changeset, message) do
+    message_tag_ids = Enum.map(message.tags, & &1.tag_id) |> Enum.sort()
+    changeset_tag_ids = Enum.map(Ecto.Changeset.get_field(changeset, :tags, []), & &1.tag_id) |> Enum.sort()
+
+    message_tag_ids != changeset_tag_ids
   end
 
   def get_message_version!(message, id) do
