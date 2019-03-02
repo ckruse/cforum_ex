@@ -104,7 +104,7 @@ if (document.body.dataset.controller === "MessageController" && document.body.cl
   document.querySelector(".cf-thread-list").addEventListener("click", function(ev) {
     const url = ev.target.href;
 
-    if (!url || !url.match(/#m\d+$/)) {
+    if (!url || !url.match(/#m\d+$/) || ev.target.matches(".forum-links > ul > li > a")) {
       return;
     }
 
