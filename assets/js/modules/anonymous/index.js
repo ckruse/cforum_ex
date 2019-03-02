@@ -6,16 +6,15 @@ import { hideThread, maybeHide } from "./hide";
 const addIcons = el => {
   const id = el.closest(".cf-thread").id;
   const closeState = localStorage.getItem(`${id}_oc_state`);
+  const icon = closeState === "closed" ? "svg-folder-closed" : "svg-folder-open";
 
   const node = parse(
     `<div class="thread-icons">
       <button class="icon-button open-close">
-        <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#${
-          closeState === "closed" ? "svg-folder-closed" : "svg-folder-open"
-        }"></use></svg>
+        <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="/images/icons.svg#${icon}"></use></svg>
       </button>
       <button class="icon-button hide">
-        <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#svg-remove"></use></svg>
+        <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="/images/icons.svg#svg-remove"></use></svg>
       </button>
      </div>`
   );
@@ -23,16 +22,17 @@ const addIcons = el => {
 };
 
 const handleClick = ev => {
-  if (!ev.target.classList.contains("icon-button")) {
+  const target = ev.target.closest("button");
+  if (!target.classList.contains("icon-button")) {
     return;
   }
 
   ev.preventDefault();
-  const thread = ev.target.closest(".cf-thread");
+  const thread = target.closest(".cf-thread");
 
-  if (ev.target.classList.contains("open-close")) {
+  if (target.classList.contains("open-close")) {
     openOrCloseThread(thread);
-  } else if (ev.target.classList.contains) {
+  } else if (target.classList.contains("hide")) {
     hideThread(thread);
   }
 };
