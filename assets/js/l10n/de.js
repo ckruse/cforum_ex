@@ -30,8 +30,6 @@ export const lang = {
   "is unknown": "ist unbekannt",
   "tag suggestions": "Schlagwort-Vorschläge",
   "no tag suggestions available": "keine Vorschläge verfügbar",
-  "add tag {tag}": "Schlagwort {tag} hinzufügen",
-  "remove tag {tag}": "Schlagwort {tag} entfernen",
   "click to add tag": "klicken, um das Schlagwort hinzuzufügen",
   "klick to remove chosen tag": "klicken, um ein ausgewähltes Schlagwort zu entfernen",
 
