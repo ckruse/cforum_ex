@@ -12,22 +12,24 @@
 </div>
 
 <div class="posting-footer">
-  <div class="message-links">
-    <%= if present?(@message.cites) do %>
-      <p class="message-cite"><%= {:safe, ngettext("This message got cited in cite %{cite_links}",
-                                                   "This message got cited in cites %{cite_links}",
-                                                   length(@message.cites), cite_links: cite_links(@conn, @message))} %></p>
-    <% end %>
+  <div class="button-container">
+    <div class="message-links">
+      <%= if present?(@message.cites) do %>
+        <p class="message-cite"><%= {:safe, ngettext("This message got cited in cite %{cite_links}",
+                                                    "This message got cited in cites %{cite_links}",
+                                                    length(@message.cites), cite_links: cite_links(@conn, @message))} %></p>
+      <% end %>
 
-    <%= if assigns[:controls] && !@message.deleted do %>
-      <%= render("message_default_controls.html", assigns) %>
-      <%= if @view_all, do: render("message_admin_buttons.html", assigns) %>
-      <%= render("message_forum_links.html", assigns) %>
-    <% end %>
+      <%= if assigns[:controls] && !@message.deleted, do: render("message_default_controls.html", assigns) %>
+    </div>
+
+    <%= if assigns[:controls], do: render "votes_accept.html", Map.put(assigns, :top, false) %>
   </div>
 
-  <%= if assigns[:controls], do: render "votes_accept.html", Map.put(assigns, :top, false) %>
+  <%= if assigns[:controls] && @view_all, do: render("message_admin_buttons.html", assigns) %>
+  <%= if assigns[:controls] && !@message.deleted, do: render("message_forum_links.html", assigns) %>
 </div>
+
 
 <%= if present?(CloseVotes.get_close_vote(@message)) do %>
   <%= render "close_vote.html", Map.put(assigns, :close_vote, CloseVotes.get_close_vote(@message)) %>
