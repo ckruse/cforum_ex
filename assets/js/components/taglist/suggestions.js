@@ -30,7 +30,7 @@ class Suggestions extends React.Component {
                   onClick={() => this.props.onClick(tag.tag_name)}
                 >
                   <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                    <use xlinkHref="#svg-check-mark" />
+                    <use xlinkHref="/images/icons.svg#svg-check-mark" />
                   </svg>
                 </button>
               </li>

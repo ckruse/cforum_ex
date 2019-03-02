@@ -10,13 +10,13 @@
       <%= cf_button(to: Path.boring_message_path(@conn, @thread, @message), class: "icon-message boring icon-button", title: gettext("remove interesting mark")) do %>
         <%= std_args_as_hidden_inputs(@conn) %>
         <span class="visually-hidden"><%= gettext("remove interesting mark") %></span>
-        <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#svg-mark-boring"></use></svg>
+        <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-mark-boring"></use></svg>
       <% end %>
     <% else %>
       <%= cf_button(to: Path.interesting_message_path(@conn, @thread, @message), class: "icon-message mark-interesting icon-button", title: gettext("mark message as interesting")) do %>
         <%= std_args_as_hidden_inputs(@conn) %>
         <span class="visually-hidden"><%= gettext("mark message as interesting") %></span>
-        <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#svg-mark-interesting"></use></svg>
+        <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-mark-interesting"></use></svg>
       <% end %>
     <% end %>
 
@@ -25,13 +25,13 @@
         <%= cf_button(to: Path.unsubscribe_message_path(@conn, @thread, @message), class: "icon-message unsubscribe icon-button", title: gettext("unsubscribe message")) do %>
           <%= std_args_as_hidden_inputs(@conn) %>
           <span class="visually-hidden"><%= gettext("unsubscribe message") %></span>
-          <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#svg-unsubscribe"></use></svg>
+          <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-unsubscribe"></use></svg>
         <% end %>
       <% else %>
         <%= cf_button(to: Path.subscribe_message_path(@conn, @thread, @message), class: "icon-message subscribe icon-button", title: gettext("subscribe message")) do %>
           <%= std_args_as_hidden_inputs(@conn) %>
           <span class="visually-hidden"><%= gettext("subscribe message") %></span>
-          <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="#svg-subscribe"></use></svg>
+          <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-subscribe"></use></svg>
         <% end %>
       <% end %>
     <% end %>

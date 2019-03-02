@@ -20,5 +20,5 @@ export const openOrCloseThread = thread => {
   localStorage.setItem(`${id}_oc_state`, newState);
   thread.classList.toggle("closed");
   const svg = thread.querySelector(".cf-message-header .icon-button.open-close svg use");
-  svg.setAttribute("xlink:href", "#svg-folder-" + newState);
+  svg.setAttribute("xlink:href", "/images/icons.svg#svg-folder-" + newState);
 };
