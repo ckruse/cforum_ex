@@ -1,96 +1,55 @@
-import React from "react";
-import { render } from "react-dom";
-import { TransitionGroup } from "react-transition-group";
-import { FadeTransition } from "./components/transitions";
-
 import { t } from "./modules/i18n";
-import { uniqueId } from "./modules/helpers";
+import { parse } from "./modules/helpers";
 
 const SUCCESS_TIMEOUT = 5;
 const INFO_TIMEOUT = 10;
 const ERROR_TIMEOUT = 0;
 
-class AlertsContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { alerts: [...this.props.existingAlerts] };
+const removeAlert = alrt => {
+  alrt.classList.add("fade-in-exit", "fade-in-exit-active");
+  window.setTimeout(() => alrt.remove(), 300);
+};
 
-    this.state.alerts
-      .filter(alrt => !!alrt.timeout)
-      .forEach(alrt => {
-        window.setTimeout(() => this.removeAlert(alrt), alrt.timeout * 1000);
-      });
+const alertsContainer = document.querySelector("#alerts-container");
+alertsContainer.querySelectorAll(".cf-alert").forEach(alert => {
+  let timeout;
+
+  if (alert.classList.contains("cf-error")) {
+    timeout = ERROR_TIMEOUT;
+  } else if (alert.classList.contains("cf-success")) {
+    timeout = SUCCESS_TIMEOUT;
+  } else {
+    timeout = INFO_TIMEOUT;
   }
 
-  removeAlert(alert) {
-    this.setState({ ...this.state, alerts: this.state.alerts.filter(alrt => alrt.id != alert.id) });
-  }
-
-  addAlert(alert) {
-    const id = alert.id || uniqueId();
-    const alrtWithId = { ...alert, id: id };
-
-    this.setState({ alerts: [...this.state.alerts, alrtWithId] });
-
-    if (alrtWithId.timeout) {
-      window.setTimeout(() => this.removeAlert(alrtWithId), alrtWithId.timeout * 1000);
-    }
-  }
-
-  render() {
-    return (
-      <TransitionGroup component="div">
-        {this.state.alerts.map(alert => (
-          <FadeTransition key={alert.id}>
-            <div className={`cf-${alert.type} cf-alert fade in`} role="alert" onClick={() => this.removeAlert(alert)}>
-              <button type="button" className="close" aria-label={t("close")}>
-                <span aria-hidden="true">&times;</span>
-              </button>
-              {alert.text}
-            </div>
-          </FadeTransition>
-        ))}
-      </TransitionGroup>
-    );
-  }
-}
-
-let alertsContainer = null;
-document.addEventListener("DOMContentLoaded", () => {
-  const elem = document.querySelector("#alerts-container");
-  const existingAlerts = Array.from(elem.querySelectorAll(".cf-alert")).map(alert => {
-    let type, timeout;
-    if (alert.classList.contains("cf-error")) {
-      type = "error";
-      timeout = ERROR_TIMEOUT;
-    } else if (alert.classList.contains("cf-success")) {
-      type = "success";
-      timeout = SUCCESS_TIMEOUT;
-    } else {
-      type = "info";
-      timeout = INFO_TIMEOUT;
-    }
-
-    return {
-      id: uniqueId(),
-      type,
-      timeout,
-      text: alert.querySelector("button").nextSibling.textContent
-    };
-  });
-
-  render(
-    <AlertsContainer
-      ref={cnt => {
-        alertsContainer = cnt;
-      }}
-      existingAlerts={existingAlerts}
-    />,
-    elem
-  );
+  window.setTimeout(() => removeAlert(alert), timeout * 1000);
 });
 
-export const alert = (type, text, timeout) => alertsContainer.addAlert({ type, text, timeout });
+alertsContainer.addEventListener("click", ev => {
+  if (ev.target.matches(".cf-alert, .cf-alert *")) {
+    const alert = ev.target.closest(".cf-alert");
+    removeAlert(alert);
+  }
+});
+
+export const alert = (type, text, timeout) => {
+  const alert = parse(`<div class="cf-${type} cf-alert fade in" role="alert">
+    <button type="button" class="close" aria-label=${t("close")}>
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    ${text}
+  </div>`);
+
+  const alertChild = alertsContainer.appendChild(alert.firstChild);
+
+  if (timeout) {
+    window.setTimeout(() => removeAlert(alertChild), timeout * 1000);
+  }
+};
+
 export const alertError = (text, timeout = ERROR_TIMEOUT) => alert("error", text, timeout);
 export const alertSuccess = (text, timeout = SUCCESS_TIMEOUT) => alert("success", text, timeout);
 export const alertInfo = (text, timeout = INFO_TIMEOUT) => alert("info", text, timeout);
+
+alertSuccess("test foo bar");
