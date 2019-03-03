@@ -159,6 +159,9 @@ defmodule CforumWeb.LayoutView do
   def show?(conn, :view_all),
     do: access_forum?(conn, :moderate) && Enum.member?(@view_all_enabled_controllers, controller_module(conn))
 
+  def sort_link(conn, params),
+    do: (conn.assigns[:original_path] || conn.request_path) <> Path.encode_query_string(params)
+
   def search_changeset(conn) do
     visible_sections = Search.list_visible_search_sections(conn.assigns.visible_forums, "forum")
     Search.search_changeset(visible_sections, %{sections: Enum.map(visible_sections, & &1.search_section_id)})
