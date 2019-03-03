@@ -51,5 +51,3 @@ export const alert = (type, text, timeout) => {
 export const alertError = (text, timeout = ERROR_TIMEOUT) => alert("error", text, timeout);
 export const alertSuccess = (text, timeout = SUCCESS_TIMEOUT) => alert("success", text, timeout);
 export const alertInfo = (text, timeout = INFO_TIMEOUT) => alert("info", text, timeout);
-
-alertSuccess("test foo bar");
