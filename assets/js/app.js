@@ -42,6 +42,7 @@ import "./inline_forms";
 import "./nested_view";
 import "./retag";
 import "./voting";
+import "./notifications";
 
 import "./init";
 

@@ -167,5 +167,12 @@ export const lang = {
   },
 
   "number of new cites": "Anzahl neuer Zitate",
-  "new cites": "neue Zitate"
+  "new cites": "neue Zitate",
+
+  "mark selected notifications as read": "markiere die selektierten Benachrichtigungen als gelesen",
+  "mark all notifications as read": "markiere alle Benachrichtigungen als gelesen",
+  "mark selected notifications as unread": "markiere die selektierten Benachrichtigungen als ungelesen",
+  "mark all notifications as unread": "markiere alle Benachrichtigungen als ungelesen",
+  "delete selected notifications": "lösche die selektierten Benachrichtigungen",
+  "delete all notifications": "lösche alle Benachrichtigungen"
 };

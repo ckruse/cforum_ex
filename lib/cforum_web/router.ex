@@ -90,6 +90,8 @@ defmodule CforumWeb.Router do
       put("/settings", SettingController, :update, as: :setting)
     end
 
+    post("/notifications/batch", NotificationController, :batch_action)
+
     resources "/notifications", NotificationController, only: [:index, :show, :delete] do
       put("/unread", NotificationController, :update_unread, as: :unread)
     end
