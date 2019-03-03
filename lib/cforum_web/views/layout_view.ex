@@ -139,8 +139,10 @@ defmodule CforumWeb.LayoutView do
   def show?(conn, :thread_feeds), do: present?(conn.assigns[:thread]) && present?(conn.assigns[:thread].thread_id)
   def show?(conn, :search), do: controller_module(conn) != CforumWeb.SearchController
 
-  def show?(conn, :sort_links),
-    do: controller_module(conn) == CforumWeb.ThreadController && blank?(conn.assigns[:current_user])
+  def show?(conn, :sort_links) do
+    controller_module(conn) == CforumWeb.ThreadController && blank?(conn.assigns[:current_user]) &&
+      action_name(conn) not in [:new, :create, :edit, :update]
+  end
 
   def show?(conn, :thread_nested) do
     present?(conn.assigns[:message]) && present?(conn.assigns[:thread]) && present?(conn.assigns[:read_mode]) &&
