@@ -134,6 +134,36 @@ defmodule Cforum.Accounts.Notifications do
     |> Repo.delete_all()
   end
 
+  def mark_notifications_as_read(user, ids_or_nil, type \\ true)
+
+  def mark_notifications_as_read(user, nil, type) do
+    from(n in Notification, where: n.recipient_id == ^user.user_id)
+    |> Repo.update_all(set: [is_read: type])
+
+    discard_unread_cache(user)
+  end
+
+  def mark_notifications_as_read(user, ids, type) do
+    from(n in Notification, where: n.recipient_id == ^user.user_id and n.notification_id in ^ids)
+    |> Repo.update_all(set: [is_read: type])
+
+    discard_unread_cache(user)
+  end
+
+  def delete_notifications(user, nil) do
+    from(n in Notification, where: n.recipient_id == ^user.user_id)
+    |> Repo.delete_all()
+
+    discard_unread_cache(user)
+  end
+
+  def delete_notifications(user, ids) do
+    from(n in Notification, where: n.recipient_id == ^user.user_id and n.notification_id in ^ids)
+    |> Repo.delete_all()
+
+    discard_unread_cache(user)
+  end
+
   @doc """
   Deletes a Notification.
 

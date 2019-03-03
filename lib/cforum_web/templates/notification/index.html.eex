@@ -1,4 +1,4 @@
-<table class="cf-default-table">
+<table class="cf-default-table cf-notifications-table">
   <thead>
     <tr>
       <th> </th>
@@ -14,7 +14,7 @@
     <% end %>
 
     <%= for notification <- @notifications do %>
-      <tr<%= if notification.is_read do %> class="visited"<% end %>>
+      <tr id="<%= notification.notification_id %>" class="notification <%= if notification.is_read, do: "visited" %>">
         <td><%= unless blank?(notification.icon) do %><%= link("", to: notification.path, class: "icon " <> notification.icon) %><% end %></td>
         <td>
           <%= link(notification.subject, to: Routes.notification_path(@conn, :show, notification)) %>
@@ -34,5 +34,17 @@
   </tbody>
 
 </table>
+
+
+<%= if length(@notifications) > 0 do %>
+  <%= form_tag(Routes.notification_path(@conn, :batch_action), method: :post, "data-js": "notifications-batch-form") do %>
+    <p class="form-actions">
+      <%= default_submit(gettext("mark all notifications as read"), name: "batch_action", value: "mark_read", "data-js": "batch-mark-read") %>
+      <%= default_submit(gettext("mark all notifications as unread"), name: "batch_action", value: "mark_unread", "data-js": "batch-mark-unread") %>
+      <%= destructive_submit(gettext("delete all notifications"), name: "batch_action", value: "delete", "data-js": "batch-delete") %>
+    </p>
+  <% end %>
+<% end %>
+
 
 <%= pagination @conn, @paging, &Routes.notification_path/3 %>

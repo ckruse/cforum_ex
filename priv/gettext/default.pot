@@ -58,7 +58,7 @@ msgstr ""
 msgid "Cites"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:109
+#: lib/cforum_web/templates/layout/page_header.html.eex:103
 msgid "Administration"
 msgstr ""
 
@@ -68,7 +68,7 @@ msgstr ""
 msgid "Forums"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:104
+#: lib/cforum_web/templates/layout/page_header.html.eex:98
 msgid "Atom feed"
 msgstr ""
 
@@ -82,7 +82,7 @@ msgstr ""
 msgid "Chat"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:105
+#: lib/cforum_web/templates/layout/page_header.html.eex:99
 msgid "RSS feed"
 msgstr ""
 
@@ -124,7 +124,7 @@ msgid "login"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:56
-#: lib/cforum_web/templates/layout/page_header.html.eex:87
+#: lib/cforum_web/templates/layout/page_header.html.eex:81
 #: lib/cforum_web/views/admin/setting_view.ex:29
 msgid "nested view"
 msgstr ""
@@ -140,20 +140,20 @@ msgstr ""
 msgid "register"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:93
+#: lib/cforum_web/templates/layout/page_header.html.eex:87
 msgid "sort ascending"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:96
+#: lib/cforum_web/templates/layout/page_header.html.eex:90
 msgid "sort descending"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:99
+#: lib/cforum_web/templates/layout/page_header.html.eex:93
 msgid "sort newest first"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:55
-#: lib/cforum_web/templates/layout/page_header.html.eex:85
+#: lib/cforum_web/templates/layout/page_header.html.eex:79
 #: lib/cforum_web/views/admin/setting_view.ex:30
 msgid "thread view"
 msgstr ""
@@ -166,7 +166,7 @@ msgstr ""
 msgid "keywords_text"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:117
+#: lib/cforum_web/templates/layout/page_header.html.eex:111
 #: lib/cforum_web/views/archive_view.ex:4
 msgid "archive"
 msgstr ""
@@ -1369,8 +1369,8 @@ msgstr ""
 
 #: lib/cforum_web/templates/admin/audit/index.html.eex:34
 #: lib/cforum_web/templates/admin/user/index.html.eex:7
-#: lib/cforum_web/templates/layout/page_header.html.eex:56
-#: lib/cforum_web/templates/layout/page_header.html.eex:68
+#: lib/cforum_web/templates/layout/page_header.html.eex:50
+#: lib/cforum_web/templates/layout/page_header.html.eex:62
 #: lib/cforum_web/templates/search/show.html.eex:41
 #: lib/cforum_web/templates/users/user/index.html.eex:7
 msgid "search"
@@ -1528,12 +1528,12 @@ msgid "hide this thread"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:136
+#: lib/cforum_web/templates/layout/page_header.html.eex:130
 msgid "interesting messages"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:138
+#: lib/cforum_web/templates/layout/page_header.html.eex:132
 #: lib/cforum_web/views/threads/invisible_view.ex:4
 msgid "invisible threads"
 msgstr ""
@@ -1591,7 +1591,7 @@ msgid "subscribe message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:137
+#: lib/cforum_web/templates/layout/page_header.html.eex:131
 #: lib/cforum_web/views/messages/subscription_view.ex:4
 msgid "subscribed messages"
 msgstr ""
@@ -1757,7 +1757,7 @@ msgid "username or email"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:57
+#: lib/cforum_web/templates/layout/page_header.html.eex:51
 msgid "chat"
 msgstr ""
 
@@ -1765,13 +1765,13 @@ msgstr ""
 #: lib/cforum/cites/cite_indexer_job.ex:41
 #: lib/cforum_web/templates/admin/audit/index.html.eex:16
 #: lib/cforum_web/templates/admin/search_section/form.html.eex:26
-#: lib/cforum_web/templates/layout/page_header.html.eex:53
+#: lib/cforum_web/templates/layout/page_header.html.eex:47
 #: lib/cforum_web/views/cite_view.ex:6
 msgid "cites"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:58
+#: lib/cforum_web/templates/layout/page_header.html.eex:52
 msgid "help"
 msgstr ""
 
@@ -1855,7 +1855,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/audit/index.html.eex:28
 #: lib/cforum_web/templates/admin/audit/users.html.eex:2
 #: lib/cforum_web/templates/admin/subnav.html.eex:7
-#: lib/cforum_web/templates/layout/page_header.html.eex:141
+#: lib/cforum_web/templates/layout/page_header.html.eex:135
 #: lib/cforum_web/views/badge_view.ex:6
 msgid "badges"
 msgstr ""
@@ -1868,7 +1868,7 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:23
 #: lib/cforum_web/templates/admin/subnav.html.eex:5
-#: lib/cforum_web/templates/layout/page_header.html.eex:145
+#: lib/cforum_web/templates/layout/page_header.html.eex:139
 #: lib/cforum_web/views/event_view.ex:4
 msgid "events"
 msgstr ""
@@ -2912,7 +2912,7 @@ msgstr ""
 #: lib/cforum_web/templates/forum/index.html.eex:15
 #: lib/cforum_web/templates/forum/index.html.eex:37
 #: lib/cforum_web/templates/layout/page_header.html.eex:22
-#: lib/cforum_web/templates/layout/page_header.html.eex:37
+#: lib/cforum_web/templates/layout/page_header.html.eex:31
 msgid "statistics"
 msgstr ""
 
@@ -3695,7 +3695,7 @@ msgid "moderation"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:48
+#: lib/cforum_web/templates/layout/page_header.html.eex:42
 msgid "moderation queue"
 msgstr ""
 
@@ -3979,7 +3979,7 @@ msgid "search section name"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:67
+#: lib/cforum_web/templates/layout/page_header.html.eex:61
 #: lib/cforum_web/templates/messages/interesting/index.html.eex:3
 #: lib/cforum_web/templates/messages/subscription/index.html.eex:3
 #: lib/cforum_web/templates/search/show.html.eex:7
@@ -4319,4 +4319,34 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/messages/version/show.html.eex:2
 msgid "no message version found."
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/controllers/notification_controller.ex:76
+msgid "Notifications have successfully been deleted."
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/controllers/notification_controller.ex:59
+msgid "Notifications successfully marked as read."
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/controllers/notification_controller.ex:62
+msgid "Notifications successfully marked as unread."
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/notification/index.html.eex:43
+msgid "delete all notifications"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/notification/index.html.eex:41
+msgid "mark all notifications as read"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/notification/index.html.eex:42
+msgid "mark all notifications as unread"
 msgstr ""

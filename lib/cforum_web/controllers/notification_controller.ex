@@ -52,6 +52,31 @@ defmodule CforumWeb.NotificationController do
     |> redirect(to: Routes.notification_path(conn, :index))
   end
 
+  def batch_action(conn, %{"batch_action" => action} = params) when action in ["mark_read", "mark_unread"] do
+    {message, type} =
+      case action do
+        "mark_read" ->
+          {gettext("Notifications successfully marked as read."), true}
+
+        "mark_unread" ->
+          {gettext("Notifications successfully marked as unread."), false}
+      end
+
+    Notifications.mark_notifications_as_read(conn.assigns[:current_user], params["notifications"], type)
+
+    conn
+    |> put_flash(:info, message)
+    |> redirect(to: Routes.notification_path(conn, :index))
+  end
+
+  def batch_action(conn, %{"batch_action" => "delete"} = params) do
+    Notifications.delete_notifications(conn.assigns[:current_user], params["notifications"])
+
+    conn
+    |> put_flash(:info, gettext("Notifications have successfully been deleted."))
+    |> redirect(to: Routes.notification_path(conn, :index))
+  end
+
   def load_resource(conn) do
     notification =
       cond do
@@ -68,7 +93,7 @@ defmodule CforumWeb.NotificationController do
     Plug.Conn.assign(conn, :notification, notification)
   end
 
-  def allowed?(conn, :index, _), do: signed_in?(conn)
+  def allowed?(conn, action, _) when action in [:index, :batch_action], do: signed_in?(conn)
 
   def allowed?(conn, _, ressource) do
     ressource = ressource || conn.assigns[:notification]
