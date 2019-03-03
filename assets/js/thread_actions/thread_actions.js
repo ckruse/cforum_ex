@@ -1,4 +1,7 @@
-import { parse } from "./modules/helpers";
+import { parse } from "../modules/helpers";
+import { alertError } from "../alerts";
+import { t } from "../modules/i18n";
+
 import {
   openThreadHelper,
   closeThreadHelper,
@@ -15,22 +18,14 @@ import {
   restoreHelper,
   noAnswerHelper,
   doAnswerHelper
-} from "./thread_actions/helpers";
-import { alertError } from "./alerts";
-import { t } from "./modules/i18n";
+} from "./helpers";
 
 const buttonElement = el => {
   if (el.nodeName === "BUTTON") return el;
   return el.closest("button");
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-  const element = document.querySelector(".cf-thread-list");
-
-  if (!element || !element.matches) {
-    return;
-  }
-
+const setupThreadActions = element => {
   const validElements = {
     ".thread-icons .open": openThreadHelper,
     ".thread-icons .close": closeThreadHelper,
@@ -84,4 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-});
+};
+
+export default setupThreadActions;

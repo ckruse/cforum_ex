@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 
-import TagList from "./components/taglist";
+import TagList from "../components/taglist";
 
 const setupTaglist = () => {
   const el = document.querySelector(".cf-form-tagslist");
@@ -40,6 +40,4 @@ const setupTaglist = () => {
   render(<TagList tags={tags} postingText={text} globalTagsError={globalTagsError} />, node);
 };
 
-if (document.body.dataset.controller === "Messages.RetagController") {
-  setupTaglist();
-}
+export default setupTaglist;

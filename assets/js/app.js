@@ -30,21 +30,16 @@ import "./modules/confirmation";
 import "./modules/show-password";
 import "./components/autolist";
 import "./components/dropdown";
-import "./components/taglist";
-import "./components/user-selector";
-import "./components/contentform";
-import "./components/editor/autorender";
+import "./user-selector";
+import "./autorender";
 
 // site specific JS
 import "./flag_message";
 import "./thread_actions";
-import "./inline_forms";
-import "./nested_view";
-import "./retag";
-import "./voting";
+import "./messages";
 import "./notifications";
 
 import "./init";
 
-import "./modules/user-notifications";
 import "./modules/anonymous";
+import "./modules/user-notifications";

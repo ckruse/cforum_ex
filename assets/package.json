@@ -15,6 +15,7 @@
     "test": "babel-node spec/support/run.js"
   },
   "dependencies": {
+    "bundle-loader": "^0.5.6",
     "cfmarkdown": "https://code.wwwtech.de/ckruse/cfmarkdown.git",
     "date-fns": "^1.29.0",
     "emoji-mart": "https://github.com/ckruse/emoji-mart.git",
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.1.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "autoprefixer": "^9.3.1",

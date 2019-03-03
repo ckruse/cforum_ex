@@ -1,5 +1,5 @@
-import { conf, parseMessageUrl } from "./modules/helpers";
-import { t } from "./modules/i18n";
+import { conf, parseMessageUrl } from "../modules/helpers";
+import { t } from "../modules/i18n";
 
 const toggleFoldedHandler = ev => {
   const btn = ev.target;
@@ -98,7 +98,7 @@ const initialFold = () => {
   document.removeEventListener("cf:configDidLoad", initialFold);
 };
 
-if (document.body.dataset.controller === "MessageController" && document.body.classList.contains("nested-view")) {
+const initNestedView = () => {
   document.addEventListener("cf:configDidLoad", initialFold);
 
   document.querySelector(".cf-thread-list").addEventListener("click", function(ev) {
@@ -156,4 +156,6 @@ if (document.body.dataset.controller === "MessageController" && document.body.cl
   foldingAllButton.appendChild(document.createTextNode(t("unfold all")));
 
   document.body.appendChild(foldingAllButton);
-}
+};
+
+export default initNestedView;

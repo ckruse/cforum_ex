@@ -54,7 +54,9 @@ module.exports = function(env = {}, argv) {
 
     output: {
       filename: "js/[name].js",
-      path: OUTPUT_PATH
+      chunkFilename: "js/[name].[chunkhash].js",
+      path: OUTPUT_PATH,
+      publicPath: "/"
     },
 
     devtool: IS_PROD ? false : "source-map",
@@ -70,6 +72,10 @@ module.exports = function(env = {}, argv) {
           test: /\.jsx?$/,
           exclude: /(node_modules|bower_components)/,
           loader: "babel-loader"
+        },
+        {
+          test: /\.bundle\.js$/,
+          use: "bundle-loader"
         },
         {
           test: /\.(sa|sc|c)ss$/,
@@ -91,7 +97,10 @@ module.exports = function(env = {}, argv) {
     },
 
     optimization: {
-      minimizer: [new MinifyPlugin({}, { cache: true, parallel: true }), new OptimizeCSSAssetsPlugin({})]
+      minimizer: [new MinifyPlugin({}, { cache: true, parallel: true }), new OptimizeCSSAssetsPlugin({})],
+      splitChunks: {
+        chunks: "async"
+      }
     },
 
     plugins: PLUGINS,
