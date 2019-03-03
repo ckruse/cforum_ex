@@ -1,8 +1,6 @@
-import flatpickr from "flatpickr";
-import { German } from "flatpickr/dist/l10n/de.js";
 import "flatpickr/dist/themes/light.css";
 
-import { t } from "./i18n";
+import { t } from "../i18n";
 
 document.addEventListener("DOMContentLoaded", () => {
   const replacements = [
@@ -36,12 +34,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const field = document.createElement("input");
     field.type = replacement.type;
 
-    if (field.type != replacement.type) {
+    if (field.type !== replacement.type) {
       document.querySelectorAll("[type='" + replacement.type + "']").forEach(el => {
-        flatpickr(el, {
-          ...replacement,
-          time_24hr: true,
-          locale: German
+        import(/* webpackChunkName: "flatpickr" */ "./flatpickr").then(({ flatpickr, German }) => {
+          flatpickr(el, { ...replacement, time_24hr: true, locale: German });
         });
       });
     }

@@ -1,8 +1,8 @@
 import React from "react";
 import { render } from "react-dom";
 
-import { parseMessageUrl } from "./modules/helpers";
-import CfPostingForm from "./components/postingform";
+import { parseMessageUrl } from "../modules/helpers";
+import CfPostingForm from "../components/postingform";
 
 const showInlineForm = ev => {
   ev.preventDefault();
@@ -86,6 +86,4 @@ const setCursorInTextarea = el => {
   }
 };
 
-if (document.body.dataset.controller === "MessageController" && document.body.dataset.action === "show") {
-  document.querySelectorAll('[data-action="answer"]').forEach(el => el.addEventListener("click", showInlineForm));
-}
+export default showInlineForm;
