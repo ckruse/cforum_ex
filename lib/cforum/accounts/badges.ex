@@ -173,17 +173,15 @@ defmodule Cforum.Accounts.Badges do
   end
 
   def notify_user({:ok, badge_user}, user, badge) do
-    CforumWeb.Endpoint.broadcast!("users:#{user.user_id}", "new_badge_gained", %{
-      badge: %{
-        name: badge.name,
-        badge_medal_type: badge.badge_medal_type,
-        badge_type: badge.badge_type
-      }
-    })
+    subject =
+      gettext("You have won the %{mtype} “%{name}”!",
+        mtype: CforumWeb.Views.Helpers.l10n_medal_type(badge.badge_medal_type),
+        name: badge.name
+      )
 
     Notifications.create_notification(%{
       recipient_id: user.user_id,
-      subject: gettext("You have won the %{mtype} medal “%{name}”!", mtype: badge.badge_medal_type, name: badge.name),
+      subject: subject,
       oid: badge.badge_id,
       otype: "badge",
       path: CforumWeb.Router.Helpers.badge_path(CforumWeb.Endpoint, :show, badge)

@@ -26,6 +26,7 @@ defmodule Cforum.Forums.Messages do
   alias Cforum.Forums.{Thread, Threads}
   alias Cforum.Forums.MessageIndexerJob
   alias Cforum.Forums.ReadMessage
+  alias Cforum.Forums.NewMessageBadgeDistributorJob
 
   alias Cforum.Helpers.CompositionHelpers
 
@@ -486,6 +487,7 @@ defmodule Cforum.Forums.Messages do
     |> notify_users(thread)
     |> maybe_autosubscribe(opts[:autosubscribe], user, thread, parent)
     |> index_message(thread)
+    |> NewMessageBadgeDistributorJob.perform()
     |> Threads.refresh_cached_thread()
   end
 

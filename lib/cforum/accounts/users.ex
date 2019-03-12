@@ -537,14 +537,20 @@ defmodule Cforum.Accounts.Users do
       iex> badge?(%User{}, "seo_profi")
       false
   """
-  def badge?(user, %Badge{} = badge),
-    do: Enum.find(user.badges_users, &(&1.badge_id == badge.badge_id && &1.active)) != nil
+  def badge?(user, badge, active \\ true)
 
-  def badge?(user, {key, value}),
-    do: Enum.find(user.badges_users, &(Map.get(&1.badge, key) == value && &1.active)) != nil
+  def badge?(user, %Badge{} = badge, active),
+    do: Enum.find(user.badges_users, &(&1.badge_id == badge.badge_id && check_active(active, &1.active))) != nil
 
-  def badge?(user, badge),
-    do: Enum.find(user.badges_users, &(&1.badge.badge_type == badge && &1.active)) != nil
+  def badge?(user, {key, value}, active),
+    do: Enum.find(user.badges_users, &(Map.get(&1.badge, key) == value && check_active(active, &1.active))) != nil
+
+  def badge?(user, badge, active),
+    do: Enum.find(user.badges_users, &(&1.badge.badge_type == badge && check_active(active, &1.active))) != nil
+
+  defp check_active(false, _), do: true
+  defp check_active(true, true), do: true
+  defp check_active(_, _), do: false
 
   @doc """
   Returns true if the user is a moderator (in any forum)

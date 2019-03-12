@@ -68,8 +68,4 @@ document.addEventListener("cf:userPrivate", event => {
 
     alertInfo(t("You've got a new notification: {subject}", { subject: data.notification.subject }));
   });
-
-  channel.on("new_badge_gained", data => {
-    alertInfo(t("You gained a new badge: {name}", { name: data.badge.name }));
-  });
 });
