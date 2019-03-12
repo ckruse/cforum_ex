@@ -13,6 +13,5 @@ defmodule CforumWeb.Api.V1.MessageView do
       content: get_field(changeset, :content) |> IO.iodata_to_binary(),
       tags: Enum.map(get_field(changeset, :tags), & &1.tag_name)
     }
-    |> IO.inspect()
   end
 end

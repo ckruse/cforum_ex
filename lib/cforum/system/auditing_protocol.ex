@@ -59,7 +59,6 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.MessageVersion do
     |> Map.from_struct()
     |> Map.drop([:__meta__, :user])
     |> Map.put(:message, Cforum.System.AuditingProtocol.audit_json(version.message))
-    |> IO.inspect()
   end
 end
 
