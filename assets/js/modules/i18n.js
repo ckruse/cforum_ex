@@ -14,7 +14,7 @@ export const t = function(key, placeholders = {}) {
 
   let msg = lang[key] || key;
   Object.keys(placeholders).forEach(key => {
-    msg = msg.replace(new RegExp(`\{${key}\}`, "g"), placeholders[key]);
+    msg = msg.replace(new RegExp(`{${key}}`, "g"), placeholders[key]);
   });
 
   return msg;

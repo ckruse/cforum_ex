@@ -1454,7 +1454,7 @@ msgstr ""
 #: lib/cforum_web/templates/forum/index.html.eex:14
 #: lib/cforum_web/templates/layout/page_header.html.eex:21
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:4
-#: lib/cforum_web/views/layout_view.ex:216
+#: lib/cforum_web/views/layout_view.ex:221
 #: lib/cforum_web/views/thread_view.ex:27 lib/cforum_web/views/thread_view.ex:34
 msgid "all forums"
 msgstr ""
@@ -2897,14 +2897,14 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:25
-#: lib/cforum_web/views/layout_view.ex:204
+#: lib/cforum_web/views/layout_view.ex:209
 msgid "administrative view"
 msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:19
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:21
-#: lib/cforum_web/views/layout_view.ex:203
+#: lib/cforum_web/views/layout_view.ex:208
 msgid "normal view"
 msgstr ""
 
@@ -4215,8 +4215,8 @@ msgid "Retag message “%{subject}”"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/accounts/badges.ex:186
-msgid "You have won the %{mtype} medal “%{name}”!"
+#: lib/cforum/accounts/badges.ex:185
+msgid "You have won the %{mtype} “%{name}”!"
 msgstr ""
 
 #, elixir-format
@@ -4337,16 +4337,16 @@ msgid "Notifications successfully marked as unread."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/notification/index.html.eex:43
+#: lib/cforum_web/templates/notification/index.html.eex:44
 msgid "delete all notifications"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/notification/index.html.eex:41
+#: lib/cforum_web/templates/notification/index.html.eex:42
 msgid "mark all notifications as read"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/notification/index.html.eex:42
+#: lib/cforum_web/templates/notification/index.html.eex:43
 msgid "mark all notifications as unread"
 msgstr ""
