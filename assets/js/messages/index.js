@@ -8,7 +8,9 @@ if (document.body.dataset.controller === "MessageController") {
   if (document.body.classList.contains("nested-view")) {
     import(/* webpackChunkName: "messages" */ "./nested_view").then(({ default: initNestedView }) => initNestedView());
   }
+}
 
+if (["MessageController", "ThreadController"].includes(document.body.dataset.controller)) {
   if (["new", "edit", "update", "create"].includes(document.body.dataset.action)) {
     import(/* webpackChunkName: "messages" */ "./postingform").then(({ default: setupContentForms }) =>
       setupContentForms()
