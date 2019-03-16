@@ -28,3 +28,6 @@ node_modules
 /.elixir_ls/*
 .dir-locals.el
 /config/appsignal.exs
+/.deliver/releases
+/.deliver/secrets
+/config/ssh_key.pub

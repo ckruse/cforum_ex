@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+set +e
+
+TYPE="release"
+HOST="cftest.wwwtech.de"
+WITH=""
+
+while getopts ":h:t:w:" opt; do
+  case $opt in
+    h)
+      HOST=$OPTARG
+      ;;
+    t)
+      TYPE=$OPTARG
+
+      if [[ $TYPE == "upgrade" ]]; then
+        WITH=$(ls .deliver/releases | sort | tail -1 | sed 's/cforum_//' | sed -e 's/\.release\.tar\.gz//; s/\.upgrade\.tar\.gz//')
+      fi
+      ;;
+    w)
+      WITH=$OPTARG
+      ;;
+  esac
+done
+
+if [[ $TYPE == "release" ]]; then
+  echo "building $TYPE for $HOST"
+else
+  echo "building $TYPE for $HOST with $WITH"
+fi
+
+name=cforum-elixir-build
+
+result=$(docker images -q $name 2> /dev/null)
+
+if [[ -z "$result" ]]; then
+  docker build --tag=cforum-elixir-build -f rel/Dockerfile .
+fi
+
+result=$(docker images -q $name)
+
+if [[ -n "$result" ]]; then
+  [[ $(docker ps -f "name=$name" --format '{{.Names}}') == $name ]] || docker start $name
+else
+  docker run -d -p 22:22 -P --name $name $name
+fi
+
+scp .deliver/secrets/prod.$HOST.exs builder@localhost:~/config/prod.exs
+scp config/appsignal.exs builder@localhost:~/config
+
+if [[ $TYPE == "release" ]]; then
+  mix edeliver build $TYPE --auto-version=commit-count+git-revision+branch-unless-master
+else
+  mix edeliver build $TYPE --with=$WITH --auto-version=commit-count+git-revision+branch-unless-master
+fi
+
+docker container stop $name
