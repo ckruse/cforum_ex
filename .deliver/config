@@ -1,0 +1,68 @@
+AUTO_VERSION=commit-count+git-revision+branch-unless-master
+APP="cforum"
+
+BUILD_CMD=mix
+RELEASE_CMD=mix
+USING_DISTILLERY=true
+
+BUILD_HOST="localhost"
+BUILD_USER="builder"
+BUILD_AT="/tmp/edeliver/cforum/builds"
+RELEASE_DIR="/tmp/edeliver/cforum/builds/_build/prod/rel/cforum"
+
+PRODUCTION_HOSTS="cftest.wwwtech.de"
+PRODUCTION_USER="ckruse"
+DELIVER_TO="/home/ckruse/"
+
+
+# For *Phoenix* projects, symlink prod.secret.exs to our tmp source
+pre_erlang_get_and_update_deps() {
+  status "link config files"
+  local _prod_secret_path="/home/builder/config/"
+  if [ "$TARGET_MIX_ENV" = "prod" ]; then
+    __sync_remote "
+      ln -sfn '$_prod_secret_path/prod.exs' '$BUILD_AT/config/prod.exs'
+      ln -sfn '$_prod_secret_path/appsignal.exs' '$BUILD_AT/config/appsignal.exs'
+    "
+  fi
+}
+
+pre_erlang_clean_compile() {
+ status "Installing nodejs dependencies"
+ __sync_remote "
+   [ -f ~/.profile ] && source ~/.profile
+   set -e
+   cd '$BUILD_AT'
+
+   APP='$APP' MIX_ENV='$TARGET_MIX_ENV' yarn install
+ "
+
+ status "Building static assets"
+ __sync_remote "
+   [ -f ~/.profile ] && source ~/.profile
+   set -e
+   cd '$BUILD_AT/assets'
+
+   mkdir -p priv/static
+   APP='$APP' MIX_ENV='$TARGET_MIX_ENV' yarn install
+   APP='$APP' MIX_ENV='$TARGET_MIX_ENV' yarn run deploy
+ "
+
+ status "Compiling code"
+ __sync_remote "
+   [ -f ~/.profile ] && source ~/.profile
+   set -e #
+   cd '$BUILD_AT'
+
+   APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD do deps.get, compile
+ "
+
+ status "Running phx.digest"
+ __sync_remote "
+   [ -f ~/.profile ] && source ~/.profile
+   set -e #
+   cd '$BUILD_AT'
+
+   APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD phx.digest $SILENCE
+ "
+}
