@@ -33,7 +33,7 @@ if (document.body.dataset.userId) {
 }
 
 document.addEventListener("cf:userPrivate", event => {
-  let channel = event.detail;
+  const channel = event.detail;
 
   channel.on("new_priv_message", data => {
     const elem = document.getElementById("mails");
@@ -67,5 +67,27 @@ document.addEventListener("cf:userPrivate", event => {
     }
 
     alertInfo(t("You've got a new notification: {subject}", { subject: data.notification.subject }));
+  });
+});
+
+document.addEventListener("cf:userLobby", event => {
+  const channel = event.detail;
+
+  channel.push("visible_forums", {}).receive("ok", ({ forums }) => {
+    window.visibleForums = forums;
+
+    forums.forEach(forum => {
+      const channel = socket.channel(`forum:${forum.forum_id}`, {});
+      channel
+        .join()
+        .receive("ok", () => {})
+        .receive("error", ({ reason }) => console.log("failed joining forum room", reason))
+        .receive("timeout", () => console.log("forum room: networking issue. Still waiting..."));
+
+      channel.on("new_message", data => {
+        const event = new CustomEvent("cf:newMessage", { detail: data });
+        document.dispatchEvent(event);
+      });
+    });
   });
 });
