@@ -22,7 +22,7 @@ import "../css/app.scss";
 
 import "whatwg-fetch";
 import "./modules/closest";
-import "./alerts";
+import "./modules/alerts";
 
 // import "./modules/tabs.js";
 import "./modules/datetime-polyfill";

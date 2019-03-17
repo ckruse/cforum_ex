@@ -1,5 +1,5 @@
-import { t } from "./modules/i18n";
-import { parse } from "./modules/helpers";
+import { t } from "./i18n";
+import { parse } from "./helpers";
 
 const SUCCESS_TIMEOUT = 5;
 const INFO_TIMEOUT = 10;

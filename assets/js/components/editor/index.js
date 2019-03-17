@@ -9,7 +9,7 @@ import SmileyReplacements from "./smileys";
 import LivePreview from "./live_preview";
 import Toolbar from "./toolbar";
 import Dropzone from "./dropzone";
-import { alertError } from "../../alerts";
+import { alertError } from "../../modules/alerts";
 import { t } from "../../modules/i18n";
 import { replaceAt, getSelection } from "./helpers";
 
