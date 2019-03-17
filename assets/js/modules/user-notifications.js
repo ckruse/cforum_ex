@@ -1,6 +1,6 @@
 import socket from "../socket";
 import { t } from "./i18n";
-import { alertInfo } from "../alerts";
+import { alertInfo } from "../modules/alerts";
 
 export let allUsersChannel = socket.channel(`users:lobby`, {});
 allUsersChannel
