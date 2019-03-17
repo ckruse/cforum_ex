@@ -50,9 +50,9 @@ scp .deliver/secrets/prod.$HOST.exs builder@localhost:~/config/prod.exs
 scp config/appsignal.exs builder@localhost:~/config
 
 if [[ $TYPE == "release" ]]; then
-  mix edeliver build $TYPE --auto-version=commit-count+git-revision+branch-unless-master
+  mix edeliver build $TYPE
 else
-  mix edeliver build $TYPE --with=$WITH --auto-version=commit-count+git-revision+branch-unless-master
+  mix edeliver build $TYPE --with=$WITH
 fi
 
 docker container stop $name
