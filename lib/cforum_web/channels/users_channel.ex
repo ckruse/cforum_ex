@@ -3,6 +3,7 @@ defmodule CforumWeb.UsersChannel do
   use Appsignal.Instrumentation.Decorators
 
   alias Cforum.Accounts.User
+  alias Cforum.Forums
 
   @decorate channel_action()
   def join("users:lobby", _payload, socket), do: {:ok, socket}
@@ -28,6 +29,11 @@ defmodule CforumWeb.UsersChannel do
       end)
 
     {:reply, {:ok, config}, socket}
+  end
+
+  def handle_in("visible_forums", _payload, socket) do
+    forums = Forums.list_visible_forums(socket.assigns[:current_user])
+    {:reply, {:ok, %{forums: forums}}, socket}
   end
 
   # # Channels can be used in a request/response fashion

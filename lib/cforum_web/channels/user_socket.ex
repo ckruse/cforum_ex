@@ -3,7 +3,8 @@ defmodule CforumWeb.UserSocket do
 
   ## Channels
   # channel "room:*", Cforum.RoomChannel
-  channel("users:*", CforumWeb.UsersChannel)
+  channel "users:*", CforumWeb.UsersChannel
+  channel "forum:*", CforumWeb.ForumChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
