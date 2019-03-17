@@ -77,7 +77,6 @@ document.addEventListener("cf:userLobby", event => {
     window.visibleForums = forums;
 
     forums.forEach(forum => {
-      console.log("joining forum channel", forum);
       const channel = socket.channel(`forum:${forum.forum_id}`, {});
       channel
         .join()
