@@ -15,7 +15,7 @@ while getopts ":h:t:w:" opt; do
       TYPE=$OPTARG
 
       if [[ $TYPE == "upgrade" ]]; then
-        WITH=$(ls .deliver/releases | sort | tail -1 | sed 's/cforum_//' | sed -e 's/\.release\.tar\.gz//; s/\.upgrade\.tar\.gz//')
+        WITH=$(ls .deliver/releases | sed 's/cforum_//' | sed -e 's/\.release\.tar\.gz//; s/\.upgrade\.tar\.gz//' | sort -V | tail -1)
       fi
       ;;
     w)
