@@ -32,6 +32,7 @@ import "./components/autolist";
 import "./components/dropdown";
 import "./user-selector";
 import "./autorender";
+import "./autoload_threads";
 
 // site specific JS
 import "./flag_message";

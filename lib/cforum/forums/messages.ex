@@ -540,7 +540,13 @@ defmodule Cforum.Forums.Messages do
 
   defp notify_users({:ok, message}, thread) do
     Cforum.Forums.NotifyUsersMessageJob.notify_users_about_new_message(thread, message)
-    CforumWeb.Endpoint.broadcast!("forum:#{message.forum_id}", "new_message", %{thread: thread, message: message})
+
+    CforumWeb.Endpoint.broadcast!("forum:#{message.forum_id}", "new_message", %{
+      thread: thread,
+      message: message,
+      forum: thread.forum
+    })
+
     {:ok, message}
   end
 

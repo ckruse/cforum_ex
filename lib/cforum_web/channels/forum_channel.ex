@@ -2,6 +2,7 @@ defmodule CforumWeb.ForumChannel do
   use CforumWeb, :channel
 
   alias Cforum.Forums
+  import Cforum.Abilities
 
   def join("forum:" <> id, _payload, socket) do
     if authorized?(id, socket.assigns[:current_user]),
@@ -25,6 +26,6 @@ defmodule CforumWeb.ForumChannel do
   # Add authorization logic here as required.
   defp authorized?(forum_id, user) do
     forum = Forums.get_forum!(forum_id)
-    Cforum.Abilities.access_forum?(user, forum, :read)
+    access_forum?(user, forum, :read)
   end
 end

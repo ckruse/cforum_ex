@@ -70,6 +70,12 @@ defmodule CforumWeb.ThreadController do
     |> render("index_unanswered.html", threads: threads, all_threads_count: all_threads_count, page: p, order: ordering)
   end
 
+  def show(conn, _params) do
+    conn
+    |> put_layout(false)
+    |> render("thread.html")
+  end
+
   def index_atom(conn, _params) do
     user = conn.assigns[:current_user]
     {_, ordering} = get_ordering(conn, user)
@@ -203,6 +209,32 @@ defmodule CforumWeb.ThreadController do
   # "srt" as in „show read threads“
   defp hide_read_threads?(conn), do: uconf(conn, "hide_read_threads") == "yes" && conn.params["srt"] != "yes"
 
-  # TODO proper access rights
+  def load_resource(conn) do
+    if action_name(conn) == :show do
+      thread =
+        Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, Threads.slug_from_params(conn.params))
+        |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+        |> Threads.apply_user_infos(conn.assigns[:current_user])
+        |> Threads.apply_highlights(conn)
+        |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+
+      message = Messages.get_message_from_mid!(thread, conn.params["message_id"])
+
+      conn
+      |> assign(:thread, thread)
+      |> assign(:message, message)
+    else
+      conn
+    end
+  end
+
+  def allowed?(conn, :show, nil), do: allowed?(conn, :show, {conn.assigns.thread, conn.assigns.message})
+
+  def allowed?(conn, :show, {thread, message}) do
+    conn
+    |> assign(:current_forum, thread.forum)
+    |> CforumWeb.MessageController.allowed?(:show, {thread, message})
+  end
+
   def allowed?(conn, _, _), do: access_forum?(conn)
 end

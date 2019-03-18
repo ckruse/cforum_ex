@@ -182,6 +182,8 @@ defmodule CforumWeb.Router do
       get("/feeds/atom/:id", ThreadController, :show_atom, as: nil)
       get("/feeds/rss/:id", ThreadController, :show_rss, as: nil)
 
+      get("/:year/:month/:day/:slug", ThreadController, :show, as: nil)
+
       post("/:year/:month/:day/:slug/mark-read", Messages.MarkReadController, :mark_read, as: nil)
 
       post("/:year/:month/:day/:slug/hide", Threads.InvisibleController, :hide, as: nil)

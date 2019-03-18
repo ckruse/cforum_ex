@@ -85,7 +85,7 @@ document.addEventListener("cf:userLobby", event => {
         .receive("timeout", () => console.log("forum room: networking issue. Still waiting..."));
 
       channel.on("new_message", data => {
-        const event = new CustomEvent("cf:newMessage", { detail: data });
+        const event = new CustomEvent("cf:newMessage", { detail: { channel, data } });
         document.dispatchEvent(event);
       });
     });
