@@ -120,6 +120,12 @@
       fill: $visited_link_color;
     }
   }
+
+  svg.new-svg {
+    color: #df6c20;
+    fill: #df6c20;
+    margin-left: 0.5em;
+  }
 }
 
 .cf-thread.closed {
