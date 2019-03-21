@@ -5,7 +5,7 @@ BUILD_CMD=mix
 RELEASE_CMD=mix
 USING_DISTILLERY=true
 
-BUILD_HOST="localhost"
+BUILD_HOST="builder"
 BUILD_USER="builder"
 BUILD_AT="/tmp/edeliver/cforum/builds"
 RELEASE_DIR="/tmp/edeliver/cforum/builds/_build/prod/rel/cforum"

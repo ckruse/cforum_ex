@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set +e
+set -e
 
 TYPE="release"
 HOST="cftest.wwwtech.de"
@@ -43,11 +43,11 @@ result=$(docker images -q $name)
 if [[ -n "$result" ]]; then
   [[ $(docker ps -f "name=$name" --format '{{.Names}}') == $name ]] || docker start $name
 else
-  docker run -d -p 22:22 -P --name $name $name
+  docker run -d -p 23:22 -P --name $name $name
 fi
 
-scp .deliver/secrets/prod.$HOST.exs builder@localhost:~/config/prod.exs
-scp config/appsignal.exs builder@localhost:~/config
+scp .deliver/secrets/prod.$HOST.exs builder@builder:~/config/prod.exs
+scp config/appsignal.exs builder@builder:~/config
 
 if [[ $TYPE == "release" ]]; then
   mix edeliver build $TYPE
