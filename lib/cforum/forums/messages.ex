@@ -544,7 +544,7 @@ defmodule Cforum.Forums.Messages do
     CforumWeb.Endpoint.broadcast!("forum:#{message.forum_id}", "new_message", %{
       thread: thread,
       message: message,
-      forum: thread.forum
+      forum: Cforum.Forums.get_forum!(message.forum_id)
     })
 
     {:ok, message}
