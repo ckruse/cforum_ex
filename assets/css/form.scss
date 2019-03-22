@@ -6,7 +6,7 @@
   background-color: $default_background_color;
   background-image: none;
   border: 1px solid $grey_border;
-  border-radius: 4px;
+  border-radius: $input-border-radius;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
   transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
   font-size: 16px;
