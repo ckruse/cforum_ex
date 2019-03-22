@@ -11,6 +11,7 @@ class CfPostingForm extends React.Component {
     super(props);
 
     this.state = {
+      forumId: this.props.forumId || undefined,
       text: this.props.text,
       subject: this.props.subject || "",
       author: this.props.author || "",
@@ -62,6 +63,7 @@ class CfPostingForm extends React.Component {
 
     const fields = JSON.parse(draft);
     this.setState({
+      forumId: fields.forumId || undefined,
       text: fields.text || "",
       subject: fields.subject || "",
       author: fields.author || "",
@@ -108,19 +110,21 @@ class CfPostingForm extends React.Component {
 
   render() {
     const { csrfInfo } = this.props;
-    const { text, subject, author, tags, problematicSite, email, homepage } = this.state;
+    const { forumId, text, subject, author, tags, problematicSite, email, homepage } = this.state;
 
     return (
       <>
         <input type="hidden" name={csrfInfo.param} value={csrfInfo.token} />
 
         <Meta
+          forumId={forumId}
           subject={subject}
           author={author}
           problematicSite={problematicSite}
           email={email}
           homepage={homepage}
           onChange={this.updateState}
+          forumOptions={this.props.forumOptions}
         />
 
         <div className="cf-content-form">

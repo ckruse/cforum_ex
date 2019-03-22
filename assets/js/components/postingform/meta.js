@@ -3,10 +3,25 @@ import { t } from "../../modules/i18n";
 
 export default class Meta extends React.PureComponent {
   render() {
-    const { subject, author, problematicSite, email, homepage } = this.props;
+    const { forumId, subject, author, problematicSite, email, homepage } = this.props;
+    const showForumSelect = document.body.dataset.currentForum === "all" || !document.body.dataset.currentForum;
 
     return (
       <fieldset>
+        {showForumSelect && (
+          <div className="cf-cgroup">
+            <label htmlFor="message_forum_id">{t("forum")}</label>
+            <select name="message[forum_id]" id="message_forum_id" value={forumId} onChange={this.props.onChange}>
+              <option />
+              {this.props.forumOptions.map(opt => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.text}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
         <div className="cf-cgroup">
           <label htmlFor="message_subject">{t("subject")}</label>
           <input
