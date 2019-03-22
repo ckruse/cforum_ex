@@ -27,17 +27,26 @@ const setupContentForms = () => {
       globalTagsError = globalTagsErrorElement.textContent;
     }
 
+    const forumIdNode = el.querySelector("[name='message[forum_id]']");
+    const options = [];
+    if (forumIdNode) {
+      forumIdNode.querySelectorAll("option").forEach(opt => options.push({ value: opt.value, text: opt.textContent }));
+    }
+
     const csrfInfo = document.querySelector("meta[name='csrf-token']");
-    const subject = el.querySelector("input[name='message[subject]']").value;
-    const authorNode = el.querySelector("input[name='message[author]']");
+    const forumId = forumIdNode ? forumIdNode.value : undefined;
+    const subject = el.querySelector("[name='message[subject]']").value;
+    const authorNode = el.querySelector("[name='message[author]']");
     const author = authorNode ? authorNode.value : "";
-    const email = el.querySelector("input[name='message[email]']").value;
-    const homepage = el.querySelector("input[name='message[homepage]']").value;
-    const problematicSite = el.querySelector("input[name='message[problematic_site]']").value;
+    const email = el.querySelector("[name='message[email]']").value;
+    const homepage = el.querySelector("[name='message[homepage]']").value;
+    const problematicSite = el.querySelector("[name='message[problematic_site]']").value;
 
     render(
       <CfPostingForm
         form={el}
+        forumId={forumId}
+        forumOptions={options}
         subject={subject}
         author={author}
         email={email}
