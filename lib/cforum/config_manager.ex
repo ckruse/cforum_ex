@@ -77,7 +77,7 @@ defmodule Cforum.ConfigManager do
     "notify_on_mention" => "yes",
     "highlighted_users" => "",
     "highlight_self" => "yes",
-    "quote_by_default" => "no",
+    "quote_by_default" => "button",
     "delete_read_notifications_on_abonements" => "yes",
     "delete_read_notifications_on_mention" => "yes",
     "open_close_default" => "open",
