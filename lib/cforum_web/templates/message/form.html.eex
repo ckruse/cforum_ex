@@ -45,21 +45,19 @@
   </div>
 </fieldset>
 
-<div class="cf-content-form">
-  <fieldset>
-    <div class="cf-cgroup cf-textarea-only <%= error_class(@f, :content) %>">
-      <%= label @f, :content, for: "message_input" do %>
-        <%= gettext("message content") %>
-        <%= error_tag @f, :content %>
-      <% end %>
-      <%= textarea @f, :content, class: "big", id: "message_input", maxlength: 12288, required: true %>
-    </div>
-  </fieldset>
+<fieldset>
+  <div class="cf-cgroup cf-textarea-only <%= error_class(@f, :content) %>">
+    <%= label @f, :content, for: "message_input" do %>
+      <%= gettext("message content") %>
+      <%= error_tag @f, :content %>
+    <% end %>
+    <%= textarea @f, :content, class: "big", id: "message_input", maxlength: 12288, required: true %>
+  </div>
+</fieldset>
 
-  <fieldset>
-    <%= error_tag @f, :tags %>
-    <ul class="cf-form-tagslist" data-tags-list="form" data-no-js="yes">
-      <%= render "form_tags.html", assigns %>
-    </ul>
-  </fieldset>
-</div>
+<fieldset>
+  <%= error_tag @f, :tags %>
+  <ul class="cf-form-tagslist" data-tags-list="form" data-no-js="yes">
+    <%= render "form_tags.html", assigns %>
+  </ul>
+</fieldset>
