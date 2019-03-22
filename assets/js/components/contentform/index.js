@@ -22,7 +22,6 @@ class CfContentForm extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.text !== this.props.text) {
-      console.log("change text");
       this.setState({ value: this.props.text });
     }
   }
