@@ -139,7 +139,7 @@ class CfPostingForm extends React.Component {
           <button className="cf-primary-btn" type="submit" onClick={this.deleteDraft}>
             {t("save message")}
           </button>{" "}
-          <button className="cf-btn" onClick={this.props.onCancel}>
+          <button className="cf-btn" type="button" onClick={this.props.onCancel}>
             {t("cancel")}
           </button>
         </p>
@@ -158,7 +158,7 @@ class CfPostingForm extends React.Component {
           <p>
             <button type="button" className="cf-btn" onClick={this.restoreDraft}>
               {t("Yes, restore the draft")}
-            </button>
+            </button>{" "}
             <button type="button" className="cf-btn" onClick={this.deleteDraft}>
               {t("No, delete the draft")}
             </button>
