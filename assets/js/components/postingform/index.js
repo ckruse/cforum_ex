@@ -76,7 +76,7 @@ class CfPostingForm extends React.Component {
   deleteDraft() {
     const key = this.props.form.action;
     localStorage.removeItem(key);
-    this.toggleRestoreDraft();
+    this.toggleRestoreDraft(false);
   }
 
   saveDraft() {
@@ -102,8 +102,8 @@ class CfPostingForm extends React.Component {
     }
   }
 
-  toggleRestoreDraft() {
-    this.setState(state => ({ showRestoreDraft: !state.showRestoreDraft }));
+  toggleRestoreDraft(val = undefined) {
+    this.setState(state => ({ showRestoreDraft: val === undefined ? !state.showRestoreDraft : val }));
   }
 
   render() {
@@ -136,7 +136,7 @@ class CfPostingForm extends React.Component {
         <Notes />
 
         <p className="form-actions">
-          <button className="cf-primary-btn" type="submit">
+          <button className="cf-primary-btn" type="submit" onClick={this.deleteDraft}>
             {t("save message")}
           </button>{" "}
           <button className="cf-btn" onClick={this.props.onCancel}>
