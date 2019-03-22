@@ -95,6 +95,16 @@ class Toolbar extends React.Component {
     }
   }
 
+  getCounterClass(len, minLength = 10, maxLength = 12288) {
+    if (len < minLength || len >= maxLength) {
+      return "error";
+    } else if (len >= maxLength * 0.8) {
+      return "warning";
+    }
+
+    return "success";
+  }
+
   render() {
     return (
       <div className="cf-editor-toolbar">
@@ -166,6 +176,10 @@ class Toolbar extends React.Component {
             />
           </div>
         )}
+
+        <span className={`cf-content-counter ${this.getCounterClass(this.props.value.length)}`}>
+          {this.props.value.length}
+        </span>
 
         <LinkModal
           isOpen={this.state.linkModalVisible}

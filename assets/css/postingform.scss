@@ -51,6 +51,24 @@ $radius: 0.3em;
   }
 }
 
+.cf-content-counter {
+  position: absolute;
+  right: 0.25em;
+  padding: 0 0.25em;
+  border-radius: $radius;
+  background-color: #f1f3f4;
+}
+
+.cf-content-counter.warning {
+  color: $yellow_fg_color;
+  background-color: $yellow_bg_color;
+}
+
+.cf-content-counter.error {
+  color: $red_fg_color;
+  background-color: $red_bg_color;
+}
+
 .cf-posting-input__suggestions__list {
   background-color: white;
   border: 1px solid $grey_border;
