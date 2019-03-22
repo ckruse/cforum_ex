@@ -27,16 +27,18 @@ class CfContentForm extends React.Component {
   }
 
   render() {
-    const { tags, name } = this.props;
+    const { tags, id, name } = this.props;
 
     return (
       <>
         <CfEditor
           text={this.state.value}
           name={name}
+          id={id}
           mentions={true}
           onChange={this.refreshSuggestions}
           withImages={true}
+          errors={this.props.errors}
         />
         <TagList
           tags={tags}

@@ -125,6 +125,7 @@ class CfPostingForm extends React.Component {
           homepage={homepage}
           onChange={this.updateState}
           forumOptions={this.props.forumOptions}
+          errors={this.props.errors}
         />
 
         <div className="cf-content-form">
@@ -132,6 +133,8 @@ class CfPostingForm extends React.Component {
             text={text}
             tags={tags}
             name="message[content]"
+            id="message_input"
+            errors={this.props.errors}
             onTextChange={this.onTextChange}
             onTagChange={this.onTagChange}
           />
