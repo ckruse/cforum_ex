@@ -26,6 +26,7 @@ export const lang = {
   delete: "löschen",
 
   forum: "Forum",
+  "posting text": "Beitragstext",
   "chosen tags": "ausgewählte Schlagwörter",
   "enter new tag": "neues Schlagwort eingeben",
   "is unknown": "ist unbekannt",

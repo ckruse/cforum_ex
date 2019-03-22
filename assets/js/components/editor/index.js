@@ -112,11 +112,28 @@ class CfEditor extends React.Component {
   }
 
   render() {
-    const { name, mentions } = this.props;
+    const { id, name, mentions, errors } = this.props;
+    let className = "cf-cgroup cf-textarea-only cf-editor";
+    if (this.state.dragging) {
+      className += " dragging";
+    }
+
+    if (errors[id]) {
+      className += " has-error";
+    }
 
     return (
       <fieldset>
-        <div className={`cf-cgroup cf-textarea-only cf-editor ${this.state.dragging ? "dragging" : ""}`}>
+        <label htmlFor={id}>
+          {t("posting text")}{" "}
+          {errors[id] && (
+            <>
+              <span className="help error">{errors[id]}</span>
+            </>
+          )}
+        </label>
+
+        <div className={className}>
           <Toolbar
             value={this.state.value}
             changeValue={this.setValue}
@@ -128,6 +145,7 @@ class CfEditor extends React.Component {
           <MentionsInput
             value={this.state.value}
             name={name}
+            id={id}
             className="cf-posting-input"
             onChange={this.valueChanged}
             markup=":CF_INT:__display__:CF_INT:__type__:CF_INT:__id__:CF_INT:"

@@ -1,16 +1,23 @@
 import React from "react";
 import { t } from "../../modules/i18n";
+import ErrorLabel from "./error_label";
 
 export default class Meta extends React.PureComponent {
+  hasErrorClass(val) {
+    return val ? "has-error" : "";
+  }
+
   render() {
-    const { forumId, subject, author, problematicSite, email, homepage } = this.props;
+    const { forumId, subject, author, problematicSite, email, homepage, errors } = this.props;
     const showForumSelect = document.body.dataset.currentForum === "all" || !document.body.dataset.currentForum;
 
     return (
       <fieldset>
         {showForumSelect && (
-          <div className="cf-cgroup">
-            <label htmlFor="message_forum_id">{t("forum")}</label>
+          <div className={`cf-cgroup ${this.hasErrorClass(errors.message_forum_id)}`}>
+            <ErrorLabel for="message_forum_id" errors={errors}>
+              {t("forum")}
+            </ErrorLabel>
             <select name="message[forum_id]" id="message_forum_id" value={forumId} onChange={this.props.onChange}>
               <option />
               {this.props.forumOptions.map(opt => (
@@ -22,8 +29,10 @@ export default class Meta extends React.PureComponent {
           </div>
         )}
 
-        <div className="cf-cgroup">
-          <label htmlFor="message_subject">{t("subject")}</label>
+        <div className={`cf-cgroup ${this.hasErrorClass(errors.message_subject)}`}>
+          <ErrorLabel for="message_subject" errors={errors}>
+            {t("subject")}
+          </ErrorLabel>
           <input
             type="text"
             id="message_subject"
@@ -37,8 +46,10 @@ export default class Meta extends React.PureComponent {
         </div>
 
         {!window.currentUser && (
-          <div className="cf-cgroup ">
-            <label htmlFor="message_author">{t("author")}</label>
+          <div className={`cf-cgroup ${this.hasErrorClass(errors.message_author)}`}>
+            <ErrorLabel for="message_author" errors={errors}>
+              {t("author")}
+            </ErrorLabel>
             <input
               id="message_author"
               maxLength="60"
@@ -51,8 +62,10 @@ export default class Meta extends React.PureComponent {
           </div>
         )}
 
-        <div className="cf-cgroup ">
-          <label htmlFor="message_email">{t("email")}</label>
+        <div className={`cf-cgroup ${this.hasErrorClass(errors.message_email)}`}>
+          <ErrorLabel for="message_email" errors={errors}>
+            {t("email")}
+          </ErrorLabel>
           <input
             id="message_email"
             maxLength="60"
@@ -64,8 +77,10 @@ export default class Meta extends React.PureComponent {
           <span className="help">{t("voluntarily, publicly visible")}</span>
         </div>
 
-        <div className="cf-cgroup ">
-          <label htmlFor="message_homepage">{t("homepage")}</label>
+        <div className={`cf-cgroup ${this.hasErrorClass(errors.message_homepage)}`}>
+          <ErrorLabel for="message_homepage" errors={errors}>
+            {t("homepage")}
+          </ErrorLabel>
           <input
             id="message_homepage"
             maxLength="250"
@@ -78,8 +93,10 @@ export default class Meta extends React.PureComponent {
           <span className="help">{t("voluntarily, publicly visible")}</span>
         </div>
 
-        <div className="cf-cgroup ">
-          <label htmlFor="message_problematic_site">{t("problematic site")}</label>
+        <div className={`cf-cgroup ${this.hasErrorClass(errors.message_problematic_site)}`}>
+          <ErrorLabel for="message_problematic_site" errors={errors}>
+            {t("problematic site")}
+          </ErrorLabel>
           <input
             id="message_problematic_site"
             maxLength="250"

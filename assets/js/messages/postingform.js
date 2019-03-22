@@ -7,6 +7,16 @@ const cancel = ev => {
   document.location.href = "/";
 };
 
+const gatherErrors = element => {
+  const errors = {};
+
+  element.querySelectorAll("label .help.error").forEach(err => {
+    errors[err.closest("label").getAttribute("for")] = err.textContent;
+  });
+
+  return errors;
+};
+
 const setupContentForms = () => {
   document.querySelectorAll(".cf-posting-form").forEach(el => {
     const area = el.querySelector("textarea");
@@ -42,6 +52,8 @@ const setupContentForms = () => {
     const homepage = el.querySelector("[name='message[homepage]']").value;
     const problematicSite = el.querySelector("[name='message[problematic_site]']").value;
 
+    const errors = gatherErrors(el);
+
     render(
       <CfPostingForm
         form={el}
@@ -59,6 +71,7 @@ const setupContentForms = () => {
           param: csrfInfo.getAttribute("csrf-param"),
           token: csrfInfo.getAttribute("content")
         }}
+        errors={errors}
         onCancel={cancel}
       />,
       el
