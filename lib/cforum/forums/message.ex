@@ -66,6 +66,12 @@ defmodule Cforum.Forums.Message do
     |> Cforum.Helpers.changeset_changes_to_normalized_newline()
     |> parse_tags(params, user, opts[:create_tags])
     |> validate_tags_count()
+    |> validate_length(:author, min: 2, max: 60)
+    |> validate_length(:subject, min: 4, max: 250)
+    |> validate_length(:email, min: 6, max: 60)
+    |> validate_length(:homepage, min: 2, max: 250)
+    |> validate_length(:problematic_site, min: 2, max: 250)
+    |> validate_length(:content, min: 10, max: 12_288)
   end
 
   defp maybe_put_change(changeset, _, nil), do: changeset
