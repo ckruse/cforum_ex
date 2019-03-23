@@ -1,5 +1,5 @@
     <link rel="author" href="/humans.txt">
-    <link rel="shortcut icon" href="<%= Routes.static_path(@conn, "/favicon.ico") %>" type="image/x-icon" title="<%= gettext("icon") %>">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" title="<%= gettext("icon") %>">
     <link rel="apple-touch-icon" href="<%= Routes.static_path(@conn, "/images/s-Logo_60.png") %>">
     <link rel="apple-touch-icon-precomposed" href="<%= Routes.static_path(@conn, "/images/s-Logo_60.png") %>">
     <link rel="apple-touch-icon" sizes="76x76" href="<%= Routes.static_path(@conn, "/images/s-Logo_76.png") %>">
