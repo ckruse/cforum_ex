@@ -2,9 +2,11 @@
   <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
 <% end %>
 
-<article class="cf-thread-message preview">
-  <%= render("message.html", Map.merge(assigns, %{controls: false, first: true})) %>
-</article>
+<% if assigns[:preview] do %>
+  <article class="cf-thread-message preview">
+    <%= render("message.html", Map.merge(assigns, %{controls: false, first: true})) %>
+  </article>
+<% end %>
 
 <%= form_for @changeset, Path.message_path(@conn, :edit, @thread, @message), [class: "cf-form cf-posting-form", method: :put], fn f -> %>
   <%= render("form.html", Map.merge(assigns, %{f: f})) %>
