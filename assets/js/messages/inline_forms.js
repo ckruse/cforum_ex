@@ -65,6 +65,7 @@ const showForm = (messageElement, json) => {
         param: csrfInfo.getAttribute("csrf-param"),
         token: csrfInfo.getAttribute("content")
       }}
+      errors={{}}
       onCancel={() => node.remove()}
     />,
     node,
