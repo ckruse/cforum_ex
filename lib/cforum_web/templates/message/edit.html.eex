@@ -6,7 +6,7 @@
   <%= render("message.html", Map.merge(assigns, %{controls: false, first: true})) %>
 </article>
 
-<%= form_for @changeset, Path.message_path(@conn, :edit, @thread, @message), [class: "cf-form", method: :put], fn f -> %>
+<%= form_for @changeset, Path.message_path(@conn, :edit, @thread, @message), [class: "cf-form cf-posting-form", method: :put], fn f -> %>
   <%= render("form.html", Map.merge(assigns, %{f: f})) %>
 
   <%= l10n_render @view_module, "post-notes.html", assigns %>

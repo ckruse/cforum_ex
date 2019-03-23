@@ -10,7 +10,7 @@
   <% end %>
 </article>
 
-<%= form_for @changeset, Path.message_path(@conn, :new, @thread, @parent), [class: "cf-form"], fn f -> %>
+<%= form_for @changeset, Path.message_path(@conn, :new, @thread, @parent), [class: "cf-form cf-posting-form"], fn f -> %>
   <%= render("form.html", Map.merge(assigns, %{f: f})) %>
 
   <%= l10n_render @view_module, "post-notes.html", assigns %>
