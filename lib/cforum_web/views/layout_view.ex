@@ -43,21 +43,6 @@ defmodule CforumWeb.LayoutView do
     end
   end
 
-  def additional_js(conn, assigns) do
-    try do
-      case apply(view_module(conn), :additional_js, [action_name(conn), assigns]) do
-        nil ->
-          ""
-
-        path ->
-          [{:safe, "<script src=\""}, path, {:safe, "\"></script>"}]
-      end
-    rescue
-      UndefinedFunctionError -> ""
-      FunctionClauseError -> ""
-    end
-  end
-
   def meta_refresh(conn) do
     path = controller_path(conn)
     action = Phoenix.Controller.action_name(conn)

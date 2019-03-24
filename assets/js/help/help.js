@@ -1,17 +1,13 @@
 import Highcharts from "highcharts";
 import { parse } from "date-fns";
-import { t } from "./modules/i18n";
+import { t } from "../modules/i18n";
 
-const initCharts = () => {
-  Highcharts.setOptions({
-    lang: t("highcharts")
-  });
+Highcharts.setOptions({
+  lang: t("highcharts")
+});
 
-  const el = document.querySelector(".chart-cites");
-  if (!el) {
-    return;
-  }
-
+const el = document.querySelector(".chart-cites");
+if (el) {
   Highcharts.chart(el, {
     chart: { type: "spline" },
     title: null,
@@ -26,8 +22,4 @@ const initCharts = () => {
       }
     ]
   });
-};
-
-if (document.body.id === "forum-help") {
-  initCharts();
 }

@@ -30,6 +30,7 @@ import "./modules/confirmation";
 import "./modules/show-password";
 import "./components/autolist";
 import "./components/dropdown";
+import "./components/badge_management";
 import "./user-selector";
 import "./autorender";
 import "./autoload_threads";
@@ -39,6 +40,8 @@ import "./flag_message";
 import "./thread_actions";
 import "./messages";
 import "./notifications";
+import "./stats";
+import "./help";
 
 import "./init";
 

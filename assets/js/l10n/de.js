@@ -42,6 +42,7 @@ export const lang = {
   "You've got a new notification: {subject}": "{subject}",
 
   "badge management": "Medaillen-Verwaltung",
+  "found badges": "gefundene Medaillen",
   "add new badge": "neue Medaille hinzufügen",
   "Search badge": "Medaille suchen",
   "badge name": "Medaillen-Name",
