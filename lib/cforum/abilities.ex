@@ -98,8 +98,10 @@ defmodule Cforum.Abilities do
   def admin?(_), do: false
 
   def badge?(conn_or_user, badge_type)
+  def badge?(nil, _), do: false
   def badge?(%Plug.Conn{} = conn, badge_type), do: badge?(conn.assigns[:current_user], badge_type)
   def badge?(%User{} = user, badge_type), do: Users.badge?(user, badge_type)
+  def badge?(id, badge_type) when is_number(id), do: Users.badge?(Users.get_user!(id), badge_type)
   def badge?(_, _), do: false
 
   def accept?(conn, message) do
