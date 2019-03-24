@@ -25,20 +25,22 @@ const toggleFolded = (posting, button = null) => {
 
 const foldMessage = el => {
   const posting = el.closest(".posting-nested");
+  const isActive = posting.classList.contains("active");
+  const isRead = el.classList.contains("visited");
 
-  const node = document.createElement("button");
-  node.type = "button";
-  node.addEventListener("click", toggleFoldedHandler);
-  node.classList.add("cf-message-header-unfold-button");
-  node.setAttribute("aria-live", "assertive");
+  if (!posting.querySelector(".cf-message-header-unfold-button")) {
+    const node = document.createElement("button");
+    node.type = "button";
+    node.addEventListener("click", toggleFoldedHandler);
+    node.classList.add("cf-message-header-unfold-button");
+    node.setAttribute("aria-live", "assertive");
 
-  posting.querySelector(".cf-message-header .details").appendChild(node);
+    posting.querySelector(".cf-message-header .details").appendChild(node);
+    node.textContent = t(!isRead || isActive ? "fold" : "unfold");
+  }
 
-  if (!posting.classList.contains("active")) {
-    node.appendChild(document.createTextNode(t("unfold")));
+  if (isRead && !isActive) {
     posting.classList.add("folded");
-  } else {
-    node.appendChild(document.createTextNode(t("fold")));
   }
 };
 
@@ -67,10 +69,11 @@ const toggleActiveMessage = (messageId, scrollToIt = true) => {
   }
 };
 
+const foldAllMode = () =>
+  document.querySelector(".cf-thread-nested-root.folded, .cf-thread-nested-root .folded") ? "unfold" : "fold";
+
 const toggleAll = ev => {
-  const mode = document.querySelector(".cf-thread-nested-root.folded, .cf-thread-nested-root .folded")
-    ? "unfold"
-    : "fold";
+  const mode = foldAllMode();
 
   if (mode === "fold") {
     document.querySelectorAll(".cf-thread-message:not(.folded)").forEach(el => toggleFolded(el));
@@ -87,7 +90,7 @@ const initialFold = () => {
   }
 
   document
-    .querySelectorAll(".cf-thread-nested .cf-thread-message > .posting-header > .cf-message-header.visited")
+    .querySelectorAll(".cf-thread-nested .cf-thread-message > .posting-header > .cf-message-header")
     .forEach(el => foldMessage(el));
 
   const el = document.querySelector(".cf-thread-nested .cf-thread-message.active");
@@ -95,10 +98,23 @@ const initialFold = () => {
     el.scrollIntoView();
   }
 
-  document.removeEventListener("cf:configDidLoad", initialFold);
+  const mode = foldAllMode();
+  const label = mode === "unfold" ? "unfold all" : "fold all";
+  let foldingAllButton = document.getElementById("folding-all-button");
+
+  if (!foldingAllButton) {
+    foldingAllButton = document.createElement("button");
+    document.body.appendChild(foldingAllButton);
+    foldingAllButton.addEventListener("click", toggleAll);
+    foldingAllButton.id = "folding-all-button";
+  }
+
+  foldingAllButton.textContent = t(label);
+  // foldingAllButton.appendChild(document.createTextNode(t(label)));
 };
 
 const initNestedView = () => {
+  initialFold();
   document.addEventListener("cf:configDidLoad", initialFold);
 
   document.querySelector(".cf-thread-list").addEventListener("click", function(ev) {
@@ -149,13 +165,6 @@ const initNestedView = () => {
     window.history.pushState("#m" + newMessageUrl.messageId, "", trgt.href);
     toggleActiveMessage("m" + newMessageUrl.messageId);
   });
-
-  const foldingAllButton = document.createElement("button");
-  foldingAllButton.id = "folding-all-button";
-  foldingAllButton.addEventListener("click", toggleAll);
-  foldingAllButton.appendChild(document.createTextNode(t("unfold all")));
-
-  document.body.appendChild(foldingAllButton);
 };
 
 export default initNestedView;
