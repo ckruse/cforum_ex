@@ -20,7 +20,7 @@ defmodule Cforum.Cites.ArchiverJob do
 
   defp archive_cite(cite, score) when score <= 0 do
     Logger.info("discarding cite ##{cite.cite_id} with score #{score}")
-    Cites.delete_cite(nil, cite)
+    Cites.archive_delete_cite(cite)
   end
 
   defp archive_cite(cite, score) do

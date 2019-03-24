@@ -64,6 +64,8 @@
     <%= if @cite.created_at, do: time_tag(@cite.created_at, format_date(@conn, @cite.created_at), class: "dt-accessed") %>
   </div>
 
-  <%= if may?(@conn, "cite", :edit, @cite), do: default_button_link(gettext("edit"), to: Routes.cite_path(@conn, :edit, @cite)) %>
-  <%= if may?(@conn, "cite", :delete, @cite), do: destructive_button(gettext("delete"), to: Routes.cite_path(@conn, :delete, @cite), method: :delete) %>
+  <%= if present?(@cite.cite_id) do %>
+    <%= if may?(@conn, "cite", :edit, @cite), do: default_button_link(gettext("edit"), to: Routes.cite_path(@conn, :edit, @cite)) %>
+    <%= if may?(@conn, "cite", :delete, @cite), do: destructive_button(gettext("delete"), to: Routes.cite_path(@conn, :delete, @cite), method: :delete) %>
+  <% end %>
 </article>

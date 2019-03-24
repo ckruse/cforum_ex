@@ -198,6 +198,11 @@ defmodule Cforum.Cites do
     |> maybe_unindex_cite()
   end
 
+  def archive_delete_cite(%Cite{} = cite) do
+    System.audited("archive-del", nil, fn -> Repo.delete(cite) end)
+    |> maybe_unindex_cite()
+  end
+
   defp maybe_unindex_cite({:ok, cite}) do
     Cforum.Cites.CiteIndexerJob.unindex_cite(cite)
     {:ok, cite}
