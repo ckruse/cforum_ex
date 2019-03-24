@@ -80,7 +80,6 @@
 <h2 class="cf-heading"><%= gettext("User activity") %></h2>
 
 <div id="user-activity-stats"></div>
-<!-- TODO chart -->
 
 
 <h2 class="cf-heading"><%= gettext("Newest messages") %></h2>

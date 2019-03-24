@@ -179,5 +179,8 @@ export const lang = {
   "mark selected notifications as unread": "markiere die selektierten Benachrichtigungen als ungelesen",
   "mark all notifications as unread": "markiere alle Benachrichtigungen als ungelesen",
   "delete selected notifications": "lösche die selektierten Benachrichtigungen",
-  "delete all notifications": "lösche alle Benachrichtigungen"
+  "delete all notifications": "lösche alle Benachrichtigungen",
+
+  "number of new messages": "Anzahl neuer Beiträge",
+  "new messages": "neue Beiträge"
 };
