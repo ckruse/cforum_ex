@@ -65,6 +65,7 @@ a:active {
 a:link,
 a:visited {
   color: $link_color;
+  fill: $link_color;
 }
 
 a:hover,
@@ -74,6 +75,7 @@ button:hover,
 button:focus,
 button:active {
   color: $active_link_color;
+  fill: $active_link_color;
 }
 
 a,
