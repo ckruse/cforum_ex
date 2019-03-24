@@ -99,6 +99,7 @@
   &.visited a,
   a:visited {
     color: $visited_link_color;
+    fill: $visited_link_color;
   }
 
   &.visited:hover,
@@ -111,6 +112,7 @@
   &.visited a:focus,
   a:visited:focus {
     color: $active_link_color;
+    fill: $active_link_color;
   }
 
   &.active,
@@ -123,6 +125,7 @@
   &.active.visited .author a {
     font-weight: bold;
     color: $active_posting_color;
+    fill: $active_posting_color;
   }
 
   h2 a {
