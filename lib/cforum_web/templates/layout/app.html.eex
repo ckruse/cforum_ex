@@ -32,8 +32,6 @@
 
     <script>window.userToken = "<%= assigns[:user_token] %>";</script>
     <script src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-    <%= if List.first(@conn.path_info) == "admin" do %><script src="<%= Routes.static_path(@conn, "/js/admin.js") %>"></script><% end %>
-    <%= additional_js(@conn, assigns) %>
     <%= own_js_file(@conn) %>
     <%= own_js(@conn) %>
 
