@@ -555,7 +555,7 @@ msgstr ""
 #: lib/cforum_web/templates/cite/new.html.eex:6
 #: lib/cforum_web/templates/events/attendee/form.html.eex:71
 #: lib/cforum_web/templates/mail/new.html.eex:16
-#: lib/cforum_web/templates/message/edit.html.eex:17
+#: lib/cforum_web/templates/message/edit.html.eex:19
 #: lib/cforum_web/templates/message/new.html.eex:21
 #: lib/cforum_web/templates/messages/flag/new.html.eex:33
 #: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:34
@@ -1275,7 +1275,7 @@ msgid "less than a minute"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/audit/threads.html.eex:11
-#: lib/cforum_web/views/message_view.ex:83
+#: lib/cforum_web/views/message_view.ex:84
 msgid "by"
 msgstr ""
 
@@ -1295,7 +1295,7 @@ msgstr ""
 msgid "user information"
 msgstr ""
 
-#: lib/cforum_web/views/message_view.ex:88
+#: lib/cforum_web/views/message_view.ex:89
 msgid "new answer to %{name}"
 msgstr ""
 
@@ -1310,7 +1310,7 @@ msgstr ""
 
 #: lib/cforum_web/controllers/api/v1/message_controller.ex:22
 #: lib/cforum_web/controllers/message_controller.ex:44
-#: lib/cforum_web/controllers/thread_controller.ex:143
+#: lib/cforum_web/controllers/thread_controller.ex:149
 msgid "all"
 msgstr ""
 
@@ -1323,7 +1323,7 @@ msgstr ""
 msgid "comma separated list, e.g. „css, html“"
 msgstr ""
 
-#: lib/cforum_web/templates/message/edit.html.eex:16
+#: lib/cforum_web/templates/message/edit.html.eex:18
 #: lib/cforum_web/templates/message/new.html.eex:20
 #: lib/cforum_web/templates/thread/new.html.eex:28
 msgid "create message"
@@ -1346,7 +1346,7 @@ msgid "replace float:left with a flexbox construct"
 msgstr ""
 
 #: lib/cforum_web/templates/mail/new.html.eex:14
-#: lib/cforum_web/templates/message/edit.html.eex:15
+#: lib/cforum_web/templates/message/edit.html.eex:17
 #: lib/cforum_web/templates/message/new.html.eex:19
 #: lib/cforum_web/templates/thread/new.html.eex:27
 msgid "show preview"
@@ -1413,11 +1413,11 @@ msgstr ""
 msgid "previous page"
 msgstr ""
 
-#: lib/cforum/forums/message.ex:173
+#: lib/cforum/forums/message.ex:179
 msgid "unknown tags given: %{tags}"
 msgstr ""
 
-#: lib/cforum_web/controllers/thread_controller.ex:175
+#: lib/cforum_web/controllers/thread_controller.ex:181
 msgid "Thread created successfully."
 msgstr ""
 
@@ -1704,7 +1704,7 @@ msgid "keywords"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/form.html.eex:52
+#: lib/cforum_web/templates/message/form.html.eex:51
 msgid "message content"
 msgstr ""
 
@@ -2884,15 +2884,9 @@ msgid "unanswered threads  — %{forum}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/meta.html.eex:7
 #: lib/cforum_web/views/helpers/feeds.ex:103
 #: lib/cforum_web/views/helpers/feeds.ex:126
 msgid "TODO description_text"
-msgstr ""
-
-#, elixir-format
-#: lib/cforum_web/templates/layout/meta.html.eex:8
-msgid "TODO keywords_text"
 msgstr ""
 
 #, elixir-format
@@ -3062,7 +3056,7 @@ msgid "planned start"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/message_view.ex:224
+#: lib/cforum_web/views/message_view.ex:225
 msgid "regarding your message %{subject} from %{time}"
 msgstr ""
 
@@ -4005,7 +3999,7 @@ msgid "Tag %{no}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/forums/message.ex:207
+#: lib/cforum/forums/message.ex:213
 msgid "is unknown"
 msgstr ""
 
@@ -4195,12 +4189,12 @@ msgid "versions"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/forums/message.ex:101
+#: lib/cforum/forums/message.ex:107
 msgid "Please specify a maximum of %{num} tags"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/forums/message.ex:98
+#: lib/cforum/forums/message.ex:104
 msgid "Please specify at least %{num} tags"
 msgstr ""
 
@@ -4215,7 +4209,7 @@ msgid "Retag message “%{subject}”"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/accounts/badges.ex:185
+#: lib/cforum/accounts/badges.ex:177
 msgid "You have won the %{mtype} “%{name}”!"
 msgstr ""
 
@@ -4349,6 +4343,16 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/notification/index.html.eex:43
 msgid "mark all notifications as unread"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/layout/meta.html.eex:7
+msgid "A forum as a completion to the wiki and the weblog"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/layout/meta.html.eex:8
+msgid "SELFHTML Forum, SELFHTML, Forum, SELFForum"
 msgstr ""
 
 #, elixir-format
