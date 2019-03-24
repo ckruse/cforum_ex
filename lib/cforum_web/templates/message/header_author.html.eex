@@ -2,7 +2,7 @@
       <%= if present?(@message.user_id) do %>
         <%= user_link(@conn, @message.user, [original_poster_class(@thread, @message)], false) %>
       <% else %>
-        <%= if (@message.message_id != @thread.message.message_id) && !blank?(@message.uuid) && (@message.uuid == @thread.message.uuid) do %>
+        <%= if (@message.message_id != @thread.message.message_id) && present?(@message.uuid) && (@message.uuid == @thread.message.uuid) do %>
           <span class="icon-message original-poster" title="<%= gettext("original poster") %>"> </span>
         <% end %>
       <% end %>
@@ -10,15 +10,19 @@
       <%= author_name(@conn, @thread, @message, @opts) %>
     </span>
 
-    <%= if !@opts[:tree] && !@thread.archived && (!blank?(@message.email) || !blank?(@message.homepage)) do %>
+    <%= if !@opts[:tree] && (present?(@message.email) || present?(@message.homepage)) do %>
       <span class="author-infos">
-        <%= if !blank?(@message.email), do: link("", to: "mailto:" <> @message.email, class: "author-email") %>
+        <%= if !@thread.archived && present?(@message.email) do %>
+          <%= link(to: "mailto:" <> @message.email, class: "author-email") do %>
+            <span><%= gettext("email address of the author") %></span>
+            <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-email"></use></svg>
+          <% end %>
+        <% end %>
 
-        <%= if !blank?(@message.homepage) do %>
-          <%= if !blank?(@message.user_id) do %> <%#TODO && message.owner.has_badge?('seo_profi') && (message.owner.conf('norelnofollow') == 'yes') %>
-            <%= link("", to: @message.homepage, class: "author-homepage", rel: nil) %>
-          <% else %>
-            <%= link("", to: @message.homepage, class: "author-homepage") %>
+        <%= if present?(@message.homepage) do %>
+          <%= link(to: @message.homepage, class: "author-homepage", rel: author_homepage_rel(@message)) do %>
+            <span><%= gettext("homepage of the author") %></span>
+            <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-link"></use></svg>
           <% end %>
         <% end %>
       </span>

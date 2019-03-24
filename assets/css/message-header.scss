@@ -47,6 +47,15 @@
     color: $highlight_self_color_visited;
   }
 
+  .author-infos {
+    .author-homepage,
+    .author-email {
+      span {
+        @include visually-hidden();
+      }
+    }
+  }
+
   .votes,
   .num-infos {
     display: inline-block;

@@ -5,6 +5,7 @@ defmodule CforumWeb.MessageView do
   alias Cforum.Forums.{CloseVotes, CloseVote}
   alias Cforum.Forums.Votes
   alias CforumWeb.Messages.OpenCloseVoteView
+  alias Cforum.Accounts.Badge
 
   def first_class(classes, %{first: true}), do: ["first" | classes]
   def first_class(classes, _), do: classes
@@ -259,5 +260,11 @@ defmodule CforumWeb.MessageView do
     if cnt >= max,
       do: [],
       else: (cnt + 1)..max
+  end
+
+  def author_homepage_rel(message) do
+    if badge?(message.user_id, Badge.seo_profi()) && uconf(message.user, "norelnofollow") == "yes",
+      do: nil,
+      else: "rel=\"nofollow\""
   end
 end

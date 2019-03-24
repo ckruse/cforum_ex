@@ -4350,3 +4350,13 @@ msgstr ""
 #: lib/cforum_web/templates/notification/index.html.eex:43
 msgid "mark all notifications as unread"
 msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/message/header_author.html.eex:17
+msgid "email address of the author"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/message/header_author.html.eex:24
+msgid "homepage of the author"
+msgstr ""
