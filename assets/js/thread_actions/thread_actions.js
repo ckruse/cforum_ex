@@ -63,7 +63,13 @@ const setupThreadActions = element => {
     const requestParams = { credentials: "same-origin" };
     const { url, afterAction } = validElements[action](requestParams, form);
 
+    element.disabled = true;
+    element.classList.add("loading");
+
     fetch(url, requestParams).then(response => {
+      element.disabled = false;
+      element.classList.remove("loading");
+
       if (!response.ok) {
         alertError(t("Oops, something went wrong!"));
         return;
