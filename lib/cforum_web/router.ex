@@ -37,6 +37,7 @@ defmodule CforumWeb.Router do
       get("/users", UserController, :index)
       post("/users", UserController, :index)
       get("/users/:id", UserController, :show)
+      get("/users/:id/activity", UserController, :activity)
       get("/tags", TagController, :index)
       get("/badges", BadgeController, :index)
 

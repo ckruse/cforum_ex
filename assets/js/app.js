@@ -42,6 +42,7 @@ import "./messages";
 import "./notifications";
 import "./stats";
 import "./help";
+import "./user";
 
 import "./init";
 

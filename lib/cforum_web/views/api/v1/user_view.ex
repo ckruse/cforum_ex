@@ -30,4 +30,8 @@ defmodule CforumWeb.Api.V1.UserView do
         )
     }
   end
+
+  def render("activity.json", %{activity: activity}) do
+    Enum.map(activity, fn {month, msgs} -> %{month: DateTime.to_date(month), messages: msgs} end)
+  end
 end

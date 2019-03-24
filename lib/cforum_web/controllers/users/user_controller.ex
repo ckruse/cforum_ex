@@ -21,7 +21,6 @@ defmodule CforumWeb.Users.UserController do
 
     forum_ids = Enum.map(conn.assigns[:visible_forums], & &1.forum_id)
     messages_count = Messages.count_messages_for_user(user, forum_ids)
-    messages_by_months = Messages.count_messages_for_user_by_month(user, forum_ids)
     tags_cnt = Messages.count_messages_per_tag_for_user(user, forum_ids)
 
     last_messages =
@@ -70,7 +69,6 @@ defmodule CforumWeb.Users.UserController do
       conn,
       "show.html",
       user: user,
-      messages_by_months: messages_by_months,
       messages_count: messages_count,
       last_messages: last_messages,
       tags_cnt: tags_cnt,
