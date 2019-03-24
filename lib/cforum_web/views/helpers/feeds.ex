@@ -100,7 +100,7 @@ defmodule CforumWeb.Views.Helpers.Feeds do
     desc =
       if forum && forum.description,
         do: forum.description,
-        else: gettext("TODO description_text")
+        else: gettext("A forum as a completion to the wiki and the weblog")
 
     {:rss, %{"version" => "2.0", "xmlns:atom" => "http://www.w3.org/2005/Atom"},
      [
@@ -123,7 +123,7 @@ defmodule CforumWeb.Views.Helpers.Feeds do
     desc =
       if forum && forum.description,
         do: forum.description,
-        else: gettext("TODO description_text")
+        else: gettext("A forum as a completion to the wiki and the weblog")
 
     {:rss, %{"version" => "2.0", "xmlns:atom" => "http://www.w3.org/2005/Atom"},
      [
