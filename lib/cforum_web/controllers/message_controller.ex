@@ -198,12 +198,11 @@ defmodule CforumWeb.MessageController do
     end
   end
 
-  # TODO implement proper rights
   def allowed?(conn, action, nil) when action in [:new, :create],
     do: allowed?(conn, action, {conn.assigns.thread, conn.assigns.parent})
 
   def allowed?(conn, action, {_thread, message}) when action in [:new, :create],
-    do: access_forum?(conn, :write) && !message.deleted
+    do: access_forum?(conn, :write) && Messages.open?(message)
 
   def allowed?(conn, action, nil) when action in [:edit, :update],
     do: allowed?(conn, action, {conn.assigns.thread, conn.assigns.message})
@@ -211,7 +210,7 @@ defmodule CforumWeb.MessageController do
   def allowed?(conn, action, {thread, msg}) when action in [:edit, :update] do
     access_forum?(conn, :moderate) ||
       (Messages.editable_age?(msg, minutes: conf(conn, "max_editable_age", :int)) && !Messages.answer?(thread, msg) &&
-         Messages.owner?(conn, msg))
+         Messages.owner?(conn, msg) && Messages.open?(msg))
   end
 
   def allowed?(conn, :show, nil),
