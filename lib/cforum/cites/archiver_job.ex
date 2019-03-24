@@ -25,19 +25,6 @@ defmodule Cforum.Cites.ArchiverJob do
 
   defp archive_cite(cite, score) do
     Logger.info("archiving cite ##{cite.cite_id} with score #{score}")
-
-    cite
-    |> Cites.archive_cite()
-    |> update_search()
-  end
-
-  defp update_search({:ok, cite}) do
-    # TODO generate a search document
-    {:ok, cite}
-  end
-
-  defp update_search({:error, changeset}) do
-    id = Ecto.Changeset.get_field(changeset, :cite_id)
-    Logger.error("Not reindexing cite ##{id} because of database errors")
+    Cites.archive_cite(cite)
   end
 end
