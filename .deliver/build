@@ -35,7 +35,7 @@ name=cforum-elixir-build
 result=$(docker images -q $name 2> /dev/null)
 
 if [[ -z "$result" ]]; then
-  docker build --tag=cforum-elixir-build -f rel/Dockerfile .
+  docker build --tag=$name -f rel/Dockerfile .
 fi
 
 result=$(docker images -q $name)
