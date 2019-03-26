@@ -1,13 +1,11 @@
   <div class="admin-links">
     <%= if blank?(@message.parent_id) do %>
       <%= if @thread.sticky do %>
-        <%= destructive_index_button(to: Path.sticky_thread_path(@conn, :unsticky, @thread)) do %>
-          <%= std_args_as_hidden_inputs(@conn) %>
+        <%= destructive_index_button(to: Path.sticky_thread_path(@conn, :unsticky, @thread), params: std_args(@conn)) do %>
           <%= gettext("mark thread as sticky") %>
         <% end %>
       <% else %>
-        <%= destructive_index_button(to: Path.sticky_thread_path(@conn, :sticky, @thread)) do %>
-          <%= std_args_as_hidden_inputs(@conn) %>
+        <%= destructive_index_button(to: Path.sticky_thread_path(@conn, :sticky, @thread), params: std_args(@conn)) do %>
         <%= gettext("remove sticky mark") %>
       <% end %>
     <% end %>
@@ -17,39 +15,33 @@
     <% end %>
 
     <%= if @thread.flags["no-archive"] == "yes" do %>
-      <%= destructive_index_button(to: Path.no_archive_thread_path(@conn, :do_archive, @thread)) do %>
-        <%= std_args_as_hidden_inputs(@conn) %>
+      <%= destructive_index_button(to: Path.no_archive_thread_path(@conn, :do_archive, @thread), params: std_args(@conn)) do %>
         <%= gettext("don't archive thread") %>
       <% end %>
     <% else %>
-      <%= destructive_index_button(to: Path.no_archive_thread_path(@conn, :no_archive, @thread)) do %>
-        <%= std_args_as_hidden_inputs(@conn) %>
+      <%= destructive_index_button(to: Path.no_archive_thread_path(@conn, :no_archive, @thread), params: std_args(@conn)) do %>
         <%= gettext("archive thread") %>
       <% end %>
     <% end %>
   <% end %>
 
   <%= if @message.deleted do %>
-    <%= destructive_index_button(to: Path.restore_message_path(@conn, @thread, @message)) do %>
-      <%= std_args_as_hidden_inputs(@conn) %>
+    <%= destructive_index_button(to: Path.restore_message_path(@conn, @thread, @message), params: std_args(@conn)) do %>
       <%= gettext("restore this message") %>
     <% end %>
   <% else %>
-    <%= destructive_index_button(to: Path.delete_message_path(@conn, @thread, @message)) do %>
-      <%= std_args_as_hidden_inputs(@conn) %>
+    <%= destructive_index_button(to: Path.delete_message_path(@conn, @thread, @message), params: std_args(@conn)) do %>
       <%= gettext("delete this message") %>
     <% end %>
   <% end %>
 
   <%= if may?(@conn, "messages/admin", :no_answer) do %>
     <%= if Messages.no_answer?(@message) do %>
-      <%= destructive_index_button(to: Path.answer_message_path(@conn, @thread, @message)) do %>
-        <%= std_args_as_hidden_inputs(@conn) %>
+      <%= destructive_index_button(to: Path.answer_message_path(@conn, @thread, @message), params: std_args(@conn)) do %>
         <%= gettext("allow answering to this message") %>
       <% end %>
     <% else %>
-      <%= destructive_index_button(to: Path.no_answer_message_path(@conn, @thread, @message)) do %>
-        <%= std_args_as_hidden_inputs(@conn) %>
+      <%= destructive_index_button(to: Path.no_answer_message_path(@conn, @thread, @message), params: std_args(@conn)) do %>
         <%= gettext("forbid answering to this message") %>
       <% end %>
     <% end %>

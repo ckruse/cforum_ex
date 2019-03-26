@@ -1,33 +1,28 @@
 <%= if @thread.attribs[:open_state] == "open" do %>
-  <%= cf_button(to: Path.close_thread_path(@conn, @thread), class: "open icon-button", title: gettext("Thread is currently open. Close it.")) do %>
-    <%= std_args_as_hidden_inputs(@conn) %>
+  <%= cf_button(to: Path.close_thread_path(@conn, @thread), class: "open icon-button", title: gettext("Thread is currently open. Close it."), params: std_args(@conn)) do %>
     <span class="visually-hidden"><%= gettext("Thread is currently open. Close it.") %></span>
     <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-folder-open"></use></svg>
   <% end %>
 <% else %>
-  <%= cf_button(to: Path.open_thread_path(@conn, @thread), class: "close icon-button", title: gettext("Thread is currently closed. Open it.")) do %>
-    <%= std_args_as_hidden_inputs(@conn) %>
+  <%= cf_button(to: Path.open_thread_path(@conn, @thread), class: "close icon-button", title: gettext("Thread is currently closed. Open it."), params: std_args(@conn)) do %>
     <span class="visually-hidden"><%= gettext("Thread is currently closed. Open it.") %></span>
     <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-folder-closed"></use></svg>
   <% end %>
 <% end %>
 
 <%= if @opts[:action] == :list_invisible do %>
-  <%= cf_button(to: Path.invisible_thread_path(@conn, :unhide, @thread), class: "unhide icon-button", title: gettext("make this thread visible again")) do %>
-    <%= std_args_as_hidden_inputs(@conn) %>
+  <%= cf_button(to: Path.invisible_thread_path(@conn, :unhide, @thread), class: "unhide icon-button", title: gettext("make this thread visible again"), params: std_args(@conn)) do %>
     <span class="visually-hidden"><%= gettext("make this thread visible again") %></span>
     <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-recycle"></use></svg>
   <% end %>
 <% else %>
-  <%= cf_button(to: Path.invisible_thread_path(@conn, :hide, @thread), class: "hide icon-button", title: gettext("hide this thread")) do %>
-    <%= std_args_as_hidden_inputs(@conn) %>
+  <%= cf_button(to: Path.invisible_thread_path(@conn, :hide, @thread), class: "hide icon-button", title: gettext("hide this thread"), params: std_args(@conn)) do %>
     <span class="visually-hidden"><%= gettext("hide this thread") %></span>
     <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-remove"></use></svg>
   <% end %>
 <% end %>
 
-<%= cf_button(to: Path.mark_read_path(@conn, :mark_read, @thread), class: "mark-read icon-button", title: gettext("mark thread read")) do %>
-  <%= std_args_as_hidden_inputs(@conn) %>
+<%= cf_button(to: Path.mark_read_path(@conn, :mark_read, @thread), class: "mark-read icon-button", title: gettext("mark thread read"), params: std_args(@conn)) do %>
   <span class="visually-hidden"><%= gettext("mark thread read") %></span>
   <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-check-mark"></use></svg>
 <% end %>
