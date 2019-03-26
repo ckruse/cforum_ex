@@ -85,3 +85,12 @@ $placeholder_color: #a8a8a8;
   padding: 0;
   border: 0;
 }
+
+@mixin grey-box() {
+  vertical-align: top;
+  font-size: 1em;
+  background: none repeat scroll 0% 0% $grey_background;
+  padding: 0 0.25em 0.25em 0.5em;
+  border-radius: $bar_border_radius;
+  border: 1px solid $grey_border;
+}
