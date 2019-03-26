@@ -42,7 +42,7 @@
     font-size: 1em;
     background: none repeat scroll 0% 0% $grey_background;
     padding: 0 0.25em 0.25em 0.5em;
-    border-radius: 0px 0.5em 0.5em;
+    border-radius: $bar_border_radius;
     border: 1px solid $grey_border;
 
     display: block;
@@ -79,7 +79,7 @@
       }
 
       input[type="search"] {
-        border-radius: 0px 0.5em 0.5em;
+        border-radius: $bar_border_radius;
         border: 1px solid $grey_border;
         padding: 0.2em 0.5em;
         width: 100%;
