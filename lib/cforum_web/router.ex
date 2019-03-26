@@ -19,6 +19,7 @@ defmodule CforumWeb.Router do
     plug(CforumWeb.Plug.LoadSettings)
     plug(CforumWeb.Plug.LoadUserInfoData)
     plug(CforumWeb.Plug.SetViewAll)
+    plug(CforumWeb.Plug.LoadMotd)
   end
 
   pipeline :api do
