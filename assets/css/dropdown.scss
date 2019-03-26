@@ -6,13 +6,13 @@
   }
 
   .menu {
-    li:first-of-type {
+    li {
       margin-top: 0;
       padding-top: 0;
     }
     li:last-of-type {
-      margin-bottom: 0;
-      padding-bottom: 0;
+      margin-right: 0;
+      padding-right: 0;
     }
   }
 }
