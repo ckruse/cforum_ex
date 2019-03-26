@@ -162,14 +162,6 @@ defmodule CforumWeb.MessageView do
     Map.merge(local_args, args)
   end
 
-  def std_args_as_hidden_inputs(conn, args \\ %{}) do
-    conn
-    |> std_args(args)
-    |> Enum.map(fn {k, v} ->
-      [{:safe, "<input type=\"hidden\" name=\""}, to_string(k), {:safe, "\" value=\""}, v, {:safe, "\">"}]
-    end)
-  end
-
   def subject_changed?(_, nil), do: true
   def subject_changed?(msg, parent), do: parent.subject != msg.subject
 
