@@ -69,6 +69,8 @@ $input-border-radius: 4px;
 
 $placeholder_color: #a8a8a8;
 
+$header_bar_color: #699cb3;
+
 @mixin focus-w-shadow() {
   border-color: $focus_color;
   outline: 0px none;
