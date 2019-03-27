@@ -20,7 +20,6 @@
 
 import "../css/app.scss";
 
-import "whatwg-fetch";
 import "./modules/closest";
 import "./modules/alerts";
 
