@@ -1173,20 +1173,18 @@ defmodule Cforum.Forums.Messages do
       {:ok, %Message{}}
   """
   def flag_message_subtree(message, flag, value) do
-    flags = Map.put(message.flags, flag, value)
+    message_ids = subtree_message_ids(message) |> List.flatten()
 
-    messages =
-      Enum.map(message.messages, fn msg ->
-        {:ok, msg} = flag_message_subtree(msg, flag, value)
-        msg
-      end)
+    from(m in Message,
+      where: m.message_id in ^message_ids,
+      update: [set: [flags: fragment("jsonb_set(?, ?, ?)", m.flags, [^flag], ^value)]]
+    )
+    |> Repo.update_all([])
 
-    msg = %Message{message | messages: messages}
-
-    msg
-    |> Ecto.Changeset.change(flags: flags)
-    |> Repo.update()
+    {:ok, message}
   end
+
+  defp subtree_message_ids(msg), do: [msg.message_id | Enum.map(msg.messages, &subtree_message_ids/1)]
 
   @doc """
   Removes a flag from the message and its subtree
@@ -1200,19 +1198,15 @@ defmodule Cforum.Forums.Messages do
       {:ok, %Message{}}
   """
   def unflag_message_subtree(message, flag) do
-    flags = Map.delete(message.flags, flag)
+    message_ids = subtree_message_ids(message) |> List.flatten()
 
-    messages =
-      Enum.map(message.messages, fn msg ->
-        {:ok, msg} = unflag_message_subtree(msg, flag)
-        msg
-      end)
+    from(m in Message,
+      where: m.message_id in ^message_ids,
+      update: [set: [flags: fragment("? - ?", m.flags, ^flag)]]
+    )
+    |> Repo.update_all([])
 
-    msg = %Message{message | messages: messages}
-
-    msg
-    |> Ecto.Changeset.change(flags: flags)
-    |> Repo.update()
+    {:ok, message}
   end
 
   @doc """
