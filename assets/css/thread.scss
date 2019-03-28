@@ -149,4 +149,9 @@
       padding-left: 2.5em;
     }
   }
+
+  .cf-thread.accepted,
+  .cf-thread.reference {
+    min-width: 0;
+  }
 }

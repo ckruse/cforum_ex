@@ -12,7 +12,14 @@ defmodule Cforum.Forums.Message do
   @primary_key {:message_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :message_id}
 
-  @default_preloads [:user, :cites, votes: :user, close_votes: :voters, versions: :user]
+  @default_preloads [
+    :user,
+    :cites,
+    votes: :user,
+    close_votes: :voters,
+    versions: :user,
+    references: [src_message: :user]
+  ]
   def default_preloads, do: @default_preloads ++ [tags: from(t in Tag, order_by: [asc: :tag_name])]
 
   schema "messages" do
@@ -42,6 +49,7 @@ defmodule Cforum.Forums.Message do
     belongs_to(:editor, Cforum.Accounts.User, references: :user_id)
 
     has_many(:cites, Cforum.Cites.Cite, foreign_key: :message_id, on_delete: :nilify_all)
+    has_many(:references, Cforum.Forums.MessageReference, foreign_key: :dst_message_id, on_delete: :delete_all)
     has_many(:versions, Cforum.Forums.MessageVersion, foreign_key: :message_id, on_delete: :delete_all)
 
     many_to_many(:tags, Tag,
