@@ -634,6 +634,8 @@ defmodule Cforum.Forums.Messages do
     end)
   end
 
+  defp subtree_message_ids(msg), do: [msg.message_id | Enum.map(msg.messages, &subtree_message_ids/1)]
+
   @doc """
   Deletes a Message.
 
@@ -647,21 +649,18 @@ defmodule Cforum.Forums.Messages do
 
   """
   def delete_message(user, %Message{} = message) do
+    message_ids = subtree_message_ids(message) |> List.flatten()
+
     System.audited("destroy", user, fn ->
-      do_delete_message(user, message)
+      from(m in Message,
+        where: m.message_id in ^message_ids,
+        update: [set: [deleted: true]]
+      )
+      |> Repo.update_all([])
+
+      {:ok, message}
     end)
     |> Threads.refresh_cached_thread()
-  end
-
-  defp do_delete_message(user, message) do
-    new_message =
-      message
-      |> Ecto.Changeset.change(deleted: true)
-      |> Repo.update!()
-
-    Enum.each(message.messages, &do_delete_message(user, &1))
-
-    {:ok, new_message}
   end
 
   @doc """
@@ -677,21 +676,18 @@ defmodule Cforum.Forums.Messages do
 
   """
   def restore_message(user, %Message{} = message) do
+    message_ids = subtree_message_ids(message) |> List.flatten()
+
     System.audited("restore", user, fn ->
-      do_restore_message(user, message)
+      from(m in Message,
+        where: m.message_id in ^message_ids,
+        update: [set: [deleted: false]]
+      )
+      |> Repo.update_all([])
+
+      {:ok, message}
     end)
     |> Threads.refresh_cached_thread()
-  end
-
-  def do_restore_message(user, message) do
-    new_message =
-      message
-      |> Ecto.Changeset.change(deleted: false)
-      |> Repo.update!()
-
-    Enum.each(message.messages, &do_restore_message(user, &1))
-
-    {:ok, new_message}
   end
 
   @doc """
@@ -1183,8 +1179,6 @@ defmodule Cforum.Forums.Messages do
 
     {:ok, message}
   end
-
-  defp subtree_message_ids(msg), do: [msg.message_id | Enum.map(msg.messages, &subtree_message_ids/1)]
 
   @doc """
   Removes a flag from the message and its subtree
