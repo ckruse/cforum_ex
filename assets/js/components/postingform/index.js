@@ -111,10 +111,12 @@ class CfPostingForm extends React.Component {
   render() {
     const { csrfInfo } = this.props;
     const { forumId, text, subject, author, tags, problematicSite, email, homepage } = this.state;
+    const method = this.props.method || "post";
 
     return (
       <>
         <input type="hidden" name={csrfInfo.param} value={csrfInfo.token} />
+        {method.toUpperCase() !== "POST" && <input type="hidden" name="_method" value={method} />}
 
         <Meta
           forumId={forumId}

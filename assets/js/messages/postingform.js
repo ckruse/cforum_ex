@@ -17,9 +17,19 @@ const gatherErrors = element => {
   return errors;
 };
 
+const getMethod = form => {
+  const input = form.querySelector("[name='_method']");
+  if (input) {
+    return input.value;
+  }
+
+  return form.method;
+};
+
 const setupContentForms = () => {
   document.querySelectorAll(".cf-posting-form").forEach(el => {
     const area = el.querySelector("textarea");
+    const method = getMethod(el);
     const tags = Array.from(el.querySelectorAll('input[data-tag="yes"]'))
       .filter(t => !!t.value)
       .map(t => {
@@ -67,6 +77,7 @@ const setupContentForms = () => {
         tags={tags}
         globalTagsError={globalTagsError}
         problematicSite={problematicSite}
+        method={method}
         csrfInfo={{
           param: csrfInfo.getAttribute("csrf-param"),
           token: csrfInfo.getAttribute("content")
