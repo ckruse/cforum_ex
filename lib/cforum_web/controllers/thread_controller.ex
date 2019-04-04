@@ -212,7 +212,11 @@ defmodule CforumWeb.ThreadController do
   def load_resource(conn) do
     if action_name(conn) == :show do
       thread =
-        Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, Threads.slug_from_params(conn.params))
+        Threads.get_thread_by_slug!(
+          conn.assigns[:current_forum],
+          conn.assigns[:visible_forums],
+          Threads.slug_from_params(conn.params)
+        )
         |> Threads.reject_deleted_threads(conn.assigns[:view_all])
         |> Threads.apply_user_infos(conn.assigns[:current_user])
         |> Threads.apply_highlights(conn)
