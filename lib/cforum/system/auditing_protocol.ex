@@ -16,7 +16,19 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Tag do
 end
 
 defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Message do
-  @msg_fields [:__meta__, :user, :editor, :forum, :messages, :parent, :votes, :cites, :close_votes, :versions]
+  @msg_fields [
+    :__meta__,
+    :user,
+    :editor,
+    :forum,
+    :messages,
+    :parent,
+    :votes,
+    :cites,
+    :close_votes,
+    :versions,
+    :references
+  ]
 
   def audit_json(message) do
     message = Cforum.Repo.preload(message, [:thread, :tags])
