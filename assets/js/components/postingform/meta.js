@@ -45,7 +45,7 @@ export default class Meta extends React.PureComponent {
           />
         </div>
 
-        {!window.currentUser && (
+        {!document.body.dataset.userId && (
           <div className={`cf-cgroup ${this.hasErrorClass(errors.message_author)}`}>
             <ErrorLabel for="message_author" errors={errors}>
               {t("author")}
