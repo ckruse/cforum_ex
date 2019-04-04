@@ -1,6 +1,6 @@
-import { parseMessageUrl } from "./modules/helpers";
-import { alertError } from "./modules/alerts";
-import { t } from "./modules/i18n";
+import { parseMessageUrl } from "../modules/helpers";
+import { alertError } from "../modules/alerts";
+import { t } from "../modules/i18n";
 
 const voteForMessage = ev => {
   if (ev.target.nodeName !== "BUTTON") {
