@@ -466,7 +466,7 @@ defmodule Cforum.Forums.Messages do
 
   """
   def create_message(attrs, user, visible_forums, thread, parent \\ nil, opts \\ []) do
-    opts = Keyword.merge([create_tags: false, autosubscribe: false], opts)
+    opts = Keyword.merge([create_tags: false, autosubscribe: false, notify: true], opts)
 
     System.audited("create", user, fn ->
       changeset =
@@ -484,7 +484,7 @@ defmodule Cforum.Forums.Messages do
           {:error, Ecto.Changeset.add_error(changeset, :author, "already taken")}
       end
     end)
-    |> notify_users(thread)
+    |> notify_users(thread, opts[:notify])
     |> maybe_autosubscribe(opts[:autosubscribe], user, thread, parent)
     |> index_message(thread)
     |> NewMessageBadgeDistributorJob.perform()
@@ -536,9 +536,10 @@ defmodule Cforum.Forums.Messages do
     {:ok, message}
   end
 
-  defp notify_users({:error, changeset}, _), do: {:error, changeset}
+  defp notify_users({:error, changeset}, _, _), do: {:error, changeset}
+  defp notify_users(val, _, false), do: val
 
-  defp notify_users({:ok, message}, thread) do
+  defp notify_users({:ok, message}, thread, _) do
     Cforum.Forums.NotifyUsersMessageJob.notify_users_about_new_message(thread, message)
 
     CforumWeb.Endpoint.broadcast!("forum:#{message.forum_id}", "new_message", %{
