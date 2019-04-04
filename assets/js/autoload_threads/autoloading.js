@@ -44,14 +44,13 @@ const insertRenderedThread = (thread, message, html) => {
 };
 
 const autoloadMessage = ev => {
-  const {
-    data: { forum, thread, message }
-  } = ev.detail;
+  const { thread, message, forum } = ev.detail.data;
+  const slug = document.body.dataset.currentForum === "all" ? "all" : forum.slug;
 
   NEW_MESSAGES.push(message.message_id);
 
   const qs = queryString({ message_id: message.message_id });
-  fetch(`/${forum.slug}${thread.slug}?${qs}`, { credentials: "same-origin" })
+  fetch(`/${slug}${thread.slug}?${qs}`, { credentials: "same-origin" })
     .then(rsp => {
       if (rsp.ok) {
         return rsp.text();
