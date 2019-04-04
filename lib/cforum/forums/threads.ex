@@ -451,7 +451,7 @@ defmodule Cforum.Forums.Threads do
 
         case retval do
           {:ok, thread} ->
-            create_message(attrs, user, visible_forums, thread, opts)
+            create_message(attrs, user, visible_forums, thread, Keyword.merge(opts, notify: false))
 
           {:error, t_changeset} ->
             thread = Ecto.Changeset.apply_changes(t_changeset)
@@ -479,6 +479,13 @@ defmodule Cforum.Forums.Threads do
 
   def maybe_notify_users({:ok, thread, message}) do
     Cforum.Forums.NotifyUsersMessageJob.notify_users_about_new_thread(thread, message)
+
+    CforumWeb.Endpoint.broadcast!("forum:#{message.forum_id}", "new_message", %{
+      thread: thread,
+      message: message,
+      forum: Cforum.Forums.get_forum!(message.forum_id)
+    })
+
     {:ok, thread, message}
   end
 
