@@ -230,6 +230,7 @@ defmodule CforumWeb.ThreadController do
     else
       conn
     end
+    |> assign(:srt, not hide_read_threads?(conn))
   end
 
   def allowed?(conn, :show, nil), do: allowed?(conn, :show, {conn.assigns.thread, conn.assigns.message})

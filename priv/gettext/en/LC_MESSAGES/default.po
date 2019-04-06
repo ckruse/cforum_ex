@@ -1030,6 +1030,7 @@ msgstr ""
 msgid "fold read messages"
 msgstr ""
 
+#: lib/cforum_web/templates/layout/page_header.html.eex:123
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:53
 msgid "hide read threads"
 msgstr ""
@@ -1528,12 +1529,12 @@ msgid "hide this thread"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:130
+#: lib/cforum_web/templates/layout/page_header.html.eex:129
 msgid "interesting messages"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:132
+#: lib/cforum_web/templates/layout/page_header.html.eex:131
 #: lib/cforum_web/views/threads/invisible_view.ex:4
 msgid "invisible threads"
 msgstr ""
@@ -1591,7 +1592,7 @@ msgid "subscribe message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:131
+#: lib/cforum_web/templates/layout/page_header.html.eex:130
 #: lib/cforum_web/views/messages/subscription_view.ex:4
 msgid "subscribed messages"
 msgstr ""
@@ -1855,7 +1856,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/audit/index.html.eex:28
 #: lib/cforum_web/templates/admin/audit/users.html.eex:2
 #: lib/cforum_web/templates/admin/subnav.html.eex:7
-#: lib/cforum_web/templates/layout/page_header.html.eex:135
+#: lib/cforum_web/templates/layout/page_header.html.eex:134
 #: lib/cforum_web/views/badge_view.ex:6
 msgid "badges"
 msgstr ""
@@ -1868,7 +1869,7 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:23
 #: lib/cforum_web/templates/admin/subnav.html.eex:5
-#: lib/cforum_web/templates/layout/page_header.html.eex:139
+#: lib/cforum_web/templates/layout/page_header.html.eex:138
 #: lib/cforum_web/views/event_view.ex:4
 msgid "events"
 msgstr ""
@@ -4369,4 +4370,9 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/message/message.html.eex:53
 msgid "The following messages reference this message:"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/layout/page_header.html.eex:125
+msgid "show read threads"
 msgstr ""
