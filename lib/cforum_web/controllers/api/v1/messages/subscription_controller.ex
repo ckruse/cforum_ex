@@ -39,7 +39,7 @@ defmodule CforumWeb.Api.V1.Messages.SubscriptionController do
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.ensure_found!()
       |> Threads.apply_user_infos(conn.assigns.current_user,
-        close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
+        close_read_threads: uconf(conn, "open_close_close_when_read") == "yes" && conn.params["fold"] != "no",
         open_close_default_state: uconf(conn, "open_close_default")
       )
       |> Threads.apply_highlights(conn)
