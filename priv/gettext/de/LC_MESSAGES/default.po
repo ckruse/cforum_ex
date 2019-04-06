@@ -1046,13 +1046,14 @@ msgstr "Klappe Zitate zusammen"
 msgid "fold read messages"
 msgstr "Klappe gelesene Nachrichten zusammen"
 
+#: lib/cforum_web/templates/layout/page_header.html.eex:123
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:53
 msgid "hide read threads"
-msgstr "Verstecke vollständig gelesene Threads"
+msgstr "verstecke vollständig gelesene Threads"
 
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:24
 msgid "hide unchanged date"
-msgstr "Verstecke ein unverändertes Datum"
+msgstr "verstecke ein unverändertes Datum"
 
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:16
 msgid "hide unchanged subjects"
@@ -1064,7 +1065,7 @@ msgstr "verstecke unveränderte Tags"
 
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:45
 msgid "highlight myself"
-msgstr "Hebe meine eigenen Beiträge hervor"
+msgstr "hebe meine eigenen Beiträge hervor"
 
 #: lib/cforum_web/templates/users/user/personalization.html.eex:26
 msgid "include my own CSS code"
@@ -1110,23 +1111,23 @@ msgstr "Zeige die Nachrichten auf Seiten aufgeteilt"
 
 #: lib/cforum_web/templates/users/user/comfort.html.eex:25
 msgid "quote previous message by default"
-msgstr "Zitiere die vorherige Nachricht per Default"
+msgstr "zitiere die vorherige Nachricht per Default"
 
 #: lib/cforum_web/templates/users/user/comfort.html.eex:21
 msgid "quote signature when answering"
-msgstr "Zitiere die Signatur beim antworten"
+msgstr "zitiere die Signatur beim antworten"
 
 #: lib/cforum_web/templates/users/user/personal_information.html.eex:17
 msgid "remove rel=nofollow from my homepage URL"
-msgstr "Verlinke meine Homepage ohne rel=nofollow"
+msgstr "verlinke meine Homepage ohne rel=nofollow"
 
 #: lib/cforum_web/templates/users/user/notifications.html.eex:81
 msgid "send me a notification on close and re-open votes"
-msgstr "Sende eine Benachrichtigung, wenn eine Sperr- oder Entsperr-Abstimmung stattfindet"
+msgstr "sende eine Benachrichtigung, wenn eine Sperr- oder Entsperr-Abstimmung stattfindet"
 
 #: lib/cforum_web/templates/users/user/notifications.html.eex:72
 msgid "send me a notification on flagged messages"
-msgstr "Sende eine Benachrichtigung, wenn ein Beitrag Moderation benötigt"
+msgstr "sende eine Benachrichtigung, wenn ein Beitrag Moderation benötigt"
 
 #: lib/cforum_web/templates/users/user/personalization.html.eex:8
 msgid "show closed"
@@ -1134,19 +1135,19 @@ msgstr "schliessen"
 
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:61
 msgid "show mail index grouped by thread"
-msgstr "Zeige den Post-Index gruppiert nach Thread"
+msgstr "zeige den Post-Index gruppiert nach Thread"
 
 #: lib/cforum_web/templates/users/user/comfort.html.eex:36
 msgid "show number of unread PMs in title"
-msgstr "Zeige die Anzahl ungelesener Post im Titel"
+msgstr "zeige die Anzahl ungelesener Post im Titel"
 
 #: lib/cforum_web/templates/users/user/comfort.html.eex:40
 msgid "show number of unread messages in title"
-msgstr "Zeige die Anzahl ungelesener Nachrichten im Titel"
+msgstr "zeige die Anzahl ungelesener Nachrichten im Titel"
 
 #: lib/cforum_web/templates/users/user/comfort.html.eex:32
 msgid "show number of unread notifications in title"
-msgstr "Zeige die Anzahl ungelesener Benachrichtigungen im Titel"
+msgstr "zeige die Anzahl ungelesener Benachrichtigungen im Titel"
 
 #: lib/cforum_web/templates/users/user/personalization.html.eex:7
 msgid "show opened"
@@ -1154,11 +1155,11 @@ msgstr "öffnen"
 
 #: lib/cforum_web/templates/users/user/comfort.html.eex:57
 msgid "show the live preview"
-msgstr "Benutze die Live-Vorschau"
+msgstr "benutze die Live-Vorschau"
 
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:6
 msgid "show threads in…"
-msgstr "Zeige Threads in…"
+msgstr "zeige Threads in…"
 
 #: lib/cforum_web/templates/users/user/comfort.html.eex:28
 msgid "show two buttons"
@@ -1170,11 +1171,11 @@ msgstr "Signatur"
 
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:57
 msgid "sort mail threads…"
-msgstr "Sortiere private Nachrichten…"
+msgstr "sortiere private Nachrichten…"
 
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:39
 msgid "sort messages…"
-msgstr "Sortiere Beiträge"
+msgstr "sortiere Beiträge…"
 
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:32
 msgid "sort threads…"
@@ -1546,12 +1547,12 @@ msgid "hide this thread"
 msgstr "Diesen Thread ausblenden"
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:130
+#: lib/cforum_web/templates/layout/page_header.html.eex:129
 msgid "interesting messages"
 msgstr "als interessant markierte Beiträge"
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:132
+#: lib/cforum_web/templates/layout/page_header.html.eex:131
 #: lib/cforum_web/views/threads/invisible_view.ex:4
 msgid "invisible threads"
 msgstr "ausgeblendete Threads"
@@ -1609,7 +1610,7 @@ msgid "subscribe message"
 msgstr "Baum abonnieren"
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:131
+#: lib/cforum_web/templates/layout/page_header.html.eex:130
 #: lib/cforum_web/views/messages/subscription_view.ex:4
 msgid "subscribed messages"
 msgstr "abonnierte Beiträge"
@@ -1873,7 +1874,7 @@ msgstr "Hintergrundaufträge"
 #: lib/cforum_web/templates/admin/audit/index.html.eex:28
 #: lib/cforum_web/templates/admin/audit/users.html.eex:2
 #: lib/cforum_web/templates/admin/subnav.html.eex:7
-#: lib/cforum_web/templates/layout/page_header.html.eex:135
+#: lib/cforum_web/templates/layout/page_header.html.eex:134
 #: lib/cforum_web/views/badge_view.ex:6
 msgid "badges"
 msgstr "Medaillen"
@@ -1886,7 +1887,7 @@ msgstr "Erstellungszeitpunkt"
 #, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:23
 #: lib/cforum_web/templates/admin/subnav.html.eex:5
-#: lib/cforum_web/templates/layout/page_header.html.eex:139
+#: lib/cforum_web/templates/layout/page_header.html.eex:138
 #: lib/cforum_web/views/event_view.ex:4
 msgid "events"
 msgstr "Ereignisse"
@@ -4392,3 +4393,8 @@ msgstr "Zitat wegen Archivierung gelöscht"
 #: lib/cforum_web/templates/message/message.html.eex:53
 msgid "The following messages reference this message:"
 msgstr "Folgende Nachrichten verweisen auf diesen Beitrag:"
+
+#, elixir-format
+#: lib/cforum_web/templates/layout/page_header.html.eex:125
+msgid "show read threads"
+msgstr "zeige gelesene Threads"

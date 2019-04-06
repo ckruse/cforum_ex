@@ -118,14 +118,13 @@
           <!--li id="optionen-close-all-threads"><%# cf_link_to t('plugins.open_close.close_all_threads'), close_all_threads_path(current_forum, std_args), method: :post %></li> -->
           <!--li id="optionen-open-all-threads"><%# cf_link_to t('plugins.open_close.open_all_threads'), open_all_threads_path(current_forum, std_args), method: :post %></li> -->
 
-          <%# if uconf('hide_read_threads') == 'yes' %>
-          <%# if session[:srt] %>
-          <!--li id="optionen-hide-read-threads"><%# cf_link_to t('plugins.hide_read_threads.hide_read_threads'), Path.forum_path(current_forum, 'srt' => 'no') %></li> -->
-              <%# else %>
-          <!--li id="optionen-show-read-threads"><%# cf_link_to t('plugins.hide_read_threads.show_read_threads'), Path.forum_path(current_forum, 'srt' => 'yes') %></li> -->
-              <%# end %>
-            <%# end %>
-          <%# end %>
+          <%= if uconf(@conn, "hide_read_threads") == "yes" do %>
+            <%= if assigns[:srt] do %>
+              <li id="optionen-hide-read-threads"><%= link gettext("hide read threads"), to: Path.forum_path(@conn, :index, @current_forum, %{"srt" => "no"}) %></li>
+            <% else %>
+              <li id="optionen-show-read-threads"><%= link gettext("show read threads"), to: Path.forum_path(@conn, :index, @current_forum, %{"srt" => "yes"}) %></li>
+            <% end %>
+          <% end %>
 
           <%= if may?(@conn, "messages/interesting") do %><li id="interestings-link"><%= link gettext("interesting messages"), to: Routes.interesting_path(@conn, :index) %></li><% end %>
           <%= if may?(@conn, "messages/subscription") do %><li id="subscriptions-link"><%= link gettext("subscribed messages"), to: Routes.subscription_path(@conn, :index) %></li><% end %>
