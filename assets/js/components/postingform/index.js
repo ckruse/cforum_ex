@@ -75,10 +75,14 @@ class CfPostingForm extends React.Component {
     });
   }
 
-  deleteDraft() {
+  deleteDraft(ev) {
+    ev.stopPropagation();
+
     const key = this.props.form.action;
     localStorage.removeItem(key);
     this.toggleRestoreDraft(false);
+
+    ev.target.dispatchEvent(ev);
   }
 
   saveDraft() {
