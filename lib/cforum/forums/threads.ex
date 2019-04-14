@@ -212,7 +212,7 @@ defmodule Cforum.Forums.Threads do
 
     from(
       thread in Thread,
-      select: fragment("DATE_TRUNC('year', created_at) AS year"),
+      select: fragment("DATE_TRUNC('month', created_at)"),
       where: thread.deleted == false,
       group_by: fragment("1"),
       order_by: fragment("1 DESC")
@@ -220,6 +220,8 @@ defmodule Cforum.Forums.Threads do
     |> set_forum_id(visible_forums, forum)
     |> set_view_all(opts[:view_all])
     |> Repo.all()
+    |> Enum.reduce(%{}, fn month, archive -> Map.update(archive, month.year, [month], &[month | &1]) end)
+    |> Map.values()
   end
 
   def list_archive_months(forum, visible_forums, year, opts \\ []) do

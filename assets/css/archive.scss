@@ -1,0 +1,66 @@
+.cf-archive-year-month-list {
+  &,
+  & * {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    list-style-type: none;
+  }
+
+  & > li {
+    padding: 0 0 1em 0;
+    margin: 0 0 1em 0;
+    border-bottom: $dividing-border;
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  ul li {
+    padding: 0 0.25em;
+  }
+
+  span.full-month {
+    display: none;
+  }
+}
+
+@include default-breakpoint() {
+  .cf-archive-year-month-list {
+    & > li {
+      display: flex;
+      justify-items: flex-start;
+      border-bottom: 0;
+      padding: 0 0.25em;
+      margin: 0 0.25em;
+    }
+
+    h2 {
+      flex: 0 0 3rem;
+      font: inherit;
+      font-weight: bold;
+    }
+
+    ul {
+      grid-template-columns: repeat(6, auto);
+    }
+
+    span.full-month {
+      display: inline;
+    }
+
+    & > li:nth-of-type(n + 2) ul {
+      border-top: $dividing-border;
+    }
+  }
+}
+
+@media only screen and (min-width: 52em) {
+  .cf-archive-year-month-list ul {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
