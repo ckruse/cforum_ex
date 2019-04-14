@@ -7,7 +7,7 @@ const setupEditors = nodes => {
   nodes.forEach(el => {
     const area = el.querySelector("textarea");
 
-    render(<CfEditor text={area.value} name={area.name} id={area.id} mentions={false} />, el);
+    render(<CfEditor text={area.value} name={area.name} id={area.id} mentions={false} errors={{}} />, el);
   });
 };
 
