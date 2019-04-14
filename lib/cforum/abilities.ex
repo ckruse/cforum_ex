@@ -6,6 +6,7 @@ defmodule Cforum.Abilities do
   require Logger
 
   alias Cforum.Accounts.{Settings, Setting}
+  alias Cforum.Forums
 
   @callback allowed?(Plug.Conn.t(), atom(), any()) :: boolean()
 
@@ -104,21 +105,27 @@ defmodule Cforum.Abilities do
   def badge?(id, badge_type) when is_number(id), do: Users.badge?(Users.get_user!(id), badge_type)
   def badge?(_, _), do: false
 
-  def accept?(conn, message) do
-    allowed =
-      cond do
-        (signed_in?(conn) && message.user_id == conn.assigns[:current_user].user_id) || admin?(conn) ->
-          true
+  def accept_allowed?(conn, message) do
+    cond do
+      admin?(conn) ->
+        true
 
-        present?(message.uuid) && present?(conn.cookies["cforum_user"]) && message.uuid == conn.cookies["cforum_user"] ->
-          true
+      access_forum?(conn.assigns[:current_user], message.forum_id, :moderate) ->
+        true
 
-        true ->
-          false
-      end
+      signed_in?(conn) && message.user_id == conn.assigns[:current_user].user_id ->
+        true
 
-    access_forum?(conn, :write) && !Messages.closed?(message) && allowed
+      present?(message.uuid) && present?(conn.cookies["cforum_user"]) && message.uuid == conn.cookies["cforum_user"] ->
+        true
+
+      true ->
+        false
+    end
   end
+
+  def accept?(conn, message),
+    do: access_forum?(conn, :write) && !Messages.closed?(message) && accept_allowed?(conn, message)
 
   @doc """
   Returns true if the user may access the given forum
@@ -144,6 +151,9 @@ defmodule Cforum.Abilities do
 
   def access_forum?(%Plug.Conn{} = conn, forum, permission),
     do: access_forum?(conn.assigns[:current_user], forum, permission)
+
+  def access_forum?(user, forum_id, permission) when is_integer(forum_id) or is_bitstring(forum_id),
+    do: access_forum?(user, Forums.get_forum!(forum_id), permission)
 
   def access_forum?(%User{admin: true}, _, _), do: true
   def access_forum?(user, forum, :read), do: access_forum_read?(user, forum)
