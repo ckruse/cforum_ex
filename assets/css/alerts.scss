@@ -58,7 +58,7 @@
   opacity: 0.2;
 }
 
-@media only screen and (min-width: 35em) {
+@include default-breakpoint() {
   #alerts-container {
     padding-left: 2em;
     padding-right: 2em;

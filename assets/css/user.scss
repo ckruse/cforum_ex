@@ -100,7 +100,7 @@
   }
 }
 
-@media only screen and (min-width: 35em) {
+@include default-breakpoint() {
   .cf-user-infos {
     .user-info {
       flex: 0 1 auto;

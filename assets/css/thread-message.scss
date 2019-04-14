@@ -95,7 +95,7 @@
   }
 }
 
-@media only screen and (min-width: 35em) {
+@include default-breakpoint() {
   .cf-thread-message {
     margin: 1em 1em 1em 0;
     padding: 0.6em 1em 0.25em 1em;

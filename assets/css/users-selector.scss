@@ -37,7 +37,7 @@
   }
 }
 
-@media only screen and (min-width: 35em) {
+@include default-breakpoint() {
   .cf-users-selector.multi,
   .cf-user-selector-modal .users-selector-found-users-list,
   .cf-user-selector-modal .users-selector-selected-users-list {
