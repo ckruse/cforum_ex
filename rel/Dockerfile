@@ -32,6 +32,7 @@ RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
+ENV HEX_HTTP_TIMEOUT 120
 RUN update-locale LANG=$LANG
 
 RUN mkdir /var/run/sshd
