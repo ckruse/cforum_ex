@@ -1,16 +1,16 @@
 defmodule CforumWeb.ErrorView do
   use CforumWeb, :view
 
-  def render("404.html", _assigns) do
-    "Page not found"
+  def render("404.html", assigns) do
+    l10n_render(CforumWeb.ErrorView, "error_404.html", assigns)
   end
 
-  def render("403.html", _assigns) do
-    "Access forbidden"
+  def render("403.html", assigns) do
+    l10n_render(CforumWeb.ErrorView, "error_403.html", assigns)
   end
 
-  def render("500.html", _assigns) do
-    "Internal server error"
+  def render("500.html", assigns) do
+    l10n_render(CforumWeb.ErrorView, "error_500.html", assigns)
   end
 
   # In case no render clause matches or no

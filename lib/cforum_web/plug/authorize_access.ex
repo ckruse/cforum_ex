@@ -20,8 +20,13 @@ defmodule CforumWeb.Plug.AuthorizeAccess do
     # path = CforumWeb.Views.Helpers.controller_path(conn)
     action = Phoenix.Controller.action_name(conn)
 
-    if Abilities.may?(conn, Phoenix.Controller.controller_module(conn), action),
-      do: conn,
-      else: raise(Cforum.Errors.ForbiddenError, conn: conn)
+    if Abilities.may?(conn, Phoenix.Controller.controller_module(conn), action) do
+      conn
+    else
+      conn
+      |> Phoenix.Controller.put_view(CforumWeb.ErrorView)
+      |> Phoenix.Controller.render("403.html")
+      |> Plug.Conn.halt()
+    end
   end
 end
