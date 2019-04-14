@@ -7,7 +7,7 @@
         <%= for {month, has_posts } <- months_for_year(year) do %>
           <li>
             <%= if has_posts do %>
-              <%= link month_link_title(month), to: Path.archive_path(@conn, :months, assigns[:current_forum], month) %>
+              <%= link month_link_title(month), to: Path.archive_path(@conn, :threads, assigns[:current_forum], month) %>
             <% else %>
               <%= month_link_title(month) %>
             <% end %>

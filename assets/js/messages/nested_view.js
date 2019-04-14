@@ -73,6 +73,7 @@ const foldAllMode = () =>
   document.querySelector(".cf-thread-nested-root.folded, .cf-thread-nested-root .folded") ? "unfold" : "fold";
 
 const toggleAll = ev => {
+  ev.stopPropagation();
   const mode = foldAllMode();
 
   if (mode === "fold") {
@@ -113,14 +114,23 @@ const initialFold = () => {
   // foldingAllButton.appendChild(document.createTextNode(t(label)));
 };
 
+let initialFoldConfigDidLoadRun = false;
+const initialFoldConfigDidLoad = () => {
+  if (initialFoldConfigDidLoadRun) {
+    return;
+  }
+
+  initialFoldConfigDidLoadRun = true;
+  initialFold();
+};
+
 const initNestedView = () => {
   initialFold();
-  document.addEventListener("cf:configDidLoad", initialFold);
+  document.addEventListener("cf:configDidLoad", initialFoldConfigDidLoad);
 
   document.querySelector(".cf-thread-list").addEventListener("click", function(ev) {
     const url = ev.target.href;
-
-    if (!url || !url.match(/#m\d+$/) || ev.target.matches(".forum-links > ul > li > a")) {
+    if (!url || !url.match(/#m\d+$/)) {
       return;
     }
 
@@ -155,7 +165,7 @@ const initNestedView = () => {
 
   document.querySelector(".cf-thread-nested-root").addEventListener("click", ev => {
     const trgt = ev.target;
-    if (!trgt.matches(".cf-thread-message a") || !trgt.href.match(/#m\d+$/)) {
+    if (!trgt.matches(".cf-thread-message header a") || !trgt.href.match(/#m\d+$/)) {
       return;
     }
 
