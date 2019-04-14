@@ -27,7 +27,7 @@
   <section>
     <h3><%= ngettext("no attendees", "%{count} attendees", length(@event.attendees)) %></h3>
 
-    <%= if may?(@conn, "events/attendee", :create) do %>
+    <%= if Abilities.may?(@conn, "events/attendee", :create) do %>
       <p><%= default_button_link gettext("attend event"), to: Routes.event_attendee_path(@conn, :new, @event) %></p>
     <% end %>
 

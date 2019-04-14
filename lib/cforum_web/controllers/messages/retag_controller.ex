@@ -15,7 +15,7 @@ defmodule CforumWeb.Messages.RetagController do
     message_params = params["message"] || %{"tags" => []}
 
     opts = [
-      create_tags: may?(conn, "tag", :new)
+      create_tags: Abilities.may?(conn, "tag", :new)
     ]
 
     case Messages.retag_message(message, message_params, curr_user, opts) do
@@ -48,7 +48,7 @@ defmodule CforumWeb.Messages.RetagController do
   def allowed?(conn, action, nil), do: allowed?(conn, action, {conn.assigns.thread, conn.assigns.message})
 
   def allowed?(conn, _action, {thread, message}) do
-    access_forum?(conn, :moderate) || may?(conn, "message", :edit, {thread, message}) ||
-      (badge?(conn, Badge.retag()) && Messages.open?(message))
+    Abilities.access_forum?(conn, :moderate) || Abilities.may?(conn, "message", :edit, {thread, message}) ||
+      (Abilities.badge?(conn, Badge.retag()) && Messages.open?(message))
   end
 end

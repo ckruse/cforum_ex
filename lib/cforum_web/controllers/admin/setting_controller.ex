@@ -23,5 +23,5 @@ defmodule CforumWeb.Admin.SettingController do
     end
   end
 
-  def allowed?(conn, _, _), do: admin?(conn)
+  def allowed?(conn, _, _), do: Abilities.admin?(conn)
 end

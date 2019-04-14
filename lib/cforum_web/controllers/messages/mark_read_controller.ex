@@ -21,5 +21,5 @@ defmodule CforumWeb.Messages.MarkReadController do
     |> redirect(to: ReturnUrl.return_path(conn, params, thread))
   end
 
-  def allowed?(conn, _, _), do: signed_in?(conn)
+  def allowed?(conn, _, _), do: Abilities.signed_in?(conn)
 end

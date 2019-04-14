@@ -60,7 +60,8 @@ defmodule CforumWeb.Tags.SynonymController do
   end
 
   def allowed?(conn, _, _) do
-    access_forum?(conn) &&
-      (badge?(conn, Badge.create_tag_synonym()) || badge?(conn, Badge.moderator_tools()) || admin?(conn))
+    Abilities.access_forum?(conn) &&
+      (Abilities.badge?(conn, Badge.create_tag_synonym()) || Abilities.badge?(conn, Badge.moderator_tools()) ||
+         Abilities.admin?(conn))
   end
 end

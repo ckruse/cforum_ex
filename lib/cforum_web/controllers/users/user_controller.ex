@@ -205,7 +205,7 @@ defmodule CforumWeb.Users.UserController do
         do: resource.user_id,
         else: String.to_integer(conn.params["user_id"] || conn.params["id"])
 
-    cuser != nil && (admin?(cuser) || uid == cuser.user_id)
+    cuser != nil && (Abilities.admin?(cuser) || uid == cuser.user_id)
   end
 
   def allowed?(conn, action, resource) when action in [:edit, :delete, :confirm_delete],

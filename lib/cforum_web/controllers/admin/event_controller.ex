@@ -59,5 +59,5 @@ defmodule CforumWeb.Admin.EventController do
     |> redirect(to: Routes.admin_event_path(conn, :index))
   end
 
-  def allowed?(conn, _, _), do: admin?(conn)
+  def allowed?(conn, _, _), do: Abilities.admin?(conn)
 end

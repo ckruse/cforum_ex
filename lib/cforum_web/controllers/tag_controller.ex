@@ -114,14 +114,16 @@ defmodule CforumWeb.TagController do
   def allowed?(_conn, action, _) when action in [:index, :show],
     do: true
 
-  def allowed?(conn, action, _) when action in [:new, :create],
-    do: access_forum?(conn) && (admin?(conn) || badge?(conn, "create_tag") || badge?(conn, "moderator_tools"))
+  def allowed?(conn, action, _) when action in [:new, :create] do
+    Abilities.access_forum?(conn) &&
+      (Abilities.admin?(conn) || Abilities.badge?(conn, "create_tag") || Abilities.badge?(conn, "moderator_tools"))
+  end
 
   def allowed?(conn, action, _) when action in [:edit, :update, :edit_merge, :merge],
-    do: access_forum?(conn) && (admin?(conn) || badge?(conn, "moderator_tools"))
+    do: Abilities.access_forum?(conn) && (Abilities.admin?(conn) || Abilities.badge?(conn, "moderator_tools"))
 
   def allowed?(conn, :delete, _),
-    do: access_forum?(conn) && (admin?(conn) || badge?(conn, "moderator_tools"))
+    do: Abilities.access_forum?(conn) && (Abilities.admin?(conn) || Abilities.badge?(conn, "moderator_tools"))
 
   def allowed?(_, _, _),
     do: false

@@ -93,10 +93,10 @@ defmodule CforumWeb.NotificationController do
     Plug.Conn.assign(conn, :notification, notification)
   end
 
-  def allowed?(conn, action, _) when action in [:index, :batch_action], do: signed_in?(conn)
+  def allowed?(conn, action, _) when action in [:index, :batch_action], do: Abilities.signed_in?(conn)
 
   def allowed?(conn, _, ressource) do
     ressource = ressource || conn.assigns[:notification]
-    signed_in?(conn) && conn.assigns[:current_user].user_id == ressource.recipient_id
+    Abilities.signed_in?(conn) && conn.assigns[:current_user].user_id == ressource.recipient_id
   end
 end

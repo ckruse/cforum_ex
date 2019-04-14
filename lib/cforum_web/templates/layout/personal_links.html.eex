@@ -1,5 +1,5 @@
 <ul class="cf-personallinks">
-  <%= if signed_in?(@conn) do %>
+  <%= if Abilities.signed_in?(@conn) do %>
     <li id="user-info">
       <%= link(to: Routes.user_path(@conn, :show, @current_user), id: "username") do %>
         <%= img_tag(Cforum.Accounts.User.avatar_path(@current_user, :thumb), class: "avatar", alt: "") %>

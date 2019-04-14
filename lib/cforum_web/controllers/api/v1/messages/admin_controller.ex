@@ -43,7 +43,7 @@ defmodule CforumWeb.Api.V1.Messages.AdminController do
 
   def allowed?(conn, _, thread) do
     thread = thread || conn.assigns.thread
-    access_forum?(conn.assigns[:current_user], thread.forum, :moderate)
+    Abilities.access_forum?(conn.assigns[:current_user], thread.forum, :moderate)
   end
 
   defp render_thread(conn, slug) do

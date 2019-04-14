@@ -1,6 +1,6 @@
 <div class="cf-voting-area <%= if @top, do: "top", else: "bottom" %>">
   <%= unless @top do %>
-    <%= if may?(@conn, "messages/accept", :accept, {@thread, @message}) do %>
+    <%= if Abilities.may?(@conn, "messages/accept", :accept, {@thread, @message}) do %>
       <%= cf_button(
           [{:safe, "<span>"}, gettext("accept answer"), {:safe, "</span>"}],
           to: Path.accept_message_path(@conn, @thread, @message),
@@ -9,7 +9,7 @@
         ) %>
     <% end %>
 
-    <%= if may?(@conn, "messages/accept", :unaccept, {@thread, @message}) do %>
+    <%= if Abilities.may?(@conn, "messages/accept", :unaccept, {@thread, @message}) do %>
       <%= cf_button(
           [{:safe, "<span>"}, gettext("unaccept answer"), {:safe, "</span>"}],
           to: Path.unaccept_message_path(@conn, @thread, @message),
@@ -19,12 +19,12 @@
     <% end %>
   <% end %>
 
-  <%= if Messages.accepted?(@message) && (@top || !accept?(@conn, @message)) do %>
+  <%= if Messages.accepted?(@message) && (@top || !Abilities.accept?(@conn, @message)) do %>
     <span class="accepted-answer accept"> </span>
   <% end %>
 
   <%= unless @top do %>
-    <%= if may?(@conn, "messages/vote", :downvote, {@thread, @message}) do %>
+    <%= if Abilities.may?(@conn, "messages/vote", :downvote, {@thread, @message}) do %>
       <%= cf_button(
           [{:safe, "<span>"}, gettext("vote down"), {:safe, "</span>"}],
           to: Path.downvote_message_path(@conn, @thread, @message),
@@ -41,7 +41,7 @@
   </span>
 
   <%= unless @top do %>
-    <%= if may?(@conn, "messages/vote", :upvote, {@thread, @message}) do %>
+    <%= if Abilities.may?(@conn, "messages/vote", :upvote, {@thread, @message}) do %>
       <%= cf_button(
           [{:safe, "<span>"}, gettext("vote up"), {:safe, "</span>"}],
           to: Path.upvote_message_path(@conn, @thread, @message),

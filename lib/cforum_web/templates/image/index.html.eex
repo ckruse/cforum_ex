@@ -16,7 +16,7 @@
         <td><%= image.orig_name %></td>
         <td><%= if present?(image.owner), do: user_link(@conn, image.owner, [], image.owner.username) %></td>
         <td><%= format_date(@conn, image.created_at) %></td>
-        <td><%= if may?(@conn, "image", :delete, image), do: destructive_index_button(gettext("delete"), to: Routes.image_path(@conn, :delete, image), method: :delete) %></td>
+        <td><%= if Abilities.may?(@conn, "image", :delete, image), do: destructive_index_button(gettext("delete"), to: Routes.image_path(@conn, :delete, image), method: :delete) %></td>
       </tr>
     <% end %>
   </tbody>

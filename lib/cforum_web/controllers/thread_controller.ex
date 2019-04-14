@@ -171,7 +171,7 @@ defmodule CforumWeb.ThreadController do
         conn.assigns[:current_user],
         conn.assigns[:current_forum],
         conn.assigns[:visible_forums],
-        create_tags: may?(conn, "tag", :new),
+        create_tags: Abilities.may?(conn, "tag", :new),
         autosubscribe: Messages.autosubscribe?(conn.assigns.current_user, uconf(conn, "autosubscribe_on_post"))
       )
 
@@ -241,5 +241,5 @@ defmodule CforumWeb.ThreadController do
     |> CforumWeb.MessageController.allowed?(:show, {thread, message})
   end
 
-  def allowed?(conn, _, _), do: access_forum?(conn)
+  def allowed?(conn, _, _), do: Abilities.access_forum?(conn)
 end

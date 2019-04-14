@@ -44,5 +44,5 @@ defmodule CforumWeb.Users.RegistrationController do
     end
   end
 
-  def allowed?(conn, _, _), do: !signed_in?(conn)
+  def allowed?(conn, _, _), do: !Abilities.signed_in?(conn)
 end

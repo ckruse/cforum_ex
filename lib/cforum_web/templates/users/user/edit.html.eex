@@ -4,7 +4,7 @@
 
   <p class="form-actions">
     <%= primary_submit gettext("save changes") %>
-    <%= if may?(@conn, "users/password", :edit, @user), do: default_button_link(gettext("change password"), to: Routes.user_password_path(@conn, :edit, @user)) %>
+    <%= if Abilities.may?(@conn, "users/password", :edit, @user), do: default_button_link(gettext("change password"), to: Routes.user_password_path(@conn, :edit, @user)) %>
     <%= default_button_link gettext("cancel"), to: Routes.user_path(@conn, :show, @user) %>
   </p>
 

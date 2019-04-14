@@ -145,7 +145,7 @@
 
 <p>
   <%= link gettext("all scores"), to: Routes.user_path(@conn, :show_scores, @user) %>
-  <%= if may?(@conn, "users/user", :show_votes, @user) do %>
+  <%= if Abilities.may?(@conn, "users/user", :show_votes, @user) do %>
     <%= link gettext("all votes"), to: Routes.user_path(@conn, :show_votes, @user) %>
   <% end %>
 </p>
@@ -168,9 +168,9 @@
 
 <%= if @current_user != nil do %>
   <p class="form-actions">
-    <%= if may?(@conn, "users/user", :edit, @user), do: default_button_link(gettext("edit profile and settings"), to: Routes.user_path(@conn, :edit, @user)) %>
-    <%= if may?(@conn, "users/user", :delete, @user), do: default_button_link(gettext("delete user"), to: Routes.user_path(@conn, :confirm_delete, @user)) %>
-    <%= if may?(@conn, "users/password", :edit, @user), do: default_button_link(gettext("change password"), to: Routes.user_password_path(@conn, :edit, @user)) %>
+    <%= if Abilities.may?(@conn, "users/user", :edit, @user), do: default_button_link(gettext("edit profile and settings"), to: Routes.user_path(@conn, :edit, @user)) %>
+    <%= if Abilities.may?(@conn, "users/user", :delete, @user), do: default_button_link(gettext("delete user"), to: Routes.user_path(@conn, :confirm_delete, @user)) %>
+    <%= if Abilities.may?(@conn, "users/password", :edit, @user), do: default_button_link(gettext("change password"), to: Routes.user_password_path(@conn, :edit, @user)) %>
     <%= if @user.user_id != @current_user.user_id, do: default_button_link(gettext("new mail to %{username}", username: @user.username), to: Routes.mail_path(@conn, :new, priv_message: [recipient_id: @user.user_id]), rel: "nofollow") %>
   </p>
 <% end %>

@@ -65,5 +65,5 @@ defmodule CforumWeb.Admin.SearchSectionController do
     |> Plug.Conn.assign(:forums, forums)
   end
 
-  def allowed?(conn, _, _), do: admin?(conn)
+  def allowed?(conn, _, _), do: Abilities.admin?(conn)
 end

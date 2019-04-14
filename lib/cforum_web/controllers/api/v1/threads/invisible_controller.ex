@@ -27,5 +27,5 @@ defmodule CforumWeb.Api.V1.Threads.InvisibleController do
     |> Plug.Conn.assign(:thread, thread)
   end
 
-  def allowed?(conn, _, _), do: signed_in?(conn)
+  def allowed?(conn, _, _), do: Abilities.signed_in?(conn)
 end

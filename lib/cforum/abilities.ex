@@ -8,8 +8,6 @@ defmodule Cforum.Abilities do
   alias Cforum.Accounts.{Settings, Setting}
   alias Cforum.Forums
 
-  @callback allowed?(Plug.Conn.t(), atom(), any()) :: boolean()
-
   @doc """
   Returns `true` if the user may access the given path, `false` otherwise
 
@@ -95,13 +93,13 @@ defmodule Cforum.Abilities do
   """
   def admin?(conn_or_user)
   def admin?(%Plug.Conn{} = conn), do: admin?(conn.assigns[:current_user])
-  def admin?(%User{} = user), do: user.admin
+  def admin?(%{__struct__: User} = user), do: user.admin
   def admin?(_), do: false
 
   def badge?(conn_or_user, badge_type)
   def badge?(nil, _), do: false
   def badge?(%Plug.Conn{} = conn, badge_type), do: badge?(conn.assigns[:current_user], badge_type)
-  def badge?(%User{} = user, badge_type), do: Users.badge?(user, badge_type)
+  def badge?(%{__struct__: User} = user, badge_type), do: Users.badge?(user, badge_type)
   def badge?(id, badge_type) when is_number(id), do: Users.badge?(Users.get_user!(id), badge_type)
   def badge?(_, _), do: false
 

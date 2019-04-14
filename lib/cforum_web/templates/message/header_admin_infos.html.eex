@@ -1,4 +1,4 @@
-    <%= if access_forum?(@conn, @thread.forum, :moderate) && @conn.assigns[:view_all] do %>
+    <%= if Abilities.access_forum?(@conn, @thread.forum, :moderate) && @conn.assigns[:view_all] do %>
       <%= if present?(@message.ip) do %>
         <span class="admin-infos ip"><%= @message.ip %></span>
       <% end %>

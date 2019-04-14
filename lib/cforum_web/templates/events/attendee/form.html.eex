@@ -3,7 +3,7 @@
     <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
   <% end %>
 
-  <%= unless signed_in?(@conn) do %>
+  <%= unless Abilities.signed_in?(@conn) do %>
     <div class="cf-cgroup <%= error_class(f, :name) %>">
       <%= label f, :name do %>
         <%= gettext("name") %>

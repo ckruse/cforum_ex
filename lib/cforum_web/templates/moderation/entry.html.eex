@@ -38,7 +38,7 @@
       </p>
     <% end %>
 
-    <%= if may?(@conn, "moderation", :update, @entry) do %>
+    <%= if Abilities.may?(@conn, "moderation", :update, @entry) do %>
       <%= primary_button_link(gettext("solve"), to: Routes.moderation_path(@conn, :edit, @entry)) %>
     <% end %>
   </div>
