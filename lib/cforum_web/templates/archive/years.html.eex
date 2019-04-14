@@ -1,5 +1,19 @@
-<ul>
+<ul class="cf-archive-year-month-list">
   <%= for year <- @years do %>
-    <li><%= link Timex.format!(year, "%Y", :strftime), to: Path.archive_path(@conn, :months, assigns[:current_forum], year) %>
+    <li>
+      <h2><%= year_title(year) %></h2>
+
+      <ul>
+        <%= for {month, has_posts } <- months_for_year(year) do %>
+          <li>
+            <%= if has_posts do %>
+              <%= link month_link_title(month), to: Path.archive_path(@conn, :months, assigns[:current_forum], month) %>
+            <% else %>
+              <%= month_link_title(month) %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </li>
   <% end %>
 </ul>
