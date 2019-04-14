@@ -136,7 +136,7 @@
   }
 }
 
-@media only screen and (min-width: 35em) {
+@include default-breakpoint() {
   .cf-posting-content {
     padding: 0.8em 1em 1em;
   }

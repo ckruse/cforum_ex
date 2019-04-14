@@ -129,7 +129,7 @@ $radius: 0.3em;
   display: inline-block;
 }
 
-@media only screen and (min-width: 35em) {
+@include default-breakpoint() {
   .cf-dropzone {
     height: 3em;
     border: 1px solid $grey_border;
