@@ -63,7 +63,7 @@ defmodule CforumWeb.Threads.AdminController do
     vis_forums = conn.assigns.visible_forums
     thread = conn.assigns.thread
     message = conn.assigns.message
-    opts = [create_tags: may?(conn, "tag", :new)]
+    opts = [create_tags: Abilities.may?(conn, "tag", :new)]
 
     case Threads.split_thread(current_user, thread, message, message_params, vis_forums, opts) do
       {:ok, thread, message} ->
@@ -101,8 +101,8 @@ defmodule CforumWeb.Threads.AdminController do
 
   def allowed?(conn, action, resource) when action in [:split, :do_split] do
     resource = resource || conn.assigns.message
-    access_forum?(conn, :moderate) && present?(resource.parent_id)
+    Abilities.access_forum?(conn, :moderate) && present?(resource.parent_id)
   end
 
-  def allowed?(conn, _, _), do: access_forum?(conn, :moderate)
+  def allowed?(conn, _, _), do: Abilities.access_forum?(conn, :moderate)
 end

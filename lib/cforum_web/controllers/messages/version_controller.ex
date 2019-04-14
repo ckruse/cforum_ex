@@ -36,6 +36,6 @@ defmodule CforumWeb.Messages.VersionController do
     |> Plug.Conn.assign(:version, version)
   end
 
-  def allowed?(conn, :delete, _), do: admin?(conn)
+  def allowed?(conn, :delete, _), do: Abilities.admin?(conn)
   def allowed?(_, _, _), do: true
 end

@@ -46,7 +46,7 @@ defmodule CforumWeb.ImageController do
     |> redirect(to: Routes.image_path(conn, :index))
   end
 
-  def allowed?(conn, :index, _), do: admin?(conn)
-  def allowed?(conn, :delete, _), do: admin?(conn)
+  def allowed?(conn, :index, _), do: Abilities.admin?(conn)
+  def allowed?(conn, :delete, _), do: Abilities.admin?(conn)
   def allowed?(_conn, _, _), do: true
 end

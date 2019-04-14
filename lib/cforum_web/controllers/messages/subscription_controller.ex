@@ -83,13 +83,13 @@ defmodule CforumWeb.Messages.SubscriptionController do
 
   def allowed?(conn, :subscribe, message) do
     message = message || conn.assigns.message
-    signed_in?(conn) && message.attribs[:is_subscribed] != true
+    Abilities.signed_in?(conn) && message.attribs[:is_subscribed] != true
   end
 
   def allowed?(conn, :unsubscribe, message) do
     message = message || conn.assigns.message
-    signed_in?(conn) && message.attribs[:is_subscribed] == true
+    Abilities.signed_in?(conn) && message.attribs[:is_subscribed] == true
   end
 
-  def allowed?(conn, _, _), do: signed_in?(conn)
+  def allowed?(conn, _, _), do: Abilities.signed_in?(conn)
 end

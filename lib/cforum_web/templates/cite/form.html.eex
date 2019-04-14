@@ -18,7 +18,7 @@
     <%= text_input @f, :author %>
   </div>
 
-  <%= if !signed_in?(@conn) || Ecto.get_meta(@changeset.data, :state) == :loaded do %>
+  <%= if !Abilities.signed_in?(@conn) || Ecto.get_meta(@changeset.data, :state) == :loaded do %>
     <div class="cf-cgroup <%= error_class(@f, :creator) %>">
       <%= label @f, :creator do %>
         <%= gettext("submitted by") %>

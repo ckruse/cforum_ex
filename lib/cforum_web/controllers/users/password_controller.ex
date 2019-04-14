@@ -81,7 +81,7 @@ defmodule CforumWeb.Users.PasswordController do
   end
 
   def allowed?(conn, action, _resource) when action in [:new, :create, :edit_reset, :update_reset],
-    do: !signed_in?(conn)
+    do: !Abilities.signed_in?(conn)
 
   def allowed?(conn, action, resource) when action in [:edit, :update],
     do: CforumWeb.Users.UserController.allowed?(conn, :update, resource)

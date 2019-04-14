@@ -11,8 +11,8 @@
       <li><%= link gettext("register"), to: Routes.registration_path(@conn, :new), rel: "nofollow" %></li>
     <% end %>
 
-    <%= if access_forum?(@conn, :moderate) do %>
-      <!-- li><%# cf_link_to t('plugins.twitter.tweet_message'), tweet_message_path(@thread, m) %></li -->
+    <%= if Abilities.access_forum?(@conn, :moderate) do %>
+      <!-- TODO li><%# cf_link_to t('plugins.twitter.tweet_message'), tweet_message_path(@thread, m) %></li -->
       <%= if @view_all do %>
         <li>
           <%= if @message.deleted do %>

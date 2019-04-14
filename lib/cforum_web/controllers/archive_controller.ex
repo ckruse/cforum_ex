@@ -50,5 +50,5 @@ defmodule CforumWeb.ArchiveController do
     end
   end
 
-  def allowed?(conn, _, _), do: access_forum?(conn)
+  def allowed?(conn, _, _), do: Abilities.access_forum?(conn)
 end

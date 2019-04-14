@@ -37,7 +37,7 @@
               <% end %>
             </ul>
           </li>
-          <%= if may?(@conn, "moderation", :index) do %>
+          <%= if Abilities.may?(@conn, "moderation", :index) do %>
             <li class="moderation-queue">
               <%= link gettext("moderation queue"), to: Routes.moderation_path(@conn, :index) %>
               (<%= link "#{@undecided_moderation_queue_entries}", to: Routes.moderation_path(@conn, :index_open) %>)
@@ -45,7 +45,7 @@
           <% end %>
           <li class="cites">
             <%= link gettext("cites"), to: Routes.cite_path(@conn, :index) %>
-            <%= if signed_in?(@conn) do %>(<%= link "#{@undecided_cites}", to: Routes.cite_path(@conn, :index_voting) %>)<% end %>
+            <%= if Abilities.signed_in?(@conn) do %>(<%= link "#{@undecided_cites}", to: Routes.cite_path(@conn, :index_voting) %>)<% end %>
           </li>
           <li><%= link gettext("search"), to: Routes.search_path(@conn, :show) %></li>
           <li><%= link gettext("chat"), to: "https://kiwiirc.com/client/irc.epd-me.net/#{chat_nick_name(@conn)}&channel=#selfhtml", rel: "nofollow" %></li>
@@ -99,7 +99,7 @@
             <li id="nachricht-feed-rss"><%= link gettext("RSS feed"), to: Path.thread_path(@conn, :rss, assigns[:thread]) %></li>
           <% end %>
 
-          <%= if may?(@conn, "admin/user") do %>
+          <%= if Abilities.may?(@conn, "admin/user") do %>
             <li><%= link gettext("Administration"), to: Routes.admin_user_path(@conn, :index) %></li>
           <% end %>
 
@@ -126,9 +126,9 @@
             <% end %>
           <% end %>
 
-          <%= if may?(@conn, "messages/interesting") do %><li id="interestings-link"><%= link gettext("interesting messages"), to: Routes.interesting_path(@conn, :index) %></li><% end %>
-          <%= if may?(@conn, "messages/subscription") do %><li id="subscriptions-link"><%= link gettext("subscribed messages"), to: Routes.subscription_path(@conn, :index) %></li><% end %>
-          <%= if may?(@conn, "threads/invisible") do %><li id="invisibles-link"><%= link gettext("invisible threads"), to: Path.invisible_thread_path(@conn, :index) %></li><% end %>
+          <%= if Abilities.may?(@conn, "messages/interesting") do %><li id="interestings-link"><%= link gettext("interesting messages"), to: Routes.interesting_path(@conn, :index) %></li><% end %>
+          <%= if Abilities.may?(@conn, "messages/subscription") do %><li id="subscriptions-link"><%= link gettext("subscribed messages"), to: Routes.subscription_path(@conn, :index) %></li><% end %>
+          <%= if Abilities.may?(@conn, "threads/invisible") do %><li id="invisibles-link"><%= link gettext("invisible threads"), to: Path.invisible_thread_path(@conn, :index) %></li><% end %>
 
           <%= if show?(@conn, :badges) do %>
             <li id="badges-link"><%= link gettext("badges"), to: Routes.badge_path(@conn, :index) %></li>

@@ -142,24 +142,24 @@ defmodule CforumWeb.MailController do
     end
   end
 
-  def allowed?(conn, :index, _), do: signed_in?(conn)
+  def allowed?(conn, :index, _), do: Abilities.signed_in?(conn)
 
   def allowed?(conn, :show, resource) do
     resource = resource || conn.assigns.pm_thread
-    signed_in?(conn) && conn.assigns[:current_user].user_id == List.first(resource).owner_id
+    Abilities.signed_in?(conn) && conn.assigns[:current_user].user_id == List.first(resource).owner_id
   end
 
   def allowed?(conn, action, resource) when action in [:new, :create] do
     if conn.params["parent_id"] || resource do
       resource = resource || conn.assigns.priv_message
-      signed_in?(conn) && conn.assigns[:current_user].user_id == resource.owner_id
+      Abilities.signed_in?(conn) && conn.assigns[:current_user].user_id == resource.owner_id
     else
-      signed_in?(conn)
+      Abilities.signed_in?(conn)
     end
   end
 
   def allowed?(conn, _, resource) do
     resource = resource || conn.assigns.priv_message
-    signed_in?(conn) && conn.assigns[:current_user].user_id == resource.owner_id
+    Abilities.signed_in?(conn) && conn.assigns[:current_user].user_id == resource.owner_id
   end
 end

@@ -81,14 +81,16 @@ defmodule CforumWeb.Messages.OpenCloseVoteController do
   def allowed?(conn, action, msg) when action in [:new_close, :create_close] do
     msg = msg || conn.assigns.message
 
-    (access_forum?(conn, :moderate) || badge?(conn, Badge.create_close_reopen_vote())) && !Messages.closed?(msg) &&
+    (Abilities.access_forum?(conn, :moderate) || Abilities.badge?(conn, Badge.create_close_reopen_vote())) &&
+      !Messages.closed?(msg) &&
       !Messages.admin_decision?(msg) && CloseVotes.get_close_vote(msg) == nil
   end
 
   def allowed?(conn, action, msg) when action in [:new_open, :create_open] do
     msg = msg || conn.assigns.message
 
-    (access_forum?(conn, :moderate) || badge?(conn, Badge.create_close_reopen_vote())) && Messages.closed?(msg) &&
+    (Abilities.access_forum?(conn, :moderate) || Abilities.badge?(conn, Badge.create_close_reopen_vote())) &&
+      Messages.closed?(msg) &&
       !Messages.admin_decision?(msg) && CloseVotes.get_reopen_vote(msg) == nil
   end
 
@@ -101,11 +103,13 @@ defmodule CforumWeb.Messages.OpenCloseVoteController do
         false
 
       vote.vote_type == false ->
-        (access_forum?(conn, :moderate) || badge?(conn, Badge.visit_close_reopen())) && !Messages.closed?(msg) &&
+        (Abilities.access_forum?(conn, :moderate) || Abilities.badge?(conn, Badge.visit_close_reopen())) &&
+          !Messages.closed?(msg) &&
           !Messages.admin_decision?(msg)
 
       true ->
-        (access_forum?(conn, :moderate) || badge?(conn, Badge.visit_close_reopen())) && Messages.closed?(msg) &&
+        (Abilities.access_forum?(conn, :moderate) || Abilities.badge?(conn, Badge.visit_close_reopen())) &&
+          Messages.closed?(msg) &&
           !Messages.admin_decision?(msg)
     end
   end

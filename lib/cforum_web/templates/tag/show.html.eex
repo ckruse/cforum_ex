@@ -1,10 +1,10 @@
 <p><%= if @tag.suggest, do: gettext("This tag is used for suggestions."), else: gettext("This tag is not used for suggestions.") %></p>
 
 <div>
-  <%= if may?(@conn, "tag", :edit, @tag) do %><%= default_button_link gettext("edit tag"), to: Path.tag_path(@conn, :edit, @tag) %><% end %>
-  <%= if may?(@conn, "tag", :merge, @tag) do %><%= default_button_link gettext("merge tag"), to: Path.tag_path(@conn, :merge, @tag) %><% end %>
-  <%= if may?(@conn, "tag", :delete, @tag) do %><%= destructive_button(gettext("delete tag"), to: Path.tag_path(@conn, :delete, @tag), method: :delete, data: [confirm: gettext("Are you sure?")]) %><% end %>
-  <%= if may?(@conn, "tags/synonym", :new) do %><%= default_button_link gettext("new synonym"), to: Path.tag_synonym_path(@conn, :new, @tag) %><% end %>
+  <%= if Abilities.may?(@conn, "tag", :edit, @tag) do %><%= default_button_link gettext("edit tag"), to: Path.tag_path(@conn, :edit, @tag) %><% end %>
+  <%= if Abilities.may?(@conn, "tag", :merge, @tag) do %><%= default_button_link gettext("merge tag"), to: Path.tag_path(@conn, :merge, @tag) %><% end %>
+  <%= if Abilities.may?(@conn, "tag", :delete, @tag) do %><%= destructive_button(gettext("delete tag"), to: Path.tag_path(@conn, :delete, @tag), method: :delete, data: [confirm: gettext("Are you sure?")]) %><% end %>
+  <%= if Abilities.may?(@conn, "tags/synonym", :new) do %><%= default_button_link gettext("new synonym"), to: Path.tag_synonym_path(@conn, :new, @tag) %><% end %>
 </div>
 
 <h2><%= gettext("synonyms") %></h2>
@@ -16,8 +16,8 @@
     <%= for synonym <- @tag.synonyms do %>
       <li>
         <span class="cf-tag"><%= synonym.synonym %></span>
-        <%= if may?(@conn, "tags/synonym", :edit, synonym), do: default_index_button_link(gettext("edit synonym"), to: Path.tag_synonym_path(@conn, :edit, @tag, synonym)) %>
-        <%= if may?(@conn, "tags/synonym", :delete, synonym), do: destructive_index_button(gettext("delete synonym"), to: Path.tag_synonym_path(@conn, :delete, @tag, synonym), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
+        <%= if Abilities.may?(@conn, "tags/synonym", :edit, synonym), do: default_index_button_link(gettext("edit synonym"), to: Path.tag_synonym_path(@conn, :edit, @tag, synonym)) %>
+        <%= if Abilities.may?(@conn, "tags/synonym", :delete, synonym), do: destructive_index_button(gettext("delete synonym"), to: Path.tag_synonym_path(@conn, :delete, @tag, synonym), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
       </li>
     <% end %>
   </ul>

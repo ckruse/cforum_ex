@@ -66,5 +66,5 @@ defmodule CforumWeb.Threads.InvisibleController do
     |> redirect(to: Path.invisible_thread_path(conn, :index))
   end
 
-  def allowed?(conn, _, _), do: signed_in?(conn)
+  def allowed?(conn, _, _), do: Abilities.signed_in?(conn)
 end

@@ -56,5 +56,5 @@ defmodule CforumWeb.Admin.ForumController do
     |> redirect(to: Routes.admin_forum_path(conn, :index))
   end
 
-  def allowed?(conn, _, _), do: admin?(conn)
+  def allowed?(conn, _, _), do: Abilities.admin?(conn)
 end

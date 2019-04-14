@@ -6,7 +6,7 @@
   <em><%= if @close_vote.reason == "custom", do: @close_vote.custom_reason, else: OpenCloseVoteView.l10n_reason(@close_vote.reason) %></em>
 </p>
 
-<%= if may?(@conn, "messages/open_close_vote", :vote, %CloseVote{@close_vote | message: @message}) do %>
+<%= if Abilities.may?(@conn, "messages/open_close_vote", :vote, %CloseVote{@close_vote | message: @message}) do %>
   <p>
     <%= if CloseVotes.has_voted?(@current_user, @close_vote) do %>
       <%= default_button(gettext("I changed my mind"), to: Path.oc_vote_path(@conn, @thread, @message, @close_vote), method: :patch) %>

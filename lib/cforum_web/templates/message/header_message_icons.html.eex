@@ -5,7 +5,7 @@
 
   <%= if @conn.assigns[:view_all], do: render("header_message_icons_admin.html", assigns) %>
 
-  <%= if signed_in?(@conn) && @opts[:show_icons] && !@conn.assigns[:view_all] do %>
+  <%= if Abilities.signed_in?(@conn) && @opts[:show_icons] && !@conn.assigns[:view_all] do %>
     <%= if @message.attribs[:is_interesting] do %>
       <%= cf_button(to: Path.boring_message_path(@conn, @thread, @message), class: "icon-message boring icon-button", title: gettext("remove interesting mark"), params: std_args(@conn)) do %>
         <span class="visually-hidden"><%= gettext("remove interesting mark") %></span>

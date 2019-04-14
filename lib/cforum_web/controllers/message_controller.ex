@@ -13,7 +13,7 @@ defmodule CforumWeb.MessageController do
       |> parse_readmode(params)
       |> validate_readmode
 
-    if signed_in?(conn) and !conn.assigns.thread.archived do
+    if Abilities.signed_in?(conn) and !conn.assigns.thread.archived do
       Cforum.Helpers.AsyncHelper.run_async(fn ->
         mark_messages_read(read_mode, conn.assigns[:current_user], conn.assigns.thread, conn.assigns.message)
 
@@ -67,7 +67,7 @@ defmodule CforumWeb.MessageController do
     thread = conn.assigns.thread
 
     opts = [
-      create_tags: may?(conn, "tag", :new),
+      create_tags: Abilities.may?(conn, "tag", :new),
       autosubscribe: Messages.autosubscribe?(cu, uconf(conn, "autosubscribe_on_post"))
     ]
 
@@ -108,8 +108,8 @@ defmodule CforumWeb.MessageController do
     message = conn.assigns.message
 
     opts = [
-      create_tags: may?(conn, "tag", :new),
-      remove_previous_versions: admin?(conn) && Map.has_key?(params, "delete_previous_versions")
+      create_tags: Abilities.may?(conn, "tag", :new),
+      remove_previous_versions: Abilities.admin?(conn) && Map.has_key?(params, "delete_previous_versions")
     ]
 
     case Messages.update_message(message, message_params, cu, vis_forums, opts) do
@@ -202,13 +202,13 @@ defmodule CforumWeb.MessageController do
     do: allowed?(conn, action, {conn.assigns.thread, conn.assigns.parent})
 
   def allowed?(conn, action, {_thread, message}) when action in [:new, :create],
-    do: access_forum?(conn, :write) && Messages.open?(message)
+    do: Abilities.access_forum?(conn, :write) && Messages.open?(message)
 
   def allowed?(conn, action, nil) when action in [:edit, :update],
     do: allowed?(conn, action, {conn.assigns.thread, conn.assigns.message})
 
   def allowed?(conn, action, {thread, msg}) when action in [:edit, :update] do
-    access_forum?(conn, :moderate) ||
+    Abilities.access_forum?(conn, :moderate) ||
       (Messages.editable_age?(msg, minutes: conf(conn, "max_editable_age", :int)) && !Messages.answer?(thread, msg) &&
          Messages.owner?(conn, msg) && Messages.open?(msg))
   end
@@ -217,8 +217,8 @@ defmodule CforumWeb.MessageController do
     do: allowed?(conn, :show, {conn.assigns.thread, conn.assigns.message})
 
   def allowed?(conn, :show, {_thread, message}),
-    do: access_forum?(conn) && (!message.deleted || conn.assigns.view_all)
+    do: Abilities.access_forum?(conn) && (!message.deleted || conn.assigns.view_all)
 
   def allowed?(_conn, val1, val2), do: raise(inspect([val1, val2]))
-  # def allowed?(conn, _, _), do: access_forum?(conn)
+  # def allowed?(conn, _, _), do: Abilities.access_forum?(conn)
 end

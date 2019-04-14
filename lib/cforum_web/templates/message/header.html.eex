@@ -24,7 +24,7 @@
     <%= render "header_votes.html", assigns %>
   </div>
 
-  <%= if @opts[:first] && @opts[:show_icons] && signed_in?(@conn) do %>
+  <%= if @opts[:first] && @opts[:show_icons] && Abilities.signed_in?(@conn) do %>
     <div class="thread-icons">
       <%= if @conn.assigns[:view_all] do %>
         <%= render "header_thread_icons_admin.html", assigns %>

@@ -35,7 +35,7 @@
     <% end %>
   <% end %>
 
-  <%= if may?(@conn, "messages/admin", :no_answer) do %>
+  <%= if Abilities.may?(@conn, "messages/admin", :no_answer) do %>
     <%= if Messages.no_answer?(@message) do %>
       <%= destructive_index_button(to: Path.answer_message_path(@conn, @thread, @message), params: std_args(@conn)) do %>
         <%= gettext("allow answering to this message") %>
@@ -47,7 +47,7 @@
     <% end %>
   <% end %>
 
-  <%= if may?(@conn, "threads/admin", :split, @message) do %>
+  <%= if Abilities.may?(@conn, "threads/admin", :split, @message) do %>
     <%= destructive_index_button_link(gettext("split thread"), to: Path.split_thread_path(@conn, @thread, [mid: @message.message_id]), rel: "nofollow") %>
   <% end %>
 </div>

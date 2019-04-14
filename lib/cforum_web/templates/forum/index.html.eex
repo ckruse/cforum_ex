@@ -1,10 +1,8 @@
-<%= if signed_in?(@conn) do %>
-  <%= render "portal.html", assigns %>
-<% end %>
+<%= if Abilities.signed_in?(@conn), do: render "portal.html", assigns %>
 
 <h1><%= gettext("forums") %></h1>
 
-<%= if signed_in?(@conn) do %>
+<%= if Abilities.signed_in?(@conn) do %>
   <p><%= gettext("%{num_messages} unread messages in %{num_threads} threads", num_messages: @unread_messages, num_threads: @unread_threads) %></p>
 <% end %>
 

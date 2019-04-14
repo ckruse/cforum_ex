@@ -49,5 +49,5 @@ defmodule CforumWeb.Messages.AdminController do
     |> Plug.Conn.assign(:view_all, true)
   end
 
-  def allowed?(conn, _, _), do: access_forum?(conn, :moderate)
+  def allowed?(conn, _, _), do: Abilities.access_forum?(conn, :moderate)
 end

@@ -54,5 +54,5 @@ defmodule CforumWeb.Admin.BadgeController do
     |> redirect(to: Routes.admin_badge_path(conn, :index))
   end
 
-  def allowed?(conn, _, _), do: admin?(conn)
+  def allowed?(conn, _, _), do: Abilities.admin?(conn)
 end

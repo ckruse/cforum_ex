@@ -255,7 +255,7 @@ defmodule CforumWeb.MessageView do
   end
 
   def author_homepage_rel(message) do
-    if badge?(message.user_id, Badge.seo_profi()) && uconf(message.user, "norelnofollow") == "yes",
+    if Abilities.badge?(message.user_id, Badge.seo_profi()) && uconf(message.user, "norelnofollow") == "yes",
       do: nil,
       else: "rel=\"nofollow\""
   end

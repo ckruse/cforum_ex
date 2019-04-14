@@ -22,7 +22,8 @@ defmodule CforumWeb.Messages.AcceptController do
 
   def load_resource(conn) do
     thread =
-      Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, Threads.slug_from_params(conn.params))
+      conn.assigns[:current_forum]
+      |> Threads.get_thread_by_slug!(nil, Threads.slug_from_params(conn.params))
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.build_message_tree(uconf(conn, "sort_messages"))
 
@@ -41,7 +42,7 @@ defmodule CforumWeb.Messages.AcceptController do
         _ -> {conn.assigns.thread, conn.assigns.message}
       end
 
-    accept?(conn, message) && !Messages.accepted?(message) && !thread.archived
+    Abilities.accept?(conn, message) && !Messages.accepted?(message) && !thread.archived
   end
 
   def allowed?(conn, :unaccept, resource) do
@@ -52,7 +53,7 @@ defmodule CforumWeb.Messages.AcceptController do
         _ -> {conn.assigns.thread, conn.assigns.message}
       end
 
-    accept?(conn, message) && Messages.accepted?(message) && !thread.archived
+    Abilities.accept?(conn, message) && Messages.accepted?(message) && !thread.archived
   end
 
   def allowed?(_, _, _), do: false

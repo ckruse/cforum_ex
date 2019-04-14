@@ -38,7 +38,7 @@
   <p><%= @attendee.comment %>
 <% end %>
 
-<%= if may?(@conn, "events/attendee", :delete, @attendee) do %>
+<%= if Abilities.may?(@conn, "events/attendee", :delete, @attendee) do %>
   <div class="controls">
     <%= default_button_link gettext("edit"), to: Routes.event_attendee_path(@conn, :edit, @event, @attendee) %>
     <%= destructive_button(gettext("delete attendee"), to: Routes.event_attendee_path(@conn, :delete, @event, @attendee), method: :delete) %>

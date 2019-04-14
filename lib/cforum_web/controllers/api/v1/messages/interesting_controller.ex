@@ -31,7 +31,7 @@ defmodule CforumWeb.Api.V1.Messages.InterestingController do
     |> Plug.Conn.assign(:message, message)
   end
 
-  def allowed?(conn, _, _), do: signed_in?(conn)
+  def allowed?(conn, _, _), do: Abilities.signed_in?(conn)
 
   defp render_thread(conn) do
     thread =
