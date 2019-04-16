@@ -5,7 +5,7 @@ defmodule CforumWeb.LayoutView do
 
   def page_title(conn, assigns) do
     try do
-      apply(view_module(conn), :page_title, [action_name(conn), assigns]) <> " — SELFHTML Forum"
+      apply(view_module(conn), :page_title, [action_name(conn), assigns]) <> " – SELFHTML Forum"
     rescue
       UndefinedFunctionError -> default_page_title(conn, assigns)
       FunctionClauseError -> default_page_title(conn, assigns)
