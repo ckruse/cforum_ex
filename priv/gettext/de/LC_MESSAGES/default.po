@@ -180,7 +180,6 @@ msgid "keywords_text"
 msgstr "SELFHTML Forum, SELFHTML, Forum, SELFForum"
 
 #: lib/cforum_web/templates/layout/page_header.html.eex:111
-#: lib/cforum_web/views/archive_view.ex:4
 msgid "archive"
 msgstr "archivierte Beiträge"
 
@@ -1470,9 +1469,10 @@ msgstr "neuer Thread"
 msgid "silver medal"
 msgstr "Silber-Medaille"
 
-#: lib/cforum_web/templates/forum/index.html.eex:14
+#: lib/cforum_web/templates/forum/index.html.eex:12
 #: lib/cforum_web/templates/layout/page_header.html.eex:21
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:4
+#: lib/cforum_web/views/archive_view.ex:5
 #: lib/cforum_web/views/layout_view.ex:206
 #: lib/cforum_web/views/thread_view.ex:27 lib/cforum_web/views/thread_view.ex:34
 msgid "all forums"
@@ -1895,7 +1895,7 @@ msgstr "Ereignisse"
 #, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:26
 #: lib/cforum_web/templates/admin/subnav.html.eex:4
-#: lib/cforum_web/templates/forum/index.html.eex:5
+#: lib/cforum_web/templates/forum/index.html.eex:3
 #: lib/cforum_web/templates/layout/page_header.html.eex:18
 #: lib/cforum_web/views/forum_view.ex:4
 msgid "forums"
@@ -2627,16 +2627,6 @@ msgid "This tag is used for suggestions."
 msgstr "Dieses Tag wird für Vorschläge genutzt."
 
 #, elixir-format
-#: lib/cforum_web/views/archive_view.ex:8
-msgid "archive: %{month}"
-msgstr "archivierte Beiträge für %{month}"
-
-#, elixir-format
-#: lib/cforum_web/views/archive_view.ex:5
-msgid "archive: %{year}"
-msgstr "archivierte Beiträge für %{year}"
-
-#, elixir-format
 #: lib/cforum_web/views/tag_view.ex:13
 msgid "create new tag"
 msgstr "neues Tag erstellen"
@@ -2757,7 +2747,7 @@ msgid "%{messages} messages in %{threads} threads by %{users} users"
 msgstr "%{messages} Beiträge in %{threads} Threads von %{users} Autoren"
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/index.html.eex:8
+#: lib/cforum_web/templates/forum/index.html.eex:6
 msgid "%{num_messages} unread messages in %{num_threads} threads"
 msgstr "%{num_messages} ungelesene Beiträge in %{num_threads} Threads"
 
@@ -2883,14 +2873,14 @@ msgid "show all notifications"
 msgstr "zeige alle Benachrichtigungen"
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/index.html.eex:60
+#: lib/cforum_web/templates/forum/index.html.eex:58
 msgid "Threads without answer"
 msgstr "Threads ohne Antwort"
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/index.html.eex:30
-#: lib/cforum_web/templates/forum/index.html.eex:54
-#: lib/cforum_web/templates/forum/index.html.eex:70
+#: lib/cforum_web/templates/forum/index.html.eex:28
+#: lib/cforum_web/templates/forum/index.html.eex:52
+#: lib/cforum_web/templates/forum/index.html.eex:68
 msgid "show all threads"
 msgstr "zeige alle Threads"
 
@@ -2913,8 +2903,8 @@ msgid "normal view"
 msgstr "Administrator-Ansicht deaktivieren"
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/index.html.eex:15
-#: lib/cforum_web/templates/forum/index.html.eex:37
+#: lib/cforum_web/templates/forum/index.html.eex:13
+#: lib/cforum_web/templates/forum/index.html.eex:35
 #: lib/cforum_web/templates/layout/page_header.html.eex:22
 #: lib/cforum_web/templates/layout/page_header.html.eex:31
 msgid "statistics"
@@ -4393,6 +4383,21 @@ msgstr "Folgende Nachrichten verweisen auf diesen Beitrag:"
 #: lib/cforum_web/templates/layout/page_header.html.eex:125
 msgid "show read threads"
 msgstr "zeige gelesene Threads"
+
+#, elixir-format
+#: lib/cforum_web/views/archive_view.ex:7
+msgid "archive – %{forum}"
+msgstr "Archiv – %{forum}"
+
+#, elixir-format
+#: lib/cforum_web/views/archive_view.ex:13
+msgid "archive: %{month} – %{forum}"
+msgstr "archivierte Beiträge für %{month} – %{forum}"
+
+#, elixir-format
+#: lib/cforum_web/views/archive_view.ex:10
+msgid "archive: %{year} – %{forum}"
+msgstr "archivierte Beiträge für %{year} – %{forum}"
 
 #, elixir-format
 #: lib/cforum_web/views/thread_view.ex:35
