@@ -50,12 +50,14 @@
   @extend .cf-btn-xs;
 }
 
-.cf-destructive-index-btn {
+.cf-destructive-index-btn,
+.cf-destructive-index-btn:link {
   @extend .cf-destructive-btn;
   @extend .cf-btn-xs;
 }
 
-.cf-primary-index-btn {
+.cf-primary-index-btn,
+.cf-primary-index-btn:link {
   @extend .cf-primary-btn;
   @extend .cf-btn-xs;
 }
@@ -85,7 +87,8 @@
   color: $default_background_color;
 }
 
-.cf-destructive-btn {
+.cf-destructive-btn,
+.cf-destructive-btn:link {
   @extend .cf-btn;
 
   color: $default_background_color;
