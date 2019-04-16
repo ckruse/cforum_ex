@@ -16,7 +16,7 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Tag do
 end
 
 defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Message do
-  @msg_fields [
+  @msg_auditing_fields_to_ignore [
     :__meta__,
     :user,
     :editor,
@@ -27,7 +27,8 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Message do
     :cites,
     :close_votes,
     :versions,
-    :references
+    :references,
+    :messages
   ]
 
   def audit_json(message) do
@@ -35,25 +36,19 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Message do
 
     message
     |> Map.from_struct()
-    |> Map.drop(@msg_fields)
-    |> Map.put(:thread, Cforum.System.AuditingProtocol.audit_json(%Cforum.Forums.Thread{message.thread | messages: []}))
+    |> Map.drop(@msg_auditing_fields_to_ignore)
+    |> Map.put(:thread, Cforum.System.AuditingProtocol.audit_json(maybe_thread(message.thread)))
     |> Map.put(:tags, Cforum.System.AuditingProtocol.audit_json(message.tags))
   end
+
+  defp maybe_thread(%Ecto.Association.NotLoaded{}), do: nil
+  defp maybe_thread(thread), do: %Cforum.Forums.Thread{thread | messages: []}
 end
 
 defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Thread do
-  @msg_fields [:__meta__, :user, :editor, :forum, :messages, :parent, :votes, :cites, :close_votes, :versions, :thread]
-
   def audit_json(thread) do
     thread = Cforum.Repo.preload(thread, messages: :tags, forum: :setting)
-
-    messages =
-      Enum.map(thread.messages, fn message ->
-        message
-        |> Map.from_struct()
-        |> Map.drop(@msg_fields)
-        |> Map.put(:tags, Cforum.System.AuditingProtocol.audit_json(message.tags))
-      end)
+    messages = Enum.map(thread.messages, &Cforum.System.AuditingProtocol.audit_json/1)
 
     thread
     |> Map.from_struct()
