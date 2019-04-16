@@ -2896,13 +2896,8 @@ msgstr "zeige alle Threads"
 
 #, elixir-format
 #: lib/cforum_web/views/thread_view.ex:28
-msgid "overview — %{forum}"
-msgstr "Übersicht — %{forum}"
-
-#, elixir-format
-#: lib/cforum_web/views/thread_view.ex:35
-msgid "unanswered threads  — %{forum}"
-msgstr "unbeantwortete Threads — %{forum}"
+msgid "overview – %{forum}"
+msgstr "Übersicht – %{forum}"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:25
@@ -4398,3 +4393,8 @@ msgstr "Folgende Nachrichten verweisen auf diesen Beitrag:"
 #: lib/cforum_web/templates/layout/page_header.html.eex:125
 msgid "show read threads"
 msgstr "zeige gelesene Threads"
+
+#, elixir-format
+#: lib/cforum_web/views/thread_view.ex:35
+msgid "unanswered threads – %{forum}"
+msgstr "unbeantwortete Threads – %{forum}"

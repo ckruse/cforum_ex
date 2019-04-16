@@ -2876,12 +2876,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/views/thread_view.ex:28
-msgid "overview — %{forum}"
-msgstr ""
-
-#, elixir-format
-#: lib/cforum_web/views/thread_view.ex:35
-msgid "unanswered threads  — %{forum}"
+msgid "overview – %{forum}"
 msgstr ""
 
 #, elixir-format
@@ -4375,4 +4370,9 @@ msgstr ""
 #, elixir-format, fuzzy
 #: lib/cforum_web/templates/layout/page_header.html.eex:125
 msgid "show read threads"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/views/thread_view.ex:35
+msgid "unanswered threads – %{forum}"
 msgstr ""
