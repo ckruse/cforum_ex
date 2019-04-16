@@ -11,9 +11,8 @@
 
   ul {
     list-style-type: none;
-    margin: 0 0 0 0.5em;
+    margin: 0;
     padding: 0;
-    margin-left: 1.75em;
   }
 
   li {
@@ -32,5 +31,11 @@
   a:hover,
   a:focus {
     color: white;
+  }
+}
+
+@include default-breakpoint() {
+  .cf-top-bar ul {
+    margin-left: 1.75em;
   }
 }
