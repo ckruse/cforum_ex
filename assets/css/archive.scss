@@ -31,6 +31,11 @@
   span.full-month {
     display: none;
   }
+
+  s {
+    text-decoration: none;
+    color: $visited_link_color;
+  }
 }
 
 @include default-breakpoint() {

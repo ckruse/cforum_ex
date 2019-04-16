@@ -9,7 +9,7 @@
             <%= if has_posts do %>
               <%= link month_link_title(month), to: Path.archive_path(@conn, :threads, assigns[:current_forum], month) %>
             <% else %>
-              <%= month_link_title(month) %>
+              <s><%= month_link_title(month) %></s>
             <% end %>
           </li>
         <% end %>
