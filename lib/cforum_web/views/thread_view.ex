@@ -49,28 +49,32 @@ defmodule CforumWeb.ThreadView do
     xml_threads = Enum.map(threads, &Feeds.atom_feed_thread(conn, &1))
     last_modified = get_last_modified(List.first(threads))
 
-    Feeds.atom_feed_head(conn, xml_threads, last_modified)
+    conn
+    |> Feeds.atom_feed_head(xml_threads, last_modified)
     |> XmlBuilder.generate()
   end
 
   def render("index.rss", %{threads: threads, conn: conn}) do
     xml_threads = Enum.map(threads, &Feeds.rss_feed_thread(conn, &1))
 
-    Feeds.rss_feed_head(conn, xml_threads)
+    conn
+    |> Feeds.rss_feed_head(xml_threads)
     |> XmlBuilder.generate()
   end
 
   def render("show.atom", %{conn: conn, thread: thread}) do
     xml_messages = Enum.map(thread.sorted_messages, &Feeds.atom_feed_message(conn, thread, &1))
 
-    Feeds.atom_feed_head_for_thread(conn, thread, xml_messages)
+    conn
+    |> Feeds.atom_feed_head_for_thread(thread, xml_messages)
     |> XmlBuilder.generate()
   end
 
   def render("show.rss", %{conn: conn, thread: thread}) do
     xml_messages = Enum.map(thread.sorted_messages, &Feeds.rss_feed_message(conn, thread, &1))
 
-    Feeds.rss_feed_head_for_thread(conn, thread, xml_messages)
+    conn
+    |> Feeds.rss_feed_head_for_thread(thread, xml_messages)
     |> XmlBuilder.generate()
   end
 
