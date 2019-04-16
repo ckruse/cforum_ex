@@ -295,7 +295,7 @@ defmodule CforumWeb.Views.Helpers.Button do
   def destructive_index_button_link(opts, do: contents) do
     opts =
       opts
-      |> Keyword.update(:class, "cf-destructive-btn", &(&1 <> " cf-destructive-btn"))
+      |> Keyword.update(:class, "cf-destructive-index-btn", &(&1 <> " cf-destructive-index-btn"))
       |> Keyword.update(:"data-confirm", gettext("Are you sure?"), & &1)
 
     link(opts, do: contents)
@@ -304,7 +304,7 @@ defmodule CforumWeb.Views.Helpers.Button do
   def destructive_index_button_link(text, opts) do
     opts =
       opts
-      |> Keyword.update(:class, "cf-destructive-btn", &(&1 <> " cf-destructive-btn"))
+      |> Keyword.update(:class, "cf-destructive-index-btn", &(&1 <> " cf-destructive-index-btn"))
       |> Keyword.update(:"data-confirm", gettext("Are you sure?"), & &1)
 
     link(text, opts)
