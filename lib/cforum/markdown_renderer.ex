@@ -80,7 +80,7 @@ defmodule Cforum.MarkdownRenderer do
   end
 
   def render_doc(markdown) do
-    :poolboy.transaction(pool_name(), fn pid -> :gen_server.call(pid, {:render_doc, markdown}) end)
+    :poolboy.transaction(pool_name(), fn pid -> GenServer.call(pid, {:render_doc, markdown}) end)
   end
 
   @spec to_plain(%Message{} | %Cite{}) :: String.t()
