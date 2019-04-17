@@ -40,11 +40,13 @@ defmodule Cforum.Application do
   end
 
   defp poolboy_config(:markdown) do
+    conf = Application.get_env(:cforum, :cfmarkdown)
+
     [
       {:name, {:local, Cforum.MarkdownRenderer.pool_name()}},
       {:worker_module, Cforum.MarkdownRenderer},
-      {:size, 3},
-      {:max_overflow, 1}
+      {:size, Keyword.get(conf, :pool_size, 5)},
+      {:max_overflow, Keyword.get(conf, :max_overflow, 2)}
     ]
   end
 end
