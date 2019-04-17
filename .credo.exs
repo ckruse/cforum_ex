@@ -104,7 +104,7 @@
         {Credo.Check.Refactor.NegatedConditionsWithElse},
         {Credo.Check.Refactor.Nesting},
         {Credo.Check.Refactor.PipeChainStart,
-         excluded_functions: ["from", ":crypto.hash", "login", "build", "insert_list"]},
+         excluded_functions: ["from", ":crypto.hash", "login", "build", "insert_list", "System.audited"]},
         {Credo.Check.Refactor.UnlessWithElse},
         {Credo.Check.Warning.BoolOperationOnSameValues},
         {Credo.Check.Warning.ExpensiveEmptyEnumCheck},
