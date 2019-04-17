@@ -559,7 +559,7 @@ defmodule Cforum.Forums.Threads do
 
     with {:ok, new_thread} <- ret do
       refresh_cached_thread(thread)
-      refresh_cached_thread(new_thread)
+      add_to_cache(new_thread)
 
       refreshed_thread = get_thread!(new_thread.forum, visible_forums, new_thread.thread_id)
       message = Messages.get_message_from_mid!(refreshed_thread, message.message_id)
