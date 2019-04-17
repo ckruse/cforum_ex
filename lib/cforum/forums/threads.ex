@@ -356,7 +356,8 @@ defmodule Cforum.Forums.Threads do
 
   """
   def get_thread_by_slug!(forum, visible_forums, slug) do
-    list_threads(forum, visible_forums)
+    forum
+    |> list_threads(visible_forums)
     |> Enum.find(&(&1.slug == slug))
     |> case do
       nil ->
@@ -811,7 +812,7 @@ defmodule Cforum.Forums.Threads do
     Caching.update(:cforum, :threads, fn threads ->
       Enum.map(threads, fn
         %Thread{thread_id: ^tid} -> thread
-        thread -> thread
+        old_thread -> old_thread
       end)
     end)
   end

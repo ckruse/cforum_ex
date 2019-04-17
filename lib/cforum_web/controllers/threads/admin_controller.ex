@@ -81,11 +81,8 @@ defmodule CforumWeb.Threads.AdminController do
 
   def load_resource(conn) do
     thread =
-      Threads.get_thread_by_slug!(
-        conn.assigns.current_forum,
-        conn.assigns.visible_forums,
-        Threads.slug_from_params(conn.params)
-      )
+      conn.assigns.current_forum
+      |> Threads.get_thread_by_slug!(conn.assigns.visible_forums, Threads.slug_from_params(conn.params))
       |> Threads.build_message_tree("ascending")
 
     message =
