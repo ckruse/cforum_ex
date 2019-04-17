@@ -209,27 +209,27 @@ defmodule CforumWeb.ThreadController do
   # "srt" as in „show read threads“
   defp hide_read_threads?(conn), do: uconf(conn, "hide_read_threads") == "yes" && conn.params["srt"] != "yes"
 
+  defp load_thread_and_message(conn, :show) do
+    thread =
+      conn.assigns[:current_forum]
+      |> Threads.get_thread_by_slug!(conn.assigns[:visible_forums], Threads.slug_from_params(conn.params))
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.apply_user_infos(conn.assigns[:current_user])
+      |> Threads.apply_highlights(conn)
+      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+
+    message = Messages.get_message_from_mid!(thread, conn.params["message_id"])
+
+    conn
+    |> assign(:thread, thread)
+    |> assign(:message, message)
+  end
+
+  defp load_thread_and_message(conn, _), do: conn
+
   def load_resource(conn) do
-    if action_name(conn) == :show do
-      thread =
-        Threads.get_thread_by_slug!(
-          conn.assigns[:current_forum],
-          conn.assigns[:visible_forums],
-          Threads.slug_from_params(conn.params)
-        )
-        |> Threads.reject_deleted_threads(conn.assigns[:view_all])
-        |> Threads.apply_user_infos(conn.assigns[:current_user])
-        |> Threads.apply_highlights(conn)
-        |> Threads.build_message_tree(uconf(conn, "sort_messages"))
-
-      message = Messages.get_message_from_mid!(thread, conn.params["message_id"])
-
-      conn
-      |> assign(:thread, thread)
-      |> assign(:message, message)
-    else
-      conn
-    end
+    conn
+    |> load_thread_and_message(action_name(conn))
     |> assign(:srt, not hide_read_threads?(conn))
   end
 
