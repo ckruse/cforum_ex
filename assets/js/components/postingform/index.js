@@ -75,14 +75,15 @@ class CfPostingForm extends React.Component {
     });
   }
 
-  deleteDraft(ev) {
-    ev.stopPropagation();
+  deleteDraft() {
+    if (this.timer) {
+      window.clearTimeout(this.timer);
+      this.timer = null;
+    }
 
     const key = this.props.form.action;
     localStorage.removeItem(key);
     this.toggleRestoreDraft(false);
-
-    ev.target.dispatchEvent(ev);
   }
 
   saveDraft() {
@@ -95,7 +96,7 @@ class CfPostingForm extends React.Component {
       window.clearTimeout(this.timer);
     }
 
-    window.setTimeout(this.saveDraft, 5000);
+    this.timer = window.setTimeout(this.saveDraft, 5000);
   }
 
   componentDidMount() {
