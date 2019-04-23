@@ -96,7 +96,7 @@ class CfPostingForm extends React.Component {
       window.clearTimeout(this.timer);
     }
 
-    this.timer = window.setTimeout(this.saveDraft, 5000);
+    this.timer = window.setTimeout(this.saveDraft, 500);
   }
 
   componentDidMount() {
