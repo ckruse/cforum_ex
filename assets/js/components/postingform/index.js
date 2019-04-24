@@ -31,6 +31,8 @@ class CfPostingForm extends React.Component {
     this.onTextChange = this.onTextChange.bind(this);
     this.onTagChange = this.onTagChange.bind(this);
     this.toggleRestoreDraft = this.toggleRestoreDraft.bind(this);
+
+    this.cancelForm = this.cancelForm.bind(this);
   }
 
   updateState(ev) {
@@ -113,6 +115,11 @@ class CfPostingForm extends React.Component {
     this.setState(state => ({ showRestoreDraft: val === undefined ? !state.showRestoreDraft : val }));
   }
 
+  cancelForm() {
+    this.deleteDraft();
+    this.props.onCancel();
+  }
+
   render() {
     const { csrfInfo } = this.props;
     const { forumId, text, subject, author, tags, problematicSite, email, homepage } = this.state;
@@ -153,7 +160,7 @@ class CfPostingForm extends React.Component {
           <button className="cf-primary-btn" type="submit" onClick={this.deleteDraft}>
             {t("save message")}
           </button>{" "}
-          <button className="cf-btn" type="button" onClick={this.props.onCancel}>
+          <button className="cf-btn" type="button" onClick={this.cancelForm}>
             {t("cancel")}
           </button>
         </p>
