@@ -44,6 +44,7 @@ import "./help";
 import "./user";
 
 import "./init";
+import "./cleanup";
 
 import "./modules/anonymous";
 import "./modules/user-notifications";
