@@ -102,7 +102,7 @@ class CfPostingForm extends React.Component {
 
   resetSaveTimer() {
     if (!this.timer) {
-      this.timer = window.setInterval(this.saveDraft, 1000);
+      this.timer = window.setInterval(this.saveDraft, 2000);
     }
   }
 
