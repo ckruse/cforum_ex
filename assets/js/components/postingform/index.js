@@ -79,7 +79,7 @@ class CfPostingForm extends React.Component {
 
   deleteDraft() {
     if (this.timer) {
-      window.clearTimeout(this.timer);
+      window.clearInterval(this.timer);
       this.timer = null;
     }
 
@@ -94,11 +94,9 @@ class CfPostingForm extends React.Component {
   }
 
   resetSaveTimer() {
-    if (this.timer) {
-      window.clearTimeout(this.timer);
+    if (!this.timer) {
+      this.timer = window.setInterval(this.saveDraft, 1000);
     }
-
-    this.timer = window.setTimeout(this.saveDraft, 500);
   }
 
   componentDidMount() {
