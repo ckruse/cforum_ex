@@ -51,12 +51,16 @@ class CfPostingForm extends React.Component {
     this.resetSaveTimer();
   }
 
+  keyForDraft(form) {
+    return form.action + "_draft";
+  }
+
   restoreDraft() {
     if (!this.props.form) {
       return;
     }
 
-    const key = this.props.form.action;
+    const key = this.keyForDraft(this.props.form);
     const draft = localStorage.getItem(key);
 
     if (!draft) {
@@ -83,14 +87,17 @@ class CfPostingForm extends React.Component {
       this.timer = null;
     }
 
-    const key = this.props.form.action;
+    const key = this.keyForDraft(this.props.form);
     localStorage.removeItem(key);
     this.toggleRestoreDraft(false);
   }
 
   saveDraft() {
-    const key = this.props.form.action;
-    localStorage.setItem(key, JSON.stringify(this.state));
+    const key = this.keyForDraft(this.props.form);
+    const draft = { ...this.state, saved: new Date() };
+    delete draft.showRestoreDraft;
+
+    localStorage.setItem(key, JSON.stringify(draft));
   }
 
   resetSaveTimer() {
@@ -101,7 +108,7 @@ class CfPostingForm extends React.Component {
 
   componentDidMount() {
     if (this.props.form) {
-      const key = this.props.form.action;
+      const key = this.keyForDraft(this.props.form);
 
       if (localStorage.getItem(key)) {
         this.toggleRestoreDraft();
