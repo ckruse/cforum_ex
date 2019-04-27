@@ -810,10 +810,7 @@ defmodule Cforum.Forums.Threads do
     thread = get_thread!(tid)
 
     Caching.update(:cforum, :threads, fn threads ->
-      Enum.map(threads, fn
-        %Thread{thread_id: ^tid} -> thread
-        old_thread -> old_thread
-      end)
+      [thread | Enum.reject(threads, &(&1.thread_id == tid))]
     end)
   end
 
