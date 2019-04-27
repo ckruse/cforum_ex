@@ -42,6 +42,7 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Message do
   end
 
   defp maybe_thread(%Ecto.Association.NotLoaded{}), do: nil
+  defp maybe_thread(nil), do: nil
   defp maybe_thread(thread), do: %Cforum.Forums.Thread{thread | messages: []}
 end
 
