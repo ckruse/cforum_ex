@@ -94,30 +94,31 @@ defmodule Cforum.Forums.ArchiverJob do
   end
 
   defp archive_thread(thread) do
-    System.audited("archive", nil, fn ->
-      thread
-      |> change(%{archived: true})
-      |> Repo.update()
-      |> maybe_set_ip_nil()
-      |> maybe_remove_subscriptions()
-      |> maybe_remove_open_close_state()
-      |> maybe_remove_invisible_threads()
-      |> maybe_remove_visited_marks()
-    end)
+    with {:ok, thread} <- System.audited("archive", nil, fn -> do_archive_thread(thread) end) do
+      set_ip_nil(thread)
+      remove_subscriptions(thread)
+      remove_open_close_state(thread)
+      remove_invisible_threads(thread)
+      remove_visited_marks(thread)
+
+      {:ok, thread}
+    end
   end
 
-  defp maybe_set_ip_nil({:error, _} = retval), do: retval
+  defp do_archive_thread(thread) do
+    thread
+    |> change(%{archived: true})
+    |> Repo.update()
+  end
 
-  defp maybe_set_ip_nil({:ok, thread}) do
+  defp set_ip_nil(thread) do
     from(m in Message, where: m.thread_id == ^thread.thread_id)
     |> Repo.update_all(set: [ip: nil])
 
     {:ok, thread}
   end
 
-  defp maybe_remove_subscriptions({:error, _} = retval), do: retval
-
-  defp maybe_remove_subscriptions({:ok, thread}) do
+  defp remove_subscriptions(thread) do
     mids = Enum.map(thread.messages, & &1.message_id)
 
     from(s in Subscription, where: s.message_id in ^mids)
@@ -126,27 +127,21 @@ defmodule Cforum.Forums.ArchiverJob do
     {:ok, thread}
   end
 
-  defp maybe_remove_open_close_state({:error, _} = retval), do: retval
-
-  defp maybe_remove_open_close_state({:ok, thread}) do
+  defp remove_open_close_state(thread) do
     from(oc in OpenCloseState, where: oc.thread_id == ^thread.thread_id)
     |> Repo.delete_all()
 
     {:ok, thread}
   end
 
-  defp maybe_remove_invisible_threads({:error, _} = retval), do: retval
-
-  defp maybe_remove_invisible_threads({:ok, thread}) do
+  defp remove_invisible_threads(thread) do
     from(iv in InvisibleThread, where: iv.thread_id == ^thread.thread_id)
     |> Repo.delete_all()
 
     {:ok, thread}
   end
 
-  defp maybe_remove_visited_marks({:error, _} = retval), do: retval
-
-  defp maybe_remove_visited_marks({:ok, thread}) do
+  defp remove_visited_marks(thread) do
     mids = Enum.map(thread.messages, & &1.message_id)
 
     from(rm in ReadMessage, where: rm.message_id in ^mids)
