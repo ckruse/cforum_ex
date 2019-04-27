@@ -661,7 +661,7 @@ msgstr "Benutze JavaScript für Benachrichtigungen"
 
 #: lib/cforum_web/templates/users/user/notifications.html.eex:33
 msgid "automatically delete read notifications for activity in subscribed threads"
-msgstr "Benachrichtigungen für Aktivität in abonnierten Nachrichten automatisch löschen"
+msgstr "Benachrichtigungen für Aktivität in abonnierten Beiträgen automatisch löschen"
 
 #: lib/cforum_web/templates/users/user/notifications.html.eex:53
 msgid "automatically delete read notifications for mentions"
@@ -1043,7 +1043,7 @@ msgstr "Klappe Zitate zusammen"
 
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:12
 msgid "fold read messages"
-msgstr "Klappe gelesene Nachrichten zusammen"
+msgstr "Klappe gelesene Beiträge zusammen"
 
 #: lib/cforum_web/templates/layout/page_header.html.eex:123
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:53
@@ -1106,11 +1106,11 @@ msgstr "Anzahl von Kontext-Zeilen bei Diffs"
 
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:32
 msgid "page messages index"
-msgstr "Zeige die Nachrichten auf Seiten aufgeteilt"
+msgstr "Zeige die Beiträge auf Seiten aufgeteilt"
 
 #: lib/cforum_web/templates/users/user/comfort.html.eex:25
 msgid "quote previous message by default"
-msgstr "zitiere die vorherige Nachricht per Default"
+msgstr "zitiere den vorherigen Beitrag per Default"
 
 #: lib/cforum_web/templates/users/user/comfort.html.eex:21
 msgid "quote signature when answering"
@@ -1142,7 +1142,7 @@ msgstr "zeige die Anzahl ungelesener Post im Titel"
 
 #: lib/cforum_web/templates/users/user/comfort.html.eex:40
 msgid "show number of unread messages in title"
-msgstr "zeige die Anzahl ungelesener Nachrichten im Titel"
+msgstr "zeige die Anzahl ungelesener Beiträge im Titel"
 
 #: lib/cforum_web/templates/users/user/comfort.html.eex:32
 msgid "show number of unread notifications in title"
@@ -1318,7 +1318,7 @@ msgstr "Antwort an „%{name}“ verfassen"
 #: lib/cforum_web/controllers/message_controller.ex:77
 #: lib/cforum_web/controllers/message_controller.ex:118
 msgid "Message created successfully."
-msgstr "Nachricht erfolgreich gespeichert."
+msgstr "Beitrag erfolgreich gespeichert."
 
 #: lib/cforum_web/templates/layout/page_header.html.eex:4
 msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">documentation</a>"
@@ -1343,7 +1343,7 @@ msgstr "Komma-separierte Liste, z.B. “css, html“"
 #: lib/cforum_web/templates/message/new.html.eex:20
 #: lib/cforum_web/templates/thread/new.html.eex:28
 msgid "create message"
-msgstr "Nachricht speichern"
+msgstr "Beitrag speichern"
 
 #: lib/cforum_web/templates/message/form.html.eex:64
 msgid "html, css, javascript"
@@ -2195,7 +2195,7 @@ msgstr "maximale Anzahl an Nachrichten pro Thread"
 #, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:23
 msgid "maximum number of tags per message"
-msgstr "maximale Anzahl an Tags pro Nachricht"
+msgstr "maximale Anzahl an Tags pro Beitrag"
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:110
@@ -2210,7 +2210,7 @@ msgstr "Nachricht des Tages"
 #, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:29
 msgid "minimum number of tags per message"
-msgstr "Mindestanzahl an Tags pro Nachricht"
+msgstr "Mindestanzahl an Tags pro Beitrag"
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:270
@@ -2799,17 +2799,17 @@ msgstr "Anzahl Autoren pro Monat über die letzten 12 Monate"
 #, elixir-format
 #: lib/cforum_web/templates/forum/stats.html.eex:75
 msgid "number of threads and messages per month during the last 48 months"
-msgstr "Anzahl Threads und Nachrichten pro Monat über die letzten 48 Monate"
+msgstr "Anzahl Threads und Beiträge pro Monat über die letzten 48 Monate"
 
 #, elixir-format
 #: lib/cforum_web/templates/forum/stats.html.eex:17
 msgid "number of threads and messages per month in the last 12 months"
-msgstr "Anzahl Threads und Nachrichten pro Monat über die letzten 12 Monate"
+msgstr "Anzahl Threads und Beiträge pro Monat über die letzten 12 Monate"
 
 #, elixir-format
 #: lib/cforum_web/templates/forum/stats.html.eex:81
 msgid "number of threads and messages per month overall"
-msgstr "Anzahl Threads und Nachrichten pro Monat über die gesamte Zeit"
+msgstr "Anzahl Threads und Beiträge pro Monat über die gesamte Zeit"
 
 #, elixir-format
 #: lib/cforum_web/views/forum_view.ex:26
@@ -3189,7 +3189,7 @@ msgstr "Der Beitrag wurde erfolgreich positiv bewertet"
 #, elixir-format
 #: lib/cforum_web/templates/moderation/entry.html.eex:25
 msgid "This message has been flagged: %{reason}"
-msgstr "Diese Nachricht wurde gemeldet: %{reason}"
+msgstr "Dieser Beitrag wurde gemeldet: %{reason}"
 
 #, elixir-format
 #: lib/cforum_web/templates/moderation/entry.html.eex:32
@@ -3200,7 +3200,7 @@ msgstr "Dieser Moderations-Fall wurde durch %{user} geklärt: %{resolution}"
 #: lib/cforum_web/templates/messages/flag/new.html.eex:16
 #: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:17
 msgid "URL of the original message"
-msgstr "URL der Original-Nachricht"
+msgstr "URL des Original-Beitrags"
 
 #, elixir-format
 #: lib/cforum_web/controllers/events/attendee_controller.ex:16
@@ -3895,7 +3895,7 @@ msgstr "Entsperr-Abstimmung erstellen"
 #, elixir-format
 #: lib/cforum_web/views/messages/open_close_vote_view.ex:47
 msgid "message and answers have been closed"
-msgstr "Der Beitrag und die folgenden Nachrichten wurden geschlossen."
+msgstr "Der Beitrag und die darauf folgenden Beiträge wurden geschlossen."
 
 #, elixir-format
 #: lib/cforum_web/views/messages/open_close_vote_view.ex:48
@@ -4059,22 +4059,22 @@ msgstr "Benutzer-Daten"
 #, elixir-format
 #: lib/cforum/forums/notify_users_message_job.ex:118
 msgid "%{nick} mentioned you in a new message: “%{subject}”"
-msgstr "%{nick} hat Sie in einer neuen Nachricht „%{subject}“ erwähnt"
+msgstr "%{nick} hat Sie in einer neuen Beitrag „%{subject}“ erwähnt"
 
 #, elixir-format
 #: lib/cforum_web/controllers/messages/admin_controller.ex:35
 msgid "Answering is now allowed."
-msgstr "Antworten auf diese Nachricht ist nun erlaubt."
+msgstr "Antworten auf diese Beiträge ist nun erlaubt."
 
 #, elixir-format
 #: lib/cforum_web/controllers/messages/admin_controller.ex:27
 msgid "Answering is now forbidden."
-msgstr "Antworten auf diese Nachricht ist nun verboten."
+msgstr "Antworten auf diese Beiträge ist nun verboten."
 
 #, elixir-format
 #: lib/cforum_web/views/messages/version_view.ex:4
 msgid "Edit versions of message „%{subject}“"
-msgstr "Versions-Historie der Nachricht „%{subject}“"
+msgstr "Versions-Historie des Beitrags „%{subject}“"
 
 #, elixir-format
 #: lib/cforum_web/controllers/image_controller.ex:45
@@ -4142,7 +4142,7 @@ msgstr "Dieser Thread wird bei Archivierung gelöscht."
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:15
 #: lib/cforum_web/templates/message/message_admin_buttons.html.eex:41
 msgid "allow answering to this message"
-msgstr "antworten auf diese Nachricht erlauben"
+msgstr "antworten auf diesen Beitrag erlauben"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:7
@@ -4156,7 +4156,7 @@ msgstr "diesen Beitrag löschen"
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:20
 #: lib/cforum_web/templates/message/message_admin_buttons.html.eex:45
 msgid "forbid answering to this message"
-msgstr "antworten auf diese Nachricht verbieten"
+msgstr "antworten auf diesen Beitrag verbieten"
 
 #, elixir-format
 #: lib/cforum_web/templates/image/index.html.eex:6
@@ -4168,7 +4168,7 @@ msgstr "Besitzer"
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:3
 #: lib/cforum_web/templates/message/message_admin_buttons.html.eex:30
 msgid "restore this message"
-msgstr "am besten bewertete Beiträge"
+msgstr "diesen Beitrag wiederherstellen"
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/search_section/form.html.eex:25
@@ -4178,7 +4178,7 @@ msgstr "Sektions-Typ"
 #, elixir-format
 #: lib/cforum_web/templates/thread/thread.html.eex:6
 msgid "this thread has interesting messages"
-msgstr "Dieser Thread enthält interessante Nachrichten"
+msgstr "Dieser Thread enthält interessante Beiträge"
 
 #, elixir-format
 #: lib/cforum_web/templates/thread/thread.html.eex:7
@@ -4208,7 +4208,7 @@ msgstr "Der Beitrag wurde erfolgreich neu verschlagwortet."
 #, elixir-format
 #: lib/cforum_web/views/messages/retag_view.ex:4
 msgid "Retag message “%{subject}”"
-msgstr "Nachricht „%{subject}“ neu verschlagworten"
+msgstr "Beitrag „%{subject}“ neu verschlagworten"
 
 #, elixir-format
 #: lib/cforum/accounts/badges.ex:177
@@ -4244,7 +4244,7 @@ msgstr "Thread verschieben"
 #, elixir-format
 #: lib/cforum_web/views/threads/admin_view.ex:8
 msgid "Split thread at message %{subject} by %{author}"
-msgstr "Thread bei Nachricht „%{subject}“ von %{autor} teilen"
+msgstr "Thread bei Beitrag „%{subject}“ von %{autor} teilen"
 
 #, elixir-format
 #: lib/cforum_web/controllers/threads/admin_controller.ex:71
@@ -4260,7 +4260,7 @@ msgstr "Thread wurde geteilt"
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:26
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:27
 msgid "split thread with this message as new root"
-msgstr "Teile Thread mit dieser Nachricht als neuen Ursprungsbeitrag"
+msgstr "Teile Thread mit diesem Beitrag als neuen Ursprungsbeitrag"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_admin_buttons.html.eex:23
@@ -4377,7 +4377,7 @@ msgstr "Zitat wegen Archivierung gelöscht"
 #, elixir-format
 #: lib/cforum_web/templates/message/message.html.eex:53
 msgid "The following messages reference this message:"
-msgstr "Folgende Nachrichten verweisen auf diesen Beitrag:"
+msgstr "Folgende Beiträge verweisen auf diesen Beitrag:"
 
 #, elixir-format
 #: lib/cforum_web/templates/layout/page_header.html.eex:125
