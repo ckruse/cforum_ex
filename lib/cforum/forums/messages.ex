@@ -1367,11 +1367,19 @@ defmodule Cforum.Forums.Messages do
       |> Repo.preload(Message.default_preloads())
 
     Caching.update(:cforum, :threads, fn threads ->
-      for item <- threads do
-        if item.thread_id == msg.thread_id,
-          do: replace_message(item, msg),
-          else: item
-      end
+      {_, thread} = Enum.find(threads, fn {_, thread} -> thread.thread_id == msg.thread_id end)
+      thread = replace_message(thread, msg)
+
+      Map.put(threads, thread.slug, thread)
+    end)
+  end
+
+  def update_cached_message_by_tid_and_mid(tid, mid, fun) do
+    Caching.update(:cforum, :threads, fn threads ->
+      {_, thread} = Enum.find(threads, fn {_, thread} -> thread.thread_id == tid end)
+      thread = replace_message(thread, mid, fun)
+
+      Map.put(threads, thread.slug, thread)
     end)
   end
 
@@ -1384,16 +1392,6 @@ defmodule Cforum.Forums.Messages do
       end
 
     %Thread{thread | messages: messages}
-  end
-
-  def update_cached_message_by_tid_and_mid(tid, mid, fun) do
-    Caching.update(:cforum, :threads, fn threads ->
-      for item <- threads do
-        if item.thread_id == tid,
-          do: replace_message(item, mid, fun),
-          else: item
-      end
-    end)
   end
 
   defp replace_message(%Thread{messages: messages} = thread, mid, fun) do
