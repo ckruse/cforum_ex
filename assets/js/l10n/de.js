@@ -102,6 +102,8 @@ export const lang = {
   "problematic site": "problematische Seite",
   "e.g. “https://example.com/float-example.html”": "z.B. „https://example.com/float-example.html“",
   "save message": "Nachricht speichern",
+  pause: "unterbrechen",
+  discard: "verwerfen",
 
   "There is a saved draft": "Es gibt einen Entwurf",
   "There is a saved draft for this post. Do you want to restore it?":
