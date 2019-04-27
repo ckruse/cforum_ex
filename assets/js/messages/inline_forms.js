@@ -31,6 +31,16 @@ const showInlineForm = ev => {
 };
 
 const transformNewlines = text => text.replace(/\015\012|\015|\012/g, "\n");
+const forms = {};
+
+window.addEventListener("popstate", ev => {
+  if (ev.state && ev.state.type === "answer" && ev.state.parsedUrl && forms[ev.state.parsedUrl.messageId]) {
+    const messageElement = document.getElementById("m" + ev.state.parsedUrl.messageId).closest(".cf-thread-message");
+    messageElement.parentNode.insertBefore(forms[ev.state.parsedUrl.messageId], messageElement.nextSibling);
+  } else {
+    document.querySelectorAll(".cf-posting-form").forEach(el => el.remove());
+  }
+});
 
 const showForm = (messageElement, json) => {
   const selector = ".posting-header > .cf-message-header > h2 > a, .posting-header > .cf-message-header > h3 > a";
@@ -46,6 +56,10 @@ const showForm = (messageElement, json) => {
   node.classList.add("cf-posting-form");
   node.action = "/" + parsedUrl.forum + parsedUrl.slug + "/" + parsedUrl.messageId + "/new";
   node.method = "POST";
+  node.id = `inline-form-${parsedUrl.messageId}`;
+
+  forms[parsedUrl.messageId] = node;
+  window.history.pushState({ type: "answer", parsedUrl }, "", node.action);
 
   messageElement.parentNode.insertBefore(node, messageElement.nextSibling);
 
@@ -66,7 +80,7 @@ const showForm = (messageElement, json) => {
         token: csrfInfo.getAttribute("content")
       }}
       errors={{}}
-      onCancel={() => node.remove()}
+      onCancel={() => window.history.go(-1)}
     />,
     node,
     () => {
