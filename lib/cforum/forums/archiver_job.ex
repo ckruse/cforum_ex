@@ -150,10 +150,8 @@ defmodule Cforum.Forums.ArchiverJob do
     {:ok, thread}
   end
 
-  defp discard_thread_cache({:ok, %Thread{thread_id: tid}} = val) do
-    Caching.update(:cforum, :threads, fn threads ->
-      Enum.reject(threads, &(&1.thread_id == tid))
-    end)
+  defp discard_thread_cache({:ok, %Thread{slug: slug}} = val) do
+    Caching.update(:cforum, :threads, fn threads -> Map.delete(threads, slug) end)
 
     val
   end

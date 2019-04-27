@@ -26,24 +26,29 @@ defmodule Cforum.Forums.Threads do
   def list_threads(forum, _) when not is_nil(forum), do: list_threads(nil, [forum])
 
   def list_threads(_, forums) do
-    threads =
-      Caching.fetch(:cforum, :threads, fn ->
-        from(thread in Thread, where: thread.archived == false, order_by: [desc: :created_at])
-        |> Repo.all()
-        |> Repo.preload(Thread.default_preloads())
-        |> Repo.preload(
-          messages:
-            {from(m in Message, order_by: [asc: fragment("? NULLS FIRST", m.parent_id), desc: m.created_at]),
-             Message.default_preloads()}
-        )
-      end)
+    threads = cached_threads()
 
     if forums == nil || forums == [] do
-      threads
+      Map.values(threads)
     else
       forum_ids = Enum.map(forums, & &1.forum_id)
-      Enum.filter(threads, &(&1.forum_id in forum_ids))
+
+      for {_, thread} <- threads, thread.forum_id in forum_ids, do: thread
     end
+  end
+
+  defp cached_threads() do
+    Caching.fetch(:cforum, :threads, fn ->
+      from(thread in Thread, where: thread.archived == false, order_by: [desc: :created_at])
+      |> Repo.all()
+      |> Repo.preload(Thread.default_preloads())
+      |> Repo.preload(
+        messages:
+          {from(m in Message, order_by: [asc: fragment("? NULLS FIRST", m.parent_id), desc: m.created_at]),
+           Message.default_preloads()}
+      )
+      |> Enum.reduce(%{}, fn thread, acc -> Map.put(acc, thread.slug, thread) end)
+    end)
   end
 
   @doc """
@@ -356,28 +361,37 @@ defmodule Cforum.Forums.Threads do
 
   """
   def get_thread_by_slug!(forum, visible_forums, slug) do
-    forum
-    |> list_threads(visible_forums)
-    |> Enum.find(&(&1.slug == slug))
-    |> case do
-      nil ->
-        from(thread in Thread, where: thread.slug == ^slug, order_by: [desc: :created_at])
-        |> set_forum_id(visible_forums, forum)
-        |> Repo.one()
-        |> Repo.preload(Thread.default_preloads())
-        |> Repo.preload(
-          messages:
-            {from(m in Message, order_by: [asc: fragment("? NULLS FIRST", m.parent_id), desc: m.created_at]),
-             Message.default_preloads()}
-        )
+    threads = cached_threads()
+    thread = get_thread_by_slug_from_cache(threads[slug], forum, visible_forums, slug)
 
-      thread ->
-        thread
-    end
-    |> case do
+    case thread do
       nil -> raise Ecto.NoResultsError, queryable: Thread
       thread -> thread
     end
+  end
+
+  defp get_thread_by_slug_from_cache(nil, forum, visible_forums, slug) do
+    from(thread in Thread, where: thread.slug == ^slug, order_by: [desc: :created_at])
+    |> set_forum_id(visible_forums, forum)
+    |> Repo.one()
+    |> Repo.preload(Thread.default_preloads())
+    |> Repo.preload(
+      messages:
+        {from(m in Message, order_by: [asc: fragment("? NULLS FIRST", m.parent_id), desc: m.created_at]),
+         Message.default_preloads()}
+    )
+  end
+
+  defp get_thread_by_slug_from_cache(thread, nil, visible_forums, _) do
+    if Enum.find(visible_forums, &(&1.forum_id == thread.forum_id)),
+      do: thread,
+      else: nil
+  end
+
+  defp get_thread_by_slug_from_cache(thread, forum, _, _) do
+    if thread.forum_id == forum.forum_id,
+      do: thread,
+      else: nil
   end
 
   @doc """
@@ -467,7 +481,7 @@ defmodule Cforum.Forums.Threads do
       {:ok, Repo.preload(thread, [:forum]), message}
     end
     |> maybe_notify_users()
-    |> add_to_cache()
+    |> refresh_cached_thread()
   end
 
   defp create_message(attrs, user, visible_forums, thread, opts \\ [create_tags: false]) do
@@ -559,7 +573,7 @@ defmodule Cforum.Forums.Threads do
 
     with {:ok, new_thread} <- ret do
       refresh_cached_thread(thread)
-      add_to_cache(new_thread)
+      refresh_cached_thread(new_thread)
 
       refreshed_thread = get_thread!(new_thread.forum, visible_forums, new_thread.thread_id)
       message = Messages.get_message_from_mid!(refreshed_thread, message.message_id)
@@ -772,23 +786,6 @@ defmodule Cforum.Forums.Threads do
     |> refresh_cached_thread()
   end
 
-  def add_to_cache({:ok, %{thread_id: tid}} = val) do
-    add_to_cache_by_tid(tid)
-    val
-  end
-
-  def add_to_cache({:ok, %{thread_id: tid}, _} = val) do
-    add_to_cache_by_tid(tid)
-    val
-  end
-
-  def add_to_cache(%{thread_id: tid} = val) do
-    add_to_cache_by_tid(tid)
-    val
-  end
-
-  def add_to_cache(val), do: val
-
   def refresh_cached_thread(%{thread_id: tid} = val) do
     refresh_cached_thread_by_tid(tid)
     val
@@ -799,19 +796,16 @@ defmodule Cforum.Forums.Threads do
     val
   end
 
-  def refresh_cached_thread(v), do: v
-
-  def add_to_cache_by_tid(tid) do
-    thread = get_thread!(tid)
-    Caching.update(:cforum, :threads, &[thread | &1])
+  def refresh_cached_thread({:ok, %{thread_id: tid}, _} = val) do
+    refresh_cached_thread_by_tid(tid)
+    val
   end
+
+  def refresh_cached_thread(v), do: v
 
   def refresh_cached_thread_by_tid(tid) do
     thread = get_thread!(tid)
-
-    Caching.update(:cforum, :threads, fn threads ->
-      [thread | Enum.reject(threads, &(&1.thread_id == tid))]
-    end)
+    Caching.update(:cforum, :threads, fn threads -> Map.put(threads, thread.slug, thread) end)
   end
 
   def has_interesting?(%Thread{sorted_messages: msgs}) when not is_nil(msgs), do: has_interesting?(msgs)
