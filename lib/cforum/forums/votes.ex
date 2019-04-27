@@ -178,11 +178,12 @@ defmodule Cforum.Forums.Votes do
       Messages.score_up_message(message)
 
       {:ok, vote} = create_vote(%{message_id: message.message_id, user_id: user.user_id, vtype: "upvote"})
-      Messages.update_cached_message(message, &%Message{&1 | votes: [vote | &1.votes]})
 
       if present?(message.user_id) do
         {:ok, _score} = Scores.create_score(%{vote_id: vote.vote_id, user_id: message.user_id, value: points})
       end
+
+      Messages.update_cached_message(message, &%Message{&1 | votes: [vote | &1.votes]})
 
       vote
     end)
@@ -196,11 +197,12 @@ defmodule Cforum.Forums.Votes do
 
       {:ok, vote} = create_vote(%{message_id: message.message_id, user_id: user.user_id, vtype: "downvote"})
       {:ok, _score} = Scores.create_score(%{vote_id: vote.vote_id, user_id: user.user_id, value: points})
-      Messages.update_cached_message(message, &%Message{&1 | votes: [vote | &1.votes]})
 
       if present?(message.user_id) do
         {:ok, _score} = Scores.create_score(%{vote_id: vote.vote_id, user_id: message.user_id, value: points})
       end
+
+      Messages.update_cached_message(message, &%Message{&1 | votes: [vote | &1.votes]})
 
       vote
     end)
