@@ -11,6 +11,7 @@ defmodule CforumWeb.Api.V1.Messages.MarkReadController do
     thread =
       Threads.get_thread_by_slug!(forum, conn.assigns.visible_forums, slug)
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.ensure_found!()
 
     Messages.mark_messages_read(conn.assigns[:current_user], thread.messages)
 

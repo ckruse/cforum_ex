@@ -11,7 +11,6 @@ defmodule CforumWeb.Api.V1.Messages.AcceptController do
     thread =
       Threads.get_thread_by_slug!(conn.assigns.current_forum, conn.assigns[:visible_forums], params["slug"])
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
-      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
 
     message = Messages.get_message_from_mid!(thread, params["message_id"])
 
@@ -24,7 +23,6 @@ defmodule CforumWeb.Api.V1.Messages.AcceptController do
     thread =
       Threads.get_thread_by_slug!(conn.assigns.current_forum, conn.assigns[:visible_forums], params["slug"])
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
-      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
 
     message = Messages.get_message_from_mid!(thread, params["message_id"])
 
@@ -37,7 +35,6 @@ defmodule CforumWeb.Api.V1.Messages.AcceptController do
     thread =
       Threads.get_thread_by_slug!(forum, conn.assigns[:visible_forums], conn.params["slug"])
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
-      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
 
     message = Messages.get_message_from_mid!(thread, conn.params["message_id"])
 
