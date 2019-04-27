@@ -165,8 +165,11 @@ class CfPostingForm extends React.Component {
           <button className="cf-primary-btn" type="submit" onClick={this.deleteDraft}>
             {t("save message")}
           </button>{" "}
+          <button className="cf-btn" type="button" onClick={this.props.onCancel}>
+            {t("pause")}
+          </button>{" "}
           <button className="cf-btn" type="button" onClick={this.cancelForm}>
-            {t("cancel")}
+            {t("discard")}
           </button>
         </p>
 
