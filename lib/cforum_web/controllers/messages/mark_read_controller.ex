@@ -1,22 +1,23 @@
 defmodule CforumWeb.Messages.MarkReadController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.Messages
-  alias Cforum.Forums.Threads
+  alias Cforum.Threads
+  alias Cforum.Threads.ThreadHelpers
+  alias Cforum.Messages.ReadMessages
   alias CforumWeb.Views.Helpers.ReturnUrl
 
-  alias Cforum.Forums.ThreadHelpers
+  alias Cforum.Threads.ThreadHelpers
 
   def mark_read(conn, params) do
     thread =
       Threads.get_thread_by_slug!(
         conn.assigns.current_forum,
         conn.assigns.visible_forums,
-        Threads.slug_from_params(params)
+        ThreadHelpers.slug_from_params(params)
       )
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
 
-    Messages.mark_messages_read(conn.assigns[:current_user], thread.messages)
+    ReadMessages.mark_messages_read(conn.assigns[:current_user], thread.messages)
 
     conn
     |> put_flash(:info, gettext("Thread has successfully been marked as read."))
@@ -46,7 +47,7 @@ defmodule CforumWeb.Messages.MarkReadController do
       |> Enum.map(& &1.messages)
       |> List.flatten()
 
-    Messages.mark_messages_read(conn.assigns[:current_user], threads)
+    ReadMessages.mark_messages_read(conn.assigns[:current_user], threads)
 
     conn
     |> put_flash(:info, gettext("All messages on this page have successfully been marked as read."))

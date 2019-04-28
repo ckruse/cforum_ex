@@ -1,15 +1,16 @@
 defmodule CforumWeb.ArchiveController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.Threads
+  alias Cforum.Threads
+  alias Cforum.Threads.Archive
 
   def years(conn, _params) do
-    years = Threads.list_archive_years(conn.assigns[:current_forum], conn.assigns[:visible_forums])
+    years = Archive.list_archive_years(conn.assigns[:current_forum], conn.assigns[:visible_forums])
     render(conn, "years.html", years: years)
   end
 
   def months(conn, %{"year" => year}) do
-    months = Threads.list_archive_months(conn.assigns[:current_forum], conn.assigns[:visible_forums], year)
+    months = Archive.list_archive_months(conn.assigns[:current_forum], conn.assigns[:visible_forums], year)
     render(conn, "months.html", months: months, year: year)
   end
 
@@ -22,7 +23,7 @@ defmodule CforumWeb.ArchiveController do
 
       threads =
         conn.assigns[:current_forum]
-        |> Threads.list_archived_threads(conn.assigns[:visible_forums], start_date, end_date)
+        |> Archive.list_archived_threads(conn.assigns[:visible_forums], start_date, end_date)
         |> Threads.reject_deleted_threads(conn.assigns[:view_all])
         |> Threads.apply_user_infos(conn.assigns[:current_user],
           close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",

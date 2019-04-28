@@ -1,7 +1,11 @@
 defmodule CforumWeb.Messages.InterestingController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.{Threads, Thread, Messages}
+  alias Cforum.Threads
+  alias Cforum.Threads.Thread
+  alias Cforum.Threads.ThreadHelpers
+  alias Cforum.Messages
+  alias Cforum.Messages.InterestingMessages
   alias CforumWeb.Views.Helpers.ReturnUrl
   alias Cforum.Search
   alias Cforum.Search.Finder
@@ -32,11 +36,11 @@ defmodule CforumWeb.Messages.InterestingController do
     visible_sections = Search.list_visible_search_sections(conn.assigns.visible_forums)
     changeset = Search.search_changeset(visible_sections)
 
-    count = Messages.count_interesting_messages(conn.assigns[:current_user])
+    count = InterestingMessages.count_interesting_messages(conn.assigns[:current_user])
     paging = paginate(count, page: params["p"])
 
     threads =
-      Messages.list_interesting_messages(conn.assigns[:current_user], limit: paging.params)
+      InterestingMessages.list_interesting_messages(conn.assigns[:current_user], limit: paging.params)
       |> Enum.map(fn msg -> %Thread{msg.thread | messages: [msg]} end)
       |> Threads.apply_user_infos(conn.assigns[:current_user])
       |> Threads.apply_highlights(conn)
@@ -46,7 +50,7 @@ defmodule CforumWeb.Messages.InterestingController do
   end
 
   def interesting(conn, params) do
-    Messages.mark_message_interesting(conn.assigns[:current_user], conn.assigns.message)
+    InterestingMessages.mark_message_interesting(conn.assigns[:current_user], conn.assigns.message)
 
     conn
     |> put_flash(:info, gettext("Message was successfully marked as interesting."))
@@ -54,7 +58,7 @@ defmodule CforumWeb.Messages.InterestingController do
   end
 
   def boring(conn, params) do
-    Messages.mark_message_boring(conn.assigns[:current_user], conn.assigns.message)
+    InterestingMessages.mark_message_boring(conn.assigns[:current_user], conn.assigns.message)
 
     conn
     |> put_flash(:info, gettext("Interesting mark was successfully removed."))
@@ -66,7 +70,7 @@ defmodule CforumWeb.Messages.InterestingController do
       conn
     else
       thread =
-        Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, Threads.slug_from_params(conn.params))
+        Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, ThreadHelpers.slug_from_params(conn.params))
         |> Threads.reject_deleted_threads(conn.assigns[:view_all])
         |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:read, :subscriptions, :open_close])
         |> Threads.apply_highlights(conn)

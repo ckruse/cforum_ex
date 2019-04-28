@@ -1,8 +1,8 @@
 defmodule CforumWeb.ThreadControllerTest do
   use CforumWeb.ConnCase
 
-  alias Cforum.Forums.Threads
-  alias Cforum.Forums.Messages
+  alias Cforum.Threads
+  alias Cforum.Messages
 
   setup do
     forum = insert(:public_forum)

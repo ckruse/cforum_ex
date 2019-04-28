@@ -1,7 +1,8 @@
 defmodule CforumWeb.Tags.SynonymController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.{Tags, TagSynonym}
+  alias Cforum.Messages.Tags
+  alias Cforum.Messages.TagSynonym
   alias Cforum.Accounts.Badge
 
   def new(conn, %{"tag_id" => _tag_id}) do

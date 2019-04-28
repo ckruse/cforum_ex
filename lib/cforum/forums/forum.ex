@@ -25,8 +25,8 @@ defmodule Cforum.Forums.Forum do
     field(:keywords, :string)
     field(:position, :integer)
 
-    has_many(:threads, Cforum.Forums.Thread, foreign_key: :forum_id)
-    has_many(:messages, Cforum.Forums.Message, foreign_key: :forum_id)
+    has_many(:threads, Cforum.Threads.Thread, foreign_key: :forum_id)
+    has_many(:messages, Cforum.Messages.Message, foreign_key: :forum_id)
     has_many(:permissions, Cforum.Accounts.ForumGroupPermission, foreign_key: :forum_id)
     has_one(:setting, Cforum.Accounts.Setting, foreign_key: :forum_id)
 

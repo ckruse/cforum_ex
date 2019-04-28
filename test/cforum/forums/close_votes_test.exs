@@ -1,7 +1,9 @@
-defmodule Cforum.CloseVotesTest do
+defmodule Cforum.Messages.CloseVotesTest do
   use Cforum.DataCase
 
-  alias Cforum.Forums.{CloseVotes, CloseVote, CloseVoteVoter, Messages}
+  alias Cforum.Messages
+  alias Cforum.Messages.CloseVotes
+  alias Cforum.Messages.CloseVotes.{CloseVote, CloseVoteVoter}
 
   setup do
     forum = insert(:forum)

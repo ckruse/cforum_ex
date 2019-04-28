@@ -3,7 +3,7 @@ defmodule CforumWeb.Messages.VoteControllerTest do
 
   setup [:setup_tests]
 
-  alias Cforum.Forums.Messages
+  alias Cforum.Messages
 
   describe "upvote" do
     test "votes up", %{conn: conn, thread: thread, message: message, forum: forum} do

@@ -1,7 +1,7 @@
 defmodule Cforum.LegacyParser do
   import NimbleParsec
 
-  alias Cforum.Forums.Message
+  alias Cforum.Messages.Message
 
   alias Cforum.LegacyParser.{LinkParser, ImageParser, CodeParser}
 

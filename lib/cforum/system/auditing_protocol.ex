@@ -3,9 +3,9 @@ defprotocol Cforum.System.AuditingProtocol do
   def audit_json(object)
 end
 
-defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Tag do
+defimpl Cforum.System.AuditingProtocol, for: Cforum.Messages.Tag do
   def audit_json(tag) do
-    tag_synonyms = Cforum.Forums.Tags.list_tag_synonyms(tag)
+    tag_synonyms = Cforum.Messages.Tags.list_tag_synonyms(tag)
     synonyms = Enum.map(tag_synonyms, &Cforum.System.AuditingProtocol.audit_json(&1))
 
     tag
@@ -15,7 +15,7 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Tag do
   end
 end
 
-defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Message do
+defimpl Cforum.System.AuditingProtocol, for: Cforum.Messages.Message do
   @msg_auditing_fields_to_ignore [
     :__meta__,
     :user,
@@ -43,10 +43,10 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Message do
 
   defp maybe_thread(%Ecto.Association.NotLoaded{}), do: nil
   defp maybe_thread(nil), do: nil
-  defp maybe_thread(thread), do: %Cforum.Forums.Thread{thread | messages: []}
+  defp maybe_thread(thread), do: %Cforum.Threads.Thread{thread | messages: []}
 end
 
-defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Thread do
+defimpl Cforum.System.AuditingProtocol, for: Cforum.Threads.Thread do
   def audit_json(thread) do
     thread = Cforum.Repo.preload(thread, messages: :tags, forum: :setting)
     messages = Enum.map(thread.messages, &Cforum.System.AuditingProtocol.audit_json/1)
@@ -59,7 +59,7 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.Thread do
   end
 end
 
-defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.MessageVersion do
+defimpl Cforum.System.AuditingProtocol, for: Cforum.Messages.MessageVersion do
   def audit_json(version) do
     version = Cforum.Repo.preload(version, message: [thread: :forum])
 
@@ -70,7 +70,7 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.MessageVersion do
   end
 end
 
-defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.ModerationQueueEntry do
+defimpl Cforum.System.AuditingProtocol, for: Cforum.ModerationQueue.ModerationQueueEntry do
   def audit_json(entry) do
     entry
     |> Map.from_struct()
@@ -154,7 +154,7 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.System.Redirection do
   end
 end
 
-defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.TagSynonym do
+defimpl Cforum.System.AuditingProtocol, for: Cforum.Messages.TagSynonym do
   def audit_json(synonym) do
     synonym = Cforum.Repo.preload(synonym, [:tag])
 
@@ -196,7 +196,7 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Cites.Cite do
   end
 end
 
-defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.CloseVote do
+defimpl Cforum.System.AuditingProtocol, for: Cforum.Messages.CloseVote do
   def audit_json(vote) do
     vote = Cforum.Repo.preload(vote, [:message])
 
@@ -207,7 +207,7 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.CloseVote do
   end
 end
 
-defimpl Cforum.System.AuditingProtocol, for: Cforum.Forums.CloseVoteVoter do
+defimpl Cforum.System.AuditingProtocol, for: Cforum.Messages.CloseVoteVoter do
   def audit_json(voter) do
     voter = Cforum.Repo.preload(voter, [:close_vote])
 

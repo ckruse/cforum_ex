@@ -5,15 +5,18 @@ defmodule CforumWeb.Plug.LoadUserInfoData do
   """
 
   alias Cforum.Accounts
+  alias Accounts.Notifications
+  alias Accounts.PrivMessages
   alias Cforum.Forums
-  alias Cforum.Forums.Messages
-  alias Cforum.Forums.ModerationQueue
+  alias Cforum.Messages.ReadMessages
+  alias Cforum.ModerationQueue
+  alias Cforum.Cites
 
   def init(opts), do: opts
 
   def call(%{assigns: %{current_user: user, is_moderator: is_mod}} = conn, _opts) when not is_nil(user) do
-    {num_threads, num_messages} = Messages.count_unread_messages(user)
-    undeceided_cites = Cforum.Cites.count_undecided_cites(user)
+    {num_threads, num_messages} = ReadMessages.count_unread_messages(user)
+    undeceided_cites = Cites.count_undecided_cites(user)
 
     undecided_moderation_queue_entries =
       if is_mod do
@@ -24,8 +27,8 @@ defmodule CforumWeb.Plug.LoadUserInfoData do
       end
 
     conn
-    |> Plug.Conn.assign(:unread_notifications, Accounts.Notifications.count_notifications(user, true))
-    |> Plug.Conn.assign(:unread_mails, Accounts.PrivMessages.count_priv_messages(user, true))
+    |> Plug.Conn.assign(:unread_notifications, Notifications.count_notifications(user, true))
+    |> Plug.Conn.assign(:unread_mails, PrivMessages.count_priv_messages(user, true))
     |> Plug.Conn.assign(:unread_threads, num_threads)
     |> Plug.Conn.assign(:unread_messages, num_messages)
     |> Plug.Conn.assign(:undecided_cites, undeceided_cites)

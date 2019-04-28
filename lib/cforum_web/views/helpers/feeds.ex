@@ -1,6 +1,6 @@
 defmodule CforumWeb.Views.Helpers.Feeds do
   alias CforumWeb.Views.Helpers.Path
-  alias Cforum.Forums.Message
+  alias Cforum.Messages.Message
 
   import CforumWeb.Gettext
 

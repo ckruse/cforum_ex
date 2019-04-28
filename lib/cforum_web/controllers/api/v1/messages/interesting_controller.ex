@@ -2,16 +2,17 @@ defmodule CforumWeb.Api.V1.Messages.InterestingController do
   use CforumWeb, :controller
 
   alias Cforum.Forums
-  alias Cforum.Forums.Threads
-  alias Cforum.Forums.Messages
+  alias Cforum.Threads
+  alias Cforum.Messages
+  alias Cforum.Messages.InterestingMessages
 
   def interesting(conn, _params) do
-    Messages.mark_message_interesting(conn.assigns[:current_user], conn.assigns.message)
+    InterestingMessages.mark_message_interesting(conn.assigns[:current_user], conn.assigns.message)
     render_thread(conn)
   end
 
   def boring(conn, _params) do
-    Messages.mark_message_boring(conn.assigns[:current_user], conn.assigns.message)
+    InterestingMessages.mark_message_boring(conn.assigns[:current_user], conn.assigns.message)
     render_thread(conn)
   end
 

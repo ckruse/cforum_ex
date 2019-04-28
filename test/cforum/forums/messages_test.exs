@@ -1,8 +1,9 @@
-defmodule Cforum.Forums.MessagesTest do
+defmodule Cforum.MessagesTest do
   use Cforum.DataCase
 
   alias Cforum.Forums.{Messages, Message}
-  alias Cforum.Forums.{Threads, Thread}
+  alias Cforum.Threads
+  alias Cforum.Threads.Thread
 
   setup do
     user = insert(:user)
@@ -365,34 +366,34 @@ defmodule Cforum.Forums.MessagesTest do
   end
 
   describe "read/unread messages" do
-    alias Cforum.Forums.ReadMessage
+    alias Cforum.Messages.{ReadMessages, ReadMessage}
 
     test "mark_messages_read/2 marks messages read for a user", %{message: m, user: u, thread: t, forum: f} do
       m1 = insert(:message, thread: t, forum: f)
-      assert [%ReadMessage{}, %ReadMessage{}] = Messages.mark_messages_read(u, [m, m1])
+      assert [%ReadMessage{}, %ReadMessage{}] = ReadMessages.mark_messages_read(u, [m, m1])
     end
 
     test "mark_messages_read/2 marks a message read for a user", %{message: m, user: u} do
-      assert [%ReadMessage{}] = Messages.mark_messages_read(u, m)
+      assert [%ReadMessage{}] = ReadMessages.mark_messages_read(u, m)
     end
 
     test "mark_messages_read/2 returns nil when called w/o a user", %{message: m} do
-      assert Messages.mark_messages_read(nil, m) == nil
+      assert ReadMessages.mark_messages_read(nil, m) == nil
     end
 
     test "cound_unread_messages/2 counts the number of unread messages for a user", %{message: m, user: u} do
-      assert Messages.count_unread_messages(u) == {1, 1}
-      Messages.mark_messages_read(u, m)
-      assert Messages.count_unread_messages(u) == {0, 0}
+      assert ReadMessages.count_unread_messages(u) == {1, 1}
+      ReadMessages.mark_messages_read(u, m)
+      assert ReadMessages.count_unread_messages(u) == {0, 0}
     end
 
     test "count_unread_messages/2 returns 0 w/o a user" do
-      assert Messages.count_unread_messages(nil) == {0, 0}
+      assert ReadMessages.count_unread_messages(nil) == {0, 0}
     end
   end
 
   describe "subscriptions" do
-    alias Cforum.Forums.Subscription
+    alias Cforum.Messages.Subscription
 
     test "subscribe_message/2 subscribes a message for a user", %{user: u, message: m} do
       assert {:ok, %Subscription{}} = Messages.subscribe_message(u, m)
@@ -457,7 +458,7 @@ defmodule Cforum.Forums.MessagesTest do
   end
 
   describe "interesting message" do
-    alias Cforum.Forums.InterestingMessage
+    alias Cforum.Messages.InterestingMessage
 
     test "mark_message_interesting/2 marks a message as interesting for a user", %{user: u, message: m} do
       assert {:ok, %InterestingMessage{}} = Messages.mark_message_interesting(u, m)

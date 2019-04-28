@@ -51,8 +51,8 @@ defmodule Cforum.Factory do
   def with_vote(score), do: %{score | vote: build(:vote)}
 
   def vote_factory do
-    %Cforum.Forums.Vote{
-      vtype: Cforum.Forums.Vote.upvote(),
+    %Cforum.Messages.Vote{
+      vtype: Cforum.Messages.Vote.upvote(),
       user: build(:user),
       message: build(:message),
       score: build(:score)
@@ -94,7 +94,7 @@ defmodule Cforum.Factory do
     do: %Cforum.Accounts.ForumGroupPermission{permission: "read", forum: build(:forum), group: build(:group)}
 
   def thread_factory do
-    %Cforum.Forums.Thread{
+    %Cforum.Threads.Thread{
       slug: sequence("/1999/mar/1/lulu"),
       forum: build(:forum),
       latest_message: Timex.now()
@@ -102,7 +102,7 @@ defmodule Cforum.Factory do
   end
 
   def message_factory do
-    %Cforum.Forums.Message{
+    %Cforum.Messages.Message{
       author: Faker.Name.name(),
       subject: Faker.Lorem.sentence(%Range{first: 1, last: 10}),
       content: Faker.Lorem.paragraph(%Range{first: 1, last: 2})
@@ -110,7 +110,7 @@ defmodule Cforum.Factory do
   end
 
   def tag_factory do
-    %Cforum.Forums.Tag{
+    %Cforum.Messages.Tag{
       tag_name: sequence("Tag "),
       slug: sequence("tag-"),
       suggest: true
@@ -118,14 +118,14 @@ defmodule Cforum.Factory do
   end
 
   def tag_synonym_factory do
-    %Cforum.Forums.TagSynonym{
+    %Cforum.Messages.TagSynonym{
       tag: build(:tag),
       synonym: sequence("Tag Synonym ")
     }
   end
 
   def close_vote_factory do
-    %Cforum.Forums.CloseVote{
+    %Cforum.Messages.CloseVote{
       reason: "spam",
       vote_type: false,
       finished: false,
@@ -134,7 +134,7 @@ defmodule Cforum.Factory do
   end
 
   def moderation_queue_entry_factory do
-    %Cforum.Forums.ModerationQueueEntry{
+    %Cforum.ModerationQueue.ModerationQueueEntry{
       cleared: false,
       reported: 1,
       reason: "off-topic"
@@ -142,7 +142,7 @@ defmodule Cforum.Factory do
   end
 
   def closed_moderation_queue_entry_factory do
-    %Cforum.Forums.ModerationQueueEntry{
+    %Cforum.ModerationQueue.ModerationQueueEntry{
       cleared: true,
       reported: 1,
       reason: "off-topic",

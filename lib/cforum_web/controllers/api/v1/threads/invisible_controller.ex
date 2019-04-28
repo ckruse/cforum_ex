@@ -2,15 +2,16 @@ defmodule CforumWeb.Api.V1.Threads.InvisibleController do
   use CforumWeb, :controller
 
   alias Cforum.Forums
-  alias Cforum.Forums.Threads
+  alias Cforum.Threads
+  alias Cforum.Threads.InvisibleThreads
 
   def hide(conn, _params) do
-    Threads.hide_thread(conn.assigns[:current_user], conn.assigns.thread)
+    InvisibleThreads.hide_thread(conn.assigns[:current_user], conn.assigns.thread)
     json(conn, %{"status" => "ok"})
   end
 
   def unhide(conn, _params) do
-    Threads.unhide_thread(conn.assigns[:current_user], conn.assigns.thread)
+    InvisibleThreads.unhide_thread(conn.assigns[:current_user], conn.assigns.thread)
     json(conn, %{"status" => "ok"})
   end
 

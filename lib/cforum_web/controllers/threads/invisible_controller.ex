@@ -1,7 +1,9 @@
 defmodule CforumWeb.Threads.InvisibleController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.Threads
+  alias Cforum.Threads
+  alias Cforum.Threads.InvisibleThreads
+  alias Cforum.Threads.ThreadHelpers
   alias CforumWeb.Views.Helpers.ReturnUrl
 
   def index(conn, params) do
@@ -11,7 +13,7 @@ defmodule CforumWeb.Threads.InvisibleController do
     ordering = uconf(conn, "sort_threads")
 
     {all_threads_count, threads} =
-      Threads.list_invisible_threads(
+      InvisibleThreads.list_invisible_threads(
         user,
         conn.assigns[:visible_forums],
         page: page,
@@ -39,11 +41,11 @@ defmodule CforumWeb.Threads.InvisibleController do
       Threads.get_thread_by_slug!(
         conn.assigns.current_forum,
         conn.assigns.visible_forums,
-        Threads.slug_from_params(params)
+        ThreadHelpers.slug_from_params(params)
       )
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
 
-    Threads.hide_thread(conn.assigns[:current_user], thread)
+    InvisibleThreads.hide_thread(conn.assigns[:current_user], thread)
 
     conn
     |> put_flash(:info, gettext("Thread has successfully been hidden."))
@@ -55,11 +57,11 @@ defmodule CforumWeb.Threads.InvisibleController do
       Threads.get_thread_by_slug!(
         conn.assigns.current_forum,
         conn.assigns.visible_forums,
-        Threads.slug_from_params(params)
+        ThreadHelpers.slug_from_params(params)
       )
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
 
-    Threads.unhide_thread(conn.assigns[:current_user], thread)
+    InvisibleThreads.unhide_thread(conn.assigns[:current_user], thread)
 
     conn
     |> put_flash(:info, gettext("Thread has successfully been restored."))

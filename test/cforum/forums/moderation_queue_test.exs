@@ -1,9 +1,9 @@
 defmodule Cforum.Forums.ModerationQueueTest do
   use Cforum.DataCase
 
-  alias Cforum.Forums.ModerationQueue
-  alias Cforum.Forums.ModerationQueueEntry
-  alias Cforum.Forums.Threads
+  alias Cforum.ModerationQueue
+  alias Cforum.ModerationQueue.ModerationQueueEntry
+  alias Cforum.Threads
 
   setup do
     forum = insert(:public_forum)

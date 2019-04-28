@@ -2,9 +2,9 @@ defmodule CforumWeb.Api.V1.Messages.VoteController do
   use CforumWeb, :controller
 
   alias Cforum.Forums
-  alias Cforum.Forums.Threads
-  alias Cforum.Forums.Messages
-  alias Cforum.Forums.Votes
+  alias Cforum.Threads
+  alias Cforum.Messages
+  alias Cforum.Messages.Votes
 
   def upvote(conn, params) do
     if Votes.upvoted?(conn.assigns.message, conn.assigns.current_user) do

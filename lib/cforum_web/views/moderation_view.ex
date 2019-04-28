@@ -1,7 +1,7 @@
 defmodule CforumWeb.ModerationView do
   use CforumWeb, :view
 
-  alias Cforum.Forums.ModerationQueueEntry
+  alias Cforum.ModerationQueue.ModerationQueueEntry
 
   def page_heading(action, assigns), do: page_title(action, assigns)
 

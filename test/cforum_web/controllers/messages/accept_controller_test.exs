@@ -3,7 +3,7 @@ defmodule CforumWeb.Messages.AcceptControllerTest do
 
   setup [:setup_tests]
 
-  alias Cforum.Forums.Messages
+  alias Cforum.Messages
 
   test "accepts an answer", %{conn: conn, forum: forum, thread: thread, message: message} do
     conn = post(conn, Path.accept_message_path(conn, thread, message), f: forum.slug, r: "message")

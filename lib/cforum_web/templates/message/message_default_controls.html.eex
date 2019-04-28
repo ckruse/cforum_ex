@@ -27,7 +27,7 @@
     <%= default_button(gettext("mark message as boring"), to: Path.boring_message_path(@conn, @thread, @message), params: std_args(@conn)) %>
   <% end %>
 
-  <%= unless Messages.parent_subscribed?(@thread, @message) do %>
+  <%= unless Subscriptions.parent_subscribed?(@thread, @message) do %>
     <%= if Abilities.may?(@conn, "messages/subscription", :subscribe, @message) do %>
       <%= default_button(gettext("subscribe message"), to: Path.subscribe_message_path(@conn, @thread, @message), params: std_args(@conn)) %>
     <% end %>

@@ -3,7 +3,7 @@
 
   <div class="thread-marker-icons">
     <%= if @thread.sticky do %><svg class="sticky-icon" title="<%= gettext("this thread is sticky") %>" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-sticky"></use></svg><% end %>
-    <%= if Threads.has_interesting?(@thread) do %><svg class="has-interesting-icon" title="<%= gettext("this thread has interesting messages") %>" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#has-interesting"></use></svg><% end %>
+    <%= if ThreadHelpers.has_interesting?(@thread) do %><svg class="has-interesting-icon" title="<%= gettext("this thread has interesting messages") %>" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#has-interesting"></use></svg><% end %>
     <%= if @thread.flags["no-archive"] == "yes" do %><svg class="no-archive-icon" title="<%= gettext("this thread will not be archived") %>" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-no-archive"></use></svg><% end %>
   </div>
 

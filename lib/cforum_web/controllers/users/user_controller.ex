@@ -2,9 +2,11 @@ defmodule CforumWeb.Users.UserController do
   use CforumWeb, :controller
 
   alias Cforum.Accounts.Users
-  alias Cforum.Forums.{Messages, Message}
-  alias Cforum.Forums.{Votes, Vote}
-  alias Cforum.Forums.Thread
+  alias Cforum.Messages.MessagesUsers
+  alias Cforum.Messages.Message
+  alias Cforum.Messages.Votes
+  alias Cforum.Messages.Vote
+  alias Cforum.Threads.Thread
   alias Cforum.Accounts.Score
 
   def index(conn, params) do
@@ -20,12 +22,12 @@ defmodule CforumWeb.Users.UserController do
     user = Users.get_user!(id)
 
     forum_ids = Enum.map(conn.assigns[:visible_forums], & &1.forum_id)
-    messages_count = Messages.count_messages_for_user(user, forum_ids)
-    tags_cnt = Messages.count_messages_per_tag_for_user(user, forum_ids)
+    messages_count = MessagesUsers.count_messages_for_user(user, forum_ids)
+    tags_cnt = MessagesUsers.count_messages_per_tag_for_user(user, forum_ids)
 
     last_messages =
       user
-      |> Messages.list_messages_for_user(forum_ids, limit: [quantity: 5, offset: 0])
+      |> MessagesUsers.list_messages_for_user(forum_ids, limit: [quantity: 5, offset: 0])
       |> Enum.map(fn msg ->
         thread = %Thread{msg.thread | message: msg}
         %Message{msg | thread: thread}
@@ -33,7 +35,7 @@ defmodule CforumWeb.Users.UserController do
 
     point_msgs =
       user
-      |> Messages.list_best_scored_messages_for_user(forum_ids)
+      |> MessagesUsers.list_best_scored_messages_for_user(forum_ids)
       |> Enum.map(fn msg ->
         thread = %Thread{msg.thread | message: msg}
         %Message{msg | thread: thread}
@@ -41,7 +43,7 @@ defmodule CforumWeb.Users.UserController do
 
     scored_msgs =
       user
-      |> Messages.list_scored_msgs_for_user_in_perspective(conn.assigns[:current_user], forum_ids)
+      |> MessagesUsers.list_scored_msgs_for_user_in_perspective(conn.assigns[:current_user], forum_ids)
       |> Enum.reduce({%{}, 0}, fn score, {msgs, fake_id} ->
         m =
           case score.vote do
@@ -86,10 +88,10 @@ defmodule CforumWeb.Users.UserController do
     user = Users.get_user!(id)
     forum_ids = Enum.map(conn.assigns[:visible_forums], & &1.forum_id)
 
-    count = Messages.count_messages_for_user(user, forum_ids)
+    count = MessagesUsers.count_messages_for_user(user, forum_ids)
     paging = paginate(count, page: params["p"])
 
-    entries = Messages.list_messages_for_user(user, forum_ids, limit: paging.params)
+    entries = MessagesUsers.list_messages_for_user(user, forum_ids, limit: paging.params)
 
     messages =
       Enum.map(entries, fn msg ->
@@ -110,11 +112,11 @@ defmodule CforumWeb.Users.UserController do
     user = Users.get_user!(id)
     forum_ids = Enum.map(conn.assigns[:visible_forums], & &1.forum_id)
 
-    count = Messages.count_scored_msgs_for_user_in_perspective(user, conn.assigns[:current_user], forum_ids)
+    count = MessagesUsers.count_scored_msgs_for_user_in_perspective(user, conn.assigns[:current_user], forum_ids)
     paging = paginate(count, page: params["p"])
 
     messages =
-      Messages.list_scored_msgs_for_user_in_perspective(
+      MessagesUsers.list_scored_msgs_for_user_in_perspective(
         user,
         conn.assigns[:current_user],
         forum_ids,
@@ -148,8 +150,8 @@ defmodule CforumWeb.Users.UserController do
 
     votes =
       Enum.map(entries, fn vote ->
-        thread = %Cforum.Forums.Thread{vote.message.thread | message: vote.message}
-        %Vote{vote | message: %Cforum.Forums.Message{vote.message | thread: thread}}
+        thread = %Cforum.Threads.Thread{vote.message.thread | message: vote.message}
+        %Vote{vote | message: %Cforum.Messages.Message{vote.message | thread: thread}}
       end)
 
     render(

@@ -1,7 +1,7 @@
 defmodule CforumWeb.Api.V1.Threads.AdminController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.Threads
+  alias Cforum.Threads
 
   def sticky(conn, %{"slug" => slug}) do
     Threads.mark_thread_sticky(conn.assigns.current_user, conn.assigns.thread)

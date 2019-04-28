@@ -2,10 +2,11 @@ defmodule Cforum.Forums.Stats do
   import Ecto.Query, warn: false
   alias Cforum.Repo
 
-  alias Cforum.Forums.{Threads, Message}
+  alias Cforum.Threads
+  alias Cforum.Messages.Message
   alias Cforum.Forums.ForumStat
 
-  @spec threads_for_overview(%Cforum.Accounts.User{}, [%Cforum.Forums.Thread{}]) :: {map(), %Cforum.Forums.Thread{}}
+  @spec threads_for_overview(%Cforum.Accounts.User{}, [%Cforum.Threads.Thread{}]) :: {map(), %Cforum.Threads.Thread{}}
   def threads_for_overview(current_user, all_threads) do
     latest = Enum.max_by(all_threads, &Timex.to_erl(&1.latest_message), fn -> nil end)
 
@@ -179,7 +180,7 @@ defmodule Cforum.Forums.Stats do
   defp preload_tags(tags) do
     records =
       Enum.map(tags, fn {tag_id, _} -> tag_id end)
-      |> Cforum.Forums.Tags.get_tags_by_ids()
+      |> Cforum.Messages.Tags.get_tags_by_ids()
 
     Enum.reduce(tags, [], fn {tag_id, cnt}, acc ->
       tag = Enum.find(records, &(&1.tag_id == tag_id))

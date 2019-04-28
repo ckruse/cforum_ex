@@ -1,7 +1,7 @@
 defmodule CforumWeb.TagControllerTest do
   use CforumWeb.ConnCase
 
-  alias Cforum.Forums.Tag
+  alias Cforum.Messages.Tag
 
   setup [:setup_tags]
 

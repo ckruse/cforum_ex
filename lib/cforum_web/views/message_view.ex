@@ -1,9 +1,13 @@
 defmodule CforumWeb.MessageView do
   use CforumWeb, :view
 
-  alias Cforum.Forums.{Messages, Thread, Message}
-  alias Cforum.Forums.{CloseVotes, CloseVote}
-  alias Cforum.Forums.Votes
+  alias Cforum.Threads.Thread
+  alias Cforum.Messages.Message
+  alias Cforum.Messages.Subscriptions
+  alias Cforum.Messages.MessageHelpers
+  alias Cforum.Messages.CloseVotes
+  alias Cforum.Messages.CloseVote
+  alias Cforum.Messages.Votes
   alias CforumWeb.Messages.OpenCloseVoteView
   alias Cforum.Accounts.Badge
 
@@ -20,7 +24,7 @@ defmodule CforumWeb.MessageView do
 
   def accepted_class(classes, thread, message) do
     classes = if thread.message.message_id == message.message_id, do: ["has-accepted-answer" | classes], else: classes
-    if Messages.accepted?(message), do: ["accepted-answer" | classes], else: classes
+    if MessageHelpers.accepted?(message), do: ["accepted-answer" | classes], else: classes
   end
 
   # TODO
@@ -105,7 +109,7 @@ defmodule CforumWeb.MessageView do
   defp negative_score_class(score) when score == -4, do: "negativer-score"
   defp negative_score_class(score) when score < -4, do: "negative-bad-score"
 
-  def score_class(classes, %Message{} = message), do: score_class(classes, Messages.score(message))
+  def score_class(classes, %Message{} = message), do: score_class(classes, MessageHelpers.score(message))
   def score_class(classes, score) when score == 0, do: classes
   def score_class(classes, score) when score > 0, do: [positive_score_class(score) | classes]
   def score_class(classes, score) when score < 0, do: [negative_score_class(score) | classes]

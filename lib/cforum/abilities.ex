@@ -62,7 +62,7 @@ defmodule Cforum.Abilities do
   alias Cforum.Accounts.User
   alias Cforum.Accounts.Badge
 
-  alias Cforum.Forums.Messages
+  alias Cforum.Messages.MessageHelpers
 
   import Cforum.Helpers
 
@@ -123,7 +123,7 @@ defmodule Cforum.Abilities do
   end
 
   def accept?(conn, message),
-    do: access_forum?(conn, :write) && !Messages.closed?(message) && accept_allowed?(conn, message)
+    do: access_forum?(conn, :write) && !MessageHelpers.closed?(message) && accept_allowed?(conn, message)
 
   @doc """
   Returns true if the user may access the given forum

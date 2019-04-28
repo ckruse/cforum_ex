@@ -2,8 +2,8 @@ defmodule CforumWeb.Api.V1.Messages.MarkReadController do
   use CforumWeb, :controller
 
   alias Cforum.Forums
-  alias Cforum.Forums.Threads
-  alias Cforum.Forums.Messages
+  alias Cforum.Threads
+  alias Cforum.Messages.ReadMessages
 
   def mark_read(conn, %{"slug" => slug} = params) do
     forum = Forums.get_forum_by_slug(params["forum"])
@@ -13,7 +13,7 @@ defmodule CforumWeb.Api.V1.Messages.MarkReadController do
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.ensure_found!()
 
-    Messages.mark_messages_read(conn.assigns[:current_user], thread.messages)
+    ReadMessages.mark_messages_read(conn.assigns[:current_user], thread.messages)
 
     thread =
       Threads.get_thread_by_slug!(conn.assigns.current_forum, conn.assigns.visible_forums, slug)

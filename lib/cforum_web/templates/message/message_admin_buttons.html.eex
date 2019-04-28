@@ -36,7 +36,7 @@
   <% end %>
 
   <%= if Abilities.may?(@conn, "messages/admin", :no_answer) do %>
-    <%= if Messages.no_answer?(@message) do %>
+    <%= if MessageHelpers.no_answer?(@message) do %>
       <%= destructive_index_button(to: Path.answer_message_path(@conn, @thread, @message), params: std_args(@conn)) do %>
         <%= gettext("allow answering to this message") %>
       <% end %>

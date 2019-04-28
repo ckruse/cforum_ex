@@ -2,8 +2,8 @@ defmodule CforumWeb.Api.V1.MessageController do
   use CforumWeb, :controller
 
   alias Cforum.Forums
-  alias Cforum.Forums.Threads
-  alias Cforum.Forums.Messages
+  alias Cforum.Threads
+  alias Cforum.Messages
 
   def message_quote(conn, params) do
     changeset =

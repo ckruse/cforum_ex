@@ -1,7 +1,12 @@
 defmodule CforumWeb.Messages.OpenCloseVoteController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.{Messages, Threads, CloseVotes, CloseVote}
+  alias Cforum.Threads
+  alias Cforum.Threads.ThreadHelpers
+  alias Cforum.Messages
+  alias Cforum.Messages.MessageHelpers
+  alias Cforum.Messages.CloseVotes
+  alias Cforum.Messages.CloseVote
   alias Cforum.Accounts.Badge
 
   def new_close(conn, _params) do
@@ -57,7 +62,7 @@ defmodule CforumWeb.Messages.OpenCloseVoteController do
 
   def load_resource(conn) do
     thread =
-      Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, Threads.slug_from_params(conn.params))
+      Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, ThreadHelpers.slug_from_params(conn.params))
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:read, :subscriptions, :interesting])
       |> Threads.apply_highlights(conn)
@@ -82,16 +87,16 @@ defmodule CforumWeb.Messages.OpenCloseVoteController do
     msg = msg || conn.assigns.message
 
     (Abilities.access_forum?(conn, :moderate) || Abilities.badge?(conn, Badge.create_close_reopen_vote())) &&
-      !Messages.closed?(msg) &&
-      !Messages.admin_decision?(msg) && CloseVotes.get_close_vote(msg) == nil
+      !MessageHelpers.closed?(msg) &&
+      !MessageHelpers.admin_decision?(msg) && CloseVotes.get_close_vote(msg) == nil
   end
 
   def allowed?(conn, action, msg) when action in [:new_open, :create_open] do
     msg = msg || conn.assigns.message
 
     (Abilities.access_forum?(conn, :moderate) || Abilities.badge?(conn, Badge.create_close_reopen_vote())) &&
-      Messages.closed?(msg) &&
-      !Messages.admin_decision?(msg) && CloseVotes.get_reopen_vote(msg) == nil
+      MessageHelpers.closed?(msg) &&
+      !MessageHelpers.admin_decision?(msg) && CloseVotes.get_reopen_vote(msg) == nil
   end
 
   def allowed?(conn, :vote, vote) do
@@ -104,13 +109,13 @@ defmodule CforumWeb.Messages.OpenCloseVoteController do
 
       vote.vote_type == false ->
         (Abilities.access_forum?(conn, :moderate) || Abilities.badge?(conn, Badge.visit_close_reopen())) &&
-          !Messages.closed?(msg) &&
-          !Messages.admin_decision?(msg)
+          !MessageHelpers.closed?(msg) &&
+          !MessageHelpers.admin_decision?(msg)
 
       true ->
         (Abilities.access_forum?(conn, :moderate) || Abilities.badge?(conn, Badge.visit_close_reopen())) &&
-          Messages.closed?(msg) &&
-          !Messages.admin_decision?(msg)
+          MessageHelpers.closed?(msg) &&
+          !MessageHelpers.admin_decision?(msg)
     end
   end
 
