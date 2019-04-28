@@ -177,6 +177,8 @@ defmodule CforumWeb.Router do
 
       get("/stats", ForumController, :stats, as: nil)
 
+      post("/mark-all-read", Messages.MarkReadController, :mark_all_read)
+
       get("/archive", ArchiveController, :years, as: nil)
       get("/:year", ArchiveController, :months, as: nil)
       get("/:year/:month", ArchiveController, :threads, as: nil)
