@@ -2,8 +2,8 @@ defmodule CforumWeb.Api.V1.Messages.AcceptController do
   use CforumWeb, :controller
 
   alias Cforum.Forums
-  alias Cforum.Forums.Threads
-  alias Cforum.Forums.Messages
+  alias Cforum.Threads
+  alias Cforum.Messages
 
   def accept(conn, params) do
     Messages.accept_message(conn.assigns.message, conn.assigns.current_user, conf(conn, "accept_value", :int))

@@ -19,7 +19,7 @@
     <% end %>
   <% end %>
 
-  <%= if Messages.accepted?(@message) && (@top || !Abilities.accept?(@conn, @message)) do %>
+  <%= if MessageHelpers.accepted?(@message) && (@top || !Abilities.accept?(@conn, @message)) do %>
     <span class="accepted-answer accept"> </span>
   <% end %>
 
@@ -36,8 +36,8 @@
     <% end %>
   <% end %>
 
-  <span class="votes" title="<%= ngettext("Score: no score", "Score: %{score}", Messages.no_votes(@message), score: Messages.score_str(@message)) %>">
-    <%= Messages.score_str(@message) %>
+  <span class="votes" title="<%= ngettext("Score: no score", "Score: %{score}", MessageHelpers.no_votes(@message), score: MessageHelpers.score_str(@message)) %>">
+    <%= MessageHelpers.score_str(@message) %>
   </span>
 
   <%= unless @top do %>

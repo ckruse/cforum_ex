@@ -1,7 +1,11 @@
 defmodule CforumWeb.Messages.VoteController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.{Votes, Messages, Threads}
+  alias Cforum.Threads
+  alias Cforum.Threads.ThreadHelpers
+  alias Cforum.Messages.Votes
+  alias Cforum.Messages
+  alias Cforum.Messages.MessageHelpers
   alias CforumWeb.Views.Helpers.ReturnUrl
 
   def upvote(conn, params) do
@@ -36,7 +40,7 @@ defmodule CforumWeb.Messages.VoteController do
 
   def load_resource(conn) do
     thread =
-      Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, Threads.slug_from_params(conn.params))
+      Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, ThreadHelpers.slug_from_params(conn.params))
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.build_message_tree(uconf(conn, "sort_messages"))
 
@@ -57,7 +61,7 @@ defmodule CforumWeb.Messages.VoteController do
 
     Abilities.signed_in?(conn) && Abilities.access_forum?(conn, :write) &&
       (Abilities.admin?(conn) || Abilities.badge?(conn, "upvote")) &&
-      !Messages.closed?(message) && !thread.archived
+      !MessageHelpers.closed?(message) && !thread.archived
   end
 
   def allowed?(conn, :downvote, resource) do
@@ -70,7 +74,7 @@ defmodule CforumWeb.Messages.VoteController do
 
     Abilities.signed_in?(conn) && Abilities.access_forum?(conn, :write) &&
       (Abilities.admin?(conn) || Abilities.badge?(conn, "downvote")) &&
-      !Messages.closed?(message) && !thread.archived && conn.assigns.current_user.score > 0
+      !MessageHelpers.closed?(message) && !thread.archived && conn.assigns.current_user.score > 0
   end
 
   def allowed?(_, _, _), do: false

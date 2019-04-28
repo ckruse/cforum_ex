@@ -3,7 +3,8 @@ defmodule CforumWeb.Messages.MarkReadControllerTest do
 
   setup [:setup_tests]
 
-  alias Cforum.Forums.Messages
+  alias Cforum.Messages
+  alias Cforum.Messages.ReadMessages
 
   describe "marking a thread read" do
     test "marks a thread read", %{conn: conn, forum: forum, thread: thread, message: message} do
@@ -19,7 +20,7 @@ defmodule CforumWeb.Messages.MarkReadControllerTest do
       thread: thread,
       message: message
     } do
-      Messages.mark_messages_read(user, message)
+      ReadMessages.mark_messages_read(user, message)
       conn = post(conn, Path.mark_read_path(conn, :mark_read, thread), f: forum.slug, r: "message")
       assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
       assert get_flash(conn, :info) == gettext("Thread has successfully been marked as read.")

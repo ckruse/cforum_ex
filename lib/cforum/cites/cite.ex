@@ -1,7 +1,7 @@
 defmodule Cforum.Cites.Cite do
   use CforumWeb, :model
 
-  alias Cforum.Forums.Messages
+  alias Cforum.Messages
 
   @primary_key {:cite_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :cite_id}
@@ -16,7 +16,7 @@ defmodule Cforum.Cites.Cite do
     field(:url, :string)
 
     belongs_to(:user, Cforum.Accounts.User, references: :user_id)
-    belongs_to(:message, Cforum.Forums.Message, references: :message_id)
+    belongs_to(:message, Cforum.Messages.Message, references: :message_id)
     belongs_to(:creator_user, Cforum.Accounts.User, references: :user_id)
 
     has_many(:votes, Cforum.Cites.Vote, foreign_key: :cite_id)

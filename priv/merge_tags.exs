@@ -1,5 +1,5 @@
 alias Cforum.Repo
-alias Cforum.Forums.TagSynonym
+alias Cforum.Messages.TagSynonym
 
 import Ecto.Query
 
@@ -39,7 +39,7 @@ defmodule Tag do
 
     tag_ids = Enum.map(rest, & &1.tag_id)
 
-    from(m in Cforum.Forums.MessageTag, where: m.tag_id in ^tag_ids)
+    from(m in Cforum.Messages.Tags.MessageTag, where: m.tag_id in ^tag_ids)
     |> Repo.update_all(set: [tag_id: orig_tag.tag_id])
 
     from(m in Tag, where: m.tag_id in ^tag_ids)

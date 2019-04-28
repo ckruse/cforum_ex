@@ -1,10 +1,11 @@
 defmodule CforumWeb.ThreadController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.Threads
-  alias Cforum.Forums.Messages
+  alias Cforum.Threads
+  alias Cforum.Messages
 
-  alias Cforum.Forums.ThreadHelpers
+  alias Cforum.Threads.ThreadHelpers
+  alias Cforum.Messages.Subscriptions
 
   def index(conn, params) do
     page = parse_page(params["p"]) - 1
@@ -174,7 +175,7 @@ defmodule CforumWeb.ThreadController do
         conn.assigns[:current_forum],
         conn.assigns[:visible_forums],
         create_tags: Abilities.may?(conn, "tag", :new),
-        autosubscribe: Messages.autosubscribe?(conn.assigns.current_user, uconf(conn, "autosubscribe_on_post"))
+        autosubscribe: Subscriptions.autosubscribe?(conn.assigns.current_user, uconf(conn, "autosubscribe_on_post"))
       )
 
     case create_val do
@@ -196,7 +197,7 @@ defmodule CforumWeb.ThreadController do
   defp load_thread_and_message(conn, :show) do
     thread =
       conn.assigns[:current_forum]
-      |> Threads.get_thread_by_slug!(conn.assigns[:visible_forums], Threads.slug_from_params(conn.params))
+      |> Threads.get_thread_by_slug!(conn.assigns[:visible_forums], ThreadHelpers.slug_from_params(conn.params))
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.apply_user_infos(conn.assigns[:current_user])
       |> Threads.apply_highlights(conn)

@@ -1,7 +1,9 @@
 defmodule CforumWeb.ForumController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.{Stats, Threads, Messages}
+  alias Cforum.Threads
+  alias Cforum.Messages
+  alias Cforum.Forums.Stats
 
   def index(conn, %{"t" => tid, "m" => mid}) do
     threads =

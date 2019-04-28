@@ -125,7 +125,7 @@ defmodule CforumWeb.MessageControllerTest do
 
       assert %{curr_forum: _f, year: _y, month: _m, day: _d, slug: _s, mid: mid} = cf_redirected_params(conn)
 
-      msg = Cforum.Forums.Messages.get_message!(mid)
+      msg = Cforum.Messages.get_message!(mid)
       assert msg.user_id == user.user_id
     end
 

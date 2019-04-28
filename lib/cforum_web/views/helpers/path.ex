@@ -3,9 +3,11 @@ defmodule CforumWeb.Views.Helpers.Path do
 
   alias Cforum.Accounts.PrivMessage
 
-  alias Cforum.Forums.{Forum, Thread, Message}
-  alias Cforum.Forums.{Tag, TagSynonym}
-  alias Cforum.Forums.CloseVote
+  alias Cforum.Forums.Forum
+  alias Cforum.Threads.Thread
+  alias Cforum.Messages.Message
+  alias Cforum.Messages.{Tag, TagSynonym}
+  alias Cforum.Messages.CloseVote
 
   alias CforumWeb.Router.Helpers, as: Routes
 

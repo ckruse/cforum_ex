@@ -1,7 +1,7 @@
 defmodule CforumWeb.Api.V1.TagController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.Tags
+  alias Cforum.Messages.Tags
 
   def index(conn, _params) do
     tags = Tags.list_tags()

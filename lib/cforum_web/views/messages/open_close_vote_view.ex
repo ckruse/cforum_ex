@@ -1,7 +1,7 @@
 defmodule CforumWeb.Messages.OpenCloseVoteView do
   use CforumWeb, :view
 
-  alias Cforum.Forums.CloseVote
+  alias Cforum.Messages.CloseVote
 
   def page_title(action, assigns) when action in [:new_close, :create_close] do
     gettext(

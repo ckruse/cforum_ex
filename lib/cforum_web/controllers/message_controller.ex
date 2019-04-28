@@ -1,8 +1,13 @@
 defmodule CforumWeb.MessageController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.Messages
-  alias Cforum.Forums.{Thread, Threads}
+  alias Cforum.Messages
+  alias Cforum.Messages.Subscriptions
+  alias Cforum.Messages.MessageHelpers
+  alias Cforum.Messages.ReadMessages
+  alias Cforum.Threads
+  alias Cforum.Threads.Thread
+  alias Cforum.Threads.ThreadHelpers
 
   def show(conn, params) do
     # parameter overwrites cookie overwrites config; validation
@@ -68,7 +73,7 @@ defmodule CforumWeb.MessageController do
 
     opts = [
       create_tags: Abilities.may?(conn, "tag", :new),
-      autosubscribe: Messages.autosubscribe?(cu, uconf(conn, "autosubscribe_on_post"))
+      autosubscribe: Subscriptions.autosubscribe?(cu, uconf(conn, "autosubscribe_on_post"))
     ]
 
     case Messages.create_message(message_params, cu, vis_forums, thread, parent, opts) do
@@ -133,7 +138,7 @@ defmodule CforumWeb.MessageController do
 
   defp get_message(conn, %{"mid" => mid} = params) do
     thread =
-      Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, Threads.slug_from_params(params))
+      Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, ThreadHelpers.slug_from_params(params))
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close])
       |> Threads.apply_highlights(conn)
@@ -174,8 +179,8 @@ defmodule CforumWeb.MessageController do
   end
 
   defp mark_messages_read(_, _, %Thread{archived: true}, _), do: nil
-  defp mark_messages_read("nested", user, thread, _), do: Messages.mark_messages_read(user, thread.messages)
-  defp mark_messages_read(_, user, _, message), do: Messages.mark_messages_read(user, message)
+  defp mark_messages_read("nested", user, thread, _), do: ReadMessages.mark_messages_read(user, thread.messages)
+  defp mark_messages_read(_, user, _, message), do: ReadMessages.mark_messages_read(user, message)
 
   def load_resource(conn) do
     case action_name(conn) do
@@ -202,15 +207,16 @@ defmodule CforumWeb.MessageController do
     do: allowed?(conn, action, {conn.assigns.thread, conn.assigns.parent})
 
   def allowed?(conn, action, {_thread, message}) when action in [:new, :create],
-    do: Abilities.access_forum?(conn, :write) && Messages.open?(message)
+    do: Abilities.access_forum?(conn, :write) && MessageHelpers.open?(message)
 
   def allowed?(conn, action, nil) when action in [:edit, :update],
     do: allowed?(conn, action, {conn.assigns.thread, conn.assigns.message})
 
   def allowed?(conn, action, {thread, msg}) when action in [:edit, :update] do
     Abilities.access_forum?(conn, :moderate) ||
-      (Messages.editable_age?(msg, minutes: conf(conn, "max_editable_age", :int)) && !Messages.answer?(thread, msg) &&
-         Messages.owner?(conn, msg) && Messages.open?(msg))
+      (MessageHelpers.editable_age?(msg, minutes: conf(conn, "max_editable_age", :int)) &&
+         !MessageHelpers.answer?(thread, msg) &&
+         MessageHelpers.owner?(conn, msg) && MessageHelpers.open?(msg))
   end
 
   def allowed?(conn, :show, nil),

@@ -1,7 +1,10 @@
 defmodule CforumWeb.ModerationController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.{ModerationQueue, ModerationQueueEntry, Message, Thread}
+  alias Cforum.Threads.Thread
+  alias Cforum.ModerationQueue
+  alias Cforum.ModerationQueue.ModerationQueueEntry
+  alias Cforum.Messages.Message
 
   def index(conn, params) do
     forums =

@@ -1,7 +1,9 @@
 defmodule CforumWeb.Threads.OpenCloseController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.Threads
+  alias Cforum.Threads
+  alias Cforum.Threads.OpenClose
+  alias Cforum.Threads.ThreadHelpers
   alias CforumWeb.Views.Helpers.ReturnUrl
 
   def open(conn, params) do
@@ -9,11 +11,11 @@ defmodule CforumWeb.Threads.OpenCloseController do
       Threads.get_thread_by_slug!(
         conn.assigns.current_forum,
         conn.assigns.visible_forums,
-        Threads.slug_from_params(params)
+        ThreadHelpers.slug_from_params(params)
       )
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
 
-    Threads.open_thread(conn.assigns[:current_user], thread)
+    OpenClose.open_thread(conn.assigns[:current_user], thread)
 
     conn
     |> put_flash(:info, gettext("Thread has successfully been opened."))
@@ -25,11 +27,11 @@ defmodule CforumWeb.Threads.OpenCloseController do
       Threads.get_thread_by_slug!(
         conn.assigns.current_forum,
         conn.assigns.visible_forums,
-        Threads.slug_from_params(params)
+        ThreadHelpers.slug_from_params(params)
       )
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
 
-    Threads.close_thread(conn.assigns[:current_user], thread)
+    OpenClose.close_thread(conn.assigns[:current_user], thread)
 
     conn
     |> put_flash(:info, gettext("Thread has successfully been closed."))

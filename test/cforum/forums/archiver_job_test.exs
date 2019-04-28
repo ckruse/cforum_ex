@@ -1,7 +1,8 @@
 defmodule Cforum.Forums.ArchiverJobTest do
   use Cforum.DataCase
 
-  alias Cforum.Forums.{Threads, ArchiverJob}
+  alias Cforum.Threads
+  alias Cforum.Forums.ArchiverJob
 
   setup do
     forum = insert(:forum)

@@ -1,7 +1,7 @@
 defmodule CforumWeb.Messages.FlagView do
   use CforumWeb, :view
 
-  alias Cforum.Forums.ModerationQueueEntry
+  alias Cforum.ModerationQueue.ModerationQueueEntry
 
   def page_title(_, assigns) do
     gettext("flag message %{subject} by %{author}", subject: assigns.message.subject, author: assigns.message.author)

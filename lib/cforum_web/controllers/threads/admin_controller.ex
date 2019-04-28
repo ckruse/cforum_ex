@@ -1,7 +1,9 @@
 defmodule CforumWeb.Threads.AdminController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.{Threads, Messages}
+  alias Cforum.Threads
+  alias Cforum.Threads.ThreadHelpers
+  alias Cforum.Messages
   alias CforumWeb.Views.Helpers.ReturnUrl
 
   def sticky(conn, params) do
@@ -82,7 +84,7 @@ defmodule CforumWeb.Threads.AdminController do
   def load_resource(conn) do
     thread =
       conn.assigns.current_forum
-      |> Threads.get_thread_by_slug!(conn.assigns.visible_forums, Threads.slug_from_params(conn.params))
+      |> Threads.get_thread_by_slug!(conn.assigns.visible_forums, ThreadHelpers.slug_from_params(conn.params))
       |> Threads.build_message_tree("ascending")
 
     message =

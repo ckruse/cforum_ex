@@ -2,15 +2,16 @@ defmodule CforumWeb.Api.V1.Threads.OpenCloseController do
   use CforumWeb, :controller
 
   alias Cforum.Forums
-  alias Cforum.Forums.Threads
+  alias Cforum.Threads
+  alias Cforum.Threads.OpenClose
 
   def open(conn, _params) do
-    Threads.open_thread(conn.assigns[:current_user], conn.assigns.thread)
+    OpenClose.open_thread(conn.assigns[:current_user], conn.assigns.thread)
     render_thread(conn)
   end
 
   def close(conn, _params) do
-    Threads.close_thread(conn.assigns[:current_user], conn.assigns.thread)
+    OpenClose.close_thread(conn.assigns[:current_user], conn.assigns.thread)
     render_thread(conn)
   end
 

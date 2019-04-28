@@ -2,8 +2,8 @@ defmodule CforumWeb.Api.V1.Messages.AdminController do
   use CforumWeb, :controller
 
   alias Cforum.Forums
-  alias Cforum.Forums.Threads
-  alias Cforum.Forums.Messages
+  alias Cforum.Threads
+  alias Cforum.Messages
 
   def delete(conn, %{"slug" => slug}) do
     Messages.delete_message(conn.assigns.current_user, conn.assigns.message)

@@ -1,7 +1,11 @@
 defmodule CforumWeb.Messages.SubscriptionController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.{Threads, Messages, Thread}
+  alias Cforum.Threads
+  alias Cforum.Threads.Thread
+  alias Cforum.Threads.ThreadHelpers
+  alias Cforum.Messages
+  alias Cforum.Messages.Subscriptions
   alias CforumWeb.Views.Helpers.ReturnUrl
   alias Cforum.Search
   alias Cforum.Search.Finder
@@ -31,10 +35,10 @@ defmodule CforumWeb.Messages.SubscriptionController do
   def index(conn, params) do
     visible_sections = Search.list_visible_search_sections(conn.assigns.visible_forums)
     changeset = Search.search_changeset(visible_sections)
-    count = Messages.count_subscriptions(conn.assigns[:current_user])
+    count = Subscriptions.count_subscriptions(conn.assigns[:current_user])
     paging = paginate(count, page: params["p"])
 
-    entries = Messages.list_subscriptions(conn.assigns[:current_user], limit: paging.params)
+    entries = Subscriptions.list_subscriptions(conn.assigns[:current_user], limit: paging.params)
 
     threads =
       entries
@@ -47,7 +51,7 @@ defmodule CforumWeb.Messages.SubscriptionController do
   end
 
   def subscribe(conn, params) do
-    Messages.subscribe_message(conn.assigns[:current_user], conn.assigns.message)
+    Subscriptions.subscribe_message(conn.assigns[:current_user], conn.assigns.message)
 
     conn
     |> put_flash(:info, gettext("Message was successfully subscribed."))
@@ -55,7 +59,7 @@ defmodule CforumWeb.Messages.SubscriptionController do
   end
 
   def unsubscribe(conn, params) do
-    Messages.unsubscribe_message(conn.assigns[:current_user], conn.assigns.message)
+    Subscriptions.unsubscribe_message(conn.assigns[:current_user], conn.assigns.message)
 
     conn
     |> put_flash(:info, gettext("Message was successfully unsubscribed."))
@@ -67,7 +71,7 @@ defmodule CforumWeb.Messages.SubscriptionController do
       conn
     else
       thread =
-        Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, Threads.slug_from_params(conn.params))
+        Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, ThreadHelpers.slug_from_params(conn.params))
         |> Threads.reject_deleted_threads(conn.assigns[:view_all])
         |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:read, :interesting, :open_close])
         |> Threads.apply_highlights(conn)

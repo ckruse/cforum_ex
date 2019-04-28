@@ -1,7 +1,11 @@
 defmodule CforumWeb.TagController do
   use CforumWeb, :controller
 
-  alias Cforum.Forums.{Tags, Messages, Thread, Message, Tag}
+  alias Cforum.Threads.Thread
+  alias Cforum.Messages.MessagesTags
+  alias Cforum.Messages.Message
+  alias Cforum.Messages.Tags
+  alias Cforum.Messages.Tag
 
   def index(conn, _params) do
     tags = Tags.list_tags()
@@ -21,9 +25,9 @@ defmodule CforumWeb.TagController do
   def show(conn, %{"id" => id} = params) do
     tag = Tags.get_tag_by_slug!(id)
 
-    count = Messages.count_messages_for_tag(conn.assigns[:visible_forums], tag)
+    count = MessagesTags.count_messages_for_tag(conn.assigns[:visible_forums], tag)
     paging = paginate(count, page: params["p"])
-    entries = Messages.list_messages_for_tag(conn.assigns[:visible_forums], tag, limit: paging.params)
+    entries = MessagesTags.list_messages_for_tag(conn.assigns[:visible_forums], tag, limit: paging.params)
 
     messages =
       Enum.map(entries, fn msg ->

@@ -1,7 +1,10 @@
 defmodule CforumWeb.OpenCloseVoteControllerTest do
   use CforumWeb.ConnCase
 
-  alias Cforum.Forums.{CloseVotes, CloseVoteVoter, Messages, Threads}
+  alias Cforum.Threads
+  alias Cforum.Messages
+  alias Cforum.Messages.CloseVotes
+  alias Cforum.Messages.CloseVoteVoter
 
   setup [:setup_close_votes]
 

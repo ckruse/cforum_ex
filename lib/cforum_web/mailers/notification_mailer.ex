@@ -11,7 +11,8 @@ defmodule CforumWeb.NotificationMailer do
     |> render(:pm_notification_mail, user: user, pm: pm)
   end
 
-  @spec new_message_mail(%Cforum.Accounts.User{}, %Cforum.Forums.Thread{}, %Cforum.Forums.Message{}) :: Bamboo.Email.t()
+  @spec new_message_mail(%Cforum.Accounts.User{}, %Cforum.Threads.Thread{}, %Cforum.Messages.Message{}) ::
+          Bamboo.Email.t()
   def new_message_mail(user, thread, message) do
     new_email()
     |> from(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))

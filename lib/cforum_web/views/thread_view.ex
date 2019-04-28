@@ -1,7 +1,8 @@
 defmodule CforumWeb.ThreadView do
   use CforumWeb, :view
 
-  alias Cforum.Forums.{Thread, Threads}
+  alias Cforum.Threads.Thread
+  alias Cforum.Threads.ThreadHelpers
   alias CforumWeb.Views.Helpers.Feeds
 
   defp archived_class(classes, %Thread{archived: true}), do: ["archived" | classes]

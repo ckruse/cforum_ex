@@ -1,4 +1,4 @@
-defmodule Cforum.Forums.TagsTest do
+defmodule Cforum.Messages.TagsTest do
   use Cforum.DataCase
 
   alias Cforum.Forums.{Tags, Tag, TagSynonym, Messages}

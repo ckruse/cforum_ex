@@ -2,16 +2,17 @@ defmodule CforumWeb.Api.V1.Messages.SubscriptionController do
   use CforumWeb, :controller
 
   alias Cforum.Forums
-  alias Cforum.Forums.Threads
-  alias Cforum.Forums.Messages
+  alias Cforum.Threads
+  alias Cforum.Messages
+  alias Cforum.Messages.Subscriptions
 
   def subscribe(conn, _params) do
-    Messages.subscribe_message(conn.assigns[:current_user], conn.assigns[:message])
+    Subscriptions.subscribe_message(conn.assigns[:current_user], conn.assigns[:message])
     render_thread(conn)
   end
 
   def unsubscribe(conn, _params) do
-    Messages.unsubscribe_message(conn.assigns[:current_user], conn.assigns[:message])
+    Subscriptions.unsubscribe_message(conn.assigns[:current_user], conn.assigns[:message])
     render_thread(conn)
   end
 

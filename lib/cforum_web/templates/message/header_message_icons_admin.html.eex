@@ -10,7 +10,7 @@
   <% end %>
 <% end %>
 
-<%= if Messages.no_answer?(@message) do %>
+<%= if MessageHelpers.no_answer?(@message) do %>
   <%= cf_button(to: Path.answer_message_path(@conn, @thread, @message), class: "icon-message no-answer icon-button", title: gettext("allow answering to this message"), params: std_args(@conn)) do %>
     <span class="visually-hidden"><%= gettext("allow answering to this message") %></span>
     <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#no-answer"></use></svg>

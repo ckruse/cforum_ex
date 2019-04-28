@@ -11,7 +11,7 @@ defmodule Cforum.MarkdownRenderer do
 
   alias Cforum.Cites.Cite
   alias Cforum.Events.Event
-  alias Cforum.Forums.Message
+  alias Cforum.Messages.Message
   alias Cforum.Accounts.PrivMessage
   alias Cforum.Accounts.Badge
   # alias Cforum.Accounts.User
@@ -54,7 +54,7 @@ defmodule Cforum.MarkdownRenderer do
 
   def to_html(%Message{format: "markdown"} = message, assigns) do
     # TODO handle user specific foo
-    content = Cforum.Forums.Messages.content_with_presentational_filters(assigns, message)
+    content = Cforum.Messages.content_with_presentational_filters(assigns, message)
     {:ok, html} = render_doc(content)
     {:safe, html}
     # [{:safe, "<pre>"}, message.content, {:safe, "</pre>"}]

@@ -595,4 +595,11 @@ defmodule Cforum.Accounts.Users do
     )
     |> Repo.all()
   end
+
+  def username_taken?(username) do
+    clean_name = String.trim(username)
+
+    from(u in User, where: fragment("lower(?)", u.username) == fragment("lower(?)", ^clean_name))
+    |> Repo.exists?()
+  end
 end
