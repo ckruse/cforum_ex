@@ -2,11 +2,6 @@ import React from "react";
 import { render } from "react-dom";
 import CfPostingForm from "../components/postingform";
 
-const cancel = ev => {
-  ev.preventDefault();
-  document.location.href = "/";
-};
-
 const gatherErrors = element => {
   const errors = {};
 
@@ -83,7 +78,7 @@ const setupContentForms = () => {
           token: csrfInfo.getAttribute("content")
         }}
         errors={errors}
-        onCancel={cancel}
+        onCancel={() => window.history.go(-1)}
       />,
       el
     );
