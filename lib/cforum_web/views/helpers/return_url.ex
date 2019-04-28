@@ -7,7 +7,7 @@ defmodule CforumWeb.Views.Helpers.ReturnUrl do
     args =
       %{p: params["p"], page: params["page"]}
       |> Map.merge(args)
-      |> Enum.filter(fn {_k, v} -> !blank?(v) end)
+      |> Enum.filter(fn {_k, v} -> present?(v) end)
       |> Enum.into(%{})
       |> map_maybe_set(:view_all, "yes", conn.assigns[:view_all])
 
