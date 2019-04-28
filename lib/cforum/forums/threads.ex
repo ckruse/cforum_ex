@@ -686,25 +686,6 @@ defmodule Cforum.Forums.Threads do
   end
 
   @doc """
-  Returns the order value itself if it is valid; returns the
-  configured value for the current forum (or the global config) when
-  invalid
-
-  ## Examples
-
-      iex> validated_ordering("ascending")
-      "ascending"
-
-      iex> validated_ordering("foo")
-      "newest-first"
-  """
-  def validated_ordering(order, forum \\ nil) do
-    if Enum.member?(~w(ascending descending newest-first), order),
-      do: order,
-      else: Cforum.ConfigManager.conf(forum, "sort_threads")
-  end
-
-  @doc """
   Generate a thread slug from a params map.
 
   ## Example
