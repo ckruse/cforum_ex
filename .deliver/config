@@ -66,3 +66,13 @@ pre_erlang_clean_compile() {
    APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD phx.digest $SILENCE
  "
 }
+
+post_upgrade_release() {
+  key=$(cat secrets/api.key)
+  curl -X POST -d "{\"revision\": \"$VERSION\", \"user\": \"ckruse\"}" "https://push.appsignal.com/1/markers?api_key=$key&name=CForum%20Test-Installation&environment=prod" >/dev/null
+}
+
+post_extract_release_archive() {
+  key=$(cat secrets/api.key)
+  curl -X POST -d "{\"revision\": \"$VERSION\", \"user\": \"ckruse\"}" "https://push.appsignal.com/1/markers?api_key=$key&name=CForum%20Test-Installation&environment=prod" >/dev/null
+}
