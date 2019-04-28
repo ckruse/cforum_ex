@@ -141,8 +141,14 @@ defmodule CforumWeb.LayoutView do
     CforumWeb.ArchiveController
   ]
 
-  def show?(conn, :view_all),
-    do: Abilities.access_forum?(conn, :moderate) && Enum.member?(@view_all_enabled_controllers, controller_module(conn))
+  def show?(conn, :view_all) do
+    Abilities.access_forum?(conn, :moderate) && Enum.member?(@view_all_enabled_controllers, controller_module(conn))
+  end
+
+  def show?(conn, :mark_all_read) do
+    present?(conn.assigns[:threads]) && present?(conn.assigns[:current_user]) &&
+      controller_module(conn) == CforumWeb.ThreadController
+  end
 
   def sort_link(conn, params),
     do: (conn.assigns[:original_path] || conn.request_path) <> Path.encode_query_string(params)

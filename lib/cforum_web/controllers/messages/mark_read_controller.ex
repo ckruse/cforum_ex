@@ -5,6 +5,8 @@ defmodule CforumWeb.Messages.MarkReadController do
   alias Cforum.Forums.Threads
   alias CforumWeb.Views.Helpers.ReturnUrl
 
+  alias Cforum.Forums.ThreadHelpers
+
   def mark_read(conn, params) do
     thread =
       Threads.get_thread_by_slug!(
@@ -19,6 +21,36 @@ defmodule CforumWeb.Messages.MarkReadController do
     conn
     |> put_flash(:info, gettext("Thread has successfully been marked as read."))
     |> redirect(to: ReturnUrl.return_path(conn, params, thread))
+  end
+
+  def mark_all_read(conn, params) do
+    page = parse_page(params["p"]) - 1
+    limit = uconf(conn, "pagination", :int)
+    user = conn.assigns[:current_user]
+    {_, ordering} = ThreadHelpers.get_ordering(conn, user)
+
+    threads =
+      Threads.list_threads(conn.assigns[:current_forum], conn.assigns[:visible_forums])
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.reject_invisible_threads(user, conn.assigns[:view_all])
+      |> Threads.apply_user_infos(user,
+        close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
+        open_close_default_state: uconf(conn, "open_close_default")
+      )
+      |> Threads.reject_read_threads(ThreadHelpers.hide_read_threads?(conn))
+      |> Threads.apply_highlights(conn)
+      |> Threads.filter_wo_answer(conn.params["only_wo_answer"] != nil)
+      |> Threads.sort_threads(ordering)
+      |> Threads.paged_thread_list(page, limit)
+      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
+      |> Enum.map(& &1.messages)
+      |> List.flatten()
+
+    Messages.mark_messages_read(conn.assigns[:current_user], threads)
+
+    conn
+    |> put_flash(:info, gettext("All messages on this page have successfully been marked as read."))
+    |> redirect(to: ReturnUrl.return_path(conn, params))
   end
 
   def allowed?(conn, _, _), do: Abilities.signed_in?(conn)

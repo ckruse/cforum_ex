@@ -742,16 +742,16 @@ msgstr "ja, benachrichtige mich"
 #: lib/cforum_web/templates/notification/index.html.eex:27
 #: lib/cforum_web/templates/tag/show.html.eex:6
 #: lib/cforum_web/templates/tag/show.html.eex:20
-#: lib/cforum_web/views/helpers/button.ex:94
-#: lib/cforum_web/views/helpers/button.ex:103
-#: lib/cforum_web/views/helpers/button.ex:116
-#: lib/cforum_web/views/helpers/button.ex:125
-#: lib/cforum_web/views/helpers/button.ex:276
-#: lib/cforum_web/views/helpers/button.ex:285
-#: lib/cforum_web/views/helpers/button.ex:299
-#: lib/cforum_web/views/helpers/button.ex:308
-#: lib/cforum_web/views/helpers/button.ex:363
-#: lib/cforum_web/views/helpers/button.ex:372
+#: lib/cforum_web/views/helpers/button.ex:95
+#: lib/cforum_web/views/helpers/button.ex:104
+#: lib/cforum_web/views/helpers/button.ex:117
+#: lib/cforum_web/views/helpers/button.ex:126
+#: lib/cforum_web/views/helpers/button.ex:277
+#: lib/cforum_web/views/helpers/button.ex:286
+#: lib/cforum_web/views/helpers/button.ex:300
+#: lib/cforum_web/views/helpers/button.ex:309
+#: lib/cforum_web/views/helpers/button.ex:364
+#: lib/cforum_web/views/helpers/button.ex:373
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
 
@@ -1045,7 +1045,7 @@ msgstr "Klappe Zitate zusammen"
 msgid "fold read messages"
 msgstr "Klappe gelesene Beiträge zusammen"
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:123
+#: lib/cforum_web/templates/layout/page_header.html.eex:122
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:53
 msgid "hide read threads"
 msgstr "verstecke vollständig gelesene Threads"
@@ -1326,7 +1326,7 @@ msgstr "SELFHTML Forum - Ergänzung zur <a href=\"https://wiki.selfhtml.org\">Do
 
 #: lib/cforum_web/controllers/api/v1/message_controller.ex:22
 #: lib/cforum_web/controllers/message_controller.ex:44
-#: lib/cforum_web/controllers/thread_controller.ex:149
+#: lib/cforum_web/controllers/thread_controller.ex:151
 msgid "all"
 msgstr "alle"
 
@@ -1435,7 +1435,7 @@ msgstr "eine Seite zurück"
 msgid "unknown tags given: %{tags}"
 msgstr "Folgende Tags sind unbekannt: %{tags}."
 
-#: lib/cforum_web/controllers/thread_controller.ex:181
+#: lib/cforum_web/controllers/thread_controller.ex:183
 msgid "Thread created successfully."
 msgstr "Thread erfolgreich erstellt."
 
@@ -1473,7 +1473,7 @@ msgstr "Silber-Medaille"
 #: lib/cforum_web/templates/layout/page_header.html.eex:21
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:4
 #: lib/cforum_web/views/archive_view.ex:5
-#: lib/cforum_web/views/layout_view.ex:206
+#: lib/cforum_web/views/layout_view.ex:212
 #: lib/cforum_web/views/thread_view.ex:27 lib/cforum_web/views/thread_view.ex:34
 msgid "all forums"
 msgstr "alle Foren"
@@ -1547,12 +1547,12 @@ msgid "hide this thread"
 msgstr "Diesen Thread ausblenden"
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:129
+#: lib/cforum_web/templates/layout/page_header.html.eex:128
 msgid "interesting messages"
 msgstr "als interessant markierte Beiträge"
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:131
+#: lib/cforum_web/templates/layout/page_header.html.eex:130
 #: lib/cforum_web/views/threads/invisible_view.ex:4
 msgid "invisible threads"
 msgstr "ausgeblendete Threads"
@@ -1610,7 +1610,7 @@ msgid "subscribe message"
 msgstr "Baum abonnieren"
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:130
+#: lib/cforum_web/templates/layout/page_header.html.eex:129
 #: lib/cforum_web/views/messages/subscription_view.ex:4
 msgid "subscribed messages"
 msgstr "abonnierte Beiträge"
@@ -1874,7 +1874,7 @@ msgstr "Hintergrundaufträge"
 #: lib/cforum_web/templates/admin/audit/index.html.eex:28
 #: lib/cforum_web/templates/admin/audit/users.html.eex:2
 #: lib/cforum_web/templates/admin/subnav.html.eex:7
-#: lib/cforum_web/templates/layout/page_header.html.eex:134
+#: lib/cforum_web/templates/layout/page_header.html.eex:133
 #: lib/cforum_web/views/badge_view.ex:6
 msgid "badges"
 msgstr "Medaillen"
@@ -1887,7 +1887,7 @@ msgstr "Erstellungszeitpunkt"
 #, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:23
 #: lib/cforum_web/templates/admin/subnav.html.eex:5
-#: lib/cforum_web/templates/layout/page_header.html.eex:138
+#: lib/cforum_web/templates/layout/page_header.html.eex:137
 #: lib/cforum_web/views/event_view.ex:4
 msgid "events"
 msgstr "Ereignisse"
@@ -2891,14 +2891,14 @@ msgstr "Übersicht – %{forum}"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:25
-#: lib/cforum_web/views/layout_view.ex:194
+#: lib/cforum_web/views/layout_view.ex:200
 msgid "administrative view"
 msgstr "Administrator-Ansicht"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:19
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:21
-#: lib/cforum_web/views/layout_view.ex:193
+#: lib/cforum_web/views/layout_view.ex:199
 msgid "normal view"
 msgstr "Administrator-Ansicht deaktivieren"
 
@@ -4380,7 +4380,7 @@ msgid "The following messages reference this message:"
 msgstr "Folgende Beiträge verweisen auf diesen Beitrag:"
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:125
+#: lib/cforum_web/templates/layout/page_header.html.eex:124
 msgid "show read threads"
 msgstr "zeige gelesene Threads"
 
@@ -4403,3 +4403,13 @@ msgstr "archivierte Beiträge für %{year} – %{forum}"
 #: lib/cforum_web/views/thread_view.ex:35
 msgid "unanswered threads – %{forum}"
 msgstr "unbeantwortete Threads – %{forum}"
+
+#, elixir-format
+#: lib/cforum_web/templates/layout/page_header.html.eex:115
+msgid "mark all messages read"
+msgstr "markiere alle Beiträge als gelesen"
+
+#, elixir-format
+#: lib/cforum_web/controllers/messages/mark_read_controller.ex:52
+msgid "All messages on this page have successfully been marked as read."
+msgstr "Alle Beiträge auf dieser Seite wurden erfolgreich als gelesen markiert."
