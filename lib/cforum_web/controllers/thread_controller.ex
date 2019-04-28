@@ -4,11 +4,13 @@ defmodule CforumWeb.ThreadController do
   alias Cforum.Forums.Threads
   alias Cforum.Forums.Messages
 
+  alias Cforum.Forums.ThreadHelpers
+
   def index(conn, params) do
     page = parse_page(params["p"]) - 1
     limit = uconf(conn, "pagination", :int)
     user = conn.assigns[:current_user]
-    {set_order_cookie, ordering} = get_ordering(conn, user)
+    {set_order_cookie, ordering} = ThreadHelpers.get_ordering(conn, user)
 
     threads =
       Threads.list_threads(conn.assigns[:current_forum], conn.assigns[:visible_forums])
@@ -18,7 +20,7 @@ defmodule CforumWeb.ThreadController do
         close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
         open_close_default_state: uconf(conn, "open_close_default")
       )
-      |> Threads.reject_read_threads(hide_read_threads?(conn))
+      |> Threads.reject_read_threads(ThreadHelpers.hide_read_threads?(conn))
       |> Threads.apply_highlights(conn)
       |> Threads.filter_wo_answer(conn.params["only_wo_answer"] != nil)
 
@@ -41,7 +43,7 @@ defmodule CforumWeb.ThreadController do
     page = parse_page(params["p"]) - 1
     limit = uconf(conn, "pagination", :int)
     user = conn.assigns[:current_user]
-    {set_order_cookie, ordering} = get_ordering(conn, user)
+    {set_order_cookie, ordering} = ThreadHelpers.get_ordering(conn, user)
 
     threads =
       Threads.list_threads(conn.assigns[:current_forum], conn.assigns[:visible_forums])
@@ -51,7 +53,7 @@ defmodule CforumWeb.ThreadController do
         close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
         open_close_default_state: uconf(conn, "open_close_default")
       )
-      |> Threads.reject_read_threads(hide_read_threads?(conn))
+      |> Threads.reject_read_threads(ThreadHelpers.hide_read_threads?(conn))
       |> Threads.apply_highlights(conn)
       |> Threads.filter_wo_answer()
 
@@ -78,14 +80,14 @@ defmodule CforumWeb.ThreadController do
 
   def index_atom(conn, _params) do
     user = conn.assigns[:current_user]
-    {_, ordering} = get_ordering(conn, user)
+    {_, ordering} = ThreadHelpers.get_ordering(conn, user)
 
     threads =
       Threads.list_threads(conn.assigns[:current_forum], conn.assigns[:visible_forums])
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.reject_invisible_threads(user, conn.assigns[:view_all])
       |> Threads.apply_user_infos(user, omit: [:open_close, :subscriptions, :interesting])
-      |> Threads.reject_read_threads(hide_read_threads?(conn))
+      |> Threads.reject_read_threads(ThreadHelpers.hide_read_threads?(conn))
       |> Threads.apply_highlights(conn)
       |> Threads.sort_threads(ordering)
       |> Threads.build_message_trees(uconf(conn, "sort_messages"))
@@ -95,14 +97,14 @@ defmodule CforumWeb.ThreadController do
 
   def index_rss(conn, _params) do
     user = conn.assigns[:current_user]
-    {_, ordering} = get_ordering(conn, user)
+    {_, ordering} = ThreadHelpers.get_ordering(conn, user)
 
     threads =
       Threads.list_threads(conn.assigns[:current_forum], conn.assigns[:visible_forums])
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.reject_invisible_threads(user, conn.assigns[:view_all])
       |> Threads.apply_user_infos(user, omit: [:open_close, :subscriptions, :interesting])
-      |> Threads.reject_read_threads(hide_read_threads?(conn))
+      |> Threads.reject_read_threads(ThreadHelpers.hide_read_threads?(conn))
       |> Threads.apply_highlights(conn)
       |> Threads.sort_threads(ordering)
       |> Threads.build_message_trees(uconf(conn, "sort_messages"))
@@ -191,24 +193,6 @@ defmodule CforumWeb.ThreadController do
 
   defp maybe_set_cookie(conn, _, _), do: conn
 
-  defp get_ordering(conn, user) do
-    cond do
-      present?(conn.params["order"]) ->
-        order = conn.params["order"] |> Threads.validated_ordering(conn.assigns[:current_forum])
-        {user == nil, order}
-
-      present?(conn.cookies["cf_order"]) && user == nil ->
-        order = conn.cookies["order"] |> Threads.validated_ordering(conn.assigns[:current_forum])
-        {false, order}
-
-      true ->
-        {false, uconf(conn, "sort_threads")}
-    end
-  end
-
-  # "srt" as in „show read threads“
-  defp hide_read_threads?(conn), do: uconf(conn, "hide_read_threads") == "yes" && conn.params["srt"] != "yes"
-
   defp load_thread_and_message(conn, :show) do
     thread =
       conn.assigns[:current_forum]
@@ -230,7 +214,7 @@ defmodule CforumWeb.ThreadController do
   def load_resource(conn) do
     conn
     |> load_thread_and_message(action_name(conn))
-    |> assign(:srt, not hide_read_threads?(conn))
+    |> assign(:srt, not ThreadHelpers.hide_read_threads?(conn))
   end
 
   def allowed?(conn, :show, nil), do: allowed?(conn, :show, {conn.assigns.thread, conn.assigns.message})
