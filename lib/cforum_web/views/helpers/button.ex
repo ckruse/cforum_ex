@@ -4,6 +4,7 @@ defmodule CforumWeb.Views.Helpers.Button do
   """
 
   use Phoenix.HTML
+  alias Phoenix.HTML.Form
 
   import CforumWeb.Gettext
 
@@ -156,7 +157,7 @@ defmodule CforumWeb.Views.Helpers.Button do
     {to, form, params, opts} = extract_button_options(opts)
 
     form_tag to, form do
-      [params_to_inputs(params) | Phoenix.HTML.Form.submit(opts, do: contents)]
+      [params_to_inputs(params) | Form.submit(opts, do: contents)]
     end
   end
 
@@ -164,7 +165,7 @@ defmodule CforumWeb.Views.Helpers.Button do
     {to, form, params, opts} = extract_button_options(opts)
 
     form_tag to, form do
-      [params_to_inputs(params) | Phoenix.HTML.Form.submit(text, opts)]
+      [params_to_inputs(params) | Form.submit(text, opts)]
     end
   end
 
