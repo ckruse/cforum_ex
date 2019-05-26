@@ -19,30 +19,30 @@
 .cf-success {
   @extend .cf-alert;
 
-  color: $green_fg_color;
-  background-color: $green_bg_color;
-  border-color: $green_border_color;
+  color: $green-fg-color;
+  background-color: $green-bg-color;
+  border-color: $green-border-color;
 }
 
 .cf-info {
   @extend .cf-alert;
-  color: $blue_fg_color;
-  background-color: $blue_bg_color;
-  border-color: $blue_border_color;
+  color: $blue-fg-color;
+  background-color: $blue-bg-color;
+  border-color: $blue-border-color;
 }
 
 .cf-warning {
   @extend .cf-alert;
-  color: $yellow_fg_color;
-  background-color: $yellow_bg_color;
-  border-color: $yellow_border_color;
+  color: $yellow-fg-color;
+  background-color: $yellow-bg-color;
+  border-color: $yellow-border-color;
 }
 
 .cf-error {
   @extend .cf-alert;
-  color: $red_fg_color;
-  background-color: $red_bg_color;
-  border-color: $red_border_color;
+  color: $red-fg-color;
+  background-color: $red-bg-color;
+  border-color: $red-border-color;
 }
 
 .cf-alert .close {

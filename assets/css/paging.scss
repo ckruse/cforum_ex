@@ -21,10 +21,10 @@
 
   li > a,
   li > span {
-    border: 1px solid $grey_border;
+    border: 1px solid $grey-border;
     display: block;
     margin-left: -1px;
-    color: $primary_color;
+    color: $primary-color;
     text-decoration: none;
     padding: 0.5em 1em;
   }
@@ -48,10 +48,10 @@
   .active > span:hover,
   .active > a:focus,
   .active > span:focus {
-    color: $default_background_color;
+    color: $default-background-color;
     cursor: default;
-    background-color: $primary_color;
-    border-color: $primary_color;
+    background-color: $primary-color;
+    border-color: $primary-color;
   }
 
   .disabled > span,
@@ -62,7 +62,7 @@
   .disabled > a:focus {
     color: #777;
     cursor: not-allowed;
-    background-color: $default_background_color;
-    border-color: $grey_border;
+    background-color: $default-background-color;
+    border-color: $grey-border;
   }
 }

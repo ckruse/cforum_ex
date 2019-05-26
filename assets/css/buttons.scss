@@ -21,7 +21,7 @@
 .btn:hover,
 .btn:focus,
 .btn.focus {
-  color: $default_foreground_color;
+  color: $default-foreground-color;
   text-decoration: none;
   border: 1px solid transparent;
   border-radius: 4px;
@@ -35,9 +35,9 @@
 
 .cf-btn {
   @extend .btn;
-  color: $default_foreground_color;
-  background-color: $default_background_color;
-  border-color: $grey_border;
+  color: $default-foreground-color;
+  background-color: $default-background-color;
+  border-color: $grey-border;
 }
 
 .cf-btn-xs {
@@ -65,33 +65,33 @@
 .cf-btn:hover,
 .cf-btn:focus,
 .cf-btn:active {
-  color: $default_foreground_color;
+  color: $default-foreground-color;
   background-color: #e6e6e6;
   border-color: #adadad;
 }
 
 .cf-btn:link,
 .cf-btn:visited {
-  color: $default_foreground_color;
+  color: $default-foreground-color;
 }
 
 .cf-primary-btn {
   @extend .btn;
-  color: $default_background_color;
-  background-color: $primary_color;
+  color: $default-background-color;
+  background-color: $primary-color;
   border-color: #2e6da4;
 }
 
 .cf-primary-btn:link,
 .cf-primary-btn:visited {
-  color: $default_background_color;
+  color: $default-background-color;
 }
 
 .cf-destructive-btn,
 .cf-destructive-btn:link {
   @extend .cf-btn;
 
-  color: $default_background_color;
+  color: $default-background-color;
   background-color: #d9534f;
   border-color: #d43f3a;
 }
@@ -99,7 +99,7 @@
 .cf-primary-btn:hover,
 .cf-primary-btn:focus,
 .cf-primary-btn:active {
-  color: $default_background_color;
+  color: $default-background-color;
   background-color: #286090;
   border-color: #204d74;
 }
@@ -107,7 +107,7 @@
 .cf-destructive-btn:hover,
 .cf-destructive-btn:active,
 .cf-destructive-btn:focus {
-  color: $default_background_color;
+  color: $default-background-color;
   background-color: #bd2130;
   border-color: #b21f2d;
 }

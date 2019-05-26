@@ -33,11 +33,11 @@
       .menu {
         padding: 0 0 0.5em;
         margin: 0.45em 0 0;
-        border: 1px solid $grey_border;
+        border: 1px solid $grey-border;
         border-top: 0;
         border-radius: 0 0 0.5em 0.5em;
         position: absolute;
-        background-color: $grey_background;
+        background-color: $grey-background;
         display: none;
       }
 
@@ -46,27 +46,41 @@
       }
 
       li {
-        padding: 0.5em 1em 0;
+        padding: 0.5em 1em;
         display: block;
+        margin: 0;
+      }
+
+      li.active {
+        background-color: $active-item-background-color;
+        border-color: $active-item-border-color;
+
+        &,
+        a,
+        a:active,
+        a:focus {
+          color: $active-item-color;
+          transition: none;
+        }
       }
 
       .anchor {
         display: inline;
-        color: $link_color;
+        color: $link-color;
 
         button {
           background-color: inherit;
           border: 0;
           font-family: inherit;
           font-size: 1em;
-          color: $link_color;
+          color: $link-color;
           padding: 0;
         }
 
         button:active,
         button:focus,
         button:hover {
-          color: $active_link_color;
+          color: $active-link-color;
           cursor: pointer;
         }
 

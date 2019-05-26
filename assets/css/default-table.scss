@@ -7,7 +7,7 @@
   th,
   td {
     padding: 0.4em 0.5em 0.4em 0.5em;
-    border-bottom: 1px solid $grey_border;
+    border-bottom: 1px solid $grey-border;
   }
 
   tr {
@@ -15,10 +15,10 @@
     padding: 0;
 
     &:nth-child(2n) {
-      background-color: $grey_background;
+      background-color: $grey-background;
     }
     &:hover {
-      background-color: $grey_border;
+      background-color: $grey-border;
     }
   }
 
@@ -30,7 +30,7 @@
     text-align: left;
   }
   thead th {
-    color: $bolded_color;
+    color: $bolded-color;
   }
   tfoot th {
     border-bottom: 0;
@@ -41,7 +41,7 @@
       text-align: center;
       padding-top: 2em;
       padding-bottom: 2em;
-      background-color: $grey_background;
+      background-color: $grey-background;
     }
   }
 
@@ -52,11 +52,11 @@
 
   .visited td,
   .visited td a {
-    color: $visited_link_color;
+    color: $visited-link-color;
   }
 
   .visited td a.cf-btn {
-    color: $default_foreground_color;
+    color: $default-foreground-color;
   }
 
   .actions-column {

@@ -25,26 +25,26 @@
   .author a:visited {
     white-space: nowrap;
     font-weight: bold;
-    color: $bolded_color;
+    color: $bolded-color;
   }
 
   .author a:focus,
   .author a:hover,
   .author a:active {
-    color: $active_link_color;
+    color: $active-link-color;
   }
 
   &.highlighted-user .author a {
-    color: $highlight_user_color;
+    color: $highlight-user-color;
   }
   &.highlighted-self .author a {
-    color: $highlight_self_color;
+    color: $highlight-self-color;
   }
   &.visited.highlighted-user .author a {
-    color: $highlight_user_color_visited;
+    color: $highlight-user-color-visited;
   }
   &.visited.highlighted-self .author a {
-    color: $highlight_self_color_visited;
+    color: $highlight-self-color-visited;
   }
 
   .author-infos {
@@ -68,7 +68,7 @@
   .num-infos:before,
   .num-unread:before {
     content: "|";
-    color: $visited_link_color;
+    color: $visited-link-color;
     opacity: 0.5;
     margin-left: 2px;
     margin-right: 2px;
@@ -107,8 +107,8 @@
   &.visited,
   &.visited a,
   a:visited {
-    color: $visited_link_color;
-    fill: $visited_link_color;
+    color: $visited-link-color;
+    fill: $visited-link-color;
   }
 
   &.visited:hover,
@@ -120,8 +120,8 @@
   &.visited:focus,
   &.visited a:focus,
   a:visited:focus {
-    color: $active_link_color;
-    fill: $active_link_color;
+    color: $active-link-color;
+    fill: $active-link-color;
   }
 
   &.active,
@@ -133,8 +133,8 @@
   &.active .author a,
   &.active.visited .author a {
     font-weight: bold;
-    color: $active_posting_color;
-    fill: $active_posting_color;
+    color: $active-posting-color;
+    fill: $active-posting-color;
   }
 
   h2 a {
@@ -153,41 +153,41 @@
       padding: 0;
       margin: 0;
       background-color: transparent;
-      color: $link_color;
-      fill: $link_color;
+      color: $link-color;
+      fill: $link-color;
       cursor: pointer;
     }
 
     .icon-button:hover,
     .icon-button:active,
     .icon-button:focus {
-      color: $active_link_color;
-      fill: $active_link_color;
+      color: $active-link-color;
+      fill: $active-link-color;
     }
 
     .icon-button:visited,
     .icon-button svg:visited {
-      color: $visited_link_color;
-      fill: $visited_link_color;
+      color: $visited-link-color;
+      fill: $visited-link-color;
     }
   }
 
   &.visited .thread-icons .icon-button,
   &.visited .message-icons .icon-button {
-    color: $visited_link_color;
-    fill: $visited_link_color;
+    color: $visited-link-color;
+    fill: $visited-link-color;
 
     &:hover,
     &:active,
     &:focus {
-      color: $active_link_color;
-      fill: $active_link_color;
+      color: $active-link-color;
+      fill: $active-link-color;
     }
   }
 
   .icon-message.boring {
-    color: $self_green;
-    fill: $self_green;
+    color: $self-green;
+    fill: $self-green;
   }
 }
 
@@ -198,7 +198,7 @@
   &.visited h2 a,
   &.visited h3 a,
   &.visited .details a.versions {
-    color: $link_color;
+    color: $link-color;
   }
 
   h2 a:hover,
@@ -219,7 +219,7 @@
   &.visited h2 a:focus,
   &.visited h3 a:focus,
   &.visited .details a.version-link:focus {
-    color: $active_link_color;
+    color: $active-link-color;
   }
 }
 
@@ -228,7 +228,7 @@
   font-size: 90%;
   font-weight: bold;
   background-color: #9aaab3;
-  border-radius: $default_border_radius;
+  border-radius: $default-border-radius;
   padding: 0.2em 0.6em 0.15em;
   color: #fff;
 

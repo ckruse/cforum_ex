@@ -2,11 +2,13 @@
   white-space: nowrap;
   text-align: right;
   margin-left: 1em;
+  font-size: 1em;
 
   button {
     border: 0;
     padding: 0;
     margin: 0;
+    background: transparent;
     cursor: pointer;
   }
 
@@ -23,25 +25,23 @@
   .infos {
     font-size: 1.5em;
     font-weight: bold;
-    color: $votes_color;
-    cursor: default;
+    color: $votes-color;
+  }
+
+  svg {
+    max-width: 1em;
+    max-height: 1em;
   }
 
   .accept,
   .vote-button {
-    background: none no-repeat center scroll transparent;
-    background-size: contain;
-    padding: 0.5rem;
-
-    span {
-      width: 1px;
-      height: 1px;
-      margin: -1px;
-      display: inline-block;
-      overflow: hidden;
-    }
+    // background: none no-repeat center scroll transparent;
+    // background-size: contain;
+    // padding: 0.75rem;
   }
 
+  .accept span,
+  .vote-button span,
   .infos span {
     width: 1px;
     height: 1px;
@@ -50,85 +50,98 @@
     overflow: hidden;
   }
 
-  .infos svg {
-    max-width: 0.75em;
-    max-height: 0.75em;
-  }
+  // .infos svg {
+  //   max-width: 0.75em;
+  //   max-height: 0.75em;
+  // }
 
-  .infos:hover svg g,
-  .infos:active svg g,
-  .infos:focus svg g {
-    fill: #990909;
-  }
+  // .infos:hover svg g,
+  // .infos:active svg g,
+  // .infos:focus svg g {
+  //   fill: #990909;
+  // }
 
-  span.accept,
-  span.vote-button {
-    margin-right: 0.25rem;
-  }
+  // span.accept,
+  // span.vote-button {
+  //   margin-right: 0.25rem;
+  // }
 
-  .vote-down[disabled],
-  .vote-down[disabled]:hover,
-  .vote-down.disabled,
-  .vote-down.disabled:hover {
-    background-image: url(/images/bewertung-minus-grau.svg);
-  }
-  .vote-up[disabled],
-  .vote-up[disabled]:hover,
-  .vote-up.disabled,
-  .vote-up.disabled:hover {
-    background-image: url(/images/bewertung-plus-grau.svg);
-  }
+  // .vote-down[disabled],
+  // .vote-down[disabled]:hover,
+  // .vote-down.disabled,
+  // .vote-down.disabled:hover {
+  //   // background-image: url(/images/bewertung-minus-grau.svg);
+  // }
+  // .vote-up[disabled],
+  // .vote-up[disabled]:hover,
+  // .vote-up.disabled,
+  // .vote-up.disabled:hover {
+  //   // background-image: url(/images/bewertung-plus-grau.svg);
+  // }
 
-  .vote-down,
-  .vote-down.active:hover {
-    background-image: url(/images/bewertung-minus-gelb.svg);
-  }
-  .vote-up,
-  .vote-up.active:hover {
-    background-image: url(/images/bewertung-plus-gelb.svg);
-  }
-  .vote-down.active,
-  .vote-down:hover {
-    background-image: url(/images/bewertung-minus-rot.svg);
-  }
-  .vote-up.active,
-  .vote-up:hover {
-    background-image: url(/images/bewertung-plus-gruen.svg);
-  }
-  .vote-down.disabled {
-    background-image: url(/images/bewertung-minus-grau.svg);
-  }
-  .vote-up.disabled {
-    background-image: url(/images/bewertung-plus-grau.svg);
-  }
+  // .vote-down svg {
+  //   width: 5em;
+  //   height: 5em;
+  // }
 
-  .unaccepted-answer,
-  button.accepted-answer:hover {
-    background-image: url(/images/bewertung-ok-gelb.svg);
-  }
-  .accepted-answer,
-  button.unaccepted-answer:hover {
-    background-image: url(/images/bewertung-ok-gruen.svg);
-  }
+  // .vote-down,
+  // .vote-down.active:hover {
+  //   // background-image: url(/images/bewertung-minus-gelb.svg);
+  // }
+  // .vote-up,
+  // .vote-up.active:hover {
+  //   background-image: url(/images/bewertung-plus-gelb.svg);
+  // }
+  // .vote-down.active,
+  // .vote-down:hover {
+  //   // background-image: url(/images/bewertung-minus-rot.svg);
+  // }
+  // .vote-up.active,
+  // .vote-up:hover {
+  //   background-image: url(/images/bewertung-plus-gruen.svg);
+  // }
+  // .vote-down.disabled {
+  //   // background-image: url(/images/bewertung-minus-grau.svg);
+  // }
+  // .vote-up.disabled {
+  //   background-image: url(/images/bewertung-plus-grau.svg);
+  // }
 
-  .vote-down.loading,
-  .vote-down.loading[disabled],
-  .vote-up.loading,
-  .vote-up.loading[disabled],
-  .accept.loading,
-  .accept.loading[disabled],
-  .unaccept.loading,
-  .unaccept.loading[disabled] {
-    background: none;
-    padding: 0;
+  // .unaccepted-answer,
+  // button.accepted-answer:hover {
+  //   background-image: url(/images/bewertung-ok-gelb.svg);
+  // }
+  // .accepted-answer,
+  // button.unaccepted-answer:hover {
+  //   background-image: url(/images/bewertung-ok-gruen.svg);
+  // }
 
-    &::before {
-      padding: 0.5rem;
-      width: auto;
-      height: auto;
-    }
-  }
+  // .vote-down.loading,
+  // .vote-down.loading[disabled],
+  // .vote-up.loading,
+  // .vote-up.loading[disabled],
+  // .accept.loading,
+  // .accept.loading[disabled],
+  // .unaccept.loading,
+  // .unaccept.loading[disabled] {
+  //   background: none;
+  //   padding: 0;
+
+  //   &::before {
+  //     padding: 0.5rem;
+  //     width: auto;
+  //     height: auto;
+  //   }
+  // }
 }
+
+// .cf-voting-area.bottom {
+//   .accept,
+//   .vote-button,
+//   .votes {
+//     margin-right: 0.25em;
+//   }
+// }
 
 @include default-breakpoint() {
   .posting-footer {

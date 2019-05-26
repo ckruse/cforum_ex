@@ -70,12 +70,12 @@
 
     .search {
       ::placeholder {
-        color: $placeholder_color;
+        color: $placeholder-color;
       }
 
       input[type="search"] {
-        border-radius: $bar_border_radius;
-        border: 1px solid $grey_border;
+        border-radius: $bar-border-radius;
+        border: 1px solid $grey-border;
         padding: 0.2em 0.5em;
         width: 100%;
       }

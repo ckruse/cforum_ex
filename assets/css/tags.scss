@@ -12,26 +12,26 @@
 
   .cf-tag {
     display: inline;
-    background-color: $tag_background_color;
+    background-color: $tag-background-color;
     margin-right: 0.5em;
     padding: 0.1em 0.4em 0 0.4em;
-    color: $tag_color;
+    color: $tag-color;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
-    border: 1px solid $tag_border_color;
+    border: 1px solid $tag-border-color;
     border-radius: 0 0.25em 0.25em;
 
     &:link,
     &:visited {
-      color: $tag_visited_color;
+      color: $tag-visited-color;
     }
 
     &:hover,
     &:focus,
     &:active {
-      border: 1px solid $tag_border_color;
-      color: $active_link_color;
+      border: 1px solid $tag-border-color;
+      color: $active-link-color;
     }
   }
 
@@ -90,7 +90,7 @@ body.js .cf-form-tagslist[data-no-js="yes"] {
     &:hover,
     &:focus,
     &:active {
-      border: 1px solid $tag_border_color;
+      border: 1px solid $tag-border-color;
     }
 
     a,
@@ -102,24 +102,24 @@ body.js .cf-form-tagslist[data-no-js="yes"] {
     a:hover,
     a:focus,
     a:active {
-      color: $active_link_color;
+      color: $active-link-color;
     }
   }
 
   .visited .cf-tag {
-    background-color: $grey_background;
-    border-color: $tag_visited_border_color;
+    background-color: $grey-background;
+    border-color: $tag-visited-border-color;
 
     a,
     a:visited,
     span {
-      color: $visited_link_color;
+      color: $visited-link-color;
     }
 
     a:hover,
     a:focus,
     a:active {
-      color: $active_link_color;
+      color: $active-link-color;
     }
   }
 
@@ -154,7 +154,7 @@ body.js .cf-form-tagslist[data-no-js="yes"] {
     display: inline-block;
     text-align: center;
     padding: 0.1em 0.6em 0 0.6em;
-    border-radius: $default_border_radius;
+    border-radius: $default-border-radius;
     color: #5d7380;
     border: 1px solid #c4c4c4;
   }

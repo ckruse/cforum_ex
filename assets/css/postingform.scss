@@ -1,6 +1,6 @@
 .cf-content-form,
 .cf-editor-form {
-  max-width: $max_message_desktop_width;
+  max-width: $max-message-desktop-width;
   position: relative;
 }
 
@@ -8,11 +8,11 @@
 .cf-posting-input__highlighter {
   min-height: 20em;
   max-height: 70vh;
-  font-family: $default_monospace_font_family;
+  font-family: $default-monospace-font-family;
 }
 
 .cf-editor {
-  border: 1px solid $grey_border;
+  border: 1px solid $grey-border;
   padding: 0.25em;
   border-radius: $input-border-radius;
 }
@@ -61,18 +61,18 @@ $radius: 0.3em;
 }
 
 .cf-content-counter.warning {
-  color: $yellow_fg_color;
-  background-color: $yellow_bg_color;
+  color: $yellow-fg-color;
+  background-color: $yellow-bg-color;
 }
 
 .cf-content-counter.error {
-  color: $red_fg_color;
-  background-color: $red_bg_color;
+  color: $red-fg-color;
+  background-color: $red-bg-color;
 }
 
 .cf-posting-input__suggestions__list {
   background-color: white;
-  border: 1px solid $grey_border;
+  border: 1px solid $grey-border;
   border-radius: $radius;
 
   width: 25em;
@@ -83,7 +83,7 @@ $radius: 0.3em;
 
 .cf-posting-input__suggestions__item {
   padding: 0.5em 0.5em;
-  border-bottom: 1px solid $grey_border;
+  border-bottom: 1px solid $grey-border;
 }
 
 .cf-posting-input__suggestions__item:first-of-type {
@@ -132,7 +132,7 @@ $radius: 0.3em;
 @include default-breakpoint() {
   .cf-dropzone {
     height: 3em;
-    border: 1px solid $grey_border;
+    border: 1px solid $grey-border;
     padding: 0.25em;
     border-radius: 0px 0.5em 0.5em;
     background-color: #f1f3f4;
