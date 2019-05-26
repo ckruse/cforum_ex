@@ -2,7 +2,7 @@
 
 .cf-thread-list {
   display: inline-block;
-  min-width: $max_message_desktop_width;
+  min-width: $max-message-desktop-width;
 
   ol {
     overflow: hidden;
@@ -38,9 +38,9 @@
 }
 
 .cf-thread {
-  background: $grey_background;
+  background: $grey-background;
   margin-bottom: 0.75em;
-  border: 1px solid $grey_border;
+  border: 1px solid $grey-border;
   border-radius: 0px 0.5em 0.5em;
   padding: 0.35em 1em 0 0.5em;
 
@@ -54,7 +54,7 @@
   }
 
   & > ol {
-    background: $default_background_color;
+    background: $default-background-color;
     border-radius: 0px 0.5em 0.5em;
     margin: 0 -1em 0 -0.5em;
     padding: 0.25em 1.5em 0.5em 1em;
@@ -69,21 +69,21 @@
     font-size: 90%;
     font-weight: bold;
     background-color: #9aaab3;
-    color: $default_background_color;
-    border-radius: $default_border_radius;
+    color: $default-background-color;
+    border-radius: $default-border-radius;
     padding: 0.2em 0.6em 0.15em;
   }
 
   a.thread-forum-plate {
     &:link,
     &:visited {
-      color: $default_background_color;
+      color: $default-background-color;
     }
 
     &:hover,
     &:focus,
     &:active {
-      color: $active_link_color;
+      color: $active-link-color;
     }
   }
 
@@ -108,16 +108,16 @@
     }
 
     .has-interesting-icon {
-      color: $self_green;
-      fill: $self_green;
+      color: $self-green;
+      fill: $self-green;
     }
     .sticky-icon {
-      color: $active_link_color;
-      fill: $active_link_color;
+      color: $active-link-color;
+      fill: $active-link-color;
     }
     .no-archive-icon {
-      color: $visited_link_color;
-      fill: $visited_link_color;
+      color: $visited-link-color;
+      fill: $visited-link-color;
     }
   }
 

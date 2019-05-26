@@ -2,15 +2,16 @@
 
 @mixin input-definitions() {
   padding: 0.25em;
-  color: $default_foreground_color;
-  background-color: $default_background_color;
+  color: $default-foreground-color;
+  background-color: $default-background-color;
   background-image: none;
-  border: 1px solid $grey_border;
+  border: 1px solid $grey-border;
   border-radius: $input-border-radius;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
   transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
   font-size: 16px;
   height: calc(1.5em + 0.25em + 0.25em + 1px);
+  line-height: 1em;
 }
 
 .cf-form {
@@ -21,13 +22,13 @@
   }
 
   ::placeholder {
-    color: $placeholder_color;
+    color: $placeholder-color;
   }
 
   .cf-cgroup {
     vertical-align: middle;
     margin-bottom: 1em;
-    max-width: $max_message_desktop_width;
+    max-width: $max-message-desktop-width;
 
     label,
     .label {
@@ -84,40 +85,40 @@
     font-size: 0.875em;
   }
   :focus + small {
-    color: $focus_color;
+    color: $focus-color;
   }
 
   .cf-cgroup.has-error {
     input,
     select,
     textarea {
-      border: 2px solid $error_color;
+      border: 2px solid $error-color;
     }
     input:focus,
     select:focus,
     textarea:focus {
-      border-color: $error_color;
+      border-color: $error-color;
       box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(220, 53, 69, 0.6);
     }
 
     .help {
-      color: $error_color;
+      color: $error-color;
     }
   }
 
   .help.error {
-    color: $error_color;
+    color: $error-color;
     font-size: 1em;
   }
 
   .cf-form-tagslist .has-error {
-    color: $error_color;
+    color: $error-color;
     padding-right: 0.5em;
 
     .cf-tag {
-      border: 2px solid $error_color;
+      border: 2px solid $error-color;
       margin-right: 0.25em;
-      //color: $error_color;
+      //color: $error-color;
     }
   }
 
@@ -135,7 +136,7 @@
     font-size: 1.1em;
     margin-bottom: 1em;
     margin-top: 1em;
-    border-bottom: 2px solid $standard_hr_color;
+    border-bottom: 2px solid $standard-hr-color;
   }
 }
 

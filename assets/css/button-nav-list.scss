@@ -8,7 +8,7 @@
       font-size: 80%;
       font-weight: normal;
       border-radius: 0px 0.4em 0.4em;
-      border: 1px solid $grey_border;
+      border: 1px solid $grey-border;
       padding: 0;
       margin-top: 0.3em;
     }
@@ -23,7 +23,7 @@
     a:link,
     a:visited,
     button {
-      color: $link_color;
+      color: $link-color;
       line-height: 1.6;
       padding: 0.4em 0.6em;
       display: block;
@@ -31,7 +31,7 @@
       &:hover,
       &:active,
       &:focus {
-        color: $active_link_color;
+        color: $active-link-color;
       }
     }
   }

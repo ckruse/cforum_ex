@@ -43,7 +43,7 @@
     margin-left: 0;
     margin-top: 0.3em;
     max-height: 1.2em;
-    border-radius: $default_border_radius;
+    border-radius: $default-border-radius;
   }
 
   .posting-footer {
@@ -57,7 +57,7 @@
 
     .forum-links {
       font-size: 0.8em;
-      border-top: 1px solid $grey_border;
+      border-top: 1px solid $grey-border;
       margin-top: 0.5em;
       padding-top: 1em;
       margin-bottom: 1em;
@@ -69,8 +69,8 @@
 
         li {
           display: inline-block;
-          border: 1px solid $grey_border;
-          border-radius: $default_border_radius;
+          border: 1px solid $grey-border;
+          border-radius: $default-border-radius;
           padding: 0.25em 0.5em;
           margin-right: 0.25em;
           white-space: nowrap;
@@ -101,6 +101,6 @@
     padding: 0.6em 1em 0.25em 1em;
     max-width: 100%;
     max-width: 95vw;
-    width: $max_message_desktop_width;
+    width: $max-message-desktop-width;
   }
 }

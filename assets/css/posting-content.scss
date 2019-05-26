@@ -4,7 +4,7 @@
   color: #039;
   border: 1px solid #e7c157;
   background: none repeat scroll 0% 0% #fdfcf3;
-  font-family: $default_font_family;
+  font-family: $default-font-family;
   margin: 0.5em 0px;
   padding: 0.8em 0.1em 1em;
   border-radius: 0px 0.5em 0.5em;
@@ -34,19 +34,19 @@
       text-decoration: underline;
     }
     &.highlighted-user {
-      color: $highlight_user_color;
+      color: $highlight-user-color;
     }
     &.highlighted-self {
-      color: $highlight_self_color;
+      color: $highlight-self-color;
     }
   }
 
   blockquote a.mention {
     &.highlighted-user {
-      color: $highlight_user_color_visited;
+      color: $highlight-user-color-visited;
     }
     &.highlighted-self {
-      color: $highlight_self_color_visited;
+      color: $highlight-self-color-visited;
     }
   }
 

@@ -22,10 +22,10 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: $default_font_family;
+  font-family: $default-font-family;
   font-size: 1.1em;
-  color: $default_foreground_color;
-  background: $default_background_color;
+  color: $default-foreground-color;
+  background: $default-background-color;
   tab-size: 2;
 }
 
@@ -40,7 +40,7 @@ h6 {
 
 h2.cf-heading {
   font-size: 1.25em;
-  border-top: 2px solid $standard_hr_color;
+  border-top: 2px solid $standard-hr-color;
   padding: 0.7em 0 0;
   margin: 1em 0em;
 }
@@ -64,8 +64,8 @@ a:active {
 
 a:link,
 a:visited {
-  color: $link_color;
-  fill: $link_color;
+  color: $link-color;
+  fill: $link-color;
 }
 
 a:hover,
@@ -74,8 +74,8 @@ a:active,
 button:hover,
 button:focus,
 button:active {
-  color: $active_link_color;
-  fill: $active_link_color;
+  color: $active-link-color;
+  fill: $active-link-color;
 }
 
 a,

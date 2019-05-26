@@ -12,7 +12,7 @@
     background: none;
     margin: 0 0 1.5em;
     padding: 0.2em 0 0.2em 0.75em;
-    border-left: 5px solid $standard_hr_color;
+    border-left: 5px solid $standard-hr-color;
     border-radius: 0;
   }
 
@@ -28,17 +28,17 @@
 
   .visited,
   a.visited {
-    color: $visited_link_color;
+    color: $visited-link-color;
   }
 
   a.visited:hover,
   a.visited:active,
   a.visited:focus {
-    color: $active_link_color;
+    color: $active-link-color;
   }
 
   h2 {
-    border-top: 2px solid $standard_hr_color;
+    border-top: 2px solid $standard-hr-color;
     margin: 1em 0em;
     padding: 0.7em 0 0;
   }
@@ -51,7 +51,7 @@
   grid-row-gap: 1em;
 
   section {
-    border-top: 2px solid $standard_hr_color;
+    border-top: 2px solid $standard-hr-color;
   }
 
   section:first-child {

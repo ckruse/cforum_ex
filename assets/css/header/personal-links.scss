@@ -12,20 +12,20 @@
   }
 
   a:visited {
-    color: $link_color;
+    color: $link-color;
   }
 
   a:hover,
   a:focus,
   a:active {
-    color: $active_link_color;
+    color: $active-link-color;
   }
 
   img {
     margin-right: 0.2em;
   }
   #user-not-signed-in {
-    color: $visited_link_color;
+    color: $visited-link-color;
   }
 
   .btn-link {
@@ -34,17 +34,17 @@
     font-size: 1em;
     cursor: pointer;
     background-color: transparent;
-    color: $link_color;
+    color: $link-color;
   }
 
   .btn-link:hover,
   .btn-link:focus,
   .btn-link:active {
-    color: $active_link_color;
+    color: $active-link-color;
   }
 
   .connected a {
-    color: $connected_color;
+    color: $connected-color;
   }
 }
 

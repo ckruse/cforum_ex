@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 .cf-tab-list {
-  border-bottom: 2px solid $standard_hr_color;
+  border-bottom: 2px solid $standard-hr-color;
   margin-bottom: 2rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -39,6 +39,6 @@
 
   [aria-selected="true"],
   li.active {
-    background-color: $grey_background;
+    background-color: $grey-background;
   }
 }

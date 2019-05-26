@@ -1,80 +1,90 @@
 @charset "utf-8";
 
-$default_foreground_color: #333;
-$default_background_color: white;
+$default-foreground-color: #333;
+$default-background-color: white;
 
-$default_font_family: "Source Sans Pro", "Segoe UI", Calibri, -apple-system, BlinkMacSystemFont, Roboto, Oxygen-Sans,
+$default-font-family: "Source Sans Pro", "Segoe UI", Calibri, -apple-system, BlinkMacSystemFont, Roboto, Oxygen-Sans,
   Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-$default_monospace_font_family: "Source Code Pro", Hack, Monaco, Consolas, "DejaVu Sans Mono",
+$default-monospace-font-family: "Source Code Pro", Hack, Monaco, Consolas, "DejaVu Sans Mono",
   "Bitstream Vera Sans Mono", "Andale Mono", "Droid Sans Mono", "Lucida Console", monospace;
 
-$link_color: #3481cd;
-$active_link_color: #990909;
-$visited_link_color: #999;
+$link-color: #3481cd;
+$active-link-color: #990909;
+$visited-link-color: #999;
 
-$connected_color: #c32e04;
+$connected-color: #c32e04;
 
-$standard_hr_color: #c4d4da;
+$standard-hr-color: #c4d4da;
 
-$grey_border: #d5d5d5;
-$grey_background: #f1f3f4;
+$grey-border: #d5d5d5;
+$grey-background: #f1f3f4;
 
-$focus_color: #66afe9;
+$focus-color: #66afe9;
 
-$error_color: #dc3545;
+$error-color: #dc3545;
 
-$primary_color: #337ab7;
+$primary-color: #337ab7;
 
-$bolded_color: #5d7380;
+$bolded-color: #5d7380;
 
-$tag_color: #3983ab;
-$tag_visited_color: #3481cd;
-$tag_background_color: #e6f2f7;
-$tag_border_color: #a1c6d7;
-$active_tag_border_color: #5983ab;
-$tag_visited_border_color: #c4c4c4;
+$tag-color: #3983ab;
+$tag-visited-color: #3481cd;
+$tag-background-color: #e6f2f7;
+$tag-border-color: #a1c6d7;
+$active-tag-border-color: #5983ab;
+$tag-visited-border-color: #c4c4c4;
 
-$active_posting_color: #00a1e2;
+$active-posting-color: #00a1e2;
 
-$votes_color: #8a9da8;
+$votes-color: #8a9da8;
 
-$blue_fg_color: #004085;
-$blue_bg_color: #cce5ff;
-$blue_border_color: #b8daff;
+$blue-fg-color: #004085;
+$blue-bg-color: #cce5ff;
+$blue-border-color: #b8daff;
 
-$green_fg_color: #155724;
-$green_bg_color: #d4edda;
-$green_border_color: #c3e6cb;
+$green-fg-color: #155724;
+$green-bg-color: #d4edda;
+$green-border-color: #c3e6cb;
 
-$red_fg_color: #721c24;
-$red_bg_color: #f8d7da;
-$red_border_color: #f5c6cb;
+$red-fg-color: #721c24;
+$red-bg-color: #f8d7da;
+$red-border-color: #f5c6cb;
 
-$yellow_fg_color: #856404;
-$yellow_bg_color: #fff3cd;
-$yellow_border_color: #ffeeba;
+$yellow-fg-color: #856404;
+$yellow-bg-color: #fff3cd;
+$yellow-border-color: #ffeeba;
 
-$self_green: #8db243;
+$self-green: #8db243;
 
-$highlight_user_color: #8ab337;
-$highlight_self_color: #c32e04;
-$highlight_user_color_visited: #bdd886;
-$highlight_self_color_visited: #d37b6d;
+$highlight-user-color: #8ab337;
+$highlight-self-color: #c32e04;
+$highlight-user-color-visited: #bdd886;
+$highlight-self-color-visited: #d37b6d;
 
-$max_message_desktop_width: 45em;
+$max-message-desktop-width: 45em;
 
-$default_border_radius: 0 0.3em 0.3em;
-$bar_border_radius: 0px 0.5em 0.5em;
+$default-border-radius-top-left: 0;
+$default-border-radius-top-right: 0.3em;
+$default-border-radius-bottom-left: 0.3em;
+$default-border-radius-bottom-right: 0.3em;
+$default-border-radius: $default-border-radius-top-left $default-border-radius-top-right
+  $default-border-radius-bottom-left $default-border-radius-bottom-right;
+
+$bar-border-radius: 0px 0.5em 0.5em;
 $input-border-radius: 4px;
 
-$placeholder_color: #a8a8a8;
+$placeholder-color: #a8a8a8;
 
-$header_bar_color: #699cb3;
+$header-bar-color: #699cb3;
 
-$dividing-border: 2px solid $standard_hr_color;
+$dividing-border: 2px solid $standard-hr-color;
+
+$active-item-color: #fff;
+$active-item-background-color: #007bff;
+$active-item-border-color: #007bff;
 
 @mixin focus-w-shadow() {
-  border-color: $focus_color;
+  border-color: $focus-color;
   outline: 0px none;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6);
 }
@@ -93,10 +103,10 @@ $dividing-border: 2px solid $standard_hr_color;
 @mixin grey-box() {
   vertical-align: top;
   font-size: 1em;
-  background: none repeat scroll 0% 0% $grey_background;
+  background: none repeat scroll 0% 0% $grey-background;
   padding: 0 0.25em 0.25em 0.5em;
-  border-radius: $bar_border_radius;
-  border: 1px solid $grey_border;
+  border-radius: $bar-border-radius;
+  border: 1px solid $grey-border;
 }
 
 @mixin default-breakpoint() {
