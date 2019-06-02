@@ -47,7 +47,7 @@ defmodule Cforum.Mixfile do
       {:bcrypt_elixir, "~> 0.12"},
       {:number, "~> 0.5.1"},
       {:bamboo, "~> 1.1"},
-      {:bamboo_smtp, "~> 1.6.0"},
+      {:bamboo_smtp, "~> 1.6"},
       {:timex, "~> 3.1"},
       {:arc_ecto, "~> 0.7"},
       {:arc, "~> 0.8"},
