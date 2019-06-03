@@ -1,0 +1,51 @@
+.cf-autocomplete-wrapper {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.cf-autocomplete-suggestionslist {
+  background: #fff;
+  z-index: 9999;
+  list-style-type: none;
+  // padding: 0.1em 0.25em;
+  padding: 0;
+  position: absolute;
+  border-radius: $default-border-radius;
+  border: 1px solid $grey_border;
+  margin: 0;
+
+  button {
+    display: block;
+    background: none;
+    border: 0;
+    margin: 0;
+    padding: 0.25em 0.5em;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-size: 1em;
+  }
+
+  .active,
+  .active button,
+  .active button:focus,
+  .active button:active,
+  button:focus,
+  button:active,
+  button:hover {
+    color: $active-item-color;
+    background-color: $active-item-background-color;
+    border-color: $active-item-border-color;
+  }
+
+  li:first-of-type button {
+    border-top-left-radius: $default-border-radius-top-left;
+    border-top-right-radius: $default-border-radius-top-right;
+  }
+
+  li:last-of-type button {
+    border-bottom-left-radius: $default-border-radius-bottom-left;
+    border-bottom-right-radius: $default-border-radius-bottom-right;
+  }
+}

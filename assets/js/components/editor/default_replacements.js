@@ -5,7 +5,7 @@ import { t } from "../../modules/i18n";
 const DefaultReplacements = {
   trigger: /((=>|<=|<=>|"|\.\.\.|\*|->|<-|-{1,3}|\^|\[tm\]?|=\/=?|=))$/,
   type: "default",
-  data: term => {
+  suggestions: (term, cb) => {
     let found = [];
 
     switch (term) {
@@ -91,15 +91,24 @@ const DefaultReplacements = {
         found = [];
     }
 
-    return found;
+    return cb(found);
   },
 
-  renderSuggestion: (suggestion, _search, highlightedDisplay, _index, _focused) => {
+  render: suggestion => {
     if (suggestion.desc) {
-      return <span {...highlightedDisplay.props}>{suggestion.desc}</span>;
+      return <>{suggestion.desc}</>;
     }
 
-    return highlightedDisplay;
+    return <>{suggestion.display}</>;
+  },
+  complete: ({ id, display }) => display,
+  cursorPosition: ({ start, end }, value) => {
+    console.log({ start, end }, value);
+    if (['""', "„“", "‚‘"].includes(value)) {
+      return { start: start - 1, end: end - 1 };
+    }
+
+    return { start, end };
   }
 };
 

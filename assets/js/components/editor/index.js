@@ -1,7 +1,5 @@
 import React from "react";
 
-import { MentionsInput, Mention } from "react-mentions";
-
 import DefaultReplacements from "./default_replacements";
 import EmojiReplacements from "./emojis";
 import MentionsReplacements from "./mentions";
@@ -12,12 +10,14 @@ import Dropzone from "./dropzone";
 import { alertError } from "../../modules/alerts";
 import { t } from "../../modules/i18n";
 import { replaceAt, getSelection } from "./helpers";
+import AutocompleteTextarea from "../autocomplete";
 
 class CfEditor extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { value: props.text, dragging: false, loading: false, textarea: null };
+    this.state = { value: props.text, dragging: false, loading: false };
+    this.textarea = null;
 
     this.valueChanged = this.valueChanged.bind(this);
     this.setValue = this.setValue.bind(this);
@@ -26,24 +26,16 @@ class CfEditor extends React.Component {
 
     this.fileDropped = this.fileDropped.bind(this);
     this.fileUploadFinished = this.fileUploadFinished.bind(this);
-    this.positionCursor = this.positionCursor.bind(this);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.setSelection) {
-      this.state.textarea.selectionStart = this.setSelection.start;
-      this.state.textarea.selectionEnd = this.setSelection.end;
-    }
-
-    this.setSelection = null;
-
     if (prevProps.text !== this.props.text) {
       this.setState({ value: this.props.text });
     }
   }
 
-  valueChanged(ev, markupVal, value) {
-    this.setValue(value);
+  valueChanged(ev) {
+    this.setValue(ev.target.value);
   }
 
   setValue(value, opts = {}) {
@@ -51,10 +43,6 @@ class CfEditor extends React.Component {
 
     if (this.props.onChange) {
       this.props.onChange(value);
-    }
-
-    if (opts.start && opts.end) {
-      this.setSelection = { start: opts.start, end: opts.end };
     }
   }
 
@@ -67,7 +55,6 @@ class CfEditor extends React.Component {
   fileDropped(file, desc, title) {
     const fdata = new FormData();
     fdata.append("image", file);
-
     fetch("/api/v1/images", {
       method: "POST",
       credentials: "same-origin",
@@ -80,39 +67,21 @@ class CfEditor extends React.Component {
 
   fileUploadFinished(rsp, desc, title) {
     this.setState({ loading: false });
-
     if (rsp.status === "success") {
-      const { start, end } = getSelection(this.state.textarea);
+      const { start, end } = getSelection(this.textarea);
       const image = `[![${desc}](${rsp.location}?size=medium${title ? ' "' + title + '"' : ""})](${rsp.location})`;
       const value = replaceAt(this.state.value, image, start, end);
-
       this.setState({ value });
-      this.state.textarea.selectionStart = start;
-      this.state.textarea.selectionEnd = start + image.length;
-      this.state.textarea.focus();
+      this.textarea.selectionStart = start;
+      this.textarea.selectionEnd = start + image.length;
+      this.textarea.focus();
     } else {
       alertError(t("Oops, something went wrong!"));
     }
   }
 
-  positionCursor(id, display) {
-    switch (id) {
-      case "„“":
-      case '""':
-      case "‚‘":
-        this.setSelection = {
-          start: this.state.textarea.selectionStart,
-          end: this.state.textarea.selectionEnd
-        };
-        return;
-
-      default:
-        return;
-    }
-  }
-
   render() {
-    const { id, name, mentions, errors } = this.props;
+    const { id, name, errors } = this.props;
     let className = "cf-cgroup cf-textarea-only cf-editor";
     if (this.state.dragging) {
       className += " dragging";
@@ -137,27 +106,19 @@ class CfEditor extends React.Component {
           <Toolbar
             value={this.state.value}
             changeValue={this.setValue}
-            textarea={this.state.textarea}
+            textarea={this.textarea}
             onImageUpload={this.fileDropped}
             enableImages={this.props.withImages}
           />
 
-          <MentionsInput
-            value={this.state.value}
+          <AutocompleteTextarea
             name={name}
-            id={id}
-            className="cf-posting-input"
+            value={this.state.value}
             onChange={this.valueChanged}
-            markup=":CF_INT:__display__:CF_INT:__type__:CF_INT:__id__:CF_INT:"
-            inputRef={textarea => this.setState({ textarea })}
-            allowSpaceInQuery={false}
-            style={{ input: { overflow: "auto" } }}
-          >
-            <Mention {...SmileyReplacements} />
-            <Mention {...DefaultReplacements} onAdd={this.positionCursor} />
-            <Mention {...EmojiReplacements} />
-            {mentions ? <Mention {...MentionsReplacements} /> : null}
-          </MentionsInput>
+            onComplete={this.setValue}
+            triggers={[DefaultReplacements, EmojiReplacements, SmileyReplacements, MentionsReplacements]}
+            innerRef={ref => (this.textarea = ref)}
+          />
         </div>
 
         {this.props.withImages && (

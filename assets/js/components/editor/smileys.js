@@ -1,7 +1,6 @@
 const SmileyReplacements = {
-  trigger: /((:-?\)|;-?\)|:-?D|:-?P|:-?\(|:-?O|:-?\||:-?\/|:-?x|m\()$)/i,
-  type: "smiley",
-  data: term => {
+  trigger: /((:-?\)|;-?\)|:-?D|:-?P|:-?\(|:-?O|:-?\||:-?\/|:-?x|m\())$/i,
+  suggestions: (term, cb) => {
     if (term.length <= 0) {
       return [];
     }
@@ -59,8 +58,11 @@ const SmileyReplacements = {
         found = [];
     }
 
-    return found;
-  }
+    return cb(found);
+  },
+
+  render: ({ id, display }) => display,
+  complete: ({ id, display }) => display
 };
 
 export default SmileyReplacements;

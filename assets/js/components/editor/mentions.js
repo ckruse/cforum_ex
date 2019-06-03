@@ -3,19 +3,19 @@ import { queryString } from "../../modules/helpers";
 let tm = null;
 
 const MentionsReplacements = {
-  trigger: "@",
+  trigger: /@[^@\s]+$/,
   type: "mention",
-  data: (term, callback) => {
+  suggestions: (term, callback) => {
     if (tm) {
       window.clearTimeout(tm);
     }
 
     if (term.length <= 0) {
-      return [];
+      return;
     }
 
     tm = window.setTimeout(() => {
-      const qs = queryString({ s: term, self: "no", prefix: "yes" });
+      const qs = queryString({ s: term.substring(1), self: "no", prefix: "yes" });
       fetch(`/api/v1/users?${qs}`, { credentials: "same-origin" })
         .then(response => response.json())
         .then(json => {
@@ -23,7 +23,10 @@ const MentionsReplacements = {
           callback(users);
         });
     }, 400);
-  }
+  },
+
+  render: ({ id, display }) => display,
+  complete: ({ id, display }) => display
 };
 
 export default MentionsReplacements;
