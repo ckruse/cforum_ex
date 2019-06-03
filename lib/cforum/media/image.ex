@@ -23,7 +23,7 @@ defmodule Cforum.Media.Image do
     |> put_change(:content_type, file.content_type)
     |> put_change(:orig_name, file.filename)
     |> put_change(:filename, gen_filename(Path.extname(file.filename)))
-    |> validate_required([:filename, :orig_name, :content_type, :owner_id])
+    |> validate_required([:filename, :orig_name, :content_type])
     |> unique_constraint(:filename, name: :index_media_on_filename)
   end
 
