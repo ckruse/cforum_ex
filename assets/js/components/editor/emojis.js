@@ -1,18 +1,26 @@
+import React from "react";
 import { emojiIndex } from "emoji-mart";
 
 const EmojiReplacements = {
-  trigger: ":",
-  type: "emoji",
-  data: term => {
+  trigger: /:[\w_-]*$/,
+  suggestions: (term, cb) => {
+    let found = [];
+    term = term.substr(1);
+
     if (term.length <= 0) {
-      return [];
+      found = Object.values(emojiIndex.emojis);
+    } else {
+      found = emojiIndex.search(term);
     }
 
-    return emojiIndex
-      .search(term)
-      .slice(0, 10)
-      .map(o => ({ id: o.native, display: o.native }));
-  }
+    return cb(found.slice(0, 10).map(o => ({ id: o.id, display: o.native })));
+  },
+  render: ({ id, display }) => (
+    <>
+      {display} :{id}
+    </>
+  ),
+  complete: ({ id, display }) => display
 };
 
 export default EmojiReplacements;
