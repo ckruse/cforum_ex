@@ -35,21 +35,32 @@ export class Dropdown {
   }
 
   handleUpAndDown(ev) {
-    if (ev.keyCode != 40 && ev.keyCode != 38) {
+    if (![40, 38, 27].includes(ev.keyCode)) {
       return;
     }
 
     ev.preventDefault();
     ev.stopPropagation();
 
+    if (ev.keyCode === 27) {
+      this.menuElement.querySelectorAll("li.active").forEach(el => el.classList.remove("active"));
+      this.hideMenu(true);
+      return;
+    }
+
     this.showMenu(true);
 
     let links = this.menuElement.querySelectorAll("li a:first-of-type");
     let active = this.menuElement.querySelector("li a:first-of-type:focus");
-    let direction = ev.keyCode == 40 ? 1 : -1;
+    let direction = ev.keyCode === 40 ? 1 : -1;
 
     let el = this.nextFocusElement(links, active, direction);
     el.focus();
+    el.closest("li").classList.add("active");
+
+    if (active) {
+      active.closest("li").classList.remove("active");
+    }
   }
 
   nextFocusElement(links, active, direction) {
