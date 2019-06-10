@@ -22,7 +22,7 @@ export default class AutocompleteTextarea extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { suggestions: [], matching: null, active: null };
+    this.state = { suggestions: [], matching: [], active: null };
     this.textarea = null;
 
     this.handleKeyUp = this.handleKeyUp.bind(this);
@@ -46,7 +46,7 @@ export default class AutocompleteTextarea extends React.Component {
   }
 
   resetSuggestions() {
-    this.setState({ suggestions: [], matching: null, active: null });
+    this.setState({ suggestions: [], matching: [], active: null });
   }
 
   navigate(key) {
@@ -77,13 +77,12 @@ export default class AutocompleteTextarea extends React.Component {
     }
   }
 
-  triggerCompletion(idx = null) {
-    const suggestion = this.state.suggestions[idx !== null ? idx : this.state.active];
+  triggerCompletion(matching, suggestion) {
     const cursorPosition = this.textarea.selectionStart;
     const currentSubstring = this.props.value.substring(0, cursorPosition);
     const rest = this.props.value.substring(cursorPosition);
-    const matchData = currentSubstring.match(this.state.matching.trigger);
-    const suggestionValue = this.state.matching.complete(suggestion);
+    const matchData = currentSubstring.match(matching.trigger);
+    const suggestionValue = matching.complete(suggestion);
     const newValue = currentSubstring.substr(0, currentSubstring.length - matchData[0].length) + suggestionValue + rest;
 
     this.props.onComplete(newValue);
@@ -91,8 +90,8 @@ export default class AutocompleteTextarea extends React.Component {
     let cursorPositionStart = cursorPosition + suggestionValue.length - matchData[0].length;
     let cursorPositionEnd = cursorPositionStart;
 
-    if (this.state.matching.cursorPosition) {
-      const { start, end } = this.state.matching.cursorPosition(
+    if (matching.cursorPosition) {
+      const { start, end } = matching.cursorPosition(
         { start: cursorPositionStart, end: cursorPositionEnd },
         suggestionValue
       );
@@ -116,7 +115,8 @@ export default class AutocompleteTextarea extends React.Component {
         ev.preventDefault();
         this.resetSuggestions();
         this.textarea.focus();
-        this.triggerCompletion();
+        const { matching, suggestion } = this.state.suggestions[this.state.active];
+        this.triggerCompletion(matching, suggestion);
       }
     }
 
@@ -133,26 +133,29 @@ export default class AutocompleteTextarea extends React.Component {
     const cursorPosition = this.textarea.selectionStart;
     const currentSubstring = this.props.value.substring(0, cursorPosition);
 
-    const matching = triggers.find(trg => currentSubstring.match(trg.trigger));
-    if (!matching) {
+    const matching = triggers.filter(trg => currentSubstring.match(trg.trigger));
+    if (matching.length === 0) {
       this.resetSuggestions();
       return;
     }
 
-    this.setState({ matching, active: null });
-    matching.suggestions(RegExp.lastMatch, this.handleSuggestions);
+    this.setState({ matching, active: null, suggestions: [] });
+    matching.forEach(element => {
+      return element.suggestions(RegExp.lastMatch, suggestions => this.handleSuggestions(element, suggestions));
+    });
   }
 
-  handleSuggestions(suggestions) {
-    this.setState({ suggestions });
+  handleSuggestions(matching, suggestions) {
+    const tuples = suggestions.map(suggestion => ({ matching, suggestion }));
+    this.setState(prevState => ({ suggestions: [...prevState.suggestions, ...tuples] }));
   }
 
-  onTrigger(event, idx) {
+  onTrigger(event, matching, suggestion) {
     event.preventDefault();
 
     this.resetSuggestions();
     this.textarea.focus();
-    this.triggerCompletion(idx);
+    this.triggerCompletion(matching, suggestion);
   }
 
   ref(ref) {
@@ -173,7 +176,7 @@ export default class AutocompleteTextarea extends React.Component {
         {this.state.suggestions.length > 0 && (
           <SuggestionsList
             suggestions={this.state.suggestions}
-            matching={this.state.matching}
+            // matching={this.state.matching}
             textarea={this.textarea}
             active={this.state.active}
             onKeyDown={this.handleKeyDown}
