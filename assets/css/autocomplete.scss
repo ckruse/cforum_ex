@@ -49,3 +49,9 @@
     border-bottom-right-radius: $default-border-radius-bottom-right;
   }
 }
+
+@include default-breakpoint() {
+  .cf-autocomplete-suggestionslist {
+    min-width: 10em;
+  }
+}
