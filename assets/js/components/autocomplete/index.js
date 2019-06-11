@@ -167,6 +167,7 @@ export default class AutocompleteTextarea extends React.Component {
     return (
       <div className="cf-autocomplete-wrapper">
         <textarea
+          name={this.props.name}
           ref={this.ref}
           value={this.props.value}
           onChange={this.props.onChange}
