@@ -2,18 +2,7 @@ import React from "react";
 
 import SuggestionsList from "./SuggestionsList";
 
-const IGNORED_KEYS = [
-  // "Backspace",
-  "Control",
-  "Meta",
-  "Alt",
-  "Shift",
-  "Escape",
-  "ArrowUp",
-  "ArrowDown",
-  "ArrowLeft",
-  "ArrowRight"
-];
+const IGNORED_KEYS = ["Control", "Meta", "Alt", "Shift", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
 
 const NAV_KEYS = ["ArrowUp", "ArrowDown"];
 const TRIGGER_KEYS = ["Tab", "Enter"];
@@ -120,12 +109,14 @@ export default class AutocompleteTextarea extends React.Component {
       }
     }
 
-    this.resetSuggestions();
-    this.textarea.focus();
+    if (!IGNORED_KEYS.includes(ev.key)) {
+      this.resetSuggestions();
+      this.textarea.focus();
+    }
   }
 
   handleKeyUp(ev) {
-    if (IGNORED_KEYS.includes(ev.key)) {
+    if (IGNORED_KEYS.includes(ev.key) || ev.key === "Escape") {
       return;
     }
 
