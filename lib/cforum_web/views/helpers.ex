@@ -9,6 +9,7 @@ defmodule CforumWeb.Views.Helpers do
 
   alias Cforum.Helpers
   alias Cforum.ConfigManager
+  alias CforumWeb.Views.Helpers.Path
 
   @doc """
   This function formats a date by a format name. It looks up the format itself
@@ -188,5 +189,19 @@ defmodule CforumWeb.Views.Helpers do
     |> String.replace(~r{^Elixir\.CforumWeb\.}, "")
     |> String.replace(~r{Controller$}, "")
     |> Macro.underscore()
+  end
+
+  def std_args(conn, args \\ %{}) do
+    local_args =
+      %{
+        p: conn.params["p"],
+        page: conn.params["page"],
+        r: controller_path(conn),
+        f: Path.forum_slug(conn.assigns[:current_forum])
+      }
+      |> Enum.filter(fn {_k, v} -> !Helpers.blank?(v) end)
+      |> Enum.into(%{})
+
+    Map.merge(local_args, args)
   end
 end
