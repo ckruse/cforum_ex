@@ -7,9 +7,10 @@ defmodule CforumWeb.MessageView do
   alias Cforum.Messages.MessageHelpers
   alias Cforum.Messages.CloseVotes
   alias Cforum.Messages.CloseVote
-  alias Cforum.Messages.Votes
   alias CforumWeb.Messages.OpenCloseVoteView
   alias Cforum.Accounts.Badge
+
+  alias CforumWeb.VotingAreaView
 
   def first_class(classes, %{first: true}), do: ["first" | classes]
   def first_class(classes, _), do: classes
@@ -152,20 +153,6 @@ defmodule CforumWeb.MessageView do
     render("header.html", conn: conn, thread: thread, message: message, opts: opts)
   end
 
-  def std_args(conn, args \\ %{}) do
-    local_args =
-      %{
-        p: conn.params["p"],
-        page: conn.params["page"],
-        r: controller_path(conn),
-        f: Path.forum_slug(conn.assigns[:current_forum])
-      }
-      |> Enum.filter(fn {_k, v} -> !blank?(v) end)
-      |> Enum.into(%{})
-
-    Map.merge(local_args, args)
-  end
-
   def subject_changed?(_, nil), do: true
   def subject_changed?(msg, parent), do: parent.subject != msg.subject
 
@@ -225,14 +212,6 @@ defmodule CforumWeb.MessageView do
           )
       }
     }
-  end
-
-  def active_upvoting_button?(message, user) do
-    if Votes.upvoted?(message, user), do: " active"
-  end
-
-  def active_downvoting_button?(message, user) do
-    if Votes.downvoted?(message, user), do: " active"
   end
 
   defp tags_from_changeset(changeset) do

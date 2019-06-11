@@ -2,7 +2,9 @@
   white-space: nowrap;
   text-align: right;
   margin-left: 1em;
-  font-size: 1em;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: $votes-color;
 
   button {
     border: 0;
@@ -12,167 +14,133 @@
     cursor: pointer;
   }
 
-  button,
-  button:hover,
-  button:focus,
-  button:active {
-    transition: none;
-  }
-
   .votes,
-  .accept,
+  .vote-down {
+    margin-right: 0.25rem;
+  }
+
+  .vote-up,
+  .accept {
+    margin-right: 0.5rem;
+  }
+
   .vote-button,
-  .infos {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: $votes-color;
-  }
+  .infos,
+  .accept {
+    span {
+      @include visually-hidden();
+    }
 
-  svg {
-    max-width: 1em;
-    max-height: 1em;
-  }
-
-  .accept,
-  .vote-button {
-    // background: none no-repeat center scroll transparent;
-    // background-size: contain;
-    // padding: 0.75rem;
-  }
-
-  .accept span,
-  .vote-button span,
-  .infos span {
-    width: 1px;
-    height: 1px;
-    margin: -1px;
+    background-size: contain;
+    background-repeat: no-repeat;
     display: inline-block;
-    overflow: hidden;
+    width: 1.5rem;
+    height: 1.5rem;
   }
 
-  // .infos svg {
-  //   max-width: 0.75em;
-  //   max-height: 0.75em;
-  // }
+  .vote-up {
+    background-image: url("/images/cforum-voting-area-icons.svg#vote-up-inactive");
+  }
+  .vote-up:hover,
+  .vote-up:active,
+  .vote-up:focus {
+    background-image: url("/images/cforum-voting-area-icons.svg#vote-up-active");
+  }
 
-  // .infos:hover svg g,
-  // .infos:active svg g,
-  // .infos:focus svg g {
-  //   fill: #990909;
-  // }
+  .vote-up.active {
+    background-image: url("/images/cforum-voting-area-icons.svg#vote-up-active");
+  }
+  .vote-up.active:hover,
+  .vote-up.active:active,
+  .vote-up.active:focus {
+    background-image: url("/images/cforum-voting-area-icons.svg#vote-up-inactive");
+  }
 
-  // span.accept,
-  // span.vote-button {
-  //   margin-right: 0.25rem;
-  // }
+  .vote-up[disabled] {
+    background-image: url("/images/cforum-voting-area-icons.svg#vote-up-disabled");
+  }
 
-  // .vote-down[disabled],
-  // .vote-down[disabled]:hover,
-  // .vote-down.disabled,
-  // .vote-down.disabled:hover {
-  //   // background-image: url(/images/bewertung-minus-grau.svg);
-  // }
-  // .vote-up[disabled],
-  // .vote-up[disabled]:hover,
-  // .vote-up.disabled,
-  // .vote-up.disabled:hover {
-  //   // background-image: url(/images/bewertung-plus-grau.svg);
-  // }
+  .vote-down {
+    background-image: url("/images/cforum-voting-area-icons.svg#vote-down-inactive");
+  }
+  .vote-down:hover,
+  .vote-down:active,
+  .vote-down:focus {
+    background-image: url("/images/cforum-voting-area-icons.svg#vote-down-active");
+  }
 
-  // .vote-down svg {
-  //   width: 5em;
-  //   height: 5em;
-  // }
+  .vote-down.active {
+    background-image: url("/images/cforum-voting-area-icons.svg#vote-down-active");
+  }
+  .vote-down.active:hover,
+  .vote-down.active:active,
+  .vote-down.active:focus {
+    background-image: url("/images/cforum-voting-area-icons.svg#vote-down-inactive");
+  }
 
-  // .vote-down,
-  // .vote-down.active:hover {
-  //   // background-image: url(/images/bewertung-minus-gelb.svg);
-  // }
-  // .vote-up,
-  // .vote-up.active:hover {
-  //   background-image: url(/images/bewertung-plus-gelb.svg);
-  // }
-  // .vote-down.active,
-  // .vote-down:hover {
-  //   // background-image: url(/images/bewertung-minus-rot.svg);
-  // }
-  // .vote-up.active,
-  // .vote-up:hover {
-  //   background-image: url(/images/bewertung-plus-gruen.svg);
-  // }
-  // .vote-down.disabled {
-  //   // background-image: url(/images/bewertung-minus-grau.svg);
-  // }
-  // .vote-up.disabled {
-  //   background-image: url(/images/bewertung-plus-grau.svg);
-  // }
+  .vote-down[disabled] {
+    background-image: url("/images/cforum-voting-area-icons.svg#vote-down-disabled");
+  }
 
-  // .unaccepted-answer,
-  // button.accepted-answer:hover {
-  //   background-image: url(/images/bewertung-ok-gelb.svg);
-  // }
-  // .accepted-answer,
-  // button.unaccepted-answer:hover {
-  //   background-image: url(/images/bewertung-ok-gruen.svg);
-  // }
+  .infos {
+    background-image: url("/images/cforum-voting-area-icons.svg#info-standard");
+  }
 
-  // .vote-down.loading,
-  // .vote-down.loading[disabled],
-  // .vote-up.loading,
-  // .vote-up.loading[disabled],
-  // .accept.loading,
-  // .accept.loading[disabled],
-  // .unaccept.loading,
-  // .unaccept.loading[disabled] {
-  //   background: none;
-  //   padding: 0;
+  .infos:hover,
+  .infos:active,
+  .infos:focus {
+    background-image: url("/images/cforum-voting-area-icons.svg#info-red");
+  }
 
-  //   &::before {
-  //     padding: 0.5rem;
-  //     width: auto;
-  //     height: auto;
-  //   }
-  // }
+  .accept.unaccepted-answer {
+    background-image: url("/images/cforum-voting-area-icons.svg#accept-inactive");
+  }
+  .accept.unaccepted-answer:hover,
+  .accept.unaccepted-answer:active,
+  .accept.unaccepted-answer:focus {
+    background-image: url("/images/cforum-voting-area-icons.svg#accept-active");
+  }
+
+  .accept.accepted-answer {
+    background-image: url("/images/cforum-voting-area-icons.svg#accept-active");
+  }
+  .accept.accepted-answer:hover,
+  .accept.accepted-answer:active,
+  .accept.accepted-answer:focus {
+    background-image: url("/images/cforum-voting-area-icons.svg#accept-inactive");
+  }
 }
 
-// .cf-voting-area.bottom {
-//   .accept,
-//   .vote-button,
-//   .votes {
-//     margin-right: 0.25em;
+// @include default-breakpoint() {
+//   .posting-footer {
+//     .button-container {
+//       display: flex;
+//       flex-direction: row;
+//     }
+
+//     .message-links {
+//       flex: 1 1 auto;
+//       align-self: flex-start;
+//     }
+
+//     .cf-voting-area {
+//       flex: 0 0 auto;
+//       align-self: flex-start;
+//     }
+//   }
+
+//   .posting-header {
+//     display: flex;
+//     flex-direction: row;
+
+//     .cf-message-header {
+//       flex: 1 1 auto;
+//       align-self: flex-start;
+//     }
+
+//     .cf-voting-area {
+//       flex: 0 0 auto;
+//       align-self: flex-start;
+//     }
 //   }
 // }
-
-@include default-breakpoint() {
-  .posting-footer {
-    .button-container {
-      display: flex;
-      flex-direction: row;
-    }
-
-    .message-links {
-      flex: 1 1 auto;
-      align-self: flex-start;
-    }
-
-    .cf-voting-area {
-      flex: 0 0 auto;
-      align-self: flex-start;
-    }
-  }
-
-  .posting-header {
-    display: flex;
-    flex-direction: row;
-
-    .cf-message-header {
-      flex: 1 1 auto;
-      align-self: flex-start;
-    }
-
-    .cf-voting-area {
-      flex: 0 0 auto;
-      align-self: flex-start;
-    }
-  }
-}
