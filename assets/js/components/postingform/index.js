@@ -117,6 +117,10 @@ class CfPostingForm extends React.Component {
   }
 
   toggleRestoreDraft(val = undefined) {
+    if (typeof val == "object") {
+      val = undefined;
+    }
+
     this.setState(state => ({ showRestoreDraft: val === undefined ? !state.showRestoreDraft : val }));
   }
 
