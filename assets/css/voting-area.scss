@@ -5,6 +5,9 @@
   font-size: 1.5rem;
   font-weight: bold;
   color: $votes-color;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 
   button {
     border: 0;
@@ -15,13 +18,14 @@
   }
 
   .votes,
-  .vote-down {
-    margin-right: 0.25rem;
+  .cf-inline-form {
+    margin-right: 0.5rem;
   }
 
-  .vote-up,
-  .accept {
-    margin-right: 0.5rem;
+  .cf-inline-form {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
   }
 
   .vote-button,
@@ -111,36 +115,36 @@
   }
 }
 
-// @include default-breakpoint() {
-//   .posting-footer {
-//     .button-container {
-//       display: flex;
-//       flex-direction: row;
-//     }
+@include default-breakpoint() {
+  .posting-footer {
+    .button-container {
+      display: flex;
+      flex-direction: row;
+    }
 
-//     .message-links {
-//       flex: 1 1 auto;
-//       align-self: flex-start;
-//     }
+    .message-links {
+      flex: 1 1 auto;
+      align-self: flex-start;
+    }
 
-//     .cf-voting-area {
-//       flex: 0 0 auto;
-//       align-self: flex-start;
-//     }
-//   }
+    .cf-voting-area {
+      flex: 0 0 auto;
+      align-self: flex-start;
+    }
+  }
 
-//   .posting-header {
-//     display: flex;
-//     flex-direction: row;
+  .posting-header {
+    display: flex;
+    flex-direction: row;
 
-//     .cf-message-header {
-//       flex: 1 1 auto;
-//       align-self: flex-start;
-//     }
+    .cf-message-header {
+      flex: 1 1 auto;
+      align-self: flex-start;
+    }
 
-//     .cf-voting-area {
-//       flex: 0 0 auto;
-//       align-self: flex-start;
-//     }
-//   }
-// }
+    .cf-voting-area {
+      flex: 0 0 auto;
+      align-self: flex-start;
+    }
+  }
+}
