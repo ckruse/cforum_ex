@@ -35,7 +35,7 @@ defmodule Cforum.Forums.ArchiverJob do
 
     from(thread in Thread,
       where:
-        thread.forum_id == ^forum.forum_id and thread.archived == false and
+        thread.forum_id == ^forum.forum_id and thread.archived == false and thread.sticky == false and
           thread.thread_id in fragment(
             "SELECT threads.thread_id FROM threads INNER JOIN messages USING(thread_id) WHERE archived = false AND threads.forum_id = ? GROUP BY thread_id HAVING COUNT(*) > ?",
             ^forum.forum_id,
@@ -64,7 +64,7 @@ defmodule Cforum.Forums.ArchiverJob do
 
     from(t in Thread,
       where:
-        t.forum_id == ^forum.forum_id and t.archived == false and
+        t.forum_id == ^forum.forum_id and t.archived == false and t.sticky == false and
           t.thread_id in fragment(
             "SELECT threads.thread_id FROM threads INNER JOIN messages USING(thread_id) WHERE threads.forum_id = ? AND archived = false GROUP BY threads.thread_id ORDER BY MAX(messages.message_id) LIMIT ?",
             ^forum.forum_id,
