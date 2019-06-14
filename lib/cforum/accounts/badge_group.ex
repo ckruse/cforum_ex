@@ -16,9 +16,6 @@ defmodule Cforum.Accounts.BadgeGroup do
     timestamps(inserted_at: :created_at)
   end
 
-  @doc """
-  Builds a changeset based on the `struct` and `params`.
-  """
   # def changeset(struct, params \\ %{}) do
   #   struct
   #   |> cast(params, [:score_needed, :name, :description, :slug, :badge_medal_type, :badge_type, :order])
