@@ -1935,9 +1935,9 @@ ccount@^1.0.0:
   resolved "https://registry.yarnpkg.com/ccount/-/ccount-1.0.4.tgz#9cf2de494ca84060a2a8d2854edd6dfb0445f386"
   integrity sha512-fpZ81yYfzentuieinmGnphk0pLkOTMm6MZdVqwd77ROvhko6iujLNGrHH5E7utq3ygWklwfmwuG+A7P+NpqT6w==
 
-"cfmarkdown@https://code.wwwtech.de/ckruse/cfmarkdown.git":
+"cfmarkdown@https://github.com/ckruse/cfmarkdown.git":
   version "0.0.1"
-  resolved "https://code.wwwtech.de/ckruse/cfmarkdown.git#3f6f8ec17578c989c9eed6da1f715bb61e92b2b4"
+  resolved "https://github.com/ckruse/cfmarkdown.git#3018f4ebee522e8d0626b1e2a871f9678856f28c"
   dependencies:
     markdown-it "^8.4.2"
     markdown-it-deflist "^2.0.3"
