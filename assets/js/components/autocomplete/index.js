@@ -92,6 +92,18 @@ export default class AutocompleteTextarea extends React.Component {
     this.setState({ cursorPositionStart, cursorPositionEnd });
   }
 
+  shouldComplete(event) {
+    if (TRIGGER_KEYS.includes(event.key) && typeof this.state.active === "number") {
+      return this.state.active;
+    }
+
+    if (event.key === "Tab" && this.state.active === null) {
+      return 0;
+    }
+
+    return false;
+  }
+
   handleKeyDown(ev) {
     if (this.state.suggestions.length > 0) {
       if (NAV_KEYS.includes(ev.key)) {
@@ -100,11 +112,12 @@ export default class AutocompleteTextarea extends React.Component {
         return;
       }
 
-      if (TRIGGER_KEYS.includes(ev.key) && typeof this.state.active === "number") {
+      const shouldComplete = this.shouldComplete(ev);
+      if (shouldComplete !== false) {
         ev.preventDefault();
         this.resetSuggestions();
         this.textarea.focus();
-        const { matching, suggestion } = this.state.suggestions[this.state.active];
+        const { matching, suggestion } = this.state.suggestions[shouldComplete];
         this.triggerCompletion(matching, suggestion);
       }
     }
