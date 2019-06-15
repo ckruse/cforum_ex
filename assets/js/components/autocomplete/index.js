@@ -21,19 +21,6 @@ export default class AutocompleteTextarea extends React.Component {
     this.handleSuggestions = this.handleSuggestions.bind(this);
   }
 
-  cursorPositionChanged(prevState) {
-    return (
-      prevState.cursorPositionStart !== this.state.cursorPositionStart ||
-      prevState.cursorPositionEnd !== this.state.cursorPositionEnd
-    );
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.cursorPositionChanged(prevState)) {
-      this.textarea.setSelectionRange(this.state.cursorPositionStart, this.state.cursorPositionEnd);
-    }
-  }
-
   resetSuggestions() {
     this.setState({ suggestions: [], matching: [], active: null });
   }
@@ -89,7 +76,7 @@ export default class AutocompleteTextarea extends React.Component {
       cursorPositionEnd = end;
     }
 
-    this.setState({ cursorPositionStart, cursorPositionEnd });
+    window.setTimeout(() => this.textarea.setSelectionRange(cursorPositionStart, cursorPositionEnd), 0);
   }
 
   shouldComplete(event) {
