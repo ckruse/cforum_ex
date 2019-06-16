@@ -55,9 +55,17 @@ export default class Dropzone extends React.Component {
     this.props.onDrop(file, desc, title);
   }
 
+  isDraggingFile(ev) {
+    return ev.dataTransfer.types.indexOf
+      ? ev.dataTransfer.types.indexOf("Files") !== -1
+      : ev.dataTransfer.types.contains("Files");
+  }
+
   ignoreEvents(ev) {
-    ev.stopPropagation();
-    ev.preventDefault();
+    if (this.isDraggingFile(ev)) {
+      ev.stopPropagation();
+      ev.preventDefault();
+    }
   }
 
   dropIgnoreListener(ev) {
@@ -72,11 +80,7 @@ export default class Dropzone extends React.Component {
     this.dragEvents++;
     this.ignoreEvents(ev);
 
-    const isDraggingFile =
-      (ev.dataTransfer.items && ev.dataTransfer.items[0]) ||
-      (ev.dataTransfer.types && ev.dataTransfer.types[0] === "Files");
-
-    if (!this.state.dragging && isDraggingFile) {
+    if (!this.state.dragging && this.isDraggingFile(ev)) {
       this.setState({ dragging: true });
       this.props.onDragStart();
     }
