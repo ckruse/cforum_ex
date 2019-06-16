@@ -158,6 +158,7 @@ class CfPostingForm extends React.Component {
             name="message[content]"
             id="message_input"
             errors={this.props.errors}
+            globalTagsError={this.props.globalTagsError}
             onTextChange={this.onTextChange}
             onTagChange={this.onTagChange}
           />
