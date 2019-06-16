@@ -30,41 +30,43 @@
       </table>
     </div>
 
-    <div class="user-profile">
-      <table class="cf-user-info-table">
-        <tbody>
-          <%= if !blank?(@jabber_id) do %>
-            <tr>
-              <th><%= gettext("Jabber ID") %>:</th>
-              <td class="u-url"><%= link @jabber_id, to: "xmpp:" <> @jabber_id %></td>
-            </tr>
-          <% end %>
+    <%= if @messages_count > 0 do %>
+      <div class="user-profile">
+        <table class="cf-user-info-table">
+          <tbody>
+            <%= if !blank?(@jabber_id) do %>
+              <tr>
+                <th><%= gettext("Jabber ID") %>:</th>
+                <td class="u-url"><%= link @jabber_id, to: "xmpp:" <> @jabber_id %></td>
+              </tr>
+            <% end %>
 
-          <%= if !blank?(@twitter_handle) do %>
-            <tr>
-              <th><%= gettext("Twitter handle") %>:</th>
-              <td class="u-url"><%= link @twitter_handle, to: "https://twitter.com/" <> @twitter_handle %></td>
-            </tr>
-          <% end %>
+            <%= if !blank?(@twitter_handle) do %>
+              <tr>
+                <th><%= gettext("Twitter handle") %>:</th>
+                <td class="u-url"><%= link @twitter_handle, to: "https://twitter.com/" <> @twitter_handle %></td>
+              </tr>
+            <% end %>
 
-          <%= if !blank?(@user_url) do %>
-            <tr>
-              <th><%= gettext("Homepage") %>:</th>
-              <td class="u-url"><%= link @user_url, to: @user_url %></td>
-            </tr>
-          <% end %>
+            <%= if !blank?(@user_url) do %>
+              <tr>
+                <th><%= gettext("Homepage") %>:</th>
+                <td class="u-url"><%= link @user_url, to: @user_url %></td>
+              </tr>
+            <% end %>
 
-          <tr>
-            <th><%= gettext("Description") %>:</th>
-            <td class="p-note">
-              <%= if blank?(@description) do %><em><%= gettext("no description given") %></em>
-              <% else %><%= @description %>
-              <% end %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+            <tr>
+              <th><%= gettext("Description") %>:</th>
+              <td class="p-note">
+                <%= if blank?(@description) do %><em><%= gettext("no description given") %></em>
+                <% else %><%= @description %>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
   </div>
 
   <ul class="cf-counted-tags-list">
