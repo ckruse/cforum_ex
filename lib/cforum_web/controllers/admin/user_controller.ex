@@ -4,7 +4,9 @@ defmodule CforumWeb.Admin.UserController do
   alias Cforum.Accounts.{Users, User}
 
   def index(conn, params) do
-    {sort_params, conn} = sort_collection(conn, [:username, :score, :activity, :created_at])
+    {sort_params, conn} =
+      sort_collection(conn, [:username, :score, :activity, :created_at, :confirmed_at, :active, :last_visit])
+
     count = Users.count_users()
     paging = paginate(count, page: params["p"])
     users = Users.list_users(limit: paging.params, order: sort_params, search: params["s"])

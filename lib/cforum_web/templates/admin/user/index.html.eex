@@ -15,6 +15,9 @@
       <th class="numeric"><%= sortable(@conn, gettext("Score"), :score, &Routes.admin_user_path/3) %></th>
       <th class="numeric"><%= sortable(@conn, gettext("Activity during the last 30 days"), :activity, &Routes.admin_user_path/3) %></th>
       <th><%= sortable(@conn, gettext("Registration date"), :created_at, &Routes.admin_user_path/3) %></th>
+      <th><%= sortable(@conn, gettext("active"), :active, &Routes.admin_user_path/3) %></th>
+      <th><%= sortable(@conn, gettext("confirmed"), :confirmed_at, &Routes.admin_user_path/3) %></th>
+      <th><%= sortable(@conn, gettext("last visit"), :last_visit, &Routes.admin_user_path/3) %></th>
       <th></th>
     </tr>
   </thead>
@@ -26,6 +29,9 @@
         <td class="numeric"><%= user.score %></td>
         <td class="numeric"><%= user.activity %> <%= gettext("messages") %></td>
         <td><%= format_date(@conn, user.created_at) %></td>
+        <td><%= if user.active, do: gettext("yes"), else: gettext("no") %>
+        <td><%= if present?(user.confirmed_at), do: format_date(@conn, user.confirmed_at), else: [{:safe, "<em>"}, gettext("no"), {:safe, "</em>"}] %></td>
+        <td><%= if present?(user.last_visit), do: format_date(@conn, user.last_visit) %></td>
         <td class="actions-column">
           <%= default_index_link(gettext("edit"), to: Routes.admin_user_path(@conn, :edit, user)) %>
           <%= destructive_index_button(gettext("delete"), to: Routes.admin_user_path(@conn, :delete, user), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
