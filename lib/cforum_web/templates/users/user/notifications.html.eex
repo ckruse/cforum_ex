@@ -67,7 +67,7 @@
       </label>
     </div>
 
-    <%= if Cforum.Accounts.Users.moderator?(@user) do %>
+    <%= if Abilities.may?(@conn, CforumWeb.ModerationController, :index) do %>
       <div class="cf-cgroup">
         <label class="checkbox">
           <%= checkbox @f, :notify_on_flagged, checked_value: "email", unchecked_value: "no" %> <%= gettext("notify me via email on flagged messages") %>
