@@ -87,7 +87,6 @@ defmodule Cforum.ConfigManager do
     "own_css" => nil,
     "own_js" => nil,
     "mark_suspicious" => "yes",
-    "fold_quotes" => "no",
     "hide_read_threads" => "no",
     "links_white_list" => "",
     "notify_on_cite" => "yes",
@@ -141,7 +140,6 @@ defmodule Cforum.ConfigManager do
     "sort_threads",
     "sort_messages",
     "highlight_self",
-    "fold_quotes",
     "hide_read_threads",
     "mail_thread_sort",
     "highlighted_users"

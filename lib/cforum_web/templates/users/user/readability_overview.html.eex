@@ -46,10 +46,6 @@
     </div>
 
     <div class="cf-cgroup">
-      <label class="checkbox"><%= checkbox @f, :fold_quotes, unchecked_value: "no", checked_value: "yes" %> <%= gettext("fold quotes") %></label>
-    </div>
-
-    <div class="cf-cgroup">
       <label class="checkbox"><%= checkbox @f, :hide_read_threads, unchecked_value: "no", checked_value: "yes" %> <%= gettext("hide read threads") %></label>
     </div>
 
