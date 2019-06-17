@@ -69,10 +69,9 @@
 
     <%= if Cforum.Accounts.Users.moderator?(@user) do %>
       <div class="cf-cgroup">
-        <label><%= gettext("send me a notification on flagged messages") %></label>
-        <label class="radio"><%= radio_button @f, :notify_on_flagged, "yes" %> <%= gettext("yes") %></label>
-        <label class="radio"><%= radio_button @f, :notify_on_flagged, "no" %> <%= gettext("no") %></label>
-        <label class="radio"><%= radio_button @f, :notify_on_flagged, "email" %> <%= gettext("via email") %></label>
+        <label class="checkbox">
+          <%= checkbox @f, :notify_on_flagged, checked_value: "email", unchecked_value: "no" %> <%= gettext("notify me via email on flagged messages") %>
+        </label>
       </div>
     <% end %>
 
