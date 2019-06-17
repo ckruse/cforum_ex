@@ -165,8 +165,11 @@ defmodule CforumWeb.Users.UserController do
 
   def edit(conn, %{"id" => id}) do
     user = Users.get_user!(id)
+    forum_ids = Enum.map(conn.assigns[:visible_forums], & &1.forum_id)
+    messages_count = MessagesUsers.count_messages_for_user(user, forum_ids)
     changeset = Users.change_user(user)
-    render(conn, "edit.html", user: user, changeset: changeset)
+
+    render(conn, "edit.html", user: user, changeset: changeset, messages_count: messages_count)
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
@@ -179,7 +182,10 @@ defmodule CforumWeb.Users.UserController do
         |> redirect(to: Routes.user_path(conn, :edit, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", user: user, changeset: changeset)
+        forum_ids = Enum.map(conn.assigns[:visible_forums], & &1.forum_id)
+        messages_count = MessagesUsers.count_messages_for_user(user, forum_ids)
+
+        render(conn, "edit.html", user: user, changeset: changeset, messages_count: messages_count)
     end
   end
 
