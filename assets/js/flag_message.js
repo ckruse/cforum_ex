@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const elements = elementNames[document.body.id];
 
   const showOrHide = () => {
-    const elem = select("[name='" + elements.option + "']:checked");
+    const elem = document.querySelector("[name='" + elements.option + "']:checked");
     const value = elem ? elem.value : null;
 
     switch (value) {
