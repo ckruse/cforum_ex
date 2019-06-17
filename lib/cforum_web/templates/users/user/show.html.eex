@@ -153,7 +153,7 @@
 </p>
 
 
-<h2 class="cf-heading"><%= gettext("Badges") %> <%= link(to: Routes.page_path(@conn, :help) <> "#badges", title: gettext("info")) do %><%= img_tag(Routes.static_path(@conn, "/images/bewertung-info-blaugrau.svg"), class: "cf-info-icon") %><% end %></h2>
+<h2 class="cf-heading"><%= gettext("Badges") %> <%= link(to: Routes.page_path(@conn, :help) <> "#badges", title: gettext("info")) do %><%= img_tag(Routes.static_path(@conn, "/images/cforum-voting-area-icons.svg#info-standard"), class: "cf-info-icon") %><% end %></h2>
 
 <%= if blank?(@badges) do %>
   <p><%= gettext("no badges so far") %></p>
