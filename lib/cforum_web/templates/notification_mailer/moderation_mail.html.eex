@@ -1,0 +1,10 @@
+<p><%= gettext("Hi there") %>,</p>
+
+<p>
+  <%= gettext("There has been created a new moderation queue entry for message") %>
+  „<%= link @message.subject, to: Routes.moderation_url(CforumWeb.Endpoint, :show, @moderation_queue_entry) %>“
+</p>
+
+<p><%= CforumWeb.ModerationView.l10n_report_reason(@moderation_queue_entry) %></p>
+
+<p><%=  gettext("Best regards") %></p>

@@ -1,6 +1,8 @@
 defmodule CforumWeb.NotificationMailer do
   use Bamboo.Phoenix, view: CforumWeb.NotificationMailerView
 
+  import CforumWeb.Gettext
+
   @spec pm_notification_mail(%Cforum.Accounts.User{}, %Cforum.Accounts.PrivMessage{}) :: Bamboo.Email.t()
   def pm_notification_mail(user, pm) do
     new_email()
@@ -29,5 +31,19 @@ defmodule CforumWeb.NotificationMailer do
     |> subject(msg_subject)
     |> put_html_layout({CforumWeb.LayoutView, "email.html"})
     |> render(:new_message_mail, user: user, thread: thread, message: message)
+  end
+
+  def moderation_mail(user, moderation_queue_entry, thread, message) do
+    new_email()
+    |> from(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))
+    |> to(user.email)
+    |> subject(gettext("new moderation queue entry: %{subject}", subject: message.subject))
+    |> put_html_layout({CforumWeb.LayoutView, "email.html"})
+    |> render(:moderation_mail,
+      moderation_queue_entry: moderation_queue_entry,
+      user: user,
+      thread: thread,
+      message: message
+    )
   end
 end

@@ -10,6 +10,12 @@ defmodule Cforum.ModerationQueue do
   alias Cforum.System
   alias Cforum.Threads
   alias Cforum.Messages
+  alias Cforum.Forums
+
+  alias Cforum.Accounts.Users
+  alias Cforum.ConfigManager
+
+  alias CforumWeb.NotificationMailer
 
   @doc """
   Returns the list of entries.
@@ -132,6 +138,7 @@ defmodule Cforum.ModerationQueue do
     %ModerationQueueEntry{}
     |> ModerationQueueEntry.create_changeset(attrs)
     |> Repo.insert()
+    |> maybe_notify_moderators()
   end
 
   @doc """
@@ -301,4 +308,27 @@ defmodule Cforum.ModerationQueue do
   end
 
   defp apply_resolution_action(_, _, _), do: nil
+
+  defp maybe_notify_moderators({:ok, entry}) do
+    Cforum.Helpers.AsyncHelper.run_async(fn ->
+      m = Messages.get_message!(entry.message_id, view_all: true)
+      forum = Forums.get_forum!(m.forum_id)
+      {thread, message} = Messages.get_message_and_thread!(forum, nil, m.thread_id, m.message_id, view_all: true)
+
+      forum
+      |> Users.list_moderators()
+      |> Enum.filter(&(ConfigManager.uconf(&1, "notify_on_flagged") == "email"))
+      |> Enum.each(&send_moderation_mail(&1, entry, thread, message))
+    end)
+
+    {:ok, entry}
+  end
+
+  defp maybe_notify_moderators(val), do: val
+
+  defp send_moderation_mail(user, entry, thread, message) do
+    user
+    |> NotificationMailer.moderation_mail(entry, thread, message)
+    |> Cforum.Mailer.deliver_later()
+  end
 end
