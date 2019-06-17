@@ -100,19 +100,22 @@ defmodule CforumWeb.Messages.OpenCloseVoteController do
   end
 
   def allowed?(conn, :vote, vote) do
-    vote = vote || conn.assigns.vote
-    msg = get_message(conn, vote.message)
+    vote = vote || conn.assigns[:vote]
 
     cond do
       blank?(vote) || vote.finished ->
-        false
+        Abilities.badge?(conn, Badge.visit_close_reopen()) || Cforum.Accounts.Users.moderator?(conn)
 
       vote.vote_type == false ->
+        msg = get_message(conn, vote.message)
+
         (Abilities.access_forum?(conn, :moderate) || Abilities.badge?(conn, Badge.visit_close_reopen())) &&
           !MessageHelpers.closed?(msg) &&
           !MessageHelpers.admin_decision?(msg)
 
       true ->
+        msg = get_message(conn, vote.message)
+
         (Abilities.access_forum?(conn, :moderate) || Abilities.badge?(conn, Badge.visit_close_reopen())) &&
           MessageHelpers.closed?(msg) &&
           !MessageHelpers.admin_decision?(msg)
