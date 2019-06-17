@@ -8,7 +8,7 @@
       <label class="radio"><%= radio_button @f, :standard_view, "nested-view" %> <%= gettext("… in nested view") %></label>
     </div>
 
-    <div class="cf-cgroup" data-depends-on="settings[standard_view]=nested-view">
+    <div class="cf-cgroup">
       <label class="checkbox"><%= checkbox @f, :fold_read_nested %> <%= gettext("fold read messages") %></label>
     </div>
 
