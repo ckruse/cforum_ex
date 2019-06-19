@@ -4,6 +4,9 @@ defmodule CforumWeb.Threads.AdminController do
   alias Cforum.Threads
   alias Cforum.Threads.ThreadHelpers
   alias Cforum.Messages
+
+  alias Cforum.Helpers
+
   alias CforumWeb.Views.Helpers.ReturnUrl
 
   def sticky(conn, params) do
@@ -88,7 +91,7 @@ defmodule CforumWeb.Threads.AdminController do
       |> Threads.build_message_tree("ascending")
 
     message =
-      if present?(conn.params["mid"]),
+      if Helpers.present?(conn.params["mid"]),
         do: Messages.get_message_from_mid!(thread, conn.params["mid"]),
         else: nil
 
@@ -100,7 +103,7 @@ defmodule CforumWeb.Threads.AdminController do
 
   def allowed?(conn, action, resource) when action in [:split, :do_split] do
     resource = resource || conn.assigns.message
-    Abilities.access_forum?(conn, :moderate) && present?(resource.parent_id)
+    Abilities.access_forum?(conn, :moderate) && Helpers.present?(resource.parent_id)
   end
 
   def allowed?(conn, _, _), do: Abilities.access_forum?(conn, :moderate)

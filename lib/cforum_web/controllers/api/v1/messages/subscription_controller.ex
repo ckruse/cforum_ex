@@ -5,6 +5,7 @@ defmodule CforumWeb.Api.V1.Messages.SubscriptionController do
   alias Cforum.Threads
   alias Cforum.Messages
   alias Cforum.Messages.Subscriptions
+  alias Cforum.ConfigManager
 
   def subscribe(conn, _params) do
     Subscriptions.subscribe_message(conn.assigns[:current_user], conn.assigns[:message])
@@ -40,11 +41,12 @@ defmodule CforumWeb.Api.V1.Messages.SubscriptionController do
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.ensure_found!()
       |> Threads.apply_user_infos(conn.assigns.current_user,
-        close_read_threads: uconf(conn, "open_close_close_when_read") == "yes" && conn.params["fold"] != "no",
-        open_close_default_state: uconf(conn, "open_close_default")
+        close_read_threads:
+          ConfigManager.uconf(conn, "open_close_close_when_read") == "yes" && conn.params["fold"] != "no",
+        open_close_default_state: ConfigManager.uconf(conn, "open_close_default")
       )
       |> Threads.apply_highlights(conn)
-      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
     conn
     |> put_layout(false)

@@ -13,7 +13,7 @@
   </div>
 
   <p class="form-actions">
-    <%= primary_submit gettext("change password") %>
-    <%= default_button_link gettext("cancel"), to: Routes.user_path(@conn, :show, @user) %>
+    <%= VHelpers.Button.primary_submit gettext("change password") %>
+    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Routes.user_path(@conn, :show, @user) %>
   </p>
 <% end %>

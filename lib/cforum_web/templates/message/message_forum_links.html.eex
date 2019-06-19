@@ -6,7 +6,7 @@
       <li><%= link @current_forum.name, to: Path.forum_path(@conn, :index, @current_forum) %></li>
     <% end %>
 
-    <%= if blank?(@current_user) do %>
+    <%= if Helpers.blank?(@current_user) do %>
       <li><%= link gettext("login"), to: Routes.session_path(@conn, :new), rel: "nofollow" %></li>
       <li><%= link gettext("register"), to: Routes.registration_path(@conn, :new), rel: "nofollow" %></li>
     <% end %>

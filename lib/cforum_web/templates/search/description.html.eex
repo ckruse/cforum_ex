@@ -13,6 +13,6 @@
   <% end %>
 
   <%= if should_show_desc?(@result) do %>
-    <li class="content-truncated p-content"><%= truncate_words(@result.content, 30) %></li>
+    <li class="content-truncated p-content"><%= Helpers.truncate_words(@result.content, 30) %></li>
   <% end %>
 </ol>

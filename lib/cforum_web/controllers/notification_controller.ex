@@ -2,11 +2,15 @@ defmodule CforumWeb.NotificationController do
   use CforumWeb, :controller
 
   alias Cforum.Accounts.Notifications
+  alias Cforum.Helpers
+
+  alias CforumWeb.Sortable
+  alias CforumWeb.Paginator
 
   def index(conn, params) do
-    {sort_params, conn} = sort_collection(conn, [:created_at, :subject])
+    {sort_params, conn} = Sortable.sort_collection(conn, [:created_at, :subject])
     count = Notifications.count_notifications(conn.assigns[:current_user])
-    paging = CforumWeb.Paginator.paginate(count, page: params["p"])
+    paging = Paginator.paginate(count, page: params["p"])
 
     notifications =
       Notifications.list_notifications(
@@ -80,10 +84,10 @@ defmodule CforumWeb.NotificationController do
   def load_resource(conn) do
     notification =
       cond do
-        !blank?(conn.params["notification_id"]) ->
+        Helpers.present?(conn.params["notification_id"]) ->
           Notifications.get_notification!(conn.params["notification_id"])
 
-        !blank?(conn.params["id"]) ->
+        Helpers.present?(conn.params["id"]) ->
           Notifications.get_notification!(conn.params["id"])
 
         true ->

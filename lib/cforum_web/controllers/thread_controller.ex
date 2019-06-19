@@ -6,10 +6,14 @@ defmodule CforumWeb.ThreadController do
 
   alias Cforum.Threads.ThreadHelpers
   alias Cforum.Messages.Subscriptions
+  alias Cforum.ConfigManager
+
+  alias CforumWeb.Paginator
+  alias CforumWeb.Views.Helpers, as: VHelpers
 
   def index(conn, params) do
-    page = parse_page(params["p"]) - 1
-    limit = uconf(conn, "pagination", :int)
+    page = Paginator.parse_page(params["p"]) - 1
+    limit = ConfigManager.uconf(conn, "pagination", :int)
     user = conn.assigns[:current_user]
     {set_order_cookie, ordering} = ThreadHelpers.get_ordering(conn, user)
 
@@ -18,8 +22,8 @@ defmodule CforumWeb.ThreadController do
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.reject_invisible_threads(user, conn.assigns[:view_all])
       |> Threads.apply_user_infos(user,
-        close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
-        open_close_default_state: uconf(conn, "open_close_default")
+        close_read_threads: ConfigManager.uconf(conn, "open_close_close_when_read") == "yes",
+        open_close_default_state: ConfigManager.uconf(conn, "open_close_default")
       )
       |> Threads.reject_read_threads(ThreadHelpers.hide_read_threads?(conn))
       |> Threads.apply_highlights(conn)
@@ -31,9 +35,9 @@ defmodule CforumWeb.ThreadController do
       threads
       |> Threads.sort_threads(ordering)
       |> Threads.paged_thread_list(page, limit)
-      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
+      |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
 
-    p = paginate(all_threads_count, per_page: limit, page: page + 1)
+    p = Paginator.paginate(all_threads_count, per_page: limit, page: page + 1)
 
     conn
     |> maybe_set_cookie(set_order_cookie, ordering)
@@ -41,8 +45,8 @@ defmodule CforumWeb.ThreadController do
   end
 
   def index_unanswered(conn, params) do
-    page = parse_page(params["p"]) - 1
-    limit = uconf(conn, "pagination", :int)
+    page = Paginator.parse_page(params["p"]) - 1
+    limit = ConfigManager.uconf(conn, "pagination", :int)
     user = conn.assigns[:current_user]
     {set_order_cookie, ordering} = ThreadHelpers.get_ordering(conn, user)
 
@@ -51,8 +55,8 @@ defmodule CforumWeb.ThreadController do
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.reject_invisible_threads(user, conn.assigns[:view_all])
       |> Threads.apply_user_infos(user,
-        close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
-        open_close_default_state: uconf(conn, "open_close_default")
+        close_read_threads: ConfigManager.uconf(conn, "open_close_close_when_read") == "yes",
+        open_close_default_state: ConfigManager.uconf(conn, "open_close_default")
       )
       |> Threads.reject_read_threads(ThreadHelpers.hide_read_threads?(conn))
       |> Threads.apply_highlights(conn)
@@ -64,9 +68,9 @@ defmodule CforumWeb.ThreadController do
       threads
       |> Threads.sort_threads(ordering)
       |> Threads.paged_thread_list(page, limit)
-      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
+      |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
 
-    p = paginate(all_threads_count, per_page: limit, page: page + 1)
+    p = Paginator.paginate(all_threads_count, per_page: limit, page: page + 1)
 
     conn
     |> maybe_set_cookie(set_order_cookie, ordering)
@@ -91,7 +95,7 @@ defmodule CforumWeb.ThreadController do
       |> Threads.reject_read_threads(ThreadHelpers.hide_read_threads?(conn))
       |> Threads.apply_highlights(conn)
       |> Threads.sort_threads(ordering)
-      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
+      |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
 
     render(conn, "index.atom", threads: threads)
   end
@@ -108,7 +112,7 @@ defmodule CforumWeb.ThreadController do
       |> Threads.reject_read_threads(ThreadHelpers.hide_read_threads?(conn))
       |> Threads.apply_highlights(conn)
       |> Threads.sort_threads(ordering)
-      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
+      |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
 
     render(conn, "index.rss", threads: threads)
   end
@@ -120,7 +124,7 @@ defmodule CforumWeb.ThreadController do
       |> Threads.ensure_found!()
       |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close, :subscriptions, :interesting])
       |> Threads.apply_highlights(conn)
-      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
     render(conn, "show.atom", thread: thread)
   end
@@ -132,7 +136,7 @@ defmodule CforumWeb.ThreadController do
       |> Threads.ensure_found!()
       |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close, :subscriptions, :interesting])
       |> Threads.apply_highlights(conn)
-      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
     render(conn, "show.rss", thread: thread)
   end
@@ -143,12 +147,12 @@ defmodule CforumWeb.ThreadController do
         nil,
         conn.assigns[:current_user],
         conn.assigns[:visible_forums],
-        author: author_from_conn(conn),
-        email: email_from_conn(conn),
-        homepage: homepage_from_conn(conn),
-        greeting: uconf(conn, "greeting"),
-        farewell: uconf(conn, "farewell"),
-        signature: uconf(conn, "signature"),
+        author: VHelpers.author_from_conn(conn),
+        email: VHelpers.email_from_conn(conn),
+        homepage: VHelpers.homepage_from_conn(conn),
+        greeting: ConfigManager.uconf(conn, "greeting"),
+        farewell: ConfigManager.uconf(conn, "farewell"),
+        signature: ConfigManager.uconf(conn, "signature"),
         std_replacement: gettext("all")
       )
 
@@ -175,7 +179,8 @@ defmodule CforumWeb.ThreadController do
         conn.assigns[:current_forum],
         conn.assigns[:visible_forums],
         create_tags: Abilities.may?(conn, "tag", :new),
-        autosubscribe: Subscriptions.autosubscribe?(conn.assigns.current_user, uconf(conn, "autosubscribe_on_post"))
+        autosubscribe:
+          Subscriptions.autosubscribe?(conn.assigns.current_user, ConfigManager.uconf(conn, "autosubscribe_on_post"))
       )
 
     case create_val do
@@ -201,7 +206,7 @@ defmodule CforumWeb.ThreadController do
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.apply_user_infos(conn.assigns[:current_user])
       |> Threads.apply_highlights(conn)
-      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
     message = Messages.get_message_from_mid!(thread, conn.params["message_id"])
 

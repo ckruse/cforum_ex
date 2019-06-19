@@ -69,7 +69,7 @@
 
   <ul>
     <%= for moderator <- @moderators do %>
-      <li><%= user_link(@conn, moderator, [], moderator.username) %></li>
+      <li><%= VHelpers.user_link(@conn, moderator, [], moderator.username) %></li>
     <% end %>
   </ul>
 
@@ -116,7 +116,7 @@
     <dl>
       <%= for badge <- badge_group.badges do %>
         <dt><img src="<%= CforumWeb.BadgeView.badge_image(@conn, badge) %>"> <%= link badge.name, to: Routes.badge_path(@conn, :show, badge) %></dt>
-        <dd><%= if present?(badge.score_needed) do %><strong><%= badge.score_needed %> Punkte:</strong> <% end %><%= badge.description %></dd>
+        <dd><%= if Helpers.present?(badge.score_needed) do %><strong><%= badge.score_needed %> Punkte:</strong> <% end %><%= badge.description %></dd>
       <% end %>
     </dl>
 

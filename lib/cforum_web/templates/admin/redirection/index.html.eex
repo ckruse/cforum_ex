@@ -1,10 +1,10 @@
 <table class="cf-default-table">
   <thead>
     <tr>
-      <th><%= sortable(@conn, gettext("id"), :redirection_id, &Routes.admin_redirection_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("id"), :redirection_id, &Routes.admin_redirection_path/3) %></th>
       <th><%= gettext("HTTP status code") %></th>
-      <th><%= sortable(@conn, gettext("path"), :path, &Routes.admin_redirection_path/3) %></th>
-      <th><%= sortable(@conn, gettext("destination"), :destination, &Routes.admin_redirection_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("path"), :path, &Routes.admin_redirection_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("destination"), :destination, &Routes.admin_redirection_path/3) %></th>
       <th><%= gettext("comment") %></th>
 
       <th></th>
@@ -20,12 +20,12 @@
         <td><%= redirection.comment %></td>
 
         <td class="actions-column">
-          <%= default_index_link(gettext("edit"), to: Routes.admin_redirection_path(@conn, :edit, redirection)) %>
-          <%= destructive_index_button(gettext("delete"), to: Routes.admin_redirection_path(@conn, :delete, redirection), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
+          <%= VHelpers.Links.default_index_link(gettext("edit"), to: Routes.admin_redirection_path(@conn, :edit, redirection)) %>
+          <%= VHelpers.Button.destructive_index_button(gettext("delete"), to: Routes.admin_redirection_path(@conn, :delete, redirection), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= pagination @conn, @paging, &Routes.admin_redirection_path/3 %>
+<%= Paginator.pagination @conn, @paging, &Routes.admin_redirection_path/3 %>

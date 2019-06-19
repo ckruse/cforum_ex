@@ -3,10 +3,12 @@ defmodule CforumWeb.Messages.MarkReadController do
 
   alias Cforum.Threads
   alias Cforum.Threads.ThreadHelpers
-  alias Cforum.Messages.ReadMessages
-  alias CforumWeb.Views.Helpers.ReturnUrl
 
-  alias Cforum.Threads.ThreadHelpers
+  alias Cforum.Messages.ReadMessages
+  alias Cforum.ConfigManager
+
+  alias CforumWeb.Paginator
+  alias CforumWeb.Views.Helpers.ReturnUrl
 
   def mark_read(conn, params) do
     thread =
@@ -25,8 +27,8 @@ defmodule CforumWeb.Messages.MarkReadController do
   end
 
   def mark_all_read(conn, params) do
-    page = parse_page(params["p"]) - 1
-    limit = uconf(conn, "pagination", :int)
+    page = Paginator.parse_page(params["p"]) - 1
+    limit = ConfigManager.uconf(conn, "pagination", :int)
     user = conn.assigns[:current_user]
     {_, ordering} = ThreadHelpers.get_ordering(conn, user)
 
@@ -35,15 +37,15 @@ defmodule CforumWeb.Messages.MarkReadController do
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.reject_invisible_threads(user, conn.assigns[:view_all])
       |> Threads.apply_user_infos(user,
-        close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
-        open_close_default_state: uconf(conn, "open_close_default")
+        close_read_threads: ConfigManager.uconf(conn, "open_close_close_when_read") == "yes",
+        open_close_default_state: ConfigManager.uconf(conn, "open_close_default")
       )
       |> Threads.reject_read_threads(ThreadHelpers.hide_read_threads?(conn))
       |> Threads.apply_highlights(conn)
       |> Threads.filter_wo_answer(conn.params["only_wo_answer"] != nil)
       |> Threads.sort_threads(ordering)
       |> Threads.paged_thread_list(page, limit)
-      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
+      |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
       |> Enum.map(& &1.messages)
       |> List.flatten()
 

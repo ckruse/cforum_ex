@@ -2,17 +2,24 @@ defmodule CforumWeb.Users.UserController do
   use CforumWeb, :controller
 
   alias Cforum.Accounts.Users
-  alias Cforum.Messages.MessagesUsers
-  alias Cforum.Messages.Message
-  alias Cforum.Messages.Votes
-  alias Cforum.Messages.Vote
+
   alias Cforum.Threads.Thread
+
+  alias Cforum.Messages.Message
+  alias Cforum.Messages.MessagesUsers
+
+  alias Cforum.Messages.Vote
+  alias Cforum.Messages.Votes
+
   alias Cforum.Accounts.Score
 
+  alias CforumWeb.Sortable
+  alias CforumWeb.Paginator
+
   def index(conn, params) do
-    {sort_params, conn} = sort_collection(conn, [:username, :score, :activity, :created_at])
+    {sort_params, conn} = Sortable.sort_collection(conn, [:username, :score, :activity, :created_at])
     count = Users.count_users()
-    paging = paginate(count, page: params["p"])
+    paging = Paginator.paginate(count, page: params["p"])
     users = Users.list_users(limit: paging.params, order: sort_params, search: params["s"])
 
     render(conn, "index.html", users: users, paging: paging, s: params["s"])
@@ -89,7 +96,7 @@ defmodule CforumWeb.Users.UserController do
     forum_ids = Enum.map(conn.assigns[:visible_forums], & &1.forum_id)
 
     count = MessagesUsers.count_messages_for_user(user, forum_ids)
-    paging = paginate(count, page: params["p"])
+    paging = Paginator.paginate(count, page: params["p"])
 
     entries = MessagesUsers.list_messages_for_user(user, forum_ids, limit: paging.params)
 
@@ -113,7 +120,7 @@ defmodule CforumWeb.Users.UserController do
     forum_ids = Enum.map(conn.assigns[:visible_forums], & &1.forum_id)
 
     count = MessagesUsers.count_scored_msgs_for_user_in_perspective(user, conn.assigns[:current_user], forum_ids)
-    paging = paginate(count, page: params["p"])
+    paging = Paginator.paginate(count, page: params["p"])
 
     messages =
       MessagesUsers.list_scored_msgs_for_user_in_perspective(
@@ -144,7 +151,7 @@ defmodule CforumWeb.Users.UserController do
     forum_ids = Enum.map(conn.assigns[:visible_forums], & &1.forum_id)
 
     count = Votes.count_votes_for_user(user, forum_ids)
-    paging = paginate(count, page: params["p"])
+    paging = Paginator.paginate(count, page: params["p"])
 
     entries = Votes.list_votes_for_user(user, forum_ids, limit: paging.params)
 

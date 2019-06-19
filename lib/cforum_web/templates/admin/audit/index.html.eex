@@ -31,13 +31,13 @@
   </div>
 
   <p class="form-actions">
-    <%= primary_submit gettext("search") %>
+    <%= VHelpers.Button.primary_submit gettext("search") %>
   </p>
 <% end %>
 
 <h2><%= gettext("auditing entries") %></h2>
 
-<%= pagination @conn, @paging, &Routes.admin_audit_path/3, url_params: url_params(@changeset) %>
+<%= Paginator.pagination @conn, @paging, &Routes.admin_audit_path/3, url_params: url_params(@changeset) %>
 
 <table class="cf-default-table">
   <thead>
@@ -53,12 +53,12 @@
     <%= for entry <- @audit_entries do %>
       <tr>
         <td><%= l10n_audit_act(entry) %></td>
-        <td><%= if present?(entry.user_id), do: user_link(@conn, entry.user, [], entry.user.username) %></td>
+        <td><%= if Helpers.present?(entry.user_id), do: VHelpers.user_link(@conn, entry.user, [], entry.user.username) %></td>
         <td><%= render_object(@conn, entry) %></td>
-        <td><%= format_date(@conn, entry.created_at) %></td>
+        <td><%= VHelpers.format_date(@conn, entry.created_at) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= pagination @conn, @paging, &Routes.admin_audit_path/3, url_params: url_params(@changeset) %>
+<%= Paginator.pagination @conn, @paging, &Routes.admin_audit_path/3, url_params: url_params(@changeset) %>

@@ -19,7 +19,7 @@
   </div>
 
   <p class="form-actions">
-    <%= primary_submit gettext("save") %>
-    <%= default_button_link gettext("cancel"), to: @back %>
+    <%= VHelpers.Button.primary_submit gettext("save") %>
+    <%= VHelpers.Button.default_button_link gettext("cancel"), to: @back %>
   </p>
 <% end %>

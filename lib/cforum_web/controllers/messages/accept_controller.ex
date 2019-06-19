@@ -3,12 +3,17 @@ defmodule CforumWeb.Messages.AcceptController do
 
   alias Cforum.Threads
   alias Cforum.Threads.ThreadHelpers
+
   alias Cforum.Messages
   alias Cforum.Messages.MessageHelpers
+
+  alias Cforum.ConfigManager
+
   alias CforumWeb.Views.Helpers.ReturnUrl
 
   def accept(conn, params) do
-    Messages.accept_message(conn.assigns.message, conn.assigns.current_user, conf(conn, "accept_value", :int))
+    accept_value = ConfigManager.conf(conn, "accept_value", :int)
+    Messages.accept_message(conn.assigns.message, conn.assigns.current_user, accept_value)
 
     conn
     |> put_flash(:info, gettext("Message has successfully been accepted as a solving answer"))
@@ -28,7 +33,7 @@ defmodule CforumWeb.Messages.AcceptController do
       conn.assigns[:current_forum]
       |> Threads.get_thread_by_slug!(nil, ThreadHelpers.slug_from_params(conn.params))
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
-      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
     message = Messages.get_message_from_mid!(thread, conn.params["mid"])
 

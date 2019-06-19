@@ -1,15 +1,15 @@
 defmodule CforumWeb.Views.Helpers.ReturnUrl do
   alias CforumWeb.Views.Helpers.Path
 
-  import Cforum.Helpers
+  alias Cforum.Helpers
 
   def return_path(conn, params, thread \\ nil, message \\ nil, args \\ %{}) do
     args =
       %{p: params["p"], page: params["page"]}
       |> Map.merge(args)
-      |> Enum.filter(fn {_k, v} -> present?(v) end)
+      |> Enum.filter(fn {_k, v} -> Helpers.present?(v) end)
       |> Enum.into(%{})
-      |> map_maybe_set(:view_all, "yes", conn.assigns[:view_all])
+      |> Helpers.map_maybe_set(:view_all, "yes", conn.assigns[:view_all])
 
     int_return_path(conn, params, thread, message, args)
   end
@@ -27,7 +27,7 @@ defmodule CforumWeb.Views.Helpers.ReturnUrl do
       "thread" ->
         r = Path.forum_path(conn, :index, forum_slug, args)
 
-        if blank?(thread) || blank?(thread.thread_id),
+        if Helpers.blank?(thread) || Helpers.blank?(thread.thread_id),
           do: r,
           else: r <> "#t#{thread.thread_id}"
 
@@ -49,11 +49,11 @@ defmodule CforumWeb.Views.Helpers.ReturnUrl do
 
   defp get_forum_slug(conn, params) do
     f =
-      if blank?(params["f"]),
+      if Helpers.blank?(params["f"]),
         do: "",
         else: String.replace(params["f"], ~r/[^a-z0-9_-]/, "")
 
-    f = if blank?(f), do: Path.forum_slug(conn.assigns[:current_forum], false), else: f
-    if blank?(f), do: raise(Ecto.NoResultsError, queryable: Forum), else: f
+    f = if Helpers.blank?(f), do: Path.forum_slug(conn.assigns[:current_forum], false), else: f
+    if Helpers.blank?(f), do: raise(Ecto.NoResultsError, queryable: Forum), else: f
   end
 end

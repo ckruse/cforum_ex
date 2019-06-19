@@ -80,6 +80,6 @@ defmodule CforumWeb.ThreadView do
   end
 
   def show_tree?(thread, view_all) do
-    present?(thread.tree.messages) && (thread.attribs[:open_state] != "closed" || view_all)
+    Helpers.present?(thread.tree.messages) && (thread.attribs[:open_state] != "closed" || view_all)
   end
 end

@@ -1,7 +1,7 @@
     <time datetime="<%= NaiveDateTime.to_iso8601(@message.created_at) %>">
-      <%= if !blank?(@thread.thread_id) && !blank?(@message.message_id) do %>
-        <%= link format_date(@conn, @message.created_at, message_date_format(@opts[:tree])), to: Path.message_path(@conn, :show, @thread, @message) %>
+      <%= if !Helpers.blank?(@thread.thread_id) && !Helpers.blank?(@message.message_id) do %>
+        <%= link VHelpers.format_date(@conn, @message.created_at, message_date_format(@opts[:tree])), to: Path.message_path(@conn, :show, @thread, @message) %>
       <% else %>
-        <%= format_date(@conn, @message.created_at, message_date_format(@opts[:tree])) %>
+        <%= VHelpers.format_date(@conn, @message.created_at, message_date_format(@opts[:tree])) %>
       <% end %>
     </time>

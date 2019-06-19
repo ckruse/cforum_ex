@@ -4,6 +4,9 @@ defmodule CforumWeb.Messages.AdminController do
   alias Cforum.Threads
   alias Cforum.Threads.ThreadHelpers
   alias Cforum.Messages
+
+  alias Cforum.ConfigManager
+
   alias CforumWeb.Views.Helpers.ReturnUrl
 
   def delete(conn, params) do
@@ -41,7 +44,7 @@ defmodule CforumWeb.Messages.AdminController do
   def load_resource(conn) do
     thread =
       Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, ThreadHelpers.slug_from_params(conn.params))
-      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
     message = Messages.get_message_from_mid!(thread, conn.params["mid"])
 

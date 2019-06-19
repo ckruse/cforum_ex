@@ -1,4 +1,4 @@
-<%= if present?(assigns[:motds]) do %>
+<%= if Helpers.present?(assigns[:motds]) do %>
   <aside class="cf-motd-list">
     <%= for motd <- @motds do %>
       <div class="cf-motd"><%= motd %></div>

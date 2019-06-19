@@ -38,16 +38,16 @@
     </div>
   </fieldset>
 
-  <%= if present?(assigns[:user]) do %>
+  <%= if Helpers.present?(assigns[:user]) do %>
     <div data-js="badge-management" data-user-id="<%= @user.user_id %>"></div>
   <% end %>
 
   <p class="form-actions">
-    <%= primary_submit gettext("save") %>
-    <%= default_button_link gettext("cancel"), to: @back %>
+    <%= VHelpers.Button.primary_submit gettext("save") %>
+    <%= VHelpers.Button.default_button_link gettext("cancel"), to: @back %>
   </p>
 <% end %>
 
-<%= if present?(assigns[:user]) do %>
-  <%= destructive_button(gettext("delete"), to: Routes.admin_user_path(@conn, :delete, @user), method: :delete) %>
+<%= if Helpers.present?(assigns[:user]) do %>
+  <%= VHelpers.Button.destructive_button(gettext("delete"), to: Routes.admin_user_path(@conn, :delete, @user), method: :delete) %>
 <% end %>

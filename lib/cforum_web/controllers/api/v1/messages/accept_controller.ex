@@ -4,9 +4,11 @@ defmodule CforumWeb.Api.V1.Messages.AcceptController do
   alias Cforum.Forums
   alias Cforum.Threads
   alias Cforum.Messages
+  alias Cforum.ConfigManager
 
   def accept(conn, params) do
-    Messages.accept_message(conn.assigns.message, conn.assigns.current_user, conf(conn, "accept_value", :int))
+    accept_value = ConfigManager.conf(conn, "accept_value", :int)
+    Messages.accept_message(conn.assigns.message, conn.assigns.current_user, accept_value)
 
     thread =
       Threads.get_thread_by_slug!(conn.assigns.current_forum, conn.assigns[:visible_forums], params["slug"])

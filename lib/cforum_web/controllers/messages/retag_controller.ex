@@ -6,6 +6,7 @@ defmodule CforumWeb.Messages.RetagController do
   alias Cforum.Messages
   alias Cforum.Messages.MessageHelpers
   alias Cforum.Accounts.Badge
+  alias Cforum.ConfigManager
 
   def edit(conn, _params) do
     changeset = Messages.change_message(conn.assigns.message, conn.assigns[:current_user], conn.assigns.visible_forums)
@@ -39,7 +40,7 @@ defmodule CforumWeb.Messages.RetagController do
       |> Threads.ensure_found!()
       |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close])
       |> Threads.apply_highlights(conn)
-      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
     message = Messages.get_message_from_mid!(thread, conn.params["mid"])
 

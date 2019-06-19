@@ -3,7 +3,7 @@
   <%= if assigns[:controls], do: render "voting-area.html", Map.put(assigns, :top, true) %>
 </div>
 
-<%= unless blank?(@message.problematic_site) do %>
+<%= unless Helpers.blank?(@message.problematic_site) do %>
   <p class="problematic-site"><%= link gettext("problematic site"), to: @message.problematic_site, rel: "nofollow" %></p>
 <% end %>
 
@@ -14,7 +14,7 @@
 <div class="posting-footer">
   <div class="button-container">
     <div class="message-links">
-      <%= if present?(@message.cites) do %>
+      <%= if Helpers.present?(@message.cites) do %>
         <p class="message-cite"><%= {:safe, ngettext("This message got cited in cite %{cite_links}",
                                                     "This message got cited in cites %{cite_links}",
                                                     length(@message.cites), cite_links: cite_links(@conn, @message))} %></p>
@@ -31,15 +31,15 @@
 </div>
 
 
-<%= if present?(CloseVotes.get_close_vote(@message)) do %>
+<%= if Helpers.present?(CloseVotes.get_close_vote(@message)) do %>
   <%= render "close_vote.html", Map.put(assigns, :close_vote, CloseVotes.get_close_vote(@message)) %>
 <% end %>
 
-<%= if present?(CloseVotes.get_reopen_vote(@message)) do %>
+<%= if Helpers.present?(CloseVotes.get_reopen_vote(@message)) do %>
   <%= render "reopen_vote.html", Map.put(assigns, :reopen_vote, CloseVotes.get_reopen_vote(@message)) %>
 <% end %>
 
-<%= if @message.message_id == @thread.message.message_id and present?(@thread.accepted) do %>
+<%= if @message.message_id == @thread.message.message_id and Helpers.present?(@thread.accepted) do %>
   <h3><%= gettext("accepted answers") %></h3>
 
   <%= for msg <- @thread.accepted do %>
@@ -50,7 +50,7 @@
 <% end %>
 
 <% references = MessageHelpers.references(@message, @conn.assigns.visible_forums, @thread) %>
-<%= if present?(references) do %>
+<%= if Helpers.present?(references) do %>
   <h3><%= gettext("The following messages reference this message:") %></h3>
 
   <%= for msg <- references do %>

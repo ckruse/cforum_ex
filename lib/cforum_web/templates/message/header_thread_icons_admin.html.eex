@@ -1,27 +1,27 @@
 <%= if @thread.sticky do %>
-  <%= cf_button(to: Path.sticky_thread_path(@conn, :unsticky, @thread), class: "unsticky icon-button", title: gettext("Thread is currently marked sticky. Remove mark."), params: std_args(@conn)) do %>
+  <%= VHelpers.Button.cf_button(to: Path.sticky_thread_path(@conn, :unsticky, @thread), class: "unsticky icon-button", title: gettext("Thread is currently marked sticky. Remove mark."), params: VHelpers.std_args(@conn)) do %>
     <span class="visually-hidden"><%= gettext("Thread is currently marked sticky. Remove mark.") %></span>
     <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-sticky"></use></svg>
   <% end %>
 <% else %>
-  <%= cf_button(to: Path.sticky_thread_path(@conn, :sticky, @thread), class: "sticky icon-button", title: gettext("Thread is currently not marked sticky. Mark it."), params: std_args(@conn)) do %>
+  <%= VHelpers.Button.cf_button(to: Path.sticky_thread_path(@conn, :sticky, @thread), class: "sticky icon-button", title: gettext("Thread is currently not marked sticky. Mark it."), params: VHelpers.std_args(@conn)) do %>
     <span class="visually-hidden"><%= gettext("Thread is currently not marked sticky. Mark it.") %></span>
     <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-sticky"></use></svg>
   <% end %>
 <% end %>
 
-<%= cf_button(to: Path.move_thread_path(@conn, @thread), class: "move icon-button", title: gettext("Move thread to a different forum."), method: :get) do %>
+<%= VHelpers.Button.cf_button(to: Path.move_thread_path(@conn, @thread), class: "move icon-button", title: gettext("Move thread to a different forum."), method: :get) do %>
   <span class="visually-hidden"><%= gettext("Move thread to a different forum.") %></span>
   <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-move-thread"></use></svg>
 <% end %>
 
 <%= if @thread.flags["no-archive"] == "yes" do %>
-  <%= cf_button(to: Path.no_archive_thread_path(@conn, :do_archive, @thread), class: "archive icon-button", title: gettext("Thread will currently not be archived. Archive it."), params: std_args(@conn)) do %>
+  <%= VHelpers.Button.cf_button(to: Path.no_archive_thread_path(@conn, :do_archive, @thread), class: "archive icon-button", title: gettext("Thread will currently not be archived. Archive it."), params: VHelpers.std_args(@conn)) do %>
     <span class="visually-hidden"><%= gettext("Thread will currently not be archived. Archive it.") %></span>
     <svg width="22" height="14" viewBox="0 0 2048 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-do-archive"></use></svg>
   <% end %>
 <% else %>
-  <%= cf_button(to: Path.no_archive_thread_path(@conn, :no_archive, @thread), class: "no-archive icon-button", title: gettext("Thread will currently be archived. Don't archive it."), params: std_args(@conn)) do %>
+  <%= VHelpers.Button.cf_button(to: Path.no_archive_thread_path(@conn, :no_archive, @thread), class: "no-archive icon-button", title: gettext("Thread will currently be archived. Don't archive it."), params: VHelpers.std_args(@conn)) do %>
     <span class="visually-hidden"><%= gettext("Thread will currently be archived. Don't archive it.") %></span>
     <svg width="22" height="14" viewBox="0 0 2048 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-no-archive"></use></svg>
   <% end %>

@@ -4,6 +4,7 @@ defmodule CforumWeb.Api.V1.Threads.OpenCloseController do
   alias Cforum.Forums
   alias Cforum.Threads
   alias Cforum.Threads.OpenClose
+  alias Cforum.ConfigManager
 
   def open(conn, _params) do
     OpenClose.open_thread(conn.assigns[:current_user], conn.assigns.thread)
@@ -36,11 +37,11 @@ defmodule CforumWeb.Api.V1.Threads.OpenCloseController do
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.ensure_found!()
       |> Threads.apply_user_infos(conn.assigns.current_user,
-        close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
-        open_close_default_state: uconf(conn, "open_close_default")
+        close_read_threads: ConfigManager.uconf(conn, "open_close_close_when_read") == "yes",
+        open_close_default_state: ConfigManager.uconf(conn, "open_close_default")
       )
       |> Threads.apply_highlights(conn)
-      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
     conn
     |> put_layout(false)

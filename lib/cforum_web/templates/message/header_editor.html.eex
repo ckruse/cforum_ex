@@ -1,4 +1,4 @@
-<%= if @opts[:show_editor] && !blank?(@message.edit_author) && !blank?(@message.versions) do %>
+<%= if @opts[:show_editor] && !Helpers.blank?(@message.edit_author) && !Helpers.blank?(@message.versions) do %>
   <span class="versions">
     (<%= link gettext("versions"), to: Path.message_version_path(@conn, :index, @thread, @message), class: "version-link", rel: "nofollow" %>)
   </span>

@@ -56,7 +56,7 @@ defmodule CforumWeb.Users.UserView do
     Enum.reduce(ConfigManager.user_config_keys(), options, fn key, opts ->
       if Map.has_key?(opts, key),
         do: opts,
-        else: Map.put(opts, String.to_atom(key), conf(setting, key))
+        else: Map.put(opts, String.to_atom(key), ConfigManager.conf(setting, key))
     end)
   end
 end

@@ -4,10 +4,13 @@ defmodule CforumWeb.Admin.RedirectionController do
   alias Cforum.System
   alias Cforum.System.Redirection
 
+  alias CforumWeb.Sortable
+  alias CforumWeb.Paginator
+
   def index(conn, params) do
-    {sort_params, conn} = sort_collection(conn, [:redirection_id, :path, :destination], dir: :desc)
+    {sort_params, conn} = Sortable.sort_collection(conn, [:redirection_id, :path, :destination], dir: :desc)
     count = System.count_redirections()
-    paging = paginate(count, page: params["p"])
+    paging = Paginator.paginate(count, page: params["p"])
     redirections = System.list_redirections(limit: paging.params, order: sort_params)
     render(conn, "index.html", redirections: redirections, paging: paging)
   end

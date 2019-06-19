@@ -4,18 +4,18 @@
 
   <div class="details">
     <span class="author">
-      <%= if !blank?(@result.user_id) do %>
-        <%= user_link(@conn, @result.user, [], false) %>
+      <%= if !Helpers.blank?(@result.user_id) do %>
+        <%= VHelpers.user_link(@conn, @result.user, [], false) %>
       <% end %>
 
       <%= link @result.author, to: @result.url, class: 'p-name' %>
     </span>
 
     <time datetime="<%= NaiveDateTime.to_iso8601(@result.document_created) %>">
-      <%= link format_date(@conn, @result.document_created, "date_format_search"), to: @result.url, class: "dt-published" %>
+      <%= link VHelpers.format_date(@conn, @result.document_created, "date_format_search"), to: @result.url, class: "dt-published" %>
     </time>
 
-    <%= if present?(@result.tags) do %>
+    <%= if Helpers.present?(@result.tags) do %>
       <ul class="cf-tags-list-thread">
         <%= for tag_name <- @result.tags do %>
           <li class="cf-tag p-category"><span><%= tag_name %></span></li>

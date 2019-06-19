@@ -4,12 +4,18 @@ defmodule CforumWeb.MailController do
   alias Cforum.Accounts.PrivMessage
   alias Cforum.Accounts.PrivMessages
 
+  alias Cforum.ConfigManager
+  alias Cforum.Helpers
+
+  alias CforumWeb.Sortable
+  alias CforumWeb.Paginator
+
   @spec index(%Plug.Conn{}, map()) :: %Plug.Conn{}
   def index(conn, params) do
-    sort_dir = uconf(conn, "mail_thread_sort")
-    {sort_params, conn} = sort_collection(conn, [:created_at, :subject, :is_read], dir: ordering(sort_dir))
+    sort_dir = ConfigManager.uconf(conn, "mail_thread_sort")
+    {sort_params, conn} = Sortable.sort_collection(conn, [:created_at, :subject, :is_read], dir: ordering(sort_dir))
     count = PrivMessages.count_newest_priv_messages_of_each_thread(conn.assigns[:current_user])
-    paging = CforumWeb.Paginator.paginate(count, page: params["p"])
+    paging = Paginator.paginate(count, page: params["p"])
 
     mails =
       PrivMessages.list_newest_priv_messages_of_each_thread(
@@ -39,10 +45,10 @@ defmodule CforumWeb.MailController do
       PrivMessages.answer_changeset(
         %PrivMessage{},
         parent,
-        strip_signature: uconf(conn, "quote_signature") != "yes",
-        greeting: uconf(conn, "greeting"),
-        farewell: uconf(conn, "farewell"),
-        signature: uconf(conn, "signature"),
+        strip_signature: ConfigManager.uconf(conn, "quote_signature") != "yes",
+        greeting: ConfigManager.uconf(conn, "greeting"),
+        farewell: ConfigManager.uconf(conn, "farewell"),
+        signature: ConfigManager.uconf(conn, "signature"),
         quote: quote?(conn, params),
         std_replacement: gettext("you")
       )
@@ -55,9 +61,9 @@ defmodule CforumWeb.MailController do
       PrivMessages.new_changeset(
         %PrivMessage{},
         params["priv_message"] || %{},
-        greeting: uconf(conn, "greeting"),
-        farewell: uconf(conn, "farewell"),
-        signature: uconf(conn, "signature"),
+        greeting: ConfigManager.uconf(conn, "greeting"),
+        farewell: ConfigManager.uconf(conn, "farewell"),
+        signature: ConfigManager.uconf(conn, "signature"),
         std_replacement: gettext("you")
       )
 
@@ -110,8 +116,8 @@ defmodule CforumWeb.MailController do
   defp ordering(_), do: :desc
 
   defp quote?(conn, params) do
-    if blank?(params["quote"]) do
-      uconf(conn, "quote_by_default") == "yes"
+    if Helpers.blank?(params["quote"]) do
+      ConfigManager.uconf(conn, "quote_by_default") == "yes"
     else
       params["quote"] == "yes"
     end
@@ -133,7 +139,7 @@ defmodule CforumWeb.MailController do
         |> Plug.Conn.assign(:pm_thread, thread)
         |> Plug.Conn.assign(:priv_message, priv_message)
 
-      action_name(conn) in [:new, :create] && !blank?(conn.params["parent_id"]) ->
+      action_name(conn) in [:new, :create] && Helpers.present?(conn.params["parent_id"]) ->
         pm = PrivMessages.get_priv_message!(conn.assigns[:current_user], conn.params["parent_id"])
         Plug.Conn.assign(conn, :priv_message, pm)
 

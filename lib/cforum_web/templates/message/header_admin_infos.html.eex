@@ -1,8 +1,8 @@
     <%= if Abilities.access_forum?(@conn, @thread.forum, :moderate) && @conn.assigns[:view_all] do %>
-      <%= if present?(@message.ip) do %>
+      <%= if Helpers.present?(@message.ip) do %>
         <span class="admin-infos ip"><%= @message.ip %></span>
       <% end %>
-      <%= if present?(@message.uuid) do %>
+      <%= if Helpers.present?(@message.uuid) do %>
         <span class="admin-infos uuid"><%= @message.uuid %></span>
       <% end %>
     <% end %>

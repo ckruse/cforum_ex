@@ -4,13 +4,16 @@ defmodule CforumWeb.Threads.InvisibleController do
   alias Cforum.Threads
   alias Cforum.Threads.InvisibleThreads
   alias Cforum.Threads.ThreadHelpers
+  alias Cforum.ConfigManager
+
+  alias CforumWeb.Paginator
   alias CforumWeb.Views.Helpers.ReturnUrl
 
   def index(conn, params) do
-    page = parse_page(params["p"]) - 1
-    limit = uconf(conn, "pagination", :int)
+    page = Paginator.parse_page(params["p"]) - 1
+    limit = ConfigManager.uconf(conn, "pagination", :int)
     user = conn.assigns[:current_user]
-    ordering = uconf(conn, "sort_threads")
+    ordering = ConfigManager.uconf(conn, "sort_threads")
 
     {all_threads_count, threads} =
       InvisibleThreads.list_invisible_threads(
@@ -25,13 +28,13 @@ defmodule CforumWeb.Threads.InvisibleController do
     threads =
       threads
       |> Threads.apply_user_infos(user,
-        close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
-        open_close_default_state: uconf(conn, "open_close_default")
+        close_read_threads: ConfigManager.uconf(conn, "open_close_close_when_read") == "yes",
+        open_close_default_state: ConfigManager.uconf(conn, "open_close_default")
       )
       |> Threads.apply_highlights(conn)
-      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
+      |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
 
-    p = paginate(all_threads_count, per_page: limit, page: page + 1)
+    p = Paginator.paginate(all_threads_count, per_page: limit, page: page + 1)
 
     render(conn, "index.html", threads: threads, all_threads_count: all_threads_count, page: p)
   end

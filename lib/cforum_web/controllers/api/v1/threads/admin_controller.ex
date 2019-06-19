@@ -2,6 +2,7 @@ defmodule CforumWeb.Api.V1.Threads.AdminController do
   use CforumWeb, :controller
 
   alias Cforum.Threads
+  alias Cforum.ConfigManager
 
   def sticky(conn, %{"slug" => slug}) do
     Threads.mark_thread_sticky(conn.assigns.current_user, conn.assigns.thread)
@@ -42,11 +43,11 @@ defmodule CforumWeb.Api.V1.Threads.AdminController do
       Threads.get_thread_by_slug!(conn.assigns.current_forum, conn.assigns.visible_forums, slug)
       |> Threads.ensure_found!()
       |> Threads.apply_user_infos(conn.assigns.current_user,
-        close_read_threads: uconf(conn, "open_close_close_when_read") == "yes",
-        open_close_default_state: uconf(conn, "open_close_default")
+        close_read_threads: ConfigManager.uconf(conn, "open_close_close_when_read") == "yes",
+        open_close_default_state: ConfigManager.uconf(conn, "open_close_default")
       )
       |> Threads.apply_highlights(conn)
-      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
     conn
     |> put_layout(false)

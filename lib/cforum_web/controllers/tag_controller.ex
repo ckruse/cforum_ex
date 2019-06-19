@@ -2,10 +2,14 @@ defmodule CforumWeb.TagController do
   use CforumWeb, :controller
 
   alias Cforum.Threads.Thread
-  alias Cforum.Messages.MessagesTags
+
   alias Cforum.Messages.Message
-  alias Cforum.Messages.Tags
+  alias Cforum.Messages.MessagesTags
+
   alias Cforum.Messages.Tag
+  alias Cforum.Messages.Tags
+
+  alias CforumWeb.Paginator
 
   def index(conn, _params) do
     tags = Tags.list_tags()
@@ -26,7 +30,7 @@ defmodule CforumWeb.TagController do
     tag = Tags.get_tag_by_slug!(id)
 
     count = MessagesTags.count_messages_for_tag(conn.assigns[:visible_forums], tag)
-    paging = paginate(count, page: params["p"])
+    paging = Paginator.paginate(count, page: params["p"])
     entries = MessagesTags.list_messages_for_tag(conn.assigns[:visible_forums], tag, limit: paging.params)
 
     messages =

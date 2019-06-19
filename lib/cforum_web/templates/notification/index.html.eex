@@ -2,31 +2,31 @@
   <thead>
     <tr>
       <th> </th>
-      <th><%= sortable(@conn, gettext("subject"), :subject, &Routes.notification_path/3) %></th>
-      <th><%= sortable(@conn, gettext("created at"), :created_at, &Routes.notification_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("subject"), :subject, &Routes.notification_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("created at"), :created_at, &Routes.notification_path/3) %></th>
       <th> </th>
     </tr>
   </thead>
 
   <tbody>
-    <%= if blank?(@notifications) do %>
+    <%= if Helpers.blank?(@notifications) do %>
       <tr class="no-data"><td colspan="6"><%= gettext("No notifications found") %></td></tr>
     <% end %>
 
     <%= for notification <- @notifications do %>
       <tr id="<%= notification.notification_id %>" class="notification <%= if notification.is_read, do: "visited" %>">
-        <td><%= unless blank?(notification.icon) do %><%= link("", to: notification.path, class: "icon " <> notification.icon) %><% end %></td>
+        <td><%= unless Helpers.blank?(notification.icon) do %><%= link("", to: notification.path, class: "icon " <> notification.icon) %><% end %></td>
         <td>
           <%= link(notification.subject, to: Routes.notification_path(@conn, :show, notification)) %>
-          <%= unless blank?(notification.description) do %>
+          <%= unless Helpers.blank?(notification.description) do %>
             <div class="notification-description"><%= notification.description %></div>
           <% end %>
         </td>
-        <td><%= format_date(@conn, notification.created_at) %></td>
+        <td><%= VHelpers.format_date(@conn, notification.created_at) %></td>
         <td>
-          <%= destructive_index_button(gettext("delete"), to: Routes.notification_path(@conn, :delete, notification), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
+          <%= VHelpers.Button.destructive_index_button(gettext("delete"), to: Routes.notification_path(@conn, :delete, notification), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
           <%= if notification.is_read do %>
-            <%= default_index_button(gettext("mark unread"), to: Routes.notification_unread_path(@conn, :update_unread, notification), method: :put) %>
+            <%= VHelpers.Button.default_index_button(gettext("mark unread"), to: Routes.notification_unread_path(@conn, :update_unread, notification), method: :put) %>
           <% end %>
         </td>
       </tr>
@@ -39,12 +39,12 @@
 <%= if length(@notifications) > 0 do %>
   <%= form_tag(Routes.notification_path(@conn, :batch_action), method: :post, "data-js": "notifications-batch-form") do %>
     <p class="form-actions">
-      <%= default_submit(gettext("mark all notifications as read"), name: "batch_action", value: "mark_read", "data-js": "batch-mark-read") %>
-      <%= default_submit(gettext("mark all notifications as unread"), name: "batch_action", value: "mark_unread", "data-js": "batch-mark-unread") %>
-      <%= destructive_submit(gettext("delete all notifications"), name: "batch_action", value: "delete", "data-js": "batch-delete") %>
+      <%= VHelpers.Button.default_submit(gettext("mark all notifications as read"), name: "batch_action", value: "mark_read", "data-js": "batch-mark-read") %>
+      <%= VHelpers.Button.default_submit(gettext("mark all notifications as unread"), name: "batch_action", value: "mark_unread", "data-js": "batch-mark-unread") %>
+      <%= VHelpers.Button.destructive_submit(gettext("delete all notifications"), name: "batch_action", value: "delete", "data-js": "batch-delete") %>
     </p>
   <% end %>
 <% end %>
 
 
-<%= pagination @conn, @paging, &Routes.notification_path/3 %>
+<%= Paginator.pagination @conn, @paging, &Routes.notification_path/3 %>

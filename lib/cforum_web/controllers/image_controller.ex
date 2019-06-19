@@ -3,12 +3,15 @@ defmodule CforumWeb.ImageController do
 
   alias Cforum.Media
 
+  alias CforumWeb.Sortable
+  alias CforumWeb.Paginator
+
   @max_age 30 * 24 * 60 * 60
 
   def index(conn, params) do
-    {sort_params, conn} = sort_collection(conn, [:created_at, :name], dir: :desc)
+    {sort_params, conn} = Sortable.sort_collection(conn, [:created_at, :name], dir: :desc)
     count = Media.count_images()
-    paging = paginate(count, page: params["p"])
+    paging = Paginator.paginate(count, page: params["p"])
     images = Media.list_images(limit: paging.params, order: sort_params)
 
     render(conn, "index.html", images: images, paging: paging)

@@ -4,16 +4,16 @@
     <input type="search" id="user_search" name="s" value="<%= @s %>">
   </div>
 
-  <%= primary_submit gettext("search") %>
+  <%= VHelpers.Button.primary_submit gettext("search") %>
 </form>
 
 <table class="cf-default-table">
   <thead>
     <tr>
-      <th><%= sortable(@conn, gettext("username"), :username, &Routes.user_path/3) %></th>
-      <th class="numeric"><%= sortable(@conn, gettext("Score"), :score, &Routes.user_path/3) %></th>
-      <th class="numeric"><%= sortable(@conn, gettext("Activity during the last 30 days"), :activity, &Routes.user_path/3) %></th>
-      <th><%= sortable(@conn, gettext("Registration date"), :created_at, &Routes.user_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("username"), :username, &Routes.user_path/3) %></th>
+      <th class="numeric"><%= Sortable.sortable(@conn, gettext("Score"), :score, &Routes.user_path/3) %></th>
+      <th class="numeric"><%= Sortable.sortable(@conn, gettext("Activity during the last 30 days"), :activity, &Routes.user_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("Registration date"), :created_at, &Routes.user_path/3) %></th>
     </tr>
   </thead>
 
@@ -23,10 +23,10 @@
         <td><%= link user.username, to: Routes.user_path(@conn, :show, user) %></td>
         <td class="numeric"><%= user.score %></td>
         <td class="numeric"><%= user.activity %> <%= gettext("messages") %></td>
-        <td><%= format_date(@conn, user.created_at) %></td>
+        <td><%= VHelpers.format_date(@conn, user.created_at) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= pagination @conn, @paging, &Routes.user_path/3 %>
+<%= Paginator.pagination @conn, @paging, &Routes.user_path/3 %>

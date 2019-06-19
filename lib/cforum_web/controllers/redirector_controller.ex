@@ -3,6 +3,8 @@ defmodule CforumWeb.RedirectorController do
 
   alias Cforum.Threads
   alias Cforum.Messages
+  alias Cforum.ConfigManager
+  alias Cforum.Helpers
 
   def redirect_to_archive(conn, _params) do
     redirect(conn, to: Path.archive_path(conn, :years, conn.assigns[:current_forum]))
@@ -27,7 +29,7 @@ defmodule CforumWeb.RedirectorController do
   def redirect_to_thread(conn, %{"year" => year, "tid" => tid}) do
     threads =
       Threads.get_threads_by_tid!(tid)
-      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
+      |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
 
     year =
       year
@@ -45,7 +47,7 @@ defmodule CforumWeb.RedirectorController do
         end
       end
 
-    if blank?(t),
+    if Helpers.blank?(t),
       do: render(conn, "redirect_archive_thread.html", threads: threads),
       else: redirect(conn, to: Path.message_path(conn, :show, t, t.message))
   end

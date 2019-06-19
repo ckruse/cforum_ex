@@ -16,7 +16,7 @@
   <%= render CforumWeb.MessageView, "form.html", Map.put(assigns, :f, f) %>
 
   <p class="form-actions">
-    <%= primary_submit gettext("split thread") %>
-    <%= default_button_link gettext("cancel"), to: Path.forum_path(@conn, :index, @thread.forum) %>
+    <%= VHelpers.Button.primary_submit gettext("split thread") %>
+    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Path.forum_path(@conn, :index, @thread.forum) %>
   </p>
 <% end %>

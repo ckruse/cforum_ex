@@ -17,7 +17,7 @@
   </div>
 
   <p class="form-actions">
-    <%= primary_submit gettext("Login") %>
-    <%= default_button_link gettext("I forgot my password"), to: Routes.password_path(@conn, :new) %>
+    <%= VHelpers.Button.primary_submit gettext("Login") %>
+    <%= VHelpers.Button.default_button_link gettext("I forgot my password"), to: Routes.password_path(@conn, :new) %>
   </p>
 <% end %>

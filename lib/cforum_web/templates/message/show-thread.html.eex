@@ -13,7 +13,7 @@
   <article class="cf-thread posting <%= CforumWeb.ThreadView.thread_classes(@thread) %>">
     <%= CforumWeb.MessageView.header(@conn, @thread, @thread.tree, first: true, show_icons: true, id_prefix: "tree-") %>
 
-    <%= unless blank?(@thread.tree.messages) do %>
+    <%= unless Helpers.blank?(@thread.tree.messages) do %>
       <%= CforumWeb.MessageView.message_tree(
             @conn,
             @thread,
@@ -21,8 +21,8 @@
             @thread.tree.messages,
             show_icons: true,
             id_prefix: "tree-",
-            hide_repeating_subjects: uconf(@conn, "hide_subjects_unchanged") == "yes",
-            hide_repeating_tags: uconf(@conn, "hide_repeating_tags") == "yes",
+            hide_repeating_subjects: ConfigManager.uconf(@conn, "hide_subjects_unchanged") == "yes",
+            hide_repeating_tags: ConfigManager.uconf(@conn, "hide_repeating_tags") == "yes",
             parent_subscribed: @thread.message.attribs[:is_subscribed],
             viewed_message: @message
           ) %>

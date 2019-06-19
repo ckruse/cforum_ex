@@ -5,12 +5,14 @@ defmodule CforumWeb.Api.V1.Messages.VoteController do
   alias Cforum.Threads
   alias Cforum.Messages
   alias Cforum.Messages.Votes
+  alias Cforum.ConfigManager
 
   def upvote(conn, params) do
     if Votes.upvoted?(conn.assigns.message, conn.assigns.current_user) do
       Votes.take_back_vote(conn.assigns.message, conn.assigns.current_user)
     else
-      Votes.upvote(conn.assigns.message, conn.assigns.current_user, conf(conn, "vote_up_value", :int))
+      vote_up_value = ConfigManager.conf(conn, "vote_up_value", :int)
+      Votes.upvote(conn.assigns.message, conn.assigns.current_user, vote_up_value)
     end
 
     thread =
@@ -27,7 +29,8 @@ defmodule CforumWeb.Api.V1.Messages.VoteController do
     if Votes.downvoted?(conn.assigns.message, conn.assigns.current_user) do
       Votes.take_back_vote(conn.assigns.message, conn.assigns.current_user)
     else
-      Votes.downvote(conn.assigns.message, conn.assigns.current_user, conf(conn, "vote_down_value", :int))
+      vote_down_value = ConfigManager.conf(conn, "vote_down_value", :int)
+      Votes.downvote(conn.assigns.message, conn.assigns.current_user, vote_down_value)
     end
 
     thread =

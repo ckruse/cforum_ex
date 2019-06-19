@@ -32,19 +32,12 @@ defmodule CforumWeb do
     quote do
       use Phoenix.Controller, namespace: CforumWeb
 
+      import CforumWeb.Gettext
+
       alias Cforum.Repo
-      import Ecto
-      import Ecto.Query
+      alias Cforum.Abilities
 
       alias CforumWeb.Router.Helpers, as: Routes
-      import CforumWeb.Gettext
-      import CforumWeb.Views.Helpers
-      import CforumWeb.Paginator
-      import CforumWeb.Sortable
-      import Cforum.Helpers
-      import Cforum.ConfigManager
-
-      alias Cforum.Abilities
       alias CforumWeb.Views.Helpers.Path
 
       plug(CforumWeb.Plug.LoadResource)
@@ -65,21 +58,19 @@ defmodule CforumWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      alias CforumWeb.Router.Helpers, as: Routes
       import CforumWeb.ErrorHelpers
       import CforumWeb.Gettext
-      import CforumWeb.Views.Helpers
-      import CforumWeb.Views.Helpers.Button
-      import CforumWeb.Views.Helpers.Links
-      alias CforumWeb.Views.Helpers.Path
-      import CforumWeb.Views.Helpers.RelativeTime
-      import CforumWeb.Paginator
-      import CforumWeb.Sortable
-      alias Cforum.Abilities
-      import Cforum.Helpers
-      import Cforum.ConfigManager
-
       import Number.Delimit
+
+      alias CforumWeb.Router.Helpers, as: Routes
+      alias Cforum.Abilities
+      alias Cforum.ConfigManager
+      alias Cforum.Helpers
+
+      alias CforumWeb.Views.Helpers, as: VHelpers
+      alias CforumWeb.Views.Helpers.Path
+      alias CforumWeb.Sortable
+      alias CforumWeb.Paginator
     end
   end
 
@@ -94,8 +85,6 @@ defmodule CforumWeb do
       use Phoenix.Channel
 
       alias Cforum.Repo
-      import Ecto
-      import Ecto.Query
       import CforumWeb.Gettext
     end
   end

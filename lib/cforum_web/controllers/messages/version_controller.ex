@@ -3,8 +3,11 @@ defmodule CforumWeb.Messages.VersionController do
 
   alias Cforum.Threads
   alias Cforum.Threads.ThreadHelpers
+
   alias Cforum.Messages
   alias Cforum.Messages.MessageVersions
+
+  alias Cforum.ConfigManager
 
   def show(conn, _params) do
     render(conn, "show.html")
@@ -24,7 +27,7 @@ defmodule CforumWeb.Messages.VersionController do
     thread =
       Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, ThreadHelpers.slug_from_params(conn.params))
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
-      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
     message = Messages.get_message_from_mid!(thread, conn.params["mid"])
 

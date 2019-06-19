@@ -5,7 +5,7 @@
 </p>
 
 <p class="form-actions">
-  <%= primary_submit gettext("Yes, delete user") %>
-  <%= default_button_link gettext("Nope, get me out of here"), to: Routes.user_path(@conn, :show, @user) %>
+  <%= VHelpers.Button.primary_submit gettext("Yes, delete user") %>
+  <%= VHelpers.Button.default_button_link gettext("Nope, get me out of here"), to: Routes.user_path(@conn, :show, @user) %>
 </p>
 <% end %>

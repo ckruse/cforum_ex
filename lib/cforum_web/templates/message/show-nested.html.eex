@@ -7,7 +7,7 @@
   <article class="cf-thread posting tree <%= CforumWeb.ThreadView.thread_classes(@thread) %>">
     <%= header(@conn, @thread, @thread.tree, first: true, show_icons: true, id_prefix: "tree-") %>
 
-    <%= unless blank?(@thread.message.messages) do %>
+    <%= unless Helpers.blank?(@thread.message.messages) do %>
       <%= message_tree(
             @conn,
             @thread,
@@ -15,8 +15,8 @@
             @thread.message.messages,
             show_icons: true,
             id_prefix: "tree-",
-            hide_repeating_subjects: uconf(@conn, "hide_subjects_unchanged") == "yes",
-            hide_repeating_tags: uconf(@conn, "hide_repeating_tags") == "yes",
+            hide_repeating_subjects: ConfigManager.uconf(@conn, "hide_subjects_unchanged") == "yes",
+            hide_repeating_tags: ConfigManager.uconf(@conn, "hide_repeating_tags") == "yes",
             parent_subscribed: @thread.message.attribs[:is_subscribed],
             viewed_message: @message
           ) %>
@@ -30,7 +30,7 @@
       <%= render "message.html", Map.merge(assigns, %{first: true, message: @thread.message, controls: true}) %>
     </div>
 
-    <%= unless blank?(@thread.message.messages) do %>
+    <%= unless Helpers.blank?(@thread.message.messages) do %>
       <%= render("answers-nested.html", Map.merge(assigns, %{messages: @thread.message.messages})) %>
     <% end %>
   </article>

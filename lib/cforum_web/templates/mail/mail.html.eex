@@ -5,14 +5,14 @@
 
       <div class="details">
         <span class="author">
-          <%= if blank?(@priv_message.sender_id), do: @priv_message.sender_name, else: user_link(@conn, @priv_message.sender, ["original-poster"], @priv_message.sender_name) %>
+          <%= if Helpers.blank?(@priv_message.sender_id), do: @priv_message.sender_name, else: VHelpers.user_link(@conn, @priv_message.sender, ["original-poster"], @priv_message.sender_name) %>
         </span>
 
         <time datetime="<%= NaiveDateTime.to_iso8601(@priv_message.created_at) %>">
-          <%= if !blank?(@priv_message.priv_message_id) do %>
-            <%= link format_date(@conn, @priv_message.created_at, "date_format_post"), to: Routes.mail_path(@conn, :show, @priv_message) %>
+          <%= if !Helpers.blank?(@priv_message.priv_message_id) do %>
+            <%= link VHelpers.format_date(@conn, @priv_message.created_at, "date_format_post"), to: Routes.mail_path(@conn, :show, @priv_message) %>
           <% else %>
-            <%= format_date(@conn, @priv_message.created_at, "date_format_post") %>
+            <%= VHelpers.format_date(@conn, @priv_message.created_at, "date_format_post") %>
           <% end %>
         </time>
       </div>
@@ -23,15 +23,15 @@
     <%= Cforum.MarkdownRenderer.to_html(@priv_message, assigns[:current_user]) %>
   </div>
 
-  <%= if !blank?(@priv_message.priv_message_id) do %>
+  <%= if !Helpers.blank?(@priv_message.priv_message_id) do %>
     <div class="cf-mail-footer">
-      <%= if not blank?(@priv_message.sender_id) and @priv_message.sender_id != @current_user.user_id do %>
-        <%= default_button_link(gettext("answer"), to: Routes.mail_path(@conn, :new, parent_id: @priv_message.priv_message_id)) %>
-        <%= default_button_link(gettext("answer without cite"), to: Routes.mail_path(@conn, :new, parent_id: @priv_message.priv_message_id, quote: "no")) %>
+      <%= if not Helpers.blank?(@priv_message.sender_id) and @priv_message.sender_id != @current_user.user_id do %>
+        <%= VHelpers.Button.default_button_link(gettext("answer"), to: Routes.mail_path(@conn, :new, parent_id: @priv_message.priv_message_id)) %>
+        <%= VHelpers.Button.default_button_link(gettext("answer without cite"), to: Routes.mail_path(@conn, :new, parent_id: @priv_message.priv_message_id, quote: "no")) %>
       <% end %>
 
-      <%= destructive_button(gettext("delete mail"), to: Routes.mail_path(@conn, :delete, @priv_message), method: :delete) %>
-      <%= default_button(gettext("mark unread"), to: Routes.mail_path(@conn, :update_unread, @priv_message)) %>
+      <%= VHelpers.Button.destructive_button(gettext("delete mail"), to: Routes.mail_path(@conn, :delete, @priv_message), method: :delete) %>
+      <%= VHelpers.Button.default_button(gettext("mark unread"), to: Routes.mail_path(@conn, :update_unread, @priv_message)) %>
     </div>
   <% end %>
 </article>

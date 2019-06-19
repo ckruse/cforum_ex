@@ -5,7 +5,7 @@
         <%= render "message.html", Map.merge(assigns, %{first: false, message: msg, controls: true}) %>
       </div>
 
-      <%= unless blank?(msg.messages), do: render("answers-nested.html", Map.merge(assigns, %{messages: msg.messages})) %>
+      <%= unless Helpers.blank?(msg.messages), do: render("answers-nested.html", Map.merge(assigns, %{messages: msg.messages})) %>
     </li>
   <% end %>
 </ol>

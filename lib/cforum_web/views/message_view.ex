@@ -40,7 +40,7 @@ defmodule CforumWeb.MessageView do
     |> accepted_class(thread, message)
     |> close_vote_class(message)
     |> open_vote_class(message)
-    |> add_if(active_message && active_message.message_id == message.message_id, "active")
+    |> Helpers.add_if(active_message && active_message.message_id == message.message_id, "active")
     |> Enum.join(" ")
   end
 
@@ -63,7 +63,7 @@ defmodule CforumWeb.MessageView do
     parts =
       Enum.map(messages, fn msg ->
         # TODO classes
-        subtree = if blank?(msg.messages), do: "", else: message_tree(conn, thread, msg, msg.messages, new_opts)
+        subtree = if Helpers.blank?(msg.messages), do: "", else: message_tree(conn, thread, msg, msg.messages, new_opts)
 
         [
           {:safe, "<li>"}
@@ -87,7 +87,7 @@ defmodule CforumWeb.MessageView do
     msg.subject <>
       " " <>
       gettext("by") <>
-      " " <> msg.author <> ", " <> format_date(assigns[:conn], msg.created_at, message_date_format(false))
+      " " <> msg.author <> ", " <> VHelpers.format_date(assigns[:conn], msg.created_at, message_date_format(false))
   end
 
   def page_title(action, assigns) when action in [:new, :create],
@@ -117,14 +117,14 @@ defmodule CforumWeb.MessageView do
 
   def message_classes(conn, message, thread, active, read_mode \\ :thread) do
     is_folded =
-      uconf(conn, "fold_read_nested") == "yes" && read_mode == :nested && !active && !thread.archived &&
+      ConfigManager.uconf(conn, "fold_read_nested") == "yes" && read_mode == :nested && !active && !thread.archived &&
         Enum.member?(message.attribs[:classes], "visited")
 
     []
-    |> add_if(active, "active")
-    |> add_if(message.attribs[:is_interesting], "interesting")
-    |> add_if(Enum.member?(thread.accepted, message), "accepted")
-    |> add_if(is_folded, "folded")
+    |> Helpers.add_if(active, "active")
+    |> Helpers.add_if(message.attribs[:is_interesting], "interesting")
+    |> Helpers.add_if(Enum.member?(thread.accepted, message), "accepted")
+    |> Helpers.add_if(is_folded, "folded")
     |> score_class(message)
     |> Enum.join(" ")
   end
@@ -164,10 +164,10 @@ defmodule CforumWeb.MessageView do
   def show_subject?(parent, message, opts),
     do: (opts[:hide_repeating_subjects] && subject_changed?(message, parent)) || !opts[:hide_repeating_subjects]
 
-  def show_tags?(nil, message, opts), do: !blank?(message.tags) && opts[:tags]
+  def show_tags?(nil, message, opts), do: !Helpers.blank?(message.tags) && opts[:tags]
 
   def show_tags?(parent, message, opts),
-    do: !blank?(message.tags) && opts[:tags] && (!opts[:hide_repeating_tags] || tags_changed?(message, parent))
+    do: !Helpers.blank?(message.tags) && opts[:tags] && (!opts[:hide_repeating_tags] || tags_changed?(message, parent))
 
   def show?(:mail_to_author, cuser, muser) when is_nil(cuser) or is_nil(muser), do: false
   def show?(:mail_to_author, cuser, muser), do: cuser.user_id != muser.user_id
@@ -183,7 +183,7 @@ defmodule CforumWeb.MessageView do
       opts[:author_link_to_message] ->
         link(message.author, to: Path.message_path(conn, :show, thread, message), aria: [hidden: "true"])
 
-      !blank?(message.user_id) ->
+      !Helpers.blank?(message.user_id) ->
         link(message.author, to: Routes.user_path(conn, :show, message.user_id))
 
       true ->
@@ -208,7 +208,7 @@ defmodule CforumWeb.MessageView do
           gettext(
             "regarding your message %{subject} from %{time}",
             subject: message.subject,
-            time: format_date(conn, message.created_at, "date_format_post")
+            time: VHelpers.format_date(conn, message.created_at, "date_format_post")
           )
       }
     }
@@ -230,7 +230,7 @@ defmodule CforumWeb.MessageView do
 
   defp no_tag_inputs_left(conn, changeset) do
     cnt = length(tags_from_changeset(changeset))
-    max = conf(conn, "max_tags_per_message")
+    max = ConfigManager.conf(conn, "max_tags_per_message")
 
     if cnt >= max,
       do: [],
@@ -238,8 +238,9 @@ defmodule CforumWeb.MessageView do
   end
 
   def author_homepage_rel(message) do
-    if Abilities.badge?(message.user_id, Badge.seo_profi()) && uconf(message.user, "norelnofollow") == "yes",
-      do: nil,
-      else: "rel=\"nofollow\""
+    if Abilities.badge?(message.user_id, Badge.seo_profi()) &&
+         ConfigManager.uconf(message.user, "norelnofollow") == "yes",
+       do: nil,
+       else: "rel=\"nofollow\""
   end
 end

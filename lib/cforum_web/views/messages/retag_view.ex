@@ -22,7 +22,7 @@ defmodule CforumWeb.Messages.RetagView do
 
   defp no_tag_inputs_left(conn, changeset) do
     cnt = length(tags_from_changeset(changeset))
-    max = conf(conn, "max_tags_per_message")
+    max = ConfigManager.conf(conn, "max_tags_per_message")
 
     if cnt >= max,
       do: [],
