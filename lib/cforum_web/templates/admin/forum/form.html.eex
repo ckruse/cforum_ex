@@ -40,7 +40,7 @@
   <div class="cf-cgroup">
     <%= label @f, :name do %>
       <%= gettext("name") %>
-      <%= error_tag @f, :name %>
+      <%= ErrorHelpers.error_tag @f, :name %>
     <% end %>
     <%= text_input @f, :name %>
   </div>
@@ -48,7 +48,7 @@
   <div class="cf-cgroup">
     <%= label @f, :short_name do %>
       <%= gettext("short name") %>
-      <%= error_tag @f, :short_name %>
+      <%= ErrorHelpers.error_tag @f, :short_name %>
     <% end %>
     <%= text_input @f, :short_name %>
   </div>
@@ -56,7 +56,7 @@
   <div class="cf-cgroup">
     <%= label @f, :slug do %>
       <%= gettext("slug") %>
-      <%= error_tag @f, :slug %>
+      <%= ErrorHelpers.error_tag @f, :slug %>
     <% end %>
     <%= text_input @f, :slug %>
   </div>
@@ -64,7 +64,7 @@
   <div class="cf-cgroup">
     <%= label @f, :standard_permission do %>
       <%= gettext("standard permission") %>
-      <%= error_tag @f, :standard_permission %>
+      <%= ErrorHelpers.error_tag @f, :standard_permission %>
     <% end %>
     <%= select(@f, :standard_permission, [{gettext("private"), "private"},
       {gettext("read"), Cforum.Forums.Forum.read()},
@@ -76,7 +76,7 @@
   <div class="cf-cgroup">
     <%= label @f, :keywords do %>
       <%= gettext("keywords") %>
-      <%= error_tag @f, :keywords %>
+      <%= ErrorHelpers.error_tag @f, :keywords %>
     <% end %>
     <%= text_input @f, :keywords %>
   </div>
@@ -84,7 +84,7 @@
   <div class="cf-cgroup">
     <%= label @f, :position do %>
       <%= gettext("position") %>
-      <%= error_tag @f, :position %>
+      <%= ErrorHelpers.error_tag @f, :position %>
     <% end %>
     <%= number_input @f, :position %>
   </div>
@@ -92,7 +92,7 @@
   <div class="cf-cgroup">
     <%= label @f, :description do %>
       <%= gettext("description") %>
-      <%= error_tag @f, :description %>
+      <%= ErrorHelpers.error_tag @f, :description %>
     <% end %>
     <%= textarea @f, :description %>
   </div>

@@ -3,10 +3,10 @@
     <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
   <% end %>
 
-  <div class="cf-cgroup <%= error_class(f, :custom_reason) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :custom_reason) %>">
     <%= label f, :custom_reason do %>
       <%= gettext("custom reason") %>
-      <%= error_tag f, :custom_reason %>
+      <%= ErrorHelpers.error_tag f, :custom_reason %>
     <% end %>
     <%= text_input f, :custom_reason %>
   </div>

@@ -1,6 +1,6 @@
 <%= for {tag, i} <- tags_and_index_from_changeset(@changeset) do %>
-  <li class="cf-cgroup <%= error_class(tag, :tag_name) %>">
-    <label for="tags-<%= i%>"><%= gettext("Tag %{no}", no: i + 1) %> <%= error_tag tag, :tag_name %></label>
+  <li class="cf-cgroup <%= ErrorHelpers.error_class(tag, :tag_name) %>">
+    <label for="tags-<%= i%>"><%= gettext("Tag %{no}", no: i + 1) %> <%= ErrorHelpers.error_tag tag, :tag_name %></label>
     <input name="message[tags][]" value="<%= Ecto.Changeset.get_field(tag, :tag_name) %>" id="tags-<%= i%>" data-tag="yes">
   </li>
 <% end %>

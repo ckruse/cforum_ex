@@ -58,7 +58,6 @@ defmodule CforumWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import CforumWeb.ErrorHelpers
       import CforumWeb.Gettext
       import Number.Delimit
 
@@ -69,6 +68,7 @@ defmodule CforumWeb do
 
       alias CforumWeb.Views.Helpers, as: VHelpers
       alias CforumWeb.Views.Helpers.Path
+      alias CforumWeb.ErrorHelpers
       alias CforumWeb.Sortable
       alias CforumWeb.Paginator
     end

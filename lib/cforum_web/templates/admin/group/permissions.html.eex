@@ -1,4 +1,4 @@
-<div class="cf-cgroup <%= error_class(@f, :name) %> cf-admin-group-permission" data-index="<%= @index %>">
+<div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :name) %> cf-admin-group-permission" data-index="<%= @index %>">
   <label>
     <%= gettext("forum") %>
     <select name="group[permissions][<%= @index %>][forum_id]">
