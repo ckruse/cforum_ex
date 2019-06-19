@@ -22,12 +22,7 @@ defmodule Cforum.Abilities do
   def may?(conn, path, action \\ :index, args \\ nil)
 
   def may?(%Plug.Conn{} = conn, controller_path, action, resource) when is_bitstring(controller_path) do
-    nam =
-      controller_path
-      |> String.capitalize()
-      |> (fn s -> Regex.replace(~r/_(.)/, s, fn _, c -> String.upcase(c) end) end).()
-      |> (fn s -> Regex.replace(~r{/(.)}, s, fn _, c -> "." <> String.upcase(c) end) end).()
-
+    nam = Cforum.Abilities.SnailCaseCamelCase.to_camel_case(controller_path)
     controller = String.to_existing_atom("Elixir.CforumWeb.#{nam}Controller")
     may?(conn, controller, action, resource)
   end
@@ -49,9 +44,9 @@ defmodule Cforum.Abilities do
     settings = Settings.load_relevant_settings(conn.assigns[:current_forum], conn.assigns[:current_user])
 
     Enum.reduce(settings, conn, fn
-      conf = %Setting{user_id: nil, forum_id: nil}, conn -> Plug.Conn.assign(conn, :global_config, conf)
-      conf = %Setting{forum_id: nil}, conn -> Plug.Conn.assign(conn, :user_config, conf)
-      conf = %Setting{user_id: nil}, conn -> Plug.Conn.assign(conn, :forum_config, conf)
+      conf = %{__struct__: Setting, user_id: nil, forum_id: nil}, conn -> Plug.Conn.assign(conn, :global_config, conf)
+      conf = %{__struct__: Setting, forum_id: nil}, conn -> Plug.Conn.assign(conn, :user_config, conf)
+      conf = %{__struct__: Setting, user_id: nil}, conn -> Plug.Conn.assign(conn, :forum_config, conf)
     end)
   end
 
@@ -153,7 +148,7 @@ defmodule Cforum.Abilities do
   def access_forum?(user, forum_id, permission) when is_integer(forum_id) or is_bitstring(forum_id),
     do: access_forum?(user, Forums.get_forum!(forum_id), permission)
 
-  def access_forum?(%User{admin: true}, _, _), do: true
+  def access_forum?(%{__struct__: User, admin: true}, _, _), do: true
   def access_forum?(user, forum, :read), do: access_forum_read?(user, forum)
   def access_forum?(user, forum, :write), do: access_forum_write?(user, forum)
   def access_forum?(user, forum, :moderate), do: access_forum_moderate?(user, forum)
