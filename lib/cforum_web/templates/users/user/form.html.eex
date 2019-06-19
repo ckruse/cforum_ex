@@ -3,7 +3,7 @@
 <% end %>
 
 <%= inputs_for @f, :settings, fn fs -> %>
-  <%= sub_inputs fs, :options, [merge_callback: fn opts -> merge_default_config(@user.settings, opts) end], fn(fo) -> %>
+  <%= VHelpers.sub_inputs fs, :options, [merge_callback: fn opts -> merge_default_config(@user.settings, opts) end], fn(fo) -> %>
     <%= render "settings.html", Map.merge(assigns, %{f: fo, original_f: @f, user: @user}) %>
   <% end %>
 <% end %>

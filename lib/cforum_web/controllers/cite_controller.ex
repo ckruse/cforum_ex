@@ -4,9 +4,11 @@ defmodule CforumWeb.CiteController do
   alias Cforum.Cites
   alias Cforum.Cites.Cite
 
+  alias CforumWeb.Paginator
+
   def index(conn, params, archived \\ true) do
     count = Cites.count_cites(archived)
-    paging = paginate(count, page: params["p"])
+    paging = Paginator.paginate(count, page: params["p"])
     cites = Cites.list_cites(archived, limit: paging.params)
 
     render(conn, "index.html", cites: cites, paging: paging)

@@ -4,11 +4,12 @@ defmodule CforumWeb.ForumController do
   alias Cforum.Threads
   alias Cforum.Messages
   alias Cforum.Forums.Stats
+  alias Cforum.ConfigManager
 
   def index(conn, %{"t" => tid, "m" => mid}) do
     threads =
       Threads.get_threads_by_tid!(tid)
-      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
+      |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
 
     case threads do
       [thread] ->
@@ -44,7 +45,7 @@ defmodule CforumWeb.ForumController do
       |> Threads.sort_threads("descending")
       |> Threads.paged_thread_list(0, 3)
       |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close, :subscriptions, :interesting])
-      |> Threads.build_message_trees(uconf(conn, "sort_messages"))
+      |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
 
     render(
       conn,

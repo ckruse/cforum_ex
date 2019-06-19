@@ -148,7 +148,7 @@ defmodule CforumWeb.Views.Helpers.Button do
   ## Options
 
   * `:to` - the page to link to. This option is required
-  * `:method` - the method to use with the button. Defaults to :post.
+  * `:method` - the method to use with the  Defaults to :post.
   * `:form` - the options for the form. Defaults to `[class: "button", enforce_utf8: false]`
 
   All other options are forwarded to the underlying button input.

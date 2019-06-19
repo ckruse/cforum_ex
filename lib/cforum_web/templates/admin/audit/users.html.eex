@@ -1,6 +1,6 @@
 <%= link @entry.contents["username"], to: Routes.root_path(@conn, :index) <> "users/" <> to_string(@entry.contents["user_id"]) %>
  (<%= gettext("badges") %>
-<%= if blank?(@entry.contents["badges"]) do %>
+<%= if Helpers.blank?(@entry.contents["badges"]) do %>
   <em><%= gettext("none") %></em>
 <% else %>
   <%= Enum.map(@entry.contents["badges"], & &1["name"]) |> Enum.join(", ") %>

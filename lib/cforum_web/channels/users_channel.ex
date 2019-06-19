@@ -4,6 +4,7 @@ defmodule CforumWeb.UsersChannel do
 
   alias Cforum.Accounts.User
   alias Cforum.Forums
+  alias Cforum.ConfigManager
 
   @decorate channel_action()
   def join("users:lobby", _payload, socket), do: {:ok, socket}
@@ -25,7 +26,7 @@ defmodule CforumWeb.UsersChannel do
 
     config =
       Enum.reduce(Cforum.ConfigManager.visible_config_keys(), %{}, fn key, opts ->
-        Map.put(opts, key, Cforum.ConfigManager.uconf(settings, key))
+        Map.put(opts, key, ConfigManager.uconf(settings, key))
       end)
 
     {:reply, {:ok, config}, socket}

@@ -3,7 +3,10 @@ defmodule CforumWeb.Api.V1.Messages.MarkReadController do
 
   alias Cforum.Forums
   alias Cforum.Threads
+
   alias Cforum.Messages.ReadMessages
+
+  alias Cforum.ConfigManager
 
   def mark_read(conn, %{"slug" => slug} = params) do
     forum = Forums.get_forum_by_slug(params["forum"])
@@ -20,11 +23,11 @@ defmodule CforumWeb.Api.V1.Messages.MarkReadController do
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.ensure_found!()
       |> Threads.apply_user_infos(conn.assigns.current_user,
-        close_read_threads: uconf(conn, "open_close_close_when_read") == "yes" && params["fold"] != "no",
-        open_close_default_state: uconf(conn, "open_close_default")
+        close_read_threads: ConfigManager.uconf(conn, "open_close_close_when_read") == "yes" && params["fold"] != "no",
+        open_close_default_state: ConfigManager.uconf(conn, "open_close_default")
       )
       |> Threads.apply_highlights(conn)
-      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
     conn
     |> put_layout(false)

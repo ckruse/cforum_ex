@@ -3,9 +3,13 @@ defmodule CforumWeb.Messages.FlagController do
 
   alias Cforum.Threads
   alias Cforum.Threads.ThreadHelpers
+
   alias Cforum.Messages
+
   alias Cforum.ModerationQueue
   alias Cforum.ModerationQueue.ModerationQueueEntry
+
+  alias Cforum.ConfigManager
 
   def new(conn, _params) do
     changeset = ModerationQueue.change_create_entry(%ModerationQueueEntry{})
@@ -28,7 +32,7 @@ defmodule CforumWeb.Messages.FlagController do
     thread =
       Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, ThreadHelpers.slug_from_params(conn.params))
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
-      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
     message = Messages.get_message_from_mid!(thread, conn.params["mid"])
 

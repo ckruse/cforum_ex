@@ -9,7 +9,7 @@
     <%= error_tag f, :term %>
   </div>
 
-  <%= l10n_render @view_module, "explanation.html", assigns %>
+  <%=VHelpers.l10n_render @view_module, "explanation.html", assigns %>
 
   <div class="cf-cgroup">
     <%= for section <- @visible_sections do %>
@@ -38,18 +38,18 @@
   </div>
 
   <p class="form-actions">
-    <%= primary_submit gettext("search") %>
+    <%= VHelpers.Button.primary_submit gettext("search") %>
   </p>
 <% end %>
 
 <%= if assigns[:results] do %>
   <h2 id="results"><%= gettext("%{count} search results", count: @paging.all_entries_count) %></h2>
 
-  <%= pagination @conn, @paging, &Routes.search_path/3, [path_args: [@conn, :show], url_params: @params] %>
+  <%= Paginator.pagination @conn, @paging, &Routes.search_path/3, [path_args: [@conn, :show], url_params: @params] %>
 
   <div class="cf-thread-list cf-search-results">
     <%= for result <- @results, do: render("result.html", Map.put(assigns, :result, result)) %>
   </div>
 
-  <%= pagination @conn, @paging, &Routes.search_path/3, [path_args: [@conn, :show], url_params: @params] %>
+  <%= Paginator.pagination @conn, @paging, &Routes.search_path/3, [path_args: [@conn, :show], url_params: @params] %>
 <% end %>

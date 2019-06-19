@@ -1,4 +1,4 @@
-<%= if blank?(@message.versions) do %>
+<%= if Helpers.blank?(@message.versions) do %>
   <p><%= gettext("no message version found.") %></p>
 <% else %>
   <%= version_list(@conn, @thread, @message, assigns) %>

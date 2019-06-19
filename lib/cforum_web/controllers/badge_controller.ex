@@ -3,9 +3,11 @@ defmodule CforumWeb.BadgeController do
 
   alias Cforum.Accounts.Badges
 
+  alias CforumWeb.Paginator
+
   def index(conn, params) do
     count = Badges.count_badges()
-    paging = paginate(count, page: params["p"])
+    paging = Paginator.paginate(count, page: params["p"])
     badges = Badges.list_badges(limit: paging.params)
     render(conn, "index.html", badges: badges, page: paging)
   end

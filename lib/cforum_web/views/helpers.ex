@@ -24,7 +24,7 @@ defmodule CforumWeb.Views.Helpers do
       "2017-01-01 00:00"
   """
   def date_format(conn, name \\ "date_format_default") do
-    val = Cforum.ConfigManager.uconf(conn, name)
+    val = ConfigManager.uconf(conn, name)
     if Helpers.blank?(val), do: "%d.%m.%Y %H:%M", else: val
   end
 

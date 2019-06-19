@@ -13,7 +13,7 @@
     <%= render CforumWeb.MessageView, "voting-area.html", Map.merge(assigns, %{top: true, thread: @entry.message.thread, message: @entry.message}) %>
   </div>
 
-  <%= unless blank?(@entry.message.problematic_site) do %>
+  <%= unless Helpers.blank?(@entry.message.problematic_site) do %>
     <p class="problematic-site"><%= link gettext("problematic site"), to: @entry.message.problematic_site, rel: "nofollow" %></p>
   <% end %>
 
@@ -39,7 +39,7 @@
     <% end %>
 
     <%= if Abilities.may?(@conn, "moderation", :update, @entry) do %>
-      <%= primary_button_link(gettext("solve"), to: Routes.moderation_path(@conn, :edit, @entry)) %>
+      <%= VHelpers.Button.primary_button_link(gettext("solve"), to: Routes.moderation_path(@conn, :edit, @entry)) %>
     <% end %>
   </div>
 </article>

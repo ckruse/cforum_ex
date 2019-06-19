@@ -1,6 +1,8 @@
 defmodule CforumWeb.Messages.InterestingView do
   use CforumWeb, :view
 
+  alias CforumWeb.Paginator
+
   def page_title(:index, _), do: gettext("messages marked as interesting")
   def page_heading(action, assigns), do: page_title(action, assigns)
   def body_id(:index, _), do: "interesting-messages-list"

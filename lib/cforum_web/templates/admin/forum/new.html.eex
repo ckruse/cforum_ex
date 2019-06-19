@@ -2,7 +2,7 @@
   <%= render "form.html", Map.put(assigns, :f, f) %>
 
   <p class="form-actions">
-    <%= primary_submit gettext("save changes") %>
-    <%= default_button_link gettext("cancel"), to: Routes.admin_forum_path(@conn, :index) %>
+    <%= VHelpers.Button.primary_submit gettext("save changes") %>
+    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Routes.admin_forum_path(@conn, :index) %>
   </p>
 <% end %>

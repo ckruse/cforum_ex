@@ -4,6 +4,7 @@ defmodule CforumWeb.Admin.SearchSectionController do
   alias Cforum.Search
   alias Cforum.Search.Section
   alias Cforum.Forums
+  alias Cforum.Helpers
 
   def index(conn, _params) do
     search_sections = Search.list_search_sections()
@@ -57,7 +58,7 @@ defmodule CforumWeb.Admin.SearchSectionController do
   end
 
   def load_resource(conn) do
-    section = if present?(conn.params["id"]), do: Search.get_section!(conn.params["id"]), else: nil
+    section = if Helpers.present?(conn.params["id"]), do: Search.get_section!(conn.params["id"]), else: nil
     forums = if action_name(conn) in [:new, :create, :edit, :update], do: Forums.list_forums(), else: []
 
     conn

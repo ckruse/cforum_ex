@@ -3,18 +3,24 @@ defmodule CforumWeb.Messages.VoteController do
 
   alias Cforum.Threads
   alias Cforum.Threads.ThreadHelpers
-  alias Cforum.Messages.Votes
+
   alias Cforum.Messages
+  alias Cforum.Messages.Votes
   alias Cforum.Messages.MessageHelpers
+
+  alias Cforum.ConfigManager
+
   alias CforumWeb.Views.Helpers.ReturnUrl
 
   def upvote(conn, params) do
+    vote_up_value = ConfigManager.conf(conn, "vote_up_value", :int)
+
     message =
       if Votes.upvoted?(conn.assigns.message, conn.assigns.current_user) do
         Votes.take_back_vote(conn.assigns.message, conn.assigns.current_user)
         gettext("Successfully took back vote")
       else
-        Votes.upvote(conn.assigns.message, conn.assigns.current_user, conf(conn, "vote_up_value", :int))
+        Votes.upvote(conn.assigns.message, conn.assigns.current_user, vote_up_value)
         gettext("Successfully upvoted message")
       end
 
@@ -24,12 +30,14 @@ defmodule CforumWeb.Messages.VoteController do
   end
 
   def downvote(conn, params) do
+    vote_down_value = ConfigManager.conf(conn, "vote_down_value", :int)
+
     message =
       if Votes.downvoted?(conn.assigns.message, conn.assigns.current_user) do
         Votes.take_back_vote(conn.assigns.message, conn.assigns.current_user)
         gettext("Successfully took back vote")
       else
-        Votes.downvote(conn.assigns.message, conn.assigns.current_user, conf(conn, "vote_down_value", :int))
+        Votes.downvote(conn.assigns.message, conn.assigns.current_user, vote_down_value)
         gettext("Successfully downvoted message")
       end
 
@@ -42,7 +50,7 @@ defmodule CforumWeb.Messages.VoteController do
     thread =
       Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, ThreadHelpers.slug_from_params(conn.params))
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
-      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
     message = Messages.get_message_from_mid!(thread, conn.params["mid"])
 

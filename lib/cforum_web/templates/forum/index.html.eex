@@ -17,7 +17,7 @@
       <% end %>
     </h2>
 
-    <%= unless blank?(@newest_thread) do %>
+    <%= unless Helpers.blank?(@newest_thread) do %>
       <ul>
         <li class="thread">
           <%= render "thread_infos.html", conn: @conn, thread: @newest_thread, latest: @newest_thread.attribs[:latest_message], first: @newest_thread.attribs[:first_message] %>
@@ -39,7 +39,7 @@
         <% end %>
       </h2>
 
-      <%= if !blank?(@latest_threads[forum.forum_id]) do %>
+      <%= if !Helpers.blank?(@latest_threads[forum.forum_id]) do %>
         <ul>
           <%= for thread <- @latest_threads[forum.forum_id] do %>
             <li class="thread">
@@ -53,7 +53,7 @@
     </li>
   <% end %>
 
-  <%= if present?(@unanswered_threads) do %>
+  <%= if Helpers.present?(@unanswered_threads) do %>
     <li>
       <h2 class="forum-name"><%= link gettext("Threads without answer"), to: Path.forum_path(@conn, :unanswered, "all") %></h2>
 

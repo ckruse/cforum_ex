@@ -7,7 +7,7 @@
     <%= for reason <- CloseVote.reasons() do %>
       <label class="radio">
         <%= radio_button f, :reason, reason %> <%= l10n_reason(reason) %>
-        <span class="help">(<%= l10n_action(conf(@conn, "close_vote_action_" <> reason)) %>)</span>
+        <span class="help">(<%= l10n_action(ConfigManager.conf(@conn, "close_vote_action_" <> reason)) %>)</span>
       </label>
     <% end %>
   </div>
@@ -30,8 +30,8 @@
 
 
   <p class="form-actions">
-    <%= primary_submit gettext("create close vote") %>
-    <%= default_button_link gettext("cancel"), to: Path.message_path(@conn, :show, @thread, @message) %>
+    <%= VHelpers.Button.primary_submit gettext("create close vote") %>
+    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Path.message_path(@conn, :show, @thread, @message) %>
   </p>
 <% end %>
 

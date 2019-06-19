@@ -9,12 +9,12 @@ defmodule CforumWeb.Admin.SettingView do
   def body_classes(:update, _), do: "admin settings update"
 
   def conf_set?(nil, _), do: false
-  def conf_set?(settings, key), do: !blank?(settings.options[key])
+  def conf_set?(settings, key), do: !Helpers.blank?(settings.options[key])
 
   def conf_val_or_default(conn, name) do
-    if blank?(conn.assigns[:forum]),
+    if Helpers.blank?(conn.assigns[:forum]),
       do: Cforum.ConfigManager.defaults()[Atom.to_string(name)],
-      else: conf(conn, Atom.to_string(name))
+      else: ConfigManager.conf(conn, Atom.to_string(name))
   end
 
   def default_value(conn, key) do
@@ -40,7 +40,7 @@ defmodule CforumWeb.Admin.SettingView do
   end
 
   def global_conf?(conn, key) do
-    if blank?(conn.assigns[:global_config]),
+    if Helpers.blank?(conn.assigns[:global_config]),
       do: false,
       else: Map.has_key?(conn.assigns[:global_config].options, Atom.to_string(key))
   end

@@ -5,13 +5,13 @@
     <%= error_tag f, :term %>
   </div>
 
-  <%= l10n_render CforumWeb.SearchView, "explanation.html", assigns %>
+  <%=VHelpers.l10n_render CforumWeb.SearchView, "explanation.html", assigns %>
 <% end %>
 
-<%= if blank?(@threads) do %>
+<%= if Helpers.blank?(@threads) do %>
   <p><%= gettext("no messages marked as interesting, yet") %></p>
 <% else %>
-  <%= pagination @conn, @paging, &Routes.interesting_path/3, path_args: [@conn, :index] %>
+  <%= Paginator.pagination @conn, @paging, &Routes.interesting_path/3, path_args: [@conn, :index] %>
 
   <div class="cf-thread-list">
     <%= for thread <- @threads do %>
@@ -21,5 +21,5 @@
     <% end %>
   </div>
 
-  <%= pagination @conn, @paging, &Routes.interesting_path/3, path_args: [@conn, :index] %>
+  <%= Paginator.pagination @conn, @paging, &Routes.interesting_path/3, path_args: [@conn, :index] %>
 <% end %>

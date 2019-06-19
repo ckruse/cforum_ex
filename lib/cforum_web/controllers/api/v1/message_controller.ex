@@ -4,6 +4,9 @@ defmodule CforumWeb.Api.V1.MessageController do
   alias Cforum.Forums
   alias Cforum.Threads
   alias Cforum.Messages
+  alias Cforum.ConfigManager
+  alias Cforum.Helpers
+  alias CforumWeb.Views.Helpers, as: VHelpers
 
   def message_quote(conn, params) do
     changeset =
@@ -11,13 +14,13 @@ defmodule CforumWeb.Api.V1.MessageController do
         conn.assigns.message,
         conn.assigns[:current_user],
         conn.assigns[:visible_forums],
-        strip_signature: uconf(conn, "quote_signature") != "yes",
-        author: author_from_conn(conn),
-        email: email_from_conn(conn),
-        homepage: homepage_from_conn(conn),
-        greeting: uconf(conn, "greeting"),
-        farewell: uconf(conn, "farewell"),
-        signature: uconf(conn, "signature"),
+        strip_signature: ConfigManager.uconf(conn, "quote_signature") != "yes",
+        author: VHelpers.author_from_conn(conn),
+        email: VHelpers.email_from_conn(conn),
+        homepage: VHelpers.homepage_from_conn(conn),
+        greeting: ConfigManager.uconf(conn, "greeting"),
+        farewell: ConfigManager.uconf(conn, "farewell"),
+        signature: ConfigManager.uconf(conn, "signature"),
         quote: quote?(conn, params),
         std_replacement: gettext("all")
       )
@@ -31,7 +34,7 @@ defmodule CforumWeb.Api.V1.MessageController do
     thread =
       Threads.get_thread_by_slug!(forum, conn.assigns[:visible_forums], conn.params["slug"])
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
-      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
     message = Messages.get_message_from_mid!(thread, conn.params["message_id"])
 
@@ -44,8 +47,8 @@ defmodule CforumWeb.Api.V1.MessageController do
   def allowed?(_, _, _), do: true
 
   defp quote?(conn, params) do
-    if blank?(params["with_quote"]),
-      do: uconf(conn, "quote_by_default") == "yes",
+    if Helpers.blank?(params["with_quote"]),
+      do: ConfigManager.uconf(conn, "quote_by_default") == "yes",
       else: params["with_quote"] == "yes"
   end
 end

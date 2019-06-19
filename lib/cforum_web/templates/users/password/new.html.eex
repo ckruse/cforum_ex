@@ -8,7 +8,7 @@
   </div>
 
   <p class="form-actions">
-    <%= primary_submit gettext("send reset instructions") %>
-    <%= default_button_link gettext("cancel"), to: Routes.root_path(@conn, :index) %>
+    <%= VHelpers.Button.primary_submit gettext("send reset instructions") %>
+    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Routes.root_path(@conn, :index) %>
   </p>
 <% end %>

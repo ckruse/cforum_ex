@@ -65,7 +65,7 @@
     <label class="radio"><%= radio_button @fo, :sort_threads, "_DEFAULT_", checked: !conf_set?(@settings, "sort_threads"), id: "settings-sort_threads-default" %> <%= default_value(@conn, :sort_threads) %></label>
   </div>
 
-  <%= if blank?(assigns[:forum]) do %>
+  <%= if Helpers.blank?(assigns[:forum]) do %>
     <div class="cf-cgroup">
       <label for="settings-links_white_list"><%= gettext("white list for links") %></label>
       <%= textarea @fo, :links_white_list, id: "settings-links_white_list" %>

@@ -1,13 +1,13 @@
 <div class="cf-stats-list">
   <section id="overview">
     <p>
-      <%= if blank?(@oldest_forum) do %>
+      <%= if Helpers.blank?(@oldest_forum) do %>
         <%= gettext("There are no visible forums available.") %>
       <% else %>
-        <%= if blank?(@current_forum) do %>
-          <%= {:safe, gettext("The oldest forum has been created at %{created}. All forums contain <strong>%{no_messages}</strong> messages in <strong>%{no_threads}</strong> threads.", created: format_date(assigns[:conn], @oldest_forum.created_at), no_messages: @no_messages, no_threads: @no_threads)} %>
+        <%= if Helpers.blank?(@current_forum) do %>
+          <%= {:safe, gettext("The oldest forum has been created at %{created}. All forums contain <strong>%{no_messages}</strong> messages in <strong>%{no_threads}</strong> threads.", created: VHelpers.format_date(assigns[:conn], @oldest_forum.created_at), no_messages: @no_messages, no_threads: @no_threads)} %>
         <% else %>
-          <%= {:safe, gettext("The forum „%{name}“ has been created at %{created} and contains <strong>%{no_messages}</strong> messages in <strong>%{no_threads}</strong> threads.", name: @current_forum.name, created: format_date(assigns[:conn], @oldest_forum.created_at), no_messages: @no_messages, no_threads: @no_threads)} %>
+          <%= {:safe, gettext("The forum „%{name}“ has been created at %{created} and contains <strong>%{no_messages}</strong> messages in <strong>%{no_threads}</strong> threads.", name: @current_forum.name, created: VHelpers.format_date(assigns[:conn], @oldest_forum.created_at), no_messages: @no_messages, no_threads: @no_threads)} %>
         <% end %>
       <% end %>
     </p>
@@ -42,7 +42,7 @@
       <h3><%= gettext("five most used tags") %></h3>
 
       <ul class="cf-counted-tags-list">
-        <%= if blank?(@state[type].tags) do %>
+        <%= if Helpers.blank?(@state[type].tags) do %>
           <li><%= gettext("no tags found") %></li>
         <% end %>
 
@@ -56,14 +56,14 @@
 
       <h3><%= gettext("five most active users") %></h3>
 
-      <%= if blank?(@state[type].users) do %>
+      <%= if Helpers.blank?(@state[type].users) do %>
         <p><%= gettext("no users found") %></p>
       <% end %>
 
       <div class="cf-stats-users-list">
         <dl>
           <%= for user <- @state[type].users do %>
-            <dt><%= user_link(@conn, user.user, [], user.user.username) %></dt>
+            <dt><%= VHelpers.user_link(@conn, user.user, [], user.user.username) %></dt>
             <dd><%= number_to_delimited(user.cnt, precision: 0) %></dd>
           <% end %>
         </dl>

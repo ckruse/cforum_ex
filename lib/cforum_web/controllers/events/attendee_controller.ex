@@ -3,6 +3,7 @@ defmodule CforumWeb.Events.AttendeeController do
 
   alias Cforum.Events
   alias Cforum.Events.{Attendee, Attendees}
+  alias Cforum.Helpers
 
   def new(conn, _params) do
     changeset = Attendees.change_attendee(%Attendee{})
@@ -60,7 +61,7 @@ defmodule CforumWeb.Events.AttendeeController do
   end
 
   def allowed?(conn, action, _) when action in [:new, :create] do
-    base = present?(conn.assigns[:event]) && Events.open?(conn.assigns.event)
+    base = Helpers.present?(conn.assigns[:event]) && Events.open?(conn.assigns.event)
 
     if Abilities.signed_in?(conn) do
       base && Enum.find_value(conn.assigns.event.attendees, &(&1.user_id == conn.assigns.current_user.user_id)) == nil
@@ -73,6 +74,7 @@ defmodule CforumWeb.Events.AttendeeController do
     attendee = attendee || conn.assigns[:attendee]
 
     Abilities.admin?(conn) ||
-      (Abilities.signed_in?(conn) && present?(attendee) && attendee.user_id == conn.assigns[:current_user].user_id)
+      (Abilities.signed_in?(conn) && Helpers.present?(attendee) &&
+         attendee.user_id == conn.assigns[:current_user].user_id)
   end
 end

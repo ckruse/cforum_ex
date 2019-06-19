@@ -2,9 +2,13 @@ defmodule CforumWeb.ModerationController do
   use CforumWeb, :controller
 
   alias Cforum.Threads.Thread
+
+  alias Cforum.Messages.Message
+
   alias Cforum.ModerationQueue
   alias Cforum.ModerationQueue.ModerationQueueEntry
-  alias Cforum.Messages.Message
+
+  alias Cforum.Helpers
 
   def index(conn, params) do
     forums =
@@ -74,7 +78,7 @@ defmodule CforumWeb.ModerationController do
   end
 
   def load_resource(conn) do
-    if present?(conn.params["id"]) do
+    if Helpers.present?(conn.params["id"]) do
       entry = ModerationQueue.get_entry!(conn.params["id"])
 
       Plug.Conn.assign(conn, :entry, %ModerationQueueEntry{

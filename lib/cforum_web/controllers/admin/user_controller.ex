@@ -3,12 +3,15 @@ defmodule CforumWeb.Admin.UserController do
 
   alias Cforum.Accounts.{Users, User}
 
+  alias CforumWeb.Sortable
+  alias CforumWeb.Paginator
+
   def index(conn, params) do
     {sort_params, conn} =
-      sort_collection(conn, [:username, :score, :activity, :created_at, :confirmed_at, :active, :last_visit])
+      Sortable.sort_collection(conn, [:username, :score, :activity, :created_at, :confirmed_at, :active, :last_visit])
 
     count = Users.count_users()
-    paging = paginate(count, page: params["p"])
+    paging = Paginator.paginate(count, page: params["p"])
     users = Users.list_users(limit: paging.params, order: sort_params, search: params["s"])
 
     render(conn, "index.html", users: users, paging: paging, s: params["s"])

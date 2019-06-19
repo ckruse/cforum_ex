@@ -44,9 +44,9 @@ defmodule CforumWeb.LayoutView do
   end
 
   def meta_refresh(conn) do
-    path = controller_path(conn)
+    path = VHelpers.controller_path(conn)
     action = Phoenix.Controller.action_name(conn)
-    refresh = uconf(conn, "autorefresh", :int)
+    refresh = ConfigManager.uconf(conn, "autorefresh", :int)
 
     if path == "thread" and action == :index and refresh > 0 do
       [
@@ -62,17 +62,17 @@ defmodule CforumWeb.LayoutView do
   end
 
   def own_css(conn) do
-    css = uconf(conn, "own_css")
+    css = ConfigManager.uconf(conn, "own_css")
 
-    if blank?(css),
+    if Helpers.blank?(css),
       do: "",
       else: [{:safe, "<style>\n"}, {:safe, css}, {:safe, "\n</style>"}]
   end
 
   def own_css_file(conn) do
-    css = uconf(conn, "own_css_file")
+    css = ConfigManager.uconf(conn, "own_css_file")
 
-    if blank?(css) do
+    if Helpers.blank?(css) do
       ""
     else
       [
@@ -84,25 +84,25 @@ defmodule CforumWeb.LayoutView do
   end
 
   def own_js(conn) do
-    js = uconf(conn, "own_js")
+    js = ConfigManager.uconf(conn, "own_js")
 
-    if blank?(js),
+    if Helpers.blank?(js),
       do: "",
       else: [{:safe, "<script>\n"}, {:safe, js}, {:safe, "\n</script>"}]
   end
 
   def own_js_file(conn) do
-    js = uconf(conn, "own_js_file")
+    js = ConfigManager.uconf(conn, "own_js_file")
 
-    if blank?(js),
+    if Helpers.blank?(js),
       do: "",
       else: [{:safe, "<script src=\""}, js, {:safe, "\"></script>"}]
   end
 
   def css_ressource(conn) do
-    css = uconf(conn, "css_ressource")
+    css = ConfigManager.uconf(conn, "css_ressource")
 
-    if blank?(css) do
+    if Helpers.blank?(css) do
       ""
     else
       [
@@ -121,17 +121,21 @@ defmodule CforumWeb.LayoutView do
   end
 
   def show?(conn, link) when link in [:events, :badges], do: controller_module(conn) == CforumWeb.ForumController
-  def show?(conn, :thread_feeds), do: present?(conn.assigns[:thread]) && present?(conn.assigns[:thread].thread_id)
+
+  def show?(conn, :thread_feeds),
+    do: Helpers.present?(conn.assigns[:thread]) && Helpers.present?(conn.assigns[:thread].thread_id)
+
   def show?(conn, :search), do: controller_module(conn) != CforumWeb.SearchController
 
   def show?(conn, :sort_links) do
-    controller_module(conn) == CforumWeb.ThreadController && blank?(conn.assigns[:current_user]) &&
+    controller_module(conn) == CforumWeb.ThreadController && Helpers.blank?(conn.assigns[:current_user]) &&
       action_name(conn) not in [:new, :create, :edit, :update]
   end
 
   def show?(conn, :thread_nested) do
-    present?(conn.assigns[:message]) && present?(conn.assigns[:thread]) && present?(conn.assigns[:read_mode]) &&
-      present?(conn.assigns[:message].message_id)
+    Helpers.present?(conn.assigns[:message]) && Helpers.present?(conn.assigns[:thread]) &&
+      Helpers.present?(conn.assigns[:read_mode]) &&
+      Helpers.present?(conn.assigns[:message].message_id)
   end
 
   @view_all_enabled_controllers [
@@ -146,7 +150,7 @@ defmodule CforumWeb.LayoutView do
   end
 
   def show?(conn, :mark_all_read) do
-    present?(conn.assigns[:threads]) && present?(conn.assigns[:current_user]) &&
+    Helpers.present?(conn.assigns[:threads]) && Helpers.present?(conn.assigns[:current_user]) &&
       controller_module(conn) == CforumWeb.ThreadController
   end
 
@@ -163,12 +167,12 @@ defmodule CforumWeb.LayoutView do
   def numeric_infos(conn, %{current_user: user} = assigns) when not is_nil(user) do
     str =
       ""
-      |> unread_notifications(uconf(conn, "show_unread_notifications_in_title"), assigns)
-      |> unread_pms(uconf(conn, "show_unread_pms_in_title"), assigns)
-      |> new_messages(uconf(conn, "show_new_messages_since_last_visit_in_title"), assigns)
+      |> unread_notifications(ConfigManager.uconf(conn, "show_unread_notifications_in_title"), assigns)
+      |> unread_pms(ConfigManager.uconf(conn, "show_unread_pms_in_title"), assigns)
+      |> new_messages(ConfigManager.uconf(conn, "show_new_messages_since_last_visit_in_title"), assigns)
       |> String.trim("/")
 
-    if present?(str), do: "(#{str}) ", else: ""
+    if Helpers.present?(str), do: "(#{str}) ", else: ""
   end
 
   def numeric_infos(_, _), do: ""
@@ -188,7 +192,7 @@ defmodule CforumWeb.LayoutView do
         controller_module(conn) == CforumWeb.Messages.VersionController ->
           Path.message_version_path(conn, :index, conn.assigns[:thread], conn.assigns[:message], opts)
 
-        present?(conn.assigns[:message]) ->
+        Helpers.present?(conn.assigns[:message]) ->
           Path.message_path(conn, :show, conn.assigns[:thread], conn.assigns[:message], opts)
 
         true ->

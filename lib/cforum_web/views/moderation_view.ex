@@ -27,7 +27,7 @@ defmodule CforumWeb.ModerationView do
   def l10n_resolution_action("none"), do: gettext("no intervention")
 
   def closer_link(conn, entry) do
-    {:safe, link} = user_link(conn, entry.closer, [], entry.closer_name)
+    {:safe, link} = VHelpers.user_link(conn, entry.closer, [], entry.closer_name)
     link
   end
 end

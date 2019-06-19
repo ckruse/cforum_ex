@@ -3,11 +3,16 @@ defmodule CforumWeb.Messages.OpenCloseVoteController do
 
   alias Cforum.Threads
   alias Cforum.Threads.ThreadHelpers
+
   alias Cforum.Messages
   alias Cforum.Messages.MessageHelpers
   alias Cforum.Messages.CloseVotes
   alias Cforum.Messages.CloseVote
+
   alias Cforum.Accounts.Badge
+
+  alias Cforum.ConfigManager
+  alias Cforum.Helpers
 
   def new_close(conn, _params) do
     changeset = CloseVotes.new_change_vote(%CloseVote{})
@@ -66,7 +71,7 @@ defmodule CforumWeb.Messages.OpenCloseVoteController do
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:read, :subscriptions, :interesting])
       |> Threads.apply_highlights(conn)
-      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
     message = Messages.get_message_from_mid!(thread, conn.params["mid"])
 
@@ -103,7 +108,7 @@ defmodule CforumWeb.Messages.OpenCloseVoteController do
     vote = vote || conn.assigns[:vote]
 
     cond do
-      blank?(vote) || vote.finished ->
+      Helpers.blank?(vote) || vote.finished ->
         Abilities.badge?(conn, Badge.visit_close_reopen()) || Cforum.Accounts.Users.moderator?(conn)
 
       vote.vote_type == false ->

@@ -4,11 +4,17 @@ defmodule CforumWeb.Messages.SubscriptionController do
   alias Cforum.Threads
   alias Cforum.Threads.Thread
   alias Cforum.Threads.ThreadHelpers
+
   alias Cforum.Messages
   alias Cforum.Messages.Subscriptions
-  alias CforumWeb.Views.Helpers.ReturnUrl
+
   alias Cforum.Search
   alias Cforum.Search.Finder
+
+  alias Cforum.ConfigManager
+
+  alias CforumWeb.Paginator
+  alias CforumWeb.Views.Helpers.ReturnUrl
 
   def index(conn, %{"search" => %{"term" => term} = search_params} = params) when not is_nil(term) and term != "" do
     visible_sections = Search.list_visible_search_sections(conn.assigns.visible_forums)
@@ -20,7 +26,7 @@ defmodule CforumWeb.Messages.SubscriptionController do
       )
 
     count = Finder.count_subscribed_messages_results(conn.assigns[:current_user], changeset)
-    paging = paginate(count, page: params["p"])
+    paging = Paginator.paginate(count, page: params["p"])
 
     threads =
       Finder.search_subscribed_messages(conn.assigns.current_user, changeset, paging.params)
@@ -36,7 +42,7 @@ defmodule CforumWeb.Messages.SubscriptionController do
     visible_sections = Search.list_visible_search_sections(conn.assigns.visible_forums)
     changeset = Search.search_changeset(visible_sections)
     count = Subscriptions.count_subscriptions(conn.assigns[:current_user])
-    paging = paginate(count, page: params["p"])
+    paging = Paginator.paginate(count, page: params["p"])
 
     entries = Subscriptions.list_subscriptions(conn.assigns[:current_user], limit: paging.params)
 
@@ -75,7 +81,7 @@ defmodule CforumWeb.Messages.SubscriptionController do
         |> Threads.reject_deleted_threads(conn.assigns[:view_all])
         |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:read, :interesting, :open_close])
         |> Threads.apply_highlights(conn)
-        |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+        |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
       message = Messages.get_message_from_mid!(thread, conn.params["mid"])
 

@@ -9,7 +9,7 @@
 <% end %>
 
 <%= form_for @changeset, Path.thread_path(@conn, :new, @current_forum), [class: "cf-form cf-posting-form"], fn f -> %>
-  <%= if blank?(@current_forum) do %>
+  <%= if Helpers.blank?(@current_forum) do %>
     <div class="cf-cgroup <%= error_class(f, :forum_id) %>">
       <%= label f, :forum_id do %>
         <%= gettext("forum") %>
@@ -21,11 +21,11 @@
 
   <%= render(CforumWeb.MessageView, "form.html", Map.merge(assigns, %{f: f})) %>
 
-  <%= l10n_render CforumWeb.MessageView, "post-notes.html", assigns %>
+  <%=VHelpers.l10n_render CforumWeb.MessageView, "post-notes.html", assigns %>
 
   <p class="form-actions">
-    <%= default_submit gettext("show preview"), name: "preview" %>
-    <%= primary_submit gettext("create message") %>
-    <%= default_button_link gettext("cancel"), to: Path.forum_path(@conn, :index, @current_forum) %>
+    <%= VHelpers.Button.default_submit gettext("show preview"), name: "preview" %>
+    <%= VHelpers.Button.primary_submit gettext("create message") %>
+    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Path.forum_path(@conn, :index, @current_forum) %>
   </p>
 <% end %>

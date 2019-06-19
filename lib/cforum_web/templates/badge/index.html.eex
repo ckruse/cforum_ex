@@ -25,4 +25,4 @@
 
 </table>
 
-<%= pagination @conn, @page, &Routes.badge_path/3 %>
+<%= Paginator.pagination @conn, @page, &Routes.badge_path/3 %>

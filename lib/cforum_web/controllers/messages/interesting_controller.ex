@@ -4,11 +4,18 @@ defmodule CforumWeb.Messages.InterestingController do
   alias Cforum.Threads
   alias Cforum.Threads.Thread
   alias Cforum.Threads.ThreadHelpers
+
   alias Cforum.Messages
   alias Cforum.Messages.InterestingMessages
-  alias CforumWeb.Views.Helpers.ReturnUrl
+
   alias Cforum.Search
   alias Cforum.Search.Finder
+
+  alias Cforum.ConfigManager
+
+  alias CforumWeb.Views.Helpers.ReturnUrl
+
+  alias CforumWeb.Paginator
 
   def index(conn, %{"search" => search_params} = params) do
     visible_sections = Search.list_visible_search_sections(conn.assigns.visible_forums)
@@ -20,7 +27,7 @@ defmodule CforumWeb.Messages.InterestingController do
       )
 
     count = Finder.count_interesting_messages_results(conn.assigns[:current_user], changeset)
-    paging = paginate(count, page: params["p"])
+    paging = Paginator.paginate(count, page: params["p"])
 
     threads =
       Finder.search_interesting_messages(conn.assigns.current_user, changeset, paging.params)
@@ -37,7 +44,7 @@ defmodule CforumWeb.Messages.InterestingController do
     changeset = Search.search_changeset(visible_sections)
 
     count = InterestingMessages.count_interesting_messages(conn.assigns[:current_user])
-    paging = paginate(count, page: params["p"])
+    paging = Paginator.paginate(count, page: params["p"])
 
     threads =
       InterestingMessages.list_interesting_messages(conn.assigns[:current_user], limit: paging.params)
@@ -74,7 +81,7 @@ defmodule CforumWeb.Messages.InterestingController do
         |> Threads.reject_deleted_threads(conn.assigns[:view_all])
         |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:read, :subscriptions, :open_close])
         |> Threads.apply_highlights(conn)
-        |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+        |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
       message = Messages.get_message_from_mid!(thread, conn.params["mid"])
 

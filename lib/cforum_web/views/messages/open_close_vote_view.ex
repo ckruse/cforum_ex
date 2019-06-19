@@ -34,7 +34,7 @@ defmodule CforumWeb.Messages.OpenCloseVoteView do
   def l10n_reason("spam"), do: gettext("message is spam")
 
   def l10n_action(conn, vote) do
-    action = conf(conn, "close_vote_action_" <> vote.reason)
+    action = ConfigManager.conf(conn, "close_vote_action_" <> vote.reason)
 
     if vote.finished,
       do: l10n_action_done(action),

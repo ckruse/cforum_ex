@@ -4,7 +4,7 @@
 
     <div class="cf-cgroup">
       <label><%= gettext("Show threads by default…") %></label>
-      <label class="radio"><%= radio_button @f, :open_close_default, "open", checked: blank_or_value?(@f.data, :open_close_default, "open") %> <%= gettext("show opened") %></label>
+      <label class="radio"><%= radio_button @f, :open_close_default, "open", checked: VHelpers.blank_or_value?(@f.data, :open_close_default, "open") %> <%= gettext("show opened") %></label>
       <label class="radio"><%= radio_button @f, :open_close_default, "closed" %> <%= gettext("show closed") %></label>
     </div>
 

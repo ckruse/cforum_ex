@@ -1,13 +1,13 @@
-<%= if present?(@notifications) || present?(@priv_messages) do %>
+<%= if Helpers.present?(@notifications) || Helpers.present?(@priv_messages) do %>
   <h1><%= gettext("activity") %></h1>
 
-  <%= if present?(@notifications) do %>
+  <%= if Helpers.present?(@notifications) do %>
     <h2><%= ngettext("%{count} new notification", "%{count} new notifications", length(@notifications)) %></h2>
     <ul>
       <%= for notification <- @notifications do %>
         <li>
           <%= link notification.subject, to: Routes.notification_path(@conn, :show, notification) %>
-          (<%= format_date(@conn, notification.created_at) %>)
+          (<%= VHelpers.format_date(@conn, notification.created_at) %>)
         </li>
       <% end %>
     </ul>
@@ -15,14 +15,14 @@
     <p><%= link gettext("show all notifications"), to: Routes.notification_path(@conn, :index) %></p>
   <% end %>
 
-  <%= if present?(@priv_messages) do %>
+  <%= if Helpers.present?(@priv_messages) do %>
     <h2><%= ngettext("%{count} new mail", "%{count} new mails", length(@priv_messages)) %></h2>
     <ul>
       <%= for mail <- @priv_messages do %>
         <li>
-          <%= if blank?(mail.sender_id), do: mail.sender_name, else: user_link(@conn, mail.sender, ["original-poster"], mail.sender_name) %>:
+          <%= if Helpers.blank?(mail.sender_id), do: mail.sender_name, else: VHelpers.user_link(@conn, mail.sender, ["original-poster"], mail.sender_name) %>:
           <%= link mail.subject, to: Path.mail_thread_path(@conn, :show, mail) %>
-          (<%= format_date(@conn, mail.created_at, "date_format_post") %>)
+          (<%= VHelpers.format_date(@conn, mail.created_at, "date_format_post") %>)
         </li>
       <% end %>
     </ul>

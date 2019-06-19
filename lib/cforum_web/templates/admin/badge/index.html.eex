@@ -15,12 +15,12 @@
       <tr>
         <td><%= badge.name %></td>
         <td><%= badge.score_needed %></td>
-        <td><%= l10n_badge_type(badge.badge_type) %></td>
-        <td><%= l10n_medal_type(badge.badge_medal_type) %></td>
+        <td><%= VHelpers.l10n_badge_type(badge.badge_type) %></td>
+        <td><%= VHelpers.l10n_medal_type(badge.badge_medal_type) %></td>
 
         <td class="actions-column">
-          <%= default_index_link(gettext("edit"), to: Routes.admin_badge_path(@conn, :edit, badge)) %>
-          <%= destructive_index_button(gettext("delete"), to: Routes.admin_badge_path(@conn, :delete, badge), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
+          <%= VHelpers.Links.default_index_link(gettext("edit"), to: Routes.admin_badge_path(@conn, :edit, badge)) %>
+          <%= VHelpers.Button.destructive_index_button(gettext("delete"), to: Routes.admin_badge_path(@conn, :delete, badge), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
         </td>
       </tr>
     <% end %>

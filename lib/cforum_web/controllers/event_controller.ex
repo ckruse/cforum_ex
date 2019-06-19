@@ -3,10 +3,15 @@ defmodule CforumWeb.EventController do
 
   alias Cforum.Events
 
+  alias CforumWeb.Sortable
+  alias CforumWeb.Paginator
+
   def index(conn, params) do
-    {sort_params, conn} = sort_collection(conn, [:name, :location, :start_date, :end_date, :visible], dir: :desc)
+    {sort_params, conn} =
+      Sortable.sort_collection(conn, [:name, :location, :start_date, :end_date, :visible], dir: :desc)
+
     count = Events.count_events()
-    paging = paginate(count, page: params["p"])
+    paging = Paginator.paginate(count, page: params["p"])
     events = Events.list_events(limit: paging.params, order: sort_params, only_visible: true)
 
     render(conn, "index.html", events: events, page: paging)

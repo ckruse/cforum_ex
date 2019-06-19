@@ -33,7 +33,7 @@
   </div>
 
   <p class="form-actions">
-    <%= primary_submit gettext("save") %>
-    <%= default_button_link gettext("cancel"), to: Routes.moderation_path(@conn, :index) %>
+    <%= VHelpers.Button.primary_submit gettext("save") %>
+    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Routes.moderation_path(@conn, :index) %>
   </p>
 <% end %>

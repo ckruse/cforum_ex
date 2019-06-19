@@ -1,5 +1,5 @@
 <div class="cf-moderation-queue">
-  <%= if blank?(@moderation_queue_entries) do %>
+  <%= if Helpers.blank?(@moderation_queue_entries) do %>
     <p class="no-data"><%= gettext("No moderation queue entries found") %></p>
   <% end %>
 

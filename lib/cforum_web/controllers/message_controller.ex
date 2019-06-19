@@ -5,9 +5,15 @@ defmodule CforumWeb.MessageController do
   alias Cforum.Messages.Subscriptions
   alias Cforum.Messages.MessageHelpers
   alias Cforum.Messages.ReadMessages
+
   alias Cforum.Threads
   alias Cforum.Threads.Thread
   alias Cforum.Threads.ThreadHelpers
+
+  alias Cforum.ConfigManager
+  alias Cforum.Helpers
+
+  alias CforumWeb.Views.Helpers, as: VHelpers
 
   def show(conn, params) do
     # parameter overwrites cookie overwrites config; validation
@@ -22,7 +28,7 @@ defmodule CforumWeb.MessageController do
       Cforum.Helpers.AsyncHelper.run_async(fn ->
         mark_messages_read(read_mode, conn.assigns[:current_user], conn.assigns.thread, conn.assigns.message)
 
-        if uconf(conn, "delete_read_notifications_on_abonements") == "yes",
+        if ConfigManager.uconf(conn, "delete_read_notifications_on_abonements") == "yes",
           do: Messages.unnotify_user(conn.assigns.current_user, read_mode, conn.assigns.thread, conn.assigns.message)
       end)
     end
@@ -38,13 +44,13 @@ defmodule CforumWeb.MessageController do
         conn.assigns.parent,
         conn.assigns[:current_user],
         conn.assigns[:visible_forums],
-        strip_signature: uconf(conn, "quote_signature") != "yes",
-        author: author_from_conn(conn),
-        email: email_from_conn(conn),
-        homepage: homepage_from_conn(conn),
-        greeting: uconf(conn, "greeting"),
-        farewell: uconf(conn, "farewell"),
-        signature: uconf(conn, "signature"),
+        strip_signature: ConfigManager.uconf(conn, "quote_signature") != "yes",
+        author: VHelpers.author_from_conn(conn),
+        email: VHelpers.email_from_conn(conn),
+        homepage: VHelpers.homepage_from_conn(conn),
+        greeting: ConfigManager.uconf(conn, "greeting"),
+        farewell: ConfigManager.uconf(conn, "farewell"),
+        signature: ConfigManager.uconf(conn, "signature"),
         quote: quote?(conn, params),
         std_replacement: gettext("all")
       )
@@ -73,7 +79,7 @@ defmodule CforumWeb.MessageController do
 
     opts = [
       create_tags: Abilities.may?(conn, "tag", :new),
-      autosubscribe: Subscriptions.autosubscribe?(cu, uconf(conn, "autosubscribe_on_post"))
+      autosubscribe: Subscriptions.autosubscribe?(cu, ConfigManager.uconf(conn, "autosubscribe_on_post"))
     ]
 
     case Messages.create_message(message_params, cu, vis_forums, thread, parent, opts) do
@@ -142,7 +148,7 @@ defmodule CforumWeb.MessageController do
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close])
       |> Threads.apply_highlights(conn)
-      |> Threads.build_message_tree(uconf(conn, "sort_messages"))
+      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
     message = Messages.get_message_from_mid!(thread, mid)
 
@@ -150,21 +156,21 @@ defmodule CforumWeb.MessageController do
   end
 
   defp quote?(conn, params) do
-    if blank?(params["with_quote"]),
-      do: uconf(conn, "quote_by_default") == "yes",
+    if Helpers.blank?(params["with_quote"]),
+      do: ConfigManager.uconf(conn, "quote_by_default") == "yes",
       else: params["with_quote"] == "yes"
   end
 
   defp parse_readmode(conn, params) do
     cond do
-      present?(params["rm"]) ->
+      Helpers.present?(params["rm"]) ->
         params["rm"]
 
-      present?(conn.cookies["cf_readmode"]) && blank?(conn.assigns[:current_user]) ->
+      Helpers.present?(conn.cookies["cf_readmode"]) && Helpers.blank?(conn.assigns[:current_user]) ->
         conn.cookies["cf_readmode"]
 
       true ->
-        uconf(conn, "standard_view")
+        ConfigManager.uconf(conn, "standard_view")
     end
   end
 
@@ -173,7 +179,7 @@ defmodule CforumWeb.MessageController do
   defp validate_readmode(_), do: "thread"
 
   defp maybe_put_readmode(conn, params, read_mode) do
-    if present?(params["rm"]) && blank?(conn.assigns[:current_user]),
+    if Helpers.present?(params["rm"]) && Helpers.blank?(conn.assigns[:current_user]),
       do: put_resp_cookie(conn, "cf_readmode", read_mode, max_age: 360 * 24 * 60 * 60),
       else: conn
   end
@@ -214,7 +220,7 @@ defmodule CforumWeb.MessageController do
 
   def allowed?(conn, action, {thread, msg}) when action in [:edit, :update] do
     Abilities.access_forum?(conn, :moderate) ||
-      (MessageHelpers.editable_age?(msg, minutes: conf(conn, "max_editable_age", :int)) &&
+      (MessageHelpers.editable_age?(msg, minutes: ConfigManager.conf(conn, "max_editable_age", :int)) &&
          !MessageHelpers.answer?(thread, msg) &&
          MessageHelpers.owner?(conn, msg) && MessageHelpers.open?(msg))
   end
