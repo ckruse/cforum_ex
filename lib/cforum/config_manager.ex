@@ -8,7 +8,7 @@ defmodule Cforum.ConfigManager do
   alias Cforum.Accounts.User
   alias Cforum.Forums.Forum
 
-  import Cforum.Helpers
+  alias Cforum.Helpers
 
   @defaults %{
     "pagination" => 50,
@@ -208,8 +208,8 @@ defmodule Cforum.ConfigManager do
   """
   @spec uconf(%User{} | Plug.Conn.t(), String.t(), :none | :int | :float) :: nil | String.t() | integer() | float()
   def uconf(conn_or_user, name, type \\ :none)
-  def uconf(conn, name, :int), do: to_int(uconf(conn, name))
-  def uconf(conn, name, :float), do: to_float(uconf(conn, name))
+  def uconf(conn, name, :int), do: Helpers.to_int(uconf(conn, name))
+  def uconf(conn, name, :float), do: Helpers.to_float(uconf(conn, name))
 
   def uconf(%User{} = user, name, _) do
     settings = Settings.load_relevant_settings(nil, user)
@@ -241,8 +241,8 @@ defmodule Cforum.ConfigManager do
   @spec conf(%Setting{} | %Forum{} | %Plug.Conn{} | nil, String.t(), :none | :int | :float) ::
           nil | String.t() | integer() | float()
   def conf(conn_setting_or_forum, name, type \\ :none)
-  def conf(conn_setting_or_forum, name, :int), do: to_int(conf(conn_setting_or_forum, name))
-  def conf(conn_setting_or_forum, name, :float), do: to_float(conf(conn_setting_or_forum, name))
+  def conf(conn_setting_or_forum, name, :int), do: Helpers.to_int(conf(conn_setting_or_forum, name))
+  def conf(conn_setting_or_forum, name, :float), do: Helpers.to_float(conf(conn_setting_or_forum, name))
 
   def conf(nil, name, _), do: @defaults[name]
 
