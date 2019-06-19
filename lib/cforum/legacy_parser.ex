@@ -1,8 +1,6 @@
 defmodule Cforum.LegacyParser do
   import NimbleParsec
 
-  alias Cforum.Messages.Message
-
   alias Cforum.LegacyParser.{LinkParser, ImageParser, CodeParser}
 
   text = utf8_char([])
@@ -145,7 +143,9 @@ defmodule Cforum.LegacyParser do
         _ -> message.content
       end
 
-    %Message{message | content: content, format: "markdown"}
+    message
+    |> Map.put(:content, content)
+    |> Map.put(:format, "markdown")
   end
 
   # defp to_markdown([], str), do: str

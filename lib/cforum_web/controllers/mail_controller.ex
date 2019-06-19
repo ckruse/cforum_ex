@@ -10,7 +10,7 @@ defmodule CforumWeb.MailController do
   alias CforumWeb.Sortable
   alias CforumWeb.Paginator
 
-  @spec index(%Plug.Conn{}, map()) :: %Plug.Conn{}
+  @spec index(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def index(conn, params) do
     sort_dir = ConfigManager.uconf(conn, "mail_thread_sort")
     {sort_params, conn} = Sortable.sort_collection(conn, [:created_at, :subject, :is_read], dir: ordering(sort_dir))
@@ -28,7 +28,7 @@ defmodule CforumWeb.MailController do
     render(conn, "index.html", mails: mails, paging: paging)
   end
 
-  @spec show(%Plug.Conn{}, map()) :: %Plug.Conn{}
+  @spec show(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def show(conn, %{"id" => _id}) do
     Cforum.Helpers.AsyncHelper.run_async(fn ->
       Enum.each(conn.assigns.pm_thread, &PrivMessages.mark_priv_message(&1, :read))
@@ -37,7 +37,7 @@ defmodule CforumWeb.MailController do
     render(conn, "show.html")
   end
 
-  @spec new(%Plug.Conn{}, map()) :: %Plug.Conn{}
+  @spec new(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def new(conn, %{"parent_id" => id} = params) do
     parent = PrivMessages.get_priv_message!(conn.assigns[:current_user], id)
 
@@ -70,7 +70,7 @@ defmodule CforumWeb.MailController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  @spec create(%Plug.Conn{}, map()) :: %Plug.Conn{}
+  @spec create(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def create(conn, %{"priv_message" => priv_message_params} = params) do
     if Map.has_key?(params, "preview"),
       do: show_preview(conn, priv_message_params),
@@ -94,7 +94,7 @@ defmodule CforumWeb.MailController do
     end
   end
 
-  @spec update_unread(%Plug.Conn{}, map()) :: %Plug.Conn{}
+  @spec update_unread(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def update_unread(conn, %{"id" => _id}) do
     PrivMessages.mark_priv_message(conn.assigns.priv_message, :unread)
 
@@ -103,7 +103,7 @@ defmodule CforumWeb.MailController do
     |> redirect(to: Routes.mail_path(conn, :index))
   end
 
-  @spec delete(%Plug.Conn{}, map()) :: %Plug.Conn{}
+  @spec delete(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def delete(conn, %{"id" => _id}) do
     PrivMessages.delete_priv_message(conn.assigns.priv_message)
 
@@ -123,7 +123,7 @@ defmodule CforumWeb.MailController do
     end
   end
 
-  @spec load_resource(%Plug.Conn{}) :: %Plug.Conn{}
+  @spec load_resource(Plug.Conn.t()) :: Plug.Conn.t()
   def load_resource(conn) do
     cond do
       action_name(conn) in [:delete, :update_unread] ->
@@ -148,6 +148,7 @@ defmodule CforumWeb.MailController do
     end
   end
 
+  @spec allowed?(Plug.Conn.t(), atom(), any()) :: boolean()
   def allowed?(conn, :index, _), do: Abilities.signed_in?(conn)
 
   def allowed?(conn, :show, resource) do

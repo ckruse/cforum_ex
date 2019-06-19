@@ -59,7 +59,7 @@ defmodule Cforum.Abilities do
 
   alias Cforum.Messages.MessageHelpers
 
-  import Cforum.Helpers
+  alias Cforum.Helpers
 
   @doc """
   Returns true if a user is signed in, returns false otherwise
@@ -109,7 +109,8 @@ defmodule Cforum.Abilities do
       signed_in?(conn) && message.user_id == conn.assigns[:current_user].user_id ->
         true
 
-      present?(message.uuid) && present?(conn.cookies["cforum_user"]) && message.uuid == conn.cookies["cforum_user"] ->
+      Helpers.present?(message.uuid) && Helpers.present?(conn.cookies["cforum_user"]) &&
+          message.uuid == conn.cookies["cforum_user"] ->
         true
 
       true ->
@@ -168,7 +169,7 @@ defmodule Cforum.Abilities do
       true
     else
       permissions = Groups.list_permissions_for_user_and_forum(user, forum)
-      !blank?(permissions)
+      Helpers.present?(permissions)
     end
   end
 
@@ -212,7 +213,7 @@ defmodule Cforum.Abilities do
     end
   end
 
-  defp generally_has_access?(permissions, forum), do: !blank?(permissions) || standard_permission_valid?(forum)
+  defp generally_has_access?(permissions, forum), do: Helpers.present?(permissions) || standard_permission_valid?(forum)
 
   defp standard_permission_valid?(forum) do
     forum.standard_permission in [
