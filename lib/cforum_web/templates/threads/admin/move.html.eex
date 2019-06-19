@@ -3,10 +3,10 @@
     <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
   <% end %>
 
-  <div class="cf-cgroup <%= error_class(f, :forum_id) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :forum_id) %>">
     <%= label f, :forum_id do %>
       <%= gettext("forum") %>
-      <%= error_tag f, :forum_id %>
+      <%= ErrorHelpers.error_tag f, :forum_id %>
     <% end %>
     <%= select f, :forum_id, Enum.map(@visible_forums, &{&1.name, &1.forum_id}) %>
   </div>

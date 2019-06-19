@@ -3,44 +3,44 @@
     <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
   <% end %>
 
-  <div class="cf-cgroup <%= error_class(f, :name) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :name) %>">
     <%= label f, :name, gettext("name") %>
     <%= text_input f, :name %>
-    <%= error_tag f, :name %>
+    <%= ErrorHelpers.error_tag f, :name %>
   </div>
 
-  <div class="cf-cgroup <%= error_class(f, :start_date) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :start_date) %>">
     <%= label f, :start_date, gettext("start date") %>
     <%= date_input f, :start_date %>
-    <%= error_tag f, :start_date %>
+    <%= ErrorHelpers.error_tag f, :start_date %>
   </div>
 
-  <div class="cf-cgroup <%= error_class(f, :end_date) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :end_date) %>">
     <%= label f, :end_date, gettext("end date") %>
     <%= date_input f, :end_date %>
-    <%= error_tag f, :end_date %>
+    <%= ErrorHelpers.error_tag f, :end_date %>
   </div>
 
   <div class="cf-cgroup">
     <label class="checkbox"><%= checkbox f, :visible %> <%= gettext("event is visible") %></label>
   </div>
 
-  <div class="cf-cgroup <%= error_class(f, :description) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :description) %>">
     <%= label f, :description, gettext("description") %>
     <%= textarea f, :description %>
-    <%= error_tag f, :description %>
+    <%= ErrorHelpers.error_tag f, :description %>
   </div>
 
-  <div class="cf-cgroup <%= error_class(f, :location) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :location) %>">
     <%= label f, :location, gettext("location") %>
     <%= text_input f, :location %>
-    <%= error_tag f, :location %>
+    <%= ErrorHelpers.error_tag f, :location %>
   </div>
 
-  <div class="cf-cgroup <%= error_class(f, :maps_link) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :maps_link) %>">
     <%= label f, :maps_link, gettext("Google maps link") %>
     <%= text_input f, :maps_link %>
-    <%= error_tag f, :maps_link %>
+    <%= ErrorHelpers.error_tag f, :maps_link %>
   </div>
 
   <p class="form-actions">

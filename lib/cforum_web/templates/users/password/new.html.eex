@@ -1,8 +1,8 @@
 <%= form_for @conn, Routes.password_path(@conn, :create), [as: :user, class: "cf-form"], fn f -> %>
-  <div class="cf-cgroup <%= error_class(f, :login) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :login) %>">
     <%= label f, :login do %>
       <%= gettext("username or email") %>
-      <%= error_tag f, :login %>
+      <%= ErrorHelpers.error_tag f, :login %>
     <% end %>
     <%= text_input f, :login, autofocus: true %>
   </div>

@@ -10,10 +10,10 @@
 
 <%= form_for @changeset, Path.thread_path(@conn, :new, @current_forum), [class: "cf-form cf-posting-form"], fn f -> %>
   <%= if Helpers.blank?(@current_forum) do %>
-    <div class="cf-cgroup <%= error_class(f, :forum_id) %>">
+    <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :forum_id) %>">
       <%= label f, :forum_id do %>
         <%= gettext("forum") %>
-        <%= error_tag f, :forum_id %>
+        <%= ErrorHelpers.error_tag f, :forum_id %>
       <% end %>
       <%= select f, :forum_id, Enum.map(@visible_forums, &{&1.name, &1.forum_id}) %>
     </div>

@@ -1,44 +1,44 @@
 <fieldset>
-  <div class="cf-cgroup <%= error_class(@f, :subject) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :subject) %>">
     <%= label @f, :subject do %>
       <%= gettext("subject") %>
-      <%= error_tag @f, :subject %>
+      <%= ErrorHelpers.error_tag @f, :subject %>
     <% end %>
     <%= text_input @f, :subject, placeholder: gettext("replace float:left with a flexbox construct"), maxlength: 250, required: true %>
   </div>
 
   <%= if !@conn.assigns[:current_user] do %>
-    <div class="cf-cgroup <%= error_class(@f, :author) %>">
+    <div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :author) %>">
       <%= label @f, :author do %>
         <%= gettext("author") %>
-        <%= error_tag @f, :author %>
+        <%= ErrorHelpers.error_tag @f, :author %>
       <% end %>
       <%= text_input @f, :author, maxlength: 60, required: true %>
     </div>
   <% end %>
 
-  <div class="cf-cgroup <%= error_class(@f, :email) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :email) %>">
     <%= label @f, :email do %>
       <%= gettext("email") %>
-      <%= error_tag @f, :email %>
+      <%= ErrorHelpers.error_tag @f, :email %>
     <% end %>
     <%= text_input @f, :email, maxlength: 60 %>
     <span class="help"><%= gettext("voluntary, will be publicly visible") %></span>
   </div>
 
-  <div class="cf-cgroup <%= error_class(@f, :homepage) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :homepage) %>">
     <%= label @f, :homepage do %>
       <%= gettext("homepage") %>
-      <%= error_tag @f, :homepage %>
+      <%= ErrorHelpers.error_tag @f, :homepage %>
     <% end %>
     <%= text_input @f, :homepage, maxlength: 250, placeholder: gettext("https://example.com") %>
     <span class="help"><%= gettext("voluntary, will be publicly visible") %></span>
   </div>
 
-  <div class="cf-cgroup <%= error_class(@f, :problematic_site) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :problematic_site) %>">
     <%= label @f, :problematic_site do %>
       <%= gettext("problematic site") %>
-      <%= error_tag @f, :problematic_site %>
+      <%= ErrorHelpers.error_tag @f, :problematic_site %>
     <% end %>
     <%= text_input @f, :problematic_site, maxlength: 250, placeholder: gettext("https://example.com/float-example.html") %>
     <span class="help"><%= gettext("voluntary, will be publicly visible") %></span>
@@ -46,17 +46,17 @@
 </fieldset>
 
 <fieldset>
-  <div class="cf-cgroup cf-textarea-only <%= error_class(@f, :content) %>">
+  <div class="cf-cgroup cf-textarea-only <%= ErrorHelpers.error_class(@f, :content) %>">
     <%= label @f, :content, for: "message_input" do %>
       <%= gettext("message content") %>
-      <%= error_tag @f, :content %>
+      <%= ErrorHelpers.error_tag @f, :content %>
     <% end %>
     <%= textarea @f, :content, class: "big", id: "message_input", maxlength: 12288, required: true %>
   </div>
 </fieldset>
 
 <fieldset>
-  <%= error_tag @f, :tags %>
+  <%= ErrorHelpers.error_tag @f, :tags %>
   <ul class="cf-form-tagslist" data-tags-list="form" data-no-js="yes">
     <%= render "form_tags.html", assigns %>
   </ul>

@@ -3,10 +3,10 @@
     <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
   <% end %>
 
-  <div class="cf-cgroup <%= error_class(f, :term) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :term) %>">
     <%= label f, :term, gettext("search term") %>
     <%= text_input f, :term %>
-    <%= error_tag f, :term %>
+    <%= ErrorHelpers.error_tag f, :term %>
   </div>
 
   <%=VHelpers.l10n_render @view_module, "explanation.html", assigns %>
@@ -20,16 +20,16 @@
     <% end %>
   </div>
 
-  <div class="cf-cgroup <%= error_class(f, :start_date) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :start_date) %>">
     <%= label f, :start_date, gettext("start date") %>
     <%= date_input f, :start_date %>
-    <%= error_tag f, :start_date %>
+    <%= ErrorHelpers.error_tag f, :start_date %>
   </div>
 
-  <div class="cf-cgroup <%= error_class(f, :end_date) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :end_date) %>">
     <%= label f, :end_date, gettext("end date") %>
     <%= date_input f, :end_date %>
-    <%= error_tag f, :end_date %>
+    <%= ErrorHelpers.error_tag f, :end_date %>
   </div>
 
   <div class="cf-cgroup">

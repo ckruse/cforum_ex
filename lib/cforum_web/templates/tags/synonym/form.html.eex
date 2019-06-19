@@ -3,10 +3,10 @@
     <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
   <% end %>
 
-  <div class="cf-cgroup <%= error_class(f, :synonym) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :synonym) %>">
     <%= label f, :synonym do %>
       <%= gettext("synonym") %>
-      <%= error_tag f, :synonym %>
+      <%= ErrorHelpers.error_tag f, :synonym %>
     <% end %>
     <%= text_input f, :synonym %>
   </div>

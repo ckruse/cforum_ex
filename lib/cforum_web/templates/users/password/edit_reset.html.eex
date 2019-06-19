@@ -1,13 +1,13 @@
 <%= form_for @changeset, Routes.password_path(@conn, :update_reset, token: @token), [method: :post, class: "cf-form"], fn f -> %>
-  <div class="cf-cgroup <%= error_class(f, :password) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :password) %>">
     <%= label f, :password do %>
       <%= gettext("password") %>
-      <%= error_tag f, :password %>
+      <%= ErrorHelpers.error_tag f, :password %>
     <% end %>
     <%= password_input f, :password, autocomplete: "off", autofocus: true, "data-show-password": true %>
   </div>
 
-  <div class="cf-cgroup <%= error_class(f, :password_confirmation) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :password_confirmation) %>">
     <%= label f, :password_confirmation, gettext("password confirmation") %>
     <%= password_input f, :password_confirmation, autocomplete: "off" %>
   </div>

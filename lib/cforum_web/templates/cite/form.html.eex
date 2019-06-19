@@ -2,36 +2,36 @@
     <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
   <% end %>
 
-  <div class="cf-cgroup <%= error_class(@f, :url) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :url) %>">
     <%= label @f, :url do %>
       <%= gettext("URL") %>
-      <%= error_tag @f, :url %>
+      <%= ErrorHelpers.error_tag @f, :url %>
     <% end %>
     <%= url_input @f, :url %>
   </div>
 
-  <div class="cf-cgroup <%= error_class(@f, :author) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :author) %>">
     <%= label @f, :author do %>
       <%= gettext("author") %>
-      <%= error_tag @f, :author %>
+      <%= ErrorHelpers.error_tag @f, :author %>
     <% end %>
     <%= text_input @f, :author %>
   </div>
 
   <%= if !Abilities.signed_in?(@conn) || Ecto.get_meta(@changeset.data, :state) == :loaded do %>
-    <div class="cf-cgroup <%= error_class(@f, :creator) %>">
+    <div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :creator) %>">
       <%= label @f, :creator do %>
         <%= gettext("submitted by") %>
-        <%= error_tag @f, :creator %>
+        <%= ErrorHelpers.error_tag @f, :creator %>
       <% end %>
       <%= text_input @f, :creator %>
     </div>
   <% end %>
 
-  <div class="cf-cgroup <%= error_class(@f, :cite) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :cite) %>">
     <%= label @f, :cite do %>
       <%= gettext("cite") %>
-      <%= error_tag @f, :cite %>
+      <%= ErrorHelpers.error_tag @f, :cite %>
     <% end %>
     <%= textarea @f, :cite, maxlength: 12288, class: 'big', required: true %>
   </div>

@@ -1,10 +1,10 @@
 <%= unless Helpers.blank?(Ecto.Changeset.get_field(@changeset, :thread_id)), do: hidden_input @f, :thread_id %>
 
 <fieldset>
-  <div class="cf-cgroup <%= error_class(@f, :recipient_id) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :recipient_id) %>">
     <%= label @f, :recipient_id do %>
       <%= gettext("recpient") %>
-      <%= error_tag @f, :recipient_id %>
+      <%= ErrorHelpers.error_tag @f, :recipient_id %>
     <% end %>
     <%= if assigns[:parent] do %>
       <%= hidden_input @f, :recipient_id, required: true %>
@@ -14,10 +14,10 @@
     <% end %>
   </div>
 
-  <div class="cf-cgroup <%= error_class(@f, :subject) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :subject) %>">
     <%= label @f, :subject do %>
       <%= gettext("subject") %>
-      <%= error_tag @f, :subject %>
+      <%= ErrorHelpers.error_tag @f, :subject %>
     <% end %>
     <%= text_input @f, :subject, placeholder: gettext("Howdy, partner!"), maxlength: 250, required: true %>
   </div>
@@ -25,10 +25,10 @@
 
 <div class="cf-editor-form">
   <fieldset>
-    <div class="cf-cgroup cf-textarea-only <%= error_class(@f, :body) %>">
+    <div class="cf-cgroup cf-textarea-only <%= ErrorHelpers.error_class(@f, :body) %>">
       <%= label @f, :body do %>
         <%= gettext("mail content") %>
-        <%= error_tag @f, :body %>
+        <%= ErrorHelpers.error_tag @f, :body %>
       <% end %>
       <%= textarea @f, :body, maxlength: 12288, class: "big", required: true %>
     </div>

@@ -3,10 +3,10 @@
     <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
   <% end %>
 
-  <div class="cf-cgroup <%= error_class(f, :resolution_action) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :resolution_action) %>">
     <%= label f, :resolution_action do %>
       <%= gettext("resolution action") %>
-      <%= error_tag f, :resolution_action %>
+      <%= ErrorHelpers.error_tag f, :resolution_action %>
     <% end %>
 
     <%= select(
@@ -23,10 +23,10 @@
     ) %>
   </div>
 
-  <div class="cf-cgroup <%= error_class(f, :resolution) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :resolution) %>">
     <%= label f, :resolution do %>
       <%= gettext("resolution action") %>
-      <%= error_tag f, :resolution %>
+      <%= ErrorHelpers.error_tag f, :resolution %>
     <% end %>
 
     <%= textarea f, :resolution, maxlength: 12288, class: 'big', required: true %>

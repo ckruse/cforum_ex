@@ -12,18 +12,18 @@
     <% end %>
   </div>
 
-  <div class="cf-cgroup <%= error_class(f, :duplicate_url) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :duplicate_url) %>">
     <%= label f, :duplicate_url do %>
       <%= gettext("URL of the original message") %>
-      <%= error_tag f, :duplicate_url %>
+      <%= ErrorHelpers.error_tag f, :duplicate_url %>
     <% end %>
     <%= url_input f, :duplicate_url %>
   </div>
 
-  <div class="cf-cgroup <%= error_class(f, :custom_reason) %>">
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :custom_reason) %>">
     <%= label f, :custom_reason do %>
       <%= gettext("custom reason") %>
-      <%= error_tag f, :custom_reason %>
+      <%= ErrorHelpers.error_tag f, :custom_reason %>
     <% end %>
     <%= text_input f, :custom_reason %>
   </div>
