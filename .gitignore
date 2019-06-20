@@ -31,3 +31,4 @@ node_modules
 /.deliver/releases
 /.deliver/secrets
 /config/ssh_key.pub
+.deliver/api.key
