@@ -19,11 +19,7 @@ defmodule Cforum.Messages.VoteBadgeDistributorJob do
       if Helpers.present?(message.user_id) do
         owner = Users.get_user!(message.user_id)
         grant_bevoted_badges(owner, message)
-        controverse = Badges.get_badge_by(slug: "controverse")
-
-        if message.upvotes >= 5 && message.downvotes >= 5 && !Users.badge?(owner, controverse),
-          do: Badges.grant_badge(controverse, owner)
-
+        grant_controverse_badge(owner, message)
         grant_badges_by_score(owner)
       end
     end)
@@ -33,7 +29,39 @@ defmodule Cforum.Messages.VoteBadgeDistributorJob do
 
   def grant_badges(value), do: value
 
+  defp grant_controverse_badge(owner, message) do
+    controverse = Badges.get_badge_by(slug: "controverse")
+
+    if message.upvotes >= 5 && message.downvotes >= 5 && !Users.badge?(owner, controverse),
+      do: Badges.grant_badge(controverse, owner)
+  end
+
   @voter_badge_limits [100, 250, 500, 1000, 2500, 5000, 10_000]
+  defp grant_voter_badges_by_limits(user, badge) do
+    all_user_votes =
+      from(vote in Vote, where: vote.user_id == ^user.user_id, select: count("*"))
+      |> Repo.one!()
+
+    voter_badges =
+      from(badge_user in BadgeUser,
+        where: badge_user.user_id == ^user.user_id and badge_user.badge_id == ^badge.badge_id,
+        select: count("*")
+      )
+      |> Repo.one!()
+
+    user_should_have_badges =
+      Enum.reduce(@voter_badge_limits, 0, fn
+        limit, acc when all_user_votes >= limit -> acc + 1
+        _, acc -> acc
+      end)
+
+    if user_should_have_badges - voter_badges > 0 do
+      for i <- 0..(user_should_have_badges - voter_badges), i > 0 do
+        Badges.grant_badge(badge, user)
+      end
+    end
+  end
+
   defp grant_voter_badges(vote, user) do
     enthusiast = Badges.get_badge_by(slug: "enthusiast")
     critic = Badges.get_badge_by(slug: "critic")
@@ -46,30 +74,8 @@ defmodule Cforum.Messages.VoteBadgeDistributorJob do
 
     badge = Badges.get_badge_by(slug: "voter")
 
-    if Helpers.present?(badge) do
-      all_user_votes =
-        from(vote in Vote, where: vote.user_id == ^user.user_id, select: count("*"))
-        |> Repo.one!()
-
-      voter_badges =
-        from(badge_user in BadgeUser,
-          where: badge_user.user_id == ^user.user_id and badge_user.badge_id == ^badge.badge_id,
-          select: count("*")
-        )
-        |> Repo.one!()
-
-      user_should_have_badges =
-        Enum.reduce(@voter_badge_limits, 0, fn
-          limit, acc when all_user_votes >= limit -> acc + 1
-          _, acc -> acc
-        end)
-
-      if user_should_have_badges - voter_badges > 0 do
-        for i <- 0..(user_should_have_badges - voter_badges), i > 0 do
-          Badges.grant_badge(badge, user)
-        end
-      end
-    end
+    if Helpers.present?(badge),
+      do: grant_voter_badges_by_limits(user, badge)
   end
 
   @bevoted_badges [
