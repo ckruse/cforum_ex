@@ -1,7 +1,7 @@
 defmodule Cforum.Messages.TagsTest do
   use Cforum.DataCase
 
-  alias Cforum.Forums.{Tags, Tag, TagSynonym, Messages}
+  alias Cforum.Messages.{Tags, Tag, TagSynonym, MessagesTags}
 
   describe "tags" do
     test "list_tags/2 lists all tags for one forum" do
@@ -82,7 +82,7 @@ defmodule Cforum.Messages.TagsTest do
 
       assert {:ok, %Tag{} = new_tag} = Tags.merge_tag(nil, tag, new_tag)
       assert_raise Ecto.NoResultsError, fn -> Tags.get_tag!(tag.tag_id) end
-      [new_message] = Messages.list_messages_for_tag([forum], new_tag)
+      [new_message] = MessagesTags.list_messages_for_tag([forum], new_tag)
 
       assert message.message_id == new_message.message_id
       assert List.first(new_tag.synonyms).synonym == tag.tag_name

@@ -12,9 +12,9 @@ defmodule Cforum.TestHelpers do
       |> split_path()
       |> maybe_replace_path()
 
-    {conn, _pipes, _dispatch} = router.__match_route__(conn, "GET", path_info, host || conn.host)
+    route_infos = Phoenix.Router.route_info(router, "GET", Enum.join(path_info, "/"), host || conn.host)
 
-    conn.path_params
+    route_infos[:path_params]
     |> Enum.into(%{}, fn {key, val} -> {String.to_atom(key), val} end)
     |> Map.put(:curr_forum, slug)
   end

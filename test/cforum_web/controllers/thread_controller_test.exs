@@ -6,7 +6,8 @@ defmodule CforumWeb.ThreadControllerTest do
 
   setup do
     forum = insert(:public_forum)
-    {:ok, forum: forum}
+    tag = insert(:tag)
+    {:ok, forum: forum, tag: tag}
   end
 
   describe "index" do
@@ -82,26 +83,39 @@ defmodule CforumWeb.ThreadControllerTest do
       assert html_response(conn, 200) =~ ~r/<article class="cf-thread-message preview/
     end
 
-    test "creates a thread", %{conn: conn, forum: forum} do
-      conn = post(conn, Path.thread_path(conn, :new, forum), message: params_for(:message, forum_id: nil))
+    test "creates a thread", %{conn: conn, forum: forum, tag: tag} do
+      conn =
+        post(conn, Path.thread_path(conn, :new, forum),
+          message: params_for(:message, forum_id: nil, tags: [tag.tag_name])
+        )
+
       assert %{curr_forum: f, year: y, month: m, day: d, slug: s, mid: mid} = cf_redirected_params(conn)
       assert redirected_to(conn) == "/#{f}/#{y}/#{m}/#{d}/#{s}/#{mid}#m#{mid}"
     end
 
-    test "creates a thread in /all", %{conn: conn, forum: forum} do
-      conn = post(conn, Path.thread_path(conn, :new, nil), message: params_for(:message, forum_id: forum.forum_id))
+    test "creates a thread in /all", %{conn: conn, forum: forum, tag: tag} do
+      conn =
+        post(conn, Path.thread_path(conn, :new, nil),
+          message: params_for(:message, forum_id: forum.forum_id, tags: [tag.tag_name])
+        )
+
       assert %{curr_forum: f, year: y, month: m, day: d, slug: s, mid: mid} = cf_redirected_params(conn)
       assert redirected_to(conn) == "/#{f}/#{y}/#{m}/#{d}/#{s}/#{mid}#m#{mid}"
     end
 
-    test "creates a thread with forum_id from path", %{conn: conn, forum: forum} do
+    test "creates a thread with forum_id from path", %{conn: conn, forum: forum, tag: tag} do
       f1 = insert(:public_forum)
-      conn = post(conn, Path.thread_path(conn, :new, forum), message: params_for(:message, forum_id: f1.forum_id))
+
+      conn =
+        post(conn, Path.thread_path(conn, :new, forum),
+          message: params_for(:message, forum_id: f1.forum_id, tags: [tag.tag_name])
+        )
+
       assert %{curr_forum: f, year: y, month: m, day: d, slug: s, mid: mid} = cf_redirected_params(conn)
       assert redirected_to(conn) == "/#{f}/#{y}/#{m}/#{d}/#{s}/#{mid}#m#{mid}"
       assert f == forum.slug
 
-      t = Threads.get_thread_by_slug!(nil, nil, "/#{y}/#{m}/#{d}/#{s}")
+      t = Threads.get_thread_by_slug!(forum, nil, "/#{y}/#{m}/#{d}/#{s}")
       assert t.forum_id == forum.forum_id
       m = Messages.get_message!(mid)
       assert m.forum_id == forum.forum_id

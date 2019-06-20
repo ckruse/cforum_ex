@@ -3,11 +3,11 @@ defmodule CforumWeb.Messages.InterestingControllerTest do
 
   setup [:setup_tests]
 
-  alias Cforum.Messages
+  alias Cforum.Messages.InterestingMessages
 
   describe "listing" do
     test "lists all interesting messages", %{conn: conn, user: user, message: message} do
-      Messages.mark_message_interesting(user, message)
+      InterestingMessages.mark_message_interesting(user, message)
       conn = get(conn, Routes.interesting_path(conn, :index))
       assert html_response(conn, 200) =~ gettext("messages marked as interesting")
       assert html_response(conn, 200) =~ message.subject
@@ -28,21 +28,23 @@ defmodule CforumWeb.Messages.InterestingControllerTest do
     end
 
     test "responds with 403 on interesting messages", %{conn: conn, user: user, thread: thread, message: message} do
-      Messages.mark_message_interesting(user, message)
-      assert_error_sent(403, fn -> post(conn, Path.interesting_message_path(conn, thread, message)) end)
+      InterestingMessages.mark_message_interesting(user, message)
+      conn = post(conn, Path.interesting_message_path(conn, thread, message))
+      assert conn.status == 403
     end
   end
 
   describe "marking as boring" do
     test "marks as boring", %{conn: conn, user: user, forum: forum, thread: thread, message: message} do
-      Messages.mark_message_interesting(user, message)
+      InterestingMessages.mark_message_interesting(user, message)
       conn = post(conn, Path.boring_message_path(conn, thread, message), f: forum.slug, r: "message")
       assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
       assert get_flash(conn, :info) == gettext("Interesting mark was successfully removed.")
     end
 
     test "responds with 403 on already boring messages", %{conn: conn, thread: thread, message: message} do
-      assert_error_sent(403, fn -> post(conn, Path.boring_message_path(conn, thread, message)) end)
+      conn = post(conn, Path.boring_message_path(conn, thread, message))
+      assert conn.status == 403
     end
   end
 

@@ -107,21 +107,22 @@ defmodule CforumWeb.MessageControllerTest do
       thread = insert(:thread, forum: forum)
       message = insert(:message, thread: thread, forum: forum)
       user = insert(:user)
+      tag = insert(:tag)
 
-      {:ok, forum: forum, thread: thread, message: message, user: user}
+      {:ok, forum: forum, thread: thread, message: message, user: user, tag: tag}
     end
 
-    test "post /new creates a new answer", %{conn: conn, thread: t, message: m} do
-      conn = post(conn, Path.message_path(conn, :new, t, m), message: params_for(:message))
+    test "post /new creates a new answer", %{conn: conn, thread: t, message: m, tag: tag} do
+      conn = post(conn, Path.message_path(conn, :new, t, m), message: params_for(:message, tags: [tag.tag_name]))
 
       assert %{curr_forum: f, year: y, month: m, day: d, slug: s, mid: mid} = cf_redirected_params(conn)
       assert redirected_to(conn) == "/#{f}/#{y}/#{m}/#{d}/#{s}/#{mid}#m#{mid}"
     end
 
-    test "post /new creates a new answer with user_id set", %{conn: conn, thread: t, message: m, user: user} do
+    test "post /new creates a new answer with user_id set", %{conn: conn, thread: t, message: m, user: user, tag: tag} do
       conn =
         login(conn, user)
-        |> post(Path.message_path(conn, :new, t, m), message: params_for(:message))
+        |> post(Path.message_path(conn, :new, t, m), message: params_for(:message, tags: [tag.tag_name]))
 
       assert %{curr_forum: _f, year: _y, month: _m, day: _d, slug: _s, mid: mid} = cf_redirected_params(conn)
 
@@ -171,10 +172,12 @@ defmodule CforumWeb.MessageControllerTest do
       assert html_response(conn, 200) =~ ~r/<article class="cf-thread-message preview/
     end
 
-    test "posting as a user doesn't require a name", %{conn: conn, thread: t, message: m, user: user} do
+    test "posting as a user doesn't require a name", %{conn: conn, thread: t, message: m, user: user, tag: tag} do
       conn =
         login(conn, user)
-        |> post(Path.message_path(conn, :new, t, m), message: Map.delete(params_for(:message), :author))
+        |> post(Path.message_path(conn, :new, t, m),
+          message: Map.delete(params_for(:message, tags: [tag.tag_name]), :author)
+        )
 
       assert %{curr_forum: _f, year: _y, month: _m, day: _d, slug: _s, mid: _mid} = cf_redirected_params(conn)
     end

@@ -80,13 +80,15 @@ defmodule CforumWeb.Admin.GroupControllerTest do
 
   describe "access rights" do
     test "anonymous isn't allowed to access", %{conn: conn} do
-      assert_error_sent(403, fn -> get(conn, Routes.admin_group_path(conn, :index)) end)
+      conn = get(conn, Routes.admin_group_path(conn, :index))
+      assert conn.status == 403
     end
 
     test "non-admin user isn't allowed to access", %{conn: conn} do
       user = insert(:user)
       conn = login(conn, user)
-      assert_error_sent(403, fn -> get(conn, Routes.admin_group_path(conn, :index)) end)
+      conn = get(conn, Routes.admin_group_path(conn, :index))
+      assert conn.status == 403
     end
 
     test "admin is allowed", %{conn: conn} do
