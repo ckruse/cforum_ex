@@ -111,7 +111,7 @@ defmodule Cforum.Factory do
 
   def tag_factory do
     %Cforum.Messages.Tag{
-      tag_name: sequence("Tag "),
+      tag_name: sequence("tag "),
       slug: sequence("tag-"),
       suggest: true
     }
@@ -120,7 +120,7 @@ defmodule Cforum.Factory do
   def tag_synonym_factory do
     %Cforum.Messages.TagSynonym{
       tag: build(:tag),
-      synonym: sequence("Tag Synonym ")
+      synonym: sequence("tag synonym ")
     }
   end
 
@@ -221,6 +221,15 @@ defmodule Cforum.Factory do
       title: Faker.Lorem.sentence(%Range{first: 1, last: 10}),
       url: sequence("https://example.org/search-"),
       search_section: build(:search_section)
+    }
+  end
+
+  def image_factory do
+    %Cforum.Media.Image{
+      content_type: "image/png",
+      filename: "/dev/null",
+      orig_name: "foo.png",
+      owner: build(:user)
     }
   end
 end

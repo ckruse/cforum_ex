@@ -20,6 +20,8 @@ defmodule CforumWeb.ChannelCase do
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
 
+      import Cforum.Factory
+
       # The default endpoint for testing
       @endpoint CforumWeb.Endpoint
     end

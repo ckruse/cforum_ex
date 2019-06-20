@@ -129,15 +129,17 @@ defmodule CforumWeb.Events.AttendeeControllerTest do
     end
 
     test "new isn't allowed as logged in user when already attending", %{conn: conn, event: event, user: user} do
-      assert_error_sent(403, fn ->
+      conn =
         conn
         |> login(user)
         |> get(Routes.event_attendee_path(conn, :new, event))
-      end)
+
+      assert conn.status == 403
     end
 
     test "responds with 403 on invisible event", %{conn: conn, hidden_event: event} do
-      assert_error_sent(403, fn -> get(conn, Routes.event_attendee_path(conn, :new, event)) end)
+      conn = get(conn, Routes.event_attendee_path(conn, :new, event))
+      assert conn.status == 403
     end
 
     test "create is allowed as anonymous", %{conn: conn, event: event} do
@@ -160,7 +162,8 @@ defmodule CforumWeb.Events.AttendeeControllerTest do
     end
 
     test "edit is not allowed for anonymous users", %{conn: conn, event: event, attendee: attendee} do
-      assert_error_sent(403, fn -> get(conn, Routes.event_attendee_path(conn, :edit, event, attendee)) end)
+      conn = get(conn, Routes.event_attendee_path(conn, :edit, event, attendee))
+      assert conn.status == 403
     end
 
     test "edit is allowed for logged in users", %{conn: conn, user: user, event: event, attendee: attendee} do
@@ -174,7 +177,8 @@ defmodule CforumWeb.Events.AttendeeControllerTest do
 
     test "edit is not allowed for logged in users on foreign attendees", %{conn: conn, event: event, user: user} do
       attendee = insert(:attendee, event: event)
-      assert_error_sent(403, fn -> get(login(conn, user), Routes.event_attendee_path(conn, :edit, event, attendee)) end)
+      conn = get(login(conn, user), Routes.event_attendee_path(conn, :edit, event, attendee))
+      assert conn.status == 403
     end
 
     test "edit is allowed for admins on foreign attendees", %{conn: conn, event: event, attendee: attendee, admin: user} do

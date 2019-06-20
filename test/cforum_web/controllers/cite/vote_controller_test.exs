@@ -49,7 +49,8 @@ defmodule CforumWeb.Cite.VoteControllerTest do
 
   describe "access rights" do
     test "anonymous mustn't vote", %{conn: conn, cite: cite} do
-      assert_error_sent(403, fn -> post(conn, Routes.cite_path(conn, :vote, cite), type: "down") end)
+      conn = post(conn, Routes.cite_path(conn, :vote, cite), type: "down")
+      assert conn.status == 403
     end
 
     test "logged in user may vote", %{conn: conn, cite: cite} do
@@ -67,11 +68,12 @@ defmodule CforumWeb.Cite.VoteControllerTest do
       cite = insert(:cite, archived: true)
       user = insert(:user, admin: true)
 
-      assert_error_sent(403, fn ->
+      conn =
         conn
         |> login(user)
         |> post(Routes.cite_path(conn, :vote, cite), type: "down")
-      end)
+
+      assert conn.status == 403
     end
   end
 

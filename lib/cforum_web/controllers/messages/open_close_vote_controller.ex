@@ -108,8 +108,12 @@ defmodule CforumWeb.Messages.OpenCloseVoteController do
     vote = vote || conn.assigns[:vote]
 
     cond do
-      Helpers.blank?(vote) || vote.finished ->
-        Abilities.badge?(conn, Badge.visit_close_reopen()) || Cforum.Accounts.Users.moderator?(conn)
+      Helpers.blank?(vote) ->
+        Abilities.badge?(conn, Badge.visit_close_reopen()) ||
+          Cforum.Accounts.Users.moderator?(conn.assigns[:current_user])
+
+      vote.finished ->
+        false
 
       vote.vote_type == false ->
         msg = get_message(conn, vote.message)

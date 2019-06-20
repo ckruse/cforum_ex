@@ -3,7 +3,7 @@ defmodule CforumWeb.Messages.FlagControllerTest do
 
   setup [:setup_tests]
 
-  alias Cforum.ModerationQueue.ModerationQueue
+  alias Cforum.ModerationQueue
 
   test "shows a new form", %{conn: conn, thread: thread, message: message} do
     conn = get(conn, Path.flag_message_path(conn, thread, message))

@@ -10,3 +10,7 @@ end
 defimpl Cforum.System.AuditingProtocol, for: Any do
   def audit_json(object), do: object
 end
+
+defimpl Cforum.System.AuditingProtocol, for: Ecto.Association.NotLoaded do
+  def audit_json(_), do: nil
+end

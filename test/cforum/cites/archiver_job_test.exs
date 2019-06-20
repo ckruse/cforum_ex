@@ -4,6 +4,7 @@ defmodule Cforum.Cites.ArchiverJobTest do
   alias Cforum.Cites.ArchiverJob
   alias Cforum.Cites
   alias Cforum.Cites.Vote
+  alias CforumWeb.Router.Helpers
 
   test "archive/0 deletes an cite with negative score" do
     cite = insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -3))
@@ -44,5 +45,12 @@ defmodule Cforum.Cites.ArchiverJobTest do
     assert Enum.map(Cites.list_cites(true), & &1.cite_id) == [cite.cite_id]
   end
 
-  test "archive/0 creates a search document for a cite to archive"
+  test "archive/0 creates a search document for a cite to archive" do
+    cite = insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -3))
+    insert(:cite_vote, cite: cite, vote_type: Vote.upvote())
+
+    ArchiverJob.archive()
+
+    assert Cforum.Search.get_document_by_url(Helpers.cite_url(CforumWeb.Endpoint, :show, cite))
+  end
 end

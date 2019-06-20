@@ -24,9 +24,9 @@ defmodule CforumWeb.Plug.AuthorizeAccess do
       conn
     else
       conn
+      |> Plug.Conn.put_status(403)
       |> Phoenix.Controller.put_view(CforumWeb.ErrorView)
       |> Phoenix.Controller.render("403.html")
-      |> Plug.Conn.put_status(403)
       |> Plug.Conn.halt()
     end
   end

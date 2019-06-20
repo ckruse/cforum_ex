@@ -26,7 +26,9 @@ defmodule Cforum.Accounts.UserCleanupJob do
   @decorate transaction_event()
   def cleanup_users_wo_posts() do
     from(user in User,
-      where: is_nil(user.last_visit) or fragment("? + interval '30 days'", user.last_visit) <= ^DateTime.utc_now(),
+      where:
+        (is_nil(user.last_visit) and fragment("? + interval '30 days' <= NOW()", user.created_at)) or
+          fragment("? + interval '30 days'", user.last_visit) <= ^DateTime.utc_now(),
       where:
         fragment(
           "NOT EXISTS(SELECT message_id FROM messages WHERE messages.user_id = ? and messages.deleted = false)",

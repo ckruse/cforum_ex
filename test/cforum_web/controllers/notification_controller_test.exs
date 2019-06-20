@@ -40,7 +40,8 @@ defmodule CforumWeb.NotificationControllerTest do
 
   test "ensure that one can't access foreign notifications", %{conn: conn} do
     notification = insert(:notification)
-    assert_error_sent(403, fn -> get(conn, Routes.notification_path(conn, :show, notification)) end)
+    conn = get(conn, Routes.notification_path(conn, :show, notification))
+    assert conn.status == 403
   end
 
   defp setup_login(%{conn: conn}) do

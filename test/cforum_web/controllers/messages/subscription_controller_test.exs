@@ -3,11 +3,11 @@ defmodule CforumWeb.Messages.SubscriptionControllerTest do
 
   setup [:setup_tests]
 
-  alias Cforum.Messages
+  alias Cforum.Messages.Subscriptions
 
   describe "listing" do
     test "lists all subscribed messages", %{conn: conn, user: user, message: message} do
-      Messages.subscribe_message(user, message)
+      Subscriptions.subscribe_message(user, message)
       conn = get(conn, Routes.subscription_path(conn, :index))
       assert html_response(conn, 200) =~ gettext("subscribed messages")
       assert html_response(conn, 200) =~ message.subject
@@ -29,20 +29,22 @@ defmodule CforumWeb.Messages.SubscriptionControllerTest do
 
     test "responds with 403 on already subscribed messages", %{conn: conn, thread: thread, message: message} do
       conn = post(conn, Path.subscribe_message_path(conn, thread, message))
-      assert_error_sent(403, fn -> post(conn, Path.subscribe_message_path(conn, thread, message)) end)
+      conn = post(conn, Path.subscribe_message_path(conn, thread, message))
+      assert conn.status == 403
     end
   end
 
   describe "unsubscribing" do
     test "unsubscribes messages", %{conn: conn, user: user, forum: forum, thread: thread, message: message} do
-      Messages.subscribe_message(user, message)
+      Subscriptions.subscribe_message(user, message)
       conn = post(conn, Path.unsubscribe_message_path(conn, thread, message), f: forum.slug, r: "message")
       assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
       assert get_flash(conn, :info) == gettext("Message was successfully unsubscribed.")
     end
 
     test "doesn't fail on not subscribed messages", %{conn: conn, thread: thread, message: message} do
-      assert_error_sent(403, fn -> post(conn, Path.unsubscribe_message_path(conn, thread, message)) end)
+      conn = post(conn, Path.unsubscribe_message_path(conn, thread, message))
+      assert conn.status == 403
     end
   end
 

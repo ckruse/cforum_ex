@@ -30,11 +30,12 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
       message = Messages.get_message_from_mid!(thread, message.message_id)
       Messages.flag_no_answer(nil, message, "no-answer")
 
-      assert_error_sent(403, fn ->
+      conn =
         conn
         |> login(user)
         |> get(Path.close_vote_path(conn, thread, message))
-      end)
+
+      assert conn.status == 403
     end
   end
 
@@ -60,11 +61,12 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
     end
 
     test "responds with 403 for reopen on open messages", %{conn: conn, user: user, thread: thread, message: message} do
-      assert_error_sent(403, fn ->
+      conn =
         conn
         |> login(user)
         |> get(Path.open_vote_path(conn, thread, message))
-      end)
+
+      assert conn.status == 403
     end
   end
 
@@ -180,11 +182,12 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
       changeset = Ecto.Changeset.change(vote, finished: true)
       assert {:ok, _} = Cforum.Repo.update(changeset)
 
-      assert_error_sent(403, fn ->
+      conn =
         conn
         |> login(user)
         |> patch(Path.oc_vote_path(conn, thread, message, vote))
-      end)
+
+      assert conn.status == 403
     end
 
     test "voting again takes back the vote", %{conn: conn, visiting_user: user, message: m, thread: t, close_vote: vote} do

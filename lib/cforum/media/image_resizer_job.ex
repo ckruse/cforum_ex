@@ -4,10 +4,12 @@ defmodule Cforum.Media.ImageResizerJob do
   alias Cforum.Media
 
   def resize_image({:ok, img}) do
-    Cforum.Helpers.AsyncHelper.run_async(fn ->
-      resize_image(img, "thumb")
-      resize_image(img, "medium")
-    end)
+    if Application.get_env(:cforum, :environment) != :test do
+      Cforum.Helpers.AsyncHelper.run_async(fn ->
+        resize_image(img, "thumb")
+        resize_image(img, "medium")
+      end)
+    end
 
     {:ok, img}
   end

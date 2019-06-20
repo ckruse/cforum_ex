@@ -3,7 +3,7 @@ defmodule Cforum.Messages.CloseVotesTest do
 
   alias Cforum.Messages
   alias Cforum.Messages.CloseVotes
-  alias Cforum.Messages.CloseVotes.{CloseVote, CloseVoteVoter}
+  alias Cforum.Messages.{CloseVote, CloseVoteVoter}
 
   setup do
     forum = insert(:forum)
