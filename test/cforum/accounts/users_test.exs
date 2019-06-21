@@ -112,6 +112,14 @@ defmodule Cforum.Accounts.UsersTest do
     assert %Ecto.Changeset{} = Users.change_user(user)
   end
 
+  test "confirm_user/1 will actually confirm the user" do
+    insert(:user, confirmed_at: nil, confirmation_token: "abc")
+    assert {:ok, user} = Users.confirm_user("abc")
+
+    assert user.confirmed_at
+    refute user.confirmation_token
+  end
+
   test "unique_badges should return an empty array when user has no badges" do
     user = insert(:user) |> Repo.preload(badges_users: :badges)
     assert Users.unique_badges(user) == []
