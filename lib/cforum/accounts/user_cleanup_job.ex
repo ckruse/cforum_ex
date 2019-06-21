@@ -1,17 +1,18 @@
 defmodule Cforum.Accounts.UserCleanupJob do
   use Appsignal.Instrumentation.Decorators
 
-  alias Cforum.Accounts.{Users, User}
-
   import Ecto.{Query, Changeset}, warn: false
   require Logger
 
   alias Cforum.Repo
+  alias Cforum.System
+  alias Cforum.Accounts.User
 
   @decorate transaction()
   def cleanup do
     cleanup_unconfirmed_users()
     cleanup_users_wo_posts()
+    Cachex.clear(:cforum)
   end
 
   @decorate transaction_event()
@@ -43,7 +44,7 @@ defmodule Cforum.Accounts.UserCleanupJob do
     |> Repo.all()
     |> Enum.each(fn user ->
       Logger.info("Automatically deleting user #{user.username}")
-      Users.delete_user(nil, user)
+      System.audited("autodestroy", nil, fn -> Repo.delete(user) end)
     end)
   end
 end
