@@ -47,7 +47,6 @@ else
 fi
 
 scp .deliver/secrets/prod.$HOST.exs builder@builder:~/config/prod.exs
-scp config/appsignal.exs builder@builder:~/config
 
 if [[ $TYPE == "release" ]]; then
   mix edeliver build $TYPE
