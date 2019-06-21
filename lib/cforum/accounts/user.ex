@@ -102,6 +102,12 @@ defmodule Cforum.Accounts.User do
     |> put_confirmation_token()
   end
 
+  def confirmation_changeset(%User{} = struct, params \\ %{}) do
+    struct
+    |> cast(params, [:confirmed_at, :confirmation_token])
+    |> validate_required([:confirmed_at])
+  end
+
   def password_changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:password, :password_confirmation])

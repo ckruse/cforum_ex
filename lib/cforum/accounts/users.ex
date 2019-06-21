@@ -429,7 +429,8 @@ defmodule Cforum.Accounts.Users do
 
       user ->
         Cforum.System.audited("confirm", user, fn ->
-          update_user(user, %{confirmed_at: Timex.now()})
+          User.confirmation_changeset(user, %{confirmed_at: Timex.now(), confirmation_token: nil})
+          |> Repo.update()
         end)
     end
     |> discard_user_cache()
