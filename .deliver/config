@@ -9,7 +9,7 @@ BUILD_USER="builder"
 BUILD_AT="/tmp/edeliver/cforum/builds"
 RELEASE_DIR="/tmp/edeliver/cforum/builds/_build/prod/rel/cforum"
 
-PRODUCTION_HOSTS="cftest.wwwtech.de"
+PRODUCTION_HOSTS="quirm.selfhtml.org"
 PRODUCTION_USER="ckruse"
 DELIVER_TO="/home/ckruse/"
 
