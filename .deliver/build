@@ -3,7 +3,7 @@
 set -e
 
 TYPE="release"
-HOST="cftest.wwwtech.de"
+HOST="quirm.selfhtml.org"
 WITH=""
 
 while getopts ":h:t:w:" opt; do
