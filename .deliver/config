@@ -1,4 +1,3 @@
-AUTO_VERSION=git-revision+branch-unless-master
 APP="cforum"
 
 BUILD_CMD=mix
