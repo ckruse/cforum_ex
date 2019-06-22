@@ -143,6 +143,9 @@ defmodule CforumWeb.MessageController do
   #
 
   defp get_message(conn, %{"mid" => mid} = params) do
+    if !Regex.match?(~r/^\d+$/, mid),
+      do: raise(Phoenix.Router.NoRouteError, conn: conn, router: CforumWeb.Router)
+
     thread =
       Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, ThreadHelpers.slug_from_params(params))
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
