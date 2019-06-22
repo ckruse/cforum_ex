@@ -28,8 +28,15 @@ defmodule CforumWeb.Views.Helpers do
     if Helpers.blank?(val), do: "%d.%m.%Y %H:%M", else: val
   end
 
+  def local_date(date) do
+    case Timex.local(date) do
+      %Timex.AmbiguousDateTime{after: val} -> val
+      val -> val
+    end
+  end
+
   def format_date(conn, date, format \\ "date_format_default"),
-    do: Timex.format!(Timex.local(date), date_format(conn, format), :strftime)
+    do: Timex.format!(local_date(date), date_format(conn, format), :strftime)
 
   @doc """
   Returns true if a key in a changeset is blank or equal to a specified value. Helper for
