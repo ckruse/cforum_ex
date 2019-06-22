@@ -21,16 +21,7 @@ defmodule Cforum.MarkdownRenderer do
   end
 
   def init([]) do
-    conf = Application.get_env(:cforum, :cfmarkdown)
-
-    cli =
-      if conf[:pwd],
-        do: "cd #{conf[:pwd]} && #{conf[:cli]}",
-        else: conf[:cli]
-
-    proc = Porcelain.spawn_shell(cli, in: :receive, out: :stream)
-
-    {:ok, proc}
+    {:ok, nil}
   end
 
   def pool_name(), do: :markdown_renderer_pool
@@ -103,10 +94,26 @@ defmodule Cforum.MarkdownRenderer do
     :poolboy.transaction(pool_name(), fn pid -> :gen_server.call(pid, {:render_plain, markdown}) end)
   end
 
+  defp ensure_proc(proc) do
+    if !is_nil(proc) && Proc.alive?(proc) do
+      proc
+    else
+      conf = Application.get_env(:cforum, :cfmarkdown)
+
+      cli =
+        if conf[:pwd],
+          do: "cd #{conf[:pwd]} && #{conf[:cli]}",
+          else: conf[:cli]
+
+      Porcelain.spawn_shell(cli, in: :receive, out: :stream)
+    end
+  end
+
   #
   # server callbacks
   #
   def handle_call({:render_doc, markdown}, _sender, proc) do
+    proc = ensure_proc(proc)
     out = Jason.encode!(%{markdown: markdown}) <> "\n"
     Proc.send_input(proc, out)
     [line] = Enum.take(proc.out, 1)
@@ -123,6 +130,7 @@ defmodule Cforum.MarkdownRenderer do
   end
 
   def handle_call({:render_plain, markdown}, _sender, proc) do
+    proc = ensure_proc(proc)
     out = Jason.encode!(%{markdown: markdown, target: "plain"}) <> "\n"
     Proc.send_input(proc, out)
     [line] = Enum.take(proc.out, 1)
