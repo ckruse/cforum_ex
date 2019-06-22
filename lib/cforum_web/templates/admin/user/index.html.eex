@@ -12,6 +12,7 @@
   <thead>
     <tr>
       <th><%= Sortable.sortable(@conn, gettext("username"), :username, &Routes.admin_user_path/3) %></th>
+      <th><%= gettext("email") %></th>
       <th class="numeric"><%= Sortable.sortable(@conn, gettext("Score"), :score, &Routes.admin_user_path/3) %></th>
       <th class="numeric"><%= Sortable.sortable(@conn, gettext("Activity during the last 30 days"), :activity, &Routes.admin_user_path/3) %></th>
       <th><%= Sortable.sortable(@conn, gettext("Registration date"), :created_at, &Routes.admin_user_path/3) %></th>
@@ -26,6 +27,7 @@
     <%= for user <- @users do %>
       <tr>
         <td><%= user.username %></td>
+        <td><%= user.email %></td>
         <td class="numeric"><%= user.score %></td>
         <td class="numeric"><%= user.activity %> <%= gettext("messages") %></td>
         <td><%= VHelpers.format_date(@conn, user.created_at) %></td>
