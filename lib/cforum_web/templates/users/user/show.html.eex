@@ -161,7 +161,7 @@
   <ul class="cf-badge-user-list">
     <%= for ub <- @badges do %>
       <li><%= img_tag(Routes.static_path(@conn, "/images/" <> ub[:badge].badge_medal_type <> ".png"), class: "medal-image", alt: VHelpers.l10n_medal_type(ub[:badge].badge_medal_type)) %>
-        <%= link ub[:badge].name, to: Routes.badge_path(@conn, :show, ub[:badge]) %>
+        <%= link ub[:badge].name, to: Path.badge_path(@conn, :show, ub[:badge]) %>
         <%= if ub[:times] > 1, do: "× #{ub[:times]}" %> (<%= VHelpers.format_date(@conn, ub[:created_at]) %>)</li>
     <% end %>
   </ul>
