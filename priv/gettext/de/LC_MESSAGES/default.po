@@ -4061,7 +4061,7 @@ msgstr "Benutzer-Daten"
 #, elixir-format
 #: lib/cforum/messages/notify_users_message_job.ex:120
 msgid "%{nick} mentioned you in a new message: “%{subject}”"
-msgstr "%{nick} hat Sie in einer neuen Beitrag „%{subject}“ erwähnt"
+msgstr "%{nick} hat Sie in einem neuen Beitrag „%{subject}“ erwähnt"
 
 #, elixir-format
 #: lib/cforum_web/controllers/messages/admin_controller.ex:40
