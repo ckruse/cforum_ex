@@ -153,6 +153,7 @@ defmodule CforumWeb.MessageController do
         ThreadHelpers.slug_from_params(params)
       )
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.ensure_found!()
       |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close])
       |> Threads.apply_highlights(conn)
       |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
