@@ -148,6 +148,9 @@ defmodule CforumWeb.AuditingViewL10n do
   def l10n_audit_act(%Auditing{relation: "message_versions", act: "destroy"}),
     do: gettext("auditing: messages: versions: destroy")
 
+  def l10n_audit_act(%Auditing{relation: "moderation_queue", act: "update"}),
+    do: gettext("auditing: moderation_queue: update")
+
   def l10n_audit_act(log),
     do: raise("unknown entry for relation:#{log.relation}, action:#{log.act}")
 end
