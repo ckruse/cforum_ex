@@ -109,6 +109,14 @@ defmodule Cforum.MarkdownRenderer do
     end
   end
 
+  defp read_line(proc) do
+    Enum.reduce_while(proc.out, "", fn line, acc ->
+      if Regex.match?(~r/--eof--$/, line),
+        do: {:halt, acc <> Regex.replace(~r/--eof--$/, line, "")},
+        else: {:cont, acc <> line}
+    end)
+  end
+
   #
   # server callbacks
   #
@@ -116,7 +124,7 @@ defmodule Cforum.MarkdownRenderer do
     proc = ensure_proc(proc)
     out = Jason.encode!(%{markdown: markdown}) <> "\n"
     Proc.send_input(proc, out)
-    [line] = Enum.take(proc.out, 1)
+    line = read_line(proc)
     retval = Jason.decode!(line)
 
     case retval["status"] do
@@ -133,7 +141,7 @@ defmodule Cforum.MarkdownRenderer do
     proc = ensure_proc(proc)
     out = Jason.encode!(%{markdown: markdown, target: "plain"}) <> "\n"
     Proc.send_input(proc, out)
-    [line] = Enum.take(proc.out, 1)
+    line = read_line(proc)
     retval = Jason.decode!(line)
 
     case retval["status"] do
