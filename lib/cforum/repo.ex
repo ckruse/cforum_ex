@@ -34,4 +34,7 @@ defmodule Cforum.Repo do
       end
     end)
   end
+
+  def maybe_preload(rel, nil), do: rel
+  def maybe_preload(rel, preloads), do: Cforum.Repo.preload(rel, preloads)
 end
