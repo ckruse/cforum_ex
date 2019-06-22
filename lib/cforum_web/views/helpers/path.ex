@@ -376,4 +376,7 @@ defmodule CforumWeb.Views.Helpers.Path do
   @spec mail_thread_path(Plug.Conn.t() | CforumWeb.Endpoint, :show, %PrivMessage{}, keyword() | map()) :: String.t()
   def mail_thread_path(conn, :show, pm, params \\ []),
     do: "#{Routes.root_path(conn, :index)}mails/#{pm.thread_id}#{encode_query_string(params)}#pm#{pm.priv_message_id}"
+
+  def badge_path(conn, :show, badge, params \\ []),
+    do: "#{Routes.root_path(conn, :index)}badges/#{badge.slug}#{encode_query_string(params)}"
 end

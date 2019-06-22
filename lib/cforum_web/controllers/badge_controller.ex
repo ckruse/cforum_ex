@@ -13,7 +13,7 @@ defmodule CforumWeb.BadgeController do
   end
 
   def show(conn, %{"id" => id}) do
-    badge = Badges.get_badge!(id)
+    badge = Badges.get_badge_by!([slug: id], with: [badges_users: [:user]])
     render(conn, "show.html", badge: badge)
   end
 
