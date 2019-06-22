@@ -1,7 +1,6 @@
 defmodule CforumWeb.ThreadController do
   use CforumWeb, :controller
 
-  alias Cforum.Helpers
   alias Cforum.Threads
   alias Cforum.Messages
 
