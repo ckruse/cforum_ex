@@ -1,6 +1,7 @@
 defmodule CforumWeb.ThreadController do
   use CforumWeb, :controller
 
+  alias Cforum.Helpers
   alias Cforum.Threads
   alias Cforum.Messages
 
@@ -200,19 +201,34 @@ defmodule CforumWeb.ThreadController do
   defp maybe_set_cookie(conn, _, _), do: conn
 
   defp load_thread_and_message(conn, :show) do
+    params = Map.update!(conn.params, "slug", &Regex.replace(~r/\.(atom|rss)$/, &1, ""))
+
     thread =
       conn.assigns[:current_forum]
-      |> Threads.get_thread_by_slug!(conn.assigns[:visible_forums], ThreadHelpers.slug_from_params(conn.params))
+      |> Threads.get_thread_by_slug!(conn.assigns[:visible_forums], ThreadHelpers.slug_from_params(params))
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.apply_user_infos(conn.assigns[:current_user])
       |> Threads.apply_highlights(conn)
       |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
-    message = Messages.get_message_from_mid!(thread, conn.params["message_id"])
+    cond do
+      conn.request_path =~ ~r/\.atom$/ ->
+        conn
+        |> redirect(to: Path.thread_path(conn, :atom, thread))
+        |> Plug.Conn.halt()
 
-    conn
-    |> assign(:thread, thread)
-    |> assign(:message, message)
+      conn.request_path =~ ~r/\.rss$/ ->
+        conn
+        |> redirect(to: Path.thread_path(conn, :rss, thread))
+        |> Plug.Conn.halt()
+
+      true ->
+        message = Messages.get_message_from_mid!(thread, conn.params["message_id"])
+
+        conn
+        |> assign(:thread, thread)
+        |> assign(:message, message)
+    end
   end
 
   defp load_thread_and_message(conn, _), do: conn
