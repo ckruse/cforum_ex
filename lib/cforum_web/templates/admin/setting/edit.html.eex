@@ -4,7 +4,7 @@
     <nav class="cf-tab-list">
       <ul>
         <li><a href="#general-settings"><%= gettext("general settings") %></a></li>
-        <li><a href="#Paginator.pagination-settings"><%= gettext("Paginator.pagination settings") %></a></li>
+        <li><a href="#Paginator.pagination-settings"><%= gettext("pagination settings") %></a></li>
         <li><a href="#archiver-settings"><%= gettext("archiver settings") %></a></li>
         <li><a href="#editing-settings"><%= gettext("editing settings") %></a></li>
         <li><a href="#date-format-settings"><%= gettext("date format settings") %></a></li>
@@ -17,7 +17,7 @@
     <template id="tablist">
       <div role="tablist" class="cf-tab-list">
         <button role="tab" id="general-setting-tab" aria-controls="general-settings" aria-selected="false" tabindex="-1"><%= gettext("general settings") %></button>
-        <button role="tab" id="Paginator.pagination-settings-tab" aria-controls="Paginator.pagination-settings" aria-selected="false" tabindex="-1"><%= gettext("Paginator.pagination settings") %></button>
+        <button role="tab" id="Paginator.pagination-settings-tab" aria-controls="Paginator.pagination-settings" aria-selected="false" tabindex="-1"><%= gettext("pagination settings") %></button>
         <button role="tab" id="archiver-settings-tab" aria-controls="archiver-settings" aria-selected="false" tabindex="-1"><%= gettext("archiver settings") %></button>
         <button role="tab" id="editing-settings-tab" aria-controls="editing-settings" aria-selected="false" tabindex="-1"><%= gettext("editing settings") %></button>
         <button role="tab" id="date-format-settings-tab" aria-controls="date-format-settings" aria-selected="false" tabindex="-1"><%= gettext("date format settings") %></button>
