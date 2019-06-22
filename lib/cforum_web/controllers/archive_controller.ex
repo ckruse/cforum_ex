@@ -13,6 +13,9 @@ defmodule CforumWeb.ArchiveController do
   end
 
   def months(conn, %{"year" => year}) do
+    if !Regex.match?(~r/^\d+$/, year),
+      do: raise(Phoenix.Router.NoRouteError, conn: conn, router: CforumWeb.Router)
+
     months = Archive.list_archive_months(conn.assigns[:current_forum], conn.assigns[:visible_forums], year)
     render(conn, "months.html", months: months, year: year)
   end
