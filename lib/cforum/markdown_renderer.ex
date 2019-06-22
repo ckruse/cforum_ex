@@ -79,6 +79,11 @@ defmodule Cforum.MarkdownRenderer do
     {:safe, html}
   end
 
+  def to_html(str) when is_bitstring(str) do
+    {:ok, html} = render_doc(str)
+    {:safe, html}
+  end
+
   def render_doc(markdown) do
     :poolboy.transaction(pool_name(), fn pid -> GenServer.call(pid, {:render_doc, markdown}) end)
   end
@@ -131,13 +136,5 @@ defmodule Cforum.MarkdownRenderer do
       _ ->
         {:reply, {:error, retval["message"]}, proc}
     end
-  end
-
-  def to_html(s) do
-    s
-    |> String.replace("&", "&amp;")
-    |> String.replace("<", "&lt;")
-    |> String.replace(">", "&gt;")
-    |> String.replace("\n", "<br>")
   end
 end
