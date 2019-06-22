@@ -343,7 +343,7 @@ msgstr "Benutzerkonto bestätigen"
 msgid "Hi there, %{name}!"
 msgstr "Hallo %{name}!"
 
-#: lib/cforum_web/controllers/notification_controller.ex:42
+#: lib/cforum_web/controllers/notification_controller.ex:46
 #: lib/cforum_web/controllers/users/registration_controller.ex:42
 msgid "Oops, something went wrong!"
 msgstr "Uups, es ist etwas schief gegangen!"
@@ -357,7 +357,7 @@ msgstr "Sie können Ihr Benutzerkonto über den Link unten bestätigen:"
 msgid "confirm your registration"
 msgstr "Benutzerkonto bestätigen"
 
-#: lib/cforum/accounts/user.ex:139
+#: lib/cforum/accounts/user.ex:145
 msgid "password and password confirmation don't match"
 msgstr "Passwort und Passwort-Bestätigung stimmen nicht überein"
 
@@ -430,7 +430,7 @@ msgstr "Registrierungs-Datum"
 msgid "Score"
 msgstr "Punkte"
 
-#: lib/cforum_web/templates/users/user/personal_information.html.eex:27
+#: lib/cforum_web/templates/users/user/personal_information.html.eex:28
 #: lib/cforum_web/templates/users/user/show.html.eex:46
 msgid "Twitter handle"
 msgstr "Twitter-Handle"
@@ -607,7 +607,7 @@ msgstr "Komfort-Funktionen"
 #: lib/cforum_web/templates/admin/event/form.html.eex:29
 #: lib/cforum_web/templates/admin/forum/form.html.eex:94
 #: lib/cforum_web/templates/admin/forum/index.html.eex:6
-#: lib/cforum_web/templates/users/user/personal_information.html.eex:32
+#: lib/cforum_web/templates/users/user/personal_information.html.eex:33
 msgid "description"
 msgstr "Beschreibung"
 
@@ -620,11 +620,11 @@ msgid "greeting"
 msgstr "Begrüßung"
 
 #: lib/cforum_web/templates/message/form.html.eex:31
-#: lib/cforum_web/templates/users/user/personal_information.html.eex:11
+#: lib/cforum_web/templates/users/user/personal_information.html.eex:12
 msgid "homepage"
 msgstr "Homepage"
 
-#: lib/cforum_web/templates/users/user/personal_information.html.eex:22
+#: lib/cforum_web/templates/users/user/personal_information.html.eex:23
 msgid "jabber id"
 msgstr "Jabber-ID"
 
@@ -632,7 +632,7 @@ msgstr "Jabber-ID"
 msgid "notify me on new mail"
 msgstr "benachrichtige mich über neue Post"
 
-#: lib/cforum_web/templates/users/user/personal_information.html.eex:3
+#: lib/cforum_web/templates/users/user/personal_information.html.eex:4
 #: lib/cforum_web/templates/users/user/settings.html.eex:4
 #: lib/cforum_web/templates/users/user/settings.html.eex:15
 msgid "personal information"
@@ -644,7 +644,7 @@ msgstr "Persönliche Informationen"
 msgid "personalization"
 msgstr "Personalisierung"
 
-#: lib/cforum_web/templates/users/user/personal_information.html.eex:6
+#: lib/cforum_web/templates/users/user/personal_information.html.eex:7
 msgid "public email"
 msgstr "öffentliche E-Mail-Adresse"
 
@@ -831,13 +831,13 @@ msgstr "Standard-Berechtigung"
 msgid "The instructions how to reset your password have been sent."
 msgstr "Die Anweisungen, wie Sie Ihr Passwort zurücksetzen können, wurden verschickt."
 
-#: lib/cforum_web/controllers/admin/user_controller.ex:59
-#: lib/cforum_web/controllers/users/user_controller.ex:196
+#: lib/cforum_web/controllers/admin/user_controller.ex:62
+#: lib/cforum_web/controllers/users/user_controller.ex:209
 msgid "User deleted successfully."
 msgstr "Benutzer erfolgreich gelöscht."
 
-#: lib/cforum_web/controllers/admin/user_controller.ex:46
-#: lib/cforum_web/controllers/users/user_controller.ex:178
+#: lib/cforum_web/controllers/admin/user_controller.ex:49
+#: lib/cforum_web/controllers/users/user_controller.ex:188
 msgid "User updated successfully."
 msgstr "Benutzer erfolgreich geändert."
 
@@ -979,11 +979,11 @@ msgstr "schreiben"
 msgid "New forum"
 msgstr "Neues Forum"
 
-#: lib/cforum_web/controllers/notification_controller.ex:51
+#: lib/cforum_web/controllers/notification_controller.ex:55
 msgid "Notification deleted successfully."
 msgstr "Benachrichtigung erfolgreich gelöscht."
 
-#: lib/cforum_web/controllers/notification_controller.ex:37
+#: lib/cforum_web/controllers/notification_controller.ex:41
 msgid "Notification successfully marked as unread."
 msgstr "Benachrichtigung erfolgreich als ungelesen markiert."
 
@@ -998,7 +998,7 @@ msgstr "Rosen sind rot"
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:63
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:34
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:40
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:58
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:54
 #: lib/cforum_web/views/admin/setting_view.ex:32
 msgid "ascending"
 msgstr "aufsteigend"
@@ -1027,7 +1027,7 @@ msgstr "Standard-Datumsformat"
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:62
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:35
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:41
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:59
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:55
 #: lib/cforum_web/views/admin/setting_view.ex:33
 msgid "descending"
 msgstr "absteigend"
@@ -1045,7 +1045,7 @@ msgid "fold read messages"
 msgstr "Klappe gelesene Beiträge zusammen"
 
 #: lib/cforum_web/templates/layout/page_header.html.eex:120
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:53
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:49
 msgid "hide read threads"
 msgstr "verstecke vollständig gelesene Threads"
 
@@ -1116,7 +1116,7 @@ msgstr "zitiere den vorherigen Beitrag per Default"
 msgid "quote signature when answering"
 msgstr "zitiere die Signatur beim antworten"
 
-#: lib/cforum_web/templates/users/user/personal_information.html.eex:17
+#: lib/cforum_web/templates/users/user/personal_information.html.eex:18
 msgid "remove rel=nofollow from my homepage URL"
 msgstr "verlinke meine Homepage ohne rel=nofollow"
 
@@ -1168,7 +1168,7 @@ msgstr "zeige zwei Buttons"
 msgid "signature"
 msgstr "Signatur"
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:57
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:53
 msgid "sort mail threads…"
 msgstr "sortiere private Nachrichten…"
 
@@ -1314,8 +1314,8 @@ msgstr "Benutzer-Informationen"
 msgid "new answer to %{name}"
 msgstr "Antwort an „%{name}“ verfassen"
 
-#: lib/cforum_web/controllers/message_controller.ex:82
-#: lib/cforum_web/controllers/message_controller.ex:123
+#: lib/cforum_web/controllers/message_controller.ex:88
+#: lib/cforum_web/controllers/message_controller.ex:129
 msgid "Message created successfully."
 msgstr "Beitrag erfolgreich gespeichert."
 
@@ -1323,9 +1323,9 @@ msgstr "Beitrag erfolgreich gespeichert."
 msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">documentation</a>"
 msgstr "SELFHTML Forum - Ergänzung zur <a href=\"https://wiki.selfhtml.org\">Dokumentation</a>"
 
-#: lib/cforum_web/controllers/api/v1/message_controller.ex:22
-#: lib/cforum_web/controllers/message_controller.ex:49
-#: lib/cforum_web/controllers/thread_controller.ex:152
+#: lib/cforum_web/controllers/api/v1/message_controller.ex:25
+#: lib/cforum_web/controllers/message_controller.ex:55
+#: lib/cforum_web/controllers/thread_controller.ex:157
 msgid "all"
 msgstr "alle"
 
@@ -1434,7 +1434,7 @@ msgstr "eine Seite zurück"
 msgid "unknown tags given: %{tags}"
 msgstr "Folgende Tags sind unbekannt: %{tags}."
 
-#: lib/cforum_web/controllers/thread_controller.ex:184
+#: lib/cforum_web/controllers/thread_controller.ex:190
 msgid "Thread created successfully."
 msgstr "Thread erfolgreich erstellt."
 
@@ -1472,7 +1472,7 @@ msgstr "Silber-Medaille"
 #: lib/cforum_web/templates/layout/page_header.html.eex:21
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:4
 #: lib/cforum_web/views/archive_view.ex:5
-#: lib/cforum_web/views/layout_view.ex:212
+#: lib/cforum_web/views/layout_view.ex:216
 #: lib/cforum_web/views/thread_view.ex:28 lib/cforum_web/views/thread_view.ex:35
 msgid "all forums"
 msgstr "alle Foren"
@@ -1483,22 +1483,22 @@ msgid "show all"
 msgstr "alle anzeigen"
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/interesting_controller.ex:64
+#: lib/cforum_web/controllers/messages/interesting_controller.ex:71
 msgid "Interesting mark was successfully removed."
 msgstr "Die Interessant-Markierung wurde erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/interesting_controller.ex:56
+#: lib/cforum_web/controllers/messages/interesting_controller.ex:63
 msgid "Message was successfully marked as interesting."
 msgstr "Der Beitrag wurde erfolgreich als interessant markiert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/subscription_controller.ex:57
+#: lib/cforum_web/controllers/messages/subscription_controller.ex:63
 msgid "Message was successfully subscribed."
 msgstr "Der Baum wurde erfolgreich abonniert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/subscription_controller.ex:65
+#: lib/cforum_web/controllers/messages/subscription_controller.ex:71
 msgid "Message was successfully unsubscribed."
 msgstr "Der Baum wurde erfolgreich deabonniert."
 
@@ -1508,7 +1508,7 @@ msgid "Thread has successfully been closed."
 msgstr "Der Thread wurde erfolgreich zugeklappt."
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/invisible_controller.ex:51
+#: lib/cforum_web/controllers/threads/invisible_controller.ex:54
 msgid "Thread has successfully been hidden."
 msgstr "Der Thread wurde erfolgreich ausgeblendet."
 
@@ -1518,7 +1518,7 @@ msgid "Thread has successfully been opened."
 msgstr "Der Thread wurde erfolgreich aufgeklappt."
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/invisible_controller.ex:67
+#: lib/cforum_web/controllers/threads/invisible_controller.ex:70
 msgid "Thread has successfully been restored."
 msgstr "Der Thread wurde erfolgreich wiederhergestellt."
 
@@ -1571,7 +1571,7 @@ msgid "mark thread read"
 msgstr "Thread als gelesen markieren"
 
 #, elixir-format
-#: lib/cforum_web/views/messages/interesting_view.ex:4
+#: lib/cforum_web/views/messages/interesting_view.ex:6
 msgid "messages marked as interesting"
 msgstr "Als interessant markierte Beiträge"
 
@@ -1665,17 +1665,17 @@ msgid "answer without cite"
 msgstr "ohne Zitat antworten"
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:83
+#: lib/cforum_web/controllers/mail_controller.ex:89
 msgid "Mail created successfully."
 msgstr "Mail erfolgreich gespeichert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:105
+#: lib/cforum_web/controllers/mail_controller.ex:111
 msgid "Mail deleted successfully."
 msgstr "Mail erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:96
+#: lib/cforum_web/controllers/mail_controller.ex:102
 msgid "Mail successfully marked as unread."
 msgstr "Mail erfolgreich als ungelesen markiert."
 
@@ -1690,8 +1690,8 @@ msgid "recpient"
 msgstr "Empfänger"
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:47
-#: lib/cforum_web/controllers/mail_controller.ex:61
+#: lib/cforum_web/controllers/mail_controller.ex:53
+#: lib/cforum_web/controllers/mail_controller.ex:67
 msgid "you"
 msgstr "du"
 
@@ -1991,7 +1991,7 @@ msgid "remove user"
 msgstr "Benutzer entfernen"
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/user_controller.ex:26
+#: lib/cforum_web/controllers/admin/user_controller.ex:29
 msgid "The user has been created successfully."
 msgstr "Der Thread wurde erfolgreich wiederhergestellt."
 
@@ -2520,17 +2520,17 @@ msgid "HTTP status code"
 msgstr "HTTP-Statuscode"
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/redirection_controller.ex:24
+#: lib/cforum_web/controllers/admin/redirection_controller.ex:27
 msgid "Redirection created successfully."
 msgstr "Weiterleitung erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/redirection_controller.ex:57
+#: lib/cforum_web/controllers/admin/redirection_controller.ex:60
 msgid "Redirection deleted successfully."
 msgstr "Weiterleitung erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/redirection_controller.ex:44
+#: lib/cforum_web/controllers/admin/redirection_controller.ex:47
 msgid "Redirection updated successfully."
 msgstr "Weiterleitung erfolgreich geändert."
 
@@ -2591,22 +2591,22 @@ msgid "found multiple threads with this thread id"
 msgstr "Es wurden mehrere Threads mit der gleichen ID gefunden"
 
 #, elixir-format
-#: lib/cforum_web/controllers/tag_controller.ex:94
+#: lib/cforum_web/controllers/tag_controller.ex:98
 msgid "Tag %{old_tag} got successfully merged to tag %{new_tag}"
 msgstr "Das Tag „%{old_tag}“ wurde erfolgreich mit dem Tag „%{new_tag}“ zusammengeführt."
 
 #, elixir-format
-#: lib/cforum_web/controllers/tag_controller.ex:50
+#: lib/cforum_web/controllers/tag_controller.ex:54
 msgid "Tag created successfully."
 msgstr "Tag erfolgreich erstellt."
 
 #, elixir-format
-#: lib/cforum_web/controllers/tag_controller.ex:113
+#: lib/cforum_web/controllers/tag_controller.ex:117
 msgid "Tag deleted successfully."
 msgstr "Tag erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/tag_controller.ex:70
+#: lib/cforum_web/controllers/tag_controller.ex:74
 msgid "Tag updated successfully."
 msgstr "Tag erfolgreich geändert."
 
@@ -2885,14 +2885,14 @@ msgstr "Übersicht – %{forum}"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:25
-#: lib/cforum_web/views/layout_view.ex:200
+#: lib/cforum_web/views/layout_view.ex:204
 msgid "administrative view"
 msgstr "Administrator-Ansicht"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:19
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:21
-#: lib/cforum_web/views/layout_view.ex:199
+#: lib/cforum_web/views/layout_view.ex:203
 msgid "normal view"
 msgstr "Administrator-Ansicht deaktivieren"
 
@@ -2905,17 +2905,17 @@ msgid "statistics"
 msgstr "Statistiken"
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/event_controller.ex:25
+#: lib/cforum_web/controllers/admin/event_controller.ex:30
 msgid "Event created successfully."
 msgstr "Ereignis erfolgreich erstellt."
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/event_controller.ex:58
+#: lib/cforum_web/controllers/admin/event_controller.ex:63
 msgid "Event deleted successfully."
 msgstr "Ereignis erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/event_controller.ex:45
+#: lib/cforum_web/controllers/admin/event_controller.ex:50
 msgid "Event updated successfully."
 msgstr "Ereignis erfolgreich geändert."
 
@@ -3103,7 +3103,7 @@ msgid "(unknown)"
 msgstr "(unbekannt)"
 
 #, elixir-format
-#: lib/cforum_web/controllers/events/attendee_controller.ex:45
+#: lib/cforum_web/controllers/events/attendee_controller.ex:46
 msgid "Attendee deleted successfully."
 msgstr "Teilnehmer erfolgreich gelöscht."
 
@@ -3113,32 +3113,32 @@ msgid "Be aware of the scoring rules!"
 msgstr "Beachten Sie die <a href=\"https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Bewertungsregeln\">Bewertungsregeln</a> und die <a href=\"https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Rechte\">Rechte</a>, die erworben werden können!"
 
 #, elixir-format
-#: lib/cforum_web/controllers/cite_controller.ex:26
+#: lib/cforum_web/controllers/cite_controller.ex:28
 msgid "Cite created successfully."
 msgstr "Zitat erfolgreich erstellt."
 
 #, elixir-format
-#: lib/cforum_web/controllers/cite_controller.ex:64
+#: lib/cforum_web/controllers/cite_controller.ex:66
 msgid "Cite deleted successfully."
 msgstr "Zitat erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/cite_controller.ex:51
+#: lib/cforum_web/controllers/cite_controller.ex:53
 msgid "Cite updated successfully."
 msgstr "Zitat erfolgreich geändert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/accept_controller.ex:14
+#: lib/cforum_web/controllers/messages/accept_controller.ex:19
 msgid "Message has successfully been accepted as a solving answer"
 msgstr "Der Beitrag wurde erfolgreich als Lösung akzeptiert"
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/flag_controller.ex:19
+#: lib/cforum_web/controllers/messages/flag_controller.ex:23
 msgid "Message has successfully been flagged."
 msgstr "Der Beitrag wurde erfolgreich gemeldet."
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/accept_controller.ex:22
+#: lib/cforum_web/controllers/messages/accept_controller.ex:27
 msgid "Message has successfully been unaccepted as a solving answer"
 msgstr "Der Beitrag wird nicht länger als Lösung akzeptiert"
 
@@ -3149,7 +3149,7 @@ msgid "Message is off topic."
 msgstr "Der Beitrag ist außerhalb des durch dieses Forum abgedeckten Themenbereichs."
 
 #, elixir-format
-#: lib/cforum_web/controllers/moderation_controller.ex:68
+#: lib/cforum_web/controllers/moderation_controller.ex:72
 msgid "Moderation case successfully solved."
 msgstr "Der Moderations-Fall wurde erfolgreich als geklärt markiert."
 
@@ -3164,19 +3164,19 @@ msgid "Steinfurt"
 msgstr "Steinfurt"
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/vote_controller.ex:33
+#: lib/cforum_web/controllers/messages/vote_controller.ex:41
 msgid "Successfully downvoted message"
 msgstr "Der Beitrag wurde erfolgreich negativ bewertet"
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/open_close_vote_controller.ex:52
-#: lib/cforum_web/controllers/messages/vote_controller.ex:15
-#: lib/cforum_web/controllers/messages/vote_controller.ex:30
+#: lib/cforum_web/controllers/messages/open_close_vote_controller.ex:57
+#: lib/cforum_web/controllers/messages/vote_controller.ex:21
+#: lib/cforum_web/controllers/messages/vote_controller.ex:38
 msgid "Successfully took back vote"
 msgstr "Die Wahl wurde erfolgreich zurück genommen"
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/vote_controller.ex:18
+#: lib/cforum_web/controllers/messages/vote_controller.ex:24
 msgid "Successfully upvoted message"
 msgstr "Der Beitrag wurde erfolgreich positiv bewertet"
 
@@ -3197,12 +3197,12 @@ msgid "URL of the original message"
 msgstr "URL des Original-Beitrags"
 
 #, elixir-format
-#: lib/cforum_web/controllers/events/attendee_controller.ex:16
+#: lib/cforum_web/controllers/events/attendee_controller.ex:17
 msgid "You registered successfully."
 msgstr "Sie haben sich erfolgreich am Ereignis angemeldet."
 
 #, elixir-format
-#: lib/cforum_web/controllers/events/attendee_controller.ex:33
+#: lib/cforum_web/controllers/events/attendee_controller.ex:34
 msgid "Your registration was successfully updated."
 msgstr "Ihre Anmeldung wurde erfolgreich geändert."
 
@@ -3812,7 +3812,7 @@ msgid "number of users"
 msgstr "Anzahl Benutzer"
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/open_close_vote_controller.ex:21
+#: lib/cforum_web/controllers/messages/open_close_vote_controller.ex:26
 msgid "Close vote has successfully been created."
 msgstr "Die Entsperr-Abstimmung wurde erfolgreich erstellt."
 
@@ -3839,7 +3839,7 @@ msgid "Message and answers should be deleted."
 msgstr "Der Beitrag und die folgenden Antworten werden gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/open_close_vote_controller.ex:38
+#: lib/cforum_web/controllers/messages/open_close_vote_controller.ex:43
 msgid "Reopen vote has successfully been created."
 msgstr "Die Entsperr-Abstimmung wurde erfolgreich erstellt."
 
@@ -3854,7 +3854,7 @@ msgid "Start an open vote"
 msgstr "Entsperr-Abstimmung erstellen"
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/open_close_vote_controller.ex:55
+#: lib/cforum_web/controllers/messages/open_close_vote_controller.ex:60
 msgid "Successfully voted"
 msgstr "Erfolgreich abgestimmt."
 
@@ -3925,17 +3925,17 @@ msgid "%{count} search results"
 msgstr "%{count} Suchergebnisse"
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/search_section_controller.ex:22
+#: lib/cforum_web/controllers/admin/search_section_controller.ex:23
 msgid "Search section created successfully."
 msgstr "Such-Sektion erfolgreich erstellt."
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/search_section_controller.ex:55
+#: lib/cforum_web/controllers/admin/search_section_controller.ex:56
 msgid "Search section deleted successfully."
 msgstr "Such-Sektion erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/search_section_controller.ex:42
+#: lib/cforum_web/controllers/admin/search_section_controller.ex:43
 msgid "Search section updated successfully."
 msgstr "Such-Sektion erfolgreich geändert."
 
@@ -4008,7 +4008,7 @@ msgid "is unknown"
 msgstr "ist unbekannt"
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:65
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:61
 msgid "A comma separated list of poster names"
 msgstr "Eine Komma-separierte Liste von Autoren-Namen"
 
@@ -4019,7 +4019,7 @@ msgid "close"
 msgstr "schließen"
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:63
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:59
 msgid "highlighted users"
 msgstr "hervorgehobene Benutzer"
 
@@ -4064,12 +4064,12 @@ msgid "%{nick} mentioned you in a new message: “%{subject}”"
 msgstr "%{nick} hat Sie in einer neuen Beitrag „%{subject}“ erwähnt"
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/admin_controller.ex:37
+#: lib/cforum_web/controllers/messages/admin_controller.ex:40
 msgid "Answering is now allowed."
 msgstr "Antworten auf diese Beiträge ist nun erlaubt."
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/admin_controller.ex:29
+#: lib/cforum_web/controllers/messages/admin_controller.ex:32
 msgid "Answering is now forbidden."
 msgstr "Antworten auf diese Beiträge ist nun verboten."
 
@@ -4079,13 +4079,13 @@ msgid "Edit versions of message „%{subject}“"
 msgstr "Versions-Historie des Beitrags „%{subject}“"
 
 #, elixir-format
-#: lib/cforum_web/controllers/image_controller.ex:45
+#: lib/cforum_web/controllers/image_controller.ex:48
 msgid "Image deleted successfully."
 msgstr "Medaille erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/admin_controller.ex:13
-#: lib/cforum_web/controllers/messages/admin_controller.ex:21
+#: lib/cforum_web/controllers/messages/admin_controller.ex:16
+#: lib/cforum_web/controllers/messages/admin_controller.ex:24
 msgid "Message was successfully deleted."
 msgstr "Der Beitrag wurde erfolgreich gemeldet."
 
@@ -4096,12 +4096,12 @@ msgid "Move thread to a different forum."
 msgstr "Bewege diesen Thread in ein anderes Forum."
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/admin_controller.ex:21
+#: lib/cforum_web/controllers/threads/admin_controller.ex:24
 msgid "Sticky mark has successfully been removed."
 msgstr "Der Thread ist nicht länger angepinnt."
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/admin_controller.ex:13
+#: lib/cforum_web/controllers/threads/admin_controller.ex:16
 msgid "Thread has successfully been marked as sticky."
 msgstr "Der Thread wurde erfolgreich angepinnt."
 
@@ -4118,7 +4118,7 @@ msgid "Thread is currently not marked sticky. Mark it."
 msgstr "Dieser Thread ist zur Zeit nicht angepinnt. Pinne ihn an."
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/admin_controller.ex:37
+#: lib/cforum_web/controllers/threads/admin_controller.ex:40
 msgid "Thread will be archived."
 msgstr "Dieser Thread wird archiviert."
 
@@ -4135,7 +4135,7 @@ msgid "Thread will currently not be archived. Archive it."
 msgstr "Dieser Thread wird zur Zeit nicht archiviert. Archivierung wieder einschalten."
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/admin_controller.ex:29
+#: lib/cforum_web/controllers/threads/admin_controller.ex:32
 msgid "Thread will get deleted on archiving."
 msgstr "Dieser Thread wird bei Archivierung gelöscht."
 
@@ -4203,7 +4203,7 @@ msgid "Please specify at least %{num} tags"
 msgstr "Bitte geben Sie mindestens %{num} Tags an"
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/retag_controller.ex:27
+#: lib/cforum_web/controllers/messages/retag_controller.ex:28
 msgid "Message has successfully been retagged."
 msgstr "Der Beitrag wurde erfolgreich neu verschlagwortet."
 
@@ -4233,7 +4233,7 @@ msgid "Move thread %{subject} by %{author}"
 msgstr "Thread „%{subject}“ von %{author} verschieben"
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/admin_controller.ex:50
+#: lib/cforum_web/controllers/threads/admin_controller.ex:53
 msgid "Thread has successfully been moved."
 msgstr "Der Thread wurde erfolgreich verschoben."
 
@@ -4249,7 +4249,7 @@ msgid "Split thread at message %{subject} by %{author}"
 msgstr "Thread bei Beitrag „%{subject}“ von %{autor} teilen"
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/admin_controller.ex:73
+#: lib/cforum_web/controllers/threads/admin_controller.ex:76
 msgid "Thread was successfully split."
 msgstr "Der Thread wurde erfolgreich geteilt."
 
@@ -4295,7 +4295,7 @@ msgid "help & support"
 msgstr "Hilfe & Unterstützung"
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/version_controller.ex:17
+#: lib/cforum_web/controllers/messages/version_controller.ex:20
 msgid "Message version deleted successfully."
 msgstr "Die Version wurde erfolgreich gelöscht."
 
@@ -4320,17 +4320,17 @@ msgid "no message version found."
 msgstr "keine Versionen gefunden"
 
 #, elixir-format
-#: lib/cforum_web/controllers/notification_controller.ex:76
+#: lib/cforum_web/controllers/notification_controller.ex:80
 msgid "Notifications have successfully been deleted."
 msgstr "Die Benachrichtigungen wurden erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/notification_controller.ex:59
+#: lib/cforum_web/controllers/notification_controller.ex:63
 msgid "Notifications successfully marked as read."
 msgstr "Die Benachrichtigungen wurden erfolgreich als gelesen markiert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/notification_controller.ex:62
+#: lib/cforum_web/controllers/notification_controller.ex:66
 msgid "Notifications successfully marked as unread."
 msgstr "Die Benachrichtigungen wurden erfolgreich als ungelesen markiert."
 
@@ -4412,12 +4412,12 @@ msgid "mark all messages read"
 msgstr "markiere alle Beiträge als gelesen"
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/mark_read_controller.ex:53
+#: lib/cforum_web/controllers/messages/mark_read_controller.ex:55
 msgid "All messages on this page have successfully been marked as read."
 msgstr "Alle Beiträge auf dieser Seite wurden erfolgreich als gelesen markiert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/mark_read_controller.ex:23
+#: lib/cforum_web/controllers/messages/mark_read_controller.ex:25
 msgid "Thread has successfully been marked as read."
 msgstr "Der Thread wurde erfolgreich als gelesen markiert."
 
@@ -4441,7 +4441,7 @@ msgstr "letzter Besuch"
 msgid "notify me via email on flagged messages"
 msgstr "benachrichtige mich via Email über gemeldete Nachrichten"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/notification_mailer/moderation_mail.html.eex:10
 #: lib/cforum_web/templates/notification_mailer/moderation_mail.text.eex:9
 msgid "Best regards"
@@ -4449,7 +4449,7 @@ msgstr ""
 "Freundliche Grüße,\n"
 "  SELFHTML\n"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/notification_mailer/moderation_mail.html.eex:1
 #: lib/cforum_web/templates/notification_mailer/moderation_mail.text.eex:1
 msgid "Hi there"
@@ -4469,3 +4469,8 @@ msgstr "Die Nachricht „%{subject} wurde gemeldet."
 #: lib/cforum_web/mailers/notification_mailer.ex:40
 msgid "new moderation queue entry: %{subject}"
 msgstr "die Nachricht „%{subject}“ wurde gemeldet"
+
+#, elixir-format
+#: lib/cforum_web/views/admin/auditing_view_l10n.ex:152
+msgid "auditing: moderation_queue: update"
+msgstr "Moderations-Eintrag geklärt"
