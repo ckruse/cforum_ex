@@ -29,7 +29,7 @@ defmodule CforumWeb.Views.Helpers do
   end
 
   def format_date(conn, date, format \\ "date_format_default"),
-    do: Timex.format!(date, date_format(conn, format), :strftime)
+    do: Timex.format!(Timex.local(date), date_format(conn, format), :strftime)
 
   @doc """
   Returns true if a key in a changeset is blank or equal to a specified value. Helper for
