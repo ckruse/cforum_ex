@@ -78,7 +78,7 @@ defmodule CforumWeb.RedirectorController do
         redirect(conn, to: Path.message_path(conn, :show, thread, message))
 
       _ ->
-        raise(Phoenix.ActionClauseError, message: "no suitable action found")
+        raise(Phoenix.Router.NoRouteError, conn: conn, router: CforumWeb.Router)
     end
   end
 
