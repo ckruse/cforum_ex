@@ -71,8 +71,16 @@ defmodule Cforum.Accounts.Badges do
     |> Repo.preload(badges_users: :user)
   end
 
-  def get_badge_by(clauses) do
-    Repo.get_by(Badge, clauses)
+  def get_badge_by(clauses, opts \\ []) do
+    Badge
+    |> Repo.get_by(clauses)
+    |> Repo.maybe_preload(opts[:with])
+  end
+
+  def get_badge_by!(clauses, opts \\ []) do
+    Badge
+    |> Repo.get_by!(clauses)
+    |> Repo.maybe_preload(opts[:with])
   end
 
   @doc """
