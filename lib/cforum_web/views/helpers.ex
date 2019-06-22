@@ -204,4 +204,11 @@ defmodule CforumWeb.Views.Helpers do
 
     Map.merge(local_args, args)
   end
+
+  def send_404(conn) do
+    conn
+    |> Plug.Conn.put_status(:not_found)
+    |> Phoenix.Controller.put_view(CforumWeb.ErrorView)
+    |> Phoenix.Controller.render("404.html")
+  end
 end

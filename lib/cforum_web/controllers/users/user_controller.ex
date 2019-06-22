@@ -15,6 +15,7 @@ defmodule CforumWeb.Users.UserController do
 
   alias CforumWeb.Sortable
   alias CforumWeb.Paginator
+  alias CforumWeb.Views.Helpers, as: VHelpers
 
   def index(conn, params) do
     {sort_params, conn} = Sortable.sort_collection(conn, [:username, :score, :activity, :created_at])
@@ -89,6 +90,9 @@ defmodule CforumWeb.Users.UserController do
       description: Users.conf(user, "description"),
       scored_msgs: scored_msgs
     )
+  rescue
+    Ecto.NoResultsError ->
+      VHelpers.send_404(conn)
   end
 
   def show_messages(conn, %{"id" => id} = params) do
@@ -113,6 +117,9 @@ defmodule CforumWeb.Users.UserController do
       messages: messages,
       paging: paging
     )
+  rescue
+    Ecto.NoResultsError ->
+      VHelpers.send_404(conn)
   end
 
   def show_scores(conn, %{"id" => id} = params) do
@@ -144,6 +151,9 @@ defmodule CforumWeb.Users.UserController do
       paging: paging,
       scores: scores
     )
+  rescue
+    Ecto.NoResultsError ->
+      VHelpers.send_404(conn)
   end
 
   def show_votes(conn, %{"id" => id} = params) do
@@ -168,6 +178,9 @@ defmodule CforumWeb.Users.UserController do
       paging: paging,
       votes: votes
     )
+  rescue
+    Ecto.NoResultsError ->
+      VHelpers.send_404(conn)
   end
 
   def edit(conn, %{"id" => id}) do
