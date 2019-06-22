@@ -8,6 +8,14 @@
   </div>
 
   <%= if show_tree?(@thread, @conn.assigns[:view_all]) do %>
-    <%= CforumWeb.MessageView.message_tree(@conn, @thread, @thread.tree, @thread.tree.messages) %>
+    <%= CforumWeb.MessageView.message_tree(
+          @conn,
+          @thread,
+          @thread.tree,
+          @thread.tree.messages,
+          hide_repeating_subjects: ConfigManager.uconf(@conn, "hide_subjects_unchanged") == "yes",
+          hide_repeating_tags: ConfigManager.uconf(@conn, "hide_repeating_tags") == "yes",
+          parent_subscribed: @thread.message.attribs[:is_subscribed]
+        ) %>
   <% end %>
 </article>
