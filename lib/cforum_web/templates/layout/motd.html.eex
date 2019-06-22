@@ -1,7 +1,7 @@
 <%= if Helpers.present?(assigns[:motds]) do %>
   <aside class="cf-motd-list">
     <%= for motd <- @motds do %>
-      <div class="cf-motd"><%= motd %></div>
+      <div class="cf-motd"><%= Cforum.MarkdownRenderer.to_html(motd) %></div>
     <% end %>
   </aside>
 <% end %>
