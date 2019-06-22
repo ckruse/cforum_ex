@@ -95,7 +95,7 @@ defmodule CforumWeb.ModerationController do
 
   def allowed?(conn, action, entry) when action in [:edit, :update] do
     entry = entry || conn.assigns[:entry]
-    Abilities.access_forum?(conn.assigns.current_user, entry.message.forum, :moderate) && entry.cleared == false
+    Abilities.access_forum?(conn.assigns.current_user, entry.message.thread.forum, :moderate) && entry.cleared == false
   end
 
   def allowed?(conn, :show, entry) do
