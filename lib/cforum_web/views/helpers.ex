@@ -29,7 +29,12 @@ defmodule CforumWeb.Views.Helpers do
   end
 
   def local_date(date) do
-    case Timex.local(date) do
+    val =
+      date
+      |> Timex.to_datetime(:utc)
+      |> Timex.to_datetime(Timex.Timezone.Local.lookup())
+
+    case val do
       %Timex.AmbiguousDateTime{after: val} -> val
       val -> val
     end
