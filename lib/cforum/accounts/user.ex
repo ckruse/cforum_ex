@@ -66,7 +66,7 @@ defmodule Cforum.Accounts.User do
     ])
     |> cast_assoc(:settings)
     |> cast_attachments(params, [:avatar_file_name])
-    |> validate_required([:username, :email, :admin, :active])
+    |> validate_required([:username, :email])
     |> unique_constraint(:username, name: :users_username_idx)
     |> unique_constraint(:email, name: :users_email_idx)
     |> unique_constraint(:unconfirmed_email)
