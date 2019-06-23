@@ -1,5 +1,8 @@
 defmodule Cforum.MessagesTest do
   use Cforum.DataCase
+  use Bamboo.Test
+
+  import CforumWeb.Gettext
 
   alias Cforum.Messages
   alias Cforum.Messages.Message
@@ -368,6 +371,64 @@ defmodule Cforum.MessagesTest do
 
       assert thread.tree.flags["no-answer"] == "yes"
       assert List.first(thread.tree.messages).flags["no-answer"] == "yes"
+    end
+  end
+
+  describe "notifications" do
+    alias Cforum.Accounts.Notifications
+
+    test "sends a mention notification when unconfigured", %{user: user, thread: thread, forum: forum, tag: tag} do
+      params = string_params_for(:message, tags: [tag.tag_name], content: "foo bar baz\n@#{user.username}")
+
+      assert {:ok, %Message{} = message} = Messages.create_message(params, nil, [forum], thread)
+
+      notifications = Notifications.list_notifications(user)
+      assert length(notifications) == 1
+
+      n = List.first(notifications)
+      assert n.otype == "message:mention"
+    end
+
+    test "sends a mention notification when configured", %{user: user, thread: thread, forum: forum, tag: tag} do
+      insert(:setting, user: user, options: %{"notify_on_mention" => "yes"})
+      params = string_params_for(:message, tags: [tag.tag_name], content: "foo bar baz\n@#{user.username}")
+
+      assert {:ok, %Message{} = message} = Messages.create_message(params, nil, [forum], thread)
+
+      notifications = Notifications.list_notifications(user)
+      assert length(notifications) == 1
+
+      n = List.first(notifications)
+      assert n.otype == "message:mention"
+    end
+
+    test "doesn't send a mention notification when configured", %{user: user, thread: thread, forum: forum, tag: tag} do
+      insert(:setting, user: user, options: %{"notify_on_mention" => "no"})
+      params = string_params_for(:message, tags: [tag.tag_name], content: "foo bar baz\n@#{user.username}")
+
+      assert {:ok, %Message{} = message} = Messages.create_message(params, nil, [forum], thread)
+
+      notifications = Notifications.list_notifications(user)
+      assert length(notifications) == 0
+    end
+
+    test "sends an email notification", %{user: user, thread: thread, forum: forum, tag: tag} do
+      insert(:setting, user: user, options: %{"notify_on_mention" => "email"})
+      params = string_params_for(:message, tags: [tag.tag_name], content: "foo bar baz\n@#{user.username}")
+
+      assert {:ok, %Message{} = message} = Messages.create_message(params, nil, [forum], thread)
+
+      notifications = Notifications.list_notifications(user)
+      assert length(notifications) == 1
+
+      n = List.first(notifications)
+      assert n.otype == "message:mention"
+
+      subject =
+        gettext("%{nick} mentioned you in a new message: “%{subject}”", subject: message.subject, nick: message.author)
+
+      expected_mail = CforumWeb.NotificationMailer.new_notification_mail(user, thread, message, subject)
+      assert_delivered_email(expected_mail)
     end
   end
 end
