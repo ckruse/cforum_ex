@@ -45,6 +45,11 @@ const insertRenderedThread = (thread, message, html) => {
 
 const autoloadMessage = ev => {
   const { thread, message, forum } = ev.detail.data;
+
+  if (!["all", forum.slug].includes(document.body.dataset.currentForum)) {
+    return;
+  }
+
   const slug = document.body.dataset.currentForum === "all" ? "all" : forum.slug;
 
   NEW_MESSAGES.push(message.message_id);
