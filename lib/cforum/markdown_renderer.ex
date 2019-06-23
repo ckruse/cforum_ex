@@ -94,18 +94,25 @@ defmodule Cforum.MarkdownRenderer do
     :poolboy.transaction(pool_name(), fn pid -> :gen_server.call(pid, {:render_plain, markdown}) end)
   end
 
+  defp start_new_proc() do
+    conf = Application.get_env(:cforum, :cfmarkdown)
+
+    cli =
+      if conf[:pwd],
+        do: "cd #{conf[:pwd]} && #{conf[:cli]}",
+        else: conf[:cli]
+
+    Porcelain.spawn_shell(cli, in: :receive, out: :stream)
+  end
+
+  defp ensure_proc(nil), do: start_new_proc()
+
   defp ensure_proc(proc) do
-    if !is_nil(proc) && Proc.alive?(proc) do
+    if Proc.alive?(proc) do
       proc
     else
-      conf = Application.get_env(:cforum, :cfmarkdown)
-
-      cli =
-        if conf[:pwd],
-          do: "cd #{conf[:pwd]} && #{conf[:cli]}",
-          else: conf[:cli]
-
-      Porcelain.spawn_shell(cli, in: :receive, out: :stream)
+      Proc.stop(proc)
+      start_new_proc()
     end
   end
 
