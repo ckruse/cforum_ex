@@ -115,7 +115,12 @@ defmodule Cforum.Messages.NotifyUsersMessageJob do
   defp notify_user_mention(user, thread, message) do
     settings = Settings.get_setting_for_user(user)
     notify_type = Cforum.ConfigManager.conf(settings, "notify_on_mention")
+    send_mention_notification(user, thread, message, notify_type)
+  end
 
+  defp send_mention_notification(_user, _thread, _message, "no"), do: nil
+
+  defp send_mention_notification(user, thread, message, notify_type) do
     subject =
       gettext("%{nick} mentioned you in a new message: “%{subject}”", subject: message.subject, nick: message.author)
 
