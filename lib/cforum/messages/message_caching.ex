@@ -34,10 +34,12 @@ defmodule Cforum.Messages.MessageCaching do
       |> Repo.preload(Message.default_preloads())
 
     Caching.update(:cforum, :threads, fn threads ->
-      {_, thread} = Enum.find(threads, fn {_, thread} -> thread.thread_id == msg.thread_id end)
-      thread = replace_message(thread, msg)
-
-      Map.put(threads, thread.slug, thread)
+      with {_, thread} <- Enum.find(threads, fn {_, thread} -> thread.thread_id == msg.thread_id end) do
+        thread = replace_message(thread, msg)
+        Map.put(threads, thread.slug, thread)
+      else
+        _ -> threads
+      end
     end)
   end
 
