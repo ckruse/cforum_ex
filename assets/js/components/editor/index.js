@@ -34,6 +34,13 @@ class CfEditor extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.textarea.current.focus();
+    const found = this.state.value.indexOf("\n\n");
+    const pos = found === -1 ? 0 : found + 2;
+    this.textarea.current.selectionStart = this.textarea.current.selectionEnd = pos;
+  }
+
   valueChanged(ev) {
     this.setValue(ev.target.value);
   }
