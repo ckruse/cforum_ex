@@ -132,6 +132,7 @@ defmodule Cforum.Threads do
         Map.update(map, msg.parent_id, [msg], fn msgs -> [msg | msgs] end)
       end)
       |> Map.get(nil)
+      |> ensure_found!()
       |> hd
 
     thread
