@@ -1,3 +1,3 @@
 defmodule Cforum.Scheduler do
-  use Quantum.Scheduler, otp_app: :your_app
+  use Quantum.Scheduler, otp_app: :cforum
 end
