@@ -2881,7 +2881,7 @@ msgstr "zeige alle Threads"
 #, elixir-format
 #: lib/cforum_web/views/thread_view.ex:29
 msgid "overview – %{forum}"
-msgstr "Übersicht – %{forum}"
+msgstr "%{forum} – Übersicht"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:25
