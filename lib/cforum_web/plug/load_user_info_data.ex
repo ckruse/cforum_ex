@@ -14,8 +14,9 @@ defmodule CforumWeb.Plug.LoadUserInfoData do
 
   def init(opts), do: opts
 
-  def call(%{assigns: %{current_user: user, is_moderator: is_mod}} = conn, _opts) when not is_nil(user) do
-    {num_threads, num_messages} = ReadMessages.count_unread_messages(user)
+  def call(%{assigns: %{current_user: user, is_moderator: is_mod, visible_forums: forums}} = conn, _opts)
+      when not is_nil(user) do
+    {num_threads, num_messages} = ReadMessages.count_unread_messages(user, forums)
     undeceided_cites = Cites.count_undecided_cites(user)
 
     undecided_moderation_queue_entries =
