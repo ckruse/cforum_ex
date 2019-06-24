@@ -69,6 +69,8 @@ defmodule Cforum.Messages.HighlightsHelper do
       <<v::utf8>> = c
       v < 32 || v > 255
     end) != nil
+  rescue
+    _ -> true
   end
 
   defp apply_suspicious(message, false), do: message
