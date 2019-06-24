@@ -31,7 +31,7 @@
     <%= render "footer.html", assigns %>
 
     <script>window.userToken = "<%= assigns[:user_token] %>";</script>
-    <script src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+    <script src="<%= Routes.static_path(@conn, "/js/app.js") %>" data-manual></script>
     <%= own_js_file(@conn) %>
     <%= own_js(@conn) %>
 
