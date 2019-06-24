@@ -14,7 +14,8 @@ defmodule Cforum.Search.Query do
   @typep section :: :author | :title | :content | :tags | :all
   @typep term_type :: :include | :exclude | nil
 
-  @spec parse(String.t()) :: %Query{}
+  @spec parse(String.t() | nil) :: %Query{}
+  def parse(nil), do: %Query{}
   def parse(search_string), do: parse_search_terms(skip_whitespaces(search_string))
 
   @spec parse_search_terms(String.t() | nil, %Query{}, section(), term_type()) :: %Query{}
