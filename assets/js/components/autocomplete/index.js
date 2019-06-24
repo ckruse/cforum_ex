@@ -7,17 +7,15 @@ const IGNORED_KEYS = ["Control", "Meta", "Alt", "Shift", "ArrowUp", "ArrowDown",
 const NAV_KEYS = ["ArrowUp", "ArrowDown"];
 const TRIGGER_KEYS = ["Tab", "Enter"];
 
-export default class AutocompleteTextarea extends React.Component {
+class AutocompleteTextarea extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = { suggestions: [], matching: [], active: null };
-    this.textarea = null;
 
     this.handleKeyUp = this.handleKeyUp.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.onTrigger = this.onTrigger.bind(this);
-    this.ref = this.ref.bind(this);
     this.handleSuggestions = this.handleSuggestions.bind(this);
   }
 
@@ -54,7 +52,7 @@ export default class AutocompleteTextarea extends React.Component {
   }
 
   triggerCompletion(matching, suggestion) {
-    const cursorPosition = this.textarea.selectionStart;
+    const cursorPosition = this.props.textarea.current.selectionStart;
     const currentSubstring = this.props.value.substring(0, cursorPosition);
     const rest = this.props.value.substring(cursorPosition);
     const matchData = currentSubstring.match(matching.trigger);
@@ -76,7 +74,7 @@ export default class AutocompleteTextarea extends React.Component {
       cursorPositionEnd = end;
     }
 
-    window.setTimeout(() => this.textarea.setSelectionRange(cursorPositionStart, cursorPositionEnd), 0);
+    window.setTimeout(() => this.props.textarea.current.setSelectionRange(cursorPositionStart, cursorPositionEnd), 0);
   }
 
   shouldComplete(event) {
@@ -103,7 +101,7 @@ export default class AutocompleteTextarea extends React.Component {
       if (shouldComplete !== false) {
         ev.preventDefault();
         this.resetSuggestions();
-        this.textarea.focus();
+        this.props.textarea.current.focus();
         const { matching, suggestion } = this.state.suggestions[shouldComplete];
         this.triggerCompletion(matching, suggestion);
       }
@@ -111,7 +109,7 @@ export default class AutocompleteTextarea extends React.Component {
 
     if (!IGNORED_KEYS.includes(ev.key)) {
       this.resetSuggestions();
-      this.textarea.focus();
+      this.props.textarea.current.focus();
     }
   }
 
@@ -121,7 +119,7 @@ export default class AutocompleteTextarea extends React.Component {
     }
 
     const triggers = this.props.triggers;
-    const cursorPosition = this.textarea.selectionStart;
+    const cursorPosition = this.props.textarea.current.selectionStart;
     const currentSubstring = this.props.value.substring(0, cursorPosition);
 
     const matching = triggers.filter(trg => currentSubstring.match(trg.trigger));
@@ -145,13 +143,8 @@ export default class AutocompleteTextarea extends React.Component {
     event.preventDefault();
 
     this.resetSuggestions();
-    this.textarea.focus();
+    this.props.textarea.current.focus();
     this.triggerCompletion(matching, suggestion);
-  }
-
-  ref(ref) {
-    this.textarea = ref;
-    if (this.props.innerRef) this.props.innerRef(ref);
   }
 
   render() {
@@ -159,7 +152,7 @@ export default class AutocompleteTextarea extends React.Component {
       <div className="cf-autocomplete-wrapper">
         <textarea
           name={this.props.name}
-          ref={this.ref}
+          ref={this.props.textarea}
           value={this.props.value}
           onChange={this.props.onChange}
           onKeyUp={this.handleKeyUp}
@@ -169,7 +162,7 @@ export default class AutocompleteTextarea extends React.Component {
           <SuggestionsList
             suggestions={this.state.suggestions}
             // matching={this.state.matching}
-            textarea={this.textarea}
+            textarea={this.props.textarea}
             active={this.state.active}
             onKeyDown={this.handleKeyDown}
             onTrigger={this.onTrigger}
@@ -179,3 +172,5 @@ export default class AutocompleteTextarea extends React.Component {
     );
   }
 }
+
+export default React.forwardRef((props, ref) => <AutocompleteTextarea {...props} textarea={ref} />);

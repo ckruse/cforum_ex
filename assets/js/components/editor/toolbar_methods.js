@@ -12,7 +12,7 @@ import {
 } from "./helpers";
 
 export function addEmoji(emoji) {
-  const { start, end } = getSelection(this.props.textarea);
+  const { start, end } = getSelection(this.props.textarea.current);
   const val = replaceAt(this.props.value, emoji.native, start, end);
   const len = emoji.native.length;
 
@@ -24,43 +24,43 @@ export function togglePicker() {
 }
 
 export function toggleBold() {
-  const { start, end, len } = getSelection(this.props.textarea);
+  const { start, end, len } = getSelection(this.props.textarea.current);
   const { val, pos } = toggleInAccent(this.props.value, t("strong text"), "**", start, end, len);
   this.props.changeValue(val, { ...pos });
-  this.props.textarea.focus();
+  this.props.textarea.current.focus();
 }
 
 export function toggleItalic() {
-  const { start, end, len } = getSelection(this.props.textarea);
+  const { start, end, len } = getSelection(this.props.textarea.current);
   const { val, pos } = toggleInAccent(this.props.value, t("italic text"), "*", start, end, len);
   this.props.changeValue(val, { ...pos });
-  this.props.textarea.focus();
+  this.props.textarea.current.focus();
 }
 
 export function toggleStrikeThrough() {
-  const { start, end, len } = getSelection(this.props.textarea);
+  const { start, end, len } = getSelection(this.props.textarea.current);
   const { val, pos } = toggleInAccent(this.props.value, t("strike-through text"), "~~", start, end, len);
   this.props.changeValue(val, { ...pos });
-  this.props.textarea.focus();
+  this.props.textarea.current.focus();
 }
 
 export function toggleHeader() {
-  const { start, end } = getSelection(this.props.textarea);
+  const { start, end } = getSelection(this.props.textarea.current);
   const { val, pos } = insertBlockAtFirstNewline(this.props.value, start, end, "# ", /^\s*(#+\s?)/);
   this.props.changeValue(val, { ...pos });
-  this.props.textarea.focus();
+  this.props.textarea.current.focus();
 }
 
 export function toggleCite() {
-  const { start, end } = getSelection(this.props.textarea);
+  const { start, end } = getSelection(this.props.textarea.current);
   const { val, pos } = insertBlockAtFirstNewline(this.props.value, start, end, "> ", /^\s*(>\s?)+/);
   this.props.changeValue(val, { ...pos });
-  this.props.textarea.focus();
+  this.props.textarea.current.focus();
 }
 
 export function toggleUl() {
-  const selected = getSelectedText(this.props.textarea);
-  const { start, end } = getSelection(this.props.textarea);
+  const selected = getSelectedText(this.props.textarea.current);
+  const { start, end } = getSelection(this.props.textarea.current);
   let chunk, cursorPos, cursorEnd;
 
   if (selected.length === 0) {
@@ -95,12 +95,12 @@ export function toggleUl() {
   }
 
   this.props.changeValue(replaceAt(this.props.value, chunk, start, end), { start: cursorPos, end: cursorEnd });
-  this.props.textarea.focus();
+  this.props.textarea.current.focus();
 }
 
 export function toggleOl() {
-  const selected = getSelectedText(this.props.textarea);
-  const { start, end } = getSelection(this.props.textarea);
+  const selected = getSelectedText(this.props.textarea.current);
+  const { start, end } = getSelection(this.props.textarea.current);
   let chunk, cursorPos, cursorEnd;
 
   if (selected.length === 0) {
@@ -135,12 +135,12 @@ export function toggleOl() {
   }
 
   this.props.changeValue(replaceAt(this.props.value, chunk, start, end), { start: cursorPos, end: cursorEnd });
-  this.props.textarea.focus();
+  this.props.textarea.current.focus();
 }
 
 export function toggleCode() {
-  const selected = getSelectedText(this.props.textarea);
-  const { start, end } = getSelection(this.props.textarea);
+  const selected = getSelectedText(this.props.textarea.current);
+  const { start, end } = getSelection(this.props.textarea.current);
   const text = selected.length === 0 ? t("code here") : selected;
 
   const selectionIsCodeBlock = () =>
@@ -158,7 +158,7 @@ export function toggleCode() {
       start: cursor,
       end: cursor + text.length
     });
-    this.props.textarea.focus();
+    this.props.textarea.current.focus();
   };
 
   const createInlineCode = () => {
@@ -167,7 +167,7 @@ export function toggleCode() {
       start: cursor,
       end: cursor + text.length
     });
-    this.props.textarea.focus();
+    this.props.textarea.current.focus();
   };
 
   // Do something
@@ -190,7 +190,7 @@ export function toggleCode() {
 }
 
 export function addCodeBlockFromModal(lang, code) {
-  const { start, end } = getSelection(this.props.textarea);
+  const { start, end } = getSelection(this.props.textarea.current);
   const prefix = leadingNewlines(this.props.value, start);
   const chunk = prefix + `~~~ ${lang}\n${code}\n~~~`;
 
@@ -199,11 +199,11 @@ export function addCodeBlockFromModal(lang, code) {
     start: start + lang.length + 5,
     end: start + lang.length + 5 + code.length
   });
-  this.props.textarea.focus();
+  this.props.textarea.current.focus();
 }
 
 export function addLink() {
-  const text = getSelectedText(this.props.textarea);
+  const text = getSelectedText(this.props.textarea.current);
   this.setState({ linkModalVisible: true, linkText: text });
 }
 
@@ -220,24 +220,24 @@ export function addLinkFromModal(text, target) {
     link = `[${text}](${target})`;
   }
 
-  const { start, end } = getSelection(this.props.textarea);
+  const { start, end } = getSelection(this.props.textarea.current);
   this.setState({ linkModalVisible: false, linkText: "" });
 
   this.props.changeValue(replaceAt(this.props.value, link, start, end), {
     start: start + link.length,
     end: start + link.length
   });
-  this.props.textarea.focus();
+  this.props.textarea.current.focus();
 }
 
 export function hideLinkModal() {
   this.setState({ linkModalVisible: false, linkText: "" });
-  this.props.textarea.focus();
+  this.props.textarea.current.focus();
 }
 
 export function hideCodeModal() {
   this.setState({ codeModalVisible: false, code: "" });
-  this.props.textarea.focus();
+  this.props.textarea.current.focus();
 }
 
 export function hideImageModal() {

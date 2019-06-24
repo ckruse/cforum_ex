@@ -17,7 +17,7 @@ class CfEditor extends React.Component {
     super(props);
 
     this.state = { value: props.text, dragging: false, loading: false };
-    this.textarea = null;
+    this.textarea = React.createRef();
 
     this.valueChanged = this.valueChanged.bind(this);
     this.setValue = this.setValue.bind(this);
@@ -68,13 +68,13 @@ class CfEditor extends React.Component {
   fileUploadFinished(rsp, desc, title) {
     this.setState({ loading: false });
     if (rsp.status === "success") {
-      const { start, end } = getSelection(this.textarea);
+      const { start, end } = getSelection(this.textarea.current);
       const image = `[![${desc}](${rsp.location}?size=medium${title ? ' "' + title + '"' : ""})](${rsp.location})`;
       const value = replaceAt(this.state.value, image, start, end);
       this.setState({ value });
-      this.textarea.selectionStart = start;
-      this.textarea.selectionEnd = start + image.length;
-      this.textarea.focus();
+      this.textarea.current.selectionStart = start;
+      this.textarea.current.selectionEnd = start + image.length;
+      this.textarea.current.focus();
     } else {
       alertError(t("Oops, something went wrong!"));
     }
@@ -117,7 +117,7 @@ class CfEditor extends React.Component {
             onChange={this.valueChanged}
             onComplete={this.setValue}
             triggers={[DefaultReplacements, EmojiReplacements, SmileyReplacements, MentionsReplacements]}
-            innerRef={ref => (this.textarea = ref)}
+            ref={this.textarea}
           />
         </div>
 
