@@ -59,16 +59,20 @@ defmodule Cforum.Messages.ReadMessages do
   def count_unread_messages(user)
   def count_unread_messages(nil), do: {0, 0}
 
-  def count_unread_messages(user) do
+  def count_unread_messages(user, visible_forums) do
+    forum_ids = Enum.map(visible_forums, & &1.forum_id)
+
     from(
       msg in Message,
+      select: {fragment("COUNT(DISTINCT ?)", msg.thread_id), count("*")},
       inner_join: thr in assoc(msg, :thread),
       left_join: rm in ReadMessage,
       on: rm.message_id == msg.message_id and rm.user_id == ^user.user_id,
       left_join: inv in InvisibleThread,
       on: inv.thread_id == thr.thread_id and inv.user_id == ^user.user_id,
-      where: msg.deleted == false and thr.archived == false and is_nil(rm.message_id) and is_nil(inv.thread_id),
-      select: {fragment("COUNT(DISTINCT ?)", msg.thread_id), count("*")}
+      where: msg.deleted == false and thr.archived == false,
+      where: is_nil(rm.message_id) and is_nil(inv.thread_id),
+      where: msg.forum_id in ^forum_ids
     )
     |> Repo.one()
   end
