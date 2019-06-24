@@ -16,7 +16,7 @@ class LinkModal extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.linkText != this.props.linkText) {
+    if (prevProps.linkText !== this.props.linkText) {
       this.setState({ linkText: this.props.linkText, linkTarget: "" });
     }
   }
@@ -36,7 +36,10 @@ class LinkModal extends React.Component {
   }
 
   okPressed() {
-    this.props.onOk(this.state.linkText, this.state.linkTarget);
+    const { linkText, linkTarget } = this.state;
+    this.setState({ linkText: "", linkTarget: "" });
+
+    this.props.onOk(linkText, linkTarget);
   }
 
   render() {
