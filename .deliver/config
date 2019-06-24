@@ -67,11 +67,11 @@ pre_erlang_clean_compile() {
 }
 
 post_upgrade_release() {
-  key=$(cat secrets/api.key)
+  key=$(cat .deliver/secrets/api.key)
   curl -X POST -d "{\"revision\": \"$VERSION\", \"user\": \"ckruse\"}" "https://push.appsignal.com/1/markers?api_key=$key&name=SELFHTML+Forum+V5&environment=prod" >/dev/null
 }
 
 post_extract_release_archive() {
-  key=$(cat secrets/api.key)
+  key=$(cat .deliver/secrets/api.key)
   curl -X POST -d "{\"revision\": \"$VERSION\", \"user\": \"ckruse\"}" "https://push.appsignal.com/1/markers?api_key=$key&name=SELFHTML+Forum+V5&environment=prod" >/dev/null
 }
