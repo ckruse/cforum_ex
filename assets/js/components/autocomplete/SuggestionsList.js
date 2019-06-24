@@ -18,8 +18,23 @@ export default class SuggestionsList extends React.Component {
     }
   }
 
+  correctedPosition(coordinates) {
+    if (this.props.textarea.current.scrollLeft) {
+      coordinates.left = coordinates.left - this.props.textarea.current.scrollLeft;
+    }
+
+    if (this.props.textarea.current.scrollHeight) {
+      coordinates.top = coordinates.top - this.props.textarea.current.scrollTop;
+    }
+
+    return coordinates;
+  }
+
   render() {
-    const caret = getCaretCoordinates(this.props.textarea.current, this.props.textarea.current.selectionStart);
+    const caret = this.correctedPosition(
+      getCaretCoordinates(this.props.textarea.current, this.props.textarea.current.selectionEnd)
+    );
+
     const top = caret.top + caret.height + 5;
 
     return (
