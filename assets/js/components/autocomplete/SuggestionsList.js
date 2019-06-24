@@ -19,7 +19,7 @@ export default class SuggestionsList extends React.Component {
   }
 
   render() {
-    const caret = getCaretCoordinates(this.props.textarea, this.props.textarea.selectionStart);
+    const caret = getCaretCoordinates(this.props.textarea.current, this.props.textarea.current.selectionStart);
     const top = caret.top + caret.height + 5;
 
     return (
