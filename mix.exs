@@ -72,7 +72,7 @@ defmodule Cforum.Mixfile do
       {:dialyxir, "~> 1.0.0-rc.3", only: [:dev], runtime: false},
 
       # build & delivery
-      {:distillery, "~> 2.0"},
+      {:distillery, "~> 2.0.14"},
       {:edeliver, ">= 1.6.0"}
     ]
   end
