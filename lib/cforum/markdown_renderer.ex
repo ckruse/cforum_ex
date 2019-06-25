@@ -114,7 +114,7 @@ defmodule Cforum.MarkdownRenderer do
       {proc, runs - 1}
     else
       Proc.stop(proc)
-      {start_new_proc(), runs - 1}
+      {start_new_proc(), @max_runs}
     end
   end
 
