@@ -16,12 +16,14 @@ defmodule Cforum.MarkdownRenderer do
   alias Cforum.Accounts.Badge
   # alias Cforum.Accounts.User
 
+  @max_runs 10_000
+
   def start_link(opts \\ []) do
     GenServer.start_link(__MODULE__, [], opts)
   end
 
   def init([]) do
-    {:ok, nil}
+    {:ok, {nil, @max_runs}}
   end
 
   def pool_name(), do: :markdown_renderer_pool
@@ -105,14 +107,14 @@ defmodule Cforum.MarkdownRenderer do
     Porcelain.spawn_shell(cli, in: :receive, out: :stream)
   end
 
-  defp ensure_proc(nil), do: start_new_proc()
+  defp ensure_proc(nil, _), do: {start_new_proc(), @max_runs}
 
-  defp ensure_proc(proc) do
-    if Proc.alive?(proc) do
-      proc
+  defp ensure_proc(proc, runs) do
+    if Proc.alive?(proc) && runs > 0 do
+      {proc, runs - 1}
     else
       Proc.stop(proc)
-      start_new_proc()
+      {start_new_proc(), runs - 1}
     end
   end
 
@@ -127,8 +129,8 @@ defmodule Cforum.MarkdownRenderer do
   #
   # server callbacks
   #
-  def handle_call({:render_doc, markdown}, _sender, proc) do
-    proc = ensure_proc(proc)
+  def handle_call({:render_doc, markdown}, _sender, {proc, runs}) do
+    {proc, runs} = ensure_proc(proc, runs)
     out = Jason.encode!(%{markdown: markdown}) <> "\n"
     Proc.send_input(proc, out)
     line = read_line(proc)
@@ -137,15 +139,15 @@ defmodule Cforum.MarkdownRenderer do
     case retval["status"] do
       "ok" ->
         # {:reply, {:ok, to_html(markdown) <> "<br><br>" <> retval["html"]}, proc}
-        {:reply, {:ok, retval["html"]}, proc}
+        {:reply, {:ok, retval["html"]}, {proc, runs}}
 
       _ ->
-        {:reply, {:error, retval["message"]}, proc}
+        {:reply, {:error, retval["message"]}, {proc, runs}}
     end
   end
 
-  def handle_call({:render_plain, markdown}, _sender, proc) do
-    proc = ensure_proc(proc)
+  def handle_call({:render_plain, markdown}, _sender, {proc, runs}) do
+    {proc, runs} = ensure_proc(proc, runs)
     out = Jason.encode!(%{markdown: markdown, target: "plain"}) <> "\n"
     Proc.send_input(proc, out)
     line = read_line(proc)
@@ -154,10 +156,10 @@ defmodule Cforum.MarkdownRenderer do
     case retval["status"] do
       "ok" ->
         # {:reply, {:ok, to_html(markdown) <> "<br><br>" <> retval["html"]}, proc}
-        {:reply, {:ok, retval["html"]}, proc}
+        {:reply, {:ok, retval["html"]}, {proc, runs}}
 
       _ ->
-        {:reply, {:error, retval["message"]}, proc}
+        {:reply, {:error, retval["message"]}, {proc, runs}}
     end
   end
 end
