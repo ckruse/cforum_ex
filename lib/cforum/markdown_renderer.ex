@@ -33,14 +33,14 @@ defmodule Cforum.MarkdownRenderer do
   #
   def to_html(%Cite{} = cite, _user) do
     # TODO handle user specific foo
-    {:ok, html} = render_doc(cite.cite)
+    {:ok, html} = render_doc(cite.cite, "c-#{cite.id}")
     {:safe, html}
     # [{:safe, "<pre>"}, message.content, {:safe, "</pre>"}]
   end
 
   def to_html(%Event{} = event, _user) do
     # TODO handle user specific foo
-    {:ok, html} = render_doc(event.description)
+    {:ok, html} = render_doc(event.description, "e-#{event.id}")
     {:safe, html}
     # [{:safe, "<pre>"}, message.content, {:safe, "</pre>"}]
   end
@@ -48,7 +48,7 @@ defmodule Cforum.MarkdownRenderer do
   def to_html(%Message{format: "markdown"} = message, assigns) do
     # TODO handle user specific foo
     content = Cforum.Messages.content_with_presentational_filters(assigns, message)
-    {:ok, html} = render_doc(content)
+    {:ok, html} = render_doc(content, "m-#{message.message_id}")
     {:safe, html}
     # [{:safe, "<pre>"}, message.content, {:safe, "</pre>"}]
   end
@@ -61,39 +61,39 @@ defmodule Cforum.MarkdownRenderer do
 
   def to_html(%PrivMessage{} = message, _user) do
     # TODO handle user specific foo
-    {:ok, html} = render_doc(message.body)
+    {:ok, html} = render_doc(message.body, "pm-#{message.priv_message_id}")
     {:safe, html}
     # [{:safe, "<pre>"}, message.content, {:safe, "</pre>"}]
   end
 
   def to_html(%Badge{} = badge, _user) do
     # TODO handle user specific foo
-    {:ok, html} = render_doc(badge.description)
+    {:ok, html} = render_doc(badge.description, "b-#{badge.badge_id}")
     {:safe, html}
   end
 
   def to_html(str) when is_bitstring(str) do
-    {:ok, html} = render_doc(str)
+    {:ok, html} = render_doc(str, "str")
     {:safe, html}
   end
 
-  def render_doc(markdown) do
-    :poolboy.transaction(pool_name(), fn pid -> GenServer.call(pid, {:render_doc, markdown}) end)
+  def render_doc(markdown, id) do
+    :poolboy.transaction(pool_name(), fn pid -> GenServer.call(pid, {:render_doc, markdown, id}) end)
   end
 
   @spec to_plain(%Message{} | %Cite{}) :: String.t()
   def to_plain(%Message{} = message) do
-    {:ok, text} = render_plain(message.content)
+    {:ok, text} = render_plain(message.content, "m-#{message.message_id}")
     text
   end
 
   def to_plain(%Cite{} = cite) do
-    {:ok, text} = render_plain(cite.cite)
+    {:ok, text} = render_plain(cite.cite, "c-#{cite.cite_id}")
     text
   end
 
-  def render_plain(markdown) do
-    :poolboy.transaction(pool_name(), fn pid -> :gen_server.call(pid, {:render_plain, markdown}) end)
+  def render_plain(markdown, id) do
+    :poolboy.transaction(pool_name(), fn pid -> :gen_server.call(pid, {:render_plain, markdown, id}) end)
   end
 
   defp start_new_proc() do
@@ -129,9 +129,9 @@ defmodule Cforum.MarkdownRenderer do
   #
   # server callbacks
   #
-  def handle_call({:render_doc, markdown}, _sender, {proc, runs}) do
+  def handle_call({:render_doc, markdown, id}, _sender, {proc, runs}) do
     {proc, runs} = ensure_proc(proc, runs)
-    out = Jason.encode!(%{markdown: markdown}) <> "\n"
+    out = Jason.encode!(%{markdown: markdown, id: id}) <> "\n"
     Proc.send_input(proc, out)
     line = read_line(proc)
     retval = Jason.decode!(line)
@@ -146,9 +146,9 @@ defmodule Cforum.MarkdownRenderer do
     end
   end
 
-  def handle_call({:render_plain, markdown}, _sender, {proc, runs}) do
+  def handle_call({:render_plain, markdown, id}, _sender, {proc, runs}) do
     {proc, runs} = ensure_proc(proc, runs)
-    out = Jason.encode!(%{markdown: markdown, target: "plain"}) <> "\n"
+    out = Jason.encode!(%{markdown: markdown, target: "plain", id: id}) <> "\n"
     Proc.send_input(proc, out)
     line = read_line(proc)
     retval = Jason.decode!(line)
