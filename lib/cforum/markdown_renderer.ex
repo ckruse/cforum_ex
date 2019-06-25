@@ -33,7 +33,7 @@ defmodule Cforum.MarkdownRenderer do
   #
   def to_html(%Cite{} = cite, _user) do
     # TODO handle user specific foo
-    {:ok, html} = render_doc(cite.cite, "c-#{cite.id}")
+    {:ok, html} = render_doc(cite.cite, "c-#{cite.cite_id}")
     {:safe, html}
     # [{:safe, "<pre>"}, message.content, {:safe, "</pre>"}]
   end
