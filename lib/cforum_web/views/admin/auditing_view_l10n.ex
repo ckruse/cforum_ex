@@ -15,6 +15,9 @@ defmodule CforumWeb.AuditingViewL10n do
   def l10n_audit_act(%Auditing{relation: "scores", act: "accepted-no-unscore"}),
     do: gettext("auditing: accepted unscore")
 
+  def l10n_audit_act(%Auditing{relation: "messages", act: "accepted-no-unscore"}),
+    do: gettext("auditing: accepted unscore")
+
   def l10n_audit_act(%Auditing{relation: "tags", act: "create"}), do: gettext("auditing: tags: create")
   def l10n_audit_act(%Auditing{relation: "tags", act: "update"}), do: gettext("auditing: tags: update")
   def l10n_audit_act(%Auditing{relation: "tags", act: "destroy"}), do: gettext("auditing: tags: destroy")
