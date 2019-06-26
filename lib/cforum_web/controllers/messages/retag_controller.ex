@@ -50,6 +50,7 @@ defmodule CforumWeb.Messages.RetagController do
   end
 
   def allowed?(conn, action, nil), do: allowed?(conn, action, {conn.assigns.thread, conn.assigns.message})
+  def allowed?(conn, _action, {%{archived: true}, _message}), do: Abilities.admin?(conn)
 
   def allowed?(conn, _action, {thread, message}) do
     Abilities.access_forum?(conn, :moderate) || Abilities.may?(conn, "message", :edit, {thread, message}) ||
