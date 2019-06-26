@@ -8,7 +8,7 @@
         <%= VHelpers.user_link(@conn, @result.user, [], false) %>
       <% end %>
 
-      <%= link @result.author, to: @result.url, class: 'p-name' %>
+      <%= link @result.author, to: @result.url, class: "p-name" %>
     </span>
 
     <time datetime="<%= NaiveDateTime.to_iso8601(@result.document_created) %>">
