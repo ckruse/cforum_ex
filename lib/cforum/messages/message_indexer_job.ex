@@ -32,15 +32,15 @@ defmodule Cforum.Messages.MessageIndexerJob do
     end)
   end
 
-  @spec unindex_message_with_answers(%Message{}) :: any()
-  def unindex_message_with_answers(%Message{} = msg) do
+  @spec unindex_messages([%Message{}]) :: any()
+  def unindex_messages(messages) do
     Cforum.Helpers.AsyncHelper.run_async(fn ->
-      doc = Search.get_document_by_reference_id(msg.message_id)
+      Enum.map(messages, fn msg ->
+        doc = Search.get_document_by_reference_id(msg.message_id)
 
-      if !is_nil(doc),
-        do: Search.delete_document(doc)
-
-      Enum.each(msg.messages, &unindex_message_with_answers(&1))
+        if !is_nil(doc),
+          do: Search.delete_document(doc)
+      end)
     end)
   end
 

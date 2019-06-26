@@ -9,7 +9,7 @@ defmodule Cforum.Forums.ArchiverJob do
   alias Cforum.System
   alias Cforum.Caching
   alias Cforum.Search
-  alias Cforum.Search.Document
+  alias Cforum.Messages.MessageIndexerJob
 
   import Ecto.{Query, Changeset}, warn: false
 
@@ -82,14 +82,7 @@ defmodule Cforum.Forums.ArchiverJob do
   defp archive_thread(%Thread{flags: %{"no-archive" => "yes"}} = thread) do
     System.audited("destroy", nil, fn ->
       Threads.delete_thread(thread)
-
-      case Search.get_document_by_reference_id(thread.thread_id) do
-        %Document{} = document ->
-          Search.delete_document(document)
-
-        _ ->
-          nil
-      end
+      MessageIndexerJob.unindex_messages(thread.messages)
 
       {:ok, thread}
     end)
