@@ -8,7 +8,6 @@ defmodule Cforum.Forums.ArchiverJob do
   alias Cforum.Messages.{Message, Subscription, ReadMessage}
   alias Cforum.System
   alias Cforum.Caching
-  alias Cforum.Search
   alias Cforum.Messages.MessageIndexerJob
 
   import Ecto.{Query, Changeset}, warn: false
