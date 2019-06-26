@@ -13,7 +13,7 @@ defmodule CforumWeb.BadgeControllerTest do
   describe "show" do
     test "shows a single badge", %{conn: conn} do
       badge = insert(:badge, description: "foo bar")
-      conn = get(conn, Path.badge_path(conn, :show, badge))
+      conn = get(conn, Routes.badge_path(conn, :show, badge.slug))
       assert html_response(conn, 200) =~ gettext("badge %{name}", name: badge.name)
     end
   end

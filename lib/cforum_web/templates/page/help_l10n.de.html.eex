@@ -115,7 +115,7 @@
 
     <dl>
       <%= for badge <- badge_group.badges do %>
-        <dt><img src="<%= CforumWeb.BadgeView.badge_image(@conn, badge) %>"> <%= link badge.name, to: Path.badge_path(@conn, :show, badge) %></dt>
+        <dt><img src="<%= CforumWeb.BadgeView.badge_image(@conn, badge) %>"> <%= link badge.name, to: Routes.badge_path(@conn, :show, badge.slug) %></dt>
         <dd><%= if Helpers.present?(badge.score_needed) do %><strong><%= badge.score_needed %> Punkte:</strong> <% end %><%= badge.description %></dd>
       <% end %>
     </dl>
