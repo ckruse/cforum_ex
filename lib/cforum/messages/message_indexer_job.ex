@@ -1,6 +1,7 @@
 defmodule Cforum.Messages.MessageIndexerJob do
   alias Cforum.MarkdownRenderer
   alias Cforum.Forums
+  alias Cforum.Threads
   alias Cforum.Messages
   alias Cforum.Threads.Thread
   alias Cforum.Messages.Message
@@ -13,6 +14,20 @@ defmodule Cforum.Messages.MessageIndexerJob do
   alias Cforum.ConfigManager
 
   alias CforumWeb.Views.Helpers.Path
+
+  @spec index_message(integer()) :: any()
+  def index_message(message_id) do
+    message = Messages.get_message(message_id)
+
+    if is_nil(message) do
+      with %Document{} = doc <- Search.get_document_by_reference_id(message_id) do
+        Search.delete_document(doc)
+      end
+    else
+      thread = Threads.get_thread!(message.thread_id)
+      index_message(thread, message)
+    end
+  end
 
   @spec index_message(%Thread{}, %Message{}) :: any()
   def index_message(%Thread{} = thread, %Message{} = msg) do
