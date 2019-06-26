@@ -125,6 +125,7 @@ defmodule CforumWeb.MessageView do
     |> Helpers.add_if(message.attribs[:is_interesting], "interesting")
     |> Helpers.add_if(Enum.member?(thread.accepted, message), "accepted")
     |> Helpers.add_if(is_folded, "folded")
+    |> Helpers.add_if(thread.archived, "archived")
     |> score_class(message)
     |> Enum.join(" ")
   end

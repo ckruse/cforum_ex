@@ -136,6 +136,13 @@
   }
 }
 
+.archived .cf-posting-content {
+  background-image: url(/images/archived.png);
+  background-position: top right;
+  background-repeat: no-repeat;
+  padding-top: 30px;
+}
+
 @include default-breakpoint() {
   .cf-posting-content {
     padding: 0.8em 1em 1em;
