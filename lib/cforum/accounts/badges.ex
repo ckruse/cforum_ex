@@ -192,7 +192,7 @@ defmodule Cforum.Accounts.Badges do
       subject: subject,
       oid: badge.badge_id,
       otype: "badge",
-      path: CforumWeb.Router.Helpers.badge_path(CforumWeb.Endpoint, :show, badge)
+      path: CforumWeb.Router.Helpers.badge_path(CforumWeb.Endpoint, :show, badge.slug)
     })
 
     {:ok, badge_user}
