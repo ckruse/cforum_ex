@@ -88,17 +88,21 @@ defmodule CforumWeb.Messages.OpenCloseVoteController do
     |> Plug.Conn.assign(:vote, vote)
   end
 
-  def allowed?(conn, action, msg) when action in [:new_close, :create_close] do
-    msg = msg || conn.assigns.message
+  @create_actions [:new_close, :create_close, :new_open, :create_open]
 
+  def allowed?(conn, action, nil) when action in @create_actions,
+    do: allowed?(conn, action, {conn.assigns.thread, conn.assigns.message})
+
+  def allowed?(_conn, action, {%{archived: true}, _}) when action in @create_actions,
+    do: false
+
+  def allowed?(conn, action, {_thread, msg}) when action in [:new_close, :create_close] do
     (Abilities.access_forum?(conn, :moderate) || Abilities.badge?(conn, Badge.create_close_reopen_vote())) &&
       !MessageHelpers.closed?(msg) &&
       !MessageHelpers.admin_decision?(msg) && CloseVotes.get_close_vote(msg) == nil
   end
 
-  def allowed?(conn, action, msg) when action in [:new_open, :create_open] do
-    msg = msg || conn.assigns.message
-
+  def allowed?(conn, action, {_thread, msg}) when action in [:new_open, :create_open] do
     (Abilities.access_forum?(conn, :moderate) || Abilities.badge?(conn, Badge.create_close_reopen_vote())) &&
       MessageHelpers.closed?(msg) &&
       !MessageHelpers.admin_decision?(msg) && CloseVotes.get_reopen_vote(msg) == nil
