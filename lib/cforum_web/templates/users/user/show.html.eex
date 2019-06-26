@@ -59,7 +59,7 @@
               <th><%= gettext("Description") %>:</th>
               <td class="p-note">
                 <%= if Helpers.blank?(@description) do %><em><%= gettext("no description given") %></em>
-                <% else %><%= @description %>
+                <% else %><%= Cforum.MarkdownRenderer.to_html(@description) %>
                 <% end %>
               </td>
             </tr>
