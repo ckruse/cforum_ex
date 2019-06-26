@@ -40,7 +40,7 @@ defmodule Cforum.MarkdownRenderer do
 
   def to_html(%Event{} = event, _user) do
     # TODO handle user specific foo
-    {:ok, html} = render_doc(event.description, "e-#{event.id}")
+    {:ok, html} = render_doc(event.description, "e-#{event.event_id}")
     {:safe, html}
     # [{:safe, "<pre>"}, message.content, {:safe, "</pre>"}]
   end
