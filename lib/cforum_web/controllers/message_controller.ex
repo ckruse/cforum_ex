@@ -220,11 +220,14 @@ defmodule CforumWeb.MessageController do
   def allowed?(conn, action, nil) when action in [:new, :create],
     do: allowed?(conn, action, {conn.assigns.thread, conn.assigns.parent})
 
-  def allowed?(conn, action, {_thread, message}) when action in [:new, :create],
-    do: Abilities.access_forum?(conn, :write) && MessageHelpers.open?(message)
+  def allowed?(conn, action, {thread, message}) when action in [:new, :create],
+    do: Abilities.access_forum?(conn, :write) && MessageHelpers.open?(message) && !thread.archived
 
   def allowed?(conn, action, nil) when action in [:edit, :update],
     do: allowed?(conn, action, {conn.assigns.thread, conn.assigns.message})
+
+  def allowed?(conn, action, {%Thread{archived: true}, _msg}) when action in [:edit, :update],
+    do: Abilities.admin?(conn)
 
   def allowed?(conn, action, {thread, msg}) when action in [:edit, :update] do
     Abilities.access_forum?(conn, :moderate) ||
