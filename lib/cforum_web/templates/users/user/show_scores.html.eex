@@ -8,7 +8,11 @@
       </td>
       <td>
         <article class="threadlist cf-thread">
+        <%= if Helpers.present?(s.message) do %>
           <%= CforumWeb.MessageView.header(@conn, s.message.thread, s.message, show_votes: true, id: false)  %>
+        <% else %>
+          <em><%= gettext("message is no longer available") %></em>
+        <% end %>
         </article>
       </td>
     </tr>

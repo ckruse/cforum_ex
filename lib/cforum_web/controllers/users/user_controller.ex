@@ -13,6 +13,8 @@ defmodule CforumWeb.Users.UserController do
 
   alias Cforum.Accounts.Score
 
+  alias Cforum.Helpers
+
   alias CforumWeb.Sortable
   alias CforumWeb.Paginator
   alias CforumWeb.Views.Helpers, as: VHelpers
@@ -140,8 +142,13 @@ defmodule CforumWeb.Users.UserController do
     scores =
       Enum.map(messages, fn score ->
         msg = Score.get_message(score)
-        thread = %Thread{msg.thread | message: msg}
-        %Score{score | message: %Message{msg | thread: thread}}
+
+        if Helpers.present?(msg) do
+          thread = %Thread{msg.thread | message: msg}
+          %Score{score | message: %Message{msg | thread: thread}}
+        else
+          score
+        end
       end)
 
     render(
