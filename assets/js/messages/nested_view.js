@@ -83,6 +83,8 @@ const toggleAll = ev => {
     document.querySelectorAll(".cf-thread-message.folded").forEach(el => toggleFolded(el));
     ev.target.textContent = t("fold all");
   }
+
+  document.dispatchEvent(new CustomEvent("cf:foldingAllButtonChanged", { detail: ev.target }));
 };
 
 const initialFold = () => {
@@ -111,7 +113,7 @@ const initialFold = () => {
   }
 
   foldingAllButton.textContent = t(label);
-  // foldingAllButton.appendChild(document.createTextNode(t(label)));
+  document.dispatchEvent(new CustomEvent("cf:foldingAllButtonChanged", { detail: foldingAllButton }));
 };
 
 let initialFoldConfigDidLoadRun = false;
