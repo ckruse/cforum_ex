@@ -211,7 +211,12 @@ defmodule Cforum.Messages do
           Repo.insert(changeset)
 
         _ ->
-          {:error, Ecto.Changeset.add_error(changeset, :author, "already taken")}
+          changeset =
+            changeset
+            |> Map.put(:action, :insert)
+            |> Ecto.Changeset.add_error(:author, "has already been taken")
+
+          {:error, changeset}
       end
     end)
     |> notify_users(thread)
