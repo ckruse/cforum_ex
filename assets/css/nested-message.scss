@@ -38,12 +38,19 @@
 
 #folding-all-button {
   position: fixed;
-  right: 2em;
+  right: 0;
   top: 40%;
   border: 1px solid $grey-border;
   border-radius: $default-border-radius;
   font-size: 1em;
   display: none;
+
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  border-top: 0;
+
+  transform: rotate(90deg) translate(50%, 50%);
+  transform-origin: 100% 50%;
 }
 
 @include default-breakpoint() {
