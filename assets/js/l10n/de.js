@@ -184,5 +184,11 @@ export const lang = {
   "delete all notifications": "lösche alle Benachrichtigungen",
 
   "number of new messages": "Anzahl neuer Beiträge",
-  "new messages": "neue Beiträge"
+  "new messages": "neue Beiträge",
+
+  "You successfully accepted this answer.": "Dieser Beitrag wird jetzt als Lösung akzeptiert.",
+  "You successfully unaccepted this answer.": "Dieser Beitrag wird nicht länger als Lösung akzeptiert.",
+  "You successfully took back you vote.": "Sie haben ihre Bewertung erfolgreich zurück genommen",
+  "You successfully voted this message positively.": "Sie haben diesen Beitrag erfolgreich positiv bewertet.",
+  "You successfully voted this message negatively.": "Sie haben diesen Beitrag erfolgreich negativ bewertet."
 };

@@ -1,5 +1,5 @@
 import { parseMessageUrl } from "../modules/helpers";
-import { alertError } from "../modules/alerts";
+import { alertError, alertSuccess } from "../modules/alerts";
 import { t } from "../modules/i18n";
 
 const voteForMessage = ev => {
@@ -55,6 +55,32 @@ const updateVotingAreas = (json, type, message, btn) => {
   const opposite = json.accepted ? "unaccept" : "accept";
   const klass = json.accepted ? "accepted-answer" : "unaccepted-answer";
   const areas = message.querySelectorAll(".cf-voting-area");
+
+  switch (type) {
+    case "accept":
+      alertSuccess(t("You successfully accepted this answer."));
+      break;
+    case "unaccept":
+      alertSuccess(t("You successfully unaccepted this answer."));
+      break;
+    case "upvote":
+      if (json.upvoted) {
+        alertSuccess(t("You successfully voted this message positively."));
+      } else {
+        alertSuccess(t("You successfully took back you vote."));
+      }
+      break;
+    case "downvote":
+      if (json.downvoted) {
+        alertSuccess(t("You successfully voted this message negatively."));
+      } else {
+        alertSuccess(t("You successfully took back you vote."));
+      }
+      break;
+
+    default:
+      console.log(type, json, message);
+  }
 
   areas.forEach(area => {
     const downButton = area.querySelector(".vote-down");
