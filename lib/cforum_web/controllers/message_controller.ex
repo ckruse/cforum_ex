@@ -89,8 +89,11 @@ defmodule CforumWeb.MessageController do
     vis_forums = conn.assigns.visible_forums
     parent = conn.assigns.parent
     thread = conn.assigns.thread
+    uuid = MessageHelpers.uuid(conn)
 
     opts = [
+      uuid: uuid,
+      author: VHelpers.author_from_conn(conn),
       create_tags: Abilities.may?(conn, "tag", :new),
       autosubscribe: Subscriptions.autosubscribe?(cu, ConfigManager.uconf(conn, "autosubscribe_on_post"))
     ]
@@ -99,9 +102,11 @@ defmodule CforumWeb.MessageController do
       {:ok, message} ->
         conn
         |> put_flash(:info, gettext("Message created successfully."))
+        |> MessageHelpers.maybe_set_cookies(message, uuid)
         |> redirect(to: Path.message_path(conn, :show, thread, message))
 
       {:error, changeset} ->
+        raise inspect(changeset)
         render(conn, "new.html", changeset: changeset)
     end
   end
