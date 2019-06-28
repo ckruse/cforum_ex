@@ -28,7 +28,10 @@ defmodule CforumWeb.RedirectorController do
 
   def redirect_to_thread(conn, %{"year" => year, "tid" => tid}) do
     threads =
-      Threads.get_threads_by_tid!(tid)
+      tid
+      |> String.replace_suffix(".htm", "")
+      |> String.replace_suffix(".html", "")
+      |> Threads.get_threads_by_tid!()
       |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
 
     year =
