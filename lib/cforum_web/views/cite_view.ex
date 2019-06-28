@@ -24,11 +24,17 @@ defmodule CforumWeb.CiteView do
   def body_classes(action, _) when action in [:edit, :update], do: "cites edit"
 
   def link_to_url?(conn, cite) do
-    !Helpers.blank?(cite.url) &&
-      (Helpers.blank?(cite.message_id) || Abilities.may?(conn, "message", :show, {cite.message.thread, cite.message}))
+    Helpers.present?(cite.url) &&
+      (Helpers.blank?(cite.message_id) ||
+         (Helpers.present?(cite.message) &&
+            Abilities.may?(conn, "message", :show, {cite.message.thread, cite.message})))
   end
 
-  def url_link_title(cite), do: if(Helpers.blank?(cite.message_id), do: cite.url, else: cite.message.subject)
+  def url_link_title(cite) do
+    if Helpers.blank?(cite.message_id),
+      do: cite.url,
+      else: cite.message.subject
+  end
 
   def votable?(conn, cite), do: Abilities.signed_in?(conn) && !cite.archived && Helpers.present?(cite.cite_id)
 

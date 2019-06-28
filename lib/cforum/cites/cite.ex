@@ -34,6 +34,23 @@ defmodule Cforum.Cites.Cite do
     |> validate_required([:cite, :author, :creator, :url])
   end
 
+  def json_changeset(cite, attrs) do
+    cast(cite, attrs, [
+      :archived,
+      :author,
+      :cite,
+      :cite_date,
+      :creator,
+      :old_id,
+      :url,
+      :user_id,
+      :message_id,
+      :creator_user_id,
+      :created_at,
+      :updated_at
+    ])
+  end
+
   defp maybe_set_message_and_user_id(%Ecto.Changeset{valid?: true} = changeset) do
     url = get_change(changeset, :url) || ""
     base_url = Application.get_env(:cforum, :base_url)
