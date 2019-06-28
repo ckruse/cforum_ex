@@ -132,9 +132,20 @@ defmodule Cforum.MarkdownRenderer do
   def handle_call({:render_doc, markdown, id}, _sender, {proc, runs}) do
     {proc, runs} = ensure_proc(proc, runs)
     out = Jason.encode!(%{markdown: markdown, id: id}) <> "\n"
-    Proc.send_input(proc, out)
-    line = read_line(proc)
-    retval = Jason.decode!(line)
+
+    task =
+      Task.async(fn ->
+        Proc.send_input(proc, out)
+        line = read_line(proc)
+        Jason.decode!(line)
+      end)
+
+    retval =
+      try do
+        Task.await(task, 1000)
+      catch
+        _, _ -> %{"status" => "error"}
+      end
 
     case retval["status"] do
       "ok" ->
