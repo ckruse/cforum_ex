@@ -1,12 +1,12 @@
 <%= form_for @changeset, Routes.admin_audit_path(@conn, :index), [as: :search, method: :get, class: "cf-form"], fn f -> %>
   <div class="cf-cgroup">
     <%= label f, :from, gettext("start date") %>
-    <%= datetime_local_input f, :from %>
+    <%= date_input f, :from %>
   </div>
 
   <div class="cf-cgroup">
     <%= label f, :to, gettext("end date") %>
-    <%= datetime_local_input f, :to %>
+    <%= date_input f, :to %>
   </div>
 
   <div class="cf-cgroup">

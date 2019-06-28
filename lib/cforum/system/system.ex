@@ -152,8 +152,8 @@ defmodule Cforum.System do
 
   """
   def list_auditing(changeset, query_params \\ [limit: nil]) do
-    start_date = Ecto.Changeset.get_field(changeset, :from)
-    end_date = Ecto.Changeset.get_field(changeset, :to)
+    start_date = Ecto.Changeset.get_field(changeset, :from) |> Timex.to_datetime() |> Timex.beginning_of_day()
+    end_date = Ecto.Changeset.get_field(changeset, :to) |> Timex.to_datetime() |> Timex.end_of_day()
 
     from(
       auditing in Auditing,
@@ -167,8 +167,8 @@ defmodule Cforum.System do
   end
 
   def count_auditing(changeset) do
-    start_date = Ecto.Changeset.get_field(changeset, :from)
-    end_date = Ecto.Changeset.get_field(changeset, :to)
+    start_date = Ecto.Changeset.get_field(changeset, :from) |> Timex.to_datetime() |> Timex.beginning_of_day()
+    end_date = Ecto.Changeset.get_field(changeset, :to) |> Timex.to_datetime() |> Timex.end_of_day()
 
     from(auditing in Auditing, where: auditing.created_at >= ^start_date and auditing.created_at <= ^end_date)
     |> maybe_add_object_list(changeset)
