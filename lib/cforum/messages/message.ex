@@ -69,7 +69,8 @@ defmodule Cforum.Messages.Message do
     |> cast(params, [:author, :email, :homepage, :subject, :content, :problematic_site, :forum_id])
     |> maybe_put_change(:forum_id, forum_id)
     |> validate_forum_id(visible_forums)
-    |> maybe_set_author(user)
+    |> maybe_set_author(user, opts[:uuid])
+    |> set_author_from_opts_when_unset(:author, opts[:author])
     |> Cforum.Helpers.strip_changeset_changes()
     |> Cforum.Helpers.changeset_changes_to_normalized_newline()
     |> parse_tags(params, user, opts[:create_tags])
@@ -225,7 +226,7 @@ defmodule Cforum.Messages.Message do
     put_change(changeset, :tags, tags)
   end
 
-  defp maybe_set_author(changeset, %User{} = author) do
+  defp maybe_set_author(changeset, %User{} = author, _) do
     case get_field(changeset, :author) do
       nil ->
         changeset
@@ -237,10 +238,21 @@ defmodule Cforum.Messages.Message do
     |> put_change(:user_id, author.user_id)
   end
 
-  defp maybe_set_author(changeset, nil), do: changeset
+  defp maybe_set_author(changeset, nil, uuid),
+    do: put_change(changeset, :uuid, uuid)
 
   defp maybe_set_editor_id(changeset, nil), do: changeset
   defp maybe_set_editor_id(changeset, user), do: put_change(changeset, :editor_id, user.user_id)
   defp set_editor_author(changeset, message, nil), do: put_change(changeset, :edit_author, message.author)
   defp set_editor_author(changeset, _, user), do: put_change(changeset, :edit_author, user.username)
+
+  defp set_author_from_opts_when_unset(changeset, field, value)
+  defp set_author_from_opts_when_unset(changeset, _, nil), do: changeset
+
+  defp set_author_from_opts_when_unset(changeset, field, value) do
+    case get_field(changeset, field) do
+      nil -> put_change(changeset, field, value)
+      _ -> changeset
+    end
+  end
 end

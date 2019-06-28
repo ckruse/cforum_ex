@@ -5,6 +5,7 @@ defmodule CforumWeb.ThreadController do
   alias Cforum.Messages
 
   alias Cforum.Threads.ThreadHelpers
+  alias Cforum.Messages.MessageHelpers
   alias Cforum.Messages.Subscriptions
   alias Cforum.ConfigManager
 
@@ -172,21 +173,30 @@ defmodule CforumWeb.ThreadController do
   end
 
   def create(conn, %{"message" => message_params}) do
+    uuid = MessageHelpers.uuid(conn)
+
+    opts = [
+      create_tags: Abilities.may?(conn, "tag", :new),
+      autosubscribe:
+        Subscriptions.autosubscribe?(conn.assigns.current_user, ConfigManager.uconf(conn, "autosubscribe_on_post")),
+      uuid: uuid,
+      author: VHelpers.author_from_conn(conn)
+    ]
+
     create_val =
       Threads.create_thread(
         message_params,
         conn.assigns[:current_user],
         conn.assigns[:current_forum],
         conn.assigns[:visible_forums],
-        create_tags: Abilities.may?(conn, "tag", :new),
-        autosubscribe:
-          Subscriptions.autosubscribe?(conn.assigns.current_user, ConfigManager.uconf(conn, "autosubscribe_on_post"))
+        opts
       )
 
     case create_val do
       {:ok, thread, message} ->
         conn
         |> put_flash(:info, gettext("Thread created successfully."))
+        |> MessageHelpers.maybe_set_cookies(message, uuid)
         |> redirect(to: Path.message_path(conn, :show, thread, message))
 
       {:error, changeset} ->

@@ -3,6 +3,7 @@ defmodule Cforum.Messages.MessageHelpers do
 
   alias Cforum.Messages.Message
   alias Cforum.Accounts.Users
+  alias Cforum.Helpers
 
   @doc """
   Finds a message in a thread or in a list of messages. Returns nil if
@@ -134,7 +135,7 @@ defmodule Cforum.Messages.MessageHelpers do
       "+3"
   """
   @spec score_str(%Message{}) :: String.t()
-  def score_str(msg), do: Cforum.Helpers.score_str(no_votes(msg), score(msg))
+  def score_str(msg), do: Helpers.score_str(no_votes(msg), score(msg))
 
   @spec answer?(%Cforum.Threads.Thread{}, %Message{}) :: boolean()
   def answer?(thread, message),
@@ -171,5 +172,33 @@ defmodule Cforum.Messages.MessageHelpers do
     |> Enum.reject(&(&1.src_message.deleted || &1.src_message.forum_id not in forum_ids))
     |> Enum.take(max_cnt)
     |> Enum.map(&%Message{&1.src_message | thread: thread})
+  end
+
+  def maybe_set_cookies(conn, %{user_id: id}) when id != nil, do: conn
+
+  def maybe_set_cookies(conn, message, uuid) do
+    conn
+    |> set_cookie_if_value("cforum_user", uuid)
+    |> set_cookie_if_value("cforum_author", message.author)
+    |> set_cookie_if_value("cforum_email", message.email)
+    |> set_cookie_if_value("cforum_homepage", message.homepage)
+  end
+
+  defp set_cookie_if_value(conn, _, nil), do: conn
+
+  defp set_cookie_if_value(conn, cookie, value),
+    do: Plug.Conn.put_resp_cookie(conn, cookie, value, http_only: false, max_age: 30 * 24 * 60 * 60)
+
+  def uuid(conn) do
+    cond do
+      Helpers.blank?(conn.assigns[:current_user]) && Helpers.present?(conn.cookies["cforum_user"]) ->
+        conn.cookies["cforum_user"]
+
+      Helpers.blank?(conn.assigns[:current_user]) ->
+        UUID.uuid1()
+
+      true ->
+        nil
+    end
   end
 end
