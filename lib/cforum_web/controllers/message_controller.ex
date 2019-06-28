@@ -24,18 +24,31 @@ defmodule CforumWeb.MessageController do
       |> parse_readmode(params)
       |> validate_readmode
 
-    if Abilities.signed_in?(conn) and !conn.assigns.thread.archived do
-      Cforum.Helpers.AsyncHelper.run_async(fn ->
-        mark_messages_read(read_mode, conn.assigns[:current_user], conn.assigns.thread, conn.assigns.message)
-
-        if ConfigManager.uconf(conn, "delete_read_notifications_on_abonements") == "yes",
-          do: Messages.unnotify_user(conn.assigns.current_user, read_mode, conn.assigns.thread, conn.assigns.message)
-      end)
-    end
+    if Abilities.signed_in?(conn) and !conn.assigns.thread.archived,
+      do: run_async_handlers(conn, read_mode)
 
     conn
     |> maybe_put_readmode(params, read_mode)
     |> render("show-#{read_mode}.html", read_mode: read_mode)
+  end
+
+  defp run_async_handlers(conn, read_mode) do
+    Cforum.Helpers.AsyncHelper.run_async(fn ->
+      mark_messages_read(read_mode, conn.assigns[:current_user], conn.assigns.thread, conn.assigns.message)
+
+      types =
+        []
+        |> Helpers.add_if(ConfigManager.uconf(conn, "delete_read_notifications_on_abonements") == "yes", [
+          "message:create-answer",
+          "message:create-activity"
+        ])
+        |> Helpers.add_if(ConfigManager.uconf(conn, "delete_read_notifications_on_mention") == "yes", "message:mention")
+        |> List.flatten()
+
+      if Helpers.present?(types) do
+        Messages.unnotify_user(conn.assigns.current_user, read_mode, conn.assigns.thread, conn.assigns.message, types)
+      end
+    end)
   end
 
   def new(conn, params) do

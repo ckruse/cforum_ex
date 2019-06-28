@@ -247,22 +247,16 @@ defmodule Cforum.Messages do
 
   defp index_message(val, _), do: val
 
-  def unnotify_user(user, _, _, message) when is_nil(user) or is_nil(message), do: nil
+  @default_notification_types ["message:create-answer", "message:create-activity"]
+  def unnotify_user(user, read_mode, thread, message, notification_types \\ @default_notification_types)
+  def unnotify_user(user, _, _, message, _) when is_nil(user) or is_nil(message), do: nil
 
-  def unnotify_user(user, "thread", _, message) do
-    Notifications.delete_notification_for_object(user, message.message_id, [
-      "message:create-answer",
-      "message:create-activity"
-    ])
-  end
+  def unnotify_user(user, "thread", _, message, types),
+    do: Notifications.delete_notification_for_object(user, message.message_id, types)
 
-  def unnotify_user(user, _, thread, _) do
+  def unnotify_user(user, _, thread, _, types) do
     mids = Enum.map(thread.sorted_messages, & &1.message_id)
-
-    Notifications.delete_notification_for_object(user, mids, [
-      "message:create-answer",
-      "message:create-activity"
-    ])
+    Notifications.delete_notification_for_object(user, mids, types)
   end
 
   @doc """
