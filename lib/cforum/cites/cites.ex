@@ -349,9 +349,10 @@ defmodule Cforum.Cites do
   """
   @spec cite_from_json(map()) :: %Cite{}
   def cite_from_json(object) do
-    Cforum.Cites.change_cite(%Cforum.Cites.Cite{}, object)
+    %Cforum.Cites.Cite{}
+    |> Cite.json_changeset(object)
     |> Ecto.Changeset.apply_changes()
-    |> Repo.preload([:user, :creator_user])
+    |> Repo.preload([:user, :creator_user, message: [:thread]])
   end
 
   def cites_stats(months, :months) do
