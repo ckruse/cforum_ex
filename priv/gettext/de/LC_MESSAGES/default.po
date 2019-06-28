@@ -999,7 +999,7 @@ msgstr "Rosen sind rot"
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:63
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:34
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:40
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:54
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:58
 #: lib/cforum_web/views/admin/setting_view.ex:32
 msgid "ascending"
 msgstr "aufsteigend"
@@ -1028,7 +1028,7 @@ msgstr "Standard-Datumsformat"
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:62
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:35
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:41
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:55
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:59
 #: lib/cforum_web/views/admin/setting_view.ex:33
 msgid "descending"
 msgstr "absteigend"
@@ -1046,7 +1046,7 @@ msgid "fold read messages"
 msgstr "Klappe gelesene Beiträge zusammen"
 
 #: lib/cforum_web/templates/layout/page_header.html.eex:120
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:49
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:53
 msgid "hide read threads"
 msgstr "verstecke vollständig gelesene Threads"
 
@@ -1062,7 +1062,7 @@ msgstr "verstecke unveränderte Betreffe"
 msgid "hide unchanged tags"
 msgstr "verstecke unveränderte Tags"
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:45
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:49
 msgid "highlight myself"
 msgstr "hebe meine eigenen Beiträge hervor"
 
@@ -1169,7 +1169,7 @@ msgstr "zeige zwei Buttons"
 msgid "signature"
 msgstr "Signatur"
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:53
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:57
 msgid "sort mail threads…"
 msgstr "sortiere private Nachrichten…"
 
@@ -1315,8 +1315,8 @@ msgstr "Benutzer-Informationen"
 msgid "new answer to %{name}"
 msgstr "Antwort an „%{name}“ verfassen"
 
-#: lib/cforum_web/controllers/message_controller.ex:88
-#: lib/cforum_web/controllers/message_controller.ex:129
+#: lib/cforum_web/controllers/message_controller.ex:104
+#: lib/cforum_web/controllers/message_controller.ex:147
 msgid "Message created successfully."
 msgstr "Beitrag erfolgreich gespeichert."
 
@@ -1325,8 +1325,8 @@ msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">
 msgstr "SELFHTML Forum - Ergänzung zur <a href=\"https://wiki.selfhtml.org\">Dokumentation</a>"
 
 #: lib/cforum_web/controllers/api/v1/message_controller.ex:25
-#: lib/cforum_web/controllers/message_controller.ex:55
-#: lib/cforum_web/controllers/thread_controller.ex:156
+#: lib/cforum_web/controllers/message_controller.ex:68
+#: lib/cforum_web/controllers/thread_controller.ex:171
 msgid "all"
 msgstr "alle"
 
@@ -1431,11 +1431,11 @@ msgstr "Seitenauswahl"
 msgid "previous page"
 msgstr "eine Seite zurück"
 
-#: lib/cforum/messages/message.ex:187
+#: lib/cforum/messages/message.ex:188
 msgid "unknown tags given: %{tags}"
 msgstr "Folgende Tags sind unbekannt: %{tags}."
 
-#: lib/cforum_web/controllers/thread_controller.ex:189
+#: lib/cforum_web/controllers/thread_controller.ex:212
 msgid "Thread created successfully."
 msgstr "Thread erfolgreich erstellt."
 
@@ -3053,7 +3053,7 @@ msgid "planned start"
 msgstr "geplanter Reisebeginn"
 
 #, elixir-format
-#: lib/cforum_web/views/message_view.ex:208
+#: lib/cforum_web/views/message_view.ex:209
 msgid "regarding your message %{subject} from %{time}"
 msgstr "Dein Beitrag „%{subject}“ vom %{time}"
 
@@ -3129,7 +3129,7 @@ msgid "Cite updated successfully."
 msgstr "Zitat erfolgreich geändert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/accept_controller.ex:19
+#: lib/cforum_web/controllers/messages/accept_controller.ex:20
 msgid "Message has successfully been accepted as a solving answer"
 msgstr "Der Beitrag wurde erfolgreich als Lösung akzeptiert"
 
@@ -3139,7 +3139,7 @@ msgid "Message has successfully been flagged."
 msgstr "Der Beitrag wurde erfolgreich gemeldet."
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/accept_controller.ex:27
+#: lib/cforum_web/controllers/messages/accept_controller.ex:28
 msgid "Message has successfully been unaccepted as a solving answer"
 msgstr "Der Beitrag wird nicht länger als Lösung akzeptiert"
 
@@ -4005,12 +4005,12 @@ msgid "Tag %{no}"
 msgstr "Tag %{no}"
 
 #, elixir-format
-#: lib/cforum/messages/message.ex:221
+#: lib/cforum/messages/message.ex:222
 msgid "is unknown"
 msgstr "ist unbekannt"
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:61
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:65
 msgid "A comma separated list of poster names"
 msgstr "Eine Komma-separierte Liste von Autoren-Namen"
 
@@ -4021,7 +4021,7 @@ msgid "close"
 msgstr "schließen"
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:59
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:63
 msgid "highlighted users"
 msgstr "hervorgehobene Benutzer"
 
@@ -4195,12 +4195,12 @@ msgid "versions"
 msgstr "Versionen"
 
 #, elixir-format
-#: lib/cforum/messages/message.ex:115
+#: lib/cforum/messages/message.ex:116
 msgid "Please specify a maximum of %{num} tags"
 msgstr "Bitte geben Sie höchstens %{num} Tags an"
 
 #, elixir-format
-#: lib/cforum/messages/message.ex:112
+#: lib/cforum/messages/message.ex:113
 msgid "Please specify at least %{num} tags"
 msgstr "Bitte geben Sie mindestens %{num} Tags an"
 
@@ -4414,7 +4414,7 @@ msgid "mark all messages read"
 msgstr "markiere alle Beiträge als gelesen"
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/mark_read_controller.ex:55
+#: lib/cforum_web/controllers/messages/mark_read_controller.ex:56
 msgid "All messages on this page have successfully been marked as read."
 msgstr "Alle Beiträge auf dieser Seite wurden erfolgreich als gelesen markiert."
 
@@ -4481,3 +4481,8 @@ msgstr "Moderations-Eintrag geklärt"
 #: lib/cforum_web/templates/users/user/show_scores.html.eex:14
 msgid "message is no longer available"
 msgstr "Der Beitrag ist nicht länger verfügbar."
+
+#, elixir-format
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:45
+msgid "page threads in the threadlist"
+msgstr "verteile die Threads in der Thread-Liste auf Seiten"

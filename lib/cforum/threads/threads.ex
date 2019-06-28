@@ -142,7 +142,10 @@ defmodule Cforum.Threads do
     |> Map.put(:accepted, Enum.filter(sorted_messages, &(&1.flags["accepted"] == "yes")))
   end
 
-  def paged_thread_list(threads, page, limit) do
+  def paged_thread_list(threads, page, limit, use_paging \\ true)
+  def paged_thread_list(threads, _, _, false), do: threads
+
+  def paged_thread_list(threads, page, limit, _) do
     {sticky, normal} =
       Enum.reduce(threads, {[], []}, fn
         %Thread{sticky: true} = thread, {sticky, normal} -> {[thread | sticky], normal}

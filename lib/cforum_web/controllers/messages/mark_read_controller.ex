@@ -29,6 +29,7 @@ defmodule CforumWeb.Messages.MarkReadController do
   def mark_all_read(conn, params) do
     page = Paginator.parse_page(params["p"]) - 1
     limit = ConfigManager.uconf(conn, "pagination", :int)
+    use_paging = ConfigManager.uconf(conn, "use_paging") == "yes"
     user = conn.assigns[:current_user]
     {_, ordering} = ThreadHelpers.get_ordering(conn, user)
 
@@ -44,7 +45,7 @@ defmodule CforumWeb.Messages.MarkReadController do
       |> Threads.apply_highlights(conn)
       |> Threads.filter_wo_answer(conn.params["only_wo_answer"] != nil)
       |> Threads.sort_threads(ordering)
-      |> Threads.paged_thread_list(page, limit)
+      |> Threads.paged_thread_list(page, limit, use_paging)
       |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
       |> Enum.map(& &1.messages)
       |> List.flatten()

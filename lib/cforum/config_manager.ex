@@ -14,6 +14,7 @@ defmodule Cforum.ConfigManager do
     "pagination" => 50,
     "pagination_users" => 50,
     "pagination_search" => 50,
+    "use_paging" => "yes",
     "locked" => "no",
     "css_ressource" => nil,
     "js_ressource" => nil,
@@ -142,7 +143,8 @@ defmodule Cforum.ConfigManager do
     "highlight_self",
     "hide_read_threads",
     "mail_thread_sort",
-    "highlighted_users"
+    "highlighted_users",
+    "use_paging"
   ]
 
   @visible_config ["max_tags_per_message", "min_tags_per_message"] ++ @user_config_keys
