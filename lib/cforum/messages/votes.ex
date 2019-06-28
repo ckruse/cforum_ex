@@ -46,7 +46,7 @@ defmodule Cforum.Messages.Votes do
       v in Vote,
       inner_join: m in Message,
       on: m.message_id == v.message_id,
-      preload: [:score, message: [:user, :tags, [thread: :forum, votes: :voters]]],
+      preload: [:score, message: [:user, :tags, [thread: :forum, votes: :user]]],
       where: v.user_id == ^user.user_id,
       where: m.forum_id in ^forum_ids and m.deleted == false,
       order_by: [desc: m.created_at]
