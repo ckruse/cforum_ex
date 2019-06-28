@@ -6,7 +6,9 @@ defmodule Cforum.Messages.CloseVotes do
   import Ecto.Query, warn: false
   alias Cforum.Repo
   alias Cforum.Threads
+  alias Cforum.Threads.ThreadCaching
   alias Cforum.Messages
+  alias Cforum.Messages.MessageCaching
   alias Cforum.Messages.Message
   alias Cforum.Messages.{CloseVote, CloseVoteVoter}
   alias Cforum.System
@@ -65,6 +67,7 @@ defmodule Cforum.Messages.CloseVotes do
         {:ok, %CloseVote{close_vote | voters: list_voters(close_vote)}}
       end
     end)
+    |> MessageCaching.update_cached_message()
   end
 
   @doc """
@@ -90,6 +93,7 @@ defmodule Cforum.Messages.CloseVotes do
         {:ok, close_vote}
       end
     end)
+    |> MessageCaching.update_cached_message()
   end
 
   @doc """
@@ -110,6 +114,7 @@ defmodule Cforum.Messages.CloseVotes do
       |> CloseVote.new_changeset(attrs)
       |> Repo.update()
     end)
+    |> MessageCaching.update_cached_message()
   end
 
   @doc """
@@ -128,6 +133,7 @@ defmodule Cforum.Messages.CloseVotes do
     System.audited("destroy", current_user, fn ->
       Repo.delete(vote)
     end)
+    |> MessageCaching.update_cached_message()
   end
 
   @doc """
@@ -155,11 +161,9 @@ defmodule Cforum.Messages.CloseVotes do
     settings = Cforum.Accounts.Settings.get_global_setting() || %Cforum.Accounts.Setting{}
 
     ret =
-      System.audited("vote", nil, fn ->
-        %CloseVoteVoter{}
-        |> CloseVoteVoter.changeset(%{user_id: user.user_id, close_vote_id: vote.close_vote_id})
-        |> Repo.insert()
-      end)
+      %CloseVoteVoter{}
+      |> CloseVoteVoter.changeset(%{user_id: user.user_id, close_vote_id: vote.close_vote_id})
+      |> Repo.insert()
 
     # ensure that voters have been loaded
     vote = Repo.preload(vote, [:voters])
@@ -171,6 +175,8 @@ defmodule Cforum.Messages.CloseVotes do
       Cforum.ConfigManager.conf(settings, "close_vote_votes", :int),
       Cforum.ConfigManager.conf(settings, "close_vote_action_" <> vote.reason)
     )
+
+    MessageCaching.update_cached_message(vote)
 
     ret
   end
@@ -205,6 +211,8 @@ defmodule Cforum.Messages.CloseVotes do
     with {:ok, _} <- Messages.unflag_no_answer(nil, message, "no-answer"),
          {:ok, _} <- Messages.restore_message(nil, message),
          do: {:ok, message}
+
+    ThreadCaching.refresh_cached_thread(thread)
   end
 
   defp apply_vote_action(vote, "close") do
@@ -217,6 +225,8 @@ defmodule Cforum.Messages.CloseVotes do
     message = Messages.get_message_from_mid!(thread, m.message_id)
 
     Messages.flag_no_answer(nil, message, "no-answer")
+
+    ThreadCaching.refresh_cached_thread(thread)
   end
 
   defp apply_vote_action(vote, "hide") do
@@ -229,6 +239,8 @@ defmodule Cforum.Messages.CloseVotes do
     message = Messages.get_message_from_mid!(thread, m.message_id)
 
     Messages.delete_message(nil, message)
+
+    ThreadCaching.refresh_cached_thread(thread)
   end
 
   @doc """
@@ -240,10 +252,9 @@ defmodule Cforum.Messages.CloseVotes do
       {:ok, %CloseVoteVoter{}}
   """
   def take_back_vote(user, %CloseVote{} = vote) do
-    System.audited("unvote", nil, fn ->
-      voter = Repo.get_by!(CloseVoteVoter, user_id: user.user_id, close_vote_id: vote.close_vote_id)
-      Repo.delete(voter)
-    end)
+    voter = Repo.get_by!(CloseVoteVoter, user_id: user.user_id, close_vote_id: vote.close_vote_id)
+    Repo.delete(voter)
+    MessageCaching.update_cached_message(vote)
   end
 
   @doc """
