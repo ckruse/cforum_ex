@@ -13,12 +13,17 @@ defmodule CforumWeb.Admin.AuditView do
 
   def url_params(changeset) do
     [
-      search: [
-        from: Timex.lformat!(Ecto.Changeset.get_field(changeset, :from), "{RFC3339z}", "en"),
-        to: Timex.lformat!(Ecto.Changeset.get_field(changeset, :to), "{RFC3339z}", "en")
-      ]
+      search:
+        [
+          from: Timex.lformat!(Ecto.Changeset.get_field(changeset, :from), "{YYYY}-{0M}-{0D}", "en"),
+          to: Timex.lformat!(Ecto.Changeset.get_field(changeset, :to), "{YYYY}-{0M}-{0D}", "en")
+        ]
+        |> add_objects(Ecto.Changeset.get_field(changeset, :objects))
     ]
   end
+
+  defp add_objects(opts, objects) when is_nil(objects) or objects == [], do: opts
+  defp add_objects(opts, objects), do: Keyword.put(opts, :objects, objects)
 
   def is_object_checked?(changeset, type) do
     objects = Ecto.Changeset.get_field(changeset, :objects)

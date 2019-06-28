@@ -8,10 +8,10 @@ defmodule CforumWeb.Admin.AuditController do
   def index(conn, params) do
     changeset =
       {%{
-         from: Timex.beginning_of_day(NaiveDateTime.utc_now()),
-         to: Timex.end_of_day(NaiveDateTime.utc_now()),
+         from: Timex.today(),
+         to: Timex.today(),
          objects: []
-       }, %{from: :utc_datetime, to: :utc_datetime, objects: {:array, :string}}}
+       }, %{from: :date, to: :date, objects: {:array, :string}}}
       |> Ecto.Changeset.cast(params["search"] || %{}, [:from, :to, :objects])
 
     count = System.count_auditing(changeset)
