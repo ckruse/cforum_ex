@@ -142,7 +142,8 @@ defmodule Cforum.MarkdownRenderer do
         {:reply, {:ok, retval["html"]}, {proc, runs}}
 
       _ ->
-        {:reply, {:error, retval["message"]}, {proc, runs}}
+        Proc.stop(proc)
+        {:reply, {:error, retval["message"]}, {nil, 0}}
     end
   end
 
