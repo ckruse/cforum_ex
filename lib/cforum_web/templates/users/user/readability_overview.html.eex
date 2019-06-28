@@ -42,6 +42,10 @@
     </div>
 
     <div class="cf-cgroup">
+      <label class="checkbox"><%= checkbox @f, :use_paging, unchecked_value: "no", checked_value: "yes" %> <%= gettext("page threads in the threadlist") %></label>
+    </div>
+
+    <div class="cf-cgroup">
       <label class="checkbox"><%= checkbox @f, :highlight_self, unchecked_value: "no", checked_value: "yes" %> <%= gettext("highlight myself") %></label>
     </div>
 

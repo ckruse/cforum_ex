@@ -6,4 +6,4 @@
   <% end %>
 </div>
 
-<%= Paginator.pagination @conn, @page, &Path.forum_path/4, path_args: ([@conn, :index, @current_forum]) %>
+<%= if @use_paging, do: Paginator.pagination @conn, @page, &Path.forum_path/4, path_args: ([@conn, :index, @current_forum]) %>

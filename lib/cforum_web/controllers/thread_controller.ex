@@ -15,6 +15,7 @@ defmodule CforumWeb.ThreadController do
   def index(conn, params) do
     page = Paginator.parse_page(params["p"]) - 1
     limit = ConfigManager.uconf(conn, "pagination", :int)
+    use_paging = ConfigManager.uconf(conn, "use_paging") == "yes"
     user = conn.assigns[:current_user]
     {set_order_cookie, ordering} = ThreadHelpers.get_ordering(conn, user)
 
@@ -35,19 +36,26 @@ defmodule CforumWeb.ThreadController do
     threads =
       threads
       |> Threads.sort_threads(ordering)
-      |> Threads.paged_thread_list(page, limit)
+      |> Threads.paged_thread_list(page, limit, use_paging)
       |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
 
     p = Paginator.paginate(all_threads_count, per_page: limit, page: page + 1)
 
     conn
     |> maybe_set_cookie(set_order_cookie, ordering)
-    |> render("index.html", threads: threads, all_threads_count: all_threads_count, page: p, order: ordering)
+    |> render("index.html",
+      threads: threads,
+      all_threads_count: all_threads_count,
+      page: p,
+      order: ordering,
+      use_paging: use_paging
+    )
   end
 
   def index_unanswered(conn, params) do
     page = Paginator.parse_page(params["p"]) - 1
     limit = ConfigManager.uconf(conn, "pagination", :int)
+    use_paging = ConfigManager.uconf(conn, "use_paging") == "yes"
     user = conn.assigns[:current_user]
     {set_order_cookie, ordering} = ThreadHelpers.get_ordering(conn, user)
 
@@ -68,14 +76,20 @@ defmodule CforumWeb.ThreadController do
     threads =
       threads
       |> Threads.sort_threads(ordering)
-      |> Threads.paged_thread_list(page, limit)
+      |> Threads.paged_thread_list(page, limit, use_paging)
       |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
 
     p = Paginator.paginate(all_threads_count, per_page: limit, page: page + 1)
 
     conn
     |> maybe_set_cookie(set_order_cookie, ordering)
-    |> render("index_unanswered.html", threads: threads, all_threads_count: all_threads_count, page: p, order: ordering)
+    |> render("index_unanswered.html",
+      threads: threads,
+      all_threads_count: all_threads_count,
+      page: p,
+      order: ordering,
+      use_paging: use_paging
+    )
   end
 
   def show(conn, _params) do
