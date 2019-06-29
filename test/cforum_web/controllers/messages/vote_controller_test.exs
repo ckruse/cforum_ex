@@ -7,14 +7,14 @@ defmodule CforumWeb.Messages.VoteControllerTest do
 
   describe "upvote" do
     test "votes up", %{conn: conn, thread: thread, message: message, forum: forum} do
-      conn = post(conn, Path.upvote_message_path(conn, thread, message, f: forum.slug, r: "message"))
+      conn = post(conn, Path.message_path(conn, :upvote, thread, message, f: forum.slug, r: "message"))
       assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
       assert get_flash(conn, :info) == gettext("Successfully upvoted message")
     end
 
     test "takes back a vote", %{conn: conn, thread: thread, message: message, forum: forum} do
-      conn = post(conn, Path.upvote_message_path(conn, thread, message))
-      conn = post(conn, Path.upvote_message_path(conn, thread, message, f: forum.slug, r: "message"))
+      conn = post(conn, Path.message_path(conn, :upvote, thread, message))
+      conn = post(conn, Path.message_path(conn, :upvote, thread, message, f: forum.slug, r: "message"))
       assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
       assert get_flash(conn, :info) == gettext("Successfully took back vote")
     end
@@ -22,14 +22,14 @@ defmodule CforumWeb.Messages.VoteControllerTest do
 
   describe "downvote" do
     test "votes down", %{conn: conn, thread: thread, message: message, forum: forum} do
-      conn = post(conn, Path.downvote_message_path(conn, thread, message, f: forum.slug, r: "message"))
+      conn = post(conn, Path.message_path(conn, :downvote, thread, message, f: forum.slug, r: "message"))
       assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
       assert get_flash(conn, :info) == gettext("Successfully downvoted message")
     end
 
     test "takes back a vote", %{conn: conn, thread: thread, message: message, forum: forum} do
-      conn = post(conn, Path.downvote_message_path(conn, thread, message))
-      conn = post(conn, Path.downvote_message_path(conn, thread, message, f: forum.slug, r: "message"))
+      conn = post(conn, Path.message_path(conn, :downvote, thread, message))
+      conn = post(conn, Path.message_path(conn, :downvote, thread, message, f: forum.slug, r: "message"))
       assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
       assert get_flash(conn, :info) == gettext("Successfully took back vote")
     end
@@ -37,8 +37,8 @@ defmodule CforumWeb.Messages.VoteControllerTest do
 
   describe "inverting" do
     test "takes back a an upvote and creates a downvote", %{conn: conn, thread: thread, message: message, forum: forum} do
-      conn = post(conn, Path.upvote_message_path(conn, thread, message))
-      conn = post(conn, Path.downvote_message_path(conn, thread, message, f: forum.slug, r: "message"))
+      conn = post(conn, Path.message_path(conn, :upvote, thread, message))
+      conn = post(conn, Path.message_path(conn, :downvote, thread, message, f: forum.slug, r: "message"))
       assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
       assert get_flash(conn, :info) == gettext("Successfully downvoted message")
 
@@ -48,8 +48,8 @@ defmodule CforumWeb.Messages.VoteControllerTest do
     end
 
     test "takes back a downvote and creates an upvote", %{conn: conn, thread: thread, message: message, forum: forum} do
-      conn = post(conn, Path.downvote_message_path(conn, thread, message))
-      conn = post(conn, Path.upvote_message_path(conn, thread, message, f: forum.slug, r: "message"))
+      conn = post(conn, Path.message_path(conn, :downvote, thread, message))
+      conn = post(conn, Path.message_path(conn, :upvote, thread, message, f: forum.slug, r: "message"))
       assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
       assert get_flash(conn, :info) == gettext("Successfully upvoted message")
 

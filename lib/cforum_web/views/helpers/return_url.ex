@@ -40,10 +40,10 @@ defmodule CforumWeb.Views.Helpers.ReturnUrl do
         Path.message_path(conn, :show, thread, message || List.first(thread.messages), args)
 
       "messages/interesting" ->
-        Path.interesting_message_path(conn, thread, message || List.first(thread.messages), args)
+        Path.message_path(conn, :interesting, thread, message || List.first(thread.messages), args)
 
       "threads/invisible" ->
-        Path.invisible_thread_path(conn, :index, nil, args)
+        Path.thread_path(conn, :invisible_index, nil, args)
     end
   end
 

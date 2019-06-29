@@ -6,7 +6,7 @@ defmodule CforumWeb.Messages.FlagControllerTest do
   alias Cforum.ModerationQueue
 
   test "shows a new form", %{conn: conn, thread: thread, message: message} do
-    conn = get(conn, Path.flag_message_path(conn, thread, message))
+    conn = get(conn, Path.message_path(conn, :flag, thread, message))
 
     assert html_response(conn, 200) =~
              gettext("flag message %{subject} by %{author}", subject: message.subject, author: message.author)
@@ -16,7 +16,7 @@ defmodule CforumWeb.Messages.FlagControllerTest do
     conn =
       post(
         conn,
-        Path.flag_message_path(conn, thread, message),
+        Path.message_path(conn, :flag, thread, message),
         moderation_queue_entry: %{reason: "off-topic", message_id: message.message_id}
       )
 
@@ -30,7 +30,7 @@ defmodule CforumWeb.Messages.FlagControllerTest do
     conn =
       post(
         conn,
-        Path.flag_message_path(conn, thread, message),
+        Path.message_path(conn, :flag, thread, message),
         moderation_queue_entry: %{reason: "off-topic", message_id: message.message_id}
       )
 
@@ -40,7 +40,7 @@ defmodule CforumWeb.Messages.FlagControllerTest do
 
   test "shows a new form on invalid data", %{conn: conn, thread: thread, message: message} do
     conn =
-      post(conn, Path.flag_message_path(conn, thread, message),
+      post(conn, Path.message_path(conn, :flag, thread, message),
         moderation_queue_entry: %{message_id: message.message_id}
       )
 

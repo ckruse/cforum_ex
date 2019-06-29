@@ -22,14 +22,14 @@ defmodule CforumWeb.Messages.SubscriptionControllerTest do
 
   describe "subscribing" do
     test "subscribes messages", %{conn: conn, forum: forum, thread: thread, message: message} do
-      conn = post(conn, Path.subscribe_message_path(conn, thread, message), f: forum.slug, r: "message")
+      conn = post(conn, Path.message_path(conn, :subscribe, thread, message), f: forum.slug, r: "message")
       assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
       assert get_flash(conn, :info) == gettext("Message was successfully subscribed.")
     end
 
     test "responds with 403 on already subscribed messages", %{conn: conn, thread: thread, message: message} do
-      conn = post(conn, Path.subscribe_message_path(conn, thread, message))
-      conn = post(conn, Path.subscribe_message_path(conn, thread, message))
+      conn = post(conn, Path.message_path(conn, :subscribe, thread, message))
+      conn = post(conn, Path.message_path(conn, :subscribe, thread, message))
       assert conn.status == 403
     end
   end
@@ -37,13 +37,13 @@ defmodule CforumWeb.Messages.SubscriptionControllerTest do
   describe "unsubscribing" do
     test "unsubscribes messages", %{conn: conn, user: user, forum: forum, thread: thread, message: message} do
       Subscriptions.subscribe_message(user, message)
-      conn = post(conn, Path.unsubscribe_message_path(conn, thread, message), f: forum.slug, r: "message")
+      conn = post(conn, Path.message_path(conn, :unsubscribe, thread, message), f: forum.slug, r: "message")
       assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
       assert get_flash(conn, :info) == gettext("Message was successfully unsubscribed.")
     end
 
     test "doesn't fail on not subscribed messages", %{conn: conn, thread: thread, message: message} do
-      conn = post(conn, Path.unsubscribe_message_path(conn, thread, message))
+      conn = post(conn, Path.message_path(conn, :unsubscribe, thread, message))
       assert conn.status == 403
     end
   end
