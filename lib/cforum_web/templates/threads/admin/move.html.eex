@@ -1,4 +1,4 @@
-<%= form_for @changeset, Path.move_thread_path(@conn, @thread), [class: "cf-form"], fn f -> %>
+<%= form_for @changeset, Path.thread_path(@conn, :move, @thread), [class: "cf-form"], fn f -> %>
   <%= if @changeset.action do %>
     <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
   <% end %>

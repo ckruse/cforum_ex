@@ -2,7 +2,7 @@
   <%= render(CforumWeb.MessageView, "message.html", Map.merge(assigns, %{controls: false, first: true})) %>
 </article>
 
-<%= form_for @changeset, Path.retag_message_path(@conn, @thread, @message), [class: "cf-form", method: :post], fn f -> %>
+<%= form_for @changeset, Path.message_path(@conn, :retag, @thread, @message), [class: "cf-form", method: :post], fn f -> %>
   <fieldset>
     <%= ErrorHelpers.error_tag f, :tags %>
     <ul class="cf-form-tagslist" data-tags-list="form">

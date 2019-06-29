@@ -27,7 +27,7 @@ defmodule CforumWeb.VotingAreaView do
         VHelpers.Button.cf_button(
           # voting_svg(conn, "accept"),
           [{:safe, "<span>"}, gettext("accept answer"), {:safe, "</span>"}],
-          to: Path.accept_message_path(conn, thread, message),
+          to: Path.message_path(conn, :accept, thread, message),
           class: "accept unaccepted-answer",
           params: VHelpers.std_args(conn),
           title: gettext("accept answer")
@@ -37,7 +37,7 @@ defmodule CforumWeb.VotingAreaView do
         VHelpers.Button.cf_button(
           # voting_svg(conn, "accept"),
           [{:safe, "<span>"}, gettext("unaccept answer"), {:safe, "</span>"}],
-          to: Path.unaccept_message_path(conn, thread, message),
+          to: Path.message_path(conn, :unaccept, thread, message),
           class: "accept accepted-answer",
           params: VHelpers.std_args(conn),
           title: gettext("unaccept answer")
@@ -67,7 +67,7 @@ defmodule CforumWeb.VotingAreaView do
       # Abilities.may?(conn, "messages/vote", :upvote, {thread, message}) ->
       VHelpers.Button.cf_button(
         [{:safe, "<span>"}, gettext("vote up"), {:safe, "</span>"}],
-        to: Path.upvote_message_path(conn, thread, message),
+        to: Path.message_path(conn, :upvote, thread, message),
         class: "vote-button vote-up #{active_upvoting_button(message, conn.assigns.current_user)}",
         params: VHelpers.std_args(conn),
         disabled: !Abilities.may?(conn, "messages/vote", :upvote, {thread, message}),
@@ -86,7 +86,7 @@ defmodule CforumWeb.VotingAreaView do
       # Abilities.may?(conn, "messages/vote", :downvote, {thread, message}) ->
       VHelpers.Button.cf_button(
         [{:safe, "<span>"}, gettext("vote down"), {:safe, "</span>"}],
-        to: Path.downvote_message_path(conn, thread, message),
+        to: Path.message_path(conn, :downvote, thread, message),
         class: "vote-button vote-down #{active_downvoting_button(message, conn.assigns.current_user)}",
         params: VHelpers.std_args(conn),
         disabled: !Abilities.may?(conn, "messages/vote", :downvote, {thread, message}),

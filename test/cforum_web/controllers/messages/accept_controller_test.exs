@@ -6,26 +6,26 @@ defmodule CforumWeb.Messages.AcceptControllerTest do
   alias Cforum.Messages
 
   test "accepts an answer", %{conn: conn, forum: forum, thread: thread, message: message} do
-    conn = post(conn, Path.accept_message_path(conn, thread, message), f: forum.slug, r: "message")
+    conn = post(conn, Path.message_path(conn, thread, message), f: forum.slug, r: "message")
     assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
     assert get_flash(conn, :info) == gettext("Message has successfully been accepted as a solving answer")
   end
 
   test "responds with 403 on an already accepted answer", %{conn: conn, user: user, thread: thread, message: message} do
     Messages.accept_message(message, user, 15)
-    conn = post(conn, Path.accept_message_path(conn, thread, message))
+    conn = post(conn, Path.message_path(conn, thread, message))
     assert conn.status == 403
   end
 
   test "unaccepts an answer", %{conn: conn, user: user, forum: forum, thread: thread, message: message} do
     Messages.accept_message(message, user, 15)
-    conn = post(conn, Path.unaccept_message_path(conn, thread, message), f: forum.slug, r: "message")
+    conn = post(conn, Path.message_path(conn, :unaccept, thread, message), f: forum.slug, r: "message")
     assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
     assert get_flash(conn, :info) == gettext("Message has successfully been unaccepted as a solving answer")
   end
 
   test "responds with 403 on an not accepted answer", %{conn: conn, thread: thread, message: message} do
-    conn = post(conn, Path.unaccept_message_path(conn, thread, message))
+    conn = post(conn, Path.message_path(conn, :unaccept, thread, message))
     assert conn.status == 403
   end
 

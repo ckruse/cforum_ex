@@ -1,4 +1,4 @@
-<%= form_for @changeset, Path.split_thread_path(@conn, @thread), [class: "cf-form"], fn f -> %>
+<%= form_for @changeset, Path.thread_path(@conn, :split, @thread), [class: "cf-form"], fn f -> %>
   <input type="hidden" name="mid" value="<%= @message.message_id %>">
 
   <%= if @changeset.action do %>
