@@ -20,11 +20,15 @@ defmodule CforumWeb.ModerationView do
   def l10n_report_reason(%ModerationQueueEntry{reason: "duplicate"} = entry),
     do: gettext("message is a duplicate of %{url}", url: entry.duplicate_url)
 
+  def l10n_report_reason(%ModerationQueueEntry{reason: reason}), do: reason
+
   def l10n_resolution_action("close"), do: gettext("close message and children")
   def l10n_resolution_action("delete"), do: gettext("delete message and children")
   def l10n_resolution_action("no-archive"), do: gettext("set message and children to „no archive“")
   def l10n_resolution_action("manual"), do: gettext("manual intervention")
   def l10n_resolution_action("none"), do: gettext("no intervention")
+
+  def l10n_resolution_action(action), do: action
 
   def closer_link(conn, entry) do
     {:safe, link} = VHelpers.user_link(conn, entry.closer, [], entry.closer_name)
