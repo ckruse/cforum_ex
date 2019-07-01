@@ -230,7 +230,10 @@ defmodule CforumWeb.Views.Helpers.Path do
     end
   end
 
-  @spec encode_query_string(Plug.Conn.t(), [] | %{}) :: String.t()
+  @spec encode_query_string(Plug.Conn.t() | CforumWeb.Endpoint, [] | %{}) :: String.t()
+  def encode_query_string(CforumWeb.Endpoint, query) when query == [] or query == %{}, do: ""
+  def encode_query_string(CforumWeb.Endpoint, query), do: encode_query_string(query)
+
   def encode_query_string(conn, query) when query == [] or query == %{},
     do: encode_query_string(conn.assigns[:_link_flags] || %{})
 
