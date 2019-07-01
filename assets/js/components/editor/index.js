@@ -51,6 +51,13 @@ class CfEditor extends React.Component {
     if (this.props.onChange) {
       this.props.onChange(value);
     }
+
+    if(opts.start && opts.end) {
+      window.setTimeout(() => {
+        this.textarea.current.selectionStart = opts.start;
+        this.textarea.current.selectionEnd = opts.end;
+      }, 0)
+    }
   }
 
   dragStart() {
