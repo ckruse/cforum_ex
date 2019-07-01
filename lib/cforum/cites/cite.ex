@@ -32,6 +32,7 @@ defmodule Cforum.Cites.Cite do
     |> maybe_set_creator(current_user)
     |> set_cite_date()
     |> validate_required([:cite, :author, :creator, :url])
+    |> Cforum.Helpers.validate_url(:url)
   end
 
   def json_changeset(cite, attrs) do
