@@ -18,7 +18,7 @@ defmodule CforumWeb.ModerationView do
   def l10n_report_reason(%ModerationQueueEntry{reason: "custom"} = entry), do: entry.custom_reason
 
   def l10n_report_reason(%ModerationQueueEntry{reason: "duplicate"} = entry),
-    do: gettext("message is a duplicate of %{url}", entry.duplicate_url)
+    do: gettext("message is a duplicate of %{url}", url: entry.duplicate_url)
 
   def l10n_resolution_action("close"), do: gettext("close message and children")
   def l10n_resolution_action("delete"), do: gettext("delete message and children")
