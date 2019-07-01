@@ -130,7 +130,17 @@ defmodule Cforum.Cites do
       |> Repo.insert()
     end)
     |> maybe_index_cite()
+    |> maybe_upvote_cite(current_user)
   end
+
+  defp maybe_upvote_cite(val, nil), do: val
+
+  defp maybe_upvote_cite({:ok, cite}, user) do
+    vote(cite, user, :up)
+    {:ok, cite}
+  end
+
+  defp maybe_upvote_cite(val, _), do: val
 
   @doc """
   Updates a cite.
