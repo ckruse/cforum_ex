@@ -7,7 +7,7 @@ defmodule CforumWeb.SearchView do
   def body_id(_, _), do: "search"
   def body_classes(_, _), do: "search"
 
-  def checked?(section, form), do: section.search_section_id in form.data.sections
+  def checked?(section, form), do: section.search_section_id in input_value(form, :sections)
 
   def should_show_title?(nil), do: false
   def should_show_title?(""), do: false
