@@ -1799,7 +1799,7 @@ msgstr "Zitat #%{id}"
 #, elixir-format
 #: lib/cforum_web/templates/cite/cite.html.eex:62
 msgid "created by"
-msgstr "erstellt von"
+msgstr "eingereicht von"
 
 #, elixir-format
 #: lib/cforum_web/templates/cite/subnav.html.eex:2
