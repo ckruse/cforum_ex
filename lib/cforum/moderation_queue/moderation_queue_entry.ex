@@ -36,6 +36,7 @@ defmodule Cforum.ModerationQueue.ModerationQueueEntry do
     |> maybe_require_others()
     |> validate_inclusion(:reason, @reasons)
     |> unique_constraint(:message_id, name: :moderation_queue_message_id_idx)
+    |> Cforum.Helpers.validate_url(:duplicate_url)
   end
 
   def resolve_changeset(current_user, struct, attrs) do

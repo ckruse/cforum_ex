@@ -181,4 +181,18 @@ defmodule Cforum.Helpers do
         raise inspect(v)
     end
   end
+
+  def validate_url(changeset, field, opts \\ []) do
+    Ecto.Changeset.validate_change(changeset, field, fn _, value ->
+      case URI.parse(value) do
+        %URI{scheme: scheme} when scheme not in ["http", "https"] -> "has an invalid scheme"
+        %URI{host: nil} -> "is missing a host"
+        _ -> nil
+      end
+      |> case do
+        error when is_binary(error) -> [{field, Keyword.get(opts, :message, error)}]
+        _ -> []
+      end
+    end)
+  end
 end
