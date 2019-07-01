@@ -1,6 +1,8 @@
 <span class="message-icons">
   <%= if !@conn.assigns[:view_all] && MessageHelpers.no_answer?(@message) do %>
-    <span class="icon-message no-answer user" title="<% gettext("Message closed, answering not allowed") %>"> </span>
+    <span class="icon-message no-answer user" title="<%= gettext("Message closed, answering not allowed") %>">
+      <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#no-answer"></use></svg>
+    </span>
   <% end %>
 
   <%= if @conn.assigns[:view_all], do: render("header_message_icons_admin.html", assigns) %>
