@@ -70,6 +70,8 @@ defmodule CforumWeb.Router do
       post("/messages/accept", Messages.AcceptController, :accept)
       post("/messages/unaccept", Messages.AcceptController, :unaccept)
 
+      post("/cites/vote", Cite.VoteController, :vote)
+
       post("/images", ImageController, :create)
     end
   end

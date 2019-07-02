@@ -42,6 +42,7 @@ import "./notifications";
 import "./stats";
 import "./help";
 import "./user";
+import "./cites";
 
 import "./init";
 import "./cleanup";
