@@ -106,7 +106,6 @@ defmodule CforumWeb.MessageController do
         |> redirect(to: Path.message_path(conn, :show, thread, message))
 
       {:error, changeset} ->
-        raise inspect(changeset)
         render(conn, "new.html", changeset: changeset)
     end
   end
