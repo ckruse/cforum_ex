@@ -203,7 +203,8 @@ defmodule Cforum.Messages.CloseVotes do
     m = Messages.get_message!(vote.message_id, view_all: true)
 
     thread =
-      Threads.get_thread!(m.thread_id)
+      m.thread_id
+      |> Threads.get_thread!()
       |> Threads.build_message_tree("ascending")
 
     message = Messages.get_message_from_mid!(thread, m.message_id)
@@ -219,7 +220,8 @@ defmodule Cforum.Messages.CloseVotes do
     m = Messages.get_message!(vote.message_id, view_all: true)
 
     thread =
-      Threads.get_thread!(m.thread_id)
+      m.thread_id
+      |> Threads.get_thread!()
       |> Threads.build_message_tree("ascending")
 
     message = Messages.get_message_from_mid!(thread, m.message_id)
@@ -233,7 +235,8 @@ defmodule Cforum.Messages.CloseVotes do
     m = Messages.get_message!(vote.message_id, view_all: true)
 
     thread =
-      Threads.get_thread!(m.thread_id)
+      m.thread_id
+      |> Threads.get_thread!()
       |> Threads.build_message_tree("ascending")
 
     message = Messages.get_message_from_mid!(thread, m.message_id)
