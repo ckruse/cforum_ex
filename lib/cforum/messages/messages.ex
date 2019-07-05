@@ -684,10 +684,13 @@ defmodule Cforum.Messages do
       {:ok, %Message{}}
   """
 
-  def unflag_no_answer(user, message) do
+  def unflag_no_answer(user, message, types \\ ["no-answer-admin", "no-answer"]) do
     System.audited("unflag-no-answer", user, fn ->
-      unflag_message_subtree(message, "no-answer-admin")
-      unflag_message_subtree(message, "no-answer")
+      Enum.each(types, fn type ->
+        {:ok, _} = unflag_message_subtree(message, type)
+      end)
+
+      {:ok, message}
     end)
     |> ThreadCaching.refresh_cached_thread()
   end
