@@ -334,7 +334,10 @@ defmodule Cforum.Messages do
 
   """
   def delete_message(user, %Message{} = message) do
-    message_ids = subtree_message_ids(message) |> List.flatten()
+    message_ids =
+      message
+      |> subtree_message_ids()
+      |> List.flatten()
 
     System.audited("destroy", user, fn ->
       from(m in Message,
@@ -361,7 +364,10 @@ defmodule Cforum.Messages do
 
   """
   def restore_message(user, %Message{} = message) do
-    message_ids = subtree_message_ids(message) |> List.flatten()
+    message_ids =
+      message
+      |> subtree_message_ids()
+      |> List.flatten()
 
     System.audited("restore", user, fn ->
       from(m in Message,
@@ -438,19 +444,16 @@ defmodule Cforum.Messages do
       |> CompositionHelpers.maybe_add_farewell(opts[:farewell])
       |> CompositionHelpers.maybe_add_signature(opts[:signature])
 
-    change_message(
-      %Message{
-        author: opts[:author],
-        email: opts[:email],
-        homepage: opts[:homepage],
-        subject: attribute_value(message, :subject),
-        problematic_site: attribute_value(message, :problematic_site),
-        content: content
-        # tags_str: tags_str,
-      },
-      user,
-      visible_forums
-    )
+    %Message{
+      author: opts[:author],
+      email: opts[:email],
+      homepage: opts[:homepage],
+      subject: attribute_value(message, :subject),
+      problematic_site: attribute_value(message, :problematic_site),
+      content: content
+      # tags_str: tags_str,
+    }
+    |> change_message(user, visible_forums)
     |> Ecto.Changeset.put_assoc(:tags, attribute_value(message, :tags, []))
   end
 
@@ -609,7 +612,10 @@ defmodule Cforum.Messages do
       {:ok, %Message{}}
   """
   def flag_message_subtree(message, flag, value) do
-    message_ids = subtree_message_ids(message) |> List.flatten()
+    message_ids =
+      message
+      |> subtree_message_ids()
+      |> List.flatten()
 
     from(m in Message,
       where: m.message_id in ^message_ids,
@@ -632,7 +638,10 @@ defmodule Cforum.Messages do
       {:ok, %Message{}}
   """
   def unflag_message_subtree(message, flag) do
-    message_ids = subtree_message_ids(message) |> List.flatten()
+    message_ids =
+      message
+      |> subtree_message_ids()
+      |> List.flatten()
 
     from(m in Message,
       where: m.message_id in ^message_ids,
