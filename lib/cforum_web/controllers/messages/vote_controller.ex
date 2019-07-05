@@ -60,10 +60,9 @@ defmodule CforumWeb.Messages.VoteController do
   end
 
   def allowed?(conn, :upvote, resource) do
-    {thread, message} =
-      with {thr, msg} <- resource do
-        {thr, msg}
-      else
+    {_thread, message} =
+      case resource do
+        {thread, message} -> {thread, message}
         _ -> {conn.assigns.thread, conn.assigns.message}
       end
 
@@ -73,10 +72,9 @@ defmodule CforumWeb.Messages.VoteController do
   end
 
   def allowed?(conn, :downvote, resource) do
-    {thread, message} =
-      with {thr, msg} <- resource do
-        {thr, msg}
-      else
+    {_thread, message} =
+      case resource do
+        {thread, message} -> {thread, message}
         _ -> {conn.assigns.thread, conn.assigns.message}
       end
 
