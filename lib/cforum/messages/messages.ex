@@ -683,9 +683,11 @@ defmodule Cforum.Messages do
       iex> unflag_no_answer(%User{}, %Message{})
       {:ok, %Message{}}
   """
-  def unflag_no_answer(user, message, type \\ "no-answer-admin") when type in ~w(no-answer-admin no-answer) do
+
+  def unflag_no_answer(user, message) do
     System.audited("unflag-no-answer", user, fn ->
-      unflag_message_subtree(message, type)
+      unflag_message_subtree(message, "no-answer-admin")
+      unflag_message_subtree(message, "no-answer")
     end)
     |> ThreadCaching.refresh_cached_thread()
   end
