@@ -171,7 +171,7 @@ defmodule Cforum.Messages.CloseVotes do
     maybe_apply_vote_action(
       ret,
       vote,
-      length(vote.voters) + 1,
+      length(vote.voters),
       Cforum.ConfigManager.conf(settings, "close_vote_votes", :int),
       Cforum.ConfigManager.conf(settings, "close_vote_action_" <> vote.reason)
     )
