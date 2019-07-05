@@ -24,7 +24,13 @@ defmodule CforumWeb.Paginator do
   end
 
   def parse_page(nil), do: 1
-  def parse_page(x) when is_bitstring(x), do: parse_page(String.to_integer(x))
+
+  def parse_page(x) when is_bitstring(x) do
+    if Regex.match?(~r/^\d+$/, x),
+      do: parse_page(String.to_integer(x)),
+      else: 1
+  end
+
   def parse_page(x) when x < 1, do: 1
   def parse_page(x), do: x
 
