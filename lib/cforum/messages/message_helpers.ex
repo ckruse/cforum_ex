@@ -80,7 +80,8 @@ defmodule Cforum.Messages.MessageHelpers do
       iex> no_answer?(%Message{flags: %{"no-answer" => "yes"}})
       true
   """
-  def no_answer?(message), do: message.flags["no-answer"] == "yes" || message.flags["no-answer-admin"] == "yes"
+  def no_answer?(message),
+    do: message.flags["no-answer-admin"] == "yes" || (!admin_decision?(message) && message.flags["no-answer"] == "yes")
 
   @doc """
   Returns true if answering to a message has been forbidden or allowed by an admin
