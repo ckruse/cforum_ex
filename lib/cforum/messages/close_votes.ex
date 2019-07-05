@@ -209,7 +209,7 @@ defmodule Cforum.Messages.CloseVotes do
 
     message = Messages.get_message_from_mid!(thread, m.message_id)
 
-    with {:ok, _} <- Messages.unflag_no_answer(nil, message, "no-answer"),
+    with {:ok, _} <- Messages.unflag_no_answer(nil, message, ["no-answer"]),
          {:ok, _} <- Messages.restore_message(nil, message),
          do: {:ok, message}
 
