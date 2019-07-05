@@ -28,9 +28,8 @@ defmodule CforumWeb.Users.UserController do
     render(conn, "index.html", users: users, paging: paging, s: params["s"])
   end
 
-  def show(conn, %{"id" => id}) do
-    user = Users.get_user!(id)
-
+  def show(conn, %{"id" => _id}) do
+    user = conn.assigns.user
     forum_ids = Enum.map(conn.assigns[:visible_forums], & &1.forum_id)
     messages_count = MessagesUsers.count_messages_for_user(user, forum_ids)
     tags_cnt = MessagesUsers.count_messages_per_tag_for_user(user, forum_ids)
@@ -80,7 +79,6 @@ defmodule CforumWeb.Users.UserController do
     render(
       conn,
       "show.html",
-      user: user,
       messages_count: messages_count,
       last_messages: last_messages,
       tags_cnt: tags_cnt,
@@ -92,13 +90,10 @@ defmodule CforumWeb.Users.UserController do
       description: Users.conf(user, "description"),
       scored_msgs: scored_msgs
     )
-  rescue
-    Ecto.NoResultsError ->
-      VHelpers.send_404(conn)
   end
 
-  def show_messages(conn, %{"id" => id} = params) do
-    user = Users.get_user!(id)
+  def show_messages(conn, %{"id" => _id} = params) do
+    user = conn.assigns.user
     forum_ids = Enum.map(conn.assigns[:visible_forums], & &1.forum_id)
 
     count = MessagesUsers.count_messages_for_user(user, forum_ids)
@@ -115,17 +110,13 @@ defmodule CforumWeb.Users.UserController do
     render(
       conn,
       "show_messages.html",
-      user: user,
       messages: messages,
       paging: paging
     )
-  rescue
-    Ecto.NoResultsError ->
-      VHelpers.send_404(conn)
   end
 
-  def show_scores(conn, %{"id" => id} = params) do
-    user = Users.get_user!(id)
+  def show_scores(conn, %{"id" => _id} = params) do
+    user = conn.assigns.user
     forum_ids = Enum.map(conn.assigns[:visible_forums], & &1.forum_id)
 
     count = MessagesUsers.count_scored_msgs_for_user_in_perspective(user, conn.assigns[:current_user], forum_ids)
@@ -154,17 +145,13 @@ defmodule CforumWeb.Users.UserController do
     render(
       conn,
       "show_scores.html",
-      user: user,
       paging: paging,
       scores: scores
     )
-  rescue
-    Ecto.NoResultsError ->
-      VHelpers.send_404(conn)
   end
 
-  def show_votes(conn, %{"id" => id} = params) do
-    user = Users.get_user!(id)
+  def show_votes(conn, %{"id" => _id} = params) do
+    user = conn.assigns.user
     forum_ids = Enum.map(conn.assigns[:visible_forums], & &1.forum_id)
 
     count = Votes.count_votes_for_user(user, forum_ids)
@@ -181,17 +168,13 @@ defmodule CforumWeb.Users.UserController do
     render(
       conn,
       "show_votes.html",
-      user: user,
       paging: paging,
       votes: votes
     )
-  rescue
-    Ecto.NoResultsError ->
-      VHelpers.send_404(conn)
   end
 
-  def edit(conn, %{"id" => id}) do
-    user = Users.get_user!(id)
+  def edit(conn, %{"id" => _id}) do
+    user = conn.assigns.user
     forum_ids = Enum.map(conn.assigns[:visible_forums], & &1.forum_id)
     messages_count = MessagesUsers.count_messages_for_user(user, forum_ids)
     changeset = Users.change_user(user)
@@ -199,10 +182,8 @@ defmodule CforumWeb.Users.UserController do
     render(conn, "edit.html", user: user, changeset: changeset, messages_count: messages_count)
   end
 
-  def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Users.get_user!(id)
-
-    case Users.update_user(user, user_params) do
+  def update(conn, %{"id" => _id, "user" => user_params}) do
+    case Users.update_user(conn.assigns.user, user_params) do
       {:ok, user} ->
         conn
         |> put_flash(:info, gettext("User updated successfully."))
@@ -210,24 +191,37 @@ defmodule CforumWeb.Users.UserController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         forum_ids = Enum.map(conn.assigns[:visible_forums], & &1.forum_id)
-        messages_count = MessagesUsers.count_messages_for_user(user, forum_ids)
+        messages_count = MessagesUsers.count_messages_for_user(conn.assigns.user, forum_ids)
 
-        render(conn, "edit.html", user: user, changeset: changeset, messages_count: messages_count)
+        render(conn, "edit.html", changeset: changeset, messages_count: messages_count)
     end
   end
 
-  def confirm_delete(conn, %{"id" => id}) do
-    user = Users.get_user!(id)
-    render(conn, "confirm_delete.html", user: user)
+  def confirm_delete(conn, %{"id" => _id}) do
+    render(conn, "confirm_delete.html")
   end
 
-  def delete(conn, %{"id" => id}) do
-    user = Users.get_user!(id)
-    {:ok, _user} = Users.delete_user(nil, user)
+  def delete(conn, %{"id" => _id}) do
+    {:ok, _user} = Users.delete_user(nil, conn.assigns.user)
 
     conn
     |> put_flash(:info, gettext("User deleted successfully."))
     |> redirect(to: Routes.user_path(conn, :index))
+  end
+
+  def load_resource(conn) do
+    cond do
+      Helpers.present?(conn.params["id"]) && Regex.match?(~r/^\d+$/, conn.params["id"]) ->
+        Plug.Conn.assign(conn, :user, Users.get_user!(conn.params["id"]))
+
+      Helpers.present?(conn.params["id"]) ->
+        conn
+        |> VHelpers.send_404()
+        |> Plug.Conn.halt()
+
+      true ->
+        conn
+    end
   end
 
   def allowed?(_conn, action, _) when action in [:index, :show, :show_messages, :show_scores], do: true
