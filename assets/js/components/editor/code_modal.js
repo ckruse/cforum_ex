@@ -95,15 +95,13 @@ class CodeModal extends React.Component {
               onSuggestionSelected={this.handleLanguageChosen}
             />
           </div>
-
           <div className="cf-cgroup">
             <label htmlFor="add-code-block-modal-code">{t("code")}</label>
             <textarea id="add-code-block-modal-code" onChange={this.handleCodeKeyPressed} value={this.state.code} />
           </div>
-
           <button className="cf-primary-btn" type="button" onClick={this.okPressed}>
             {t("add code block")}
-          </button>
+          </button>{" "}
           <button className="cf-btn" type="button" onClick={this.props.onCancel}>
             {t("cancel")}
           </button>
