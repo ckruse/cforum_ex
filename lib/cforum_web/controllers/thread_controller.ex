@@ -19,18 +19,7 @@ defmodule CforumWeb.ThreadController do
     user = conn.assigns[:current_user]
     {set_order_cookie, ordering} = ThreadHelpers.get_ordering(conn, user)
 
-    threads =
-      Threads.list_threads(conn.assigns[:current_forum], conn.assigns[:visible_forums])
-      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
-      |> Threads.reject_invisible_threads(user, conn.assigns[:view_all])
-      |> Threads.apply_user_infos(user,
-        close_read_threads: ConfigManager.uconf(conn, "open_close_close_when_read") == "yes",
-        open_close_default_state: ConfigManager.uconf(conn, "open_close_default")
-      )
-      |> Threads.reject_read_threads(ThreadHelpers.hide_read_threads?(conn))
-      |> Threads.apply_highlights(conn)
-      |> Threads.filter_wo_answer(conn.params["only_wo_answer"] != nil)
-
+    threads = thread_list(conn)
     all_threads_count = length(threads)
 
     threads =
@@ -59,18 +48,7 @@ defmodule CforumWeb.ThreadController do
     user = conn.assigns[:current_user]
     {set_order_cookie, ordering} = ThreadHelpers.get_ordering(conn, user)
 
-    threads =
-      Threads.list_threads(conn.assigns[:current_forum], conn.assigns[:visible_forums])
-      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
-      |> Threads.reject_invisible_threads(user, conn.assigns[:view_all])
-      |> Threads.apply_user_infos(user,
-        close_read_threads: ConfigManager.uconf(conn, "open_close_close_when_read") == "yes",
-        open_close_default_state: ConfigManager.uconf(conn, "open_close_default")
-      )
-      |> Threads.reject_read_threads(ThreadHelpers.hide_read_threads?(conn))
-      |> Threads.apply_highlights(conn)
-      |> Threads.filter_wo_answer()
-
+    threads = thread_list(conn)
     all_threads_count = length(threads)
 
     threads =
@@ -99,60 +77,22 @@ defmodule CforumWeb.ThreadController do
   end
 
   def index_atom(conn, _params) do
-    user = conn.assigns[:current_user]
-    {_, ordering} = ThreadHelpers.get_ordering(conn, user)
-
-    threads =
-      Threads.list_threads(conn.assigns[:current_forum], conn.assigns[:visible_forums])
-      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
-      |> Threads.reject_invisible_threads(user, conn.assigns[:view_all])
-      |> Threads.apply_user_infos(user, omit: [:open_close, :subscriptions, :interesting])
-      |> Threads.reject_read_threads(ThreadHelpers.hide_read_threads?(conn))
-      |> Threads.apply_highlights(conn)
-      |> Threads.sort_threads(ordering)
-      |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
-
+    threads = feed_thread_list(conn)
     render(conn, "index.atom", threads: threads)
   end
 
   def index_rss(conn, _params) do
-    user = conn.assigns[:current_user]
-    {_, ordering} = ThreadHelpers.get_ordering(conn, user)
-
-    threads =
-      Threads.list_threads(conn.assigns[:current_forum], conn.assigns[:visible_forums])
-      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
-      |> Threads.reject_invisible_threads(user, conn.assigns[:view_all])
-      |> Threads.apply_user_infos(user, omit: [:open_close, :subscriptions, :interesting])
-      |> Threads.reject_read_threads(ThreadHelpers.hide_read_threads?(conn))
-      |> Threads.apply_highlights(conn)
-      |> Threads.sort_threads(ordering)
-      |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
-
+    threads = feed_thread_list(conn)
     render(conn, "index.rss", threads: threads)
   end
 
   def show_atom(conn, %{"id" => id}) do
-    thread =
-      Threads.get_thread!(conn.assigns[:current_forum], conn.assigns[:visible_forums], id)
-      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
-      |> Threads.ensure_found!()
-      |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close, :subscriptions, :interesting])
-      |> Threads.apply_highlights(conn)
-      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
-
+    thread = get_thread_feed(conn, id)
     render(conn, "show.atom", thread: thread)
   end
 
   def show_rss(conn, %{"id" => id}) do
-    thread =
-      Threads.get_thread!(conn.assigns[:current_forum], conn.assigns[:visible_forums], id)
-      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
-      |> Threads.ensure_found!()
-      |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close, :subscriptions, :interesting])
-      |> Threads.apply_highlights(conn)
-      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
-
+    thread = get_thread_feed(conn, id)
     render(conn, "show.rss", thread: thread)
   end
 
@@ -271,4 +211,47 @@ defmodule CforumWeb.ThreadController do
   end
 
   def allowed?(conn, _, _), do: Abilities.access_forum?(conn)
+
+  defp thread_list(conn) do
+    conn.assigns[:current_forum]
+    |> Threads.list_threads(conn.assigns[:visible_forums])
+    |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+    |> Threads.reject_invisible_threads(conn.assigns[:current_user], conn.assigns[:view_all])
+    |> Threads.apply_user_infos(conn.assigns[:current_user],
+      close_read_threads: ConfigManager.uconf(conn, "open_close_close_when_read") == "yes",
+      open_close_default_state: ConfigManager.uconf(conn, "open_close_default")
+    )
+    |> Threads.reject_read_threads(ThreadHelpers.hide_read_threads?(conn))
+    |> Threads.apply_highlights(conn)
+    |> Threads.filter_wo_answer(conn.params["only_wo_answer"] != nil)
+  end
+
+  defp feed_thread_list(conn) do
+    user = conn.assigns[:current_user]
+    {_, ordering} = ThreadHelpers.get_ordering(conn, user)
+
+    conn.assigns[:current_forum]
+    |> Threads.list_threads(conn.assigns[:visible_forums])
+    |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+    |> Threads.reject_invisible_threads(user, conn.assigns[:view_all])
+    |> Threads.apply_user_infos(user, omit: [:open_close, :subscriptions, :interesting])
+    |> Threads.reject_read_threads(ThreadHelpers.hide_read_threads?(conn))
+    |> Threads.apply_highlights(conn)
+    |> Threads.sort_threads(ordering)
+    |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
+  end
+
+  defp get_thread_feed(conn, id) do
+    if Regex.match?(~r/^\d+$/, id) do
+      conn.assigns[:current_forum]
+      |> Threads.get_thread!(conn.assigns[:visible_forums], id)
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.ensure_found!()
+      |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close, :subscriptions, :interesting])
+      |> Threads.apply_highlights(conn)
+      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
+    else
+      raise Ecto.NoResultsError, queryable: Cforum.Threads.Thread
+    end
+  end
 end
