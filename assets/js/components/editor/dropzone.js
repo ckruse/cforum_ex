@@ -61,8 +61,8 @@ export default class Dropzone extends React.Component {
       : ev.dataTransfer.types.contains("Files");
   }
 
-  ignoreEvents(ev) {
-    if (this.isDraggingFile(ev)) {
+  ignoreEvents(ev, checkedForDraggingFile = false) {
+    if (checkedForDraggingFile || this.isDraggingFile(ev)) {
       ev.stopPropagation();
       ev.preventDefault();
     }
@@ -112,7 +112,7 @@ export default class Dropzone extends React.Component {
 
   onPaste(ev) {
     if (ev.clipboardData.items[0].type.match(/^image\//)) {
-      this.ignoreEvents(ev);
+      this.ignoreEvents(ev, true);
       this.setState({ file: ev.clipboardData.items[0].getAsFile(), showImageModal: true });
     }
   }
