@@ -170,6 +170,7 @@ defmodule CforumWeb.ThreadController do
       conn.assigns[:current_forum]
       |> Threads.get_thread_by_slug!(conn.assigns[:visible_forums], ThreadHelpers.slug_from_params(params))
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.ensure_found!()
       |> Threads.apply_user_infos(conn.assigns[:current_user])
       |> Threads.apply_highlights(conn)
       |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
