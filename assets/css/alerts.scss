@@ -58,6 +58,10 @@
   opacity: 0.2;
 }
 
+.cf-js-alert {
+  cursor: pointer;
+}
+
 @include default-breakpoint() {
   #alerts-container {
     padding-left: 2em;
