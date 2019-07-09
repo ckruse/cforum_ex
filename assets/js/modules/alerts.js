@@ -34,7 +34,7 @@ alertsContainer.addEventListener("click", ev => {
 
 export const alert = (type, text, timeout) => {
   const alert = parse(`<div class="cf-${type} cf-alert cf-js-alert fade in" role="alert">
-    <button type="button" class="close" aria-label=${t("close")}>
+    <button type="button" class="close" aria-label="${t("close")}">
       <span aria-hidden="true">&times;</span>
     </button>
 
