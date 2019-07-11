@@ -126,19 +126,25 @@ defmodule Cforum.Messages.Mentions do
   defp gen_markup(_config, _user, [], _mentions, _regex, new_content), do: new_content
 
   defp gen_markup(config, user, [line | lines], mentions, regex, new_content) do
-    cond do
-      line =~ ~r/^(?:> *)*\s*~~~\s*\S*$/m ->
-        {code_lines, rest} = Enum.split_while(lines, fn line -> !Regex.match?(~r/^(?:> *)*~~~\s*$/m, line) end)
+    if line =~ ~r/^(?:> *)*\s*~~~\s*\S*$/m do
+      {code_lines, rest} = Enum.split_while(lines, fn line -> !Regex.match?(~r/^(?:> *)*~~~\s*$/m, line) end)
 
-        if blank?(rest),
-          # unfinished code block
-          do: gen_markup(config, user, lines, mentions, regex, new_content ++ line),
-          # finished code blocks
-          else: gen_markup(config, user, tl(rest), mentions, regex, new_content ++ [line] ++ code_lines ++ [hd(rest)])
+      if blank?(rest) do
+        # unfinished code block
+        gen_markup(config, user, lines, mentions, regex, Enum.concat(new_content, [line]))
+      else
+        # finished code blocks
+        val =
+          new_content
+          |> Enum.concat([line])
+          |> Enum.concat(code_lines)
+          |> Enum.concat([hd(rest)])
 
-      true ->
-        cnt = new_content ++ [parse_line(config, user, line, regex, mentions, "")]
-        gen_markup(config, user, lines, mentions, regex, cnt)
+        gen_markup(config, user, tl(rest), mentions, regex, val)
+      end
+    else
+      cnt = Enum.concat(new_content, [parse_line(config, user, line, regex, mentions, "")])
+      gen_markup(config, user, lines, mentions, regex, cnt)
     end
   end
 
