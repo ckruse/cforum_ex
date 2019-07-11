@@ -44,7 +44,7 @@ defmodule Cforum.Threads.ThreadHelpers do
   def set_view_all(q, true), do: q
 
   def set_forum_id(q, visible_forums, nil) do
-    visible_forums = Enum.map(visible_forums, & &1.forum_id)
+    visible_forums = Enum.map(visible_forums || [], & &1.forum_id)
     from(thread in q, where: thread.forum_id in ^visible_forums)
   end
 
