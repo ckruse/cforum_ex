@@ -5,6 +5,7 @@ defmodule CforumWeb.Plug.CurrentUser do
   """
 
   alias Cforum.Accounts.Users
+  alias Cforum.Helpers
 
   def init(opts), do: opts
 
@@ -18,7 +19,16 @@ defmodule CforumWeb.Plug.CurrentUser do
     |> put_user_token(current_user)
   end
 
-  defp put_user_token(conn, nil), do: conn
+  @registration_paths ["/registrations/new", "/registrations", "/registrations/confirm"]
+
+  defp put_user_token(%{request_path: path} = conn, nil) when path in @registration_paths,
+    do: conn
+
+  defp put_user_token(conn, nil) do
+    if Helpers.present?(conn.cookies["cf_sess"]),
+      do: conn,
+      else: Plug.Conn.put_resp_cookie(conn, "cf_sess", "1")
+  end
 
   defp put_user_token(conn, current_user) do
     token = Phoenix.Token.sign(conn, "user socket", current_user.user_id)
