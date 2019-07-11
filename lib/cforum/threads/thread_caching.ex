@@ -9,6 +9,8 @@ defmodule Cforum.Threads.ThreadCaching do
 
   alias Cforum.Messages.Message
 
+  alias Cforum.Accounts.User
+
   def cached_threads() do
     Caching.fetch(:cforum, :threads, fn ->
       from(thread in Thread, where: thread.archived == false, order_by: [desc: :created_at])
@@ -35,6 +37,11 @@ defmodule Cforum.Threads.ThreadCaching do
 
   def refresh_cached_thread({:ok, %{thread_id: tid}, _} = val) do
     refresh_cached_thread_by_tid(tid)
+    val
+  end
+
+  def refresh_cached_thread({:ok, %{__struct__: User}} = val) do
+    Caching.del(:cforum, :threads)
     val
   end
 
