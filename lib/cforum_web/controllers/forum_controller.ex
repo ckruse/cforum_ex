@@ -7,19 +7,23 @@ defmodule CforumWeb.ForumController do
   alias Cforum.ConfigManager
 
   def index(conn, %{"t" => tid, "m" => mid}) do
-    threads =
-      Threads.get_threads_by_tid!(tid)
-      |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
+    if tid =~ ~r/^\d+$/ && mid =~ ~r/^\d+$/ do
+      threads =
+        Threads.get_threads_by_tid!(tid)
+        |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
 
-    case threads do
-      [thread] ->
-        message = Messages.get_message_from_old_mid!(thread, mid)
-        redirect(conn, to: Path.message_path(conn, :show, thread, message))
+      case threads do
+        [thread] ->
+          message = Messages.get_message_from_old_mid!(thread, mid)
+          redirect(conn, to: Path.message_path(conn, :show, thread, message))
 
-      threads ->
-        conn
-        |> put_view(CforumWeb.RedirectorView)
-        |> render("redirect_archive_thread.html", threads: threads)
+        threads ->
+          conn
+          |> put_view(CforumWeb.RedirectorView)
+          |> render("redirect_archive_thread.html", threads: threads)
+      end
+    else
+      raise Ecto.NoResultsError, queryable: Cforum.Threads.Thread
     end
   end
 
