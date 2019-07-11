@@ -73,12 +73,7 @@ defmodule Cforum.Messages.Mentions do
   defp find_mentions("@" <> rest, mentions, in_quote) do
     # a mention?
     [line] = Regex.run(~r/^(.*)$/m, rest, capture: :all_but_first)
-
-    words =
-      Regex.split(~r/\s+/, line)
-      |> Enum.slice(0, 60)
-
-    user = find_user(words)
+    user = find_user(line)
 
     if blank?(user),
       do: find_mentions(rest, mentions, in_quote),
@@ -88,20 +83,22 @@ defmodule Cforum.Messages.Mentions do
   defp find_mentions("", mentions, _), do: mentions
   defp find_mentions(s, mentions, in_quote), do: find_mentions(String.slice(s, 1..-1), mentions, in_quote)
 
-  defp find_user([]), do: nil
+  defp find_user(""), do: nil
 
-  defp find_user(words) do
-    username = Enum.join(words, " ")
-
-    case Cforum.Accounts.Users.get_user_by_username(username) do
+  defp find_user(line) do
+    case Cforum.Accounts.Users.get_user_by_username(line) do
       nil ->
-        if blank?(words),
-          do: nil,
-          else: words |> Enum.reverse() |> tl() |> Enum.reverse() |> find_user()
+        find_user(trim_line_for_username_search(line))
 
       user ->
         user
     end
+  end
+
+  defp trim_line_for_username_search(line) do
+    if line =~ ~r/[^\w]+$/u,
+      do: Regex.replace(~r/[^\w]+$/u, line, ""),
+      else: Regex.replace(~r/\s*\w+$/u, line, "")
   end
 
   def mentions_markup(%Message{flags: %{"mentions" => mentions}} = msg, _user) when not is_list(mentions), do: msg
@@ -111,7 +108,7 @@ defmodule Cforum.Messages.Mentions do
     lines = Regex.split(~r/\015\012|\015|\012/, msg.content)
     mentions = Enum.reduce(mentions, %{}, fn [username, _, _] = mention, acc -> Map.put(acc, username, mention) end)
     names = Map.keys(mentions) |> Enum.map(&"(?:#{Regex.escape(&1)})") |> Enum.join("|")
-    rx = Regex.compile!("^@(#{names})\\b")
+    rx = Regex.compile!("^@(#{names})(?:\\b|[^\w]|\z)")
 
     content =
       gen_markup(config, user, lines, mentions, rx, [])
