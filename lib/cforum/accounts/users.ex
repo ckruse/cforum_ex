@@ -12,6 +12,7 @@ defmodule Cforum.Accounts.Users do
   alias Cforum.Accounts.Settings
   alias Cforum.Accounts.Groups
   alias Cforum.Caching
+  alias Cforum.Threads.ThreadCaching
 
   def discard_user_cache(%User{} = user) do
     Caching.del(:cforum, "users/#{user.user_id}")
@@ -252,6 +253,7 @@ defmodule Cforum.Accounts.Users do
     |> Repo.update()
     |> Settings.discard_settings_cache()
     |> discard_user_cache()
+    |> ThreadCaching.refresh_cached_thread()
   end
 
   def update_last_visit(%User{} = user) do
@@ -288,6 +290,7 @@ defmodule Cforum.Accounts.Users do
     end)
     |> Settings.discard_settings_cache()
     |> discard_user_cache()
+    |> ThreadCaching.refresh_cached_thread()
   end
 
   @doc """
@@ -347,6 +350,7 @@ defmodule Cforum.Accounts.Users do
     end)
     |> Settings.discard_settings_cache()
     |> discard_user_cache()
+    |> ThreadCaching.refresh_cached_thread()
   end
 
   @doc """
