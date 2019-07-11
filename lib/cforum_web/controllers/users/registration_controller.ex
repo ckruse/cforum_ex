@@ -9,6 +9,10 @@ defmodule CforumWeb.Users.RegistrationController do
     render(conn, "new.html", changeset: changeset)
   end
 
+  def create(conn, %{"username" => val}) when not is_nil(val) and val != "" do
+    raise Cforum.Errors.ForbiddenError, conn: conn
+  end
+
   def create(conn, %{"user" => user_params}) do
     case Users.register_user(user_params) do
       {:ok, user} ->

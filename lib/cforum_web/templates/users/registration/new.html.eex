@@ -1,4 +1,7 @@
 <%= form_for @changeset, Routes.registration_path(@conn, :create), [class: "cf-form"], fn f -> %>
+
+<input type="hidden" name="username" value="<%= @conn.params["username"] %>">
+
 <%= if @changeset.action do %>
   <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
 <% end %>
