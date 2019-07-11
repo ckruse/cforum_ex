@@ -3,6 +3,7 @@ defmodule CforumWeb.Users.RegistrationController do
 
   alias Cforum.Accounts.Users
   alias Cforum.Accounts.User
+  alias Cforum.Helpers
 
   def new(conn, _params) do
     changeset = User.register_changeset(%User{})
@@ -14,6 +15,9 @@ defmodule CforumWeb.Users.RegistrationController do
   end
 
   def create(conn, %{"user" => user_params}) do
+    if Helpers.blank?(conn.cookies["cf_sess"]),
+      do: raise(Cforum.Errors.ForbiddenError, conn: conn)
+
     case Users.register_user(user_params) do
       {:ok, user} ->
         user
