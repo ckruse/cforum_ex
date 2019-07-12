@@ -10,7 +10,7 @@
   <% end %>
 <% end %>
 
-<%= if @opts[:action] == :list_invisible do %>
+<%= if Abilities.may?(@conn, "threads/invisible", :unhide, @thread) do %>
   <%= VHelpers.Button.cf_button(to: Path.thread_path(@conn, :unhide, @thread), class: "unhide icon-button", title: gettext("make this thread visible again"), params: VHelpers.std_args(@conn)) do %>
     <span class="visually-hidden"><%= gettext("make this thread visible again") %></span>
     <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-recycle"></use></svg>

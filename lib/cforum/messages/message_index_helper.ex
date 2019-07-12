@@ -6,6 +6,7 @@ defmodule Cforum.Messages.IndexHelper do
   alias Cforum.Messages.ReadMessage
   alias Cforum.Messages.InterestingMessage
   alias Cforum.Messages.Subscription
+  alias Cforum.Threads.InvisibleThread
 
   import Ecto.Query
 
@@ -61,6 +62,15 @@ defmodule Cforum.Messages.IndexHelper do
     |> Enum.reduce(%{}, fn x, acc -> Map.put(acc, x.thread_id, x.state) end)
   end
 
+  def get_invisible_state(tids, user) do
+    from(invisible_thread in InvisibleThread,
+      where: invisible_thread.user_id == ^user.user_id and invisible_thread.thread_id in ^tids,
+      order_by: invisible_thread.thread_id
+    )
+    |> Repo.all()
+    |> Enum.reduce(%{}, fn iv, acc -> Map.put(acc, iv.thread_id, true) end)
+  end
+
   defp open_state(_messages, "open", _), do: "open"
   defp open_state(_messages, "closed", _), do: "closed"
 
@@ -75,6 +85,7 @@ defmodule Cforum.Messages.IndexHelper do
 
   defp set_message_flags(
          oc_state,
+         iv_state,
          read_messages,
          interesting_messages,
          subscribed_messages,
@@ -83,10 +94,11 @@ defmodule Cforum.Messages.IndexHelper do
          new_threads \\ []
        )
 
-  defp set_message_flags(_, _, _, _, [], _, new_threads), do: new_threads
+  defp set_message_flags(_, _, _, _, _, [], _, new_threads), do: new_threads
 
   defp set_message_flags(
          oc_state,
+         iv_state,
          read_messages,
          interesting_messages,
          subscribed_messages,
@@ -115,9 +127,11 @@ defmodule Cforum.Messages.IndexHelper do
     new_attribs =
       thread.attribs
       |> Map.put(:open_state, open_state(messages, oc_state[thread.thread_id], opts))
+      |> Map.put(:invisible, iv_state[thread.thread_id])
 
     set_message_flags(
       oc_state,
+      iv_state,
       read_messages,
       interesting_messages,
       subscribed_messages,
@@ -132,12 +146,22 @@ defmodule Cforum.Messages.IndexHelper do
   def set_user_attributes(threads, user, opts) do
     tids = Enum.map(threads, & &1.thread_id)
     omits = opts[:omit] || []
+    includes = opts[:include] || []
 
     read_messages = if Enum.member?(omits, :read), do: %{}, else: get_read_messages(tids, user)
     subscribed_messages = if Enum.member?(omits, :subscriptions), do: %{}, else: get_subcribed_messages(tids, user)
     interesting_messages = if Enum.member?(omits, :interesting), do: %{}, else: get_interesting_messages(tids, user)
     oc_state = if Enum.member?(omits, :open_close), do: %{}, else: get_open_close_state(tids, user)
+    invisible_state = if Enum.member?(includes, :invisible), do: get_invisible_state(tids, user), else: %{}
 
-    set_message_flags(oc_state, read_messages, interesting_messages, subscribed_messages, threads, opts)
+    set_message_flags(
+      oc_state,
+      invisible_state,
+      read_messages,
+      interesting_messages,
+      subscribed_messages,
+      threads,
+      opts
+    )
   end
 end
