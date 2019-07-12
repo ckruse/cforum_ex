@@ -146,7 +146,8 @@ defmodule CforumWeb.MessageView do
           author_link_to_message: true,
           tree: true,
           tags: true,
-          show_votes: false
+          show_votes: false,
+          thread_icons: true
         ],
         opts
       )
