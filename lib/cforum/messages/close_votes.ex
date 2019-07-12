@@ -258,6 +258,7 @@ defmodule Cforum.Messages.CloseVotes do
     voter = Repo.get_by!(CloseVoteVoter, user_id: user.user_id, close_vote_id: vote.close_vote_id)
     Repo.delete(voter)
     MessageCaching.update_cached_message(vote)
+    {:ok, voter}
   end
 
   @doc """

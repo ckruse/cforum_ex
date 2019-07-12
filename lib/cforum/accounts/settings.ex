@@ -9,6 +9,9 @@ defmodule Cforum.Accounts.Settings do
   alias Cforum.Accounts.Setting
   alias Cforum.System
 
+  alias Cforum.Forums.Forum
+  alias Cforum.Accounts.User
+
   def discard_settings_cache({:ok, %{user_id: id} = settings}) when not is_nil(id) do
     Cforum.Caching.del(:cforum, "settings/user/#{id}")
     {:ok, settings}
@@ -63,7 +66,7 @@ defmodule Cforum.Accounts.Settings do
       nil
 
   """
-  @spec get_setting_for_forum(%{forum_id: non_neg_integer()}) :: %Setting{} | nil
+  @spec get_setting_for_forum(%Forum{}) :: %Setting{} | nil
   def get_setting_for_forum(%{forum_id: id}) do
     Cforum.Caching.fetch(:cforum, "settings/forum/#{id}", fn ->
       from(setting in Setting, where: setting.forum_id == ^id)
@@ -71,8 +74,8 @@ defmodule Cforum.Accounts.Settings do
     end)
   end
 
-  @spec get_setting_for_user(%{user_id: non_neg_integer()}) :: %Setting{} | nil
-  def get_setting_for_user(%{user_id: id}) do
+  @spec get_setting_for_user(%User{}) :: %Setting{} | nil
+  def get_setting_for_user(%User{user_id: id}) do
     Cforum.Caching.fetch(:cforum, "settings/user/#{id}", fn ->
       from(setting in Setting, where: setting.user_id == ^id)
       |> Repo.one()
@@ -215,17 +218,17 @@ defmodule Cforum.Accounts.Settings do
     |> Enum.reject(&is_nil(&1))
   end
 
-  def load_relevant_settings(%{forum_id: _} = forum, nil) do
+  def load_relevant_settings(%Forum{} = forum, nil) do
     [get_global_setting(), get_setting_for_forum(forum)]
     |> Enum.reject(&is_nil(&1))
   end
 
-  def load_relevant_settings(nil, %{user_id: _} = user) do
+  def load_relevant_settings(nil, %User{} = user) do
     [get_global_setting(), get_setting_for_user(user)]
     |> Enum.reject(&is_nil(&1))
   end
 
-  def load_relevant_settings(%{forum_id: _} = forum, %{user_id: _} = user) do
+  def load_relevant_settings(%Forum{} = forum, %User{} = user) do
     [get_global_setting(), get_setting_for_forum(forum), get_setting_for_user(user)]
     |> Enum.reject(&is_nil(&1))
   end
