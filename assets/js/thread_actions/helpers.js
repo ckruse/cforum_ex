@@ -34,7 +34,15 @@ export const hideThreadHelper = (requestParams, form) => {
     afterAction: response => {
       response.json().then(json => {
         if (json.status === "ok") {
-          form.closest(".cf-thread").remove();
+          if (document.body.dataset.controller === "MessageController") {
+            form.action = form.action.replace(/hide$/, "unhide");
+            form.querySelector("svg use").setAttribute("xlink:href", "/images/icons.svg#svg-recycle");
+            const btn = form.querySelector("button.hide");
+            btn.classList.remove("hide");
+            btn.classList.add("unhide");
+          } else {
+            form.closest(".cf-thread").remove();
+          }
         } else {
           alertError(t("Oops, something went wrong!"));
         }
@@ -55,7 +63,15 @@ export const unhideThreadHelper = (requestParams, form) => {
     afterAction: response => {
       response.json().then(json => {
         if (json.status === "ok") {
-          form.closest(".cf-thread").remove();
+          if (document.body.dataset.controller === "MessageController") {
+            form.action = form.action.replace(/unhide$/, "hide");
+            form.querySelector("svg use").setAttribute("xlink:href", "/images/icons.svg#svg-remove");
+            const btn = form.querySelector("button.unhide");
+            btn.classList.remove("unhide");
+            btn.classList.add("hide");
+          } else {
+            form.closest(".cf-thread").remove();
+          }
         } else {
           alertError(t("Oops, something went wrong!"));
         }

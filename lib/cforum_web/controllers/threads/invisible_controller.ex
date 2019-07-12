@@ -29,7 +29,8 @@ defmodule CforumWeb.Threads.InvisibleController do
       threads
       |> Threads.apply_user_infos(user,
         close_read_threads: ConfigManager.uconf(conn, "open_close_close_when_read") == "yes",
-        open_close_default_state: ConfigManager.uconf(conn, "open_close_default")
+        open_close_default_state: ConfigManager.uconf(conn, "open_close_default"),
+        include: [:invisible]
       )
       |> Threads.apply_highlights(conn)
       |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
@@ -63,6 +64,7 @@ defmodule CforumWeb.Threads.InvisibleController do
         ThreadHelpers.slug_from_params(params)
       )
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.apply_user_infos(conn.assigns[:current_user], include: [:invisible])
 
     InvisibleThreads.unhide_thread(conn.assigns[:current_user], thread)
 
@@ -71,5 +73,7 @@ defmodule CforumWeb.Threads.InvisibleController do
     |> redirect(to: Path.thread_path(conn, :index))
   end
 
+  def allowed?(conn, :unhide, thread), do: (thread || conn.assigns[:thread]).attribs[:invisible] == true
+  def allowed?(conn, :hide, thread), do: (thread || conn.assigns[:thread]).attribs[:invisible] != true
   def allowed?(conn, _, _), do: Abilities.signed_in?(conn)
 end

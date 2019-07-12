@@ -22,11 +22,12 @@ defmodule CforumWeb.Api.V1.Threads.InvisibleController do
       Threads.get_thread_by_slug!(forum, conn.assigns[:visible_forums], conn.params["slug"])
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.ensure_found!()
+      |> Threads.apply_user_infos(conn.assigns[:current_user], include: [:invisible])
 
     conn
     |> Plug.Conn.assign(:current_forum, forum)
     |> Plug.Conn.assign(:thread, thread)
   end
 
-  def allowed?(conn, _, _), do: Abilities.signed_in?(conn)
+  def allowed?(conn, action, resource), do: CforumWeb.Threads.InvisibleController.allowed?(conn, action, resource)
 end
