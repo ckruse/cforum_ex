@@ -49,5 +49,5 @@
 <% end %>
 
 <%= if Helpers.present?(assigns[:user]) do %>
-  <%= VHelpers.Button.destructive_button(gettext("delete"), to: Routes.admin_user_path(@conn, :delete, @user), method: :delete) %>
+  <%= VHelpers.Button.destructive_button(gettext("delete"), to: Path.admin_user_path(@conn, :delete, @user), method: :delete) %>
 <% end %>

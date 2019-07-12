@@ -1,7 +1,7 @@
 <%=
 link(
   @entry.contents["message"]["subject"],
-  to: Routes.root_path(@conn, :index) <>
+  to: Path.root_path(@conn, :index) <>
         @entry.contents["message"]["thread"]["forum"]["slug"] <>
         @entry.contents["message"]["thread"]["slug"] <> "/" <>
         to_string(@entry.contents["message"]["message_id"]) <>

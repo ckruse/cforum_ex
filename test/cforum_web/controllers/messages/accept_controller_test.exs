@@ -6,14 +6,14 @@ defmodule CforumWeb.Messages.AcceptControllerTest do
   alias Cforum.Messages
 
   test "accepts an answer", %{conn: conn, forum: forum, thread: thread, message: message} do
-    conn = post(conn, Path.message_path(conn, thread, message), f: forum.slug, r: "message")
+    conn = post(conn, Path.message_path(conn, :accept, thread, message), f: forum.slug, r: "message")
     assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
     assert get_flash(conn, :info) == gettext("Message has successfully been accepted as a solving answer")
   end
 
   test "responds with 403 on an already accepted answer", %{conn: conn, user: user, thread: thread, message: message} do
     Messages.accept_message(message, user, 15)
-    conn = post(conn, Path.message_path(conn, thread, message))
+    conn = post(conn, Path.message_path(conn, :accept, thread, message))
     assert conn.status == 403
   end
 
@@ -34,7 +34,8 @@ defmodule CforumWeb.Messages.AcceptControllerTest do
 
     forum = insert(:public_forum)
     thread = insert(:thread, forum: forum)
-    message = insert(:message, forum: forum, thread: thread)
+    m1 = insert(:message, forum: forum, thread: thread)
+    message = insert(:message, forum: forum, thread: thread, parent_id: m1.message_id)
     {:ok, user: user, conn: login(conn, user), thread: thread, message: message, forum: forum}
   end
 end

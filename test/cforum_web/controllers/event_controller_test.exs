@@ -4,24 +4,24 @@ defmodule CforumWeb.EventControllerTest do
   setup [:setup_tests]
 
   test "lists events", %{conn: conn, event: event} do
-    conn = get(conn, Routes.event_path(conn, :index))
+    conn = get(conn, Path.event_path(conn, :index))
     assert html_response(conn, 200) =~ gettext("events")
     assert html_response(conn, 200) =~ event.name
   end
 
   test "doesn't list hidden events", %{conn: conn, hidden_event: hidden_event} do
-    conn = get(conn, Routes.event_path(conn, :index))
+    conn = get(conn, Path.event_path(conn, :index))
     assert html_response(conn, 200) =~ gettext("events")
     refute html_response(conn, 200) =~ hidden_event.name
   end
 
   test "shows an event", %{conn: conn, event: event} do
-    conn = get(conn, Routes.event_path(conn, :show, event))
+    conn = get(conn, Path.event_path(conn, :show, event))
     assert html_response(conn, 200) =~ event.name
   end
 
   test "sends a 404 on hidden events", %{conn: conn, hidden_event: event} do
-    assert_error_sent(404, fn -> get(conn, Routes.event_path(conn, :show, event)) end)
+    assert_error_sent(404, fn -> get(conn, Path.event_path(conn, :show, event)) end)
   end
 
   defp setup_tests(%{conn: conn}) do

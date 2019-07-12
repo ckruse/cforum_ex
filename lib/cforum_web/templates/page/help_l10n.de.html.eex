@@ -26,7 +26,7 @@
     <dd><%= link "forum@selfhtml.org", to: "mailto:forum@selfhtml.org" %></dd>
 
     <dt>Eine Issue bei Github eröffnen Sie unter</dt>
-    <dd><%= link "github.com/ckruse/cforum/issues", to: "https://github.com/ckruse/cforum_ex/issues" %></dd>
+    <dd><%= link "github.com/ckruse/cforum_ex/issues", to: "https://github.com/ckruse/cforum_ex/issues" %></dd>
 
     <dt>Für allgemeine Fragen wenden Sie sich an den Verein SELFHTML e.V.</dt>
     <dd><%= link "matthias.apsel@selfhtml.org", to: "mailto:matthias.apsel@selfhtml.org" %></dd>
@@ -38,14 +38,14 @@
 
   <p>Das SELFHTML-Forum nutzt zur Kategorisierung von Beiträgen sogenannte Tags. Diese Tags oder auch Schlagworte
     helfen den Lesern des Forums eine Frage oder eine Antwort thematisch einzuordnen und können als
-    <%= link "Such-Kriterium", to: Routes.search_path(@conn, :show) %> genutzt werden. Es gibt eine
+    <%= link "Such-Kriterium", to: Path.search_path(@conn, :show) %> genutzt werden. Es gibt eine
     <%= link "Liste aller verwendeten Tags", to: Path.tag_path(@conn, :index) %>.</p>
 </section>
 
 <section id="search">
   <h2>Suche</h2>
 
-  <p>Es ist möglich, die Beiträge des Forums zu <%= link "durchsuchen", to: Routes.search_path(@conn, :show) %>.
+  <p>Es ist möglich, die Beiträge des Forums zu <%= link "durchsuchen", to: Path.search_path(@conn, :show) %>.
     Die Suche berücksichtigt neben den aktuellen Beiträge ggf. auch bereits
     <%= link "archivierte", to: Path.archive_path(@conn, :years, "all") %> Beiträge. Die Suchergebnisse werden per
     Default nach Relevanz sortiert; das bedeutet, dass Beiträge mit vielen positiven Bewertungen vor
@@ -93,10 +93,10 @@
   <h2>Benutzer des SELFHTML-Forums</h2>
 
   <p>Das SELFHTML-Forum kann man grundsätzlich anonym nutzen. Doch der volle Komfort sowie verschiedene Nutzer-Rechte
-    erschliessen sich einem erst, wenn man sich <%= link "registriert", to: Routes.registration_path(@conn, :new) %>.
+    erschliessen sich einem erst, wenn man sich <%= link "registriert", to: Path.registration_path(@conn, :new) %>.
     Beachten Sie hierbei unsere
     <%= link "Datenschutz-Bestimmungen", to: "https://www.selfhtml.org/impressum.html#datenschutz" %>.
-    Es gibt auch eine <%= link "Liste aller registrierten Benutzer", to: Routes.user_path(@conn, :index) %>.</p>
+    Es gibt auch eine <%= link "Liste aller registrierten Benutzer", to: Path.user_path(@conn, :index) %>.</p>
 </section>
 
 <section id="badges">
@@ -115,7 +115,7 @@
 
     <dl>
       <%= for badge <- badge_group.badges do %>
-        <dt><img src="<%= CforumWeb.BadgeView.badge_image(@conn, badge) %>"> <%= link badge.name, to: Routes.badge_path(@conn, :show, badge.slug) %></dt>
+        <dt><img src="<%= CforumWeb.BadgeView.badge_image(@conn, badge) %>"> <%= link badge.name, to: Path.badge_path(@conn, :show, badge) %></dt>
         <dd><%= if Helpers.present?(badge.score_needed) do %><strong><%= badge.score_needed %> Punkte:</strong> <% end %><%= badge.description %></dd>
       <% end %>
     </dl>
@@ -128,7 +128,7 @@
 
   <p>Das SELFHTML-Forum gibt es <%= link "seit dem 26. Juli 1998", to: "https://forum.selfhtml.org/self/1998/jul/26/willkommen-im-forum/1#m1" %>.
     In dieser Zeit gab es immer wieder lustige Sprüche oder kluge Wahrheiten, die die Community als erhaltenswert
-    betrachtet. Zu diesem Zweck wurde eine <%= link "Zitatesammlung", to: Routes.cite_path(@conn, :index) %>
+    betrachtet. Zu diesem Zweck wurde eine <%= link "Zitatesammlung", to: Path.cite_path(@conn, :index) %>
     entwickelt. Dort kann jeder Zitate vorschlagen. Ob ein Zitat in die Sammlung aufgenommen wird, entscheidet die
     Community. Die
     <%= link "näheren Regeln zur Zitate-Sammlung", to: "https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Regeln_f%C3%BCr_die_Zitatesammlung" %>

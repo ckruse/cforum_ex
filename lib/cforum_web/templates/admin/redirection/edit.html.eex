@@ -1,1 +1,1 @@
-<%= render "form.html", Map.merge(assigns, %{action: Routes.admin_redirection_path(@conn, :update, @redirection), back: Routes.admin_redirection_path(@conn, :index)}) %>
+<%= render "form.html", Map.merge(assigns, %{action: Path.admin_redirection_path(@conn, :update, @redirection), back: Path.admin_redirection_path(@conn, :index)}) %>

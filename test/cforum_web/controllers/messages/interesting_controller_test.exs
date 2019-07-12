@@ -8,13 +8,13 @@ defmodule CforumWeb.Messages.InterestingControllerTest do
   describe "listing" do
     test "lists all interesting messages", %{conn: conn, user: user, message: message} do
       InterestingMessages.mark_message_interesting(user, message)
-      conn = get(conn, Routes.interesting_path(conn, :index))
+      conn = get(conn, Path.interesting_path(conn, :index))
       assert html_response(conn, 200) =~ gettext("messages marked as interesting")
       assert html_response(conn, 200) =~ message.subject
     end
 
     test "doesn't list boring messages", %{conn: conn, message: message} do
-      conn = get(conn, Routes.interesting_path(conn, :index))
+      conn = get(conn, Path.interesting_path(conn, :index))
       assert html_response(conn, 200) =~ gettext("messages marked as interesting")
       refute html_response(conn, 200) =~ message.subject
     end
@@ -22,14 +22,14 @@ defmodule CforumWeb.Messages.InterestingControllerTest do
 
   describe "marking as interesting" do
     test "marks as interesting", %{conn: conn, forum: forum, thread: thread, message: message} do
-      conn = post(conn, Path.imessage_path(conn, :interesting, thread, message), f: forum.slug, r: "message")
+      conn = post(conn, Path.message_path(conn, :interesting, thread, message), f: forum.slug, r: "message")
       assert redirected_to(conn) == Path.message_path(conn, :show, thread, message)
       assert get_flash(conn, :info) == gettext("Message was successfully marked as interesting.")
     end
 
     test "responds with 403 on interesting messages", %{conn: conn, user: user, thread: thread, message: message} do
       InterestingMessages.mark_message_interesting(user, message)
-      conn = post(conn, Path.imessage_path(conn, :interesting, thread, message))
+      conn = post(conn, Path.message_path(conn, :interesting, thread, message))
       assert conn.status == 403
     end
   end

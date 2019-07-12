@@ -1,8 +1,8 @@
-<%= form_for @changeset, Routes.cite_path(@conn, :update, @cite), [class: "cf-form"], fn f -> %>
+<%= form_for @changeset, Path.cite_path(@conn, :update, @cite), [class: "cf-form"], fn f -> %>
   <%= render "form.html", Map.put(assigns, :f, f) %>
 
   <p class="form-actions">
     <%= VHelpers.Button.primary_submit gettext("save edited cite") %>
-    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Routes.cite_path(@conn, :index) %>
+    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Path.cite_path(@conn, :index) %>
   </p>
 <% end %>

@@ -1,16 +1,16 @@
 <table class="cf-default-table">
   <thead>
     <tr>
-      <th><%= Sortable.sortable(@conn, gettext("name"), :name, &Routes.event_path/3) %></th>
-      <th><%= Sortable.sortable(@conn, gettext("location"), :location, &Routes.event_path/3) %></th>
-      <th><%= Sortable.sortable(@conn, gettext("start date"), :start_date, &Routes.event_path/3) %></th>
-      <th><%= Sortable.sortable(@conn, gettext("end date"), :end_date, &Routes.event_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("name"), :name, &Path.event_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("location"), :location, &Path.event_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("start date"), :start_date, &Path.event_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("end date"), :end_date, &Path.event_path/3) %></th>
     </tr>
   </thead>
   <tbody>
     <%= for event <- @events do %>
       <tr class="h-event">
-        <td><%= link event.name, to: Routes.event_path(@conn, :show, event), class: "p-name u-url" %></td>
+        <td><%= link event.name, to: Path.event_path(@conn, :show, event), class: "p-name u-url" %></td>
         <td><%= event.location %></td>
         <td><%= VHelpers.time_tag event.start_date, VHelpers.format_date(@conn, event.start_date, "date_VHelpers.format_date"), class: "dt-start" %></td>
         <td><%= VHelpers.time_tag event.end_date, VHelpers.format_date(@conn, event.end_date, "date_VHelpers.format_date"), class: "dt-end" %></td>
@@ -19,4 +19,4 @@
   </tbody>
 </table>
 
-<%= Paginator.pagination @conn, @page, &Routes.event_path/3 %>
+<%= Paginator.pagination @conn, @page, &Path.event_path/3 %>

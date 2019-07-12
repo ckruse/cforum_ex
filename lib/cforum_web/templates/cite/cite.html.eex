@@ -2,7 +2,7 @@
   <div class="posting-header">
     <header class="cf-cite-header">
       <%= if Helpers.present?(@cite.cite_id) do %>
-        <h2><%= link gettext("cite %{id}", id: @cite.cite_id), to: Routes.cite_path(@conn, :show, @cite) %></h2>
+        <h2><%= link gettext("cite %{id}", id: @cite.cite_id), to: Path.cite_path(@conn, :show, @cite) %></h2>
       <% end %>
 
       <%= if link_to_url?(@conn, @cite) do %>
@@ -30,7 +30,7 @@
 
     <%= if votable?(@conn, @cite) do %>
       <div class="cf-voting-area cf-voting-area-cites">
-        <%= form_tag Routes.cite_path(@conn, :vote, @cite), method: :post, class: "cf-inline-form" do %>
+        <%= form_tag Path.cite_path(@conn, :vote, @cite), method: :post, class: "cf-inline-form" do %>
           <button name="type"
                   value="down"
                   title="<%= gettext("vote down") %>"
@@ -43,7 +43,7 @@
           <%= Cites.score_str(@cite) %>
         </span>
 
-        <%= form_tag Routes.cite_path(@conn, :vote, @cite), method: :post, class: "cf-inline-form" do %>
+        <%= form_tag Path.cite_path(@conn, :vote, @cite), method: :post, class: "cf-inline-form" do %>
           <button name="type"
                   value="up"
                   title="<%= gettext("vote up") %>"
@@ -73,7 +73,7 @@
   </div>
 
   <%= if Helpers.present?(@cite.cite_id) do %>
-    <%= if Abilities.may?(@conn, "cite", :edit, @cite), do: VHelpers.Button.default_button_link(gettext("edit"), to: Routes.cite_path(@conn, :edit, @cite)) %>
-    <%= if Abilities.may?(@conn, "cite", :delete, @cite), do: VHelpers.Button.destructive_button(gettext("delete"), to: Routes.cite_path(@conn, :delete, @cite), method: :delete) %>
+    <%= if Abilities.may?(@conn, "cite", :edit, @cite), do: VHelpers.Button.default_button_link(gettext("edit"), to: Path.cite_path(@conn, :edit, @cite)) %>
+    <%= if Abilities.may?(@conn, "cite", :delete, @cite), do: VHelpers.Button.destructive_button(gettext("delete"), to: Path.cite_path(@conn, :delete, @cite), method: :delete) %>
   <% end %>
 </article>

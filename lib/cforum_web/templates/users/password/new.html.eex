@@ -1,4 +1,4 @@
-<%= form_for @conn, Routes.password_path(@conn, :create), [as: :user, class: "cf-form"], fn f -> %>
+<%= form_for @conn, Path.password_path(@conn, :create), [as: :user, class: "cf-form"], fn f -> %>
   <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :login) %>">
     <%= label f, :login do %>
       <%= gettext("username or email") %>
@@ -9,6 +9,6 @@
 
   <p class="form-actions">
     <%= VHelpers.Button.primary_submit gettext("send reset instructions") %>
-    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Routes.root_path(@conn, :index) %>
+    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Path.root_path(@conn, :index) %>
   </p>
 <% end %>

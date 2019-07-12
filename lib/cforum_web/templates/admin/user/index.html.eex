@@ -11,14 +11,14 @@
 <table class="cf-default-table">
   <thead>
     <tr>
-      <th><%= Sortable.sortable(@conn, gettext("username"), :username, &Routes.admin_user_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("username"), :username, &Path.admin_user_path/3) %></th>
       <th><%= gettext("email") %></th>
-      <th class="numeric"><%= Sortable.sortable(@conn, gettext("Score"), :score, &Routes.admin_user_path/3) %></th>
-      <th class="numeric"><%= Sortable.sortable(@conn, gettext("Activity during the last 30 days"), :activity, &Routes.admin_user_path/3) %></th>
-      <th><%= Sortable.sortable(@conn, gettext("Registration date"), :created_at, &Routes.admin_user_path/3) %></th>
-      <th><%= Sortable.sortable(@conn, gettext("active"), :active, &Routes.admin_user_path/3) %></th>
-      <th><%= Sortable.sortable(@conn, gettext("confirmed"), :confirmed_at, &Routes.admin_user_path/3) %></th>
-      <th><%= Sortable.sortable(@conn, gettext("last visit"), :last_visit, &Routes.admin_user_path/3) %></th>
+      <th class="numeric"><%= Sortable.sortable(@conn, gettext("Score"), :score, &Path.admin_user_path/3) %></th>
+      <th class="numeric"><%= Sortable.sortable(@conn, gettext("Activity during the last 30 days"), :activity, &Path.admin_user_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("Registration date"), :created_at, &Path.admin_user_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("active"), :active, &Path.admin_user_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("confirmed"), :confirmed_at, &Path.admin_user_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("last visit"), :last_visit, &Path.admin_user_path/3) %></th>
       <th></th>
     </tr>
   </thead>
@@ -35,12 +35,12 @@
         <td><%= if Helpers.present?(user.confirmed_at), do: VHelpers.format_date(@conn, user.confirmed_at), else: [{:safe, "<em>"}, gettext("no"), {:safe, "</em>"}] %></td>
         <td><%= if Helpers.present?(user.last_visit), do: VHelpers.format_date(@conn, user.last_visit) %></td>
         <td class="actions-column">
-          <%= VHelpers.Links.default_index_link(gettext("edit"), to: Routes.admin_user_path(@conn, :edit, user)) %>
-          <%= VHelpers.Button.destructive_index_button(gettext("delete"), to: Routes.admin_user_path(@conn, :delete, user), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
+          <%= VHelpers.Links.default_index_link(gettext("edit"), to: Path.admin_user_path(@conn, :edit, user)) %>
+          <%= VHelpers.Button.destructive_index_button(gettext("delete"), to: Path.admin_user_path(@conn, :delete, user), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= Paginator.pagination @conn, @paging, &Routes.admin_user_path/3 %>
+<%= Paginator.pagination @conn, @paging, &Path.admin_user_path/3 %>

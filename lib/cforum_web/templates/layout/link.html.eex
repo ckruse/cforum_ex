@@ -6,8 +6,8 @@
     <link rel="apple-touch-icon" sizes="120x120" href="<%= Routes.static_path(@conn, "/images/s-Logo_120.png") %>">
     <link rel="apple-touch-icon" sizes="152x152" href="<%= Routes.static_path(@conn, "/images/s-Logo_152.png") %>">
 
-    <link rel="help" href="<%= Routes.page_path(@conn, :help) %>" title="<%= gettext("Help") %>">
-    <link rel="search" href="<%= Routes.search_url(@conn, :show) %>" title="<%# gettext("SELFHTML Search") %>">
+    <link rel="help" href="<%= Path.page_path(@conn, :help) %>" title="<%= gettext("Help") %>">
+    <link rel="search" href="<%= Path.search_url(@conn, :show) %>" title="<%= gettext("SELFHTML Search") %>">
     <%= if assigns[:link_tags], do: @link_tags %>
 
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>" media="all" title="SELFHTML Forum Stylesheet">

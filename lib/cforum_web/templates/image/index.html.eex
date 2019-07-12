@@ -2,9 +2,9 @@
   <thead>
     <tr>
       <th> </th>
-      <th><%= Sortable.sortable(@conn, gettext("name"), :name, &Routes.image_path/3) %></th>
-      <th><%= Sortable.sortable(@conn, gettext("owner"), :owner, &Routes.image_path/3) %></th>
-      <th><%= Sortable.sortable(@conn, gettext("created at"), :created_at, &Routes.image_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("name"), :name, &Path.image_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("owner"), :owner, &Path.image_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("created at"), :created_at, &Path.image_path/3) %></th>
       <th> </th>
     </tr>
   </thead>
@@ -12,14 +12,14 @@
   <tbody>
     <%= for image <- @images do %>
       <tr>
-        <td><%= link(thumbnail_img(@conn, image), to: Routes.image_path(@conn, :show, image.filename)) %></td>
+        <td><%= link(thumbnail_img(@conn, image), to: Path.image_path(@conn, :show, image)) %></td>
         <td><%= image.orig_name %></td>
         <td><%= if Helpers.present?(image.owner), do: VHelpers.user_link(@conn, image.owner, [], image.owner.username) %></td>
         <td><%= VHelpers.format_date(@conn, image.created_at) %></td>
-        <td><%= if Abilities.may?(@conn, "image", :delete, image), do: VHelpers.Button.destructive_index_button(gettext("delete"), to: Routes.image_path(@conn, :delete, image), method: :delete) %></td>
+        <td><%= if Abilities.may?(@conn, "image", :delete, image), do: VHelpers.Button.destructive_index_button(gettext("delete"), to: Path.image_path(@conn, :delete, image), method: :delete) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= Paginator.pagination @conn, @paging, &Routes.image_path/3 %>
+<%= Paginator.pagination @conn, @paging, &Path.image_path/3 %>

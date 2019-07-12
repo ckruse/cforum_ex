@@ -1,1 +1,1 @@
-<%= render "form.html", Map.merge(assigns, %{action: Routes.admin_user_path(@conn, :create), back: Routes.admin_user_path(@conn, :index)}) %>
+<%= render "form.html", Map.merge(assigns, %{action: Path.admin_user_path(@conn, :create), back: Path.admin_user_path(@conn, :index)}) %>

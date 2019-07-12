@@ -2,8 +2,8 @@
   <thead>
     <tr>
       <th><%= gettext("partner") %></th>
-      <th><%= Sortable.sortable(@conn, gettext("subject"), :subject, &Routes.mail_path/3) %></th>
-      <th><%= Sortable.sortable(@conn, gettext("created at"), :created_at, &Routes.mail_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("subject"), :subject, &Path.mail_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("created at"), :created_at, &Path.mail_path/3) %></th>
       <th> </th>
     </tr>
   </thead>
@@ -17,17 +17,17 @@
       <tr<%= if pm.is_read do %> class="visited"<% end %>>
         <td>
           <%= unless Helpers.blank?(PrivMessages.partner(pm)), do: VHelpers.user_link(@conn, PrivMessages.partner(pm), [], false) %>
-          <%= link(PrivMessages.partner_name(pm), to: Routes.mail_path(@conn, :index, author: PrivMessages.partner_name(pm))) %>
+          <%= link(PrivMessages.partner_name(pm), to: Path.mail_path(@conn, :index, author: PrivMessages.partner_name(pm))) %>
         </td>
         <td><%= link pm.subject, to: Path.mail_thread_path(@conn, :show, pm) %></td>
         <td><%= VHelpers.format_date(@conn, pm.created_at) %></td>
         <td>
           <%= if pm.sender_id != @current_user.user_id do %>
-            <%= VHelpers.Button.default_index_button_link(gettext("answer"), to: Routes.mail_path(@conn, :new, parent_id: pm.priv_message_id)) %>
-            <%= VHelpers.Button.default_index_button_link(gettext("answer without cite"), to: Routes.mail_path(@conn, :new, parent_id: pm.priv_message_id, cite: false)) %>
+            <%= VHelpers.Button.default_index_button_link(gettext("answer"), to: Path.mail_path(@conn, :new, parent_id: pm.priv_message_id)) %>
+            <%= VHelpers.Button.default_index_button_link(gettext("answer without cite"), to: Path.mail_path(@conn, :new, parent_id: pm.priv_message_id, cite: false)) %>
           <% end %>
-          <%= if pm.is_read, do: VHelpers.Button.default_index_button(gettext("mark unread"), to: Routes.mail_path(@conn, :update_unread, pm)) %>
-          <%= VHelpers.Button.destructive_index_button(gettext("delete"), to: Routes.mail_path(@conn, :delete, pm), method: :delete) %>
+          <%= if pm.is_read, do: VHelpers.Button.default_index_button(gettext("mark unread"), to: Path.mail_path(@conn, :update_unread, pm)) %>
+          <%= VHelpers.Button.destructive_index_button(gettext("delete"), to: Path.mail_path(@conn, :delete, pm), method: :delete) %>
         </td>
       </tr>
     <% end %>
@@ -35,4 +35,4 @@
 
 </table>
 
-<%= Paginator.pagination @conn, @paging, &Routes.mail_path/3 %>
+<%= Paginator.pagination @conn, @paging, &Path.mail_path/3 %>

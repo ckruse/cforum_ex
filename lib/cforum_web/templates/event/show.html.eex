@@ -1,6 +1,6 @@
 <article class="cf-event h-event">
   <header>
-    <h2><%= link @event.name, to: Routes.event_path(@conn, :show, @event), class: "p-name u-url" %></h2>
+    <h2><%= link @event.name, to: Path.event_path(@conn, :show, @event), class: "p-name u-url" %></h2>
 
     <div class="details">
       <%= VHelpers.time_tag @event.start_date, VHelpers.format_date(@conn, @event.start_date, "date_VHelpers.format_date"), class: "dt-start" %>
@@ -28,7 +28,7 @@
     <h3><%= ngettext("no attendees", "%{count} attendees", length(@event.attendees)) %></h3>
 
     <%= if Abilities.may?(@conn, "events/attendee", :create) do %>
-      <p><%= VHelpers.Button.default_button_link gettext("attend event"), to: Routes.event_attendee_path(@conn, :new, @event) %></p>
+      <p><%= VHelpers.Button.default_button_link gettext("attend event"), to: Path.event_attendee_path(@conn, :new, @event) %></p>
     <% end %>
 
     <%= if Helpers.blank?(@event.attendees) do %>

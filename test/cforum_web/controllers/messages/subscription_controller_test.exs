@@ -8,13 +8,13 @@ defmodule CforumWeb.Messages.SubscriptionControllerTest do
   describe "listing" do
     test "lists all subscribed messages", %{conn: conn, user: user, message: message} do
       Subscriptions.subscribe_message(user, message)
-      conn = get(conn, Routes.subscription_path(conn, :index))
+      conn = get(conn, Path.subscription_path(conn, :index))
       assert html_response(conn, 200) =~ gettext("subscribed messages")
       assert html_response(conn, 200) =~ message.subject
     end
 
     test "doesn't list not subscribed messages", %{conn: conn, message: message} do
-      conn = get(conn, Routes.subscription_path(conn, :index))
+      conn = get(conn, Path.subscription_path(conn, :index))
       assert html_response(conn, 200) =~ gettext("subscribed messages")
       refute html_response(conn, 200) =~ message.subject
     end

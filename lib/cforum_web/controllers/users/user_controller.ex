@@ -17,7 +17,6 @@ defmodule CforumWeb.Users.UserController do
 
   alias CforumWeb.Sortable
   alias CforumWeb.Paginator
-  alias CforumWeb.Views.Helpers, as: VHelpers
 
   def index(conn, params) do
     {sort_params, conn} = Sortable.sort_collection(conn, [:username, :score, :activity, :created_at])
@@ -187,7 +186,7 @@ defmodule CforumWeb.Users.UserController do
       {:ok, user} ->
         conn
         |> put_flash(:info, gettext("User updated successfully."))
-        |> redirect(to: Routes.user_path(conn, :edit, user))
+        |> redirect(to: Path.user_path(conn, :edit, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         forum_ids = Enum.map(conn.assigns[:visible_forums], & &1.forum_id)
@@ -206,7 +205,7 @@ defmodule CforumWeb.Users.UserController do
 
     conn
     |> put_flash(:info, gettext("User deleted successfully."))
-    |> redirect(to: Routes.user_path(conn, :index))
+    |> redirect(to: Path.user_path(conn, :index))
   end
 
   def load_resource(conn) do

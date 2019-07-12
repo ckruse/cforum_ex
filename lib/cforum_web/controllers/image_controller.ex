@@ -46,7 +46,7 @@ defmodule CforumWeb.ImageController do
 
     conn
     |> put_flash(:info, gettext("Image deleted successfully."))
-    |> redirect(to: Routes.image_path(conn, :index))
+    |> redirect(to: Path.image_path(conn, :index))
   end
 
   def allowed?(conn, :index, _), do: Abilities.admin?(conn)

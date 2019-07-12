@@ -6,17 +6,17 @@ defmodule CforumWeb.Admin.SettingControllerTest do
     setup [:setup_login]
 
     test "edits with non-existing settings", %{conn: conn} do
-      conn = get(conn, Routes.admin_setting_path(conn, :edit))
+      conn = get(conn, Path.admin_setting_path(conn, :edit))
       assert html_response(conn, 200) =~ gettext("settings")
     end
 
     test "edits with existing settings", %{conn: conn} do
       insert(:setting)
 
-      conn = put(conn, Routes.admin_setting_path(conn, :update), setting: %{options: %{"pagination" => 20}})
-      assert redirected_to(conn) == Routes.admin_setting_path(conn, :edit)
+      conn = put(conn, Path.admin_setting_path(conn, :update), setting: %{options: %{"pagination" => 20}})
+      assert redirected_to(conn) == Path.admin_setting_path(conn, :edit)
 
-      conn = get(conn, Routes.admin_setting_path(conn, :edit))
+      conn = get(conn, Path.admin_setting_path(conn, :edit))
       assert html_response(conn, 200) =~ gettext("settings")
 
       setting = Settings.get_global_setting()
@@ -29,7 +29,7 @@ defmodule CforumWeb.Admin.SettingControllerTest do
 
     test "updates existing settings", %{conn: conn} do
       insert(:setting)
-      conn = get(conn, Routes.admin_setting_path(conn, :edit))
+      conn = get(conn, Path.admin_setting_path(conn, :edit))
       assert html_response(conn, 200) =~ gettext("settings")
     end
   end
@@ -38,10 +38,10 @@ defmodule CforumWeb.Admin.SettingControllerTest do
     setup [:setup_login]
 
     test "creates new settings", %{conn: conn} do
-      conn = put(conn, Routes.admin_setting_path(conn, :update), setting: %{options: %{}})
-      assert redirected_to(conn) == Routes.admin_setting_path(conn, :edit)
+      conn = put(conn, Path.admin_setting_path(conn, :update), setting: %{options: %{}})
+      assert redirected_to(conn) == Path.admin_setting_path(conn, :edit)
 
-      conn = get(conn, Routes.admin_setting_path(conn, :edit))
+      conn = get(conn, Path.admin_setting_path(conn, :edit))
       assert html_response(conn, 200) =~ gettext("settings")
 
       setting = Settings.get_global_setting()
@@ -51,14 +51,14 @@ defmodule CforumWeb.Admin.SettingControllerTest do
 
   describe "access rights" do
     test "anonymous isn't allowed to access", %{conn: conn} do
-      conn = get(conn, Routes.admin_setting_path(conn, :edit))
+      conn = get(conn, Path.admin_setting_path(conn, :edit))
       assert conn.status == 403
     end
 
     test "non-admin user isn't allowed to access", %{conn: conn} do
       user = insert(:user)
       conn = login(conn, user)
-      conn = get(conn, Routes.admin_setting_path(conn, :edit))
+      conn = get(conn, Path.admin_setting_path(conn, :edit))
       assert conn.status == 403
     end
 
@@ -68,7 +68,7 @@ defmodule CforumWeb.Admin.SettingControllerTest do
       conn =
         conn
         |> login(user)
-        |> get(Routes.admin_setting_path(conn, :edit))
+        |> get(Path.admin_setting_path(conn, :edit))
 
       assert html_response(conn, 200) =~ gettext("settings")
     end

@@ -2,13 +2,14 @@ defmodule CforumWeb.MailControllerTest do
   use CforumWeb.ConnCase
 
   alias Cforum.Accounts.PrivMessages
+  alias Cforum.Accounts.PrivMessage
 
   setup [:setup_login]
 
   describe "index" do
     test "lists all entries on index", %{conn: conn, user: user} do
       priv_message = insert(:priv_message, owner: user, recipient: user)
-      conn = get(conn, Routes.mail_path(conn, :index))
+      conn = get(conn, Path.mail_path(conn, :index))
       assert html_response(conn, 200) =~ gettext("mails")
       assert html_response(conn, 200) =~ priv_message.subject
     end
@@ -16,7 +17,7 @@ defmodule CforumWeb.MailControllerTest do
 
   describe "new mail" do
     test "renders form", %{conn: conn} do
-      conn = get(conn, Routes.mail_path(conn, :new))
+      conn = get(conn, Path.mail_path(conn, :new))
       assert html_response(conn, 200) =~ gettext("new mail")
     end
   end
@@ -25,24 +26,24 @@ defmodule CforumWeb.MailControllerTest do
     test "redirects to show when data is valid", %{conn: conn} do
       user = insert(:user)
       attrs = params_for(:priv_message, recipient_name: nil, sender_name: nil, recipient_id: user.user_id)
-      conn = post(conn, Routes.mail_path(conn, :create), priv_message: attrs)
+      conn = post(conn, Path.mail_path(conn, :create), priv_message: attrs)
 
       assert %{id: id} = cf_redirected_params(conn)
-      assert redirected_to(conn) =~ Routes.mail_path(conn, :show, id)
+      assert redirected_to(conn) =~ Path.mail_path(conn, :show, %PrivMessage{priv_message_id: id})
 
-      conn = get(conn, Routes.mail_path(conn, :show, id))
+      conn = get(conn, Path.mail_path(conn, :show, %PrivMessage{priv_message_id: id}))
       assert html_response(conn, 200) =~ gettext("mail from %{partner}", partner: user.username)
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.mail_path(conn, :create), priv_message: %{})
+      conn = post(conn, Path.mail_path(conn, :create), priv_message: %{})
       assert html_response(conn, 200) =~ gettext("new mail")
     end
 
     test "shows a preview when preview is set", %{conn: conn} do
       user = insert(:user)
       attrs = params_for(:priv_message, recipient_name: nil, sender_name: nil, recipient_id: user.user_id)
-      conn = post(conn, Routes.mail_path(conn, :create), priv_message: attrs, preview: "yes")
+      conn = post(conn, Path.mail_path(conn, :create), priv_message: attrs, preview: "yes")
 
       assert html_response(conn, 200) =~ gettext("new mail")
       assert html_response(conn, 200) =~ gettext("preview")
@@ -57,14 +58,14 @@ defmodule CforumWeb.MailControllerTest do
       mail = PrivMessages.get_priv_message!(user, mail.priv_message_id)
       assert mail.is_read == true
 
-      post(conn, Routes.mail_path(conn, :update_unread, mail))
+      post(conn, Path.mail_path(conn, :update_unread, mail))
       mail = PrivMessages.get_priv_message!(user, mail.priv_message_id)
       assert mail.is_read == false
     end
 
     test "redirects to index after marking unread", %{conn: conn, mail: mail} do
-      conn = post(conn, Routes.mail_path(conn, :update_unread, mail))
-      assert redirected_to(conn) == Routes.mail_path(conn, :index)
+      conn = post(conn, Path.mail_path(conn, :update_unread, mail))
+      assert redirected_to(conn) == Path.mail_path(conn, :index)
     end
   end
 
@@ -72,9 +73,9 @@ defmodule CforumWeb.MailControllerTest do
     setup [:create_mail]
 
     test "deletes chosen mail", %{conn: conn, mail: mail} do
-      conn = delete(conn, Routes.mail_path(conn, :delete, mail))
-      assert redirected_to(conn) == Routes.mail_path(conn, :index)
-      assert_error_sent(404, fn -> get(conn, Routes.mail_path(conn, :show, mail.thread_id)) end)
+      conn = delete(conn, Path.mail_path(conn, :delete, mail))
+      assert redirected_to(conn) == Path.mail_path(conn, :index)
+      assert_error_sent(404, fn -> get(conn, Path.mail_path(conn, :show, mail)) end)
     end
   end
 

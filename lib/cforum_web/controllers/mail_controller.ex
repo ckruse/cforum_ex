@@ -100,7 +100,7 @@ defmodule CforumWeb.MailController do
 
     conn
     |> put_flash(:info, gettext("Mail successfully marked as unread."))
-    |> redirect(to: Routes.mail_path(conn, :index))
+    |> redirect(to: Path.mail_path(conn, :index))
   end
 
   @spec delete(Plug.Conn.t(), map()) :: Plug.Conn.t()
@@ -109,7 +109,7 @@ defmodule CforumWeb.MailController do
 
     conn
     |> put_flash(:info, gettext("Mail deleted successfully."))
-    |> redirect(to: Routes.mail_path(conn, :index))
+    |> redirect(to: Path.mail_path(conn, :index))
   end
 
   defp ordering("ascending"), do: :asc

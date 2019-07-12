@@ -21,7 +21,7 @@ defmodule CforumWeb.Admin.SearchSectionController do
       {:ok, section} ->
         conn
         |> put_flash(:info, gettext("Search section created successfully."))
-        |> redirect(to: Routes.admin_search_section_path(conn, :edit, section))
+        |> redirect(to: Path.admin_search_section_path(conn, :edit, section))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -41,7 +41,7 @@ defmodule CforumWeb.Admin.SearchSectionController do
       {:ok, section} ->
         conn
         |> put_flash(:info, gettext("Search section updated successfully."))
-        |> redirect(to: Routes.admin_search_section_path(conn, :edit, section))
+        |> redirect(to: Path.admin_search_section_path(conn, :edit, section))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", section: section, changeset: changeset)
@@ -54,7 +54,7 @@ defmodule CforumWeb.Admin.SearchSectionController do
 
     conn
     |> put_flash(:info, gettext("Search section deleted successfully."))
-    |> redirect(to: Routes.admin_search_section_path(conn, :index))
+    |> redirect(to: Path.admin_search_section_path(conn, :index))
   end
 
   def load_resource(conn) do

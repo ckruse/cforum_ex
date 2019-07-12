@@ -18,7 +18,7 @@ defmodule CforumWeb.Users.PasswordController do
 
         conn
         |> put_flash(:info, gettext("The instructions how to reset your password have been sent."))
-        |> redirect(to: Routes.root_path(conn, :index))
+        |> redirect(to: Path.root_path(conn, :index))
 
       _ ->
         render(conn, "new.html")
@@ -47,7 +47,7 @@ defmodule CforumWeb.Users.PasswordController do
         |> put_flash(:info, gettext("Password updated successfully."))
         |> put_session(:user_id, user.user_id)
         |> configure_session(renew: true)
-        |> redirect(to: Routes.root_path(conn, :index))
+        |> redirect(to: Path.root_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(
@@ -73,7 +73,7 @@ defmodule CforumWeb.Users.PasswordController do
       {:ok, user} ->
         conn
         |> put_flash(:info, gettext("Password updated successfully."))
-        |> redirect(to: Routes.user_path(conn, :show, user))
+        |> redirect(to: Path.user_path(conn, :show, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)

@@ -1,12 +1,14 @@
 defmodule CforumWeb.CiteControllerTest do
   use CforumWeb.ConnCase
 
+  alias Cforum.Cites.Cite
+
   @invalid_attrs %{archived: nil, author: nil, cite: nil, cite_date: nil, creator: nil, old_id: nil, url: nil}
 
   describe "index" do
     test "lists all cites", %{conn: conn} do
       cite = insert(:cite, archived: true)
-      conn = get(conn, Routes.cite_path(conn, :index))
+      conn = get(conn, Path.cite_path(conn, :index))
       assert html_response(conn, 200) =~ gettext("cites")
       assert html_response(conn, 200) =~ cite.cite
     end
@@ -14,7 +16,7 @@ defmodule CforumWeb.CiteControllerTest do
 
   describe "new cite" do
     test "renders form", %{conn: conn} do
-      conn = get(conn, Routes.cite_path(conn, :new))
+      conn = get(conn, Path.cite_path(conn, :new))
       assert html_response(conn, 200) =~ gettext("suggest new cite")
     end
   end
@@ -22,17 +24,17 @@ defmodule CforumWeb.CiteControllerTest do
   describe "create cite" do
     test "redirects to show when data is valid", %{conn: conn} do
       attrs = params_for(:cite)
-      conn = post(conn, Routes.cite_path(conn, :create), cite: attrs)
+      conn = post(conn, Path.cite_path(conn, :create), cite: attrs)
 
       assert %{id: id} = cf_redirected_params(conn)
-      assert redirected_to(conn) == Routes.cite_path(conn, :show, id)
+      assert redirected_to(conn) == Path.cite_path(conn, :show, %Cite{cite_id: id})
 
-      conn = get(conn, Routes.cite_path(conn, :show, id))
+      conn = get(conn, Path.cite_path(conn, :show, %Cite{cite_id: id}))
       assert html_response(conn, 200) =~ gettext("cite %{id}", id: id)
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.cite_path(conn, :create), cite: @invalid_attrs)
+      conn = post(conn, Path.cite_path(conn, :create), cite: @invalid_attrs)
       assert html_response(conn, 200) =~ gettext("suggest new cite")
     end
   end
@@ -44,7 +46,7 @@ defmodule CforumWeb.CiteControllerTest do
       conn =
         conn
         |> login(user)
-        |> get(Routes.cite_path(conn, :edit, cite))
+        |> get(Path.cite_path(conn, :edit, cite))
 
       assert html_response(conn, 200) =~ gettext("edit cite #%{id}", id: cite.cite_id)
     end
@@ -57,11 +59,11 @@ defmodule CforumWeb.CiteControllerTest do
       conn =
         conn
         |> login(user)
-        |> put(Routes.cite_path(conn, :update, cite), cite: %{author: "author foo bar"})
+        |> put(Path.cite_path(conn, :update, cite), cite: %{author: "author foo bar"})
 
-      assert redirected_to(conn) == Routes.cite_path(conn, :show, cite)
+      assert redirected_to(conn) == Path.cite_path(conn, :show, cite)
 
-      conn = get(conn, Routes.cite_path(conn, :show, cite))
+      conn = get(conn, Path.cite_path(conn, :show, cite))
       assert html_response(conn, 200) =~ "author foo bar"
     end
 
@@ -69,7 +71,7 @@ defmodule CforumWeb.CiteControllerTest do
       conn =
         conn
         |> login(user)
-        |> put(Routes.cite_path(conn, :update, cite), cite: @invalid_attrs)
+        |> put(Path.cite_path(conn, :update, cite), cite: @invalid_attrs)
 
       assert html_response(conn, 200) =~ gettext("edit cite #%{id}", id: cite.cite_id)
     end
@@ -82,12 +84,12 @@ defmodule CforumWeb.CiteControllerTest do
       conn =
         conn
         |> login(user)
-        |> delete(Routes.cite_path(conn, :delete, cite))
+        |> delete(Path.cite_path(conn, :delete, cite))
 
-      assert redirected_to(conn) == Routes.cite_path(conn, :index)
+      assert redirected_to(conn) == Path.cite_path(conn, :index)
 
       assert_error_sent(404, fn ->
-        get(conn, Routes.cite_path(conn, :show, cite))
+        get(conn, Path.cite_path(conn, :show, cite))
       end)
     end
   end

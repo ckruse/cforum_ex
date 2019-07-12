@@ -1,2 +1,2 @@
-<%= link gettext("event %{no}", no: @entry.contents["event_id"]), to: Routes.root_path(@conn, :index) <> "admin/events/" <> to_string(@entry.contents["event_id"]) %>,
+<%= link gettext("event %{no}", no: @entry.contents["event_id"]), to: Path.root_path(@conn, :index) <> "admin/events/" <> to_string(@entry.contents["event_id"]) %>,
 <%= gettext("attendee %{name}", name: @entry.contents["name"]) %>

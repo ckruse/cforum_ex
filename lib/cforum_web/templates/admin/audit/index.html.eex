@@ -1,4 +1,4 @@
-<%= form_for @changeset, Routes.admin_audit_path(@conn, :index), [as: :search, method: :get, class: "cf-form"], fn f -> %>
+<%= form_for @changeset, Path.admin_audit_path(@conn, :index), [as: :search, method: :get, class: "cf-form"], fn f -> %>
   <div class="cf-cgroup">
     <%= label f, :from, gettext("start date") %>
     <%= date_input f, :from %>
@@ -37,7 +37,7 @@
 
 <h2><%= gettext("auditing entries") %></h2>
 
-<%= Paginator.pagination @conn, @paging, &Routes.admin_audit_path/3, url_params: url_params(@changeset) %>
+<%= Paginator.pagination @conn, @paging, &Path.admin_audit_path/3, url_params: url_params(@changeset) %>
 
 <table class="cf-default-table">
   <thead>
@@ -61,4 +61,4 @@
   </tbody>
 </table>
 
-<%= Paginator.pagination @conn, @paging, &Routes.admin_audit_path/3, url_params: url_params(@changeset) %>
+<%= Paginator.pagination @conn, @paging, &Path.admin_audit_path/3, url_params: url_params(@changeset) %>

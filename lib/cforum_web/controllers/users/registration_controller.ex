@@ -29,7 +29,7 @@ defmodule CforumWeb.Users.RegistrationController do
           :info,
           gettext("Account successfully created. Please follow the confirmation instructions we send you via mail.")
         )
-        |> redirect(to: Routes.root_path(conn, :index))
+        |> redirect(to: Path.root_path(conn, :index))
 
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -43,12 +43,12 @@ defmodule CforumWeb.Users.RegistrationController do
         |> Plug.Conn.put_session(:user_id, user.user_id)
         |> Plug.Conn.configure_session(renew: true)
         |> put_flash(:info, gettext("Account successfully confirmed!"))
-        |> redirect(to: Routes.root_path(conn, :index))
+        |> redirect(to: Path.root_path(conn, :index))
 
       {:error, _} ->
         conn
         |> put_flash(:error, gettext("Oops, something went wrong!"))
-        |> redirect(to: Routes.root_path(conn, :index))
+        |> redirect(to: Path.root_path(conn, :index))
     end
   end
 

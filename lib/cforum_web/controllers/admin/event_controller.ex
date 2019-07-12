@@ -28,7 +28,7 @@ defmodule CforumWeb.Admin.EventController do
       {:ok, event} ->
         conn
         |> put_flash(:info, gettext("Event created successfully."))
-        |> redirect(to: Routes.admin_event_path(conn, :edit, event))
+        |> redirect(to: Path.admin_event_path(conn, :edit, event))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -48,7 +48,7 @@ defmodule CforumWeb.Admin.EventController do
       {:ok, event} ->
         conn
         |> put_flash(:info, gettext("Event updated successfully."))
-        |> redirect(to: Routes.admin_event_path(conn, :edit, event))
+        |> redirect(to: Path.admin_event_path(conn, :edit, event))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", event: event, changeset: changeset)
@@ -61,7 +61,7 @@ defmodule CforumWeb.Admin.EventController do
 
     conn
     |> put_flash(:info, gettext("Event deleted successfully."))
-    |> redirect(to: Routes.admin_event_path(conn, :index))
+    |> redirect(to: Path.admin_event_path(conn, :index))
   end
 
   def allowed?(conn, _, _), do: Abilities.admin?(conn)

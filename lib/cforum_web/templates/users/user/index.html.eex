@@ -10,17 +10,17 @@
 <table class="cf-default-table">
   <thead>
     <tr>
-      <th><%= Sortable.sortable(@conn, gettext("username"), :username, &Routes.user_path/3) %></th>
-      <th class="numeric"><%= Sortable.sortable(@conn, gettext("Score"), :score, &Routes.user_path/3) %></th>
-      <th class="numeric"><%= Sortable.sortable(@conn, gettext("Activity during the last 30 days"), :activity, &Routes.user_path/3) %></th>
-      <th><%= Sortable.sortable(@conn, gettext("Registration date"), :created_at, &Routes.user_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("username"), :username, &Path.user_path/3) %></th>
+      <th class="numeric"><%= Sortable.sortable(@conn, gettext("Score"), :score, &Path.user_path/3) %></th>
+      <th class="numeric"><%= Sortable.sortable(@conn, gettext("Activity during the last 30 days"), :activity, &Path.user_path/3) %></th>
+      <th><%= Sortable.sortable(@conn, gettext("Registration date"), :created_at, &Path.user_path/3) %></th>
     </tr>
   </thead>
 
   <tbody>
     <%= for user <- @users do %>
       <tr>
-        <td><%= link user.username, to: Routes.user_path(@conn, :show, user) %></td>
+        <td><%= link user.username, to: Path.user_path(@conn, :show, user) %></td>
         <td class="numeric"><%= user.score %></td>
         <td class="numeric"><%= user.activity %> <%= gettext("messages") %></td>
         <td><%= VHelpers.format_date(@conn, user.created_at) %></td>
@@ -29,4 +29,4 @@
   </tbody>
 </table>
 
-<%= Paginator.pagination @conn, @paging, &Routes.user_path/3 %>
+<%= Paginator.pagination @conn, @paging, &Path.user_path/3 %>
