@@ -56,17 +56,13 @@ defmodule CforumWeb.RedirectorController do
   end
 
   def redirect_to_month(conn, %{"year" => year, "month" => month}) do
-    if year =~ ~r/^\d+(_\d+)?$/ && month =~ ~r/^\d+$/ && String.to_integer(month) in 1..12 do
-      year = String.replace(year, ~r/_\d+$/, "")
-      {:ok, date} = NaiveDateTime.new(String.to_integer(year), String.to_integer(month), 1, 12, 0, 0)
+    if not valid_params?(year, month),
+      do: raise(Phoenix.Router.NoRouteError, conn: conn, router: CforumWeb.Router)
 
-      redirect(conn, to: Path.archive_path(conn, :threads, conn.assigns[:current_forum], date))
-    else
-      conn
-      |> put_status(:not_found)
-      |> put_view(CforumWeb.ErrorView)
-      |> render("404.html", error: "Year or month is invalid")
-    end
+    year = String.replace(year, ~r/_\d+$/, "")
+    {:ok, date} = NaiveDateTime.new(String.to_integer(year), String.to_integer(month), 1, 12, 0, 0)
+
+    redirect(conn, to: Path.archive_path(conn, :threads, conn.assigns[:current_forum], date))
   end
 
   def redirect_to_message(conn, %{"id" => _mid}) do
@@ -83,6 +79,10 @@ defmodule CforumWeb.RedirectorController do
       _ ->
         raise(Phoenix.Router.NoRouteError, conn: conn, router: CforumWeb.Router)
     end
+  end
+
+  defp valid_params?(year, month) do
+    Regex.match?(~r/^\d+(_\d+)?$/, year) && Regex.match?(~r/^\d+$/, month) && String.to_integer(month) in 1..12
   end
 
   def allowed?(_, _, _), do: true
