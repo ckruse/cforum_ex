@@ -19,6 +19,7 @@ defmodule CforumWeb.Router do
     plug(CforumWeb.Plug.LoadSettings)
     plug(CforumWeb.Plug.LoadUserInfoData)
     plug(CforumWeb.Plug.SetViewAll)
+    plug(CforumWeb.Plug.SetShowReadThreads)
     plug(CforumWeb.Plug.LoadMotd)
   end
 
@@ -29,6 +30,7 @@ defmodule CforumWeb.Router do
     plug(CforumWeb.Plug.VisibleForums)
     plug(CforumWeb.Plug.LoadSettings)
     plug(CforumWeb.Plug.SetViewAll)
+    plug(CforumWeb.Plug.SetShowReadThreads)
   end
 
   scope "/api", CforumWeb.Api, as: :api do

@@ -117,9 +117,9 @@
 
           <%= if ConfigManager.uconf(@conn, "hide_read_threads") == "yes" do %>
             <%= if assigns[:srt] do %>
-              <li id="optionen-hide-read-threads"><%= link gettext("hide read threads"), to: Path.forum_path(@conn, :index, @current_forum, %{"srt" => "no"}) %></li>
+              <li id="optionen-hide-read-threads"><%= link gettext("hide read threads"), to: Path.forum_path(@conn, :index, @current_forum, srt: nil) %></li>
             <% else %>
-              <li id="optionen-show-read-threads"><%= link gettext("show read threads"), to: Path.forum_path(@conn, :index, @current_forum, %{"srt" => "yes"}) %></li>
+              <li id="optionen-show-read-threads"><%= link gettext("show read threads"), to: Path.forum_path(@conn, :index, @current_forum, srt: "yes") %></li>
             <% end %>
           <% end %>
 
