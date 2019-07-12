@@ -17,6 +17,22 @@ defmodule CforumWeb.Views.Helpers.Path do
   @typep opt_params :: map() | list() | false
   @typep id() :: String.t() | non_neg_integer()
 
+  def add_url_flag(conn, flag, value) do
+    new_flags =
+      (conn.assigns[:_url_flags] || [])
+      |> Keyword.put(flag, value)
+
+    Plug.Conn.assign(conn, :_url_flags, new_flags)
+  end
+
+  def del_url_flag(conn, flag) do
+    new_flags =
+      (conn.assigns[:_url_flags] || [])
+      |> Keyword.delete(flag)
+
+    Plug.Conn.assign(conn, :_url_flags, new_flags)
+  end
+
   @spec forum_slug(%Forum{} | nil | String.t(), boolean()) :: String.t() | nil
   def forum_slug(forum, with_all \\ true)
   def forum_slug(nil, true), do: "all"
@@ -244,13 +260,13 @@ defmodule CforumWeb.Views.Helpers.Path do
   def encode_query_string(_conn, false), do: ""
 
   def encode_query_string(conn, query) when query == [] or query == %{},
-    do: encode_query_string(conn.assigns[:_link_flags] || [])
+    do: encode_query_string(conn.assigns[:_url_flags] || [])
 
   def encode_query_string(conn, query) when is_map(query),
     do: encode_query_string(conn, Map.to_list(query))
 
   def encode_query_string(conn, query) do
-    flags = conn.assigns[:_link_flags] || []
+    flags = conn.assigns[:_url_flags] || []
     encode_query_string(Keyword.merge(flags, query || []))
   end
 

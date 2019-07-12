@@ -5,7 +5,7 @@ defmodule CforumWeb.Plug.SetViewAll do
   """
 
   alias Cforum.Abilities
-  alias CforumWeb.Views.Helpers.Links
+  alias CforumWeb.Views.Helpers.Path
 
   def init(opts), do: opts
 
@@ -13,11 +13,11 @@ defmodule CforumWeb.Plug.SetViewAll do
     if conn.params["view_all"] && Abilities.access_forum?(conn, :moderate) do
       conn
       |> Plug.Conn.assign(:view_all, true)
-      |> Links.add_link_flag(:view_all, "yes")
+      |> Path.add_url_flag(:view_all, "yes")
     else
       conn
       |> Plug.Conn.assign(:view_all, false)
-      |> Links.del_link_flag(:view_all)
+      |> Path.del_url_flag(:view_all)
     end
   end
 end
