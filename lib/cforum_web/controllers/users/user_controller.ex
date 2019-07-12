@@ -215,9 +215,7 @@ defmodule CforumWeb.Users.UserController do
         Plug.Conn.assign(conn, :user, Users.get_user!(conn.params["id"]))
 
       Helpers.present?(conn.params["id"]) ->
-        conn
-        |> VHelpers.send_404()
-        |> Plug.Conn.halt()
+        raise(Phoenix.Router.NoRouteError, conn: conn, router: CforumWeb.Router)
 
       true ->
         conn

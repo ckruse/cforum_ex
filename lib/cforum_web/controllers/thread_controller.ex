@@ -243,16 +243,15 @@ defmodule CforumWeb.ThreadController do
   end
 
   defp get_thread_feed(conn, id) do
-    if Regex.match?(~r/^\d+$/, id) do
-      conn.assigns[:current_forum]
-      |> Threads.get_thread!(conn.assigns[:visible_forums], id)
-      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
-      |> Threads.ensure_found!()
-      |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close, :subscriptions, :interesting])
-      |> Threads.apply_highlights(conn)
-      |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
-    else
-      raise Ecto.NoResultsError, queryable: Cforum.Threads.Thread
-    end
+    if !Regex.match?(~r/^\d+$/, id),
+      do: raise(Phoenix.Router.NoRouteError, conn: conn, router: CforumWeb.Router)
+
+    conn.assigns[:current_forum]
+    |> Threads.get_thread!(conn.assigns[:visible_forums], id)
+    |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+    |> Threads.ensure_found!()
+    |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close, :subscriptions, :interesting])
+    |> Threads.apply_highlights(conn)
+    |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
   end
 end
