@@ -5,6 +5,22 @@ defmodule CforumWeb.Views.Helpers.Links do
 
   use Phoenix.HTML
 
+  def add_link_flag(conn, flag, value) do
+    new_flags =
+      (conn.assigns[:_link_flags] || [])
+      |> Keyword.put(flag, value)
+
+    Plug.Conn.assign(conn, :_link_flags, new_flags)
+  end
+
+  def del_link_flag(conn, flag) do
+    new_flags =
+      (conn.assigns[:_link_flags] || [])
+      |> Keyword.delete(flag)
+
+    Plug.Conn.assign(conn, :_link_flags, new_flags)
+  end
+
   def default_link(opts, do: contents) do
     link(Keyword.update(opts, :class, "cf-btn", &(&1 <> " cf-btn")), do: contents)
   end
