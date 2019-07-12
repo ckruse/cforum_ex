@@ -2,7 +2,7 @@
       <div class="logo">
         <h1>
           <span><%= {:safe, gettext("SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">documentation</a>")} %></span>
-          <%= link to: Routes.root_path(@conn, :index), class: "home" do %><span><%= gettext("home") %></span><% end %>
+          <%= link to: Path.root_path(@conn, :index), class: "home" do %><span><%= gettext("home") %></span><% end %>
         </h1>
 
         <%= link(img_tag(Routes.static_path(@conn, "/images/feed-atom.svg"), alt: gettext("Atom feed (%{forum})", forum: forum_name(@current_forum))), to: Path.forum_url(@conn, :atom, @current_forum), title: gettext("Atom feed (%{forum})", forum: forum_name(@current_forum)), class: "atom") %>
@@ -13,7 +13,7 @@
       <nav class="quicklinks">
         <ul>
           <li><%= link gettext("create new thread"), to: Path.thread_path(@conn, :new, @current_forum) %></li>
-          <li><%= link gettext("home"), to: Routes.root_path(@conn, :index) %></li>
+          <li><%= link gettext("home"), to: Path.root_path(@conn, :index) %></li>
           <li class="cf-dropdown" data-dropdown="yes">
             <span class="anchor"><%= gettext("forums") %></span>
             <ul class="menu">
@@ -39,21 +39,21 @@
           </li>
           <%= if Abilities.may?(@conn, "moderation", :index) do %>
             <li class="moderation-queue">
-              <%= link gettext("moderation queue"), to: Routes.moderation_path(@conn, :index) %>
-              (<%= link "#{@undecided_moderation_queue_entries}", to: Routes.moderation_path(@conn, :index_open) %>)
+              <%= link gettext("moderation queue"), to: Path.moderation_path(@conn, :index) %>
+              (<%= link "#{@undecided_moderation_queue_entries}", to: Path.moderation_path(@conn, :index_open) %>)
             </li>
           <% end %>
           <li class="cites">
-            <%= link gettext("cites"), to: Routes.cite_path(@conn, :index) %>
-            <%= if Abilities.signed_in?(@conn) do %>(<%= link "#{@undecided_cites}", to: Routes.cite_path(@conn, :index_voting) %>)<% end %>
+            <%= link gettext("cites"), to: Path.cite_path(@conn, :index) %>
+            <%= if Abilities.signed_in?(@conn) do %>(<%= link "#{@undecided_cites}", to: Path.cite_path(@conn, :index_voting) %>)<% end %>
           </li>
-          <li><%= link gettext("search"), to: Routes.search_path(@conn, :show) %></li>
+          <li><%= link gettext("search"), to: Path.search_path(@conn, :show) %></li>
           <li><%= link gettext("chat"), to: "https://kiwiirc.com/client/irc.epd-me.net/#{chat_nick_name(@conn)}&channel=#selfhtml", rel: "nofollow" %></li>
-          <li><%= link(gettext("help"), to: Routes.page_path(@conn, :help)) %></li>
+          <li><%= link(gettext("help"), to: Path.page_path(@conn, :help)) %></li>
 
           <%= if show?(@conn, :search) do %>
             <li class="search">
-              <%= form_for search_changeset(@conn), Routes.search_path(@conn, :show), [method: :get, rel: "nofollow", as: :search], fn f -> %>
+              <%= form_for search_changeset(@conn), Path.search_path(@conn, :show), [method: :get, rel: "nofollow", as: :search], fn f -> %>
                 <%= for s <- sections(f) do %>
                   <input type="hidden" name="search[sections][]" value="<%= s %>">
                 <% end %>
@@ -90,7 +90,7 @@
               <li><%= link(gettext("sort descending"), to: sort_link(@conn, p: @page.page, order: "descending")) %></li>
             <% end %>
             <%= if @order != "newest-first" do %>
-              <li><%= link(gettext("sort newest first"), to: sort_link(@conn, p: @page.page, order: "newest-firs")) %></li>
+              <li><%= link(gettext("sort newest first"), to: sort_link(@conn, p: @page.page, order: "newest-first")) %></li>
             <% end %>
           <% end %>
 
@@ -100,7 +100,7 @@
           <% end %>
 
           <%= if Abilities.may?(@conn, "admin/user") do %>
-            <li><%= link gettext("Administration"), to: Routes.admin_user_path(@conn, :index) %></li>
+            <li><%= link gettext("Administration"), to: Path.admin_user_path(@conn, :index) %></li>
           <% end %>
 
           <%= if show?(@conn, :view_all) do %>
@@ -112,7 +112,7 @@
           <% end %>
 
           <%= if show?(@conn, :mark_all_read) do %>
-            <li id="mark-all-read"><%= VHelpers.Button.cf_button(gettext("mark all messages read"), to: Routes.mark_read_path(@conn, :mark_all_read), method: :post, params: [p: "#{@page.page}"]) %></li>
+            <li id="mark-all-read"><%= VHelpers.Button.cf_button(gettext("mark all messages read"), to: Path.mark_read_path(@conn, :mark_all_read, @current_forum), method: :post, params: [p: "#{@page.page}"]) %></li>
           <% end %>
 
           <%= if ConfigManager.uconf(@conn, "hide_read_threads") == "yes" do %>
@@ -123,16 +123,16 @@
             <% end %>
           <% end %>
 
-          <%= if Abilities.may?(@conn, "messages/interesting") do %><li id="interestings-link"><%= link gettext("interesting messages"), to: Routes.interesting_path(@conn, :index) %></li><% end %>
-          <%= if Abilities.may?(@conn, "messages/subscription") do %><li id="subscriptions-link"><%= link gettext("subscribed messages"), to: Routes.subscription_path(@conn, :index) %></li><% end %>
+          <%= if Abilities.may?(@conn, "messages/interesting") do %><li id="interestings-link"><%= link gettext("interesting messages"), to: Path.interesting_path(@conn, :index) %></li><% end %>
+          <%= if Abilities.may?(@conn, "messages/subscription") do %><li id="subscriptions-link"><%= link gettext("subscribed messages"), to: Path.subscription_path(@conn, :index) %></li><% end %>
           <%= if Abilities.may?(@conn, "threads/invisible") do %><li id="invisibles-link"><%= link gettext("invisible threads"), to: Path.thread_path(@conn, :invisible_index) %></li><% end %>
 
           <%= if show?(@conn, :badges) do %>
-            <li id="badges-link"><%= link gettext("badges"), to: Routes.badge_path(@conn, :index) %></li>
+            <li id="badges-link"><%= link gettext("badges"), to: Path.badge_path(@conn, :index) %></li>
           <% end %>
 
           <%= if show?(@conn, :events) do %>
-            <li id="events-link"><%= link gettext("events"), to: Routes.event_path(@conn, :index) %></li>
+            <li id="events-link"><%= link gettext("events"), to: Path.event_path(@conn, :index) %></li>
           <% end %>
         </ul>
       </nav>

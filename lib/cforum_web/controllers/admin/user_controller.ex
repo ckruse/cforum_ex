@@ -27,7 +27,7 @@ defmodule CforumWeb.Admin.UserController do
       {:ok, user} ->
         conn
         |> put_flash(:info, gettext("The user has been created successfully."))
-        |> redirect(to: Routes.admin_user_path(conn, :edit, user))
+        |> redirect(to: Path.admin_user_path(conn, :edit, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -47,7 +47,7 @@ defmodule CforumWeb.Admin.UserController do
       {:ok, user} ->
         conn
         |> put_flash(:info, gettext("User updated successfully."))
-        |> redirect(to: Routes.admin_user_path(conn, :edit, user))
+        |> redirect(to: Path.admin_user_path(conn, :edit, user))
 
       {:error, changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)
@@ -60,7 +60,7 @@ defmodule CforumWeb.Admin.UserController do
 
     conn
     |> put_flash(:info, gettext("User deleted successfully."))
-    |> redirect(to: Routes.admin_user_path(conn, :index))
+    |> redirect(to: Path.admin_user_path(conn, :index))
   end
 
   def allowed?(conn, _, _), do: Abilities.admin?(conn)

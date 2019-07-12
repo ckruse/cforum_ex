@@ -1,4 +1,4 @@
-<%= form_for Cforum.Accounts.User.changeset(@user), Routes.user_path(@conn, :delete, @user), [method: :delete], fn _f -> %>
+<%= form_for Cforum.Accounts.User.changeset(@user), Path.user_path(@conn, :delete, @user), [method: :delete], fn _f -> %>
 
 <p>
   <strong><%= gettext("Caution!") %></strong> <%= gettext("You can't undo the deletion of this account, all data will be irretrievable lost! Are you sure that you wan't to delete the account?") %>
@@ -6,6 +6,6 @@
 
 <p class="form-actions">
   <%= VHelpers.Button.primary_submit gettext("Yes, delete user") %>
-  <%= VHelpers.Button.default_button_link gettext("Nope, get me out of here"), to: Routes.user_path(@conn, :show, @user) %>
+  <%= VHelpers.Button.default_button_link gettext("Nope, get me out of here"), to: Path.user_path(@conn, :show, @user) %>
 </p>
 <% end %>

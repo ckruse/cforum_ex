@@ -1,11 +1,11 @@
-<%= form_for @changeset, Routes.user_path(@conn, :update, @user), [class: "cf-form", multipart: true], fn f -> %>
+<%= form_for @changeset, Path.user_path(@conn, :update, @user), [class: "cf-form", multipart: true], fn f -> %>
 
   <%= render "form.html", Map.merge(assigns, %{changeset: @changeset, f: f, user: @user}) %>
 
   <p class="form-actions">
     <%= VHelpers.Button.primary_submit gettext("save changes") %>
-    <%= if Abilities.may?(@conn, "users/password", :edit, @user), do: VHelpers.Button.default_button_link(gettext("change password"), to: Routes.user_password_path(@conn, :edit, @user)) %>
-    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Routes.user_path(@conn, :show, @user) %>
+    <%= if Abilities.may?(@conn, "users/password", :edit, @user), do: VHelpers.Button.default_button_link(gettext("change password"), to: Path.user_password_path(@conn, :edit, @user)) %>
+    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Path.user_path(@conn, :show, @user) %>
   </p>
 
 <% end %>

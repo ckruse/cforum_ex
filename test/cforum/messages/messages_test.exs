@@ -243,14 +243,14 @@ defmodule Cforum.MessagesTest do
       assert ReadMessages.mark_messages_read(nil, m) == nil
     end
 
-    test "cound_unread_messages/2 counts the number of unread messages for a user", %{message: m, user: u} do
-      assert ReadMessages.count_unread_messages(u) == {1, 1}
+    test "cound_unread_messages/2 counts the number of unread messages for a user", %{message: m, user: u, forum: f} do
+      assert ReadMessages.count_unread_messages(u, [f]) == {1, 1}
       ReadMessages.mark_messages_read(u, m)
-      assert ReadMessages.count_unread_messages(u) == {0, 0}
+      assert ReadMessages.count_unread_messages(u, [f]) == {0, 0}
     end
 
-    test "count_unread_messages/2 returns 0 w/o a user" do
-      assert ReadMessages.count_unread_messages(nil) == {0, 0}
+    test "count_unread_messages/2 returns 0 w/o a user", %{forum: f} do
+      assert ReadMessages.count_unread_messages(nil, [f]) == {0, 0}
     end
   end
 

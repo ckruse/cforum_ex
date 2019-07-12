@@ -16,7 +16,7 @@
       <tr>
         <td><%= badge.order %></td>
         <td><img src="<%= badge_image(@conn, badge) %>"></td>
-        <td><%= link badge.name, to: Routes.badge_path(@conn, :show, badge.slug) %></td>
+        <td><%= link badge.name, to: Path.badge_path(@conn, :show, badge) %></td>
         <td><%= badge.score_needed %></td>
         <td><%= length(Badges.unique_users(badge)) %></td>
       </tr>
@@ -25,4 +25,4 @@
 
 </table>
 
-<%= Paginator.pagination @conn, @page, &Routes.badge_path/3 %>
+<%= Paginator.pagination @conn, @page, &Path.badge_path/3 %>

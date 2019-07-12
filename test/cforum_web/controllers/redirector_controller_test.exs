@@ -61,16 +61,12 @@ defmodule CforumWeb.RedirectorControllerTest do
   end
 
   test "fails on /archiv/:year/:mon with invalid year", %{conn: conn} do
-    conn = get(conn, "/archiv/foobar/1")
-    assert html_response(conn, 404)
+    assert_error_sent(404, fn -> get(conn, "/archiv/foobar/1") end)
   end
 
   test "fails on /archiv/:year/:mon with invalid month", %{conn: conn} do
-    conn = get(conn, "/archiv/1999/foobar")
-    assert html_response(conn, 404)
-
-    get(conn, "/archiv/1999/13")
-    assert html_response(conn, 404)
+    assert_error_sent(404, fn -> get(conn, "/archiv/1999/foobar") end)
+    assert_error_sent(404, fn -> get(conn, "/archiv/1999/13") end)
   end
 
   test "redirects to thread on /archiv/:year/:month/t:tid", %{conn: conn} do

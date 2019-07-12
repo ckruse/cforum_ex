@@ -19,8 +19,8 @@
         <td><%= VHelpers.format_date(@conn, group.updated_at) %></td>
 
         <td class="actions-column">
-          <%= VHelpers.Links.default_index_link(gettext("edit"), to: Routes.admin_group_path(@conn, :edit, group)) %>
-          <%= VHelpers.Button.destructive_index_button(gettext("delete"), to: Routes.admin_group_path(@conn, :delete, group), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
+          <%= VHelpers.Links.default_index_link(gettext("edit"), to: Path.admin_group_path(@conn, :edit, group)) %>
+          <%= VHelpers.Button.destructive_index_button(gettext("delete"), to: Path.admin_group_path(@conn, :delete, group), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
         </td>
       </tr>
     <% end %>

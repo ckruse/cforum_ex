@@ -1,4 +1,4 @@
-<%= Paginator.pagination @conn, @paging, &Routes.user_path/4, path_args: [@conn, :show_scores, @user] %>
+<%= Paginator.pagination @conn, @paging, &Path.user_path/4, path_args: [@conn, :show_scores, @user] %>
 
 <table class="cf-score-table">
   <%= for s <- @scores do %>
@@ -19,4 +19,4 @@
   <% end %>
 </table>
 
-<%= Paginator.pagination @conn, @paging, &Routes.user_path/4, path_args: [@conn, :show_scores, @user] %>
+<%= Paginator.pagination @conn, @paging, &Path.user_path/4, path_args: [@conn, :show_scores, @user] %>

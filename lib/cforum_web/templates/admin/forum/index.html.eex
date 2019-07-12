@@ -22,8 +22,8 @@
         <td class="numeric"><%= forum.position %></td>
 
         <td class="actions-column">
-          <%= VHelpers.Links.default_index_link gettext("edit"), to: Routes.admin_forum_path(@conn, :edit, forum) %>
-          <%= VHelpers.Button.destructive_index_button gettext("delete"), to: Routes.admin_forum_path(@conn, :delete, forum), method: :delete %>
+          <%= VHelpers.Links.default_index_link gettext("edit"), to: Path.admin_forum_path(@conn, :edit, forum) %>
+          <%= VHelpers.Button.destructive_index_button gettext("delete"), to: Path.admin_forum_path(@conn, :delete, forum), method: :delete %>
         </td>
       </tr>
     <% end %>

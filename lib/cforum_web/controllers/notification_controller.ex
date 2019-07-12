@@ -39,12 +39,12 @@ defmodule CforumWeb.NotificationController do
       {:ok, _notification} ->
         conn
         |> put_flash(:info, gettext("Notification successfully marked as unread."))
-        |> redirect(to: Routes.notification_path(conn, :index))
+        |> redirect(to: Path.notification_path(conn, :index))
 
       {:error, _changeset} ->
         conn
         |> put_flash(:error, gettext("Oops, something went wrong!"))
-        |> redirect(to: Routes.notification_path(conn, :index))
+        |> redirect(to: Path.notification_path(conn, :index))
     end
   end
 
@@ -53,7 +53,7 @@ defmodule CforumWeb.NotificationController do
 
     conn
     |> put_flash(:info, gettext("Notification deleted successfully."))
-    |> redirect(to: Routes.notification_path(conn, :index))
+    |> redirect(to: Path.notification_path(conn, :index))
   end
 
   def batch_action(conn, %{"batch_action" => action} = params) when action in ["mark_read", "mark_unread"] do
@@ -70,7 +70,7 @@ defmodule CforumWeb.NotificationController do
 
     conn
     |> put_flash(:info, message)
-    |> redirect(to: Routes.notification_path(conn, :index))
+    |> redirect(to: Path.notification_path(conn, :index))
   end
 
   def batch_action(conn, %{"batch_action" => "delete"} = params) do
@@ -78,7 +78,7 @@ defmodule CforumWeb.NotificationController do
 
     conn
     |> put_flash(:info, gettext("Notifications have successfully been deleted."))
-    |> redirect(to: Routes.notification_path(conn, :index))
+    |> redirect(to: Path.notification_path(conn, :index))
   end
 
   def load_resource(conn) do

@@ -15,7 +15,7 @@ defmodule CforumWeb.Events.AttendeeController do
       {:ok, _attendee} ->
         conn
         |> put_flash(:info, gettext("You registered successfully."))
-        |> redirect(to: Routes.event_path(conn, :show, conn.assigns.event))
+        |> redirect(to: Path.event_path(conn, :show, conn.assigns.event))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -32,7 +32,7 @@ defmodule CforumWeb.Events.AttendeeController do
       {:ok, _attendee} ->
         conn
         |> put_flash(:info, gettext("Your registration was successfully updated."))
-        |> redirect(to: Routes.event_path(conn, :show, conn.assigns.event))
+        |> redirect(to: Path.event_path(conn, :show, conn.assigns.event))
 
       {:error, changeset} ->
         render(conn, "edit.html", changeset: changeset)
@@ -44,7 +44,7 @@ defmodule CforumWeb.Events.AttendeeController do
 
     conn
     |> put_flash(:info, gettext("Attendee deleted successfully."))
-    |> redirect(to: Routes.event_path(conn, :show, conn.assigns.event))
+    |> redirect(to: Path.event_path(conn, :show, conn.assigns.event))
   end
 
   def load_resource(conn) do

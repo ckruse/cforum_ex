@@ -1,4 +1,4 @@
-<%= form_for @changeset, Routes.search_path(@conn, :show) <> "#results", [method: :get, class: "cf-form", rel: "nofollow", as: :search], fn f -> %>
+<%= form_for @changeset, Path.search_path(@conn, :show) <> "#results", [method: :get, class: "cf-form", rel: "nofollow", as: :search], fn f -> %>
   <%= if @changeset.action do %>
     <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
   <% end %>
@@ -9,7 +9,7 @@
     <%= ErrorHelpers.error_tag f, :term %>
   </div>
 
-  <%=VHelpers.l10n_render @view_module, "explanation.html", assigns %>
+  <%= VHelpers.l10n_render @view_module, "explanation.html", assigns %>
 
   <div class="cf-cgroup">
     <%= for section <- @visible_sections do %>
@@ -45,11 +45,11 @@
 <%= if assigns[:results] do %>
   <h2 id="results"><%= gettext("%{count} search results", count: @paging.all_entries_count) %></h2>
 
-  <%= Paginator.pagination @conn, @paging, &Routes.search_path/3, [path_args: [@conn, :show], url_params: @params] %>
+  <%= Paginator.pagination @conn, @paging, &Path.search_path/3, [path_args: [@conn, :show], url_params: @params] %>
 
   <div class="cf-thread-list cf-search-results">
     <%= for result <- @results, do: render("result.html", Map.put(assigns, :result, result)) %>
   </div>
 
-  <%= Paginator.pagination @conn, @paging, &Routes.search_path/3, [path_args: [@conn, :show], url_params: @params] %>
+  <%= Paginator.pagination @conn, @paging, &Path.search_path/3, [path_args: [@conn, :show], url_params: @params] %>
 <% end %>

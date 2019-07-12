@@ -186,7 +186,7 @@ defmodule CforumWeb.MessageView do
         link(message.author, to: Path.message_path(conn, :show, thread, message), aria: [hidden: "true"])
 
       !Helpers.blank?(message.user_id) ->
-        link(message.author, to: Routes.user_path(conn, :show, message.user_id))
+        link(message.author, to: Path.user_path(conn, :show, message.user))
 
       true ->
         message.author
@@ -196,7 +196,7 @@ defmodule CforumWeb.MessageView do
   def cite_links(conn, message) do
     message.cites
     |> Enum.map(fn cite ->
-      {:safe, link} = link("##{cite.cite_id}", to: Routes.cite_path(conn, :show, cite))
+      {:safe, link} = link("##{cite.cite_id}", to: Path.cite_path(conn, :show, cite))
       link
     end)
     |> Enum.join(", ")

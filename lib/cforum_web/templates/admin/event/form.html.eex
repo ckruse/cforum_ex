@@ -50,5 +50,5 @@
 <% end %>
 
 <%= if assigns[:event] do %>
-  <%= VHelpers.Button.destructive_button(gettext("delete"), to: Routes.admin_event_path(@conn, :delete, @event), method: :delete) %>
+  <%= VHelpers.Button.destructive_button(gettext("delete"), to: Path.admin_event_path(@conn, :delete, @event), method: :delete) %>
 <% end %>

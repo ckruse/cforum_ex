@@ -7,12 +7,12 @@
   <%= render "mail.html", Map.merge(assigns, %{priv_message: @priv_message}) %>
 <% end %>
 
-<%= form_for @changeset, Routes.mail_path(@conn, :create), [class: "cf-form"], fn f -> %>
+<%= form_for @changeset, Path.mail_path(@conn, :create), [class: "cf-form"], fn f -> %>
   <%= render("form.html", Map.merge(assigns, %{f: f})) %>
 
   <p class="form-actions">
     <%= VHelpers.Button.default_submit gettext("show preview"), name: "preview" %>
     <%= VHelpers.Button.primary_submit gettext("send mail") %>
-    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Routes.mail_path(@conn, :index) %>
+    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Path.mail_path(@conn, :index) %>
   </p>
 <% end %>

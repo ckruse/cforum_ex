@@ -3,6 +3,6 @@
 <p>
   Sie haben nicht die notwendigen Zugriffsrechte, um diese Seite abzurufen.
   <%= if not Abilities.signed_in?(@conn) do %>
-    Vielleicht möchten Sie sich erst <%= link "anmelden", to: Routes.session_path(@conn, :new) %>?
+    Vielleicht möchten Sie sich erst <%= link "anmelden", to: Path.session_path(@conn, :new) %>?
   <% end %>
 </p>

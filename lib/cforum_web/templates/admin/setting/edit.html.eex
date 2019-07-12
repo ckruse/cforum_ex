@@ -1,4 +1,4 @@
-<%= form_for @changeset, Routes.admin_setting_path(@conn, :update), [class: "cf-form"], fn f -> %>
+<%= form_for @changeset, Path.admin_setting_path(@conn, :update), [class: "cf-form"], fn f -> %>
   <%= VHelpers.sub_inputs f, :options, fn(fo) -> %>
 
     <nav class="cf-tab-list">
@@ -32,6 +32,6 @@
 
   <p class="form-actions">
     <%= VHelpers.Button.primary_submit gettext("save changes") %>
-    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Routes.admin_forum_path(@conn, :index) %>
+    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Path.admin_forum_path(@conn, :index) %>
   </p>
 <% end %>
