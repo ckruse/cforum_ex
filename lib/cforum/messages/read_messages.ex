@@ -56,8 +56,8 @@ defmodule Cforum.Messages.ReadMessages do
       iex> count_unread_messages(%User{})
       {1, 5}
   """
-  def count_unread_messages(user)
-  def count_unread_messages(nil), do: {0, 0}
+  def count_unread_messages(user, visible_forums)
+  def count_unread_messages(nil, _), do: {0, 0}
 
   def count_unread_messages(user, visible_forums) do
     forum_ids = Enum.map(visible_forums, & &1.forum_id)

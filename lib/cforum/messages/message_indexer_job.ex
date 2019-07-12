@@ -8,7 +8,6 @@ defmodule Cforum.Messages.MessageIndexerJob do
   alias Cforum.Messages.MessageHelpers
 
   alias Cforum.Search
-  alias Cforum.Search.Section
   alias Cforum.Search.Document
 
   alias Cforum.ConfigManager
@@ -70,8 +69,6 @@ defmodule Cforum.Messages.MessageIndexerJob do
     end
   end
 
-  @spec update_document(%Section{}, %Document{} | nil, %Thread{}, %Message{}, String.t(), float()) ::
-          {:ok, %Document{}} | {:error, %Ecto.Changeset{}}
   defp update_document(section, nil, thread, msg, plaintext, base_relevance) do
     search_dict = Application.get_env(:cforum, :search_dict, "english")
     Search.create_document(doc_params(section, thread, msg, plaintext, search_dict, base_relevance))
