@@ -16,7 +16,7 @@
   <div class="cf-thread-list">
     <%= for thread <- @threads do %>
       <article class="threadlist cf-thread">
-        <%= CforumWeb.MessageView.header(@conn, thread, thread.message, show_votes: true, show_icons: true, id: false, plate: true, first: true) %>
+        <%= CforumWeb.MessageView.header(@conn, thread, thread.message, show_votes: true, show_icons: true, thread_icons: false, id: false, plate: true, first: true) %>
       </article>
     <% end %>
   </div>
