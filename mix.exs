@@ -69,7 +69,7 @@ defmodule Cforum.Mixfile do
       {:ex_machina, "~> 2.2", only: :test},
       {:faker, "~> 0.9", only: :test},
       {:credo, "~> 1.0", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.0.0-rc.3", only: [:dev], runtime: false},
+      {:dialyxir, ">= 1.0.0-rc.6", only: [:dev], runtime: false},
 
       # build & delivery
       {:distillery, "~> 2.0.14"},
