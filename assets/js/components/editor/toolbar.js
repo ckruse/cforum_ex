@@ -26,9 +26,10 @@ import {
 
 import LinkModal from "./link_modal";
 
-import "emoji-mart/css/emoji-mart.css";
 import CodeModal from "./code_modal";
 import ImageModal from "./image_modal";
+
+import(/* webpackChunkName: "vendor" */ "emoji-mart/css/emoji-mart.css");
 
 class Toolbar extends React.Component {
   constructor(props) {
