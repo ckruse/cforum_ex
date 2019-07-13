@@ -1,7 +1,5 @@
 if (document.body.dataset.controller === "MessageController") {
   if (document.body.dataset.action === "show") {
-    import(/* webpackChunkName: "vendor" */ "katex/dist/katex.min.css");
-
     import(/* webpackChunkName: "messages-show" */ "./inline_forms").then(({ default: showInlineForm }) => {
       document.querySelectorAll('[data-action="answer"]').forEach(el => el.addEventListener("click", showInlineForm));
     });
