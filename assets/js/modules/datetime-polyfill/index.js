@@ -1,6 +1,5 @@
-import "flatpickr/dist/themes/light.css";
-
 import { t } from "../i18n";
+import(/* webpackChunkName: "vendor" */ "flatpickr/dist/themes/light.css");
 
 document.addEventListener("DOMContentLoaded", () => {
   const replacements = [
