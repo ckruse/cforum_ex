@@ -170,6 +170,16 @@ export function toggleCode() {
     this.props.textarea.current.focus();
   };
 
+  const createCodeBlock = () => {
+    const block = (selectionIsPrecededByNewlines() ? "~~~\n" : "\n~~~\n") + text + "\n~~~\n";
+
+    this.props.changeValue(replaceAt(this.props.value, block, start, end), {
+      start,
+      end: start + block.length
+    });
+    this.props.textarea.current.focus();
+  };
+
   // Do something
   switch (true) {
     case selectionIsCodeBlock():
