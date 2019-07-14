@@ -41,6 +41,13 @@
     </div>
 
     <div class="cf-cgroup">
+      <label class="checkbox">
+        <%= checkbox @f, :target_blank_for_posting_links, checked_value: "yes", unchecked_value: "no" %>
+        <%= gettext("open links in postings in a new window or tab") %>
+      </label>
+    </div>
+
+    <div class="cf-cgroup">
       <%= label @f, :autorefresh, gettext("automatically refresh forum index page") %>
       <%= number_input(@f, :autorefresh) %>
     </div>

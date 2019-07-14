@@ -100,9 +100,3 @@ msgstr "muss größer oder gleich %{number} sein"
 
 msgid "must be equal to %{number}"
 msgstr "musst gleich %{number} sein"
-
-msgid "has an invalid scheme"
-msgstr "muss ein gültiges URL-Schema (http oder https) enthalten"
-
-msgid "is missing a host"
-msgstr "muss einen Hostnamen enthalten"
