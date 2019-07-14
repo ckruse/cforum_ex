@@ -69,7 +69,6 @@ export default class Dropzone extends React.Component {
   }
 
   dropIgnoreListener(ev) {
-    console.log(ev);
     this.ignoreEvents(ev);
     this.dragEvents = 0;
     this.setState({ dragging: false });
