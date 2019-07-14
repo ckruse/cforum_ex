@@ -3816,7 +3816,7 @@ msgstr "Anzahl Benutzer"
 #, elixir-format
 #: lib/cforum_web/controllers/messages/open_close_vote_controller.ex:26
 msgid "Close vote has successfully been created."
-msgstr "Die Entsperr-Abstimmung wurde erfolgreich erstellt."
+msgstr "Die Sperr-Abstimmung wurde erfolgreich erstellt."
 
 #, elixir-format
 #: lib/cforum_web/templates/message/close_vote.html.eex:14
