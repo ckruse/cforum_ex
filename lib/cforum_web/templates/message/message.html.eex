@@ -4,11 +4,11 @@
 </div>
 
 <%= unless Helpers.blank?(@message.problematic_site) do %>
-  <p class="problematic-site"><%= link gettext("problematic site"), to: @message.problematic_site, rel: "nofollow" %></p>
+  <p class="problematic-site"><%= problematic_site_link(@conn, @message.problematic_site) %></p>
 <% end %>
 
 <div class="cf-posting-content<%= if @message.deleted, do: " deleted" %> e-content">
-  <%= Cforum.MarkdownRenderer.to_html(@message, @conn.assigns) %>
+  <%= Cforum.MarkdownRenderer.to_html(@message, @conn) %>
 </div>
 
 <div class="posting-footer">

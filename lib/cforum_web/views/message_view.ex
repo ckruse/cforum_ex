@@ -245,4 +245,10 @@ defmodule CforumWeb.MessageView do
        do: nil,
        else: "rel=\"nofollow\""
   end
+
+  def problematic_site_link(conn, url) do
+    if Cforum.ConfigManager.uconf(conn, "target_blank_for_posting_links") == "yes",
+      do: link(gettext("problematic site"), to: url, rel: "nofollow noopener", target: "_blank"),
+      else: link(gettext("problematic site"), to: url, rel: "nofollow")
+  end
 end

@@ -93,7 +93,8 @@ defmodule Cforum.ConfigManager do
     "notify_on_cite" => "yes",
     "delete_read_notifications_on_cite" => "no",
     "max_image_filesize" => 2,
-    "fold_read_nested" => "no"
+    "fold_read_nested" => "no",
+    "target_blank_for_posting_links" => "no"
   }
 
   @user_config_keys [
@@ -144,7 +145,8 @@ defmodule Cforum.ConfigManager do
     "hide_read_threads",
     "mail_thread_sort",
     "highlighted_users",
-    "use_paging"
+    "use_paging",
+    "target_blank_for_posting_links"
   ]
 
   @visible_config ["max_tags_per_message", "min_tags_per_message"] ++ @user_config_keys

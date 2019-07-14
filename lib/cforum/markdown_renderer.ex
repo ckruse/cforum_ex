@@ -45,18 +45,29 @@ defmodule Cforum.MarkdownRenderer do
     # [{:safe, "<pre>"}, message.content, {:safe, "</pre>"}]
   end
 
-  def to_html(%Message{format: "markdown"} = message, assigns) do
-    # TODO handle user specific foo
-    content = Cforum.Messages.content_with_presentational_filters(assigns, message)
-    {:ok, html} = render_doc(content, "m-#{message.message_id}")
+  def to_html(%Message{format: "markdown"} = message, conn) do
+    content = Cforum.Messages.content_with_presentational_filters(conn.assigns, message)
+
+    target =
+      if Cforum.ConfigManager.uconf(conn, "target_blank_for_posting_links") == "yes",
+        do: "_blank",
+        else: nil
+
+    conf = %{
+      "followWhitelist" => String.split(Cforum.ConfigManager.conf(conn, "links_white_list"), ~r/\015\012|\012|\015/),
+      "linkTarget" => target,
+      "base" => Application.get_env(:cforum, :base_url, "http://localhost/")
+    }
+
+    {:ok, html} = render_doc(content, "m-#{message.message_id}", conf)
     {:safe, html}
     # [{:safe, "<pre>"}, message.content, {:safe, "</pre>"}]
   end
 
-  def to_html(%Message{format: "cforum"} = message, assigns) do
+  def to_html(%Message{format: "cforum"} = message, conn) do
     message
     |> Cforum.LegacyParser.parse()
-    |> to_html(assigns)
+    |> to_html(conn)
   end
 
   def to_html(%PrivMessage{} = message, _user) do
@@ -77,8 +88,8 @@ defmodule Cforum.MarkdownRenderer do
     {:safe, html}
   end
 
-  def render_doc(markdown, id) do
-    :poolboy.transaction(pool_name(), fn pid -> GenServer.call(pid, {:render_doc, markdown, id}) end)
+  def render_doc(markdown, id, config \\ nil) do
+    :poolboy.transaction(pool_name(), fn pid -> GenServer.call(pid, {:render_doc, markdown, id, config}) end)
   end
 
   @spec to_plain(%Message{} | %Cite{}) :: String.t()
@@ -129,9 +140,9 @@ defmodule Cforum.MarkdownRenderer do
   #
   # server callbacks
   #
-  def handle_call({:render_doc, markdown, id}, _sender, {proc, runs}) do
+  def handle_call({:render_doc, markdown, id, config}, _sender, {proc, runs}) do
     {proc, runs} = ensure_proc(proc, runs)
-    out = Jason.encode!(%{markdown: markdown, id: id}) <> "\n"
+    out = Jason.encode!(%{markdown: markdown, id: id, config: config}) <> "\n"
 
     task =
       Task.async(fn ->
