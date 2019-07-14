@@ -69,6 +69,7 @@ defmodule Cforum.Messages.Mentions do
 
   defp find_mentions(content, mentions, in_quote)
   defp find_mentions("\\@" <> rest, mentions, in_quote), do: find_mentions(rest, mentions, in_quote)
+  defp find_mentions("@@" <> rest, mentions, in_quote), do: find_mentions(rest, mentions, in_quote)
 
   defp find_mentions("@" <> rest, mentions, in_quote) do
     # a mention?
@@ -146,6 +147,9 @@ defmodule Cforum.Messages.Mentions do
   end
 
   defp parse_line(_config, _user, "", _regex, _mentions, new_line), do: new_line
+
+  defp parse_line(config, user, "@@" <> rest, regex, mentions, new_line),
+    do: parse_line(config, user, rest, regex, mentions, new_line <> "@@")
 
   defp parse_line(config, user, line, regex, mentions, new_line) do
     cond do
