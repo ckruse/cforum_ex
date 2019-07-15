@@ -131,14 +131,16 @@ defmodule CforumWeb.MessageView do
   end
 
   def message_id(msg, opts) do
-    if opts[:noid], do: "", else: {:safe, "id=\"#{opts[:id_prefix]}m#{msg.message_id}\""}
+    if opts[:id],
+      do: {:safe, "id=\"#{opts[:id_prefix]}m#{msg.message_id}\""},
+      else: ""
   end
 
   def header(conn, thread, message, opts \\ []) do
     opts =
       Keyword.merge(
         [
-          noid: false,
+          id: true,
           id_prefix: nil,
           show_icons: false,
           hide_repeating_subjects: true,
