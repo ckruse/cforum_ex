@@ -78,19 +78,21 @@ button:active {
   fill: $active-link-color;
 }
 
-a,
-a:hover,
-a:focus,
-a:active,
-button,
-button:hover,
-button:focus,
-button:active {
-  transition: all 0.2s ease-in-out 0s;
-}
-
 .visually-hidden {
   @include visually-hidden();
+}
+
+@include default-breakpoint() {
+  a,
+  a:hover,
+  a:focus,
+  a:active,
+  button,
+  button:hover,
+  button:focus,
+  button:active {
+    transition: all 0.2s ease-in-out 0s;
+  }
 }
 
 @import "fonts";
