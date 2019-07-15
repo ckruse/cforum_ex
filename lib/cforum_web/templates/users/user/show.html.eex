@@ -92,7 +92,7 @@
 
 <%= for msg <- @last_messages do %>
   <article class="cf-thread threadlist">
-    <%= CforumWeb.MessageView.header(@conn, msg.thread, msg, show_votes: true, noid: true)  %>
+    <%= CforumWeb.MessageView.header(@conn, msg.thread, msg, show_votes: true, id: false)  %>
   </article>
 <% end %>
 
@@ -106,7 +106,7 @@
 
 <%= for msg <- @point_msgs do %>
   <article class="cf-thread threadlist">
-    <%= CforumWeb.MessageView.header(@conn, msg.thread, msg, show_votes: true, noid: true) %>
+    <%= CforumWeb.MessageView.header(@conn, msg.thread, msg, show_votes: true, id: false) %>
   </article>
 <% end %>
 
@@ -135,7 +135,7 @@
               m = %Cforum.Messages.Message{m | thread: thread}
               %>
               <article class="threadlist cf-thread">
-                <%= CforumWeb.MessageView.header(@conn, m.thread, m, show_votes: true, noid: true)  %>
+                <%= CforumWeb.MessageView.header(@conn, m.thread, m, show_votes: true, id: false)  %>
               </article>
             <% end %>
           </td>

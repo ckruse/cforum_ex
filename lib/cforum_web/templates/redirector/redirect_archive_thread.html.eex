@@ -3,7 +3,7 @@
 <div class="cf-thread-list">
   <%= for thread <- @threads do %>
     <article class="cf-thread threadlist">
-      <%= CforumWeb.MessageView.header(@conn, thread, thread.message, show_votes: true, noid: true)  %>
+      <%= CforumWeb.MessageView.header(@conn, thread, thread.message, show_votes: true, id: false)  %>
     </article>
   <% end %>
 </div>
