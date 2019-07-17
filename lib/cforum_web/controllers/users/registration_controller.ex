@@ -15,7 +15,7 @@ defmodule CforumWeb.Users.RegistrationController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    if Helpers.blank?(conn.cookies["cf_sess"]),
+    if Helpers.blank?(conn.cookies["cf_sess"]) || !token_valid?(conn),
       do: raise(Cforum.Errors.ForbiddenError, conn: conn)
 
     case Users.register_user(user_params) do
@@ -53,4 +53,11 @@ defmodule CforumWeb.Users.RegistrationController do
   end
 
   def allowed?(conn, _, _), do: !Abilities.signed_in?(conn)
+
+  defp token_valid?(conn) do
+    case Phoenix.Token.verify(conn, "registering", conn.cookies["cf_sess"], max_age: 86_400) do
+      {:ok, _} -> true
+      _ -> false
+    end
+  end
 end
