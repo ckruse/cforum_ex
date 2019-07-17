@@ -54,8 +54,9 @@ document.addEventListener("cf:userPrivate", event => {
     const elem = document.querySelector("#user-info .score");
 
     if (elem) {
-      elem.innerText = `(${data.score})`;
-      elem.setAttribute("title", t("{score} points", { score: data.score }));
+      const intlScore = new Intl.NumberFormat(window.navigator.language).format(data.score);
+      elem.innerText = `(${intlScore})`;
+      elem.setAttribute("title", t("{score} points", { score: intlScore }));
     }
   });
 
