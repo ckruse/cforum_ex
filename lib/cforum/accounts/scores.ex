@@ -77,18 +77,10 @@ defmodule Cforum.Accounts.Scores do
     |> notify_user(:delete)
   end
 
-  def delete_scores_by_vote_id(user, vote_id) do
+  def delete_scores_by_vote_id(vote_id) do
     scores = from(score in Score, where: score.vote_id == ^vote_id) |> Repo.all()
-
-    ret =
-      from(score in Score, where: score.vote_id == ^vote_id)
-      |> Repo.delete_all()
-
-    Caching.update(:cforum, "users/#{user.user_id}", fn user ->
-      Enum.reduce(scores, user, fn score, user -> %User{user | score: user.score - score.value} end)
-    end)
-
-    ret
+    Enum.each(scores, &delete_score/1)
+    :ok
   end
 
   def delete_score_by_message_id_and_user_id(message_id, user_id) do
