@@ -90,11 +90,13 @@
   <p><%= gettext("No messages so far") %></p>
 <% end %>
 
-<%= for msg <- @last_messages do %>
-  <article class="cf-thread threadlist">
-    <%= CforumWeb.MessageView.header(@conn, msg.thread, msg, show_votes: true, id: false)  %>
-  </article>
-<% end %>
+<div class="cf-thread-list">
+  <%= for msg <- @last_messages do %>
+    <article class="cf-thread threadlist">
+      <%= CforumWeb.MessageView.header(@conn, msg.thread, msg, show_votes: true, id: false)  %>
+    </article>
+  <% end %>
+</div>
 
 <p><%= link gettext("all messages"), to: Routes.user_path(@conn, :show_messages, @user) %></p>
 
@@ -104,11 +106,13 @@
   <p><%= gettext("No scored messages so far") %></p>
 <% end %>
 
-<%= for msg <- @point_msgs do %>
-  <article class="cf-thread threadlist">
-    <%= CforumWeb.MessageView.header(@conn, msg.thread, msg, show_votes: true, id: false) %>
-  </article>
-<% end %>
+<div class="cf-thread-list">
+  <%= for msg <- @point_msgs do %>
+    <article class="cf-thread threadlist">
+      <%= CforumWeb.MessageView.header(@conn, msg.thread, msg, show_votes: true, id: false) %>
+    </article>
+  <% end %>
+</div>
 
 
 <h2 class="cf-heading"><%= if @current_user && @user.user_id == @current_user.user_id, do: gettext("Own votings"), else: gettext("Received votings") %></h2>
