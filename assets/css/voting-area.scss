@@ -44,75 +44,75 @@
   }
 
   .vote-up {
-    background-image: url("/images/cforum-voting-area-icons.svg#vote-up-inactive");
+    background-image: url("/images/voting-area-icons.svg#vote-up-inactive");
   }
   .vote-up:hover,
   .vote-up:active,
   .vote-up:focus {
-    background-image: url("/images/cforum-voting-area-icons.svg#vote-up-active");
+    background-image: url("/images/voting-area-icons.svg#vote-up-inactive-hover");
   }
 
   .vote-up.active {
-    background-image: url("/images/cforum-voting-area-icons.svg#vote-up-active");
+    background-image: url("/images/voting-area-icons.svg#vote-up-active");
   }
   .vote-up.active:hover,
   .vote-up.active:active,
   .vote-up.active:focus {
-    background-image: url("/images/cforum-voting-area-icons.svg#vote-up-inactive");
+    background-image: url("/images/voting-area-icons.svg#vote-up-active-hover");
   }
 
   .vote-up[disabled] {
-    background-image: url("/images/cforum-voting-area-icons.svg#vote-up-disabled");
+    background-image: url("/images/voting-area-icons.svg#vote-up-disabled");
   }
 
   .vote-down {
-    background-image: url("/images/cforum-voting-area-icons.svg#vote-down-inactive");
+    background-image: url("/images/voting-area-icons.svg#vote-down-inactive");
   }
   .vote-down:hover,
   .vote-down:active,
   .vote-down:focus {
-    background-image: url("/images/cforum-voting-area-icons.svg#vote-down-active");
+    background-image: url("/images/voting-area-icons.svg#vote-down-inactive-hover");
   }
 
   .vote-down.active {
-    background-image: url("/images/cforum-voting-area-icons.svg#vote-down-active");
+    background-image: url("/images/voting-area-icons.svg#vote-down-active");
   }
   .vote-down.active:hover,
   .vote-down.active:active,
   .vote-down.active:focus {
-    background-image: url("/images/cforum-voting-area-icons.svg#vote-down-inactive");
+    background-image: url("/images/voting-area-icons.svg#vote-down-active-hover");
   }
 
   .vote-down[disabled] {
-    background-image: url("/images/cforum-voting-area-icons.svg#vote-down-disabled");
+    background-image: url("/images/voting-area-icons.svg#vote-down-disabled");
   }
 
   .infos {
-    background-image: url("/images/cforum-voting-area-icons.svg#info-standard");
+    background-image: url("/images/voting-area-icons.svg#info-standard");
   }
 
   .infos:hover,
   .infos:active,
   .infos:focus {
-    background-image: url("/images/cforum-voting-area-icons.svg#info-red");
+    background-image: url("/images/voting-area-icons.svg#info-red");
   }
 
   .accept.unaccepted-answer {
-    background-image: url("/images/cforum-voting-area-icons.svg#accept-inactive");
+    background-image: url("/images/voting-area-icons.svg#accept-inactive");
   }
   .accept.unaccepted-answer:hover,
   .accept.unaccepted-answer:active,
   .accept.unaccepted-answer:focus {
-    background-image: url("/images/cforum-voting-area-icons.svg#accept-active");
+    background-image: url("/images/voting-area-icons.svg#accept-active");
   }
 
   .accept.accepted-answer {
-    background-image: url("/images/cforum-voting-area-icons.svg#accept-active");
+    background-image: url("/images/voting-area-icons.svg#accept-active");
   }
   .accept.accepted-answer:hover,
   .accept.accepted-answer:active,
   .accept.accepted-answer:focus {
-    background-image: url("/images/cforum-voting-area-icons.svg#accept-inactive");
+    background-image: url("/images/voting-area-icons.svg#accept-inactive");
   }
 }
 

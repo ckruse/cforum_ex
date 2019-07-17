@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="150px" height="150px" viewBox="0 0 150 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>Untitled</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="cforum-voting-area-icons">
+            <g id="bewertung-plus-gruen-hover" opacity="0.502441406" transform="translate(0.000000, 604.000000)" fill-rule="nonzero">
+                <rect id="Rectangle-1" fill="#8DB243" x="0" y="0" width="150" height="150" rx="30"></rect>
+                <path d="M74.9999935,31.5 L74.9999935,120.5" id="Line" stroke="#EBF5D7" stroke-width="10" fill="#000000" stroke-linecap="square"></path>
+                <path d="M31.5,75 L120.477273,75" id="Line" stroke="#EBF5D7" stroke-width="10" fill="#000000" stroke-linecap="square"></path>
+            </g>
+            <view id="vote-up-active-hover" viewBox="0 604 150 150"></view>
+
+            <g id="bewertung-plus-gelb-hover" opacity="0.497698103" transform="translate(5.000000, 458.000000)" stroke="#DFAC20" stroke-width="10">
+                <rect id="Rectangle-1" x="0" y="0" width="140" height="140" rx="30"></rect>
+                <path d="M69.9999925,19.8076923 L69.9999925,122.5" id="Line" stroke-linecap="square"></path>
+                <path d="M19.8076923,70 L122.473776,70" id="Line" stroke-linecap="square"></path>
+            </g>
+            <view id="vote-up-inactive-hover" viewBox="0 453 150 150"></view>
+
+            <g id="bewertung-plus-gelb" transform="translate(5.000000, 5.000000)" stroke="#DFAC20" stroke-width="10">
+                <rect id="Rectangle-1" x="0" y="0" width="140" height="140" rx="30"></rect>
+                <path d="M69.9999925,19.8076923 L69.9999925,122.5" id="Line" stroke-linecap="square"></path>
+                <path d="M19.8076923,70 L122.473776,70" id="Line" stroke-linecap="square"></path>
+            </g>
+            <view id="vote-up-inactive" viewBox="0 0 150 150"></view>
+
+            <g id="bewertung-plus-gruen" transform="translate(0.000000, 151.000000)" fill-rule="nonzero">
+                <rect id="Rectangle-1" fill="#8DB243" x="0" y="0" width="150" height="150" rx="30"></rect>
+                <path d="M74.9999935,31.5 L74.9999935,120.5" id="Line" stroke="#EBF5D7" stroke-width="10" fill="#000000" stroke-linecap="square"></path>
+                <path d="M31.5,75 L120.477273,75" id="Line" stroke="#EBF5D7" stroke-width="10" fill="#000000" stroke-linecap="square"></path>
+            </g>
+            <view id="vote-up-active" viewBox="0 151 150 150"></view>
+
+            <g id="bewertung-plus-grau" transform="translate(5.000000, 307.000000)" stroke="#BFBFBF" stroke-width="10">
+                <path d="M115.005775,0 L24.9922825,0 C11.1887951,0 0,11.1890313 0,24.9942248 L0,115.005775 C0,128.810408 11.1891038,140 24.9942248,140 L115.005775,140 C128.810408,140 140,128.810896 140,115.005775 L140,24.9942248 C140,11.1943705 128.802798,0 115.005775,0 Z" id="Rectangle-1"></path>
+                <path d="M69.9999925,19.8076923 L69.9999925,122.5" id="Line" stroke-linecap="square"></path>
+                <path d="M19.8076923,70 L122.473776,70" id="Line" stroke-linecap="square"></path>
+            </g>
+            <view id="vote-up-disabled" viewBox="0 302 150 150"></view>
+
+            <g id="bewertung-minus-gelb-hover" opacity="0.5" transform="translate(156.000000, 458.000000)" stroke="#DFAC20" stroke-width="10">
+                <rect id="Rectangle-1" x="0" y="0" width="140" height="140" rx="30"></rect>
+                <path d="M19.8076923,70 L122.473776,70" id="Line" stroke-linecap="square"></path>
+            </g>
+            <view id="vote-down-inactive-hover" viewBox="151 453 150 150"></view>
+
+            <g id="bewertung-minus-rot-hover" opacity="0.5" transform="translate(151.000000, 604.000000)" fill-rule="nonzero">
+                <rect id="Rectangle-1" fill="#C32E04" x="0" y="0" width="150" height="150" rx="30"></rect>
+                <path d="M31.5,75 L120.477273,75" id="Line" stroke="#FFEBE6" stroke-width="10" fill="#000000" stroke-linecap="square"></path>
+            </g>
+            <view id="vote-down-active-hover" viewBox="151 604 150 150"></view>
+
+            <g id="bewertung-minus-gelb" transform="translate(156.000000, 5.000000)" stroke="#DFAC20" stroke-width="10">
+                <rect id="Rectangle-1" x="0" y="0" width="140" height="140" rx="30"></rect>
+                <path d="M19.8076923,70 L122.473776,70" id="Line" stroke-linecap="square"></path>
+            </g>
+            <view id="vote-down-inactive" viewBox="151 0 150 150"></view>
+
+            <g id="bewertung-minus-rot" transform="translate(151.000000, 151.000000)" fill-rule="nonzero">
+                <rect id="Rectangle-1" fill="#C32E04" x="0" y="0" width="150" height="150" rx="30"></rect>
+                <path d="M31.5,75 L120.477273,75" id="Line" stroke="#FFEBE6" stroke-width="10" fill="#000000" stroke-linecap="square"></path>
+            </g>
+            <view id="vote-down-active" viewBox="151 151 150 150"></view>
+
+            <g id="bewertung-minus-grau" transform="translate(156.000000, 307.000000)" stroke="#BFBFBF" stroke-width="10">
+                <rect id="Rectangle-1" x="0" y="0" width="140" height="140" rx="30"></rect>
+                <path d="M19.8076923,70 L122.473776,70" id="Line" stroke-linecap="square"></path>
+            </g>
+            <view id="vote-down-disabled" viewBox="151 302 150 150"></view>
+
+            <g id="bewertung-ok-gelb-hover" opacity="0.5" transform="translate(302.000000, 454.000000)">
+                <rect id="Rectangle-1" fill="#DFAC20" fill-rule="nonzero" x="0" y="0" width="150" height="150" rx="30"></rect>
+                <g id="Haken" stroke-linecap="square" transform="translate(31.000000, 39.000000)" stroke="#FFFBF0" stroke-width="15">
+                    <path d="M0.5,43.5 L23.5,65.5" id="Line"></path>
+                    <path d="M23.5,65.5 L88.5,0.5" id="Line"></path>
+                </g>
+            </g>
+
+            <g id="bewertung-ok-gruen-hover" opacity="0.5" transform="translate(302.000000, 605.000000)" fill-rule="nonzero">
+                <rect id="Rectangle-1" fill="#8DB243" x="0" y="0" width="150" height="150" rx="30"></rect>
+                <g id="Haken" stroke-linecap="square" transform="translate(31.000000, 41.000000)" fill="#000000" stroke="#EBF5D7" stroke-width="15">
+                    <path d="M0.5,43.5 L23.5,65.5" id="Line"></path>
+                    <path d="M23.5,65.5 L88.5,0.5" id="Line"></path>
+                </g>
+            </g>
+
+            <g id="bewertung-ok-gelb" transform="translate(302.000000, 0.000000)">
+                <rect id="Rectangle-1" fill="#DFAC20" fill-rule="nonzero" x="0" y="0" width="150" height="150" rx="30"></rect>
+                <g id="Haken" stroke-linecap="square" transform="translate(31.000000, 39.000000)" stroke="#FFFBF0" stroke-width="15">
+                    <path d="M0.5,43.5 L23.5,65.5" id="Line"></path>
+                    <path d="M23.5,65.5 L88.5,0.5" id="Line"></path>
+                </g>
+            </g>
+            <view id="accept-inactive" viewBox="302 0 150 150"></view>
+
+            <g id="bewertung-ok-gruen" transform="translate(302.000000, 151.000000)" fill-rule="nonzero">
+                <rect id="Rectangle-1" fill="#8DB243" x="0" y="0" width="150" height="150" rx="30"></rect>
+                <g id="Haken" stroke-linecap="square" transform="translate(31.000000, 41.000000)" fill="#000000" stroke="#EBF5D7" stroke-width="15">
+                    <path d="M0.5,43.5 L23.5,65.5" id="Line"></path>
+                    <path d="M23.5,65.5 L88.5,0.5" id="Line"></path>
+                </g>
+            </g>
+            <view id="accept-active" viewBox="302 151 150 150"></view>
+
+            <g id="bewertung-ok-grau" transform="translate(302.000000, 302.000000)">
+                <rect id="Rectangle-1" fill="#BFBFBF" fill-rule="nonzero" x="0" y="0" width="150" height="150" rx="30"></rect>
+                <g id="Haken" stroke-linecap="square" transform="translate(31.000000, 40.000000)" stroke="#F1F3F4" stroke-width="15">
+                    <path d="M0.5,43.5 L23.5,65.5" id="Line"></path>
+                    <path d="M23.5,65.5 L88.5,0.5" id="Line"></path>
+                </g>
+            </g>
+            <view id="accept-disabled" viewBox="302 302 150 150"></view>
+
+            <g id="bewertung-info-blaugrau" transform="translate(454.000000, 1.000000)" fill="#C4D4DA" fill-rule="nonzero">
+                <path d="M64.4086538,125.310096 L87.6658654,125.310096 C92.6418518,125.310096 96.1754703,126.211529 98.2668269,128.014423 C100.358184,129.817317 101.403846,132.810075 101.403846,136.992788 C101.403846,141.247617 100.340155,144.312491 98.2127404,146.1875 C96.0853259,148.062509 92.5697361,149 87.6658654,149 L14.5408654,149 C9.6369947,149 6.12140487,148.062509 3.99399038,146.1875 C1.8665759,144.312491 0.80288462,141.247617 0.80288462,136.992788 C0.80288462,132.810075 1.83051857,129.817317 3.88581731,128.014423 C5.94111605,126.211529 9.4927632,125.310096 14.5408654,125.310096 L37.7980769,125.310096 L37.7980769,72.7379808 L25.5745192,72.7379808 C20.7427643,72.7379808 17.2812605,71.8185188 15.1899038,69.9795673 C13.0985472,68.1406158 12.0528846,65.0937713 12.0528846,60.8389423 C12.0528846,56.5841133 13.0624899,53.5552975 15.0817308,51.7524038 C17.1009716,49.9495102 20.5985328,49.0480769 25.5745192,49.0480769 L58.1346154,49.0480769 C60.1538562,49.0480769 61.7043215,49.4627362 62.7860577,50.2920673 C63.8677939,51.1213984 64.4086538,52.2572043 64.4086538,53.6995192 L64.4086538,125.310096 Z" id="Path-1"></path>
+                <path d="M48.8317308,0.15384615 C54.0961802,0.15384615 57.5937413,1.16345144 59.3245192,3.18269231 C61.0552971,5.20193317 61.9206731,10.0336156 61.9206731,17.6778846 C61.9206731,25.0336906 61.1454404,29.5949431 59.5949519,31.3617788 C58.0444634,33.1286146 54.3846442,34.0120192 48.6153846,34.0120192 C42.9903565,34.0120192 39.3665947,33.1827006 37.7439904,31.5240385 C36.1213861,29.8653763 35.3100962,26.5481018 35.3100962,21.5721154 C35.3100962,12.3413 36.1394148,6.46395493 37.7980769,3.93990385 C39.4567391,1.41585276 43.1345869,0.15384615 48.8317308,0.15384615 L48.8317308,0.15384615 Z" id="Path"></path>
+            </g>
+            <view id="info-standard" viewBox="480 0 104 150"></view>
+
+            <g id="bewertung-info-blau" transform="translate(454.000000, 152.000000)" fill="#3481CD" fill-rule="nonzero">
+                <path d="M64.4086538,125.310096 L87.6658654,125.310096 C92.6418518,125.310096 96.1754703,126.211529 98.2668269,128.014423 C100.358184,129.817317 101.403846,132.810075 101.403846,136.992788 C101.403846,141.247617 100.340155,144.312491 98.2127404,146.1875 C96.0853259,148.062509 92.5697361,149 87.6658654,149 L14.5408654,149 C9.6369947,149 6.12140487,148.062509 3.99399038,146.1875 C1.8665759,144.312491 0.80288462,141.247617 0.80288462,136.992788 C0.80288462,132.810075 1.83051857,129.817317 3.88581731,128.014423 C5.94111605,126.211529 9.4927632,125.310096 14.5408654,125.310096 L37.7980769,125.310096 L37.7980769,72.7379808 L25.5745192,72.7379808 C20.7427643,72.7379808 17.2812605,71.8185188 15.1899038,69.9795673 C13.0985472,68.1406158 12.0528846,65.0937713 12.0528846,60.8389423 C12.0528846,56.5841133 13.0624899,53.5552975 15.0817308,51.7524038 C17.1009716,49.9495102 20.5985328,49.0480769 25.5745192,49.0480769 L58.1346154,49.0480769 C60.1538562,49.0480769 61.7043215,49.4627362 62.7860577,50.2920673 C63.8677939,51.1213984 64.4086538,52.2572043 64.4086538,53.6995192 L64.4086538,125.310096 Z" id="Path-1"></path>
+                <path d="M48.8317308,0.15384615 C54.0961802,0.15384615 57.5937413,1.16345144 59.3245192,3.18269231 C61.0552971,5.20193317 61.9206731,10.0336156 61.9206731,17.6778846 C61.9206731,25.0336906 61.1454404,29.5949431 59.5949519,31.3617788 C58.0444634,33.1286146 54.3846442,34.0120192 48.6153846,34.0120192 C42.9903565,34.0120192 39.3665947,33.1827006 37.7439904,31.5240385 C36.1213861,29.8653763 35.3100962,26.5481018 35.3100962,21.5721154 C35.3100962,12.3413 36.1394148,6.46395493 37.7980769,3.93990385 C39.4567391,1.41585276 43.1345869,0.15384615 48.8317308,0.15384615 L48.8317308,0.15384615 Z" id="Path"></path>
+            </g>
+            <view id="info-blue" viewBox="480 151 104 150"></view>
+
+            <g id="bewertung-info-rot" transform="translate(454.000000, 303.000000)" fill="#990909" fill-rule="nonzero">
+                <path d="M64.4086538,125.310096 L87.6658654,125.310096 C92.6418518,125.310096 96.1754703,126.211529 98.2668269,128.014423 C100.358184,129.817317 101.403846,132.810075 101.403846,136.992788 C101.403846,141.247617 100.340155,144.312491 98.2127404,146.1875 C96.0853259,148.062509 92.5697361,149 87.6658654,149 L14.5408654,149 C9.6369947,149 6.12140487,148.062509 3.99399038,146.1875 C1.8665759,144.312491 0.80288462,141.247617 0.80288462,136.992788 C0.80288462,132.810075 1.83051857,129.817317 3.88581731,128.014423 C5.94111605,126.211529 9.4927632,125.310096 14.5408654,125.310096 L37.7980769,125.310096 L37.7980769,72.7379808 L25.5745192,72.7379808 C20.7427643,72.7379808 17.2812605,71.8185188 15.1899038,69.9795673 C13.0985472,68.1406158 12.0528846,65.0937713 12.0528846,60.8389423 C12.0528846,56.5841133 13.0624899,53.5552975 15.0817308,51.7524038 C17.1009716,49.9495102 20.5985328,49.0480769 25.5745192,49.0480769 L58.1346154,49.0480769 C60.1538562,49.0480769 61.7043215,49.4627362 62.7860577,50.2920673 C63.8677939,51.1213984 64.4086538,52.2572043 64.4086538,53.6995192 L64.4086538,125.310096 Z" id="Path-1"></path>
+                <path d="M48.8317308,0.15384615 C54.0961802,0.15384615 57.5937413,1.16345144 59.3245192,3.18269231 C61.0552971,5.20193317 61.9206731,10.0336156 61.9206731,17.6778846 C61.9206731,25.0336906 61.1454404,29.5949431 59.5949519,31.3617788 C58.0444634,33.1286146 54.3846442,34.0120192 48.6153846,34.0120192 C42.9903565,34.0120192 39.3665947,33.1827006 37.7439904,31.5240385 C36.1213861,29.8653763 35.3100962,26.5481018 35.3100962,21.5721154 C35.3100962,12.3413 36.1394148,6.46395493 37.7980769,3.93990385 C39.4567391,1.41585276 43.1345869,0.15384615 48.8317308,0.15384615 L48.8317308,0.15384615 Z" id="Path"></path>
+            </g>
+            <view id="info-red" viewBox="480 302 104 150"></view>
+        </g>
+    </g>
+</svg>
