@@ -4089,7 +4089,7 @@ msgstr "Medaille erfolgreich gelöscht."
 #: lib/cforum_web/controllers/messages/admin_controller.ex:16
 #: lib/cforum_web/controllers/messages/admin_controller.ex:24
 msgid "Message was successfully deleted."
-msgstr "Der Beitrag wurde erfolgreich gemeldet."
+msgstr "Der Beitrag wurde erfolgreich gelöscht."
 
 #, elixir-format
 #: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:13
