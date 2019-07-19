@@ -66,11 +66,13 @@ class TagList extends React.Component {
   }
 
   addTag(tag) {
-    const tags = [...this.state.tags, [tag, this.checkForError(tag)]];
-    this.setState({ tags });
+    if (!this.state.tags.find(([tag1, _]) => tag1 === tag)) {
+      const tags = [...this.state.tags, [tag, this.checkForError(tag)]];
+      this.setState({ tags });
 
-    if (this.props.onChange) {
-      this.props.onChange(tags);
+      if (this.props.onChange) {
+        this.props.onChange(tags);
+      }
     }
   }
 
