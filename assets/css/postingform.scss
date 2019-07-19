@@ -128,6 +128,10 @@ $radius: 0.3em;
   display: inline-block;
 }
 
+.cf-tag-suggestion-synonyms {
+  margin-left: 0.5em;
+}
+
 @include default-breakpoint() {
   .cf-dropzone {
     height: 3em;

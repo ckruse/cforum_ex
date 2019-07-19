@@ -2,6 +2,7 @@ import React from "react";
 import Autosuggest from "react-autosuggest";
 
 import { t } from "../../modules/i18n";
+import SuggestionItem from "./suggestion_item";
 
 export default class NewTagInput extends React.Component {
   constructor(props) {
@@ -17,9 +18,13 @@ export default class NewTagInput extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    if (this.state.value == "") {
-      this.state.suggestions = this.props.allTags;
+    if (this.state.value === "") {
+      this.setState({ suggestions: this.props.allTags });
     }
+  }
+
+  tagMatches(tag, rx) {
+    return rx.test(tag.tag_name) || tag.synonyms.find(syn => rx.test(syn));
   }
 
   getSuggestions(value) {
@@ -27,12 +32,12 @@ export default class NewTagInput extends React.Component {
     const rx = new RegExp("^" + inputValue, "i");
 
     return this.props.allTags
-      .filter(tag => !this.props.existingTags.includes(tag.tag_name) && rx.test(tag.tag_name))
+      .filter(tag => !this.props.existingTags.includes(tag.tag_name) && this.tagMatches(tag, rx))
       .slice(0, 25);
   }
 
   keyDown(event) {
-    if (["Tab", ","].includes(event.key) && this.state.value.trim() != "") {
+    if (["Tab", ","].includes(event.key) && this.state.value.trim() !== "") {
       event.preventDefault();
       this.props.onChoose(this.state.value);
       this.setState({ ...this.state, value: "", suggestions: this.getSuggestions("") });
@@ -74,9 +79,8 @@ export default class NewTagInput extends React.Component {
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           getSuggestionValue={item => item.tag_name}
-          renderSuggestion={item => item.tag_name}
+          renderSuggestion={tag => <SuggestionItem tag={tag} />}
           onSuggestionSelected={this.onSuggestionSelected}
-          highlightFirstSuggestion={this.state.value != ""}
           inputProps={{
             onKeyDown: ev => this.keyDown(ev),
             type: "text",
