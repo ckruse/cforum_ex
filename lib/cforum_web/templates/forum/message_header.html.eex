@@ -15,3 +15,7 @@
 </span>
 
 <%= link(@message.subject, to: Path.message_path(@conn, :show, @thread, @message), class: Enum.join(["thread-info p-name u-uid u-url" | @message.attribs[:classes]], " ")) %>
+
+<time datetime="<%= NaiveDateTime.to_iso8601(@message.created_at) %>">
+  <%= posting_date(@conn, @message) %>
+</time>

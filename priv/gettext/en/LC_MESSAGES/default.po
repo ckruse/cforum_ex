@@ -2610,7 +2610,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/views/tags/synonym_view.ex:13
-msgid "create new tag synonym for tag “%{tag}”"
+msgid "create new tag synonym for tag “%{tag}�?"
 msgstr ""
 
 #, elixir-format
@@ -2625,12 +2625,12 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/views/tags/synonym_view.ex:5
-msgid "edit tag synonym “%{synonym}” for tag “%{tag}”"
+msgid "edit tag synonym “%{synonym}�? for tag “%{tag}�?"
 msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/views/tag_view.ex:11
-msgid "edit tag “%{tag}”"
+msgid "edit tag “%{tag}�?"
 msgstr ""
 
 #, elixir-format
@@ -4025,7 +4025,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/views/tag_view.ex:8
-msgid "tag “%{tag}”"
+msgid "tag “%{tag}�?"
 msgstr ""
 
 #, elixir-format
@@ -4045,7 +4045,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum/messages/notify_users_message_job.ex:125
-msgid "%{nick} mentioned you in a new message: “%{subject}”"
+msgid "%{nick} mentioned you in a new message: “%{subject}�?"
 msgstr ""
 
 #, elixir-format
@@ -4194,12 +4194,12 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/views/messages/retag_view.ex:4
-msgid "Retag message “%{subject}”"
+msgid "Retag message “%{subject}�?"
 msgstr ""
 
 #, elixir-format
 #: lib/cforum/accounts/badges.ex:185
-msgid "You have won the %{mtype} “%{name}”!"
+msgid "You have won the %{mtype} “%{name}�?!"
 msgstr ""
 
 #, elixir-format
@@ -4296,7 +4296,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/audit/message_versions.html.eex:1
-msgid "message version by “%{user}”, message"
+msgid "message version by “%{user}�?, message"
 msgstr ""
 
 #, elixir-format
@@ -4476,4 +4476,14 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/users/user/comfort.html.eex:46
 msgid "open links in postings in a new window or tab"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/helpers/relative_time.ex:38
+msgid "about 1 minute"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/views/helpers/relative_time.ex:43
+msgid "less than %{minutes} minutes"
 msgstr ""

@@ -39,7 +39,12 @@ export const parse = markup => {
 };
 
 export const parseMessageUrl = url => {
-  url = new URL(url);
+  try {
+    url = new URL(url);
+  } catch (e) {
+    return null;
+  }
+
   const path = url.pathname;
   const ret = {};
 

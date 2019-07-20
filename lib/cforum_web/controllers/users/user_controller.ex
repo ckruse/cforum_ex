@@ -72,7 +72,7 @@ defmodule CforumWeb.Users.UserController do
       |> (fn {msgs, _} -> msgs end).()
       |> Map.values()
       |> Enum.sort(fn a, b ->
-        List.last(a).created_at >= List.last(b).created_at
+        Timex.compare(List.last(a).created_at, List.last(b).created_at) >= 0
       end)
 
     render(

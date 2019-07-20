@@ -518,7 +518,7 @@ msgstr[2] "Bewertung: %{score}, %{count} Stimmen"
 #: lib/cforum_web/views/users/user_view.ex:16
 #: lib/cforum_web/views/users/user_view.ex:31
 msgid "All votes for user %{username}"
-msgstr "alle Bewertungen vom Benutzer „%{username}”"
+msgstr "alle Bewertungen vom Benutzer „%{username}�?"
 
 #: lib/cforum_web/templates/users/user/show.html.eex:114
 msgid "Received votings"
@@ -531,7 +531,7 @@ msgstr "Achtung!"
 #: lib/cforum_web/views/users/user_view.ex:17
 #: lib/cforum_web/views/users/user_view.ex:33
 msgid "Delete user %{username}"
-msgstr "Benutzer „%{username}” löschen"
+msgstr "Benutzer „%{username}�? löschen"
 
 #: lib/cforum_web/templates/users/user/confirm_delete.html.eex:9
 msgid "Nope, get me out of here"
@@ -2628,7 +2628,7 @@ msgstr "neues Tag erstellen"
 
 #, elixir-format
 #: lib/cforum_web/views/tags/synonym_view.ex:13
-msgid "create new tag synonym for tag “%{tag}”"
+msgid "create new tag synonym for tag “%{tag}�?"
 msgstr "Neues Synonym für Tag „%{tag}“ erstellen"
 
 #, elixir-format
@@ -2643,12 +2643,12 @@ msgstr "Tag bearbeiten"
 
 #, elixir-format
 #: lib/cforum_web/views/tags/synonym_view.ex:5
-msgid "edit tag synonym “%{synonym}” for tag “%{tag}”"
+msgid "edit tag synonym “%{synonym}�? for tag “%{tag}�?"
 msgstr "Tag-Synonym „%{synonym}“ für Tag „%{tag}“ bearbeiten"
 
 #, elixir-format
 #: lib/cforum_web/views/tag_view.ex:11
-msgid "edit tag “%{tag}”"
+msgid "edit tag “%{tag}�?"
 msgstr "Tag „%{tag}“ bearbeiten"
 
 #, elixir-format
@@ -4047,7 +4047,7 @@ msgstr "%{nick} hat auf Ihren Beitrag geantwortet: „%{subject}“"
 
 #, elixir-format
 #: lib/cforum_web/views/tag_view.ex:8
-msgid "tag “%{tag}”"
+msgid "tag “%{tag}�?"
 msgstr "Tag „%{tag}“"
 
 #, elixir-format
@@ -4067,7 +4067,7 @@ msgstr "Benutzer-Daten"
 
 #, elixir-format
 #: lib/cforum/messages/notify_users_message_job.ex:125
-msgid "%{nick} mentioned you in a new message: “%{subject}”"
+msgid "%{nick} mentioned you in a new message: “%{subject}�?"
 msgstr "%{nick} hat Sie in einem neuen Beitrag „%{subject}“ erwähnt"
 
 #, elixir-format
@@ -4216,12 +4216,12 @@ msgstr "Der Beitrag wurde erfolgreich neu verschlagwortet."
 
 #, elixir-format
 #: lib/cforum_web/views/messages/retag_view.ex:4
-msgid "Retag message “%{subject}”"
+msgid "Retag message “%{subject}�?"
 msgstr "Beitrag „%{subject}“ neu verschlagworten"
 
 #, elixir-format
 #: lib/cforum/accounts/badges.ex:185
-msgid "You have won the %{mtype} “%{name}”!"
+msgid "You have won the %{mtype} “%{name}�?!"
 msgstr "Sie haben die %{mtype} „%{name}“ gewonnen!"
 
 #, elixir-format
@@ -4318,7 +4318,7 @@ msgstr "diese Version löschen"
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/audit/message_versions.html.eex:1
-msgid "message version by “%{user}”, message"
+msgid "message version by “%{user}�?, message"
 msgstr "Version von „%{user}“, Beitrag"
 
 #, elixir-format
@@ -4501,3 +4501,13 @@ msgstr "SELFHTML-Suche"
 #: lib/cforum_web/templates/users/user/comfort.html.eex:46
 msgid "open links in postings in a new window or tab"
 msgstr "öffne Links in Beiträgen in einem neuen Fenster oder Tab"
+
+#, elixir-format
+#: lib/cforum_web/views/helpers/relative_time.ex:38
+msgid "about 1 minute"
+msgstr "etwa einer Minute"
+
+#, elixir-format
+#: lib/cforum_web/views/helpers/relative_time.ex:43
+msgid "less than %{minutes} minutes"
+msgstr "weniger als %{minutes} Minuten"

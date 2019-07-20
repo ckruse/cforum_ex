@@ -7,6 +7,7 @@ defmodule Cforum.Messages.Message do
 
   alias Cforum.Accounts.User
   alias Cforum.Messages.Tag
+  alias Cforum.Messages.Tags
   alias Cforum.Messages.Tags.MessageTag
 
   @primary_key {:message_id, :id, autogenerate: true}
@@ -185,14 +186,14 @@ defmodule Cforum.Messages.Message do
       put_assoc(changeset, :tags, known_tags)
     else
       changeset
-      |> put_assoc(:tags, Enum.map(tags, &%Cforum.Messages.Tag{tag_name: &1}))
+      |> put_assoc(:tags, Enum.map(tags, &%Tag{tag_name: &1}))
       |> add_error(:tags, gettext("unknown tags given: %{tags}", tags: Enum.join(unknown_tags, ", ")))
       |> add_tag_errors(unknown_tags)
     end
   end
 
   defp maybe_create_tags(tags, _user, false) do
-    known_tags = Cforum.Messages.Tags.get_tags(tags)
+    known_tags = Tags.get_tags(tags)
 
     unknown_tags =
       Enum.filter(tags, fn tag ->
@@ -203,13 +204,13 @@ defmodule Cforum.Messages.Message do
   end
 
   defp maybe_create_tags(tags, user, true) do
-    known_tags = Cforum.Messages.Tags.get_tags(tags)
+    known_tags = Tags.get_tags(tags)
 
     unknown_tags =
       tags
       |> Enum.filter(fn tag -> Enum.find(known_tags, &(&1.tag_name == tag)) == nil end)
       |> Enum.map(fn tag ->
-        {:ok, tag} = Cforum.Messages.Tags.create_tag(user, %{tag_name: tag})
+        {:ok, tag} = Tags.create_tag(user, %{tag_name: tag})
         tag
       end)
 
