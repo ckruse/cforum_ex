@@ -3863,8 +3863,8 @@ msgstr "Erfolgreich abgestimmt."
 #, elixir-format
 #: lib/cforum_web/templates/message/close_vote.html.eex:5
 #: lib/cforum_web/templates/message/reopen_vote.html.eex:5
-msgid "The given reason:"
-msgstr "Der angegebene Grund:"
+msgid "The given reason: %{reason}"
+msgstr "Der angegebene Grund: %{reason}"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message.html.eex:43

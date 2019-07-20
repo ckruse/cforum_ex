@@ -23,6 +23,12 @@ defmodule CforumWeb.Messages.OpenCloseVoteView do
   def body_id(action, _) when action in [:new_close, :create_close], do: "close-vote-message-new"
   def body_classes(action, _) when action in [:new_close, :create_close], do: "close-vote-message new"
 
+  def vote_reason(vote), do
+    if vote.reason == "custom", 
+      do: vote.custom_reason, 
+      else: l10n_reason(vote.reason)
+  end
+
   def l10n_reason("off-topic"), do: gettext("Message is off topic.")
 
   def l10n_reason("not-constructive"),
