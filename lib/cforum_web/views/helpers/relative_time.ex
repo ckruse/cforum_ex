@@ -35,11 +35,12 @@ defmodule CforumWeb.Views.Helpers.RelativeTime do
         gettext("less than a minute")
 
       _ ->
-        gettext("1 minute")
+        gettext("about 1 minute")
     end
   end
 
-  defp time_as_relative_text(minutes, _) when minutes in 2..44, do: gettext("%{minutes} minutes", minutes: minutes)
+  defp time_as_relative_text(minutes, _) when minutes in 2..44,
+    do: gettext("less than %{minutes} minutes", minutes: rounded_minutes(minutes))
 
   defp time_as_relative_text(minutes, _) when minutes in 45..89, do: gettext("about an hour")
 
@@ -58,4 +59,12 @@ defmodule CforumWeb.Views.Helpers.RelativeTime do
 
   defp time_as_relative_text(minutes, _) when minutes in 525_600..1_051_199, do: gettext("1 year")
   defp time_as_relative_text(minutes, _), do: gettext("%{years} years", years: round(minutes / 525_600))
+
+  defp rounded_minutes(no) do
+    result = trunc(Float.floor((no + 5) / 5) * 5)
+
+    if result < 5,
+      do: 5,
+      else: result
+  end
 end

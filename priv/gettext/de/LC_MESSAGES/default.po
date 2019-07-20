@@ -377,11 +377,11 @@ msgstr "alle Beiträge von Benutzer „%{username}“"
 msgid "All scores for user %{username}"
 msgstr "alle Punkte für Benutzer „%{username}“"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:156
+#: lib/cforum_web/templates/users/user/show.html.eex:160
 msgid "Badges"
 msgstr "Medaillen"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:101
+#: lib/cforum_web/templates/users/user/show.html.eex:103
 msgid "Best scored messages"
 msgstr "am besten bewertete Beiträge"
 
@@ -409,7 +409,7 @@ msgstr "neueste Beiträge"
 msgid "No messages so far"
 msgstr "bisher keine Beiträge"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:104
+#: lib/cforum_web/templates/users/user/show.html.eex:106
 msgid "No scored messages so far"
 msgstr "bisher keine bewerteten Beiträge"
 
@@ -417,7 +417,7 @@ msgstr "bisher keine bewerteten Beiträge"
 msgid "Number of messages"
 msgstr "Beiträge"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:114
+#: lib/cforum_web/templates/users/user/show.html.eex:118
 msgid "Own votings"
 msgstr "Bewertungsverlauf"
 
@@ -450,19 +450,19 @@ msgstr "Benutzer-Aktivität"
 msgid "Users"
 msgstr "Benutzer"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:99
+#: lib/cforum_web/templates/users/user/show.html.eex:101
 msgid "all messages"
 msgstr "alle Beiträge"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:149
+#: lib/cforum_web/templates/users/user/show.html.eex:153
 msgid "all scores"
 msgstr "alle Punkte"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:151
+#: lib/cforum_web/templates/users/user/show.html.eex:155
 msgid "all votes"
 msgstr "alle Bewertungen"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:156
+#: lib/cforum_web/templates/users/user/show.html.eex:160
 msgid "info"
 msgstr "Informationen"
 
@@ -477,7 +477,7 @@ msgstr "Beiträge"
 msgid "no archive"
 msgstr "Dieser Thread wird nicht archiviert."
 
-#: lib/cforum_web/templates/users/user/show.html.eex:159
+#: lib/cforum_web/templates/users/user/show.html.eex:163
 msgid "no badges so far"
 msgstr "bisher keine Medaillen"
 
@@ -485,7 +485,7 @@ msgstr "bisher keine Medaillen"
 msgid "no description given"
 msgstr "Bisher keine Beschreibung angegeben."
 
-#: lib/cforum_web/templates/users/user/show.html.eex:117
+#: lib/cforum_web/templates/users/user/show.html.eex:121
 msgid "no scored messages so far"
 msgstr "bisher keine bewerteten Beiträge"
 
@@ -520,7 +520,7 @@ msgstr[2] "Bewertung: %{score}, %{count} Stimmen"
 msgid "All votes for user %{username}"
 msgstr "alle Bewertungen vom Benutzer „%{username}”"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:114
+#: lib/cforum_web/templates/users/user/show.html.eex:118
 msgid "Received votings"
 msgstr "erhaltene Bewertungen"
 
@@ -858,7 +858,7 @@ msgstr "Sie wurden erfolgreich ausgeloggt"
 #: lib/cforum_web/templates/users/password/edit.html.eex:16
 #: lib/cforum_web/templates/users/password/edit_reset.html.eex:16
 #: lib/cforum_web/templates/users/user/edit.html.eex:7
-#: lib/cforum_web/templates/users/user/show.html.eex:175
+#: lib/cforum_web/templates/users/user/show.html.eex:179
 msgid "change password"
 msgstr "Passwort ändern"
 
@@ -888,7 +888,7 @@ msgstr "Erstellungszeitpunkt"
 msgid "delete"
 msgstr "löschen"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:174
+#: lib/cforum_web/templates/users/user/show.html.eex:178
 msgid "delete user"
 msgstr "Benutzer löschen"
 
@@ -904,7 +904,7 @@ msgstr "Benutzer löschen"
 msgid "edit"
 msgstr "bearbeiten"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:173
+#: lib/cforum_web/templates/users/user/show.html.eex:177
 msgid "edit profile and settings"
 msgstr "Profil und Einstellungen bearbeiten"
 
@@ -924,7 +924,7 @@ msgstr "schreiben für Angemeldete"
 msgid "mark unread"
 msgstr "ungelesen markieren"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:176
+#: lib/cforum_web/templates/users/user/show.html.eex:180
 msgid "new mail to %{username}"
 msgstr "Neue Mail an %{username}"
 
@@ -1209,7 +1209,7 @@ msgstr "… der Nested-Ansicht"
 msgid "… in thread view"
 msgstr "… der Einzel-Ansicht"
 
-#: lib/cforum_web/views/helpers/relative_time.ex:52
+#: lib/cforum_web/views/helpers/relative_time.ex:53
 msgid "%{days} days"
 msgstr "%{days} Tagen"
 
@@ -1217,7 +1217,7 @@ msgstr "%{days} Tagen"
 msgid "%{minutes} minutes"
 msgstr "%{minutes} Minuten"
 
-#: lib/cforum_web/views/helpers/relative_time.ex:57
+#: lib/cforum_web/views/helpers/relative_time.ex:58
 msgid "%{months} months"
 msgstr "%{months} Monaten"
 
@@ -1230,7 +1230,7 @@ msgstr "vor %{time}"
 msgid "%{time} ago:"
 msgstr "vor %{time}:"
 
-#: lib/cforum_web/views/helpers/relative_time.ex:60
+#: lib/cforum_web/views/helpers/relative_time.ex:61
 msgid "%{years} years"
 msgstr "%{years} Jahren"
 
@@ -1238,7 +1238,7 @@ msgstr "%{years} Jahren"
 msgid "1 minute"
 msgstr "einer Minute"
 
-#: lib/cforum_web/views/helpers/relative_time.ex:59
+#: lib/cforum_web/views/helpers/relative_time.ex:60
 msgid "1 year"
 msgstr "einem Jahr"
 
@@ -1246,19 +1246,19 @@ msgstr "einem Jahr"
 msgid "Thread created"
 msgstr "Thread erstellt"
 
-#: lib/cforum_web/views/helpers/relative_time.ex:49
+#: lib/cforum_web/views/helpers/relative_time.ex:50
 msgid "a day"
 msgstr "einem Tag"
 
-#: lib/cforum_web/views/helpers/relative_time.ex:47
+#: lib/cforum_web/views/helpers/relative_time.ex:48
 msgid "about %{hours} hours"
 msgstr "etwa %{hours} Stunden"
 
-#: lib/cforum_web/views/helpers/relative_time.ex:54
+#: lib/cforum_web/views/helpers/relative_time.ex:55
 msgid "about 1 month"
 msgstr "etwa einem Monat"
 
-#: lib/cforum_web/views/helpers/relative_time.ex:44
+#: lib/cforum_web/views/helpers/relative_time.ex:45
 msgid "about an hour"
 msgstr "etwa einer Stunde"
 
@@ -1296,8 +1296,9 @@ msgid "by"
 msgstr "von"
 
 #: lib/cforum_web/templates/message/form.html.eex:40
-#: lib/cforum_web/templates/message/message.html.eex:7
 #: lib/cforum_web/templates/moderation/entry.html.eex:17
+#: lib/cforum_web/views/message_view.ex:253
+#: lib/cforum_web/views/message_view.ex:254
 msgid "problematic site"
 msgstr "problematische Seite"
 
@@ -1431,7 +1432,7 @@ msgstr "Seitenauswahl"
 msgid "previous page"
 msgstr "eine Seite zurück"
 
-#: lib/cforum/messages/message.ex:189
+#: lib/cforum/messages/message.ex:190
 msgid "unknown tags given: %{tags}"
 msgstr "Folgende Tags sind unbekannt: %{tags}."
 
@@ -3053,7 +3054,7 @@ msgid "planned start"
 msgstr "geplanter Reisebeginn"
 
 #, elixir-format
-#: lib/cforum_web/views/message_view.ex:210
+#: lib/cforum_web/views/message_view.ex:212
 msgid "regarding your message %{subject} from %{time}"
 msgstr "Dein Beitrag „%{subject}“ vom %{time}"
 
@@ -4005,7 +4006,7 @@ msgid "Tag %{no}"
 msgstr "Tag %{no}"
 
 #, elixir-format
-#: lib/cforum/messages/message.ex:223
+#: lib/cforum/messages/message.ex:224
 msgid "is unknown"
 msgstr "ist unbekannt"
 
@@ -4195,12 +4196,12 @@ msgid "versions"
 msgstr "Versionen"
 
 #, elixir-format
-#: lib/cforum/messages/message.ex:117
+#: lib/cforum/messages/message.ex:118
 msgid "Please specify a maximum of %{num} tags"
 msgstr "Bitte geben Sie höchstens %{num} Tags an"
 
 #, elixir-format
-#: lib/cforum/messages/message.ex:114
+#: lib/cforum/messages/message.ex:115
 msgid "Please specify at least %{num} tags"
 msgstr "Bitte geben Sie mindestens %{num} Tags an"
 
@@ -4496,3 +4497,13 @@ msgstr "SELFHTML-Suche"
 #: lib/cforum_web/templates/users/user/comfort.html.eex:46
 msgid "open links in postings in a new window or tab"
 msgstr "öffne Links in Beiträgen in einem neuen Fenster oder Tab"
+
+#, elixir-format
+#: lib/cforum_web/views/helpers/relative_time.ex:38
+msgid "about 1 minute"
+msgstr "etwa einer Minute"
+
+#, elixir-format
+#: lib/cforum_web/views/helpers/relative_time.ex:43
+msgid "less than %{minutes} minutes"
+msgstr "weniger als %{minutes} Minuten"
