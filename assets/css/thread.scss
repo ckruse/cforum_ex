@@ -54,6 +54,7 @@
   }
 
   & > ol {
+    clear: right;
     background: $default-background-color;
     border-radius: 0px 0.5em 0.5em;
     margin: 0 -1em 0 -0.5em;
