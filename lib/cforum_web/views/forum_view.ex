@@ -45,4 +45,10 @@ defmodule CforumWeb.ForumView do
      end)
      |> Jason.encode!()}
   end
+
+  def posting_date(conn, message) do
+    if Timex.diff(Timex.now(), message.created_at, :days) < 1,
+      do: Timex.format!(VHelpers.local_date(message.created_at), "%H:%M", :strftime),
+      else: VHelpers.format_date(conn, message.created_at, "date_format_index")
+  end
 end
