@@ -22,7 +22,7 @@ if (document.body.dataset.userId) {
         const thread = elem.closest(".cf-thread");
 
         if (conf("open_close_close_when_read") === "yes" && shouldFold(thread)) {
-          thread.lastChild.remove();
+          thread.querySelector("ol").remove();
         }
       });
     });
