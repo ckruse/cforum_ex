@@ -1,5 +1,6 @@
 import { t } from "../../modules/i18n";
 import { getMessageTreeElement } from "./index";
+import { updateTitleInfos } from "../../title_infos";
 
 const votesTitle = params => {
   const noVotes = params.upvotes + params.downvotes;
@@ -40,5 +41,10 @@ const updateVotingArea = params => {
   });
 };
 
-document.addEventListener("cf:forumChannel", event => event.detail.channel.on("message_rescored", updateMessageTree));
-document.addEventListener("cf:forumChannel", event => event.detail.channel.on("message_rescored", updateVotingArea));
+const updateMessages = params => {
+  updateMessageTree(params);
+  updateVotingArea(params);
+  updateTitleInfos();
+};
+
+document.addEventListener("cf:forumChannel", event => event.detail.channel.on("message_rescored", updateMessages));

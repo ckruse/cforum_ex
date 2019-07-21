@@ -1,10 +1,13 @@
 import { t } from "../modules/i18n";
 import { alertInfo } from "../modules/alerts";
+import { updateTitleInfos } from "../title_infos";
 
 document.addEventListener("cf:userPrivate", event => {
   const channel = event.detail;
 
   channel.on("new_priv_message", data => {
+    updateTitleInfos();
+
     const elem = document.getElementById("mails");
     if (elem) {
       elem.innerText = data.unread;
@@ -30,6 +33,8 @@ document.addEventListener("cf:userPrivate", event => {
   });
 
   channel.on("new_notification", data => {
+    updateTitleInfos();
+
     const elem = document.getElementById("notifications-display");
     if (elem) {
       elem.innerText = `${data.unread}`;
@@ -40,6 +45,8 @@ document.addEventListener("cf:userPrivate", event => {
   });
 
   channel.on("notification_count", data => {
+    updateTitleInfos();
+
     const elem = document.getElementById("notifications-display");
     if (elem) {
       elem.innerText = `${data.unread}`;

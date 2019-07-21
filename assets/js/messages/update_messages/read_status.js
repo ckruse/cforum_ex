@@ -1,5 +1,6 @@
 import { conf } from "../../modules/helpers";
 import { getMessageTreeElement } from "./index";
+import { updateTitleInfos } from "../../title_infos";
 
 const threadIsVisited = thread => {
   return thread.querySelectorAll(".cf-message-header:not(.visited)").length === 0;
@@ -11,6 +12,8 @@ if (document.body.dataset.userId) {
     const channel = event.detail;
 
     channel.on("message_marked_read", ({ message_ids }) => {
+      updateTitleInfos();
+
       message_ids.forEach(id => {
         const elem = getMessageTreeElement(id);
         if (!elem) {
