@@ -1,4 +1,5 @@
 import { queryString, parse, conf } from "../modules/helpers";
+import { setNewFavicon } from "../title_infos";
 
 const NEW_MESSAGES = [];
 
@@ -44,6 +45,8 @@ const insertRenderedThread = (thread, message, html) => {
 };
 
 const autoloadMessage = ev => {
+  setNewFavicon();
+
   const { thread, message, forum } = ev.detail.data;
 
   if (!["all", forum.slug].includes(document.body.dataset.currentForum)) {
