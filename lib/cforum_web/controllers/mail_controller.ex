@@ -124,6 +124,8 @@ defmodule CforumWeb.MailController do
   end
 
   @spec load_resource(Plug.Conn.t()) :: Plug.Conn.t()
+  def load_resource(%{assigns: %{current_user: nil}} = conn), do: conn
+
   def load_resource(conn) do
     cond do
       action_name(conn) in [:delete, :update_unread] ->
@@ -152,13 +154,13 @@ defmodule CforumWeb.MailController do
   def allowed?(conn, :index, _), do: Abilities.signed_in?(conn)
 
   def allowed?(conn, :show, resource) do
-    resource = resource || conn.assigns.pm_thread
+    resource = resource || conn.assigns[:pm_thread]
     Abilities.signed_in?(conn) && conn.assigns[:current_user].user_id == List.first(resource).owner_id
   end
 
   def allowed?(conn, action, resource) when action in [:new, :create] do
     if conn.params["parent_id"] || resource do
-      resource = resource || conn.assigns.priv_message
+      resource = resource || conn.assigns[:priv_message]
       Abilities.signed_in?(conn) && conn.assigns[:current_user].user_id == resource.owner_id
     else
       Abilities.signed_in?(conn)
@@ -166,7 +168,7 @@ defmodule CforumWeb.MailController do
   end
 
   def allowed?(conn, _, resource) do
-    resource = resource || conn.assigns.priv_message
+    resource = resource || conn.assigns[:priv_message]
     Abilities.signed_in?(conn) && conn.assigns[:current_user].user_id == resource.owner_id
   end
 end
