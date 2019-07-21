@@ -70,6 +70,17 @@ defmodule CforumWeb.ThreadController do
     )
   end
 
+  def show(conn, %{"invisible" => "no"}) do
+    if conn.assigns.thread.attribs[:invisible] do
+      conn
+      |> html("")
+    else
+      conn
+      |> put_layout(false)
+      |> render("thread.html")
+    end
+  end
+
   def show(conn, _params) do
     conn
     |> put_layout(false)
@@ -171,7 +182,7 @@ defmodule CforumWeb.ThreadController do
       |> Threads.get_thread_by_slug!(conn.assigns[:visible_forums], ThreadHelpers.slug_from_params(params))
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.ensure_found!()
-      |> Threads.apply_user_infos(conn.assigns[:current_user])
+      |> Threads.apply_user_infos(conn.assigns[:current_user], include: [:invisible])
       |> Threads.apply_highlights(conn)
       |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
