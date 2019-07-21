@@ -122,29 +122,29 @@ defmodule Cforum.Accounts.Notifications do
   end
 
   def delete_notification_for_object(user, oid, type) when is_list(oid) do
-    ret =
+    {n, ret} =
       from(notification in Notification,
         where: notification.recipient_id == ^user.user_id and notification.oid in ^oid and notification.otype in ^type
       )
       |> Repo.delete_all()
 
     discard_unread_cache(user)
-    notify_user(user)
+    if n > 0, do: notify_user(user)
 
-    ret
+    {n, ret}
   end
 
   def delete_notification_for_object(user, oid, type) do
-    ret =
+    {n, ret} =
       from(notification in Notification,
         where: notification.recipient_id == ^user.user_id and notification.oid == ^oid and notification.otype in ^type
       )
       |> Repo.delete_all()
 
     discard_unread_cache(user)
-    notify_user(user)
+    if n > 0, do: notify_user(user)
 
-    ret
+    {n, ret}
   end
 
   def mark_notifications_as_read(user, ids_or_nil, type \\ true)
