@@ -1,4 +1,5 @@
 import { Socket } from "phoenix";
+import { updateTitleInfos } from "./title_infos";
 
 const params = {};
 if (window.userToken) {
@@ -46,6 +47,7 @@ const privateChannelJoined = channel => {
         .receive("timeout", () => console.log("forum room: networking issue. Still waiting..."));
 
       channel.on("new_message", data => {
+        updateTitleInfos();
         const event = new CustomEvent("cf:newMessage", { detail: { channel, data } });
         document.dispatchEvent(event);
       });

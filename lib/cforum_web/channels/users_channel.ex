@@ -6,6 +6,10 @@ defmodule CforumWeb.UsersChannel do
   alias Cforum.Forums
   alias Cforum.ConfigManager
 
+  alias Cforum.Messages.ReadMessages
+  alias Cforum.Accounts.Notifications
+  alias Cforum.Accounts.PrivMessages
+
   @decorate channel_action()
   def join("users:lobby", _payload, socket), do: {:ok, socket}
 
@@ -32,9 +36,34 @@ defmodule CforumWeb.UsersChannel do
     {:reply, {:ok, config}, socket}
   end
 
+  @decorate channel_action()
   def handle_in("visible_forums", _payload, socket) do
     forums = Forums.list_visible_forums(socket.assigns[:current_user])
     {:reply, {:ok, %{forums: forums}}, socket}
+  end
+
+  @decorate channel_action()
+  def handle_in("title_infos", _payload, socket) do
+    forums = Forums.list_visible_forums(socket.assigns[:current_user])
+    {_, num_messages} = ReadMessages.count_unread_messages(socket.assigns[:current_user], forums)
+
+    assigns = %{
+      unread_notifications: Notifications.count_notifications(socket.assigns[:current_user], true),
+      unread_mails: PrivMessages.count_priv_messages(socket.assigns[:current_user], true),
+      unread_messages: num_messages,
+      current_user: socket.assigns[:current_user]
+    }
+
+    str = CforumWeb.LayoutView.numeric_infos(socket.assigns[:current_user], assigns)
+
+    {:reply,
+     {:ok,
+      %{
+        infos: str,
+        unread_notifications: assigns[:unread_notifications],
+        unread_mails: assigns[:unread_mails],
+        unread_messages: assigns[:unread_messages]
+      }}, socket}
   end
 
   # # Channels can be used in a request/response fashion
