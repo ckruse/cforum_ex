@@ -204,20 +204,6 @@ defmodule CforumWeb.MessageView do
     |> Enum.join(", ")
   end
 
-  def new_mail_params(conn, message) do
-    %{
-      priv_message: %{
-        recipient_id: message.user_id,
-        subject:
-          gettext(
-            "regarding your message %{subject} from %{time}",
-            subject: message.subject,
-            time: VHelpers.format_date(conn, message.created_at, "date_format_post")
-          )
-      }
-    }
-  end
-
   defp tags_from_changeset(changeset) do
     case Ecto.Changeset.get_change(changeset, :tags) do
       nil ->

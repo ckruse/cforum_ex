@@ -12,7 +12,7 @@
   <% end %>
 
   <%= if show?(:mail_to_author, assigns[:current_user], @message.user) do %>
-    <%= VHelpers.Button.default_button_link(gettext("mail to author"), to: Path.mail_path(@conn, :new, new_mail_params(@conn, @message)), rel: "nofollow") %>
+    <%= VHelpers.Button.default_button_link(gettext("mail to author"), to: Path.mail_path(@conn, :new, message_id: @message.message_id), rel: "nofollow") %>
   <% end %>
 
   <%= if Abilities.may?(@conn, "messages/retag", :retag, {@thread, @message}) do %>
