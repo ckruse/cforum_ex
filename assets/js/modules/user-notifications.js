@@ -81,7 +81,9 @@ document.addEventListener("cf:userLobby", event => {
       const channel = socket.channel(`forum:${forum.forum_id}`, {});
       channel
         .join()
-        .receive("ok", () => {})
+        .receive("ok", () => {
+          document.dispatchEvent(new CustomEvent("cf:forumChannel", { detail: { channel, forum_id: forum.forum_id } }));
+        })
         .receive("error", ({ reason }) => console.log("failed joining forum room", reason))
         .receive("timeout", () => console.log("forum room: networking issue. Still waiting..."));
 
