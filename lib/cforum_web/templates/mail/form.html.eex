@@ -1,4 +1,4 @@
-<%= unless Helpers.blank?(Ecto.Changeset.get_field(@changeset, :thread_id)), do: hidden_input @f, :thread_id %>
+<%= if Helpers.present?(Ecto.Changeset.get_field(@changeset, :thread_id)), do: hidden_input @f, :thread_id %>
 
 <fieldset>
   <div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :recipient_id) %>">
