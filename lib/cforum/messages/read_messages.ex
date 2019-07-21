@@ -43,6 +43,13 @@ defmodule Cforum.Messages.ReadMessages do
       end
     end
     |> Enum.filter(&(!is_nil(&1)))
+    |> notify_user(user)
+  end
+
+  defp notify_user(read_messages, user) do
+    message_ids = Enum.map(read_messages, & &1.message_id)
+    CforumWeb.Endpoint.broadcast("users:#{user.user_id}", "message_marked_read", %{"message_ids" => message_ids})
+    read_messages
   end
 
   @doc """
