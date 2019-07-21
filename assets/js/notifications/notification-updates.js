@@ -1,6 +1,6 @@
 import { t } from "../modules/i18n";
 import { alertInfo } from "../modules/alerts";
-import { updateTitleInfos } from "../title_infos";
+import { updateTitleInfos, setNewFavicon } from "../title_infos";
 
 document.addEventListener("cf:userPrivate", event => {
   const channel = event.detail;
@@ -34,6 +34,7 @@ document.addEventListener("cf:userPrivate", event => {
 
   channel.on("new_notification", data => {
     updateTitleInfos();
+    setNewFavicon();
 
     const elem = document.getElementById("notifications-display");
     if (elem) {
