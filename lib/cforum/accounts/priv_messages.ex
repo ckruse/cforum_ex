@@ -409,7 +409,12 @@ defmodule Cforum.Accounts.PrivMessages do
 
     subject = CompositionHelpers.subject_from_parent(parent.subject, opts[:subject_prefix])
 
-    change_priv_message(priv_message, %{subject: subject, body: content, recipient_id: parent.sender_id})
+    change_priv_message(priv_message, %{
+      subject: subject,
+      body: content,
+      recipient_id: parent.sender_id,
+      thread_id: parent.thread_id
+    })
   end
 
   @doc """
