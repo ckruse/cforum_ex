@@ -46,4 +46,10 @@ defmodule CforumWeb.Messages.OpenCloseVoteView do
 
   def l10n_action_done("close"), do: gettext("message and answers have been closed")
   def l10n_action_done("hide"), do: gettext("message and answers have been deleted")
+
+  def vote_reason(vote) do
+    if vote.reason == "custom",
+      do: vote.custom_reason,
+      else: l10n_reason(vote.reason)
+  end
 end
