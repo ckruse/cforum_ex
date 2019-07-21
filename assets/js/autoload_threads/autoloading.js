@@ -45,8 +45,6 @@ const insertRenderedThread = (thread, message, html) => {
 };
 
 const autoloadMessage = ev => {
-  setNewFavicon();
-
   const { thread, message, forum } = ev.detail.data;
 
   if (!["all", forum.slug].includes(document.body.dataset.currentForum)) {
@@ -57,7 +55,7 @@ const autoloadMessage = ev => {
 
   NEW_MESSAGES.push(message.message_id);
 
-  const qs = queryString({ message_id: message.message_id });
+  const qs = queryString({ message_id: message.message_id, invisible: "no" });
   fetch(`/${slug}${thread.slug}?${qs}`, { credentials: "same-origin" })
     .then(rsp => {
       if (rsp.ok) {
@@ -72,6 +70,7 @@ const autoloadMessage = ev => {
           return;
         }
 
+        setNewFavicon();
         insertRenderedThread(thread, message, text);
       },
       error => console.log(error)
