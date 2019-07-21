@@ -1,5 +1,5 @@
-import { parse } from "./modules/helpers";
-import { t } from "./modules/i18n";
+import { parse } from "../modules/helpers";
+import { t } from "../modules/i18n";
 
 const addNotificationCheckbox = el => {
   const td = document.createElement("td");

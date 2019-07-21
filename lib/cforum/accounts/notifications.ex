@@ -110,28 +110,41 @@ defmodule Cforum.Accounts.Notifications do
 
   """
   def update_notification(%Notification{} = notification, attrs) do
-    notification
-    |> Notification.changeset(attrs)
-    |> Repo.update()
-    |> discard_unread_cache()
+    ret =
+      notification
+      |> Notification.changeset(attrs)
+      |> Repo.update()
+      |> discard_unread_cache()
+
+    notify_user(notification.recipient_id)
+
+    ret
   end
 
   def delete_notification_for_object(user, oid, type) when is_list(oid) do
-    discard_unread_cache(user)
+    ret =
+      from(notification in Notification,
+        where: notification.recipient_id == ^user.user_id and notification.oid in ^oid and notification.otype in ^type
+      )
+      |> Repo.delete_all()
 
-    from(notification in Notification,
-      where: notification.recipient_id == ^user.user_id and notification.oid in ^oid and notification.otype in ^type
-    )
-    |> Repo.delete_all()
+    discard_unread_cache(user)
+    notify_user(user)
+
+    ret
   end
 
   def delete_notification_for_object(user, oid, type) do
-    discard_unread_cache(user)
+    ret =
+      from(notification in Notification,
+        where: notification.recipient_id == ^user.user_id and notification.oid == ^oid and notification.otype in ^type
+      )
+      |> Repo.delete_all()
 
-    from(notification in Notification,
-      where: notification.recipient_id == ^user.user_id and notification.oid == ^oid and notification.otype in ^type
-    )
-    |> Repo.delete_all()
+    discard_unread_cache(user)
+    notify_user(user)
+
+    ret
   end
 
   def mark_notifications_as_read(user, ids_or_nil, type \\ true)
@@ -141,6 +154,7 @@ defmodule Cforum.Accounts.Notifications do
     |> Repo.update_all(set: [is_read: type])
 
     discard_unread_cache(user)
+    notify_user(user)
   end
 
   def mark_notifications_as_read(user, ids, type) do
@@ -148,6 +162,7 @@ defmodule Cforum.Accounts.Notifications do
     |> Repo.update_all(set: [is_read: type])
 
     discard_unread_cache(user)
+    notify_user(user)
   end
 
   def delete_notifications(user, nil) do
@@ -155,6 +170,7 @@ defmodule Cforum.Accounts.Notifications do
     |> Repo.delete_all()
 
     discard_unread_cache(user)
+    notify_user(user)
   end
 
   def delete_notifications(user, ids) do
@@ -162,6 +178,7 @@ defmodule Cforum.Accounts.Notifications do
     |> Repo.delete_all()
 
     discard_unread_cache(user)
+    notify_user(user)
   end
 
   @doc """
@@ -177,9 +194,14 @@ defmodule Cforum.Accounts.Notifications do
 
   """
   def delete_notification(%Notification{} = notification) do
-    notification
-    |> Repo.delete()
-    |> discard_unread_cache()
+    ret =
+      notification
+      |> Repo.delete()
+      |> discard_unread_cache()
+
+    notify_user(notification.recipient_id)
+
+    ret
   end
 
   @doc """
@@ -212,6 +234,16 @@ defmodule Cforum.Accounts.Notifications do
     end)
 
     notification
+  end
+
+  def notify_user(id) when is_integer(id),
+    do: notify_user(Cforum.Accounts.Users.get_user!(id))
+
+  def notify_user(%User{} = user) do
+    Cforum.Helpers.AsyncHelper.run_async(fn ->
+      unread_notifications = count_notifications(user, true)
+      CforumWeb.Endpoint.broadcast!("users:#{user.user_id}", "notification_count", %{unread: unread_notifications})
+    end)
   end
 
   def notify_user(retval), do: retval
