@@ -23,6 +23,8 @@ import "../css/app.scss";
 import "./modules/closest";
 import "./modules/alerts";
 
+import "./socket";
+
 // import "./modules/tabs.js";
 import "./modules/datetime-polyfill";
 import "./modules/confirmation";
@@ -40,6 +42,7 @@ import "./thread_actions";
 import "./messages";
 import "./messages/update_messages";
 import "./notifications";
+import "./notifications/notification-updates";
 import "./stats";
 import "./help";
 import "./user";
@@ -49,4 +52,3 @@ import "./init";
 import "./cleanup";
 
 import "./modules/anonymous";
-import "./modules/user-notifications";
