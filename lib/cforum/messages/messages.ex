@@ -226,20 +226,6 @@ defmodule Cforum.Messages do
     |> ThreadCaching.refresh_cached_thread()
   end
 
-  defp notify_users({:error, changeset}, _), do: {:error, changeset}
-
-  defp notify_users({:ok, message}, thread) do
-    Cforum.Messages.NotifyUsersMessageJob.notify_users_about_new_message(thread, message)
-
-    CforumWeb.Endpoint.broadcast!("forum:#{message.forum_id}", "new_message", %{
-      thread: thread,
-      message: message,
-      forum: Cforum.Forums.get_forum!(message.forum_id)
-    })
-
-    {:ok, message}
-  end
-
   defp index_message({:ok, message}, thread) do
     MessageIndexerJob.index_message(Repo.preload(thread, [:forum]), message)
     {:ok, message}
@@ -479,6 +465,8 @@ defmodule Cforum.Messages do
     MessageIndexerJob.rescore_message(message)
     MessageCaching.update_cached_message(message, fn msg -> %Message{msg | downvotes: msg.downvotes + by} end)
 
+    notify_users(%Message{message | downvotes: message.downvotes + by}, :score)
+
     ret
   end
 
@@ -503,6 +491,8 @@ defmodule Cforum.Messages do
 
     MessageIndexerJob.rescore_message(message)
     MessageCaching.update_cached_message(message, fn msg -> %Message{msg | upvotes: msg.upvotes + by} end)
+
+    notify_users(%Message{message | upvotes: message.upvotes + by}, :score)
 
     ret
   end
@@ -698,5 +688,29 @@ defmodule Cforum.Messages do
   def content_with_presentational_filters(assigns, message) do
     message = Mentions.mentions_markup(message, assigns[:current_user])
     message.content
+  end
+
+  defp notify_users({:error, changeset}, _), do: {:error, changeset}
+
+  defp notify_users({:ok, message}, thread) do
+    Cforum.Messages.NotifyUsersMessageJob.notify_users_about_new_message(thread, message)
+
+    CforumWeb.Endpoint.broadcast!("forum:#{message.forum_id}", "new_message", %{
+      thread: thread,
+      message: message,
+      forum: Cforum.Forums.get_forum!(message.forum_id)
+    })
+
+    {:ok, message}
+  end
+
+  defp notify_users(message, :score) do
+    CforumWeb.Endpoint.broadcast!("forum:#{message.forum_id}", "message_rescored", %{
+      message_id: message.message_id,
+      score: MessageHelpers.score(message),
+      score_str: MessageHelpers.score_str(message),
+      upvotes: message.upvotes,
+      downvotes: message.downvotes
+    })
   end
 end

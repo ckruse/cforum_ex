@@ -190,5 +190,8 @@ export const lang = {
   "You successfully unaccepted this answer.": "Dieser Beitrag wird nicht länger als Lösung akzeptiert.",
   "You successfully took back you vote.": "Sie haben ihre Bewertung erfolgreich zurück genommen",
   "You successfully voted this message positively.": "Sie haben diesen Beitrag erfolgreich positiv bewertet.",
-  "You successfully voted this message negatively.": "Sie haben diesen Beitrag erfolgreich negativ bewertet."
+  "You successfully voted this message negatively.": "Sie haben diesen Beitrag erfolgreich negativ bewertet.",
+
+  "scoring: no scores": "Bewertung: keine Bewertung",
+  "scoring: {score}": "Bewertung: {score}"
 };
