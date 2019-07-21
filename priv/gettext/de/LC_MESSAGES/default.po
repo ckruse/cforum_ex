@@ -3820,13 +3820,13 @@ msgid "Close vote has successfully been created."
 msgstr "Die Sperr-Abstimmung wurde erfolgreich erstellt."
 
 #, elixir-format
-#: lib/cforum_web/templates/message/close_vote.html.eex:14
+#: lib/cforum_web/templates/message/close_vote.html.eex:19
 #: lib/cforum_web/templates/message/reopen_vote.html.eex:14
 msgid "I agree"
 msgstr "Ich stimme zu"
 
 #, elixir-format
-#: lib/cforum_web/templates/message/close_vote.html.eex:12
+#: lib/cforum_web/templates/message/close_vote.html.eex:17
 #: lib/cforum_web/templates/message/reopen_vote.html.eex:12
 msgid "I changed my mind"
 msgstr "Ich habe meine Meinung geändert"
@@ -3862,7 +3862,6 @@ msgid "Successfully voted"
 msgstr "Erfolgreich abgestimmt."
 
 #, elixir-format
-#: lib/cforum_web/templates/message/close_vote.html.eex:5
 #: lib/cforum_web/templates/message/reopen_vote.html.eex:5
 msgid "The given reason:"
 msgstr "Der angegebene Grund:"
@@ -3883,7 +3882,7 @@ msgid "auditing: close_votes_voters: vote"
 msgstr "für Sperr-/Entsperr-Abstimmung gestimmt"
 
 #, elixir-format
-#: lib/cforum_web/templates/message/close_vote.html.eex:1
+#: lib/cforum_web/templates/message/close_vote.html.eex:3
 msgid "close vote (%{votes}/%{votes_needed})"
 msgstr "Sperr-Abstimmung (%{votes}/%{votes_needed})"
 
@@ -4507,3 +4506,13 @@ msgstr "etwa einer Minute"
 #: lib/cforum_web/views/helpers/relative_time.ex:43
 msgid "less than %{minutes} minutes"
 msgstr "weniger als %{minutes} Minuten"
+
+#, elixir-format
+#: lib/cforum_web/templates/message/close_vote.html.eex:11
+msgid "The given reason: %{reason}"
+msgstr "Der angegebene Grund: %{reason}"
+
+#, elixir-format
+#: lib/cforum_web/templates/message/close_vote.html.eex:5
+msgid "delete vote (%{votes}/%{votes_needed})"
+msgstr "Lösch-Abstimmung (%{votes}/%{votes_needed})"
