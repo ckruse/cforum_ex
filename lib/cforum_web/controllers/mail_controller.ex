@@ -3,10 +3,12 @@ defmodule CforumWeb.MailController do
 
   alias Cforum.Accounts.PrivMessage
   alias Cforum.Accounts.PrivMessages
+  alias Cforum.Messages
 
   alias Cforum.ConfigManager
   alias Cforum.Helpers
 
+  alias CforumWeb.Views.Helpers, as: VHelpers
   alias CforumWeb.Sortable
   alias CforumWeb.Paginator
 
@@ -54,6 +56,30 @@ defmodule CforumWeb.MailController do
       )
 
     render(conn, "new.html", changeset: changeset, parent: parent)
+  end
+
+  def new(conn, %{"message_id" => id} = params) do
+    message = Messages.get_message!(id)
+
+    changeset =
+      PrivMessages.new_changeset(
+        %PrivMessage{},
+        %{
+          subject:
+            gettext("regarding your message %{subject} from %{time}",
+              subject: message.subject,
+              time: VHelpers.format_date(conn, message.created_at, "date_format_post")
+            ),
+          recipient_id: message.user_id
+        },
+        greeting: ConfigManager.uconf(conn, "greeting"),
+        farewell: ConfigManager.uconf(conn, "farewell"),
+        signature: ConfigManager.uconf(conn, "signature"),
+        std_replacement: gettext("you"),
+        author: message.author
+      )
+
+    render(conn, "new.html", changeset: changeset)
   end
 
   def new(conn, params) do

@@ -355,7 +355,7 @@ defmodule Cforum.Accounts.PrivMessages do
 
     content =
       ""
-      |> CompositionHelpers.maybe_add_greeting(opts[:greeting], nil, opts[:std_replacement])
+      |> CompositionHelpers.maybe_add_greeting(opts[:greeting], opts[:author], opts[:std_replacement])
       |> CompositionHelpers.maybe_add_farewell(opts[:farewell])
       |> CompositionHelpers.maybe_add_signature(opts[:signature])
 
