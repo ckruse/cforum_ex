@@ -1,8 +1,5 @@
 import { conf } from "../../modules/helpers";
-
-const getMessageElement = id => {
-  return document.getElementById(`m${id}`) || document.getElementById(`tree-m${id}`);
-};
+import { getMessageTreeElement } from "./index";
 
 const threadIsVisited = thread => {
   return thread.querySelectorAll(".cf-message-header:not(.visited)").length === 0;
@@ -15,7 +12,7 @@ if (document.body.dataset.userId) {
 
     channel.on("message_marked_read", ({ message_ids }) => {
       message_ids.forEach(id => {
-        const elem = getMessageElement(id);
+        const elem = getMessageTreeElement(id);
         if (!elem) {
           return;
         }
