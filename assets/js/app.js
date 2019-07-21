@@ -38,6 +38,7 @@ import "./autoload_threads";
 import "./flag_message";
 import "./thread_actions";
 import "./messages";
+import "./messages/update_messages";
 import "./notifications";
 import "./stats";
 import "./help";
