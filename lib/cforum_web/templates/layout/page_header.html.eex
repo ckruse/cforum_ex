@@ -51,7 +51,7 @@
           <li><%= link gettext("chat"), to: "https://kiwiirc.com/client/irc.epd-me.net/#{chat_nick_name(@conn)}&channel=#selfhtml", rel: "nofollow" %></li>
           <li><%= link(gettext("help"), to: Path.page_path(@conn, :help)) %></li>
 
-          <%= if show?(@conn, :search) do %>
+          <%= if show?(assigns, :search) do %>
             <li class="search">
               <%= form_for search_changeset(@conn), Path.search_path(@conn, :show), [method: :get, rel: "nofollow", as: :search], fn f -> %>
                 <%= for s <- sections(f) do %>
@@ -74,7 +74,7 @@
             <li><%= link @current_forum.name, to: Path.forum_path(@conn, :index, @current_forum) %></li>
           <% end %>
 
-          <%= if show?(@conn, :thread_nested) do %>
+          <%= if show?(assigns, :thread_nested) do %>
             <%= if @read_mode == "nested" do %>
               <li><%= link(gettext("thread view"), to: Path.message_path(@conn, :show, @thread, @message, rm: "thread")) %></li>
             <% else %>
@@ -82,7 +82,7 @@
             <% end %>
           <% end %>
 
-          <%= if show?(@conn, :sort_links) do %>
+          <%= if show?(assigns, :sort_links) do %>
             <%= if @order != "ascending" do %>
               <li><%= link(gettext("sort ascending"), to: sort_link(@conn, p: @page.page, order: "ascending")) %></li>
             <% end %>
@@ -94,7 +94,7 @@
             <% end %>
           <% end %>
 
-          <%= if show?(@conn, :thread_feeds) do %>
+          <%= if show?(assigns, :thread_feeds) do %>
             <li id="nachricht-feed-atom"><%= link gettext("Atom feed"), to: Path.thread_path(@conn, :atom, assigns[:thread]) %></li>
             <li id="nachricht-feed-rss"><%= link gettext("RSS feed"), to: Path.thread_path(@conn, :rss, assigns[:thread]) %></li>
           <% end %>
@@ -103,15 +103,15 @@
             <li><%= link gettext("Administration"), to: Path.admin_user_path(@conn, :index) %></li>
           <% end %>
 
-          <%= if show?(@conn, :view_all) do %>
+          <%= if show?(assigns, :view_all) do %>
             <li id="admin-view"><%= view_all_link(@conn) %></li>
           <% end %>
 
-          <%= if show?(@conn, :archive) do %>
+          <%= if show?(assigns, :archive) do %>
             <li id="link-archiv"><%= link gettext("archive"), to: Path.archive_path(@conn, :years, assigns[:current_forum]) %></li>
           <% end %>
 
-          <%= if show?(@conn, :mark_all_read) do %>
+          <%= if show?(assigns, :mark_all_read) do %>
             <li id="mark-all-read"><%= VHelpers.Button.cf_button(gettext("mark all messages read"), to: Path.mark_read_path(@conn, :mark_all_read, @current_forum), method: :post, params: [p: "#{@page.page}"]) %></li>
           <% end %>
 
@@ -127,11 +127,11 @@
           <%= if Abilities.may?(@conn, "messages/subscription") do %><li id="subscriptions-link"><%= link gettext("subscribed messages"), to: Path.subscription_path(@conn, :index) %></li><% end %>
           <%= if Abilities.may?(@conn, "threads/invisible") do %><li id="invisibles-link"><%= link gettext("invisible threads"), to: Path.thread_path(@conn, :invisible_index) %></li><% end %>
 
-          <%= if show?(@conn, :badges) do %>
+          <%= if show?(assigns, :badges) do %>
             <li id="badges-link"><%= link gettext("badges"), to: Path.badge_path(@conn, :index) %></li>
           <% end %>
 
-          <%= if show?(@conn, :events) do %>
+          <%= if show?(assigns, :events) do %>
             <li id="events-link"><%= link gettext("events"), to: Path.event_path(@conn, :index) %></li>
           <% end %>
         </ul>

@@ -1,5 +1,3 @@
-<h1>Zugriff verboten!</h1>
-
 <p>
   Sie haben nicht die notwendigen Zugriffsrechte, um diese Seite abzurufen.
   <%= if not Abilities.signed_in?(@conn) do %>
