@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="<%= Gettext.get_locale(CforumWeb.Gettext) %>">
+  <head>
+    <%= render "meta.html", Map.put(assigns, :is_error, true) %>
+    <%= render "link.html", assigns %>
+    <%= css_ressource(@conn) %>
+
+    <title><%= assigns[:title] %></title>
+  </head>
+
+  <body>
+    <script>document.body.classList.add("js");</script>
+
+    <%= render "top_bar.html", assigns %>
+    <%= render "personal_links.html", assigns %>
+    <%= render "page_header.html", Map.put(assigns, :is_error, true) %>
+    <%= render "motd.html", assigns %>
+
+    <main>
+      <%= render "alerts.html", assigns %>
+      <h1><%= assigns[:title] %></h1>
+
+      <div id="content">
+        <%= render @view_module, @view_template, assigns %>
+      </div>
+    </main>
+
+    <%= render "footer.html", assigns %>
+
+    <script>window.userToken = "<%= assigns[:user_token] %>";</script>
+    <script src="<%= Routes.static_path(@conn, "/js/app.js") %>" data-manual></script>
+  </body>
+</html>

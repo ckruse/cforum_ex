@@ -142,7 +142,7 @@ msgstr "anmelden"
 msgid "nested view"
 msgstr "Nested-Ansicht"
 
-#: lib/cforum_web/templates/layout/meta.html.eex:10
+#: lib/cforum_web/templates/layout/meta.html.eex:11
 msgid "publisher"
 msgstr "SELFHTML Forum"
 
@@ -1297,8 +1297,8 @@ msgstr "von"
 
 #: lib/cforum_web/templates/message/form.html.eex:40
 #: lib/cforum_web/templates/moderation/entry.html.eex:17
-#: lib/cforum_web/views/message_view.ex:253
-#: lib/cforum_web/views/message_view.ex:254
+#: lib/cforum_web/views/message_view.ex:239
+#: lib/cforum_web/views/message_view.ex:240
 msgid "problematic site"
 msgstr "problematische Seite"
 
@@ -1327,7 +1327,7 @@ msgstr "SELFHTML Forum - Ergänzung zur <a href=\"https://wiki.selfhtml.org\">Do
 
 #: lib/cforum_web/controllers/api/v1/message_controller.ex:25
 #: lib/cforum_web/controllers/message_controller.ex:68
-#: lib/cforum_web/controllers/thread_controller.ex:111
+#: lib/cforum_web/controllers/thread_controller.ex:122
 msgid "all"
 msgstr "alle"
 
@@ -1436,7 +1436,7 @@ msgstr "eine Seite zurück"
 msgid "unknown tags given: %{tags}"
 msgstr "Folgende Tags sind unbekannt: %{tags}."
 
-#: lib/cforum_web/controllers/thread_controller.ex:152
+#: lib/cforum_web/controllers/thread_controller.ex:163
 msgid "Thread created successfully."
 msgstr "Thread erfolgreich erstellt."
 
@@ -1474,7 +1474,7 @@ msgstr "Silber-Medaille"
 #: lib/cforum_web/templates/layout/page_header.html.eex:21
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:4
 #: lib/cforum_web/views/archive_view.ex:5
-#: lib/cforum_web/views/layout_view.ex:219
+#: lib/cforum_web/views/layout_view.ex:223
 #: lib/cforum_web/views/thread_view.ex:28 lib/cforum_web/views/thread_view.ex:35
 msgid "all forums"
 msgstr "alle Foren"
@@ -1667,17 +1667,17 @@ msgid "answer without cite"
 msgstr "ohne Zitat antworten"
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:89
+#: lib/cforum_web/controllers/mail_controller.ex:115
 msgid "Mail created successfully."
 msgstr "Mail erfolgreich gespeichert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:111
+#: lib/cforum_web/controllers/mail_controller.ex:137
 msgid "Mail deleted successfully."
 msgstr "Mail erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:102
+#: lib/cforum_web/controllers/mail_controller.ex:128
 msgid "Mail successfully marked as unread."
 msgstr "Mail erfolgreich als ungelesen markiert."
 
@@ -1692,8 +1692,9 @@ msgid "recpient"
 msgstr "Empfänger"
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:53
-#: lib/cforum_web/controllers/mail_controller.ex:67
+#: lib/cforum_web/controllers/mail_controller.ex:55
+#: lib/cforum_web/controllers/mail_controller.ex:78
+#: lib/cforum_web/controllers/mail_controller.ex:93
 msgid "you"
 msgstr "du"
 
@@ -2887,14 +2888,14 @@ msgstr "%{forum} – Übersicht"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:25
-#: lib/cforum_web/views/layout_view.ex:207
+#: lib/cforum_web/views/layout_view.ex:211
 msgid "administrative view"
 msgstr "Administrator-Ansicht"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:19
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:21
-#: lib/cforum_web/views/layout_view.ex:206
+#: lib/cforum_web/views/layout_view.ex:210
 msgid "normal view"
 msgstr "Administrator-Ansicht deaktivieren"
 
@@ -3054,7 +3055,7 @@ msgid "planned start"
 msgstr "geplanter Reisebeginn"
 
 #, elixir-format
-#: lib/cforum_web/views/message_view.ex:212
+#: lib/cforum_web/controllers/mail_controller.ex:69
 msgid "regarding your message %{subject} from %{time}"
 msgstr "Dein Beitrag „%{subject}“ vom %{time}"
 
@@ -4352,14 +4353,14 @@ msgid "mark all notifications as unread"
 msgstr "markiere alle Benachrichtigungen als ungelesen"
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/meta.html.eex:7
+#: lib/cforum_web/templates/layout/meta.html.eex:8
 #: lib/cforum_web/views/helpers/feeds.ex:103
 #: lib/cforum_web/views/helpers/feeds.ex:126
 msgid "A forum as a completion to the wiki and the weblog"
 msgstr "Forum als Ergänzung zum SELFHTML-Wiki und zur Dokumentation SELFHTML"
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/meta.html.eex:8
+#: lib/cforum_web/templates/layout/meta.html.eex:9
 msgid "SELFHTML Forum, SELFHTML, Forum, SELFForum"
 msgstr "SELFHTML Forum, SELFHTML, Forum, SELFForum"
 
@@ -4516,3 +4517,18 @@ msgstr "Der angegebene Grund: %{reason}"
 #: lib/cforum_web/templates/message/close_vote.html.eex:5
 msgid "delete vote (%{votes}/%{votes_needed})"
 msgstr "Lösch-Abstimmung (%{votes}/%{votes_needed})"
+
+#, elixir-format
+#: lib/cforum_web/views/error_view.ex:21
+msgid "access forbidden"
+msgstr "Zugriff verboten!"
+
+#, elixir-format
+#: lib/cforum_web/views/error_view.ex:32
+msgid "internal server error"
+msgstr "Oops! Etwas ist schief gegangen."
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/views/error_view.ex:10 lib/cforum_web/views/error_view.ex:44
+msgid "page not found"
+msgstr "Seite nicht gefunden!"

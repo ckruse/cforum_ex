@@ -194,9 +194,15 @@ defmodule CforumWeb.Views.Helpers do
     end
   end
 
+  def controller(conn) do
+    if conn.assigns[:is_error],
+      do: CforumWeb.ErrorView,
+      else: Phoenix.Controller.controller_module(conn)
+  end
+
   def controller_path(conn) do
     conn
-    |> Phoenix.Controller.controller_module()
+    |> controller()
     |> Atom.to_string()
     |> String.replace(~r{^Elixir\.CforumWeb\.}, "")
     |> String.replace(~r{Controller$}, "")
