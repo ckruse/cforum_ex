@@ -58,7 +58,7 @@ defmodule CforumWeb.MailController do
     render(conn, "new.html", changeset: changeset, parent: parent)
   end
 
-  def new(conn, %{"message_id" => id} = params) do
+  def new(conn, %{"message_id" => id}) do
     message = Messages.get_message!(id)
 
     changeset =
