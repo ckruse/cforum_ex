@@ -8,7 +8,8 @@ defmodule Cforum.Messages.Mentions do
 
   def parse_mentions(%Changeset{valid?: true} = changeset) do
     content = Changeset.get_field(changeset, :content)
-    {blocks, context} = Earmark.parse(content, %Earmark.Options{smartypants: true, gfm: true, breaks: false})
+    options = %Earmark.Options{smartypants: true, gfm: true, breaks: false}
+    {blocks, context} = Earmark.Parser.parse_markdown(content, options)
 
     mentions =
       blocks
