@@ -17,7 +17,7 @@
           <li class="cf-dropdown" data-dropdown="yes">
             <span class="anchor"><%= gettext("forums") %></span>
             <ul class="menu">
-              <li<% if !@current_forum && controller_module(@conn) == Cforum.ThreadController do %> class="active"<% end %>>
+              <li<% if !@current_forum && !assigns[:is_error] && controller_module(@conn) == Cforum.ThreadController do %> class="active"<% end %>>
                 <%= link gettext("all forums"), to: Path.forum_path(@conn, :index, "all") %>
                 <%= link to: Path.forum_path(@conn, :stats, "all"), title: gettext("statistics"), class: "stats" do %>
                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="22" height="14" viewBox="0, 0, 22, 14">
@@ -25,7 +25,7 @@
                   </svg>
                 <% end %>
               </li>
-              <%= for f <- @visible_forums do %>
+              <%= for f <- (assigns[:visible_forums] || []) do %>
                 <li<%= if @current_forum == f do %> class="active"<% end %>>
                   <%= link f.name, to: Path.forum_path(@conn, :index, f) %>
                   <%= link to: Path.forum_path(@conn, :stats, f), title: gettext("statistics"), class: "stats" do %>

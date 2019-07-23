@@ -1,20 +1,22 @@
 <div id="alerts-container">
-  <%= if get_flash(@conn, :info) do %>
-    <div class="cf-success cf-alert cf-js-alert fade in" role="alert">
-      <button type="button" class="close" data-dismiss="cf-alert" aria-label="<%= gettext("close") %>">
-        <span aria-hidden="true">&times;</span>
-      </button>
+  <%=  if Map.get(@conn.private, :phoenix_flash) do %>
+    <%= if get_flash(@conn, :info) do %>
+      <div class="cf-success cf-alert cf-js-alert fade in" role="alert">
+        <button type="button" class="close" data-dismiss="cf-alert" aria-label="<%= gettext("close") %>">
+          <span aria-hidden="true">&times;</span>
+        </button>
 
-      <%= get_flash(@conn, :info) %>
-    </div>
-  <% end %>
-  <%= if get_flash(@conn, :error) do %>
-    <div class="cf-error cf-alert cf-js-alert fade in"  role="alert">
-      <button type="button" class="close" data-dismiss="cf-alert" aria-label="<%= gettext("close") %>">
-        <span aria-hidden="true">&times;</span>
-      </button>
+        <%= get_flash(@conn, :info) %>
+      </div>
+    <% end %>
+    <%= if get_flash(@conn, :error) do %>
+      <div class="cf-error cf-alert cf-js-alert fade in"  role="alert">
+        <button type="button" class="close" data-dismiss="cf-alert" aria-label="<%= gettext("close") %>">
+          <span aria-hidden="true">&times;</span>
+        </button>
 
-      <%= get_flash(@conn, :error) %>
-    </div>
+        <%= get_flash(@conn, :error) %>
+      </div>
+    <% end %>
   <% end %>
 </div>
