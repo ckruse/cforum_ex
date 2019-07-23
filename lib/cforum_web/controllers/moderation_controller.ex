@@ -90,8 +90,8 @@ defmodule CforumWeb.ModerationController do
     end
   end
 
-  def allowed?(conn, :index, _), do: conn.assigns.is_moderator
-  def allowed?(conn, :index_open, _), do: conn.assigns.is_moderator
+  def allowed?(conn, :index, _), do: conn.assigns[:is_moderator]
+  def allowed?(conn, :index_open, _), do: conn.assigns[:is_moderator]
 
   def allowed?(conn, action, entry) when action in [:edit, :update] do
     entry = entry || conn.assigns[:entry]
