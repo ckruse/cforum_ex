@@ -14,6 +14,8 @@ defmodule Cforum.Messages.NotifyUsersMessageJob do
   @spec notify_users_about_new_message(%Thread{}, %Message{}) :: any()
   def notify_users_about_new_message(thread, message) do
     Cforum.Helpers.AsyncHelper.run_async(fn ->
+      thread = Cforum.Repo.preload(thread, [:forum])
+
       users =
         (message.flags["mentions"] || [])
         |> Enum.reject(fn [_, _, in_quote] -> in_quote end)
@@ -32,7 +34,9 @@ defmodule Cforum.Messages.NotifyUsersMessageJob do
 
   @decorate transaction()
   def notify_users(thread, message, already_notified) do
-    parent_messages(thread, message)
+    thread
+    |> Cforum.Repo.preload([:forum])
+    |> parent_messages(message)
     |> Subscriptions.list_subscriptions_for_messages()
     |> Enum.reduce(%{}, fn sub, acc -> Map.put(acc, sub.user_id, sub.user) end)
     |> Map.values()
