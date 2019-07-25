@@ -1952,7 +1952,7 @@ ccount@^1.0.0:
 
 "cfmarkdown@https://github.com/ckruse/cfmarkdown.git":
   version "0.0.1"
-  resolved "https://github.com/ckruse/cfmarkdown.git#8efa018df6354e9b00d8da56f4701e9fb34ae5fb"
+  resolved "https://github.com/ckruse/cfmarkdown.git#9de1804984c5f54f24202438be69778cffaabfc5"
   dependencies:
     markdown-it "^8.4.2"
     markdown-it-deflist "^2.0.3"
