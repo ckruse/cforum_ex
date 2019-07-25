@@ -154,7 +154,7 @@ export function toggleCode() {
   const removeMarkup = function(type) {
     const characters = { block: 4, inline: 1 }[type];
     const cursor = start - characters;
-    this.props.changeValue(replaceAt(this.props.value, text, cursur, end + characters), {
+    this.props.changeValue(replaceAt(this.props.value, text, cursor, end + characters), {
       start: cursor,
       end: cursor + text.length
     });
