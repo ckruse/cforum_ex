@@ -1952,13 +1952,13 @@ ccount@^1.0.0:
 
 "cfmarkdown@https://github.com/ckruse/cfmarkdown.git":
   version "0.0.1"
-  resolved "https://github.com/ckruse/cfmarkdown.git#95130189a9db2372b4f3fa02bbac8fdcd7a5ee7b"
+  resolved "https://github.com/ckruse/cfmarkdown.git#4af6b5bead8c73d7a4c690f74d70de76aef6c22e"
   dependencies:
     markdown-it "^8.4.2"
     markdown-it-deflist "^2.0.3"
     markdown-it-footnote "^3.0.2"
     markdown-it-katex "^2.0.3"
-    prismjs "^1.16.0"
+    prismjs "^1.17.1"
     readline "^1.3.0"
     shell-quote "^1.6.1"
 
@@ -6329,7 +6329,7 @@ preserve@^0.2.0:
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
   integrity sha1-gV7R9uvGWSb4ZbMQwHE7yzMVzks=
 
-prismjs@^1.16.0:
+prismjs@^1.17.1:
   version "1.17.1"
   resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.17.1.tgz#e669fcbd4cdd873c35102881c33b14d0d68519be"
   integrity sha512-PrEDJAFdUGbOP6xK/UsfkC5ghJsPJviKgnQOoxaDbBjwc8op68Quupwt1DeAFoG8GImPhiKXAvvsH7wDSLsu1Q==
