@@ -83,6 +83,11 @@ $active-item-color: #fff;
 $active-item-background-color: #007bff;
 $active-item-border-color: #007bff;
 
+$posting-content-color: #039;
+$posting-content-background: #fdfcf3;
+
+$deleted-color: darkred;
+
 @mixin focus-w-shadow() {
   border-color: $focus-color;
   outline: 0px none;

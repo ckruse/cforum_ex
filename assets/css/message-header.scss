@@ -79,8 +79,12 @@
   }
   &.deleted {
     h2,
+    h2 a,
     h3,
-    .details {
+    h3 a,
+    .details,
+    .details a {
+      color: $deleted-color;
       text-decoration: line-through;
     }
   }
