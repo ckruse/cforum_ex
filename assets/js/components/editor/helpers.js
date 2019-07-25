@@ -125,3 +125,8 @@ export const isPreviousLineList = (content, start, rx) => {
 };
 
 export const isBeginningOfLine = (content, start) => start === 0 || content.substr(start - 1, 1) === "\n";
+
+export const escapeText = (text, escapes) => {
+  const rx = new RegExp("([" + escapes + "])", "g");
+  return text.replace(rx, "\\$1");
+};
