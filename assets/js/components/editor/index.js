@@ -9,7 +9,7 @@ import Toolbar from "./toolbar";
 import Dropzone from "./dropzone";
 import { alertError } from "../../modules/alerts";
 import { t } from "../../modules/i18n";
-import { replaceAt, getSelection } from "./helpers";
+import { replaceAt, getSelection, escapeText } from "./helpers";
 import AutocompleteTextarea from "../autocomplete";
 
 class CfEditor extends React.Component {
@@ -52,11 +52,11 @@ class CfEditor extends React.Component {
       this.props.onChange(value);
     }
 
-    if(opts.start && opts.end) {
+    if (opts.start && opts.end) {
       window.setTimeout(() => {
         this.textarea.current.selectionStart = opts.start;
         this.textarea.current.selectionEnd = opts.end;
-      }, 0)
+      }, 0);
     }
   }
 
@@ -83,7 +83,11 @@ class CfEditor extends React.Component {
     this.setState({ loading: false });
     if (rsp.status === "success") {
       const { start, end } = getSelection(this.textarea.current);
-      const image = `[![${desc}](${rsp.location}?size=medium${title ? ' "' + title + '"' : ""})](${rsp.location})`;
+
+      const image = `[![${escapeText(desc, "\\]")}](${escapeText(rsp.location, ")")}?size=medium${
+        title ? ' "' + escapeText(title, '"') + '"' : ""
+      })](${escapeText(rsp.location, ")")})`;
+
       const value = replaceAt(this.state.value, image, start, end);
       this.setState({ value });
       this.textarea.current.selectionStart = start;

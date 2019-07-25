@@ -27,7 +27,6 @@ export default class ImageModal extends React.Component {
   }
 
   handleFileChanged(ev) {
-    //console.log(ev);
     this.setState({ file: ev.target.files[0] });
   }
 

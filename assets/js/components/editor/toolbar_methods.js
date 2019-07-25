@@ -8,7 +8,8 @@ import {
   getSelectedText,
   leadingNewlines,
   isBeginningOfLine,
-  isPreviousLineList
+  isPreviousLineList,
+  escapeText
 } from "./helpers";
 
 export function addEmoji(emoji) {
@@ -225,9 +226,9 @@ export function addLinkFromModal(text, target) {
 
   let link = "";
   if (!text) {
-    link = `<${target}>`;
+    link = `<${escapeText(target, ">")}>`;
   } else {
-    link = `[${text}](${target})`;
+    link = `[${escapeText(text, "\\]")}](${escapeText(target, ")")})`;
   }
 
   const { start, end } = getSelection(this.props.textarea.current);
