@@ -1,9 +1,9 @@
 @charset "utf-8";
 
 .cf-posting-content {
-  color: #039;
+  color: $posting-content-color;
   border: 1px solid #e7c157;
-  background: none repeat scroll 0% 0% #fdfcf3;
+  background: none repeat scroll 0% 0% $posting-content-background;
   font-family: $default-font-family;
   margin: 0.5em 0px;
   padding: 0.8em 0.1em 1em;
@@ -11,6 +11,12 @@
   line-height: 1.4em;
   image-orientation: from-image;
   hyphens: auto;
+
+  &.deleted {
+    color: darken($deleted-color, 5%);
+    background-color: lighten($posting-content-background, 20%);
+    text-decoration: line-through;
+  }
 
   & > :first-child {
     margin-top: 0;
