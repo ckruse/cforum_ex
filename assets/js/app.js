@@ -52,3 +52,5 @@ import "./init";
 import "./cleanup";
 
 import "./modules/anonymous";
+
+window.Prism = { manual: true };
