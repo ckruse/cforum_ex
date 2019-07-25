@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>" media="all" title="SELFHTML Forum Stylesheet">
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/katex.min.css") %>" media="all">
 
-    <link rel="alternate" title="<%= gettext("Atom feed (%{forum})", forum: forum_name(@current_forum)) %>" type="application/atom+xml" href="<%= Path.forum_url(@conn, :atom, @current_forum) %>">
-    <link rel="alternate" title="<%= gettext("RSS feed (%{forum})", forum: forum_name(@current_forum)) %>" type="application/rss+xml" href="<%= Path.forum_url(@conn, :rss, @current_forum) %>">
-
+    <%= if Map.has_key?(assigns, :current_forum) do %>
+      <link rel="alternate" title="<%= gettext("Atom feed (%{forum})", forum: forum_name(@current_forum)) %>" type="application/atom+xml" href="<%= Path.forum_url(@conn, :atom, @current_forum) %>">
+      <link rel="alternate" title="<%= gettext("RSS feed (%{forum})", forum: forum_name(@current_forum)) %>" type="application/rss+xml" href="<%= Path.forum_url(@conn, :rss, @current_forum) %>">
+    <% end %>
