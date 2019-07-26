@@ -4066,8 +4066,12 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/controllers/messages/admin_controller.ex:16
-#: lib/cforum_web/controllers/messages/admin_controller.ex:24
 msgid "Message was successfully deleted."
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/controllers/messages/admin_controller.ex:24
+msgid "Message was successfully restored."
 msgstr ""
 
 #, elixir-format

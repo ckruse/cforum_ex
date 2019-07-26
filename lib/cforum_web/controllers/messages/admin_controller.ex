@@ -21,7 +21,7 @@ defmodule CforumWeb.Messages.AdminController do
     Messages.restore_message(conn.assigns.current_user, conn.assigns.message)
 
     conn
-    |> put_flash(:info, gettext("Message was successfully deleted."))
+    |> put_flash(:info, gettext("Message was successfully restored."))
     |> redirect(to: ReturnUrl.return_path(conn, params, conn.assigns.thread))
   end
 
