@@ -18,4 +18,10 @@ defmodule CforumWeb.MailView do
   def body_classes(:index, _), do: "mail index"
   def body_classes(:show, _), do: "mail show"
   def body_classes(action, _) when action in [:new, :create], do: "mail new"
+
+  def url_params(conn) do
+    if Cforum.Helpers.present?(conn.params["author"]),
+      do: [author: conn.params["author"]],
+      else: nil
+  end
 end
