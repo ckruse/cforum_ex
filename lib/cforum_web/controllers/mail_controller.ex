@@ -24,7 +24,8 @@ defmodule CforumWeb.MailController do
         conn.assigns[:current_user],
         limit: paging.params,
         order: sort_params,
-        messages_order: ordering(sort_dir)
+        messages_order: ordering(sort_dir),
+        author: params["author"]
       )
 
     render(conn, "index.html", mails: mails, paging: paging)
