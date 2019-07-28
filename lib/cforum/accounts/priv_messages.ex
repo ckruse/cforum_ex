@@ -95,7 +95,7 @@ defmodule Cforum.Accounts.PrivMessages do
     )
     |> maybe_filter_author(query_params[:author], user)
     |> Cforum.PagingApi.set_limit(query_params[:limit])
-    |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
+    |> order_threadlist(query_params[:order], user)
     |> Repo.all()
   end
 
@@ -108,6 +108,24 @@ defmodule Cforum.Accounts.PrivMessages do
           (pm.recipient_id == ^user.user_id and pm.sender_name == ^author)
     )
   end
+
+  defp order_threadlist(q, [{dir, :partner}], user) do
+    from(pm in q,
+      order_by:
+        {^dir,
+         fragment(
+           "(CASE WHEN ? = ? THEN ? WHEN ? = ? THEN ? END)",
+           pm.sender_id,
+           ^user.user_id,
+           pm.recipient_name,
+           pm.recipient_id,
+           ^user.user_id,
+           pm.sender_name
+         )}
+    )
+  end
+
+  defp order_threadlist(q, col, _), do: Cforum.OrderApi.set_ordering(q, col, desc: :created_at)
 
   defp order_messages(q, :asc), do: order_by(q, asc: :created_at)
   defp order_messages(q, _), do: order_by(q, desc: :created_at)

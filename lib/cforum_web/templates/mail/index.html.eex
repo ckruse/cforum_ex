@@ -1,7 +1,7 @@
 <table class="cf-default-table">
   <thead>
     <tr>
-      <th><%= gettext("partner") %></th>
+      <th><%= Sortable.sortable(@conn, gettext("partner"), :partner, &Path.mail_path/3) %></th>
       <th><%= Sortable.sortable(@conn, gettext("subject"), :subject, &Path.mail_path/3) %></th>
       <th><%= Sortable.sortable(@conn, gettext("created at"), :created_at, &Path.mail_path/3) %></th>
       <th> </th>

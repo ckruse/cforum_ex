@@ -15,7 +15,10 @@ defmodule CforumWeb.MailController do
   @spec index(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def index(conn, params) do
     sort_dir = ConfigManager.uconf(conn, "mail_thread_sort")
-    {sort_params, conn} = Sortable.sort_collection(conn, [:created_at, :subject, :is_read], dir: ordering(sort_dir))
+
+    {sort_params, conn} =
+      Sortable.sort_collection(conn, [:created_at, :subject, :is_read, :partner], dir: ordering(sort_dir))
+
     count = PrivMessages.count_newest_priv_messages_of_each_thread(conn.assigns[:current_user])
     paging = Paginator.paginate(count, page: params["p"])
 
