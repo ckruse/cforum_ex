@@ -93,9 +93,20 @@ defmodule Cforum.Accounts.PrivMessages do
           ),
       preload: [:recipient, :sender]
     )
+    |> maybe_filter_author(query_params[:author], user)
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
     |> Repo.all()
+  end
+
+  defp maybe_filter_author(q, v, _) when v == "" or is_nil(v), do: q
+
+  defp maybe_filter_author(q, author, user) do
+    from(pm in q,
+      where:
+        (pm.sender_id == ^user.user_id and pm.recipient_name == ^author) or
+          (pm.recipient_id == ^user.user_id and pm.sender_name == ^author)
+    )
   end
 
   defp order_messages(q, :asc), do: order_by(q, asc: :created_at)
@@ -114,7 +125,7 @@ defmodule Cforum.Accounts.PrivMessages do
       0
 
   """
-  def count_newest_priv_messages_of_each_thread(user) do
+  def count_newest_priv_messages_of_each_thread(user, query_params \\ []) do
     from(
       pm in PrivMessage,
       where:
@@ -125,6 +136,7 @@ defmodule Cforum.Accounts.PrivMessages do
           ),
       select: count("*")
     )
+    |> maybe_filter_author(query_params[:author], user)
     |> Repo.one()
   end
 
