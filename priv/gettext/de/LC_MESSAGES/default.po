@@ -85,7 +85,7 @@ msgstr "Foren"
 msgid "Atom feed"
 msgstr "Atom-Feed"
 
-#: lib/cforum_web/templates/layout/link.html.eex:16
+#: lib/cforum_web/templates/layout/link.html.eex:17
 #: lib/cforum_web/templates/layout/page_header.html.eex:8
 #: lib/cforum_web/templates/layout/page_header.html.eex:8
 msgid "Atom feed (%{forum})"
@@ -99,7 +99,7 @@ msgstr "Chat"
 msgid "RSS feed"
 msgstr "RSS-Feed"
 
-#: lib/cforum_web/templates/layout/link.html.eex:17
+#: lib/cforum_web/templates/layout/link.html.eex:18
 #: lib/cforum_web/templates/layout/page_header.html.eex:9
 #: lib/cforum_web/templates/layout/page_header.html.eex:9
 msgid "RSS feed (%{forum})"
@@ -1667,17 +1667,17 @@ msgid "answer without cite"
 msgstr "ohne Zitat antworten"
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:115
+#: lib/cforum_web/controllers/mail_controller.ex:119
 msgid "Mail created successfully."
 msgstr "Mail erfolgreich gespeichert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:137
+#: lib/cforum_web/controllers/mail_controller.ex:141
 msgid "Mail deleted successfully."
 msgstr "Mail erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:128
+#: lib/cforum_web/controllers/mail_controller.ex:132
 msgid "Mail successfully marked as unread."
 msgstr "Mail erfolgreich als ungelesen markiert."
 
@@ -1692,9 +1692,9 @@ msgid "recpient"
 msgstr "Empfänger"
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:55
-#: lib/cforum_web/controllers/mail_controller.ex:78
-#: lib/cforum_web/controllers/mail_controller.ex:93
+#: lib/cforum_web/controllers/mail_controller.ex:59
+#: lib/cforum_web/controllers/mail_controller.ex:82
+#: lib/cforum_web/controllers/mail_controller.ex:97
 msgid "you"
 msgstr "du"
 
@@ -3055,7 +3055,7 @@ msgid "planned start"
 msgstr "geplanter Reisebeginn"
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:69
+#: lib/cforum_web/controllers/mail_controller.ex:73
 msgid "regarding your message %{subject} from %{time}"
 msgstr "Dein Beitrag „%{subject}“ vom %{time}"
 
@@ -4016,8 +4016,8 @@ msgid "A comma separated list of poster names"
 msgstr "Eine Komma-separierte Liste von Autoren-Namen"
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/alerts.html.eex:4
-#: lib/cforum_web/templates/layout/alerts.html.eex:13
+#: lib/cforum_web/templates/layout/alerts.html.eex:5
+#: lib/cforum_web/templates/layout/alerts.html.eex:14
 msgid "close"
 msgstr "schließen"
 
@@ -4032,12 +4032,12 @@ msgid "notify me via email on activity in subscribed messages"
 msgstr "benachrichtige mich via Email über Aktivität bei einem abonnierten Beitrag"
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:58
+#: lib/cforum/messages/notify_users_message_job.ex:62
 msgid "%{nick} wrote a new message: %{subject}"
 msgstr "%{nick} hat einen neuen Beitrag geschrieben: „%{subject}“"
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:53
+#: lib/cforum/messages/notify_users_message_job.ex:57
 msgid "%{nick} wrote a reply to your message: %{subject}"
 msgstr "%{nick} hat auf Ihren Beitrag geantwortet: „%{subject}“"
 
@@ -4052,7 +4052,7 @@ msgid "tags list"
 msgstr "Tags"
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:99
+#: lib/cforum/messages/notify_users_message_job.ex:103
 msgid "new thread by %{nick}: %{subject}"
 msgstr "neuer Thread von %{nick}: „%{subject}“"
 
@@ -4062,7 +4062,7 @@ msgid "user data"
 msgstr "Benutzer-Daten"
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:125
+#: lib/cforum/messages/notify_users_message_job.ex:129
 msgid "%{nick} mentioned you in a new message: “%{subject}”"
 msgstr "%{nick} hat Sie in einem neuen Beitrag „%{subject}“ erwähnt"
 
@@ -4473,11 +4473,6 @@ msgid "There has been created a new moderation queue entry for message „%{subj
 msgstr "Die Nachricht „%{subject} wurde gemeldet."
 
 #, elixir-format
-#: lib/cforum_web/mailers/notification_mailer.ex:40
-msgid "new moderation queue entry: %{subject}"
-msgstr "die Nachricht „%{subject}“ wurde gemeldet"
-
-#, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:155
 msgid "auditing: moderation_queue: update"
 msgstr "Moderations-Eintrag geklärt"
@@ -4532,7 +4527,27 @@ msgstr "Zugriff verboten!"
 msgid "internal server error"
 msgstr "Oops! Etwas ist schief gegangen."
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/views/error_view.ex:10 lib/cforum_web/views/error_view.ex:44
 msgid "page not found"
 msgstr "Seite nicht gefunden!"
+
+#, elixir-format
+#: lib/cforum_web/mailers/notification_mailer.ex:22
+msgid "new message: “%{subject}”"
+msgstr "neuer Beitrag: „%{subject}“"
+
+#, elixir-format
+#: lib/cforum_web/mailers/notification_mailer.ex:40
+msgid "new moderation queue entry: “%{subject}”"
+msgstr "neuer Moderations-Fall: „%{subject}“"
+
+#, elixir-format
+#: lib/cforum_web/mailers/notification_mailer.ex:31
+msgid "new notification: “%{subject}”"
+msgstr "neue Benachrichtigung: „%{subject}“"
+
+#, elixir-format
+#: lib/cforum_web/mailers/notification_mailer.ex:11
+msgid "new private message: “%{subject}”"
+msgstr "neue Mail: „%{subject}“"
