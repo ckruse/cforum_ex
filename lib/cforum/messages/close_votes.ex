@@ -68,6 +68,7 @@ defmodule Cforum.Messages.CloseVotes do
       end
     end)
     |> MessageCaching.update_cached_message()
+    |> maybe_notify_moderators_new_vote()
   end
 
   @doc """
@@ -94,6 +95,7 @@ defmodule Cforum.Messages.CloseVotes do
       end
     end)
     |> MessageCaching.update_cached_message()
+    |> maybe_notify_moderators_new_vote()
   end
 
   @doc """
@@ -361,4 +363,11 @@ defmodule Cforum.Messages.CloseVotes do
     from(cvv in CloseVoteVoter, where: cvv.close_vote_id == ^vote.close_vote_id)
     |> Repo.all()
   end
+
+  defp maybe_notify_moderators_new_vote({:ok, vote}) do
+    Cforum.Messages.NotifyModeratorsCloseVote.perform_new_vote(vote)
+    {:ok, vote}
+  end
+
+  defp maybe_notify_moderators_new_vote(val), do: val
 end
