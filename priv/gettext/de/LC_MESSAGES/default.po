@@ -4563,32 +4563,32 @@ msgstr "neue Mail: „%{subject}“"
 #, elixir-format
 #: lib/cforum_web/templates/notification_mailer/new_open_close_vote.text.eex:5
 msgid "There has been created a new close vote for message „%{subject}“"
-msgstr "Eine neue Sperr-Abstimmung wurde für die Nachricht „%{subject}“ erstellt"
+msgstr "Eine neue Sperr-Abstimmung wurde für den Beitrag „%{subject}“ erstellt"
 
 #, elixir-format
 #: lib/cforum/messages/notify_moderators_close_vote.ex:37
 msgid "a new close vote has been created for message „%{subject}“"
-msgstr "Eine neue Sperr-Abstimmung wurde für die Nachricht „%{subject}“ erstellt"
+msgstr "Eine neue Sperr-Abstimmung wurde für den Beitrag „%{subject}“ erstellt"
 
 #, elixir-format
 #: lib/cforum/messages/notify_moderators_close_vote.ex:32
 msgid "a new reopen vote has been created for message „%{subject}“"
-msgstr "Eine neue Entsperr-Abstimmung wurde für die Nachricht „%{subject}“ erstellt"
+msgstr "Eine neue Entsperr-Abstimmung wurde für den Beitrag „%{subject}“ erstellt"
 
 #, elixir-format
 #: lib/cforum_web/templates/notification_mailer/new_open_close_vote.html.eex:7
 msgid "There has been created a new close vote for message"
-msgstr "Eine neue Sperr-Abstimmung wurde für diese Nachricht erstellt:"
+msgstr "Eine neue Sperr-Abstimmung wurde für diesen Beitrag erstellt:"
 
 #, elixir-format
 #: lib/cforum_web/templates/notification_mailer/new_open_close_vote.html.eex:5
 msgid "There has been created a new reopen vote for message"
-msgstr "Eine neue Entsperr-Abstimmung wurde für diese Nachricht erstellt:"
+msgstr "Eine neue Entsperr-Abstimmung wurde für diesen Beitrag erstellt:"
 
 #, elixir-format
 #: lib/cforum_web/templates/notification_mailer/new_open_close_vote.text.eex:4
 msgid "There has been created a new reopen vote for message „%{subject}“"
-msgstr "Eine neue Entsperr-Abstimmung wurde für die Nachricht „%{subject}“ erstellt."
+msgstr "Eine neue Entsperr-Abstimmung wurde für diesen Beitrag „%{subject}“ erstellt."
 
 #, elixir-format
 #:
