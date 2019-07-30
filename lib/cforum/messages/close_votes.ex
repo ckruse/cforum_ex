@@ -197,6 +197,7 @@ defmodule Cforum.Messages.CloseVotes do
           err
       end
     end)
+    |> maybe_notify_moderators_finish_vote()
   end
 
   defp maybe_apply_vote_action(_, _, _, _, _), do: nil
@@ -370,4 +371,11 @@ defmodule Cforum.Messages.CloseVotes do
   end
 
   defp maybe_notify_moderators_new_vote(val), do: val
+
+  defp maybe_notify_moderators_finish_vote({:ok, vote}) do
+    Cforum.Messages.NotifyModeratorsCloseVote.perform_finish_vote(vote)
+    {:ok, vote}
+  end
+
+  defp maybe_notify_moderators_finish_vote(val), do: val
 end

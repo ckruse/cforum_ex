@@ -4431,6 +4431,8 @@ msgstr ""
 #: lib/cforum_web/templates/notification_mailer/moderation_mail.text.eex:9
 #: lib/cforum_web/templates/notification_mailer/new_open_close_vote.html.eex:13
 #: lib/cforum_web/templates/notification_mailer/new_open_close_vote.text.eex:9
+#: lib/cforum_web/templates/notification_mailer/open_close_vote_finished.html.eex:13
+#: lib/cforum_web/templates/notification_mailer/open_close_vote_finished.text.eex:9
 msgid "Best regards"
 msgstr ""
 
@@ -4439,6 +4441,8 @@ msgstr ""
 #: lib/cforum_web/templates/notification_mailer/moderation_mail.text.eex:1
 #: lib/cforum_web/templates/notification_mailer/new_open_close_vote.html.eex:1
 #: lib/cforum_web/templates/notification_mailer/new_open_close_vote.text.eex:1
+#: lib/cforum_web/templates/notification_mailer/open_close_vote_finished.html.eex:1
+#: lib/cforum_web/templates/notification_mailer/open_close_vote_finished.text.eex:1
 msgid "Hi there"
 msgstr ""
 
@@ -4560,4 +4564,38 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/notification_mailer/new_open_close_vote.text.eex:4
 msgid "There has been created a new reopen vote for message „%{subject}“"
+msgstr ""
+
+#, elixir-format
+#:
+#: lib/cforum_web/templates/notification_mailer/open_close_vote_finished.text.eex:5
+msgid "A close vote for message „%{subject}“ has been finished"
+msgstr ""
+
+#, elixir-format
+#:
+#: lib/cforum_web/templates/notification_mailer/open_close_vote_finished.html.eex:7
+msgid "A close vote has been finished for message"
+msgstr ""
+
+#, elixir-format
+#:
+#: lib/cforum_web/templates/notification_mailer/open_close_vote_finished.text.eex:4
+msgid "A reopen vote for message „%{subject}“ has been finished"
+msgstr ""
+
+#, elixir-format
+#:
+#: lib/cforum_web/templates/notification_mailer/open_close_vote_finished.html.eex:5
+msgid "A reopen vote has been finished for message"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum/messages/notify_moderators_close_vote.ex:83
+msgid "a close vote has been finished for message „%{subject}“"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum/messages/notify_moderators_close_vote.ex:78
+msgid "a reopen vote has been finished for message „%{subject}“"
 msgstr ""
