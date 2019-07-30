@@ -4429,12 +4429,16 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/notification_mailer/moderation_mail.html.eex:10
 #: lib/cforum_web/templates/notification_mailer/moderation_mail.text.eex:9
+#: lib/cforum_web/templates/notification_mailer/new_open_close_vote.html.eex:13
+#: lib/cforum_web/templates/notification_mailer/new_open_close_vote.text.eex:9
 msgid "Best regards"
 msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/notification_mailer/moderation_mail.html.eex:1
 #: lib/cforum_web/templates/notification_mailer/moderation_mail.text.eex:1
+#: lib/cforum_web/templates/notification_mailer/new_open_close_vote.html.eex:1
+#: lib/cforum_web/templates/notification_mailer/new_open_close_vote.text.eex:1
 msgid "Hi there"
 msgstr ""
 
@@ -4526,4 +4530,34 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/mailers/notification_mailer.ex:11
 msgid "new private message: “%{subject}”"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/notification_mailer/new_open_close_vote.text.eex:5
+msgid "There has been created a new close vote for message „%{subject}“"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum/messages/notify_moderators_close_vote.ex:37
+msgid "a new close vote has been created for message „%{subject}“"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum/messages/notify_moderators_close_vote.ex:32
+msgid "a new reopen vote has been created for message „%{subject}“"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/notification_mailer/new_open_close_vote.html.eex:7
+msgid "There has been created a new close vote for message"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/notification_mailer/new_open_close_vote.html.eex:5
+msgid "There has been created a new reopen vote for message"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/notification_mailer/new_open_close_vote.text.eex:4
+msgid "There has been created a new reopen vote for message „%{subject}“"
 msgstr ""
