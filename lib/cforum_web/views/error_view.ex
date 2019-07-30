@@ -45,4 +45,22 @@ defmodule CforumWeb.ErrorView do
       )
     )
   end
+
+  def original_path_w_view_all(conn) do
+    url = URI.parse(maybe_set_forum(conn.request_path, conn.assigns[:current_forum]))
+
+    query =
+      url.query
+      |> maybe_decode_query()
+      |> Map.put("view_all", "yes")
+      |> URI.encode_query()
+
+    URI.to_string(%{url | query: query})
+  end
+
+  defp maybe_set_forum(path, forum),
+    do: Regex.replace(~r/^\/all/, path, "/#{CforumWeb.Views.Helpers.Path.forum_slug(forum)}")
+
+  defp maybe_decode_query(nil), do: %{}
+  defp maybe_decode_query(query), do: URI.decode_query(query)
 end

@@ -1,1 +1,8 @@
 <p>Die von Ihnen angeforderte Seite konnte nicht gefunden werden.</p>
+
+<%= if !assigns[:view_all] && assigns[:current_user] && Abilities.access_forum?(assigns[:conn], :moderate) do %>
+  <p>
+    Sie können versuchen, diese Seite im <%=  link "Administrator-Modus", to: original_path_w_view_all(@conn) %>
+    aufzurufen.
+  </p>
+<% end %>
