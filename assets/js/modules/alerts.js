@@ -22,7 +22,9 @@ alertsContainer.querySelectorAll(".cf-alert").forEach(alert => {
     timeout = INFO_TIMEOUT;
   }
 
-  window.setTimeout(() => removeAlert(alert), timeout * 1000);
+  if (timeout) {
+    window.setTimeout(() => removeAlert(alert), timeout * 1000);
+  }
 });
 
 alertsContainer.addEventListener("click", ev => {
