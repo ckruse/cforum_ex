@@ -1432,7 +1432,7 @@ msgstr "Seitenauswahl"
 msgid "previous page"
 msgstr "eine Seite zurück"
 
-#: lib/cforum/messages/message.ex:190
+#: lib/cforum/messages/message.ex:194
 msgid "unknown tags given: %{tags}"
 msgstr "Folgende Tags sind unbekannt: %{tags}."
 
@@ -4003,7 +4003,7 @@ msgid "Tag %{no}"
 msgstr "Tag %{no}"
 
 #, elixir-format
-#: lib/cforum/messages/message.ex:224
+#: lib/cforum/messages/message.ex:228
 msgid "is unknown"
 msgstr "ist unbekannt"
 
@@ -4631,3 +4631,8 @@ msgstr "Es tut uns leid, leider konnten wir keinen passenden Benutzer finden."
 #: lib/cforum_web/templates/users/user/notifications.html.eex:71
 msgid "automatically delete read notifications"
 msgstr "gelesene Benachrichtigungen automatisch löschen"
+
+#, elixir-format
+#: lib/cforum/messages/message.ex:272
+msgid "seems like spam!"
+msgstr "sieht nach Spam aus!"

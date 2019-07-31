@@ -135,6 +135,8 @@ defmodule Cforum.Messages.Message do
     |> base_changeset(params, user, thread.forum_id, visible_forums, opts)
     |> put_change(:thread_id, thread.thread_id)
     |> validate_required([:author, :subject, :content, :forum_id, :thread_id])
+    |> validate_blacklist(:subject, "subject_black_list")
+    |> validate_blacklist(:content, "content_black_list")
   end
 
   def changeset(struct, params, user, visible_forums, thread, message, opts) do
@@ -143,6 +145,8 @@ defmodule Cforum.Messages.Message do
     |> put_change(:thread_id, thread.thread_id)
     |> put_change(:parent_id, message.message_id)
     |> validate_required([:author, :subject, :content, :forum_id, :thread_id])
+    |> validate_blacklist(:subject, "subject_black_list")
+    |> validate_blacklist(:content, "content_black_list")
   end
 
   def new_or_update_changeset(struct, params, user, visible_forums, opts \\ [create_tags: false]) do
@@ -256,5 +260,28 @@ defmodule Cforum.Messages.Message do
       nil -> put_change(changeset, field, value)
       _ -> changeset
     end
+  end
+
+  defp validate_blacklist(changeset, field, conf_key) do
+    forum_id = get_field(changeset, :forum_id)
+    forum = if present?(forum_id), do: Cforum.Forums.get_forum!(forum_id), else: nil
+    blacklist = Cforum.ConfigManager.conf(forum, conf_key)
+    value = get_field(changeset, field)
+
+    if matches?(value, blacklist),
+      do: add_error(changeset, field, gettext("seems like spam!")),
+      else: changeset
+  end
+
+  defp matches?(str, list) when is_nil(str) or str == "" or is_nil(list) or list == "", do: false
+
+  defp matches?(str, list) do
+    list
+    |> String.split(~r/\015\012|\015|\012/)
+    |> Enum.reject(&blank?/1)
+    |> Enum.any?(fn rx ->
+      regex = Regex.compile!(rx, "i")
+      Regex.match?(regex, str)
+    end)
   end
 end
