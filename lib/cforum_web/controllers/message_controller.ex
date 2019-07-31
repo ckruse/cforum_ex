@@ -15,6 +15,16 @@ defmodule CforumWeb.MessageController do
 
   alias CforumWeb.Views.Helpers, as: VHelpers
 
+  @notification_types [
+    "message:create-answer",
+    "message:create-activity",
+    "message:mention",
+    "reopen_vote:create",
+    "close_vote:create",
+    "reopen_vote:finish",
+    "close_vote:finish"
+  ]
+
   def show(conn, params) do
     # parameter overwrites cookie overwrites config; validation
     # overwrites everything
@@ -36,17 +46,14 @@ defmodule CforumWeb.MessageController do
     Cforum.Helpers.AsyncHelper.run_async(fn ->
       mark_messages_read(read_mode, conn.assigns[:current_user], conn.assigns.thread, conn.assigns.message)
 
-      types =
-        []
-        |> Helpers.add_if(ConfigManager.uconf(conn, "delete_read_notifications_on_abonements") == "yes", [
-          "message:create-answer",
-          "message:create-activity"
-        ])
-        |> Helpers.add_if(ConfigManager.uconf(conn, "delete_read_notifications_on_mention") == "yes", "message:mention")
-        |> List.flatten()
-
-      if Helpers.present?(types) do
-        Messages.unnotify_user(conn.assigns.current_user, read_mode, conn.assigns.thread, conn.assigns.message, types)
+      if ConfigManager.uconf(conn, "delete_read_notifications") == "yes" do
+        Messages.unnotify_user(
+          conn.assigns.current_user,
+          read_mode,
+          conn.assigns.thread,
+          conn.assigns.message,
+          @notification_types
+        )
       end
     end)
   end

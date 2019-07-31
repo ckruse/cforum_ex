@@ -3,6 +3,7 @@ defmodule CforumWeb.NotificationController do
 
   alias Cforum.Accounts.Notifications
   alias Cforum.Helpers
+  alias Cforum.ConfigManager
 
   alias CforumWeb.Sortable
   alias CforumWeb.Paginator
@@ -26,7 +27,11 @@ defmodule CforumWeb.NotificationController do
     # we ignore errors in this case; the user doesn't care, he just want's to
     # go to the referenced subject
     Cforum.Helpers.AsyncHelper.run_async(fn ->
-      Notifications.update_notification(conn.assigns.notification, %{is_read: true})
+      if ConfigManager.uconf(conn, "delete_read_notifications") == "yes" do
+        Notifications.delete_notification(conn.assigns.notification)
+      else
+        Notifications.update_notification(conn.assigns.notification, %{is_read: true})
+      end
     end)
 
     redirect(conn, to: conn.assigns.notification.path)
