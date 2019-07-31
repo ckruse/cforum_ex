@@ -193,5 +193,8 @@ export const lang = {
   "You successfully voted this message negatively.": "Sie haben diesen Beitrag erfolgreich negativ bewertet.",
 
   "scoring: no scores": "Bewertung: keine Bewertung",
-  "scoring: {score}": "Bewertung: {score}"
+  "scoring: {score}": "Bewertung: {score}",
+
+  "I agree": "Ich stimme zu",
+  "I changed my mind": "Ich habe meine Meinung geändert"
 };
