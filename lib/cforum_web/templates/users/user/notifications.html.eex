@@ -29,12 +29,6 @@
     </div>
 
     <div class="cf-cgroup">
-      <label class="checkbox">
-        <%= checkbox @f, :delete_read_notifications_on_abonements, checked_value: "yes", unchecked_value: "no" %> <%= gettext("automatically delete read notifications for activity in subscribed threads") %>
-      </label>
-    </div>
-
-    <div class="cf-cgroup">
       <label><%= gettext("notify me when a thread gets moved to a different forum") %></label>
       <label class="radio"><%= radio_button @f, :notify_on_move, "yes" %> <%= gettext("yes, notify me") %></label>
       <label class="radio"><%= radio_button @f, :notify_on_move, "no", checked: VHelpers.blank_or_value?(@f.data, :notify_on_move, "no") %> <%= gettext("no, don't notify me") %></label>
@@ -49,22 +43,10 @@
     </div>
 
     <div class="cf-cgroup">
-      <label class="checkbox">
-        <%= checkbox @f, :delete_read_notifications_on_mention, checked_value: "yes", unchecked_value: "no" %> <%= gettext("automatically delete read notifications for mentions") %>
-      </label>
-    </div>
-
-    <div class="cf-cgroup">
       <label><%= gettext("notify me when someone creates a new cite") %></label>
       <label class="radio"><%= radio_button @f, :notify_on_cite, "yes" %> <%= gettext("yes, notify me") %></label>
       <label class="radio"><%= radio_button @f, :notify_on_cite, "no", checked: VHelpers.blank_or_value?(@f.data, :notify_on_cite, "yes") %> <%= gettext("no, don't notify me") %></label>
       <label class="radio"><%= radio_button @f, :notify_on_cite, "email" %> <%= gettext("notify me via email") %></label>
-    </div>
-
-    <div class="cf-cgroup">
-      <label class="checkbox">
-        <%= checkbox @f, :delete_read_notifications_on_cite, checked_value: "yes", unchecked_value: "no" %> <%= gettext("automatically delete read notifications for new cites") %>
-      </label>
     </div>
 
     <%= if Abilities.may?(@conn, CforumWeb.ModerationController, :index) do %>
@@ -83,6 +65,12 @@
         <label class="radio"><%= radio_button @f, :notify_on_open_close_vote, "email" %> <%= gettext("via email") %></label>
       </div>
     <% end %>
+
+    <div class="cf-cgroup">
+      <label class="checkbox">
+        <%= checkbox @f, :delete_read_notifications, checked_value: "yes", unchecked_value: "no" %> <%= gettext("automatically delete read notifications") %>
+      </label>
+    </div>
 
   </fieldset>
 </div>
