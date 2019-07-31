@@ -21,7 +21,7 @@
 
   <%= render(CforumWeb.MessageView, "form.html", Map.merge(assigns, %{f: f})) %>
 
-  <%=VHelpers.l10n_render CforumWeb.MessageView, "post-notes.html", assigns %>
+  <%= VHelpers.l10n_render CforumWeb.MessageView, "post-notes.html", assigns %>
 
   <p class="form-actions">
     <%= VHelpers.Button.default_submit gettext("show preview"), name: "preview" %>

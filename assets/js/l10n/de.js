@@ -196,5 +196,8 @@ export const lang = {
   "scoring: {score}": "Bewertung: {score}",
 
   "I agree": "Ich stimme zu",
-  "I changed my mind": "Ich habe meine Meinung geändert"
+  "I changed my mind": "Ich habe meine Meinung geändert",
+
+  'You are using a very old browser. You might consider <a href="https://www.browser-update.org/de/update.html">upgrading</a>.':
+    'Sie benutzen einen sehr alten Browser. Vielleicht möchten Sie <a href="https://www.browser-update.org/de/update.html">updaten</a>?'
 };
