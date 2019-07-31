@@ -20,6 +20,8 @@
 
 import "../css/app.scss";
 
+import "./browser-support";
+
 import "./modules/closest";
 import "./modules/alerts";
 
