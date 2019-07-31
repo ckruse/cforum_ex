@@ -1414,7 +1414,7 @@ msgstr ""
 msgid "previous page"
 msgstr ""
 
-#: lib/cforum/messages/message.ex:190
+#: lib/cforum/messages/message.ex:194
 msgid "unknown tags given: %{tags}"
 msgstr ""
 
@@ -3981,7 +3981,7 @@ msgid "Tag %{no}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/messages/message.ex:224
+#: lib/cforum/messages/message.ex:228
 msgid "is unknown"
 msgstr ""
 
@@ -4603,7 +4603,12 @@ msgstr ""
 msgid "Sorry, could not find a valid user"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/users/user/notifications.html.eex:71
 msgid "automatically delete read notifications"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum/messages/message.ex:272
+msgid "seems like spam!"
 msgstr ""
