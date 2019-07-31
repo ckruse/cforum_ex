@@ -21,7 +21,9 @@ defmodule CforumWeb.Users.PasswordController do
         |> redirect(to: Path.root_path(conn, :index))
 
       _ ->
-        render(conn, "new.html")
+        conn
+        |> put_flash(:error, gettext("Sorry, could not find a valid user"))
+        |> render("new.html")
     end
   end
 

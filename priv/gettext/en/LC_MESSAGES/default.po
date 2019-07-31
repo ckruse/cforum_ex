@@ -329,7 +329,7 @@ msgstr ""
 msgid "Hi there, %{name}!"
 msgstr ""
 
-#: lib/cforum_web/controllers/notification_controller.ex:46
+#: lib/cforum_web/controllers/notification_controller.ex:51
 #: lib/cforum_web/controllers/users/registration_controller.ex:50
 msgid "Oops, something went wrong!"
 msgstr ""
@@ -679,15 +679,15 @@ msgstr ""
 msgid "no, don't automatically subscribe"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:40
-#: lib/cforum_web/templates/users/user/notifications.html.eex:47
-#: lib/cforum_web/templates/users/user/notifications.html.eex:60
+#: lib/cforum_web/templates/users/user/notifications.html.eex:34
+#: lib/cforum_web/templates/users/user/notifications.html.eex:41
+#: lib/cforum_web/templates/users/user/notifications.html.eex:48
 msgid "no, don't notify me"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:41
-#: lib/cforum_web/templates/users/user/notifications.html.eex:48
-#: lib/cforum_web/templates/users/user/notifications.html.eex:61
+#: lib/cforum_web/templates/users/user/notifications.html.eex:35
+#: lib/cforum_web/templates/users/user/notifications.html.eex:42
+#: lib/cforum_web/templates/users/user/notifications.html.eex:49
 msgid "notify me via email"
 msgstr ""
 
@@ -695,15 +695,15 @@ msgstr ""
 msgid "notify me via email on activity in subscribed threads"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:38
+#: lib/cforum_web/templates/users/user/notifications.html.eex:32
 msgid "notify me when a thread gets moved to a different forum"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:58
+#: lib/cforum_web/templates/users/user/notifications.html.eex:46
 msgid "notify me when someone creates a new cite"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:45
+#: lib/cforum_web/templates/users/user/notifications.html.eex:39
 msgid "notify me when someone mentions me"
 msgstr ""
 
@@ -711,9 +711,9 @@ msgstr ""
 msgid "notify on new threads"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:39
-#: lib/cforum_web/templates/users/user/notifications.html.eex:46
-#: lib/cforum_web/templates/users/user/notifications.html.eex:59
+#: lib/cforum_web/templates/users/user/notifications.html.eex:33
+#: lib/cforum_web/templates/users/user/notifications.html.eex:40
+#: lib/cforum_web/templates/users/user/notifications.html.eex:47
 msgid "yes, notify me"
 msgstr ""
 
@@ -775,8 +775,8 @@ msgstr ""
 msgid "Notifications"
 msgstr ""
 
-#: lib/cforum_web/controllers/users/password_controller.ex:47
-#: lib/cforum_web/controllers/users/password_controller.ex:75
+#: lib/cforum_web/controllers/users/password_controller.ex:49
+#: lib/cforum_web/controllers/users/password_controller.ex:77
 msgid "Password updated successfully."
 msgstr ""
 
@@ -964,11 +964,11 @@ msgstr ""
 msgid "New forum"
 msgstr ""
 
-#: lib/cforum_web/controllers/notification_controller.ex:55
+#: lib/cforum_web/controllers/notification_controller.ex:60
 msgid "Notification deleted successfully."
 msgstr ""
 
-#: lib/cforum_web/controllers/notification_controller.ex:41
+#: lib/cforum_web/controllers/notification_controller.ex:46
 msgid "Notification successfully marked as unread."
 msgstr ""
 
@@ -1081,7 +1081,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/user/index.html.eex:34
 #: lib/cforum_web/templates/admin/user/index.html.eex:35
 #: lib/cforum_web/templates/users/user/comfort.html.eex:27
-#: lib/cforum_web/templates/users/user/notifications.html.eex:82
+#: lib/cforum_web/templates/users/user/notifications.html.eex:64
 msgid "no"
 msgstr ""
 
@@ -1105,7 +1105,7 @@ msgstr ""
 msgid "remove rel=nofollow from my homepage URL"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:80
+#: lib/cforum_web/templates/users/user/notifications.html.eex:62
 msgid "send me a notification on close and re-open votes"
 msgstr ""
 
@@ -1173,7 +1173,7 @@ msgstr ""
 msgid "use inline answer forms"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:83
+#: lib/cforum_web/templates/users/user/notifications.html.eex:65
 msgid "via email"
 msgstr ""
 
@@ -1181,7 +1181,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/search_section/index.html.eex:19
 #: lib/cforum_web/templates/admin/user/index.html.eex:34
 #: lib/cforum_web/templates/users/user/comfort.html.eex:26
-#: lib/cforum_web/templates/users/user/notifications.html.eex:81
+#: lib/cforum_web/templates/users/user/notifications.html.eex:63
 msgid "yes"
 msgstr ""
 
@@ -1300,8 +1300,8 @@ msgstr ""
 msgid "new answer to %{name}"
 msgstr ""
 
-#: lib/cforum_web/controllers/message_controller.ex:104
-#: lib/cforum_web/controllers/message_controller.ex:146
+#: lib/cforum_web/controllers/message_controller.ex:111
+#: lib/cforum_web/controllers/message_controller.ex:153
 msgid "Message created successfully."
 msgstr ""
 
@@ -1310,7 +1310,7 @@ msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">
 msgstr ""
 
 #: lib/cforum_web/controllers/api/v1/message_controller.ex:25
-#: lib/cforum_web/controllers/message_controller.ex:68
+#: lib/cforum_web/controllers/message_controller.ex:75
 #: lib/cforum_web/controllers/thread_controller.ex:122
 msgid "all"
 msgstr ""
@@ -3150,6 +3150,7 @@ msgid "Successfully downvoted message"
 msgstr ""
 
 #, elixir-format
+#: lib/cforum_web/controllers/api/v1/messages/open_close_vote_controller.ex:17
 #: lib/cforum_web/controllers/messages/open_close_vote_controller.ex:57
 #: lib/cforum_web/controllers/messages/vote_controller.ex:21
 #: lib/cforum_web/controllers/messages/vote_controller.ex:38
@@ -3836,13 +3837,9 @@ msgid "Start an open vote"
 msgstr ""
 
 #, elixir-format
+#: lib/cforum_web/controllers/api/v1/messages/open_close_vote_controller.ex:20
 #: lib/cforum_web/controllers/messages/open_close_vote_controller.ex:60
 msgid "Successfully voted"
-msgstr ""
-
-#, elixir-format
-#: lib/cforum_web/templates/message/reopen_vote.html.eex:5
-msgid "The given reason:"
 msgstr ""
 
 #, elixir-format
@@ -3861,7 +3858,7 @@ msgid "auditing: close_votes_voters: vote"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/close_vote.html.eex:3
+#: lib/cforum_web/templates/message/close_vote.html.eex:4
 msgid "close vote (%{votes}/%{votes_needed})"
 msgstr ""
 
@@ -3896,7 +3893,7 @@ msgid "auditing: messages: unflag-no-answer"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/reopen_vote.html.eex:1
+#: lib/cforum_web/templates/message/reopen_vote.html.eex:2
 msgid "reopen vote (%{votes}/%{votes_needed})"
 msgstr ""
 
@@ -4305,17 +4302,17 @@ msgid "no message version found."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/notification_controller.ex:80
+#: lib/cforum_web/controllers/notification_controller.ex:85
 msgid "Notifications have successfully been deleted."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/notification_controller.ex:63
+#: lib/cforum_web/controllers/notification_controller.ex:68
 msgid "Notifications successfully marked as read."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/notification_controller.ex:66
+#: lib/cforum_web/controllers/notification_controller.ex:71
 msgid "Notifications successfully marked as unread."
 msgstr ""
 
@@ -4422,7 +4419,7 @@ msgid "last visit"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/notifications.html.eex:73
+#: lib/cforum_web/templates/users/user/notifications.html.eex:55
 msgid "notify me via email on flagged messages"
 msgstr ""
 
@@ -4492,12 +4489,13 @@ msgid "less than %{minutes} minutes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/close_vote.html.eex:11
+#: lib/cforum_web/templates/message/close_vote.html.eex:12
+#: lib/cforum_web/templates/message/reopen_vote.html.eex:6
 msgid "The given reason: %{reason}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/close_vote.html.eex:5
+#: lib/cforum_web/templates/message/close_vote.html.eex:6
 msgid "delete vote (%{votes}/%{votes_needed})"
 msgstr ""
 
@@ -4598,4 +4596,14 @@ msgstr ""
 #, elixir-format
 #: lib/cforum/messages/notify_moderators_close_vote.ex:78
 msgid "a reopen vote has been finished for message „%{subject}“"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/controllers/users/password_controller.ex:25
+msgid "Sorry, could not find a valid user"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/users/user/notifications.html.eex:71
+msgid "automatically delete read notifications"
 msgstr ""
