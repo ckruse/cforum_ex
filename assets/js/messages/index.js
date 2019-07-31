@@ -5,6 +5,7 @@ if (document.body.dataset.controller === "MessageController") {
     });
 
     import(/* webpackChunkName: "messages-show" */ "./voting");
+    import(/* webpackChunkName: "messages-show" */ "./close_votes");
   }
 
   if (document.body.classList.contains("nested-view")) {
