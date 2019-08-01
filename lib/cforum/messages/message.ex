@@ -105,8 +105,8 @@ defmodule Cforum.Messages.Message do
          forum <- Cforum.Forums.get_forum!(id) do
       settings = Cforum.ConfigManager.settings_map(forum, nil)
 
-      min_tags = Cforum.ConfigManager.conf(settings, "min_tags_per_message")
-      max_tags = Cforum.ConfigManager.conf(settings, "max_tags_per_message")
+      min_tags = Cforum.ConfigManager.conf(settings, "min_tags_per_message", :int)
+      max_tags = Cforum.ConfigManager.conf(settings, "max_tags_per_message", :int)
 
       no_tags = length(get_field(changeset, :tags, []))
 
