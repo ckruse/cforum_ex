@@ -19,7 +19,6 @@ export default class Meta extends React.PureComponent {
               {t("forum")}
             </ErrorLabel>
             <select name="message[forum_id]" id="message_forum_id" value={forumId} onChange={this.props.onChange}>
-              <option />
               {this.props.forumOptions.map(opt => (
                 <option key={opt.value} value={opt.value}>
                   {opt.text}
