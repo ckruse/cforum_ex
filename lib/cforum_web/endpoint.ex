@@ -35,7 +35,11 @@ defmodule CforumWeb.Endpoint do
   plug(Plug.Logger)
   plug(CforumWeb.Plug.CurrentForum)
 
-  plug(Plug.Parsers, parsers: [:urlencoded, :multipart, :json], pass: ["*/*"], json_decoder: Jason)
+  plug(Plug.Parsers,
+    parsers: [:urlencoded, {:multipart, length: 104_857_600}, :json],
+    pass: ["*/*"],
+    json_decoder: Jason
+  )
 
   plug(Plug.MethodOverride)
   plug(Plug.Head)
