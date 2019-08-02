@@ -20,7 +20,12 @@ defmodule CforumWeb.ArchiveController do
     render(conn, "months.html", months: months, year: year)
   end
 
+  @month_name_rx ~r/^(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)$/
+
   def threads(conn, %{"year" => year, "month" => month_name} = params) do
+    if !Regex.match?(~r/^\d+$/, year) || !Regex.match?(@month_name_rx, month_name),
+      do: raise(Phoenix.Router.NoRouteError, conn: conn, router: CforumWeb.Router)
+
     case NaiveDateTime.new(String.to_integer(year), Timex.month_to_num(month_name), 1, 0, 0, 0) do
       {:ok, month} ->
         start_date = Timex.beginning_of_month(month)
