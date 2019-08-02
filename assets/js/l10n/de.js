@@ -199,5 +199,8 @@ export const lang = {
   "I changed my mind": "Ich habe meine Meinung geändert",
 
   'You are using a very old browser. You might consider <a href="https://www.browser-update.org/de/update.html">upgrading</a>.':
-    'Sie benutzen einen sehr alten Browser. Vielleicht möchten Sie <a href="https://www.browser-update.org/de/update.html">updaten</a>?'
+    'Sie benutzen einen sehr alten Browser. Vielleicht möchten Sie <a href="https://www.browser-update.org/de/update.html">updaten</a>?',
+
+  "The image you tried to paste exceeds the size limit of {maxSize} mb":
+    "Das Bild, dass Sie einfügen wollten, ist leider größer als das zulässige Limit von {maxSize} mb"
 };

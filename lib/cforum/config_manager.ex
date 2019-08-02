@@ -145,7 +145,7 @@ defmodule Cforum.ConfigManager do
     "target_blank_for_posting_links"
   ]
 
-  @visible_config ["max_tags_per_message", "min_tags_per_message"] ++ @user_config_keys
+  @visible_config ["max_tags_per_message", "min_tags_per_message", "max_image_filesize"] ++ @user_config_keys
 
   def user_config_keys, do: @user_config_keys
 
