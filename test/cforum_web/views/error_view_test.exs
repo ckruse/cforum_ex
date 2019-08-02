@@ -4,15 +4,18 @@ defmodule CforumWeb.ErrorViewTest do
   # Bring render/3 and render_to_string/3 for testing custom views
   import Phoenix.View
 
-  test "renders 404.html" do
-    assert render_to_string(CforumWeb.ErrorView, "404.html", [])
+  test "renders 403.html", %{conn: conn} do
+    conn = put_private(conn, :phoenix_endpoint, CforumWeb.Endpoint)
+    assert render_to_string(CforumWeb.ErrorView, "403.html", conn: conn, current_forum: nil)
   end
 
-  test "render 500.html" do
-    assert render_to_string(CforumWeb.ErrorView, "500.html", [])
+  test "renders 404.html", %{conn: conn} do
+    conn = put_private(conn, :phoenix_endpoint, CforumWeb.Endpoint)
+    assert render_to_string(CforumWeb.ErrorView, "404.html", conn: conn, current_forum: nil)
   end
 
-  test "render any other" do
-    assert render_to_string(CforumWeb.ErrorView, "505.html", [])
+  test "render 500.html", %{conn: conn} do
+    conn = put_private(conn, :phoenix_endpoint, CforumWeb.Endpoint)
+    assert render_to_string(CforumWeb.ErrorView, "500.html", conn: conn, current_forum: nil)
   end
 end

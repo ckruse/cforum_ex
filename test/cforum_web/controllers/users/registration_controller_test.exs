@@ -15,7 +15,10 @@ defmodule CforumWeb.Users.RegistrationControllerTest do
   test "registers a new user", %{conn: conn} do
     conn =
       conn
-      |> Plug.Test.put_req_cookie("cf_sess", "1")
+      |> Plug.Test.put_req_cookie(
+        "cf_sess",
+        Phoenix.Token.sign(CforumWeb.Endpoint, "registering", Timex.to_unix(Timex.now()))
+      )
       |> post(Path.registration_path(conn, :create),
         user: %{username: "foobar", email: "foo@example.org", password: "1234", password_confirmation: "1234"}
       )
