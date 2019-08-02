@@ -414,7 +414,9 @@ defmodule CforumWeb.Views.Helpers.Path do
   # images
 
   def image_path(conn, action, image_or_params \\ nil, params \\ [])
-  def image_path(conn, :delete, image, params), do: image_path(conn, :show, image, params)
+
+  def image_path(conn, :delete, image, params),
+    do: "#{root_path(conn, :index, false)}images/#{image.medium_id}#{encode_query_string(conn, params)}"
 
   def image_path(conn, :index, params, _),
     do: "#{root_path(conn, :index, false)}images#{encode_query_string(conn, params)}"
