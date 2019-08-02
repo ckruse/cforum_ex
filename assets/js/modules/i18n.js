@@ -8,9 +8,6 @@ const defaultLanguage = de;
 
 export const t = function(key, placeholders = {}) {
   const lang = l10nData[window.navigator.language] || defaultLanguage;
-  if (!lang[key]) {
-    return key;
-  }
 
   let msg = lang[key] || key;
   Object.keys(placeholders).forEach(key => {
