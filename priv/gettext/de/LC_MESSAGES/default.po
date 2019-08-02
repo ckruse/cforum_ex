@@ -4081,7 +4081,7 @@ msgstr "Versions-Historie des Beitrags „%{subject}“"
 #, elixir-format
 #: lib/cforum_web/controllers/image_controller.ex:48
 msgid "Image deleted successfully."
-msgstr "Medaille erfolgreich gelöscht."
+msgstr "Das Bild wurde erfolgreich gelöscht."
 
 #, elixir-format
 #: lib/cforum_web/controllers/messages/admin_controller.ex:16
