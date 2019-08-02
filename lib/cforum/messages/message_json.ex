@@ -1,7 +1,10 @@
 alias Cforum.Messages.Message
+alias Cforum.Repo
 
 defimpl Jason.Encoder, for: Message do
   def encode(message, options) do
+    message = Repo.preload(message, [:tags])
+
     message
     |> Map.take([
       :message_id,
