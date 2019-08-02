@@ -55,7 +55,7 @@ defmodule CforumWeb.Users.RegistrationController do
   def allowed?(conn, _, _), do: !Abilities.signed_in?(conn)
 
   defp token_valid?(conn) do
-    case Phoenix.Token.verify(conn, "registering", conn.cookies["cf_sess"], max_age: 86_400) do
+    case Phoenix.Token.verify(conn, "registering", conn.cookies["cf_sess"], max_age: 600) do
       {:ok, _} -> true
       _ -> false
     end
