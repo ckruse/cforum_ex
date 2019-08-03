@@ -1,5 +1,5 @@
 <header class="cf-message-header <%= header_classes(@thread, @message, @opts[:viewed_message], assigns) %>" <%= message_id(@message, @opts) %>>
-  <%= render "header_message_icons.html", assigns %>
+  <%= if @opts[:show_icons], do: render "header_message_icons.html", assigns %>
 
   <%= if @opts[:first] && (!@conn.assigns[:current_forum] || @opts[:plate]) do %>
    <%= if @thread.forum, do: link(@thread.forum.short_name, to: Path.forum_path(@conn, :index, @thread.forum), class: "cf-thread-forum-plate") %>
