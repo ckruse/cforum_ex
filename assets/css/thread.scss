@@ -7,7 +7,6 @@
   .cf-message-header {
     display: inline-flex;
     flex-wrap: nowrap;
-    width: calc(100% - 1.2rem);
 
     .details {
       flex: 1 1 auto;
@@ -30,7 +29,6 @@
 
   .cf-thread > .cf-message-header {
     display: flex;
-    width: auto;
   }
 
   ol {
