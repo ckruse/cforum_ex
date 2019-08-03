@@ -1,6 +1,7 @@
 defmodule Cforum.Search.Finder do
   import Ecto.Query, warn: false
-  import Cforum.Helpers
+
+  alias Cforum.Helpers
   alias Cforum.Repo
 
   alias Cforum.Search.Document
@@ -317,7 +318,7 @@ defmodule Cforum.Search.Finder do
     includes =
       includes
       |> Enum.map(&ts_term/1)
-      |> Enum.filter(&present?/1)
+      |> Enum.filter(&Helpers.present?/1)
 
     excludes =
       excludes

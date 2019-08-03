@@ -1,9 +1,8 @@
 defmodule Cforum.Accounts.YearlingBadgeDistributorJob do
   alias Cforum.Repo
+  alias Cforum.Helpers
   alias Cforum.Accounts.Users
   alias Cforum.Accounts.{Badge, Badges}
-
-  import Cforum.Helpers, only: [blank?: 1]
 
   def perform do
     users =
@@ -18,7 +17,7 @@ defmodule Cforum.Accounts.YearlingBadgeDistributorJob do
           |> Enum.max_by(&Timex.to_erl(&1.created_at), fn -> nil end)
 
         difference =
-          if blank?(last_yearling),
+          if Helpers.blank?(last_yearling),
             do: Timex.diff(Timex.now(), user.created_at, :years),
             else: Timex.diff(Timex.now(), last_yearling.created_at, :years)
 

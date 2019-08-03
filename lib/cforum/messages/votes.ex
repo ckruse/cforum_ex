@@ -4,10 +4,9 @@ defmodule Cforum.Messages.Votes do
   """
 
   import Ecto.Query, warn: false
+
   alias Cforum.Repo
-
-  import Cforum.Helpers
-
+  alias Cforum.Helpers
   alias Cforum.Accounts.Scores
   alias Cforum.Messages.Vote
   alias Cforum.Messages
@@ -157,7 +156,7 @@ defmodule Cforum.Messages.Votes do
   def voted?(%Message{__meta__: %{state: :built}}, _, _), do: false
 
   def voted?(message, user, type) when not is_nil(user) and type in ["upvote", "downvote"],
-    do: present?(Enum.find(message.votes, fn vote -> vote.user_id == user.user_id && vote.vtype == type end))
+    do: Helpers.present?(Enum.find(message.votes, fn vote -> vote.user_id == user.user_id && vote.vtype == type end))
 
   def voted?(_, _, _), do: false
 
@@ -181,7 +180,7 @@ defmodule Cforum.Messages.Votes do
 
       {:ok, vote} = create_vote(%{message_id: message.message_id, user_id: user.user_id, vtype: "upvote"})
 
-      if present?(message.user_id) do
+      if Helpers.present?(message.user_id) do
         {:ok, _score} = Scores.create_score(%{vote_id: vote.vote_id, user_id: message.user_id, value: points})
       end
 
@@ -200,7 +199,7 @@ defmodule Cforum.Messages.Votes do
       {:ok, vote} = create_vote(%{message_id: message.message_id, user_id: user.user_id, vtype: "downvote"})
       {:ok, _score} = Scores.create_score(%{vote_id: vote.vote_id, user_id: user.user_id, value: points})
 
-      if present?(message.user_id) do
+      if Helpers.present?(message.user_id) do
         {:ok, _score} = Scores.create_score(%{vote_id: vote.vote_id, user_id: message.user_id, value: points})
       end
 

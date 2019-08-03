@@ -4,8 +4,8 @@ defmodule Cforum.Accounts.PrivMessages do
   """
 
   import Ecto.Query, warn: false
-  import Cforum.Helpers
 
+  alias Cforum.Helpers
   alias Cforum.Repo
   alias Cforum.Accounts.PrivMessage
   alias Cforum.Accounts.User
@@ -427,7 +427,7 @@ defmodule Cforum.Accounts.PrivMessages do
 
     cnt =
       if opts[:quote],
-        do: attribute_value(parent, :body, ""),
+        do: Helpers.attribute_value(parent, :body, ""),
         else: ""
 
     content =

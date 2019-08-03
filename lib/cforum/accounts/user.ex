@@ -3,7 +3,8 @@ defmodule Cforum.Accounts.User do
   use Arc.Ecto.Schema
 
   import CforumWeb.Gettext
-  import Cforum.Helpers, only: [blank?: 1]
+
+  alias Cforum.Helpers
   alias Phoenix.Token
 
   alias Cforum.Accounts.User
@@ -130,7 +131,7 @@ defmodule Cforum.Accounts.User do
   end
 
   defp maybe_confirm_password(changeset) do
-    if blank?(get_field(changeset, :password)),
+    if Helpers.blank?(get_field(changeset, :password)),
       do: changeset,
       else: confirm_password(changeset)
   end
@@ -147,7 +148,7 @@ defmodule Cforum.Accounts.User do
   end
 
   defp maybe_put_password(changeset) do
-    if blank?(get_field(changeset, :password)),
+    if Helpers.blank?(get_field(changeset, :password)),
       do: changeset,
       else: put_password_hash(changeset)
   end

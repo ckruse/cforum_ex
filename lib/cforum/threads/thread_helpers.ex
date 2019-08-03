@@ -1,6 +1,7 @@
 defmodule Cforum.Threads.ThreadHelpers do
   import Ecto.Query, warn: false
-  import Cforum.Helpers
+
+  alias Cforum.Helpers
 
   alias Cforum.Repo
   alias Cforum.ConfigManager
@@ -12,11 +13,11 @@ defmodule Cforum.Threads.ThreadHelpers do
 
   def get_ordering(conn, user) do
     cond do
-      present?(conn.params["order"]) ->
+      Helpers.present?(conn.params["order"]) ->
         order = conn.params["order"] |> validated_ordering(conn.assigns[:current_forum])
         {user == nil, order}
 
-      present?(conn.cookies["cf_order"]) && user == nil ->
+      Helpers.present?(conn.cookies["cf_order"]) && user == nil ->
         order = conn.cookies["order"] |> validated_ordering(conn.assigns[:current_forum])
         {false, order}
 
