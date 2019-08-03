@@ -62,7 +62,6 @@
     display: inline-block;
     color: #8a9da8;
     font-size: 0.9em;
-    text-align: right;
     cursor: default;
   }
 
@@ -71,13 +70,17 @@
     content: "|";
     color: $visited-link-color;
     opacity: 0.5;
-    margin-left: 0;
-    margin-right: 0.25em;
+    margin-left: -0.3em;
+    margin-right: 0.2em;
   }
 
   .votes {
-    margin-left: 0.5em;
     margin-right: 0.5em;
+    text-align: right;
+  }
+
+  .num-infos {
+    margin-right: 0.5rem;
   }
 
   &.deleted {
@@ -101,6 +104,7 @@
   .details > a,
   .details > .cf-tags-list,
   .cf-thread-forum-plate {
+    margin-right: 0.5em;
     display: none;
   }
 
@@ -165,6 +169,8 @@
 
   .thread-icons,
   .message-icons {
+    margin-right: 0.5rem;
+
     .icon-button {
       border: 0;
       padding: 0;
