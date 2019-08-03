@@ -163,7 +163,13 @@ defmodule CforumWeb.MailController do
         Plug.Conn.assign(conn, :priv_message, pm)
 
       action_name(conn) == :show ->
-        thread = PrivMessages.get_priv_message_thread!(conn.assigns[:current_user], conn.params["id"])
+        sort_dir = ConfigManager.uconf(conn, "mail_thread_sort")
+
+        thread =
+          PrivMessages.get_priv_message_thread!(conn.assigns[:current_user], conn.params["id"],
+            messages_order: ordering(sort_dir)
+          )
+
         id = String.to_integer(conn.params["id"])
         priv_message = Enum.find(thread, &(&1.priv_message_id == id))
 
