@@ -7,6 +7,7 @@
   .cf-message-header {
     display: inline-flex;
     flex-wrap: nowrap;
+    align-items: baseline;
 
     .details {
       flex: 1 1 auto;
