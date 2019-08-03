@@ -4,7 +4,7 @@ defmodule CforumWeb.Plug.LoadMotd do
   """
 
   alias Cforum.ConfigManager
-  import Cforum.Helpers, only: [present?: 1]
+  alias Cforum.Helpers
 
   def init(opts), do: opts
 
@@ -14,10 +14,10 @@ defmodule CforumWeb.Plug.LoadMotd do
 
     motds =
       [global_motd, motd]
-      |> Enum.filter(&present?/1)
+      |> Enum.filter(&Helpers.present?/1)
       |> Enum.uniq()
 
-    if present?(motds),
+    if Helpers.present?(motds),
       do: Plug.Conn.assign(conn, :motds, motds),
       else: conn
   end

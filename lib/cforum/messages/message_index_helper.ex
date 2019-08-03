@@ -1,5 +1,8 @@
 defmodule Cforum.Messages.IndexHelper do
+  import Ecto.Query
+
   alias Cforum.Repo
+  alias Cforum.Helpers
   alias Cforum.Threads.{Thread, OpenCloseState}
   alias Cforum.Messages.Message
 
@@ -7,10 +10,6 @@ defmodule Cforum.Messages.IndexHelper do
   alias Cforum.Messages.InterestingMessage
   alias Cforum.Messages.Subscription
   alias Cforum.Threads.InvisibleThread
-
-  import Ecto.Query
-
-  import Cforum.Helpers
 
   def preload_messages(true), do: from(m in Message)
   def preload_messages(_), do: from(m in Message, where: m.deleted == false)
@@ -110,9 +109,9 @@ defmodule Cforum.Messages.IndexHelper do
       Enum.map(thread.messages, fn msg ->
         classes =
           msg.attribs[:classes]
-          |> add_if(read_messages[msg.message_id] != nil, "visited")
-          |> add_if(subscribed_messages[msg.message_id] != nil, "subscribed")
-          |> add_if(interesting_messages[msg.message_id] != nil, "interesting")
+          |> Helpers.add_if(read_messages[msg.message_id] != nil, "visited")
+          |> Helpers.add_if(subscribed_messages[msg.message_id] != nil, "subscribed")
+          |> Helpers.add_if(interesting_messages[msg.message_id] != nil, "interesting")
 
         new_attribs =
           msg.attribs

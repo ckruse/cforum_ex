@@ -1,10 +1,9 @@
 defmodule Cforum.Messages.Mentions do
   alias Ecto.Changeset
+  alias Cforum.Helpers
   alias Cforum.Messages.Message
   alias Cforum.ConfigManager
   alias Cforum.Messages.HighlightsHelper
-
-  import Cforum.Helpers, only: [blank?: 1]
 
   def parse_mentions(%Changeset{valid?: true} = changeset) do
     content = Changeset.get_field(changeset, :content)
@@ -42,7 +41,7 @@ defmodule Cforum.Messages.Mentions do
         lines =
           block.lines
           |> Enum.map(&Regex.replace(context.rules.code, &1, ""))
-          |> Enum.reject(&blank?/1)
+          |> Enum.reject(&Helpers.blank?/1)
 
         Map.put(block, :lines, lines)
     end)
@@ -60,11 +59,11 @@ defmodule Cforum.Messages.Mentions do
         found =
           Enum.map(block.lines, &find_mentions(&1, [], in_quote))
           |> List.flatten()
-          |> Enum.reject(&blank?/1)
+          |> Enum.reject(&Helpers.blank?/1)
 
         [found | mentions]
     end)
-    |> Enum.reject(&blank?/1)
+    |> Enum.reject(&Helpers.blank?/1)
     |> List.flatten()
   end
 
@@ -77,7 +76,7 @@ defmodule Cforum.Messages.Mentions do
     [line] = Regex.run(~r/^(.*)$/m, rest, capture: :all_but_first)
     user = find_user(line)
 
-    if blank?(user),
+    if Helpers.blank?(user),
       do: find_mentions(rest, mentions, in_quote),
       else: find_mentions(rest, [{user.username, user.user_id, in_quote} | mentions], in_quote)
   end
@@ -128,7 +127,7 @@ defmodule Cforum.Messages.Mentions do
     if line =~ ~r/^(?:> *)*\s*~~~\s*\S*$/m do
       {code_lines, rest} = Enum.split_while(lines, fn line -> !Regex.match?(~r/^(?:> *)*~~~\s*$/m, line) end)
 
-      if blank?(rest) do
+      if Helpers.blank?(rest) do
         # unfinished code block
         gen_markup(config, user, lines, mentions, regex, Enum.concat(new_content, [line]))
       else
@@ -170,7 +169,7 @@ defmodule Cforum.Messages.Mentions do
       String.first(line) == "`" ->
         {code, rest} = skip_code(String.slice(line, 1..-1), "`")
 
-        if String.first(rest) == "`" && blank?(code),
+        if String.first(rest) == "`" && Helpers.blank?(code),
           # unterminated code
           do: parse_line(config, user, String.slice(rest, 1..-1), regex, mentions, new_line <> "`"),
           # terminated code

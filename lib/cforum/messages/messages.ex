@@ -6,9 +6,9 @@ defmodule Cforum.Messages do
   """
 
   import Ecto.Query, warn: false
-  alias Cforum.Repo
 
-  import Cforum.Helpers
+  alias Cforum.Repo
+  alias Cforum.Helpers
 
   alias Cforum.Messages.Message
 
@@ -416,7 +416,7 @@ defmodule Cforum.Messages do
 
     cnt =
       if opts[:quote],
-        do: attribute_value(message, :content, ""),
+        do: Helpers.attribute_value(message, :content, ""),
         else: ""
 
     content =
@@ -424,7 +424,7 @@ defmodule Cforum.Messages do
       |> CompositionHelpers.quote_from_content(opts[:strip_signature])
       |> CompositionHelpers.maybe_add_greeting(
         opts[:greeting],
-        attribute_value(message, :author),
+        Helpers.attribute_value(message, :author),
         opts[:std_replacement]
       )
       |> CompositionHelpers.maybe_add_farewell(opts[:farewell])
@@ -434,13 +434,13 @@ defmodule Cforum.Messages do
       author: opts[:author],
       email: opts[:email],
       homepage: opts[:homepage],
-      subject: attribute_value(message, :subject),
-      problematic_site: attribute_value(message, :problematic_site),
+      subject: Helpers.attribute_value(message, :subject),
+      problematic_site: Helpers.attribute_value(message, :problematic_site),
       content: content
       # tags_str: tags_str,
     }
     |> change_message(user, visible_forums)
-    |> Ecto.Changeset.put_assoc(:tags, attribute_value(message, :tags, []))
+    |> Ecto.Changeset.put_assoc(:tags, Helpers.attribute_value(message, :tags, []))
   end
 
   @doc """

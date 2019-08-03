@@ -3,8 +3,8 @@ defmodule Cforum.Messages.Message do
 
   import Ecto.Query, warn: false
   import CforumWeb.Gettext
-  import Cforum.Helpers
 
+  alias Cforum.Helpers
   alias Cforum.Accounts.User
   alias Cforum.Messages.Tag
   alias Cforum.Messages.Tags
@@ -175,7 +175,7 @@ defmodule Cforum.Messages.Message do
     tags =
       tags
       |> Enum.map(&String.trim/1)
-      |> Enum.reject(&blank?/1)
+      |> Enum.reject(&Helpers.blank?/1)
       |> Enum.map(&String.downcase/1)
 
     parse_tags(changeset, tags, user, create_tags)
@@ -186,7 +186,7 @@ defmodule Cforum.Messages.Message do
   defp parse_tags(changeset, tags, user, create_tags) do
     {known_tags, unknown_tags} = maybe_create_tags(tags, user, create_tags)
 
-    if blank?(unknown_tags) do
+    if Helpers.blank?(unknown_tags) do
       put_assoc(changeset, :tags, known_tags)
     else
       changeset
@@ -264,7 +264,7 @@ defmodule Cforum.Messages.Message do
 
   defp validate_blacklist(changeset, field, conf_key) do
     forum_id = get_field(changeset, :forum_id)
-    forum = if present?(forum_id), do: Cforum.Forums.get_forum!(forum_id), else: nil
+    forum = if Helpers.present?(forum_id), do: Cforum.Forums.get_forum!(forum_id), else: nil
     blacklist = Cforum.ConfigManager.conf(forum, conf_key)
     value = get_field(changeset, field)
 
@@ -278,7 +278,7 @@ defmodule Cforum.Messages.Message do
   defp matches?(str, list) do
     list
     |> String.split(~r/\015\012|\015|\012/)
-    |> Enum.reject(&blank?/1)
+    |> Enum.reject(&Helpers.blank?/1)
     |> Enum.any?(fn rx ->
       regex = Regex.compile!(rx, "i")
       Regex.match?(regex, str)

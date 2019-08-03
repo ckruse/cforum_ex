@@ -1,8 +1,8 @@
 defmodule Cforum.Messages.NewMessageBadgeDistributorJob do
   import Ecto.Query, only: [from: 2]
-  import Cforum.Helpers, only: [present?: 1, blank?: 1]
 
   alias Cforum.Repo
+  alias Cforum.Helpers
   alias Cforum.Accounts.{Users, Badges}
   alias Cforum.Messages
   alias Cforum.Messages.Message
@@ -29,7 +29,7 @@ defmodule Cforum.Messages.NewMessageBadgeDistributorJob do
 
       check_for_message_no_badges(user)
 
-      if present?(message.parent_id) do
+      if Helpers.present?(message.parent_id) do
         parent = Messages.get_message!(message.parent_id)
         check_for_teacher_badge(user, parent)
       end
@@ -56,7 +56,7 @@ defmodule Cforum.Messages.NewMessageBadgeDistributorJob do
   defp check_for_teacher_badge(user, parent) do
     vote = Votes.get_vote(parent, user)
 
-    if blank?(vote) && parent.user_id != user.user_id && !Users.badge?(user, {:slug, "teacher"}),
+    if Helpers.blank?(vote) && parent.user_id != user.user_id && !Users.badge?(user, {:slug, "teacher"}),
       do: Badges.grant_badge({:slug, "teacher"}, user)
   end
 end
