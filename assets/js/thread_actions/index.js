@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
+  if (!document.body.dataset.userId) {
+    return;
+  }
+
   const element = document.querySelector(".cf-thread-list");
 
   if (!element || !element.matches) {
