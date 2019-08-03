@@ -71,12 +71,15 @@
     content: "|";
     color: $visited-link-color;
     opacity: 0.5;
-    margin-left: 2px;
-    margin-right: 2px;
+    margin-left: 0;
+    margin-right: 0.25em;
   }
+
   .votes {
     margin-left: 0.5em;
+    margin-right: 0.5em;
   }
+
   &.deleted {
     h2,
     h2 a,
@@ -99,6 +102,20 @@
   .details > .cf-tags-list,
   .cf-thread-forum-plate {
     display: none;
+  }
+
+  .cf-thread-forum-plate {
+    font-size: 90%;
+    font-weight: bold;
+    background-color: #9aaab3;
+    border-radius: $default-border-radius;
+    padding: 0.2em 0.6em 0.15em;
+    color: #fff;
+
+    &:link,
+    &:visited {
+      color: #fff;
+    }
   }
 
   .thread ol header .author {
@@ -144,11 +161,6 @@
 
   h2 a {
     font-weight: bold;
-  }
-
-  .thread-icons {
-    display: inline;
-    float: right;
   }
 
   .thread-icons,
@@ -225,21 +237,6 @@
   &.visited h3 a:focus,
   &.visited .details a.version-link:focus {
     color: $active-link-color;
-  }
-}
-
-.cf-thread-forum-plate,
-/* this additional selector is needed because of a firefox bug */ .cf-message-header .cf-thread-forum-plate {
-  font-size: 90%;
-  font-weight: bold;
-  background-color: #9aaab3;
-  border-radius: $default-border-radius;
-  padding: 0.2em 0.6em 0.15em;
-  color: #fff;
-
-  &:link,
-  &:visited {
-    color: #fff;
   }
 }
 

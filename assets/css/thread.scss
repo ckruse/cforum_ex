@@ -4,11 +4,36 @@
   display: inline-block;
   min-width: $max-message-desktop-width;
 
+  .cf-message-header {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    width: calc(100% - 1.2rem);
+
+    .thread-icons {
+      flex: 1 1 auto;
+      text-align: right;
+    }
+
+    .cf-thread-forum-plate {
+      padding: 0 0.5em;
+      margin-bottom: 0.3em;
+    }
+
+    h2,
+    h3 {
+      margin-right: 0.5em;
+    }
+
+    time {
+      margin-right: 0.5em;
+    }
+  }
+
   ol {
     overflow: hidden;
   }
 
-  ol header:before {
+  ol li.cf-message-answers:before {
     content: "";
     font-size: 1.6px;
     font-size: 0rem;
@@ -17,22 +42,19 @@
     margin-right: 1rem;
   }
 
-  header {
+  li.cf-message-answers {
     background: url("/images/posting-pfeil1.png") no-repeat 0 -0.5em;
   }
 
-  article > header,
-  & > header,
-  article ol li:only-child > header,
-  &.posting ol li:only-child > header {
+  article ol li.cf-message-answers:only-child {
     background: none;
   }
 
-  ol li:last-child > header:before {
+  ol li.cf-message-answers:last-child:before {
     background: url("/images/posting-linie.png") repeat-y left top;
   }
 
-  ol li:first-child > header:before {
+  ol li.cf-message-answers:first-child:before {
     background-image: none;
   }
 }
@@ -54,7 +76,6 @@
   }
 
   & > ol {
-    clear: right;
     background: $default-background-color;
     border-radius: 0px 0.5em 0.5em;
     margin: 0 -1em 0 -0.5em;
@@ -64,28 +85,6 @@
   li ol {
     margin-left: -0.75em;
     padding-left: 1.5em;
-  }
-
-  .thread-forum-plate {
-    font-size: 90%;
-    font-weight: bold;
-    background-color: #9aaab3;
-    color: $default-background-color;
-    border-radius: $default-border-radius;
-    padding: 0.2em 0.6em 0.15em;
-  }
-
-  a.thread-forum-plate {
-    &:link,
-    &:visited {
-      color: $default-background-color;
-    }
-
-    &:hover,
-    &:focus,
-    &:active {
-      color: $active-link-color;
-    }
   }
 
   .cf-message-header h2,

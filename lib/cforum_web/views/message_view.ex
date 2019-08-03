@@ -66,7 +66,7 @@ defmodule CforumWeb.MessageView do
         subtree = if Helpers.blank?(msg.messages), do: "", else: message_tree(conn, thread, msg, msg.messages, new_opts)
 
         [
-          {:safe, "<li>"}
+          {:safe, "<li class=\"cf-message-answers\">"}
           | [
               header(conn, thread, msg, new_opts)
               | [subtree | {:safe, "</li>"}]
