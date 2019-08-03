@@ -9,9 +9,8 @@
     flex-wrap: nowrap;
     width: calc(100% - 1.2rem);
 
-    .thread-icons {
+    .details {
       flex: 1 1 auto;
-      text-align: right;
     }
 
     .cf-thread-forum-plate {
@@ -27,6 +26,11 @@
     time {
       margin-right: 0.5em;
     }
+  }
+
+  .cf-thread > .cf-message-header {
+    display: flex;
+    width: auto;
   }
 
   ol {
