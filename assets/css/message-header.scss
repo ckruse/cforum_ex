@@ -2,7 +2,6 @@
 
 .cf-message-header {
   line-height: 1.6em;
-  white-space: nowrap;
 
   h2,
   h3 {
@@ -104,7 +103,6 @@
   .details > a,
   .details > .cf-tags-list,
   .cf-thread-forum-plate {
-    margin-right: 0.5em;
     display: none;
   }
 
@@ -115,19 +113,12 @@
     border-radius: $default-border-radius;
     padding: 0.2em 0.6em 0.15em;
     color: #fff;
+    margin-right: 0.5em;
 
     &:link,
     &:visited {
       color: #fff;
     }
-  }
-
-  .thread ol header .author {
-    padding-left: 0.3em;
-  }
-
-  .thread > ol header {
-    white-space: nowrap;
   }
 
   &.visited,

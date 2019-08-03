@@ -8,6 +8,7 @@
     display: inline-flex;
     flex-wrap: nowrap;
     align-items: baseline;
+    white-space: nowrap;
 
     .details {
       flex: 1 1 auto;
