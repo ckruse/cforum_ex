@@ -1,6 +1,7 @@
 defmodule CforumWeb.Admin.RedirectionController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.System
   alias Cforum.System.Redirection
 

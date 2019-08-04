@@ -1,6 +1,7 @@
 defmodule CforumWeb.ImageController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.Media
 
   alias CforumWeb.Sortable

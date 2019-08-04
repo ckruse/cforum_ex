@@ -1,4 +1,4 @@
-defmodule CforumWeb.Views.Helpers.Button do
+defmodule CforumWeb.Views.ViewHelpers.Button do
   @moduledoc """
   This module defines button helpers to avoid boiler plate
   """

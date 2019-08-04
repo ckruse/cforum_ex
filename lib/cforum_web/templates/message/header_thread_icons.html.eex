@@ -1,28 +1,28 @@
 <%= if @thread.attribs[:open_state] == "open" do %>
-  <%= VHelpers.Button.cf_button(to: Path.thread_path(@conn, :close, @thread), class: "open icon-button", title: gettext("Thread is currently open. Close it."), params: VHelpers.std_args(@conn)) do %>
+  <%= ViewHelpers.Button.cf_button(to: Path.thread_path(@conn, :close, @thread), class: "open icon-button", title: gettext("Thread is currently open. Close it."), params: ViewHelpers.std_args(@conn)) do %>
     <span class="visually-hidden"><%= gettext("Thread is currently open. Close it.") %></span>
     <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-folder-open"></use></svg>
   <% end %>
 <% else %>
-  <%= VHelpers.Button.cf_button(to: Path.thread_path(@conn, :open, @thread), class: "close icon-button", title: gettext("Thread is currently closed. Open it."), params: VHelpers.std_args(@conn)) do %>
+  <%= ViewHelpers.Button.cf_button(to: Path.thread_path(@conn, :open, @thread), class: "close icon-button", title: gettext("Thread is currently closed. Open it."), params: ViewHelpers.std_args(@conn)) do %>
     <span class="visually-hidden"><%= gettext("Thread is currently closed. Open it.") %></span>
     <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-folder-closed"></use></svg>
   <% end %>
 <% end %>
 
 <%= if Abilities.may?(@conn, "threads/invisible", :unhide, @thread) do %>
-  <%= VHelpers.Button.cf_button(to: Path.thread_path(@conn, :unhide, @thread), class: "unhide icon-button", title: gettext("make this thread visible again"), params: VHelpers.std_args(@conn)) do %>
+  <%= ViewHelpers.Button.cf_button(to: Path.thread_path(@conn, :unhide, @thread), class: "unhide icon-button", title: gettext("make this thread visible again"), params: ViewHelpers.std_args(@conn)) do %>
     <span class="visually-hidden"><%= gettext("make this thread visible again") %></span>
     <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-recycle"></use></svg>
   <% end %>
 <% else %>
-  <%= VHelpers.Button.cf_button(to: Path.thread_path(@conn, :hide, @thread), class: "hide icon-button", title: gettext("hide this thread"), params: VHelpers.std_args(@conn)) do %>
+  <%= ViewHelpers.Button.cf_button(to: Path.thread_path(@conn, :hide, @thread), class: "hide icon-button", title: gettext("hide this thread"), params: ViewHelpers.std_args(@conn)) do %>
     <span class="visually-hidden"><%= gettext("hide this thread") %></span>
     <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-remove"></use></svg>
   <% end %>
 <% end %>
 
-<%= VHelpers.Button.cf_button(to: Path.mark_read_path(@conn, :mark_read, @thread), class: "mark-read icon-button", title: gettext("mark thread read"), params: VHelpers.std_args(@conn)) do %>
+<%= ViewHelpers.Button.cf_button(to: Path.mark_read_path(@conn, :mark_read, @thread), class: "mark-read icon-button", title: gettext("mark thread read"), params: ViewHelpers.std_args(@conn)) do %>
   <span class="visually-hidden"><%= gettext("mark thread read") %></span>
   <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-check-mark"></use></svg>
 <% end %>

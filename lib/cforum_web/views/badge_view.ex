@@ -3,6 +3,11 @@ defmodule CforumWeb.BadgeView do
 
   alias Cforum.Accounts.Badges
 
+  alias CforumWeb.Paginator
+
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+
   def page_title(:index, _), do: gettext("badges")
   def page_title(:show, assigns), do: gettext("badge %{name}", name: assigns.badge.name)
 

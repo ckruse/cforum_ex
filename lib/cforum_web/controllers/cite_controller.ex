@@ -1,6 +1,7 @@
 defmodule CforumWeb.CiteController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.Cites
   alias Cforum.Cites.Cite
 

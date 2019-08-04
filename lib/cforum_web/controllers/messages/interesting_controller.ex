@@ -11,9 +11,10 @@ defmodule CforumWeb.Messages.InterestingController do
   alias Cforum.Search
   alias Cforum.Search.Finder
 
+  alias Cforum.Abilities
   alias Cforum.ConfigManager
 
-  alias CforumWeb.Views.Helpers.ReturnUrl
+  alias CforumWeb.Views.ViewHelpers.ReturnUrl
 
   alias CforumWeb.Paginator
 

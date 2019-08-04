@@ -1,6 +1,7 @@
 defmodule CforumWeb.ThreadController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.Threads
   alias Cforum.Messages
 
@@ -10,7 +11,7 @@ defmodule CforumWeb.ThreadController do
   alias Cforum.ConfigManager
 
   alias CforumWeb.Paginator
-  alias CforumWeb.Views.Helpers, as: VHelpers
+  alias CforumWeb.Views.ViewHelpers
 
   def index(conn, params) do
     page = Paginator.parse_page(params["p"]) - 1
@@ -113,9 +114,9 @@ defmodule CforumWeb.ThreadController do
         nil,
         conn.assigns[:current_user],
         conn.assigns[:visible_forums],
-        author: VHelpers.author_from_conn(conn),
-        email: VHelpers.email_from_conn(conn),
-        homepage: VHelpers.homepage_from_conn(conn),
+        author: ViewHelpers.author_from_conn(conn),
+        email: ViewHelpers.email_from_conn(conn),
+        homepage: ViewHelpers.homepage_from_conn(conn),
         greeting: ConfigManager.uconf(conn, "greeting"),
         farewell: ConfigManager.uconf(conn, "farewell"),
         signature: ConfigManager.uconf(conn, "signature"),
@@ -145,7 +146,7 @@ defmodule CforumWeb.ThreadController do
       autosubscribe:
         Subscriptions.autosubscribe?(conn.assigns.current_user, ConfigManager.uconf(conn, "autosubscribe_on_post")),
       uuid: uuid,
-      author: VHelpers.author_from_conn(conn)
+      author: ViewHelpers.author_from_conn(conn)
     ]
 
     create_val =
@@ -255,7 +256,7 @@ defmodule CforumWeb.ThreadController do
 
   defp get_thread_feed(conn, id) do
     if !Regex.match?(~r/^\d+$/, id),
-      do: raise(Phoenix.Router.NoRouteError, conn: conn, router: CforumWeb.Router)
+      do: raise(Cforum.Errors.NotFoundError, conn: conn)
 
     conn.assigns[:current_forum]
     |> Threads.get_thread!(conn.assigns[:visible_forums], id)

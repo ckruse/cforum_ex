@@ -1,4 +1,4 @@
-defmodule CforumWeb.Views.Helpers.RelativeTime do
+defmodule CforumWeb.Views.ViewHelpers.RelativeTime do
   @moduledoc """
   Provides functions to convert a time period to a relative text, e.g. „a year ago“
   """

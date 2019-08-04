@@ -3,6 +3,13 @@ defmodule CforumWeb.LayoutView do
 
   alias Cforum.Search
 
+  alias Cforum.Abilities
+  alias Cforum.ConfigManager
+  alias Cforum.Helpers
+
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+
   def page_title(conn, assigns) do
     try do
       apply(view_module(conn), :page_title, [action_name(conn), assigns]) <> " – SELFHTML Forum"
@@ -44,7 +51,7 @@ defmodule CforumWeb.LayoutView do
   end
 
   def meta_refresh(conn) do
-    path = VHelpers.controller_path(conn)
+    path = ViewHelpers.controller_path(conn)
     action = Phoenix.Controller.action_name(conn)
     refresh = ConfigManager.uconf(conn, "autorefresh", :int)
 
@@ -118,21 +125,21 @@ defmodule CforumWeb.LayoutView do
   def show?(%{conn: conn}, :archive) do
     Enum.member?(
       [CforumWeb.ThreadController, CforumWeb.MessageController, CforumWeb.ArchiveController],
-      VHelpers.controller(conn)
+      ViewHelpers.controller(conn)
     )
   end
 
   def show?(%{conn: conn}, link) when link in [:events, :badges],
-    do: VHelpers.controller(conn) == CforumWeb.ForumController
+    do: ViewHelpers.controller(conn) == CforumWeb.ForumController
 
   def show?(%{conn: conn}, :thread_feeds),
     do: Helpers.present?(conn.assigns[:thread]) && Helpers.present?(conn.assigns[:thread].thread_id)
 
   def show?(%{conn: conn}, :search),
-    do: VHelpers.controller(conn) != CforumWeb.SearchController
+    do: ViewHelpers.controller(conn) != CforumWeb.SearchController
 
   def show?(%{conn: conn}, :sort_links) do
-    VHelpers.controller(conn) == CforumWeb.ThreadController && Helpers.blank?(conn.assigns[:current_user]) &&
+    ViewHelpers.controller(conn) == CforumWeb.ThreadController && Helpers.blank?(conn.assigns[:current_user]) &&
       action_name(conn) not in [:new, :create, :edit, :update]
   end
 
@@ -150,12 +157,13 @@ defmodule CforumWeb.LayoutView do
   ]
 
   def show?(%{conn: conn}, :view_all) do
-    Abilities.access_forum?(conn, :moderate) && Enum.member?(@view_all_enabled_controllers, VHelpers.controller(conn))
+    Abilities.access_forum?(conn, :moderate) &&
+      Enum.member?(@view_all_enabled_controllers, ViewHelpers.controller(conn))
   end
 
   def show?(%{conn: conn}, :mark_all_read) do
     Helpers.present?(conn.assigns[:threads]) && Helpers.present?(conn.assigns[:current_user]) &&
-      VHelpers.controller(conn) == CforumWeb.ThreadController
+      ViewHelpers.controller(conn) == CforumWeb.ThreadController
   end
 
   def sort_link(conn, params),
@@ -196,7 +204,7 @@ defmodule CforumWeb.LayoutView do
 
     path =
       cond do
-        VHelpers.controller(conn) == CforumWeb.Messages.VersionController ->
+        ViewHelpers.controller(conn) == CforumWeb.Messages.VersionController ->
           Path.message_version_path(conn, :index, conn.assigns[:thread], conn.assigns[:message], opts)
 
         Helpers.present?(conn.assigns[:message]) ->
@@ -231,7 +239,7 @@ defmodule CforumWeb.LayoutView do
 
   def current_controller(conn) do
     conn
-    |> VHelpers.controller()
+    |> ViewHelpers.controller()
     |> Atom.to_string()
     |> String.replace(~r/Elixir\.Cforum(Web)?\./, "")
   end

@@ -5,14 +5,14 @@
 
       <div class="details">
         <span class="author">
-          <%= if Helpers.blank?(@priv_message.sender_id), do: @priv_message.sender_name, else: VHelpers.user_link(@conn, @priv_message.sender, ["original-poster"], @priv_message.sender_name) %>
+          <%= if Helpers.blank?(@priv_message.sender_id), do: @priv_message.sender_name, else: ViewHelpers.user_link(@conn, @priv_message.sender, ["original-poster"], @priv_message.sender_name) %>
         </span>
 
         <time datetime="<%= NaiveDateTime.to_iso8601(@priv_message.created_at) %>">
           <%= if !Helpers.blank?(@priv_message.priv_message_id) do %>
-            <%= link VHelpers.format_date(@conn, @priv_message.created_at, "date_format_post"), to: Path.mail_path(@conn, :show, @priv_message) %>
+            <%= link ViewHelpers.format_date(@conn, @priv_message.created_at, "date_format_post"), to: Path.mail_path(@conn, :show, @priv_message) %>
           <% else %>
-            <%= VHelpers.format_date(@conn, @priv_message.created_at, "date_format_post") %>
+            <%= ViewHelpers.format_date(@conn, @priv_message.created_at, "date_format_post") %>
           <% end %>
         </time>
       </div>
@@ -26,12 +26,12 @@
   <%= if !Helpers.blank?(@priv_message.priv_message_id) do %>
     <div class="cf-mail-footer">
       <%= if not Helpers.blank?(@priv_message.sender_id) and @priv_message.sender_id != @current_user.user_id do %>
-        <%= VHelpers.Button.default_button_link(gettext("answer"), to: Path.mail_path(@conn, :new, parent_id: @priv_message.priv_message_id)) %>
-        <%= VHelpers.Button.default_button_link(gettext("answer without cite"), to: Path.mail_path(@conn, :new, parent_id: @priv_message.priv_message_id, quote: "no")) %>
+        <%= ViewHelpers.Button.default_button_link(gettext("answer"), to: Path.mail_path(@conn, :new, parent_id: @priv_message.priv_message_id)) %>
+        <%= ViewHelpers.Button.default_button_link(gettext("answer without cite"), to: Path.mail_path(@conn, :new, parent_id: @priv_message.priv_message_id, quote: "no")) %>
       <% end %>
 
-      <%= VHelpers.Button.destructive_button(gettext("delete mail"), to: Path.mail_path(@conn, :delete, @priv_message), method: :delete) %>
-      <%= VHelpers.Button.default_button(gettext("mark unread"), to: Path.mail_path(@conn, :update_unread, @priv_message)) %>
+      <%= ViewHelpers.Button.destructive_button(gettext("delete mail"), to: Path.mail_path(@conn, :delete, @priv_message), method: :delete) %>
+      <%= ViewHelpers.Button.default_button(gettext("mark unread"), to: Path.mail_path(@conn, :update_unread, @priv_message)) %>
     </div>
   <% end %>
 </article>

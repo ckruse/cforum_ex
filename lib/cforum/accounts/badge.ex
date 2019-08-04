@@ -1,60 +1,9 @@
 defmodule Cforum.Accounts.Badge do
   use CforumWeb, :model
+  use Cforum.Accounts.Constants
 
   @primary_key {:badge_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :badge_id}
-
-  @upvote "upvote"
-  def upvote, do: @upvote
-
-  @downvote "downvote"
-  def downvote, do: @downvote
-
-  @retag "retag"
-  def retag, do: @retag
-
-  @visit_close_reopen "visit_close_reopen"
-  def visit_close_reopen, do: @visit_close_reopen
-
-  @create_tags "create_tag"
-  def create_tags, do: @create_tags
-
-  @create_tag_synonym "create_tag_synonym"
-  def create_tag_synonym, do: @create_tag_synonym
-
-  @edit_question "edit_question"
-  def edit_question, do: @edit_question
-
-  @edit_answer "edit_answer"
-  def edit_answer, do: @edit_answer
-
-  @create_close_reopen_vote "create_close_reopen_vote"
-  def create_close_reopen_vote, do: @create_close_reopen_vote
-
-  @moderator_tools "moderator_tools"
-  def moderator_tools, do: @moderator_tools
-
-  @seo_profi "seo_profi"
-  def seo_profi, do: @seo_profi
-
-  @badge_types [
-    @upvote,
-    @downvote,
-    @retag,
-    @visit_close_reopen,
-    @create_tags,
-    @create_tag_synonym,
-    @edit_question,
-    @edit_answer,
-    @create_close_reopen_vote,
-    @moderator_tools,
-    @seo_profi,
-    "custom"
-  ]
-  def badge_types(), do: @badge_types
-
-  @badge_medal_types ~w[bronze silver gold]
-  def badge_medal_types(), do: @badge_medal_types
 
   schema "badges" do
     field(:score_needed, :integer)

@@ -1,51 +1,51 @@
 <div class="controls">
   <%= if Abilities.may?(@conn, "message", :create, {@thread, @message}) do %>
-    <%= VHelpers.Button.default_button_link(gettext("write a new answer"), to: Path.message_path(@conn, :new, @thread, @message), rel: "nofollow", "data-action": "answer") %>
+    <%= ViewHelpers.Button.default_button_link(gettext("write a new answer"), to: Path.message_path(@conn, :new, @thread, @message), rel: "nofollow", "data-action": "answer") %>
 
     <%= if ConfigManager.uconf(@conn, "quote_by_default") == "button" do %>
-      <%= VHelpers.Button.default_button_link(gettext("write a new answer with quoting"), to: Path.message_path(@conn, :new, @thread, @message, with_quote: "yes"), rel: "nofollow", "data-action": "answer", "data-quote": "yes") %>
+      <%= ViewHelpers.Button.default_button_link(gettext("write a new answer with quoting"), to: Path.message_path(@conn, :new, @thread, @message, with_quote: "yes"), rel: "nofollow", "data-action": "answer", "data-quote": "yes") %>
     <% end %>
   <% end %>
 
   <%= if Abilities.may?(@conn, "message", :edit, {@thread, @message}) do %>
-    <%= VHelpers.Button.default_button_link(gettext("edit message"), to: Path.message_path(@conn, :edit, @thread, @message), rel: "nofollow") %>
+    <%= ViewHelpers.Button.default_button_link(gettext("edit message"), to: Path.message_path(@conn, :edit, @thread, @message), rel: "nofollow") %>
   <% end %>
 
   <%= if show?(:mail_to_author, assigns[:current_user], @message.user) do %>
-    <%= VHelpers.Button.default_button_link(gettext("mail to author"), to: Path.mail_path(@conn, :new, message_id: @message.message_id), rel: "nofollow") %>
+    <%= ViewHelpers.Button.default_button_link(gettext("mail to author"), to: Path.mail_path(@conn, :new, message_id: @message.message_id), rel: "nofollow") %>
   <% end %>
 
   <%= if Abilities.may?(@conn, "messages/retag", :retag, {@thread, @message}) do %>
-    <%= VHelpers.Button.default_button_link(gettext("retag message"), to: Path.message_path(@conn, :retag, @thread, @message), rel: "nofollow") %>
+    <%= ViewHelpers.Button.default_button_link(gettext("retag message"), to: Path.message_path(@conn, :retag, @thread, @message), rel: "nofollow") %>
   <% end %>
 
   <%= if Abilities.may?(@conn, "messages/interesting", :interesting, @message) do %>
-    <%= VHelpers.Button.default_button(gettext("mark message as interesting"), to: Path.message_path(@conn, :interesting, @thread, @message), params: VHelpers.std_args(@conn)) %>
+    <%= ViewHelpers.Button.default_button(gettext("mark message as interesting"), to: Path.message_path(@conn, :interesting, @thread, @message), params: ViewHelpers.std_args(@conn)) %>
   <% end %>
 
   <%= if Abilities.may?(@conn, "messages/interesting", :boring, @message) do %>
-    <%= VHelpers.Button.default_button(gettext("mark message as boring"), to: Path.message_path(@conn, :boring, @thread, @message), params: VHelpers.std_args(@conn)) %>
+    <%= ViewHelpers.Button.default_button(gettext("mark message as boring"), to: Path.message_path(@conn, :boring, @thread, @message), params: ViewHelpers.std_args(@conn)) %>
   <% end %>
 
   <%= unless Subscriptions.parent_subscribed?(@thread, @message) do %>
     <%= if Abilities.may?(@conn, "messages/subscription", :subscribe, @message) do %>
-      <%= VHelpers.Button.default_button(gettext("subscribe message"), to: Path.message_path(@conn, :subscribe, @thread, @message), params: VHelpers.std_args(@conn)) %>
+      <%= ViewHelpers.Button.default_button(gettext("subscribe message"), to: Path.message_path(@conn, :subscribe, @thread, @message), params: ViewHelpers.std_args(@conn)) %>
     <% end %>
 
     <%= if Abilities.may?(@conn, "messages/subscription", :unsubscribe, @message) do %>
-      <%= VHelpers.Button.default_button(gettext("unsubscribe message"), to: Path.message_path(@conn, :unsubscribe, @thread, @message), params: VHelpers.std_args(@conn)) %>
+      <%= ViewHelpers.Button.default_button(gettext("unsubscribe message"), to: Path.message_path(@conn, :unsubscribe, @thread, @message), params: ViewHelpers.std_args(@conn)) %>
     <% end %>
   <% end %>
 
   <%= if Abilities.may?(@conn, "messages/flag", :flag, @message) do %>
-    <%= VHelpers.Button.default_button_link(gettext("flag message"), to: Path.message_path(@conn, :flag, @thread, @message), rel: "nofollow") %>
+    <%= ViewHelpers.Button.default_button_link(gettext("flag message"), to: Path.message_path(@conn, :flag, @thread, @message), rel: "nofollow") %>
   <% end %>
 
   <%= if Abilities.may?(@conn, "messages/open_close_vote", :new_close, {@thread, @message}) do %>
-    <%= VHelpers.Button.default_button_link(gettext("Start a close vote"), to: Path.close_vote_path(@conn, @thread, @message), rel: "nofollow") %>
+    <%= ViewHelpers.Button.default_button_link(gettext("Start a close vote"), to: Path.close_vote_path(@conn, @thread, @message), rel: "nofollow") %>
   <% end %>
 
   <%= if Abilities.may?(@conn, "messages/open_close_vote", :new_open, {@thread, @message}) do %>
-    <%= VHelpers.Button.default_button_link(gettext("Start an open vote"), to: Path.open_vote_path(@conn, @thread, @message), rel: "nofollow") %>
+    <%= ViewHelpers.Button.default_button_link(gettext("Start an open vote"), to: Path.open_vote_path(@conn, @thread, @message), rel: "nofollow") %>
   <% end %>
 </div>

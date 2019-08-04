@@ -7,7 +7,7 @@
       <%= for notification <- @notifications do %>
         <li>
           <%= link notification.subject, to: Path.notification_path(@conn, :show, notification) %>
-          (<%= VHelpers.format_date(@conn, notification.created_at) %>)
+          (<%= ViewHelpers.format_date(@conn, notification.created_at) %>)
         </li>
       <% end %>
     </ul>
@@ -20,9 +20,9 @@
     <ul>
       <%= for mail <- @priv_messages do %>
         <li>
-          <%= if Helpers.blank?(mail.sender_id), do: mail.sender_name, else: VHelpers.user_link(@conn, mail.sender, ["original-poster"], mail.sender_name) %>:
+          <%= if Helpers.blank?(mail.sender_id), do: mail.sender_name, else: ViewHelpers.user_link(@conn, mail.sender, ["original-poster"], mail.sender_name) %>:
           <%= link mail.subject, to: Path.mail_thread_path(@conn, :show, mail) %>
-          (<%= VHelpers.format_date(@conn, mail.created_at, "date_format_post") %>)
+          (<%= ViewHelpers.format_date(@conn, mail.created_at, "date_format_post") %>)
         </li>
       <% end %>
     </ul>

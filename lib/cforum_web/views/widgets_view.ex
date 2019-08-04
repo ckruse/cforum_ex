@@ -1,6 +1,8 @@
 defmodule CforumWeb.WidgetsView do
   use CforumWeb, :view
 
+  alias CforumWeb.Views.ViewHelpers
+
   def multi_users_selector(assigns, users, field_name) do
     render(
       "users_selector.html",

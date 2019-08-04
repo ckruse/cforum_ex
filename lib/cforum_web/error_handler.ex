@@ -2,7 +2,7 @@ defmodule CforumWeb.ErrorHandler do
   import CforumWeb.Gettext
 
   alias Cforum.Accounts.User
-  alias CforumWeb.Views.Helpers.Path
+  alias CforumWeb.Views.ViewHelpers.Path
 
   def unauthenticated(conn, _params) do
     conn

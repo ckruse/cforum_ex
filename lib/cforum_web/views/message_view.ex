@@ -1,5 +1,6 @@
 defmodule CforumWeb.MessageView do
   use CforumWeb, :view
+  use Cforum.Accounts.Constants
 
   alias Cforum.Threads.Thread
   alias Cforum.Messages.Message
@@ -8,9 +9,16 @@ defmodule CforumWeb.MessageView do
   alias Cforum.Messages.CloseVotes
   alias Cforum.Messages.CloseVote
   alias CforumWeb.Messages.OpenCloseVoteView
-  alias Cforum.Accounts.Badge
 
   alias CforumWeb.VotingAreaView
+
+  alias Cforum.Abilities
+  alias Cforum.ConfigManager
+  alias Cforum.Helpers
+
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+  alias CforumWeb.ErrorHelpers
 
   def first_class(classes, %{first: true}), do: ["first" | classes]
   def first_class(classes, _), do: classes
@@ -87,7 +95,7 @@ defmodule CforumWeb.MessageView do
     msg.subject <>
       " " <>
       gettext("by") <>
-      " " <> msg.author <> ", " <> VHelpers.format_date(assigns[:conn], msg.created_at, message_date_format(false))
+      " " <> msg.author <> ", " <> ViewHelpers.format_date(assigns[:conn], msg.created_at, message_date_format(false))
   end
 
   def page_title(action, assigns) when action in [:new, :create],
@@ -228,7 +236,7 @@ defmodule CforumWeb.MessageView do
   end
 
   def author_homepage_rel(message) do
-    if Abilities.badge?(message.user_id, Badge.seo_profi()) &&
+    if Abilities.badge?(message.user_id, @badge_seo_profi) &&
          ConfigManager.uconf(message.user, "norelnofollow") == "yes",
        do: nil,
        else: "rel=\"nofollow\""

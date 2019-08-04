@@ -8,7 +8,7 @@ defmodule CforumWeb.ForumController do
 
   def index(conn, %{"t" => tid, "m" => mid}) do
     if !Regex.match?(~r/^\d+$/, tid) || !Regex.match?(~r/^\d+$/, mid),
-      do: raise(Phoenix.Router.NoRouteError, conn: conn, router: CforumWeb.Router)
+      do: raise(Cforum.Errors.NotFoundError, conn: conn)
 
     threads =
       Threads.get_threads_by_tid!(tid)

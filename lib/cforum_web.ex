@@ -34,11 +34,7 @@ defmodule CforumWeb do
 
       import CforumWeb.Gettext
 
-      alias Cforum.Repo
-      alias Cforum.Abilities
-
-      alias CforumWeb.Router.Helpers, as: Routes
-      alias CforumWeb.Views.Helpers.Path
+      alias CforumWeb.Views.ViewHelpers.Path
 
       plug(CforumWeb.Plug.LoadResource)
       plug(CforumWeb.Plug.AuthorizeAccess)
@@ -62,15 +58,6 @@ defmodule CforumWeb do
       import Number.Delimit
 
       alias CforumWeb.Router.Helpers, as: Routes
-      alias Cforum.Abilities
-      alias Cforum.ConfigManager
-      alias Cforum.Helpers
-
-      alias CforumWeb.Views.Helpers, as: VHelpers
-      alias CforumWeb.Views.Helpers.Path
-      alias CforumWeb.ErrorHelpers
-      alias CforumWeb.Sortable
-      alias CforumWeb.Paginator
     end
   end
 

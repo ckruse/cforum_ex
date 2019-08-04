@@ -1,6 +1,7 @@
 defmodule CforumWeb.Users.RegistrationController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.Accounts.Users
   alias Cforum.Accounts.User
   alias Cforum.Helpers

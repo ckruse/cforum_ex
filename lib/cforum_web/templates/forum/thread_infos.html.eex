@@ -3,20 +3,20 @@
 <%= if @latest.message_id != @first.message_id do %>
   <span class="last-answer h-entry">
     <%= gettext("last message") %>
-    <%= VHelpers.time_tag(@latest.created_at, class: "dt-published") do %><%= gettext("%{time} ago:", time: VHelpers.RelativeTime.relative_time(@latest.created_at)) %><% end %>
+    <%= ViewHelpers.time_tag(@latest.created_at, class: "dt-published") do %><%= gettext("%{time} ago:", time: ViewHelpers.RelativeTime.relative_time(@latest.created_at)) %><% end %>
     <%= render "message_header.html", conn: @conn, thread: @thread, message: @latest %>
   </span>
 
   <%= if Helpers.present?(@thread.attribs[:first_unread]) && @thread.attribs[:first_unread].message_id != @first.message_id do %>
     <span class="first-unread">
       <%= gettext("first unread message") %>
-      <%= VHelpers.time_tag(@thread.attribs[:first_unread].created_at, class: "dt-published") do %><%= gettext("%{time} ago:", time: VHelpers.RelativeTime.relative_time(@thread.attribs[:first_unread].created_at)) %><% end %>
+      <%= ViewHelpers.time_tag(@thread.attribs[:first_unread].created_at, class: "dt-published") do %><%= gettext("%{time} ago:", time: ViewHelpers.RelativeTime.relative_time(@thread.attribs[:first_unread].created_at)) %><% end %>
       <%= render "message_header.html", conn: @conn, thread: @thread, message: @thread.attribs[:first_unread] %>
     </span>
   <% end %>
 <% else %>
   <span class="last-answer">
     <%= gettext("Thread created") %>
-    <%= VHelpers.time_tag(@latest.created_at, class: "dt-published") do %><%= gettext("%{time} ago", time: VHelpers.RelativeTime.relative_time(@latest.created_at)) %><% end %>
+    <%= ViewHelpers.time_tag(@latest.created_at, class: "dt-published") do %><%= gettext("%{time} ago", time: ViewHelpers.RelativeTime.relative_time(@latest.created_at)) %><% end %>
   </span>
 <% end %>

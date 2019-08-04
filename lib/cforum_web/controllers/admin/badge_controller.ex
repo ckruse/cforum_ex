@@ -1,6 +1,7 @@
 defmodule CforumWeb.Admin.BadgeController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.Accounts.{Badge, Badges}
 
   def index(conn, _params) do

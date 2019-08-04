@@ -12,8 +12,8 @@
       <tr class="h-event">
         <td><%= link event.name, to: Path.event_path(@conn, :show, event), class: "p-name u-url" %></td>
         <td><%= event.location %></td>
-        <td><%= VHelpers.time_tag event.start_date, VHelpers.format_date(@conn, event.start_date, "date_VHelpers.format_date"), class: "dt-start" %></td>
-        <td><%= VHelpers.time_tag event.end_date, VHelpers.format_date(@conn, event.end_date, "date_VHelpers.format_date"), class: "dt-end" %></td>
+        <td><%= ViewHelpers.time_tag event.start_date, ViewHelpers.format_date(@conn, event.start_date, "date_ViewHelpers.format_date"), class: "dt-start" %></td>
+        <td><%= ViewHelpers.time_tag event.end_date, ViewHelpers.format_date(@conn, event.end_date, "date_ViewHelpers.format_date"), class: "dt-end" %></td>
       </tr>
     <% end %>
   </tbody>

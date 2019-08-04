@@ -409,7 +409,7 @@ defmodule Cforum.MessagesTest do
       assert {:ok, %Message{} = message} = Messages.create_message(params, nil, [forum], thread)
 
       notifications = Notifications.list_notifications(user)
-      assert length(notifications) == 0
+      assert Enum.empty?(notifications)
     end
 
     test "sends an email notification", %{user: user, thread: thread, forum: forum, tag: tag} do

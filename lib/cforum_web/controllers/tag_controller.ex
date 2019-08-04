@@ -1,6 +1,8 @@
 defmodule CforumWeb.TagController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
+
   alias Cforum.Threads.Thread
 
   alias Cforum.Messages.Message

@@ -44,8 +44,7 @@ defmodule CforumWeb.Users.PasswordControllerTest do
 
   test "shows 403 for anonymous users", %{conn: conn} do
     user = insert(:user)
-    conn = get(conn, Path.user_password_path(conn, :edit, user))
-    assert conn.status == 403
+    assert_error_sent(403, fn -> get(conn, Path.user_password_path(conn, :edit, user)) end)
   end
 
   test "changes password", %{conn: conn} do

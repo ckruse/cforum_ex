@@ -8,7 +8,7 @@ defmodule Cforum.Messages.NotifyUsersMessageJob do
   alias Cforum.Messages.MessageHelpers
   alias Cforum.Messages.Subscriptions
   alias Cforum.Accounts.{Settings, Notifications, Users}
-  alias CforumWeb.Views.Helpers.Path
+  alias CforumWeb.Views.ViewHelpers.Path
 
   @decorate transaction()
   @spec notify_users_about_new_message(%Thread{}, %Message{}) :: any()

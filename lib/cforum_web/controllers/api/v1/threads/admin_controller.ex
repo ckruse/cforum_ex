@@ -2,6 +2,8 @@ defmodule CforumWeb.Api.V1.Threads.AdminController do
   use CforumWeb, :controller
 
   alias Cforum.Threads
+
+  alias Cforum.Abilities
   alias Cforum.ConfigManager
 
   def sticky(conn, %{"slug" => slug}) do

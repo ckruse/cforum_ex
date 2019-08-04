@@ -1,6 +1,7 @@
 defmodule CforumWeb.Admin.SearchSectionController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.Search
   alias Cforum.Search.Section
   alias Cforum.Forums

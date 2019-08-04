@@ -1,10 +1,11 @@
 defmodule CforumWeb.Threads.OpenCloseController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.Threads
   alias Cforum.Threads.OpenClose
   alias Cforum.Threads.ThreadHelpers
-  alias CforumWeb.Views.Helpers.ReturnUrl
+  alias CforumWeb.Views.ViewHelpers.ReturnUrl
 
   def open(conn, params) do
     thread =

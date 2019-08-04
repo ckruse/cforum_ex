@@ -1,6 +1,10 @@
 defmodule CforumWeb.Users.PasswordView do
   use CforumWeb, :view
 
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+  alias CforumWeb.ErrorHelpers
+
   def page_title(action, _) when action in [:new, :create], do: gettext("Send password reset instructions")
   def page_title(action, _) when action in [:edit_reset, :update_reset], do: gettext("Reset my password")
 

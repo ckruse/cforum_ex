@@ -5,14 +5,14 @@
   <div class="details">
     <span class="author">
       <%= if !Helpers.blank?(@result.user_id) do %>
-        <%= VHelpers.user_link(@conn, @result.user, [], false) %>
+        <%= ViewHelpers.user_link(@conn, @result.user, [], false) %>
       <% end %>
 
       <%= link @result.author, to: @result.url, class: "p-name" %>
     </span>
 
     <time datetime="<%= NaiveDateTime.to_iso8601(@result.document_created) %>">
-      <%= link VHelpers.format_date(@conn, @result.document_created, "date_format_search"), to: @result.url, class: "dt-published" %>
+      <%= link ViewHelpers.format_date(@conn, @result.document_created, "date_format_search"), to: @result.url, class: "dt-published" %>
     </time>
 
     <%= if Helpers.present?(@result.tags) do %>

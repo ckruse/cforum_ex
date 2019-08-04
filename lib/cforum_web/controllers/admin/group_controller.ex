@@ -1,6 +1,7 @@
 defmodule CforumWeb.Admin.GroupController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.Accounts.Groups
   alias Cforum.Accounts.Group
 

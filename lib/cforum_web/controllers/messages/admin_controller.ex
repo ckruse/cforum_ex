@@ -5,9 +5,10 @@ defmodule CforumWeb.Messages.AdminController do
   alias Cforum.Threads.ThreadHelpers
   alias Cforum.Messages
 
+  alias Cforum.Abilities
   alias Cforum.ConfigManager
 
-  alias CforumWeb.Views.Helpers.ReturnUrl
+  alias CforumWeb.Views.ViewHelpers.ReturnUrl
 
   def delete(conn, params) do
     Messages.delete_message(conn.assigns.current_user, conn.assigns.message)

@@ -1,4 +1,4 @@
 <%= @entry.contents["name"] %>:
-<%= VHelpers.format_date(@conn, Timex.parse!(@entry.contents["start_date"], "{YYYY}-{0M}-{0D}"), "date_VHelpers.format_date") %> -
-<%= VHelpers.format_date(@conn, Timex.parse!(@entry.contents["end_date"], "{YYYY}-{0M}-{0D}"), "date_VHelpers.format_date") %>,
+<%= ViewHelpers.format_date(@conn, Timex.parse!(@entry.contents["start_date"], "{YYYY}-{0M}-{0D}"), "date_ViewHelpers.format_date") %> -
+<%= ViewHelpers.format_date(@conn, Timex.parse!(@entry.contents["end_date"], "{YYYY}-{0M}-{0D}"), "date_ViewHelpers.format_date") %>,
 <%= gettext("location") %> <%= @entry.contents["location"] %>

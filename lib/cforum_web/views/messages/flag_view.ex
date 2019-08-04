@@ -1,6 +1,10 @@
 defmodule CforumWeb.Messages.FlagView do
   use CforumWeb, :view
 
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+  alias CforumWeb.ErrorHelpers
+
   alias Cforum.ModerationQueue.ModerationQueueEntry
 
   def page_title(_, assigns) do

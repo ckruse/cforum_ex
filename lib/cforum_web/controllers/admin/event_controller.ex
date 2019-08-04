@@ -1,6 +1,7 @@
 defmodule CforumWeb.Admin.EventController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.Events
   alias Cforum.Events.Event
 

@@ -5,11 +5,11 @@
     <%= if Helpers.blank?(@version.user_id) do %>
       <span class="editor"><%= @version.author %></span>
     <% else %>
-      <%= VHelpers.user_link(@conn, @version.user, ["editor"], @version.author) %>
+      <%= ViewHelpers.user_link(@conn, @version.user, ["editor"], @version.author) %>
     <% end %>
 
     <time datetime="<%= NaiveDateTime.to_iso8601(@message.created_at) %>">
-      <%= VHelpers.format_date(@conn, @version.created_at, "date_format_post") %>
+      <%= ViewHelpers.format_date(@conn, @version.created_at, "date_format_post") %>
     </time>
   </header>
 
@@ -18,7 +18,7 @@
   <%= if @view_all && Abilities.may?(@conn, "messages/version", :delete, @version) do %>
     <div class="posting-footer">
       <div class="admin-links">
-        <%= VHelpers.Button.destructive_index_button(to: Path.message_version_path(@conn, :delete, @thread, @message, @version), method: :delete) do %>
+        <%= ViewHelpers.Button.destructive_index_button(to: Path.message_version_path(@conn, :delete, @thread, @message, @version), method: :delete) do %>
           <%= gettext("delete this version") %>
         <% end %>
       </div>

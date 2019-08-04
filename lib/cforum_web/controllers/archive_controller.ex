@@ -1,6 +1,7 @@
 defmodule CforumWeb.ArchiveController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.Threads
   alias Cforum.Threads.Archive
   alias Cforum.ConfigManager
@@ -14,7 +15,7 @@ defmodule CforumWeb.ArchiveController do
 
   def months(conn, %{"year" => year}) do
     if !Regex.match?(~r/^\d+$/, year),
-      do: raise(Phoenix.Router.NoRouteError, conn: conn, router: CforumWeb.Router)
+      do: raise(Cforum.Errors.NotFoundError, conn: conn)
 
     months = Archive.list_archive_months(conn.assigns[:current_forum], conn.assigns[:visible_forums], year)
     render(conn, "months.html", months: months, year: year)
@@ -24,7 +25,7 @@ defmodule CforumWeb.ArchiveController do
 
   def threads(conn, %{"year" => year, "month" => month_name} = params) do
     if !Regex.match?(~r/^\d+$/, year) || !Regex.match?(@month_name_rx, month_name),
-      do: raise(Phoenix.Router.NoRouteError, conn: conn, router: CforumWeb.Router)
+      do: raise(Cforum.Errors.NotFoundError, conn: conn)
 
     case NaiveDateTime.new(String.to_integer(year), Timex.month_to_num(month_name), 1, 0, 0, 0) do
       {:ok, month} ->

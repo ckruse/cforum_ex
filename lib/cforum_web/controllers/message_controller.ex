@@ -1,6 +1,7 @@
 defmodule CforumWeb.MessageController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.Messages
   alias Cforum.Messages.Subscriptions
   alias Cforum.Messages.MessageHelpers
@@ -13,7 +14,7 @@ defmodule CforumWeb.MessageController do
   alias Cforum.ConfigManager
   alias Cforum.Helpers
 
-  alias CforumWeb.Views.Helpers, as: VHelpers
+  alias CforumWeb.Views.ViewHelpers
 
   @notification_types [
     "message:create-answer",
@@ -65,9 +66,9 @@ defmodule CforumWeb.MessageController do
         conn.assigns[:current_user],
         conn.assigns[:visible_forums],
         strip_signature: ConfigManager.uconf(conn, "quote_signature") != "yes",
-        author: VHelpers.author_from_conn(conn),
-        email: VHelpers.email_from_conn(conn),
-        homepage: VHelpers.homepage_from_conn(conn),
+        author: ViewHelpers.author_from_conn(conn),
+        email: ViewHelpers.email_from_conn(conn),
+        homepage: ViewHelpers.homepage_from_conn(conn),
         greeting: ConfigManager.uconf(conn, "greeting"),
         farewell: ConfigManager.uconf(conn, "farewell"),
         signature: ConfigManager.uconf(conn, "signature"),
@@ -100,7 +101,7 @@ defmodule CforumWeb.MessageController do
 
     opts = [
       uuid: uuid,
-      author: VHelpers.author_from_conn(conn),
+      author: ViewHelpers.author_from_conn(conn),
       create_tags: Abilities.may?(conn, "tag", :new),
       autosubscribe: Subscriptions.autosubscribe?(cu, ConfigManager.uconf(conn, "autosubscribe_on_post"))
     ]
@@ -168,7 +169,7 @@ defmodule CforumWeb.MessageController do
 
   defp get_message(conn, %{"mid" => mid} = params) do
     if !Regex.match?(~r/^\d+$/, mid),
-      do: raise(Phoenix.Router.NoRouteError, conn: conn, router: CforumWeb.Router)
+      do: raise(Cforum.Errors.NotFoundError, conn: conn)
 
     thread =
       Threads.get_thread_by_slug!(

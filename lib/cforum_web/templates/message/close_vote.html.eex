@@ -14,9 +14,9 @@
 
   <%= if Abilities.may?(@conn, "messages/open_close_vote", :vote, %CloseVote{@close_vote | message: @message}) do %>
     <%= if CloseVotes.has_voted?(@current_user, @close_vote) do %>
-      <%= VHelpers.Button.default_button(gettext("I changed my mind"), to: Path.oc_vote_path(@conn, @thread, @message, @close_vote), method: :patch, class: "close-vote-button unvote") %>
+      <%= ViewHelpers.Button.default_button(gettext("I changed my mind"), to: Path.oc_vote_path(@conn, @thread, @message, @close_vote), method: :patch, class: "close-vote-button unvote") %>
     <% else %>
-      <%= VHelpers.Button.default_button(gettext("I agree"), to: Path.oc_vote_path(@conn, @thread, @message, @close_vote), method: :patch, class: "close-vote-button vote") %>
+      <%= ViewHelpers.Button.default_button(gettext("I agree"), to: Path.oc_vote_path(@conn, @thread, @message, @close_vote), method: :patch, class: "close-vote-button vote") %>
     <% end %>
   <% end %>
 </div>

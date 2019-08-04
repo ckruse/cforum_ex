@@ -1,6 +1,6 @@
     <span class="author">
       <%= if Helpers.present?(@message.user_id) do %>
-        <%= VHelpers.user_link(@conn, @message.user, [original_poster_class(@thread, @message)], false) %>
+        <%= ViewHelpers.user_link(@conn, @message.user, [original_poster_class(@thread, @message)], false) %>
       <% else %>
         <%= if (@message.message_id != @thread.message.message_id) && Helpers.present?(@message.uuid) && (@message.uuid == @thread.message.uuid) do %>
           <span class="icon-message original-poster" title="<%= gettext("original poster") %>"> </span>

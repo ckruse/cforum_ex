@@ -7,6 +7,7 @@ defmodule CforumWeb.Messages.VersionController do
   alias Cforum.Messages
   alias Cforum.Messages.MessageVersions
 
+  alias Cforum.Abilities
   alias Cforum.ConfigManager
 
   def show(conn, _params) do

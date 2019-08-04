@@ -1,6 +1,14 @@
 defmodule CforumWeb.MailView do
   use CforumWeb, :view
 
+  alias Cforum.Helpers
+
+  alias CforumWeb.Paginator
+  alias CforumWeb.Sortable
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+  alias CforumWeb.ErrorHelpers
+
   alias Cforum.Accounts.PrivMessages
 
   def page_heading(action, assigns), do: page_title(action, assigns)

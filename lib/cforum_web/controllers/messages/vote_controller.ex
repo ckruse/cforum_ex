@@ -8,9 +8,10 @@ defmodule CforumWeb.Messages.VoteController do
   alias Cforum.Messages.Votes
   alias Cforum.Messages.MessageHelpers
 
+  alias Cforum.Abilities
   alias Cforum.ConfigManager
 
-  alias CforumWeb.Views.Helpers.ReturnUrl
+  alias CforumWeb.Views.ViewHelpers.ReturnUrl
 
   def upvote(conn, params) do
     vote_up_value = ConfigManager.conf(conn, "vote_up_value", :int)

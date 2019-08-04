@@ -1,5 +1,10 @@
 defmodule CforumWeb.Admin.BadgeView do
   use CforumWeb, :view
+  use Cforum.Accounts.Constants
+
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+  alias CforumWeb.ErrorHelpers
 
   def page_title(:index, _), do: gettext("administrate badges")
   def page_title(action, _) when action in [:new, :create], do: gettext("new badge")
@@ -21,6 +26,6 @@ defmodule CforumWeb.Admin.BadgeView do
 
   def page_heading(action, assigns), do: page_title(action, assigns)
 
-  def medal_type_options(), do: Enum.map(Cforum.Accounts.Badge.badge_medal_types(), &{VHelpers.l10n_medal_type(&1), &1})
-  def badge_type_options(), do: Enum.map(Cforum.Accounts.Badge.badge_types(), &{VHelpers.l10n_badge_type(&1), &1})
+  def medal_type_options(), do: Enum.map(@badge_medal_types, &{ViewHelpers.l10n_medal_type(&1), &1})
+  def badge_type_options(), do: Enum.map(@badge_types, &{ViewHelpers.l10n_badge_type(&1), &1})
 end

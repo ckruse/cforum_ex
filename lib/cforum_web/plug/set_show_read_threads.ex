@@ -4,7 +4,7 @@ defmodule CforumWeb.Plug.SetShowReadThreads do
   the user may use it and if it is present in the query parameters
   """
 
-  alias CforumWeb.Views.Helpers.Path
+  alias CforumWeb.Views.ViewHelpers.Path
 
   def init(opts), do: opts
 

@@ -183,7 +183,7 @@ defmodule Cforum.Accounts.Badges do
   def notify_user({:ok, badge_user}, user, badge) do
     subject =
       gettext("You have won the %{mtype} “%{name}”!",
-        mtype: CforumWeb.Views.Helpers.l10n_medal_type(badge.badge_medal_type),
+        mtype: CforumWeb.Views.ViewHelpers.l10n_medal_type(badge.badge_medal_type),
         name: badge.name
       )
 

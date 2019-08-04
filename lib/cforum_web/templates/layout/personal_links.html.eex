@@ -15,7 +15,7 @@
     </li>
     <li id="post-link"><%= link(gettext("mail"), to: Path.mail_path(@conn, :index), title: gettext("%{count} new mails", count: @unread_mails)) %>
       (<span class="mails new" id="mails" title="<%= gettext("%{count} new mails", count: @unread_mails) %>"><%= @unread_mails %></span>)</li>
-    <li id="optionen-logout"><%= VHelpers.Button.cf_button(gettext("logout"), to: Path.session_path(@conn, :delete), method: :delete, class: "btn-link") %></li>
+    <li id="optionen-logout"><%= ViewHelpers.Button.cf_button(gettext("logout"), to: Path.session_path(@conn, :delete), method: :delete, class: "btn-link") %></li>
   <% else %>
     <li id="user-not-signed-in"><%= img_tag(CforumWeb.Avatar.default_url(:thumb, nil)) %> <%= gettext("not logged in") %></li>
     <li id="optionen-help"><%= link(gettext("Help"), to: Path.page_path(@conn, :help)) %></li>

@@ -1,6 +1,14 @@
 defmodule CforumWeb.SearchView do
   use CforumWeb, :view
 
+  alias CforumWeb.Paginator
+
+  alias Cforum.Helpers
+
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+  alias CforumWeb.ErrorHelpers
+
   def page_title(:show, _), do: gettext("forum search")
   def page_heading(action, assigns), do: page_title(action, assigns)
 

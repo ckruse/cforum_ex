@@ -21,11 +21,11 @@
 
   <%= render(CforumWeb.MessageView, "form.html", Map.merge(assigns, %{f: f})) %>
 
-  <%= VHelpers.l10n_render CforumWeb.MessageView, "post-notes.html", assigns %>
+  <%= ViewHelpers.l10n_render CforumWeb.MessageView, "post-notes.html", assigns %>
 
   <p class="form-actions">
-    <%= VHelpers.Button.default_submit gettext("show preview"), name: "preview" %>
-    <%= VHelpers.Button.primary_submit gettext("create message") %>
-    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Path.forum_path(@conn, :index, @current_forum) %>
+    <%= ViewHelpers.Button.default_submit gettext("show preview"), name: "preview" %>
+    <%= ViewHelpers.Button.primary_submit gettext("create message") %>
+    <%= ViewHelpers.Button.default_button_link gettext("cancel"), to: Path.forum_path(@conn, :index, @current_forum) %>
   </p>
 <% end %>

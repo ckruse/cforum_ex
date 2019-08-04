@@ -4,7 +4,7 @@
     <input type="search" id="user_search" name="s" value="<%= @s %>">
   </div>
 
-  <%= VHelpers.Button.primary_submit gettext("search") %>
+  <%= ViewHelpers.Button.primary_submit gettext("search") %>
 </form>
 
 
@@ -30,13 +30,13 @@
         <td><%= user.email %></td>
         <td class="numeric"><%= user.score %></td>
         <td class="numeric"><%= user.activity %> <%= gettext("messages") %></td>
-        <td><%= VHelpers.format_date(@conn, user.created_at) %></td>
+        <td><%= ViewHelpers.format_date(@conn, user.created_at) %></td>
         <td><%= if user.active, do: gettext("yes"), else: gettext("no") %>
-        <td><%= if Helpers.present?(user.confirmed_at), do: VHelpers.format_date(@conn, user.confirmed_at), else: [{:safe, "<em>"}, gettext("no"), {:safe, "</em>"}] %></td>
-        <td><%= if Helpers.present?(user.last_visit), do: VHelpers.format_date(@conn, user.last_visit) %></td>
+        <td><%= if Helpers.present?(user.confirmed_at), do: ViewHelpers.format_date(@conn, user.confirmed_at), else: [{:safe, "<em>"}, gettext("no"), {:safe, "</em>"}] %></td>
+        <td><%= if Helpers.present?(user.last_visit), do: ViewHelpers.format_date(@conn, user.last_visit) %></td>
         <td class="actions-column">
-          <%= VHelpers.Links.default_index_link(gettext("edit"), to: Path.admin_user_path(@conn, :edit, user)) %>
-          <%= VHelpers.Button.destructive_index_button(gettext("delete"), to: Path.admin_user_path(@conn, :delete, user), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
+          <%= ViewHelpers.Links.default_index_link(gettext("edit"), to: Path.admin_user_path(@conn, :edit, user)) %>
+          <%= ViewHelpers.Button.destructive_index_button(gettext("delete"), to: Path.admin_user_path(@conn, :delete, user), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
         </td>
       </tr>
     <% end %>

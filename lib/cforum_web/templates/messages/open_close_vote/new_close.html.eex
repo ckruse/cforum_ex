@@ -30,8 +30,8 @@
 
 
   <p class="form-actions">
-    <%= VHelpers.Button.primary_submit gettext("create close vote") %>
-    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Path.message_path(@conn, :show, @thread, @message) %>
+    <%= ViewHelpers.Button.primary_submit gettext("create close vote") %>
+    <%= ViewHelpers.Button.default_button_link gettext("cancel"), to: Path.message_path(@conn, :show, @thread, @message) %>
   </p>
 <% end %>
 

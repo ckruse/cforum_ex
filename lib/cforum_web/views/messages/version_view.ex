@@ -1,6 +1,12 @@
 defmodule CforumWeb.Messages.VersionView do
   use CforumWeb, :view
 
+  alias Cforum.Abilities
+  alias Cforum.Helpers
+
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+
   def page_title(_, assigns), do: gettext("Edit versions of message „%{subject}“", subject: assigns.message.subject)
   def page_heading(action, assigns), do: page_title(action, assigns)
   def body_id(action, _) when action in [:new_close, :create_close], do: "message-versions"

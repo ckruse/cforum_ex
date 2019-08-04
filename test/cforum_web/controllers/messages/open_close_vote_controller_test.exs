@@ -1,5 +1,6 @@
 defmodule CforumWeb.OpenCloseVoteControllerTest do
   use CforumWeb.ConnCase
+  use Cforum.Accounts.Constants
 
   alias Cforum.Threads
   alias Cforum.Messages
@@ -30,12 +31,11 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
       message = Messages.get_message_from_mid!(thread, message.message_id)
       Messages.flag_no_answer(nil, message, "no-answer")
 
-      conn =
+      assert_error_sent(403, fn ->
         conn
         |> login(user)
         |> get(Path.close_vote_path(conn, thread, message))
-
-      assert conn.status == 403
+      end)
     end
   end
 
@@ -61,12 +61,11 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
     end
 
     test "responds with 403 for reopen on open messages", %{conn: conn, user: user, thread: thread, message: message} do
-      conn =
+      assert_error_sent(403, fn ->
         conn
         |> login(user)
         |> get(Path.open_vote_path(conn, thread, message))
-
-      assert conn.status == 403
+      end)
     end
   end
 
@@ -182,12 +181,11 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
       changeset = Ecto.Changeset.change(vote, finished: true)
       assert {:ok, _} = Cforum.Repo.update(changeset)
 
-      conn =
+      assert_error_sent(403, fn ->
         conn
         |> login(user)
         |> patch(Path.oc_vote_path(conn, thread, message, vote))
-
-      assert conn.status == 403
+      end)
     end
 
     test "voting again takes back the vote", %{conn: conn, visiting_user: user, message: m, thread: t, close_vote: vote} do
@@ -218,8 +216,8 @@ defmodule CforumWeb.OpenCloseVoteControllerTest do
     user = build(:user) |> insert
     visiting_user = build(:user) |> insert
 
-    badge = insert(:badge, badge_type: Cforum.Accounts.Badge.visit_close_reopen())
-    badge1 = insert(:badge, badge_type: Cforum.Accounts.Badge.create_close_reopen_vote())
+    badge = insert(:badge, badge_type: @badge_visit_close_reopen)
+    badge1 = insert(:badge, badge_type: @badge_create_close_reopen_vote)
 
     insert(:badge_user, user: user, badge: badge)
     insert(:badge_user, user: visiting_user, badge: badge)

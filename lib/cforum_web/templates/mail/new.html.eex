@@ -11,8 +11,8 @@
   <%= render("form.html", Map.merge(assigns, %{f: f})) %>
 
   <p class="form-actions">
-    <%= VHelpers.Button.default_submit gettext("show preview"), name: "preview" %>
-    <%= VHelpers.Button.primary_submit gettext("send mail") %>
-    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Path.mail_path(@conn, :index) %>
+    <%= ViewHelpers.Button.default_submit gettext("show preview"), name: "preview" %>
+    <%= ViewHelpers.Button.primary_submit gettext("send mail") %>
+    <%= ViewHelpers.Button.default_button_link gettext("cancel"), to: Path.mail_path(@conn, :index) %>
   </p>
 <% end %>

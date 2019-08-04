@@ -4,6 +4,11 @@ defmodule CforumWeb.VotingAreaView do
   alias Cforum.Messages.MessageHelpers
   alias Cforum.Messages.Votes
 
+  alias Cforum.Abilities
+
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+
   def acceptance_status?(conn, message, top),
     do: MessageHelpers.accepted?(message) && (top || !Abilities.accept?(conn, message))
 
@@ -24,22 +29,22 @@ defmodule CforumWeb.VotingAreaView do
         nil
 
       Abilities.may?(conn, "messages/accept", :accept, {thread, message}) ->
-        VHelpers.Button.cf_button(
+        ViewHelpers.Button.cf_button(
           # voting_svg(conn, "accept"),
           [{:safe, "<span>"}, gettext("accept answer"), {:safe, "</span>"}],
           to: Path.message_path(conn, :accept, thread, message),
           class: "accept unaccepted-answer",
-          params: VHelpers.std_args(conn),
+          params: ViewHelpers.std_args(conn),
           title: gettext("accept answer")
         )
 
       Abilities.may?(conn, "messages/accept", :unaccept, {thread, message}) ->
-        VHelpers.Button.cf_button(
+        ViewHelpers.Button.cf_button(
           # voting_svg(conn, "accept"),
           [{:safe, "<span>"}, gettext("unaccept answer"), {:safe, "</span>"}],
           to: Path.message_path(conn, :unaccept, thread, message),
           class: "accept accepted-answer",
-          params: VHelpers.std_args(conn),
+          params: ViewHelpers.std_args(conn),
           title: gettext("unaccept answer")
         )
 
@@ -65,11 +70,11 @@ defmodule CforumWeb.VotingAreaView do
       nil
     else
       # Abilities.may?(conn, "messages/vote", :upvote, {thread, message}) ->
-      VHelpers.Button.cf_button(
+      ViewHelpers.Button.cf_button(
         [{:safe, "<span>"}, gettext("vote up"), {:safe, "</span>"}],
         to: Path.message_path(conn, :upvote, thread, message),
         class: "vote-button vote-up #{active_upvoting_button(message, conn.assigns.current_user)}",
-        params: VHelpers.std_args(conn),
+        params: ViewHelpers.std_args(conn),
         disabled: !Abilities.may?(conn, "messages/vote", :upvote, {thread, message}),
         title: gettext("vote up")
       )
@@ -84,11 +89,11 @@ defmodule CforumWeb.VotingAreaView do
       nil
     else
       # Abilities.may?(conn, "messages/vote", :downvote, {thread, message}) ->
-      VHelpers.Button.cf_button(
+      ViewHelpers.Button.cf_button(
         [{:safe, "<span>"}, gettext("vote down"), {:safe, "</span>"}],
         to: Path.message_path(conn, :downvote, thread, message),
         class: "vote-button vote-down #{active_downvoting_button(message, conn.assigns.current_user)}",
-        params: VHelpers.std_args(conn),
+        params: ViewHelpers.std_args(conn),
         disabled: !Abilities.may?(conn, "messages/vote", :downvote, {thread, message}),
         title: gettext("vote down")
       )

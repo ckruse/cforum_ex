@@ -4,12 +4,12 @@ defmodule Cforum.Accounts.UsersTest do
   """
 
   use Cforum.DataCase
+  use Cforum.Accounts.Constants
 
   alias Cforum.Accounts.Users
   alias Cforum.Accounts.User
   alias Cforum.Accounts.Setting
   alias Cforum.Accounts.Badge
-  alias Cforum.Accounts.ForumGroupPermission
 
   test "list_users/1 returns all users" do
     user = insert(:user)
@@ -160,7 +160,7 @@ defmodule Cforum.Accounts.UsersTest do
   end
 
   test "moderator? returns true for users with moderator badge" do
-    badge = insert(:badge, badge_type: Badge.moderator_tools())
+    badge = insert(:badge, badge_type: @badge_moderator_tools)
     user = insert(:user)
     insert(:badge_user, user: user, badge: badge)
 
@@ -172,7 +172,7 @@ defmodule Cforum.Accounts.UsersTest do
   test "moderator? returns true for users with a moderator permission" do
     user = insert(:user, badges: [], badges_users: [])
     group = insert(:group, users: [user])
-    insert(:forum_group_permission, permission: ForumGroupPermission.moderate(), group: group)
+    insert(:forum_group_permission, permission: @permission_moderate, group: group)
 
     assert Users.moderator?(user) == true
   end
@@ -182,7 +182,7 @@ defmodule Cforum.Accounts.UsersTest do
     assert Users.moderator?(user) == false
 
     group = insert(:group, users: [user])
-    insert(:forum_group_permission, permission: ForumGroupPermission.read(), group: group)
+    insert(:forum_group_permission, permission: @permission_read, group: group)
     assert Users.moderator?(user) == false
   end
 end

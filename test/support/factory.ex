@@ -104,7 +104,7 @@ defmodule Cforum.Factory do
   def message_factory do
     %Cforum.Messages.Message{
       author: Faker.Name.name(),
-      subject: Faker.Lorem.sentence(%Range{first: 1, last: 10}),
+      subject: sequence("Message subject "),
       content: Faker.Lorem.paragraph(%Range{first: 1, last: 2})
     }
   end

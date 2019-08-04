@@ -4,7 +4,7 @@
     <input type="search" id="user_search" name="s" value="<%= @s %>">
   </div>
 
-  <%= VHelpers.Button.primary_submit gettext("search") %>
+  <%= ViewHelpers.Button.primary_submit gettext("search") %>
 </form>
 
 <table class="cf-default-table">
@@ -23,7 +23,7 @@
         <td><%= link user.username, to: Path.user_path(@conn, :show, user) %></td>
         <td class="numeric"><%= user.score %></td>
         <td class="numeric"><%= user.activity %> <%= gettext("messages") %></td>
-        <td><%= VHelpers.format_date(@conn, user.created_at) %></td>
+        <td><%= ViewHelpers.format_date(@conn, user.created_at) %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,6 +1,12 @@
 defmodule CforumWeb.Admin.AuditView do
   use CforumWeb, :view
 
+  alias CforumWeb.Paginator
+  alias Cforum.Helpers
+
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+
   def page_title(:index, _), do: gettext("audit log")
   def page_title(:show, _), do: gettext("audit log")
 

@@ -12,7 +12,7 @@ defmodule Cforum.Messages.MessageIndexerJob do
 
   alias Cforum.ConfigManager
 
-  alias CforumWeb.Views.Helpers.Path
+  alias CforumWeb.Views.ViewHelpers.Path
 
   @spec index_message(integer()) :: any()
   def index_message(message_id) do

@@ -3,9 +3,9 @@
     <h2><%= link @event.name, to: Path.event_path(@conn, :show, @event), class: "p-name u-url" %></h2>
 
     <div class="details">
-      <%= VHelpers.time_tag @event.start_date, VHelpers.format_date(@conn, @event.start_date, "date_VHelpers.format_date"), class: "dt-start" %>
+      <%= ViewHelpers.time_tag @event.start_date, ViewHelpers.format_date(@conn, @event.start_date, "date_ViewHelpers.format_date"), class: "dt-start" %>
       <%= unless Timex.equal?(@event.start_date, @event.end_date) do %>
-        – <%= VHelpers.time_tag @event.end_date, VHelpers.format_date(@conn, @event.end_date, "date_VHelpers.format_date"), class: "dt-end" %>
+        – <%= ViewHelpers.time_tag @event.end_date, ViewHelpers.format_date(@conn, @event.end_date, "date_ViewHelpers.format_date"), class: "dt-end" %>
       <% end %>
 
       <%= {:safe, gettext("in %{location}", location: @event.location)} %>
@@ -28,7 +28,7 @@
     <h3><%= ngettext("no attendees", "%{count} attendees", length(@event.attendees)) %></h3>
 
     <%= if Abilities.may?(@conn, "events/attendee", :create) do %>
-      <p><%= VHelpers.Button.default_button_link gettext("attend event"), to: Path.event_attendee_path(@conn, :new, @event) %></p>
+      <p><%= ViewHelpers.Button.default_button_link gettext("attend event"), to: Path.event_attendee_path(@conn, :new, @event) %></p>
     <% end %>
 
     <%= if Helpers.blank?(@event.attendees) do %>
