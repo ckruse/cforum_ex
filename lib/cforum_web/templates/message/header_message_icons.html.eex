@@ -9,12 +9,12 @@
 
   <%= if Abilities.signed_in?(@conn) && @opts[:show_icons] && !@conn.assigns[:view_all] do %>
     <%= if @message.attribs[:is_interesting] do %>
-      <%= VHelpers.Button.cf_button(to: Path.message_path(@conn, :boring, @thread, @message), class: "icon-message boring icon-button", title: gettext("remove interesting mark"), params: VHelpers.std_args(@conn)) do %>
+      <%= ViewHelpers.Button.cf_button(to: Path.message_path(@conn, :boring, @thread, @message), class: "icon-message boring icon-button", title: gettext("remove interesting mark"), params: ViewHelpers.std_args(@conn)) do %>
         <span class="visually-hidden"><%= gettext("remove interesting mark") %></span>
         <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-mark-boring"></use></svg>
       <% end %>
     <% else %>
-      <%= VHelpers.Button.cf_button(to: Path.message_path(@conn, :interesting, @thread, @message), class: "icon-message mark-interesting icon-button", title: gettext("mark message as interesting"), params: VHelpers.std_args(@conn)) do %>
+      <%= ViewHelpers.Button.cf_button(to: Path.message_path(@conn, :interesting, @thread, @message), class: "icon-message mark-interesting icon-button", title: gettext("mark message as interesting"), params: ViewHelpers.std_args(@conn)) do %>
         <span class="visually-hidden"><%= gettext("mark message as interesting") %></span>
         <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-mark-interesting"></use></svg>
       <% end %>
@@ -22,12 +22,12 @@
 
     <%= unless @opts[:parent_subscribed] do %>
       <%= if @message.attribs[:is_subscribed] do %>
-        <%= VHelpers.Button.cf_button(to: Path.message_path(@conn, :unsubscribe, @thread, @message), class: "icon-message unsubscribe icon-button", title: gettext("unsubscribe message"), params: VHelpers.std_args(@conn)) do %>
+        <%= ViewHelpers.Button.cf_button(to: Path.message_path(@conn, :unsubscribe, @thread, @message), class: "icon-message unsubscribe icon-button", title: gettext("unsubscribe message"), params: ViewHelpers.std_args(@conn)) do %>
           <span class="visually-hidden"><%= gettext("unsubscribe message") %></span>
           <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-unsubscribe"></use></svg>
         <% end %>
       <% else %>
-        <%= VHelpers.Button.cf_button(to: Path.message_path(@conn, :subscribe, @thread, @message), class: "icon-message subscribe icon-button", title: gettext("subscribe message"), params: VHelpers.std_args(@conn)) do %>
+        <%= ViewHelpers.Button.cf_button(to: Path.message_path(@conn, :subscribe, @thread, @message), class: "icon-message subscribe icon-button", title: gettext("subscribe message"), params: ViewHelpers.std_args(@conn)) do %>
           <span class="visually-hidden"><%= gettext("subscribe message") %></span>
           <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-subscribe"></use></svg>
         <% end %>

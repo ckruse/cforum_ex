@@ -15,13 +15,13 @@
       <tr>
         <td><%= event.name %></td>
         <td><%= event.location %></td>
-        <td><%= VHelpers.format_date(@conn, event.start_date, "date_VHelpers.format_date") %></td>
-        <td><%= VHelpers.format_date(@conn, event.end_date, "date_VHelpers.format_date") %></td>
+        <td><%= ViewHelpers.format_date(@conn, event.start_date, "date_ViewHelpers.format_date") %></td>
+        <td><%= ViewHelpers.format_date(@conn, event.end_date, "date_ViewHelpers.format_date") %></td>
         <td><%= if event.visible, do: gettext("yes"), else: gettext("no") %></td>
 
         <td class="actions-column">
-          <%= VHelpers.Links.default_index_link(gettext("edit"), to: Path.admin_event_path(@conn, :edit, event)) %>
-          <%= VHelpers.Button.destructive_index_button(gettext("delete"), to: Path.admin_event_path(@conn, :delete, event), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
+          <%= ViewHelpers.Links.default_index_link(gettext("edit"), to: Path.admin_event_path(@conn, :edit, event)) %>
+          <%= ViewHelpers.Button.destructive_index_button(gettext("delete"), to: Path.admin_event_path(@conn, :delete, event), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
         </td>
       </tr>
     <% end %>

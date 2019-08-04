@@ -1,4 +1,4 @@
-defmodule Cforum.AbilitiesTest do
+defmodule Cforum.Abilities.AuthHelpersTest do
   use Cforum.DataCase
 
   alias Cforum.Abilities

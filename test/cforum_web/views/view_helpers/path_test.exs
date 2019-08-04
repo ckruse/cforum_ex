@@ -1,4 +1,4 @@
-defmodule CforumWeb.Views.Helpers.PathTest do
+defmodule CforumWeb.Views.ViewHelpers.PathTest do
   use CforumWeb.ConnCase, async: true
 
   test "Path.thread_path/2 generates thread path from slug", %{conn: conn} do

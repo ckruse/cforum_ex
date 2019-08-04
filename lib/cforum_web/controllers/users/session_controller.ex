@@ -1,6 +1,7 @@
 defmodule CforumWeb.Users.SessionController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.Accounts
 
   def new(conn, _params) do

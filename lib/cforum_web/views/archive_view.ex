@@ -1,6 +1,9 @@
 defmodule CforumWeb.ArchiveView do
   use CforumWeb, :view
 
+  alias CforumWeb.Paginator
+  alias CforumWeb.Views.ViewHelpers.Path
+
   defp forum_name(%{current_forum: forum}) when not is_nil(forum), do: forum.name
   defp forum_name(_), do: gettext("all forums")
 
@@ -10,10 +13,10 @@ defmodule CforumWeb.ArchiveView do
     do: gettext("archive: %{year} – %{forum}", year: assigns[:year], forum: forum_name(assigns))
 
   def page_title(:threads, assigns) do
-      gettext("archive: %{month} – %{forum}",
-        month: Timex.format!(assigns[:start_date], "%B %Y", :strftime),
-        forum: forum_name(assigns)
-      )
+    gettext("archive: %{month} – %{forum}",
+      month: Timex.format!(assigns[:start_date], "%B %Y", :strftime),
+      forum: forum_name(assigns)
+    )
   end
 
   def page_heading(action, assigns), do: page_title(action, assigns)

@@ -1,6 +1,7 @@
 defmodule CforumWeb.Admin.SettingController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.Accounts.{Settings, Setting}
 
   def edit(conn, _params) do

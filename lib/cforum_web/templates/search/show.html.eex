@@ -9,7 +9,7 @@
     <%= ErrorHelpers.error_tag f, :term %>
   </div>
 
-  <%= VHelpers.l10n_render @view_module, "explanation.html", assigns %>
+  <%= ViewHelpers.l10n_render @view_module, "explanation.html", assigns %>
 
   <div class="cf-cgroup">
     <%= for section <- @visible_sections do %>
@@ -38,7 +38,7 @@
   </div>
 
   <p class="form-actions">
-    <%= VHelpers.Button.primary_submit gettext("search") %>
+    <%= ViewHelpers.Button.primary_submit gettext("search") %>
   </p>
 <% end %>
 

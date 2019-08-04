@@ -1,6 +1,7 @@
 defmodule CforumWeb.Api.V1.Messages.MarkReadController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.Forums
   alias Cforum.Threads
 

@@ -4,10 +4,11 @@ defmodule Cforum.Accounts.Users do
   """
 
   import Ecto.Query, warn: false
+  use Cforum.Accounts.Constants
+
   alias Cforum.Repo
 
   alias Cforum.Accounts.User
-  alias Cforum.Accounts.ForumGroupPermission
   alias Cforum.Accounts.Badge
   alias Cforum.Accounts.Settings
   alias Cforum.Accounts.Groups
@@ -573,10 +574,10 @@ defmodule Cforum.Accounts.Users do
 
   def moderator?(user) do
     cond do
-      badge?(user, Badge.moderator_tools()) ->
+      badge?(user, @badge_moderator_tools) ->
         true
 
-      Groups.permission?(Groups.list_permissions_for_user(user), ForumGroupPermission.moderate()) ->
+      Groups.permission?(Groups.list_permissions_for_user(user), @permission_moderate) ->
         true
 
       true ->
@@ -590,11 +591,11 @@ defmodule Cforum.Accounts.Users do
         u.admin == true or
           u.user_id in fragment(
             "SELECT user_id FROM groups_users WHERE group_id IN (SELECT group_id FROM forums_groups_permissions WHERE permission = ?)",
-            ^ForumGroupPermission.moderate()
+            ^@permission_moderate
           ) or
           u.user_id in fragment(
             "SELECT user_id FROM badges_users INNER JOIN badges USING(badge_id) WHERE badge_type = ?",
-            ^Badge.moderator_tools()
+            ^@badge_moderator_tools
           ),
       order_by: [asc: :username]
     )
@@ -607,12 +608,12 @@ defmodule Cforum.Accounts.Users do
         u.admin == true or
           u.user_id in fragment(
             "SELECT user_id FROM groups_users WHERE group_id IN (SELECT group_id FROM forums_groups_permissions WHERE permission = ? AND forum_id = ?)",
-            ^ForumGroupPermission.moderate(),
+            ^@permission_moderate,
             ^forum.forum_id
           ) or
           u.user_id in fragment(
             "SELECT user_id FROM badges_users INNER JOIN badges USING(badge_id) WHERE badge_type = ?",
-            ^Badge.moderator_tools()
+            ^@badge_moderator_tools
           ),
       order_by: [asc: :username]
     )

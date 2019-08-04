@@ -2,7 +2,7 @@
   <dt><%= gettext("name") %></dt>
   <dd class="p-attendee h-card">
     <%= if Helpers.present?(@attendee.user_id) do %>
-      <%= VHelpers.user_link(@conn, @attendee.user, ["p-name u-uid u-url"], @attendee.name) %>
+      <%= ViewHelpers.user_link(@conn, @attendee.user, ["p-name u-uid u-url"], @attendee.name) %>
     <% else %>
       <span class="p-name"><%= @attendee.name %></span>
     <% end %>
@@ -15,17 +15,17 @@
 
   <%= if Helpers.present?(@attendee.planned_start) do %>
     <dt><%= gettext("planned start") %></dt>
-    <dd><%= VHelpers.format_date(@conn, @attendee.planned_start) %></dd>
+    <dd><%= ViewHelpers.format_date(@conn, @attendee.planned_start) %></dd>
   <% end %>
 
   <%= if Helpers.present?(@attendee.planned_arrival) do %>
     <dt><%= gettext("planned arrival") %></dt>
-    <dd><%= VHelpers.format_date(@conn, @attendee.planned_arrival) %></dd>
+    <dd><%= ViewHelpers.format_date(@conn, @attendee.planned_arrival) %></dd>
   <% end %>
 
   <%= if Helpers.present?(@attendee.planned_leave) do %>
     <dt><%= gettext("planned leave") %></dt>
-    <dd><%= VHelpers.format_date(@conn, @attendee.planned_leave) %></dd>
+    <dd><%= ViewHelpers.format_date(@conn, @attendee.planned_leave) %></dd>
   <% end %>
 
   <%= if Helpers.present?(@attendee.seats) do %>
@@ -40,7 +40,7 @@
 
 <%= if Abilities.may?(@conn, "events/attendee", :delete, @attendee) do %>
   <div class="controls">
-    <%= VHelpers.Button.default_button_link gettext("edit"), to: Path.event_attendee_path(@conn, :edit, @event, @attendee) %>
-    <%= VHelpers.Button.destructive_button(gettext("delete attendee"), to: Path.event_attendee_path(@conn, :delete, @event, @attendee), method: :delete) %>
+    <%= ViewHelpers.Button.default_button_link gettext("edit"), to: Path.event_attendee_path(@conn, :edit, @event, @attendee) %>
+    <%= ViewHelpers.Button.destructive_button(gettext("delete attendee"), to: Path.event_attendee_path(@conn, :delete, @event, @attendee), method: :delete) %>
   </div>
 <% end %>

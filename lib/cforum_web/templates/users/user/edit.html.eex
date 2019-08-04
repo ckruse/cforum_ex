@@ -3,9 +3,9 @@
   <%= render "form.html", Map.merge(assigns, %{changeset: @changeset, f: f, user: @user}) %>
 
   <p class="form-actions">
-    <%= VHelpers.Button.primary_submit gettext("save changes") %>
-    <%= if Abilities.may?(@conn, "users/password", :edit, @user), do: VHelpers.Button.default_button_link(gettext("change password"), to: Path.user_password_path(@conn, :edit, @user)) %>
-    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Path.user_path(@conn, :show, @user) %>
+    <%= ViewHelpers.Button.primary_submit gettext("save changes") %>
+    <%= if Abilities.may?(@conn, "users/password", :edit, @user), do: ViewHelpers.Button.default_button_link(gettext("change password"), to: Path.user_password_path(@conn, :edit, @user)) %>
+    <%= ViewHelpers.Button.default_button_link gettext("cancel"), to: Path.user_path(@conn, :show, @user) %>
   </p>
 
 <% end %>

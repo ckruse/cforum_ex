@@ -11,10 +11,11 @@ defmodule CforumWeb.Messages.SubscriptionController do
   alias Cforum.Search
   alias Cforum.Search.Finder
 
+  alias Cforum.Abilities
   alias Cforum.ConfigManager
 
   alias CforumWeb.Paginator
-  alias CforumWeb.Views.Helpers.ReturnUrl
+  alias CforumWeb.Views.ViewHelpers.ReturnUrl
 
   def index(conn, %{"search" => %{"term" => term} = search_params} = params) when not is_nil(term) and term != "" do
     visible_sections = Search.list_visible_search_sections(conn.assigns.visible_forums)

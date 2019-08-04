@@ -3,8 +3,8 @@
 <ul class="cf-badge-user-list">
   <%= for user <- Badges.unique_users(@badge) do %>
     <li>
-      <%= VHelpers.user_link(@conn, user.user, [], user.user.username) %>
-      <%= if user.times > 1 do %>× <%= user.times %><% end %> (<%= VHelpers.format_date(@conn, user.created_at) %>)
+      <%= ViewHelpers.user_link(@conn, user.user, [], user.user.username) %>
+      <%= if user.times > 1 do %>× <%= user.times %><% end %> (<%= ViewHelpers.format_date(@conn, user.created_at) %>)
     </li>
   <% end %>
 </ul>

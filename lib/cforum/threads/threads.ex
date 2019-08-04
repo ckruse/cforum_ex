@@ -413,17 +413,17 @@ defmodule Cforum.Threads do
     |> ThreadCaching.refresh_cached_thread()
   end
 
-  def move_thread(%User{} = user, %Thread{} = thread, forum_id, visible_forums) do
+  def move_thread(%User{} = user, %Thread{} = thread, forum_id, visible_forums, url_generator) do
     forum = Cforum.Forums.get_forum!(forum_id)
 
     thread
     |> change_thread(forum, visible_forums)
-    |> move_thread(user, forum)
+    |> do_move_thread(user, forum, url_generator)
   end
 
-  defp move_thread(%Ecto.Changeset{valid?: false} = changeset, _user, _forum), do: changeset
+  defp do_move_thread(%Ecto.Changeset{valid?: false} = changeset, _user, _forum, _url_generator), do: changeset
 
-  defp move_thread(%Ecto.Changeset{valid?: true, data: thread}, user, forum) do
+  defp do_move_thread(%Ecto.Changeset{valid?: true, data: thread}, user, forum, url_generator) do
     System.audited("move", user, fn ->
       from(thr in Thread, where: thr.thread_id == ^thread.thread_id)
       |> Repo.update_all(set: [forum_id: forum.forum_id])
@@ -432,8 +432,7 @@ defmodule Cforum.Threads do
       |> Repo.update_all(set: [forum_id: forum.forum_id])
 
       Enum.each(thread.messages, fn msg ->
-        old_url = CforumWeb.Views.Helpers.Path.int_message_path(CforumWeb.Endpoint, thread, msg)
-        new_url = CforumWeb.Views.Helpers.Path.int_message_path(CforumWeb.Endpoint, %Thread{thread | forum: forum}, msg)
+        [old_url, new_url] = url_generator.(forum, thread, msg)
 
         from(r in Cforum.System.Redirection, where: r.path == ^new_url)
         |> Repo.delete_all()

@@ -4,6 +4,8 @@ defmodule CforumWeb.Plug.LoadUserInfoData do
   for signed in users (e.g. the count of unread PMs and notifications)
   """
 
+  use Cforum.Accounts.Constants
+
   alias Cforum.Accounts
   alias Accounts.Notifications
   alias Accounts.PrivMessages
@@ -21,7 +23,7 @@ defmodule CforumWeb.Plug.LoadUserInfoData do
 
     undecided_moderation_queue_entries =
       if is_mod do
-        forums = Forums.list_forums_by_permission(user, Accounts.ForumGroupPermission.moderate())
+        forums = Forums.list_forums_by_permission(user, @permission_moderate)
         ModerationQueue.count_entries(forums, true)
       else
         0

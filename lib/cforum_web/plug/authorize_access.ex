@@ -17,18 +17,10 @@ defmodule CforumWeb.Plug.AuthorizeAccess do
   def init(opts), do: opts
 
   def call(conn, _opts) do
-    # path = CforumWeb.Views.Helpers.controller_path(conn)
     action = Phoenix.Controller.action_name(conn)
 
-    if Abilities.may?(conn, Phoenix.Controller.controller_module(conn), action) do
-      conn
-    else
-      conn
-      |> Plug.Conn.put_status(403)
-      |> Phoenix.Controller.put_layout(false)
-      |> Phoenix.Controller.put_view(CforumWeb.ErrorView)
-      |> Phoenix.Controller.render("403.html")
-      |> Plug.Conn.halt()
-    end
+    if Abilities.may?(conn, Phoenix.Controller.controller_module(conn), action),
+      do: conn,
+      else: raise(Cforum.Errors.ForbiddenError, conn: conn)
   end
 end

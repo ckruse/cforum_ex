@@ -14,9 +14,9 @@
       <tr>
         <td><%= link(thumbnail_img(@conn, image), to: Path.image_path(@conn, :show, image)) %></td>
         <td><%= image.orig_name %></td>
-        <td><%= if Helpers.present?(image.owner), do: VHelpers.user_link(@conn, image.owner, [], image.owner.username) %></td>
-        <td><%= VHelpers.format_date(@conn, image.created_at) %></td>
-        <td><%= if Abilities.may?(@conn, "image", :delete, image), do: VHelpers.Button.destructive_index_button(gettext("delete"), to: Path.image_path(@conn, :delete, image), method: :delete) %></td>
+        <td><%= if Helpers.present?(image.owner), do: ViewHelpers.user_link(@conn, image.owner, [], image.owner.username) %></td>
+        <td><%= ViewHelpers.format_date(@conn, image.created_at) %></td>
+        <td><%= if Abilities.may?(@conn, "image", :delete, image), do: ViewHelpers.Button.destructive_index_button(gettext("delete"), to: Path.image_path(@conn, :delete, image), method: :delete) %></td>
       </tr>
     <% end %>
   </tbody>

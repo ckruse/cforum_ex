@@ -1,6 +1,15 @@
 defmodule CforumWeb.TagView do
   use CforumWeb, :view
 
+  alias CforumWeb.Paginator
+
+  alias Cforum.Abilities
+  alias Cforum.Helpers
+
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+  alias CforumWeb.ErrorHelpers
+
   def page_title(:index, _),
     do: gettext("tags list")
 

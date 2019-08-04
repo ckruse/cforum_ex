@@ -14,15 +14,15 @@
           <%= if Helpers.blank?(@cite.user_id) do %>
             <span class="p-name"><%= @cite.author %></span>
           <% else %>
-            <%= VHelpers.user_link(@conn, @cite.user, [], @cite.author) %>
+            <%= ViewHelpers.user_link(@conn, @cite.user, [], @cite.author) %>
           <% end %>
         </span>
 
-        <time datetime="<%= VHelpers.time_tag_timestamp(@cite.cite_date) %>" class="dt-published">
+        <time datetime="<%= ViewHelpers.time_tag_timestamp(@cite.cite_date) %>" class="dt-published">
           <%= if link_to_url?(@conn, @cite) do %>
-            <%= link VHelpers.format_date(@conn, @cite.cite_date), to: @cite.url %>
+            <%= link ViewHelpers.format_date(@conn, @cite.cite_date), to: @cite.url %>
           <% else %>
-            <%= VHelpers.format_date(@conn, @cite.cite_date) %>
+            <%= ViewHelpers.format_date(@conn, @cite.cite_date) %>
           <% end %>
         </time>
       </div>
@@ -62,18 +62,18 @@
       <%= gettext("created by") %>
       <span class="author">
         <%= if !Helpers.blank?(@cite.creator_user_id) do %>
-          <%= VHelpers.user_link(@conn, @cite.creator_user, [], @cite.creator) %>
+          <%= ViewHelpers.user_link(@conn, @cite.creator_user, [], @cite.creator) %>
         <% else %>
           <span class="icon-message original-poster"><%= @cite.creator %></span>
         <% end %>
       </span>
     <% end %>
 
-    <%= if @cite.created_at, do: VHelpers.time_tag(@cite.created_at, VHelpers.format_date(@conn, @cite.created_at), class: "dt-accessed") %>
+    <%= if @cite.created_at, do: ViewHelpers.time_tag(@cite.created_at, ViewHelpers.format_date(@conn, @cite.created_at), class: "dt-accessed") %>
   </div>
 
   <%= if Helpers.present?(@cite.cite_id) do %>
-    <%= if Abilities.may?(@conn, "cite", :edit, @cite), do: VHelpers.Button.default_button_link(gettext("edit"), to: Path.cite_path(@conn, :edit, @cite)) %>
-    <%= if Abilities.may?(@conn, "cite", :delete, @cite), do: VHelpers.Button.destructive_button(gettext("delete"), to: Path.cite_path(@conn, :delete, @cite), method: :delete) %>
+    <%= if Abilities.may?(@conn, "cite", :edit, @cite), do: ViewHelpers.Button.default_button_link(gettext("edit"), to: Path.cite_path(@conn, :edit, @cite)) %>
+    <%= if Abilities.may?(@conn, "cite", :delete, @cite), do: ViewHelpers.Button.destructive_button(gettext("delete"), to: Path.cite_path(@conn, :delete, @cite), method: :delete) %>
   <% end %>
 </article>

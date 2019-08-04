@@ -1,5 +1,6 @@
 defmodule CforumWeb.ModerationController do
   use CforumWeb, :controller
+  use Cforum.Accounts.Constants
 
   alias Cforum.Threads.Thread
 
@@ -8,15 +9,11 @@ defmodule CforumWeb.ModerationController do
   alias Cforum.ModerationQueue
   alias Cforum.ModerationQueue.ModerationQueueEntry
 
+  alias Cforum.Abilities
   alias Cforum.Helpers
 
   def index(conn, params) do
-    forums =
-      Cforum.Forums.list_forums_by_permission(
-        conn.assigns.current_user,
-        Cforum.Accounts.ForumGroupPermission.moderate()
-      )
-
+    forums = Cforum.Forums.list_forums_by_permission(conn.assigns.current_user, @permission_moderate)
     count = ModerationQueue.count_entries(forums)
     paging = CforumWeb.Paginator.paginate(count, page: params["p"])
 
@@ -34,12 +31,7 @@ defmodule CforumWeb.ModerationController do
   end
 
   def index_open(conn, params) do
-    forums =
-      Cforum.Forums.list_forums_by_permission(
-        conn.assigns.current_user,
-        Cforum.Accounts.ForumGroupPermission.moderate()
-      )
-
+    forums = Cforum.Forums.list_forums_by_permission(conn.assigns.current_user, @permission_moderate)
     count = ModerationQueue.count_entries(forums, true)
     paging = CforumWeb.Paginator.paginate(count, page: params["p"])
 
@@ -95,7 +87,9 @@ defmodule CforumWeb.ModerationController do
 
   def allowed?(conn, action, entry) when action in [:edit, :update] do
     entry = entry || conn.assigns[:entry]
-    Abilities.access_forum?(conn.assigns.current_user, entry.message.thread.forum, :moderate) && entry.cleared == false
+
+    Abilities.access_forum?(conn.assigns.current_user, entry.message.thread.forum, :moderate) &&
+      entry.cleared == false
   end
 
   def allowed?(conn, :show, entry) do

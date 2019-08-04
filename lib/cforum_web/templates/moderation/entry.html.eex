@@ -39,7 +39,7 @@
     <% end %>
 
     <%= if Abilities.may?(@conn, "moderation", :update, @entry) do %>
-      <%= VHelpers.Button.primary_button_link(gettext("solve"), to: Path.moderation_path(@conn, :edit, @entry)) %>
+      <%= ViewHelpers.Button.primary_button_link(gettext("solve"), to: Path.moderation_path(@conn, :edit, @entry)) %>
     <% end %>
   </div>
 </article>

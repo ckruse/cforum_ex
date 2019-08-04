@@ -1,5 +1,5 @@
-defmodule CforumWeb.Views.Helpers.ReturnUrl do
-  alias CforumWeb.Views.Helpers.Path
+defmodule CforumWeb.Views.ViewHelpers.ReturnUrl do
+  alias CforumWeb.Views.ViewHelpers.Path
 
   alias Cforum.Helpers
 

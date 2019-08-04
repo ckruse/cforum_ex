@@ -31,7 +31,7 @@
   </div>
 
   <p class="form-actions">
-    <%= VHelpers.Button.primary_submit gettext("search") %>
+    <%= ViewHelpers.Button.primary_submit gettext("search") %>
   </p>
 <% end %>
 
@@ -53,9 +53,9 @@
     <%= for entry <- @audit_entries do %>
       <tr>
         <td><%= l10n_audit_act(entry) %></td>
-        <td><%= if Helpers.present?(entry.user_id), do: VHelpers.user_link(@conn, entry.user, [], entry.user.username) %></td>
+        <td><%= if Helpers.present?(entry.user_id), do: ViewHelpers.user_link(@conn, entry.user, [], entry.user.username) %></td>
         <td><%= render_object(@conn, entry) %></td>
-        <td><%= VHelpers.format_date(@conn, entry.created_at) %></td>
+        <td><%= ViewHelpers.format_date(@conn, entry.created_at) %></td>
       </tr>
     <% end %>
   </tbody>

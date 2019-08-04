@@ -13,8 +13,7 @@ defmodule CforumWeb.Messages.AcceptControllerTest do
 
   test "responds with 403 on an already accepted answer", %{conn: conn, user: user, thread: thread, message: message} do
     Messages.accept_message(message, user, 15)
-    conn = post(conn, Path.message_path(conn, :accept, thread, message))
-    assert conn.status == 403
+    assert_error_sent(403, fn -> post(conn, Path.message_path(conn, :accept, thread, message)) end)
   end
 
   test "unaccepts an answer", %{conn: conn, user: user, forum: forum, thread: thread, message: message} do
@@ -25,8 +24,7 @@ defmodule CforumWeb.Messages.AcceptControllerTest do
   end
 
   test "responds with 403 on an not accepted answer", %{conn: conn, thread: thread, message: message} do
-    conn = post(conn, Path.message_path(conn, :unaccept, thread, message))
-    assert conn.status == 403
+    assert_error_sent(403, fn -> post(conn, Path.message_path(conn, :unaccept, thread, message)) end)
   end
 
   defp setup_tests(%{conn: conn}) do

@@ -1,6 +1,7 @@
 defmodule CforumWeb.Admin.AuditController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.System
 
   alias CforumWeb.Paginator

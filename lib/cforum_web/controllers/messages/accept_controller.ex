@@ -1,6 +1,7 @@
 defmodule CforumWeb.Messages.AcceptController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.Threads
   alias Cforum.Threads.ThreadHelpers
 
@@ -10,7 +11,7 @@ defmodule CforumWeb.Messages.AcceptController do
   alias Cforum.ConfigManager
   alias Cforum.Helpers
 
-  alias CforumWeb.Views.Helpers.ReturnUrl
+  alias CforumWeb.Views.ViewHelpers.ReturnUrl
 
   def accept(conn, params) do
     accept_value = ConfigManager.conf(conn, "accept_value", :int)
@@ -50,8 +51,8 @@ defmodule CforumWeb.Messages.AcceptController do
         _ -> {conn.assigns.thread, conn.assigns.message}
       end
 
-    Helpers.present?(message.parent_id) && Abilities.accept?(conn, thread.message) && !MessageHelpers.accepted?(message) &&
-      !thread.archived
+    Helpers.present?(message.parent_id) && Abilities.accept?(conn, thread.message) &&
+      !MessageHelpers.accepted?(message) && !thread.archived
   end
 
   def allowed?(conn, :unaccept, resource) do

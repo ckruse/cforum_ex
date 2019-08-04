@@ -1,6 +1,13 @@
 defmodule CforumWeb.Admin.RedirectionView do
   use CforumWeb, :view
 
+  alias CforumWeb.Paginator
+  alias CforumWeb.Sortable
+
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+  alias CforumWeb.ErrorHelpers
+
   def page_title(:index, _), do: gettext("administrate redirections")
   def page_title(action, _) when action in [:new, :create], do: gettext("new redirection")
   def page_title(action, _) when action in [:edit, :update], do: gettext("edit redirection")

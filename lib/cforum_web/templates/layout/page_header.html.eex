@@ -112,7 +112,7 @@
           <% end %>
 
           <%= if show?(assigns, :mark_all_read) do %>
-            <li id="mark-all-read"><%= VHelpers.Button.cf_button(gettext("mark all messages read"), to: Path.mark_read_path(@conn, :mark_all_read, @current_forum), method: :post, params: [p: "#{@page.page}"]) %></li>
+            <li id="mark-all-read"><%= ViewHelpers.Button.cf_button(gettext("mark all messages read"), to: Path.mark_read_path(@conn, :mark_all_read, @current_forum), method: :post, params: [p: "#{@page.page}"]) %></li>
           <% end %>
 
           <%= if ConfigManager.uconf(@conn, "hide_read_threads") == "yes" do %>

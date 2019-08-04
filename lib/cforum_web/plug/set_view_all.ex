@@ -5,7 +5,7 @@ defmodule CforumWeb.Plug.SetViewAll do
   """
 
   alias Cforum.Abilities
-  alias CforumWeb.Views.Helpers.Path
+  alias CforumWeb.Views.ViewHelpers.Path
 
   def init(opts), do: opts
 

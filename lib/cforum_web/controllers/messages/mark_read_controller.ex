@@ -5,10 +5,12 @@ defmodule CforumWeb.Messages.MarkReadController do
   alias Cforum.Threads.ThreadHelpers
 
   alias Cforum.Messages.ReadMessages
+
+  alias Cforum.Abilities
   alias Cforum.ConfigManager
 
   alias CforumWeb.Paginator
-  alias CforumWeb.Views.Helpers.ReturnUrl
+  alias CforumWeb.Views.ViewHelpers.ReturnUrl
 
   def mark_read(conn, params) do
     thread =

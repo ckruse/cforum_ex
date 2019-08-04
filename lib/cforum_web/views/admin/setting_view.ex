@@ -1,6 +1,12 @@
 defmodule CforumWeb.Admin.SettingView do
   use CforumWeb, :view
 
+  alias Cforum.ConfigManager
+  alias Cforum.Helpers
+
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+
   def page_title(_, _), do: gettext("settings")
   def page_heading(action, assigns), do: page_title(action, assigns)
   def body_id(:edit, _), do: "admin-settings-edit"
@@ -22,22 +28,17 @@ defmodule CforumWeb.Admin.SettingView do
     gettext("default value (%{val}, %{origin})", val: humanized(conf_val_or_default(conn, key)), origin: origin)
   end
 
-  def humanized(val) do
-    case val do
-      "yes" -> gettext("„yes“")
-      "no" -> gettext("„no“")
-      "nested-view" -> gettext("nested view")
-      "thread-view" -> gettext("thread view")
-      "newest-first" -> gettext("newest first")
-      "ascending" -> gettext("ascending")
-      "descending" -> gettext("descending")
-      "close" -> gettext("close subtree")
-      "hide" -> gettext("hide („delete“) subtree")
-      "" -> gettext("empty value")
-      nil -> gettext("empty value")
-      _ -> val
-    end
-  end
+  def humanized("yes"), do: gettext("„yes“")
+  def humanized("no"), do: gettext("„no“")
+  def humanized("nested-view"), do: gettext("nested view")
+  def humanized("thread-view"), do: gettext("thread view")
+  def humanized("newest-first"), do: gettext("newest first")
+  def humanized("ascending"), do: gettext("ascending")
+  def humanized("descending"), do: gettext("descending")
+  def humanized("close"), do: gettext("close subtree")
+  def humanized("hide"), do: gettext("hide („delete“) subtree")
+  def humanized(v) when v == "" or is_nil(v), do: gettext("empty value")
+  def humanized(val), do: val
 
   def global_conf?(conn, key) do
     if Helpers.blank?(conn.assigns[:global_config]),

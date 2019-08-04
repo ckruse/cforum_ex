@@ -1,13 +1,14 @@
 defmodule CforumWeb.Threads.InvisibleController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.Threads
   alias Cforum.Threads.InvisibleThreads
   alias Cforum.Threads.ThreadHelpers
   alias Cforum.ConfigManager
 
   alias CforumWeb.Paginator
-  alias CforumWeb.Views.Helpers.ReturnUrl
+  alias CforumWeb.Views.ViewHelpers.ReturnUrl
 
   def index(conn, params) do
     page = Paginator.parse_page(params["p"]) - 1

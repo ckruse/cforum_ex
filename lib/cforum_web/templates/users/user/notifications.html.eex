@@ -16,7 +16,7 @@
 
     <div class="cf-cgroup">
       <label><%= gettext("automatically subscribe threads when answering") %></label>
-      <label class="radio"><%= radio_button @f, :autosubscribe_on_post, "no", checked: VHelpers.blank_or_value?(@f.data, :autosubscribe_on_post, "no") %> <%= gettext("no, don't automatically subscribe") %></label>
+      <label class="radio"><%= radio_button @f, :autosubscribe_on_post, "no", checked: ViewHelpers.blank_or_value?(@f.data, :autosubscribe_on_post, "no") %> <%= gettext("no, don't automatically subscribe") %></label>
       <label class="radio"><%= radio_button @f, :autosubscribe_on_post, "yes" %> <%= gettext("automatically subscribe the parent posting") %></label>
       <label class="radio"><%= radio_button @f, :autosubscribe_on_post, "own" %> <%= gettext("automatically subscribe the own posting") %></label>
       <label class="radio"><%= radio_button @f, :autosubscribe_on_post, "root" %> <%= gettext("automatically subscribe the first posting of the thread") %></label>
@@ -31,13 +31,13 @@
     <div class="cf-cgroup">
       <label><%= gettext("notify me when a thread gets moved to a different forum") %></label>
       <label class="radio"><%= radio_button @f, :notify_on_move, "yes" %> <%= gettext("yes, notify me") %></label>
-      <label class="radio"><%= radio_button @f, :notify_on_move, "no", checked: VHelpers.blank_or_value?(@f.data, :notify_on_move, "no") %> <%= gettext("no, don't notify me") %></label>
+      <label class="radio"><%= radio_button @f, :notify_on_move, "no", checked: ViewHelpers.blank_or_value?(@f.data, :notify_on_move, "no") %> <%= gettext("no, don't notify me") %></label>
       <label class="radio"><%= radio_button @f, :notify_on_move, "email" %> <%= gettext("notify me via email") %></label>
     </div>
 
     <div class="cf-cgroup">
       <label><%= gettext("notify me when someone mentions me") %></label>
-      <label class="radio"><%= radio_button @f, :notify_on_mention, "yes", checked: VHelpers.blank_or_value?(@f.data, :notify_on_mention, "yes") %> <%= gettext("yes, notify me") %></label>
+      <label class="radio"><%= radio_button @f, :notify_on_mention, "yes", checked: ViewHelpers.blank_or_value?(@f.data, :notify_on_mention, "yes") %> <%= gettext("yes, notify me") %></label>
       <label class="radio"><%= radio_button @f, :notify_on_mention, "no" %> <%= gettext("no, don't notify me") %></label>
       <label class="radio"><%= radio_button @f, :notify_on_mention, "email" %> <%= gettext("notify me via email") %></label>
     </div>
@@ -45,7 +45,7 @@
     <div class="cf-cgroup">
       <label><%= gettext("notify me when someone creates a new cite") %></label>
       <label class="radio"><%= radio_button @f, :notify_on_cite, "yes" %> <%= gettext("yes, notify me") %></label>
-      <label class="radio"><%= radio_button @f, :notify_on_cite, "no", checked: VHelpers.blank_or_value?(@f.data, :notify_on_cite, "yes") %> <%= gettext("no, don't notify me") %></label>
+      <label class="radio"><%= radio_button @f, :notify_on_cite, "no", checked: ViewHelpers.blank_or_value?(@f.data, :notify_on_cite, "yes") %> <%= gettext("no, don't notify me") %></label>
       <label class="radio"><%= radio_button @f, :notify_on_cite, "email" %> <%= gettext("notify me via email") %></label>
     </div>
 

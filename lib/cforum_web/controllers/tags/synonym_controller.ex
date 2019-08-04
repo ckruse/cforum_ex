@@ -1,9 +1,11 @@
 defmodule CforumWeb.Tags.SynonymController do
   use CforumWeb, :controller
+  use Cforum.Accounts.Constants
+
+  alias Cforum.Abilities
 
   alias Cforum.Messages.Tags
   alias Cforum.Messages.TagSynonym
-  alias Cforum.Accounts.Badge
 
   def new(conn, %{"tag_id" => _tag_id}) do
     changeset = Tags.change_tag_synonym(conn.assigns.tag, %TagSynonym{})
@@ -62,7 +64,7 @@ defmodule CforumWeb.Tags.SynonymController do
 
   def allowed?(conn, _, _) do
     Abilities.access_forum?(conn) &&
-      (Abilities.badge?(conn, Badge.create_tag_synonym()) || Abilities.badge?(conn, Badge.moderator_tools()) ||
+      (Abilities.badge?(conn, @badge_create_tag_synonym) || Abilities.badge?(conn, @badge_moderator_tools) ||
          Abilities.admin?(conn))
   end
 end

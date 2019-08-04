@@ -1,4 +1,4 @@
-defmodule CforumWeb.Views.Helpers.Links do
+defmodule CforumWeb.Views.ViewHelpers.Links do
   @moduledoc """
   Provides button link helpers
   """

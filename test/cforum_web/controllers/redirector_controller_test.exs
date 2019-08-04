@@ -25,14 +25,14 @@ defmodule CforumWeb.RedirectorControllerTest do
     thread = insert(:thread, tid: 1)
     message = insert(:message, forum: thread.forum, thread: thread)
     conn = get(conn, "/archiv/#{thread.created_at.year}/t1")
-    assert redirected_to(conn) == CforumWeb.Views.Helpers.Path.message_path(conn, :show, thread, message)
+    assert redirected_to(conn) == CforumWeb.Views.ViewHelpers.Path.message_path(conn, :show, thread, message)
   end
 
   test "redirects to thread on /archiv/:year_:no/:tid", %{conn: conn} do
     thread = insert(:thread, tid: 1)
     message = insert(:message, forum: thread.forum, thread: thread)
     conn = get(conn, "/archiv/#{thread.created_at.year}_2/t1")
-    assert redirected_to(conn) == CforumWeb.Views.Helpers.Path.message_path(conn, :show, thread, message)
+    assert redirected_to(conn) == CforumWeb.Views.ViewHelpers.Path.message_path(conn, :show, thread, message)
   end
 
   test "shows a list of threads on /archiv/:year/:tid with multiple threads found", %{conn: conn} do
@@ -73,14 +73,14 @@ defmodule CforumWeb.RedirectorControllerTest do
     thread = insert(:thread, tid: 1)
     message = insert(:message, forum: thread.forum, thread: thread)
     conn = get(conn, "/archiv/#{thread.created_at.year}/#{thread.created_at.month}/t1")
-    assert redirected_to(conn) == CforumWeb.Views.Helpers.Path.message_path(conn, :show, thread, message)
+    assert redirected_to(conn) == CforumWeb.Views.ViewHelpers.Path.message_path(conn, :show, thread, message)
   end
 
   test "redirects to thread on /archiv/:year_:no/:month/t:tid", %{conn: conn} do
     thread = insert(:thread, tid: 1)
     message = insert(:message, forum: thread.forum, thread: thread)
     conn = get(conn, "/archiv/#{thread.created_at.year}_2/#{thread.created_at.month}/t1")
-    assert redirected_to(conn) == CforumWeb.Views.Helpers.Path.message_path(conn, :show, thread, message)
+    assert redirected_to(conn) == CforumWeb.Views.ViewHelpers.Path.message_path(conn, :show, thread, message)
   end
 
   test "shows a list of threads on /archiv/:year/:month/t:tid with multiple threads found", %{conn: conn} do
@@ -103,7 +103,7 @@ defmodule CforumWeb.RedirectorControllerTest do
     thread = insert(:thread, forum: forum)
     message = insert(:message, thread: thread, forum: forum)
     conn = get(conn, "/m#{message.message_id}")
-    assert redirected_to(conn) == CforumWeb.Views.Helpers.Path.message_path(conn, :show, thread, message)
+    assert redirected_to(conn) == CforumWeb.Views.ViewHelpers.Path.message_path(conn, :show, thread, message)
   end
 
   test "fails on /m:mid with non-existant mid", %{conn: conn} do

@@ -1,6 +1,12 @@
 defmodule CforumWeb.Messages.OpenCloseVoteView do
   use CforumWeb, :view
 
+  alias Cforum.ConfigManager
+
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+  alias CforumWeb.ErrorHelpers
+
   alias Cforum.Messages.CloseVote
 
   def page_title(action, assigns) when action in [:new_close, :create_close] do

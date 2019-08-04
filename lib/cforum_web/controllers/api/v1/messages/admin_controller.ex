@@ -4,6 +4,8 @@ defmodule CforumWeb.Api.V1.Messages.AdminController do
   alias Cforum.Forums
   alias Cforum.Threads
   alias Cforum.Messages
+
+  alias Cforum.Abilities
   alias Cforum.ConfigManager
 
   def delete(conn, %{"slug" => slug}) do

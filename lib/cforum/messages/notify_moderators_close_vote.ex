@@ -8,7 +8,7 @@ defmodule Cforum.Messages.NotifyModeratorsCloseVote do
   alias Cforum.Abilities
   alias Cforum.ConfigManager
   alias Cforum.Accounts.Notifications
-  alias CforumWeb.Views.Helpers.Path
+  alias CforumWeb.Views.ViewHelpers.Path
 
   def perform_new_vote(vote) do
     Cforum.Helpers.AsyncHelper.run_async(fn ->

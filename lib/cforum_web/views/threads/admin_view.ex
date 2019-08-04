@@ -1,6 +1,10 @@
 defmodule CforumWeb.Threads.AdminView do
   use CforumWeb, :view
 
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+  alias CforumWeb.ErrorHelpers
+
   def page_title(action, %{message: msg}) when action in [:move, :do_move],
     do: gettext("Move thread %{subject} by %{author}", subject: msg.subject, author: msg.author)
 

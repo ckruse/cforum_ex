@@ -3,10 +3,15 @@ defmodule Cforum.Abilities do
   This module defines all access rights for users in our forum system
   """
 
-  require Logger
+  use Cforum.Accounts.Constants
 
-  alias Cforum.Accounts.{Settings, Setting}
   alias Cforum.Forums
+  alias Cforum.Helpers
+
+  alias Cforum.Accounts.{Users, User, Groups}
+  alias Cforum.Accounts.{Settings, Setting}
+
+  alias Cforum.Messages.MessageHelpers
 
   @doc """
   Returns `true` if the user may access the given path, `false` otherwise
@@ -50,16 +55,9 @@ defmodule Cforum.Abilities do
     end)
   end
 
-  alias Cforum.Accounts.Groups
-  alias Cforum.Accounts.Users
-
-  alias Cforum.Accounts.ForumGroupPermission
-  alias Cforum.Accounts.User
-  alias Cforum.Accounts.Badge
-
-  alias Cforum.Messages.MessageHelpers
-
-  alias Cforum.Helpers
+  ##
+  ## authorization and authentication helpers
+  ##
 
   @doc """
   Returns true if a user is signed in, returns false otherwise
@@ -162,7 +160,7 @@ defmodule Cforum.Abilities do
   defp access_forum_read?(_, nil), do: true
 
   defp access_forum_read?(nil, forum),
-    do: forum.standard_permission in [ForumGroupPermission.write(), ForumGroupPermission.read()]
+    do: forum.standard_permission in [@permission_write, @permission_read]
 
   defp access_forum_read?(user, forum) do
     if standard_permission_valid?(forum) do
@@ -177,19 +175,19 @@ defmodule Cforum.Abilities do
   # write access
   #
   defp access_forum_write?(_, nil), do: true
-  defp access_forum_write?(nil, forum), do: forum.standard_permission == ForumGroupPermission.write()
+  defp access_forum_write?(nil, forum), do: forum.standard_permission == @permission_write
 
   defp access_forum_write?(user, forum) do
     permissions = Groups.list_permissions_for_user_and_forum(user, forum)
 
     cond do
-      forum.standard_permission in [ForumGroupPermission.write(), ForumGroupPermission.known_write()] ->
+      forum.standard_permission in [@permission_write, @permission_known_write] ->
         true
 
-      Users.badge?(user, Badge.moderator_tools()) && generally_has_access?(permissions, forum) ->
+      Users.badge?(user, @badge_moderator_tools) && generally_has_access?(permissions, forum) ->
         true
 
-      Groups.permission?(permissions, [ForumGroupPermission.moderate(), ForumGroupPermission.write()]) ->
+      Groups.permission?(permissions, [@permission_moderate, @permission_write]) ->
         true
 
       true ->
@@ -201,26 +199,21 @@ defmodule Cforum.Abilities do
   # moderator access
   #
   defp access_forum_moderate?(nil, _), do: false
-  defp access_forum_moderate?(user, nil), do: Users.badge?(user, Badge.moderator_tools())
+
+  defp access_forum_moderate?(user, nil),
+    do: Users.badge?(user, @badge_moderator_tools)
 
   defp access_forum_moderate?(user, forum) do
     permissions = Groups.list_permissions_for_user_and_forum(user, forum)
 
-    if Users.badge?(user, Badge.moderator_tools()) && generally_has_access?(permissions, forum) do
-      true
-    else
-      Groups.permission?(permissions, ForumGroupPermission.moderate())
-    end
+    if Users.badge?(user, @badge_moderator_tools) && generally_has_access?(permissions, forum),
+      do: true,
+      else: Groups.permission?(permissions, @permission_moderate)
   end
 
   defp generally_has_access?(permissions, forum), do: Helpers.present?(permissions) || standard_permission_valid?(forum)
 
   defp standard_permission_valid?(forum) do
-    forum.standard_permission in [
-      ForumGroupPermission.read(),
-      ForumGroupPermission.write(),
-      ForumGroupPermission.known_read(),
-      ForumGroupPermission.known_write()
-    ]
+    forum.standard_permission in [@permission_read, @permission_write, @permission_known_read, @permission_known_write]
   end
 end

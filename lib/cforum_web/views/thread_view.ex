@@ -3,7 +3,16 @@ defmodule CforumWeb.ThreadView do
 
   alias Cforum.Threads.Thread
   alias Cforum.Threads.ThreadHelpers
-  alias CforumWeb.Views.Helpers.Feeds
+
+  alias CforumWeb.Paginator
+  alias CforumWeb.Views.ViewHelpers.Feeds
+
+  alias Cforum.ConfigManager
+  alias Cforum.Helpers
+
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+  alias CforumWeb.ErrorHelpers
 
   defp archived_class(classes, %Thread{archived: true}), do: ["archived" | classes]
   defp archived_class(classes, _), do: classes

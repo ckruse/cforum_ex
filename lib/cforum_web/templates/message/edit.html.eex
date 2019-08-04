@@ -11,11 +11,11 @@
 <%= form_for @changeset, Path.message_path(@conn, :edit, @thread, @message), [class: "cf-form cf-posting-form", method: :put], fn f -> %>
   <%= render("form.html", Map.merge(assigns, %{f: f})) %>
 
-  <%=VHelpers.l10n_render @view_module, "post-notes.html", assigns %>
+  <%=ViewHelpers.l10n_render @view_module, "post-notes.html", assigns %>
 
   <p class="form-actions">
-    <%= VHelpers.Button.default_submit gettext("show preview"), name: "preview" %>
-    <%= VHelpers.Button.primary_submit gettext("create message") %>
-    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Path.message_path(@conn, :show, @thread, @message) %>
+    <%= ViewHelpers.Button.default_submit gettext("show preview"), name: "preview" %>
+    <%= ViewHelpers.Button.primary_submit gettext("create message") %>
+    <%= ViewHelpers.Button.default_button_link gettext("cancel"), to: Path.message_path(@conn, :show, @thread, @message) %>
   </p>
 <% end %>

@@ -1,6 +1,7 @@
 defmodule CforumWeb.Events.AttendeeController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.Events
   alias Cforum.Events.{Attendee, Attendees}
   alias Cforum.Helpers

@@ -8,8 +8,7 @@ defmodule CforumWeb.Users.SessionControllerTest do
 
   test "sends 403 for already logged-in users", %{conn: conn} do
     user = insert(:user)
-    conn = get(login(conn, user), Path.session_path(conn, :new))
-    assert conn.status == 403
+    assert_error_sent(403, fn -> get(login(conn, user), Path.session_path(conn, :new)) end)
   end
 
   test "logs in successfully with right password", %{conn: conn} do
@@ -50,11 +49,10 @@ defmodule CforumWeb.Users.SessionControllerTest do
       |> with_password("1234")
       |> insert
 
-    conn =
+    assert_error_sent(403, fn ->
       login(conn, user)
       |> post(Path.session_path(conn, :create, user: %{login: user.username, password: "12345", remember_me: "true"}))
-
-    assert conn.status == 403
+    end)
   end
 
   test "logs out the user", %{conn: conn} do
@@ -91,7 +89,6 @@ defmodule CforumWeb.Users.SessionControllerTest do
   end
 
   test "shows 403 path when not logged in", %{conn: conn} do
-    conn = delete(conn, Path.session_path(conn, :delete))
-    assert conn.status == 403
+    assert_error_sent(403, fn -> delete(conn, Path.session_path(conn, :delete)) end)
   end
 end

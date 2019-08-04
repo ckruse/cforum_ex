@@ -5,9 +5,9 @@
         <%= gettext("There are no visible forums available.") %>
       <% else %>
         <%= if Helpers.blank?(@current_forum) do %>
-          <%= {:safe, gettext("The oldest forum has been created at %{created}. All forums contain <strong>%{no_messages}</strong> messages in <strong>%{no_threads}</strong> threads.", created: VHelpers.format_date(assigns[:conn], @oldest_forum.created_at), no_messages: @no_messages, no_threads: @no_threads)} %>
+          <%= {:safe, gettext("The oldest forum has been created at %{created}. All forums contain <strong>%{no_messages}</strong> messages in <strong>%{no_threads}</strong> threads.", created: ViewHelpers.format_date(assigns[:conn], @oldest_forum.created_at), no_messages: @no_messages, no_threads: @no_threads)} %>
         <% else %>
-          <%= {:safe, gettext("The forum „%{name}“ has been created at %{created} and contains <strong>%{no_messages}</strong> messages in <strong>%{no_threads}</strong> threads.", name: @current_forum.name, created: VHelpers.format_date(assigns[:conn], @oldest_forum.created_at), no_messages: @no_messages, no_threads: @no_threads)} %>
+          <%= {:safe, gettext("The forum „%{name}“ has been created at %{created} and contains <strong>%{no_messages}</strong> messages in <strong>%{no_threads}</strong> threads.", name: @current_forum.name, created: ViewHelpers.format_date(assigns[:conn], @oldest_forum.created_at), no_messages: @no_messages, no_threads: @no_threads)} %>
         <% end %>
       <% end %>
     </p>
@@ -63,7 +63,7 @@
       <div class="cf-stats-users-list">
         <dl>
           <%= for user <- @state[type].users do %>
-            <dt><%= VHelpers.user_link(@conn, user.user, [], user.user.username) %></dt>
+            <dt><%= ViewHelpers.user_link(@conn, user.user, [], user.user.username) %></dt>
             <dd><%= number_to_delimited(user.cnt, precision: 0) %></dd>
           <% end %>
         </dl>

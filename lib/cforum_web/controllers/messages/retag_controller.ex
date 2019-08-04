@@ -1,11 +1,13 @@
 defmodule CforumWeb.Messages.RetagController do
   use CforumWeb, :controller
+  use Cforum.Accounts.Constants
 
   alias Cforum.Threads
   alias Cforum.Threads.ThreadHelpers
   alias Cforum.Messages
   alias Cforum.Messages.MessageHelpers
-  alias Cforum.Accounts.Badge
+
+  alias Cforum.Abilities
   alias Cforum.ConfigManager
 
   def edit(conn, _params) do
@@ -54,6 +56,6 @@ defmodule CforumWeb.Messages.RetagController do
 
   def allowed?(conn, _action, {thread, message}) do
     Abilities.access_forum?(conn, :moderate) || Abilities.may?(conn, "message", :edit, {thread, message}) ||
-      (Abilities.badge?(conn, Badge.retag()) && MessageHelpers.open?(message))
+      (Abilities.badge?(conn, @badge_retag) && MessageHelpers.open?(message))
   end
 end

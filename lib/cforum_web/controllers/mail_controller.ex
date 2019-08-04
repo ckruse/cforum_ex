@@ -5,10 +5,11 @@ defmodule CforumWeb.MailController do
   alias Cforum.Accounts.PrivMessages
   alias Cforum.Messages
 
+  alias Cforum.Abilities
   alias Cforum.ConfigManager
   alias Cforum.Helpers
 
-  alias CforumWeb.Views.Helpers, as: VHelpers
+  alias CforumWeb.Views.ViewHelpers
   alias CforumWeb.Sortable
   alias CforumWeb.Paginator
 
@@ -72,7 +73,7 @@ defmodule CforumWeb.MailController do
           subject:
             gettext("regarding your message %{subject} from %{time}",
               subject: message.subject,
-              time: VHelpers.format_date(conn, message.created_at, "date_format_post")
+              time: ViewHelpers.format_date(conn, message.created_at, "date_format_post")
             ),
           recipient_id: message.user_id
         },

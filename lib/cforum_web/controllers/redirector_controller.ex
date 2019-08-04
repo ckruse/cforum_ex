@@ -57,7 +57,7 @@ defmodule CforumWeb.RedirectorController do
 
   def redirect_to_month(conn, %{"year" => year, "month" => month}) do
     if not valid_params?(year, month),
-      do: raise(Phoenix.Router.NoRouteError, conn: conn, router: CforumWeb.Router)
+      do: raise(Cforum.Errors.NotFoundError, conn: conn)
 
     year = String.replace(year, ~r/_\d+$/, "")
     {:ok, date} = NaiveDateTime.new(String.to_integer(year), String.to_integer(month), 1, 12, 0, 0)
@@ -77,7 +77,7 @@ defmodule CforumWeb.RedirectorController do
         redirect(conn, to: Path.message_path(conn, :show, thread, message))
 
       _ ->
-        raise(Phoenix.Router.NoRouteError, conn: conn, router: CforumWeb.Router)
+        raise(Cforum.Errors.NotFoundError, conn: conn)
     end
   end
 

@@ -43,11 +43,11 @@
   <% end %>
 
   <p class="form-actions">
-    <%= VHelpers.Button.primary_submit gettext("save") %>
-    <%= VHelpers.Button.default_button_link gettext("cancel"), to: @back %>
+    <%= ViewHelpers.Button.primary_submit gettext("save") %>
+    <%= ViewHelpers.Button.default_button_link gettext("cancel"), to: @back %>
   </p>
 <% end %>
 
 <%= if Helpers.present?(assigns[:user]) do %>
-  <%= VHelpers.Button.destructive_button(gettext("delete"), to: Path.admin_user_path(@conn, :delete, @user), method: :delete) %>
+  <%= ViewHelpers.Button.destructive_button(gettext("delete"), to: Path.admin_user_path(@conn, :delete, @user), method: :delete) %>
 <% end %>

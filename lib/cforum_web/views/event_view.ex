@@ -1,6 +1,15 @@
 defmodule CforumWeb.EventView do
   use CforumWeb, :view
 
+  alias CforumWeb.Paginator
+  alias CforumWeb.Sortable
+
+  alias Cforum.Abilities
+  alias Cforum.Helpers
+
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+
   def page_title(:index, _), do: gettext("events")
   def page_title(:show, %{event: event}), do: event.name
 

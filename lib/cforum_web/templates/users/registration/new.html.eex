@@ -36,6 +36,6 @@
 </div>
 
 <p class="form-actions">
-  <%= VHelpers.Button.primary_submit gettext("sign up") %>
+  <%= ViewHelpers.Button.primary_submit gettext("sign up") %>
 </p>
 <% end %>

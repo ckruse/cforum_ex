@@ -2,7 +2,7 @@
   <%= render "form.html", Map.put(assigns, :f, f) %>
 
   <p class="form-actions">
-    <%= VHelpers.Button.primary_submit gettext("save edited cite") %>
-    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Path.cite_path(@conn, :index) %>
+    <%= ViewHelpers.Button.primary_submit gettext("save edited cite") %>
+    <%= ViewHelpers.Button.default_button_link gettext("cancel"), to: Path.cite_path(@conn, :index) %>
   </p>
 <% end %>

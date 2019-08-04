@@ -1,6 +1,7 @@
 defmodule CforumWeb.Cite.VoteController do
   use CforumWeb, :controller
 
+  alias Cforum.Abilities
   alias Cforum.Cites
 
   def vote(conn, %{"type" => type}) when type in ["up", "down"] do
@@ -20,5 +21,5 @@ defmodule CforumWeb.Cite.VoteController do
   end
 
   def load_resource(conn), do: Plug.Conn.assign(conn, :cite, Cites.get_cite!(conn.params["id"]))
-  def allowed?(conn, _, _), do: Abilities.signed_in?(conn) && conn.assigns.cite.archived == false
+  def allowed?(conn, _, resource), do: Abilities.signed_in?(conn) && (resource || conn.assigns.cite).archived == false
 end

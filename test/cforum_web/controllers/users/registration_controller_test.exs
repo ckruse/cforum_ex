@@ -8,8 +8,7 @@ defmodule CforumWeb.Users.RegistrationControllerTest do
 
   test "shows a 403 for already logged-in users", %{conn: conn} do
     user = insert(:user)
-    conn = get(login(conn, user), Path.registration_path(conn, :new))
-    assert conn.status == 403
+    assert_error_sent(403, fn -> get(login(conn, user), Path.registration_path(conn, :new)) end)
   end
 
   test "registers a new user", %{conn: conn} do
@@ -32,14 +31,13 @@ defmodule CforumWeb.Users.RegistrationControllerTest do
   test "does not register a new user when logged in", %{conn: conn} do
     user = insert(:user)
 
-    conn =
+    assert_error_sent(403, fn ->
       post(
         login(conn, user),
         Path.registration_path(conn, :create),
         user: %{username: "foobar", email: "foo@example.org", password: "1234", password_confirmation: "1234"}
       )
-
-    assert conn.status == 403
+    end)
   end
 
   test "confirms a new user", %{conn: conn} do

@@ -3,6 +3,15 @@ defmodule CforumWeb.CiteView do
 
   alias Cforum.Cites
 
+  alias CforumWeb.Paginator
+
+  alias Cforum.Abilities
+  alias Cforum.Helpers
+
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+  alias CforumWeb.ErrorHelpers
+
   def page_title(:index, _), do: gettext("cites")
   def page_title(:index_voting, _), do: gettext("vote for cites")
   def page_title(:show, assigns), do: gettext("cite %{id}", id: assigns[:cite].cite_id)
@@ -36,7 +45,7 @@ defmodule CforumWeb.CiteView do
       else: cite.message.subject
   end
 
-  def votable?(conn, cite), do: Abilities.signed_in?(conn) && !cite.archived && Helpers.present?(cite.cite_id)
+  def votable?(conn, cite), do: Helpers.present?(cite.cite_id) && Abilities.may?(conn, "cite/vote", :vote, cite)
 
   def path_args(conn) do
     if action_name(conn) == :index, do: [conn, :index], else: [conn, :index_voting]

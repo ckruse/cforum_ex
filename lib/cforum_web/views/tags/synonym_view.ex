@@ -1,6 +1,10 @@
 defmodule CforumWeb.Tags.SynonymView do
   use CforumWeb, :view
 
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+  alias CforumWeb.ErrorHelpers
+
   def page_title(action, assigns) when action in [:edit, :update] do
     gettext(
       "edit tag synonym “%{synonym}” for tag “%{tag}”",

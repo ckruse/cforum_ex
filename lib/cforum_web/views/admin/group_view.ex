@@ -1,6 +1,10 @@
 defmodule CforumWeb.Admin.GroupView do
   use CforumWeb, :view
 
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+  alias CforumWeb.ErrorHelpers
+
   def page_title(:index, _), do: gettext("administrate groups")
   def page_title(action, _) when action in [:new, :create], do: gettext("new group")
 

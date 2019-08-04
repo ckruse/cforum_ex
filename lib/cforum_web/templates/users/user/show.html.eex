@@ -24,7 +24,7 @@
           <% end %>
           <tr>
             <th><%= gettext("registered since") %>:</th>
-            <td><%= VHelpers.format_date(@conn, @user.created_at) %></td>
+            <td><%= ViewHelpers.format_date(@conn, @user.created_at) %></td>
           </tr>
         </tbody>
       </table>
@@ -98,7 +98,7 @@
   <% end %>
 </div>
 
-<p><%= link gettext("all messages"), to: Routes.user_path(@conn, :show_messages, @user) %></p>
+<p><%= link gettext("all messages"), to: Path.user_path(@conn, :show_messages, @user) %></p>
 
 <h2 class="cf-heading"><%= gettext("Best scored messages") %></h2>
 
@@ -150,9 +150,9 @@
 <% end %>
 
 <p>
-  <%= link gettext("all scores"), to: Routes.user_path(@conn, :show_scores, @user) %>
+  <%= link gettext("all scores"), to: Path.user_path(@conn, :show_scores, @user) %>
   <%= if Abilities.may?(@conn, "users/user", :show_votes, @user) do %>
-    <%= link gettext("all votes"), to: Routes.user_path(@conn, :show_votes, @user) %>
+    <%= link gettext("all votes"), to: Path.user_path(@conn, :show_votes, @user) %>
   <% end %>
 </p>
 
@@ -164,9 +164,9 @@
 <% else %>
   <ul class="cf-badge-user-list">
     <%= for ub <- @badges do %>
-      <li><%= img_tag(Routes.static_path(@conn, "/images/" <> ub[:badge].badge_medal_type <> ".png"), class: "medal-image", alt: VHelpers.l10n_medal_type(ub[:badge].badge_medal_type)) %>
-        <%= link ub[:badge].name, to: Routes.badge_path(@conn, :show, ub[:badge].slug) %>
-        <%= if ub[:times] > 1, do: "× #{ub[:times]}" %> (<%= VHelpers.format_date(@conn, ub[:created_at]) %>)</li>
+      <li><%= img_tag(Routes.static_path(@conn, "/images/" <> ub[:badge].badge_medal_type <> ".png"), class: "medal-image", alt: ViewHelpers.l10n_medal_type(ub[:badge].badge_medal_type)) %>
+        <%= link ub[:badge].name, to: Path.badge_path(@conn, :show, ub[:badge]) %>
+        <%= if ub[:times] > 1, do: "× #{ub[:times]}" %> (<%= ViewHelpers.format_date(@conn, ub[:created_at]) %>)</li>
     <% end %>
   </ul>
 <% end %>
@@ -174,9 +174,9 @@
 
 <%= if @current_user != nil do %>
   <p class="form-actions">
-    <%= if Abilities.may?(@conn, "users/user", :edit, @user), do: VHelpers.Button.default_button_link(gettext("edit profile and settings"), to: Routes.user_path(@conn, :edit, @user)) %>
-    <%= if Abilities.may?(@conn, "users/user", :delete, @user), do: VHelpers.Button.default_button_link(gettext("delete user"), to: Routes.user_path(@conn, :confirm_delete, @user)) %>
-    <%= if Abilities.may?(@conn, "users/password", :edit, @user), do: VHelpers.Button.default_button_link(gettext("change password"), to: Routes.user_password_path(@conn, :edit, @user)) %>
-    <%= if @user.user_id != @current_user.user_id, do: VHelpers.Button.default_button_link(gettext("new mail to %{username}", username: @user.username), to: Routes.mail_path(@conn, :new, priv_message: [recipient_id: @user.user_id]), rel: "nofollow") %>
+    <%= if Abilities.may?(@conn, "users/user", :edit, @user), do: ViewHelpers.Button.default_button_link(gettext("edit profile and settings"), to: Path.user_path(@conn, :edit, @user)) %>
+    <%= if Abilities.may?(@conn, "users/user", :delete, @user), do: ViewHelpers.Button.default_button_link(gettext("delete user"), to: Path.user_path(@conn, :confirm_delete, @user)) %>
+    <%= if Abilities.may?(@conn, "users/password", :edit, @user), do: ViewHelpers.Button.default_button_link(gettext("change password"), to: Path.user_password_path(@conn, :edit, @user)) %>
+    <%= if @user.user_id != @current_user.user_id, do: ViewHelpers.Button.default_button_link(gettext("new mail to %{username}", username: @user.username), to: Path.mail_path(@conn, :new, priv_message: [recipient_id: @user.user_id]), rel: "nofollow") %>
   </p>
 <% end %>

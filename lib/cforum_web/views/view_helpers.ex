@@ -1,4 +1,4 @@
-defmodule CforumWeb.Views.Helpers do
+defmodule CforumWeb.Views.ViewHelpers do
   @moduledoc """
   This module contains some helpers for web rendering
   """
@@ -9,7 +9,12 @@ defmodule CforumWeb.Views.Helpers do
 
   alias Cforum.Helpers
   alias Cforum.ConfigManager
-  alias CforumWeb.Views.Helpers.Path
+  alias CforumWeb.Views.ViewHelpers.Path
+
+  alias Cforum.ConfigManager
+  alias Cforum.Helpers
+
+  alias CforumWeb.Views.ViewHelpers.Path
 
   @doc """
   This function formats a date by a format name. It looks up the format itself

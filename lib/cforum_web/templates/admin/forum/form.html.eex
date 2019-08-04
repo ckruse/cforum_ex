@@ -99,7 +99,7 @@
 </fieldset>
 
 <%= inputs_for @f, :setting, fn(fs) -> %>
-  <%= VHelpers.sub_inputs fs, :options, fn(fo) -> %>
+  <%= ViewHelpers.sub_inputs fs, :options, fn(fo) -> %>
     <%= render CforumWeb.Admin.SettingView, "settings.html", Map.merge(assigns, %{fo: fo, settings: @forum.setting}) %>
   <% end %>
 <% end %>

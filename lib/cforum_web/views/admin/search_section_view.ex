@@ -1,6 +1,12 @@
 defmodule CforumWeb.Admin.SearchSectionView do
   use CforumWeb, :view
 
+  alias Cforum.Helpers
+
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+  alias CforumWeb.ErrorHelpers
+
   def page_title(:index, _), do: gettext("administrate search sections")
   def page_title(action, _) when action in [:new, :create], do: gettext("new search section")
 

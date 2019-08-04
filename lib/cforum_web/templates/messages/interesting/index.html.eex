@@ -5,7 +5,7 @@
     <%= ErrorHelpers.error_tag f, :term %>
   </div>
 
-  <%=VHelpers.l10n_render CforumWeb.SearchView, "explanation.html", assigns %>
+  <%=ViewHelpers.l10n_render CforumWeb.SearchView, "explanation.html", assigns %>
 <% end %>
 
 <%= if Helpers.blank?(@threads) do %>

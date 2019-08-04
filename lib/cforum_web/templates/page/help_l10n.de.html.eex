@@ -69,7 +69,7 @@
 
   <ul>
     <%= for moderator <- @moderators do %>
-      <li><%= VHelpers.user_link(@conn, moderator, [], moderator.username) %></li>
+      <li><%= ViewHelpers.user_link(@conn, moderator, [], moderator.username) %></li>
     <% end %>
   </ul>
 

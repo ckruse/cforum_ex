@@ -5,9 +5,11 @@ defmodule CforumWeb.Threads.AdminController do
   alias Cforum.Threads.ThreadHelpers
   alias Cforum.Messages
 
+  alias Cforum.Abilities
   alias Cforum.Helpers
 
-  alias CforumWeb.Views.Helpers.ReturnUrl
+  alias CforumWeb.Views.ViewHelpers.Path
+  alias CforumWeb.Views.ViewHelpers.ReturnUrl
 
   def sticky(conn, params) do
     Threads.mark_thread_sticky(conn.assigns.current_user, conn.assigns.thread)
@@ -47,7 +49,15 @@ defmodule CforumWeb.Threads.AdminController do
   end
 
   def do_move(conn, %{"thread" => %{"forum_id" => forum_id}}) do
-    case Threads.move_thread(conn.assigns.current_user, conn.assigns.thread, forum_id, conn.assigns.visible_forums) do
+    user = conn.assigns.current_user
+    thread = conn.assigns.thread
+    visible_forums = conn.assigns.visible_forums
+
+    url_generator = fn new_forum, thread, msg ->
+      [Path.int_message_path(conn, thread, msg), Path.int_message_path(conn, %{thread | forum: new_forum}, msg)]
+    end
+
+    case Threads.move_thread(user, thread, forum_id, visible_forums, url_generator) do
       {:ok, thread} ->
         conn
         |> put_flash(:info, gettext("Thread has successfully been moved."))

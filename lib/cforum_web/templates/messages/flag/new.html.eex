@@ -29,8 +29,8 @@
 
 
   <p class="form-actions">
-    <%= VHelpers.Button.primary_submit gettext("flag message") %>
-    <%= VHelpers.Button.default_button_link gettext("cancel"), to: Path.message_path(@conn, :show, @thread, @message) %>
+    <%= ViewHelpers.Button.primary_submit gettext("flag message") %>
+    <%= ViewHelpers.Button.default_button_link gettext("cancel"), to: Path.message_path(@conn, :show, @thread, @message) %>
   </p>
 <% end %>
 

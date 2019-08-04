@@ -1,6 +1,12 @@
 defmodule CforumWeb.ForumView do
   use CforumWeb, :view
 
+  alias Cforum.Abilities
+  alias Cforum.Helpers
+
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+
   def page_title(:index, _), do: gettext("forums")
 
   def page_title(:stats, %{current_forum: forum}) when not is_nil(forum),
@@ -48,7 +54,7 @@ defmodule CforumWeb.ForumView do
 
   def posting_date(conn, message) do
     if Timex.diff(Timex.now(), message.created_at, :days) < 1,
-      do: Timex.format!(VHelpers.local_date(message.created_at), "%H:%M", :strftime),
-      else: VHelpers.format_date(conn, message.created_at, "date_format_index")
+      do: Timex.format!(ViewHelpers.local_date(message.created_at), "%H:%M", :strftime),
+      else: ViewHelpers.format_date(conn, message.created_at, "date_format_index")
   end
 end

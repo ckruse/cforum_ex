@@ -1,8 +1,13 @@
 defmodule CforumWeb.ErrorView do
   use CforumWeb, :view
 
+  alias Cforum.Abilities
+
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+
   def render("404.html", assigns) do
-    VHelpers.l10n_render(
+    ViewHelpers.l10n_render(
       CforumWeb.ErrorView,
       "error_404.html",
       Map.merge(
@@ -13,7 +18,7 @@ defmodule CforumWeb.ErrorView do
   end
 
   def render("403.html", assigns) do
-    VHelpers.l10n_render(
+    ViewHelpers.l10n_render(
       CforumWeb.ErrorView,
       "error_403.html",
       Map.merge(
@@ -24,7 +29,7 @@ defmodule CforumWeb.ErrorView do
   end
 
   def render("500.html", assigns) do
-    VHelpers.l10n_render(
+    ViewHelpers.l10n_render(
       CforumWeb.ErrorView,
       "error_500.html",
       Map.merge(
@@ -59,7 +64,7 @@ defmodule CforumWeb.ErrorView do
   end
 
   defp maybe_set_forum(path, forum),
-    do: Regex.replace(~r/^\/all/, path, "/#{CforumWeb.Views.Helpers.Path.forum_slug(forum)}")
+    do: Regex.replace(~r/^\/all/, path, "/#{CforumWeb.Views.ViewHelpers.Path.forum_slug(forum)}")
 
   defp maybe_decode_query(nil), do: %{}
   defp maybe_decode_query(query), do: URI.decode_query(query)

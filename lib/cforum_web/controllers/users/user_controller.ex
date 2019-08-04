@@ -13,6 +13,7 @@ defmodule CforumWeb.Users.UserController do
 
   alias Cforum.Accounts.Score
 
+  alias Cforum.Abilities
   alias Cforum.Helpers
 
   alias CforumWeb.Sortable
@@ -214,7 +215,7 @@ defmodule CforumWeb.Users.UserController do
         Plug.Conn.assign(conn, :user, Users.get_user!(conn.params["id"]))
 
       Helpers.present?(conn.params["id"]) ->
-        raise(Phoenix.Router.NoRouteError, conn: conn, router: CforumWeb.Router)
+        raise(Cforum.Errors.NotFoundError, conn: conn)
 
       true ->
         conn

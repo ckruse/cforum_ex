@@ -1,6 +1,13 @@
 defmodule CforumWeb.ModerationView do
   use CforumWeb, :view
 
+  alias Cforum.Abilities
+  alias Cforum.Helpers
+
+  alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
+  alias CforumWeb.ErrorHelpers
+
   alias Cforum.ModerationQueue.ModerationQueueEntry
 
   def page_heading(action, assigns), do: page_title(action, assigns)
@@ -31,7 +38,7 @@ defmodule CforumWeb.ModerationView do
   def l10n_resolution_action(action), do: action
 
   def closer_link(conn, entry) do
-    {:safe, link} = VHelpers.user_link(conn, entry.closer, [], entry.closer_name)
+    {:safe, link} = ViewHelpers.user_link(conn, entry.closer, [], entry.closer_name)
     link
   end
 end
