@@ -448,12 +448,12 @@ defmodule Cforum.Threads do
     |> ThreadCaching.refresh_cached_thread()
   end
 
-  def split_thread(user, thread, message, attrs, visible_forums, opts \\ []) do
+  def split_thread(user, thread, message, attrs, visible_forums, url_generator, opts \\ []) do
     ret =
       System.audited("split", user, fn ->
         message
         |> Messages.update_message(attrs, user, visible_forums, opts)
-        |> split_thread(message, visible_forums)
+        |> split_thread(thread, message, visible_forums, url_generator)
       end)
 
     with {:ok, new_thread} <- ret do
@@ -467,7 +467,7 @@ defmodule Cforum.Threads do
     end
   end
 
-  defp split_thread({:ok, new_message}, message, visible_forums) do
+  defp split_thread({:ok, new_message}, thread, message, visible_forums, url_generator) do
     ret =
       %Thread{latest_message: DateTime.truncate(Timex.now(), :second)}
       |> Thread.changeset(%{subject: new_message.subject, forum_id: new_message.forum_id}, nil, visible_forums)
@@ -487,11 +487,24 @@ defmodule Cforum.Threads do
       from(m in Message, where: m.message_id in ^message_ids)
       |> Repo.update_all(set: [thread_id: new_thread.thread_id])
 
+      new_thread = Repo.preload(new_thread, [:messages])
+
+      Enum.each(new_thread.messages, fn msg ->
+        [old_url, new_url] = url_generator.(thread, new_thread, msg)
+
+        from(r in Cforum.System.Redirection, where: r.path == ^new_url)
+        |> Repo.delete_all()
+
+        %Cforum.System.Redirection{}
+        |> Ecto.Changeset.change(%{path: old_url, destination: new_url, http_status: 301})
+        |> Repo.insert!()
+      end)
+
       {:ok, new_thread}
     end
   end
 
-  defp split_thread(val, _, _), do: val
+  defp split_thread(val, _, _, _, _), do: val
 
   defp messages_ids_of_children(message),
     do: [message.message_id | Enum.map(message.messages, &messages_ids_of_children/1)]
