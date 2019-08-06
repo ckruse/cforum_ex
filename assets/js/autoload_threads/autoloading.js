@@ -47,6 +47,10 @@ const insertRenderedThread = (thread, message, html) => {
 const autoloadMessage = ev => {
   const { thread, message, forum } = ev.detail.data;
 
+  if (document.body.dataset.controller === "MessageController" && !document.getElementById(thread.thread_id)) {
+    return;
+  }
+
   if (!["all", forum.slug].includes(document.body.dataset.currentForum)) {
     return;
   }
