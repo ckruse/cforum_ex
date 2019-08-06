@@ -80,7 +80,11 @@ defmodule CforumWeb.Threads.AdminController do
     message = conn.assigns.message
     opts = [create_tags: Abilities.may?(conn, "tag", :new)]
 
-    case Threads.split_thread(current_user, thread, message, message_params, vis_forums, opts) do
+    url_generator = fn thread, new_thread, msg ->
+      [Path.int_message_path(conn, thread, msg), Path.int_message_path(conn, new_thread, msg)]
+    end
+
+    case Threads.split_thread(current_user, thread, message, message_params, vis_forums, url_generator, opts) do
       {:ok, thread, message} ->
         conn
         |> put_flash(:info, gettext("Thread was successfully split."))
