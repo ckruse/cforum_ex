@@ -10,7 +10,7 @@
 </article>
 
 <div class="cf-thread-list">
-  <article class="cf-thread posting <%= CforumWeb.ThreadView.thread_classes(@thread) %>">
+  <article class="cf-thread posting <%= CforumWeb.ThreadView.thread_classes(@thread) %>" id="<%= @thread.thread_id %>">
     <%= CforumWeb.MessageView.header(@conn, @thread, @thread.tree, first: true, show_icons: true, id_prefix: "tree-") %>
 
     <%= unless Helpers.blank?(@thread.tree.messages) do %>
