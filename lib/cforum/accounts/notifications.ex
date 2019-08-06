@@ -147,6 +147,12 @@ defmodule Cforum.Accounts.Notifications do
     {n, ret}
   end
 
+  def delete_notifications_for_objects(ids, types) do
+    from(notification in Notification, where: notification.oid in ^ids and notification.otype in ^types)
+    |> Repo.all()
+    |> Enum.each(&delete_notification/1)
+  end
+
   def mark_notifications_as_read(user, ids_or_nil, type \\ true)
 
   def mark_notifications_as_read(user, nil, type) do

@@ -245,6 +245,18 @@ defmodule Cforum.Messages do
     Notifications.delete_notification_for_object(user, mids, types)
   end
 
+  def unnotify_user({:ok, msg}, message_ids) do
+    Notifications.delete_notifications_for_objects(message_ids, [
+      "message:create-answer",
+      "message:create-activity",
+      "message:mention"
+    ])
+
+    {:ok, msg}
+  end
+
+  def unnotify_user(val, _), do: val
+
   @doc """
   Generates a %Message{} and a changeset for preview purposes
 
@@ -335,6 +347,7 @@ defmodule Cforum.Messages do
       {:ok, message}
     end)
     |> ThreadCaching.refresh_cached_thread()
+    |> unnotify_user(message_ids)
   end
 
   @doc """
