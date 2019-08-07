@@ -306,6 +306,7 @@ defmodule Cforum.Accounts.PrivMessages do
       _ ->
         retval
     end
+    |> discard_pm_cache()
   end
 
   @doc """
