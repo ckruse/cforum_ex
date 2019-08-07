@@ -295,13 +295,16 @@ defmodule Cforum.Accounts.PrivMessages do
             |> Repo.insert()
 
           _ ->
-            pm
+            Repo.rollback(pm)
         end
       end)
 
     case retval do
       {:ok, term} ->
         term
+
+      {:error, {:error, val}} ->
+        {:error, val}
 
       _ ->
         retval
