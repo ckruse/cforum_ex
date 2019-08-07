@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+name=cforum-elixir-build
+
+docker build --tag=$name -f rel/Dockerfile .
+docker run -d -p 23:22 -P --name $name $name
+
+docker container stop $name
