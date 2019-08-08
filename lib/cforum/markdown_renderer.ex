@@ -170,10 +170,13 @@ defmodule Cforum.MarkdownRenderer do
         _, _ -> %{"status" => "error"}
       end
 
-    case retval["status"] do
-      "ok" ->
+    case retval do
+      %{"status" => "ok"} ->
         # {:reply, {:ok, to_html(markdown) <> "<br><br>" <> retval["html"]}, proc}
         {:reply, {:ok, retval["html"]}, {proc, runs}}
+
+      v when not is_map(v) ->
+        {:reply, {:error, :unknown_retval}, {proc, runs}}
 
       _ ->
         Proc.stop(proc)
@@ -205,10 +208,13 @@ defmodule Cforum.MarkdownRenderer do
         _, _ -> %{"status" => "error"}
       end
 
-    case retval["status"] do
-      "ok" ->
+    case retval do
+      %{"status" => "ok"} ->
         # {:reply, {:ok, to_html(markdown) <> "<br><br>" <> retval["html"]}, proc}
         {:reply, {:ok, retval["html"]}, {proc, runs}}
+
+      v when not is_map(v) ->
+        {:reply, {:error, :unknown_retval}, {proc, runs}}
 
       _ ->
         {:reply, {:error, retval["message"]}, {proc, runs}}
