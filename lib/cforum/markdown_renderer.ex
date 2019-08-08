@@ -31,24 +31,19 @@ defmodule Cforum.MarkdownRenderer do
   #
   # client API
   #
-  def to_html(object, user, tries \\ 0)
-  def to_html(_object, _user, tries) when tries >= 5, do: {:error, nil}
+  def to_html(object, user)
 
-  def to_html(%Cite{} = cite, user, tries) do
-    case render_doc(cite.cite, "c-#{cite.cite_id}") do
-      {:ok, html} -> {:safe, html}
-      _ -> to_html(cite, user, tries + 1)
-    end
+  def to_html(%Cite{} = cite, _user) do
+    {:ok, html} = render_doc(cite.cite, "c-#{cite.cite_id}")
+    {:safe, html}
   end
 
-  def to_html(%Event{} = event, user, tries) do
-    case render_doc(event.description, "e-#{event.event_id}") do
-      {:ok, html} -> {:safe, html}
-      _ -> to_html(event, user, tries + 1)
-    end
+  def to_html(%Event{} = event, _user) do
+    {:ok, html} = render_doc(event.description, "e-#{event.event_id}")
+    {:safe, html}
   end
 
-  def to_html(%Message{format: "markdown"} = message, conn, tries) do
+  def to_html(%Message{format: "markdown"} = message, conn) do
     content = Cforum.Messages.content_with_presentational_filters(conn.assigns, message)
 
     target =
@@ -62,40 +57,30 @@ defmodule Cforum.MarkdownRenderer do
       "base" => Application.get_env(:cforum, :base_url, "http://localhost/")
     }
 
-    case render_doc(content, "m-#{message.message_id}", conf) do
-      {:ok, html} -> {:safe, html}
-      _ -> to_html(message, conn, tries + 1)
-    end
+    {:ok, html} = render_doc(content, "m-#{message.message_id}", conf)
+    {:safe, html}
   end
 
-  def to_html(%Message{format: "cforum"} = message, conn, tries) do
+  def to_html(%Message{format: "cforum"} = message, conn) do
     message
     |> Cforum.LegacyParser.parse()
-    |> to_html(conn, tries)
+    |> to_html(conn)
   end
 
-  def to_html(%PrivMessage{} = message, user, tries) do
-    case render_doc(message.body, "pm-#{message.priv_message_id}") do
-      {:ok, html} -> {:safe, html}
-      _ -> to_html(message, user, tries + 1)
-    end
+  def to_html(%PrivMessage{} = message, _user) do
+    {:ok, html} = render_doc(message.body, "pm-#{message.priv_message_id}")
+    {:safe, html}
   end
 
-  def to_html(%Badge{} = badge, user, tries) do
-    case render_doc(badge.description, "b-#{badge.badge_id}") do
-      {:ok, html} -> {:safe, html}
-      _ -> to_html(badge, user, tries + 1)
-    end
+  def to_html(%Badge{} = badge, _user) do
+    {:ok, html} = render_doc(badge.description, "b-#{badge.badge_id}")
+    {:safe, html}
   end
 
-  def to_html(str, :str, tries) when is_bitstring(str) do
-    case render_doc(str, "str") do
-      {:ok, html} -> {:safe, html}
-      _ -> to_html(str, :str, tries + 1)
-    end
+  def to_html(str) when is_bitstring(str) do
+    {:ok, html} = render_doc(str, "str")
+    {:safe, html}
   end
-
-  def to_html(str) when is_bitstring(str), do: to_html(str, :str)
 
   def render_doc(markdown, id, config \\ nil) do
     :poolboy.transaction(pool_name(), fn pid -> GenServer.call(pid, {:render_doc, markdown, id, config}) end)
