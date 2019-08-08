@@ -56,7 +56,7 @@ defmodule CforumWeb.MailController do
         greeting: ConfigManager.uconf(conn, "greeting"),
         farewell: ConfigManager.uconf(conn, "farewell"),
         signature: ConfigManager.uconf(conn, "signature"),
-        quote: quote?(conn, params),
+        quote: quote?(params),
         std_replacement: gettext("you")
       )
 
@@ -146,12 +146,10 @@ defmodule CforumWeb.MailController do
   defp ordering("ascending"), do: :asc
   defp ordering(_), do: :desc
 
-  defp quote?(conn, params) do
-    if Helpers.blank?(params["quote"]) do
-      ConfigManager.uconf(conn, "quote_by_default") == "yes"
-    else
-      params["quote"] == "yes"
-    end
+  defp quote?(params) do
+    if Helpers.blank?(params["quote"]),
+      do: true,
+      else: params["quote"] == "yes"
   end
 
   @spec load_resource(Plug.Conn.t()) :: Plug.Conn.t()
