@@ -15,6 +15,7 @@ defmodule CforumWeb.MessageController do
   alias Cforum.Helpers
 
   alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Views.ViewHelpers.Path
 
   @notification_types [
     "message:create-answer",
@@ -27,22 +28,27 @@ defmodule CforumWeb.MessageController do
   ]
 
   def show(conn, params) do
-    # parameter overwrites cookie overwrites config; validation
-    # overwrites everything
-
-    read_mode =
+    if !proper_forum?(conn) do
       conn
-      |> parse_readmode(params)
-      |> validate_readmode
+      |> put_status(301)
+      |> redirect(to: Path.message_path(conn, :show, conn.assigns.thread, conn.assigns.message))
+    else
+      # parameter overwrites cookie overwrites config; validation
+      # overwrites everything
+      read_mode =
+        conn
+        |> parse_readmode(params)
+        |> validate_readmode
 
-    if Abilities.signed_in?(conn) and !conn.assigns.thread.archived,
-      do: run_async_handlers(conn, read_mode)
+      if Abilities.signed_in?(conn) and !conn.assigns.thread.archived,
+        do: run_async_handlers(conn, read_mode)
 
-    conn
-    |> Plug.Conn.assign(:read_mode, read_mode)
-    |> maybe_put_readmode(params, read_mode)
-    |> prerender_messages(read_mode)
-    |> render("show-#{read_mode}.html")
+      conn
+      |> Plug.Conn.assign(:read_mode, read_mode)
+      |> maybe_put_readmode(params, read_mode)
+      |> prerender_messages(read_mode)
+      |> render("show-#{read_mode}.html")
+    end
   end
 
   defp prerender_messages(conn, "thread") do
@@ -74,6 +80,10 @@ defmodule CforumWeb.MessageController do
         )
       end
     end)
+  end
+
+  def proper_forum?(conn) do
+    Helpers.present?(conn.assigns.current_forum) && conn.assigns.message.forum_id == conn.assigns.current_forum.forum_id
   end
 
   def new(conn, params) do
