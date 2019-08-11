@@ -305,9 +305,6 @@ defmodule Cforum.Accounts.PrivMessages do
 
       {:error, {:error, val}} ->
         {:error, val}
-
-      _ ->
-        retval
     end
     |> discard_pm_cache()
   end
