@@ -35,6 +35,9 @@ defmodule CforumWeb.CiteController do
   end
 
   def show(conn, %{"id" => id}) do
+    if !Regex.match?(~r/^\d+$/, id),
+      do: raise(Cforum.Errors.NotFoundError, conn: conn)
+
     cite = Cites.get_cite!(id)
     render(conn, "show.html", cite: cite)
   end
