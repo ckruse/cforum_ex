@@ -280,12 +280,10 @@ defmodule Cforum.Accounts.PrivMessages do
           %PrivMessage{}
           |> PrivMessage.changeset(attrs, owner)
           |> Repo.insert()
-          |> discard_pm_cache()
 
         case pm do
           {:ok, foreign_pm} ->
             priv_message = Repo.get!(PrivMessage, foreign_pm.priv_message_id)
-            Cforum.Helpers.AsyncHelper.run_async(fn -> notify_user(priv_message) end)
 
             %PrivMessage{
               is_read: true,
@@ -300,13 +298,14 @@ defmodule Cforum.Accounts.PrivMessages do
       end)
 
     case retval do
-      {:ok, term} ->
-        term
+      {:ok, {:ok, pm}} ->
+        discard_pm_cache(%User{user_id: pm.recipient_id})
+        Cforum.Helpers.AsyncHelper.run_async(fn -> notify_user(pm) end)
+        {:ok, pm}
 
       {:error, {:error, val}} ->
         {:error, val}
     end
-    |> discard_pm_cache()
   end
 
   @doc """
