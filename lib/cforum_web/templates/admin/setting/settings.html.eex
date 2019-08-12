@@ -78,6 +78,12 @@
       <%= number_input @fo, :max_image_filesize, id: "settings-max_image_filesize" %>
       <label class="checkbox"><%= default_checkbox(@fo, @settings, :max_image_filesize) %> <%= default_value(@conn, :max_image_filesize) %></label>
     </div>
+
+    <div class="cf-cgroup">
+      <label for="settings-mathjax_url"><%= gettext("MathJax URL") %></label>
+      <%= url_input @fo, :mathjax_url, id: "settings-mathjax_url" %>
+      <label class="checkbox"><%= default_checkbox(@fo, @settings, :mathjax_url) %> <%= default_value(@conn, :mathjax_url) %></label>
+    </div>
   <% end %>
 </fieldset>
 

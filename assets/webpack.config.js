@@ -29,16 +29,6 @@ module.exports = function(env = {}, argv) {
         context: "./static",
         from: "**/*",
         to: "."
-      },
-      {
-        context: "./node_modules/katex/dist/",
-        from: "katex.min.css",
-        to: "./css"
-      },
-      {
-        context: "./node_modules/katex/dist/fonts",
-        from: "*",
-        to: "./css/fonts"
       }
       // maybe later; let's try to not use font-awesome
       // {

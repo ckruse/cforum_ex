@@ -120,6 +120,33 @@ defmodule CforumWeb.LayoutView do
     end
   end
 
+  def mathjax(conn) do
+    url = ConfigManager.conf(conn, "mathjax_url")
+
+    if Helpers.present?(url) do
+      [
+        {:safe, "<script src=\""},
+        url,
+        {:safe, "\" async></script>\n"},
+        {:safe,
+         """
+         <script type="text/x-mathjax-config">
+           MathJax.Hub.Config({
+             displayAlign: "left",
+             menuSettings: { CHTMLpreview: false },
+             tex2jax: {
+               inlineMath: [['$', '$']],
+               displayMath: [['$$', '$$']]
+             }
+           });
+         </script>
+         """}
+      ]
+    else
+      ""
+    end
+  end
+
   def show?(%{is_error: true}, _), do: false
 
   def show?(%{conn: conn}, :archive) do
