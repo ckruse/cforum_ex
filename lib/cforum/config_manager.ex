@@ -52,6 +52,7 @@ defmodule Cforum.ConfigManager do
     "mail_thread_sort" => "ascending",
     "subject_black_list" => "",
     "content_black_list" => "",
+    "mathjax_url" => "",
 
     # search settings
     "search_forum_relevance" => 1,

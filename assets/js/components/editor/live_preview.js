@@ -13,6 +13,12 @@ class LivePreview extends React.Component {
     });
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.content !== this.props.content && window.MathJax) {
+      window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub]);
+    }
+  }
+
   render() {
     const fixedContent = CfMarkdown.manualFixes(this.props.content);
 
