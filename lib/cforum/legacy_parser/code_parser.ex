@@ -44,6 +44,7 @@ defmodule Cforum.LegacyParser.CodeParser do
         [?`, map[:end], ?`]
       end
       |> List.flatten()
+      |> Enum.reject(&is_nil/1)
       |> Enum.reverse()
 
     {code, context}
