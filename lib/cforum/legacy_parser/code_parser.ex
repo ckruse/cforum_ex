@@ -27,20 +27,26 @@ defmodule Cforum.LegacyParser.CodeParser do
   # defp get_lang([c | rest], lang), do: get_lang(rest, [lang | [c]])
 
   def markdown_inline(_rest, args, context, _line, _offset) do
-    args =
+    {_, map} =
       args
-      |> Enum.map(fn
-        :code_start -> ?`
-        :code_start_end -> nil
-        :code_end -> ?`
-        :code_lang -> nil
-        ?` -> [?`, ?\\]
-        c -> c
+      |> Enum.reduce({nil, %{}}, fn
+        :code_start, {_, map} -> {:start, map}
+        :code_lang, {_, map} -> {:lang, map}
+        :code_end, {_, map} -> {:end, map}
+        :code_start_end, {_, map} -> {:lang, map}
+        c, {el, map} -> {el, Map.update(map, el, [c], &[[c] | &1])}
       end)
-      |> Enum.reject(&is_nil/1)
-      |> List.flatten()
 
-    {args, context}
+    code =
+      if map[:lang] do
+        [?`, map[:end], ?`, "{:.language-", map[:lang], "}"]
+      else
+        [?`, map[:end], ?`]
+      end
+      |> List.flatten()
+      |> Enum.reverse()
+
+    {code, context}
   end
 
   def markdown_block(_rest, args, context, _line, _offset) do
