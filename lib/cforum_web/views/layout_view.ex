@@ -133,10 +133,12 @@ defmodule CforumWeb.LayoutView do
          <script type="text/x-mathjax-config">
            MathJax.Hub.Config({
              displayAlign: "left",
+             messageStyle: "none",
              menuSettings: { CHTMLpreview: false },
              tex2jax: {
                inlineMath: [['$', '$']],
-               displayMath: [['$$', '$$']]
+               displayMath: [['$$', '$$']],
+               preview: "none"
              }
            });
          </script>
