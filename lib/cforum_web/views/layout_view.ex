@@ -134,6 +134,7 @@ defmodule CforumWeb.LayoutView do
            MathJax.Hub.Config({
              displayAlign: "left",
              messageStyle: "none",
+             showMathMenu: false,
              menuSettings: { CHTMLpreview: false },
              tex2jax: {
                inlineMath: [['$', '$']],
