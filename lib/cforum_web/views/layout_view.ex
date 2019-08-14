@@ -73,7 +73,13 @@ defmodule CforumWeb.LayoutView do
 
     if Helpers.blank?(css),
       do: "",
-      else: [{:safe, "<style>\n"}, {:safe, css}, {:safe, "\n</style>"}]
+      else: [
+        {:safe, "<style nonce=\""},
+        conn.assigns[:nonce_for_style],
+        {:safe, "\">\n"},
+        {:safe, css},
+        {:safe, "\n</style>"}
+      ]
   end
 
   def own_css_file(conn) do
@@ -85,7 +91,9 @@ defmodule CforumWeb.LayoutView do
       [
         {:safe, "<link href=\""},
         css,
-        {:safe, "\" rel=\"stylesheet\" media=\"all\" title=\"SELFHTML Forum Stylesheet\">"}
+        {:safe, "\" rel=\"stylesheet\" media=\"all\" title=\"SELFHTML Forum Stylesheet\" nonce=\""},
+        conn.assigns[:nonce_for_style],
+        {:safe, "\">"}
       ]
     end
   end
@@ -95,7 +103,13 @@ defmodule CforumWeb.LayoutView do
 
     if Helpers.blank?(js),
       do: "",
-      else: [{:safe, "<script>\n"}, {:safe, js}, {:safe, "\n</script>"}]
+      else: [
+        {:safe, "<script nonce=\""},
+        conn.assigns[:nonce_for_js],
+        {:safe, "\">\n"},
+        {:safe, js},
+        {:safe, "\n</script>"}
+      ]
   end
 
   def own_js_file(conn) do
@@ -103,7 +117,13 @@ defmodule CforumWeb.LayoutView do
 
     if Helpers.blank?(js),
       do: "",
-      else: [{:safe, "<script src=\""}, js, {:safe, "\"></script>"}]
+      else: [
+        {:safe, "<script nonce=\""},
+        conn.assigns[:nonce_for_js],
+        {:safe, "\" src=\""},
+        js,
+        {:safe, "\"></script>"}
+      ]
   end
 
   def css_ressource(conn) do
@@ -115,7 +135,9 @@ defmodule CforumWeb.LayoutView do
       [
         {:safe, "<link href=\""},
         css,
-        {:safe, "\" rel=\"stylesheet\" media=\"all\" title=\"SELFHTML Forum Stylesheet\">"}
+        {:safe, "\" rel=\"stylesheet\" media=\"all\" title=\"SELFHTML Forum Stylesheet\" nonce=\""},
+        conn.assigns[:nonce_for_style],
+        {:safe, "\">"}
       ]
     end
   end

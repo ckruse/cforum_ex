@@ -12,7 +12,7 @@
   </head>
 
   <body data-current-forum="<%= Path.forum_slug(@current_forum) %>" data-controller="<%= current_controller(@conn) %>" data-action="<%= action_name(@conn) %>"<%= body_classes(@conn, assigns) %><%= body_id(@conn, assigns) %><%= user_id(@conn) %>>
-    <script>document.body.classList.add("js");</script>
+    <script nonce="<%= @conn.assigns[:nonce_for_js] %>">document.body.classList.add("js");</script>
 
     <%= render "top_bar.html", assigns %>
     <%= render "personal_links.html", assigns %>
@@ -32,7 +32,7 @@
 
     <%= mathjax(@conn) %>
 
-    <script>window.userToken = "<%= assigns[:user_token] %>";</script>
+    <script nonce="<%= @conn.assigns[:nonce_for_js] %>">window.userToken = "<%= assigns[:user_token] %>";</script>
     <script src="<%= Routes.static_path(@conn, "/js/app.js") %>" data-manual></script>
     <%= own_js_file(@conn) %>
     <%= own_js(@conn) %>
