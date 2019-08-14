@@ -2,7 +2,6 @@ import { parseMessageUrl } from "../modules/helpers";
 
 export default () => {
   const elem = document.getElementById("cite_url");
-  console.log(elem);
   if (!elem) {
     return;
   }
