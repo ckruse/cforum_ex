@@ -147,13 +147,12 @@ defmodule CforumWeb.LayoutView do
 
     if Helpers.present?(url) do
       [
-        {:safe, "<script src=\""},
-        url,
-        {:safe, "\" async></script>\n"},
+        {:safe, "<script nonce=\""},
+        conn.assigns[:nonce_for_js],
+        {:safe, "\">"},
         {:safe,
          """
-         <script type="text/x-mathjax-config">
-           MathJax.Hub.Config({
+           window.MathJax = {
              displayAlign: "left",
              messageStyle: "none",
              showMathMenu: false,
@@ -164,9 +163,12 @@ defmodule CforumWeb.LayoutView do
                preview: "none",
                processEscapes: true
              }
-           });
+           };
          </script>
-         """}
+         """},
+        {:safe, "<script src=\""},
+        url,
+        {:safe, "\" async></script>\n"}
       ]
     else
       ""
