@@ -27,7 +27,11 @@ export default class ImageModal extends React.Component {
   }
 
   handleFileChanged(ev) {
-    this.setState({ file: ev.target.files[0] });
+    const file = ev.target.files[0];
+
+    if (file.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && this.isInSizeLimit(file)) {
+      this.setState({ file });
+    }
   }
 
   onAfterOpen() {
@@ -39,7 +43,11 @@ export default class ImageModal extends React.Component {
   }
 
   okPressed() {
-    this.props.onOk(this.state.file, this.state.desc, this.state.title);
+    if (this.state.file) {
+      this.props.onOk(this.state.file, this.state.desc, this.state.title);
+    } else {
+      this.props.onCancel();
+    }
   }
 
   render() {

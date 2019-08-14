@@ -54,8 +54,9 @@ export default class Dropzone extends React.Component {
 
   onOk(file, desc, title) {
     console.log(file);
-    if (this.isInSizeLimit(file)) {
-      this.setState({ showImageModal: false });
+    this.setState({ showImageModal: false });
+
+    if (file.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && this.isInSizeLimit(file)) {
       this.props.onDrop(file, desc, title);
     }
   }
