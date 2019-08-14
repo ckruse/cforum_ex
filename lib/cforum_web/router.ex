@@ -11,6 +11,7 @@ defmodule CforumWeb.Router do
     plug(:protect_from_forgery)
     plug(:put_secure_browser_headers)
 
+    plug(CforumWeb.Plug.SecurityHeaders)
     plug(CforumWeb.Plug.RedirectionsPlug)
     plug(CforumWeb.Plug.CurrentUser)
     plug(CforumWeb.Plug.UpdateLastVisit)
@@ -26,6 +27,7 @@ defmodule CforumWeb.Router do
   pipeline :api do
     plug(:accepts, ["json"])
     plug(:fetch_session)
+    plug(CforumWeb.Plug.SecurityHeaders)
     plug(CforumWeb.Plug.CurrentUser)
     plug(CforumWeb.Plug.VisibleForums)
     plug(CforumWeb.Plug.LoadSettings)
