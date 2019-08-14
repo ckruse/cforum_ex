@@ -13,7 +13,10 @@ Highcharts.chart(document.querySelector(".chart-all.chart"), {
   xAxis: {
     categories: window.forumStatsValues.map(val => Highcharts.dateFormat("%B %Y", new Date(val.mon)))
   },
-  yAxis: [{ title: { text: t("number of threads") } }, { title: { text: t("number of messages") }, opposite: true }],
+  yAxis: [
+    { title: { text: t("number of threads") }, min: 0 },
+    { title: { text: t("number of messages") }, opposite: true, min: 0 }
+  ],
   series: [
     {
       name: t("threads"),
@@ -55,7 +58,10 @@ Highcharts.chart(document.querySelector(".chart-year.chart"), {
   xAxis: {
     categories: yearValues.map(val => Highcharts.dateFormat("%B %Y", new Date(val.moment)))
   },
-  yAxis: [{ title: { text: t("number of threads") } }, { title: { text: t("number of messages") }, opposite: true }],
+  yAxis: [
+    { title: { text: t("number of threads") }, min: 0 },
+    { title: { text: t("number of messages") }, opposite: true, min: 0 }
+  ],
   series: [
     {
       name: t("threads"),
@@ -77,7 +83,8 @@ Highcharts.chart(document.querySelector(".chart-users-year.chart"), {
     categories: window.forumStatsUsersTwelveMonths.map(val => Highcharts.dateFormat("%B %Y", new Date(val.moment)))
   },
   yAxis: {
-    title: { text: t("number of users") }
+    title: { text: t("number of users") },
+    min: 0
   },
   series: [
     {
@@ -93,7 +100,10 @@ Highcharts.chart(document.querySelector(".chart-48-months.chart"), {
   xAxis: {
     categories: lastFourYearValues.map(val => Highcharts.dateFormat("%B %Y", new Date(val.moment)))
   },
-  yAxis: [{ title: { text: t("number of threads") } }, { title: { text: t("number of messages") }, opposite: true }],
+  yAxis: [
+    { title: { text: t("number of threads") }, min: 0 },
+    { title: { text: t("number of messages") }, opposite: true, min: 0 }
+  ],
   series: [
     {
       name: t("threads"),
