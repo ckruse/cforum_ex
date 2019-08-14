@@ -139,7 +139,8 @@ defmodule CforumWeb.LayoutView do
              tex2jax: {
                inlineMath: [['$', '$']],
                displayMath: [['$$', '$$']],
-               preview: "none"
+               preview: "none",
+               processEscapes: true
              }
            });
          </script>
