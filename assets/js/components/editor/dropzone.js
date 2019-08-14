@@ -53,7 +53,6 @@ export default class Dropzone extends React.Component {
   }
 
   onOk(file, desc, title) {
-    console.log(file);
     this.setState({ showImageModal: false });
 
     if (file.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && this.isInSizeLimit(file)) {
@@ -109,7 +108,6 @@ export default class Dropzone extends React.Component {
 
     if (ev.dataTransfer.files && ev.dataTransfer.files[0]) {
       const file = ev.dataTransfer.files[0];
-      console.log(file);
       if (file.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && this.isInSizeLimit(file)) {
         this.setState({ file, showImageModal: true });
       }

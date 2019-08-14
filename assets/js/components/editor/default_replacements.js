@@ -103,7 +103,6 @@ const DefaultReplacements = {
   },
   complete: ({ id, display }) => display,
   cursorPosition: ({ start, end }, value) => {
-    console.log({ start, end }, value);
     if (['""', "„“", "‚‘"].includes(value)) {
       return { start: start - 1, end: end - 1 };
     }
