@@ -14,7 +14,8 @@ defmodule CforumWeb.Plug.SecurityHeaders do
         |> Base.url_encode64(padding: false)
 
       script_csp = "script-src 'self' 'nonce-#{js_nonce}'"
-      style_csp = "style-src 'self' 'nonce-#{style_nonce}'"
+      # 'nonce-#{style_nonce}' not yet possible, due to mathjax
+      style_csp = "style-src 'self' 'unsafe-inline'"
 
       conn
       |> Plug.Conn.assign(:nonce_for_js, js_nonce)
