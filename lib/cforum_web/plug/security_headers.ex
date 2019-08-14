@@ -33,7 +33,7 @@ defmodule CforumWeb.Plug.SecurityHeaders do
   end
 
   defp scheme do
-    port = CforumWeb.Endpoint.config(:http)[:port]
+    port = CforumWeb.Endpoint.config(:url)[:port] || CforumWeb.Endpoint.config(:http)[:port]
 
     if port == 443,
       do: "wss",
@@ -41,7 +41,7 @@ defmodule CforumWeb.Plug.SecurityHeaders do
   end
 
   defp port do
-    port = CforumWeb.Endpoint.config(:http)[:port]
+    port = CforumWeb.Endpoint.config(:url)[:port] || CforumWeb.Endpoint.config(:http)[:port]
 
     if port != 443 && port != 80,
       do: ":#{port}",
