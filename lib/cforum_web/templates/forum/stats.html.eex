@@ -84,7 +84,7 @@
   </section>
 </div>
 
-<script>
+<script nonce="<%= @conn.assigns[:nonce_for_js] %>">
   window.forumStatsValues = <%= stats_json(@stats) %>;
   window.forumStatsUsersTwelveMonths = <%= user_json(@users_twelve_months) %>;
 </script>
