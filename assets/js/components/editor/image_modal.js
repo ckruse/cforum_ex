@@ -3,6 +3,7 @@ import Modal from "react-modal";
 
 import { t } from "../../modules/i18n";
 import Thumb from "./thumb";
+import { isInSizeLimit } from "./helpers";
 
 export default class ImageModal extends React.Component {
   constructor(props) {
@@ -29,7 +30,7 @@ export default class ImageModal extends React.Component {
   handleFileChanged(ev) {
     const file = ev.target.files[0];
 
-    if (file.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && this.isInSizeLimit(file)) {
+    if (file.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && isInSizeLimit(file)) {
       this.setState({ file });
     }
   }

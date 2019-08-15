@@ -1,3 +1,7 @@
+import { alertError } from "../../modules/alerts";
+import { t } from "../../modules/i18n";
+import { conf } from "../../modules/helpers";
+
 export const replaceAt = (text, replacement, start, end) =>
   text.substr(0, start) + replacement + text.substr(end, text.length);
 
@@ -130,3 +134,15 @@ export const escapeText = (text, escapes) => {
   const rx = new RegExp("([" + escapes + "])", "g");
   return text.replace(rx, "\\$1");
 };
+
+export const  isInSizeLimit = (file) => {
+    const maxSize = conf("max_image_filesize");
+
+    if (file.size > maxSize * 1024 * 1024) {
+      alertError(t("The image you tried to paste exceeds the size limit of {maxSize} mb", { maxSize }));
+      return false;
+    }
+
+    return true;
+  }
+
