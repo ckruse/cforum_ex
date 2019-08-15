@@ -2,8 +2,8 @@ import React from "react";
 
 import { t } from "../../modules/i18n";
 import ImageModal from "./image_modal";
-import { conf } from "../../modules/helpers";
 import { alertError } from "../../modules/alerts";
+import { isInSizeLimit } from "./helpers";
 
 export default class Dropzone extends React.Component {
   constructor(props) {
@@ -55,7 +55,7 @@ export default class Dropzone extends React.Component {
   onOk(file, desc, title) {
     this.setState({ showImageModal: false });
 
-    if (file.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && this.isInSizeLimit(file)) {
+    if (file.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && isInSizeLimit(file)) {
       this.props.onDrop(file, desc, title);
     }
   }
@@ -108,7 +108,7 @@ export default class Dropzone extends React.Component {
 
     if (ev.dataTransfer.files && ev.dataTransfer.files[0]) {
       const file = ev.dataTransfer.files[0];
-      if (file.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && this.isInSizeLimit(file)) {
+      if (file.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && isInSizeLimit(file)) {
         this.setState({ file, showImageModal: true });
       }
     }
@@ -120,7 +120,7 @@ export default class Dropzone extends React.Component {
 
       const file = ev.clipboardData.items[0].getAsFile();
 
-      if (!this.isInSizeLimit(file)) {
+      if (!isInSizeLimit(file)) {
         alertError(t("The image you tried to paste exceeds the size limit of {maxSize} mb", { maxSize }));
         return;
       }
@@ -135,17 +135,6 @@ export default class Dropzone extends React.Component {
 
   showImageModal() {
     this.setState({ showImageModal: true });
-  }
-
-  isInSizeLimit(file) {
-    const maxSize = conf("max_image_filesize");
-
-    if (file.size > maxSize * 1024 * 1024) {
-      alertError(t("The image you tried to paste exceeds the size limit of {maxSize} mb", { maxSize }));
-      return false;
-    }
-
-    return true;
   }
 
   render() {
