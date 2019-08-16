@@ -78,8 +78,7 @@ const autoloadMessage = ev => {
         insertRenderedThread(thread, message, text);
       },
       error => console.log(error)
-    )
-    .then(succs => console.log(succs), err => console.log(err));
+    );
 };
 
 export default () => document.addEventListener("cf:newMessage", autoloadMessage);
