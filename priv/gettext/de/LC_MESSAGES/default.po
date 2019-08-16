@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2019-07-30 14:15+0200\n"
+"PO-Revision-Date: 2019-08-16 15:29+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -849,7 +849,7 @@ msgstr "Sie sind bereits eingeloggt"
 #: lib/cforum_web/templates/user_mailer/reset_password_mail.html.eex:3
 #: lib/cforum_web/templates/user_mailer/reset_password_mail.text.eex:3
 msgid "You can reset your password by following the instructions from the link below:"
-msgstr "Sie können Sie Ihr Passwort zurücksetzen:"
+msgstr "Sie können Ihr Passwort zurücksetzen, indem Sie den Anweisungen bei dem Link unten folgen:"
 
 #: lib/cforum_web/controllers/users/session_controller.ex:42
 msgid "You logged out successfully"
