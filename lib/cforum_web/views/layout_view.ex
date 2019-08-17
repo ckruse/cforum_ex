@@ -158,8 +158,8 @@ defmodule CforumWeb.LayoutView do
              showMathMenu: false,
              menuSettings: { CHTMLpreview: false },
              tex2jax: {
-               inlineMath: [['$', '$']],
-               displayMath: [['$$', '$$']],
+               inlineMath: [['$$', '$$']],
+               displayMath: [],
                preview: "none",
                processEscapes: true
              }
