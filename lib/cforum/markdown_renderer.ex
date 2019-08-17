@@ -87,6 +87,12 @@ defmodule Cforum.MarkdownRenderer do
   end
 
   @spec to_plain(%Message{} | %Cite{}) :: String.t()
+  def to_plain(%Message{format: "cforum"} = message) do
+    message
+    |> Cforum.LegacyParser.parse()
+    |> to_plain()
+  end
+
   def to_plain(%Message{} = message) do
     {:ok, text} = render_plain(message.content, "m-#{message.message_id}")
     text
