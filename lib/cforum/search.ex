@@ -157,7 +157,7 @@ defmodule Cforum.Search do
   @spec get_document_by_reference_id(non_neg_integer()) :: %Document{} | nil
   def get_document_by_reference_id(id), do: Repo.get_by(Document, reference_id: id)
 
-  @spec get_document_by_reference_id(String.t()) :: %Document{} | nil
+  @spec get_document_by_url(String.t()) :: %Document{} | nil
   def get_document_by_url(url), do: Repo.get_by(Document, url: url)
 
   @doc """
