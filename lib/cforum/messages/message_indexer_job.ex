@@ -26,7 +26,7 @@ defmodule Cforum.Messages.MessageIndexerJob do
     message = Messages.get_message(message_id)
 
     if is_nil(message) do
-      with %Document{} = doc <- Search.get_document_by_reference_id(message_id) do
+      with %Document{} = doc <- Search.get_forum_document_by_reference_id(message_id) do
         Search.delete_document(doc)
       end
     else
@@ -37,20 +37,37 @@ defmodule Cforum.Messages.MessageIndexerJob do
 
   @spec index_message(%Thread{}, %Message{}) :: any()
   def index_message(%Thread{} = thread, %Message{} = msg) do
-    Cforum.Helpers.AsyncHelper.run_async(fn ->
-      doc = Search.get_document_by_reference_id(msg.message_id)
-      plain = plain_content(msg)
-      forum = Forums.get_forum!(msg.forum_id)
-      base_relevance = ConfigManager.conf(forum, "search_forum_relevance", :float)
-      msg = Cforum.Repo.preload(msg, [:tags])
+    Cforum.Helpers.AsyncHelper.run_async(fn -> index_message_synchronously(thread, msg) end)
+  end
 
-      section =
-        forum.forum_id
-        |> Search.get_section_by_forum_id()
-        |> maybe_create_section(forum)
+  @spec index_message_synchronously(non_neg_integer()) :: {:error, %Ecto.Changeset{}} | {:ok, %Document{}}
+  def index_message_synchronously(message_id) do
+    message = Messages.get_message(message_id)
 
-      update_document(section, doc, thread, msg, plain, base_relevance)
-    end)
+    if is_nil(message) do
+      with %Document{} = doc <- Search.get_forum_document_by_reference_id(message_id) do
+        Search.delete_document(doc)
+      end
+    else
+      thread = Threads.get_thread!(message.thread_id)
+      index_message_synchronously(thread, message)
+    end
+  end
+
+  @spec index_message_synchronously(%Thread{}, %Message{}) :: {:error, %Ecto.Changeset{}} | {:ok, %Document{}}
+  def index_message_synchronously(thread, msg) do
+    doc = Search.get_forum_document_by_reference_id(msg.message_id)
+    plain = plain_content(msg)
+    forum = Forums.get_forum!(msg.forum_id)
+    base_relevance = ConfigManager.conf(forum, "search_forum_relevance", :float)
+    msg = Cforum.Repo.preload(msg, [:tags])
+
+    section =
+      forum.forum_id
+      |> Search.get_section_by_forum_id()
+      |> maybe_create_section(forum)
+
+    update_document(section, doc, thread, msg, plain, base_relevance)
   end
 
   @spec unindex_messages([%Message{} | non_neg_integer()]) :: any()
@@ -66,7 +83,7 @@ defmodule Cforum.Messages.MessageIndexerJob do
   end
 
   defp delete_document(id) do
-    doc = Search.get_document_by_reference_id(id)
+    doc = Search.get_forum_document_by_reference_id(id)
 
     if !is_nil(doc),
       do: Search.delete_document(doc)
@@ -75,7 +92,7 @@ defmodule Cforum.Messages.MessageIndexerJob do
   @spec rescore_message(%Message{}) :: any()
   def rescore_message(%Message{} = msg) do
     msg = Messages.get_message!(msg.message_id)
-    doc = Search.get_document_by_reference_id(msg.message_id)
+    doc = Search.get_forum_document_by_reference_id(msg.message_id)
 
     if !is_nil(doc) do
       forum = Forums.get_forum!(msg.forum_id)
