@@ -348,7 +348,15 @@ defmodule Cforum.Messages do
     end)
     |> ThreadCaching.refresh_cached_thread()
     |> unnotify_user(message_ids)
+    |> unindex_messages(message_ids)
   end
+
+  defp unindex_messages({:ok, msg}, ids) do
+    MessageIndexerJob.unindex_messages(ids)
+    {:ok, msg}
+  end
+
+  defp unindex_messages(val, _), do: val
 
   @doc """
   Restores a Message.
@@ -378,7 +386,15 @@ defmodule Cforum.Messages do
       {:ok, message}
     end)
     |> ThreadCaching.refresh_cached_thread()
+    |> index_messages(message_ids)
   end
+
+  defp index_messages({:ok, msg}, ids) do
+    MessageIndexerJob.index_messages(ids)
+    {:ok, msg}
+  end
+
+  defp index_messages(val, _), do: val
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking message changes.

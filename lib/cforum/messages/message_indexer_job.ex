@@ -14,6 +14,13 @@ defmodule Cforum.Messages.MessageIndexerJob do
 
   alias CforumWeb.Views.ViewHelpers.Path
 
+  @spec index_messages([non_neg_integer()]) :: any()
+  def index_messages(message_ids) do
+    Cforum.Helpers.AsyncHelper.run_async(fn ->
+      Enum.each(message_ids, &index_message/1)
+    end)
+  end
+
   @spec index_message(integer()) :: any()
   def index_message(message_id) do
     message = Messages.get_message(message_id)
@@ -32,7 +39,7 @@ defmodule Cforum.Messages.MessageIndexerJob do
   def index_message(%Thread{} = thread, %Message{} = msg) do
     Cforum.Helpers.AsyncHelper.run_async(fn ->
       doc = Search.get_document_by_reference_id(msg.message_id)
-      plain = MarkdownRenderer.to_plain(msg)
+      plain = plain_content(msg)
       forum = Forums.get_forum!(msg.forum_id)
       base_relevance = ConfigManager.conf(forum, "search_forum_relevance", :float)
       msg = Cforum.Repo.preload(msg, [:tags])
@@ -46,18 +53,26 @@ defmodule Cforum.Messages.MessageIndexerJob do
     end)
   end
 
-  @spec unindex_messages([%Message{}]) :: any()
+  @spec unindex_messages([%Message{} | non_neg_integer()]) :: any()
   def unindex_messages(messages) do
     Cforum.Helpers.AsyncHelper.run_async(fn ->
-      Enum.map(messages, fn msg ->
-        doc = Search.get_document_by_reference_id(msg.message_id)
-
-        if !is_nil(doc),
-          do: Search.delete_document(doc)
+      messages
+      |> Enum.map(fn
+        %Message{} = msg -> msg.message_id
+        id -> id
       end)
+      |> Enum.each(&delete_document/1)
     end)
   end
 
+  defp delete_document(id) do
+    doc = Search.get_document_by_reference_id(id)
+
+    if !is_nil(doc),
+      do: Search.delete_document(doc)
+  end
+
+  @spec rescore_message(%Message{}) :: any()
   def rescore_message(%Message{} = msg) do
     msg = Messages.get_message!(msg.message_id)
     doc = Search.get_document_by_reference_id(msg.message_id)
@@ -113,5 +128,14 @@ defmodule Cforum.Messages.MessageIndexerJob do
       document_created: msg.created_at,
       tags: Enum.map(msg.tags, & &1.tag_name)
     }
+  end
+
+  defp plain_content(msg, tries \\ 0)
+  defp plain_content(_msg, tries) when tries >= 5, do: raise({:error, :no_plaintext})
+
+  defp plain_content(msg, tries) do
+    MarkdownRenderer.to_plain(msg)
+  rescue
+    _ -> plain_content(msg, tries + 1)
   end
 end
