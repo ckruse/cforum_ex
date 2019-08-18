@@ -57,7 +57,7 @@ defmodule Cforum.Messages.MessageIndexerJob do
   @spec index_message_synchronously(%Thread{}, %Message{}) :: {:error, %Ecto.Changeset{}} | {:ok, %Document{}}
   def index_message_synchronously(thread, msg) do
     doc = Search.get_forum_document_by_reference_id(msg.message_id)
-    plain = plain_content(msg)
+    plain = MarkdownRenderer.to_plain(msg)
     forum = Forums.get_forum!(msg.forum_id)
     base_relevance = ConfigManager.conf(forum, "search_forum_relevance", :float)
     msg = Cforum.Repo.preload(msg, [:tags])
@@ -145,14 +145,5 @@ defmodule Cforum.Messages.MessageIndexerJob do
       document_created: msg.created_at,
       tags: Enum.map(msg.tags, & &1.tag_name)
     }
-  end
-
-  defp plain_content(msg, tries \\ 0)
-  defp plain_content(_msg, tries) when tries >= 5, do: raise({:error, :no_plaintext})
-
-  defp plain_content(msg, tries) do
-    MarkdownRenderer.to_plain(msg)
-  rescue
-    _ -> plain_content(msg, tries + 1)
   end
 end
