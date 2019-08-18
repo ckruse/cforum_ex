@@ -126,20 +126,35 @@ defmodule Cforum.MarkdownRenderer do
   end
 
   @spec to_plain(%Message{} | %Cite{}) :: String.t()
-  def to_plain(%Message{format: "cforum"} = message) do
+  def to_plain(object, tries \\ 0)
+  def to_plain(_, tries) when tries >= 5, do: {:error, :not_possible}
+
+  def to_plain(%Message{format: "cforum"} = message, tries) do
     message
     |> Cforum.LegacyParser.parse()
-    |> to_plain()
+    |> to_plain(tries)
   end
 
-  def to_plain(%Message{} = message) do
-    {:ok, text} = render_plain(message.content, "m-#{message.message_id}")
-    text
+  def to_plain(%Message{} = message, tries) do
+    case render_plain(message.content, "m-#{message.message_id}") do
+      {:ok, text} ->
+        text
+
+      _ ->
+        Process.sleep(50)
+        to_plain(message, tries + 1)
+    end
   end
 
-  def to_plain(%Cite{} = cite) do
-    {:ok, text} = render_plain(cite.cite, "c-#{cite.cite_id}")
-    text
+  def to_plain(%Cite{} = cite, tries) do
+    case render_plain(cite.cite, "c-#{cite.cite_id}") do
+      {:ok, text} ->
+        text
+
+      _ ->
+        Process.sleep(50)
+        to_plain(cite, tries + 1)
+    end
   end
 
   def render_plain(markdown, id) do
