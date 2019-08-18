@@ -15,23 +15,28 @@ defmodule Cforum.Cites.CiteIndexerJob do
   @spec index_cite(%Cite{}) :: any()
   def index_cite(%Cite{} = cite) do
     Cforum.Helpers.AsyncHelper.run_async(fn ->
-      doc = Search.get_document_by_url(Helpers.cite_url(CforumWeb.Endpoint, :show, cite))
-      plain = MarkdownRenderer.to_plain(cite)
-      base_relevance = ConfigManager.conf(nil, "search_cites_relevance", :float)
-
-      section =
-        "cites"
-        |> Search.get_section_by_section_type()
-        |> maybe_create_section()
-
-      update_document(section, doc, cite, plain, base_relevance)
+      index_cite_synchronously(cite)
     end)
+  end
+
+  @spec index_cite_synchronously(%Cite{}) :: {:ok, %Cite{}} | {:error, %Ecto.Changeset{}}
+  def index_cite_synchronously(cite) do
+    doc = Search.get_document_by_reference_id(cite.cite_id, :cites)
+    plain = MarkdownRenderer.to_plain(cite)
+    base_relevance = ConfigManager.conf(nil, "search_cites_relevance", :float)
+
+    section =
+      "cites"
+      |> Search.get_section_by_section_type()
+      |> maybe_create_section()
+
+    update_document(section, doc, cite, plain, base_relevance)
   end
 
   @decorate transaction()
   @spec unindex_cite(%Cite{}) :: any()
   def unindex_cite(%Cite{} = cite) do
-    doc = Search.get_document_by_url(Helpers.cite_url(CforumWeb.Endpoint, :show, cite))
+    doc = Search.get_document_by_reference_id(cite.cite_id, :cites)
 
     if !is_nil(doc),
       do: Search.delete_document(doc)
@@ -56,6 +61,7 @@ defmodule Cforum.Cites.CiteIndexerJob do
     %{
       author: cite.author,
       user_id: cite.user_id,
+      reference_id: cite.cite_id,
       title: gettext("cite %{id}", id: cite.cite_id),
       content: plain,
       search_section_id: section.search_section_id,

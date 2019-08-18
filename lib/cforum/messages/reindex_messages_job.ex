@@ -12,7 +12,8 @@ defmodule Cforum.Messages.ReindexMessagesJob do
         from(doc in Document,
           left_join: msg in Message,
           on: [message_id: doc.reference_id],
-          where: not is_nil(doc.forum_id),
+          inner_join: section in assoc(doc, :search_section),
+          where: section.section_type == "forum",
           where: is_nil(msg.message_id) or msg.deleted == true
         )
         |> Repo.stream()
