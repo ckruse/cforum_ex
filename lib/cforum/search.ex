@@ -154,14 +154,14 @@ defmodule Cforum.Search do
   """
   def get_document!(id), do: Repo.get!(Document, id)
 
-  @spec get_forum_document_by_reference_id(non_neg_integer()) :: %Document{} | nil
-  def get_forum_document_by_reference_id(id) do
-    from(doc in Document, where: doc.reference_id == ^id and not is_nil(doc.forum_id))
+  @spec get_document_by_reference_id(non_neg_integer(), :forum | :cites) :: %Document{} | nil
+  def get_document_by_reference_id(id, type \\ :forum) do
+    from(doc in Document,
+      inner_join: section in assoc(doc, :search_section),
+      where: doc.reference_id == ^id and section.section_type == ^Atom.to_string(type)
+    )
     |> Repo.one()
   end
-
-  @spec get_document_by_url(String.t()) :: %Document{} | nil
-  def get_document_by_url(url), do: Repo.get_by(Document, url: url)
 
   @doc """
   Creates a document.

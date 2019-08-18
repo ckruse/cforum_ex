@@ -51,6 +51,6 @@ defmodule Cforum.Cites.ArchiverJobTest do
 
     ArchiverJob.archive()
 
-    assert Cforum.Search.get_document_by_url(Helpers.cite_url(CforumWeb.Endpoint, :show, cite))
+    assert Cforum.Search.get_document_by_reference_id(cite.cite_id)
   end
 end

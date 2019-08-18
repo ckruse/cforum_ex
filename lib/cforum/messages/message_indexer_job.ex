@@ -26,7 +26,7 @@ defmodule Cforum.Messages.MessageIndexerJob do
     message = Messages.get_message(message_id)
 
     if is_nil(message) do
-      with %Document{} = doc <- Search.get_forum_document_by_reference_id(message_id) do
+      with %Document{} = doc <- Search.get_document_by_reference_id(message_id) do
         Search.delete_document(doc)
       end
     else
@@ -45,7 +45,7 @@ defmodule Cforum.Messages.MessageIndexerJob do
     message = Messages.get_message(message_id)
 
     if is_nil(message) do
-      with %Document{} = doc <- Search.get_forum_document_by_reference_id(message_id) do
+      with %Document{} = doc <- Search.get_document_by_reference_id(message_id) do
         Search.delete_document(doc)
       end
     else
@@ -56,7 +56,7 @@ defmodule Cforum.Messages.MessageIndexerJob do
 
   @spec index_message_synchronously(%Thread{}, %Message{}) :: {:error, %Ecto.Changeset{}} | {:ok, %Document{}}
   def index_message_synchronously(thread, msg) do
-    doc = Search.get_forum_document_by_reference_id(msg.message_id)
+    doc = Search.get_document_by_reference_id(msg.message_id)
     plain = MarkdownRenderer.to_plain(msg)
     forum = Forums.get_forum!(msg.forum_id)
     base_relevance = ConfigManager.conf(forum, "search_forum_relevance", :float)
@@ -83,7 +83,7 @@ defmodule Cforum.Messages.MessageIndexerJob do
   end
 
   defp delete_document(id) do
-    doc = Search.get_forum_document_by_reference_id(id)
+    doc = Search.get_document_by_reference_id(id)
 
     if !is_nil(doc),
       do: Search.delete_document(doc)
@@ -92,7 +92,7 @@ defmodule Cforum.Messages.MessageIndexerJob do
   @spec rescore_message(%Message{}) :: any()
   def rescore_message(%Message{} = msg) do
     msg = Messages.get_message!(msg.message_id)
-    doc = Search.get_forum_document_by_reference_id(msg.message_id)
+    doc = Search.get_document_by_reference_id(msg.message_id)
 
     if !is_nil(doc) do
       forum = Forums.get_forum!(msg.forum_id)
