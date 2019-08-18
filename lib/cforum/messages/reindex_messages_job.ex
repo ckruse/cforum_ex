@@ -7,18 +7,21 @@ defmodule Cforum.Messages.ReindexMessagesJob do
   alias Cforum.Messages.Message
 
   def reindex_messages() do
-    Repo.transaction(fn ->
-      from(doc in Document,
-        left_join: msg in Message,
-        on: [message_id: doc.reference_id],
-        where: not is_nil(doc.forum_id),
-        where: is_nil(msg.message_id) or msg.deleted == true
-      )
-      |> Repo.stream()
-      |> Enum.each(&Search.delete_document/1)
+    Repo.transaction(
+      fn ->
+        from(doc in Document,
+          left_join: msg in Message,
+          on: [message_id: doc.reference_id],
+          where: not is_nil(doc.forum_id),
+          where: is_nil(msg.message_id) or msg.deleted == true
+        )
+        |> Repo.stream()
+        |> Enum.each(&Search.delete_document/1)
 
-      :ok
-    end)
+        :ok
+      end,
+      timeout: :infinity
+    )
 
     do_reindex_messages()
   end
