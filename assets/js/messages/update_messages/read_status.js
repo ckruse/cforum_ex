@@ -25,7 +25,10 @@ if (document.body.dataset.userId) {
         const thread = elem.closest(".cf-thread");
 
         if (conf("open_close_close_when_read") === "yes" && shouldFold(thread)) {
-          thread.querySelector("ol").remove();
+          const ol = thread.querySelector("ol");
+          if (ol) {
+            ol.remove();
+          }
         }
       });
     });
