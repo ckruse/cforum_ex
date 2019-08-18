@@ -4,7 +4,10 @@
 </div>
 
 <%= unless Helpers.blank?(@message.problematic_site) do %>
-  <p class="problematic-site"><%= problematic_site_link(@conn, @message.problematic_site) %></p>
+  <p class="cf-problematic-site">
+    <svg class="problematic-site-icon" title="<%= gettext("problematic site") %>" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-problematic-site"></use></svg>
+    <%= problematic_site_link(@conn, @message.problematic_site) %>
+  </p>
 <% end %>
 
 <div class="cf-posting-content<%= if @message.deleted, do: " deleted" %> e-content">

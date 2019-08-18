@@ -10,30 +10,6 @@
   border-radius: 0px 0.7em 0.7em;
   border: 1px solid #d5d5d5;
 
-  .problematic-site {
-    font-size: 0.9em;
-    background-color: #fdfcf3;
-    border: 1px solid #e7c157;
-    border-radius: 0 0.5em 0 0;
-    border-bottom: 0 none;
-    margin: 0.5em 0 -0.5em;
-    padding: 0.5em 1em;
-
-    & + .posting-content {
-      border-top-right-radius: 0;
-    }
-
-    a {
-      font-size: 1.1em;
-    }
-    a:before {
-      font-size: 1.3em;
-      color: #c32e04;
-      margin-right: 0.3em;
-      vertical-align: middle;
-    }
-  }
-
   details,
   .details {
     display: block;

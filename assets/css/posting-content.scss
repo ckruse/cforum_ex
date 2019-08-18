@@ -142,6 +142,37 @@
   }
 }
 
+.cf-problematic-site {
+  svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    fill: $active-link-color;
+  }
+
+  font-size: 0.9em;
+  background-color: #fdfcf3;
+  border: 1px solid #e7c157;
+  border-radius: 0 0.5em 0 0;
+  border-bottom: 0 none;
+  margin: 0.5em 0px -0.5em;
+  padding: 0.8em 0.1em 1em;
+
+  & + .cf-posting-content {
+    border-top-right-radius: 0;
+  }
+
+  a {
+    font-size: 1.1em;
+  }
+  a:before {
+    font-size: 1.3em;
+    color: #c32e04;
+    margin-right: 0.3em;
+    vertical-align: middle;
+  }
+}
+
 .archived .cf-posting-content {
   background-image: url(/images/archived.png);
   background-position: top right;
@@ -151,6 +182,10 @@
 
 @include default-breakpoint() {
   .cf-posting-content {
+    padding: 0.8em 1em 1em;
+  }
+
+  .cf-problematic-site {
     padding: 0.8em 1em 1em;
   }
 }
