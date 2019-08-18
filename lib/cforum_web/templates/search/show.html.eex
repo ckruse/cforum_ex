@@ -48,6 +48,7 @@
   <%= Paginator.pagination @conn, @paging, &Path.search_path/3, [path_args: [@conn, :show], url_params: @params] %>
 
   <div class="cf-thread-list cf-search-results">
+    <%= if Helpers.blank?(@results), do: gettext("We could not find any matching documents.") %>
     <%= for result <- @results, do: render("result.html", Map.put(assigns, :result, result)) %>
   </div>
 
