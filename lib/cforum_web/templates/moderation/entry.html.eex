@@ -14,7 +14,10 @@
   </div>
 
   <%= unless Helpers.blank?(@entry.message.problematic_site) do %>
-    <p class="problematic-site"><%= link gettext("problematic site"), to: @entry.message.problematic_site, rel: "nofollow" %></p>
+    <p class="cf-problematic-site">
+      <svg class="problematic-site-icon" title="<%= gettext("problematic site") %>" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-problematic-site"></use></svg>
+      <%= link gettext("problematic site"), to: @entry.message.problematic_site, rel: "nofollow" %>
+    </p>
   <% end %>
 
   <div class="cf-posting-content<%= if @entry.message.deleted, do: " deleted" %> e-content">
