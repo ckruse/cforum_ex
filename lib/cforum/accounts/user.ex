@@ -2,8 +2,6 @@ defmodule Cforum.Accounts.User do
   use CforumWeb, :model
   use Arc.Ecto.Schema
 
-  import CforumWeb.Gettext
-
   alias Cforum.Helpers
   alias Phoenix.Token
 
@@ -143,7 +141,7 @@ defmodule Cforum.Accounts.User do
         changeset
 
       _ ->
-        add_error(changeset, :password, gettext("password and password confirmation don't match"))
+        add_error(changeset, :password, "password and password confirmation don't match")
     end
   end
 

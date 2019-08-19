@@ -1,6 +1,5 @@
 defmodule Cforum.Media.Image do
   use CforumWeb, :model
-  import CforumWeb.Gettext
 
   @primary_key {:medium_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :medium_id}
@@ -49,6 +48,6 @@ defmodule Cforum.Media.Image do
   defp validate_content_type(changeset, file) do
     if file.content_type =~ ~r/^image\/(png|gif|jpeg|svg\+xml)$/,
       do: changeset,
-      else: add_error(changeset, :filename, gettext("only image files are allowed!"))
+      else: add_error(changeset, :filename, "only image files are allowed!")
   end
 end

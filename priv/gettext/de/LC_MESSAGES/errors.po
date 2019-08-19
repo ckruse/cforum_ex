@@ -100,3 +100,30 @@ msgstr "muss größer oder gleich %{number} sein"
 
 msgid "must be equal to %{number}"
 msgstr "musst gleich %{number} sein"
+
+msgid "password and password confirmation don't match"
+msgstr "Passwort und Passwort-Bestätigung stimmen nicht überein"
+
+msgid "only image files are allowed!"
+msgstr "nur Bild-Dateien sind erlaubt!"
+
+msgid "Please specify at least %{count} tags"
+msgid_plural "Please specify at least %{count} tags"
+msgstr[0] "Bitte geben Sie mindestens %{count} Tags an"
+msgstr[1] "Bitte geben Sie mindestens einen Tag an"
+msgstr[2] "Bitte geben Sie mindestens %{count} Tags an"
+
+msgid "Please specify a maximum of %{count} tags"
+msgid_plural "Please specify a maximum of %{count} tags"
+msgstr[0] "Bitte geben Sie höchstens %{count} Tags an"
+msgstr[1] "Bitte geben Sie höchstens einen Tag an"
+msgstr[2] "Bitte geben Sie höchstens %{count} Tags an"
+
+msgid "unknown tags given: %{tags}"
+msgstr "Folgende Tags sind unbekannt: %{tags}"
+
+msgid "is unknown"
+msgstr "ist unbekannt"
+
+msgid "seems like spam!"
+msgstr "sieht nach Spam aus!"

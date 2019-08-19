@@ -3982,11 +3982,6 @@ msgid "Tag %{no}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/messages/message.ex:228
-msgid "is unknown"
-msgstr ""
-
-#, elixir-format
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:65
 msgid "A comma separated list of poster names"
 msgstr ""
@@ -4173,16 +4168,6 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/message/header_editor.html.eex:3
 msgid "versions"
-msgstr ""
-
-#, elixir-format
-#: lib/cforum/messages/message.ex:118
-msgid "Please specify a maximum of %{num} tags"
-msgstr ""
-
-#, elixir-format
-#: lib/cforum/messages/message.ex:115
-msgid "Please specify at least %{num} tags"
 msgstr ""
 
 #, elixir-format
@@ -4610,11 +4595,6 @@ msgid "automatically delete read notifications"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/messages/message.ex:272
-msgid "seems like spam!"
-msgstr ""
-
-#, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:83
 msgid "MathJax URL"
 msgstr ""
@@ -4622,9 +4602,4 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/search/show.html.eex:51
 msgid "We could not find any matching documents."
-msgstr ""
-
-#, elixir-format
-#: lib/cforum/media/image.ex:52
-msgid "only image files are allowed!"
 msgstr ""
