@@ -10,6 +10,14 @@
     margin: 0;
     padding: 0;
   }
+
+  li:last-of-type {
+    text-align: center;
+  }
+  img {
+    margin-top: 1em;
+    width: 80%;
+  }
 }
 
 @include default-breakpoint() {
@@ -30,6 +38,13 @@
 
     li:last-of-type {
       float: right;
+      text-align: left;
+    }
+
+    img {
+      height: 1em;
+      width: auto;
+      margin-top: 0;
     }
   }
 }
