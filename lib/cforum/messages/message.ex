@@ -2,7 +2,6 @@ defmodule Cforum.Messages.Message do
   use CforumWeb, :model
 
   import Ecto.Query, warn: false
-  import CforumWeb.Gettext
 
   alias Cforum.Helpers
   alias Cforum.Accounts.User
@@ -112,10 +111,10 @@ defmodule Cforum.Messages.Message do
 
       cond do
         no_tags < min_tags ->
-          add_error(changeset, :tags, gettext("Please specify at least %{num} tags", num: min_tags))
+          add_error(changeset, :tags, "Please specify at least %{count} tags", count: min_tags)
 
         no_tags > max_tags ->
-          add_error(changeset, :tags, gettext("Please specify a maximum of %{num} tags", num: max_tags))
+          add_error(changeset, :tags, "Please specify a maximum of %{count} tags", count: max_tags)
 
         true ->
           changeset
@@ -191,7 +190,7 @@ defmodule Cforum.Messages.Message do
     else
       changeset
       |> put_assoc(:tags, Enum.map(tags, &%Tag{tag_name: &1}))
-      |> add_error(:tags, gettext("unknown tags given: %{tags}", tags: Enum.join(unknown_tags, ", ")))
+      |> add_error(:tags, "unknown tags given: %{tags}", tags: Enum.join(unknown_tags, ", "))
       |> add_tag_errors(unknown_tags)
     end
   end
@@ -225,7 +224,7 @@ defmodule Cforum.Messages.Message do
     tags =
       Enum.map(get_change(changeset, :tags, []), fn tag ->
         if Enum.find(unknown_tags, &(&1 == get_field(tag, :tag_name))) != nil,
-          do: add_error(tag, :tag_name, gettext("is unknown")),
+          do: add_error(tag, :tag_name, "is unknown"),
           else: tag
       end)
 
@@ -269,7 +268,7 @@ defmodule Cforum.Messages.Message do
     value = get_field(changeset, field)
 
     if matches?(value, blacklist),
-      do: add_error(changeset, field, gettext("seems like spam!")),
+      do: add_error(changeset, field, "seems like spam!"),
       else: changeset
   end
 

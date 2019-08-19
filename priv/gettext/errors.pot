@@ -88,3 +88,28 @@ msgstr ""
 
 msgid "must be equal to %{number}"
 msgstr ""
+
+msgid "password and password confirmation don't match"
+msgstr ""
+
+msgid "only image files are allowed!"
+msgstr ""
+
+msgid "Please specify at least %{count} tags"
+msgid_plural "Please specify at least %{count} tags"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Please specify a maximum of %{count} tags"
+msgid_plural "Please specify a maximum of %{count} tags"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "unknown tags given: %{tags}"
+msgstr ""
+
+msgid "is unknown"
+msgstr ""
+
+msgid "seems like spam!"
+msgstr ""
