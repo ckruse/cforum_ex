@@ -1,3 +1,3 @@
 <%=ViewHelpers.l10n_render @view_module, "help_l10n.html", assigns %>
 
-<script>window.helpCitesData = <%= {:safe, Jason.encode!(@cites_stats)} %>;</script>
+<script nonce="<%= @conn.assigns[:nonce_for_js] %>">window.helpCitesData = <%= {:safe, Jason.encode!(@cites_stats)} %>;</script>
