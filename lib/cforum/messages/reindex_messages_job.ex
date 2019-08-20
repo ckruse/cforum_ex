@@ -6,7 +6,7 @@ defmodule Cforum.Messages.ReindexMessagesJob do
   alias Cforum.Search.Document
   alias Cforum.Messages.Message
 
-  def reindex_messages() do
+  def reindex_messages(start_id \\ 0) do
     Repo.transaction(
       fn ->
         from(doc in Document,
@@ -24,10 +24,10 @@ defmodule Cforum.Messages.ReindexMessagesJob do
       timeout: :infinity
     )
 
-    do_reindex_messages()
+    do_reindex_messages(start_id - 1)
   end
 
-  defp do_reindex_messages(last_id \\ -1) do
+  defp do_reindex_messages(last_id) do
     mid =
       from(m in Message,
         select: m.message_id,
