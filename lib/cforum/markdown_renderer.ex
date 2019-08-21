@@ -16,7 +16,7 @@ defmodule Cforum.MarkdownRenderer do
   alias Cforum.Accounts.Badge
   # alias Cforum.Accounts.User
 
-  @max_runs 10_000
+  @max_runs 1000
 
   def start_link(opts \\ []) do
     GenServer.start_link(__MODULE__, [], opts)
@@ -225,7 +225,8 @@ defmodule Cforum.MarkdownRenderer do
         {:reply, {:ok, retval["html"]}, {proc, runs}}
 
       v when not is_map(v) ->
-        {:reply, {:error, :unknown_retval}, {proc, runs}}
+        Proc.stop(proc)
+        {:reply, {:error, :unknown_retval}, {nil, 0}}
 
       _ ->
         Proc.stop(proc)
