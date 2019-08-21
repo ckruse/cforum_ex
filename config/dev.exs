@@ -62,8 +62,8 @@ config :cforum,
   avatar_url: "/uploads/users/avatars",
   convert: "/usr/bin/convert",
   cfmarkdown: [
-    md_url: "http://localhost:4001/markdown",
-    plain_url: "http://localhost:4001/plain",
+    cli: "./node_modules/.bin/babel-node ./bin/cfmarkdown2html.js",
+    pwd: Path.expand("~/dev/cfmarkdown"),
     pool_size: 5
   ]
 
