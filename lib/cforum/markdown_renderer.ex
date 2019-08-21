@@ -112,13 +112,15 @@ defmodule Cforum.MarkdownRenderer do
   def handle_call({:render_doc, markdown, id, config}, _sender, state) do
     json = Jason.encode!(%{markdown: markdown, id: id, config: config})
     url = Keyword.get(Application.get_env(:cforum, :cfmarkdown, []), :md_url, "http://localhost:4001/markdown")
-    response = HTTPotion.post(url, body: json, headers: ["Content-Type": "application/json"])
 
     retval =
-      if response.status_code == 200 do
-        Jason.decode!(response.body)
+      with %HTTPotion.Response{} = response <-
+             HTTPotion.post(url, body: json, headers: ["Content-Type": "application/json"]),
+           200 <- response.status_code,
+           {:ok, response_json} <- Jason.decode(response.body) do
+        response_json
       else
-        nil
+        _ -> nil
       end
 
     case retval do
@@ -136,13 +138,15 @@ defmodule Cforum.MarkdownRenderer do
   def handle_call({:render_plain, markdown, id}, _sender, state) do
     json = Jason.encode!(%{markdown: markdown, target: "plain", id: id})
     url = Keyword.get(Application.get_env(:cforum, :cfmarkdown, []), :plain_url, "http://localhost:4001/plain")
-    response = HTTPotion.post(url, body: json, headers: ["Content-Type": "application/json"])
 
     retval =
-      if response.status_code == 200 do
-        Jason.decode!(response.body)
+      with %HTTPotion.Response{} = response <-
+             HTTPotion.post(url, body: json, headers: ["Content-Type": "application/json"]),
+           200 <- response.status_code,
+           {:ok, response_json} <- Jason.decode(response.body) do
+        response_json
       else
-        nil
+        _ -> nil
       end
 
     case retval do
