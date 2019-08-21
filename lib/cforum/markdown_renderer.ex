@@ -191,13 +191,7 @@ defmodule Cforum.MarkdownRenderer do
     end)
   end
 
-  #
-  # server callbacks
-  #
-  def handle_call({:render_doc, markdown, id, config}, _sender, {proc, runs}) do
-    {proc, runs} = ensure_proc(proc, runs)
-    out = Jason.encode!(%{markdown: markdown, id: id, config: config}) <> "\n"
-
+  defp send_and_receive(proc, out) do
     task =
       Task.async(fn ->
         Proc.send_input(proc, out)
@@ -208,16 +202,24 @@ defmodule Cforum.MarkdownRenderer do
         end
       end)
 
-    retval =
-      try do
-        Task.await(task, 1000)
-      catch
-        _, _ ->
-          if Process.alive?(task.pid),
-            do: Process.exit(task.pid, :kill)
+    try do
+      Task.await(task, 1000)
+    catch
+      _, _ ->
+        if Process.alive?(task.pid),
+          do: Process.exit(task.pid, :kill)
 
-          nil
-      end
+        nil
+    end
+  end
+
+  #
+  # server callbacks
+  #
+  def handle_call({:render_doc, markdown, id, config}, _sender, {proc, runs}) do
+    {proc, runs} = ensure_proc(proc, runs)
+    out = Jason.encode!(%{markdown: markdown, id: id, config: config}) <> "\n"
+    retval = send_and_receive(proc, out)
 
     case retval do
       %{"status" => "ok"} ->
@@ -237,30 +239,7 @@ defmodule Cforum.MarkdownRenderer do
   def handle_call({:render_plain, markdown, id}, _sender, {proc, runs}) do
     {proc, runs} = ensure_proc(proc, runs)
     out = Jason.encode!(%{markdown: markdown, target: "plain", id: id}) <> "\n"
-    # Proc.send_input(proc, out)
-    # line = read_line(proc)
-    # retval = Jason.decode!(line)
-
-    task =
-      Task.async(fn ->
-        Proc.send_input(proc, out)
-        line = read_line(proc)
-
-        with {:ok, json} <- Jason.decode(line) do
-          json
-        end
-      end)
-
-    retval =
-      try do
-        Task.await(task, 1000)
-      catch
-        _, _ ->
-          if Process.alive?(task.pid),
-            do: Process.exit(task.pid, :kill)
-
-          nil
-      end
+    retval = send_and_receive(proc, out)
 
     case retval do
       %{"status" => "ok"} ->
