@@ -13,9 +13,7 @@ defmodule CforumWeb.BadgeView do
 
   def page_heading(:show, assigns) do
     [
-      {:safe, "<img src=\""},
       badge_image(assigns.conn, assigns.badge),
-      {:safe, "\">"},
       " ",
       gettext("badge %{name}", name: assigns.badge.name)
     ]
@@ -29,5 +27,16 @@ defmodule CforumWeb.BadgeView do
   def body_classes(:index, _), do: "badges index"
   def body_classes(:show, _), do: "badges show"
 
-  def badge_image(conn, badge), do: Routes.static_path(conn, "/images/#{badge.badge_medal_type}.png")
+  def badge_image(conn, badge, classes \\ []) do
+    [
+      {:safe, "<svg class=\"cf-badge-image "},
+      Enum.join(classes, " "),
+      {:safe,
+       "\" width=\"109\" height=\"109\" viewBox=\"0 0 109 109\" xmlns=\"http://www.w3.org/2000/svg\"><use xlink:href=\""},
+      Routes.static_path(conn, "/images/badges.svg"),
+      "#",
+      badge.badge_medal_type,
+      {:safe, "\"></use></svg>"}
+    ]
+  end
 end

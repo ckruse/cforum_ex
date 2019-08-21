@@ -15,7 +15,7 @@
     <%= for badge <- @badges do %>
       <tr>
         <td><%= badge.order %></td>
-        <td><img src="<%= badge_image(@conn, badge) %>"></td>
+        <td><%= badge_image(@conn, badge) %></td>
         <td><%= link badge.name, to: Path.badge_path(@conn, :show, badge) %></td>
         <td><%= badge.score_needed %></td>
         <td><%= length(Badges.unique_users(badge)) %></td>
