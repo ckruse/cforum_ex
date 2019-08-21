@@ -33,6 +33,6 @@ config :cforum,
   avatar_dir: Path.expand("../priv/uploads/users/avatars", __DIR__),
   avatar_url: "/uploads/users/avatars",
   cfmarkdown: [
-    md_url: "http://localhost:4001/markdown",
-    plain_url: "http://localhost:4001/plain"
+    cli: "./node_modules/.bin/babel-node ./bin/cfmarkdown2html.js",
+    pwd: Path.expand("~/dev/cfmarkdown")
   ]
