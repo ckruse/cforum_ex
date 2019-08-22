@@ -247,10 +247,17 @@ defmodule Cforum.MarkdownRenderer do
         {:reply, {:ok, retval["html"]}, {proc, runs}}
 
       v when not is_map(v) ->
-        {:reply, {:error, :unknown_retval}, {proc, runs}}
+        Proc.stop(proc)
+        {:reply, {:error, :unknown_retval}, {nil, 0}}
 
       _ ->
-        {:reply, {:error, retval["message"]}, {proc, runs}}
+        Proc.stop(proc)
+        {:reply, {:error, retval["message"]}, {nil, 0}}
     end
+  end
+
+  def terminate(_, {proc, _runs}) do
+    Proc.stop(proc)
+    {nil, 0}
   end
 end
