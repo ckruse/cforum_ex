@@ -164,9 +164,11 @@
 <% else %>
   <ul class="cf-badge-user-list">
     <%= for ub <- @badges do %>
-      <li><%= img_tag(Routes.static_path(@conn, "/images/" <> ub[:badge].badge_medal_type <> ".png"), class: "medal-image", alt: ViewHelpers.l10n_medal_type(ub[:badge].badge_medal_type)) %>
+      <li>
+        <%= CforumWeb.BadgeView.badge_image(@conn, ub[:badge], classes: ["medal-image"]) %>
         <%= link ub[:badge].name, to: Path.badge_path(@conn, :show, ub[:badge]) %>
-        <%= if ub[:times] > 1, do: "× #{ub[:times]}" %> (<%= ViewHelpers.format_date(@conn, ub[:created_at]) %>)</li>
+        <%= if ub[:times] > 1, do: "× #{ub[:times]}" %> (<%= ViewHelpers.format_date(@conn, ub[:created_at]) %>)
+      </li>
     <% end %>
   </ul>
 <% end %>
