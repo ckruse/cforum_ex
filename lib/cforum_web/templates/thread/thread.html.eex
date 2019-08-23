@@ -1,5 +1,5 @@
 <article class="cf-thread threadlist <%= thread_classes(@thread) %>" id="<%= @thread.thread_id %>">
-  <%= CforumWeb.MessageView.header(@conn, @thread, @thread.tree, first: true, show_icons: true, action: assigns[:action]) %>
+  <%= CforumWeb.MessageView.header(@conn, @thread, @thread.tree, first: true, show_icons: true, action: assigns[:action], id_prefix: @conn.params["id_prefix"]) %>
 
   <div class="thread-marker-icons">
     <%= if @thread.sticky do %><svg class="sticky-icon" title="<%= gettext("this thread is sticky") %>" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-sticky"></use></svg><% end %>
@@ -16,7 +16,8 @@
           hide_repeating_subjects: ConfigManager.uconf(@conn, "hide_subjects_unchanged") == "yes",
           hide_repeating_tags: ConfigManager.uconf(@conn, "hide_repeating_tags") == "yes",
           parent_subscribed: @thread.message.attribs[:is_subscribed],
-          show_icons: true
+          show_icons: true,
+          id_prefix: @conn.params["id_prefix"]
         ) %>
   <% end %>
 </article>

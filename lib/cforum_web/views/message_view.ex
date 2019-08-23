@@ -140,7 +140,7 @@ defmodule CforumWeb.MessageView do
 
   def message_id(msg, opts) do
     if opts[:id],
-      do: {:safe, "id=\"#{opts[:id_prefix]}m#{msg.message_id}\""},
+      do: [{:safe, "id=\""}, opts[:id_prefix] || "", {:safe, "m#{msg.message_id}\""}],
       else: ""
   end
 

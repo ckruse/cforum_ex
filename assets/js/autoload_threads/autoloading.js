@@ -1,15 +1,17 @@
-import { queryString, parse, conf } from "../modules/helpers";
+import { queryString, parse, conf, parseMessageUrl } from "../modules/helpers";
 import { setNewFavicon } from "../title_infos";
 
 const NEW_MESSAGES = [];
 
-const insertRenderedThread = (thread, message, html) => {
+const insertRenderedThread = (thread, message, html, id_prefix) => {
   const node = parse(html).firstChild;
   const sortThreads = conf("sort_threads");
   const threadlist = document.querySelector(".cf-thread-list");
   const originalNode = document.getElementById(node.id);
+  const viewedMessageUrl =
+    document.body.dataset.controller === "MessageController" ? parseMessageUrl(document.location.href) : {};
 
-  const messageNode = node.querySelector("[id=m" + message.message_id + "]");
+  const messageNode = node.querySelector(`[id=${id_prefix}m${message.message_id}]`);
   if (messageNode) {
     const svgNode = parse(
       '<svg class="new-svg" width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="/images/icons.svg#svg-new"></use></svg>'
@@ -42,10 +44,18 @@ const insertRenderedThread = (thread, message, html) => {
 
       threadlist.insertBefore(node, threadlist.querySelector(".cf-thread:not(.sticky)"));
   }
+
+  if (viewedMessageUrl.messageId) {
+    const el = document.getElementById("tree-m" + viewedMessageUrl.messageId);
+    if (el) {
+      el.classList.add("active");
+    }
+  }
 };
 
 const autoloadMessage = ev => {
   const { thread, message, forum } = ev.detail.data;
+  const id_prefix = document.body.dataset.controller === "MessageController" ? "tree-" : "";
 
   if (document.body.dataset.controller === "MessageController" && !document.getElementById(thread.thread_id)) {
     return;
@@ -59,7 +69,7 @@ const autoloadMessage = ev => {
 
   NEW_MESSAGES.push(message.message_id);
 
-  const qs = queryString({ message_id: message.message_id, invisible: "no" });
+  const qs = queryString({ message_id: message.message_id, invisible: "no", id_prefix });
   fetch(`/${slug}${thread.slug}?${qs}`, { credentials: "same-origin" })
     .then(rsp => {
       if (rsp.ok) {
@@ -75,7 +85,7 @@ const autoloadMessage = ev => {
         }
 
         setNewFavicon();
-        insertRenderedThread(thread, message, text);
+        insertRenderedThread(thread, message, text, id_prefix);
       },
       error => console.log(error)
     );
