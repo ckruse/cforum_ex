@@ -27,10 +27,14 @@ defmodule CforumWeb.BadgeView do
   def body_classes(:index, _), do: "badges index"
   def body_classes(:show, _), do: "badges show"
 
-  def badge_image(conn, badge, classes \\ []) do
+  def badge_image(conn, badge, opts \\ []) do
+    opts = Keyword.merge([classes: [], title: ViewHelpers.l10n_medal_type(badge.badge_medal_type)], opts)
+
     [
       {:safe, "<svg class=\"cf-badge-image "},
-      Enum.join(classes, " "),
+      Enum.join(opts[:classes], " "),
+      {:safe, "\" title=\""},
+      opts[:title],
       {:safe,
        "\" width=\"109\" height=\"109\" viewBox=\"0 0 109 109\" xmlns=\"http://www.w3.org/2000/svg\"><use xlink:href=\""},
       Routes.static_path(conn, "/images/badges.svg"),
