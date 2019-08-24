@@ -7,7 +7,7 @@ defmodule Cforum.System.AuditingCleanupJob do
   alias Cforum.Repo
   alias Cforum.System.Auditing
 
-  @decorate transaction()
+  @decorate transaction(:maintenance)
   def maintenance do
     Logger.info("Starting auditing cleanup…")
 

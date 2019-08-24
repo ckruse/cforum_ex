@@ -11,7 +11,6 @@ defmodule Cforum.Cites.CiteIndexerJob do
 
   alias CforumWeb.Router.Helpers
 
-  @decorate transaction()
   @spec index_cite(%Cite{}) :: any()
   def index_cite(%Cite{} = cite) do
     Cforum.Helpers.AsyncHelper.run_async(fn ->
@@ -20,6 +19,7 @@ defmodule Cforum.Cites.CiteIndexerJob do
   end
 
   @spec index_cite_synchronously(%Cite{}) :: {:ok, %Cite{}} | {:error, %Ecto.Changeset{}}
+  @decorate transaction(:indexing)
   def index_cite_synchronously(cite) do
     doc = Search.get_document_by_reference_id(cite.cite_id, :cites)
     plain = MarkdownRenderer.to_plain(cite)
@@ -33,8 +33,8 @@ defmodule Cforum.Cites.CiteIndexerJob do
     update_document(section, doc, cite, plain, base_relevance)
   end
 
-  @decorate transaction()
   @spec unindex_cite(%Cite{}) :: any()
+  @decorate transaction(:indexing)
   def unindex_cite(%Cite{} = cite) do
     doc = Search.get_document_by_reference_id(cite.cite_id, :cites)
 

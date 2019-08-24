@@ -1,4 +1,6 @@
 defmodule Cforum.Messages.VoteBadgeDistributorJob do
+  use Appsignal.Instrumentation.Decorators
+
   alias Cforum.Messages.Vote
   alias Cforum.Messages
   alias Cforum.Messages.MessageHelpers
@@ -10,24 +12,27 @@ defmodule Cforum.Messages.VoteBadgeDistributorJob do
   import Ecto.Query, warn: false
 
   def grant_badges({:ok, %Vote{} = vote}) do
-    Cforum.Helpers.AsyncHelper.run_async(fn ->
-      user = Users.get_user!(vote.user_id)
-      message = Messages.get_message!(vote.message_id, view_all: true)
-
-      grant_voter_badges(vote, user)
-
-      if Helpers.present?(message.user_id) do
-        owner = Users.get_user!(message.user_id)
-        grant_bevoted_badges(owner, message)
-        grant_controverse_badge(owner, message)
-        grant_badges_by_score(owner)
-      end
-    end)
+    Cforum.Helpers.AsyncHelper.run_async(fn -> do_grant_badges(vote) end)
 
     {:ok, vote}
   end
 
   def grant_badges(value), do: value
+
+  @decorate transaction(:maintenance)
+  defp do_grant_badges(vote) do
+    user = Users.get_user!(vote.user_id)
+    message = Messages.get_message!(vote.message_id, view_all: true)
+
+    grant_voter_badges(vote, user)
+
+    if Helpers.present?(message.user_id) do
+      owner = Users.get_user!(message.user_id)
+      grant_bevoted_badges(owner, message)
+      grant_controverse_badge(owner, message)
+      grant_badges_by_score(owner)
+    end
+  end
 
   defp grant_controverse_badge(owner, message) do
     controverse = Badges.get_badge_by(slug: "controverse")

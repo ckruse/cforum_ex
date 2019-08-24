@@ -7,7 +7,7 @@ defmodule Cforum.Cites.ArchiverJob do
 
   require Logger
 
-  @decorate transaction()
+  @decorate transaction(:maintenance)
   def archive do
     setting = Settings.get_global_setting()
     min_age = ConfigManager.conf(setting, "cites_min_age_to_archive", :int)

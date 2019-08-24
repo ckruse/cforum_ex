@@ -7,7 +7,7 @@ defmodule Cforum.Forums.ForumStatsJob do
   alias Cforum.Repo
   alias Cforum.Forums.Forum
 
-  @decorate transaction()
+  @decorate transaction(:maintenance)
   def gen_stats do
     Logger.info("Renerating forum statistics…")
 

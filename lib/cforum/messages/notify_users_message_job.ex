@@ -10,29 +10,31 @@ defmodule Cforum.Messages.NotifyUsersMessageJob do
   alias Cforum.Accounts.{Settings, Notifications, Users}
   alias CforumWeb.Views.ViewHelpers.Path
 
-  @decorate transaction()
   @spec notify_users_about_new_message(%Thread{}, %Message{}) :: any()
   def notify_users_about_new_message(thread, message) do
-    Cforum.Helpers.AsyncHelper.run_async(fn ->
-      thread = Cforum.Repo.preload(thread, [:forum])
-
-      users =
-        (message.flags["mentions"] || [])
-        |> Enum.reject(fn [_, _, in_quote] -> in_quote end)
-        |> Enum.uniq_by(fn [_, id, _] -> id end)
-        |> Enum.map(fn [_, id, _] -> Users.get_user(id) end)
-        |> Enum.reject(&is_nil/1)
-        |> Enum.reject(fn user -> user.user_id == message.user_id end)
-        |> Enum.filter(&may_view?(&1, thread, message))
-
-      Enum.each(users, fn user -> notify_user_mention(user, thread, message) end)
-
-      if message.parent_id != nil,
-        do: notify_users(thread, message, users)
-    end)
+    Cforum.Helpers.AsyncHelper.run_async(fn -> do_notify_users_about_new_message(thread, message) end)
   end
 
-  @decorate transaction()
+  @decorate transaction(:notify)
+  defp do_notify_users_about_new_message(thread, message) do
+    thread = Cforum.Repo.preload(thread, [:forum])
+
+    users =
+      (message.flags["mentions"] || [])
+      |> Enum.reject(fn [_, _, in_quote] -> in_quote end)
+      |> Enum.uniq_by(fn [_, id, _] -> id end)
+      |> Enum.map(fn [_, id, _] -> Users.get_user(id) end)
+      |> Enum.reject(&is_nil/1)
+      |> Enum.reject(fn user -> user.user_id == message.user_id end)
+      |> Enum.filter(&may_view?(&1, thread, message))
+
+    Enum.each(users, fn user -> notify_user_mention(user, thread, message) end)
+
+    if message.parent_id != nil,
+      do: notify_users(thread, message, users)
+  end
+
+  @decorate transaction(:notify)
   def notify_users(thread, message, already_notified) do
     thread
     |> Cforum.Repo.preload([:forum])
@@ -87,14 +89,16 @@ defmodule Cforum.Messages.NotifyUsersMessageJob do
     parent_messages(thread, parent, [parent | acc])
   end
 
-  @decorate transaction()
   def notify_users_about_new_thread(thread, message) do
-    Cforum.Helpers.AsyncHelper.run_async(fn ->
-      Users.list_users_by_config_option("notify_on_new_thread", "yes")
-      |> Enum.reject(fn user -> user.user_id == message.user_id end)
-      |> Enum.filter(fn user -> may_view?(user, thread, message) end)
-      |> Enum.each(fn user -> notify_user_thread(user, thread, message) end)
-    end)
+    Cforum.Helpers.AsyncHelper.run_async(fn -> do_notify_users_about_new_thread(thread, message) end)
+  end
+
+  @decorate transaction(:notify)
+  defp do_notify_users_about_new_thread(thread, message) do
+    Users.list_users_by_config_option("notify_on_new_thread", "yes")
+    |> Enum.reject(fn user -> user.user_id == message.user_id end)
+    |> Enum.filter(fn user -> may_view?(user, thread, message) end)
+    |> Enum.each(fn user -> notify_user_thread(user, thread, message) end)
   end
 
   defp notify_user_thread(user, thread, message) do

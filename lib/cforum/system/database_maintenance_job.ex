@@ -6,7 +6,7 @@ defmodule Cforum.System.DatabaseMaintenanceJob do
 
   alias Cforum.Repo
 
-  @decorate transaction()
+  @decorate transaction(:maintenance)
   def maintenance do
     Logger.info("Starting database maintenance…")
 

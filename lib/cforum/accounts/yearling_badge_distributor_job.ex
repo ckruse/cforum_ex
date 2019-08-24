@@ -1,9 +1,12 @@
 defmodule Cforum.Accounts.YearlingBadgeDistributorJob do
+  use Appsignal.Instrumentation.Decorators
+
   alias Cforum.Repo
   alias Cforum.Helpers
   alias Cforum.Accounts.Users
   alias Cforum.Accounts.{Badge, Badges}
 
+  @decorate transaction(:maintenance)
   def perform do
     users =
       Users.all_users()
