@@ -34,13 +34,21 @@ alertsContainer.addEventListener("click", ev => {
   }
 });
 
-export const alert = (type, text, timeout) => {
+const pathLink = path => {
+  if (!path) return "";
+
+  return `<a href="${path}">${t("more…")}</a>`;
+};
+
+export const alert = (type, text, timeout, path = null) => {
   const alert = parse(`<div class="cf-${type} cf-alert cf-js-alert fade in" role="alert">
     <button type="button" class="close" aria-label="${t("close")}">
       <span aria-hidden="true">&times;</span>
     </button>
 
     ${text}
+
+    ${pathLink(path)}
   </div>`);
 
   const alertChild = alertsContainer.appendChild(alert.firstChild);
@@ -53,3 +61,7 @@ export const alert = (type, text, timeout) => {
 export const alertError = (text, timeout = ERROR_TIMEOUT) => alert("error", text, timeout);
 export const alertSuccess = (text, timeout = SUCCESS_TIMEOUT) => alert("success", text, timeout);
 export const alertInfo = (text, timeout = INFO_TIMEOUT) => alert("info", text, timeout);
+
+export const alertErrorWithPath = (text, path, timeout = ERROR_TIMEOUT) => alert("error", text, timeout, path);
+export const alertSuccessWithPath = (text, path, timeout = SUCCESS_TIMEOUT) => alert("success", text, timeout, path);
+export const alertInfoWithPath = (text, path, timeout = INFO_TIMEOUT) => alert("info", text, timeout, path);

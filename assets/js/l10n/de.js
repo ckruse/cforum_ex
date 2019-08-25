@@ -202,5 +202,7 @@ export const lang = {
     'Sie benutzen einen sehr alten Browser. Vielleicht möchten Sie <a href="https://www.browser-update.org/de/update.html">updaten</a>?',
 
   "The image you tried to paste exceeds the size limit of {maxSize} mb":
-    "Das Bild, dass Sie einfügen wollten, ist leider größer als das zulässige Limit von {maxSize} mb"
+    "Das Bild, dass Sie einfügen wollten, ist leider größer als das zulässige Limit von {maxSize} mb",
+
+  "more…": "mehr…"
 };
