@@ -1,5 +1,5 @@
 import { t } from "../modules/i18n";
-import { alertInfo } from "../modules/alerts";
+import { alertInfoWithPath } from "../modules/alerts";
 import { updateTitleInfos, setNewFavicon } from "../title_infos";
 
 document.addEventListener("cf:userPrivate", event => {
@@ -14,11 +14,12 @@ document.addEventListener("cf:userPrivate", event => {
       elem.setAttribute("title", t("{count} unread mails", { unread: data.unread }));
     }
 
-    alertInfo(
+    alertInfoWithPath(
       t("You've got a new mail from {sender}: {subject}", {
         sender: data.priv_message.sender_name,
         subject: data.priv_message.subject
-      })
+      }),
+      data.path
     );
   });
 
@@ -42,7 +43,10 @@ document.addEventListener("cf:userPrivate", event => {
       elem.setAttribute("title", t("{count} new notifications"));
     }
 
-    alertInfo(t("You've got a new notification: {subject}", { subject: data.notification.subject }));
+    alertInfoWithPath(
+      t("You've got a new notification: {subject}", { subject: data.notification.subject }),
+      data.notification.path
+    );
   });
 
   channel.on("notification_count", data => {

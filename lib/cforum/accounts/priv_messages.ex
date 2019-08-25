@@ -3,6 +3,7 @@ defmodule Cforum.Accounts.PrivMessages do
   The boundary for the PrivMessages system.
   """
 
+  use Appsignal.Instrumentation.Decorators
   import Ecto.Query, warn: false
 
   alias Cforum.Helpers
@@ -276,36 +277,43 @@ defmodule Cforum.Accounts.PrivMessages do
   def create_priv_message(owner, attrs \\ %{}) do
     retval =
       Repo.transaction(fn ->
-        pm =
-          %PrivMessage{}
-          |> PrivMessage.changeset(attrs, owner)
-          |> Repo.insert()
-
-        case pm do
-          {:ok, foreign_pm} ->
-            priv_message = Repo.get!(PrivMessage, foreign_pm.priv_message_id)
-
-            %PrivMessage{
-              is_read: true,
-              thread_id: priv_message.thread_id
-            }
-            |> PrivMessage.changeset(attrs, owner, true)
-            |> Repo.insert()
-
-          _ ->
-            Repo.rollback(pm)
+        with {:ok, foreign_pm} <- create_foreign_pm(owner, attrs),
+             priv_message <- Repo.get!(PrivMessage, foreign_pm.priv_message_id),
+             {:ok, our_pm} <- create_our_pm(owner, attrs, priv_message) do
+          {our_pm, priv_message}
+        else
+          {:error, val} -> Repo.rollback(val)
+          val -> Repo.rollback(val)
         end
       end)
 
     case retval do
-      {:ok, {:ok, pm}} ->
-        discard_pm_cache(%User{user_id: pm.recipient_id})
-        Cforum.Helpers.AsyncHelper.run_async(fn -> notify_user(pm) end)
-        {:ok, pm}
+      {:ok, {our_pm, foreign_pm}} ->
+        discard_pm_cache(%User{user_id: foreign_pm.recipient_id})
+        Cforum.Helpers.AsyncHelper.run_async(fn -> notify_user(foreign_pm) end)
+        {:ok, our_pm}
 
       {:error, {:error, val}} ->
         {:error, val}
+
+      val ->
+        val
     end
+  end
+
+  defp create_foreign_pm(owner, attrs) do
+    %PrivMessage{}
+    |> PrivMessage.changeset(attrs, owner)
+    |> Repo.insert()
+  end
+
+  defp create_our_pm(owner, attrs, priv_message) do
+    %PrivMessage{
+      is_read: true,
+      thread_id: priv_message.thread_id
+    }
+    |> PrivMessage.changeset(attrs, owner, true)
+    |> Repo.insert()
   end
 
   @doc """
@@ -534,12 +542,14 @@ defmodule Cforum.Accounts.PrivMessages do
       false
 
   """
+  @decorate transaction(:notify)
   def notify_user(priv_message) do
     priv_message = Repo.preload(priv_message, [:recipient, :sender])
 
     CforumWeb.Endpoint.broadcast!("users:#{priv_message.recipient_id}", "new_priv_message", %{
       unread: count_priv_messages(priv_message.recipient, true),
-      priv_message: priv_message
+      priv_message: priv_message,
+      path: CforumWeb.Views.ViewHelpers.Path.mail_thread_path(CforumWeb.Endpoint, :show, priv_message)
     })
 
     user = Cforum.Accounts.Users.get_user!(priv_message.recipient_id)
