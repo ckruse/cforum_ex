@@ -63,7 +63,7 @@ config :cforum,
   convert: "/usr/bin/convert",
   cfmarkdown: [
     cli: "./node_modules/.bin/babel-node ./bin/cfmarkdown2html.js",
-    pwd: Path.expand("~/dev/cfmarkdown"),
+    pwd: Path.expand("../cfmarkdown"),
     pool_size: 5
   ]
 
