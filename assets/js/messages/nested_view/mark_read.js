@@ -10,9 +10,10 @@ const options = {
 const observerCallback = (entries, observer, channel) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      const header = entry.target.closest(".cf-thread-message").querySelector(".cf-message-header");
+      const thread = entry.target.closest(".cf-thread-message");
+      const header = thread.querySelector(".cf-message-header");
 
-      if (header.classList.contains("visited")) {
+      if (header.classList.contains("visited") || thread.classList.contains("archived")) {
         return;
       }
 

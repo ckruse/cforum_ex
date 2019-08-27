@@ -213,6 +213,17 @@ defmodule Cforum.Threads do
     )
   end
 
+  def get_thread(id) do
+    Thread
+    |> Repo.get_by(thread_id: id)
+    |> Repo.preload(Thread.default_preloads())
+    |> Repo.preload(
+      messages:
+        {from(m in Message, order_by: [asc: fragment("? NULLS FIRST", m.parent_id), desc: m.created_at]),
+         Message.default_preloads()}
+    )
+  end
+
   def get_thread!(forum, visible_forums, id) do
     list_threads(forum, visible_forums)
     |> Enum.find(&(&1.thread_id == id))

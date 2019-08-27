@@ -67,13 +67,14 @@ defmodule CforumWeb.UsersChannel do
   end
 
   def handle_in("mark_read", %{"message_id" => mid}, socket) do
-    case Cforum.Messages.get_message(mid) do
-      nil ->
-        {:reply, {:error, %{"status" => "message_not_found"}}, socket}
+    with msg when not is_nil(msg) <- Cforum.Messages.get_message(mid),
+         thread when not is_nil(thread) <- Cforum.Threads.get_thread(msg.thread_id) do
+      if thread.archived == false,
+        do: Cforum.Messages.ReadMessages.mark_messages_read(socket.assigns[:current_user], msg)
 
-      msg ->
-        Cforum.Messages.ReadMessages.mark_messages_read(socket.assigns[:current_user], msg)
-        {:reply, {:ok, %{"status" => "marked_read"}}, socket}
+      {:reply, {:ok, %{"status" => "marked_read"}}, socket}
+    else
+      _ -> {:reply, {:error, %{"status" => "message_not_found"}}, socket}
     end
   end
 
