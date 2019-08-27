@@ -17,7 +17,7 @@ const observerCallback = (entries, observer, channel) => {
       }
 
       const message_id = header.getAttribute("id").replace(/^m/, "");
-      channel.push("mark_read", { message_id });
+      channel.push("mark_read", { message_id }).receive("ok", _ => header.classList.add("visited"));
     }
   });
 };
