@@ -858,7 +858,7 @@ msgstr "Sie wurden erfolgreich ausgeloggt"
 #: lib/cforum_web/templates/users/password/edit.html.eex:16
 #: lib/cforum_web/templates/users/password/edit_reset.html.eex:16
 #: lib/cforum_web/templates/users/user/edit.html.eex:7
-#: lib/cforum_web/templates/users/user/show.html.eex:179
+#: lib/cforum_web/templates/users/user/show.html.eex:181
 msgid "change password"
 msgstr "Passwort ändern"
 
@@ -888,7 +888,7 @@ msgstr "Erstellungszeitpunkt"
 msgid "delete"
 msgstr "löschen"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:178
+#: lib/cforum_web/templates/users/user/show.html.eex:180
 msgid "delete user"
 msgstr "Benutzer löschen"
 
@@ -904,7 +904,7 @@ msgstr "Benutzer löschen"
 msgid "edit"
 msgstr "bearbeiten"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:177
+#: lib/cforum_web/templates/users/user/show.html.eex:179
 msgid "edit profile and settings"
 msgstr "Profil und Einstellungen bearbeiten"
 
@@ -924,7 +924,7 @@ msgstr "schreiben für Angemeldete"
 msgid "mark unread"
 msgstr "ungelesen markieren"
 
-#: lib/cforum_web/templates/users/user/show.html.eex:180
+#: lib/cforum_web/templates/users/user/show.html.eex:182
 msgid "new mail to %{username}"
 msgstr "Neue Mail an %{username}"
 
@@ -997,9 +997,9 @@ msgid "Roses are red"
 msgstr "Rosen sind rot"
 
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:63
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:34
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:40
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:58
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:41
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:47
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:65
 #: lib/cforum_web/views/admin/setting_view.ex:36
 msgid "ascending"
 msgstr "aufsteigend"
@@ -1026,9 +1026,9 @@ msgid "default date format"
 msgstr "Standard-Datumsformat"
 
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:62
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:35
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:41
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:59
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:42
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:48
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:66
 #: lib/cforum_web/views/admin/setting_view.ex:37
 msgid "descending"
 msgstr "absteigend"
@@ -1046,23 +1046,23 @@ msgid "fold read messages"
 msgstr "Klappe gelesene Beiträge zusammen"
 
 #: lib/cforum_web/templates/layout/page_header.html.eex:120
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:53
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:60
 msgid "hide read threads"
 msgstr "verstecke vollständig gelesene Threads"
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:24
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:31
 msgid "hide unchanged date"
 msgstr "verstecke ein unverändertes Datum"
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:16
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:23
 msgid "hide unchanged subjects"
 msgstr "verstecke unveränderte Betreffe"
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:20
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:27
 msgid "hide unchanged tags"
 msgstr "verstecke unveränderte Tags"
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:49
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:56
 msgid "highlight myself"
 msgstr "hebe meine eigenen Beiträge hervor"
 
@@ -1082,12 +1082,12 @@ msgstr "binde meinen eigenen JS-Code ein"
 msgid "include my own JS file"
 msgstr "binde meine eigene JS-Datei ein"
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:28
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:35
 msgid "mark suspicious usernames"
 msgstr "markiere verdächtige Benutzernamen"
 
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:64
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:33
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:40
 #: lib/cforum_web/views/admin/setting_view.ex:35
 msgid "newest first"
 msgstr "Threads mit neuestem Beitrag zuerst"
@@ -1169,15 +1169,15 @@ msgstr "zeige zwei Buttons"
 msgid "signature"
 msgstr "Signatur"
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:57
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:64
 msgid "sort mail threads…"
 msgstr "sortiere private Nachrichten…"
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:39
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:46
 msgid "sort messages…"
 msgstr "sortiere Beiträge…"
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:32
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:39
 msgid "sort threads…"
 msgstr "sortiere Threads…"
 
@@ -1297,7 +1297,8 @@ msgstr "von"
 
 #: lib/cforum_web/templates/message/form.html.eex:40
 #: lib/cforum_web/templates/message/message.html.eex:8
-#: lib/cforum_web/templates/moderation/entry.html.eex:17
+#: lib/cforum_web/templates/moderation/entry.html.eex:18
+#: lib/cforum_web/templates/moderation/entry.html.eex:19
 #: lib/cforum_web/views/message_view.ex:247
 #: lib/cforum_web/views/message_view.ex:248
 msgid "problematic site"
@@ -1317,8 +1318,8 @@ msgstr "Benutzer-Informationen"
 msgid "new answer to %{name}"
 msgstr "Antwort an „%{name}“ verfassen"
 
-#: lib/cforum_web/controllers/message_controller.ex:139
-#: lib/cforum_web/controllers/message_controller.ex:181
+#: lib/cforum_web/controllers/message_controller.ex:140
+#: lib/cforum_web/controllers/message_controller.ex:182
 msgid "Message created successfully."
 msgstr "Beitrag erfolgreich gespeichert."
 
@@ -1327,7 +1328,7 @@ msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">
 msgstr "SELFHTML Forum - Ergänzung zur <a href=\"https://wiki.selfhtml.org\">Dokumentation</a>"
 
 #: lib/cforum_web/controllers/api/v1/message_controller.ex:25
-#: lib/cforum_web/controllers/message_controller.ex:103
+#: lib/cforum_web/controllers/message_controller.ex:104
 #: lib/cforum_web/controllers/thread_controller.ex:123
 msgid "all"
 msgstr "alle"
@@ -3186,12 +3187,12 @@ msgid "Successfully upvoted message"
 msgstr "Der Beitrag wurde erfolgreich positiv bewertet"
 
 #, elixir-format
-#: lib/cforum_web/templates/moderation/entry.html.eex:25
+#: lib/cforum_web/templates/moderation/entry.html.eex:28
 msgid "This message has been flagged: %{reason}"
 msgstr "Dieser Beitrag wurde gemeldet: %{reason}"
 
 #, elixir-format
-#: lib/cforum_web/templates/moderation/entry.html.eex:32
+#: lib/cforum_web/templates/moderation/entry.html.eex:35
 msgid "This moderation case has been solved by %{user}: %{resolution}"
 msgstr "Dieser Moderations-Fall wurde durch %{user} geklärt: %{resolution}"
 
@@ -3596,7 +3597,7 @@ msgid "auditing: user gained badge"
 msgstr "Benutzer hat Badge erhalten"
 
 #, elixir-format
-#: lib/cforum_web/views/badge_view.ex:12 lib/cforum_web/views/badge_view.ex:20
+#: lib/cforum_web/views/badge_view.ex:12 lib/cforum_web/views/badge_view.ex:18
 msgid "badge %{name}"
 msgstr "Medaille „%{name}“"
 
@@ -3739,7 +3740,7 @@ msgid "set message and children to „no archive“"
 msgstr "Setze Thread auf „nicht archivieren“"
 
 #, elixir-format
-#: lib/cforum_web/templates/moderation/entry.html.eex:42
+#: lib/cforum_web/templates/moderation/entry.html.eex:45
 msgid "solve"
 msgstr "lösen"
 
@@ -4004,7 +4005,7 @@ msgid "Tag %{no}"
 msgstr "Tag %{no}"
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:65
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:72
 msgid "A comma separated list of poster names"
 msgstr "Eine Komma-separierte Liste von Autoren-Namen"
 
@@ -4015,7 +4016,7 @@ msgid "close"
 msgstr "schließen"
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:63
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:70
 msgid "highlighted users"
 msgstr "hervorgehobene Benutzer"
 
@@ -4025,12 +4026,12 @@ msgid "notify me via email on activity in subscribed messages"
 msgstr "benachrichtige mich via Email über Aktivität bei einem abonnierten Beitrag"
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:62
+#: lib/cforum/messages/notify_users_message_job.ex:64
 msgid "%{nick} wrote a new message: %{subject}"
 msgstr "%{nick} hat einen neuen Beitrag geschrieben: „%{subject}“"
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:57
+#: lib/cforum/messages/notify_users_message_job.ex:59
 msgid "%{nick} wrote a reply to your message: %{subject}"
 msgstr "%{nick} hat auf Ihren Beitrag geantwortet: „%{subject}“"
 
@@ -4045,7 +4046,7 @@ msgid "tags list"
 msgstr "Tags"
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:103
+#: lib/cforum/messages/notify_users_message_job.ex:107
 msgid "new thread by %{nick}: %{subject}"
 msgstr "neuer Thread von %{nick}: „%{subject}“"
 
@@ -4055,7 +4056,7 @@ msgid "user data"
 msgstr "Benutzer-Daten"
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:129
+#: lib/cforum/messages/notify_users_message_job.ex:133
 msgid "%{nick} mentioned you in a new message: “%{subject}”"
 msgstr "%{nick} hat Sie in einem neuen Beitrag „%{subject}“ erwähnt"
 
@@ -4474,7 +4475,7 @@ msgid "message is no longer available"
 msgstr "Der Beitrag ist nicht länger verfügbar."
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:45
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:52
 msgid "page threads in the threadlist"
 msgstr "verteile die Threads in der Thread-Liste auf Seiten"
 
@@ -4627,3 +4628,8 @@ msgstr "MathJax-URL"
 #: lib/cforum_web/templates/search/show.html.eex:51
 msgid "We could not find any matching documents."
 msgstr "Wir konnten leider keine passenden Ergebnisse zu ihrer Suche finden."
+
+#, elixir-format
+#: lib/cforum_web/templates/users/user/readability_overview.html.eex:18
+msgid "mark nested messages read when they become visible"
+msgstr "markiere Beiträge in der Nested-Ansicht als gelesen, wenn sie in den sichtbaren Bereich scrollen"

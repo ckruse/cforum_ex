@@ -66,6 +66,17 @@ defmodule CforumWeb.UsersChannel do
       }}, socket}
   end
 
+  def handle_in("mark_read", %{"message_id" => mid}, socket) do
+    case Cforum.Messages.get_message(mid) do
+      nil ->
+        {:reply, {:error, %{"status" => "message_not_found"}}, socket}
+
+      msg ->
+        Cforum.Messages.ReadMessages.mark_messages_read(socket.assigns[:current_user], msg)
+        {:reply, {:ok, %{"status" => "marked_read"}}, socket}
+    end
+  end
+
   # # Channels can be used in a request/response fashion
   # # by sending replies to requests from the client
   # def handle_in("ping", payload, socket) do

@@ -1,5 +1,7 @@
-import { conf, parseMessageUrl } from "../modules/helpers";
-import { t } from "../modules/i18n";
+import { conf, parseMessageUrl } from "../../modules/helpers";
+import { t } from "../../modules/i18n";
+
+import "./mark_read";
 
 const toggleFoldedHandler = ev => {
   const btn = ev.target;

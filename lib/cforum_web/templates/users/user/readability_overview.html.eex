@@ -13,6 +13,13 @@
     </div>
 
     <div class="cf-cgroup">
+      <label class="checkbox">
+        <%= checkbox @f, :mark_nested_read_via_js, checked_value: "yes", unchecked_value: "no" %>
+        <%= gettext("mark nested messages read when they become visible") %>
+      </label>
+    </div>
+
+    <div class="cf-cgroup">
       <label class="checkbox"><%= checkbox @f, :hide_subjects_unchanged, unchecked_value: "no", checked_value: "yes" %> <%= gettext("hide unchanged subjects") %></label>
     </div>
 

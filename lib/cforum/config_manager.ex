@@ -93,7 +93,8 @@ defmodule Cforum.ConfigManager do
     "notify_on_cite" => "yes",
     "max_image_filesize" => 2,
     "fold_read_nested" => "no",
-    "target_blank_for_posting_links" => "no"
+    "target_blank_for_posting_links" => "no",
+    "mark_nested_read_via_js" => "no"
   }
 
   @user_config_keys [
@@ -143,7 +144,8 @@ defmodule Cforum.ConfigManager do
     "mail_thread_sort",
     "highlighted_users",
     "use_paging",
-    "target_blank_for_posting_links"
+    "target_blank_for_posting_links",
+    "mark_nested_read_via_js"
   ]
 
   @visible_config ["max_tags_per_message", "min_tags_per_message", "max_image_filesize"] ++ @user_config_keys
