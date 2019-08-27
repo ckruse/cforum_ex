@@ -74,7 +74,8 @@ defmodule CforumWeb.RedirectorController do
         message = Messages.get_message!(id)
 
         thread =
-          Threads.get_thread!(conn.assigns.current_forum, conn.assigns.visible_forums, message.thread_id)
+          conn.assigns.current_forum
+          |> Threads.get_thread!(conn.assigns.visible_forums, message.thread_id)
           |> Threads.reject_deleted_threads(conn.assigns[:view_all])
 
         redirect(conn, to: Path.message_path(conn, :show, thread, message))
