@@ -122,13 +122,18 @@
   blockquote {
     border-left: 0.3em solid #d5d5d5;
     margin-left: 0;
-    padding-left: 1em;
+    padding-left: 0.25em;
+    margin-right: 0.25em;
     color: #808080;
   }
 
   blockquote blockquote {
     border-width: 0.25em;
     padding-left: 0.5em;
+  }
+
+  code {
+    padding-left: 0.25em;
   }
 
   hr {
@@ -183,6 +188,15 @@
 @include default-breakpoint() {
   .cf-posting-content {
     padding: 0.8em 1em 1em;
+
+    blockquote {
+      padding-left: 1em;
+      margin-right: 1em;
+    }
+
+    code {
+      padding-left: 0.5em;
+    }
   }
 
   .cf-problematic-site {
