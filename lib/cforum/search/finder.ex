@@ -339,7 +339,7 @@ defmodule Cforum.Search.Finder do
   @spec ts_term(String.t(), String.t()) :: String.t()
   defp ts_term(term, prefix \\ "") do
     prefix <>
-      if String.last(term) == "*",
+      if String.last(term) == "*" && term != "*",
         do: db_quote(String.slice(term, 0..-2)) <> ":*",
         else: db_quote(term)
   end
