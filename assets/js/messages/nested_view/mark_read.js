@@ -11,8 +11,12 @@ const observerCallback = (entries, observer, channel) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       const header = entry.target.closest(".cf-thread-message").querySelector(".cf-message-header");
-      const message_id = header.getAttribute("id").replace(/^m/, "");
 
+      if (header.classList.contains("visited")) {
+        return;
+      }
+
+      const message_id = header.getAttribute("id").replace(/^m/, "");
       channel.push("mark_read", { message_id });
     }
   });
