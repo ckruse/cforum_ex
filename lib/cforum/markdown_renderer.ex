@@ -205,12 +205,23 @@ defmodule Cforum.MarkdownRenderer do
     try do
       Task.await(task, 1000)
     catch
-      _, _ ->
-        if Process.alive?(task.pid),
-          do: Process.exit(task.pid, :kill)
-
+      :exit, {:timeout, _} ->
+        Task.shutdown(task, :brutal_kill)
         nil
     end
+  end
+
+  defp response(%{"status" => "ok", "html" => html}, proc, runs),
+    do: {:reply, {:ok, html}, {proc, runs}}
+
+  defp response(v, proc, _) when not is_map(v) do
+    Proc.stop(proc)
+    {:reply, {:error, :unknown_retval}, {nil, 0}}
+  end
+
+  defp response(v, proc, _) do
+    Proc.stop(proc)
+    {:reply, {:error, v["message"]}, {nil, 0}}
   end
 
   #
@@ -219,45 +230,25 @@ defmodule Cforum.MarkdownRenderer do
   def handle_call({:render_doc, markdown, id, config}, _sender, {proc, runs}) do
     {proc, runs} = ensure_proc(proc, runs)
     out = Jason.encode!(%{markdown: markdown, id: id, config: config}) <> "\n"
-    retval = send_and_receive(proc, out)
 
-    case retval do
-      %{"status" => "ok"} ->
-        # {:reply, {:ok, to_html(markdown) <> "<br><br>" <> retval["html"]}, proc}
-        {:reply, {:ok, retval["html"]}, {proc, runs}}
-
-      v when not is_map(v) ->
-        Proc.stop(proc)
-        {:reply, {:error, :unknown_retval}, {nil, 0}}
-
-      _ ->
-        Proc.stop(proc)
-        {:reply, {:error, retval["message"]}, {nil, 0}}
-    end
+    proc
+    |> send_and_receive(out)
+    |> response(proc, runs)
   end
 
   def handle_call({:render_plain, markdown, id}, _sender, {proc, runs}) do
     {proc, runs} = ensure_proc(proc, runs)
     out = Jason.encode!(%{markdown: markdown, target: "plain", id: id}) <> "\n"
-    retval = send_and_receive(proc, out)
 
-    case retval do
-      %{"status" => "ok"} ->
-        # {:reply, {:ok, to_html(markdown) <> "<br><br>" <> retval["html"]}, proc}
-        {:reply, {:ok, retval["html"]}, {proc, runs}}
-
-      v when not is_map(v) ->
-        Proc.stop(proc)
-        {:reply, {:error, :unknown_retval}, {nil, 0}}
-
-      _ ->
-        Proc.stop(proc)
-        {:reply, {:error, retval["message"]}, {nil, 0}}
-    end
+    proc
+    |> send_and_receive(out)
+    |> response(proc, runs)
   end
 
   def terminate(_, {proc, _runs}) do
-    Proc.stop(proc)
+    if proc,
+      do: Proc.stop(proc)
+
     {nil, 0}
   end
 end
