@@ -9,7 +9,7 @@
     </div>
 
     <div class="cf-cgroup">
-      <label class="checkbox"><%= checkbox @f, :fold_read_nested %> <%= gettext("fold read messages") %></label>
+      <label class="checkbox"><%= checkbox @f, :fold_read_nested, checked_value: "yes", unchecked_value: "no" %> <%= gettext("fold read messages") %></label>
     </div>
 
     <div class="cf-cgroup">

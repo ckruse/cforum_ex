@@ -126,7 +126,7 @@ defmodule CforumWeb.MessageView do
   def message_classes(conn, message, thread, active, read_mode \\ :thread) do
     is_folded =
       ConfigManager.uconf(conn, "fold_read_nested") == "yes" && read_mode == :nested && !active && !thread.archived &&
-        Enum.member?(message.attribs[:classes], "visited")
+        message.attribs[:is_read]
 
     []
     |> Helpers.add_if(active, "active")

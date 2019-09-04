@@ -50,7 +50,7 @@ const toggleActiveMessage = (messageId, scrollToIt = true) => {
   const active = document.querySelector(".cf-thread-nested .cf-thread-message.active");
   if (active) {
     active.classList.remove("active");
-    if (conf("fold_read_nested")) {
+    if (conf("fold_read_nested") === "yes") {
       toggleFolded(active);
     }
   }
