@@ -10,22 +10,16 @@ defmodule CforumWeb.Users.PasswordController do
   end
 
   def create(conn, %{"user" => %{"login" => login}}) do
-    case Users.get_user_by_username_or_email(login) do
-      %User{} = user ->
-        user
-        |> Users.get_reset_password_token()
-        |> CforumWeb.UserMailer.reset_password_mail()
-        |> Cforum.Mailer.deliver_later()
-
-        conn
-        |> put_flash(:info, gettext("The instructions how to reset your password have been sent."))
-        |> redirect(to: Path.root_path(conn, :index))
-
-      _ ->
-        conn
-        |> put_flash(:error, gettext("Sorry, could not find a valid user"))
-        |> render("new.html")
+    with %User{} = user <- Users.get_user_by_username_or_email(login) do
+      user
+      |> Users.get_reset_password_token()
+      |> CforumWeb.UserMailer.reset_password_mail()
+      |> Cforum.Mailer.deliver_later()
     end
+
+    conn
+    |> put_flash(:info, gettext("The instructions how to reset your password have been sent."))
+    |> redirect(to: Path.root_path(conn, :index))
   end
 
   def edit_reset(conn, %{"token" => reset_token}) do
