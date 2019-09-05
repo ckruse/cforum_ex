@@ -24,18 +24,16 @@
     }
   }
 
-  .cf-thread-message {
-    position: relative;
-  }
-
   .cf-message-header-unfold-button {
     border: 0;
     cursor: pointer;
     display: block;
-    width: 100%;
+    width: calc(100% - 0.2em);
     padding: 0.25em 0;
     border-radius: $default-border-radius;
-    margin: 0.5em 0;
+    margin: 0.5em 0.1em;
+    background-color: $default-background-color;
+    color: $default-foreground-color;
   }
 }
 
