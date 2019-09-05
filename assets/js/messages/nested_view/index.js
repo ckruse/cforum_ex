@@ -37,7 +37,7 @@ const foldMessage = el => {
     node.classList.add("cf-message-header-unfold-button");
     node.setAttribute("aria-live", "assertive");
 
-    posting.querySelector(".cf-message-header .details").appendChild(node);
+    posting.querySelector(".posting-header").appendChild(node);
     node.textContent = t(!isRead || isActive ? "fold" : "unfold");
   }
 
