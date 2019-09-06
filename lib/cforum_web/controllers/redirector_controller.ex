@@ -27,7 +27,7 @@ defmodule CforumWeb.RedirectorController do
   end
 
   def redirect_to_thread(conn, %{"year" => year, "tid" => tid}) do
-    if !Regex.match?(~r/^\d+$/, year) || !Regex.match?(~r/^\d+(?:\.html?)?$/, tid),
+    if !Regex.match?(~r/^\d+(_\d+)?$/, year) || !Regex.match?(~r/^\d+(?:\.html?)?$/, tid),
       do: raise(Cforum.Errors.NotFoundError, conn: conn)
 
     threads =
