@@ -51,14 +51,3 @@
     </article>
   <% end %>
 <% end %>
-
-<% references = MessageHelpers.references(@message, @conn.assigns.visible_forums, @thread) %>
-<%= if Helpers.present?(references) do %>
-  <h3><%= gettext("The following messages reference this message:") %></h3>
-
-  <%= for msg <- references do %>
-    <article class="cf-thread threadlist reference">
-      <%= header(@conn, @thread, msg, id: false, show_votes: true) %>
-    </article>
-  <% end %>
-<% end %>

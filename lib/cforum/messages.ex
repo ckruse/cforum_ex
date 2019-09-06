@@ -278,8 +278,7 @@ defmodule Cforum.Messages do
     msg = %Message{
       Ecto.Changeset.apply_changes(changeset)
       | tags: Ecto.Changeset.get_field(changeset, :tags),
-        user: user,
-        references: []
+        user: user
     }
 
     {msg, %Ecto.Changeset{changeset | action: :insert}}

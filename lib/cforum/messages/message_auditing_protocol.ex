@@ -10,7 +10,6 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Messages.Message do
     :cites,
     :close_votes,
     :versions,
-    :references,
     :messages
   ]
 

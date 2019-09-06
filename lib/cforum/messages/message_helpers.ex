@@ -166,15 +166,6 @@ defmodule Cforum.Messages.MessageHelpers do
       else: may_user_post_with_name?(nil, name)
   end
 
-  def references(message, visible_forums, thread, max_cnt \\ 5) do
-    forum_ids = Enum.map(visible_forums, & &1.forum_id)
-
-    message.references
-    |> Enum.reject(&(&1.src_message.deleted || &1.src_message.forum_id not in forum_ids))
-    |> Enum.take(max_cnt)
-    |> Enum.map(&%Message{&1.src_message | thread: thread})
-  end
-
   def maybe_set_cookies(conn, %{user_id: id}) when id != nil, do: conn
 
   def maybe_set_cookies(conn, message, uuid) do
