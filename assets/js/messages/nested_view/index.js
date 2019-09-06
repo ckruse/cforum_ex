@@ -11,9 +11,7 @@ const toggleFoldedHandler = ev => {
 
 const toggleFolded = (posting, button = null) => {
   if (!button) {
-    button = posting.querySelector(
-      ".posting-header > .cf-message-header > .details > .cf-message-header-unfold-button"
-    );
+    button = posting.querySelector(".posting-header > .cf-message-header-unfold-button");
   }
 
   posting.classList.toggle("folded");
