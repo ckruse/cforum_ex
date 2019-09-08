@@ -1564,7 +1564,7 @@ msgstr "Diesen Thread wieder einblenden"
 #, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:17
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:18
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:23
+#: lib/cforum_web/templates/message/message_default_controls.html.eex:42
 msgid "mark message as interesting"
 msgstr "Beitrag als interessant markieren"
 
@@ -1603,7 +1603,7 @@ msgstr "Interessant-Markierung entfernen"
 #, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:30
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:31
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:32
+#: lib/cforum_web/templates/message/message_default_controls.html.eex:51
 msgid "subscribe message"
 msgstr "Baum abonnieren"
 
@@ -1616,7 +1616,7 @@ msgstr "abonnierte Beiträge"
 #, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:25
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:26
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:36
+#: lib/cforum_web/templates/message/message_default_controls.html.eex:55
 msgid "unsubscribe message"
 msgstr "Baum deabonnieren"
 
@@ -3002,7 +3002,7 @@ msgid "No attendees, yet."
 msgstr "Bisher keine Teilnehmer."
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:45
+#: lib/cforum_web/templates/message/message_default_controls.html.eex:27
 msgid "Start a close vote"
 msgstr "Abstimmung über Beitrag starten"
 
@@ -3017,7 +3017,7 @@ msgid "edit message"
 msgstr "Beitrag bearbeiten"
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:41
+#: lib/cforum_web/templates/message/message_default_controls.html.eex:23
 #: lib/cforum_web/templates/messages/flag/new.html.eex:32
 msgid "flag message"
 msgstr "Beitrag melden"
@@ -3033,7 +3033,7 @@ msgid "map of the event location area"
 msgstr "Karte der Zielregion"
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:27
+#: lib/cforum_web/templates/message/message_default_controls.html.eex:46
 msgid "mark message as boring"
 msgstr "Interessant-Markierung entfernen"
 
@@ -3855,7 +3855,7 @@ msgid "Start a close vote for message %{subject} by %{author}"
 msgstr "Eine Sperr-Abstimmung für den Beitrag „%{subject}“ von %{author} erstellen"
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:49
+#: lib/cforum_web/templates/message/message_default_controls.html.eex:31
 msgid "Start an open vote"
 msgstr "Entsperr-Abstimmung erstellen"
 
@@ -4397,12 +4397,12 @@ msgid "mark all messages read"
 msgstr "markiere alle Beiträge als gelesen"
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/mark_read_controller.ex:58
+#: lib/cforum_web/controllers/messages/mark_read_controller.ex:79
 msgid "All messages on this page have successfully been marked as read."
 msgstr "Alle Beiträge auf dieser Seite wurden erfolgreich als gelesen markiert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/mark_read_controller.ex:27
+#: lib/cforum_web/controllers/messages/mark_read_controller.ex:29
 msgid "Thread has successfully been marked as read."
 msgstr "Der Thread wurde erfolgreich als gelesen markiert."
 
@@ -4642,3 +4642,13 @@ msgstr "Nachricht löschen"
 #: lib/cforum_web/templates/mail/index.html.eex:33
 msgid "delete thread"
 msgstr "Unterhaltung löschen"
+
+#, elixir-format
+#: lib/cforum_web/controllers/messages/mark_read_controller.ex:48
+msgid "Message has successfully been marked as unread."
+msgstr "Der Beitrag wurde erfolgreich als ungelesen markiert."
+
+#, elixir-format
+#: lib/cforum_web/templates/message/message_default_controls.html.eex:38
+msgid "mark message as unread"
+msgstr "markiere Beitrag als ungelesen"
