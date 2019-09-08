@@ -867,7 +867,6 @@ msgstr ""
 #: lib/cforum_web/templates/admin/user/index.html.eex:39
 #: lib/cforum_web/templates/cite/cite.html.eex:77
 #: lib/cforum_web/templates/image/index.html.eex:19
-#: lib/cforum_web/templates/mail/index.html.eex:32
 #: lib/cforum_web/templates/notification/index.html.eex:27
 msgid "delete"
 msgstr ""
@@ -1657,7 +1656,7 @@ msgid "Mail created successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:142
+#: lib/cforum_web/controllers/mail_controller.ex:145
 msgid "Mail deleted successfully."
 msgstr ""
 
@@ -4600,7 +4599,22 @@ msgstr ""
 msgid "mark nested messages read when they become visible"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/cforum_web/templates/mail/index.html.eex:5
 msgid "number of mails"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/controllers/mail_controller.ex:142
+msgid "Thread deleted successfully."
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/mail/index.html.eex:32
+msgid "delete latest message"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/cforum_web/templates/mail/index.html.eex:33
+msgid "delete thread"
 msgstr ""

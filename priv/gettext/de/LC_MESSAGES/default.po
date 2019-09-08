@@ -883,7 +883,6 @@ msgstr "Erstellungszeitpunkt"
 #: lib/cforum_web/templates/admin/user/index.html.eex:39
 #: lib/cforum_web/templates/cite/cite.html.eex:77
 #: lib/cforum_web/templates/image/index.html.eex:19
-#: lib/cforum_web/templates/mail/index.html.eex:32
 #: lib/cforum_web/templates/notification/index.html.eex:27
 msgid "delete"
 msgstr "löschen"
@@ -1675,7 +1674,7 @@ msgid "Mail created successfully."
 msgstr "Mail erfolgreich gespeichert."
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:142
+#: lib/cforum_web/controllers/mail_controller.ex:145
 msgid "Mail deleted successfully."
 msgstr "Mail erfolgreich gelöscht."
 
@@ -4628,3 +4627,18 @@ msgstr "markiere Beiträge in der Nested-Ansicht als gelesen, wenn sie in den si
 #: lib/cforum_web/templates/mail/index.html.eex:5
 msgid "number of mails"
 msgstr "Anzahl Nachrichten"
+
+#, elixir-format
+#: lib/cforum_web/controllers/mail_controller.ex:142
+msgid "Thread deleted successfully."
+msgstr "Unterhaltung erfolgreich gelöscht."
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/index.html.eex:32
+msgid "delete latest message"
+msgstr "Nachricht löschen"
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/index.html.eex:33
+msgid "delete thread"
+msgstr "Unterhaltung löschen"
