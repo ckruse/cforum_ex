@@ -776,8 +776,8 @@ msgstr ""
 msgid "Notifications"
 msgstr ""
 
-#: lib/cforum_web/controllers/users/password_controller.ex:50
-#: lib/cforum_web/controllers/users/password_controller.ex:78
+#: lib/cforum_web/controllers/users/password_controller.ex:44
+#: lib/cforum_web/controllers/users/password_controller.ex:72
 msgid "Password updated successfully."
 msgstr ""
 
@@ -852,7 +852,7 @@ msgid "change password: %{username}"
 msgstr ""
 
 #: lib/cforum_web/templates/image/index.html.eex:7
-#: lib/cforum_web/templates/mail/index.html.eex:6
+#: lib/cforum_web/templates/mail/index.html.eex:7
 #: lib/cforum_web/templates/notification/index.html.eex:6
 msgid "created at"
 msgstr ""
@@ -868,7 +868,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/user/index.html.eex:39
 #: lib/cforum_web/templates/cite/cite.html.eex:77
 #: lib/cforum_web/templates/image/index.html.eex:19
-#: lib/cforum_web/templates/mail/index.html.eex:30
+#: lib/cforum_web/templates/mail/index.html.eex:32
 #: lib/cforum_web/templates/notification/index.html.eex:27
 msgid "delete"
 msgstr ""
@@ -903,7 +903,7 @@ msgstr ""
 msgid "known-write"
 msgstr ""
 
-#: lib/cforum_web/templates/mail/index.html.eex:29
+#: lib/cforum_web/templates/mail/index.html.eex:31
 #: lib/cforum_web/templates/mail/mail.html.eex:34
 #: lib/cforum_web/templates/notification/index.html.eex:29
 msgid "mark unread"
@@ -945,7 +945,7 @@ msgid "show"
 msgstr ""
 
 #: lib/cforum_web/templates/mail/form.html.eex:19
-#: lib/cforum_web/templates/mail/index.html.eex:5
+#: lib/cforum_web/templates/mail/index.html.eex:6
 #: lib/cforum_web/templates/message/form.html.eex:4
 #: lib/cforum_web/templates/notification/index.html.eex:5
 msgid "subject"
@@ -1605,7 +1605,7 @@ msgid "unsubscribe message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/index.html.eex:13
+#: lib/cforum_web/templates/mail/index.html.eex:14
 msgid "No mails found"
 msgstr ""
 
@@ -1641,13 +1641,13 @@ msgid "mail from %{partner}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/index.html.eex:26
+#: lib/cforum_web/templates/mail/index.html.eex:28
 #: lib/cforum_web/templates/mail/mail.html.eex:29
 msgid "answer"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/index.html.eex:27
+#: lib/cforum_web/templates/mail/index.html.eex:29
 #: lib/cforum_web/templates/mail/mail.html.eex:30
 msgid "answer without cite"
 msgstr ""
@@ -4347,11 +4347,6 @@ msgid "auditing: cites: archive-del"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message.html.eex:57
-msgid "The following messages reference this message:"
-msgstr ""
-
-#, elixir-format
 #: lib/cforum_web/templates/layout/page_header.html.eex:122
 msgid "show read threads"
 msgstr ""
@@ -4587,11 +4582,6 @@ msgid "a reopen vote has been finished for message „%{subject}“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/users/password_controller.ex:26
-msgid "Sorry, could not find a valid user"
-msgstr ""
-
-#, elixir-format
 #: lib/cforum_web/templates/users/user/notifications.html.eex:71
 msgid "automatically delete read notifications"
 msgstr ""
@@ -4609,4 +4599,9 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:18
 msgid "mark nested messages read when they become visible"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/index.html.eex:5
+msgid "number of mails"
 msgstr ""

@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th><%= Sortable.sortable(@conn, gettext("partner"), :partner, &Path.mail_path/3, link_args: url_params(@conn)) %></th>
+      <th><%= gettext("number of mails") %></td>
       <th><%= Sortable.sortable(@conn, gettext("subject"), :subject, &Path.mail_path/3, link_args: url_params(@conn)) %></th>
       <th><%= Sortable.sortable(@conn, gettext("created at"), :created_at, &Path.mail_path/3, link_args: url_params(@conn)) %></th>
       <th> </th>
@@ -19,6 +20,7 @@
           <%= unless Helpers.blank?(PrivMessages.partner(pm)), do: ViewHelpers.user_link(@conn, PrivMessages.partner(pm), [], false) %>
           <%= link(PrivMessages.partner_name(pm), to: Path.mail_path(@conn, :index, author: PrivMessages.partner_name(pm))) %>
         </td>
+        <td><%= pm.count %></td>
         <td><%= link pm.subject, to: Path.mail_thread_path(@conn, :show, pm) %></td>
         <td><%= ViewHelpers.format_date(@conn, pm.created_at) %></td>
         <td>

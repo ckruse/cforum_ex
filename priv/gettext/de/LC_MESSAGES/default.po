@@ -791,8 +791,8 @@ msgstr "Keine Benachrichtigungen gefunden"
 msgid "Notifications"
 msgstr "Benachrichtigungen"
 
-#: lib/cforum_web/controllers/users/password_controller.ex:50
-#: lib/cforum_web/controllers/users/password_controller.ex:78
+#: lib/cforum_web/controllers/users/password_controller.ex:44
+#: lib/cforum_web/controllers/users/password_controller.ex:72
 msgid "Password updated successfully."
 msgstr "Passwort erfolgreich geändert."
 
@@ -867,7 +867,7 @@ msgid "change password: %{username}"
 msgstr "Passwort ändern: %{username}"
 
 #: lib/cforum_web/templates/image/index.html.eex:7
-#: lib/cforum_web/templates/mail/index.html.eex:6
+#: lib/cforum_web/templates/mail/index.html.eex:7
 #: lib/cforum_web/templates/notification/index.html.eex:6
 msgid "created at"
 msgstr "Erstellungszeitpunkt"
@@ -883,7 +883,7 @@ msgstr "Erstellungszeitpunkt"
 #: lib/cforum_web/templates/admin/user/index.html.eex:39
 #: lib/cforum_web/templates/cite/cite.html.eex:77
 #: lib/cforum_web/templates/image/index.html.eex:19
-#: lib/cforum_web/templates/mail/index.html.eex:30
+#: lib/cforum_web/templates/mail/index.html.eex:32
 #: lib/cforum_web/templates/notification/index.html.eex:27
 msgid "delete"
 msgstr "löschen"
@@ -918,7 +918,7 @@ msgstr "lesen für Angemeldete"
 msgid "known-write"
 msgstr "schreiben für Angemeldete"
 
-#: lib/cforum_web/templates/mail/index.html.eex:29
+#: lib/cforum_web/templates/mail/index.html.eex:31
 #: lib/cforum_web/templates/mail/mail.html.eex:34
 #: lib/cforum_web/templates/notification/index.html.eex:29
 msgid "mark unread"
@@ -960,7 +960,7 @@ msgid "show"
 msgstr "anzeigen"
 
 #: lib/cforum_web/templates/mail/form.html.eex:19
-#: lib/cforum_web/templates/mail/index.html.eex:5
+#: lib/cforum_web/templates/mail/index.html.eex:6
 #: lib/cforum_web/templates/message/form.html.eex:4
 #: lib/cforum_web/templates/notification/index.html.eex:5
 msgid "subject"
@@ -1622,7 +1622,7 @@ msgid "unsubscribe message"
 msgstr "Baum deabonnieren"
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/index.html.eex:13
+#: lib/cforum_web/templates/mail/index.html.eex:14
 msgid "No mails found"
 msgstr "Keine Mails gefunden."
 
@@ -1658,13 +1658,13 @@ msgid "mail from %{partner}"
 msgstr "Post von %{partner}"
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/index.html.eex:26
+#: lib/cforum_web/templates/mail/index.html.eex:28
 #: lib/cforum_web/templates/mail/mail.html.eex:29
 msgid "answer"
 msgstr "antworten"
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/index.html.eex:27
+#: lib/cforum_web/templates/mail/index.html.eex:29
 #: lib/cforum_web/templates/mail/mail.html.eex:30
 msgid "answer without cite"
 msgstr "ohne Zitat antworten"
@@ -4368,11 +4368,6 @@ msgid "auditing: cites: archive-del"
 msgstr "Zitat wegen Archivierung gelöscht"
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message.html.eex:57
-msgid "The following messages reference this message:"
-msgstr "Folgende Beiträge verweisen auf diesen Beitrag:"
-
-#, elixir-format
 #: lib/cforum_web/templates/layout/page_header.html.eex:122
 msgid "show read threads"
 msgstr "zeige gelesene Threads"
@@ -4610,11 +4605,6 @@ msgid "a reopen vote has been finished for message „%{subject}“"
 msgstr "Eine Entsperr-Abstimmung für den Beitrag „%{subject}“ wurde beendet"
 
 #, elixir-format
-#: lib/cforum_web/controllers/users/password_controller.ex:26
-msgid "Sorry, could not find a valid user"
-msgstr "Es tut uns leid, leider konnten wir keinen passenden Benutzer finden."
-
-#, elixir-format
 #: lib/cforum_web/templates/users/user/notifications.html.eex:71
 msgid "automatically delete read notifications"
 msgstr "gelesene Benachrichtigungen automatisch löschen"
@@ -4633,3 +4623,8 @@ msgstr "Wir konnten leider keine passenden Ergebnisse zu ihrer Suche finden."
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:18
 msgid "mark nested messages read when they become visible"
 msgstr "markiere Beiträge in der Nested-Ansicht als gelesen, wenn sie in den sichtbaren Bereich scrollen"
+
+#, elixir-format
+#: lib/cforum_web/templates/mail/index.html.eex:5
+msgid "number of mails"
+msgstr "Anzahl Nachrichten"
