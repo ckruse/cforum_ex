@@ -86,6 +86,10 @@ defmodule Cforum.Accounts.PrivMessages do
   def list_newest_priv_messages_of_each_thread(user, query_params \\ [order: nil, limit: nil, messages_order: nil]) do
     from(
       pm in PrivMessage,
+      select: %PrivMessage{
+        pm
+        | count: fragment("SELECT COUNT(*) FROM priv_messages WHERE thread_id = ?", pm.thread_id)
+      },
       where:
         pm.owner_id == ^user.user_id and
           pm.priv_message_id in fragment(

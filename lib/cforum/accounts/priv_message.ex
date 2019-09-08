@@ -26,6 +26,7 @@ defmodule Cforum.Accounts.PrivMessage do
     field(:sender_name, :string)
     field(:recipient_name, :string)
     field(:thread_id, :integer)
+    field(:count, :integer, virtual: true)
 
     belongs_to(:sender, Cforum.Accounts.User, references: :user_id)
     belongs_to(:recipient, Cforum.Accounts.User, references: :user_id)
