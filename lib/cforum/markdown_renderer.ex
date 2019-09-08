@@ -169,7 +169,9 @@ defmodule Cforum.MarkdownRenderer do
         do: "cd #{conf[:pwd]} && #{conf[:cli]}",
         else: conf[:cli]
 
-    Porcelain.spawn_shell(cli, in: :receive, out: :stream)
+    proc = Porcelain.spawn_shell(cli, in: :receive, out: :stream)
+    ["ok\n"] = Enum.take(proc.out, 1)
+    proc
   end
 
   defp ensure_proc(nil, _), do: {start_new_proc(), @max_runs}
