@@ -214,7 +214,10 @@ defmodule CforumWeb.Views.ViewHelpers do
     |> Macro.underscore()
   end
 
-  def std_args(conn, args \\ %{}) do
+  def std_args(conn, args \\ %{})
+  def std_args(conn, args) when is_list(args), do: std_args(conn, Enum.into(args, %{}))
+
+  def std_args(conn, args) do
     local_args =
       %{
         p: conn.params["p"],
