@@ -338,6 +338,11 @@ defmodule Cforum.Accounts.PrivMessages do
     |> discard_pm_cache()
   end
 
+  def delete_thread(%PrivMessage{} = priv_message) do
+    from(pm in PrivMessage, where: pm.thread_id == ^priv_message.thread_id)
+    |> Repo.delete_all()
+  end
+
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking priv_messages changes.
 

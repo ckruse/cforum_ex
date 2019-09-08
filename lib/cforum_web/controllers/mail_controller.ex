@@ -135,11 +135,18 @@ defmodule CforumWeb.MailController do
   end
 
   @spec delete(Plug.Conn.t(), map()) :: Plug.Conn.t()
-  def delete(conn, %{"id" => _id}) do
-    PrivMessages.delete_priv_message(conn.assigns.priv_message)
+  def delete(conn, %{"id" => _id} = params) do
+    msg =
+      if params["thread"] == "yes" do
+        PrivMessages.delete_thread(conn.assigns.priv_message)
+        gettext("Thread deleted successfully.")
+      else
+        PrivMessages.delete_priv_message(conn.assigns.priv_message)
+        gettext("Mail deleted successfully.")
+      end
 
     conn
-    |> put_flash(:info, gettext("Mail deleted successfully."))
+    |> put_flash(:info, msg)
     |> redirect(to: Path.mail_path(conn, :index))
   end
 

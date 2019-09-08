@@ -29,7 +29,8 @@
             <%= ViewHelpers.Button.default_index_button_link(gettext("answer without cite"), to: Path.mail_path(@conn, :new, parent_id: pm.priv_message_id, cite: false)) %>
           <% end %>
           <%= if pm.is_read, do: ViewHelpers.Button.default_index_button(gettext("mark unread"), to: Path.mail_path(@conn, :update_unread, pm)) %>
-          <%= ViewHelpers.Button.destructive_index_button(gettext("delete"), to: Path.mail_path(@conn, :delete, pm), method: :delete) %>
+          <%= ViewHelpers.Button.destructive_index_button(gettext("delete latest message"), to: Path.mail_path(@conn, :delete, pm), method: :delete) %>
+          <%= ViewHelpers.Button.destructive_index_button(gettext("delete thread"), to: Path.mail_path(@conn, :delete, pm), method: :delete, params: %{thread: "yes"}) %>
         </td>
       </tr>
     <% end %>
