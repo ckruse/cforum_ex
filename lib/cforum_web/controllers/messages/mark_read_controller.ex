@@ -20,6 +20,7 @@ defmodule CforumWeb.Messages.MarkReadController do
         ThreadHelpers.slug_from_params(params)
       )
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+      |> Threads.ensure_found!()
 
     ReadMessages.mark_messages_read(conn.assigns[:current_user], thread.messages)
 
