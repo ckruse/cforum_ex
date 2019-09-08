@@ -324,6 +324,9 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def message_path(conn, :boring, %Thread{} = thread, %Message{} = msg, params),
     do: "#{int_message_path(conn, thread, msg)}/boring#{encode_query_string(conn, params)}"
 
+  def message_path(conn, :unread, %Thread{} = thread, %Message{} = msg, params),
+    do: "#{int_message_path(conn, thread, msg)}/unread#{encode_query_string(conn, params)}"
+
   def message_path(conn, :upvote, %Thread{} = thread, %Message{} = msg, params),
     do: "#{int_message_path(conn, thread, msg)}/upvote#{encode_query_string(conn, params)}"
 

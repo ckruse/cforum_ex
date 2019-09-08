@@ -19,24 +19,6 @@
     <%= ViewHelpers.Button.default_button_link(gettext("retag message"), to: Path.message_path(@conn, :retag, @thread, @message), rel: "nofollow") %>
   <% end %>
 
-  <%= if Abilities.may?(@conn, "messages/interesting", :interesting, @message) do %>
-    <%= ViewHelpers.Button.default_button(gettext("mark message as interesting"), to: Path.message_path(@conn, :interesting, @thread, @message), params: ViewHelpers.std_args(@conn)) %>
-  <% end %>
-
-  <%= if Abilities.may?(@conn, "messages/interesting", :boring, @message) do %>
-    <%= ViewHelpers.Button.default_button(gettext("mark message as boring"), to: Path.message_path(@conn, :boring, @thread, @message), params: ViewHelpers.std_args(@conn)) %>
-  <% end %>
-
-  <%= unless Subscriptions.parent_subscribed?(@thread, @message) do %>
-    <%= if Abilities.may?(@conn, "messages/subscription", :subscribe, @message) do %>
-      <%= ViewHelpers.Button.default_button(gettext("subscribe message"), to: Path.message_path(@conn, :subscribe, @thread, @message), params: ViewHelpers.std_args(@conn)) %>
-    <% end %>
-
-    <%= if Abilities.may?(@conn, "messages/subscription", :unsubscribe, @message) do %>
-      <%= ViewHelpers.Button.default_button(gettext("unsubscribe message"), to: Path.message_path(@conn, :unsubscribe, @thread, @message), params: ViewHelpers.std_args(@conn)) %>
-    <% end %>
-  <% end %>
-
   <%= if Abilities.may?(@conn, "messages/flag", :flag, @message) do %>
     <%= ViewHelpers.Button.default_button_link(gettext("flag message"), to: Path.message_path(@conn, :flag, @thread, @message), rel: "nofollow") %>
   <% end %>
@@ -49,3 +31,29 @@
     <%= ViewHelpers.Button.default_button_link(gettext("Start an open vote"), to: Path.open_vote_path(@conn, @thread, @message), rel: "nofollow") %>
   <% end %>
 </div>
+
+<%= if Abilities.signed_in?(@conn) do %>
+  <div class="controls">
+  <%= if Abilities.may?(@conn, "messages/mark_read", :mark_unread, @message) do %>
+      <%= ViewHelpers.Button.default_button(gettext("mark message as unread"), to: Path.message_path(@conn, :unread, @thread, @message), params: ViewHelpers.std_args(@conn, r: "thread")) %>
+    <% end %>
+
+    <%= if Abilities.may?(@conn, "messages/interesting", :interesting, @message) do %>
+      <%= ViewHelpers.Button.default_button(gettext("mark message as interesting"), to: Path.message_path(@conn, :interesting, @thread, @message), params: ViewHelpers.std_args(@conn)) %>
+    <% end %>
+
+    <%= if Abilities.may?(@conn, "messages/interesting", :boring, @message) do %>
+      <%= ViewHelpers.Button.default_button(gettext("mark message as boring"), to: Path.message_path(@conn, :boring, @thread, @message), params: ViewHelpers.std_args(@conn)) %>
+    <% end %>
+
+    <%= unless Subscriptions.parent_subscribed?(@thread, @message) do %>
+      <%= if Abilities.may?(@conn, "messages/subscription", :subscribe, @message) do %>
+        <%= ViewHelpers.Button.default_button(gettext("subscribe message"), to: Path.message_path(@conn, :subscribe, @thread, @message), params: ViewHelpers.std_args(@conn)) %>
+      <% end %>
+
+      <%= if Abilities.may?(@conn, "messages/subscription", :unsubscribe, @message) do %>
+        <%= ViewHelpers.Button.default_button(gettext("unsubscribe message"), to: Path.message_path(@conn, :unsubscribe, @thread, @message), params: ViewHelpers.std_args(@conn)) %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

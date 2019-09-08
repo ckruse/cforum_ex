@@ -46,9 +46,19 @@ defmodule Cforum.Messages.ReadMessages do
     |> notify_user(user)
   end
 
-  defp notify_user(read_messages, user) do
+  @decorate transaction()
+  def mark_messages_unread(user, messages) do
+    message_ids = Enum.map(messages, & &1.message_id)
+
+    from(rm in ReadMessage, where: rm.user_id == ^user.user_id, where: rm.message_id in ^message_ids)
+    |> Repo.delete_all()
+
+    notify_user(messages, user, "message_marked_unread")
+  end
+
+  defp notify_user(read_messages, user, type \\ "message_marked_read") do
     message_ids = Enum.map(read_messages, & &1.message_id)
-    CforumWeb.Endpoint.broadcast("users:#{user.user_id}", "message_marked_read", %{"message_ids" => message_ids})
+    CforumWeb.Endpoint.broadcast("users:#{user.user_id}", type, %{"message_ids" => message_ids})
     read_messages
   end
 
