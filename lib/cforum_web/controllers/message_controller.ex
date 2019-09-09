@@ -28,11 +28,7 @@ defmodule CforumWeb.MessageController do
   ]
 
   def show(conn, params) do
-    if !proper_forum?(conn) do
-      conn
-      |> put_status(301)
-      |> redirect(to: Path.message_path(conn, :show, conn.assigns.thread, conn.assigns.message))
-    else
+    if proper_forum?(conn) do
       # parameter overwrites cookie overwrites config; validation
       # overwrites everything
       read_mode =
@@ -48,6 +44,10 @@ defmodule CforumWeb.MessageController do
       |> maybe_put_readmode(params, read_mode)
       |> prerender_messages(read_mode)
       |> render("show-#{read_mode}.html")
+    else
+      conn
+      |> put_status(301)
+      |> redirect(to: Path.message_path(conn, :show, conn.assigns.thread, conn.assigns.message))
     end
   end
 
