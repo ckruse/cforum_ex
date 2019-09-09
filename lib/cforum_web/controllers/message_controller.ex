@@ -42,28 +42,12 @@ defmodule CforumWeb.MessageController do
       conn
       |> Plug.Conn.assign(:read_mode, read_mode)
       |> maybe_put_readmode(params, read_mode)
-      |> prerender_messages(read_mode)
       |> render("show-#{read_mode}.html")
     else
       conn
       |> put_status(301)
       |> redirect(to: Path.message_path(conn, :show, conn.assigns.thread, conn.assigns.message))
     end
-  end
-
-  defp prerender_messages(conn, "thread") do
-    Plug.Conn.assign(conn, :prerendered, %{
-      conn.assigns.message.message_id => Cforum.MarkdownRenderer.to_html(conn.assigns.message, conn)
-    })
-  end
-
-  defp prerender_messages(conn, _) do
-    prerendered =
-      conn.assigns.thread.messages
-      |> Task.async_stream(fn msg -> {msg.message_id, Cforum.MarkdownRenderer.to_html(msg, conn)} end)
-      |> Enum.reduce(%{}, fn {:ok, {msg_id, cnt}}, acc -> Map.put(acc, msg_id, cnt) end)
-
-    Plug.Conn.assign(conn, :prerendered, prerendered)
   end
 
   defp run_async_handlers(conn, read_mode) do
