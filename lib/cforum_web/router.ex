@@ -59,6 +59,7 @@ defmodule CforumWeb.Router do
       post("/threads/do-archive", Threads.AdminController, :archive, as: nil)
 
       post("/messages/mark-read", Messages.MarkReadController, :mark_read)
+      post("/messages/mark-unread", Messages.MarkReadController, :mark_unread)
       post("/messages/interesting", Messages.InterestingController, :interesting)
       post("/messages/boring", Messages.InterestingController, :boring)
       post("/messages/subscribe", Messages.SubscriptionController, :subscribe)
