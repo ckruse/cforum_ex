@@ -1,5 +1,6 @@
 defmodule CforumWeb.MessageController do
   use CforumWeb, :controller
+  use Cforum.Accounts.Constants
 
   alias Cforum.Abilities
   alias Cforum.Messages
@@ -266,12 +267,8 @@ defmodule CforumWeb.MessageController do
   def allowed?(conn, action, {%Thread{archived: true}, _msg}) when action in [:edit, :update],
     do: Abilities.admin?(conn)
 
-  def allowed?(conn, action, {thread, msg}) when action in [:edit, :update] do
-    Abilities.access_forum?(conn, :moderate) ||
-      (MessageHelpers.editable_age?(msg, minutes: ConfigManager.conf(conn, "max_editable_age", :int)) &&
-         !MessageHelpers.answer?(thread, msg) &&
-         MessageHelpers.owner?(conn, msg) && MessageHelpers.open?(msg))
-  end
+  def allowed?(conn, action, {thread, msg}) when action in [:edit, :update],
+    do: Abilities.access_forum?(conn, :moderate) || edit?(conn, thread, msg)
 
   def allowed?(conn, :show, nil),
     do: allowed?(conn, :show, {conn.assigns.thread, conn.assigns.message})
@@ -281,4 +278,15 @@ defmodule CforumWeb.MessageController do
 
   def allowed?(_conn, val1, val2), do: raise(inspect([val1, val2]))
   # def allowed?(conn, _, _), do: Abilities.access_forum?(conn)
+
+  defp edit?(conn, thread, msg) do
+    MessageHelpers.open?(msg) && !MessageHelpers.answer?(thread, msg) &&
+      MessageHelpers.editable_age?(msg, minutes: ConfigManager.conf(conn, "max_editable_age", :int)) &&
+      (MessageHelpers.owner?(conn, msg) || edit_by_badge?(conn, msg))
+  end
+
+  defp edit_by_badge?(conn, %{parent_id: nil}),
+    do: Abilities.badge?(conn, @badge_edit_question) || Abilities.badge?(conn, @badge_edit_answer)
+
+  defp edit_by_badge?(conn, _), do: Abilities.badge?(conn, @badge_edit_answer)
 end
