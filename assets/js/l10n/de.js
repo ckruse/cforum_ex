@@ -204,5 +204,10 @@ export const lang = {
   "The image you tried to paste exceeds the size limit of {maxSize} mb":
     "Das Bild, dass Sie einfügen wollten, ist leider größer als das zulässige Limit von {maxSize} mb",
 
-  "more…": "mehr…"
+  "more…": "mehr…",
+
+  "mark message interesting": "Beitrag als interessant markieren",
+  "mark message boring": "Interessant-Markierung entfernen",
+  "unsubscribe message": "Baum deabonnieren",
+  "subscribe message": "Baum abonnieren"
 };
