@@ -138,9 +138,10 @@ const initNestedView = () => {
 
     const parsedUrl = parseMessageUrl(url);
     const location = parseMessageUrl(document.location.href);
+    const elem = document.getElementById("m" + parsedUrl.messageId);
 
-    /* ignore this click if link links to a different thread */
-    if (parsedUrl.slug !== location.slug || parsedUrl.forum !== location.forum) {
+    /* ignore this click if link links to a different thread or is a message not yet loaded */
+    if (parsedUrl.slug !== location.slug || parsedUrl.forum !== location.forum || !elem) {
       return;
     }
 
