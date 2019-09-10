@@ -94,7 +94,7 @@ defmodule CforumWeb.ModerationController do
 
   def allowed?(conn, :show, entry) do
     entry = entry || conn.assigns[:entry]
-    Abilities.access_forum?(conn.assigns.current_user, entry.message.forum, :moderate)
+    Abilities.access_forum?(conn.assigns.current_user, entry.message.thread.forum, :moderate)
   end
 
   def allowed?(_, _, _), do: false
