@@ -1298,8 +1298,8 @@ msgstr "von"
 #: lib/cforum_web/templates/message/message.html.eex:8
 #: lib/cforum_web/templates/moderation/entry.html.eex:18
 #: lib/cforum_web/templates/moderation/entry.html.eex:19
-#: lib/cforum_web/views/message_view.ex:247
-#: lib/cforum_web/views/message_view.ex:248
+#: lib/cforum_web/views/message_view.ex:252
+#: lib/cforum_web/views/message_view.ex:253
 msgid "problematic site"
 msgstr "problematische Seite"
 
@@ -1317,8 +1317,8 @@ msgstr "Benutzer-Informationen"
 msgid "new answer to %{name}"
 msgstr "Antwort an „%{name}“ verfassen"
 
-#: lib/cforum_web/controllers/message_controller.ex:140
-#: lib/cforum_web/controllers/message_controller.ex:182
+#: lib/cforum_web/controllers/message_controller.ex:125
+#: lib/cforum_web/controllers/message_controller.ex:167
 msgid "Message created successfully."
 msgstr "Beitrag erfolgreich gespeichert."
 
@@ -1327,7 +1327,7 @@ msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">
 msgstr "SELFHTML Forum - Ergänzung zur <a href=\"https://wiki.selfhtml.org\">Dokumentation</a>"
 
 #: lib/cforum_web/controllers/api/v1/message_controller.ex:25
-#: lib/cforum_web/controllers/message_controller.ex:104
+#: lib/cforum_web/controllers/message_controller.ex:89
 #: lib/cforum_web/controllers/thread_controller.ex:123
 msgid "all"
 msgstr "alle"
@@ -1564,7 +1564,7 @@ msgstr "Diesen Thread wieder einblenden"
 #, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:17
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:18
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:42
+#: lib/cforum_web/templates/message/message_default_controls.html.eex:48
 msgid "mark message as interesting"
 msgstr "Beitrag als interessant markieren"
 
@@ -1603,7 +1603,7 @@ msgstr "Interessant-Markierung entfernen"
 #, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:30
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:31
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:51
+#: lib/cforum_web/templates/message/message_default_controls.html.eex:67
 msgid "subscribe message"
 msgstr "Baum abonnieren"
 
@@ -1616,7 +1616,7 @@ msgstr "abonnierte Beiträge"
 #, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:25
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:26
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:55
+#: lib/cforum_web/templates/message/message_default_controls.html.eex:76
 msgid "unsubscribe message"
 msgstr "Baum deabonnieren"
 
@@ -3033,7 +3033,7 @@ msgid "map of the event location area"
 msgstr "Karte der Zielregion"
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:46
+#: lib/cforum_web/templates/message/message_default_controls.html.eex:57
 msgid "mark message as boring"
 msgstr "Interessant-Markierung entfernen"
 
@@ -4649,6 +4649,11 @@ msgid "Message has successfully been marked as unread."
 msgstr "Der Beitrag wurde erfolgreich als ungelesen markiert."
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:38
+#: lib/cforum_web/templates/message/message_default_controls.html.eex:39
 msgid "mark message as unread"
 msgstr "markiere Beitrag als ungelesen"
+
+#, elixir-format
+#: lib/cforum_web/views/message_view.ex:106
+msgid "edit message “%{subject}” by %{author}"
+msgstr "Beitrag bearbeiten: %{author}: %{subject}"

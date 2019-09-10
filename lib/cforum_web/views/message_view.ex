@@ -101,7 +101,12 @@ defmodule CforumWeb.MessageView do
   def page_title(action, assigns) when action in [:new, :create],
     do: gettext("new answer to %{name}", name: assigns[:parent].author)
 
-  def page_heading(action, assigns) when action in [:new, :create], do: page_title(action, assigns)
+  def page_title(action, assigns) when action in [:edit, :update] do
+    msg = assigns[:message]
+    gettext("edit message “%{subject}” by %{author}", subject: msg.subject, author: msg.author)
+  end
+
+  def page_heading(action, assigns) when action in [:new, :create, :edit, :update], do: page_title(action, assigns)
 
   def body_id(:show, assigns), do: "message-#{assigns[:read_mode]}"
 

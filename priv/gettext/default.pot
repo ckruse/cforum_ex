@@ -1283,8 +1283,8 @@ msgstr ""
 #: lib/cforum_web/templates/message/message.html.eex:8
 #: lib/cforum_web/templates/moderation/entry.html.eex:18
 #: lib/cforum_web/templates/moderation/entry.html.eex:19
-#: lib/cforum_web/views/message_view.ex:247
-#: lib/cforum_web/views/message_view.ex:248
+#: lib/cforum_web/views/message_view.ex:252
+#: lib/cforum_web/views/message_view.ex:253
 msgid "problematic site"
 msgstr ""
 
@@ -1302,8 +1302,8 @@ msgstr ""
 msgid "new answer to %{name}"
 msgstr ""
 
-#: lib/cforum_web/controllers/message_controller.ex:140
-#: lib/cforum_web/controllers/message_controller.ex:182
+#: lib/cforum_web/controllers/message_controller.ex:125
+#: lib/cforum_web/controllers/message_controller.ex:167
 msgid "Message created successfully."
 msgstr ""
 
@@ -1312,7 +1312,7 @@ msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">
 msgstr ""
 
 #: lib/cforum_web/controllers/api/v1/message_controller.ex:25
-#: lib/cforum_web/controllers/message_controller.ex:104
+#: lib/cforum_web/controllers/message_controller.ex:89
 #: lib/cforum_web/controllers/thread_controller.ex:123
 msgid "all"
 msgstr ""
@@ -1547,7 +1547,7 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:17
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:18
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:42
+#: lib/cforum_web/templates/message/message_default_controls.html.eex:48
 msgid "mark message as interesting"
 msgstr ""
 
@@ -1586,7 +1586,7 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:30
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:31
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:51
+#: lib/cforum_web/templates/message/message_default_controls.html.eex:67
 msgid "subscribe message"
 msgstr ""
 
@@ -1599,7 +1599,7 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:25
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:26
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:55
+#: lib/cforum_web/templates/message/message_default_controls.html.eex:76
 msgid "unsubscribe message"
 msgstr ""
 
@@ -3012,7 +3012,7 @@ msgid "map of the event location area"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:46
+#: lib/cforum_web/templates/message/message_default_controls.html.eex:57
 msgid "mark message as boring"
 msgstr ""
 
@@ -4626,6 +4626,11 @@ msgid "Message has successfully been marked as unread."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:38
+#: lib/cforum_web/templates/message/message_default_controls.html.eex:39
 msgid "mark message as unread"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/message_view.ex:106
+msgid "edit message “%{subject}” by %{author}"
 msgstr ""
