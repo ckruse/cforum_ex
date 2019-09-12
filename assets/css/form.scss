@@ -182,6 +182,13 @@
   display: inline;
 }
 
+.form-actions {
+  .cf-btn,
+  .cf-primary-btn {
+    margin-right: 0.2em;
+  }
+}
+
 @include default-breakpoint() {
   .cf-form {
     .cf-cgroup {
