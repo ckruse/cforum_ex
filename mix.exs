@@ -69,11 +69,7 @@ defmodule Cforum.Mixfile do
       {:ex_machina, "~> 2.2", only: :test},
       {:faker, "~> 0.9", only: :test},
       {:credo, "~> 1.0", only: [:dev, :test], runtime: false},
-      {:dialyxir, ">= 1.0.0-rc.6", only: [:dev], runtime: false},
-
-      # build & delivery
-      {:distillery, "~> 2.0.14"},
-      {:edeliver, ">= 1.6.0"}
+      {:dialyxir, ">= 1.0.0-rc.6", only: [:dev], runtime: false}
     ]
   end
 
@@ -95,11 +91,9 @@ defmodule Cforum.Mixfile do
         "ecto.migrate",
         "run priv/migrate_db_after_migrations.exs"
       ],
-      "build.release": ["cmd ./.deliver/build -t release"],
-      "build.upgrade": ["cmd ./.deliver/build -t upgrade"],
-      "deploy.release": ["edeliver deploy release to production"],
-      "deploy.upgrade": ["edeliver deploy upgrade to production"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"],
+      build: "cmd ./.build/build",
+      deploy: "cmd ./.build/deploy"
     ]
   end
 end

@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+set -e
+
+latest_version=$(git tag | sort -rV |  head -1)
+HOST=$1
+VERSION=$2
+
+HOST="${HOST:=quirm.selfhtml.org}"
+VERSION="${VERSION:=$latest_version}"
+
+SSH="ssh builder@builder"
+ncores=$(sysctl -n hw.ncpu 2>/dev/null)
+
+if [[ $? != 0 ]]; then
+    ncores=$(grep -c ^processor /proc/cpuinfo)
+fi
+
+ncores=$((ncores/2))
+name=cforum-elixir-build
+
+result=$(docker images -q $name 2> /dev/null)
+
+if [[ -z "$result" ]]; then
+  docker build --tag=$name -f rel/Dockerfile .
+fi
+
+result=$(docker images -q $name)
+
+if [[ -n "$result" ]]; then
+  [[ $(docker ps -f "name=$name" --format '{{.Names}}') == $name ]] || docker start $name
+else
+  docker run --cpus ${ncores} -d -p 23:22 -P --name $name $name
+fi
+
+$SSH "mix local.hex --force && mix local.rebar --force"
+$SSH '[[ ! -d build.git ]] && git init --bare build.git || exit 0'
+git push --all ssh://builder@builder/home/builder/build.git
+git push --tags ssh://builder@builder/home/builder/build.git
+$SSH "rm -rf src && git clone ~/build.git src && cd src && git checkout $VERSION"
+
+scp .build/secrets/prod.$HOST.exs builder@builder:~/src/config/prod.exs
+
+$SSH "cd src && MIX_ENV=prod mix deps.get --only prod && MIX_ENV=prod mix compile"
+$SSH "cd src && mkdir -p priv/static && cd assets && MIX_ENV=prod yarn install --network-timeout 1000000000 && MIX_ENV=prod yarn run deploy"
+$SSH "cd src && MIX_ENV=prod mix phx.digest && MIX_ENV=prod mix release --path ../cforum-${VERSION}"
+
+$SSH "tar -czf cforum-$VERSION.tar.gz cforum-$VERSION"
+scp builder@builder:cforum-$VERSION.tar.gz .build/releases/
+$SSH "rm cforum-$VERSION.tar.gz && rm -rf cforum-$VERSION"
+
+docker container stop $name
