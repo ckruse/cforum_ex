@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 latest_version=$(git tag | sort -rV |  head -1)
 HOST=$1
 VERSION=$2
@@ -15,6 +13,8 @@ ncores=$(sysctl -n hw.ncpu 2>/dev/null)
 if [[ $? != 0 ]]; then
     ncores=$(grep -c ^processor /proc/cpuinfo)
 fi
+
+set -e
 
 ncores=$((ncores/2))
 name=cforum-elixir-build
