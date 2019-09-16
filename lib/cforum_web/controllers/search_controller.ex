@@ -17,7 +17,7 @@ defmodule CforumWeb.SearchController do
       visible_sections: visible_sections,
       results: results,
       paging: paging,
-      params: params
+      params: Map.drop(params, ["p"])
     )
   end
 
