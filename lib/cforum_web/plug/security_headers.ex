@@ -2,7 +2,7 @@ defmodule CforumWeb.Plug.SecurityHeaders do
   def init(opts), do: opts
 
   def call(conn, _) do
-    if Mix.env() == :prod do
+    if Application.get_env(:cforum, :environment) == :prod do
       js_nonce =
         32
         |> :crypto.strong_rand_bytes()
