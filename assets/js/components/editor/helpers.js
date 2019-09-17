@@ -135,14 +135,13 @@ export const escapeText = (text, escapes) => {
   return text.replace(rx, "\\$1");
 };
 
-export const  isInSizeLimit = (file) => {
-    const maxSize = conf("max_image_filesize");
+export const isInSizeLimit = file => {
+  const maxSize = conf("max_image_filesize");
 
-    if (file.size > maxSize * 1024 * 1024) {
-      alertError(t("The image you tried to paste exceeds the size limit of {maxSize} mb", { maxSize }));
-      return false;
-    }
-
-    return true;
+  if (file.size > maxSize * 1024 * 1024) {
+    alertError(t("The image you tried to paste exceeds the size limit of {maxSize} mb", { maxSize }));
+    return false;
   }
 
+  return true;
+};
