@@ -228,7 +228,7 @@ export function addLinkFromModal(text, target) {
   if (!text) {
     link = `<${escapeText(target, ">")}>`;
   } else {
-    link = `[${escapeText(text, "\\]")}](${escapeText(target, ")")})`;
+    link = `[${escapeText(text, "\\]")}](${escapeText(target, "()")})`;
   }
 
   const { start, end } = getSelection(this.props.textarea.current);
