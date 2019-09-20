@@ -1,6 +1,4 @@
 defmodule Cforum.Messages.VoteBadgeDistributorJob do
-  use Appsignal.Instrumentation.Decorators
-
   alias Cforum.Messages.Vote
   alias Cforum.Messages
   alias Cforum.Messages.MessageHelpers
@@ -19,7 +17,6 @@ defmodule Cforum.Messages.VoteBadgeDistributorJob do
 
   def grant_badges(value), do: value
 
-  @decorate transaction(:maintenance)
   defp do_grant_badges(vote) do
     user = Users.get_user!(vote.user_id)
     message = Messages.get_message!(vote.message_id, view_all: true)

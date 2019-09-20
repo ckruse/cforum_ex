@@ -1,6 +1,4 @@
 defmodule Cforum.Messages.ReadMessages do
-  use Appsignal.Instrumentation.Decorators
-
   import Ecto.Query, warn: false
 
   alias Cforum.Repo
@@ -24,7 +22,6 @@ defmodule Cforum.Messages.ReadMessages do
   def mark_messages_read(nil, _), do: nil
   def mark_messages_read(user, message) when not is_list(message), do: mark_messages_read(user, [message])
 
-  @decorate transaction()
   def mark_messages_read(user, messages) do
     messages = Enum.reject(messages, & &1.attribs[:is_read])
 
@@ -46,7 +43,6 @@ defmodule Cforum.Messages.ReadMessages do
     |> notify_user(user)
   end
 
-  @decorate transaction()
   def mark_messages_unread(user, messages) do
     message_ids = Enum.map(messages, & &1.message_id)
 

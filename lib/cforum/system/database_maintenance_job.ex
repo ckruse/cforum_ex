@@ -1,12 +1,9 @@
 defmodule Cforum.System.DatabaseMaintenanceJob do
-  use Appsignal.Instrumentation.Decorators
-
   import Ecto.Query, warn: false
   require Logger
 
   alias Cforum.Repo
 
-  @decorate transaction(:maintenance)
   def maintenance do
     Logger.info("Starting database maintenance…")
 

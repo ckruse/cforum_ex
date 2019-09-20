@@ -1,5 +1,4 @@
 defmodule Cforum.Cites.ReindexCitesJob do
-  use Appsignal.Instrumentation.Decorators
   import Ecto.Query, warn: false
 
   alias Cforum.Repo
@@ -7,7 +6,6 @@ defmodule Cforum.Cites.ReindexCitesJob do
   alias Cforum.Search.Document
   alias Cforum.Cites.Cite
 
-  @decorate transaction(:indexing)
   def reindex_cites() do
     Repo.transaction(
       fn ->
@@ -29,7 +27,6 @@ defmodule Cforum.Cites.ReindexCitesJob do
     do_reindex_cites()
   end
 
-  @decorate transaction_event(:indexing)
   defp do_reindex_cites(last_id \\ -1) do
     cite =
       from(cite in Cite,

@@ -1,6 +1,4 @@
 defmodule Cforum.Accounts.UserCleanupJob do
-  use Appsignal.Instrumentation.Decorators
-
   import Ecto.{Query, Changeset}, warn: false
   require Logger
 
@@ -8,14 +6,12 @@ defmodule Cforum.Accounts.UserCleanupJob do
   alias Cforum.System
   alias Cforum.Accounts.User
 
-  @decorate transaction(:maintenance)
   def cleanup do
     cleanup_unconfirmed_users()
     cleanup_users_wo_posts()
     Cachex.clear(:cforum)
   end
 
-  @decorate transaction_event(:maintenance)
   def cleanup_unconfirmed_users() do
     from(user in User,
       where: is_nil(user.confirmed_at),
@@ -24,7 +20,6 @@ defmodule Cforum.Accounts.UserCleanupJob do
     |> delete_users()
   end
 
-  @decorate transaction_event(:maintenance)
   def cleanup_users_wo_posts() do
     from(user in User,
       where:

@@ -1,6 +1,5 @@
 defmodule CforumWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :cforum
-  use Appsignal.Phoenix
 
   socket("/socket", CforumWeb.UserSocket, websocket: true)
 

@@ -1,6 +1,4 @@
 defmodule Cforum.Cites.CiteIndexerJob do
-  use Appsignal.Instrumentation.Decorators
-
   import CforumWeb.Gettext
 
   alias Cforum.ConfigManager
@@ -19,7 +17,6 @@ defmodule Cforum.Cites.CiteIndexerJob do
   end
 
   @spec index_cite_synchronously(%Cite{}) :: {:ok, %Cite{}} | {:error, %Ecto.Changeset{}}
-  @decorate transaction(:indexing)
   def index_cite_synchronously(cite) do
     doc = Search.get_document_by_reference_id(cite.cite_id, :cites)
     plain = MarkdownRenderer.to_plain(cite)
@@ -34,7 +31,6 @@ defmodule Cforum.Cites.CiteIndexerJob do
   end
 
   @spec unindex_cite(%Cite{}) :: any()
-  @decorate transaction(:indexing)
   def unindex_cite(%Cite{} = cite) do
     doc = Search.get_document_by_reference_id(cite.cite_id, :cites)
 

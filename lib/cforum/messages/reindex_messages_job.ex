@@ -1,5 +1,4 @@
 defmodule Cforum.Messages.ReindexMessagesJob do
-  use Appsignal.Instrumentation.Decorators
   import Ecto.Query, warn: false
 
   alias Cforum.Repo
@@ -7,7 +6,6 @@ defmodule Cforum.Messages.ReindexMessagesJob do
   alias Cforum.Search.Document
   alias Cforum.Messages.Message
 
-  @decorate transaction(:indexing)
   def reindex_messages(start_id \\ 0) do
     Repo.transaction(
       fn ->
@@ -29,7 +27,6 @@ defmodule Cforum.Messages.ReindexMessagesJob do
     do_reindex_messages(start_id - 1)
   end
 
-  @decorate transaction_event(:indexing)
   defp do_reindex_messages(last_id) do
     mid =
       from(m in Message,

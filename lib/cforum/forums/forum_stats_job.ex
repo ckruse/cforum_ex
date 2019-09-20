@@ -1,13 +1,10 @@
 defmodule Cforum.Forums.ForumStatsJob do
-  use Appsignal.Instrumentation.Decorators
-
   import Ecto.Query, warn: false
   require Logger
 
   alias Cforum.Repo
   alias Cforum.Forums.Forum
 
-  @decorate transaction(:maintenance)
   def gen_stats do
     Logger.info("Renerating forum statistics…")
 
