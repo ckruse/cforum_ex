@@ -236,18 +236,21 @@ defmodule Cforum.System do
     })
   end
 
-  def audited(action, user, fun) when is_bitstring(action) and is_function(fun) do
+  def audited(action, user, fun, opts \\ []) when is_bitstring(action) and is_function(fun) do
     {_, val} =
-      Repo.transaction(fn ->
-        case fun.() do
-          {:ok, object} ->
-            {:ok, _} = audit_object(object, action, user)
-            {:ok, object}
+      Repo.transaction(
+        fn ->
+          case fun.() do
+            {:ok, object} ->
+              {:ok, _} = audit_object(object, action, user)
+              {:ok, object}
 
-          val ->
-            Repo.rollback(val)
-        end
-      end)
+            val ->
+              Repo.rollback(val)
+          end
+        end,
+        opts
+      )
 
     val
   end
