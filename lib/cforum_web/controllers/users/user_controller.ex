@@ -205,8 +205,13 @@ defmodule CforumWeb.Users.UserController do
     {:ok, _user} = Users.delete_user(nil, conn.assigns.user)
 
     conn
-    |> put_flash(:info, gettext("User deleted successfully."))
-    |> redirect(to: Path.user_path(conn, :index))
+    |> configure_session(drop: true)
+    |> delete_resp_cookie("remember_me")
+    |> redirect(to: Path.user_path(conn, :deletion_started))
+  end
+
+  def deletion_started(conn, _) do
+    render(conn, "deletion_started.html")
   end
 
   def load_resource(conn) do
@@ -222,7 +227,10 @@ defmodule CforumWeb.Users.UserController do
     end
   end
 
-  def allowed?(_conn, action, _) when action in [:index, :show, :show_messages, :show_scores], do: true
+  @anonymous_allowed_actions [:index, :show, :show_messages, :show_scores, :deletion_started]
+
+  def allowed?(_conn, action, _) when action in @anonymous_allowed_actions,
+    do: true
 
   def allowed?(conn, :update, resource) do
     cuser = conn.assigns[:current_user]

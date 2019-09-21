@@ -1,0 +1,2 @@
+<p><%= gettext("The deletion of your user has been started in the background. It might take some time until everything is deleted.") %></p>
+<p><%= gettext("However, we disabled your account to avoid technical issues.") %></p>

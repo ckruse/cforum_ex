@@ -533,6 +533,9 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def user_path(conn, :confirm_delete, user, params),
     do: "#{user_path(conn, :show, user, false)}/delete#{encode_query_string(conn, params)}"
 
+  def user_path(conn, :deletion_started, params, _),
+    do: "#{user_path(conn, :index, false)}/deletion-started#{encode_query_string(conn, params)}"
+
   # moderation queue
 
   def moderation_path(conn, action, moderation_or_params \\ nil, params \\ [])

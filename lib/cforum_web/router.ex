@@ -125,6 +125,7 @@ defmodule CforumWeb.Router do
     get("/search", SearchController, :show)
 
     scope "/users", Users do
+      get("/deletion-started", UserController, :deletion_started)
       get("/password", PasswordController, :new)
       post("/password", PasswordController, :create)
       get("/password/reset", PasswordController, :edit_reset)

@@ -39,22 +39,12 @@ msgstr ""
 msgid "You logged in successfully"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/link.html.eex:19
-#: lib/cforum_web/templates/layout/link.html.eex:20
-#: lib/cforum_web/templates/layout/page_header.html.eex:12
-#: lib/cforum_web/templates/layout/page_header.html.eex:12
-#: lib/cforum_web/templates/layout/page_header.html.eex:13
-#: lib/cforum_web/templates/layout/page_header.html.eex:13
-#: lib/cforum_web/templates/layout/page_header.html.eex:26
 msgid "All forums"
 msgstr ""
 
-#: lib/cforum_web/templates/forum/index.html.eex:28
-#: lib/cforum_web/templates/forum/index.html.eex:50
 msgid "Show all"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:52
 msgid "Cites"
 msgstr ""
 
@@ -62,9 +52,6 @@ msgstr ""
 msgid "Administration"
 msgstr ""
 
-#: lib/cforum_web/templates/forum/index.html.eex:5
-#: lib/cforum_web/templates/layout/page_header.html.eex:23
-#: lib/cforum_web/views/forum_view.ex:4
 msgid "Forums"
 msgstr ""
 
@@ -78,7 +65,6 @@ msgstr ""
 msgid "Atom feed (%{forum})"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:56
 msgid "Chat"
 msgstr ""
 
@@ -92,14 +78,9 @@ msgstr ""
 msgid "RSS feed (%{forum})"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:55
 msgid "Search"
 msgstr ""
 
-#: lib/cforum_web/templates/forum/index.html.eex:15
-#: lib/cforum_web/templates/forum/index.html.eex:37
-#: lib/cforum_web/templates/layout/page_header.html.eex:27
-#: lib/cforum_web/templates/layout/page_header.html.eex:42
 msgid "Statistics"
 msgstr ""
 
@@ -158,11 +139,9 @@ msgstr ""
 msgid "thread view"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/meta.html.eex:7
 msgid "description_text"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/meta.html.eex:8
 msgid "keywords_text"
 msgstr ""
 
@@ -343,7 +322,6 @@ msgstr ""
 msgid "confirm your registration"
 msgstr ""
 
-#: lib/cforum/accounts/user.ex:146
 msgid "password and password confirmation don't match"
 msgstr ""
 
@@ -458,7 +436,6 @@ msgstr ""
 msgid "messages"
 msgstr ""
 
-#: lib/cforum_web/templates/thread/thread.html.eex:4
 msgid "no archive"
 msgstr ""
 
@@ -534,7 +511,6 @@ msgstr ""
 msgid "Edit profile: %{username}"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/new.html.eex:7
 msgid "Save changes"
 msgstr ""
 
@@ -597,7 +573,6 @@ msgstr ""
 msgid "description"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personal_information.html.eex:22
 msgid "flattr id"
 msgstr ""
 
@@ -614,7 +589,6 @@ msgstr ""
 msgid "jabber id"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:12
 msgid "notify me on new mail"
 msgstr ""
 
@@ -640,23 +614,18 @@ msgstr ""
 msgid "readability and overview"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:7
 msgid "use JavaScript for notifications"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:33
 msgid "automatically delete read notifications for activity in subscribed threads"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:53
 msgid "automatically delete read notifications for mentions"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:66
 msgid "automatically delete read notifications for new cites"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:19
 msgid "automatically delete read notifications for new mails"
 msgstr ""
 
@@ -692,7 +661,6 @@ msgstr ""
 msgid "notify me via email"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:25
 msgid "notify me via email on activity in subscribed threads"
 msgstr ""
 
@@ -740,7 +708,6 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/edit.html.eex:1
 msgid "Edit Forum „%{forum}“"
 msgstr ""
 
@@ -756,15 +723,12 @@ msgstr ""
 msgid "Forum updated successfully."
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:10
 msgid "Keywords"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:6
 msgid "Name"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/new.html.eex:1
 msgid "New Forum"
 msgstr ""
 
@@ -781,7 +745,6 @@ msgstr ""
 msgid "Password updated successfully."
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:11
 msgid "Position"
 msgstr ""
 
@@ -793,11 +756,9 @@ msgstr ""
 msgid "Send password reset instructions"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:7
 msgid "Short name"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/show.html.eex:1
 msgid "Show Forum „%{forum}“"
 msgstr ""
 
@@ -805,11 +766,9 @@ msgstr ""
 msgid "Show threads by default…"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:21
 msgid "Slug"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:9
 msgid "Standard permission"
 msgstr ""
 
@@ -818,7 +777,6 @@ msgid "The instructions how to reset your password have been sent."
 msgstr ""
 
 #: lib/cforum_web/controllers/admin/user_controller.ex:63
-#: lib/cforum_web/controllers/users/user_controller.ex:208
 msgid "User deleted successfully."
 msgstr ""
 
@@ -939,7 +897,6 @@ msgstr ""
 msgid "send reset instructions"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:27
 msgid "show"
 msgstr ""
 
@@ -950,7 +907,6 @@ msgstr ""
 msgid "subject"
 msgstr ""
 
-#: lib/cforum_web/templates/notification/index.html.eex:19
 msgid "unread"
 msgstr ""
 
@@ -960,7 +916,6 @@ msgstr ""
 msgid "write"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:35
 msgid "New forum"
 msgstr ""
 
@@ -1021,7 +976,6 @@ msgstr ""
 msgid "farewell"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:49
 msgid "fold quotes"
 msgstr ""
 
@@ -1085,11 +1039,9 @@ msgstr ""
 msgid "no"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:67
 msgid "number of diff context lines shown"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:32
 msgid "page messages index"
 msgstr ""
 
@@ -1109,7 +1061,6 @@ msgstr ""
 msgid "send me a notification on close and re-open votes"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:72
 msgid "send me a notification on flagged messages"
 msgstr ""
 
@@ -1117,7 +1068,6 @@ msgstr ""
 msgid "show closed"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:61
 msgid "show mail index grouped by thread"
 msgstr ""
 
@@ -1137,7 +1087,6 @@ msgstr ""
 msgid "show opened"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:57
 msgid "show the live preview"
 msgstr ""
 
@@ -1165,11 +1114,9 @@ msgstr ""
 msgid "sort threads…"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:53
 msgid "use JavaScript to dynamically load new threads and messages from server"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:25
 msgid "use inline answer forms"
 msgstr ""
 
@@ -1197,7 +1144,6 @@ msgstr ""
 msgid "%{days} days"
 msgstr ""
 
-#: lib/cforum_web/views/helpers/relative_time.ex:42
 msgid "%{minutes} minutes"
 msgstr ""
 
@@ -1218,7 +1164,6 @@ msgstr ""
 msgid "%{years} years"
 msgstr ""
 
-#: lib/cforum_web/views/helpers/relative_time.ex:38
 msgid "1 minute"
 msgstr ""
 
@@ -1322,7 +1267,6 @@ msgstr ""
 msgid "author"
 msgstr ""
 
-#: lib/cforum_web/templates/message/form.html.eex:65
 msgid "comma separated list, e.g. „css, html“"
 msgstr ""
 
@@ -1332,7 +1276,6 @@ msgstr ""
 msgid "create message"
 msgstr ""
 
-#: lib/cforum_web/templates/message/form.html.eex:64
 msgid "html, css, javascript"
 msgstr ""
 
@@ -1417,7 +1360,6 @@ msgstr ""
 msgid "previous page"
 msgstr ""
 
-#: lib/cforum/messages/message.ex:194
 msgid "unknown tags given: %{tags}"
 msgstr ""
 
@@ -1464,8 +1406,6 @@ msgstr ""
 msgid "all forums"
 msgstr ""
 
-#: lib/cforum_web/templates/forum/index.html.eex:28
-#: lib/cforum_web/templates/forum/index.html.eex:50
 msgid "show all"
 msgstr ""
 
@@ -1763,7 +1703,7 @@ msgid "chat"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/cites/cite_indexer_job.ex:46
+#: lib/cforum/cites/cite_indexer_job.ex:42
 #: lib/cforum_web/templates/admin/audit/index.html.eex:16
 #: lib/cforum_web/templates/admin/search_section/form.html.eex:26
 #: lib/cforum_web/templates/layout/page_header.html.eex:47
@@ -1777,7 +1717,7 @@ msgid "help"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/cites/cite_indexer_job.ex:65
+#: lib/cforum/cites/cite_indexer_job.ex:61
 #: lib/cforum_web/templates/cite/cite.html.eex:5
 #: lib/cforum_web/views/cite_view.ex:17
 msgid "cite %{id}"
@@ -4004,12 +3944,12 @@ msgid "notify me via email on activity in subscribed messages"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:64
+#: lib/cforum/messages/notify_users_message_job.ex:60
 msgid "%{nick} wrote a new message: %{subject}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:59
+#: lib/cforum/messages/notify_users_message_job.ex:55
 msgid "%{nick} wrote a reply to your message: %{subject}"
 msgstr ""
 
@@ -4024,7 +3964,7 @@ msgid "tags list"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:107
+#: lib/cforum/messages/notify_users_message_job.ex:102
 msgid "new thread by %{nick}: %{subject}"
 msgstr ""
 
@@ -4034,7 +3974,7 @@ msgid "user data"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:133
+#: lib/cforum/messages/notify_users_message_job.ex:128
 msgid "%{nick} mentioned you in a new message: “%{subject}”"
 msgstr ""
 
@@ -4633,4 +4573,14 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/views/message_view.ex:106
 msgid "edit message “%{subject}” by %{author}"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/users/user/deletion_started.html.eex:2
+msgid "However, we disabled your account to avoid technical issues."
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/users/user/deletion_started.html.eex:1
+msgid "The deletion of your user has been started in the background. It might take some time until everything is deleted."
 msgstr ""

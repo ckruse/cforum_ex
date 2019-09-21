@@ -10,4626 +10,3242 @@ msgid ""
 msgstr ""
 "Language: en\n"
 
-#: lib/cforum_web/templates/layout/personal_links.html.eex:20
 msgid "not logged in"
 msgstr ""
 
-#: lib/cforum_web/error_handler.ex:17
 msgid "You have to be logged in and an admin to see this page!"
 msgstr ""
 
-#: lib/cforum_web/error_handler.ex:9
 msgid "You have to be logged in to see this page!"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/link.html.eex:9
-#: lib/cforum_web/templates/layout/personal_links.html.eex:21
 msgid "Help"
 msgstr ""
 
-#: lib/cforum_web/controllers/users/session_controller.ex:35
 msgid "Username or password wrong"
 msgstr ""
 
-#: lib/cforum_web/error_handler.ex:25 lib/cforum_web/error_handler.ex:33
 msgid "You don't have access to this page!"
 msgstr ""
 
-#: lib/cforum_web/controllers/users/session_controller.ex:30
 msgid "You logged in successfully"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/link.html.eex:19
-#: lib/cforum_web/templates/layout/link.html.eex:20
-#: lib/cforum_web/templates/layout/page_header.html.eex:12
-#: lib/cforum_web/templates/layout/page_header.html.eex:12
-#: lib/cforum_web/templates/layout/page_header.html.eex:13
-#: lib/cforum_web/templates/layout/page_header.html.eex:13
-#: lib/cforum_web/templates/layout/page_header.html.eex:26
 msgid "All forums"
 msgstr ""
 
-#: lib/cforum_web/templates/forum/index.html.eex:28
-#: lib/cforum_web/templates/forum/index.html.eex:50
 msgid "Show all"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:52
 msgid "Cites"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:103
 msgid "Administration"
 msgstr ""
 
-#: lib/cforum_web/templates/forum/index.html.eex:5
-#: lib/cforum_web/templates/layout/page_header.html.eex:23
-#: lib/cforum_web/views/forum_view.ex:4
 msgid "Forums"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:98
 msgid "Atom feed"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/link.html.eex:16
-#: lib/cforum_web/templates/layout/page_header.html.eex:8
-#: lib/cforum_web/templates/layout/page_header.html.eex:8
 msgid "Atom feed (%{forum})"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:56
 msgid "Chat"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:99
 msgid "RSS feed"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/link.html.eex:17
-#: lib/cforum_web/templates/layout/page_header.html.eex:9
-#: lib/cforum_web/templates/layout/page_header.html.eex:9
 msgid "RSS feed (%{forum})"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:55
 msgid "Search"
 msgstr ""
 
-#: lib/cforum_web/templates/forum/index.html.eex:15
-#: lib/cforum_web/templates/forum/index.html.eex:37
-#: lib/cforum_web/templates/layout/page_header.html.eex:27
-#: lib/cforum_web/templates/layout/page_header.html.eex:42
 msgid "Statistics"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:10
-#: lib/cforum_web/templates/layout/page_header.html.eex:10
 msgid "donate"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:5
-#: lib/cforum_web/templates/layout/page_header.html.eex:16
-#: lib/cforum_web/templates/message/message_forum_links.html.eex:3
 msgid "home"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/link.html.eex:2
 msgid "icon"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/personal_links.html.eex:22
-#: lib/cforum_web/templates/message/message_forum_links.html.eex:10
 msgid "login"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:56
-#: lib/cforum_web/templates/layout/page_header.html.eex:81
-#: lib/cforum_web/views/admin/setting_view.ex:33
 msgid "nested view"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/meta.html.eex:11
 msgid "publisher"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/personal_links.html.eex:23
-#: lib/cforum_web/templates/message/message_forum_links.html.eex:11
-#: lib/cforum_web/views/users/registration_view.ex:8
-#: lib/cforum_web/views/users/registration_view.ex:9
 msgid "register"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:87
 msgid "sort ascending"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:90
 msgid "sort descending"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:93
 msgid "sort newest first"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:55
-#: lib/cforum_web/templates/layout/page_header.html.eex:79
-#: lib/cforum_web/views/admin/setting_view.ex:34
 msgid "thread view"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/meta.html.eex:7
 msgid "description_text"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/meta.html.eex:8
 msgid "keywords_text"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:111
 msgid "archive"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:15
 msgid "create new thread"
 msgstr ""
 
-#: lib/cforum_web/templates/users/session/new.html.eex:21
 msgid "I forgot my password"
 msgstr ""
 
-#: lib/cforum_web/templates/users/session/new.html.eex:20
-#: lib/cforum_web/views/users/session_view.ex:7
 msgid "Login"
 msgstr ""
 
-#: lib/cforum_web/templates/users/registration/new.html.eex:14
-#: lib/cforum_web/templates/users/session/new.html.eex:4
 msgid "Regina Schlauklug"
 msgstr ""
 
-#: lib/cforum_web/templates/users/session/new.html.eex:15
 msgid "Remember me"
 msgstr ""
 
-#: lib/cforum_web/templates/users/session/new.html.eex:3
 msgid "Username or email"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/personal_links.html.eex:16
-#: lib/cforum_web/templates/layout/personal_links.html.eex:17
 msgid "%{count} new mails"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/personal_links.html.eex:8
 msgid "%{points} points"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/personal_links.html.eex:18
 msgid "logout"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/personal_links.html.eex:16
 msgid "mail"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/personal_links.html.eex:11
-#: lib/cforum_web/templates/layout/personal_links.html.eex:14
 msgid "new notifications"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/personal_links.html.eex:11
-#: lib/cforum_web/templates/users/user/notifications.html.eex:3
-#: lib/cforum_web/templates/users/user/settings.html.eex:6
-#: lib/cforum_web/templates/users/user/settings.html.eex:17
 msgid "notifications"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/audit/index.html.eex:25
-#: lib/cforum_web/templates/admin/subnav.html.eex:3
-#: lib/cforum_web/templates/layout/personal_links.html.eex:10
-#: lib/cforum_web/views/admin/setting_view.ex:10
 msgid "settings"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/badge/form.html.eex:3
-#: lib/cforum_web/templates/admin/event/form.html.eex:3
-#: lib/cforum_web/templates/admin/forum/form.html.eex:32
-#: lib/cforum_web/templates/admin/group/form.html.eex:3
-#: lib/cforum_web/templates/admin/redirection/form.html.eex:3
-#: lib/cforum_web/templates/admin/search_section/form.html.eex:3
-#: lib/cforum_web/templates/admin/user/form.html.eex:3
-#: lib/cforum_web/templates/cite/form.html.eex:2
-#: lib/cforum_web/templates/events/attendee/form.html.eex:3
-#: lib/cforum_web/templates/mail/new.html.eex:2
-#: lib/cforum_web/templates/message/edit.html.eex:2
-#: lib/cforum_web/templates/message/new.html.eex:2
-#: lib/cforum_web/templates/messages/flag/new.html.eex:3
-#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:3
-#: lib/cforum_web/templates/messages/open_close_vote/new_open.html.eex:3
-#: lib/cforum_web/templates/moderation/edit.html.eex:3
-#: lib/cforum_web/templates/search/show.html.eex:3
-#: lib/cforum_web/templates/tag/form.html.eex:3
-#: lib/cforum_web/templates/tags/synonym/form.html.eex:3
-#: lib/cforum_web/templates/thread/new.html.eex:2
-#: lib/cforum_web/templates/threads/admin/move.html.eex:3
-#: lib/cforum_web/templates/threads/admin/split.html.eex:5
-#: lib/cforum_web/templates/users/registration/new.html.eex:6
-#: lib/cforum_web/templates/users/user/form.html.eex:2
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
 
-#: lib/cforum_web/templates/admin/user/form.html.eex:16
-#: lib/cforum_web/templates/admin/user/index.html.eex:15
-#: lib/cforum_web/templates/message/form.html.eex:22
-#: lib/cforum_web/templates/users/registration/new.html.eex:19
-#: lib/cforum_web/templates/users/user/show.html.eex:21
-#: lib/cforum_web/templates/users/user/user_information.html.eex:11
 msgid "email"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/user/form.html.eex:30
-#: lib/cforum_web/templates/users/password/edit.html.eex:4
-#: lib/cforum_web/templates/users/password/edit_reset.html.eex:4
-#: lib/cforum_web/templates/users/registration/new.html.eex:27
-#: lib/cforum_web/templates/users/session/new.html.eex:8
-#: lib/cforum_web/templates/users/session/new.html.eex:9
 msgid "password"
 msgstr ""
 
-#: lib/cforum_web/templates/users/registration/new.html.eex:22
 msgid "regina@example.org"
 msgstr ""
 
-#: lib/cforum_web/templates/users/registration/new.html.eex:39
 msgid "sign up"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/user/form.html.eex:10
-#: lib/cforum_web/templates/admin/user/index.html.eex:3
-#: lib/cforum_web/templates/admin/user/index.html.eex:14
-#: lib/cforum_web/templates/users/registration/new.html.eex:11
-#: lib/cforum_web/templates/users/user/index.html.eex:3
-#: lib/cforum_web/templates/users/user/index.html.eex:13
-#: lib/cforum_web/templates/users/user/show.html.eex:8
-#: lib/cforum_web/templates/users/user/user_information.html.eex:6
 msgid "username"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/user/form.html.eex:36
-#: lib/cforum_web/templates/users/password/edit.html.eex:11
-#: lib/cforum_web/templates/users/password/edit_reset.html.eex:11
-#: lib/cforum_web/templates/users/registration/new.html.eex:34
 msgid "password confirmation"
 msgstr ""
 
-#: lib/cforum_web/controllers/users/registration_controller.ex:46
 msgid "Account successfully confirmed!"
 msgstr ""
 
-#: lib/cforum_web/controllers/users/registration_controller.ex:31
 msgid "Account successfully created. Please follow the confirmation instructions we send you via mail."
 msgstr ""
 
-#: lib/cforum_web/templates/user_mailer/confirmation_mail.html.eex:7
-#: lib/cforum_web/templates/user_mailer/confirmation_mail.text.eex:7
-#: lib/cforum_web/templates/user_mailer/reset_password_mail.html.eex:7
-#: lib/cforum_web/templates/user_mailer/reset_password_mail.text.eex:7
 msgid "Best regards, SELFHTML"
 msgstr ""
 
-#: lib/cforum_web/templates/user_mailer/confirmation_mail.html.eex:5
 msgid "Confirm my account"
 msgstr ""
 
-#: lib/cforum_web/templates/user_mailer/confirmation_mail.html.eex:1
-#: lib/cforum_web/templates/user_mailer/confirmation_mail.text.eex:1
-#: lib/cforum_web/templates/user_mailer/reset_password_mail.html.eex:1
-#: lib/cforum_web/templates/user_mailer/reset_password_mail.text.eex:1
 msgid "Hi there, %{name}!"
 msgstr ""
 
-#: lib/cforum_web/controllers/notification_controller.ex:53
-#: lib/cforum_web/controllers/users/registration_controller.ex:51
 msgid "Oops, something went wrong!"
 msgstr ""
 
-#: lib/cforum_web/templates/user_mailer/confirmation_mail.html.eex:3
-#: lib/cforum_web/templates/user_mailer/confirmation_mail.text.eex:3
 msgid "You can confirm your account email through the link below:"
 msgstr ""
 
-#: lib/cforum_web/mailers/user_mailer.ex:10
 msgid "confirm your registration"
 msgstr ""
 
-#: lib/cforum/accounts/user.ex:146
 msgid "password and password confirmation don't match"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/user/index.html.eex:17
-#: lib/cforum_web/templates/users/user/index.html.eex:15
 msgid "Activity during the last 30 days"
 msgstr ""
 
-#: lib/cforum_web/views/users/user_view.ex:21
-#: lib/cforum_web/views/users/user_view.ex:35
 msgid "All messages for user %{username}"
 msgstr ""
 
-#: lib/cforum_web/views/users/user_view.ex:24
-#: lib/cforum_web/views/users/user_view.ex:38
 msgid "All scores for user %{username}"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:160
 msgid "Badges"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:103
 msgid "Best scored messages"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:59
 msgid "Description"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:53
 msgid "Homepage"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:39
 msgid "Jabber ID"
 msgstr ""
 
-#: lib/cforum_web/templates/message/header_message_icons.html.eex:3
 msgid "Message closed, answering not allowed"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:87
 msgid "Newest messages"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:90
 msgid "No messages so far"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:106
 msgid "No scored messages so far"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:16
 msgid "Number of messages"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:118
 msgid "Own votings"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/user/index.html.eex:18
-#: lib/cforum_web/templates/users/user/index.html.eex:16
 msgid "Registration date"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/user/index.html.eex:16
-#: lib/cforum_web/templates/users/user/index.html.eex:14
 msgid "Score"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personal_information.html.eex:28
-#: lib/cforum_web/templates/users/user/show.html.eex:46
 msgid "Twitter handle"
 msgstr ""
 
-#: lib/cforum_web/views/users/user_view.ex:18
-#: lib/cforum_web/views/users/user_view.ex:32
 msgid "User %{username}"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:82
 msgid "User activity"
 msgstr ""
 
-#: lib/cforum_web/views/users/user_view.ex:17
-#: lib/cforum_web/views/users/user_view.ex:31
 msgid "Users"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:101
 msgid "all messages"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:153
 msgid "all scores"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:155
 msgid "all votes"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:160
 msgid "info"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/audit/index.html.eex:15
-#: lib/cforum_web/templates/admin/user/index.html.eex:32
-#: lib/cforum_web/templates/tag/show.html.eex:26
-#: lib/cforum_web/templates/users/user/index.html.eex:25
 msgid "messages"
 msgstr ""
 
-#: lib/cforum_web/templates/thread/thread.html.eex:4
 msgid "no archive"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:163
 msgid "no badges so far"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:61
 msgid "no description given"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:121
 msgid "no scored messages so far"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:22
 msgid "only visible for you"
 msgstr ""
 
-#: lib/cforum_web/templates/message/header_author.html.eex:6
 msgid "original poster"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:26
 msgid "registered since"
 msgstr ""
 
-#: lib/cforum_web/templates/thread/thread.html.eex:5
 msgid "this thread is sticky"
 msgstr ""
 
-#: lib/cforum_web/templates/cite/cite.html.eex:42
-#: lib/cforum_web/templates/message/header.html.eex:9
-#: lib/cforum_web/templates/message/header_votes.html.eex:2
-#: lib/cforum_web/templates/message/header_votes.html.eex:3 area.html.eex:6
 msgid "Score: no score"
 msgid_plural "Score: %{score}"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/cforum_web/views/users/user_view.ex:26
-#: lib/cforum_web/views/users/user_view.ex:41
 msgid "All votes for user %{username}"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:118
 msgid "Received votings"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/confirm_delete.html.eex:4
 msgid "Caution!"
 msgstr ""
 
-#: lib/cforum_web/views/users/user_view.ex:27
-#: lib/cforum_web/views/users/user_view.ex:43
 msgid "Delete user %{username}"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/confirm_delete.html.eex:9
 msgid "Nope, get me out of here"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/confirm_delete.html.eex:8
 msgid "Yes, delete user"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/confirm_delete.html.eex:4
 msgid "You can't undo the deletion of this account, all data will be irretrievable lost! Are you sure that you wan't to delete the account?"
 msgstr ""
 
-#: lib/cforum_web/views/users/user_view.ex:28
 msgid "Edit profile: %{username}"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/new.html.eex:7
 msgid "Save changes"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/user_information.html.eex:16
 msgid "avatar"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/badge/form.html.eex:50
-#: lib/cforum_web/templates/admin/event/form.html.eex:48
-#: lib/cforum_web/templates/admin/forum/edit.html.eex:6
-#: lib/cforum_web/templates/admin/forum/new.html.eex:6
-#: lib/cforum_web/templates/admin/group/form.html.eex:34
-#: lib/cforum_web/templates/admin/redirection/form.html.eex:32
-#: lib/cforum_web/templates/admin/search_section/form.html.eex:36
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:35
-#: lib/cforum_web/templates/admin/user/form.html.eex:47
-#: lib/cforum_web/templates/cite/edit.html.eex:6
-#: lib/cforum_web/templates/cite/new.html.eex:6
-#: lib/cforum_web/templates/events/attendee/form.html.eex:71
-#: lib/cforum_web/templates/mail/new.html.eex:16
-#: lib/cforum_web/templates/message/edit.html.eex:19
-#: lib/cforum_web/templates/message/new.html.eex:21
-#: lib/cforum_web/templates/messages/flag/new.html.eex:33
-#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:34
-#: lib/cforum_web/templates/messages/open_close_vote/new_open.html.eex:17
-#: lib/cforum_web/templates/messages/retag/edit.html.eex:26
-#: lib/cforum_web/templates/moderation/edit.html.eex:37
-#: lib/cforum_web/templates/tag/edit_merge.html.eex:13
-#: lib/cforum_web/templates/tag/form.html.eex:23
-#: lib/cforum_web/templates/tags/synonym/form.html.eex:16
-#: lib/cforum_web/templates/thread/new.html.eex:29
-#: lib/cforum_web/templates/threads/admin/move.html.eex:16
-#: lib/cforum_web/templates/threads/admin/split.html.eex:20
-#: lib/cforum_web/templates/users/password/edit.html.eex:17
-#: lib/cforum_web/templates/users/password/edit_reset.html.eex:17
-#: lib/cforum_web/templates/users/password/new.html.eex:12
-#: lib/cforum_web/templates/users/user/edit.html.eex:8
 msgid "cancel"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:12
 msgid "score"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:7
 msgid "Hello {$vname},"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:3
-#: lib/cforum_web/templates/users/user/settings.html.eex:5
-#: lib/cforum_web/templates/users/user/settings.html.eex:16
 msgid "comfort functions"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/badge/form.html.eex:43
-#: lib/cforum_web/templates/admin/event/form.html.eex:29
-#: lib/cforum_web/templates/admin/forum/form.html.eex:94
-#: lib/cforum_web/templates/admin/forum/index.html.eex:6
-#: lib/cforum_web/templates/users/user/personal_information.html.eex:33
 msgid "description"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personal_information.html.eex:22
 msgid "flattr id"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:6
 msgid "greeting"
 msgstr ""
 
-#: lib/cforum_web/templates/message/form.html.eex:31
-#: lib/cforum_web/templates/users/user/personal_information.html.eex:12
 msgid "homepage"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personal_information.html.eex:23
 msgid "jabber id"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:12
 msgid "notify me on new mail"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personal_information.html.eex:4
-#: lib/cforum_web/templates/users/user/settings.html.eex:4
-#: lib/cforum_web/templates/users/user/settings.html.eex:15
 msgid "personal information"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personalization.html.eex:3
-#: lib/cforum_web/templates/users/user/settings.html.eex:7
-#: lib/cforum_web/templates/users/user/settings.html.eex:18
 msgid "personalization"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personal_information.html.eex:7
 msgid "public email"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:3
-#: lib/cforum_web/templates/users/user/settings.html.eex:8
-#: lib/cforum_web/templates/users/user/settings.html.eex:19
 msgid "readability and overview"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:7
 msgid "use JavaScript for notifications"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:33
 msgid "automatically delete read notifications for activity in subscribed threads"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:53
 msgid "automatically delete read notifications for mentions"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:66
 msgid "automatically delete read notifications for new cites"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:19
 msgid "automatically delete read notifications for new mails"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:22
 msgid "automatically subscribe the first posting of the thread"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:21
 msgid "automatically subscribe the own posting"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:20
 msgid "automatically subscribe the parent posting"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:18
 msgid "automatically subscribe threads when answering"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:19
 msgid "no, don't automatically subscribe"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:34
-#: lib/cforum_web/templates/users/user/notifications.html.eex:41
-#: lib/cforum_web/templates/users/user/notifications.html.eex:48
 msgid "no, don't notify me"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:35
-#: lib/cforum_web/templates/users/user/notifications.html.eex:42
-#: lib/cforum_web/templates/users/user/notifications.html.eex:49
 msgid "notify me via email"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:25
 msgid "notify me via email on activity in subscribed threads"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:32
 msgid "notify me when a thread gets moved to a different forum"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:46
 msgid "notify me when someone creates a new cite"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:39
 msgid "notify me when someone mentions me"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:13
 msgid "notify on new threads"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:33
-#: lib/cforum_web/templates/users/user/notifications.html.eex:40
-#: lib/cforum_web/templates/users/user/notifications.html.eex:47
 msgid "yes, notify me"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/badge/index.html.eex:23
-#: lib/cforum_web/templates/admin/event/index.html.eex:24
-#: lib/cforum_web/templates/admin/group/index.html.eex:23
-#: lib/cforum_web/templates/admin/redirection/index.html.eex:24
-#: lib/cforum_web/templates/admin/search_section/index.html.eex:23
-#: lib/cforum_web/templates/admin/user/index.html.eex:39
-#: lib/cforum_web/templates/notification/index.html.eex:27
-#: lib/cforum_web/templates/tag/show.html.eex:6
-#: lib/cforum_web/templates/tag/show.html.eex:20
-#: lib/cforum_web/views/view_helpers/button.ex:95
-#: lib/cforum_web/views/view_helpers/button.ex:104
-#: lib/cforum_web/views/view_helpers/button.ex:117
-#: lib/cforum_web/views/view_helpers/button.ex:126
-#: lib/cforum_web/views/view_helpers/button.ex:277
-#: lib/cforum_web/views/view_helpers/button.ex:286
-#: lib/cforum_web/views/view_helpers/button.ex:300
-#: lib/cforum_web/views/view_helpers/button.ex:309
-#: lib/cforum_web/views/view_helpers/button.ex:364
-#: lib/cforum_web/views/view_helpers/button.ex:373
 msgid "Are you sure?"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/edit.html.eex:1
 msgid "Edit Forum „%{forum}“"
 msgstr ""
 
-#: lib/cforum_web/controllers/admin/forum_controller.ex:23
 msgid "Forum created successfully."
 msgstr ""
 
-#: lib/cforum_web/controllers/admin/forum_controller.ex:56
 msgid "Forum deleted successfully."
 msgstr ""
 
-#: lib/cforum_web/controllers/admin/forum_controller.ex:43
 msgid "Forum updated successfully."
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:10
 msgid "Keywords"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:6
 msgid "Name"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/new.html.eex:1
 msgid "New Forum"
 msgstr ""
 
-#: lib/cforum_web/templates/notification/index.html.eex:13
 msgid "No notifications found"
 msgstr ""
 
-#: lib/cforum_web/views/notification_view.ex:12
 msgid "Notifications"
 msgstr ""
 
-#: lib/cforum_web/controllers/users/password_controller.ex:44
-#: lib/cforum_web/controllers/users/password_controller.ex:72
 msgid "Password updated successfully."
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:11
 msgid "Position"
 msgstr ""
 
-#: lib/cforum_web/views/users/password_view.ex:9
 msgid "Reset my password"
 msgstr ""
 
-#: lib/cforum_web/views/users/password_view.ex:8
 msgid "Send password reset instructions"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:7
 msgid "Short name"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/show.html.eex:1
 msgid "Show Forum „%{forum}“"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personalization.html.eex:6
 msgid "Show threads by default…"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:21
 msgid "Slug"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:9
 msgid "Standard permission"
 msgstr ""
 
-#: lib/cforum_web/controllers/users/password_controller.ex:21
 msgid "The instructions how to reset your password have been sent."
 msgstr ""
 
-#: lib/cforum_web/controllers/admin/user_controller.ex:63
-#: lib/cforum_web/controllers/users/user_controller.ex:208
 msgid "User deleted successfully."
 msgstr ""
 
-#: lib/cforum_web/controllers/admin/user_controller.ex:50
-#: lib/cforum_web/controllers/users/user_controller.ex:189
 msgid "User updated successfully."
 msgstr ""
 
-#: lib/cforum_web/error_handler.ex:41
 msgid "You are already logged in"
 msgstr ""
 
-#: lib/cforum_web/templates/user_mailer/reset_password_mail.html.eex:3
-#: lib/cforum_web/templates/user_mailer/reset_password_mail.text.eex:3
 msgid "You can reset your password by following the instructions from the link below:"
 msgstr ""
 
-#: lib/cforum_web/controllers/users/session_controller.ex:43
 msgid "You logged out successfully"
 msgstr ""
 
-#: lib/cforum_web/templates/users/password/edit.html.eex:16
-#: lib/cforum_web/templates/users/password/edit_reset.html.eex:16
-#: lib/cforum_web/templates/users/user/edit.html.eex:7
-#: lib/cforum_web/templates/users/user/show.html.eex:181
 msgid "change password"
 msgstr ""
 
-#: lib/cforum_web/views/users/password_view.ex:12
 msgid "change password: %{username}"
 msgstr ""
 
-#: lib/cforum_web/templates/image/index.html.eex:7
-#: lib/cforum_web/templates/mail/index.html.eex:7
-#: lib/cforum_web/templates/notification/index.html.eex:6
 msgid "created at"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/badge/index.html.eex:23
-#: lib/cforum_web/templates/admin/event/form.html.eex:53
-#: lib/cforum_web/templates/admin/event/index.html.eex:24
-#: lib/cforum_web/templates/admin/forum/index.html.eex:26
-#: lib/cforum_web/templates/admin/group/index.html.eex:23
-#: lib/cforum_web/templates/admin/redirection/index.html.eex:24
-#: lib/cforum_web/templates/admin/search_section/index.html.eex:23
-#: lib/cforum_web/templates/admin/user/form.html.eex:52
-#: lib/cforum_web/templates/admin/user/index.html.eex:39
-#: lib/cforum_web/templates/cite/cite.html.eex:77
-#: lib/cforum_web/templates/image/index.html.eex:19
-#: lib/cforum_web/templates/notification/index.html.eex:27
 msgid "delete"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:180
 msgid "delete user"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/badge/index.html.eex:22
-#: lib/cforum_web/templates/admin/event/index.html.eex:23
-#: lib/cforum_web/templates/admin/forum/index.html.eex:25
-#: lib/cforum_web/templates/admin/group/index.html.eex:22
-#: lib/cforum_web/templates/admin/redirection/index.html.eex:23
-#: lib/cforum_web/templates/admin/search_section/index.html.eex:22
-#: lib/cforum_web/templates/admin/user/index.html.eex:38
-#: lib/cforum_web/templates/cite/cite.html.eex:76
-#: lib/cforum_web/templates/event/attendee.html.eex:43
 msgid "edit"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:179
 msgid "edit profile and settings"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:72
-#: lib/cforum_web/views/admin/forum_view.ex:30
 msgid "known-read"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:73
-#: lib/cforum_web/views/admin/forum_view.ex:31
 msgid "known-write"
 msgstr ""
 
-#: lib/cforum_web/templates/mail/index.html.eex:31
-#: lib/cforum_web/templates/mail/mail.html.eex:34
-#: lib/cforum_web/templates/notification/index.html.eex:29
 msgid "mark unread"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/show.html.eex:182
 msgid "new mail to %{username}"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:69
-#: lib/cforum_web/views/admin/forum_view.ex:32
 msgid "private"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:70
-#: lib/cforum_web/templates/admin/group/permissions.html.eex:18
-#: lib/cforum_web/views/admin/forum_view.ex:28
 msgid "read"
 msgstr ""
 
-#: lib/cforum_web/mailers/user_mailer.ex:20
-#: lib/cforum_web/templates/user_mailer/reset_password_mail.html.eex:5
 msgid "reset password instructions"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/edit.html.eex:5
-#: lib/cforum_web/templates/admin/forum/new.html.eex:5
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:34
-#: lib/cforum_web/templates/users/user/edit.html.eex:6
 msgid "save changes"
 msgstr ""
 
-#: lib/cforum_web/templates/users/password/new.html.eex:11
 msgid "send reset instructions"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:27
 msgid "show"
 msgstr ""
 
-#: lib/cforum_web/templates/mail/form.html.eex:19
-#: lib/cforum_web/templates/mail/index.html.eex:6
-#: lib/cforum_web/templates/message/form.html.eex:4
-#: lib/cforum_web/templates/notification/index.html.eex:5
 msgid "subject"
 msgstr ""
 
-#: lib/cforum_web/templates/notification/index.html.eex:19
 msgid "unread"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:71
-#: lib/cforum_web/templates/admin/group/permissions.html.eex:17
-#: lib/cforum_web/views/admin/forum_view.ex:29
 msgid "write"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/index.html.eex:35
 msgid "New forum"
 msgstr ""
 
-#: lib/cforum_web/controllers/notification_controller.ex:62
 msgid "Notification deleted successfully."
 msgstr ""
 
-#: lib/cforum_web/controllers/notification_controller.ex:48
 msgid "Notification successfully marked as unread."
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:12
 msgid "Bye, Regina"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:17
 msgid "Roses are red"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:63
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:41
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:47
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:65
-#: lib/cforum_web/views/admin/setting_view.ex:36
 msgid "ascending"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:51
 msgid "automatically refresh forum index page"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personalization.html.eex:12
 msgid "close threads when read"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personalization.html.eex:41
 msgid "date format for the posting view"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personalization.html.eex:36
 msgid "date format for the threads index"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:172
-#: lib/cforum_web/templates/users/user/personalization.html.eex:47
 msgid "default date format"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:62
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:42
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:48
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:66
-#: lib/cforum_web/views/admin/setting_view.ex:37
 msgid "descending"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:11
 msgid "farewell"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:49
 msgid "fold quotes"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:12
 msgid "fold read messages"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:120
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:60
 msgid "hide read threads"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:31
 msgid "hide unchanged date"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:23
 msgid "hide unchanged subjects"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:27
 msgid "hide unchanged tags"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:56
 msgid "highlight myself"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personalization.html.eex:26
 msgid "include my own CSS code"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personalization.html.eex:16
 msgid "include my own CSS file"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personalization.html.eex:31
 msgid "include my own JS code"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personalization.html.eex:21
 msgid "include my own JS file"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:35
 msgid "mark suspicious usernames"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:64
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:40
-#: lib/cforum_web/views/admin/setting_view.ex:35
 msgid "newest first"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/event/index.html.eex:20
-#: lib/cforum_web/templates/admin/search_section/index.html.eex:19
-#: lib/cforum_web/templates/admin/user/index.html.eex:34
-#: lib/cforum_web/templates/admin/user/index.html.eex:35
-#: lib/cforum_web/templates/users/user/comfort.html.eex:27
-#: lib/cforum_web/templates/users/user/notifications.html.eex:64
 msgid "no"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:67
 msgid "number of diff context lines shown"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:32
 msgid "page messages index"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:25
 msgid "quote previous message by default"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:21
 msgid "quote signature when answering"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personal_information.html.eex:18
 msgid "remove rel=nofollow from my homepage URL"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:62
 msgid "send me a notification on close and re-open votes"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:72
 msgid "send me a notification on flagged messages"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personalization.html.eex:8
 msgid "show closed"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:61
 msgid "show mail index grouped by thread"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:36
 msgid "show number of unread PMs in title"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:40
 msgid "show number of unread messages in title"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:32
 msgid "show number of unread notifications in title"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/personalization.html.eex:7
 msgid "show opened"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:57
 msgid "show the live preview"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:6
 msgid "show threads in…"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:28
 msgid "show two buttons"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:16
 msgid "signature"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:64
 msgid "sort mail threads…"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:46
 msgid "sort messages…"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:39
 msgid "sort threads…"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:53
 msgid "use JavaScript to dynamically load new threads and messages from server"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/comfort.html.eex:25
 msgid "use inline answer forms"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/notifications.html.eex:65
 msgid "via email"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/event/index.html.eex:20
-#: lib/cforum_web/templates/admin/search_section/index.html.eex:19
-#: lib/cforum_web/templates/admin/user/index.html.eex:34
-#: lib/cforum_web/templates/users/user/comfort.html.eex:26
-#: lib/cforum_web/templates/users/user/notifications.html.eex:63
 msgid "yes"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:8
 msgid "… in nested view"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:7
 msgid "… in thread view"
 msgstr ""
 
-#: lib/cforum_web/views/view_helpers/relative_time.ex:53
 msgid "%{days} days"
 msgstr ""
 
-#: lib/cforum_web/views/helpers/relative_time.ex:42
 msgid "%{minutes} minutes"
 msgstr ""
 
-#: lib/cforum_web/views/view_helpers/relative_time.ex:58
 msgid "%{months} months"
 msgstr ""
 
-#: lib/cforum_web/templates/forum/thread_infos.html.eex:20
 msgid "%{time} ago"
 msgstr ""
 
-#: lib/cforum_web/templates/forum/thread_infos.html.eex:6
-#: lib/cforum_web/templates/forum/thread_infos.html.eex:13
 msgid "%{time} ago:"
 msgstr ""
 
-#: lib/cforum_web/views/view_helpers/relative_time.ex:61
 msgid "%{years} years"
 msgstr ""
 
-#: lib/cforum_web/views/helpers/relative_time.ex:38
 msgid "1 minute"
 msgstr ""
 
-#: lib/cforum_web/views/view_helpers/relative_time.ex:60
 msgid "1 year"
 msgstr ""
 
-#: lib/cforum_web/templates/forum/thread_infos.html.eex:19
 msgid "Thread created"
 msgstr ""
 
-#: lib/cforum_web/views/view_helpers/relative_time.ex:50
 msgid "a day"
 msgstr ""
 
-#: lib/cforum_web/views/view_helpers/relative_time.ex:48
 msgid "about %{hours} hours"
 msgstr ""
 
-#: lib/cforum_web/views/view_helpers/relative_time.ex:55
 msgid "about 1 month"
 msgstr ""
 
-#: lib/cforum_web/views/view_helpers/relative_time.ex:45
 msgid "about an hour"
 msgstr ""
 
-#: lib/cforum_web/templates/forum/thread_infos.html.eex:12
 msgid "first unread message"
 msgstr ""
 
-#: lib/cforum_web/views/view_helpers/relative_time.ex:32
 msgid "half a minute"
 msgstr ""
 
-#: lib/cforum_web/templates/forum/thread_infos.html.eex:5
 msgid "last message"
 msgstr ""
 
-#: lib/cforum_web/views/view_helpers/relative_time.ex:26
 msgid "less than 10 seconds"
 msgstr ""
 
-#: lib/cforum_web/views/view_helpers/relative_time.ex:29
 msgid "less than 20 seconds"
 msgstr ""
 
-#: lib/cforum_web/views/view_helpers/relative_time.ex:23
 msgid "less than 5 seconds"
 msgstr ""
 
-#: lib/cforum_web/views/view_helpers/relative_time.ex:35
 msgid "less than a minute"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/audit/threads.html.eex:11
-#: lib/cforum_web/views/message_view.ex:97
 msgid "by"
 msgstr ""
 
-#: lib/cforum_web/templates/message/form.html.eex:40
-#: lib/cforum_web/templates/message/message.html.eex:8
-#: lib/cforum_web/templates/moderation/entry.html.eex:18
-#: lib/cforum_web/templates/moderation/entry.html.eex:19
-#: lib/cforum_web/views/message_view.ex:252
-#: lib/cforum_web/views/message_view.ex:253
 msgid "problematic site"
 msgstr ""
 
-#: thread.html.eex:6
 msgid "read message"
 msgstr ""
 
-#: lib/cforum_web/templates/users/user/settings.html.eex:3
-#: lib/cforum_web/templates/users/user/settings.html.eex:14
-#: lib/cforum_web/templates/users/user/user_information.html.eex:3
 msgid "user information"
 msgstr ""
 
-#: lib/cforum_web/views/message_view.ex:102
 msgid "new answer to %{name}"
 msgstr ""
 
-#: lib/cforum_web/controllers/message_controller.ex:125
-#: lib/cforum_web/controllers/message_controller.ex:167
 msgid "Message created successfully."
 msgstr ""
 
-#: lib/cforum_web/templates/layout/page_header.html.eex:4
 msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">documentation</a>"
 msgstr ""
 
-#: lib/cforum_web/controllers/api/v1/message_controller.ex:25
-#: lib/cforum_web/controllers/message_controller.ex:89
-#: lib/cforum_web/controllers/thread_controller.ex:123
 msgid "all"
 msgstr ""
 
-#: lib/cforum_web/templates/cite/form.html.eex:15
-#: lib/cforum_web/templates/message/form.html.eex:13
 msgid "author"
 msgstr ""
 
-#: lib/cforum_web/templates/message/form.html.eex:65
 msgid "comma separated list, e.g. „css, html“"
 msgstr ""
 
-#: lib/cforum_web/templates/message/edit.html.eex:18
-#: lib/cforum_web/templates/message/new.html.eex:20
-#: lib/cforum_web/templates/thread/new.html.eex:28
 msgid "create message"
 msgstr ""
 
-#: lib/cforum_web/templates/message/form.html.eex:64
 msgid "html, css, javascript"
 msgstr ""
 
-#: lib/cforum_web/templates/message/form.html.eex:34
 msgid "https://example.com"
 msgstr ""
 
-#: lib/cforum_web/templates/message/form.html.eex:43
 msgid "https://example.com/float-example.html"
 msgstr ""
 
-#: lib/cforum_web/templates/message/form.html.eex:7
 msgid "replace float:left with a flexbox construct"
 msgstr ""
 
-#: lib/cforum_web/templates/mail/new.html.eex:14
-#: lib/cforum_web/templates/message/edit.html.eex:17
-#: lib/cforum_web/templates/message/new.html.eex:19
-#: lib/cforum_web/templates/thread/new.html.eex:27
 msgid "show preview"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/audit/index.html.eex:19
 msgid "tags"
 msgstr ""
 
-#: lib/cforum_web/templates/message/form.html.eex:26
-#: lib/cforum_web/templates/message/form.html.eex:35
-#: lib/cforum_web/templates/message/form.html.eex:44
 msgid "voluntary, will be publicly visible"
 msgstr ""
 
-#: lib/cforum_web/templates/forum/message_header.html.eex:4
-#: lib/cforum_web/views/view_helpers.ex:189
 msgid "link to profile of"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/audit/index.html.eex:34
-#: lib/cforum_web/templates/admin/user/index.html.eex:7
-#: lib/cforum_web/templates/layout/page_header.html.eex:50
-#: lib/cforum_web/templates/layout/page_header.html.eex:62
-#: lib/cforum_web/templates/search/show.html.eex:41
-#: lib/cforum_web/templates/users/user/index.html.eex:7
 msgid "search"
 msgstr ""
 
-#: lib/cforum_web/templates/forum/message_header.html.eex:6
-#: lib/cforum_web/views/view_helpers.ex:181
-#: lib/cforum_web/views/view_helpers.ex:194
 msgid "user %{user}"
 msgstr ""
 
-#: lib/cforum_web/templates/message/header_num_infos.html.eex:1
 msgid "%{count} message"
 msgid_plural "%{count} messages"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/cforum_web/templates/message/header_num_infos.html.eex:4
 msgid "%{count} unread message"
 msgid_plural "{count} unread messages"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/cforum_web/paginator.ex:61
 msgid "first page"
 msgstr ""
 
-#: lib/cforum_web/paginator.ex:90
 msgid "last page"
 msgstr ""
 
-#: lib/cforum_web/paginator.ex:81
 msgid "next page"
 msgstr ""
 
-#: lib/cforum_web/paginator.ex:46
 msgid "pages"
 msgstr ""
 
-#: lib/cforum_web/paginator.ex:71
 msgid "previous page"
 msgstr ""
 
-#: lib/cforum/messages/message.ex:194
 msgid "unknown tags given: %{tags}"
 msgstr ""
 
-#: lib/cforum_web/controllers/thread_controller.ex:164
 msgid "Thread created successfully."
 msgstr ""
 
-#: lib/cforum_web/templates/forum/message_header.html.eex:8
 msgid "User %{user}"
 msgstr ""
 
-#: lib/cforum_web/views/view_helpers.ex:158
 msgid "bronze medal"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/group/permissions.html.eex:3
-#: lib/cforum_web/templates/admin/search_section/form.html.eex:19
-#: lib/cforum_web/templates/admin/search_section/form.html.eex:26
-#: lib/cforum_web/templates/admin/search_section/index.html.eex:6
-#: lib/cforum_web/templates/thread/new.html.eex:15
-#: lib/cforum_web/templates/threads/admin/move.html.eex:8
-#: lib/cforum_web/templates/threads/admin/split.html.eex:10
 msgid "forum"
 msgstr ""
 
-#: lib/cforum_web/views/view_helpers.ex:160
 msgid "gold medal"
 msgstr ""
 
-#: lib/cforum_web/views/thread_view.ex:48
 msgid "new thread"
 msgstr ""
 
-#: lib/cforum_web/views/view_helpers.ex:159
 msgid "silver medal"
 msgstr ""
 
-#: lib/cforum_web/templates/forum/index.html.eex:12
-#: lib/cforum_web/templates/layout/page_header.html.eex:21
-#: lib/cforum_web/templates/message/message_forum_links.html.eex:4
-#: lib/cforum_web/views/archive_view.ex:8
-#: lib/cforum_web/views/layout_view.ex:286
-#: lib/cforum_web/views/thread_view.ex:37 lib/cforum_web/views/thread_view.ex:44
 msgid "all forums"
 msgstr ""
 
-#: lib/cforum_web/templates/forum/index.html.eex:28
-#: lib/cforum_web/templates/forum/index.html.eex:50
 msgid "show all"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/interesting_controller.ex:72
 msgid "Interesting mark was successfully removed."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/interesting_controller.ex:64
 msgid "Message was successfully marked as interesting."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/subscription_controller.ex:64
 msgid "Message was successfully subscribed."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/subscription_controller.ex:72
 msgid "Message was successfully unsubscribed."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/open_close_controller.ex:38
 msgid "Thread has successfully been closed."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/invisible_controller.ex:56
 msgid "Thread has successfully been hidden."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/open_close_controller.ex:22
 msgid "Thread has successfully been opened."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/invisible_controller.ex:73
 msgid "Thread has successfully been restored."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_thread_icons.html.eex:7
-#: lib/cforum_web/templates/message/header_thread_icons.html.eex:8
 msgid "Thread is currently closed. Open it."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_thread_icons.html.eex:2
-#: lib/cforum_web/templates/message/header_thread_icons.html.eex:3
 msgid "Thread is currently open. Close it."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_thread_icons.html.eex:19
-#: lib/cforum_web/templates/message/header_thread_icons.html.eex:20
 msgid "hide this thread"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:126
 msgid "interesting messages"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:128
-#: lib/cforum_web/views/threads/invisible_view.ex:9
 msgid "invisible threads"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_thread_icons.html.eex:14
-#: lib/cforum_web/templates/message/header_thread_icons.html.eex:15
 msgid "make this thread visible again"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_message_icons.html.eex:17
-#: lib/cforum_web/templates/message/header_message_icons.html.eex:18
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:48
 msgid "mark message as interesting"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_thread_icons.html.eex:25
-#: lib/cforum_web/templates/message/header_thread_icons.html.eex:26
 msgid "mark thread read"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/messages/interesting_view.ex:12
 msgid "messages marked as interesting"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/threads/invisible/index.html.eex:2
 msgid "no invisible threads, yet"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/messages/interesting/index.html.eex:12
 msgid "no messages marked as interesting, yet"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/messages/subscription/index.html.eex:12
 msgid "no subscribed messages, yet"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_message_icons.html.eex:12
-#: lib/cforum_web/templates/message/header_message_icons.html.eex:13
 msgid "remove interesting mark"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_message_icons.html.eex:30
-#: lib/cforum_web/templates/message/header_message_icons.html.eex:31
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:67
 msgid "subscribe message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:127
-#: lib/cforum_web/views/messages/subscription_view.ex:12
 msgid "subscribed messages"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_message_icons.html.eex:25
-#: lib/cforum_web/templates/message/header_message_icons.html.eex:26
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:76
 msgid "unsubscribe message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/index.html.eex:14
 msgid "No mails found"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/mail_view.ex:16
 msgid "mails"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/subnav.html.eex:2
-#: lib/cforum_web/views/mail_view.ex:17
 msgid "new mail"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/index.html.eex:4
 msgid "partner"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/new.html.eex:15
 msgid "send mail"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/form.html.eex:22
 msgid "Howdy, partner!"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/mail_view.ex:20
 msgid "mail from %{partner}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/index.html.eex:28
-#: lib/cforum_web/templates/mail/mail.html.eex:29
 msgid "answer"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/index.html.eex:29
-#: lib/cforum_web/templates/mail/mail.html.eex:30
 msgid "answer without cite"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:120
 msgid "Mail created successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:145
 msgid "Mail deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:133
 msgid "Mail successfully marked as unread."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/mail.html.eex:33
 msgid "delete mail"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/form.html.eex:6
 msgid "recpient"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:60
-#: lib/cforum_web/controllers/mail_controller.ex:83
-#: lib/cforum_web/controllers/mail_controller.ex:98
 msgid "you"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/notifications.html.eex:7
 msgid "notify me via email on new mail"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/new.html.eex:6
 msgid "preview"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/form.html.eex:30
 msgid "mail content"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/forum/form.html.eex:78
-#: lib/cforum_web/templates/admin/forum/index.html.eex:8
 msgid "keywords"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/form.html.eex:51
 msgid "message content"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/badge/form.html.eex:7
-#: lib/cforum_web/templates/admin/badge/index.html.eex:4
-#: lib/cforum_web/templates/admin/event/form.html.eex:7
-#: lib/cforum_web/templates/admin/event/index.html.eex:4
-#: lib/cforum_web/templates/admin/forum/form.html.eex:42
-#: lib/cforum_web/templates/admin/forum/index.html.eex:4
-#: lib/cforum_web/templates/admin/group/form.html.eex:7
-#: lib/cforum_web/templates/admin/search_section/form.html.eex:7
-#: lib/cforum_web/templates/badge/index.html.eex:8
-#: lib/cforum_web/templates/event/attendee.html.eex:2
-#: lib/cforum_web/templates/event/index.html.eex:4
-#: lib/cforum_web/templates/events/attendee/form.html.eex:9
-#: lib/cforum_web/templates/image/index.html.eex:5
 msgid "name"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/forum/form.html.eex:86
-#: lib/cforum_web/templates/admin/forum/index.html.eex:9
-#: lib/cforum_web/templates/admin/search_section/form.html.eex:13
-#: lib/cforum_web/templates/admin/search_section/index.html.eex:5
 msgid "position"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/forum/form.html.eex:50
-#: lib/cforum_web/templates/admin/forum/index.html.eex:5
 msgid "short name"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/badge/form.html.eex:13
-#: lib/cforum_web/templates/admin/forum/form.html.eex:58
 msgid "slug"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/forum/form.html.eex:66
-#: lib/cforum_web/templates/admin/forum/index.html.eex:7
 msgid "standard permission"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/users/password/new.html.eex:4
 msgid "username or email"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:51
 msgid "chat"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/cites/cite_indexer_job.ex:46
-#: lib/cforum_web/templates/admin/audit/index.html.eex:16
-#: lib/cforum_web/templates/admin/search_section/form.html.eex:26
-#: lib/cforum_web/templates/layout/page_header.html.eex:47
-#: lib/cforum_web/views/cite_view.ex:15
 msgid "cites"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:52
 msgid "help"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/cites/cite_indexer_job.ex:65
-#: lib/cforum_web/templates/cite/cite.html.eex:5
-#: lib/cforum_web/views/cite_view.ex:17
 msgid "cite %{id}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/cite/cite.html.eex:62
 msgid "created by"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/cite/subnav.html.eex:2
-#: lib/cforum_web/views/cite_view.ex:18
 msgid "suggest new cite"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/cite/subnav.html.eex:4
-#: lib/cforum_web/views/cite_view.ex:16
 msgid "vote for cites"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/cite/form.html.eex:7
 msgid "URL"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/cite/form.html.eex:33
 msgid "cite"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/cite_view.ex:19
 msgid "edit cite #%{id}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/cite/edit.html.eex:5
 msgid "save edited cite"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/cite/new.html.eex:5
 msgid "suggest cite"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/cite/form.html.eex:24
 msgid "submitted by"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/cite/vote_controller.ex:19
 msgid "Successfully voted for cite."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/group_view.ex:8
 msgid "administrate groups"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/subnav.html.eex:10
-#: lib/cforum_web/views/admin/auditing_view.ex:10
-#: lib/cforum_web/views/admin/auditing_view.ex:11
 msgid "audit log"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/subnav.html.eex:11
 msgid "background tasks"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/index.html.eex:28
-#: lib/cforum_web/templates/admin/audit/users.html.eex:2
-#: lib/cforum_web/templates/admin/subnav.html.eex:7
-#: lib/cforum_web/templates/layout/page_header.html.eex:131
-#: lib/cforum_web/views/badge_view.ex:11
 msgid "badges"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/group/index.html.eex:6
 msgid "created"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/index.html.eex:23
-#: lib/cforum_web/templates/admin/subnav.html.eex:5
-#: lib/cforum_web/templates/layout/page_header.html.eex:135
-#: lib/cforum_web/views/event_view.ex:13
 msgid "events"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/index.html.eex:26
-#: lib/cforum_web/templates/admin/subnav.html.eex:4
-#: lib/cforum_web/templates/forum/index.html.eex:3
-#: lib/cforum_web/templates/layout/page_header.html.eex:18
-#: lib/cforum_web/views/forum_view.ex:10
 msgid "forums"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/group/index.html.eex:4
 msgid "group name"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/subnav.html.eex:9
-#: lib/cforum_web/views/image_view.ex:13
 msgid "images"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/group/index.html.eex:5
 msgid "members"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/group/subnav.html.eex:4
-#: lib/cforum_web/views/admin/group_view.ex:9
 msgid "new group"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/badge/form.html.eex:49
-#: lib/cforum_web/templates/admin/event/form.html.eex:47
-#: lib/cforum_web/templates/admin/group/form.html.eex:33
-#: lib/cforum_web/templates/admin/redirection/form.html.eex:31
-#: lib/cforum_web/templates/admin/search_section/form.html.eex:35
-#: lib/cforum_web/templates/admin/user/form.html.eex:46
-#: lib/cforum_web/templates/events/attendee/form.html.eex:70
-#: lib/cforum_web/templates/messages/retag/edit.html.eex:25
-#: lib/cforum_web/templates/moderation/edit.html.eex:36
-#: lib/cforum_web/templates/tag/edit_merge.html.eex:12
-#: lib/cforum_web/templates/tag/form.html.eex:22
-#: lib/cforum_web/templates/tags/synonym/form.html.eex:15
 msgid "save"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/subnav.html.eex:8
 msgid "search sections"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/group/index.html.eex:7
 msgid "updated"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/index.html.eex:17
-#: lib/cforum_web/templates/admin/group/form.html.eex:13
-#: lib/cforum_web/templates/admin/subnav.html.eex:2
 msgid "users"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/group_controller.ex:23
 msgid "The group has been created successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/group_controller.ex:59
 msgid "The group has been deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/group_controller.ex:45
 msgid "The group has been updated successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/group_view.ex:12
 msgid "edit group „%{name}“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/group/permissions.html.eex:16
 msgid "moderate"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/group/permissions.html.eex:13
 msgid "permission"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/group/form.html.eex:19
 msgid "permissions"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/widgets/users_selector.html.eex:6
 msgid "remove user"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/user_controller.ex:30
 msgid "The user has been created successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/forum_view.ex:8
 msgid "administrate forums"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/user_view.ex:13
 msgid "administrate users"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/forum_view.ex:12
 msgid "edit forum „%{name}“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/user_view.ex:17
 msgid "edit user „%{name}“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/index.html.eex:27
-#: lib/cforum_web/templates/admin/subnav.html.eex:6
 msgid "groups"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/forum/subnav.html.eex:4
-#: lib/cforum_web/views/admin/forum_view.ex:9
 msgid "new forum"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/user/subnav.html.eex:4
-#: lib/cforum_web/views/admin/user_view.ex:14
 msgid "new user"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/user/form.html.eex:26
 msgid "user is active"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/user/form.html.eex:22
 msgid "user is an administrator"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:210
 msgid "Number of votes necessary to close a vote"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:194
 msgid "accept score"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:200
 msgid "accept score for self-accepted answers"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:11
 msgid "additional CSS resource"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:17
 msgid "additional JS resource"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:41
 msgid "alternative CSS resoures"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:269
 msgid "blacklist patterns for posting content"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:262
 msgid "blacklist patterns for posting subjects"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:217
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:224
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:231
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:238
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:245
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:252
-#: lib/cforum_web/views/admin/setting_view.ex:38
 msgid "close subtree"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:166
 msgid "date format for search results"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:154
 msgid "date format for the index and the thread tree"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:160
 msgid "date format for the postings"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:61
 msgid "default sort order for threads"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/setting_view.ex:28
 msgid "default value (%{val}, %{origin})"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:54
 msgid "default view for threads"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:188
 msgid "downvote score"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/setting_view.ex:40
 msgid "empty value"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:5
 msgid "forum instance is locked"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:6
 msgid "forum instance is not locked"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/setting_view.ex:27
 msgid "global config"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/setting_view.ex:27
 msgid "global default"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:218
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:225
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:232
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:239
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:246
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:253
-#: lib/cforum_web/views/admin/setting_view.ex:39
 msgid "hide („delete“) subtree"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:94
 msgid "items per page"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:138
 msgid "maximum editable age of posting in minutes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:77
 msgid "maximum filesize for images"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:122
 msgid "maximum number of messages per thread"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:23
 msgid "maximum number of tags per message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:116
 msgid "maximum number of threads"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:48
 msgid "message of the day"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:29
 msgid "minimum number of tags per message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:276
 msgid "nickname black list"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:43
 msgid "one URL per line"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:264
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:271
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:278
 msgid "one pattern per line"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:72
 msgid "one pattern per line; links in postings to URLs macthing to one of these patterns don't get rel=nofollow set"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:145
 msgid "postings are always editable"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:144
 msgid "postings are editable until the first answer has been written"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:244
 msgid "result for custom close votes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:237
 msgid "result for duplicate posting close votes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:230
 msgid "result for illegal posting close votes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:216
 msgid "result for off-topic posting close votes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:251
 msgid "result for spam close votes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:223
 msgid "result for unconstructive posting close votes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:106
 msgid "search results per page"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:35
 msgid "start index for headings"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:182
 msgid "upvote score"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:132
 msgid "users may edit their postings"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:133
 msgid "users may not edit their postings"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:100
 msgid "users per page"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:70
 msgid "white list for links"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/setting_view.ex:32
 msgid "„no“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/setting_view.ex:31
 msgid "„yes“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/forum/form.html.eex:11
-#: lib/cforum_web/templates/admin/forum/form.html.eex:25
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:13
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:26
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:259
 msgid "anti spam settings"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/forum/form.html.eex:6
-#: lib/cforum_web/templates/admin/forum/form.html.eex:20
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:8
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:21
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:113
 msgid "archiver settings"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/forum/form.html.eex:10
-#: lib/cforum_web/templates/admin/forum/form.html.eex:24
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:12
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:25
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:207
 msgid "close and reopen vote settings"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/forum/form.html.eex:8
-#: lib/cforum_web/templates/admin/forum/form.html.eex:22
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:10
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:23
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:151
 msgid "date format settings"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/forum/form.html.eex:7
-#: lib/cforum_web/templates/admin/forum/form.html.eex:21
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:9
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:22
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:129
 msgid "editing settings"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/forum/form.html.eex:4
-#: lib/cforum_web/templates/admin/forum/form.html.eex:18
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:6
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:19
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:2
 msgid "general settings"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/forum/form.html.eex:5
-#: lib/cforum_web/templates/admin/forum/form.html.eex:19
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:7
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:20
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:91
 msgid "pagination settings"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/forum/form.html.eex:9
-#: lib/cforum_web/templates/admin/forum/form.html.eex:23
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:11
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:24
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:179
 msgid "voting and scoring settings"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/setting_controller.ex:19
 msgid "Settings updated successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/forum/form.html.eex:3
-#: lib/cforum_web/templates/admin/forum/form.html.eex:17
-#: lib/cforum_web/templates/admin/forum/form.html.eex:38
 msgid "forum settings"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/badge_controller.ex:21
 msgid "Badge created successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/badge_controller.ex:54
 msgid "Badge deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/badge_controller.ex:41
 msgid "Badge updated successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/badge_view.ex:9
 msgid "administrate badges"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/badge/form.html.eex:37
-#: lib/cforum_web/templates/admin/badge/index.html.eex:6
 msgid "badge type"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/view_helpers.ex:171
 msgid "create close and reopen votes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/view_helpers.ex:168
 msgid "create tag synonyms"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/view_helpers.ex:167
 msgid "create tags"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/view_helpers.ex:174
 msgid "custom"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/view_helpers.ex:164
 msgid "downvote"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/view_helpers.ex:170
 msgid "edit answers"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/badge_view.ex:13
 msgid "edit badge „%{name}“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/view_helpers.ex:169
 msgid "edit questions"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/badge/form.html.eex:31
-#: lib/cforum_web/templates/admin/badge/index.html.eex:7
 msgid "medal type"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/view_helpers.ex:172
 msgid "moderator tools"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/badge/subnav.html.eex:4
-#: lib/cforum_web/views/admin/badge_view.ex:10
 msgid "new badge"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/view_helpers.ex:165
 msgid "retag"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/badge/form.html.eex:25
-#: lib/cforum_web/templates/admin/badge/index.html.eex:5
-#: lib/cforum_web/templates/badge/index.html.eex:9
 msgid "score needed"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/view_helpers.ex:173
 msgid "seo profi"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/view_helpers.ex:163
 msgid "upvote"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/view_helpers.ex:166
 msgid "visit close and reopen votes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/badge/form.html.eex:19
-#: lib/cforum_web/templates/badge/index.html.eex:6
 msgid "order"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/redirection/form.html.eex:7
-#: lib/cforum_web/templates/admin/redirection/index.html.eex:5
 msgid "HTTP status code"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/redirection_controller.ex:28
 msgid "Redirection created successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/redirection_controller.ex:61
 msgid "Redirection deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/redirection_controller.ex:48
 msgid "Redirection updated successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/redirection_view.ex:11
 msgid "administrate redirections"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/redirection/form.html.eex:25
-#: lib/cforum_web/templates/admin/redirection/index.html.eex:8
-#: lib/cforum_web/templates/events/attendee/form.html.eex:61
 msgid "comment"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/redirection/form.html.eex:19
-#: lib/cforum_web/templates/admin/redirection/index.html.eex:7
 msgid "destination"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/redirection_view.ex:13
 msgid "edit redirection"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/redirection/subnav.html.eex:4
-#: lib/cforum_web/views/admin/redirection_view.ex:12
 msgid "new redirection"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/redirection/form.html.eex:13
-#: lib/cforum_web/templates/admin/redirection/index.html.eex:6
 msgid "path"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/index.html.eex:29
-#: lib/cforum_web/templates/admin/subnav.html.eex:12
 msgid "redirections"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/redirection/index.html.eex:4
 msgid "id"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/redirector/redirect_archive_thread.html.eex:1
 msgid "Because of historical reasons the thread id of the old archive is not unique. Found the following threads with the same TID:"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/redirector_view.ex:4
 msgid "found multiple threads with this thread id"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/tag_controller.ex:100
 msgid "Tag %{old_tag} got successfully merged to tag %{new_tag}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/tag_controller.ex:56
 msgid "Tag created successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/tag_controller.ex:119
 msgid "Tag deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/tag_controller.ex:76
 msgid "Tag updated successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/tag/show.html.eex:1
 msgid "This tag is not used for suggestions."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/tag/show.html.eex:1
 msgid "This tag is used for suggestions."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/tag_view.ex:22
 msgid "create new tag"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/tags/synonym_view.ex:17
 msgid "create new tag synonym for tag “%{tag}”"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/tag/show.html.eex:6
 msgid "delete tag"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/tag/show.html.eex:4
 msgid "edit tag"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/tags/synonym_view.ex:9
 msgid "edit tag synonym “%{synonym}” for tag “%{tag}”"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/tag_view.ex:20
 msgid "edit tag “%{tag}”"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/tag/edit_merge.html.eex:5
 msgid "existing tag"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/tag/show.html.eex:5
 msgid "merge tag"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/tag_view.ex:25
 msgid "merge tag %{tag}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/tag/show.html.eex:7
 msgid "new synonym"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/tag/subnav.html.eex:2
 msgid "new tag"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/tag/show.html.eex:29
 msgid "no messages found"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/tag/show.html.eex:13
 msgid "no synonyms found"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/tag/index.html.eex:3
 msgid "not applicable for suggestions"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/tag/form.html.eex:17
 msgid "suggest this tag"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/tag/show.html.eex:10
 msgid "synonyms"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/tag/form.html.eex:8
 msgid "tag name"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/tags/synonym_controller.ex:19
 msgid "Tag synonym created successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/tags/synonym_controller.ex:48
 msgid "Tag synonym deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/tags/synonym_controller.ex:36
 msgid "Tag synonym updated successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/tag/show.html.eex:20
 msgid "delete synonym"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/tag/show.html.eex:19
 msgid "edit synonym"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/tags/synonym/form.html.eex:8
 msgid "synonym"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/stats.html.eex:34
 msgid "%{messages} messages in %{threads} threads by %{users} users"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/index.html.eex:6
 msgid "%{num_messages} unread messages in %{num_threads} threads"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/stats.html.eex:10
 msgid "The forum „%{name}“ has been created at %{created} and contains <strong>%{no_messages}</strong> messages in <strong>%{no_threads}</strong> threads."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/stats.html.eex:8
 msgid "The oldest forum has been created at %{created}. All forums contain <strong>%{no_messages}</strong> messages in <strong>%{no_threads}</strong> threads."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/stats.html.eex:5
 msgid "There are no visible forums available."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/stats.html.eex:57
 msgid "five most active users"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/stats.html.eex:42
 msgid "five most used tags"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/forum_view.ex:15
 msgid "forum statistics for all forums"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/forum_view.ex:13
 msgid "forum statistics for forum „%{forum}“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/stats.html.eex:60
 msgid "no users found"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/stats.html.eex:23
 msgid "number of authors per month in the last 12 months"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/stats.html.eex:75
 msgid "number of threads and messages per month during the last 48 months"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/stats.html.eex:17
 msgid "number of threads and messages per month in the last 12 months"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/stats.html.eex:81
 msgid "number of threads and messages per month overall"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/forum_view.ex:32
 msgid "state %{day} last week"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/forum_view.ex:34
 msgid "state of the last 30 days"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/forum_view.ex:35
 msgid "state of the last 360 days"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/forum_view.ex:33
 msgid "state of the last seven days"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/forum_view.ex:31
 msgid "state today"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/stats.html.eex:46
 msgid "no tags found"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/portal.html.eex:19
 msgid "%{count} new mail"
 msgid_plural "%{count} new mails"
 msgstr[0] ""
 msgstr[1] ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/portal.html.eex:5
 msgid "%{count} new notification"
 msgid_plural "%{count} new notifications"
 msgstr[0] ""
 msgstr[1] ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/portal.html.eex:2
 msgid "activity"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/portal.html.eex:30
 msgid "show all mails"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/portal.html.eex:15
 msgid "show all notifications"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/index.html.eex:58
 msgid "Threads without answer"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/index.html.eex:28
-#: lib/cforum_web/templates/forum/index.html.eex:52
-#: lib/cforum_web/templates/forum/index.html.eex:68
 msgid "show all threads"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/thread_view.ex:38
 msgid "overview – %{forum}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_forum_links.html.eex:25
-#: lib/cforum_web/views/layout_view.ex:274
 msgid "administrative view"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_forum_links.html.eex:19
-#: lib/cforum_web/templates/message/message_forum_links.html.eex:21
-#: lib/cforum_web/views/layout_view.ex:273
 msgid "normal view"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/forum/index.html.eex:13
-#: lib/cforum_web/templates/forum/index.html.eex:35
-#: lib/cforum_web/templates/layout/page_header.html.eex:22
-#: lib/cforum_web/templates/layout/page_header.html.eex:31
 msgid "statistics"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/event_controller.ex:31
 msgid "Event created successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/event_controller.ex:64
 msgid "Event deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/event_controller.ex:51
 msgid "Event updated successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/event/form.html.eex:41
 msgid "Google maps link"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/event_view.ex:14
 msgid "edit event %{name}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/index.html.eex:8
-#: lib/cforum_web/templates/admin/event/form.html.eex:19
-#: lib/cforum_web/templates/admin/event/index.html.eex:7
-#: lib/cforum_web/templates/event/index.html.eex:7
-#: lib/cforum_web/templates/search/show.html.eex:30
 msgid "end date"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/event/form.html.eex:25
 msgid "event is visible"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/events.html.eex:4
-#: lib/cforum_web/templates/admin/event/form.html.eex:35
-#: lib/cforum_web/templates/admin/event/index.html.eex:5
-#: lib/cforum_web/templates/event/index.html.eex:5
 msgid "location"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/event/subnav.html.eex:4
-#: lib/cforum_web/views/admin/event_view.ex:11
 msgid "new event"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/index.html.eex:3
-#: lib/cforum_web/templates/admin/event/form.html.eex:13
-#: lib/cforum_web/templates/admin/event/index.html.eex:6
-#: lib/cforum_web/templates/event/index.html.eex:6
-#: lib/cforum_web/templates/search/show.html.eex:24
 msgid "start date"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/event/index.html.eex:8
 msgid "visible"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/event/show.html.eex:11
 msgid "in %{location}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message.html.eex:21
 msgid "This message got cited in cite %{cite_links}"
 msgid_plural "This message got cited in cites %{cite_links}"
 msgstr[0] ""
 msgstr[1] ""
 
 #, elixir-format
-#: lib/cforum_web/templates/event/show.html.eex:28
 msgid "no attendees"
 msgid_plural "%{count} attendees"
 msgstr[0] ""
 msgstr[1] ""
 
 #, elixir-format
-#: lib/cforum_web/templates/event/show.html.eex:35
 msgid "No attendees, yet."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:27
 msgid "Start a close vote"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/event/attendee.html.eex:44
 msgid "delete attendee"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:11
 msgid "edit message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:23
-#: lib/cforum_web/templates/messages/flag/new.html.eex:32
 msgid "flag message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:15
 msgid "mail to author"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/event/show.html.eex:22
 msgid "map of the event location area"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:57
 msgid "mark message as boring"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/event/attendee.html.eex:22
-#: lib/cforum_web/templates/events/attendee/form.html.eex:43
 msgid "planned arrival"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/event/attendee.html.eex:27
-#: lib/cforum_web/templates/events/attendee/form.html.eex:52
 msgid "planned leave"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/event/attendee.html.eex:17
-#: lib/cforum_web/templates/events/attendee/form.html.eex:34
 msgid "planned start"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:74
 msgid "regarding your message %{subject} from %{time}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:19
 msgid "retag message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/event/attendee.html.eex:32
 msgid "seats available"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_admin_buttons.html.eex:51
-#: lib/cforum_web/templates/threads/admin/split.html.eex:19
 msgid "split thread"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/event/attendee.html.eex:12
 msgid "starts at location"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/events/attendee_view.ex:11
 msgid "take place in event „%{event}“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:3
 msgid "write a new answer"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:6
 msgid "write a new answer with quoting"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/scores.html.eex:1
 msgid "%{score} points for %{user}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view.ex:41
 msgid "(unknown)"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/events/attendee_controller.ex:47
 msgid "Attendee deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/badge/index.html.eex:1
 msgid "Be aware of the scoring rules!"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/cite_controller.ex:29
 msgid "Cite created successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/cite_controller.ex:70
 msgid "Cite deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/cite_controller.ex:57
 msgid "Cite updated successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/accept_controller.ex:21
 msgid "Message has successfully been accepted as a solving answer"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/flag_controller.ex:23
 msgid "Message has successfully been flagged."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/accept_controller.ex:29
 msgid "Message has successfully been unaccepted as a solving answer"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/messages/flag_view.ex:18
-#: lib/cforum_web/views/messages/open_close_vote_view.ex:32
 msgid "Message is off topic."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/moderation_controller.ex:64
 msgid "Moderation case successfully solved."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/moderation/index.html.eex:3
 msgid "No moderation queue entries found"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/events/attendee/form.html.eex:21
 msgid "Steinfurt"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/vote_controller.ex:42
 msgid "Successfully downvoted message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/api/v1/messages/open_close_vote_controller.ex:17
-#: lib/cforum_web/controllers/messages/open_close_vote_controller.ex:57
-#: lib/cforum_web/controllers/messages/vote_controller.ex:22
-#: lib/cforum_web/controllers/messages/vote_controller.ex:39
 msgid "Successfully took back vote"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/vote_controller.ex:25
 msgid "Successfully upvoted message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/moderation/entry.html.eex:28
 msgid "This message has been flagged: %{reason}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/moderation/entry.html.eex:35
 msgid "This moderation case has been solved by %{user}: %{resolution}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/messages/flag/new.html.eex:16
-#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:17
 msgid "URL of the original message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/events/attendee_controller.ex:18
 msgid "You registered successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/events/attendee_controller.ex:35
 msgid "Your registration was successfully updated."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/voting_area_view.ex:34
-#: lib/cforum_web/views/voting_area_view.ex:38
 msgid "accept answer"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/index.html.eex:45
 msgid "action"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/event/show.html.eex:31
 msgid "attend event"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/attendees.html.eex:2
 msgid "attendee %{name}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/index.html.eex:24
 msgid "attendees"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/index.html.eex:38
 msgid "auditing entries"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:13
 msgid "auditing: accepted score"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:16
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:19
 msgid "auditing: accepted unscore"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:55
 msgid "auditing: attendees: create"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:57
 msgid "auditing: attendees: destroy"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:56
 msgid "auditing: attendees: update"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:9
 msgid "auditing: autodestroy user"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:71
 msgid "auditing: badges: create"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:73
 msgid "auditing: badges: destroy"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:72
 msgid "auditing: badges: update"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:48
 msgid "auditing: cites: archive"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:45
 msgid "auditing: cites: create"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:47
 msgid "auditing: cites: destroy"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:46
 msgid "auditing: cites: update"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:31
 msgid "auditing: close_votes: create"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:34
 msgid "auditing: close_votes: finished"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:10
 msgid "auditing: confirm user"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:6
 msgid "auditing: create user"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:8
 msgid "auditing: destroy user"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:51
 msgid "auditing: events: create"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:53
 msgid "auditing: events: destroy"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:52
 msgid "auditing: events: update"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:63
 msgid "auditing: forums: create"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:65
 msgid "auditing: forums: destroy"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:64
 msgid "auditing: forums: update"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:67
 msgid "auditing: groups: create"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:69
 msgid "auditing: groups: destroy"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:68
 msgid "auditing: groups: update"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:42
 msgid "auditing: media: create"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:43
 msgid "auditing: media: destroy"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:116
 msgid "auditing: messages: accepted-no"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:113
 msgid "auditing: messages: accepted-yes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:100
 msgid "auditing: messages: create"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:110
 msgid "auditing: messages: del_versions"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:103
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:104
 msgid "auditing: messages: delete"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:131
 msgid "auditing: messages: flagged-custom"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:125
 msgid "auditing: messages: flagged-duplicate"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:122
 msgid "auditing: messages: flagged-not-constructive"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:119
 msgid "auditing: messages: flagged-off-topic"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:128
 msgid "auditing: messages: flagged-spam"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:106
 msgid "auditing: messages: move"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:140
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:143
 msgid "auditing: messages: no-answer"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:137
 msgid "auditing: messages: no-answer-admin-no"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:134
 msgid "auditing: messages: no-answer-admin-yes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:146
 msgid "auditing: messages: no-answer-no"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:105
 msgid "auditing: messages: restore"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:102
 msgid "auditing: messages: retag"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:107
 msgid "auditing: messages: unflagged"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:101
 msgid "auditing: messages: update"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:78
 msgid "auditing: redirections: create"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:82
 msgid "auditing: redirections: destroy"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:79
 msgid "auditing: redirections: update"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:59
 msgid "auditing: settings: create"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:61
 msgid "auditing: settings: destroy"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:60
 msgid "auditing: settings: update"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:26
 msgid "auditing: tag_synonyms: create"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:29
 msgid "auditing: tag_synonyms: destroy"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:21
 msgid "auditing: tags: create"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:23
 msgid "auditing: tags: destroy"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:24
 msgid "auditing: tags: merge"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:22
 msgid "auditing: tags: update"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:86
 msgid "auditing: threads: archive"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:84
 msgid "auditing: threads: create"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:85
 msgid "auditing: threads: destroy"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:87
 msgid "auditing: threads: move"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:95
 msgid "auditing: threads: no-archive-no"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:92
 msgid "auditing: threads: no-archive-yes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:88
 msgid "auditing: threads: sticky"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:89
 msgid "auditing: threads: unsticky"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:7
 msgid "auditing: update user"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:11
 msgid "auditing: user gained badge"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/badge_view.ex:12 lib/cforum_web/views/badge_view.ex:18
 msgid "badge %{name}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/moderation/edit.html.eex:16
 msgid "choose an action"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/moderation/edit.html.eex:20
-#: lib/cforum_web/views/moderation_view.ex:32
 msgid "close message and children"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/index.html.eex:21
 msgid "close votes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/messages/flag/new.html.eex:24
-#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:25
-#: lib/cforum_web/templates/messages/open_close_vote/new_open.html.eex:8
-#: lib/cforum_web/views/messages/flag_view.ex:25
-#: lib/cforum_web/views/messages/open_close_vote_view.ex:39
 msgid "custom reason"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/moderation/edit.html.eex:21
-#: lib/cforum_web/views/moderation_view.ex:33
 msgid "delete message and children"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/attendees.html.eex:1
 msgid "event %{no}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/messages/flag_view.ex:11
 msgid "flag message %{subject} by %{author}"
 msgstr ""
 
 #, elixir-format
-#: area.html.eex:13
 msgid "information about the voting rules"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/moderation/edit.html.eex:18
-#: lib/cforum_web/views/moderation_view.ex:35
 msgid "manual intervention"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/index.html.eex:22
 msgid "media"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/moderation_view.ex:28
 msgid "message is a duplicate of %{url}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/messages/flag_view.ex:23
-#: lib/cforum_web/views/messages/open_close_vote_view.ex:37
-#: lib/cforum_web/views/moderation_view.ex:23
 msgid "message is illegal"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/moderation_view.ex:22
 msgid "message is not constructive"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/moderation_view.ex:21
 msgid "message is off topic"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/messages/flag_view.ex:26
-#: lib/cforum_web/views/messages/open_close_vote_view.ex:40
-#: lib/cforum_web/views/moderation_view.ex:24
 msgid "message is spam"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/moderation_view.ex:15
 msgid "moderation"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:42
 msgid "moderation queue"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/moderation/edit.html.eex:17
 msgid "no action"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/moderation_view.ex:36
 msgid "no intervention"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/users.html.eex:4
 msgid "none"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/index.html.eex:47
 msgid "object"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/moderation/edit.html.eex:8
-#: lib/cforum_web/templates/moderation/edit.html.eex:28
 msgid "resolution action"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/index.html.eex:18
 msgid "scores"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/events/attendee/form.html.eex:26
 msgid "seats"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/moderation/edit.html.eex:19
-#: lib/cforum_web/views/moderation_view.ex:34
 msgid "set message and children to „no archive“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/moderation/entry.html.eex:45
 msgid "solve"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/events/attendee/form.html.eex:18
 msgid "starting at location"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/index.html.eex:20
 msgid "tag synonyms"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/events/attendee_view.ex:14
 msgid "take place in event „%{event}“: attendee „%{attendee}“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/index.html.eex:14
 msgid "threads"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/index.html.eex:48
 msgid "timestamp"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/voting_area_view.ex:44
-#: lib/cforum_web/views/voting_area_view.ex:48
 msgid "unaccept answer"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/index.html.eex:46
 msgid "user"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/cite/cite.html.eex:36
-#: lib/cforum_web/templates/cite/cite.html.eex:38
-#: lib/cforum_web/views/voting_area_view.ex:93
-#: lib/cforum_web/views/voting_area_view.ex:98
 msgid "vote down"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/cite/cite.html.eex:49
-#: lib/cforum_web/templates/cite/cite.html.eex:51
-#: lib/cforum_web/views/voting_area_view.ex:74
-#: lib/cforum_web/views/voting_area_view.ex:79
 msgid "vote up"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/messages/flag_view.ex:24
-#: lib/cforum_web/views/messages/open_close_vote_view.ex:38
 msgid "message is a duplicate of another message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/messages/flag_view.ex:21
-#: lib/cforum_web/views/messages/open_close_vote_view.ex:35
 msgid "message is unconstructive or provocative and contributes to a deterioration of sentiment"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/badge/index.html.eex:7
 msgid "badge medal type"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/badge/index.html.eex:10
 msgid "number of users"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/open_close_vote_controller.ex:26
 msgid "Close vote has successfully been created."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/close_vote.html.eex:19
-#: lib/cforum_web/templates/message/reopen_vote.html.eex:14
 msgid "I agree"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/close_vote.html.eex:17
-#: lib/cforum_web/templates/message/reopen_vote.html.eex:12
 msgid "I changed my mind"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/messages/open_close_vote_view.ex:50
 msgid "Message and answers should be closed."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/messages/open_close_vote_view.ex:51
 msgid "Message and answers should be deleted."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/open_close_vote_controller.ex:43
 msgid "Reopen vote has successfully been created."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/messages/open_close_vote_view.ex:13
 msgid "Start a close vote for message %{subject} by %{author}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:31
 msgid "Start an open vote"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/api/v1/messages/open_close_vote_controller.ex:20
-#: lib/cforum_web/controllers/messages/open_close_vote_controller.ex:60
 msgid "Successfully voted"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message.html.eex:46
 msgid "accepted answers"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/event_view.ex:10
 msgid "administrate events"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:37
 msgid "auditing: close_votes_voters: vote"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/close_vote.html.eex:4
 msgid "close vote (%{votes}/%{votes_needed})"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/messages/open_close_vote/new_close.html.eex:33
 msgid "create close vote"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/messages/open_close_vote/new_open.html.eex:16
 msgid "create reopen vote"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/messages/open_close_vote_view.ex:53
 msgid "message and answers have been closed"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/messages/open_close_vote_view.ex:54
 msgid "message and answers have been deleted"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:40
 msgid "auditing: close_votes_voters: unvote"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:149
 msgid "auditing: messages: unflag-no-answer"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/reopen_vote.html.eex:2
 msgid "reopen vote (%{votes}/%{votes_needed})"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/search/show.html.eex:46
 msgid "%{count} search results"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/search_section_controller.ex:24
 msgid "Search section created successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/search_section_controller.ex:57
 msgid "Search section deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/search_section_controller.ex:44
 msgid "Search section updated successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/messages/open_close_vote_view.ex:21
 msgid "Start a reopen vote for message %{subject} by %{author}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/search_section/form.html.eex:31
-#: lib/cforum_web/templates/admin/search_section/index.html.eex:7
 msgid "active by default"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/search_section_view.ex:10
 msgid "administrate search sections"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/search_section_view.ex:14
 msgid "edit search section „%{name}“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/search_view.ex:12
 msgid "forum search"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/search_section/subnav.html.eex:4
-#: lib/cforum_web/views/admin/search_section_view.ex:11
 msgid "new search section"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/search_section/index.html.eex:4
 msgid "search section name"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:61
-#: lib/cforum_web/templates/messages/interesting/index.html.eex:3
-#: lib/cforum_web/templates/messages/subscription/index.html.eex:3
-#: lib/cforum_web/templates/search/show.html.eex:7
 msgid "search term"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/search/show.html.eex:37
 msgid "sort by date"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/search/show.html.eex:36
 msgid "sort by relevance"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/form_tags.html.eex:3
-#: lib/cforum_web/templates/message/form_tags.html.eex:9
-#: lib/cforum_web/templates/messages/retag/edit.html.eex:11
-#: lib/cforum_web/templates/messages/retag/edit.html.eex:17
 msgid "Tag %{no}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:72
 msgid "A comma separated list of poster names"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/alerts.html.eex:5
-#: lib/cforum_web/templates/layout/alerts.html.eex:14
 msgid "close"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:70
 msgid "highlighted users"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/notifications.html.eex:27
 msgid "notify me via email on activity in subscribed messages"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:64
 msgid "%{nick} wrote a new message: %{subject}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:59
 msgid "%{nick} wrote a reply to your message: %{subject}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/tag_view.ex:17
 msgid "tag “%{tag}”"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/tag_view.ex:14
 msgid "tags list"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:107
 msgid "new thread by %{nick}: %{subject}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/user/form.html.eex:7
 msgid "user data"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:133
 msgid "%{nick} mentioned you in a new message: “%{subject}”"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/admin_controller.ex:41
 msgid "Answering is now allowed."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/admin_controller.ex:33
 msgid "Answering is now forbidden."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/messages/version_view.ex:10
 msgid "Edit versions of message „%{subject}“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/image_controller.ex:49
 msgid "Image deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/admin_controller.ex:17
 msgid "Message was successfully deleted."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/admin_controller.ex:25
 msgid "Message was successfully restored."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:13
-#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:14
 msgid "Move thread to a different forum."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/admin_controller.ex:26
 msgid "Sticky mark has successfully been removed."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/admin_controller.ex:18
 msgid "Thread has successfully been marked as sticky."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:2
-#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:3
 msgid "Thread is currently marked sticky. Remove mark."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:7
-#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:8
 msgid "Thread is currently not marked sticky. Mark it."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/admin_controller.ex:42
 msgid "Thread will be archived."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:24
-#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:25
 msgid "Thread will currently be archived. Don't archive it."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:19
-#: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:20
 msgid "Thread will currently not be archived. Archive it."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/admin_controller.ex:34
 msgid "Thread will get deleted on archiving."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:14
-#: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:15
-#: lib/cforum_web/templates/message/message_admin_buttons.html.eex:41
 msgid "allow answering to this message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:7
-#: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:8
-#: lib/cforum_web/templates/message/message_admin_buttons.html.eex:34
 msgid "delete this message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:19
-#: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:20
-#: lib/cforum_web/templates/message/message_admin_buttons.html.eex:45
 msgid "forbid answering to this message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/image/index.html.eex:6
 msgid "owner"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:2
-#: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:3
-#: lib/cforum_web/templates/message/message_admin_buttons.html.eex:30
 msgid "restore this message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/search_section/form.html.eex:25
 msgid "section type"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/thread/thread.html.eex:6
 msgid "this thread has interesting messages"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/thread/thread.html.eex:7
 msgid "this thread will not be archived"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_editor.html.eex:3
 msgid "versions"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/retag_controller.ex:30
 msgid "Message has successfully been retagged."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/messages/retag_view.ex:10
 msgid "Retag message “%{subject}”"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/accounts/badges.ex:185
 msgid "You have won the %{mtype} “%{name}”!"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:76
 msgid "auditing: badges_users: gain"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/badges_users.html.eex:1
 msgid "gained badge"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/threads/admin_view.ex:9
 msgid "Move thread %{subject} by %{author}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/admin_controller.ex:63
 msgid "Thread has successfully been moved."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_admin_buttons.html.eex:14
-#: lib/cforum_web/templates/threads/admin/move.html.eex:15
 msgid "move thread"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/threads/admin_view.ex:12
 msgid "Split thread at message %{subject} by %{author}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/threads/admin_controller.ex:90
 msgid "Thread was successfully split."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:97
 msgid "auditing: threads: split"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:26
-#: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:27
 msgid "split thread with this message as new root"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_admin_buttons.html.eex:23
 msgid "archive thread"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_admin_buttons.html.eex:19
 msgid "don't archive thread"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_admin_buttons.html.eex:5
 msgid "mark thread as sticky"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_admin_buttons.html.eex:9
 msgid "remove sticky mark"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_forum_links.html.eex:29
 msgid "message in tree"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/page_view.ex:9
 msgid "help & support"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/version_controller.ex:21
 msgid "Message version deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:152
 msgid "auditing: messages: versions: destroy"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/messages/version/version.html.eex:22
 msgid "delete this version"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/audit/message_versions.html.eex:1
 msgid "message version by “%{user}”, message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/messages/version/show.html.eex:2
 msgid "no message version found."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/notification_controller.ex:87
 msgid "Notifications have successfully been deleted."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/notification_controller.ex:70
 msgid "Notifications successfully marked as read."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/notification_controller.ex:73
 msgid "Notifications successfully marked as unread."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/notification/index.html.eex:44
 msgid "delete all notifications"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/notification/index.html.eex:42
 msgid "mark all notifications as read"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/notification/index.html.eex:43
 msgid "mark all notifications as unread"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/meta.html.eex:8
-#: lib/cforum_web/views/view_helpers/feeds.ex:103
-#: lib/cforum_web/views/view_helpers/feeds.ex:126
 msgid "A forum as a completion to the wiki and the weblog"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/meta.html.eex:9
 msgid "SELFHTML Forum, SELFHTML, Forum, SELFForum"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_author.html.eex:17
 msgid "email address of the author"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/header_author.html.eex:24
 msgid "homepage of the author"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:49
 msgid "auditing: cites: archive-del"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:122
 msgid "show read threads"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/archive_view.ex:10
 msgid "archive – %{forum}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/archive_view.ex:16
 msgid "archive: %{month} – %{forum}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/archive_view.ex:13
 msgid "archive: %{year} – %{forum}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/thread_view.ex:45
 msgid "unanswered threads – %{forum}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/page_header.html.eex:115
 msgid "mark all messages read"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/mark_read_controller.ex:79
 msgid "All messages on this page have successfully been marked as read."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/mark_read_controller.ex:29
 msgid "Thread has successfully been marked as read."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/user/index.html.eex:19
 msgid "active"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/user/index.html.eex:20
 msgid "confirmed"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/user/index.html.eex:21
 msgid "last visit"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/notifications.html.eex:55
 msgid "notify me via email on flagged messages"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/notification_mailer/moderation_mail.html.eex:10
-#: lib/cforum_web/templates/notification_mailer/moderation_mail.text.eex:9
-#: lib/cforum_web/templates/notification_mailer/new_open_close_vote.html.eex:13
-#: lib/cforum_web/templates/notification_mailer/new_open_close_vote.text.eex:9
-#: lib/cforum_web/templates/notification_mailer/open_close_vote_finished.html.eex:13
-#: lib/cforum_web/templates/notification_mailer/open_close_vote_finished.text.eex:9
 msgid "Best regards"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/notification_mailer/moderation_mail.html.eex:1
-#: lib/cforum_web/templates/notification_mailer/moderation_mail.text.eex:1
-#: lib/cforum_web/templates/notification_mailer/new_open_close_vote.html.eex:1
-#: lib/cforum_web/templates/notification_mailer/new_open_close_vote.text.eex:1
-#: lib/cforum_web/templates/notification_mailer/open_close_vote_finished.html.eex:1
-#: lib/cforum_web/templates/notification_mailer/open_close_vote_finished.text.eex:1
 msgid "Hi there"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/notification_mailer/moderation_mail.html.eex:4
 msgid "There has been created a new moderation queue entry for message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/notification_mailer/moderation_mail.text.eex:3
 msgid "There has been created a new moderation queue entry for message „%{subject}“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/admin/auditing_view_l10n.ex:155
 msgid "auditing: moderation_queue: update"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/show_scores.html.eex:14
 msgid "message is no longer available"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:52
 msgid "page threads in the threadlist"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/link.html.eex:10
 msgid "SELFHTML Search"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/comfort.html.eex:46
 msgid "open links in postings in a new window or tab"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/view_helpers/relative_time.ex:38
 msgid "about 1 minute"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/view_helpers/relative_time.ex:43
 msgid "less than %{minutes} minutes"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/close_vote.html.eex:12
-#: lib/cforum_web/templates/message/reopen_vote.html.eex:6
 msgid "The given reason: %{reason}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/close_vote.html.eex:6
 msgid "delete vote (%{votes}/%{votes_needed})"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/error_view.ex:26
 msgid "access forbidden"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/error_view.ex:37
 msgid "internal server error"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/error_view.ex:15 lib/cforum_web/views/error_view.ex:49
 msgid "page not found"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/mailers/notification_mailer.ex:22
 msgid "new message: “%{subject}”"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/mailers/notification_mailer.ex:40
 msgid "new moderation queue entry: “%{subject}”"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/mailers/notification_mailer.ex:31
 msgid "new notification: “%{subject}”"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/mailers/notification_mailer.ex:11
 msgid "new private message: “%{subject}”"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/notification_mailer/new_open_close_vote.text.eex:5
 msgid "There has been created a new close vote for message „%{subject}“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/messages/notify_moderators_close_vote.ex:37
 msgid "a new close vote has been created for message „%{subject}“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/messages/notify_moderators_close_vote.ex:32
 msgid "a new reopen vote has been created for message „%{subject}“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/notification_mailer/new_open_close_vote.html.eex:7
 msgid "There has been created a new close vote for message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/notification_mailer/new_open_close_vote.html.eex:5
 msgid "There has been created a new reopen vote for message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/notification_mailer/new_open_close_vote.text.eex:4
 msgid "There has been created a new reopen vote for message „%{subject}“"
 msgstr ""
 
 #, elixir-format
-#:
-#: lib/cforum_web/templates/notification_mailer/open_close_vote_finished.text.eex:5
 msgid "A close vote for message „%{subject}“ has been finished"
 msgstr ""
 
 #, elixir-format
-#:
-#: lib/cforum_web/templates/notification_mailer/open_close_vote_finished.html.eex:7
 msgid "A close vote has been finished for message"
 msgstr ""
 
 #, elixir-format
-#:
-#: lib/cforum_web/templates/notification_mailer/open_close_vote_finished.text.eex:4
 msgid "A reopen vote for message „%{subject}“ has been finished"
 msgstr ""
 
 #, elixir-format
-#:
-#: lib/cforum_web/templates/notification_mailer/open_close_vote_finished.html.eex:5
 msgid "A reopen vote has been finished for message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/messages/notify_moderators_close_vote.ex:83
 msgid "a close vote has been finished for message „%{subject}“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/messages/notify_moderators_close_vote.ex:78
 msgid "a reopen vote has been finished for message „%{subject}“"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/notifications.html.eex:71
 msgid "automatically delete read notifications"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:83
 msgid "MathJax URL"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/search/show.html.eex:51
 msgid "We could not find any matching documents."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/users/user/readability_overview.html.eex:18
 msgid "mark nested messages read when they become visible"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/index.html.eex:5
 msgid "number of mails"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/mail_controller.ex:142
 msgid "Thread deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/index.html.eex:32
 msgid "delete latest message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/index.html.eex:33
 msgid "delete thread"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/messages/mark_read_controller.ex:48
 msgid "Message has successfully been marked as unread."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message_default_controls.html.eex:39
 msgid "mark message as unread"
 msgstr ""
 
-#, elixir-format, fuzzy
-#: lib/cforum_web/views/message_view.ex:106
+#, elixir-format
 msgid "edit message “%{subject}” by %{author}"
+msgstr ""
+
+#, elixir-format
+msgid "However, we disabled your account to avoid technical issues."
+msgstr ""
+
+#, elixir-format
+msgid "The deletion of your user has been started in the background. It might take some time until everything is deleted."
 msgstr ""
