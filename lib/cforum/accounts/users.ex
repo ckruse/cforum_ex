@@ -346,15 +346,16 @@ defmodule Cforum.Accounts.Users do
 
   """
   def delete_user(current_user, %User{} = user) do
+    {:ok, user} =
+      user
+      |> Ecto.Changeset.change(%{active: false})
+      |> Repo.update()
+
     Cforum.Helpers.AsyncHelper.run_async(fn ->
       Cforum.System.audited(
         "destroy",
         current_user,
         fn ->
-          user
-          |> Ecto.Changeset.change(%{active: false})
-          |> Repo.update()
-
           Repo.delete(user)
         end,
         timeout: :infinity
