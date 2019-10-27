@@ -567,7 +567,7 @@ msgstr ""
 
 #: lib/cforum_web/templates/admin/badge/form.html.eex:43
 #: lib/cforum_web/templates/admin/event/form.html.eex:29
-#: lib/cforum_web/templates/admin/forum/form.html.eex:94
+#: lib/cforum_web/templates/admin/forum/form.html.eex:100
 #: lib/cforum_web/templates/admin/forum/index.html.eex:6
 #: lib/cforum_web/templates/users/user/personal_information.html.eex:33
 msgid "description"
@@ -850,12 +850,12 @@ msgstr ""
 msgid "edit profile and settings"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:72
+#: lib/cforum_web/templates/admin/forum/form.html.eex:78
 #: lib/cforum_web/views/admin/forum_view.ex:30
 msgid "known-read"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:73
+#: lib/cforum_web/templates/admin/forum/form.html.eex:79
 #: lib/cforum_web/views/admin/forum_view.ex:31
 msgid "known-write"
 msgstr ""
@@ -870,12 +870,12 @@ msgstr ""
 msgid "new mail to %{username}"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:69
+#: lib/cforum_web/templates/admin/forum/form.html.eex:75
 #: lib/cforum_web/views/admin/forum_view.ex:32
 msgid "private"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:70
+#: lib/cforum_web/templates/admin/forum/form.html.eex:76
 #: lib/cforum_web/templates/admin/group/permissions.html.eex:18
 #: lib/cforum_web/views/admin/forum_view.ex:28
 msgid "read"
@@ -910,7 +910,7 @@ msgstr ""
 msgid "unread"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/forum/form.html.eex:71
+#: lib/cforum_web/templates/admin/forum/form.html.eex:77
 #: lib/cforum_web/templates/admin/group/permissions.html.eex:17
 #: lib/cforum_web/views/admin/forum_view.ex:29
 msgid "write"
@@ -1363,7 +1363,7 @@ msgstr ""
 msgid "unknown tags given: %{tags}"
 msgstr ""
 
-#: lib/cforum_web/controllers/thread_controller.ex:164
+#: lib/cforum_web/controllers/thread_controller.ex:170
 msgid "Thread created successfully."
 msgstr ""
 
@@ -1639,7 +1639,7 @@ msgid "mail content"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/forum/form.html.eex:78
+#: lib/cforum_web/templates/admin/forum/form.html.eex:84
 #: lib/cforum_web/templates/admin/forum/index.html.eex:8
 msgid "keywords"
 msgstr ""
@@ -1667,7 +1667,7 @@ msgid "name"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/forum/form.html.eex:86
+#: lib/cforum_web/templates/admin/forum/form.html.eex:92
 #: lib/cforum_web/templates/admin/forum/index.html.eex:9
 #: lib/cforum_web/templates/admin/search_section/form.html.eex:13
 #: lib/cforum_web/templates/admin/search_section/index.html.eex:5
@@ -1687,7 +1687,7 @@ msgid "slug"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/forum/form.html.eex:66
+#: lib/cforum_web/templates/admin/forum/form.html.eex:72
 #: lib/cforum_web/templates/admin/forum/index.html.eex:7
 msgid "standard permission"
 msgstr ""
@@ -4326,6 +4326,7 @@ msgid "Thread has successfully been marked as read."
 msgstr ""
 
 #, elixir-format
+#: lib/cforum_web/templates/admin/forum/form.html.eex:66
 #: lib/cforum_web/templates/admin/user/index.html.eex:19
 msgid "active"
 msgstr ""
@@ -4583,4 +4584,9 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/users/user/deletion_started.html.eex:1
 msgid "The deletion of your user has been started in the background. It might take some time until everything is deleted."
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/message/form.html.eex:68
+msgid "save my identity in a cookie"
 msgstr ""

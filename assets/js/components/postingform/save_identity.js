@@ -16,10 +16,7 @@ export default function SaveIdentity(props) {
           {t("save my identity in a cookie")}
         </label>
 
-        <p className="help-text">
-          Ihre Identität in einem Cookie zu speichern erlaubt es Ihnen, Ihre Beiträge zu editieren. Außerdem müssen Sie
-          dann bei neuen Beiträgen nicht mehr die Felder Name, Email und Homepage ausfüllen.
-        </p>
+        <p className="help-text">{t("identity description")}</p>
       </div>
     </fieldset>
   );

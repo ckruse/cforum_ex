@@ -209,5 +209,10 @@ export const lang = {
   "mark message interesting": "Beitrag als interessant markieren",
   "mark message boring": "Interessant-Markierung entfernen",
   "unsubscribe message": "Baum deabonnieren",
-  "subscribe message": "Baum abonnieren"
+  "subscribe message": "Baum abonnieren",
+
+  "save my identity in a cookie": "speichere die Identität in einem Cookie",
+
+  "identity description":
+    "Die Identität in einem Cookie zu speichern erlaubt es Ihnen, Ihre Beiträge zu editieren. Außerdem müssen Sie dann bei neuen Beiträgen nicht mehr die Felder Name, Email und Homepage ausfüllen."
 };
