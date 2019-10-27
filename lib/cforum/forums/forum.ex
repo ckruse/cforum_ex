@@ -24,6 +24,7 @@ defmodule Cforum.Forums.Forum do
     field(:standard_permission, :string)
     field(:keywords, :string)
     field(:position, :integer)
+    field(:active, :boolean, default: true)
 
     has_many(:threads, Cforum.Threads.Thread, foreign_key: :forum_id)
     has_many(:messages, Cforum.Messages.Message, foreign_key: :forum_id)
@@ -38,7 +39,7 @@ defmodule Cforum.Forums.Forum do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:slug, :short_name, :name, :description, :standard_permission, :keywords, :position])
+    |> cast(params, [:slug, :short_name, :name, :description, :standard_permission, :keywords, :position, :active])
     |> cast_assoc(:setting)
     |> validate_required([:slug, :short_name, :name, :description, :standard_permission, :position])
     |> validate_inclusion(:standard_permission, @permissions)

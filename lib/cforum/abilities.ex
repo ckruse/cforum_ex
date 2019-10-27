@@ -153,6 +153,15 @@ defmodule Cforum.Abilities do
   def access_forum?(user, forum, :moderate), do: access_forum_moderate?(user, forum)
   def access_forum?(_, _, _), do: false
 
+  def forum_active?(%Plug.Conn{} = conn),
+    do: forum_active?(conn.assigns[:current_forum])
+
+  def forum_active?(%{__struct__: Cforum.Forums.Forum} = forum),
+    do: forum.active
+
+  def forum_active?(_),
+    do: true
+
   #
   # read access
   #

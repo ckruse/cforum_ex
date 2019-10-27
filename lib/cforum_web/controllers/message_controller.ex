@@ -258,8 +258,10 @@ defmodule CforumWeb.MessageController do
   def allowed?(conn, action, nil) when action in [:new, :create],
     do: allowed?(conn, action, {conn.assigns.thread, conn.assigns.parent})
 
-  def allowed?(conn, action, {thread, message}) when action in [:new, :create],
-    do: Abilities.access_forum?(conn, :write) && MessageHelpers.open?(message) && !thread.archived
+  def allowed?(conn, action, {thread, message}) when action in [:new, :create] do
+    Abilities.forum_active?(conn) && Abilities.access_forum?(conn, :write) && MessageHelpers.open?(message) &&
+      !thread.archived
+  end
 
   def allowed?(conn, action, nil) when action in [:edit, :update],
     do: allowed?(conn, action, {conn.assigns.thread, conn.assigns.message})
@@ -267,8 +269,11 @@ defmodule CforumWeb.MessageController do
   def allowed?(conn, action, {%Thread{archived: true}, _msg}) when action in [:edit, :update],
     do: Abilities.admin?(conn)
 
-  def allowed?(conn, action, {thread, msg}) when action in [:edit, :update],
-    do: Abilities.access_forum?(conn, :moderate) || edit?(conn, thread, msg)
+  def allowed?(conn, action, {thread, msg}) when action in [:edit, :update] do
+    if Abilities.forum_active?(conn),
+      do: Abilities.access_forum?(conn, :moderate) || edit?(conn, thread, msg),
+      else: Abilities.admin?(conn)
+  end
 
   def allowed?(conn, :show, nil),
     do: allowed?(conn, :show, {conn.assigns.thread, conn.assigns.message})

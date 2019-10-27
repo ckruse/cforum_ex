@@ -223,6 +223,9 @@ defmodule CforumWeb.ThreadController do
     |> CforumWeb.MessageController.allowed?(:show, {thread, message})
   end
 
+  def allowed?(conn, action, _) when action in [:new, :create],
+    do: Abilities.forum_active?(conn) && Abilities.access_forum?(conn)
+
   def allowed?(conn, _, _), do: Abilities.access_forum?(conn)
 
   defp thread_list(conn) do
