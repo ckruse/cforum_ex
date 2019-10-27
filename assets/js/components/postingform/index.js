@@ -171,7 +171,9 @@ class CfPostingForm extends React.Component {
           />
         </div>
 
-        <SaveIdentity saveIdentity={this.state.saveIdentity} onChange={this.setSaveIdentity} />
+        {typeof this.state.saveIdentity !== "undefined" && (
+          <SaveIdentity saveIdentity={this.state.saveIdentity} onChange={this.setSaveIdentity} />
+        )}
 
         <Notes />
 
