@@ -62,6 +62,7 @@ defmodule Cforum.Mixfile do
       {:earmark, "~> 1.3.0"},
       {:html_entities, "~> 0.4"},
       {:nimble_parsec, "~> 0.2"},
+      {:appsignal, "~> 1.0"},
 
       # testing
       {:excoveralls, "~> 0.8", only: :test},

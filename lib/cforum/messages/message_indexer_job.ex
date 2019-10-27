@@ -1,4 +1,6 @@
 defmodule Cforum.Messages.MessageIndexerJob do
+  use Appsignal.Instrumentation.Decorators
+
   alias Cforum.MarkdownRenderer
   alias Cforum.Forums
   alias Cforum.Threads
@@ -22,6 +24,7 @@ defmodule Cforum.Messages.MessageIndexerJob do
   end
 
   @spec index_message(integer()) :: any()
+  @decorate transaction(:indexing)
   def index_message(message_id) do
     message = Messages.get_message(message_id)
 
@@ -41,6 +44,7 @@ defmodule Cforum.Messages.MessageIndexerJob do
   end
 
   @spec index_message_synchronously(non_neg_integer()) :: {:error, %Ecto.Changeset{}} | {:ok, %Document{}}
+  @decorate transaction(:indexing)
   def index_message_synchronously(message_id) do
     message = Messages.get_message(message_id)
 
@@ -55,6 +59,7 @@ defmodule Cforum.Messages.MessageIndexerJob do
   end
 
   @spec index_message_synchronously(%Thread{}, %Message{}) :: {:error, %Ecto.Changeset{}} | {:ok, %Document{}}
+  @decorate transaction(:indexing)
   def index_message_synchronously(thread, msg) do
     doc = Search.get_document_by_reference_id(msg.message_id)
     plain = MarkdownRenderer.to_plain(msg)
@@ -71,6 +76,7 @@ defmodule Cforum.Messages.MessageIndexerJob do
   end
 
   @spec unindex_messages([%Message{} | non_neg_integer()]) :: any()
+  @decorate transaction(:indexing)
   def unindex_messages(messages) do
     Cforum.Helpers.AsyncHelper.run_async(fn ->
       messages
@@ -90,6 +96,7 @@ defmodule Cforum.Messages.MessageIndexerJob do
   end
 
   @spec rescore_message(%Message{}) :: any()
+  @decorate transaction(:indexing)
   def rescore_message(%Message{} = msg) do
     msg = Messages.get_message!(msg.message_id)
     doc = Search.get_document_by_reference_id(msg.message_id)

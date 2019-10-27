@@ -1,10 +1,13 @@
 defmodule Cforum.System.AuditingCleanupJob do
+  use Appsignal.Instrumentation.Decorators
+
   import Ecto.Query, warn: false
   require Logger
 
   alias Cforum.Repo
   alias Cforum.System.Auditing
 
+  @decorate transaction(:maintenance)
   def maintenance do
     Logger.info("Starting auditing cleanup…")
 

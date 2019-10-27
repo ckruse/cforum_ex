@@ -1,5 +1,6 @@
 defmodule CforumWeb.UsersChannel do
   use CforumWeb, :channel
+  use Appsignal.Instrumentation.Decorators
 
   alias Cforum.Accounts.User
   alias Cforum.Forums
@@ -9,17 +10,21 @@ defmodule CforumWeb.UsersChannel do
   alias Cforum.Accounts.Notifications
   alias Cforum.Accounts.PrivMessages
 
+  @decorate channel_action()
   def join("users:lobby", _payload, socket), do: {:ok, socket}
 
+  @decorate channel_action()
   def join("users:" <> user_id, _payload, socket) do
     if authorized?(socket.assigns[:current_user], String.to_integer(user_id)),
       do: {:ok, socket},
       else: {:error, %{reason: "unauthorized"}}
   end
 
+  @decorate channel_action()
   def handle_in("current_user", _payload, socket),
     do: {:reply, {:ok, socket.assigns[:current_user]}, socket}
 
+  @decorate channel_action()
   def handle_in("settings", _payload, socket) do
     settings = Cforum.ConfigManager.settings_map(nil, socket.assigns[:current_user])
 
@@ -31,11 +36,13 @@ defmodule CforumWeb.UsersChannel do
     {:reply, {:ok, config}, socket}
   end
 
+  @decorate channel_action()
   def handle_in("visible_forums", _payload, socket) do
     forums = Forums.list_visible_forums(socket.assigns[:current_user])
     {:reply, {:ok, %{forums: forums}}, socket}
   end
 
+  @decorate channel_action()
   def handle_in("title_infos", _payload, socket) do
     forums = Forums.list_visible_forums(socket.assigns[:current_user])
     {_, num_messages} = ReadMessages.count_unread_messages(socket.assigns[:current_user], forums)

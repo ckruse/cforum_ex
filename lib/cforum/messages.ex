@@ -1,4 +1,6 @@
 defmodule Cforum.Messages do
+  use Appsignal.Instrumentation.Decorators
+
   @moduledoc """
   The boundary for the Forums system.
   """

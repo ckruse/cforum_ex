@@ -1,4 +1,6 @@
 defmodule Cforum.Media.ImageResizerJob do
+  use Appsignal.Instrumentation.Decorators
+
   alias Cforum.Media
 
   def resize_image({:ok, img}) do
@@ -14,6 +16,7 @@ defmodule Cforum.Media.ImageResizerJob do
 
   def resize_image(val), do: val
 
+  @decorate transaction(:maintenance)
   defp resize_image(img, version) do
     arguments = convert_arguments(img, version)
     convert = Application.get_env(:cforum, :convert)

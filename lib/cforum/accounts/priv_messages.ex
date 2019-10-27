@@ -3,6 +3,7 @@ defmodule Cforum.Accounts.PrivMessages do
   The boundary for the PrivMessages system.
   """
 
+  use Appsignal.Instrumentation.Decorators
   import Ecto.Query, warn: false
 
   alias Cforum.Helpers
@@ -550,6 +551,7 @@ defmodule Cforum.Accounts.PrivMessages do
       false
 
   """
+  @decorate transaction(:notify)
   def notify_user(priv_message) do
     priv_message = Repo.preload(priv_message, [:recipient, :sender])
 

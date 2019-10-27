@@ -66,3 +66,5 @@ config :cforum,
     pwd: Path.expand("../cfmarkdown"),
     pool_size: 5
   ]
+
+config :appsignal, :config, active: false

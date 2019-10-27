@@ -1,4 +1,6 @@
 defmodule Cforum.Messages.NotifyUsersMessageJob do
+  use Appsignal.Instrumentation.Decorators
+
   import CforumWeb.Gettext
 
   alias Cforum.Threads.Thread
@@ -13,6 +15,7 @@ defmodule Cforum.Messages.NotifyUsersMessageJob do
     Cforum.Helpers.AsyncHelper.run_async(fn -> do_notify_users_about_new_message(thread, message) end)
   end
 
+  @decorate transaction(:notify)
   defp do_notify_users_about_new_message(thread, message) do
     thread = Cforum.Repo.preload(thread, [:forum])
 
@@ -31,6 +34,7 @@ defmodule Cforum.Messages.NotifyUsersMessageJob do
       do: notify_users(thread, message, users)
   end
 
+  @decorate transaction(:notify)
   def notify_users(thread, message, already_notified) do
     thread
     |> Cforum.Repo.preload([:forum])
@@ -89,6 +93,7 @@ defmodule Cforum.Messages.NotifyUsersMessageJob do
     Cforum.Helpers.AsyncHelper.run_async(fn -> do_notify_users_about_new_thread(thread, message) end)
   end
 
+  @decorate transaction(:notify)
   defp do_notify_users_about_new_thread(thread, message) do
     Users.list_users_by_config_option("notify_on_new_thread", "yes")
     |> Enum.reject(fn user -> user.user_id == message.user_id end)

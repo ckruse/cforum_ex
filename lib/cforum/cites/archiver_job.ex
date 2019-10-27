@@ -1,10 +1,13 @@
 defmodule Cforum.Cites.ArchiverJob do
+  use Appsignal.Instrumentation.Decorators
+
   alias Cforum.Accounts.Settings
   alias Cforum.ConfigManager
   alias Cforum.Cites
 
   require Logger
 
+  @decorate transaction(:maintenance)
   def archive do
     setting = Settings.get_global_setting()
     min_age = ConfigManager.conf(setting, "cites_min_age_to_archive", :int)
