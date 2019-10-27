@@ -38,7 +38,11 @@ defmodule CforumWeb.ModerationView do
   def l10n_resolution_action(action), do: action
 
   def closer_link(conn, entry) do
-    {:safe, link} = ViewHelpers.user_link(conn, entry.closer, [], entry.closer_name)
+    {:safe, link} =
+      if Helpers.present?(entry.closer_id),
+        do: ViewHelpers.user_link(conn, entry.closer, [], entry.closer_name),
+        else: {:safe, entry.closer_name}
+
     link
   end
 end
