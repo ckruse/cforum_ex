@@ -72,12 +72,19 @@
     label.radio,
     label.checkbox {
       width: 100%;
+      margin-bottom: 0;
 
       input[type="checkbox"],
       input[type="radio"] {
         display: inline;
         margin-right: 0.25em;
       }
+    }
+
+    .help-text {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 0.8em;
     }
   }
 

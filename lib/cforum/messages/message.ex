@@ -40,6 +40,7 @@ defmodule Cforum.Messages.Message do
 
     field(:messages, :any, virtual: true)
     field(:attribs, :map, virtual: true, default: %{classes: []})
+    field(:save_identity, :boolean, virtual: true, default: false)
 
     belongs_to(:thread, Cforum.Threads.Thread, references: :thread_id)
     belongs_to(:forum, Cforum.Forums.Forum, references: :forum_id)
@@ -64,7 +65,7 @@ defmodule Cforum.Messages.Message do
 
   defp base_changeset(struct, params, user, forum_id, visible_forums, opts) do
     struct
-    |> cast(params, [:author, :email, :homepage, :subject, :content, :problematic_site, :forum_id])
+    |> cast(params, [:author, :email, :homepage, :subject, :content, :problematic_site, :forum_id, :save_identity])
     |> maybe_put_change(:forum_id, forum_id)
     |> validate_forum_id(visible_forums)
     |> maybe_set_author(user, opts[:uuid])

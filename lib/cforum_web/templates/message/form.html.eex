@@ -60,4 +60,15 @@
   <ul class="cf-form-tagslist" data-tags-list="form" data-no-js="yes">
     <%= render "form_tags.html", assigns %>
   </ul>
+
+  <%= if Helpers.blank?(assigns[:current_user]) do %>
+    <fieldset>
+      <div class="cf-cgroup">
+        <label class="checkbox">
+          <%= checkbox @f, :save_identity %> <%= gettext("save my identity in a cookie") %>
+        </label>
+        <%= ViewHelpers.l10n_render @view_module, "identity-explanation.html", assigns %>
+      </div>
+    </fieldset>
+  <% end %>
 </fieldset>

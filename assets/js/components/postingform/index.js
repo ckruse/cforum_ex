@@ -5,6 +5,7 @@ import CfContentForm from "../contentform";
 import { t } from "../../modules/i18n";
 import Notes from "./notes";
 import Meta from "./meta";
+import SaveIdentity from "./save_identity";
 
 class CfPostingForm extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class CfPostingForm extends React.Component {
       problematicSite: this.props.problematicSite || "",
       email: this.props.email || "",
       homepage: this.props.homepage || "",
+      saveIdentity: this.props.saveIdentity,
       showRestoreDraft: false
     };
 
@@ -31,6 +33,7 @@ class CfPostingForm extends React.Component {
     this.onTextChange = this.onTextChange.bind(this);
     this.onTagChange = this.onTagChange.bind(this);
     this.toggleRestoreDraft = this.toggleRestoreDraft.bind(this);
+    this.setSaveIdentity = this.setSaveIdentity.bind(this);
 
     this.cancelForm = this.cancelForm.bind(this);
   }
@@ -49,6 +52,10 @@ class CfPostingForm extends React.Component {
   onTagChange(tags) {
     this.setState({ tags });
     this.resetSaveTimer();
+  }
+
+  setSaveIdentity(val) {
+    this.setState({ saveIdentity: val });
   }
 
   keyForDraft(form) {
@@ -163,6 +170,8 @@ class CfPostingForm extends React.Component {
             onTagChange={this.onTagChange}
           />
         </div>
+
+        <SaveIdentity saveIdentity={this.state.saveIdentity} onChange={this.setSaveIdentity} />
 
         <Notes />
 

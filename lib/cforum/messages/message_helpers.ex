@@ -166,7 +166,8 @@ defmodule Cforum.Messages.MessageHelpers do
       else: may_user_post_with_name?(nil, name)
   end
 
-  def maybe_set_cookies(conn, %{user_id: id}) when id != nil, do: conn
+  def maybe_set_cookies(conn, %{user_id: id}, _) when id != nil, do: conn
+  def maybe_set_cookies(conn, %{save_identity: val}, _) when is_nil(val) or val == false, do: conn
 
   def maybe_set_cookies(conn, message, uuid) do
     conn

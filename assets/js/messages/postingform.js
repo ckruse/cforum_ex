@@ -56,6 +56,7 @@ const setupContentForms = () => {
     const email = el.querySelector("[name='message[email]']").value;
     const homepage = el.querySelector("[name='message[homepage]']").value;
     const problematicSite = el.querySelector("[name='message[problematic_site]']").value;
+    const saveIdentity = el.querySelector("#message_save_identity").checked;
 
     const errors = gatherErrors(el);
 
@@ -72,6 +73,7 @@ const setupContentForms = () => {
         tags={tags}
         globalTagsError={globalTagsError}
         problematicSite={problematicSite}
+        saveIdentity={saveIdentity}
         method={method}
         csrfInfo={{
           param: csrfInfo.getAttribute("csrf-param"),
