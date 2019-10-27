@@ -123,7 +123,7 @@ defmodule CforumWeb.ThreadController do
         std_replacement: gettext("all")
       )
 
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, writable_forums: writable_forums(conn))
   end
 
   def create(conn, %{"message" => message_params, "preview" => _}) do
@@ -135,7 +135,13 @@ defmodule CforumWeb.ThreadController do
         conn.assigns[:visible_forums]
       )
 
-    render(conn, "new.html", thread: thread, message: message, changeset: changeset, preview: true)
+    render(conn, "new.html",
+      thread: thread,
+      message: message,
+      changeset: changeset,
+      preview: true,
+      writable_forums: writable_forums(conn)
+    )
   end
 
   def create(conn, %{"message" => message_params}) do
@@ -166,7 +172,7 @@ defmodule CforumWeb.ThreadController do
         |> redirect(to: Path.message_path(conn, :show, thread, message))
 
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, writable_forums: writable_forums(conn))
     end
   end
 
@@ -268,5 +274,11 @@ defmodule CforumWeb.ThreadController do
     |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close, :subscriptions, :interesting])
     |> Threads.apply_highlights(conn)
     |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
+  end
+
+  defp writable_forums(conn) do
+    Enum.filter(conn.assigns[:visible_forums] || [], fn forum ->
+      Abilities.forum_active?(forum) && Abilities.access_forum?(conn, forum, :write)
+    end)
   end
 end

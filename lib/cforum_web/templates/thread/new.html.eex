@@ -15,7 +15,7 @@
         <%= gettext("forum") %>
         <%= ErrorHelpers.error_tag f, :forum_id %>
       <% end %>
-      <%= select f, :forum_id, Enum.map(@visible_forums, &{&1.name, &1.forum_id}), prompt: "" %>
+      <%= select f, :forum_id, Enum.map(@writable_forums, &{&1.name, &1.forum_id}), prompt: "" %>
     </div>
   <% end %>
 
