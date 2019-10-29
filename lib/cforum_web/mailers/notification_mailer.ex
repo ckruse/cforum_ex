@@ -46,22 +46,4 @@ defmodule CforumWeb.NotificationMailer do
       message: message
     )
   end
-
-  def new_open_close_vote(user, thread, message, vote, subject) do
-    new_email()
-    |> from(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))
-    |> to(user.email)
-    |> subject(subject)
-    |> put_html_layout({CforumWeb.LayoutView, "email.html"})
-    |> render(:new_open_close_vote, vote: vote, user: user, thread: thread, message: message)
-  end
-
-  def finished_open_close_vote(user, thread, message, vote, subject) do
-    new_email()
-    |> from(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))
-    |> to(user.email)
-    |> subject(subject)
-    |> put_html_layout({CforumWeb.LayoutView, "email.html"})
-    |> render(:open_close_vote_finished, vote: vote, user: user, thread: thread, message: message)
-  end
 end

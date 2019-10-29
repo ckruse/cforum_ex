@@ -53,16 +53,6 @@ Badges.create_badge(nil, %{
 })
 
 Badges.create_badge(nil, %{
-  score_needed: 1000,
-  name: "Abstimmungsrecht über Sperr- und Entsperr-Abstimmungen",
-  slug: "visit_close_reopen",
-  badge_type: "visit_close_reopen",
-  badge_medal_type: "bronze",
-  description: "Der Anwender erhält das Recht, an einer Sperr- oder Entsperr-Abstimmung teilzunehmen.",
-  order: 5
-})
-
-Badges.create_badge(nil, %{
   score_needed: 1200,
   name: "Recht Tags zu erstellen",
   slug: "create_tag",
@@ -100,16 +90,6 @@ Badges.create_badge(nil, %{
   badge_medal_type: "silver",
   description: "Der Anwender erhält das Recht, Antworten zu editieren.",
   order: 9
-})
-
-Badges.create_badge(nil, %{
-  score_needed: 3000,
-  name: "Recht Sperr-/Entsperr-Abstimmungen zu erstellen",
-  slug: "create_close_reopen_vote",
-  badge_type: "create_close_reopen_vote",
-  badge_medal_type: "silver",
-  description: "Der Anwender erhält das Recht, Sperr- oder Entsperr-Abstimmungen zu erstellen.",
-  order: 10
 })
 
 Badges.create_badge(nil, %{

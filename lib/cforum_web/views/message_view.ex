@@ -6,9 +6,6 @@ defmodule CforumWeb.MessageView do
   alias Cforum.Messages.Message
   alias Cforum.Messages.Subscriptions
   alias Cforum.Messages.MessageHelpers
-  alias Cforum.Messages.CloseVotes
-  alias Cforum.Messages.CloseVote
-  alias CforumWeb.Messages.OpenCloseVoteView
 
   alias CforumWeb.VotingAreaView
 
@@ -36,18 +33,12 @@ defmodule CforumWeb.MessageView do
     if MessageHelpers.accepted?(message), do: ["accepted-answer" | classes], else: classes
   end
 
-  # TODO
-  def close_vote_class(classes, _), do: classes
-  def open_vote_class(classes, _), do: classes
-
   def header_classes(thread, message, active_message, assigns) do
     []
     |> first_class(assigns)
     |> deleted_class(message)
     |> classes_from_message(message)
     |> accepted_class(thread, message)
-    |> close_vote_class(message)
-    |> open_vote_class(message)
     |> Helpers.add_if(active_message && active_message.message_id == message.message_id, "active")
     |> Enum.join(" ")
   end

@@ -1,9 +1,0 @@
-<%= gettext("Hi there") %>,
-
-<%= if @vote.vote_type,
-  do: gettext("There has been created a new reopen vote for message „%{subject}“", subject: @message.subject),
-  else: gettext("There has been created a new close vote for message „%{subject}“", subject: @message.subject) %>
-
-<<%= Path.message_url(CforumWeb.Endpoint, :show, @thread, @message) %>>
-
-<%=  gettext("Best regards") %>

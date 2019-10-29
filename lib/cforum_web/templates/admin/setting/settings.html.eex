@@ -203,58 +203,6 @@
   </div>
 </fieldset>
 
-<fieldset id="close-and-reopen-vote-settings">
-  <legend><%= gettext("close and reopen vote settings") %></legend>
-
-  <div class="cf-cgroup">
-    <label for="settings-close_vote_votes"><%= gettext("Number of votes necessary to close a vote") %></label>
-    <%= number_input @fo, :close_vote_votes, id: "settings-close_vote_votes" %>
-    <label class="checkbox"><%= default_checkbox(@fo, @settings, :close_vote_votes) %> <%= default_value(@conn, :close_vote_votes) %></label>
-  </div>
-
-  <div class="cf-cgroup">
-    <label for="settings-close_vote-off-topic"><%= gettext("result for off-topic posting close votes") %></label>
-    <label class="radio"><%= radio_button @fo, :"close_vote_action_off-topic", "close" %> <%= gettext("close subtree") %></label>
-    <label class="radio"><%= radio_button @fo, :"close_vote_action_off-topic", "hide" %> <%= gettext("hide („delete“) subtree") %></label>
-    <label class="radio"><%= radio_button @fo, :"close_vote_action_off-topic", "_DEFAULT_", checked: !conf_set?(@settings, "close_vote_action_off-topic") %> <%= default_value(@conn, :"close_vote_action_off-topic") %></label>
-  </div>
-
-  <div class="cf-cgroup">
-    <label for="settings-close_vote-not-constructive"><%= gettext("result for unconstructive posting close votes") %></label>
-    <label class="radio"><%= radio_button @fo, :"close_vote_action_not-constructive", "close" %> <%= gettext("close subtree") %></label>
-    <label class="radio"><%= radio_button @fo, :"close_vote_action_not-constructive", "hide" %> <%= gettext("hide („delete“) subtree") %></label>
-    <label class="radio"><%= radio_button @fo, :"close_vote_action_not-constructive", "_DEFAULT_", checked: !conf_set?(@settings, "close_vote_action_not-constructive") %> <%= default_value(@conn, :"close_vote_action_not-constructive") %></label>
-  </div>
-
-  <div class="cf-cgroup">
-    <label for="settings-close_vote-illegal"><%= gettext("result for illegal posting close votes") %></label>
-    <label class="radio"><%= radio_button @fo, :close_vote_action_illegal, "close" %> <%= gettext("close subtree") %></label>
-    <label class="radio"><%= radio_button @fo, :close_vote_action_illegal, "hide" %> <%= gettext("hide („delete“) subtree") %></label>
-    <label class="radio"><%= radio_button @fo, :close_vote_action_illegal, "_DEFAULT_", checked: !conf_set?(@settings, "close_vote_action_illegal") %> <%= default_value(@conn, :close_vote_action_illegal) %></label>
-  </div>
-
-  <div class="cf-cgroup">
-    <label for="settings-close_vote-duplicate"><%= gettext("result for duplicate posting close votes") %></label>
-    <label class="radio"><%= radio_button @fo, :close_vote_action_duplicate, "close" %> <%= gettext("close subtree") %></label>
-    <label class="radio"><%= radio_button @fo, :close_vote_action_duplicate, "hide" %> <%= gettext("hide („delete“) subtree") %></label>
-    <label class="radio"><%= radio_button @fo, :close_vote_action_duplicate, "_DEFAULT_", checked: !conf_set?(@settings, "close_vote_action_duplicate") %> <%= default_value(@conn, :close_vote_action_duplicate) %></label>
-  </div>
-
-  <div class="cf-cgroup">
-    <label for="settings-close_vote-custom"><%= gettext("result for custom close votes") %></label>
-    <label class="radio"><%= radio_button @fo, :close_vote_action_custom, "close" %> <%= gettext("close subtree") %></label>
-    <label class="radio"><%= radio_button @fo, :close_vote_action_custom, "hide" %> <%= gettext("hide („delete“) subtree") %></label>
-    <label class="radio"><%= radio_button @fo, :close_vote_action_custom, "_DEFAULT_", checked: !conf_set?(@settings, "close_vote_action_custom") %> <%= default_value(@conn, :close_vote_action_custom) %></label>
-  </div>
-
-  <div class="cf-cgroup">
-    <label for="settings-close_vote-spam"><%= gettext("result for spam close votes") %></label>
-    <label class="radio"><%= radio_button @fo, :close_vote_action_spam, "close" %> <%= gettext("close subtree") %></label>
-    <label class="radio"><%= radio_button @fo, :close_vote_action_spam, "hide" %> <%= gettext("hide („delete“) subtree") %></label>
-    <label class="radio"><%= radio_button @fo, :close_vote_action_spam, "_DEFAULT_", checked: !conf_set?(@settings, "close_vote_action_spam") %> <%= default_value(@conn, :close_vote_action_spam) %></label>
-  </div>
-</fieldset>
-
 <fieldset id="anti-spam-settings">
   <legend><%= gettext("anti spam settings") %></legend>
 

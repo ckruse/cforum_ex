@@ -16,7 +16,6 @@ defmodule Cforum.Messages.Message do
     :user,
     :cites,
     votes: :user,
-    close_votes: :voters,
     versions: :user
   ]
   def default_preloads, do: @default_preloads ++ [tags: from(t in Tag, order_by: [asc: :tag_name])]
@@ -58,7 +57,6 @@ defmodule Cforum.Messages.Message do
     )
 
     has_many(:votes, Cforum.Messages.Vote, foreign_key: :message_id)
-    has_many(:close_votes, Cforum.Messages.CloseVote, foreign_key: :message_id)
 
     timestamps(inserted_at: :created_at)
   end

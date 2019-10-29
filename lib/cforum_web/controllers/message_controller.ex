@@ -21,11 +21,7 @@ defmodule CforumWeb.MessageController do
   @notification_types [
     "message:create-answer",
     "message:create-activity",
-    "message:mention",
-    "reopen_vote:create",
-    "close_vote:create",
-    "reopen_vote:finish",
-    "close_vote:finish"
+    "message:mention"
   ]
 
   def show(conn, params) do

@@ -7,7 +7,6 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   alias Cforum.Threads.Thread
   alias Cforum.Messages.{Message, MessageVersion}
   alias Cforum.Messages.{Tag, TagSynonym}
-  alias Cforum.Messages.CloseVote
 
   alias CforumWeb.Router.Helpers, as: Routes
   alias Cforum.Helpers
@@ -361,19 +360,6 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def message_version_path(conn, :delete, %Thread{} = thread, %Message{} = msg, version, params) do
     "#{int_message_path(conn, thread, msg)}/versions/#{version.message_version_id}#{encode_query_string(conn, params)}"
   end
-
-  @spec close_vote_path(conn(), %Thread{}, %Message{}, params()) :: String.t()
-  def close_vote_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
-    do: "#{int_message_path(conn, thread, msg)}/close-vote#{encode_query_string(conn, params)}"
-
-  @spec open_vote_path(conn(), %Thread{}, %Message{}, params()) :: String.t()
-  def open_vote_path(conn, %Thread{} = thread, %Message{} = msg, params \\ []),
-    do: "#{int_message_path(conn, thread, msg)}/open-vote#{encode_query_string(conn, params)}"
-
-  @spec oc_vote_path(conn(), %Thread{}, %Message{}, %CloseVote{}, params()) ::
-          String.t()
-  def oc_vote_path(conn, %Thread{} = thread, %Message{} = message, %CloseVote{} = vote, params \\ []),
-    do: "#{int_message_path(conn, thread, message)}/oc-vote/#{vote.close_vote_id}#{encode_query_string(conn, params)}"
 
   @spec mark_read_path(conn(), atom(), %Thread{} | nil | params(), params()) :: String.t()
   def mark_read_path(conn, action, thread_or_params \\ nil, params \\ [])

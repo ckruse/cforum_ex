@@ -124,15 +124,6 @@ defmodule Cforum.Factory do
     }
   end
 
-  def close_vote_factory do
-    %Cforum.Messages.CloseVote{
-      reason: "spam",
-      vote_type: false,
-      finished: false,
-      message: build(:message)
-    }
-  end
-
   def moderation_queue_entry_factory do
     %Cforum.ModerationQueue.ModerationQueueEntry{
       cleared: false,

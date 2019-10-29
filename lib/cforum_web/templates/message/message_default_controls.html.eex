@@ -22,14 +22,6 @@
   <%= if Abilities.may?(@conn, "messages/flag", :flag, @message) do %>
     <%= ViewHelpers.Button.default_button_link(gettext("flag message"), to: Path.message_path(@conn, :flag, @thread, @message), rel: "nofollow") %>
   <% end %>
-
-  <%= if Abilities.may?(@conn, "messages/open_close_vote", :new_close, {@thread, @message}) do %>
-    <%= ViewHelpers.Button.default_button_link(gettext("Start a close vote"), to: Path.close_vote_path(@conn, @thread, @message), rel: "nofollow") %>
-  <% end %>
-
-  <%= if Abilities.may?(@conn, "messages/open_close_vote", :new_open, {@thread, @message}) do %>
-    <%= ViewHelpers.Button.default_button_link(gettext("Start an open vote"), to: Path.open_vote_path(@conn, @thread, @message), rel: "nofollow") %>
-  <% end %>
 </div>
 
 <%= if Abilities.signed_in?(@conn) do %>

@@ -34,14 +34,6 @@
 </div>
 
 
-<%= if Helpers.present?(CloseVotes.get_close_vote(@message)) do %>
-  <%= render "close_vote.html", Map.put(assigns, :close_vote, CloseVotes.get_close_vote(@message)) %>
-<% end %>
-
-<%= if Helpers.present?(CloseVotes.get_reopen_vote(@message)) do %>
-  <%= render "reopen_vote.html", Map.put(assigns, :reopen_vote, CloseVotes.get_reopen_vote(@message)) %>
-<% end %>
-
 <%= if @message.message_id == @thread.message.message_id and Helpers.present?(@thread.accepted) do %>
   <h3><%= gettext("accepted answers") %></h3>
 

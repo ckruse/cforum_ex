@@ -9,7 +9,6 @@
         <li><a href="#editing-settings"><%= gettext("editing settings") %></a></li>
         <li><a href="#date-format-settings"><%= gettext("date format settings") %></a></li>
         <li><a href="#voting-and-scoring-settings"><%= gettext("voting and scoring settings") %></a></li>
-        <li><a href="#close-and-reopen-vote-settings"><%= gettext("close and reopen vote settings") %></a></li>
         <li><a href="#anti-spam-settings"><%= gettext("anti spam settings") %></a></li>
       </ul>
     </nav>
@@ -22,7 +21,6 @@
         <button role="tab" id="editing-settings-tab" aria-controls="editing-settings" aria-selected="false" tabindex="-1"><%= gettext("editing settings") %></button>
         <button role="tab" id="date-format-settings-tab" aria-controls="date-format-settings" aria-selected="false" tabindex="-1"><%= gettext("date format settings") %></button>
         <button role="tab" id="voting-and-scoring-settings-tab" aria-controls="voting-and-scoring-settings" aria-selected="false" tabindex="-1"><%= gettext("voting and scoring settings") %></button>
-        <button role="tab" id="close-and-reopen-vote-settings-tab" aria-controls="close-and-reopen-vote-settings" aria-selected="false" tabindex="-1"><%= gettext("close and reopen vote settings") %></button>
         <button role="tab" id="anti-spam-settings-tab" aria-controls="anti-spam-settings" aria-selected="false" tabindex="-1"><%= gettext("anti spam settings") %></button>
       </div>
     </template>

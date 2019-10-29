@@ -1,22 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
-  if (!["flag-message", "close-vote-message-new"].includes(document.body.id)) {
+  if (document.body.id !== "flag-message") {
     return;
   }
 
-  const elementNames = {
-    "flag-message": {
-      option: "moderation_queue_entry[reason]",
-      url: "#moderation_queue_entry_duplicate_url",
-      custom: "#moderation_queue_entry_custom_reason"
-    },
-    "close-vote-message-new": {
-      option: "close_vote[reason]",
-      url: "#close_vote_duplicate_url",
-      custom: "#close_vote_custom_reason"
-    }
+  const elements = {
+    option: "moderation_queue_entry[reason]",
+    url: "#moderation_queue_entry_duplicate_url",
+    custom: "#moderation_queue_entry_custom_reason"
   };
-
-  const elements = elementNames[document.body.id];
 
   const showOrHide = () => {
     const elem = document.querySelector("[name='" + elements.option + "']:checked");

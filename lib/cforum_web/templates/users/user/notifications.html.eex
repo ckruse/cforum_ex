@@ -57,15 +57,6 @@
       </div>
     <% end %>
 
-    <%= if Abilities.may?(@conn, CforumWeb.Messages.OpenCloseVoteController, :vote) do %>
-      <div class="cf-cgroup">
-        <label><%= gettext("send me a notification on close and re-open votes") %></label>
-        <label class="radio"><%= radio_button @f, :notify_on_open_close_vote, "yes" %> <%= gettext("yes") %></label>
-        <label class="radio"><%= radio_button @f, :notify_on_open_close_vote, "no" %> <%= gettext("no") %></label>
-        <label class="radio"><%= radio_button @f, :notify_on_open_close_vote, "email" %> <%= gettext("via email") %></label>
-      </div>
-    <% end %>
-
     <div class="cf-cgroup">
       <label class="checkbox">
         <%= checkbox @f, :delete_read_notifications, checked_value: "yes", unchecked_value: "no" %> <%= gettext("automatically delete read notifications") %>

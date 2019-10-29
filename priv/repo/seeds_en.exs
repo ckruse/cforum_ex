@@ -40,15 +40,6 @@ Badges.create_badge(nil, %{
 })
 
 Badges.create_badge(nil, %{
-  score_needed: 1000,
-  name: "Visit close and re-open votes",
-  slug: "visit_close_reopen",
-  badge_type: "visit_close_reopen",
-  badge_medal_type: "bronze",
-  description: "The user gains the right to visit close and re-open votes"
-})
-
-Badges.create_badge(nil, %{
   score_needed: 1200,
   name: "Create tag",
   slug: "create_tag",
@@ -82,15 +73,6 @@ Badges.create_badge(nil, %{
   badge_type: "edit_answer",
   badge_medal_type: "silver",
   description: "The user gains the right to edit questions"
-})
-
-Badges.create_badge(nil, %{
-  score_needed: 3000,
-  name: "Create close and reopen votes",
-  slug: "create_close_reopen_vote",
-  badge_type: "create_close_reopen_vote",
-  badge_medal_type: "silver",
-  description: "The user gains the right to create close and reopen votes"
 })
 
 Badges.create_badge(nil, %{
