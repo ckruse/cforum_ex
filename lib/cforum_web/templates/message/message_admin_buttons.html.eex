@@ -16,11 +16,11 @@
 
     <%= if @thread.flags["no-archive"] == "yes" do %>
       <%= ViewHelpers.Button.destructive_index_button(to: Path.thread_path(@conn, :do_archive, @thread), params: ViewHelpers.std_args(@conn)) do %>
-        <%= gettext("don't archive thread") %>
+        <%= gettext("archive thread") %>
       <% end %>
     <% else %>
       <%= ViewHelpers.Button.destructive_index_button(to: Path.thread_path(@conn, :no_archive, @thread), params: ViewHelpers.std_args(@conn)) do %>
-        <%= gettext("archive thread") %>
+        <%= gettext("don't archive thread") %>
       <% end %>
     <% end %>
   <% end %>
