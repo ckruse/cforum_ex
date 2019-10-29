@@ -2,13 +2,13 @@
     <%= if Helpers.blank?(@message.parent_id) do %>
       <%= if @thread.sticky do %>
         <%= ViewHelpers.Button.destructive_index_button(to: Path.thread_path(@conn, :unsticky, @thread), params: ViewHelpers.std_args(@conn)) do %>
-          <%= gettext("mark thread as sticky") %>
+          <%= gettext("remove sticky mark") %>
         <% end %>
       <% else %>
         <%= ViewHelpers.Button.destructive_index_button(to: Path.thread_path(@conn, :sticky, @thread), params: ViewHelpers.std_args(@conn)) do %>
-        <%= gettext("remove sticky mark") %>
+          <%= gettext("mark thread as sticky") %>
+        <% end %>
       <% end %>
-    <% end %>
 
     <%= ViewHelpers.Button.destructive_index_button(to: Path.thread_path(@conn, :move, @thread), method: :get) do %>
       <%= gettext("move thread") %>
