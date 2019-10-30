@@ -204,9 +204,13 @@ defmodule CforumWeb.Users.UserController do
   def delete(conn, %{"id" => _id}) do
     {:ok, _user} = Users.delete_user(nil, conn.assigns.user)
 
-    conn
-    |> configure_session(drop: true)
-    |> delete_resp_cookie("remember_me")
+    if conn.assigns.user.user_id == conn.assigns.current_user.user_id do
+      conn
+      |> configure_session(drop: true)
+      |> delete_resp_cookie("remember_me")
+    else
+      conn
+    end
     |> redirect(to: Path.user_path(conn, :deletion_started))
   end
 
