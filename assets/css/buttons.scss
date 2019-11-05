@@ -41,6 +41,15 @@
   border-color: $grey-border;
 }
 
+.cf-btn:disabled,
+.cf-btn.disabled,
+.cf-btn:disabled:hover,
+.cf-btn.disabled:hover {
+  background-color: lighten($default-foreground-color, 20%);
+  border-color: lighten($grey-border, 20%);
+  cursor: not-allowed;
+}
+
 .cf-btn-xs {
   padding: 3px 6px;
   line-height: 1em;
@@ -80,7 +89,7 @@
   @extend .btn;
   color: $default-background-color;
   background-color: $primary-color;
-  border-color: #2e6da4;
+  border-color: $primary-border-color;
 }
 
 .cf-primary-btn:link,
@@ -88,13 +97,31 @@
   color: $default-background-color;
 }
 
+.cf-primary-btn:disabled,
+.cf-primary-btn.disabled,
+.cf-primary-btn:disabled:hover,
+.cf-primary-btn.disabled:hover {
+  background-color: lighten($primary-color, 20%);
+  border-color: lighten($primary-border-color, 20%);
+  cursor: not-allowed;
+}
+
 .cf-destructive-btn,
 .cf-destructive-btn:link {
   @extend .cf-btn;
 
   color: $default-background-color;
-  background-color: #d9534f;
-  border-color: #d43f3a;
+  background-color: $destructive-background-color;
+  border-color: $destructive-border-color;
+}
+
+.cf-destructive-btn:disabled,
+.cf-destructive-btn.disabled,
+.cf-destructive-btn:disabled:hover,
+.cf-destructive-btn.disabled:hover {
+  background-color: lighten($default-background-color, 20%);
+  border-color: lighten($destructive-background-color, 20%);
+  cursor: not-allowed;
 }
 
 .cf-primary-btn:hover,
