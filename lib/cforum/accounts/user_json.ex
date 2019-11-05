@@ -13,6 +13,7 @@ defimpl Jason.Encoder, for: User do
         score: user.score,
         activity: user.activity,
         created_at: user.created_at,
+        admin: user.admin,
         avatar: %{
           thumb: Cforum.Accounts.User.avatar_path(user, :thumb),
           medium: Cforum.Accounts.User.avatar_path(user, :medium),
