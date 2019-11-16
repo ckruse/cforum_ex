@@ -187,7 +187,7 @@ export const unsubscribeMessageHelper = (requestParams, form) => {
 
   if (document.body.dataset.controller === "Messages.SubscriptionController") {
     retval.afterAction = response => {
-      if (response.status == 200) {
+      if (response.status === 200) {
         form.closest(".cf-thread").remove();
       } else {
         alertError(t("Oops, something went wrong!"));
