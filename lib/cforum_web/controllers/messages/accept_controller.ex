@@ -51,8 +51,8 @@ defmodule CforumWeb.Messages.AcceptController do
         _ -> {conn.assigns.thread, conn.assigns.message}
       end
 
-    Helpers.present?(message.parent_id) && Abilities.accept?(conn, thread.message) &&
-      !MessageHelpers.accepted?(message) && !thread.archived
+    Helpers.present?(message.parent_id) && Abilities.accept?(conn, message) && !MessageHelpers.accepted?(message) &&
+      !thread.archived
   end
 
   def allowed?(conn, :unaccept, resource) do
@@ -62,7 +62,7 @@ defmodule CforumWeb.Messages.AcceptController do
         _ -> {conn.assigns.thread, conn.assigns.message}
       end
 
-    Abilities.accept?(conn, thread.message) && MessageHelpers.accepted?(message) && !thread.archived
+    Abilities.accept?(conn, message) && MessageHelpers.accepted?(message) && !thread.archived
   end
 
   def allowed?(_, _, _), do: false
