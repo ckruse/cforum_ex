@@ -243,4 +243,15 @@ defmodule CforumWeb.MessageView do
       do: link(gettext("problematic site"), to: url, rel: "nofollow noopener", target: "_blank"),
       else: link(gettext("problematic site"), to: url, rel: "nofollow")
   end
+
+  def l10n_reason("off-topic"), do: gettext("Message is off topic.")
+
+  def l10n_reason("not-constructive"),
+    do: gettext("message is unconstructive or provocative and contributes to a deterioration of sentiment")
+
+  def l10n_reason("illegal"), do: gettext("message is illegal")
+  def l10n_reason("duplicate"), do: gettext("message is a duplicate of another message")
+  def l10n_reason("spam"), do: gettext("message is spam")
+  def l10n_reason(custom) when not is_nil(custom) and custom != "", do: custom
+  def l10n_reason(_), do: ""
 end

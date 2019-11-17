@@ -1,25 +1,25 @@
 <%= if @message.deleted do %>
-  <%= ViewHelpers.Button.cf_button(to: Path.message_path(@conn, :restore, @thread, @message), class: "icon-message restore icon-button", title: gettext("restore this message"), params: ViewHelpers.std_args(@conn)) do %>
+  <button data-js="restore" data-mid="<%= @message.message_id %>" data-slug="<%= @thread.slug %>" title="<%= gettext("restore this message") %>" class="icon-message restore icon-button">
     <span class="visually-hidden"><%= gettext("restore this message") %></span>
     <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-restore"></use></svg>
-  <% end %>
+  </button>
 <% else %>
-  <%= ViewHelpers.Button.cf_button(to: Path.message_path(@conn, :delete, @thread, @message), class: "icon-message delete icon-button", title: gettext("delete this message"), params: ViewHelpers.std_args(@conn)) do %>
+  <button data-js="delete" data-mid="<%= @message.message_id %>" data-slug="<%= @thread.slug %>" class="icon-message delete icon-button" title="<%= gettext("delete this message") %>">
     <span class="visually-hidden"><%= gettext("delete this message") %></span>
     <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-delete"></use></svg>
-  <% end %>
+  </button>
 <% end %>
 
 <%= if MessageHelpers.no_answer?(@message) do %>
-  <%= ViewHelpers.Button.cf_button(to: Path.message_path(@conn, :answer, @thread, @message), class: "icon-message no-answer icon-button", title: gettext("allow answering to this message"), params: ViewHelpers.std_args(@conn)) do %>
+  <button data-js="answer" data-mid="<%= @message.message_id %>" data-slug="<%= @thread.slug %>" class="icon-message no-answer icon-button" title="<%= gettext("allow answering to this message") %>">
     <span class="visually-hidden"><%= gettext("allow answering to this message") %></span>
     <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#no-answer"></use></svg>
-  <% end %>
+  </button>
 <% else %>
-  <%= ViewHelpers.Button.cf_button(to: Path.message_path(@conn, :no_answer, @thread, @message), class: "icon-message answer icon-button", title: gettext("forbid answering to this message"), params: ViewHelpers.std_args(@conn)) do %>
+  <button data-js="no-answer" data-mid="<%= @message.message_id %>" data-slug="<%= @thread.slug %>" class="icon-message answer icon-button" title="<%= gettext("forbid answering to this message") %>">
     <span class="visually-hidden"><%= gettext("forbid answering to this message") %></span>
     <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#do-answer"></use></svg>
-  <% end %>
+  </button>
 <% end %>
 
 <%= if Abilities.may?(@conn, "threads/admin", :split, @message) do %>

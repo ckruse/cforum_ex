@@ -275,7 +275,7 @@ defmodule CforumWeb.MessageController do
     do: allowed?(conn, :show, {conn.assigns.thread, conn.assigns.message})
 
   def allowed?(conn, :show, {_thread, message}),
-    do: Abilities.access_forum?(conn) && (!message.deleted || conn.assigns.view_all)
+    do: Abilities.access_forum?(conn) && (!MessageHelpers.message_deleted?(message) || conn.assigns.view_all)
 
   def allowed?(_conn, val1, val2), do: raise(inspect([val1, val2]))
   # def allowed?(conn, _, _), do: Abilities.access_forum?(conn)

@@ -66,3 +66,6 @@ export const uniqueId = (len = 5) =>
   Math.random()
     .toString(36)
     .substr(2, len);
+
+export const isInAdminView = () =>
+  document.location.search.indexOf("view_all=yes") !== -1 && !!document.querySelector("#admin-view");

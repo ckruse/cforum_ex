@@ -214,5 +214,17 @@ export const lang = {
   "save my identity in a cookie": "speichere die Identität in einem Cookie",
 
   "identity description":
-    "Die Identität in einem Cookie zu speichern erlaubt es Ihnen, Ihre Beiträge zu editieren. Außerdem müssen Sie dann bei neuen Beiträgen nicht mehr die Felder Name, Email und Homepage ausfüllen."
+    "Die Identität in einem Cookie zu speichern erlaubt es Ihnen, Ihre Beiträge zu editieren. Außerdem müssen Sie dann bei neuen Beiträgen nicht mehr die Felder Name, Email und Homepage ausfüllen.",
+
+  "delete message without public reason": "lösche Beitrag ohne öffentliche Begründung",
+  "delete message": "lösche Beitrag",
+  "close message": "schließe Beitrag",
+  "close message without public reason": "schließe Beitrag ohne öffentliche Begründung",
+
+  "message is off-topic": "Beitrag ist außerhalb des durch dieses Forum abgedeckten Themenbereichs",
+  "message is not constructive": "Beitrag ist unkonstruktiv",
+  "message is illegal": "Beitrag ist rechtlich problematisch",
+  "message is a duplicate": "Beitrag ist ein Duplikat eines anderen Beitrags",
+  "message is spam": "Beitrag ist Spam",
+  "custom reason": "sonstiger Grund"
 };

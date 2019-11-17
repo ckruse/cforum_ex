@@ -8,8 +8,13 @@ defmodule CforumWeb.Api.V1.Messages.AdminController do
   alias Cforum.Abilities
   alias Cforum.ConfigManager
 
-  def delete(conn, %{"slug" => slug}) do
-    Messages.delete_message(conn.assigns.current_user, conn.assigns.message)
+  def delete(conn, %{"slug" => slug} = args) do
+    reason =
+      if args["reason"] == "custom",
+        do: args["custom"],
+        else: args["reason"]
+
+    Messages.delete_message(conn.assigns.current_user, conn.assigns.message, reason)
     render_thread(conn, slug)
   end
 
@@ -18,8 +23,13 @@ defmodule CforumWeb.Api.V1.Messages.AdminController do
     render_thread(conn, slug)
   end
 
-  def no_answer(conn, %{"slug" => slug}) do
-    Messages.flag_no_answer(conn.assigns.current_user, conn.assigns.message)
+  def no_answer(conn, %{"slug" => slug} = args) do
+    reason =
+      if args["reason"] == "custom",
+        do: args["custom"],
+        else: args["reason"]
+
+    Messages.flag_no_answer(conn.assigns.current_user, conn.assigns.message, reason)
     render_thread(conn, slug)
   end
 

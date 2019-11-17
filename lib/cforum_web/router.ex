@@ -227,12 +227,6 @@ defmodule CforumWeb.Router do
       get("/:year/:month/:day/:slug/:mid/versions", Messages.VersionController, :show, as: nil)
       delete("/:year/:month/:day/:slug/:mid/versions/:id", Messages.VersionController, :delete, as: nil)
 
-      post("/:year/:month/:day/:slug/:mid/delete", Messages.AdminController, :delete, as: nil)
-      post("/:year/:month/:day/:slug/:mid/restore", Messages.AdminController, :restore, as: nil)
-
-      post("/:year/:month/:day/:slug/:mid/no-answer", Messages.AdminController, :no_answer, as: nil)
-      post("/:year/:month/:day/:slug/:mid/answer", Messages.AdminController, :answer, as: nil)
-
       post("/:year/:month/:day/:slug/:mid/subscribe", Messages.SubscriptionController, :subscribe, as: nil)
       post("/:year/:month/:day/:slug/:mid/unsubscribe", Messages.SubscriptionController, :unsubscribe, as: nil)
 

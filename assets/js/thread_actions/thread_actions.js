@@ -13,11 +13,7 @@ import {
   subscribeMessageHelper,
   unsubscribeMessageHelper,
   noArchiveHelper,
-  doArchiveHelper,
-  deleteHelper,
-  restoreHelper,
-  noAnswerHelper,
-  doAnswerHelper
+  doArchiveHelper
 } from "./helpers";
 
 const buttonElement = el => {
@@ -37,11 +33,7 @@ const setupThreadActions = element => {
     ".message-icons .mark-interesting": markInterestingHelper,
     ".message-icons .boring": markBoringHelper,
     ".message-icons .subscribe": subscribeMessageHelper,
-    ".message-icons .unsubscribe": unsubscribeMessageHelper,
-    ".message-icons .delete": deleteHelper,
-    ".message-icons .restore": restoreHelper,
-    ".message-icons .answer": noAnswerHelper,
-    ".message-icons .no-answer": doAnswerHelper
+    ".message-icons .unsubscribe": unsubscribeMessageHelper
   };
 
   element.addEventListener("click", event => {

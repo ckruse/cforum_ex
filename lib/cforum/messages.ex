@@ -330,20 +330,28 @@ defmodule Cforum.Messages do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_message(user, %Message{} = message) do
+  def delete_message(user, %Message{} = message, reason \\ nil) do
     message_ids =
       message
       |> subtree_message_ids()
       |> List.flatten()
+      |> tl()
 
     System.audited("destroy", user, fn ->
-      from(m in Message,
-        where: m.message_id in ^message_ids,
-        update: [set: [deleted: true]]
-      )
-      |> Repo.update_all([])
+      ret =
+        message
+        |> Ecto.Changeset.change(%{deleted: true, flags: Map.put(message.flags, "reason", reason)})
+        |> Repo.update()
 
-      {:ok, message}
+      with {:ok, message} <- ret do
+        from(m in Message,
+          where: m.message_id in ^message_ids,
+          update: [set: [deleted: true, flags: fragment("? - 'reason'", m.flags)]]
+        )
+        |> Repo.update_all([])
+
+        {:ok, message}
+      end
     end)
     |> ThreadCaching.refresh_cached_thread()
     |> unnotify_user(message_ids)
@@ -378,7 +386,7 @@ defmodule Cforum.Messages do
     System.audited("restore", user, fn ->
       from(m in Message,
         where: m.message_id in ^message_ids,
-        update: [set: [deleted: false]]
+        update: [set: [deleted: false, flags: fragment("? - 'reason'", m.flags)]]
       )
       |> Repo.update_all([])
 
@@ -682,9 +690,33 @@ defmodule Cforum.Messages do
       iex> flag_no_answer(%User{}, %Message{})
       {:ok, %Message{}}
   """
-  def flag_no_answer(user, message, type \\ "no-answer-admin") when type in ~w(no-answer-admin no-answer) do
+  def flag_no_answer(user, message, reason, type \\ "no-answer-admin") when type in ~w(no-answer-admin no-answer) do
     System.audited("flag-no-answer", user, fn ->
-      flag_message_subtree(message, type, "yes")
+      message_ids =
+        message
+        |> subtree_message_ids()
+        |> List.flatten()
+        |> tl()
+
+      new_flags =
+        message.flags
+        |> Map.put("reason", reason)
+        |> Map.put(type, "yes")
+
+      ret =
+        message
+        |> Ecto.Changeset.change(%{flags: new_flags})
+        |> Repo.update()
+
+      with {:ok, message} <- ret do
+        from(m in Message,
+          where: m.message_id in ^message_ids,
+          update: [set: [flags: fragment("jsonb_set(? - 'reason', ?, '\"yes\"')", m.flags, ^[type])]]
+        )
+        |> Repo.update_all([])
+
+        {:ok, message}
+      end
     end)
     |> ThreadCaching.refresh_cached_thread()
   end
@@ -707,6 +739,12 @@ defmodule Cforum.Messages do
       Enum.each(types, fn type ->
         {:ok, _} = unflag_message_subtree(message, type)
       end)
+
+      new_flags = Map.drop(message.flags, ["reason" | types])
+
+      message
+      |> Ecto.Changeset.change(%{flags: new_flags})
+      |> Repo.update()
 
       {:ok, message}
     end)

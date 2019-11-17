@@ -10,9 +10,21 @@
   </p>
 <% end %>
 
-<div class="cf-posting-content<%= if @message.deleted, do: " deleted" %> e-content">
-  <%= if assigns[:prerendered], do: @prerendered[@message.message_id], else: Cforum.MarkdownRenderer.to_html(@message, @conn) %>
-</div>
+<%= if Helpers.present?(@message.flags["reason"]) do %>
+  <div class="cf-moderation-text">
+    <%= if @message.deleted do %>
+      <%= gettext("This message has been deleted: %{reason}", reason: l10n_reason(@message.flags["reason"])) %>
+    <% else %>
+      <%= gettext("This message has been locked: %{reason}", reason: l10n_reason(@message.flags["reason"])) %>
+    <% end %>
+  </div>
+<% end %>
+
+<%= if !@message.deleted || @view_all do %>
+  <div class="cf-posting-content<%= if @message.deleted, do: " deleted" %> e-content">
+    <%= Cforum.MarkdownRenderer.to_html(@message, @conn) %>
+  </div>
+<% end %>
 
 <div class="posting-footer">
   <div class="button-container">

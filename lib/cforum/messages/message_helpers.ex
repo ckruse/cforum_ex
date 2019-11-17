@@ -194,4 +194,6 @@ defmodule Cforum.Messages.MessageHelpers do
         nil
     end
   end
+
+  def message_deleted?(msg), do: msg.deleted == true && Helpers.blank?(msg.flags["reason"])
 end

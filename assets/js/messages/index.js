@@ -1,3 +1,5 @@
+import { isInAdminView } from "../modules/helpers";
+
 if (document.body.dataset.controller === "MessageController") {
   if (document.body.dataset.action === "show") {
     import(/* webpackChunkName: "messages-show" */ "./inline_forms").then(({ default: showInlineForm }) => {
@@ -9,7 +11,7 @@ if (document.body.dataset.controller === "MessageController") {
   }
 
   if (document.body.classList.contains("nested-view")) {
-    import(/* webpackChunkName: "messages-show" */ "./nested_view").then(({ default: initNestedView }) =>
+    import(/* webpackChunkName: "messages-show-nested" */ "./nested_view").then(({ default: initNestedView }) =>
       initNestedView()
     );
   }
@@ -25,4 +27,9 @@ if (["MessageController", "ThreadController"].includes(document.body.dataset.con
 
 if (document.body.dataset.controller === "Messages.RetagController") {
   import(/* webpackChunkName: "messages" */ "./retag").then(({ default: setupTaglist }) => setupTaglist());
+}
+
+const ACTIVE_CONTROLLERS = ["MessageController", "ThreadController"];
+if (isInAdminView() && ACTIVE_CONTROLLERS.includes(document.body.dataset.controller)) {
+  import(/* webpackChunkName: "message-admin-actions" */ "./admin");
 }

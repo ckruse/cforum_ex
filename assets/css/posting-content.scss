@@ -185,6 +185,11 @@
   padding-top: 30px;
 }
 
+.cf-moderation-text {
+  margin: 0.5em 0px;
+  font-style: italic;
+}
+
 @include default-breakpoint() {
   .cf-posting-content {
     padding: 0.8em 1em 1em;

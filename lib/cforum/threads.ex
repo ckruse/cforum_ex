@@ -59,7 +59,8 @@ defmodule Cforum.Threads do
 
   def reject_deleted_threads(threads, _) do
     Enum.reduce(threads, [], fn thread, list ->
-      thread = Map.put(thread, :messages, Enum.filter(thread.messages, &(&1.deleted == false)))
+      thread = Map.put(thread, :messages, Enum.reject(thread.messages, &MessageHelpers.message_deleted?/1))
+
       [thread | list]
     end)
     |> Enum.reject(&(&1.messages == []))
