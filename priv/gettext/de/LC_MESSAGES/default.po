@@ -1935,7 +1935,7 @@ msgstr "Foren verwalten"
 #, elixir-format
 #: lib/cforum_web/views/admin/user_view.ex:13
 msgid "administrate users"
-msgstr "Gruppen verwalten"
+msgstr "Benutzer verwalten"
 
 #, elixir-format
 #: lib/cforum_web/views/admin/forum_view.ex:12
@@ -1945,7 +1945,7 @@ msgstr "Forum „%{name}“ bearbeiten"
 #, elixir-format
 #: lib/cforum_web/views/admin/user_view.ex:17
 msgid "edit user „%{name}“"
-msgstr "Gruppe „%{name}“ bearbeiten"
+msgstr "Benutzer „%{name}“ bearbeiten"
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:27
