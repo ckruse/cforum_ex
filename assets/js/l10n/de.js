@@ -218,8 +218,13 @@ export const lang = {
 
   "delete message without public reason": "lösche Beitrag ohne öffentliche Begründung",
   "delete message": "lösche Beitrag",
-  "close message": "schließe Beitrag",
-  "close message without public reason": "schließe Beitrag ohne öffentliche Begründung",
+  "restore this message": "diesen Beitrag wiederherstellen",
+  "delete this message": "diesen Beitrag löschen",
+
+  "forbid answering to this message": "antworten auf diesen Beitrag verbieten",
+  "forbid answering to this message without public reason":
+    "verbiete antworten auf diesen Beitrag ohne öffentliche Begründung",
+  "allow answering to this message": "antworten auf diesen Beitrag erlauben",
 
   "message is off-topic": "Beitrag ist außerhalb des durch dieses Forum abgedeckten Themenbereichs",
   "message is not constructive": "Beitrag ist unkonstruktiv",

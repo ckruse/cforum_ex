@@ -23,17 +23,19 @@ export default function forbidAnswer(ev, button) {
       messageId={mid}
       slug={slug}
       onClose={closeDialog}
-      heading={t("close message")}
-      noReasonActionText={t("close message without public reason")}
-      reasonActionText={t("close message")}
-      noReasonAction={() => closeMessage(slug, mid, true)}
-      reasonAction={(reason, customReason) => closeMessage(slug, mid, false, reason, customReason)}
+      heading={t("forbid answering to this message")}
+      noReasonActionText={t("forbid answering to this message without public reason")}
+      reasonActionText={t("forbid answering to this message")}
+      noReasonAction={() => closeMessage(button, slug, mid, true)}
+      reasonAction={(reason, customReason) => closeMessage(button, slug, mid, false, reason, customReason)}
     />,
     el
   );
 }
 
-async function closeMessage(slug, messageId, noPublicReason, reason, customReason) {
+async function closeMessage(button, slug, messageId, noPublicReason, reason, customReason) {
+  button.classList.add("loading");
+
   const response = await fetch("/api/v1/messages/no-answer", {
     method: "POST",
     credentials: "same-origin",
@@ -53,4 +55,12 @@ async function closeMessage(slug, messageId, noPublicReason, reason, customReaso
   const node = parse(html);
   const message = document.getElementById("tree-m" + messageId) || document.getElementById("m" + messageId);
   message.closest(".cf-thread").replaceWith(node);
+
+  button.classList.remove("loading");
+
+  const btt = document.querySelector(`.admin-links button[data-js="no-answer"][data-mid="${messageId}"]`);
+  if (btt) {
+    btt.dataset.js = "answer";
+    btt.textContent = t("allow answering to this message");
+  }
 }

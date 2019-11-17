@@ -29,4 +29,4 @@ const dispatchClicks = ev => {
   ACTIONS[jsAction](ev, element);
 };
 
-document.querySelector(".cf-thread-list").addEventListener("click", dispatchClicks);
+document.querySelectorAll(".cf-thread-list, .admin-links").forEach(el => el.addEventListener("click", dispatchClicks));

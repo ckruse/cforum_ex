@@ -85,4 +85,6 @@ if (document.body.dataset.userId) {
     });
 }
 
+document.addEventListener("unload", () => socket.close());
+
 export default socket;

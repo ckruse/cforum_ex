@@ -1,4 +1,5 @@
 import { parse } from "../../modules/helpers";
+import { t } from "../../modules/i18n";
 
 export default function answer(ev, button) {
   ev.preventDefault();
@@ -6,10 +7,12 @@ export default function answer(ev, button) {
   const mid = button.dataset.mid;
   const slug = button.dataset.slug;
 
-  allowAnswer(slug, mid);
+  allowAnswer(button, slug, mid);
 }
 
-async function allowAnswer(slug, messageId) {
+async function allowAnswer(button, slug, messageId) {
+  button.classList.add("loading");
+
   const response = await fetch("/api/v1/messages/answer", {
     method: "POST",
     credentials: "same-origin",
@@ -26,4 +29,12 @@ async function allowAnswer(slug, messageId) {
   const node = parse(html);
   const message = document.getElementById("tree-m" + messageId) || document.getElementById("m" + messageId);
   message.closest(".cf-thread").replaceWith(node);
+
+  button.classList.remove("loading");
+
+  const btt = document.querySelector(`.admin-links button[data-js="answer"][data-mid="${messageId}"]`);
+  if (btt) {
+    btt.dataset.js = "no-answer";
+    btt.textContent = t("forbid answering to this message");
+  }
 }

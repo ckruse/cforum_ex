@@ -26,24 +26,16 @@
   <% end %>
 
   <%= if @message.deleted do %>
-    <%= ViewHelpers.Button.destructive_index_button(to: Path.message_path(@conn, :restore, @thread, @message), params: ViewHelpers.std_args(@conn)) do %>
-      <%= gettext("restore this message") %>
-    <% end %>
+    <button class="cf-destructive-index-btn" data-confirm="<%= gettext("Are you sure?") %>" data-js="restore" data-mid="<%= @message.message_id %>" data-slug="<%= @thread.slug %>"><%= gettext("restore this message") %></button>
   <% else %>
-    <%= ViewHelpers.Button.destructive_index_button(to: Path.message_path(@conn, :delete, @thread, @message), params: ViewHelpers.std_args(@conn)) do %>
-      <%= gettext("delete this message") %>
-    <% end %>
+    <button class="cf-destructive-index-btn" data-confirm="<%= gettext("Are you sure?") %>" data-js="delete" data-mid="<%= @message.message_id %>" data-slug="<%= @thread.slug %>"><%= gettext("delete this message") %></button>
   <% end %>
 
-  <%= if Abilities.may?(@conn, "messages/admin", :no_answer) do %>
+  <%= if Abilities.may?(@conn, "api/v1/messages/admin", :no_answer) do %>
     <%= if MessageHelpers.no_answer?(@message) do %>
-      <%= ViewHelpers.Button.destructive_index_button(to: Path.message_path(@conn, :answer, @thread, @message), params: ViewHelpers.std_args(@conn)) do %>
-        <%= gettext("allow answering to this message") %>
-      <% end %>
+      <button class="cf-destructive-index-btn" data-confirm="<%= gettext("Are you sure?") %>" data-js="answer" data-mid="<%= @message.message_id %>" data-slug="<%= @thread.slug %>"><%= gettext("allow answering to this message") %></button>
     <% else %>
-      <%= ViewHelpers.Button.destructive_index_button(to: Path.message_path(@conn, :no_answer, @thread, @message), params: ViewHelpers.std_args(@conn)) do %>
-        <%= gettext("forbid answering to this message") %>
-      <% end %>
+      <button class="cf-destructive-index-btn" data-confirm="<%= gettext("Are you sure?") %>" data-js="no-answer" data-mid="<%= @message.message_id %>" data-slug="<%= @thread.slug %>"><%= gettext("forbid answering to this message") %></button>
     <% end %>
   <% end %>
 

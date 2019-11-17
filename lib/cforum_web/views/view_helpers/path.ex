@@ -338,18 +338,6 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def message_path(conn, :unaccept, %Thread{} = thread, %Message{} = msg, params),
     do: "#{int_message_path(conn, thread, msg)}/unaccept#{encode_query_string(conn, params)}"
 
-  def message_path(conn, :delete, %Thread{} = thread, %Message{} = msg, params),
-    do: "#{int_message_path(conn, thread, msg)}/delete#{encode_query_string(conn, params)}"
-
-  def message_path(conn, :restore, %Thread{} = thread, %Message{} = msg, params),
-    do: "#{int_message_path(conn, thread, msg)}/restore#{encode_query_string(conn, params)}"
-
-  def message_path(conn, :no_answer, %Thread{} = thread, %Message{} = msg, params),
-    do: "#{int_message_path(conn, thread, msg)}/no-answer#{encode_query_string(conn, params)}"
-
-  def message_path(conn, :answer, %Thread{} = thread, %Message{} = msg, params),
-    do: "#{int_message_path(conn, thread, msg)}/answer#{encode_query_string(conn, params)}"
-
   @spec message_version_path(Plug.Conn.t(), atom(), %Thread{}, %Message{}, params() | %MessageVersion{}, params()) ::
           String.t()
   def message_version_path(conn, action, thread, msg, params_or_version \\ [], params \\ [])

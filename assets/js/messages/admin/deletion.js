@@ -26,14 +26,16 @@ export default function showDeleteMessage(ev, button) {
       heading={t("delete message")}
       noReasonActionText={t("delete message without public reason")}
       reasonActionText={t("delete message")}
-      noReasonAction={() => deleteMessage(slug, mid, true)}
-      reasonAction={(reason, customReason) => deleteMessage(slug, mid, false, reason, customReason)}
+      noReasonAction={() => deleteMessage(button, slug, mid, true)}
+      reasonAction={(reason, customReason) => deleteMessage(button, slug, mid, false, reason, customReason)}
     />,
     el
   );
 }
 
-async function deleteMessage(slug, messageId, completelyDelete, reason = null, customReason = null) {
+async function deleteMessage(button, slug, messageId, completelyDelete, reason = null, customReason = null) {
+  button.classList.add("loading");
+
   const response = await fetch("/api/v1/messages/delete", {
     method: "POST",
     credentials: "same-origin",
@@ -45,7 +47,8 @@ async function deleteMessage(slug, messageId, completelyDelete, reason = null, c
       forum: document.body.dataset.currentForum,
       reason,
       custom: customReason,
-      no_reason: completelyDelete
+      no_reason: completelyDelete,
+      id_prefix: document.body.dataset.controller === "MessageController" ? "tree-" : ""
     })
   });
 
@@ -53,4 +56,12 @@ async function deleteMessage(slug, messageId, completelyDelete, reason = null, c
   const node = parse(html);
   const message = document.getElementById("tree-m" + messageId) || document.getElementById("m" + messageId);
   message.closest(".cf-thread").replaceWith(node);
+
+  button.classList.remove("loading");
+
+  const btt = document.querySelector(`.admin-links button[data-js="delete"][data-mid="${messageId}"]`);
+  if (btt) {
+    btt.dataset.js = "restore";
+    btt.textContent = t("restore this message");
+  }
 }
