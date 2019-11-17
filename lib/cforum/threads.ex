@@ -120,7 +120,11 @@ defmodule Cforum.Threads do
   def apply_highlights(threads, conn),
     do: Cforum.Messages.HighlightsHelper.apply_highlights(threads, conn)
 
-  def build_message_trees(threads, message_order), do: Enum.map(threads, &build_message_tree(&1, message_order))
+  def build_message_trees(threads, message_order) do
+    for thread <- threads do
+      build_message_tree(thread, message_order)
+    end
+  end
 
   def build_message_tree(thread, ordering) do
     sorted_messages = Messages.sort_messages(thread.messages, ordering)
