@@ -6,6 +6,7 @@ defmodule CforumWeb.Api.V1.Messages.AdminController do
   alias Cforum.Messages
 
   alias Cforum.Abilities
+  alias Cforum.Helpers
   alias Cforum.ConfigManager
 
   def delete(conn, %{"slug" => slug} = args) do
@@ -52,6 +53,21 @@ defmodule CforumWeb.Api.V1.Messages.AdminController do
     |> Plug.Conn.assign(:message, message)
     |> Plug.Conn.assign(:view_all, true)
     |> Plug.Conn.assign(:current_forum, forum)
+  end
+
+  defp no_reason?(conn) do
+    Helpers.blank?(conn.params["reason"]) ||
+      (conn.params["reason"] == "custom" && Helpers.blank?(conn.params["custom"])) || conn.params["no_reason"] == "true"
+  end
+
+  def allowed?(conn, action, thread) when action in [:delete, :no_answer] do
+    thread = thread || conn.assigns.thread
+
+    if no_reason?(conn) do
+      Abilities.admin?(conn.assigns[:current_user])
+    else
+      Abilities.access_forum?(conn.assigns[:current_user], thread.forum, :moderate)
+    end
   end
 
   def allowed?(conn, _, thread) do
