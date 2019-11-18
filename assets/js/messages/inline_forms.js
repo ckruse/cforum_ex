@@ -2,9 +2,8 @@ import React from "react";
 import { render } from "react-dom";
 
 import { parseMessageUrl } from "../modules/helpers";
-import CfPostingForm from "../components/postingform";
 
-const showInlineForm = ev => {
+const showInlineForm = async ev => {
   ev.preventDefault();
 
   const messageElement = ev.target.closest(".cf-thread-message");
@@ -20,14 +19,17 @@ const showInlineForm = ev => {
     url.searchParams.append("with_quote", "yes");
   }
 
-  fetch(url, {
+  const response = await fetch(url, {
     method: "GET",
     credentials: "same-origin",
     cache: "no-cache",
     headers: { "Content-Type": "application/json; charset=utf-8" }
-  })
-    .then(response => response.json())
-    .then(json => showForm(messageElement, json));
+  });
+  const json = await response.json();
+
+  const { default: CfPostingForm } = await import(/* webpackChunkName: "postingform" */ "../components/postingform");
+
+  showForm(messageElement, json, CfPostingForm);
 };
 
 const transformNewlines = text => text.replace(/\015\012|\015|\012/g, "\n");
@@ -42,7 +44,7 @@ window.addEventListener("popstate", ev => {
   }
 });
 
-const showForm = (messageElement, json) => {
+const showForm = (messageElement, json, CfPostingForm) => {
   const selector = ".posting-header > .cf-message-header > h2 > a, .posting-header > .cf-message-header > h3 > a";
   const href = messageElement.querySelector(selector).href;
   const parsedUrl = parseMessageUrl(href);

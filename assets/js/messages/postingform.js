@@ -1,6 +1,5 @@
 import React from "react";
 import { render } from "react-dom";
-import CfPostingForm from "../components/postingform";
 
 const gatherErrors = element => {
   const errors = {};
@@ -22,7 +21,9 @@ const getMethod = form => {
 };
 
 const setupContentForms = () => {
-  document.querySelectorAll(".cf-posting-form").forEach(el => {
+  document.querySelectorAll(".cf-posting-form").forEach(async el => {
+    const { default: CfPostingForm } = await import(/* webpackChunkName: "postingform" */ "../components/postingform");
+
     const area = el.querySelector("textarea");
     const method = getMethod(el);
     const tags = Array.from(el.querySelectorAll('input[data-tag="yes"]'))
