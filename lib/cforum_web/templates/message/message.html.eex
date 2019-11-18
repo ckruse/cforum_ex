@@ -1,9 +1,9 @@
 <div class="posting-header">
   <%= header(@conn, @thread, @message, first: @first, do_parent: assigns[:do_parent], tree: false, show_editor: true, author_link_to_message: false, plate: true, show_icons: false) %>
-  <%= if assigns[:controls], do: render "voting-area.html", Map.put(assigns, :top, true) %>
+  <%= if assigns[:controls] && !@message.deleted, do: render "voting-area.html", Map.put(assigns, :top, true) %>
 </div>
 
-<%= unless Helpers.blank?(@message.problematic_site) do %>
+<%= if Helpers.present?(@message.problematic_site) && (!@message.deleted || @view_all) do %>
   <p class="cf-problematic-site">
     <svg class="problematic-site-icon" title="<%= gettext("problematic site") %>" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-problematic-site"></use></svg>
     <%= problematic_site_link(@conn, @message.problematic_site) %>
@@ -38,7 +38,7 @@
       <%= if assigns[:controls] && !@message.deleted, do: render("message_default_controls.html", assigns) %>
     </div>
 
-    <%= if assigns[:controls], do: render "voting-area.html", Map.put(assigns, :top, false) %>
+    <%= if assigns[:controls] && !@message.deleted, do: render "voting-area.html", Map.put(assigns, :top, false) %>
   </div>
 
   <%= if assigns[:controls] && @view_all, do: render("message_admin_buttons.html", assigns) %>
@@ -46,7 +46,7 @@
 </div>
 
 
-<%= if @message.message_id == @thread.message.message_id and Helpers.present?(@thread.accepted) do %>
+<%= if @message.message_id == @thread.message.message_id && Helpers.present?(@thread.accepted) && (!@message.deleted || @view_all) do %>
   <h3><%= gettext("accepted answers") %></h3>
 
   <%= for msg <- @thread.accepted do %>
