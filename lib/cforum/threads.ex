@@ -501,7 +501,7 @@ defmodule Cforum.Threads do
         |> List.flatten()
 
       from(m in Message, where: m.message_id in ^message_ids)
-      |> Repo.update_all(set: [thread_id: new_thread.thread_id])
+      |> Repo.update_all(set: [thread_id: new_thread.thread_id, forum_id: new_message.forum_id])
 
       new_thread = Repo.preload(new_thread, [:messages])
 
