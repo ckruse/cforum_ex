@@ -27,9 +27,9 @@
 
   <%= if @message.deleted do %>
     <button class="cf-destructive-index-btn" data-confirm="<%= gettext("Are you sure?") %>" data-js="restore" data-mid="<%= @message.message_id %>" data-slug="<%= @thread.slug %>"><%= gettext("restore this message") %></button>
-  <% else %>
-    <button class="cf-destructive-index-btn" data-confirm="<%= gettext("Are you sure?") %>" data-js="delete" data-mid="<%= @message.message_id %>" data-slug="<%= @thread.slug %>"><%= gettext("delete this message") %></button>
   <% end %>
+
+  <button class="cf-destructive-index-btn" data-confirm="<%= gettext("Are you sure?") %>" data-js="delete" data-mid="<%= @message.message_id %>" data-slug="<%= @thread.slug %>"><%= gettext("delete this message") %></button>
 
   <%= if Abilities.may?(@conn, "api/v1/messages/admin", :no_answer) do %>
     <%= if MessageHelpers.no_answer?(@message) do %>

@@ -3,12 +3,12 @@
     <span class="visually-hidden"><%= gettext("restore this message") %></span>
     <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-restore"></use></svg>
   </button>
-<% else %>
-  <button data-js="delete" data-mid="<%= @message.message_id %>" data-slug="<%= @thread.slug %>" class="icon-message delete icon-button" title="<%= gettext("delete this message") %>">
-    <span class="visually-hidden"><%= gettext("delete this message") %></span>
-    <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-delete"></use></svg>
-  </button>
 <% end %>
+
+<button data-js="delete" data-mid="<%= @message.message_id %>" data-slug="<%= @thread.slug %>" class="icon-message delete icon-button" title="<%= gettext("delete this message") %>">
+  <span class="visually-hidden"><%= gettext("delete this message") %></span>
+  <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-delete"></use></svg>
+</button>
 
 <%= if MessageHelpers.no_answer?(@message) do %>
   <button data-js="answer" data-mid="<%= @message.message_id %>" data-slug="<%= @thread.slug %>" class="icon-message no-answer icon-button" title="<%= gettext("allow answering to this message") %>">
