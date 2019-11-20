@@ -115,7 +115,10 @@ defmodule Cforum.Messages.IndexHelper do
 
         new_attribs =
           msg.attribs
-          |> Map.put(:is_read, read_messages[msg.message_id] != nil)
+          |> Map.put(
+            :is_read,
+            read_messages[msg.message_id] != nil || (msg.deleted && Helpers.present?(msg.flags["reason"]))
+          )
           |> Map.put(:is_subscribed, subscribed_messages[msg.message_id] != nil)
           |> Map.put(:is_interesting, interesting_messages[msg.message_id] != nil)
           |> Map.put(:classes, classes)
