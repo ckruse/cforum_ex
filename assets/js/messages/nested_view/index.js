@@ -1,4 +1,4 @@
-import { conf, parseMessageUrl } from "../../modules/helpers";
+import { conf, parseMessageUrl, isInAdminView } from "../../modules/helpers";
 import { t } from "../../modules/i18n";
 
 import "./mark_read";
@@ -24,6 +24,10 @@ const toggleFolded = (posting, button = null) => {
 };
 
 const foldMessage = el => {
+  if (el.classList.contains("deleted") && !isInAdminView()) {
+    return;
+  }
+
   const posting = el.closest(".posting-nested");
   const isActive = posting.classList.contains("active");
   const isRead = el.classList.contains("visited");
