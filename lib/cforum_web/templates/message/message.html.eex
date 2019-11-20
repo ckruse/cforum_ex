@@ -3,13 +3,6 @@
   <%= if assigns[:controls] && !@message.deleted, do: render "voting-area.html", Map.put(assigns, :top, true) %>
 </div>
 
-<%= if Helpers.present?(@message.problematic_site) && (!@message.deleted || @view_all) do %>
-  <p class="cf-problematic-site">
-    <svg class="problematic-site-icon" title="<%= gettext("problematic site") %>" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-problematic-site"></use></svg>
-    <%= problematic_site_link(@conn, @message.problematic_site) %>
-  </p>
-<% end %>
-
 <%= if Helpers.present?(@message.flags["reason"]) do %>
   <div class="cf-moderation-text">
     <%= if @message.deleted do %>
@@ -18,6 +11,13 @@
       <%= gettext("This message has been locked: %{reason}", reason: l10n_reason(@message.flags["reason"])) %>
     <% end %>
   </div>
+<% end %>
+
+<%= if Helpers.present?(@message.problematic_site) && (!@message.deleted || @view_all) do %>
+  <p class="cf-problematic-site">
+    <svg class="problematic-site-icon" title="<%= gettext("problematic site") %>" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-problematic-site"></use></svg>
+    <%= problematic_site_link(@conn, @message.problematic_site) %>
+  </p>
 <% end %>
 
 <%= if !@message.deleted || @view_all do %>
