@@ -3,8 +3,10 @@ defmodule Cforum.Threads.TreeHelper do
   alias Cforum.Messages.Message
   alias Cforum.Helpers
 
-  def sort_threads(threads, direction, thread_modifier),
-    do: Enum.map(threads, &gen_thread_tree(&1, thread_modifier, direction))
+  def sort_threads(threads, direction, thread_modifier) do
+    for thread <- threads,
+      do: gen_thread_tree(thread, thread_modifier, direction)
+  end
 
   def gen_thread_tree(thread, modifier, direction \\ "ascending") do
     sorted_messages =
