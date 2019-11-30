@@ -26,7 +26,8 @@ defmodule CforumWeb.Messages.VersionController do
 
   def load_resource(conn) do
     thread =
-      Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, ThreadHelpers.slug_from_params(conn.params))
+      conn.assigns[:current_forum]
+      |> Threads.get_thread_by_slug!(nil, ThreadHelpers.slug_from_params(conn.params))
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.ensure_found!()
       |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
@@ -45,5 +46,10 @@ defmodule CforumWeb.Messages.VersionController do
   end
 
   def allowed?(conn, :delete, _), do: Abilities.admin?(conn)
-  def allowed?(_, _, _), do: true
+
+  def allowed?(conn, action, nil),
+    do: allowed?(conn, action, {conn.assigns.thread, conn.assigns.message})
+
+  def allowed?(conn, _, {thread, message}),
+    do: Abilities.access_forum?(conn) && (!message.deleted || conn.assigns.view_all)
 end
