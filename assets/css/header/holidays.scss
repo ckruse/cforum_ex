@@ -1,0 +1,13 @@
+.christmas .cf-page-header .logo h1 {
+  background: url(/images/selfhtml-forum-small-weihnachtsmuetze.png) no-repeat center center;
+}
+
+@include default-breakpoint() {
+  .christmas .cf-page-header .logo h1 {
+    background: url(/images/selfhtml-forum-weihnachtsmuetze.png) no-repeat center center;
+  }
+
+  .blue-beanie .cf-page-header .logo h1 {
+    background: url(/images/selfhtml-forum-blue-beanie.svg) no-repeat center center;
+  }
+}

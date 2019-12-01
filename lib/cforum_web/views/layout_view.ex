@@ -24,12 +24,15 @@ defmodule CforumWeb.LayoutView do
   end
 
   def body_classes(conn, assigns) do
-    try do
-      {:safe, " class=\"#{apply(view_module(conn), :body_classes, [action_name(conn), assigns])}\""}
-    rescue
-      UndefinedFunctionError -> ""
-      FunctionClauseError -> ""
-    end
+    classes =
+      try do
+        apply(view_module(conn), :body_classes, [action_name(conn), assigns])
+      rescue
+        UndefinedFunctionError -> ""
+        FunctionClauseError -> ""
+      end
+
+    {:safe, "class=\"#{String.trim(classes <> " " <> holiday_classes(conn))}\""}
   end
 
   def body_id(conn, assigns) do
@@ -297,5 +300,15 @@ defmodule CforumWeb.LayoutView do
     |> ViewHelpers.controller()
     |> Atom.to_string()
     |> String.replace(~r/Elixir\.Cforum(Web)?\./, "")
+  end
+
+  defp holiday_classes(_conn) do
+    today = Timex.today()
+
+    cond do
+      today.month == 12 || (today.month == 1 && today.day < 5) -> "christmas"
+      today.month == 11 && today.day == 30 -> "blue-beanie"
+      true -> "blue-beanie"
+    end
   end
 end
