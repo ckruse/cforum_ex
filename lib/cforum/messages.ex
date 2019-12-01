@@ -412,8 +412,8 @@ defmodule Cforum.Messages do
       %Ecto.Changeset{source: %Message{}}
 
   """
-  def change_message(%Message{} = message, user, visible_forums) do
-    Message.new_or_update_changeset(message, %{}, user, visible_forums)
+  def change_message(%Message{} = message, user, visible_forums, attrs \\ %{}) do
+    Message.new_or_update_changeset(message, attrs, user, visible_forums)
   end
 
   @doc """
@@ -433,7 +433,7 @@ defmodule Cforum.Messages do
       iex> new_message_changeset(%Message{}, %User{}, [%Forum{}], [])
       %Ecto.Changeset{}
   """
-  def new_message_changeset(message, user, visible_forums, opts \\ []) do
+  def new_message_changeset(message, user, visible_forums, params, opts \\ []) do
     opts =
       Keyword.merge(
         [
@@ -466,17 +466,20 @@ defmodule Cforum.Messages do
       |> CompositionHelpers.maybe_add_farewell(opts[:farewell])
       |> CompositionHelpers.maybe_add_signature(opts[:signature])
 
-    %Message{
-      author: opts[:author],
-      email: opts[:email],
-      homepage: opts[:homepage],
-      subject: Helpers.attribute_value(message, :subject),
-      problematic_site: Helpers.attribute_value(message, :problematic_site),
-      content: content
-      # tags_str: tags_str,
-    }
-    |> change_message(user, visible_forums)
-    |> Ecto.Changeset.put_assoc(:tags, Helpers.attribute_value(message, :tags, []))
+    changeset =
+      %Message{
+        author: opts[:author],
+        email: opts[:email],
+        homepage: opts[:homepage],
+        subject: Helpers.attribute_value(message, :subject),
+        problematic_site: Helpers.attribute_value(message, :problematic_site),
+        content: content
+      }
+      |> change_message(user, visible_forums, params)
+
+    if Helpers.blank?(Ecto.Changeset.get_field(changeset, :tags)),
+      do: Ecto.Changeset.put_assoc(changeset, :tags, Helpers.attribute_value(message, :tags, [])),
+      else: changeset
   end
 
   @doc """

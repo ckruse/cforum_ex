@@ -14,6 +14,7 @@ defmodule CforumWeb.Api.V1.MessageController do
         conn.assigns.message,
         conn.assigns[:current_user],
         conn.assigns[:visible_forums],
+        %{},
         strip_signature: ConfigManager.uconf(conn, "quote_signature") != "yes",
         author: ViewHelpers.author_from_conn(conn),
         email: ViewHelpers.email_from_conn(conn),

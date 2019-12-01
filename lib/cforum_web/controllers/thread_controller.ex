@@ -114,6 +114,7 @@ defmodule CforumWeb.ThreadController do
         nil,
         conn.assigns[:current_user],
         conn.assigns[:visible_forums],
+        Map.get(conn.params, "message", %{}),
         author: ViewHelpers.author_from_conn(conn),
         email: ViewHelpers.email_from_conn(conn),
         homepage: ViewHelpers.homepage_from_conn(conn),

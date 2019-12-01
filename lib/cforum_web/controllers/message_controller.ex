@@ -74,6 +74,7 @@ defmodule CforumWeb.MessageController do
         conn.assigns.parent,
         conn.assigns[:current_user],
         conn.assigns[:visible_forums],
+        Map.get(conn.params, "message", %{}),
         strip_signature: ConfigManager.uconf(conn, "quote_signature") != "yes",
         author: ViewHelpers.author_from_conn(conn),
         email: ViewHelpers.email_from_conn(conn),
