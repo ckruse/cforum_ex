@@ -150,7 +150,7 @@ defmodule Cforum.Messages.MessageHelpers do
   def owner?(conn, message) do
     cond do
       conn.assigns[:current_user] && conn.assigns[:current_user].user_id == message.user_id -> true
-      conn.cookies["cforum_user"] == message.uuid -> true
+      Helpers.present?(message.uuid) && conn.cookies["cforum_user"] == message.uuid -> true
       true -> false
     end
   end
