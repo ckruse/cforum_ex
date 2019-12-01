@@ -32,7 +32,7 @@ defmodule CforumWeb.LayoutView do
         FunctionClauseError -> ""
       end
 
-    {:safe, "class=\"#{String.trim(classes <> " " <> holiday_classes(conn))}\""}
+    [{:safe, "class=\""}, classes, " ", holiday_classes(conn), {:safe, "\""}]
   end
 
   def body_id(conn, assigns) do
