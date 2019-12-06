@@ -7,9 +7,17 @@ export default class Meta extends React.PureComponent {
     return val ? "has-error" : "";
   }
 
+  hasMoreThanOneForum(forums) {
+    return forums.filter(f => f.value !== "").length > 1;
+  }
+
   render() {
     const { forumId, subject, author, problematicSite, email, homepage, errors } = this.props;
-    const showForumSelect = document.body.dataset.currentForum === "all" || !document.body.dataset.currentForum;
+    const moreThanOne = this.hasMoreThanOneForum(this.props.forumOptions);
+    const showForumSelect =
+      (document.body.dataset.currentForum === "all" || !document.body.dataset.currentForum) && moreThanOne;
+    const forumHidden =
+      (document.body.dataset.currentForum === "all" || !document.body.dataset.currentForum) && !moreThanOne;
 
     return (
       <fieldset>
@@ -27,6 +35,8 @@ export default class Meta extends React.PureComponent {
             </select>
           </div>
         )}
+
+        {forumHidden && <input type="hidden" name="message[forum_id]" value={this.props.forumOptions[1].value} />}
 
         <div className={`cf-cgroup ${this.hasErrorClass(errors.message_subject)}`}>
           <ErrorLabel for="message_subject" errors={errors}>
