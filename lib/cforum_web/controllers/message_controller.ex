@@ -49,7 +49,7 @@ defmodule CforumWeb.MessageController do
 
   defp run_async_handlers(conn, read_mode) do
     Cforum.Helpers.AsyncHelper.run_async(fn ->
-      if ConfigManager.uconf(conn, "mark_nested_read_via_js") != "yes",
+      if ConfigManager.uconf(conn, "mark_nested_read_via_js") != "yes" || read_mode != "nested",
         do: mark_messages_read(read_mode, conn.assigns[:current_user], conn.assigns.thread, conn.assigns.message)
 
       if ConfigManager.uconf(conn, "delete_read_notifications") == "yes" do
