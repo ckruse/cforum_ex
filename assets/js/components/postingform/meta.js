@@ -13,7 +13,7 @@ export default class Meta extends React.PureComponent {
 
   render() {
     const { forumId, subject, author, problematicSite, email, homepage, errors } = this.props;
-    const moreThanOne = this.hasMoreThanOneForum(this.props.forumOptions);
+    const moreThanOne = this.hasMoreThanOneForum(this.props.forumOptions || []);
     const showForumSelect =
       (document.body.dataset.currentForum === "all" || !document.body.dataset.currentForum) && moreThanOne;
     const forumHidden =
