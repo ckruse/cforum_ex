@@ -2,9 +2,6 @@ const path = require("path");
 const Webpack = require("webpack");
 const ExtractTextPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const MinifyPlugin = require("babel-minify-webpack-plugin");
-const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const config = require("./package");
 
 const ENV = process.env.MIX_ENV || "dev";
@@ -30,18 +27,8 @@ module.exports = function(env = {}, argv) {
         from: "**/*",
         to: "."
       }
-      // maybe later; let's try to not use font-awesome
-      // {
-      //   context: "./node_modules/font-awesome/fonts",
-      //   from: "*",
-      //   to: "./fonts"
-      // }
     ])
   ];
-
-  if (IS_PROD) {
-    PLUGINS.push(new CompressionWebpackPlugin());
-  }
 
   return {
     target: "web",
@@ -94,7 +81,7 @@ module.exports = function(env = {}, argv) {
     },
 
     optimization: {
-      minimizer: [new MinifyPlugin({}, { cache: true, parallel: true }), new OptimizeCSSAssetsPlugin({})],
+      minimize: IS_PROD,
       splitChunks: {
         chunks: "async"
       }
