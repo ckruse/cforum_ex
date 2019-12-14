@@ -2,7 +2,7 @@ import React from "react";
 import { emojiIndex } from "emoji-mart";
 
 const EmojiReplacements = {
-  trigger: /:[\w_-]*$/,
+  trigger: /:[\w_+-]*$/,
   suggestions: (term, cb) => {
     let found = [];
     term = term.substr(1);
