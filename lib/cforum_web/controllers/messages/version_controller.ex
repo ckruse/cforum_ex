@@ -50,6 +50,6 @@ defmodule CforumWeb.Messages.VersionController do
   def allowed?(conn, action, nil),
     do: allowed?(conn, action, {conn.assigns.thread, conn.assigns.message})
 
-  def allowed?(conn, _, {thread, message}),
+  def allowed?(conn, _, {_thread, message}),
     do: Abilities.access_forum?(conn) && (!message.deleted || conn.assigns.view_all)
 end
