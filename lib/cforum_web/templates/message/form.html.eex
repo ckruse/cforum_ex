@@ -7,7 +7,7 @@
     <%= text_input @f, :subject, placeholder: gettext("replace float:left with a flexbox construct"), maxlength: 250, required: true %>
   </div>
 
-  <%= if Helpers.blank?(@conn.assigns[:current_user]) && Helpers.blank?(@conn.cookies[:cforum_author]) do %>
+  <%= if show_author?(@conn) do %>
     <div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :author) %>">
       <%= label @f, :author do %>
         <%= gettext("author") %>

@@ -254,4 +254,9 @@ defmodule CforumWeb.MessageView do
   def l10n_reason("spam"), do: gettext("message is spam")
   def l10n_reason(custom) when not is_nil(custom) and custom != "", do: custom
   def l10n_reason(_), do: ""
+
+  def show_author?(conn) do
+    (Helpers.blank?(conn.assigns[:current_user]) || Abilities.access_forum?(conn, :moderate)) &&
+      Helpers.blank?(conn.cookies[:cforum_author])
+  end
 end

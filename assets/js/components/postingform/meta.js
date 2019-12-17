@@ -11,6 +11,13 @@ export default class Meta extends React.PureComponent {
     return forums.filter(f => f.value !== "").length > 1;
   }
 
+  showAuthor() {
+    return (
+      (!document.body.dataset.userId || document.body.dataset.moderator === "true") &&
+      document.cookie.indexOf("cforum_author=") === -1
+    );
+  }
+
   render() {
     const { forumId, subject, author, problematicSite, email, homepage, errors } = this.props;
     const moreThanOne = this.hasMoreThanOneForum(this.props.forumOptions || []);
@@ -54,7 +61,7 @@ export default class Meta extends React.PureComponent {
           />
         </div>
 
-        {!document.body.dataset.userId && document.cookie.indexOf("cforum_author=") === -1 && (
+        {this.showAuthor() && (
           <div className={`cf-cgroup ${this.hasErrorClass(errors.message_author)}`}>
             <ErrorLabel for="message_author" errors={errors}>
               {t("author")}
