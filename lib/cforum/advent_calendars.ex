@@ -11,7 +11,7 @@ defmodule Cforum.AdventCalendars do
 
   def list_years do
     from(day in Day,
-      select: fragment("EXTRACT(YEAR from ?)", day.date),
+      select: fragment("EXTRACT(YEAR from ?)::character varying", day.date),
       group_by: [fragment("1")],
       order_by: [fragment("1")]
     )
