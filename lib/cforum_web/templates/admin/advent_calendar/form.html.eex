@@ -1,0 +1,53 @@
+<%= form_for @changeset, @action, [class: "cf-form cf-advent-form"], fn f -> %>
+  <%= if @changeset.action do %>
+    <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
+  <% end %>
+
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :date) %>">
+    <%= label f, :date, gettext("date") %>
+    <%= date_input f, :date, required: true, maxlength: 250 %>
+    <%= ErrorHelpers.error_tag f, :date %>
+  </div>
+
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :user_id) %>">
+    <%= label f, :user_id do %>
+      <%= gettext("author (user)") %>
+      <%= ErrorHelpers.error_tag f, :user_id %>
+    <% end %>
+
+    <%= text_input f, :user_id, required: true, "data-user-selector": "single", "data-user-selector-self": "yes" %>
+  </div>
+
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :author) %>">
+    <%= label f, :author, gettext("author (name)") %>
+    <%= text_input f, :author %>
+    <%= ErrorHelpers.error_tag f, :author %>
+  </div>
+
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :subject) %>">
+    <%= label f, :subject, gettext("subject") %>
+    <%= text_input f, :subject, required: true, maxlength: 250 %>
+    <%= ErrorHelpers.error_tag f, :subject %>
+  </div>
+
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :link) %>">
+    <%= label f, :link, gettext("link") %>
+    <%= text_input f, :link %>
+    <%= ErrorHelpers.error_tag f, :link %>
+  </div>
+
+  <div class="cf-editor-form">
+    <div class="cf-cgroup cf-textarea-only <%= ErrorHelpers.error_class(f, :content) %>">
+      <%= label f, :content do %>
+        <%= gettext("content") %>
+        <%= ErrorHelpers.error_tag f, :content %>
+      <% end %>
+      <%= textarea f, :content, maxlength: 12288, class: "big", required: true %>
+    </div>
+  </div>
+
+  <p class="form-actions">
+    <%= ViewHelpers.Button.primary_submit gettext("save") %>
+    <%= ViewHelpers.Button.default_button_link gettext("cancel"), to: @back %>
+  </p>
+<% end %>

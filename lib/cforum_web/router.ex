@@ -94,6 +94,14 @@ defmodule CforumWeb.Router do
       resources("/events", EventController, except: [:show])
       resources("/search_sections", SearchSectionController, except: [:show])
 
+      get "/advent-calendars", AdventCalendarController, :index_years
+      get "/advent-calendars/new", AdventCalendarController, :new
+      post "/advent-calendars", AdventCalendarController, :create
+
+      scope "/advent-calendars/:year" do
+        resources("/", AdventCalendarController, except: [:show, :new, :create])
+      end
+
       get("/audit", AuditController, :index)
 
       get("/settings", SettingController, :edit, as: :setting)
@@ -121,6 +129,8 @@ defmodule CforumWeb.Router do
     resources("/moderation", ModerationController, except: [:new, :create, :delete])
 
     get("/search", SearchController, :show)
+
+    get("/advent/:year", AdventController, :index)
 
     scope "/users", Users do
       get("/deletion-started", UserController, :deletion_started)

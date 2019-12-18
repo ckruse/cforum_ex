@@ -1,0 +1,22 @@
+<%= if Helpers.present?(@day) do %>
+  <%= if Helpers.present?(@day.link) do %><a href="<%= @day.link %>"><% end %>
+
+  <h2><%= @day.subject %></h2>
+
+  <div class="content">
+    <%= Cforum.MarkdownRenderer.to_html(@day.content) %>
+  </div>
+
+  <%= if Helpers.present?(@day.link) do %></a><% end %>
+
+  <div class="meta">
+    <p>
+      <%= gettext("by") %> <%= @day.author %>
+    </p>
+
+    <p>
+      <%= ViewHelpers.Button.destructive_index_button(gettext("delete"), to: Routes.admin_advent_calendar_path(@conn, :delete, @day.date.year, @day), method: :delete, data: [confirm: gettext("Are you sure?")]) %>
+      <%= ViewHelpers.Button.default_index_button_link(gettext("edit"), to: Routes.admin_advent_calendar_path(@conn, :edit, @day.date.year, @day)) %>
+    </p>
+  </div>
+<% end %>

@@ -1,0 +1,9 @@
+<ul>
+  <%= if Helpers.blank?(@years) do %>
+    <li class="no-data"><%= gettext("no years found") %></li>
+  <% end %>
+
+  <%= for year <- @years do %>
+    <li><%= link year, to: Routes.admin_advent_calendar_path(@conn, :index, year) %></li>
+  <% end %>
+</ul>

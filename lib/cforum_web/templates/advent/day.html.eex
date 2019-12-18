@@ -1,0 +1,30 @@
+<%= if Helpers.present?(@day) do %>
+  <%= if Helpers.present?(@day.link) do %><a href="<%= @day.link %>"><% end %>
+
+  <h2><%= @day.subject %></h2>
+
+  <div class="content">
+    <%= Cforum.MarkdownRenderer.to_html(@day.content) %>
+  </div>
+
+  <%= if Helpers.present?(@day.link) do %></a><% end %>
+
+  <div class="meta">
+    <p>
+      <%= gettext("by") %> <%= @day.author %>
+    </p>
+  </div>
+<% else %>
+  <%= if past?(@year, @day_no, @today) do %>
+    <!-- <h2><%= gettext("no content") %></h2>
+    <div class="content">
+      <p><%= gettext("sorry, there is nothing yet… :(") %></p>
+    </div> -->
+  <% else %>
+    <a href="https://selfhtml.org/spenden.html">
+      <h2><%= gettext("It's early days yet") %></h2>
+
+      <div class="content"><p><%= gettext("By the way, did you know? You can support SELFHTML!") %></p></div>
+    </a>
+  <% end %>
+<% end %>

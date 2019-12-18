@@ -8,6 +8,6 @@
   <li><%= link gettext("search sections"), to: Path.admin_search_section_path(@conn, :index) %></li>
   <li><%= link gettext("images"), to: Path.image_path(@conn, :index) %></li>
   <li><%= link gettext("audit log"), to: Path.admin_audit_path(@conn, :index) %></li>
-  <li><%= link gettext("background tasks"), to: "" %></li>
   <li><%= link gettext("redirections"), to: Path.admin_redirection_path(@conn, :index) %></li>
+  <li><%= link gettext("advent calendars"), to: Routes.admin_advent_calendar_path(@conn, :index_years) %></li>
 </ul>

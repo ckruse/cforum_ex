@@ -49,6 +49,7 @@ import "./stats";
 import "./help";
 import "./user";
 import "./cites";
+import "./advent";
 
 import "./init";
 import "./cleanup";
