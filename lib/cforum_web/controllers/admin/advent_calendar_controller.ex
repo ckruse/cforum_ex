@@ -16,8 +16,8 @@ defmodule CforumWeb.Admin.AdventCalendarController do
     render(conn, "index.html", advent_calendar_days: advent_calendar_days, year: year)
   end
 
-  def new(conn, _params) do
-    changeset = AdventCalendars.change_day(%Day{})
+  def new(conn, params) do
+    changeset = AdventCalendars.change_day(%Day{}, params["day"])
     render(conn, "new.html", changeset: changeset)
   end
 

@@ -2,7 +2,7 @@
   <%= for day_no <- 1..24 do %>
     <li>
       <span class="day"><%=  day_no %></span>
-      <%= render "day.html", Map.put(assigns, :day, find_day(@advent_calendar_days, day_no)) %>
+      <%= render "day.html", Map.merge(assigns, %{day: find_day(@advent_calendar_days, day_no), date: {Helpers.to_int(@year), 12, day_no}}) %>
     </li>
   <% end %>
 </ol>

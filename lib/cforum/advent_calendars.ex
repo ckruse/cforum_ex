@@ -112,7 +112,7 @@ defmodule Cforum.AdventCalendars do
       %Ecto.Changeset{source: %Day{}}
 
   """
-  def change_day(%Day{} = day) do
-    Day.changeset(day, %{})
+  def change_day(%Day{} = day, params \\ %{}) do
+    Day.changeset(day, params)
   end
 end

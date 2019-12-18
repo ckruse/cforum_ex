@@ -19,4 +19,10 @@
       <%= ViewHelpers.Button.default_index_button_link(gettext("edit"), to: Routes.admin_advent_calendar_path(@conn, :edit, @day.date.year, @day)) %>
     </p>
   </div>
+<% else %>
+  <div class="meta">
+    <p>
+      <%= ViewHelpers.Button.default_index_button_link(gettext("edit"), to: Routes.admin_advent_calendar_path(@conn, :new, %{"day[date]" => Timex.format!(@date, "%Y-%m-%d", :strftime)})) %>
+    </p>
+  </div>
 <% end %>
