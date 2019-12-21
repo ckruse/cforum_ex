@@ -158,13 +158,13 @@ defmodule Cforum.MessagesTest do
       forum: forum,
       message: message
     } do
-      changeset = Messages.new_message_changeset(message, user, [forum])
+      changeset = Messages.new_message_changeset(message, user, [forum], %{})
       assert %Ecto.Changeset{} = changeset
       assert Ecto.Changeset.get_field(changeset, :subject) == message.subject
     end
 
     test "new_message_changeset/3 returns a message changeset", %{user: user, forum: forum} do
-      assert %Ecto.Changeset{} = Messages.new_message_changeset(nil, user, [forum])
+      assert %Ecto.Changeset{} = Messages.new_message_changeset(nil, user, [forum], %{})
     end
   end
 
@@ -363,7 +363,7 @@ defmodule Cforum.MessagesTest do
         |> Threads.build_message_tree("ascending")
 
       message = Messages.get_message_from_mid!(thread, m.message_id)
-      assert {:ok, %Message{}} = Messages.flag_no_answer(u, message, "no-answer")
+      assert {:ok, %Message{}} = Messages.flag_no_answer(u, message, "spam", "no-answer")
 
       thread =
         Threads.get_thread!(m.thread_id)

@@ -69,7 +69,7 @@ defmodule CforumWeb.User.UserControllerTest do
       login(conn, user)
       |> delete(Path.user_path(conn, :delete, user))
 
-    assert redirected_to(conn) == Path.user_path(conn, :index)
+    assert redirected_to(conn) == Path.user_path(conn, :deletion_started)
     assert_raise Ecto.NoResultsError, fn -> Users.get_user!(user.user_id) end
   end
 end

@@ -29,7 +29,8 @@ defmodule CforumWeb.Users.PasswordControllerTest do
 
   test "renders reset instruction form when user could not be found", %{conn: conn} do
     conn = post(conn, Path.password_path(conn, :create), user: %{login: "Fizzban"})
-    assert html_response(conn, 200) =~ gettext("Send password reset instructions")
+    assert redirected_to(conn) == Path.root_path(conn, :index)
+    assert get_flash(conn, :info) == gettext("The instructions how to reset your password have been sent.")
   end
 
   test "renders password form for logged in users", %{conn: conn} do

@@ -13,7 +13,7 @@ defmodule Cforum.Accounts.PrivMessagesTest do
     priv_messages = PrivMessages.list_priv_messages(priv_message.owner)
     assert length(priv_messages) == 2
     assert [%PrivMessage{}, %PrivMessage{}] = priv_messages
-    assert Enum.map(priv_messages, & &1.priv_message_id) == [pm1.priv_message_id, priv_message.priv_message_id]
+    assert Enum.map(priv_messages, & &1.priv_message_id) == [priv_message.priv_message_id, pm1.priv_message_id]
   end
 
   test "count_priv_messages/1 counts all priv_messages of one user" do
@@ -39,7 +39,7 @@ defmodule Cforum.Accounts.PrivMessagesTest do
 
     priv_messages = PrivMessages.list_newest_priv_messages_of_each_thread(user)
     assert length(priv_messages) == 2
-    assert [%PrivMessage{thread_id: 2}, %PrivMessage{thread_id: 1}] = priv_messages
+    assert [%PrivMessage{thread_id: 1}, %PrivMessage{thread_id: 2}] = priv_messages
   end
 
   test "list_newest_priv_messages_of_each_thread/1 returns the newest priv_message of each thread only for desired user" do
@@ -52,7 +52,7 @@ defmodule Cforum.Accounts.PrivMessagesTest do
 
     priv_messages = PrivMessages.list_newest_priv_messages_of_each_thread(user)
     assert length(priv_messages) == 2
-    assert [%PrivMessage{thread_id: 2, owner_id: oid1}, %PrivMessage{thread_id: 1, owner_id: oid2}] = priv_messages
+    assert [%PrivMessage{thread_id: 1, owner_id: oid2}, %PrivMessage{thread_id: 2, owner_id: oid1}] = priv_messages
     assert oid1 == user.user_id
     assert oid2 == user.user_id
   end
@@ -88,7 +88,7 @@ defmodule Cforum.Accounts.PrivMessagesTest do
     pms = PrivMessages.get_priv_message_thread!(user, 1)
     assert length(pms) == 3
     assert [%PrivMessage{thread_id: 1}, %PrivMessage{thread_id: 1}, %PrivMessage{thread_id: 1}] = pms
-    assert Enum.map(pms, & &1.priv_message_id) == Enum.map(priv_messages, & &1.priv_message_id) |> Enum.reverse()
+    assert Enum.map(pms, & &1.priv_message_id) == Enum.map(priv_messages, & &1.priv_message_id)
   end
 
   test "get_priv_message_thread!/2 only returns the user's messages" do
@@ -100,7 +100,7 @@ defmodule Cforum.Accounts.PrivMessagesTest do
     pms = PrivMessages.get_priv_message_thread!(user, 1)
     assert length(pms) == 3
     assert [%PrivMessage{thread_id: 1}, %PrivMessage{thread_id: 1}, %PrivMessage{thread_id: 1}] = pms
-    assert Enum.map(pms, & &1.priv_message_id) == Enum.map(priv_messages, & &1.priv_message_id) |> Enum.reverse()
+    assert Enum.map(pms, & &1.priv_message_id) == Enum.map(priv_messages, & &1.priv_message_id)
   end
 
   test "create_priv_message/1 with valid data creates a priv_message" do

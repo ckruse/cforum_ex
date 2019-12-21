@@ -290,7 +290,7 @@ defmodule Cforum.ModerationQueue do
 
     message = Messages.get_message_from_mid!(thread, message.message_id)
 
-    {:ok, _msg} = Messages.flag_no_answer(user, message, "no-answer")
+    {:ok, _msg} = Messages.flag_no_answer(user, message, nil, "no-answer")
   end
 
   defp apply_resolution_action("delete", user, message) do
