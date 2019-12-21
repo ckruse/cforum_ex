@@ -21,9 +21,12 @@ defmodule CforumWeb.AdventView do
     end
   end
 
+  def past?(year, day_no, today) when is_bitstring(year), do: past?(Helpers.to_int(year), day_no, today)
+
   def past?(year, day_no, today) do
     cond do
       year < today.year -> true
+      year > today.year -> false
       today.month == 12 && day_no <= today.day -> true
       true -> false
     end
