@@ -35,11 +35,16 @@ export default class SingleUserSelector extends React.Component {
   selectUser(user) {
     this.setState({ chosenUser: { ...user }, showModal: false });
     this.props.element.value = user.user_id;
+
+    const event = new Event("change");
+    this.props.element.dispatchEvent(event);
   }
 
   clear() {
     this.setState({ chosenUser: null });
     this.props.element.value = "";
+    const event = new Event("change");
+    this.props.element.dispatchEvent(event);
   }
 
   render() {
