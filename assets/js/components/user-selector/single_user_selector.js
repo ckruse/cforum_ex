@@ -15,7 +15,7 @@ export default class SingleUserSelector extends React.Component {
     if (this.props.userId) {
       fetch(`/api/v1/users/${this.props.userId}`, { credentials: "same-origin" })
         .then(json => json.json())
-        .then(json => this.setState({ ...this.state, chosenUser: json }));
+        .then(json => this.setState({ chosenUser: json }));
     }
 
     this.showSearchModal = this.showSearchModal.bind(this);
@@ -24,15 +24,15 @@ export default class SingleUserSelector extends React.Component {
   }
 
   showSearchModal() {
-    this.setState({ ...this.state, showModal: true });
+    this.setState({ showModal: true });
   }
 
   hideSearchModal() {
-    this.setState({ ...this.state, showModal: false });
+    this.setState({ showModal: false });
   }
 
   selectUser(user) {
-    this.setState({ ...this.state, chosenUser: { ...user }, showModal: false });
+    this.setState({ chosenUser: { ...user }, showModal: false });
     this.props.element.value = user.user_id;
   }
 
