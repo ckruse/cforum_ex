@@ -1,5 +1,6 @@
 $advent-base-color: #942911;
 $advent-item-border: 1px solid $advent-base-color;
+$day-size: 2.2rem;
 
 .cf-advent-form .cf-preview {
   .cf-posting-content {
@@ -68,10 +69,10 @@ $advent-item-border: 1px solid $advent-base-color;
       border-radius: 50%;
       text-align: center;
 
-      width: 2rem;
-      height: 2rem;
-      line-height: 2rem;
-      padding: 0.04rem;
+      width: $day-size;
+      height: $day-size;
+      line-height: $day-size;
+      padding: $day-size * 0.02;
     }
   }
 
