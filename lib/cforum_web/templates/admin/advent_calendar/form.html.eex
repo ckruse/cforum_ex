@@ -15,7 +15,7 @@
       <%= ErrorHelpers.error_tag f, :user_id %>
     <% end %>
 
-    <%= text_input f, :user_id, required: true, "data-user-selector": "single", "data-user-selector-self": "yes" %>
+    <%= text_input f, :user_id, required: true, "data-user-selector": "single", "data-user-selector-self": "yes", "data-user-selector-clearable": "yes" %>
   </div>
 
   <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :author) %>">
