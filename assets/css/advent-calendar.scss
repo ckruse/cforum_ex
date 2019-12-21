@@ -59,9 +59,9 @@ $day-size: 2.2rem;
 
     .day {
       position: absolute;
-      top: 0.25em;
-      right: 0.25em;
-      font-size: 1.5em;
+      top: $day-size * 0.25;
+      right: $day-size * 0.25;
+      font-size: $day-size * 0.75;
       font-weight: bold;
       transform: rotate(10deg);
       color: #fff;
