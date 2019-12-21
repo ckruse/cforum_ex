@@ -5,6 +5,7 @@ import UserSelector from "../components/user-selector";
 const setupSingleSelector = sel => {
   const userId = sel.value;
   const selfSelect = sel.dataset.userSelectorSelf === "yes";
+  const clearable = sel.dataset.userSelectorClearable === "yes";
   const root = document.createElement("div");
   const id = sel.getAttribute("id");
 
@@ -12,7 +13,7 @@ const setupSingleSelector = sel => {
   sel.setAttribute("type", "hidden");
   sel.parentNode.insertBefore(root, sel);
 
-  return [root, { id, userId, selfSelect, single: true, element: sel }];
+  return [root, { id, userId, selfSelect, single: true, element: sel, clearable }];
 };
 
 const setupMultiSelector = element => {

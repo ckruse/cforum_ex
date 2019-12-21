@@ -21,6 +21,7 @@ export default class SingleUserSelector extends React.Component {
     this.showSearchModal = this.showSearchModal.bind(this);
     this.hideSearchModal = this.hideSearchModal.bind(this);
     this.selectUser = this.selectUser.bind(this);
+    this.clear = this.clear.bind(this);
   }
 
   showSearchModal() {
@@ -36,6 +37,11 @@ export default class SingleUserSelector extends React.Component {
     this.props.element.value = user.user_id;
   }
 
+  clear() {
+    this.setState({ chosenUser: null });
+    this.props.element.value = "";
+  }
+
   render() {
     const username = this.state.chosenUser ? this.state.chosenUser.username : "";
 
@@ -44,6 +50,9 @@ export default class SingleUserSelector extends React.Component {
         <input id={this.props.id} type="text" readOnly={true} value={username} className="cf-users-selector" />
         <button type="button" className="cf-users-selector-btn" onClick={this.showSearchModal}>
           {t("search user")}
+        </button>
+        <button type="button" className="cf-users-selector-btn" onClick={this.clear}>
+          {t("clear")}
         </button>
 
         <SearchModal
