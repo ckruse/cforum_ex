@@ -15,16 +15,13 @@
     </p>
   </div>
 <% else %>
-  <%= if past?(@year, @day_no, @today) do %>
-    <!-- <h2><%= gettext("no content") %></h2>
-    <div class="content">
-      <p><%= gettext("sorry, there is nothing yet… :(") %></p>
-    </div> -->
-  <% else %>
-    <a href="https://selfhtml.org/spenden.html">
+  <a href="https://selfhtml.org/spenden.html">
+    <%= if past?(@year, @day_no, @today) do %>
+      <h2><%= gettext("no content") %></h2>
+      <div class="content"><p><%= gettext("sorry, there is nothing yet… :(") %></p></div>
+    <% else %>
       <h2><%= gettext("It's early days yet") %></h2>
-
       <div class="content"><p><%= gettext("By the way, did you know? You can support SELFHTML!") %></p></div>
-    </a>
-  <% end %>
+    <% end %>
+  </a>
 <% end %>
