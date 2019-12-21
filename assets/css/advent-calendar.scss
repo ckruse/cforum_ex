@@ -96,8 +96,8 @@ $day-size: 2.2rem;
 @include default-breakpoint() {
   .cf-advent-calendar-list {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr);
     grid-column-gap: 5px;
     grid-row-gap: 5px;
 
@@ -105,6 +105,17 @@ $day-size: 2.2rem;
       width: 100%;
       min-width: 8.75rem;
       height: auto;
+    }
+  }
+}
+
+@media only screen and (min-width: 50em) {
+  .cf-advent-calendar-list {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+
+    li {
+      min-width: 8.33rem;
     }
   }
 }
