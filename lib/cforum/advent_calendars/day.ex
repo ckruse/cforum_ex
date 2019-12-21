@@ -23,7 +23,7 @@ defmodule Cforum.AdventCalendars.Day do
   end
 
   defp maybe_put_author(changeset) do
-    case get_change(changeset, :user_id) do
+    case get_field(changeset, :user_id) do
       nil ->
         changeset
 
