@@ -21,7 +21,7 @@ const genOrder = year => {
 
 const randomizeOrder = (calendar, year) => {
   const elements = Array.from(calendar.querySelectorAll("li"));
-  const order = genOrder();
+  const order = genOrder(year);
 
   const newElements = order.map(i => elements[i]);
 
