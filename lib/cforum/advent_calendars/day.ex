@@ -18,6 +18,18 @@ defmodule Cforum.AdventCalendars.Day do
   def changeset(day, attrs) do
     day
     |> cast(attrs, [:date, :subject, :author, :user_id, :link, :content])
+    |> maybe_put_author()
     |> validate_required([:date, :subject, :author, :content])
+  end
+
+  defp maybe_put_author(changeset) do
+    case get_change(changeset, :user_id) do
+      nil ->
+        changeset
+
+      id ->
+        user = Cforum.Accounts.Users.get_user!(id)
+        put_change(changeset, :author, user.username)
+    end
   end
 end
