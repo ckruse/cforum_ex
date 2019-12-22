@@ -223,4 +223,16 @@ defmodule Cforum.Factory do
       owner: build(:user)
     }
   end
+
+  def advent_calendar_day_factory do
+    day = Timex.today()
+    day_no = :rand.uniform(24)
+
+    %Cforum.AdventCalendars.Day{
+      date: %Date{day | month: 12, day: day_no},
+      subject: Faker.Lorem.sentence(%Range{first: 1, last: 10}),
+      author: sequence("Author "),
+      content: Faker.Lorem.paragraph(%Range{first: 1, last: 2})
+    }
+  end
 end
