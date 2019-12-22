@@ -74,6 +74,9 @@ defmodule Cforum.Media do
       with {:ok, img} <- ret do
         path = future_image_path(img, "orig")
 
+        # ensure that the file exists
+        File.mkdir_p(Path.dirname(path))
+
         if File.cp(file.path, path) == :ok,
           do: {:ok, img},
           else: {:error, nil}
