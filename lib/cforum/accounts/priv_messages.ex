@@ -49,6 +49,7 @@ defmodule Cforum.Accounts.PrivMessages do
     )
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
+    |> order_by(desc: :priv_message_id)
     |> Repo.all()
     |> Repo.preload(
       messages:
@@ -101,6 +102,7 @@ defmodule Cforum.Accounts.PrivMessages do
     |> maybe_filter_author(query_params[:author], user)
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> order_threadlist(query_params[:order], user)
+    |> order_by(desc: :priv_message_id)
     |> Repo.all()
   end
 
@@ -250,6 +252,7 @@ defmodule Cforum.Accounts.PrivMessages do
         preload: [:sender, :recipient]
       )
       |> order_messages(query_params[:messages_order])
+      |> order_by(desc: :priv_message_id)
 
     result = Repo.all(q)
 
