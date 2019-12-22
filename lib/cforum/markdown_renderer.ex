@@ -230,21 +230,29 @@ defmodule Cforum.MarkdownRenderer do
   # server callbacks
   #
   def handle_call({:render_doc, markdown, id, config}, _sender, {proc, runs}) do
-    {proc, runs} = ensure_proc(proc, runs)
-    out = Jason.encode!(%{markdown: markdown, id: id, config: config}) <> "\n"
+    if Application.get_env(:cforum, :environment) == :test do
+      {:reply, {:ok, markdown}, {proc, runs + 1}}
+    else
+      {proc, runs} = ensure_proc(proc, runs)
+      out = Jason.encode!(%{markdown: markdown, id: id, config: config}) <> "\n"
 
-    proc
-    |> send_and_receive(out)
-    |> response(proc, runs)
+      proc
+      |> send_and_receive(out)
+      |> response(proc, runs)
+    end
   end
 
   def handle_call({:render_plain, markdown, id}, _sender, {proc, runs}) do
-    {proc, runs} = ensure_proc(proc, runs)
-    out = Jason.encode!(%{markdown: markdown, target: "plain", id: id}) <> "\n"
+    if Application.get_env(:cforum, :environment) == :test do
+      {:reply, {:ok, markdown}, {proc, runs + 1}}
+    else
+      {proc, runs} = ensure_proc(proc, runs)
+      out = Jason.encode!(%{markdown: markdown, target: "plain", id: id}) <> "\n"
 
-    proc
-    |> send_and_receive(out)
-    |> response(proc, runs)
+      proc
+      |> send_and_receive(out)
+      |> response(proc, runs)
+    end
   end
 
   def terminate(_, {proc, _runs}) do

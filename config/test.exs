@@ -35,7 +35,7 @@ config :cforum,
   avatar_dir: Path.expand("../priv/uploads/users/avatars", __DIR__),
   avatar_url: "/uploads/users/avatars",
   cfmarkdown: [
-    cli: "./node_modules/.bin/babel-node ./bin/cfmarkdown2html.js",
-    pwd: Path.expand("../cfmarkdown"),
+    # cli: "./node_modules/.bin/babel-node ./bin/cfmarkdown2html.js",
+    # pwd: Path.expand("../cfmarkdown"),
     pool_size: 10
   ]
