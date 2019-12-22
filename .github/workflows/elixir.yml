@@ -31,13 +31,19 @@ jobs:
           mix local.rebar --force
           mix local.hex --force
           mix deps.get
-          apt update
-          apt install -y postgresql-client
-      - name: Run Tests
-        run: |
-          MIX_ENV=test mix ecto.reset
-          mix test
+          apt-get update
+          apt-get install -y postgresql-client
+      - name: Reset database
+        run: mix ecto.reset
         env:
           DB_HOST: postgres
           DB_USER: postgres
           DB_PASS: postgres
+          MIX_ENV: test
+      - name: Run tests
+        run: mix test
+        env:
+          DB_HOST: postgres
+          DB_USER: postgres
+          DB_PASS: postgres
+          MIX_ENV: test
