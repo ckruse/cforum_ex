@@ -1,4 +1,4 @@
-defmodule CforumWeb.DayControllerTest do
+defmodule CforumWeb.AdventCalendarControllerTest do
   use CforumWeb.ConnCase
 
   alias CforumWeb.Router.Helpers, as: Routes
