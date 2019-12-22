@@ -4,7 +4,6 @@ defmodule Cforum.Cites.ArchiverJobTest do
   alias Cforum.Cites.ArchiverJob
   alias Cforum.Cites
   alias Cforum.Cites.Vote
-  alias CforumWeb.Router.Helpers
 
   test "archive/0 deletes an cite with negative score" do
     cite = insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -3))
