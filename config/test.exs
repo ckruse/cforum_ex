@@ -14,7 +14,9 @@ config :logger, level: :warn
 config :cforum, Cforum.Repo,
   adapter: Ecto.Adapters.Postgres,
   database: "cforum_test",
-  hostname: "localhost",
+  username: System.get_env("DB_USER", System.get_env("USER")),
+  password: System.get_env("DB_PASS"),
+  hostname: System.get_env("DB_HOST", "localhost"),
   pool: Ecto.Adapters.SQL.Sandbox
 
 config :cforum, Cforum.Mailer, adapter: Bamboo.TestAdapter
