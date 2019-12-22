@@ -28,6 +28,7 @@ import "./modules/alerts";
 import "./socket";
 
 // import "./modules/tabs.js";
+import "./mobile";
 import "./modules/datetime-polyfill";
 import "./modules/confirmation";
 import "./modules/show-password";

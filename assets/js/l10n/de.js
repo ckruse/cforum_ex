@@ -1,4 +1,5 @@
 export const lang = {
+  "expand menu": "Menü anzeigen",
   "show password": "Passwort anzeigen",
   "hide password": "Passwort verbergen",
   "search user": "Benutzer suchen",
