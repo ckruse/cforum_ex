@@ -62,7 +62,7 @@ defmodule CforumWeb.Admin.AdventCalendarController do
 
     conn
     |> put_flash(:info, gettext("Advent calendar day deleted successfully."))
-    |> redirect(to: Routes.admin_advent_calendar_path(conn, :index_years))
+    |> redirect(to: Routes.admin_advent_calendar_path(conn, :index, day.date.year))
   end
 
   def allowed?(conn, _, _), do: Abilities.admin?(conn)
