@@ -55,14 +55,12 @@ const hideUnopenedElements = year => {
   });
 };
 
-if (document.body.dataset.action === "index") {
-  const calendar = document.querySelector(".cf-advent-calendar-list");
-  const year = Array.from(calendar.classList)
-    .find(el => el.match(/^year-/))
-    .replace(/^year-/, "");
+const calendar = document.querySelector(".cf-advent-calendar-list");
+const year = Array.from(calendar.classList)
+  .find(el => el.match(/^year-/))
+  .replace(/^year-/, "");
 
-  randomizeOrder(calendar, year);
-  hideUnopenedElements(year);
+randomizeOrder(calendar, year);
+hideUnopenedElements(year);
 
-  calendar.addEventListener("click", ev => addToOpened(ev, year));
-}
+calendar.addEventListener("click", ev => addToOpened(ev, year));
