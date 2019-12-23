@@ -38,7 +38,11 @@ defmodule Cforum.Messages.TagsTest do
     end
 
     test "get_tags_by_ids/1 returns a list of tags with the given IDs" do
-      tags = insert_list(3, :tag, synonyms: [], num_messages: 0)
+      tags =
+        insert_list(3, :tag, synonyms: [], num_messages: 0)
+        |> Enum.sort(&(&1.tag_name <= &2.tag_name))
+        |> Enum.sort(&(&1.tag_id <= &2.tag_id))
+
       assert Tags.get_tags_by_ids(Enum.map(tags, & &1.tag_id)) == tags
     end
 
