@@ -29,13 +29,22 @@ const randomizeOrder = (calendar, year) => {
   newElements.forEach(day => calendar.appendChild(day));
 };
 
+const parseOpened = year => {
+  const opened = JSON.parse(localStorage.getItem(`advent-calendar-${year}`) || "[]");
+
+  if (!(opened instanceof Array)) {
+    return [];
+  }
+
+  return opened;
+};
+
 const addToOpened = (ev, year) => {
-  ev.preventDefault();
   const el = ev.target.closest("li");
 
   if (!el || !el.classList.contains("closed")) return;
 
-  const opened = JSON.parse(localStorage.getItem(`advent-calendar-${year}`) || "[]");
+  const opened = parseOpened(year);
   const no = parseInt(el.querySelector(".day").textContent);
   opened.push(no);
 
@@ -43,7 +52,7 @@ const addToOpened = (ev, year) => {
 };
 
 const hideUnopenedElements = year => {
-  const opened = JSON.parse(localStorage.getItem(`advent-calendar-${year}`) || "[]");
+  const opened = parseOpened(year);
 
   document.querySelectorAll(".cf-advent-calendar-list .open").forEach(el => {
     const no = parseInt(el.querySelector(".day").textContent);
