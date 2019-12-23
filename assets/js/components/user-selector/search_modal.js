@@ -50,7 +50,7 @@ export default class SearchModal extends React.Component {
   }
 
   unchooseUser(user) {
-    this.setState({ ...this.state, selectedUsers: this.state.selectedUsers.filter(u => u.user_id != user.user_id) });
+    this.setState({ ...this.state, selectedUsers: this.state.selectedUsers.filter(u => u.user_id !== user.user_id) });
   }
 
   selectUsers() {
@@ -62,7 +62,7 @@ export default class SearchModal extends React.Component {
   }
 
   renderFoundUsers() {
-    if (this.state.foundUsers.length == 0) {
+    if (this.state.foundUsers.length === 0) {
       return (
         <FadeTransition key="no-user-found">
           <li className="no-data">{t("none found")}</li>
