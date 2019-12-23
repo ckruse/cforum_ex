@@ -60,13 +60,15 @@ export default class SingleUserSelector extends React.Component {
           {t("clear")}
         </button>
 
-        <SearchModal
-          selfSelect={this.props.selfSelect}
-          single={true}
-          show={this.state.showModal}
-          close={this.hideSearchModal}
-          selectUser={this.selectUser}
-        />
+        {this.state.showModal && (
+          <SearchModal
+            selfSelect={this.props.selfSelect}
+            single={true}
+            show={this.state.showModal}
+            close={this.hideSearchModal}
+            selectUser={this.selectUser}
+          />
+        )}
       </>
     );
   }

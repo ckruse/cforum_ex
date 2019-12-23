@@ -78,13 +78,15 @@ export default class MultiUserSelector extends React.Component {
           {t("search user")}
         </button>
 
-        <SearchModal
-          selfSelect={this.props.selfSelect}
-          single={false}
-          show={this.state.showModal}
-          close={this.hideSearchModal}
-          selectUser={this.selectUsers}
-        />
+        {this.state.showModal && (
+          <SearchModal
+            selfSelect={this.props.selfSelect}
+            single={false}
+            show={this.state.showModal}
+            close={this.hideSearchModal}
+            selectUser={this.selectUsers}
+          />
+        )}
       </>
     );
   }
