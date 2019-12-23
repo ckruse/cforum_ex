@@ -2,6 +2,17 @@ import { t } from "../modules/i18n";
 import { alertInfoWithPath } from "../modules/alerts";
 import { updateTitleInfos, setNewFavicon } from "../title_infos";
 
+const updateNotificationCount = count => {
+  const liElem = document.getElementById("user-notifications");
+  if (liElem) {
+    if (count > 0) {
+      liElem.classList.add("new");
+    } else {
+      liElem.classList.remove("new");
+    }
+  }
+};
+
 document.addEventListener("cf:userPrivate", event => {
   const channel = event.detail;
 
@@ -10,8 +21,17 @@ document.addEventListener("cf:userPrivate", event => {
 
     const elem = document.getElementById("mails");
     if (elem) {
-      elem.innerText = data.unread;
+      elem.innerText = `(${data.unread})`;
       elem.setAttribute("title", t("{count} unread mails", { unread: data.unread }));
+    }
+
+    const liElem = document.getElementById("post-link");
+    if (liElem) {
+      if (data.unread > 0) {
+        liElem.classList.add("new");
+      } else {
+        liElem.classList.remove("new");
+      }
     }
 
     alertInfoWithPath(
@@ -39,9 +59,11 @@ document.addEventListener("cf:userPrivate", event => {
 
     const elem = document.getElementById("notifications-display");
     if (elem) {
-      elem.innerText = `${data.unread}`;
+      elem.innerText = `(${data.unread})`;
       elem.setAttribute("title", t("{count} new notifications"));
     }
+
+    updateNotificationCount(data.unread);
 
     alertInfoWithPath(
       t("You've got a new notification: {subject}", { subject: data.notification.subject }),
@@ -54,8 +76,10 @@ document.addEventListener("cf:userPrivate", event => {
 
     const elem = document.getElementById("notifications-display");
     if (elem) {
-      elem.innerText = `${data.unread}`;
+      elem.innerText = `(${data.unread})`;
       elem.setAttribute("title", t("{count} new notifications"));
     }
+
+    updateNotificationCount(data.unread);
   });
 });
