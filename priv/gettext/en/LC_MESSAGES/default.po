@@ -765,11 +765,11 @@ msgid "delete user"
 msgstr ""
 
 #: lib/cforum_web/templates/admin/advent_calendar/day.html.eex:19
-#: lib/cforum_web/templates/admin/badge/index.html.eex:22 lib/cforum_web/templates/admin/event/index.html.eex:23
-#: lib/cforum_web/templates/admin/forum/index.html.eex:25 lib/cforum_web/templates/admin/group/index.html.eex:22
-#: lib/cforum_web/templates/admin/redirection/index.html.eex:23 lib/cforum_web/templates/admin/search_section/index.html.eex:22
-#: lib/cforum_web/templates/admin/user/index.html.eex:38 lib/cforum_web/templates/cite/cite.html.eex:76
-#: lib/cforum_web/templates/event/attendee.html.eex:43
+#: lib/cforum_web/templates/admin/advent_calendar/day.html.eex:25 lib/cforum_web/templates/admin/badge/index.html.eex:22
+#: lib/cforum_web/templates/admin/event/index.html.eex:23 lib/cforum_web/templates/admin/forum/index.html.eex:25
+#: lib/cforum_web/templates/admin/group/index.html.eex:22 lib/cforum_web/templates/admin/redirection/index.html.eex:23
+#: lib/cforum_web/templates/admin/search_section/index.html.eex:22 lib/cforum_web/templates/admin/user/index.html.eex:38
+#: lib/cforum_web/templates/cite/cite.html.eex:76 lib/cforum_web/templates/event/attendee.html.eex:43
 msgid "edit"
 msgstr ""
 
@@ -4162,22 +4162,22 @@ msgid "This message has been locked: %{reason}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/advent_calendar_controller.ex:28
+#: lib/cforum_web/controllers/admin/advent_calendar_controller.ex:31
 msgid "Advent calendar day created successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/advent_calendar_controller.ex:61
+#: lib/cforum_web/controllers/admin/advent_calendar_controller.ex:64
 msgid "Advent calendar day deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/advent_calendar_controller.ex:48
+#: lib/cforum_web/controllers/admin/advent_calendar_controller.ex:51
 msgid "Advent calendar day updated successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/advent/day.html.eex:25
+#: lib/cforum_web/templates/advent/day.html.eex:24
 msgid "By the way, did you know? You can support SELFHTML!"
 msgstr ""
 
@@ -4197,12 +4197,13 @@ msgid "administrate advent calendars"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/advent_view.ex:6
+#: lib/cforum_web/views/advent_view.ex:7
 msgid "advent calendar %{year}"
 msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/subnav.html.eex:12
+#: lib/cforum_web/views/advent_view.ex:6
 msgid "advent calendars"
 msgstr ""
 
@@ -4244,15 +4245,16 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/advent_calendar/index_years.html.eex:3
+#: lib/cforum_web/templates/advent/index.html.eex:3
 msgid "no years found"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/advent/day.html.eex:20
+#: lib/cforum_web/templates/advent/day.html.eex:21
 msgid "sorry, there is nothing yet… :("
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/advent/day.html.eex:19
+#: lib/cforum_web/templates/advent/day.html.eex:20
 msgid "no content"
 msgstr ""
