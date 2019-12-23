@@ -21,7 +21,7 @@ defmodule Cforum.Messages.Tags do
   """
   @spec list_tags() :: [%Tag{}]
   def list_tags() do
-    from(tag in Tag, order_by: [asc: :tag_name], preload: [:synonyms])
+    from(tag in Tag, order_by: [asc: :tag_name, asc: :tag_id], preload: [:synonyms])
     |> Repo.all()
   end
 
@@ -87,7 +87,7 @@ defmodule Cforum.Messages.Tags do
       tag in Tag,
       left_join: syn in assoc(tag, :synonyms),
       where: fragment("lower(?)", tag.tag_name) in ^tags or fragment("lower(?)", syn.synonym) in ^tags,
-      order_by: [desc: :tag_name]
+      order_by: [desc: :tag_name, desc: :tag_id]
     )
     |> Repo.all()
     |> Repo.preload([:synonyms])
@@ -111,7 +111,7 @@ defmodule Cforum.Messages.Tags do
     from(
       tag in Tag,
       where: tag.tag_id in ^tag_ids,
-      order_by: [asc: :tag_name]
+      order_by: [asc: :tag_name, asc: :tag_id]
     )
     |> Repo.all()
     |> Repo.preload([:synonyms])
