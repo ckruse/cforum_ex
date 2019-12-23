@@ -126,7 +126,7 @@ export default class SearchModal extends React.Component {
         <div className="cf-form cf-user-selector-modal">
           <div className="cf-cgroup">
             <label htmlFor="users-selector-search-input">{t("username")}</label>
-            <input type="text" id="users-selector-search-input" onInput={this.handleKeyPressed} />
+            <input type="text" id="users-selector-search-input" onInput={this.handleKeyPressed} autoFocus />
           </div>
 
           <h2>{t("found users")}</h2>
