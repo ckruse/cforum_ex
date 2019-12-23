@@ -32,7 +32,7 @@ const setupUserSelectors = nodes => {
   nodes.forEach(sel => {
     let props, root;
 
-    if (sel.dataset.userSelector == "single") {
+    if (sel.dataset.userSelector === "single") {
       [root, props] = setupSingleSelector(sel);
     } else {
       [root, props] = setupMultiSelector(sel);
