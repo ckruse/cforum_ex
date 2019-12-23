@@ -39,7 +39,7 @@ const addToOpened = (ev, year) => {
   const no = parseInt(el.querySelector(".day").textContent);
   opened.push(no);
 
-  localStorage.setItem(`advent-calendar-${year}`, JSON.stringify(no));
+  localStorage.setItem(`advent-calendar-${year}`, JSON.stringify(opened));
 };
 
 const hideUnopenedElements = year => {
