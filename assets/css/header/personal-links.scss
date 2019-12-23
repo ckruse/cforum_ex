@@ -6,9 +6,30 @@
   margin: 0.5em;
 
   li {
-    margin: 0 0 1em 0;
     line-height: 1em;
     white-space: nowrap;
+
+    display: inline-block;
+    min-width: 4rem;
+    text-align: center;
+
+    svg {
+      max-height: 1em;
+      max-width: 1em;
+    }
+
+    .desc,
+    .score,
+    .notifications,
+    .mails {
+      display: none;
+    }
+  }
+
+  li.new {
+    svg {
+      fill: $connected-color;
+    }
   }
 
   a:visited {
@@ -35,12 +56,20 @@
     cursor: pointer;
     background-color: transparent;
     color: $link-color;
+
+    svg {
+      fill: $link-color;
+    }
   }
 
   .btn-link:hover,
   .btn-link:focus,
   .btn-link:active {
     color: $active-link-color;
+
+    svg {
+      fill: $active-link-color;
+    }
   }
 
   .connected a {
@@ -57,6 +86,17 @@
       display: inline;
       margin-right: 1em;
       line-height: 1.5;
+
+      .desc,
+      .score,
+      .notifications,
+      .mails {
+        display: inline;
+      }
+
+      svg {
+        display: none;
+      }
     }
 
     li:last-of-type {

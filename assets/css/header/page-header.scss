@@ -83,42 +83,43 @@
   }
 }
 
-.js .cf-page-header .quicklinks ul,
-.js .cf-page-header .subnav ul,
-.js.anonymous .cf-personallinks {
-  display: none;
-}
+.js {
+  .cf-page-header .quicklinks ul,
+  .cf-page-header .subnav ul {
+    display: none;
+  }
 
-.js .cf-page-header .quicklinks {
-  .quicklinks-expand {
-    background: transparent;
-    border: 0;
+  .cf-page-header .quicklinks {
+    .quicklinks-expand {
+      background: transparent;
+      border: 0;
+      display: block;
+      font-size: 1em;
+      color: $link-color;
+      cursor: pointer;
+    }
+
+    .quicklinks-expand:hover,
+    .quicklinks-expand:focus,
+    .quicklinks-expand:active {
+      color: $active-link-color;
+    }
+  }
+
+  .cf-page-header .quicklinks.expanded ul,
+  .cf-page-header .subnav.expanded ul {
     display: block;
-    font-size: 1em;
-    color: $link-color;
-    cursor: pointer;
   }
-
-  .quicklinks-expand:hover,
-  .quicklinks-expand:focus,
-  .quicklinks-expand:active {
-    color: $active-link-color;
-  }
-}
-
-.js .cf-page-header .quicklinks.expanded ul,
-.js .cf-page-header .subnav.expanded ul,
-.js.js.anonymous .cf-personallinks.expanded {
-  display: block;
 }
 
 @include default-breakpoint() {
-  .js .cf-page-header .quicklinks ul {
-    display: flex;
-  }
-  .js .cf-page-header .subnav ul,
-  .js.anonymous .cf-personallinks {
-    display: block;
+  .js {
+    .cf-page-header .quicklinks ul {
+      display: flex;
+    }
+    .cf-page-header .subnav ul {
+      display: block;
+    }
   }
 
   .cf-page-header {
