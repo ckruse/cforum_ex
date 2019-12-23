@@ -24,6 +24,8 @@ defmodule CforumWeb.LayoutView do
   end
 
   def body_classes(conn, assigns) do
+    anon_class = if Helpers.blank?(conn.assigns[:current_user]), do: "anonymous ", else: ""
+
     classes =
       try do
         apply(view_module(conn), :body_classes, [action_name(conn), assigns])
@@ -32,7 +34,7 @@ defmodule CforumWeb.LayoutView do
         FunctionClauseError -> ""
       end
 
-    [{:safe, "class=\""}, classes, " ", holiday_classes(conn), {:safe, "\""}]
+    [{:safe, "class=\""}, classes, " ", anon_class, holiday_classes(conn), {:safe, "\""}]
   end
 
   def body_id(conn, assigns) do

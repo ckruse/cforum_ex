@@ -84,7 +84,8 @@
 }
 
 .js .cf-page-header .quicklinks ul,
-.js .cf-page-header .subnav ul {
+.js .cf-page-header .subnav ul,
+.js.anonymous .cf-personallinks {
   display: none;
 }
 
@@ -106,7 +107,8 @@
 }
 
 .js .cf-page-header .quicklinks.expanded ul,
-.js .cf-page-header .subnav.expanded ul {
+.js .cf-page-header .subnav.expanded ul,
+.js.js.anonymous .cf-personallinks.expanded {
   display: block;
 }
 
@@ -114,7 +116,8 @@
   .js .cf-page-header .quicklinks ul {
     display: flex;
   }
-  .js .cf-page-header .subnav ul {
+  .js .cf-page-header .subnav ul,
+  .js.anonymous .cf-personallinks {
     display: block;
   }
 

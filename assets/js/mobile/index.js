@@ -3,10 +3,12 @@ import { t } from "../modules/i18n";
 const expand = () => {
   const quicklinks = document.querySelector(".cf-page-header .quicklinks");
   const subnav = document.querySelector(".cf-page-header .subnav");
+  const personal = document.querySelector(".cf-personallinks");
 
   quicklinks.querySelector("button").remove();
   quicklinks.classList.add("expanded");
   subnav.classList.add("expanded");
+  personal.classList.add("expanded");
 };
 
 const mql = window.matchMedia("only screen and (min-width: 35em)");
