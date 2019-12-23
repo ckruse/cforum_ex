@@ -1,8 +1,9 @@
-<ol class="cf-advent-calendar-list year-<%= @year %>">
-  <%= for day_no <- 1..24 do %>
-    <li class="<%= if past?(@year, day_no, @today), do: "open", else: "closed" %>">
-      <span class="day"><%=  day_no %></span>
-      <%= render "day.html", Map.merge(assigns, %{day: find_day(@advent_calendar_days, day_no), day_no: day_no}) %>
-    </li>
+<ul>
+  <%= if Helpers.blank?(@years) do %>
+    <li class="no-data"><%= gettext("no years found") %></li>
   <% end %>
-</ol>
+
+  <%= for year <- @years do %>
+    <li><%= link year, to: Routes.advent_path(@conn, :show, year) %></li>
+  <% end %>
+</ul>

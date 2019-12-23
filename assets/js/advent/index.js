@@ -1,4 +1,4 @@
-if (document.body.dataset.controller === "AdventController") {
+if (document.body.dataset.controller === "AdventController" && document.body.dataset.action === "show") {
   import(/* webpackChunkName: "advent" */ "./advent.js");
 }
 

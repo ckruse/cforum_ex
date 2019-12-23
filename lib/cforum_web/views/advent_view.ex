@@ -3,12 +3,15 @@ defmodule CforumWeb.AdventView do
 
   alias Cforum.Helpers
 
-  def page_title(:index, %{year: year}), do: gettext("advent calendar %{year}", year: year)
+  def page_title(:index, _), do: gettext("advent calendars")
+  def page_title(:show, %{year: year}), do: gettext("advent calendar %{year}", year: year)
   def page_heading(action, assigns), do: page_title(action, assigns)
 
-  def body_id(:index, _), do: "advent-calendar-day-index"
+  def body_id(:index, _), do: "advent-calendar-index"
+  def body_id(:show, _), do: "advent-calendar-day-index"
 
-  def body_classes(:index, %{year: year}), do: "advent-calendar index day year-#{year}"
+  def body_classes(:index, _), do: "advent-calendar index"
+  def body_classes(:show, %{year: year}), do: "advent-calendar index day year-#{year}"
 
   def find_day(days, no) do
     day = Enum.find(days, &(&1.date.day == no))

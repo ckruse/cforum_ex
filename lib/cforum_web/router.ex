@@ -130,7 +130,8 @@ defmodule CforumWeb.Router do
 
     get("/search", SearchController, :show)
 
-    get("/advent/:year", AdventController, :index)
+    get("/advent", AdventController, :index)
+    get("/advent/:year", AdventController, :show)
 
     scope "/users", Users do
       get("/deletion-started", UserController, :deletion_started)
