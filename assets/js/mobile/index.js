@@ -12,6 +12,8 @@ const expand = () => {
 };
 
 const mql = window.matchMedia("only screen and (min-width: 35em)");
+document.body.classList.add(mql.matches ? "broad" : "narrow");
+window.viewType = mql.matches ? "broad" : "narrow";
 
 if (!mql.matches) {
   const quicklinks = document.querySelector(".cf-page-header .quicklinks");
