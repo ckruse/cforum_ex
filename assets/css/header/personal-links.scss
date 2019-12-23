@@ -44,6 +44,7 @@
 
   img {
     margin-right: 0.2em;
+    border-radius: 50%;
   }
   #user-not-signed-in {
     color: $visited-link-color;
@@ -97,6 +98,10 @@
       svg {
         display: none;
       }
+    }
+
+    img {
+      border-radius: 0;
     }
 
     li:last-of-type {
