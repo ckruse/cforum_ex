@@ -16,13 +16,10 @@
     <%= Cforum.MarkdownRenderer.to_html(@event, assigns[:current_user]) %>
   </div>
 
-  <%# TODO create a better solution for maps %>
-  <%= if Helpers.present?(@event.maps_link) do %>
-    <section>
-      <h3><%= gettext("map of the event location area") %></h3>
-      <iframe class="location-area" src="<%= @event.maps_link %>"></iframe>
-    </section>
-  <% end %>
+  <section>
+    <h3><%= gettext("map of the event location area") %></h3>
+    <div class="maps location-area" id="event-map"></div>
+  </section>
 
   <section>
     <h3><%= ngettext("no attendees", "%{count} attendees", length(@event.attendees)) %></h3>

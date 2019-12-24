@@ -26,6 +26,11 @@ module.exports = function(env = {}, argv) {
         context: "./static",
         from: "**/*",
         to: "."
+      },
+      {
+        context: path.resolve(__dirname, "node_modules/leaflet/dist/images"),
+        from: path.resolve(__dirname, "node_modules/leaflet/dist/images/*"),
+        to: path.resolve(__dirname, "..", "priv/static/images/leaflet/")
       }
     ])
   ];
@@ -76,6 +81,10 @@ module.exports = function(env = {}, argv) {
         {
           test: /\.(eot|svg|ttf|woff|woff2)$/,
           loader: "url-loader"
+        },
+        {
+          test: /\.(gif|jpe?g|png)/,
+          loader: "file-loader"
         }
       ]
     },

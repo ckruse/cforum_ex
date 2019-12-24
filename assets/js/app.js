@@ -51,6 +51,7 @@ import "./help";
 import "./user";
 import "./cites";
 import "./advent";
+import "./events";
 
 import "./init";
 import "./cleanup";

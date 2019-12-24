@@ -12,7 +12,7 @@
   .location-area {
     border: 0;
     width: 100%;
-    height: 30em;
+    height: 80vh;
   }
 
   .attendees-list {
@@ -61,6 +61,10 @@
     dd:after {
       content: "\A";
       white-space: pre;
+    }
+
+    .location-area {
+      height: 50vh;
     }
   }
 }
