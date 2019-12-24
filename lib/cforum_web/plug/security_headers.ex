@@ -13,24 +13,37 @@ defmodule CforumWeb.Plug.SecurityHeaders do
         |> :crypto.strong_rand_bytes()
         |> Base.url_encode64(padding: false)
 
-      script_csp = "script-src 'self' 'nonce-#{js_nonce}' *.selfhtml.org"
+      script_csp = "script-src 'self' 'nonce-#{js_nonce}' *.selfhtml.org" <> maybe_unsafe_eval(conn.request_path)
       # 'nonce-#{style_nonce}' not yet possible, due to mathjax
       style_csp = "style-src 'self' 'unsafe-inline'"
-      connect_csp = "connect-src 'self' #{scheme()}://#{CforumWeb.Endpoint.config(:url)[:host]}#{port()}"
+
+      connect_csp =
+        "connect-src 'self' #{scheme()}://#{CforumWeb.Endpoint.config(:url)[:host]}#{port()}" <>
+          maybe_osm_connect(conn.request_path)
 
       conn
       |> Plug.Conn.assign(:nonce_for_js, js_nonce)
       |> Plug.Conn.assign(:nonce_for_style, style_nonce)
       |> Plug.Conn.put_resp_header(
         "Content-Security-Policy",
-        "default-src 'self'; #{script_csp}; #{style_csp}; #{connect_csp}"
+        "default-src 'self'; #{script_csp}; #{style_csp}; #{connect_csp}" <> img_csp(conn.request_path)
       )
+      |> IO.inspect()
     else
       conn
       |> Plug.Conn.assign(:nonce_for_js, "")
       |> Plug.Conn.assign(:nonce_for_style, "")
     end
   end
+
+  defp maybe_unsafe_eval("/events/" <> _id), do: " 'unsafe-eval'"
+  defp maybe_unsafe_eval(_), do: ""
+
+  defp img_csp("/events/" <> _id), do: "; img-src 'self' *.tile.openstreetmap.de data:"
+  defp img_csp(_), do: ""
+
+  defp maybe_osm_connect("/events/" <> _id), do: " nominatim.openstreetmap.org"
+  defp maybe_osm_connect(_), do: ""
 
   defp scheme do
     port = CforumWeb.Endpoint.config(:url)[:port] || CforumWeb.Endpoint.config(:http)[:port]
