@@ -12,7 +12,6 @@ const showEvent = async (id, map) => {
   // map.setView([0, 0], 0);
   if (results.length >= 1) {
     results.forEach(result => {
-      console.log(result);
       L.marker([result.y, result.x])
         .addTo(map)
         .bindPopup(`<strong>${event.name}</strong><br>${event.location}`)
@@ -22,7 +21,6 @@ const showEvent = async (id, map) => {
   }
 };
 
-console.log(L.Icon.Default.imagePath);
 L.Icon.Default.imagePath = "/images/leaflet/";
 
 const eventId = document.location.href.replace(/.*\//, "");
