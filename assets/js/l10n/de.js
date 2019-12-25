@@ -233,5 +233,9 @@ export const lang = {
   "message is illegal": "Beitrag ist rechtlich problematisch",
   "message is a duplicate": "Beitrag ist ein Duplikat eines anderen Beitrags",
   "message is spam": "Beitrag ist Spam",
-  "custom reason": "sonstiger Grund"
+  "custom reason": "sonstiger Grund",
+
+  "may not be empty": "darf nicht leer sein",
+  "should have at least {minLen} characters": "sollte mindestens {minLen} Zeichen haben",
+  "should have at most {maxLen} characters": "sollte nicht mehr als {maxLen} Zeichen haben"
 };
