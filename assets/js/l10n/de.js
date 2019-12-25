@@ -237,5 +237,7 @@ export const lang = {
 
   "may not be empty": "darf nicht leer sein",
   "should have at least {minLen} characters": "sollte mindestens {minLen} Zeichen haben",
-  "should have at most {maxLen} characters": "sollte nicht mehr als {maxLen} Zeichen haben"
+  "should have at most {maxLen} characters": "sollte nicht mehr als {maxLen} Zeichen haben",
+  "should be an URL": "sollte eine URL sein",
+  "should be an email": "sollte eine Email-Adresse sein"
 };
