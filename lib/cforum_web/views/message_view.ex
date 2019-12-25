@@ -153,7 +153,8 @@ defmodule CforumWeb.MessageView do
           tree: true,
           tags: true,
           show_votes: false,
-          thread_icons: true
+          thread_icons: true,
+          rm: nil
         ],
         opts
       )
@@ -189,7 +190,7 @@ defmodule CforumWeb.MessageView do
   def author_name(conn, thread, message, opts) do
     cond do
       opts[:author_link_to_message] ->
-        link(message.author, to: Path.message_path(conn, :show, thread, message), aria: [hidden: "true"])
+        link(message.author, to: Path.message_path(conn, :show, thread, message, rm: opts[:rm]), aria: [hidden: "true"])
 
       !Helpers.blank?(message.user_id) ->
         link(message.author, to: Path.user_path(conn, :show, message.user))

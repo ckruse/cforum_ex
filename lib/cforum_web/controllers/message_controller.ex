@@ -31,7 +31,7 @@ defmodule CforumWeb.MessageController do
       read_mode =
         conn
         |> parse_readmode(params)
-        |> validate_readmode
+        |> validate_readmode()
 
       if Abilities.signed_in?(conn) and !conn.assigns.thread.archived,
         do: run_async_handlers(conn, read_mode)
@@ -39,6 +39,7 @@ defmodule CforumWeb.MessageController do
       conn
       |> Plug.Conn.assign(:read_mode, read_mode)
       |> maybe_put_readmode(params, read_mode)
+      |> maybe_add_rm()
       |> render("show-#{read_mode}.html")
     else
       conn
@@ -221,9 +222,23 @@ defmodule CforumWeb.MessageController do
   defp validate_readmode("nested-view"), do: "nested"
   defp validate_readmode(_), do: "thread"
 
+  defp valid_readmode?("thread"), do: true
+  defp valid_readmode?("nested"), do: true
+  defp valid_readmode?(_), do: false
+
   defp maybe_put_readmode(conn, params, read_mode) do
     if Helpers.present?(params["rm"]) && Helpers.blank?(conn.assigns[:current_user]),
       do: put_resp_cookie(conn, "cf_readmode", read_mode, max_age: 360 * 24 * 60 * 60),
+      else: conn
+  end
+
+  defp maybe_add_rm(conn) do
+    assign_rm =
+      Helpers.present?(conn.params["rm"]) && Helpers.present?(conn.assigns[:current_user]) &&
+        valid_readmode?(conn.params["rm"])
+
+    if assign_rm,
+      do: assign(conn, :rm, conn.params["rm"]),
       else: conn
   end
 

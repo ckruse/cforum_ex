@@ -5,7 +5,7 @@
 
 <div class="cf-thread-list">
   <article class="cf-thread posting tree <%= CforumWeb.ThreadView.thread_classes(@thread) %>" id="<%= @thread.thread_id %>">
-    <%= header(@conn, @thread, @thread.tree, first: true, show_icons: true, id_prefix: "tree-", viewed_message: @message) %>
+    <%= header(@conn, @thread, @thread.tree, first: true, show_icons: true, id_prefix: "tree-", viewed_message: @message, rm: @conn.assigns[:rm]) %>
 
     <%= unless Helpers.blank?(@thread.message.messages) do %>
       <%= message_tree(
@@ -18,7 +18,8 @@
         hide_repeating_subjects: ConfigManager.uconf(@conn, "hide_subjects_unchanged") == "yes",
         hide_repeating_tags: ConfigManager.uconf(@conn, "hide_repeating_tags") == "yes",
         parent_subscribed: @thread.message.attribs[:is_subscribed],
-        viewed_message: @message
+        viewed_message: @message,
+        rm: @conn.assigns[:rm]
       ) %>
     <% end %>
   </article>
