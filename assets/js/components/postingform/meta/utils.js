@@ -30,9 +30,16 @@ export const hasErrorClass = (name, errors, touched, values) => {
 
 export const hasMoreThanOneForum = forums => forums.filter(f => f.value !== "").length > 1;
 
-export const showAuthor = () =>
-  (!document.body.dataset.userId || document.body.dataset.moderator === "true") &&
-  document.cookie.indexOf("cforum_author=") === -1;
+export const showAuthor = () => {
+  const isRegistered = !!document.body.dataset.userId;
+  const isModerator = document.body.dataset.moderator === "true";
+  const isKnown = document.cookie.indexOf("cforum_author=") !== -1;
+  const isEditing = document.body.dataset.action === "edit";
+
+  if (isModerator && isEditing) return true;
+  if (isRegistered || isKnown) return false;
+  return true;
+};
 
 const message = (val, len, minLen, maxLen, required) => {
   if (required && !val) return t("may not be empty");
