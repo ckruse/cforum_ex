@@ -14,7 +14,7 @@ defmodule CforumWeb.Users.PasswordController do
       user
       |> Users.get_reset_password_token()
       |> CforumWeb.UserMailer.reset_password_mail()
-      |> Cforum.Mailer.deliver_later()
+      |> Cforum.Mailer.deliver!()
     end
 
     conn

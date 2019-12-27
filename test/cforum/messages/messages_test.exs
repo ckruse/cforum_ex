@@ -1,6 +1,6 @@
 defmodule Cforum.MessagesTest do
   use Cforum.DataCase
-  use Bamboo.Test
+  import Swoosh.TestAssertions
 
   import CforumWeb.Gettext
 
@@ -427,8 +427,9 @@ defmodule Cforum.MessagesTest do
       subject =
         gettext("%{nick} mentioned you in a new message: “%{subject}”", subject: message.subject, nick: message.author)
 
-      expected_mail = CforumWeb.NotificationMailer.new_notification_mail(user, thread, message, subject)
-      assert_delivered_email(expected_mail)
+      msg_subject = gettext("new notification: “%{subject}”", subject: subject)
+
+      assert_email_sent(to: {user.username, user.email}, subject: msg_subject)
     end
   end
 end

@@ -569,7 +569,7 @@ defmodule Cforum.Accounts.PrivMessages do
     if Cforum.ConfigManager.uconf(user, "notify_on_new_mail") == "email" do
       user
       |> CforumWeb.NotificationMailer.pm_notification_mail(priv_message)
-      |> Cforum.Mailer.deliver_later()
+      |> Cforum.Mailer.deliver!()
 
       true
     else

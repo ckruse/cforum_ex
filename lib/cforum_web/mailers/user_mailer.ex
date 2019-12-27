@@ -1,24 +1,20 @@
 defmodule CforumWeb.UserMailer do
-  use Bamboo.Phoenix, view: CforumWeb.UserMailerView
+  use Phoenix.Swoosh, view: CforumWeb.UserMailerView, layout: {CforumWeb.LayoutView, :email}
   import CforumWeb.Gettext
 
-  @spec confirmation_mail(%Cforum.Accounts.User{}) :: Bamboo.Email.t()
   def confirmation_mail(user) do
-    new_email()
+    new()
     |> from(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))
-    |> to(user.email)
+    |> to({user.username, user.email})
     |> subject(gettext("confirm your registration"))
-    |> put_html_layout({CforumWeb.LayoutView, "email.html"})
-    |> render(:confirmation_mail, user: user)
+    |> render_body(:confirmation_mail, %{user: user})
   end
 
-  @spec reset_password_mail(%Cforum.Accounts.User{}) :: Bamboo.Email.t()
   def reset_password_mail(user) do
-    new_email()
+    new()
     |> from(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))
-    |> to(user.email)
+    |> to({user.username, user.email})
     |> subject(gettext("reset password instructions"))
-    |> put_html_layout({CforumWeb.LayoutView, "email.html"})
-    |> render(:reset_password_mail, user: user)
+    |> render_body(:reset_password_mail, %{user: user})
   end
 end

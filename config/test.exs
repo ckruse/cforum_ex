@@ -19,7 +19,7 @@ config :cforum, Cforum.Repo,
   hostname: System.get_env("DB_HOST", "localhost"),
   pool: Ecto.Adapters.SQL.Sandbox
 
-config :cforum, Cforum.Mailer, adapter: Bamboo.TestAdapter
+config :cforum, Cforum.Mailer, adapter: Swoosh.Adapters.Test
 
 config :cforum,
   mail_sender: "cforum@wwwtech.de",

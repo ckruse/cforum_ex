@@ -1,10 +1,6 @@
 defmodule CforumWeb.Router do
   use CforumWeb, :router
 
-  # email preview
-  if Application.get_env(:cforum, :environment) == :dev,
-    do: forward("/sent_emails", Bamboo.SentEmailViewerPlug)
-
   pipeline :browser do
     plug(:accepts, ["html"])
     plug(:fetch_session)

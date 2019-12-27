@@ -1,6 +1,6 @@
 defmodule CforumWeb.Users.PasswordControllerTest do
   use CforumWeb.ConnCase
-  use Bamboo.Test
+  import Swoosh.TestAssertions
 
   alias Cforum.Accounts.Users
 
@@ -24,7 +24,7 @@ defmodule CforumWeb.Users.PasswordControllerTest do
     user = insert(:user)
     post(conn, Path.password_path(conn, :create), user: %{login: user.username})
     user1 = Users.get_user!(user.user_id)
-    assert_delivered_email(CforumWeb.UserMailer.reset_password_mail(user1))
+    assert_email_sent(CforumWeb.UserMailer.reset_password_mail(user1))
   end
 
   test "renders reset instruction form when user could not be found", %{conn: conn} do

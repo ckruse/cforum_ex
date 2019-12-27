@@ -1,6 +1,6 @@
 defmodule Cforum.Accounts.PrivMessagesTest do
   use Cforum.DataCase
-  use Bamboo.Test
+  import Swoosh.TestAssertions
 
   alias Cforum.Accounts.PrivMessages
   alias Cforum.Accounts.PrivMessage
@@ -183,13 +183,13 @@ defmodule Cforum.Accounts.PrivMessagesTest do
     insert(:setting, options: %{"notify_on_new_mail" => "email"}, user: user)
     pm = insert(:priv_message, recipient: user)
     assert PrivMessages.notify_user(pm) == true
-    assert_delivered_email(CforumWeb.NotificationMailer.pm_notification_mail(user, pm))
+    assert_email_sent(to: {user.username, user.email})
   end
 
   test "notify_user/1 doesn't send a notification mail to the owner when configured" do
     user = insert(:user)
     pm = insert(:priv_message, recipient: user)
     assert PrivMessages.notify_user(pm) == false
-    refute_delivered_email(CforumWeb.NotificationMailer.pm_notification_mail(user, pm))
+    assert_no_email_sent()
   end
 end

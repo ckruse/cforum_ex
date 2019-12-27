@@ -69,7 +69,7 @@ defmodule Cforum.Messages.NotifyUsersMessageJob do
     if notify_type == "email" do
       user
       |> CforumWeb.NotificationMailer.new_message_mail(thread, message)
-      |> Cforum.Mailer.deliver_later()
+      |> Cforum.Mailer.deliver!()
     end
 
     Notifications.create_notification(%{
@@ -135,7 +135,7 @@ defmodule Cforum.Messages.NotifyUsersMessageJob do
     if notify_type == "email" do
       user
       |> CforumWeb.NotificationMailer.new_notification_mail(thread, message, subject)
-      |> Cforum.Mailer.deliver_later()
+      |> Cforum.Mailer.deliver!()
     end
 
     Notifications.create_notification(%{

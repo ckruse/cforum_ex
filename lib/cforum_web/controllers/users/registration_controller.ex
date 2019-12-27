@@ -23,7 +23,7 @@ defmodule CforumWeb.Users.RegistrationController do
       {:ok, user} ->
         user
         |> CforumWeb.UserMailer.confirmation_mail()
-        |> Cforum.Mailer.deliver_later()
+        |> Cforum.Mailer.deliver!()
 
         conn
         |> put_flash(

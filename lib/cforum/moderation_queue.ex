@@ -329,6 +329,6 @@ defmodule Cforum.ModerationQueue do
   defp send_moderation_mail(user, entry, thread, message) do
     user
     |> NotificationMailer.moderation_mail(entry, thread, message)
-    |> Cforum.Mailer.deliver_later()
+    |> Cforum.Mailer.deliver!()
   end
 end
