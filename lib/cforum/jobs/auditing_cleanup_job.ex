@@ -1,5 +1,5 @@
-defmodule Cforum.System.AuditingCleanupJob do
-  use Appsignal.Instrumentation.Decorators
+defmodule Cforum.Jobs.AuditingCleanupJob do
+  use Oban.Worker, queue: :background, max_attempts: 5
 
   import Ecto.Query, warn: false
   require Logger
@@ -7,8 +7,7 @@ defmodule Cforum.System.AuditingCleanupJob do
   alias Cforum.Repo
   alias Cforum.System.Auditing
 
-  @decorate transaction(:maintenance)
-  def maintenance do
+  def perform(_, _) do
     Logger.info("Starting auditing cleanup…")
 
     from(au in Auditing, where: au.created_at < ago(12, "month"))

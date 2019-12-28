@@ -33,7 +33,6 @@ config :timex, default_locale: "de"
 config :cforum, Cforum.Scheduler,
   jobs: [
     {"@hourly", {Cforum.Forums.ArchiverJob, :archive, []}},
-    {"@daily", {Cforum.System.AuditingCleanupJob, :maintenance, []}},
     {"@daily", {Cforum.Accounts.YearlingBadgeDistributorJob, :perform, []}}
   ]
 
@@ -45,6 +44,7 @@ config :cforum, Oban,
     {"0 0 * * *", Cforum.Jobs.ForumStatsJob},
     {"0 0 * * *", Cforum.Jobs.CiteArchiverJob},
     {"0 1 * * *", Cforum.Jobs.UserCleanupJob},
+    {"0 2 * * *", Cforum.Jobs.AuditingCleanupJob},
     {"0 3 1 * *", Cforum.Jobs.DatabaseMaintenanceJob}
   ]
 
