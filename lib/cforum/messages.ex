@@ -25,8 +25,8 @@ defmodule Cforum.Messages do
   alias Cforum.Jobs.UnindexMessageJob
   alias Cforum.Jobs.RescoreMessageJob
   alias Cforum.Jobs.NotifyUsersMessageJob
+  alias Cforum.Jobs.NewMessageBadgeDistributorJob
 
-  alias Cforum.Messages.NewMessageBadgeDistributorJob
   alias Cforum.Messages.Mentions
   alias Cforum.Messages.Subscriptions
   alias Cforum.Messages.MessageHelpers
@@ -226,7 +226,7 @@ defmodule Cforum.Messages do
     |> notify_users(thread, opts[:notify])
     |> Subscriptions.maybe_autosubscribe(opts[:autosubscribe], user, thread, parent)
     |> index_message(thread)
-    |> NewMessageBadgeDistributorJob.perform()
+    |> maybe_distribute_badges()
     |> ThreadCaching.refresh_cached_thread()
   end
 
@@ -236,6 +236,13 @@ defmodule Cforum.Messages do
   end
 
   defp index_message(val, _), do: val
+
+  defp maybe_distribute_badges({:ok, message}) do
+    NewMessageBadgeDistributorJob.enqueue(message)
+    {:ok, message}
+  end
+
+  defp maybe_distribute_badges(val), do: val
 
   @default_notification_types ["message:create-answer", "message:create-activity"]
   def unnotify_user(user, read_mode, thread, message, notification_types \\ @default_notification_types)
