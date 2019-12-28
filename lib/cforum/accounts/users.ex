@@ -351,19 +351,7 @@ defmodule Cforum.Accounts.Users do
       |> Ecto.Changeset.change(%{active: false})
       |> Repo.update()
 
-    Cforum.Helpers.AsyncHelper.run_async(fn ->
-      Cforum.System.audited(
-        "destroy",
-        current_user,
-        fn ->
-          Repo.delete(user)
-        end,
-        timeout: :infinity
-      )
-      |> Settings.discard_settings_cache()
-      |> discard_user_cache()
-      |> ThreadCaching.refresh_cached_thread()
-    end)
+    Cforum.Jobs.DeleteUserJob.enqueue(user, current_user)
 
     {:ok, user}
   end

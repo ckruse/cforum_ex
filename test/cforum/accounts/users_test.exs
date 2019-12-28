@@ -104,6 +104,7 @@ defmodule Cforum.Accounts.UsersTest do
   test "delete_user/2 deletes the user" do
     user = insert(:user)
     assert {:ok, %User{}} = Users.delete_user(nil, user)
+    assert %{success: 1, failure: 0} == Oban.drain_queue(:background)
     assert_raise Ecto.NoResultsError, fn -> Users.get_user!(user.user_id) end
   end
 

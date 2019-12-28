@@ -72,6 +72,7 @@ defmodule CforumWeb.Admin.UserControllerTest do
 
     test "deletes chosen user", %{conn: conn, user: user} do
       conn = delete(conn, Path.admin_user_path(conn, :delete, user))
+      assert %{success: 1, failure: 0} == Oban.drain_queue(:background)
       assert redirected_to(conn) == Path.admin_user_path(conn, :index)
 
       assert_error_sent(404, fn ->
