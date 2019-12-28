@@ -6,7 +6,7 @@ VERSION=$2
 
 HOST="${HOST:=quirm.selfhtml.org}"
 VERSION="${VERSION:=$latest_version}"
-OBAN_KEY=$(cat .build/secrents/oban.key)
+OBAN_KEY=$(cat .build/secrets/oban.key)
 
 SSH="ssh builder@builder"
 ncores=$(sysctl -n hw.ncpu 2>/dev/null)
