@@ -35,7 +35,6 @@ config :cforum, Cforum.Scheduler,
     {"@hourly", {Cforum.Forums.ArchiverJob, :archive, []}},
     {"@daily", {Cforum.Accounts.UserCleanupJob, :cleanup, []}},
     {"@daily", {Cforum.Forums.ForumStatsJob, :gen_stats, []}},
-    {"@monthly", {Cforum.System.DatabaseMaintenanceJob, :maintenance, []}},
     {"@daily", {Cforum.System.AuditingCleanupJob, :maintenance, []}},
     {"@daily", {Cforum.Accounts.YearlingBadgeDistributorJob, :perform, []}}
   ]
@@ -45,7 +44,8 @@ config :cforum, Oban,
   prune: {:maxlen, 100_000},
   queues: [mails: 10, background: 10, media: 20],
   crontab: [
-    {"0 0 * * *", Cforum.Jobs.CiteArchiverJob}
+    {"0 0 * * *", Cforum.Jobs.CiteArchiverJob},
+    {"0 3 1 * *", Cforum.Jobs.DatabaseMaintenanceJob}
   ]
 
 # Import environment specific config. This must remain at the bottom
