@@ -567,10 +567,7 @@ defmodule Cforum.Accounts.PrivMessages do
     user = Cforum.Accounts.Users.get_user!(priv_message.recipient_id)
 
     if Cforum.ConfigManager.uconf(user, "notify_on_new_mail") == "email" do
-      user
-      |> CforumWeb.NotificationMailer.pm_notification_mail(priv_message)
-      |> Cforum.Mailer.deliver!()
-
+      Cforum.Jobs.NotificationMailerJob.enqueue_for_pm(priv_message, user)
       true
     else
       false

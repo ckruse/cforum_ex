@@ -196,7 +196,7 @@ defmodule Cforum.Messages do
 
   """
   def create_message(attrs, user, visible_forums, thread, parent \\ nil, opts \\ []) do
-    opts = Keyword.merge([create_tags: false, autosubscribe: false], opts)
+    opts = Keyword.merge([create_tags: false, autosubscribe: false, notify: true], opts)
 
     System.audited("create", user, fn ->
       changeset =
@@ -219,7 +219,7 @@ defmodule Cforum.Messages do
           {:error, changeset}
       end
     end)
-    |> notify_users(thread)
+    |> notify_users(thread, opts[:notify])
     |> Subscriptions.maybe_autosubscribe(opts[:autosubscribe], user, thread, parent)
     |> index_message(thread)
     |> NewMessageBadgeDistributorJob.perform()
@@ -759,21 +759,16 @@ defmodule Cforum.Messages do
     message.content
   end
 
-  defp notify_users({:error, changeset}, _), do: {:error, changeset}
+  defp notify_users(message_or_changeset, thread_or_score, notify \\ true)
+  defp notify_users(val, _, false), do: val
+  defp notify_users({:error, changeset}, _, _), do: {:error, changeset}
 
-  defp notify_users({:ok, message}, thread) do
-    Cforum.Messages.NotifyUsersMessageJob.notify_users_about_new_message(thread, message)
-
-    CforumWeb.Endpoint.broadcast!("forum:#{message.forum_id}", "new_message", %{
-      thread: thread,
-      message: message,
-      forum: Cforum.Forums.get_forum!(message.forum_id)
-    })
-
+  defp notify_users({:ok, message}, thread, _) do
+    Cforum.Jobs.NotifyUsersMessageJob.enqueue(thread, message, "message")
     {:ok, message}
   end
 
-  defp notify_users(message, :score) do
+  defp notify_users(message, :score, _) do
     CforumWeb.Endpoint.broadcast!("forum:#{message.forum_id}", "message_rescored", %{
       message_id: message.message_id,
       score: MessageHelpers.score(message),

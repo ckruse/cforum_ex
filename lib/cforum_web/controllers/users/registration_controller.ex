@@ -21,9 +21,7 @@ defmodule CforumWeb.Users.RegistrationController do
 
     case Users.register_user(user_params) do
       {:ok, user} ->
-        user
-        |> CforumWeb.UserMailer.confirmation_mail()
-        |> Cforum.Mailer.deliver!()
+        Cforum.Jobs.UserMailerJob.enqueue(user, "confirm_user")
 
         conn
         |> put_flash(

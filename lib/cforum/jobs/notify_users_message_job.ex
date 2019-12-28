@@ -1,23 +1,22 @@
-defmodule Cforum.Messages.NotifyUsersMessageJob do
-  use Appsignal.Instrumentation.Decorators
+defmodule Cforum.Jobs.NotifyUsersMessageJob do
+  use Oban.Worker, queue: :background, max_attempts: 5
 
   import CforumWeb.Gettext
 
-  alias Cforum.Threads.Thread
   alias Cforum.Messages.Message
   alias Cforum.Messages.MessageHelpers
   alias Cforum.Messages.Subscriptions
   alias Cforum.Accounts.{Settings, Notifications, Users}
   alias CforumWeb.Views.ViewHelpers.Path
 
-  @spec notify_users_about_new_message(%Thread{}, %Message{}) :: any()
-  def notify_users_about_new_message(thread, message) do
-    Cforum.Helpers.AsyncHelper.run_async(fn -> do_notify_users_about_new_message(thread, message) end)
-  end
+  @impl Oban.Worker
+  def perform(%{"thread_id" => tid, "message_id" => mid, "type" => "message"}, _) do
+    thread = Cforum.Threads.get_thread!(tid)
+    message = Cforum.Messages.get_message!(mid)
 
-  @decorate transaction(:notify)
-  defp do_notify_users_about_new_message(thread, message) do
     thread = Cforum.Repo.preload(thread, [:forum])
+
+    broadcast(thread, message)
 
     users =
       (message.flags["mentions"] || [])
@@ -34,8 +33,27 @@ defmodule Cforum.Messages.NotifyUsersMessageJob do
       do: notify_users(thread, message, users)
   end
 
-  @decorate transaction(:notify)
-  def notify_users(thread, message, already_notified) do
+  def perform(%{"thread_id" => tid, "message_id" => mid, "type" => "thread"}, _) do
+    thread = Cforum.Threads.get_thread!(tid)
+    message = Cforum.Messages.get_message_from_mid!(thread, mid)
+
+    broadcast(thread, message)
+
+    Users.list_users_by_config_option("notify_on_new_thread", "yes")
+    |> Enum.reject(fn user -> user.user_id == message.user_id end)
+    |> Enum.filter(fn user -> may_view?(user, thread, message) end)
+    |> Enum.each(fn user -> notify_user_thread(user, thread, message) end)
+  end
+
+  defp broadcast(thread, message) do
+    CforumWeb.Endpoint.broadcast!("forum:#{message.forum_id}", "new_message", %{
+      thread: thread,
+      message: message,
+      forum: Cforum.Forums.get_forum!(message.forum_id)
+    })
+  end
+
+  defp notify_users(thread, message, already_notified) do
     thread
     |> Cforum.Repo.preload([:forum])
     |> parent_messages(message)
@@ -89,18 +107,6 @@ defmodule Cforum.Messages.NotifyUsersMessageJob do
     parent_messages(thread, parent, [parent | acc])
   end
 
-  def notify_users_about_new_thread(thread, message) do
-    Cforum.Helpers.AsyncHelper.run_async(fn -> do_notify_users_about_new_thread(thread, message) end)
-  end
-
-  @decorate transaction(:notify)
-  defp do_notify_users_about_new_thread(thread, message) do
-    Users.list_users_by_config_option("notify_on_new_thread", "yes")
-    |> Enum.reject(fn user -> user.user_id == message.user_id end)
-    |> Enum.filter(fn user -> may_view?(user, thread, message) end)
-    |> Enum.each(fn user -> notify_user_thread(user, thread, message) end)
-  end
-
   defp notify_user_thread(user, thread, message) do
     Notifications.create_notification(%{
       recipient_id: user.user_id,
@@ -145,5 +151,11 @@ defmodule Cforum.Messages.NotifyUsersMessageJob do
       otype: "message:mention",
       path: Path.message_path(CforumWeb.Endpoint, :show, thread, message)
     })
+  end
+
+  def enqueue(thread, message, type) do
+    %{"thread_id" => thread.thread_id, "message_id" => message.message_id, "type" => type}
+    |> Cforum.Jobs.NotifyUsersMessageJob.new()
+    |> Oban.insert!()
   end
 end

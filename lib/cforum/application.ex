@@ -13,12 +13,16 @@ defmodule Cforum.Application do
       nil
     )
 
+    :telemetry.attach("oban-failure", [:oban, :failure], &Cforum.Jobs.Appsignal.handle_event/4, nil)
+    :telemetry.attach("oban-success", [:oban, :success], &Cforum.Jobs.Appsignal.handle_event/4, nil)
+
     # Define workers and child supervisors to be supervised
     children = [
       # Start the Ecto repository
       supervisor(Cforum.Repo, []),
       # Start the endpoint when the application starts
       supervisor(CforumWeb.Endpoint, []),
+      {Oban, Application.get_env(:cforum, Oban)},
       # Start your own worker by calling: Cforum.Worker.start_link(arg1, arg2, arg3)
       # worker(Cforum.Worker, [arg1, arg2, arg3]),
       worker(Cforum.Scheduler, []),

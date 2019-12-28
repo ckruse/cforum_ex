@@ -19,6 +19,7 @@ defmodule CforumWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
+      use Oban.Testing, repo: Cforum.Repo
 
       import Plug.Test
       import Cforum.TestHelpers

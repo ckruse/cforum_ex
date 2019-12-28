@@ -387,7 +387,7 @@ defmodule Cforum.Threads do
   end
 
   defp create_message(attrs, user, visible_forums, thread, opts \\ [create_tags: false]) do
-    case Messages.create_message(attrs, user, visible_forums, thread, nil, opts) do
+    case Messages.create_message(attrs, user, visible_forums, thread, nil, Keyword.put(opts, :notify, false)) do
       {:ok, message} ->
         {:ok, thread, message}
 
@@ -397,14 +397,7 @@ defmodule Cforum.Threads do
   end
 
   def maybe_notify_users({:ok, thread, message}) do
-    Cforum.Messages.NotifyUsersMessageJob.notify_users_about_new_thread(thread, message)
-
-    CforumWeb.Endpoint.broadcast!("forum:#{message.forum_id}", "new_message", %{
-      thread: thread,
-      message: message,
-      forum: Cforum.Forums.get_forum!(message.forum_id)
-    })
-
+    Cforum.Jobs.NotifyUsersMessageJob.enqueue(thread, message, "thread")
     {:ok, thread, message}
   end
 

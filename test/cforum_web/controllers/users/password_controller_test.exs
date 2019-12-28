@@ -1,6 +1,5 @@
 defmodule CforumWeb.Users.PasswordControllerTest do
   use CforumWeb.ConnCase
-  import Swoosh.TestAssertions
 
   alias Cforum.Accounts.Users
 
@@ -15,16 +14,12 @@ defmodule CforumWeb.Users.PasswordControllerTest do
 
     assert redirected_to(conn) == Path.root_path(conn, :index)
     assert get_flash(conn, :info) == gettext("The instructions how to reset your password have been sent.")
-
-    user1 = Users.get_user!(user.user_id)
-    assert user1.reset_password_token != nil
   end
 
   test "sends an instruction mail", %{conn: conn} do
     user = insert(:user)
     post(conn, Path.password_path(conn, :create), user: %{login: user.username})
-    user1 = Users.get_user!(user.user_id)
-    assert_email_sent(CforumWeb.UserMailer.reset_password_mail(user1))
+    assert_enqueued(worker: Cforum.Jobs.UserMailerJob, args: %{"user_id" => user.user_id, "type" => "reset_password"})
   end
 
   test "renders reset instruction form when user could not be found", %{conn: conn} do

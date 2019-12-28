@@ -18,6 +18,8 @@ defmodule Cforum.DataCase do
     quote do
       alias Cforum.Repo
 
+      use Oban.Testing, repo: Cforum.Repo
+
       import Cforum.TestHelpers
 
       import Ecto

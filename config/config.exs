@@ -41,6 +41,11 @@ config :cforum, Cforum.Scheduler,
     {"@daily", {Cforum.Accounts.YearlingBadgeDistributorJob, :perform, []}}
   ]
 
+config :cforum, Oban,
+  repo: Cforum.Repo,
+  prune: {:maxlen, 100_000},
+  queues: [mails: 10, background: 10, media: 20]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

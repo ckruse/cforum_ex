@@ -11,10 +11,7 @@ defmodule CforumWeb.Users.PasswordController do
 
   def create(conn, %{"user" => %{"login" => login}}) do
     with %User{} = user <- Users.get_user_by_username_or_email(login) do
-      user
-      |> Users.get_reset_password_token()
-      |> CforumWeb.UserMailer.reset_password_mail()
-      |> Cforum.Mailer.deliver!()
+      Cforum.Jobs.UserMailerJob.enqueue(user, "reset_password")
     end
 
     conn
