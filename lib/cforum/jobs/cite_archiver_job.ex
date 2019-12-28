@@ -1,5 +1,5 @@
-defmodule Cforum.Cites.ArchiverJob do
-  use Appsignal.Instrumentation.Decorators
+defmodule Cforum.Jobs.CiteArchiverJob do
+  use Oban.Worker, queue: :background, max_attempts: 5
 
   alias Cforum.Accounts.Settings
   alias Cforum.ConfigManager
@@ -7,8 +7,8 @@ defmodule Cforum.Cites.ArchiverJob do
 
   require Logger
 
-  @decorate transaction(:maintenance)
-  def archive do
+  @impl Oban.Worker
+  def perform(_, _) do
     setting = Settings.get_global_setting()
     min_age = ConfigManager.conf(setting, "cites_min_age_to_archive", :int)
     cites = Cites.list_cites_to_archive(min_age)

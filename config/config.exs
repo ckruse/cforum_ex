@@ -33,7 +33,6 @@ config :timex, default_locale: "de"
 config :cforum, Cforum.Scheduler,
   jobs: [
     {"@hourly", {Cforum.Forums.ArchiverJob, :archive, []}},
-    {"@daily", {Cforum.Cites.ArchiverJob, :archive, []}},
     {"@daily", {Cforum.Accounts.UserCleanupJob, :cleanup, []}},
     {"@daily", {Cforum.Forums.ForumStatsJob, :gen_stats, []}},
     {"@monthly", {Cforum.System.DatabaseMaintenanceJob, :maintenance, []}},
@@ -44,7 +43,10 @@ config :cforum, Cforum.Scheduler,
 config :cforum, Oban,
   repo: Cforum.Repo,
   prune: {:maxlen, 100_000},
-  queues: [mails: 10, background: 10, media: 20]
+  queues: [mails: 10, background: 10, media: 20],
+  crontab: [
+    {"0 0 * * *", Cforum.Jobs.CiteArchiverJob}
+  ]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
