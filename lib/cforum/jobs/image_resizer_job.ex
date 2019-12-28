@@ -1,22 +1,22 @@
-defmodule Cforum.Media.ImageResizerJob do
-  use Appsignal.Instrumentation.Decorators
-
+defmodule Cforum.Jobs.ImageResizerJob do
+  use Oban.Worker, queue: :media, max_attempts: 5
   alias Cforum.Media
 
-  def resize_image({:ok, img}) do
-    if Application.get_env(:cforum, :environment) != :test do
-      Cforum.Helpers.AsyncHelper.run_async(fn ->
-        resize_image(img, "thumb")
-        resize_image(img, "medium")
-      end)
-    end
-
-    {:ok, img}
+  def enqueue(img) do
+    %{"medium_id" => img.medium_id}
+    |> Cforum.Jobs.ImageResizerJob.new()
+    |> Oban.insert!()
   end
 
-  def resize_image(val), do: val
+  @impl Oban.Worker
+  def perform(%{"medium_id" => id}, _) do
+    if Application.get_env(:cforum, :environment) != :test do
+      img = Media.get_image!(id)
+      resize_image(img, "thumb")
+      resize_image(img, "medium")
+    end
+  end
 
-  @decorate transaction(:maintenance)
   defp resize_image(img, version) do
     arguments = convert_arguments(img, version)
     convert = Application.get_env(:cforum, :convert)

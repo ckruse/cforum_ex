@@ -82,8 +82,15 @@ defmodule Cforum.Media do
           else: {:error, nil}
       end
     end)
-    |> Cforum.Media.ImageResizerJob.resize_image()
+    |> maybe_resize_image()
   end
+
+  defp maybe_resize_image({:ok, img}) do
+    Cforum.Jobs.ImageResizerJob.enqueue(img)
+    {:ok, img}
+  end
+
+  defp maybe_resize_image(val), do: val
 
   @doc """
   Deletes a Image.
