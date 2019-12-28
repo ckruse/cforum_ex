@@ -1,5 +1,5 @@
-defmodule Cforum.Accounts.UserCleanupJob do
-  use Appsignal.Instrumentation.Decorators
+defmodule Cforum.Jobs.UserCleanupJob do
+  use Oban.Worker, queue: :background, max_attempts: 5
 
   import Ecto.{Query, Changeset}, warn: false
   require Logger
@@ -8,15 +8,14 @@ defmodule Cforum.Accounts.UserCleanupJob do
   alias Cforum.System
   alias Cforum.Accounts.User
 
-  @decorate transaction(:maintenance)
-  def cleanup do
+  @impl Oban.Worker
+  def perform(_, _) do
     cleanup_unconfirmed_users()
     cleanup_users_wo_posts()
     Cachex.clear(:cforum)
   end
 
-  @decorate transaction_event(:maintenance)
-  def cleanup_unconfirmed_users() do
+  defp cleanup_unconfirmed_users() do
     from(user in User,
       where: is_nil(user.confirmed_at),
       where: fragment("? + interval '24 hours'", user.confirmation_sent_at) <= ^DateTime.utc_now()
@@ -24,8 +23,7 @@ defmodule Cforum.Accounts.UserCleanupJob do
     |> delete_users()
   end
 
-  @decorate transaction_event(:maintenance)
-  def cleanup_users_wo_posts() do
+  defp cleanup_users_wo_posts() do
     from(user in User,
       where:
         (is_nil(user.last_visit) and fragment("? + interval '30 days' <= NOW()", user.created_at)) or
