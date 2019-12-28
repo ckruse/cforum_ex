@@ -1,26 +1,22 @@
-defmodule Cforum.Cites.CiteIndexerJob do
-  use Appsignal.Instrumentation.Decorators
-
+defmodule Cforum.Jobs.CiteIndexerJob do
+  use Oban.Worker, queue: :background, max_attempts: 5
   import CforumWeb.Gettext
 
   alias Cforum.ConfigManager
   alias Cforum.Search
-  alias Cforum.Cites.Cite
 
   alias Cforum.MarkdownRenderer
 
   alias CforumWeb.Router.Helpers
 
-  @spec index_cite(%Cite{}) :: any()
-  def index_cite(%Cite{} = cite) do
-    Cforum.Helpers.AsyncHelper.run_async(fn ->
-      index_cite_synchronously(cite)
-    end)
+  @impl Oban.Worker
+  def perform(%{"cite_id" => cite_id}, _) do
+    cite_id
+    |> Cforum.Cites.get_cite!()
+    |> index_cite()
   end
 
-  @spec index_cite_synchronously(%Cite{}) :: {:ok, %Cite{}} | {:error, %Ecto.Changeset{}}
-  @decorate transaction(:indexing)
-  def index_cite_synchronously(cite) do
+  def index_cite(cite) do
     doc = Search.get_document_by_reference_id(cite.cite_id, :cites)
     plain = MarkdownRenderer.to_plain(cite)
     base_relevance = ConfigManager.conf(nil, "search_cites_relevance", :float)
@@ -31,15 +27,6 @@ defmodule Cforum.Cites.CiteIndexerJob do
       |> maybe_create_section()
 
     update_document(section, doc, cite, plain, base_relevance)
-  end
-
-  @spec unindex_cite(%Cite{}) :: any()
-  @decorate transaction(:indexing)
-  def unindex_cite(%Cite{} = cite) do
-    doc = Search.get_document_by_reference_id(cite.cite_id, :cites)
-
-    if !is_nil(doc),
-      do: Search.delete_document(doc)
   end
 
   defp maybe_create_section(nil) do
@@ -71,5 +58,11 @@ defmodule Cforum.Cites.CiteIndexerJob do
       tags: [],
       url: Helpers.cite_url(CforumWeb.Endpoint, :show, cite)
     }
+  end
+
+  def enqueue(cite) do
+    %{"cite_id" => cite.cite_id}
+    |> Cforum.Jobs.CiteIndexerJob.new()
+    |> Oban.insert!()
   end
 end

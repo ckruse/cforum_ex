@@ -41,7 +41,7 @@ defmodule Cforum.Cites.ReindexCitesJob do
       |> Repo.one()
 
     if not is_nil(cite) do
-      Cforum.Cites.CiteIndexerJob.index_cite_synchronously(cite)
+      Cforum.Jobs.CiteIndexerJob.index_cite(cite)
       Process.sleep(100)
       do_reindex_cites(cite.cite_id)
     end

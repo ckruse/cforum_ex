@@ -182,7 +182,7 @@ defmodule Cforum.Cites do
   end
 
   defp maybe_index_cite({:ok, cite}) do
-    Cforum.Cites.CiteIndexerJob.index_cite(cite)
+    Cforum.Jobs.CiteIndexerJob.enqueue(cite)
     {:ok, cite}
   end
 
@@ -214,7 +214,7 @@ defmodule Cforum.Cites do
   end
 
   defp maybe_unindex_cite({:ok, cite}) do
-    Cforum.Cites.CiteIndexerJob.unindex_cite(cite)
+    Cforum.Jobs.CiteUnindexerJob.enqueue(cite)
     {:ok, cite}
   end
 
