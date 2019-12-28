@@ -1,13 +1,13 @@
-defmodule Cforum.Accounts.YearlingBadgeDistributorJob do
-  use Appsignal.Instrumentation.Decorators
+defmodule Cforum.Jobs.YearlingBadgeDistributorJob do
+  use Oban.Worker, queue: :background, max_attempts: 5
 
   alias Cforum.Repo
   alias Cforum.Helpers
   alias Cforum.Accounts.Users
   alias Cforum.Accounts.{Badge, Badges}
 
-  @decorate transaction(:maintenance)
-  def perform do
+  @impl Oban.Worker
+  def perform(_, _) do
     users =
       Users.all_users()
       |> Repo.preload([:badges_users])
