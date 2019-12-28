@@ -80,8 +80,18 @@
   }
 }
 
+.anonymous .cf-personallinks {
+  display: block;
+
+  li {
+    display: block;
+    text-align: left;
+  }
+}
+
 @include default-breakpoint() {
-  .cf-personallinks {
+  .cf-personallinks,
+  .anonymous .cf-personallinks {
     text-align: right;
     margin: 0.1em 2em;
     display: block;
