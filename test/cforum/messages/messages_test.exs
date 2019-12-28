@@ -321,10 +321,12 @@ defmodule Cforum.MessagesTest do
 
     test "unnaccept_message/3 removes user scores", %{message: m, user: u} do
       Messages.accept_message(m, u, 15)
+      assert %{success: 2, failure: 0} == Oban.drain_queue(:background)
       user = Cforum.Accounts.Users.get_user!(u.user_id)
       assert user.score == 15
 
       assert {:ok, _} = Messages.unaccept_message(m, u)
+      assert %{success: 2, failure: 0} == Oban.drain_queue(:background)
       user = Cforum.Accounts.Users.get_user!(u.user_id)
       assert user.score == 0
     end

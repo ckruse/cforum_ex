@@ -7,8 +7,6 @@ defmodule Cforum.Accounts.Scores do
   alias Cforum.Repo
 
   alias Cforum.Accounts.Score
-  alias Cforum.Accounts.User
-  alias Cforum.Caching
 
   @doc """
   Returns the list of scores.
@@ -118,17 +116,7 @@ defmodule Cforum.Accounts.Scores do
   end
 
   def notify_user(%Score{} = score, action) do
-    Cforum.Helpers.AsyncHelper.run_async(fn ->
-      Caching.update(:cforum, "users/#{score.user_id}", fn user ->
-        if action == :delete,
-          do: %User{user | score: user.score - score.value},
-          else: %User{user | score: user.score + score.value}
-      end)
-
-      user = Cforum.Accounts.Users.get_user!(score.user_id)
-      CforumWeb.Endpoint.broadcast!("users:#{user.user_id}", "score-update", %{value: score.value, score: user.score})
-    end)
-
+    Cforum.Jobs.ScoreNotifyUserJob.enqueue(score, action)
     score
   end
 
