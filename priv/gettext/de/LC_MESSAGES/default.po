@@ -23,7 +23,7 @@ msgstr ""
 #~ msgid ""
 #~ msgstr ""
 #~ "Language: de\n"
-#: lib/cforum_web/templates/layout/personal_links.html.eex:20
+#: lib/cforum_web/templates/layout/personal_links.html.eex:44
 msgid "not logged in"
 msgstr "nicht angemeldet"
 
@@ -36,7 +36,7 @@ msgid "You have to be logged in to see this page!"
 msgstr "Sie müssen sich einloggen, um diese Seite sehen zu dürfen!"
 
 #: lib/cforum_web/templates/layout/link.html.eex:9
-#: lib/cforum_web/templates/layout/personal_links.html.eex:21
+#: lib/cforum_web/templates/layout/personal_links.html.eex:45
 msgid "Help"
 msgstr "Hilfe"
 
@@ -109,7 +109,7 @@ msgstr "Übersicht"
 msgid "icon"
 msgstr "SELFHTML Icon"
 
-#: lib/cforum_web/templates/layout/personal_links.html.eex:22
+#: lib/cforum_web/templates/layout/personal_links.html.eex:46
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:10
 msgid "login"
 msgstr "anmelden"
@@ -123,7 +123,7 @@ msgstr "Nested-Ansicht"
 msgid "publisher"
 msgstr "SELFHTML Forum"
 
-#: lib/cforum_web/templates/layout/personal_links.html.eex:23
+#: lib/cforum_web/templates/layout/personal_links.html.eex:47
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:11 lib/cforum_web/views/users/registration_view.ex:8
 #: lib/cforum_web/views/users/registration_view.ex:9
 msgid "register"
@@ -182,8 +182,8 @@ msgstr "Login merken"
 msgid "Username or email"
 msgstr "Benutzername oder Email-Adresse"
 
-#: lib/cforum_web/templates/layout/personal_links.html.eex:16
-#: lib/cforum_web/templates/layout/personal_links.html.eex:17
+#: lib/cforum_web/templates/layout/personal_links.html.eex:29
+#: lib/cforum_web/templates/layout/personal_links.html.eex:34
 msgid "%{count} new mails"
 msgstr "%{count} neue Mails"
 
@@ -191,27 +191,27 @@ msgstr "%{count} neue Mails"
 msgid "%{points} points"
 msgstr "%{points} Punkte"
 
-#: lib/cforum_web/templates/layout/personal_links.html.eex:18
+#: lib/cforum_web/templates/layout/personal_links.html.eex:40
 msgid "logout"
 msgstr "abmelden"
 
-#: lib/cforum_web/templates/layout/personal_links.html.eex:16
+#: lib/cforum_web/templates/layout/personal_links.html.eex:31
 msgid "mail"
 msgstr "Post"
 
-#: lib/cforum_web/templates/layout/personal_links.html.eex:11
-#: lib/cforum_web/templates/layout/personal_links.html.eex:14
+#: lib/cforum_web/templates/layout/personal_links.html.eex:19
+#: lib/cforum_web/templates/layout/personal_links.html.eex:25
 msgid "new notifications"
 msgstr "neue Benachrichtigungen"
 
-#: lib/cforum_web/templates/layout/personal_links.html.eex:11
+#: lib/cforum_web/templates/layout/personal_links.html.eex:21
 #: lib/cforum_web/templates/users/user/notifications.html.eex:3 lib/cforum_web/templates/users/user/settings.html.eex:6
 #: lib/cforum_web/templates/users/user/settings.html.eex:17
 msgid "notifications"
 msgstr "Benachrichtigungen"
 
 #: lib/cforum_web/templates/admin/audit/index.html.eex:25
-#: lib/cforum_web/templates/admin/subnav.html.eex:3 lib/cforum_web/templates/layout/personal_links.html.eex:10
+#: lib/cforum_web/templates/admin/subnav.html.eex:3 lib/cforum_web/templates/layout/personal_links.html.eex:14
 #: lib/cforum_web/views/admin/setting_view.ex:10
 msgid "settings"
 msgstr "Einstellungen"
@@ -267,11 +267,11 @@ msgstr "Benutzername"
 msgid "password confirmation"
 msgstr "Passwort-Bestätigung"
 
-#: lib/cforum_web/controllers/users/registration_controller.ex:46
+#: lib/cforum_web/controllers/users/registration_controller.ex:44
 msgid "Account successfully confirmed!"
 msgstr "Benutzerkonto erfolgreich bestätigt!"
 
-#: lib/cforum_web/controllers/users/registration_controller.ex:31
+#: lib/cforum_web/controllers/users/registration_controller.ex:29
 msgid "Account successfully created. Please follow the confirmation instructions we send you via mail."
 msgstr "Benutzerkonto erfolgreich erstellt. Bitte folgen sie den Bestätigungs-Anweisungen, die wir Ihnen via Email geschickt haben."
 
@@ -294,7 +294,7 @@ msgid "Hi there, %{name}!"
 msgstr "Hallo %{name}!"
 
 #: lib/cforum_web/controllers/notification_controller.ex:53
-#: lib/cforum_web/controllers/users/registration_controller.ex:51
+#: lib/cforum_web/controllers/users/registration_controller.ex:49
 msgid "Oops, something went wrong!"
 msgstr "Uups, es ist etwas schief gegangen!"
 
@@ -303,7 +303,7 @@ msgstr "Uups, es ist etwas schief gegangen!"
 msgid "You can confirm your account email through the link below:"
 msgstr "Sie können Ihr Benutzerkonto über den Link unten bestätigen:"
 
-#: lib/cforum_web/mailers/user_mailer.ex:10
+#: lib/cforum_web/mailers/user_mailer.ex:9
 msgid "confirm your registration"
 msgstr "Benutzerkonto bestätigen"
 
@@ -693,8 +693,8 @@ msgstr "Keine Benachrichtigungen gefunden"
 msgid "Notifications"
 msgstr "Benachrichtigungen"
 
-#: lib/cforum_web/controllers/users/password_controller.ex:44
-#: lib/cforum_web/controllers/users/password_controller.ex:72
+#: lib/cforum_web/controllers/users/password_controller.ex:41
+#: lib/cforum_web/controllers/users/password_controller.ex:69
 msgid "Password updated successfully."
 msgstr "Passwort erfolgreich geändert."
 
@@ -725,7 +725,7 @@ msgstr "Slug"
 msgid "Standard permission"
 msgstr "Standard-Berechtigung"
 
-#: lib/cforum_web/controllers/users/password_controller.ex:21
+#: lib/cforum_web/controllers/users/password_controller.ex:18
 msgid "The instructions how to reset your password have been sent."
 msgstr "Die Anweisungen, wie Sie Ihr Passwort zurücksetzen können, wurden verschickt."
 
@@ -822,7 +822,7 @@ msgstr "privat"
 msgid "read"
 msgstr "lesen"
 
-#: lib/cforum_web/mailers/user_mailer.ex:20
+#: lib/cforum_web/mailers/user_mailer.ex:17
 #: lib/cforum_web/templates/user_mailer/reset_password_mail.html.eex:5
 msgid "reset password instructions"
 msgstr "Instruktionen um das Passwort zurückzusetzen"
@@ -1148,8 +1148,8 @@ msgstr "von"
 
 #: lib/cforum_web/templates/message/form.html.eex:40
 #: lib/cforum_web/templates/message/message.html.eex:18 lib/cforum_web/templates/moderation/entry.html.eex:18
-#: lib/cforum_web/templates/moderation/entry.html.eex:19 lib/cforum_web/views/message_view.ex:243
-#: lib/cforum_web/views/message_view.ex:244
+#: lib/cforum_web/templates/moderation/entry.html.eex:19 lib/cforum_web/views/message_view.ex:244
+#: lib/cforum_web/views/message_view.ex:245
 msgid "problematic site"
 msgstr "problematische Seite"
 
@@ -1166,8 +1166,8 @@ msgstr "Benutzer-Informationen"
 msgid "new answer to %{name}"
 msgstr "Antwort an „%{name}“ verfassen"
 
-#: lib/cforum_web/controllers/message_controller.ex:122
-#: lib/cforum_web/controllers/message_controller.ex:164
+#: lib/cforum_web/controllers/message_controller.ex:123
+#: lib/cforum_web/controllers/message_controller.ex:165
 msgid "Message created successfully."
 msgstr "Beitrag erfolgreich gespeichert."
 
@@ -1176,7 +1176,7 @@ msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">
 msgstr "SELFHTML Forum - Ergänzung zur <a href=\"https://wiki.selfhtml.org\">Dokumentation</a>"
 
 #: lib/cforum_web/controllers/api/v1/message_controller.ex:26
-#: lib/cforum_web/controllers/message_controller.ex:86 lib/cforum_web/controllers/thread_controller.ex:124
+#: lib/cforum_web/controllers/message_controller.ex:87 lib/cforum_web/controllers/thread_controller.ex:124
 msgid "all"
 msgstr "alle"
 
@@ -1310,7 +1310,7 @@ msgstr "Silber-Medaille"
 
 #: lib/cforum_web/templates/forum/index.html.eex:12
 #: lib/cforum_web/templates/layout/page_header.html.eex:21 lib/cforum_web/templates/message/message_forum_links.html.eex:4
-#: lib/cforum_web/views/archive_view.ex:8 lib/cforum_web/views/layout_view.ex:289
+#: lib/cforum_web/views/archive_view.ex:8 lib/cforum_web/views/layout_view.ex:291
 #: lib/cforum_web/views/thread_view.ex:37 lib/cforum_web/views/thread_view.ex:44
 msgid "all forums"
 msgstr "alle Foren"
@@ -1601,7 +1601,7 @@ msgid "chat"
 msgstr "Chat"
 
 #, elixir-format
-#: lib/cforum/cites/cite_indexer_job.ex:46
+#: lib/cforum/jobs/cite_indexer_job.ex:33
 #: lib/cforum_web/templates/admin/audit/index.html.eex:16 lib/cforum_web/templates/admin/search_section/form.html.eex:26
 #: lib/cforum_web/templates/layout/page_header.html.eex:47 lib/cforum_web/views/cite_view.ex:15
 msgid "cites"
@@ -1613,7 +1613,7 @@ msgid "help"
 msgstr "Hilfe"
 
 #, elixir-format
-#: lib/cforum/cites/cite_indexer_job.ex:65
+#: lib/cforum/jobs/cite_indexer_job.ex:52
 #: lib/cforum_web/templates/cite/cite.html.eex:5 lib/cforum_web/views/cite_view.ex:17
 msgid "cite %{id}"
 msgstr "Zitat #%{id}"
@@ -2605,13 +2605,13 @@ msgstr "%{forum} – Übersicht"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:25
-#: lib/cforum_web/views/layout_view.ex:277
+#: lib/cforum_web/views/layout_view.ex:279
 msgid "administrative view"
 msgstr "Administrator-Ansicht"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:19
-#: lib/cforum_web/templates/message/message_forum_links.html.eex:21 lib/cforum_web/views/layout_view.ex:276
+#: lib/cforum_web/templates/message/message_forum_links.html.eex:21 lib/cforum_web/views/layout_view.ex:278
 msgid "normal view"
 msgstr "Administrator-Ansicht deaktivieren"
 
@@ -2698,7 +2698,7 @@ msgstr[1] "Grundlage für Zitat %{cite_links}."
 msgstr[2] "Grundlage für die Zitate %{cite_links}."
 
 #, elixir-format
-#: lib/cforum_web/templates/event/show.html.eex:28
+#: lib/cforum_web/templates/event/show.html.eex:25
 msgid "no attendees"
 msgid_plural "%{count} attendees"
 msgstr[0] "keine Teilnehmer"
@@ -2706,7 +2706,7 @@ msgstr[1] "ein Teilnehmer"
 msgstr[2] "%{count} Teilnehmer"
 
 #, elixir-format
-#: lib/cforum_web/templates/event/show.html.eex:35
+#: lib/cforum_web/templates/event/show.html.eex:32
 msgid "No attendees, yet."
 msgstr "Bisher keine Teilnehmer."
 
@@ -2732,7 +2732,7 @@ msgid "mail to author"
 msgstr "Nachricht an den Autor"
 
 #, elixir-format
-#: lib/cforum_web/templates/event/show.html.eex:22
+#: lib/cforum_web/templates/event/show.html.eex:20
 msgid "map of the event location area"
 msgstr "Karte der Zielregion"
 
@@ -2851,7 +2851,7 @@ msgid "Message has successfully been unaccepted as a solving answer"
 msgstr "Der Beitrag wird nicht länger als Lösung akzeptiert"
 
 #, elixir-format
-#: lib/cforum_web/views/message_view.ex:247
+#: lib/cforum_web/views/message_view.ex:248
 #: lib/cforum_web/views/messages/flag_view.ex:18
 msgid "Message is off topic."
 msgstr "Der Beitrag ist außerhalb des durch dieses Forum abgedeckten Themenbereichs."
@@ -2924,7 +2924,7 @@ msgid "action"
 msgstr "Aktion"
 
 #, elixir-format
-#: lib/cforum_web/templates/event/show.html.eex:31
+#: lib/cforum_web/templates/event/show.html.eex:28
 msgid "attend event"
 msgstr "an Ereignis teilnehmen"
 
@@ -3361,7 +3361,7 @@ msgid "message is a duplicate of %{url}"
 msgstr "Beitrag ist ein Duplikat von %{url}"
 
 #, elixir-format
-#: lib/cforum_web/views/message_view.ex:252
+#: lib/cforum_web/views/message_view.ex:253
 #: lib/cforum_web/views/messages/flag_view.ex:23 lib/cforum_web/views/moderation_view.ex:23
 msgid "message is illegal"
 msgstr "Beitrag ist rechtlich problematisch."
@@ -3377,7 +3377,7 @@ msgid "message is off topic"
 msgstr "Beitrag ist außerhalb des durch dieses Forum abgedeckten Themenbereichs"
 
 #, elixir-format
-#: lib/cforum_web/views/message_view.ex:254
+#: lib/cforum_web/views/message_view.ex:255
 #: lib/cforum_web/views/messages/flag_view.ex:26 lib/cforum_web/views/moderation_view.ex:24
 msgid "message is spam"
 msgstr "Beitrag ist Spam."
@@ -3490,13 +3490,13 @@ msgid "vote up"
 msgstr "positiv bewerten"
 
 #, elixir-format
-#: lib/cforum_web/views/message_view.ex:253
+#: lib/cforum_web/views/message_view.ex:254
 #: lib/cforum_web/views/messages/flag_view.ex:24
 msgid "message is a duplicate of another message"
 msgstr "Der Beitrag ist ein Duplikat eines anderen Beitrags."
 
 #, elixir-format
-#: lib/cforum_web/views/message_view.ex:250
+#: lib/cforum_web/views/message_view.ex:251
 #: lib/cforum_web/views/messages/flag_view.ex:21
 msgid "message is unconstructive or provocative and contributes to a deterioration of sentiment"
 msgstr "Der Beitrag ist unkonstruktiv oder provokativ und trägt zu einer Verschlechterung der Stimmung bei."
@@ -3634,12 +3634,12 @@ msgid "notify me via email on activity in subscribed messages"
 msgstr "benachrichtige mich via Email über Aktivität bei einem abonnierten Beitrag"
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:64
+#: lib/cforum/jobs/notify_users_message_job.ex:82
 msgid "%{nick} wrote a new message: %{subject}"
 msgstr "%{nick} hat einen neuen Beitrag geschrieben: „%{subject}“"
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:59
+#: lib/cforum/jobs/notify_users_message_job.ex:77
 msgid "%{nick} wrote a reply to your message: %{subject}"
 msgstr "%{nick} hat auf Ihren Beitrag geantwortet: „%{subject}“"
 
@@ -3654,7 +3654,7 @@ msgid "tags list"
 msgstr "Tags"
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:107
+#: lib/cforum/jobs/notify_users_message_job.ex:113
 msgid "new thread by %{nick}: %{subject}"
 msgstr "neuer Thread von %{nick}: „%{subject}“"
 
@@ -3664,7 +3664,7 @@ msgid "user data"
 msgstr "Benutzer-Daten"
 
 #, elixir-format
-#: lib/cforum/messages/notify_users_message_job.ex:133
+#: lib/cforum/jobs/notify_users_message_job.ex:139
 msgid "%{nick} mentioned you in a new message: “%{subject}”"
 msgstr "%{nick} hat Sie in einem neuen Beitrag „%{subject}“ erwähnt"
 
@@ -4086,22 +4086,22 @@ msgid "page not found"
 msgstr "Seite nicht gefunden!"
 
 #, elixir-format
-#: lib/cforum_web/mailers/notification_mailer.ex:22
+#: lib/cforum_web/mailers/notification_mailer.ex:17
 msgid "new message: “%{subject}”"
 msgstr "neuer Beitrag: „%{subject}“"
 
 #, elixir-format
-#: lib/cforum_web/mailers/notification_mailer.ex:40
+#: lib/cforum_web/mailers/notification_mailer.ex:33
 msgid "new moderation queue entry: “%{subject}”"
 msgstr "neuer Moderations-Fall: „%{subject}“"
 
 #, elixir-format
-#: lib/cforum_web/mailers/notification_mailer.ex:31
+#: lib/cforum_web/mailers/notification_mailer.ex:25
 msgid "new notification: “%{subject}”"
 msgstr "neue Benachrichtigung: „%{subject}“"
 
 #, elixir-format
-#: lib/cforum_web/mailers/notification_mailer.ex:11
+#: lib/cforum_web/mailers/notification_mailer.ex:9
 msgid "new private message: “%{subject}”"
 msgstr "neue Mail: „%{subject}“"
 
@@ -4282,3 +4282,8 @@ msgstr "Tut mir leid, leider gibt es hier nichts :("
 #: lib/cforum_web/templates/advent/day.html.eex:20
 msgid "no content"
 msgstr "kein Inhalt"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/subnav.html.eex:13
+msgid "background jobs"
+msgstr "Hintergrund-Aufträge"
