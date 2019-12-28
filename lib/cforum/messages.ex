@@ -21,7 +21,11 @@ defmodule Cforum.Messages do
   alias Cforum.Threads.Thread
   alias Cforum.Threads.ThreadCaching
 
-  alias Cforum.Messages.MessageIndexerJob
+  alias Cforum.Jobs.MessageIndexerJob
+  alias Cforum.Jobs.UnindexMessageJob
+  alias Cforum.Jobs.RescoreMessageJob
+  alias Cforum.Jobs.NotifyUsersMessageJob
+
   alias Cforum.Messages.NewMessageBadgeDistributorJob
   alias Cforum.Messages.Mentions
   alias Cforum.Messages.Subscriptions
@@ -227,7 +231,7 @@ defmodule Cforum.Messages do
   end
 
   defp index_message({:ok, message}, thread) do
-    MessageIndexerJob.index_message(Repo.preload(thread, [:forum]), message)
+    MessageIndexerJob.enqueue(thread, message)
     {:ok, message}
   end
 
@@ -355,11 +359,11 @@ defmodule Cforum.Messages do
     end)
     |> ThreadCaching.refresh_cached_thread()
     |> unnotify_user(message_ids)
-    |> unindex_messages(message_ids)
+    |> unindex_messages([message.message_id | message_ids])
   end
 
   defp unindex_messages({:ok, msg}, ids) do
-    MessageIndexerJob.unindex_messages(ids)
+    UnindexMessageJob.enqueue(ids)
     {:ok, msg}
   end
 
@@ -397,7 +401,7 @@ defmodule Cforum.Messages do
   end
 
   defp index_messages({:ok, msg}, ids) do
-    MessageIndexerJob.index_messages(ids)
+    MessageIndexerJob.enqueue(ids)
     {:ok, msg}
   end
 
@@ -501,7 +505,7 @@ defmodule Cforum.Messages do
       )
       |> Repo.update_all([])
 
-    MessageIndexerJob.rescore_message(message)
+    RescoreMessageJob.enqueue(message)
     MessageCaching.update_cached_message(message, fn msg -> %Message{msg | downvotes: msg.downvotes + by} end)
 
     notify_users(%Message{message | downvotes: message.downvotes + by}, :score)
@@ -528,7 +532,7 @@ defmodule Cforum.Messages do
       )
       |> Repo.update_all([])
 
-    MessageIndexerJob.rescore_message(message)
+    RescoreMessageJob.enqueue(message)
     MessageCaching.update_cached_message(message, fn msg -> %Message{msg | upvotes: msg.upvotes + by} end)
 
     notify_users(%Message{message | upvotes: message.upvotes + by}, :score)
@@ -562,11 +566,11 @@ defmodule Cforum.Messages do
 
       case maybe_give_accept_score(message, user, points) do
         nil ->
-          MessageIndexerJob.rescore_message(message)
+          RescoreMessageJob.enqueue(message)
           :ok
 
         {:ok, _} ->
-          MessageIndexerJob.rescore_message(message)
+          RescoreMessageJob.enqueue(message)
           :ok
 
         _ ->
@@ -606,11 +610,11 @@ defmodule Cforum.Messages do
 
       case maybe_take_accept_score(message, user) do
         nil ->
-          MessageIndexerJob.rescore_message(message)
+          RescoreMessageJob.enqueue(message)
           {:ok, message}
 
         {:ok, msg} ->
-          MessageIndexerJob.rescore_message(message)
+          RescoreMessageJob.enqueue(message)
           {:ok, msg}
 
         _ ->
@@ -764,7 +768,7 @@ defmodule Cforum.Messages do
   defp notify_users({:error, changeset}, _, _), do: {:error, changeset}
 
   defp notify_users({:ok, message}, thread, _) do
-    Cforum.Jobs.NotifyUsersMessageJob.enqueue(thread, message, "message")
+    NotifyUsersMessageJob.enqueue(thread, message, "message")
     {:ok, message}
   end
 

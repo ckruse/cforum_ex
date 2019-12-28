@@ -8,7 +8,6 @@ defmodule Cforum.Forums.ArchiverJob do
   alias Cforum.Messages.{Message, Subscription, ReadMessage}
   alias Cforum.System
   alias Cforum.Caching
-  alias Cforum.Messages.MessageIndexerJob
 
   import Ecto.{Query, Changeset}, warn: false
 
@@ -81,7 +80,10 @@ defmodule Cforum.Forums.ArchiverJob do
   defp archive_thread(%Thread{flags: %{"no-archive" => "yes"}} = thread) do
     System.audited("destroy", nil, fn ->
       Threads.delete_thread(thread)
-      MessageIndexerJob.unindex_messages(thread.messages)
+
+      thread.messages
+      |> Enum.map(& &1.message_id)
+      |> Cforum.Search.delete_documents_by_reference_ids()
 
       {:ok, thread}
     end)

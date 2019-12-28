@@ -215,6 +215,14 @@ defmodule Cforum.Search do
     Repo.delete(document)
   end
 
+  def delete_documents_by_reference_ids(ids, type \\ :forum) do
+    from(doc in Document,
+      inner_join: section in assoc(doc, :search_section),
+      where: doc.reference_id in ^ids and section.section_type == ^Atom.to_string(type)
+    )
+    |> Repo.delete_all()
+  end
+
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking document changes.
 

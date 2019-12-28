@@ -4,6 +4,8 @@ defmodule Cforum.Messages.ReindexMessagesJob do
 
   alias Cforum.Repo
   alias Cforum.Search
+  alias Cforum.Threads
+  alias Cforum.Messages
   alias Cforum.Search.Document
   alias Cforum.Messages.Message
 
@@ -42,7 +44,9 @@ defmodule Cforum.Messages.ReindexMessagesJob do
       |> Repo.one()
 
     if not is_nil(mid) do
-      Cforum.Messages.MessageIndexerJob.index_message_synchronously(mid)
+      message = Messages.get_message(mid)
+      thread = Threads.get_thread!(message.thread_id)
+      Cforum.Jobs.MessageIndexerJob.index_message(thread, message)
       Process.sleep(100)
       do_reindex_messages(mid)
     end
