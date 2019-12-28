@@ -76,17 +76,19 @@ class CfEditor extends React.Component {
       body: fdata
     })
       .then(rsp => rsp.json())
-      .then(json => this.fileUploadFinished(json, desc, title));
+      .then(json => this.fileUploadFinished(json, desc, title, file));
   }
 
-  fileUploadFinished(rsp, desc, title) {
+  fileUploadFinished(rsp, desc, title, file) {
     this.setState({ loading: false });
     if (rsp.status === "success") {
       const { start, end } = getSelection(this.textarea.current);
+      const size = file.type === "image/svg+xml" ? "" : "?size=medium";
+      const escapedTitle = title ? ' "' + escapeText(title, '"') + '"' : "";
+      const escapedDesc = escapeText(desc, "\\]");
+      const escapedLocation = escapeText(rsp.location, ")");
 
-      const image = `[![${escapeText(desc, "\\]")}](${escapeText(rsp.location, ")")}?size=medium${
-        title ? ' "' + escapeText(title, '"') + '"' : ""
-      })](${escapeText(rsp.location, ")")})`;
+      const image = `[![${escapedDesc}](${escapedLocation}${size}${escapedTitle})](${escapeText(rsp.location, ")")})`;
 
       const value = replaceAt(this.state.value, image, start, end);
       this.setState({ value });

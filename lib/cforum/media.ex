@@ -86,7 +86,9 @@ defmodule Cforum.Media do
   end
 
   defp maybe_resize_image({:ok, img}) do
-    Cforum.Jobs.ImageResizerJob.enqueue(img)
+    if img.content_type != "image/svg+xml",
+      do: Cforum.Jobs.ImageResizerJob.enqueue(img)
+
     {:ok, img}
   end
 
