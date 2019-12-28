@@ -28,7 +28,6 @@ defmodule CforumWeb.Plug.SecurityHeaders do
         "Content-Security-Policy",
         "default-src 'self'; #{script_csp}; #{style_csp}; #{connect_csp}" <> img_csp(conn.request_path)
       )
-      |> IO.inspect()
     else
       conn
       |> Plug.Conn.assign(:nonce_for_js, "")

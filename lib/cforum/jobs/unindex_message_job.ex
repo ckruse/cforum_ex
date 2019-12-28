@@ -7,8 +7,6 @@ defmodule Cforum.Jobs.UnindexMessageJob do
   end
 
   def enqueue(messages) do
-    IO.inspect(messages)
-
     ids =
       messages
       |> Enum.map(fn

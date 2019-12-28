@@ -152,5 +152,5 @@ defmodule Cforum.Forums.ArchiverJob do
     val
   end
 
-  defp discard_thread_cache(val), do: IO.inspect(val)
+  defp discard_thread_cache(val), do: raise(inspect(val))
 end
