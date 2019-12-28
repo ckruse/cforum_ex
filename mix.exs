@@ -64,6 +64,11 @@ defmodule Cforum.Mixfile do
       {:nimble_parsec, "~> 0.2"},
       {:appsignal, "~> 1.0"},
 
+      # oban web view
+      {:phoenix_live_view, "~> 0.4.0"},
+      {:floki, ">= 0.0.0", only: :test},
+      {:oban_web, "~> 0.4", organization: "oban"},
+
       # testing
       {:excoveralls, "~> 0.8", only: :test},
       {:ex_machina, "~> 2.2", only: :test},

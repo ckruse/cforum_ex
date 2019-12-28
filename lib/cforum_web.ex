@@ -64,6 +64,7 @@ defmodule CforumWeb do
   def router do
     quote do
       use Phoenix.Router
+      import Phoenix.LiveView.Router
     end
   end
 

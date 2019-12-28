@@ -21,6 +21,19 @@ defmodule CforumWeb.Router do
     plug(CforumWeb.Plug.LoadMotd)
   end
 
+  pipeline :oban do
+    plug(:accepts, ["html"])
+    plug(:fetch_session)
+    plug(:fetch_flash)
+    plug(:protect_from_forgery)
+    plug(:put_secure_browser_headers)
+
+    plug(CforumWeb.Plug.CurrentUser)
+    plug(CforumWeb.Plug.UpdateLastVisit)
+    plug(CforumWeb.Plug.RememberMe)
+    plug(CforumWeb.Plug.RequireAdmin)
+  end
+
   pipeline :api do
     plug(:accepts, ["json"])
     plug(:fetch_session)
@@ -77,6 +90,11 @@ defmodule CforumWeb.Router do
 
       post("/images", ImageController, :create)
     end
+  end
+
+  scope "/admin" do
+    pipe_through(:oban)
+    live("/oban", ObanWeb.DashboardLive, layout: {ObanWeb.LayoutView, "app.html"})
   end
 
   scope "/", CforumWeb do
