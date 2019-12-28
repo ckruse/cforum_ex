@@ -1,5 +1,5 @@
-defmodule Cforum.Messages.VoteBadgeDistributorJob do
-  use Appsignal.Instrumentation.Decorators
+defmodule Cforum.Jobs.VoteBadgeDistributorJob do
+  use Oban.Worker, queue: :background, max_attempts: 5
 
   alias Cforum.Messages.Vote
   alias Cforum.Messages
@@ -11,16 +11,14 @@ defmodule Cforum.Messages.VoteBadgeDistributorJob do
 
   import Ecto.Query, warn: false
 
-  def grant_badges({:ok, %Vote{} = vote}) do
-    Cforum.Helpers.AsyncHelper.run_async(fn -> do_grant_badges(vote) end)
-
-    {:ok, vote}
+  def enqueue(vote) do
+    %{"vote_id" => vote.vote_id}
+    |> Cforum.Jobs.VoteBadgeDistributorJob.new()
+    |> Oban.insert!()
   end
 
-  def grant_badges(value), do: value
-
-  @decorate transaction(:maintenance)
-  defp do_grant_badges(vote) do
+  def perform(%{"vote_id" => id}, _) do
+    vote = Messages.Votes.get_vote!(id)
     user = Users.get_user!(vote.user_id)
     message = Messages.get_message!(vote.message_id, view_all: true)
 

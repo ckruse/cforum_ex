@@ -13,7 +13,7 @@ defmodule Cforum.Messages.Votes do
   alias Cforum.Messages.Message
   alias Cforum.Messages.MessageCaching
 
-  alias Cforum.Messages.VoteBadgeDistributorJob
+  alias Cforum.Jobs.VoteBadgeDistributorJob
 
   @doc """
   Returns the list of votes.
@@ -188,7 +188,7 @@ defmodule Cforum.Messages.Votes do
 
       vote
     end)
-    |> VoteBadgeDistributorJob.grant_badges()
+    |> maybe_grant_badges()
   end
 
   def downvote(message, user, points) do
@@ -207,8 +207,15 @@ defmodule Cforum.Messages.Votes do
 
       vote
     end)
-    |> VoteBadgeDistributorJob.grant_badges()
+    |> maybe_grant_badges()
   end
+
+  defp maybe_grant_badges({:ok, vote}) do
+    VoteBadgeDistributorJob.enqueue(vote)
+    {:ok, vote}
+  end
+
+  defp maybe_grant_badges(v), do: v
 
   defp remove_vote(message, user) do
     case get_vote(message, user) do
