@@ -1,8 +1,8 @@
-defmodule Cforum.Forums.ArchiverJobTest do
+defmodule Cforum.Jobs.ArchiverJobTest do
   use Cforum.DataCase
 
   alias Cforum.Threads
-  alias Cforum.Forums.ArchiverJob
+  alias Cforum.Jobs.ArchiverJob
 
   setup do
     forum = insert(:forum)
@@ -16,7 +16,8 @@ defmodule Cforum.Forums.ArchiverJobTest do
     insert(:setting, options: %{"max_messages_per_thread" => 1})
     insert(:message, thread: thread, forum: forum)
 
-    ArchiverJob.archive()
+    ArchiverJob.new(%{}) |> Oban.insert!()
+    assert %{success: 1, failure: 0} == Oban.drain_queue(:background)
 
     thread = Threads.get_thread!(thread.thread_id)
     assert thread.archived == true
@@ -27,7 +28,8 @@ defmodule Cforum.Forums.ArchiverJobTest do
     thread = insert(:thread, forum: forum)
     insert(:message, thread: thread, forum: forum)
 
-    ArchiverJob.archive()
+    ArchiverJob.new(%{}) |> Oban.insert!()
+    assert %{success: 1, failure: 0} == Oban.drain_queue(:background)
 
     thread = Threads.get_thread!(old_thread.thread_id)
     assert thread.archived == true
@@ -39,7 +41,8 @@ defmodule Cforum.Forums.ArchiverJobTest do
 
     Threads.flag_thread_no_archive(nil, thread)
 
-    ArchiverJob.archive()
+    ArchiverJob.new(%{}) |> Oban.insert!()
+    assert %{success: 1, failure: 0} == Oban.drain_queue(:background)
 
     assert_raise Ecto.NoResultsError, fn -> Threads.get_thread!(thread.thread_id) end
   end

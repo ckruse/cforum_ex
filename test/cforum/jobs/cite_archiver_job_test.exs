@@ -1,7 +1,7 @@
-defmodule Cforum.Cites.ArchiverJobTest do
+defmodule Cforum.Jobs.CiteArchiverJobTest do
   use Cforum.DataCase
 
-  alias Cforum.Cites.ArchiverJob
+  alias Cforum.Jobs.CiteArchiverJob
   alias Cforum.Cites
   alias Cforum.Cites.Vote
 
@@ -9,7 +9,8 @@ defmodule Cforum.Cites.ArchiverJobTest do
     cite = insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -3))
     insert(:cite_vote, cite: cite, vote_type: Vote.downvote())
 
-    ArchiverJob.archive()
+    CiteArchiverJob.new(%{}) |> Oban.insert!()
+    assert %{success: 1, failure: 0} == Oban.drain_queue(:background)
 
     assert Cites.list_cites(false) == []
     assert Cites.list_cites(true) == []
@@ -18,7 +19,8 @@ defmodule Cforum.Cites.ArchiverJobTest do
   test "archive/0 deletes an cite with score=0" do
     insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -3))
 
-    ArchiverJob.archive()
+    CiteArchiverJob.new(%{}) |> Oban.insert!()
+    assert %{success: 1, failure: 0} == Oban.drain_queue(:background)
 
     assert Cites.list_cites(false) == []
     assert Cites.list_cites(true) == []
@@ -28,7 +30,8 @@ defmodule Cforum.Cites.ArchiverJobTest do
     cite = insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -3))
     insert(:cite_vote, cite: cite, vote_type: Vote.upvote())
 
-    ArchiverJob.archive()
+    CiteArchiverJob.new(%{}) |> Oban.insert!()
+    assert %{success: 1, failure: 0} == Oban.drain_queue(:background)
 
     assert Cites.list_cites(false) == []
     assert Enum.map(Cites.list_cites(true), & &1.cite_id) == [cite.cite_id]
@@ -38,7 +41,8 @@ defmodule Cforum.Cites.ArchiverJobTest do
     cite = insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -3), archived: true)
     insert(:cite_vote, cite: cite, vote_type: Vote.downvote())
 
-    ArchiverJob.archive()
+    CiteArchiverJob.new(%{}) |> Oban.insert!()
+    assert %{success: 1, failure: 0} == Oban.drain_queue(:background)
 
     assert Cites.list_cites(false) == []
     assert Enum.map(Cites.list_cites(true), & &1.cite_id) == [cite.cite_id]
@@ -48,7 +52,10 @@ defmodule Cforum.Cites.ArchiverJobTest do
     cite = insert(:cite, created_at: Timex.now() |> Timex.shift(weeks: -3))
     insert(:cite_vote, cite: cite, vote_type: Vote.upvote())
 
-    ArchiverJob.archive()
+    CiteArchiverJob.new(%{}) |> Oban.insert!()
+    assert %{success: 1, failure: 0} == Oban.drain_queue(:background)
+    # a second queue drain for the indexing job
+    assert %{success: 1, failure: 0} == Oban.drain_queue(:background)
 
     assert Cforum.Search.get_document_by_reference_id(cite.cite_id, :cites)
   end
