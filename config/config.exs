@@ -30,16 +30,12 @@ config :arc, storage: Arc.Storage.Local
 config :porcelain, driver: Porcelain.Driver.Basic
 config :timex, default_locale: "de"
 
-config :cforum, Cforum.Scheduler,
-  jobs: [
-    {"@hourly", {Cforum.Forums.ArchiverJob, :archive, []}},
-  ]
-
 config :cforum, Oban,
   repo: Cforum.Repo,
   prune: {:maxlen, 100_000},
   queues: [mails: 10, background: 10, media: 20],
   crontab: [
+    {"10 * * * *", Cforum.Jobs.ArchiverJob},
     {"0 0 * * *", Cforum.Jobs.ForumStatsJob},
     {"0 0 * * *", Cforum.Jobs.CiteArchiverJob},
     {"0 1 * * *", Cforum.Jobs.UserCleanupJob},

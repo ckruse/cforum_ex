@@ -1,5 +1,5 @@
-defmodule Cforum.Forums.ArchiverJob do
-  use Appsignal.Instrumentation.Decorators
+defmodule Cforum.Jobs.ArchiverJob do
+  use Oban.Worker, queue: :background, max_attempts: 5
 
   alias Cforum.Repo
   alias Cforum.Forums
@@ -11,13 +11,12 @@ defmodule Cforum.Forums.ArchiverJob do
 
   import Ecto.{Query, Changeset}, warn: false
 
-  @decorate transaction(:maintenance)
-  def archive do
+  @impl Oban.Worker
+  def perform(_, _) do
     Forums.list_forums()
     |> Enum.each(&archive_for_forum/1)
   end
 
-  @decorate transaction(:maintenance)
   def enforce_archiving(thread) do
     archive_thread(thread)
     |> discard_thread_cache()
