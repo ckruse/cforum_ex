@@ -39,12 +39,12 @@
 
       &.open .menu {
         display: block;
-      }
 
-      li {
-        padding: 0.5em 1em;
-        display: block;
-        margin: 0;
+        li {
+          padding: 0.5em 1em;
+          display: block;
+          margin: 0;
+        }
       }
 
       li.active {
