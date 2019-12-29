@@ -20,7 +20,9 @@
       max-width: 1em;
     }
 
-    .desc,
+    .desc {
+      @include visually-hidden();
+    }
     .score,
     .notifications,
     .mails {
@@ -92,7 +94,9 @@
       margin-right: 1em;
       line-height: 1.5;
 
-      .desc,
+      .desc {
+        position: static;
+      }
       .score,
       .notifications,
       .mails {
