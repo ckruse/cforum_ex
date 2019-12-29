@@ -40,8 +40,8 @@ defmodule Cforum.Factory do
       is_read: false,
       subject: sequence("Subject "),
       body: Faker.Lorem.paragraph(%Range{first: 1, last: 3}),
-      sender_name: Faker.Name.name(),
-      recipient_name: Faker.Name.name()
+      sender_name: sequence("PM Sender "),
+      recipient_name: sequence("PM Recipient ")
     }
   end
 
@@ -103,7 +103,7 @@ defmodule Cforum.Factory do
 
   def message_factory do
     %Cforum.Messages.Message{
-      author: Faker.Name.name(),
+      author: sequence("Author "),
       subject: sequence("Message subject "),
       content: Faker.Lorem.paragraph(%Range{first: 1, last: 2})
     }
