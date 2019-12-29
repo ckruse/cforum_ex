@@ -89,7 +89,12 @@ defmodule Cforum.Accounts.PrivMessages do
       pm in PrivMessage,
       select: %PrivMessage{
         pm
-        | count: fragment("SELECT COUNT(*) FROM priv_messages WHERE thread_id = ?", pm.thread_id)
+        | count:
+            fragment(
+              "SELECT COUNT(*) FROM priv_messages WHERE thread_id = ? AND owner_id = ?",
+              pm.thread_id,
+              ^user.user_id
+            )
       },
       where:
         pm.owner_id == ^user.user_id and
