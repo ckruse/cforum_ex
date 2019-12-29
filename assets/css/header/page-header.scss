@@ -55,8 +55,10 @@
       margin-top: 0.3em;
       font-size: 1em;
 
-      a {
+      a,
+      button {
         display: block;
+        font-size: 1rem;
       }
       .stats {
         display: none;
@@ -102,11 +104,11 @@
     .quicklinks-expand {
       background: transparent;
       border: 0;
-      display: block;
-      font-size: inherit;
       color: $link-color;
       cursor: pointer;
       padding: 0;
+      width: 100%;
+      text-align: left;
     }
 
     .quicklinks-expand:hover,
