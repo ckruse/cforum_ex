@@ -187,19 +187,6 @@ defmodule CforumWeb.MessageView do
       else: ""
   end
 
-  def author_name(conn, thread, message, opts) do
-    cond do
-      opts[:author_link_to_message] ->
-        link(message.author, to: Path.message_path(conn, :show, thread, message, rm: opts[:rm]), aria: [hidden: "true"])
-
-      !Helpers.blank?(message.user_id) ->
-        link(message.author, to: Path.user_path(conn, :show, message.user))
-
-      true ->
-        message.author
-    end
-  end
-
   def cite_links(conn, message) do
     message.cites
     |> Enum.map(fn cite ->

@@ -171,29 +171,26 @@ defmodule CforumWeb.Views.ViewHelpers do
   def l10n_badge_type("seo_profi"), do: gettext("seo profi")
   def l10n_badge_type("custom"), do: gettext("custom")
 
-  def user_link(conn, user, additional_classes \\ [], username \\ "") do
+  def user_link(conn, user, additional_classes \\ [], username \\ "", do_link \\ true) do
     user_name = if Cforum.Helpers.blank?(username), do: "", else: " #{username}"
 
-    link(
-      to: CforumWeb.Router.Helpers.user_path(conn, :show, user),
-      title: gettext("user %{user}", user: user.username),
-      class: "user-link"
-    ) do
-      [
-        {:safe, "<span class=\"registered-user "},
-        additional_classes,
-        {:safe, "\">"},
-        {:safe, "<span class=\"visually-hidden\">"},
-        gettext("link to profile of"),
-        {:safe, "</span>"},
-        img_tag(
-          Cforum.Accounts.User.avatar_path(user, :thumb),
-          class: "avatar",
-          alt: gettext("user %{user}", user: user.username)
-        ),
-        user_name,
-        {:safe, "</span>"}
-      ]
+    content = [
+      {:safe, "<span class=\"registered-user "},
+      additional_classes,
+      {:safe, "\">"},
+      img_tag(Cforum.Accounts.User.avatar_path(user, :thumb), class: "avatar", alt: ""),
+      user_name,
+      {:safe, "</span>"}
+    ]
+
+    if do_link do
+      link(content,
+        to: CforumWeb.Router.Helpers.user_path(conn, :show, user),
+        title: gettext("user %{user}", user: user.username),
+        class: "user-link"
+      )
+    else
+      content
     end
   end
 

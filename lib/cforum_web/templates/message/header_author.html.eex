@@ -1,13 +1,13 @@
     <span class="author">
       <%= if Helpers.present?(@message.user_id) do %>
-        <%= ViewHelpers.user_link(@conn, @message.user, [original_poster_class(@thread, @message)], false) %>
+        <%= ViewHelpers.user_link(@conn, @message.user, [original_poster_class(@thread, @message)], @message.author, !@opts[:tree]) %>
       <% else %>
         <%= if (@message.message_id != @thread.message.message_id) && Helpers.present?(@message.uuid) && (@message.uuid == @thread.message.uuid) do %>
           <span class="icon-message original-poster" title="<%= gettext("original poster") %>"> </span>
         <% end %>
-      <% end %>
 
-      <%= author_name(@conn, @thread, @message, @opts) %>
+        <%= @message.author %>
+      <% end %>
     </span>
 
     <%= if !@opts[:tree] && (Helpers.present?(@message.email) || Helpers.present?(@message.homepage)) do %>

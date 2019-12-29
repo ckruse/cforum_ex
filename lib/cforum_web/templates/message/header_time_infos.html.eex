@@ -1,5 +1,5 @@
     <time datetime="<%= NaiveDateTime.to_iso8601(@message.created_at) %>">
-      <%= if Helpers.present?(@thread.thread_id) && Helpers.present?(@message.message_id) do %>
+      <%= if Helpers.present?(@thread.thread_id) && Helpers.present?(@message.message_id) && !@opts[:tree] do %>
         <%= link ViewHelpers.format_date(@conn, @message.created_at, message_date_format(@opts[:tree])), to: Path.message_path(@conn, :show, @thread, @message, rm: @opts[:rm]) %>
       <% else %>
         <%= ViewHelpers.format_date(@conn, @message.created_at, message_date_format(@opts[:tree])) %>

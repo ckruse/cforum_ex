@@ -13,6 +13,10 @@
     <%= if @opts[:first], do: render "header_num_infos.html", assigns %>
   <% end %>
 
+  <%= if @opts[:tree] do %>
+    <a href="<%= Path.message_path(@conn, :show, @thread, @message, rm: @opts[:rm]) %>">
+  <% end %>
+
   <%= render "header_subject.html", assigns %>
 
   <div class="details">
@@ -21,6 +25,13 @@
     <%= render "header_time_infos.html", assigns %>
     <%= render "header_editor.html", assigns %>
     <%= render "header_tags.html", assigns %>
+  </div>
+
+  <%= if @opts[:tree] do %>
+    </a>
+  <% end %>
+
+  <div class="details">
     <%= render "header_votes.html", assigns %>
   </div>
 
