@@ -84,7 +84,16 @@
 }
 
 .js {
-  .cf-page-header .quicklinks ul,
+  .cf-page-header .quicklinks ul {
+    li:first-of-type,
+    li:last-of-type {
+      display: block;
+    }
+    li {
+      display: none;
+    }
+  }
+
   .cf-page-header .subnav ul {
     display: none;
   }
@@ -94,9 +103,10 @@
       background: transparent;
       border: 0;
       display: block;
-      font-size: 1em;
+      font-size: inherit;
       color: $link-color;
       cursor: pointer;
+      padding: 0;
     }
 
     .quicklinks-expand:hover,
@@ -106,7 +116,7 @@
     }
   }
 
-  .cf-page-header .quicklinks.expanded ul,
+  .cf-page-header .quicklinks.expanded ul li,
   .cf-page-header .subnav.expanded ul {
     display: block;
   }
@@ -114,8 +124,8 @@
 
 @include default-breakpoint() {
   .js {
-    .cf-page-header .quicklinks ul {
-      display: flex;
+    .cf-page-header .quicklinks ul li {
+      display: inline-block;
     }
     .cf-page-header .subnav ul {
       display: block;
