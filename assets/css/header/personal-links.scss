@@ -50,6 +50,7 @@
   }
   #user-not-signed-in {
     color: $visited-link-color;
+    display: none;
   }
 
   .btn-link {
@@ -80,18 +81,8 @@
   }
 }
 
-.anonymous .cf-personallinks {
-  display: block;
-
-  li {
-    display: block;
-    text-align: left;
-  }
-}
-
 @include default-breakpoint() {
-  .cf-personallinks,
-  .anonymous .cf-personallinks {
+  .cf-personallinks {
     text-align: right;
     margin: 0.1em 2em;
     display: block;
@@ -111,6 +102,10 @@
       svg {
         display: none;
       }
+    }
+
+    #user-not-signed-in {
+      display: inline;
     }
 
     img {
