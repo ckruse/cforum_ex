@@ -6,7 +6,7 @@ defmodule Cforum.Forums.Stats do
   alias Cforum.Messages.Message
   alias Cforum.Forums.ForumStat
 
-  @spec threads_for_overview(%Cforum.Accounts.User{}, [%Cforum.Threads.Thread{}]) :: {map(), %Cforum.Threads.Thread{}}
+  @spec threads_for_overview(%Cforum.Users.User{}, [%Cforum.Threads.Thread{}]) :: {map(), %Cforum.Threads.Thread{}}
   def threads_for_overview(current_user, all_threads) do
     latest = Enum.max_by(all_threads, &Timex.to_erl(&1.latest_message), fn -> nil end)
 
@@ -192,7 +192,7 @@ defmodule Cforum.Forums.Stats do
   defp preload_users(users) do
     records =
       Enum.map(users, fn {uid, _} -> uid end)
-      |> Cforum.Accounts.Users.get_users()
+      |> Cforum.Users.get_users()
 
     Enum.reduce(users, [], fn {uid, cnt}, acc ->
       user = Enum.find(records, &(&1.user_id == uid))

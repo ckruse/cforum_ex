@@ -4,11 +4,10 @@ defmodule CforumWeb.Plug.LoadUserInfoData do
   for signed in users (e.g. the count of unread PMs and notifications)
   """
 
-  use Cforum.Accounts.Constants
+  use Cforum.Constants
 
-  alias Cforum.Accounts
-  alias Accounts.Notifications
-  alias Accounts.PrivMessages
+  alias Cforum.Notifications
+  alias Cforum.PrivMessages
   alias Cforum.Forums
   alias Cforum.Messages.ReadMessages
   alias Cforum.ModerationQueue

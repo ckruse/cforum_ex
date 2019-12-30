@@ -15,7 +15,7 @@ defmodule Cforum.Cites.Vote do
     field(:vote_type, :integer)
 
     belongs_to(:cite, Cforum.Cites.Cite, references: :cite_id)
-    belongs_to(:user, Cforum.Accounts.User, references: :user_id)
+    belongs_to(:user, Cforum.Users.User, references: :user_id)
 
     timestamps(inserted_at: :created_at)
   end

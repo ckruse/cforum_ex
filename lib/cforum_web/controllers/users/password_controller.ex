@@ -2,8 +2,8 @@ defmodule CforumWeb.Users.PasswordController do
   use CforumWeb, :controller
 
   alias Cforum.Abilities
-  alias Cforum.Accounts.Users
-  alias Cforum.Accounts.User
+  alias Cforum.Users
+  alias Cforum.Users.User
 
   def new(conn, _params) do
     render(conn, "new.html")

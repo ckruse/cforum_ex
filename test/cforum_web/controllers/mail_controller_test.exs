@@ -1,8 +1,8 @@
 defmodule CforumWeb.MailControllerTest do
   use CforumWeb.ConnCase
 
-  alias Cforum.Accounts.PrivMessages
-  alias Cforum.Accounts.PrivMessage
+  alias Cforum.PrivMessages
+  alias Cforum.PrivMessages.PrivMessage
 
   setup [:setup_login]
 

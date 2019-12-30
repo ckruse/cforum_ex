@@ -7,7 +7,7 @@ defmodule Cforum.Search.Finder do
   alias Cforum.Search.Document
   alias Cforum.Search.Query
 
-  alias Cforum.Accounts.User
+  alias Cforum.Users.User
 
   @spec count_interesting_messages_results(%User{}, Ecto.Changeset.t()) :: integer()
   def count_interesting_messages_results(current_user, changeset) do

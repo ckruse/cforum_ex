@@ -6,7 +6,7 @@ defmodule Cforum.Media do
   import Ecto.Query, warn: false
   alias Cforum.Repo
   alias Cforum.System
-  alias Cforum.Accounts.User
+  alias Cforum.Users.User
   alias Cforum.Media.Image
 
   @doc """

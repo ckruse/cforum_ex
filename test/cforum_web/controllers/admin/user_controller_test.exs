@@ -1,7 +1,7 @@
 defmodule CforumWeb.Admin.UserControllerTest do
   use CforumWeb.ConnCase
 
-  alias Cforum.Accounts.User
+  alias Cforum.Users.User
 
   describe "index" do
     setup [:setup_login]

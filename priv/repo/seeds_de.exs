@@ -10,7 +10,7 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-alias Cforum.Accounts.Badges
+alias Cforum.Badges
 
 Badges.create_badge(nil, %{
   score_needed: 50,

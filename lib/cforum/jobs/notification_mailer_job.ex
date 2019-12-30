@@ -3,8 +3,8 @@ defmodule Cforum.Jobs.NotificationMailerJob do
 
   @impl Oban.Worker
   def perform(%{"priv_message_id" => pmid, "user_id" => uid, "type" => "priv_message"}, _) do
-    user = Cforum.Accounts.Users.get_user!(uid)
-    pm = Cforum.Accounts.PrivMessages.get_priv_message!(user, pmid)
+    user = Cforum.Users.get_user!(uid)
+    pm = Cforum.PrivMessages.get_priv_message!(user, pmid)
 
     user
     |> CforumWeb.NotificationMailer.pm_notification_mail(pm)
@@ -18,7 +18,7 @@ defmodule Cforum.Jobs.NotificationMailerJob do
     {thread, message} = Cforum.Messages.get_message_and_thread!(forum, nil, m.thread_id, m.message_id, view_all: true)
 
     forum
-    |> Cforum.Accounts.Users.list_moderators()
+    |> Cforum.Users.list_moderators()
     |> Enum.filter(&(Cforum.ConfigManager.uconf(&1, "notify_on_flagged") == "email"))
     |> Enum.each(fn user ->
       user

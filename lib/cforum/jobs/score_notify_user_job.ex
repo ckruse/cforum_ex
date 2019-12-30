@@ -2,7 +2,7 @@ defmodule Cforum.Jobs.ScoreNotifyUserJob do
   use Oban.Worker, queue: :background, max_attempts: 5
 
   alias Cforum.Caching
-  alias Cforum.Accounts.User
+  alias Cforum.Users.User
 
   @impl Oban.Worker
   def perform(%{"user_id" => uid, "value" => value, "action" => action}, _) do
@@ -12,7 +12,7 @@ defmodule Cforum.Jobs.ScoreNotifyUserJob do
         else: %User{user | score: user.score + value}
     end)
 
-    user = Cforum.Accounts.Users.get_user!(uid)
+    user = Cforum.Users.get_user!(uid)
     CforumWeb.Endpoint.broadcast!("users:#{user.user_id}", "score-update", %{value: value, score: user.score})
   end
 

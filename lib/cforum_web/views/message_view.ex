@@ -1,6 +1,6 @@
 defmodule CforumWeb.MessageView do
   use CforumWeb, :view
-  use Cforum.Accounts.Constants
+  use Cforum.Constants
 
   alias Cforum.Threads.Thread
   alias Cforum.Messages.Message

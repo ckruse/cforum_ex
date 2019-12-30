@@ -1,7 +1,7 @@
 defmodule CforumWeb.Admin.BadgeControllerTest do
   use CforumWeb.ConnCase
 
-  alias Cforum.Accounts.Badge
+  alias Cforum.Badges.Badge
 
   describe "index" do
     setup [:setup_login]

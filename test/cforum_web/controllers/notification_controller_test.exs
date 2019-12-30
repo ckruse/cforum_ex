@@ -1,7 +1,8 @@
 defmodule CforumWeb.NotificationControllerTest do
   use CforumWeb.ConnCase
 
-  alias Cforum.Accounts.{Notifications, Notification}
+  alias Cforum.Notifications
+  alias Cforum.Notifications.Notification
 
   setup [:setup_login]
 

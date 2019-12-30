@@ -1,7 +1,7 @@
 <div class="h-card">
   <div class="cf-user-infos">
     <div class="user-info">
-      <%= img_tag Cforum.Accounts.User.avatar_path(@user, :medium), class: "avatar" %>
+      <%= img_tag Cforum.Users.User.avatar_path(@user, :medium), class: "avatar" %>
       <table class="cf-user-info-table">
         <tbody>
           <tr>
@@ -130,7 +130,7 @@
             <% end %>
           </td>
           <td>
-            <% m = Cforum.Accounts.Score.get_message(List.first(s)) %>
+            <% m = Cforum.Scores.Score.get_message(List.first(s)) %>
             <%= if m == nil do %>
               <em>Nachricht wurde gelöscht</em>
             <% else %>

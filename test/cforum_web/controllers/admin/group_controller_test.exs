@@ -1,7 +1,7 @@
 defmodule CforumWeb.Admin.GroupControllerTest do
   use CforumWeb.ConnCase
 
-  alias Cforum.Accounts.Group
+  alias Cforum.Groups.Group
 
   describe "index" do
     setup [:setup_login]

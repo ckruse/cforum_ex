@@ -1,7 +1,7 @@
 defmodule CforumWeb.Views.ViewHelpers.Path do
   @moduledoc "Contains all path helpers"
 
-  alias Cforum.Accounts.PrivMessage
+  alias Cforum.PrivMessages.PrivMessage
 
   alias Cforum.Forums.Forum
   alias Cforum.Threads.Thread

@@ -29,8 +29,8 @@ defmodule CforumWeb.ForumController do
   def index(conn, _params) do
     {priv_messages, notifications} =
       if conn.assigns[:current_user] do
-        {Cforum.Accounts.PrivMessages.list_unread_priv_messages(conn.assigns[:current_user]),
-         Cforum.Accounts.Notifications.list_unread_notifications(conn.assigns[:current_user])}
+        {Cforum.PrivMessages.list_unread_priv_messages(conn.assigns[:current_user]),
+         Cforum.Notifications.list_unread_notifications(conn.assigns[:current_user])}
       else
         {[], []}
       end

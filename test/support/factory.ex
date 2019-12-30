@@ -2,7 +2,7 @@ defmodule Cforum.Factory do
   use ExMachina.Ecto, repo: Cforum.Repo
 
   def user_factory do
-    %Cforum.Accounts.User{
+    %Cforum.Users.User{
       username: sequence("user-"),
       email: sequence(:email, &"user-#{&1}@example.org"),
       confirmed_at: Timex.now(),
@@ -24,7 +24,7 @@ defmodule Cforum.Factory do
   end
 
   def notification_factory do
-    %Cforum.Accounts.Notification{
+    %Cforum.Notifications.Notification{
       is_read: false,
       subject: Faker.Lorem.sentence(%Range{first: 1, last: 10}),
       path: "/foo/bar",
@@ -35,7 +35,7 @@ defmodule Cforum.Factory do
   end
 
   def priv_message_factory do
-    %Cforum.Accounts.PrivMessage{
+    %Cforum.PrivMessages.PrivMessage{
       owner: build(:user),
       is_read: false,
       subject: sequence("Subject "),
@@ -45,7 +45,7 @@ defmodule Cforum.Factory do
     }
   end
 
-  def score_factory, do: %Cforum.Accounts.Score{value: 10, user: build(:user)}
+  def score_factory, do: %Cforum.Scores.Score{value: 10, user: build(:user)}
   def with_negative_score(score), do: %{score | value: -10}
   def with_message(score), do: %{score | message: build(:message)}
   def with_vote(score), do: %{score | vote: build(:vote)}
@@ -60,7 +60,7 @@ defmodule Cforum.Factory do
   end
 
   def badge_factory do
-    %Cforum.Accounts.Badge{
+    %Cforum.Badges.Badge{
       name: sequence("Badge "),
       slug: sequence("slug-"),
       badge_medal_type: "bronze",
@@ -69,7 +69,7 @@ defmodule Cforum.Factory do
     }
   end
 
-  def badge_user_factory, do: %Cforum.Accounts.BadgeUser{badge: build(:badge), user: build(:user)}
+  def badge_user_factory, do: %Cforum.Badges.BadgeUser{badge: build(:badge), user: build(:user)}
 
   def forum_factory do
     %Cforum.Forums.Forum{
@@ -84,14 +84,14 @@ defmodule Cforum.Factory do
 
   def public_forum_factory, do: build(:forum, standard_permission: "write")
 
-  def setting_factory, do: %Cforum.Accounts.Setting{options: %{}}
-  def setting_with_user(setting), do: %Cforum.Accounts.Setting{setting | user: build(:user)}
-  def setting_with_forum(setting), do: %Cforum.Accounts.Setting{setting | forum: build(:forum)}
+  def setting_factory, do: %Cforum.Settings.Setting{options: %{}}
+  def setting_with_user(setting), do: %Cforum.Settings.Setting{setting | user: build(:user)}
+  def setting_with_forum(setting), do: %Cforum.Settings.Setting{setting | forum: build(:forum)}
 
-  def group_factory, do: %Cforum.Accounts.Group{name: sequence("Group ")}
+  def group_factory, do: %Cforum.Groups.Group{name: sequence("Group ")}
 
   def forum_group_permission_factory,
-    do: %Cforum.Accounts.ForumGroupPermission{permission: "read", forum: build(:forum), group: build(:group)}
+    do: %Cforum.Groups.ForumGroupPermission{permission: "read", forum: build(:forum), group: build(:group)}
 
   def thread_factory do
     %Cforum.Threads.Thread{

@@ -6,7 +6,7 @@ defmodule Cforum.Jobs.UserCleanupJob do
 
   alias Cforum.Repo
   alias Cforum.System
-  alias Cforum.Accounts.User
+  alias Cforum.Users.User
 
   @impl Oban.Worker
   def perform(_, _) do

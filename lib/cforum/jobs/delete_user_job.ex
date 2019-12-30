@@ -5,21 +5,21 @@ defmodule Cforum.Jobs.DeleteUserJob do
 
   @impl Oban.Worker
   def perform(%{"user_id" => id, "executing_user_id" => euid}, _) do
-    user = Cforum.Accounts.Users.get_user!(id)
-    current_user = Cforum.Accounts.Users.get_user!(euid)
+    user = Cforum.Users.get_user!(id)
+    current_user = Cforum.Users.get_user!(euid)
 
     delete_user(user, current_user)
   end
 
   def perform(%{"user_id" => id}, _) do
-    user = Cforum.Accounts.Users.get_user!(id)
+    user = Cforum.Users.get_user!(id)
     delete_user(user, nil)
   end
 
   def delete_user(user, current_user) do
     Cforum.System.audited("destroy", current_user, fn -> Repo.delete(user) end, timeout: :infinity)
-    |> Cforum.Accounts.Settings.discard_settings_cache()
-    |> Cforum.Accounts.Users.discard_user_cache()
+    |> Cforum.Settings.discard_settings_cache()
+    |> Cforum.Users.discard_user_cache()
     |> Cforum.Threads.ThreadCaching.refresh_cached_thread()
   end
 

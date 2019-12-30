@@ -2,7 +2,7 @@
   <%= if Abilities.signed_in?(@conn) do %>
     <li id="user-info">
       <%= link(to: Path.user_path(@conn, :show, @current_user), id: "username") do %>
-        <%= img_tag(Cforum.Accounts.User.avatar_path(@current_user, :thumb), class: "avatar", alt: "") %>
+        <%= img_tag(Cforum.Users.User.avatar_path(@current_user, :thumb), class: "avatar", alt: "") %>
         <span class="desc"><%= @current_user.username %></span>
       <% end %>
       <span class="score" title="<%= gettext("%{points} points", points: @current_user.score) %>">(<%= number_to_delimited(@current_user.score, precision: 0) %>)</span>

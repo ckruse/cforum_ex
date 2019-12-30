@@ -13,9 +13,9 @@ defmodule CforumWeb.Api.V1.UserView do
       activity: user.activity,
       created_at: user.created_at,
       avatar: %{
-        thumb: Cforum.Accounts.User.avatar_path(user, :thumb),
-        medium: Cforum.Accounts.User.avatar_path(user, :medium),
-        original: Cforum.Accounts.User.avatar_path(user, :original)
+        thumb: Cforum.Users.User.avatar_path(user, :thumb),
+        medium: Cforum.Users.User.avatar_path(user, :medium),
+        original: Cforum.Users.User.avatar_path(user, :original)
       },
       badges:
         Enum.map(

@@ -57,7 +57,7 @@ defmodule Cforum.Cites do
       iex> count_undecided_cites(%User{})
       0
   """
-  @spec count_undecided_cites(%Cforum.Accounts.User{}) :: integer()
+  @spec count_undecided_cites(%Cforum.Users.User{}) :: integer()
   def count_undecided_cites(user) do
     from(
       cite in Cite,
@@ -200,7 +200,7 @@ defmodule Cforum.Cites do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec delete_cite(%Cforum.Accounts.User{} | nil, %Cite{}) :: {:ok, %Cite{}} | {:error, any()}
+  @spec delete_cite(%Cforum.Users.User{} | nil, %Cite{}) :: {:ok, %Cite{}} | {:error, any()}
   def delete_cite(current_user, %Cite{} = cite) do
     System.audited("destroy", current_user, fn ->
       Repo.delete(cite)
@@ -279,7 +279,7 @@ defmodule Cforum.Cites do
     iex> voted?(%Cite{}, %User{})
     true
   """
-  @spec voted?(%Cite{}, %Cforum.Accounts.User{}) :: boolean()
+  @spec voted?(%Cite{}, %Cforum.Users.User{}) :: boolean()
   def voted?(cite, user) when not is_nil(user),
     do: Enum.find(cite.votes, fn vote -> vote.user_id == user.user_id end) != nil
 
@@ -291,7 +291,7 @@ defmodule Cforum.Cites do
     iex> voted?(%Cite{}, %User{}, :up)
     true
   """
-  @spec voted?(%Cite{}, %Cforum.Accounts.User{}, :up | :down | String.t()) :: boolean()
+  @spec voted?(%Cite{}, %Cforum.Users.User{}, :up | :down | String.t()) :: boolean()
   def voted?(cite, user, type) when not is_nil(user) and type in [:up, :down],
     do: Enum.find(cite.votes, fn vote -> vote.user_id == user.user_id && vote.vote_type == Vote.vtype(type) end) != nil
 
@@ -307,7 +307,7 @@ defmodule Cforum.Cites do
     iex> downvoted?(%Cite{}, %User{})
     false
   """
-  @spec downvoted?(%Cite{}, %Cforum.Accounts.User{} | nil) :: boolean()
+  @spec downvoted?(%Cite{}, %Cforum.Users.User{} | nil) :: boolean()
   def downvoted?(cite, user) when not is_nil(user), do: voted?(cite, user, :down)
   def downvoted?(_, _), do: false
 
@@ -319,7 +319,7 @@ defmodule Cforum.Cites do
     iex> upvoted?(%Cite{}, %User{})
     true
   """
-  @spec upvoted?(%Cite{}, %Cforum.Accounts.User{} | nil) :: boolean()
+  @spec upvoted?(%Cite{}, %Cforum.Users.User{} | nil) :: boolean()
   def upvoted?(cite, user) when not is_nil(user), do: voted?(cite, user, :up)
   def upvoted?(_, _), do: false
 
@@ -331,7 +331,7 @@ defmodule Cforum.Cites do
     iex> take_back_vote(%Cite{}, %User{})
     %Vote{}
   """
-  @spec take_back_vote(%Cite{}, %Cforum.Accounts.User{}) :: nil | %Cite{}
+  @spec take_back_vote(%Cite{}, %Cforum.Users.User{}) :: nil | %Cite{}
   def take_back_vote(cite, user) do
     v = Enum.find(cite.votes, fn vote -> vote.user_id == user.user_id end)
     if v, do: Repo.delete(v)
@@ -347,7 +347,7 @@ defmodule Cforum.Cites do
     iex> vote(%Cite{}, %User{}, "up")
     {:ok, %Vote{}}
   """
-  @spec vote(%Cite{}, %Cforum.Accounts.User{}, :up | :down | String.t()) :: {:ok, %Cite{}} | {:error, %Ecto.Changeset{}}
+  @spec vote(%Cite{}, %Cforum.Users.User{}, :up | :down | String.t()) :: {:ok, %Cite{}} | {:error, %Ecto.Changeset{}}
   def vote(cite, user, type) when type in [:up, :down, "up", "down"] do
     %Vote{}
     |> Vote.changeset(%{cite_id: cite.cite_id, user_id: user.user_id, vote_type: Vote.vtype(type)})

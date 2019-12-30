@@ -1,6 +1,7 @@
 defmodule CforumWeb.Admin.SettingControllerTest do
   use CforumWeb.ConnCase
-  alias Cforum.Accounts.{Setting, Settings}
+  alias Cforum.Settings
+  alias Cforum.Settings.Setting
 
   describe "edit" do
     setup [:setup_login]

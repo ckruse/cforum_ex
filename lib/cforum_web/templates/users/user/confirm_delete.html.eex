@@ -1,4 +1,4 @@
-<%= form_for Cforum.Accounts.User.changeset(@user), Path.user_path(@conn, :delete, @user), [method: :delete], fn _f -> %>
+<%= form_for Cforum.Users.User.changeset(@user), Path.user_path(@conn, :delete, @user), [method: :delete], fn _f -> %>
 
 <p>
   <strong><%= gettext("Caution!") %></strong> <%= gettext("You can't undo the deletion of this account, all data will be irretrievable lost! Are you sure that you wan't to delete the account?") %>

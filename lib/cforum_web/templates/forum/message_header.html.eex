@@ -3,7 +3,7 @@
     <span class="registered-user">
       <span class="visually-hidden"><%= gettext("link to profile of") %></span>
       <%= link(
-            img_tag(Cforum.Accounts.User.avatar_path(@message.user, :thumb), class: "avatar u-photo", alt: gettext("user %{user}", user: @message.user.username)),
+            img_tag(Cforum.Users.User.avatar_path(@message.user, :thumb), class: "avatar u-photo", alt: gettext("user %{user}", user: @message.user.username)),
             to: Path.user_path(@conn, :show, @message.user),
             title: gettext("User %{user}", user: @message.user.username), class: "user-link u-uid u-url"
           ) %>

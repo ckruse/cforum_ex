@@ -24,7 +24,7 @@
       <% end %>
 
       <template>
-        <%= render "permissions.html", Map.merge(assigns, %{f: f, permission: %Cforum.Accounts.ForumGroupPermission{}, index: "__index__"}) %>
+        <%= render "permissions.html", Map.merge(assigns, %{f: f, permission: %Cforum.Groups.ForumGroupPermission{}, index: "__index__"}) %>
       </template>
     </div>
   </fieldset>

@@ -2,13 +2,13 @@ defmodule CforumWeb.UsersChannel do
   use CforumWeb, :channel
   use Appsignal.Instrumentation.Decorators
 
-  alias Cforum.Accounts.User
+  alias Cforum.Users.User
   alias Cforum.Forums
   alias Cforum.ConfigManager
 
   alias Cforum.Messages.ReadMessages
-  alias Cforum.Accounts.Notifications
-  alias Cforum.Accounts.PrivMessages
+  alias Cforum.Notifications
+  alias Cforum.PrivMessages
 
   def join("users:lobby", _payload, socket), do: {:ok, socket}
 

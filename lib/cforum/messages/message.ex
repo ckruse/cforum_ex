@@ -4,7 +4,7 @@ defmodule Cforum.Messages.Message do
   import Ecto.Query, warn: false
 
   alias Cforum.Helpers
-  alias Cforum.Accounts.User
+  alias Cforum.Users.User
   alias Cforum.Messages.Tag
   alias Cforum.Messages.Tags
   alias Cforum.Messages.Tags.MessageTag
@@ -43,9 +43,9 @@ defmodule Cforum.Messages.Message do
 
     belongs_to(:thread, Cforum.Threads.Thread, references: :thread_id)
     belongs_to(:forum, Cforum.Forums.Forum, references: :forum_id)
-    belongs_to(:user, Cforum.Accounts.User, references: :user_id)
+    belongs_to(:user, Cforum.Users.User, references: :user_id)
     belongs_to(:parent, Cforum.Messages.Message, references: :message_id)
-    belongs_to(:editor, Cforum.Accounts.User, references: :user_id)
+    belongs_to(:editor, Cforum.Users.User, references: :user_id)
 
     has_many(:cites, Cforum.Cites.Cite, foreign_key: :message_id, on_delete: :nilify_all)
     has_many(:versions, Cforum.Messages.MessageVersion, foreign_key: :message_id, on_delete: :delete_all)

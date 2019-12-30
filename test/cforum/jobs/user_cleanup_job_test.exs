@@ -1,7 +1,8 @@
 defmodule Cforum.Jobs.UserCleanupJobTest do
   use Cforum.DataCase
 
-  alias Cforum.Accounts.{Users, User}
+  alias Cforum.Users
+  alias Cforum.Users.User
   alias Cforum.Jobs.UserCleanupJob
 
   test "deletes a user after 24 hours when not yet confirmed" do

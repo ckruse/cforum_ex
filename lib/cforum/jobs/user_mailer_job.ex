@@ -1,7 +1,7 @@
 defmodule Cforum.Jobs.UserMailerJob do
   use Oban.Worker, queue: :mails, max_attempts: 5
 
-  alias Cforum.Accounts.Users
+  alias Cforum.Users
 
   @impl Oban.Worker
   def perform(%{"user_id" => id, "type" => "reset_password"}, _) do

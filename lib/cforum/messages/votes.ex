@@ -7,7 +7,7 @@ defmodule Cforum.Messages.Votes do
 
   alias Cforum.Repo
   alias Cforum.Helpers
-  alias Cforum.Accounts.Scores
+  alias Cforum.Scores
   alias Cforum.Messages.Vote
   alias Cforum.Messages
   alias Cforum.Messages.Message

@@ -3,10 +3,12 @@ defmodule Cforum.Jobs.NotifyUsersMessageJob do
 
   import CforumWeb.Gettext
 
+  alias Cforum.Users
   alias Cforum.Messages.Message
   alias Cforum.Messages.MessageHelpers
   alias Cforum.Messages.Subscriptions
-  alias Cforum.Accounts.{Settings, Notifications, Users}
+  alias Cforum.Settings
+  alias Cforum.Notifications
   alias CforumWeb.Views.ViewHelpers.Path
 
   @impl Oban.Worker

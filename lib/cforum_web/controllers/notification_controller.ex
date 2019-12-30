@@ -1,7 +1,7 @@
 defmodule CforumWeb.NotificationController do
   use CforumWeb, :controller
 
-  alias Cforum.Accounts.Notifications
+  alias Cforum.Notifications
 
   alias Cforum.Abilities
   alias Cforum.Helpers

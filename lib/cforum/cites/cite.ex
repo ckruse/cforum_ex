@@ -15,9 +15,9 @@ defmodule Cforum.Cites.Cite do
     field(:old_id, :integer)
     field(:url, :string)
 
-    belongs_to(:user, Cforum.Accounts.User, references: :user_id)
+    belongs_to(:user, Cforum.Users.User, references: :user_id)
     belongs_to(:message, Cforum.Messages.Message, references: :message_id)
-    belongs_to(:creator_user, Cforum.Accounts.User, references: :user_id)
+    belongs_to(:creator_user, Cforum.Users.User, references: :user_id)
 
     has_many(:votes, Cforum.Cites.Vote, foreign_key: :cite_id)
 

@@ -1,6 +1,6 @@
 defmodule CforumWeb.MessageController do
   use CforumWeb, :controller
-  use Cforum.Accounts.Constants
+  use Cforum.Constants
 
   alias Cforum.Abilities
   alias Cforum.Messages

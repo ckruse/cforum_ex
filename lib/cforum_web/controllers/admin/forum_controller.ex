@@ -4,7 +4,7 @@ defmodule CforumWeb.Admin.ForumController do
   alias Cforum.Abilities
   alias Cforum.Forums
   alias Cforum.Forums.Forum
-  alias Cforum.Accounts.Setting
+  alias Cforum.Settings.Setting
 
   def index(conn, _params) do
     forums = Forums.list_forums()

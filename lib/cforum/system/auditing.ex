@@ -10,7 +10,7 @@ defmodule Cforum.System.Auditing do
     field(:relation, :string)
     field(:relid, :integer)
 
-    belongs_to(:user, Cforum.Accounts.User, references: :user_id)
+    belongs_to(:user, Cforum.Users.User, references: :user_id)
 
     timestamps(inserted_at: :created_at, updated_at: false)
   end

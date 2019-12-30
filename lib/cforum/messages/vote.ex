@@ -10,9 +10,9 @@ defmodule Cforum.Messages.Vote do
 
   schema "votes" do
     field(:vtype, :string)
-    belongs_to(:user, Cforum.Accounts.User, references: :user_id)
+    belongs_to(:user, Cforum.Users.User, references: :user_id)
     belongs_to(:message, Cforum.Messages.Message, references: :message_id)
-    has_one(:score, Cforum.Accounts.Score, foreign_key: :vote_id)
+    has_one(:score, Cforum.Scores.Score, foreign_key: :vote_id)
   end
 
   @doc """

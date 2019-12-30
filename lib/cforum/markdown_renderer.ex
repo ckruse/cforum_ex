@@ -12,9 +12,9 @@ defmodule Cforum.MarkdownRenderer do
   alias Cforum.Cites.Cite
   alias Cforum.Events.Event
   alias Cforum.Messages.Message
-  alias Cforum.Accounts.PrivMessage
-  alias Cforum.Accounts.Badge
-  # alias Cforum.Accounts.User
+  alias Cforum.PrivMessages.PrivMessage
+  alias Cforum.Badges.Badge
+  # alias Cforum.Users.User
 
   @max_runs 1000
 

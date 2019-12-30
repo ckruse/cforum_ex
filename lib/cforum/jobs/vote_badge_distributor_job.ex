@@ -4,8 +4,9 @@ defmodule Cforum.Jobs.VoteBadgeDistributorJob do
   alias Cforum.Messages.Vote
   alias Cforum.Messages
   alias Cforum.Messages.MessageHelpers
-  alias Cforum.Accounts.Users
-  alias Cforum.Accounts.{Badges, Badge, BadgeUser}
+  alias Cforum.Users
+  alias Cforum.Badges
+  alias Cforum.Badges.{Badge, BadgeUser}
   alias Cforum.Repo
   alias Cforum.Helpers
 

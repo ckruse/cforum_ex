@@ -1,6 +1,6 @@
 defmodule CforumWeb.ModerationController do
   use CforumWeb, :controller
-  use Cforum.Accounts.Constants
+  use Cforum.Constants
 
   alias Cforum.Threads.Thread
 

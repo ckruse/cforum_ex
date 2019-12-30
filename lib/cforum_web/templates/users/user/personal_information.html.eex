@@ -13,7 +13,7 @@
         <%= url_input @f, :url, placeholder: "http://example.com/" %>
       </div>
 
-      <%= if Cforum.Accounts.Users.badge?(@user, "seo_profi") do %>
+      <%= if Cforum.Users.badge?(@user, "seo_profi") do %>
         <div class="cf-cgroup">
           <label class="checkbox"><%= checkbox @f, :norelnofollow, checked_value: "yes", unchecked_value: "no" %> <%= gettext("remove rel=nofollow from my homepage URL") %></label>
         </div>

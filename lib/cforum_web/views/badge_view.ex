@@ -1,7 +1,7 @@
 defmodule CforumWeb.BadgeView do
   use CforumWeb, :view
 
-  alias Cforum.Accounts.Badges
+  alias Cforum.Badges
 
   alias CforumWeb.Paginator
 

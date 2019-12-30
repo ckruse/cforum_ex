@@ -1,7 +1,7 @@
 defmodule CforumWeb.Users.UserController do
   use CforumWeb, :controller
 
-  alias Cforum.Accounts.Users
+  alias Cforum.Users
 
   alias Cforum.Threads.Thread
 
@@ -11,7 +11,7 @@ defmodule CforumWeb.Users.UserController do
   alias Cforum.Messages.Vote
   alias Cforum.Messages.Votes
 
-  alias Cforum.Accounts.Score
+  alias Cforum.Scores.Score
 
   alias Cforum.Abilities
   alias Cforum.Helpers

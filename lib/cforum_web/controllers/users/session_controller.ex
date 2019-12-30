@@ -2,15 +2,16 @@ defmodule CforumWeb.Users.SessionController do
   use CforumWeb, :controller
 
   alias Cforum.Abilities
-  alias Cforum.Accounts
+  alias Cforum.Users
+  alias Cforum.Users.User
 
   def new(conn, _params) do
-    changeset = Accounts.User.login_changeset(%Accounts.User{})
+    changeset = User.login_changeset(%User{})
     render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"user" => %{"login" => user, "password" => pass, "remember_me" => remember}}) do
-    case Cforum.Accounts.Users.authenticate_user(user, pass) do
+    case Users.authenticate_user(user, pass) do
       {:ok, user} ->
         conn =
           case remember do

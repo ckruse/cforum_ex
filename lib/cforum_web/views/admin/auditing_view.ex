@@ -37,7 +37,7 @@ defmodule CforumWeb.Admin.AuditView do
   end
 
   def score_username(uid) do
-    user = Cforum.Accounts.Users.get_user(uid)
+    user = Cforum.Users.get_user(uid)
     if user == nil, do: gettext("(unknown)"), else: user.username
   end
 

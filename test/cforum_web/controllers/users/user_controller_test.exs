@@ -1,8 +1,8 @@
 defmodule CforumWeb.User.UserControllerTest do
   use CforumWeb.ConnCase
 
-  alias Cforum.Accounts.Users
-  alias Cforum.Accounts.User
+  alias Cforum.Users
+  alias Cforum.Users.User
 
   test "lists all entries on index", %{conn: conn} do
     conn = get(conn, Path.user_path(conn, :index))

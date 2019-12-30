@@ -5,7 +5,7 @@ defmodule Cforum.Jobs.NotifyUsersMessageJobTest do
   import CforumWeb.Gettext
   import Ecto.Query, warn: false
 
-  alias Cforum.Accounts.Notifications
+  alias Cforum.Notifications
 
   alias Cforum.Repo
 
@@ -110,7 +110,7 @@ defmodule Cforum.Jobs.NotifyUsersMessageJobTest do
       Cforum.Jobs.NotifyUsersMessageJob.enqueue(thread, message, "thread")
       assert %{success: 1, failure: 0} == Oban.drain_queue(:background)
 
-      notifications = from(notification in Cforum.Accounts.Notification, select: count()) |> Repo.one()
+      notifications = from(notification in Cforum.Notifications.Notification, select: count()) |> Repo.one()
       assert notifications == 0
     end
 
@@ -120,7 +120,7 @@ defmodule Cforum.Jobs.NotifyUsersMessageJobTest do
       Cforum.Jobs.NotifyUsersMessageJob.enqueue(thread, message, "thread")
       assert %{success: 1, failure: 0} == Oban.drain_queue(:background)
 
-      notifications = from(notification in Cforum.Accounts.Notification, select: count()) |> Repo.one()
+      notifications = from(notification in Cforum.Notifications.Notification, select: count()) |> Repo.one()
       assert notifications == 0
     end
 
@@ -130,7 +130,7 @@ defmodule Cforum.Jobs.NotifyUsersMessageJobTest do
       Cforum.Jobs.NotifyUsersMessageJob.enqueue(thread, message, "thread")
       assert %{success: 1, failure: 0} == Oban.drain_queue(:background)
 
-      notifications = from(notification in Cforum.Accounts.Notification, select: count()) |> Repo.one()
+      notifications = from(notification in Cforum.Notifications.Notification, select: count()) |> Repo.one()
       assert notifications == 1
     end
   end

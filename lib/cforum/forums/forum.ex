@@ -28,8 +28,8 @@ defmodule Cforum.Forums.Forum do
 
     has_many(:threads, Cforum.Threads.Thread, foreign_key: :forum_id)
     has_many(:messages, Cforum.Messages.Message, foreign_key: :forum_id)
-    has_many(:permissions, Cforum.Accounts.ForumGroupPermission, foreign_key: :forum_id)
-    has_one(:setting, Cforum.Accounts.Setting, foreign_key: :forum_id)
+    has_many(:permissions, Cforum.Groups.ForumGroupPermission, foreign_key: :forum_id)
+    has_one(:setting, Cforum.Settings.Setting, foreign_key: :forum_id)
 
     timestamps(inserted_at: :created_at)
   end

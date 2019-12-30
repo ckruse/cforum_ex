@@ -8,7 +8,7 @@ defmodule Cforum.Threads do
   alias Cforum.Repo
   alias Cforum.System
 
-  alias Cforum.Accounts.User
+  alias Cforum.Users.User
 
   alias Cforum.Threads.Thread
   alias Cforum.Threads.InvisibleThread

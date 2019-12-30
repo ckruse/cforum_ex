@@ -4,8 +4,9 @@ defmodule Cforum.ConfigManager do
   increasing specifity
   """
 
-  alias Cforum.Accounts.{Setting, Settings}
-  alias Cforum.Accounts.User
+  alias Cforum.Settings
+  alias Cforum.Settings.Setting
+  alias Cforum.Users.User
   alias Cforum.Forums.Forum
 
   alias Cforum.Helpers
@@ -194,7 +195,7 @@ defmodule Cforum.ConfigManager do
   ## Parameters
 
   - conn_or_user: The `%Plug.Conn{}` struct of the current request or
-    a `%Cforum.Accounts.User{}` struct
+    a `%Cforum.Users.User{}` struct
   - name: The name of the configuration option
   - type: the type we expect; currently only `:int` or `:none` is
     supported. If `:int` is specified, we cast the value with

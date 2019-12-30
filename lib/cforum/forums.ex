@@ -8,8 +8,8 @@ defmodule Cforum.Forums do
 
   alias Cforum.Forums.Forum
   alias Cforum.System
-  alias Cforum.Accounts.User
-  alias Cforum.Accounts.Settings
+  alias Cforum.Users.User
+  alias Cforum.Settings
   alias Cforum.Caching
 
   def discard_forums_cache({:ok, rel}) do
@@ -183,7 +183,7 @@ defmodule Cforum.Forums do
     Enum.filter(forums, &(&1.standard_permission in [Forum.read(), Forum.write()]))
   end
 
-  alias Cforum.Accounts.Groups
+  alias Cforum.Groups
   # admins may view all forums
   defp visible_forums(forums, %User{admin: true}), do: forums
 

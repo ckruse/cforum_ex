@@ -3,13 +3,16 @@ defmodule Cforum.Abilities do
   This module defines all access rights for users in our forum system
   """
 
-  use Cforum.Accounts.Constants
+  use Cforum.Constants
 
   alias Cforum.Forums
   alias Cforum.Helpers
 
-  alias Cforum.Accounts.{Users, User, Groups}
-  alias Cforum.Accounts.{Settings, Setting}
+  alias Cforum.Users
+  alias Cforum.Users.User
+  alias Cforum.Groups
+  alias Cforum.Settings
+  alias Cforum.Settings.Setting
 
   alias Cforum.Messages.MessageHelpers
 
@@ -74,7 +77,7 @@ defmodule Cforum.Abilities do
 
   ## Parameters
 
-  - conn_or_user: either a `%Plug.Conn{}` struct or a `%Cforum.Accounts.User{}` struct
+  - conn_or_user: either a `%Plug.Conn{}` struct or a `%Cforum.Users.User{}` struct
 
   ## Examples
 
@@ -124,7 +127,7 @@ defmodule Cforum.Abilities do
 
   ## Parameters
 
-  - nil_conn_or_user: either a `%Plug.Conn{}` struct or a `%Cforum.Accounts.User{}` struct
+  - nil_conn_or_user: either a `%Plug.Conn{}` struct or a `%Cforum.Users.User{}` struct
   - forum: a `Cforum.Forums.Forum{}` struct; the forum to check if the user may access it
   - permission: one of `:read`, `:write` or `:moderate` (the access level). Defaults to `:read`
 

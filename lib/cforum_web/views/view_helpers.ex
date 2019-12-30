@@ -178,7 +178,7 @@ defmodule CforumWeb.Views.ViewHelpers do
       {:safe, "<span class=\"registered-user "},
       additional_classes,
       {:safe, "\">"},
-      img_tag(Cforum.Accounts.User.avatar_path(user, :thumb), class: "avatar", alt: ""),
+      img_tag(Cforum.Users.User.avatar_path(user, :thumb), class: "avatar", alt: ""),
       user_name,
       {:safe, "</span>"}
     ]

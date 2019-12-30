@@ -14,7 +14,7 @@ defmodule Cforum.Events.Attendee do
     field(:seats, :integer)
 
     belongs_to(:event, Cforum.Events.Event, references: :event_id)
-    belongs_to(:user, Cforum.Accounts.User, references: :user_id)
+    belongs_to(:user, Cforum.Users.User, references: :user_id)
 
     timestamps(inserted_at: :created_at)
   end

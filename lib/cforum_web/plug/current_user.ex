@@ -4,14 +4,14 @@ defmodule CforumWeb.Plug.CurrentUser do
   current user
   """
 
-  alias Cforum.Accounts.Users
+  alias Cforum.Users
   alias Cforum.Helpers
 
   def init(opts), do: opts
 
   def call(conn, _opts) do
     uid = Plug.Conn.get_session(conn, :user_id)
-    current_user = if uid != nil, do: Cforum.Accounts.Users.get_user(uid), else: nil
+    current_user = if uid != nil, do: Cforum.Users.get_user(uid), else: nil
 
     conn
     |> Plug.Conn.assign(:current_user, current_user)

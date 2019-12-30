@@ -9,7 +9,7 @@ defmodule Cforum.Threads.ThreadCaching do
 
   alias Cforum.Messages.Message
 
-  alias Cforum.Accounts.User
+  alias Cforum.Users.User
 
   def cached_threads() do
     Caching.fetch(:cforum, :threads, fn ->

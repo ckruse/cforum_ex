@@ -21,7 +21,7 @@ defmodule Cforum.ModerationQueue.ModerationQueueEntry do
     field(:closer_name, :string)
 
     belongs_to(:message, Cforum.Messages.Message, references: :message_id)
-    belongs_to(:closer, Cforum.Accounts.User, references: :user_id)
+    belongs_to(:closer, Cforum.Users.User, references: :user_id)
 
     timestamps(inserted_at: :created_at)
   end

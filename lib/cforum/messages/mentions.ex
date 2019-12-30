@@ -87,7 +87,7 @@ defmodule Cforum.Messages.Mentions do
   defp find_user(""), do: nil
 
   defp find_user(line) do
-    case Cforum.Accounts.Users.get_user_by_username(line) do
+    case Cforum.Users.get_user_by_username(line) do
       nil ->
         find_user(trim_line_for_username_search(line))
 

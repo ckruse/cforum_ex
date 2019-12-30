@@ -9,13 +9,13 @@ defmodule Cforum.Media.Image do
     field(:filename, :string)
     field(:orig_name, :string)
 
-    belongs_to(:owner, Cforum.Accounts.User, references: :user_id)
+    belongs_to(:owner, Cforum.Users.User, references: :user_id)
 
     timestamps(inserted_at: :created_at)
   end
 
   @doc false
-  @spec changeset(%Cforum.Media.Image{}, %Cforum.Accounts.User{}, %Plug.Upload{}) :: %Ecto.Changeset{}
+  @spec changeset(%Cforum.Media.Image{}, %Cforum.Users.User{}, %Plug.Upload{}) :: %Ecto.Changeset{}
   def changeset(image, user, file) do
     image
     |> cast(%{}, [])

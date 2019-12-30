@@ -61,7 +61,7 @@ defmodule CforumWeb.Messages.VoteControllerTest do
 
   defp setup_tests(%{conn: conn}) do
     user = build(:user) |> as_admin() |> insert
-    Cforum.Accounts.Scores.create_score(%{user_id: user.user_id, value: 1000})
+    Cforum.Scores.create_score(%{user_id: user.user_id, value: 1000})
 
     forum = insert(:public_forum)
     thread = insert(:thread, forum: forum)

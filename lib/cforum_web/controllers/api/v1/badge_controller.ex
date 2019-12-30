@@ -1,7 +1,7 @@
 defmodule CforumWeb.Api.V1.BadgeController do
   use CforumWeb, :controller
 
-  alias Cforum.Accounts.Badges
+  alias Cforum.Badges
 
   def index(conn, _params) do
     badges = Badges.list_badges(preload: [])

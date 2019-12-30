@@ -5,7 +5,7 @@ defmodule Cforum.Threads.InvisibleThread do
   @derive {Phoenix.Param, key: :invisible_thread_id}
 
   schema "invisible_threads" do
-    belongs_to(:user, Cforum.Accounts.User, references: :user_id)
+    belongs_to(:user, Cforum.Users.User, references: :user_id)
     belongs_to(:thread, Cforum.Threads.Thread, references: :thread_id)
   end
 

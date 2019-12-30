@@ -129,7 +129,7 @@ defmodule Cforum.Messages.Tags do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec create_tag(%Cforum.Accounts.User{}, map()) :: {:ok, %Tag{}} | {:error, Ecto.Changeset.t()}
+  @spec create_tag(%Cforum.Users.User{}, map()) :: {:ok, %Tag{}} | {:error, Ecto.Changeset.t()}
   def create_tag(current_user, attrs \\ %{}) do
     System.audited("create", current_user, fn ->
       %Tag{}
@@ -150,7 +150,7 @@ defmodule Cforum.Messages.Tags do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec update_tag(%Cforum.Accounts.User{}, %Tag{}, map()) :: {:ok, %Tag{}} | {:error, Ecto.Changeset.t()}
+  @spec update_tag(%Cforum.Users.User{}, %Tag{}, map()) :: {:ok, %Tag{}} | {:error, Ecto.Changeset.t()}
   def update_tag(current_user, %Tag{} = tag, attrs) do
     System.audited("update", current_user, fn ->
       tag
@@ -171,7 +171,7 @@ defmodule Cforum.Messages.Tags do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec delete_tag(%Cforum.Accounts.User{}, %Tag{}) :: {:ok, %Tag{}}
+  @spec delete_tag(%Cforum.Users.User{}, %Tag{}) :: {:ok, %Tag{}}
   def delete_tag(current_user, %Tag{} = tag) do
     System.audited("destroy", current_user, fn ->
       Repo.delete(tag)
@@ -189,7 +189,7 @@ defmodule Cforum.Messages.Tags do
       {:ok, %Tag{}}
 
   """
-  @spec merge_tag(%Cforum.Accounts.User{}, %Tag{}, %Tag{}) :: {:ok, %Tag{}} | {:error, Ecto.Changeset.t()}
+  @spec merge_tag(%Cforum.Users.User{}, %Tag{}, %Tag{}) :: {:ok, %Tag{}} | {:error, Ecto.Changeset.t()}
   def merge_tag(current_user, %Tag{} = old_tag, %Tag{} = new_tag) do
     System.audited("merge", current_user, fn ->
       from(mtag in "messages_tags", where: mtag.tag_id == ^old_tag.tag_id)

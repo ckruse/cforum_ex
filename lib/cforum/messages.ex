@@ -12,8 +12,8 @@ defmodule Cforum.Messages do
 
   alias Cforum.Messages.Message
 
-  alias Cforum.Accounts.Scores
-  alias Cforum.Accounts.Notifications
+  alias Cforum.Scores
+  alias Cforum.Notifications
 
   alias Cforum.System
 

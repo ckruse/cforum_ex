@@ -3,8 +3,9 @@ defmodule Cforum.Jobs.YearlingBadgeDistributorJob do
 
   alias Cforum.Repo
   alias Cforum.Helpers
-  alias Cforum.Accounts.Users
-  alias Cforum.Accounts.{Badge, Badges}
+  alias Cforum.Users
+  alias Cforum.Badges
+  alias Cforum.Badges.Badge
 
   @impl Oban.Worker
   def perform(_, _) do

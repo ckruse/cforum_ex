@@ -40,7 +40,7 @@ defmodule Cforum.Messages.MessagesUsersTest do
     insert(:vote, user: user, message: message, score: build(:score, message: message, user: user))
     messages = MessagesUsers.list_scored_msgs_for_user_in_perspective(user, nil, [message.forum_id])
     assert length(messages) == 1
-    assert [%Cforum.Accounts.Score{}] = messages
+    assert [%Cforum.Scores.Score{}] = messages
     assert Enum.map(messages, & &1.message_id) == [message.message_id]
   end
 
@@ -57,7 +57,7 @@ defmodule Cforum.Messages.MessagesUsersTest do
     insert(:vote, user: user, message: message, score: build(:score, message: message, user: user, value: -1))
     messages = MessagesUsers.list_scored_msgs_for_user_in_perspective(user, user, [message.forum_id])
     assert length(messages) == 1
-    assert [%Cforum.Accounts.Score{}] = messages
+    assert [%Cforum.Scores.Score{}] = messages
     assert Enum.map(messages, & &1.message_id) == [message.message_id]
   end
 

@@ -1,8 +1,8 @@
 defmodule CforumWeb.MailController do
   use CforumWeb, :controller
 
-  alias Cforum.Accounts.PrivMessage
-  alias Cforum.Accounts.PrivMessages
+  alias Cforum.PrivMessages.PrivMessage
+  alias Cforum.PrivMessages
   alias Cforum.Messages
 
   alias Cforum.Abilities

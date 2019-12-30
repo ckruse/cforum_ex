@@ -2,7 +2,8 @@ defmodule CforumWeb.Admin.SettingController do
   use CforumWeb, :controller
 
   alias Cforum.Abilities
-  alias Cforum.Accounts.{Settings, Setting}
+  alias Cforum.Settings
+  alias Cforum.Settings.Setting
 
   def edit(conn, _params) do
     settings = conn.assigns[:global_config] || %Setting{}

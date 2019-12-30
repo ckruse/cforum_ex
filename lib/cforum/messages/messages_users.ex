@@ -6,8 +6,8 @@ defmodule Cforum.Messages.MessagesUsers do
   alias Cforum.Messages.Tags.MessageTag
   alias Cforum.Messages.Tag
   alias Cforum.Messages.Vote
-  alias Cforum.Accounts.Score
-  alias Cforum.Accounts.User
+  alias Cforum.Scores.Score
+  alias Cforum.Users.User
 
   @doc """
   Returns a list of messages for a user, limited to the forums specified in `forum_ids`

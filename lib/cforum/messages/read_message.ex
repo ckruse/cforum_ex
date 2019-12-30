@@ -5,7 +5,7 @@ defmodule Cforum.Messages.ReadMessage do
   @derive {Phoenix.Param, key: :read_message_id}
 
   schema "read_messages" do
-    belongs_to(:user, Cforum.Accounts.User, references: :user_id)
+    belongs_to(:user, Cforum.Users.User, references: :user_id)
     belongs_to(:message, Cforum.Messages.Message, references: :message_id)
   end
 

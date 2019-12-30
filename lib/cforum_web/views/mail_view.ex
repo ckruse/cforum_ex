@@ -9,7 +9,7 @@ defmodule CforumWeb.MailView do
   alias CforumWeb.Views.ViewHelpers.Path
   alias CforumWeb.ErrorHelpers
 
-  alias Cforum.Accounts.PrivMessages
+  alias Cforum.PrivMessages
 
   def page_heading(action, assigns), do: page_title(action, assigns)
 

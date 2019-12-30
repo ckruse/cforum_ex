@@ -7,8 +7,8 @@ defmodule CforumWeb.Plug.LoadSettings do
   - user settings as `@user_config`/`:user_config`
   """
 
-  alias Cforum.Accounts.Setting
-  alias Cforum.Accounts.Settings
+  alias Cforum.Settings.Setting
+  alias Cforum.Settings
 
   def init(opts), do: opts
 

@@ -2,7 +2,7 @@ defmodule Cforum.Messages.MessageHelpers do
   import Ecto.Query, warn: false
 
   alias Cforum.Messages.Message
-  alias Cforum.Accounts.Users
+  alias Cforum.Users
   alias Cforum.Helpers
 
   @doc """

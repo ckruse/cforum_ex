@@ -4,7 +4,8 @@ defmodule CforumWeb.Plug.UpdateLastVisit do
   current user
   """
 
-  alias Cforum.Accounts.{User, Users}
+  alias Cforum.Users
+  alias Cforum.Users.User
 
   def init(opts), do: opts
 

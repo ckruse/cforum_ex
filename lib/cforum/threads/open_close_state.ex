@@ -6,7 +6,7 @@ defmodule Cforum.Threads.OpenCloseState do
 
   schema "opened_closed_threads" do
     field(:state, :string)
-    belongs_to(:user, Cforum.Accounts.User, references: :user_id)
+    belongs_to(:user, Cforum.Users.User, references: :user_id)
     belongs_to(:thread, Cforum.Threads.Thread, references: :thread_id)
   end
 

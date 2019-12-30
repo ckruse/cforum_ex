@@ -21,7 +21,7 @@ defmodule CforumWeb.Plug.RememberMe do
       token = conn.req_cookies["remember_me"]
 
       with {:ok, uid} <- Phoenix.Token.verify(CforumWeb.Endpoint, "user", token, max_age: 2_592_000),
-           current_user when not is_nil(current_user) <- Cforum.Accounts.Users.get_user(uid) do
+           current_user when not is_nil(current_user) <- Cforum.Users.get_user(uid) do
         conn
         |> Plug.Conn.put_session(:user_id, current_user.user_id)
         |> Plug.Conn.configure_session(renew: true)

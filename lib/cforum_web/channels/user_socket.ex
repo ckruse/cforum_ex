@@ -21,7 +21,7 @@ defmodule CforumWeb.UserSocket do
     # max_age: 2592000 is equivalent to 30 days in seconds
     case Phoenix.Token.verify(socket, "user socket", token, max_age: 2_592_000) do
       {:ok, user_id} ->
-        {:ok, assign(socket, :current_user, Cforum.Accounts.Users.get_user(user_id))}
+        {:ok, assign(socket, :current_user, Cforum.Users.get_user(user_id))}
 
       {:error, _reason} ->
         :error

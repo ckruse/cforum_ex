@@ -5,7 +5,7 @@ defmodule Cforum.Jobs.NewMessageBadgeDistributorJob do
 
   alias Cforum.Repo
   alias Cforum.Helpers
-  alias Cforum.Accounts.{Users, Badges}
+  alias Cforum.{Users, Badges}
   alias Cforum.Messages
   alias Cforum.Messages.Message
   alias Cforum.Messages.Votes

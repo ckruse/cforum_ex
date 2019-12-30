@@ -2,7 +2,8 @@ defmodule CforumWeb.Admin.UserController do
   use CforumWeb, :controller
 
   alias Cforum.Abilities
-  alias Cforum.Accounts.{Users, User}
+  alias Cforum.Users
+  alias Cforum.Users.User
 
   alias CforumWeb.Sortable
   alias CforumWeb.Paginator

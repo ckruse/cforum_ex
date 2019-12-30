@@ -1,6 +1,6 @@
 defmodule CforumWeb.Admin.BadgeView do
   use CforumWeb, :view
-  use Cforum.Accounts.Constants
+  use Cforum.Constants
 
   alias CforumWeb.Views.ViewHelpers
   alias CforumWeb.Views.ViewHelpers.Path

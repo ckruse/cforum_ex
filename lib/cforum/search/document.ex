@@ -23,7 +23,7 @@ defmodule Cforum.Search.Document do
 
     belongs_to(:search_section, Cforum.Search.Section, references: :search_section_id)
     belongs_to(:forum, Cforum.Forums.Forum, references: :forum_id)
-    belongs_to(:user, Cforum.Accounts.User, references: :user_id)
+    belongs_to(:user, Cforum.Users.User, references: :user_id)
   end
 
   @doc false

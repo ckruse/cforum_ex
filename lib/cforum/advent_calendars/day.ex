@@ -9,7 +9,7 @@ defmodule Cforum.AdventCalendars.Day do
     field(:link, :string)
     field(:content, :string)
 
-    belongs_to(:user, Cforum.Accounts.User, references: :user_id)
+    belongs_to(:user, Cforum.Users.User, references: :user_id)
 
     timestamps()
   end
@@ -28,7 +28,7 @@ defmodule Cforum.AdventCalendars.Day do
         changeset
 
       id ->
-        user = Cforum.Accounts.Users.get_user!(id)
+        user = Cforum.Users.get_user!(id)
         put_change(changeset, :author, user.username)
     end
   end

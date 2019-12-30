@@ -2,7 +2,7 @@ defmodule Cforum.Abilities.AuthHelpersTest do
   use Cforum.DataCase
 
   alias Cforum.Abilities
-  alias Cforum.Accounts.User
+  alias Cforum.Users.User
 
   describe "signed_in?/1 and admin?/1" do
     test "signed_in?/1 returns true if a user is signed in" do

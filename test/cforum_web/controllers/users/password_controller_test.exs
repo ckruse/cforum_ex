@@ -1,7 +1,7 @@
 defmodule CforumWeb.Users.PasswordControllerTest do
   use CforumWeb.ConnCase
 
-  alias Cforum.Accounts.Users
+  alias Cforum.Users
 
   test "renders send reset instructions form", %{conn: conn} do
     conn = get(conn, Path.password_path(conn, :new))

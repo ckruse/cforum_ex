@@ -2,8 +2,8 @@ defmodule CforumWeb.Admin.GroupController do
   use CforumWeb, :controller
 
   alias Cforum.Abilities
-  alias Cforum.Accounts.Groups
-  alias Cforum.Accounts.Group
+  alias Cforum.Groups
+  alias Cforum.Groups.Group
 
   def index(conn, _params) do
     groups = Groups.list_groups()
