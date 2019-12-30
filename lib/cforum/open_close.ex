@@ -1,6 +1,6 @@
-defmodule Cforum.Threads.OpenClose do
+defmodule Cforum.OpenClose do
   alias Cforum.Repo
-  alias Cforum.Threads.OpenCloseState
+  alias Cforum.OpenClose.State
 
   def get_open_closed_state(user, thread),
     do: Repo.get_by(OpenCloseState, user_id: user.user_id, thread_id: thread.thread_id)
@@ -11,8 +11,8 @@ defmodule Cforum.Threads.OpenClose do
     if oc != nil && oc.state != "open" do
       Repo.delete(oc)
     else
-      %OpenCloseState{}
-      |> OpenCloseState.changeset(%{user_id: user.user_id, thread_id: thread.thread_id, state: "open"})
+      %State{}
+      |> State.changeset(%{user_id: user.user_id, thread_id: thread.thread_id, state: "open"})
       |> Repo.insert()
     end
   end
@@ -23,8 +23,8 @@ defmodule Cforum.Threads.OpenClose do
     if oc != nil && oc.state != "closed" do
       Repo.delete(oc)
     else
-      %OpenCloseState{}
-      |> OpenCloseState.changeset(%{user_id: user.user_id, thread_id: thread.thread_id, state: "closed"})
+      %State{}
+      |> State.changeset(%{user_id: user.user_id, thread_id: thread.thread_id, state: "closed"})
       |> Repo.insert()
     end
   end

@@ -11,7 +11,7 @@ defmodule Cforum.Threads do
   alias Cforum.Users.User
 
   alias Cforum.Threads.Thread
-  alias Cforum.Threads.InvisibleThread
+  alias Cforum.InvisibleThreads.InvisibleThread
   alias Cforum.Threads.ThreadHelpers
   alias Cforum.Threads.ThreadCaching
 

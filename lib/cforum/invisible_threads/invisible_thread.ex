@@ -1,4 +1,4 @@
-defmodule Cforum.Threads.InvisibleThread do
+defmodule Cforum.InvisibleThreads.InvisibleThread do
   use CforumWeb, :model
 
   @primary_key {:invisible_thread_id, :id, autogenerate: true}

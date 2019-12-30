@@ -3,7 +3,7 @@ defmodule CforumWeb.Api.V1.Threads.InvisibleController do
 
   alias Cforum.Forums
   alias Cforum.Threads
-  alias Cforum.Threads.InvisibleThreads
+  alias Cforum.InvisibleThreads
 
   def hide(conn, _params) do
     InvisibleThreads.hide_thread(conn.assigns[:current_user], conn.assigns.thread)

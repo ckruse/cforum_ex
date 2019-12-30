@@ -3,13 +3,14 @@ defmodule Cforum.Messages.IndexHelper do
 
   alias Cforum.Repo
   alias Cforum.Helpers
-  alias Cforum.Threads.{Thread, OpenCloseState}
+  alias Cforum.Threads.Thread
+  alias Cforum.OpenClose.State, as: OpenCloseState
   alias Cforum.Messages.Message
 
   alias Cforum.Messages.ReadMessage
   alias Cforum.Messages.InterestingMessage
   alias Cforum.Messages.Subscription
-  alias Cforum.Threads.InvisibleThread
+  alias Cforum.InvisibleThreads.InvisibleThread
 
   def preload_messages(true), do: from(m in Message)
   def preload_messages(_), do: from(m in Message, where: m.deleted == false)

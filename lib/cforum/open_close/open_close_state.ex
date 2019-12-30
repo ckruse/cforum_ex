@@ -1,4 +1,4 @@
-defmodule Cforum.Threads.OpenCloseState do
+defmodule Cforum.OpenClose.State do
   use CforumWeb, :model
 
   @primary_key {:opened_closed_thread_id, :id, autogenerate: true}

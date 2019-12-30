@@ -1,10 +1,10 @@
-defmodule Cforum.Threads.InvisibleThreads do
+defmodule Cforum.InvisibleThreads do
   import Ecto.Query, warn: false
 
   alias Cforum.Repo
 
   alias Cforum.Threads.Thread
-  alias Cforum.Threads.InvisibleThread
+  alias Cforum.InvisibleThreads.InvisibleThread
   alias Cforum.Threads.ThreadHelpers
 
   alias Cforum.Messages.Message

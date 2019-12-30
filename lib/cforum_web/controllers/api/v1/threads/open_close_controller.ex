@@ -4,7 +4,7 @@ defmodule CforumWeb.Api.V1.Threads.OpenCloseController do
   alias Cforum.Abilities
   alias Cforum.Forums
   alias Cforum.Threads
-  alias Cforum.Threads.OpenClose
+  alias Cforum.OpenClose
   alias Cforum.ConfigManager
 
   def open(conn, _params) do

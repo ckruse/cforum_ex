@@ -3,7 +3,7 @@ defmodule CforumWeb.Threads.OpenCloseController do
 
   alias Cforum.Abilities
   alias Cforum.Threads
-  alias Cforum.Threads.OpenClose
+  alias Cforum.OpenClose
   alias Cforum.Threads.ThreadHelpers
   alias CforumWeb.Views.ViewHelpers.ReturnUrl
 

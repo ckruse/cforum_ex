@@ -6,7 +6,7 @@ defmodule Cforum.Messages.ReadMessages do
   alias Cforum.Repo
   alias Cforum.Messages.Message
   alias Cforum.Messages.ReadMessage
-  alias Cforum.Threads.InvisibleThread
+  alias Cforum.InvisibleThreads.InvisibleThread
 
   @doc """
   Marks a single message or list of messages as read

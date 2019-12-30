@@ -3,7 +3,7 @@ defmodule CforumWeb.Threads.InvisibleController do
 
   alias Cforum.Abilities
   alias Cforum.Threads
-  alias Cforum.Threads.InvisibleThreads
+  alias Cforum.InvisibleThreads
   alias Cforum.Threads.ThreadHelpers
   alias Cforum.ConfigManager
 
