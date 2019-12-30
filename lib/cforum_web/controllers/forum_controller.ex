@@ -37,7 +37,7 @@ defmodule CforumWeb.ForumController do
 
     all_threads =
       Threads.list_threads(nil, conn.assigns[:visible_forums])
-      |> Threads.reject_deleted_threads()
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all], true)
       |> Threads.reject_invisible_threads(conn.assigns[:current_user])
 
     {latest_threads, newest_thread} = Stats.threads_for_overview(conn.assigns[:current_user], all_threads)

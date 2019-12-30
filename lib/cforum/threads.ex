@@ -47,19 +47,20 @@ defmodule Cforum.Threads do
   Rejects deleted message based on a boolean parameter
   """
 
-  def reject_deleted_threads(threads, view_all \\ false)
-  def reject_deleted_threads(threads, true), do: threads
+  def reject_deleted_threads(threads, view_all \\ false, reject_with_reason \\ false)
+  def reject_deleted_threads(threads, true, _), do: threads
 
-  def reject_deleted_threads(nil, _), do: nil
+  def reject_deleted_threads(nil, _, _), do: nil
 
-  def reject_deleted_threads(%Thread{} = thread, view_all) do
-    reject_deleted_threads([thread], view_all)
+  def reject_deleted_threads(%Thread{} = thread, view_all, reject_with_reason) do
+    reject_deleted_threads([thread], view_all, reject_with_reason)
     |> List.first()
   end
 
-  def reject_deleted_threads(threads, _) do
+  def reject_deleted_threads(threads, _, reject_with_reason) do
     Enum.reduce(threads, [], fn thread, list ->
-      thread = Map.put(thread, :messages, Enum.reject(thread.messages, &MessageHelpers.message_deleted?/1))
+      messages = Enum.reject(thread.messages, &MessageHelpers.message_deleted?(&1, reject_with_reason))
+      thread = Map.put(thread, :messages, messages)
 
       [thread | list]
     end)

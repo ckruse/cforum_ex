@@ -195,5 +195,7 @@ defmodule Cforum.Messages.MessageHelpers do
     end
   end
 
-  def message_deleted?(msg), do: msg.deleted == true && Helpers.blank?(msg.flags["reason"])
+  def message_deleted?(msg, reject_with_reason \\ false)
+  def message_deleted?(msg, false), do: msg.deleted == true && Helpers.blank?(msg.flags["reason"])
+  def message_deleted?(msg, _), do: msg.deleted == true
 end
