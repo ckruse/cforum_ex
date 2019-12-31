@@ -41,7 +41,9 @@ defmodule Cforum.Threads.ThreadHelpers do
   # falling back to "newest-first" for all other cases
   def valid_ordering(_), do: [desc: :latest_message]
 
-  def set_view_all(q, false), do: from(m in q, where: m.deleted == false)
+  def set_view_all(q, false),
+    do: from(m in q, where: m.deleted == false or (m.deleted == true and not is_nil(fragment("?->>'reason'", m.flags))))
+
   def set_view_all(q, true), do: q
 
   def set_forum_id(q, visible_forums, nil) do
