@@ -27,6 +27,7 @@ defmodule CforumWeb.ConnCase do
       import Cforum.Factory
 
       alias CforumWeb.Views.ViewHelpers.Path
+      alias CforumWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
       @endpoint CforumWeb.Endpoint
