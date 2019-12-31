@@ -74,6 +74,24 @@ defmodule CforumWeb.Threads.InvisibleController do
     |> redirect(to: ReturnUrl.return_path(conn, params, thread))
   end
 
+  def load_resource(conn) do
+    case action_name(conn) do
+      :index ->
+        conn
+
+      _ ->
+        thread =
+          conn.assigns[:current_forum]
+          |> Threads.get_thread_by_slug!(conn.assigns[:visible_forums], ThreadHelpers.slug_from_params(conn.params))
+          |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+          |> Threads.ensure_found!()
+          |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close], include: [:invisible])
+          |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
+
+        Plug.Conn.assign(conn, :thread, thread)
+    end
+  end
+
   def allowed?(conn, :unhide, thread), do: (thread || conn.assigns[:thread]).attribs[:invisible] == true
   def allowed?(conn, :hide, thread), do: (thread || conn.assigns[:thread]).attribs[:invisible] != true
   def allowed?(conn, _, _), do: Abilities.signed_in?(conn)
