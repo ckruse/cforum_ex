@@ -71,7 +71,7 @@ defmodule CforumWeb.Threads.InvisibleController do
 
     conn
     |> put_flash(:info, gettext("Thread has successfully been restored."))
-    |> redirect(to: Path.thread_path(conn, :index))
+    |> redirect(to: ReturnUrl.return_path(conn, params, thread))
   end
 
   def allowed?(conn, :unhide, thread), do: (thread || conn.assigns[:thread]).attribs[:invisible] == true
