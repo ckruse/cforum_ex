@@ -183,11 +183,8 @@ defmodule CforumWeb.MessageController do
       do: raise(Cforum.Errors.NotFoundError, conn: conn)
 
     thread =
-      Threads.get_thread_by_slug!(
-        conn.assigns[:current_forum],
-        conn.assigns[:visible_forums],
-        ThreadHelpers.slug_from_params(params)
-      )
+      conn.assigns[:current_forum]
+      |> Threads.get_thread_by_slug!(conn.assigns[:visible_forums], ThreadHelpers.slug_from_params(params))
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.ensure_found!()
       |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close], include: [:invisible])
