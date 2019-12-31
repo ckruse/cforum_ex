@@ -5,7 +5,7 @@ defmodule CforumWeb.Api.V1.Messages.SubscriptionController do
   alias Cforum.Forums
   alias Cforum.Threads
   alias Cforum.Messages
-  alias Cforum.Messages.Subscriptions
+  alias Cforum.Subscriptions
   alias Cforum.ConfigManager
 
   def subscribe(conn, _params) do

@@ -3,7 +3,7 @@ defmodule Cforum.OpenClose do
   alias Cforum.OpenClose.State
 
   def get_open_closed_state(user, thread),
-    do: Repo.get_by(OpenCloseState, user_id: user.user_id, thread_id: thread.thread_id)
+    do: Repo.get_by(State, user_id: user.user_id, thread_id: thread.thread_id)
 
   def open_thread(user, thread) do
     oc = get_open_closed_state(user, thread)

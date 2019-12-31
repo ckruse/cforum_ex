@@ -1,12 +1,12 @@
-defmodule Cforum.Messages.Subscription do
+defmodule Cforum.Subscriptions.Subscription do
   use CforumWeb, :model
 
   @primary_key {:subscription_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :subscription_id}
 
   schema "subscriptions" do
-    belongs_to(:user, Cforum.Users.User, references: :user_id)
-    belongs_to(:message, Cforum.Messages.Message, references: :message_id)
+    field(:user_id, :id)
+    field(:message_id, :id)
   end
 
   @doc """

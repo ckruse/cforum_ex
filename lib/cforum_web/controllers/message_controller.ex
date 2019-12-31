@@ -4,7 +4,7 @@ defmodule CforumWeb.MessageController do
 
   alias Cforum.Abilities
   alias Cforum.Messages
-  alias Cforum.Messages.Subscriptions
+  alias Cforum.Subscriptions
   alias Cforum.Messages.MessageHelpers
   alias Cforum.Messages.ReadMessages
 

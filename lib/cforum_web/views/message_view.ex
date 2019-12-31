@@ -4,7 +4,7 @@ defmodule CforumWeb.MessageView do
 
   alias Cforum.Threads.Thread
   alias Cforum.Messages.Message
-  alias Cforum.Messages.Subscriptions
+  alias Cforum.Subscriptions
   alias Cforum.Messages.MessageHelpers
 
   alias CforumWeb.VotingAreaView

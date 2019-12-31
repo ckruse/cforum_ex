@@ -28,7 +28,7 @@ defmodule Cforum.Messages do
   alias Cforum.Jobs.NewMessageBadgeDistributorJob
 
   alias Cforum.Messages.Mentions
-  alias Cforum.Messages.Subscriptions
+  alias Cforum.Subscriptions
   alias Cforum.Messages.MessageHelpers
   alias Cforum.Messages.MessageVersions
   alias Cforum.Messages.MessageCaching

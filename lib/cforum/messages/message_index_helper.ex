@@ -9,7 +9,7 @@ defmodule Cforum.Messages.IndexHelper do
 
   alias Cforum.Messages.ReadMessage
   alias Cforum.Messages.InterestingMessage
-  alias Cforum.Messages.Subscription
+  alias Cforum.Subscriptions.Subscription
   alias Cforum.InvisibleThreads.InvisibleThread
 
   def preload_messages(true), do: from(m in Message)
@@ -33,7 +33,8 @@ defmodule Cforum.Messages.IndexHelper do
   defp get_subcribed_messages(tids, user) do
     from(
       im in Subscription,
-      inner_join: m in assoc(im, :message),
+      inner_join: m in Message,
+      on: m.message_id == im.message_id,
       where: im.user_id == ^user.user_id and m.thread_id in ^tids,
       order_by: m.thread_id
     )

@@ -6,7 +6,7 @@ defmodule CforumWeb.Messages.SubscriptionController do
   alias Cforum.Threads.ThreadHelpers
 
   alias Cforum.Messages
-  alias Cforum.Messages.Subscriptions
+  alias Cforum.Subscriptions
 
   alias Cforum.Search
   alias Cforum.Search.Finder

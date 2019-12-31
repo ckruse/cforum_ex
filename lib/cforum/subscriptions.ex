@@ -1,10 +1,10 @@
-defmodule Cforum.Messages.Subscriptions do
+defmodule Cforum.Subscriptions do
   import Ecto.Query, warn: false
 
   alias Cforum.Repo
   alias Cforum.Messages.Message
   alias Cforum.Messages.MessageHelpers
-  alias Cforum.Messages.Subscription
+  alias Cforum.Subscriptions.Subscription
   alias Cforum.Messages.Tag
 
   @doc """

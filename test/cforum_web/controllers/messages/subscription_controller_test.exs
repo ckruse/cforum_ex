@@ -3,7 +3,7 @@ defmodule CforumWeb.Messages.SubscriptionControllerTest do
 
   setup [:setup_tests]
 
-  alias Cforum.Messages.Subscriptions
+  alias Cforum.Subscriptions
 
   describe "listing" do
     test "lists all subscribed messages", %{conn: conn, user: user, message: message} do

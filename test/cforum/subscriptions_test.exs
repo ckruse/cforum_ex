@@ -1,10 +1,10 @@
-defmodule Cforum.Messages.SubscriptionsTest do
+defmodule Cforum.SubscriptionsTest do
   use Cforum.DataCase
 
-  alias Cforum.Messages.Subscriptions
+  alias Cforum.Subscriptions
   alias Cforum.Messages.Message
   alias Cforum.Threads
-  alias Cforum.Messages.Subscription
+  alias Cforum.Subscriptions.Subscription
 
   setup do
     user = insert(:user)

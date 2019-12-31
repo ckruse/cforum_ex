@@ -6,7 +6,7 @@ defmodule Cforum.Jobs.NotifyUsersMessageJob do
   alias Cforum.Users
   alias Cforum.Messages.Message
   alias Cforum.Messages.MessageHelpers
-  alias Cforum.Messages.Subscriptions
+  alias Cforum.Subscriptions
   alias Cforum.Settings
   alias Cforum.Notifications
   alias CforumWeb.Views.ViewHelpers.Path

@@ -7,7 +7,7 @@ defmodule CforumWeb.ThreadController do
 
   alias Cforum.Threads.ThreadHelpers
   alias Cforum.Messages.MessageHelpers
-  alias Cforum.Messages.Subscriptions
+  alias Cforum.Subscriptions
   alias Cforum.ConfigManager
 
   alias CforumWeb.Paginator
