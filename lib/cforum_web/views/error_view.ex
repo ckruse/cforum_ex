@@ -17,6 +17,10 @@ defmodule CforumWeb.ErrorView do
     )
   end
 
+  def render("404.json", _assigns) do
+    %{"status" => "error", "error" => "not found"}
+  end
+
   def render("403.html", assigns) do
     ViewHelpers.l10n_render(
       CforumWeb.ErrorView,
@@ -28,6 +32,10 @@ defmodule CforumWeb.ErrorView do
     )
   end
 
+  def render("403.json", _assigns) do
+    %{"status" => "error", "error" => "access forbidden"}
+  end
+
   def render("500.html", assigns) do
     ViewHelpers.l10n_render(
       CforumWeb.ErrorView,
@@ -37,6 +45,10 @@ defmodule CforumWeb.ErrorView do
         %{layout: {CforumWeb.LayoutView, "error.html"}, title: gettext("internal server error")}
       )
     )
+  end
+
+  def render("500.json", _assigns) do
+    %{"status" => "error", "error" => "internal error"}
   end
 
   # In case no render clause matches or no
