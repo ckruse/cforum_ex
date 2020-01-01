@@ -250,8 +250,14 @@ defmodule Cforum.Search.Finder do
   defp add_sections({selects, conditions, order, args, args_cnt}, sections),
     do: {selects, conditions ++ ["search_section_id = ANY($#{args_cnt + 1})"], order, args ++ [sections], args_cnt + 1}
 
+  defp add_start_date({selects, conditions, order, args, args_cnt}, nil),
+    do: {selects, conditions, order, args, args_cnt}
+
   defp add_start_date({selects, conditions, order, args, args_cnt}, start_date),
     do: {selects, conditions ++ ["document_created >= $#{args_cnt + 1}"], order, args ++ [start_date], args_cnt + 1}
+
+  defp add_end_date({selects, conditions, order, args, args_cnt}, nil),
+    do: {selects, conditions, order, args, args_cnt}
 
   defp add_end_date({selects, conditions, order, args, args_cnt}, end_date),
     do: {selects, conditions ++ ["document_created <= $#{args_cnt + 1}"], order, args ++ [end_date], args_cnt + 1}
@@ -328,12 +334,20 @@ defmodule Cforum.Search.Finder do
     Enum.join(includes ++ excludes, " & ")
   end
 
-  @spec date_from_changeset(Ecto.Changeset.t(), atom(), (DateTime.t() -> DateTime.t())) :: DateTime.t()
+  @spec date_from_changeset(Ecto.Changeset.t(), atom(), (DateTime.t() -> DateTime.t())) :: DateTime.t() | nil
   defp date_from_changeset(changeset, name, rounding \\ &Timex.beginning_of_day/1) do
-    changeset
-    |> Ecto.Changeset.get_field(name)
-    |> Timex.to_datetime()
-    |> rounding.()
+    case Ecto.Changeset.get_field(changeset, name) do
+      nil ->
+        nil
+
+      "" ->
+        nil
+
+      value ->
+        value
+        |> Timex.to_datetime()
+        |> rounding.()
+    end
   end
 
   @spec ts_term(String.t(), String.t()) :: String.t()
