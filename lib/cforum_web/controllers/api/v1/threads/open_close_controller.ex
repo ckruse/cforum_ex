@@ -21,7 +21,8 @@ defmodule CforumWeb.Api.V1.Threads.OpenCloseController do
     forum = Forums.get_forum_by_slug(conn.params["forum"])
 
     thread =
-      Threads.get_thread_by_slug!(forum, conn.assigns[:visible_forums], conn.params["slug"])
+      forum
+      |> Threads.get_thread_by_slug!(conn.assigns[:visible_forums], conn.params["slug"])
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.ensure_found!()
 
@@ -34,7 +35,8 @@ defmodule CforumWeb.Api.V1.Threads.OpenCloseController do
 
   def render_thread(conn) do
     thread =
-      Threads.get_thread_by_slug!(conn.assigns.current_forum, conn.assigns.visible_forums, conn.params["slug"])
+      conn.assigns.current_forum
+      |> Threads.get_thread_by_slug!(conn.assigns.visible_forums, conn.params["slug"])
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.ensure_found!()
       |> Threads.apply_user_infos(conn.assigns.current_user,
