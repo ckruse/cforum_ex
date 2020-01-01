@@ -5,8 +5,8 @@ defmodule Cforum.Subscriptions.Subscription do
   @derive {Phoenix.Param, key: :subscription_id}
 
   schema "subscriptions" do
-    field(:user_id, :id)
-    field(:message_id, :id)
+    belongs_to(:user, Cforum.Users.User, references: :user_id)
+    belongs_to(:message, Cforum.Messages.Message, references: :message_id)
   end
 
   @doc """
