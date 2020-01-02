@@ -14,7 +14,7 @@ class LivePreview extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.content !== this.props.content && window.MathJax) {
+    if (prevProps.content !== this.props.content && window.MathJax && window.MathJax.Hub) {
       window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub]);
     }
   }
