@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -e
+
+latest_version=$(git tag | sort -rV |  head -1)
+HOST=$1
+VERSION=$2
+DIR=/home/ckruse
+
+HOST="${HOST:=quirm.selfhtml.org}"
+VERSION="${VERSION:=$latest_version}"
+key=$(cat .build/secrets/api.key)
+
+if [[ ! -f  .build/releases/cforum-$VERSION.tar.gz ]]; then
+    echo "release $VERSION could not be found!"
+    exit 1
+fi
+
+scp .build/releases/cforum-$VERSION.tar.gz $HOST:$DIR/cforum
+ssh $HOST "cd $DIR/cforum && tar -xf cforum-$VERSION.tar.gz && cp -r cforum-$VERSION/* . || exit 0"
+ssh $HOST "cd $DIR/cfmarkdown && git pull"
+
+ssh root@$HOST "systemctl restart cforum"
+
+echo "waiting 5 seconds for the release to start up"
+sleep 5
+
+ssh $HOST "cd $DIR/cforum && ./bin/cforum rpc 'Cforum.Release.migrate'"
+ssh $HOST "cd $DIR/cforum && rm -rf cforum-$VERSION.tar.gz cforum-$VERSION/"
+
+curl -X POST -d "{\"revision\": \"$VERSION\", \"user\": \"ckruse\"}" "https://push.appsignal.com/1/markers?api_key=${key}&name=SELFHTML+Forum+V5&environment=prod" >/dev/null
+
