@@ -37,8 +37,8 @@ fi
 $SSH "mix local.hex --force && mix local.rebar --force"
 $SSH "mix hex.organization auth oban --key $OBAN_KEY"
 $SSH '[[ ! -d build.git ]] && git init --bare build.git || exit 0'
-git push --all ssh://builder@builder/home/builder/build.git
-git push --tags ssh://builder@builder/home/builder/build.git
+git push --force --all ssh://builder@builder/home/builder/build.git
+git push --force --tags ssh://builder@builder/home/builder/build.git
 $SSH "rm -rf src && git clone ~/build.git src && cd src && git checkout $VERSION"
 
 scp .build/secrets/prod.$HOST.exs builder@builder:~/src/config/prod.exs
