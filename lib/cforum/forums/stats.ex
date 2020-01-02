@@ -180,7 +180,7 @@ defmodule Cforum.Forums.Stats do
   defp preload_tags(tags) do
     records =
       Enum.map(tags, fn {tag_id, _} -> tag_id end)
-      |> Cforum.Messages.Tags.get_tags_by_ids()
+      |> Cforum.Tags.get_tags_by_ids()
 
     Enum.reduce(tags, [], fn {tag_id, cnt}, acc ->
       tag = Enum.find(records, &(&1.tag_id == tag_id))

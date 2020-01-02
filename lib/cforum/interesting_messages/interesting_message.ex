@@ -1,4 +1,4 @@
-defmodule Cforum.Messages.InterestingMessage do
+defmodule Cforum.InterestingMessages.InterestingMessage do
   use CforumWeb, :model
 
   @primary_key {:interesting_message_id, :id, autogenerate: true}

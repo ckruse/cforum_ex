@@ -1,4 +1,4 @@
-defmodule Cforum.Messages.Tags.MessageTag do
+defmodule Cforum.MessagesTags.MessageTag do
   use CforumWeb, :model
 
   @primary_key {:message_tag_id, :id, autogenerate: true}
@@ -6,7 +6,7 @@ defmodule Cforum.Messages.Tags.MessageTag do
 
   schema "messages_tags" do
     belongs_to(:message, Cforum.Messages.Message, references: :message_id)
-    belongs_to(:tag, Cforum.Messages.Tag, references: :tag_id)
+    belongs_to(:tag, Cforum.Tags.Tag, references: :tag_id)
   end
 
   @doc """

@@ -1,7 +1,8 @@
 defmodule Cforum.Jobs.VoteBadgeDistributorJob do
   use Oban.Worker, queue: :background, max_attempts: 5
 
-  alias Cforum.Messages.Vote
+  alias Cforum.Votes
+  alias Cforum.Votes.Vote
   alias Cforum.Messages
   alias Cforum.Messages.MessageHelpers
   alias Cforum.Users
@@ -19,7 +20,7 @@ defmodule Cforum.Jobs.VoteBadgeDistributorJob do
   end
 
   def perform(%{"vote_id" => id}, _) do
-    vote = Messages.Votes.get_vote!(id)
+    vote = Votes.get_vote!(id)
     user = Users.get_user!(vote.user_id)
     message = Messages.get_message!(vote.message_id, view_all: true)
 

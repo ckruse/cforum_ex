@@ -1,8 +1,8 @@
-defmodule Cforum.Messages.MessagesTagsTest do
+defmodule Cforum.MessagesTagsTest do
   use Cforum.DataCase
 
   alias Cforum.Messages.Message
-  alias Cforum.Messages.MessagesTags
+  alias Cforum.MessagesTags
 
   setup do
     user = insert(:user)

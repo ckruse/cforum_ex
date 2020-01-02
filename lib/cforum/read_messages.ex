@@ -1,11 +1,11 @@
-defmodule Cforum.Messages.ReadMessages do
+defmodule Cforum.ReadMessages do
   use Appsignal.Instrumentation.Decorators
 
   import Ecto.Query, warn: false
 
   alias Cforum.Repo
   alias Cforum.Messages.Message
-  alias Cforum.Messages.ReadMessage
+  alias Cforum.ReadMessages.ReadMessage
   alias Cforum.InvisibleThreads.InvisibleThread
 
   @doc """

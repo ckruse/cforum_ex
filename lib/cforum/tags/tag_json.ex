@@ -1,4 +1,4 @@
-defimpl Jason.Encoder, for: Cforum.Messages.Tag do
+defimpl Jason.Encoder, for: Cforum.Tags.Tag do
   def encode(tag, options) do
     Jason.Encode.map(
       %{

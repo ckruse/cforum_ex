@@ -5,9 +5,9 @@ defmodule Cforum.Messages.Message do
 
   alias Cforum.Helpers
   alias Cforum.Users.User
-  alias Cforum.Messages.Tag
-  alias Cforum.Messages.Tags
-  alias Cforum.Messages.Tags.MessageTag
+  alias Cforum.Tags.Tag
+  alias Cforum.Tags
+  alias Cforum.MessagesTags.MessageTag
 
   @primary_key {:message_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :message_id}
@@ -56,7 +56,7 @@ defmodule Cforum.Messages.Message do
       on_replace: :delete
     )
 
-    has_many(:votes, Cforum.Messages.Vote, foreign_key: :message_id)
+    has_many(:votes, Cforum.Votes.Vote, foreign_key: :message_id)
 
     timestamps(inserted_at: :created_at)
   end

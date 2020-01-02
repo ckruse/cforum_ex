@@ -2,7 +2,7 @@ defmodule CforumWeb.VotingAreaView do
   use CforumWeb, :view
 
   alias Cforum.Messages.MessageHelpers
-  alias Cforum.Messages.Votes
+  alias Cforum.Votes
 
   alias Cforum.Abilities
 

@@ -9,7 +9,7 @@ defmodule CforumWeb.Plug.LoadUserInfoData do
   alias Cforum.Notifications
   alias Cforum.PrivMessages
   alias Cforum.Forums
-  alias Cforum.Messages.ReadMessages
+  alias Cforum.ReadMessages
   alias Cforum.ModerationQueue
   alias Cforum.Cites
 

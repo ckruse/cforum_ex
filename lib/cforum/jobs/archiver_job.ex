@@ -7,7 +7,8 @@ defmodule Cforum.Jobs.ArchiverJob do
   alias Cforum.Threads.Thread
   alias Cforum.OpenClose.State, as: OpenCloseState
   alias Cforum.InvisibleThreads.InvisibleThread
-  alias Cforum.Messages.{Message, ReadMessage}
+  alias Cforum.Messages.Message
+  alias Cforum.ReadMessages.ReadMessage
   alias Cforum.Subscriptions.Subscription
   alias Cforum.System
   alias Cforum.Caching

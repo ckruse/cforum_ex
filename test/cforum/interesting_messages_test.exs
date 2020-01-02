@@ -1,8 +1,8 @@
-defmodule Cforum.Messages.InterestingMessagesTest do
+defmodule Cforum.InterestingMessagesTest do
   use Cforum.DataCase
 
-  alias Cforum.Messages.InterestingMessages
-  alias Cforum.Messages.InterestingMessage
+  alias Cforum.InterestingMessages
+  alias Cforum.InterestingMessages.InterestingMessage
   alias Cforum.Messages.Message
 
   setup do

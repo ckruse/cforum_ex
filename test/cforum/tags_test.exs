@@ -1,7 +1,9 @@
-defmodule Cforum.Messages.TagsTest do
+defmodule Cforum.TagsTest do
   use Cforum.DataCase
 
-  alias Cforum.Messages.{Tags, Tag, TagSynonym, MessagesTags}
+  alias Cforum.Tags
+  alias Cforum.Tags.{Tag, Synonym}
+  alias Cforum.MessagesTags
 
   describe "tags" do
     test "list_tags/2 lists all tags for one forum" do
@@ -121,7 +123,7 @@ defmodule Cforum.Messages.TagsTest do
     test "create_tag_synonym/3 with valid data creates a tag synonym" do
       tag = insert(:tag)
       attrs = params_for(:tag_synonym)
-      assert {:ok, %TagSynonym{} = tag} = Tags.create_tag_synonym(nil, tag, attrs)
+      assert {:ok, %Synonym{} = tag} = Tags.create_tag_synonym(nil, tag, attrs)
       assert tag.synonym == attrs[:synonym]
       assert tag.tag_id == tag.tag_id
     end
@@ -135,7 +137,7 @@ defmodule Cforum.Messages.TagsTest do
       tag = insert(:tag)
       synonym = insert(:tag_synonym, tag: tag)
       assert {:ok, tag_synonym} = Tags.update_tag_synonym(nil, tag, synonym, %{synonym: "foo"})
-      assert %TagSynonym{} = tag_synonym
+      assert %Synonym{} = tag_synonym
 
       assert tag_synonym.synonym == "foo"
       assert tag_synonym.tag_id == synonym.tag_id
@@ -157,7 +159,7 @@ defmodule Cforum.Messages.TagsTest do
       tag = insert(:tag)
       synonym = insert(:tag_synonym, tag: tag)
 
-      assert {:ok, %TagSynonym{}} = Tags.delete_tag_synonym(nil, synonym)
+      assert {:ok, %Synonym{}} = Tags.delete_tag_synonym(nil, synonym)
       assert_raise Ecto.NoResultsError, fn -> Tags.get_tag_synonym!(tag, synonym.tag_synonym_id) end
     end
 

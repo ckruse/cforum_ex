@@ -4,7 +4,7 @@ defmodule CforumWeb.Api.V1.Messages.VoteController do
   alias Cforum.Forums
   alias Cforum.Threads
   alias Cforum.Messages
-  alias Cforum.Messages.Votes
+  alias Cforum.Votes
   alias Cforum.ConfigManager
 
   def upvote(conn, params) do

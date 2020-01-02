@@ -1,4 +1,4 @@
-defmodule Cforum.Messages.Tag do
+defmodule Cforum.Tags.Tag do
   use CforumWeb, :model
 
   alias Ecto.Changeset
@@ -12,12 +12,12 @@ defmodule Cforum.Messages.Tag do
     field(:num_messages, :integer)
     field(:suggest, :boolean, default: false)
 
-    has_many(:synonyms, Cforum.Messages.TagSynonym, foreign_key: :tag_id)
+    has_many(:synonyms, Cforum.Tags.Synonym, foreign_key: :tag_id)
 
     many_to_many(
       :messages,
       Cforum.Messages.Message,
-      join_through: Cforum.Messages.Tags.MessageTag,
+      join_through: Cforum.MessagesTags.MessageTag,
       join_keys: [tag_id: :tag_id, message_id: :message_id]
     )
   end

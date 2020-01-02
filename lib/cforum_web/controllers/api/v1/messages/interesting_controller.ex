@@ -5,7 +5,7 @@ defmodule CforumWeb.Api.V1.Messages.InterestingController do
   alias Cforum.Forums
   alias Cforum.Threads
   alias Cforum.Messages
-  alias Cforum.Messages.InterestingMessages
+  alias Cforum.InterestingMessages
   alias Cforum.ConfigManager
 
   def interesting(conn, _params) do

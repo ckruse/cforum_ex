@@ -1,4 +1,4 @@
-defmodule Cforum.Messages.TagSynonym do
+defmodule Cforum.Tags.Synonym do
   use CforumWeb, :model
 
   @primary_key {:tag_synonym_id, :id, autogenerate: true}
@@ -6,7 +6,7 @@ defmodule Cforum.Messages.TagSynonym do
 
   schema "tag_synonyms" do
     field(:synonym, :string)
-    belongs_to(:tag, Cforum.Messages.Tag, references: :tag_id)
+    belongs_to(:tag, Cforum.Tags.Tag, references: :tag_id)
   end
 
   @doc """

@@ -5,7 +5,7 @@ defmodule CforumWeb.Messages.VoteController do
   alias Cforum.Threads.ThreadHelpers
 
   alias Cforum.Messages
-  alias Cforum.Messages.Votes
+  alias Cforum.Votes
   alias Cforum.Messages.MessageHelpers
 
   alias Cforum.Abilities

@@ -6,7 +6,7 @@ defmodule Cforum.System.V4MigrationTaks do
   import Ecto.Query
 
   alias Cforum.Repo
-  alias Cforum.Messages.TagSynonym
+  alias Cforum.Tags.Synonym
   alias Cforum.V4Tag
 
   def migrate do
@@ -64,14 +64,14 @@ defmodule Cforum.System.V4MigrationTaks do
     |> Enum.each(fn {_key, values} -> V4Tag.merge_tags(values) end)
 
     # next make synonyms unique
-    from(syn in TagSynonym,
+    from(syn in Synonym,
       group_by: fragment("tag_id, lower(synonym)"),
       having: fragment("count(lower(synonym)) > 1"),
       select: {syn.tag_id, fragment("lower(synonym)")}
     )
     |> Repo.all()
     |> Enum.each(fn {tag_id, syn_val} ->
-      from(syn in TagSynonym,
+      from(syn in Synonym,
         where: syn.tag_id == ^tag_id and syn.synonym == ^syn_val,
         order_by: [asc: :tag_synonym_id],
         offset: 1
@@ -93,7 +93,7 @@ defmodule Cforum.V4Tag do
   import Ecto.Query
 
   alias Cforum.Repo
-  alias Cforum.Messages.TagSynonym
+  alias Cforum.Tags.Synonym
   alias Cforum.V4Tag
 
   @primary_key {:tag_id, :id, autogenerate: true}
@@ -105,7 +105,7 @@ defmodule Cforum.V4Tag do
     field(:suggest, :boolean)
     field(:forum_id, :id)
 
-    has_many(:synonyms, TagSynonym, foreign_key: :tag_id)
+    has_many(:synonyms, Synonym, foreign_key: :tag_id)
   end
 
   def merge_tags(tags) do
@@ -121,13 +121,13 @@ defmodule Cforum.V4Tag do
       |> Enum.map(& &1.tag_synonym_id)
 
     if unknown_synonyms != [] do
-      from(syn in TagSynonym, where: syn.tag_synonym_id in ^unknown_synonyms)
+      from(syn in Synonym, where: syn.tag_synonym_id in ^unknown_synonyms)
       |> Repo.update_all(set: [tag_id: orig_tag.tag_id])
     end
 
     tag_ids = Enum.map(rest, & &1.tag_id)
 
-    from(m in Cforum.Messages.Tags.MessageTag, where: m.tag_id in ^tag_ids)
+    from(m in Cforum.MessagesTags.MessageTag, where: m.tag_id in ^tag_ids)
     |> Repo.update_all(set: [tag_id: orig_tag.tag_id])
 
     from(m in V4Tag, where: m.tag_id in ^tag_ids)

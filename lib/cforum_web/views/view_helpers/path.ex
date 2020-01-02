@@ -6,7 +6,7 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   alias Cforum.Forums.Forum
   alias Cforum.Threads.Thread
   alias Cforum.Messages.{Message, MessageVersion}
-  alias Cforum.Messages.{Tag, TagSynonym}
+  alias Cforum.Tags.{Tag, Synonym}
 
   alias CforumWeb.Router.Helpers, as: Routes
   alias Cforum.Helpers
@@ -137,7 +137,7 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def tag_path(conn, :merge, tag, params),
     do: "#{root_path(conn, :index, false)}tags/#{tag.slug}/merge#{encode_query_string(conn, params)}"
 
-  @spec tag_synonym_path(conn(), atom(), %Tag{}, %TagSynonym{} | params(), params()) :: String.t()
+  @spec tag_synonym_path(conn(), atom(), %Tag{}, %Synonym{} | params(), params()) :: String.t()
   def tag_synonym_path(conn, action, tag, synonym \\ [], params \\ [])
 
   def tag_synonym_path(conn, :new, tag, params, _),

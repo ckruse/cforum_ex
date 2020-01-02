@@ -6,10 +6,10 @@ defmodule CforumWeb.Users.UserController do
   alias Cforum.Threads.Thread
 
   alias Cforum.Messages.Message
-  alias Cforum.Messages.MessagesUsers
+  alias Cforum.MessagesUsers
 
-  alias Cforum.Messages.Vote
-  alias Cforum.Messages.Votes
+  alias Cforum.Votes.Vote
+  alias Cforum.Votes
 
   alias Cforum.Scores.Score
 

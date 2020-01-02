@@ -6,7 +6,7 @@ defmodule CforumWeb.UsersChannel do
   alias Cforum.Forums
   alias Cforum.ConfigManager
 
-  alias Cforum.Messages.ReadMessages
+  alias Cforum.ReadMessages
   alias Cforum.Notifications
   alias Cforum.PrivMessages
 
@@ -68,7 +68,7 @@ defmodule CforumWeb.UsersChannel do
     with msg when not is_nil(msg) <- Cforum.Messages.get_message(mid),
          thread when not is_nil(thread) <- Cforum.Threads.get_thread(msg.thread_id) do
       if thread.archived == false,
-        do: Cforum.Messages.ReadMessages.mark_messages_read(socket.assigns[:current_user], msg)
+        do: Cforum.ReadMessages.mark_messages_read(socket.assigns[:current_user], msg)
 
       {:reply, {:ok, %{"status" => "marked_read"}}, socket}
     else

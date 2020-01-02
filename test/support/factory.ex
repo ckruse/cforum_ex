@@ -51,8 +51,8 @@ defmodule Cforum.Factory do
   def with_vote(score), do: %{score | vote: build(:vote)}
 
   def vote_factory do
-    %Cforum.Messages.Vote{
-      vtype: Cforum.Messages.Vote.upvote(),
+    %Cforum.Votes.Vote{
+      vtype: Cforum.Votes.Vote.upvote(),
       user: build(:user),
       message: build(:message),
       score: build(:score)
@@ -110,7 +110,7 @@ defmodule Cforum.Factory do
   end
 
   def tag_factory do
-    %Cforum.Messages.Tag{
+    %Cforum.Tags.Tag{
       tag_name: sequence("tag "),
       slug: sequence("tag-"),
       suggest: true
@@ -118,7 +118,7 @@ defmodule Cforum.Factory do
   end
 
   def tag_synonym_factory do
-    %Cforum.Messages.TagSynonym{
+    %Cforum.Tags.Synonym{
       tag: build(:tag),
       synonym: sequence("tag synonym ")
     }

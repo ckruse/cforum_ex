@@ -1,4 +1,4 @@
-defmodule Cforum.Messages.Tags do
+defmodule Cforum.Tags do
   @moduledoc """
   The boundary for the Forums system.
   """
@@ -6,8 +6,8 @@ defmodule Cforum.Messages.Tags do
   import Ecto.Query, warn: false
   alias Cforum.Repo
 
-  alias Cforum.Messages.Tag
-  alias Cforum.Messages.TagSynonym
+  alias Cforum.Tags.Tag
+  alias Cforum.Tags.Synonym
   alias Cforum.System
 
   @doc """
@@ -195,10 +195,10 @@ defmodule Cforum.Messages.Tags do
       from(mtag in "messages_tags", where: mtag.tag_id == ^old_tag.tag_id)
       |> Repo.update_all(set: [tag_id: new_tag.tag_id])
 
-      from(syn in TagSynonym, where: syn.tag_id == ^old_tag.tag_id)
+      from(syn in Synonym, where: syn.tag_id == ^old_tag.tag_id)
       |> Repo.update_all(set: [tag_id: new_tag.tag_id])
 
-      with {:ok, %TagSynonym{}} <- create_tag_synonym(current_user, new_tag, %{synonym: old_tag.tag_name}),
+      with {:ok, %Synonym{}} <- create_tag_synonym(current_user, new_tag, %{synonym: old_tag.tag_name}),
            {:ok, %Tag{}} <- Repo.delete(old_tag),
            tag = %Tag{} = get_tag!(new_tag.tag_id) do
         {:ok, tag}
@@ -229,13 +229,13 @@ defmodule Cforum.Messages.Tags do
   ## Examples
 
       iex> list_tag_synonyms(%Tag{})
-      [%TagSynonym{}, ...]
+      [%Synonym{}, ...]
 
   """
   def list_tag_synonyms(tag) do
     case tag.synonyms do
       %Ecto.Association.NotLoaded{} ->
-        from(tag_synonym in TagSynonym, where: tag_synonym.tag_id == ^tag.tag_id)
+        from(tag_synonym in Synonym, where: tag_synonym.tag_id == ^tag.tag_id)
         |> Repo.all()
 
       synonyms ->
@@ -251,13 +251,13 @@ defmodule Cforum.Messages.Tags do
   ## Examples
 
       iex> get_tag_synonym!(%Tag{}, 123)
-      %TagSynonym{}
+      %Synonym{}
 
       iex> get_tag!(%Tag{}, 456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_tag_synonym!(%Tag{} = tag, id), do: Repo.get_by!(TagSynonym, tag_synonym_id: id, tag_id: tag.tag_id)
+  def get_tag_synonym!(%Tag{} = tag, id), do: Repo.get_by!(Synonym, tag_synonym_id: id, tag_id: tag.tag_id)
 
   @doc """
   Creates a tag synonym for the given `tag`.
@@ -265,15 +265,15 @@ defmodule Cforum.Messages.Tags do
   ## Examples
 
       iex> create_tag_synonym(%Tag{}, %{synonym: value})
-      {:ok, %TagSynonym{}}
+      {:ok, %Synonym{}}
 
       iex> create_tag(%Tag{}, %{synonym: bad_value})
       {:error, %Ecto.Changeset{}}
   """
   def create_tag_synonym(current_user, %Tag{} = tag, attrs \\ %{}) do
     System.audited("create", current_user, fn ->
-      %TagSynonym{}
-      |> TagSynonym.changeset(tag, attrs)
+      %Synonym{}
+      |> Synonym.changeset(tag, attrs)
       |> Repo.insert()
     end)
   end
@@ -284,16 +284,16 @@ defmodule Cforum.Messages.Tags do
   ## Examples
 
       iex> update_tag_synonym(%Tag{}, synonym, %{field: new_value})
-      {:ok, %TagSynonym{}}
+      {:ok, %Synonym{}}
 
       iex> update_tag_synonym(%Tag{}, synonym, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_tag_synonym(current_user, %Tag{} = tag, %TagSynonym{} = synonym, attrs) do
+  def update_tag_synonym(current_user, %Tag{} = tag, %Synonym{} = synonym, attrs) do
     System.audited("update", current_user, fn ->
       synonym
-      |> TagSynonym.changeset(tag, attrs)
+      |> Synonym.changeset(tag, attrs)
       |> Repo.update()
     end)
   end
@@ -304,13 +304,13 @@ defmodule Cforum.Messages.Tags do
   ## Examples
 
       iex> delete_tag_synonym(synonym)
-      {:ok, %TagSynonym{}}
+      {:ok, %Synonym{}}
 
       iex> delete_tag_synonym(synonym)
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_tag_synonym(current_user, %TagSynonym{} = synonym) do
+  def delete_tag_synonym(current_user, %Synonym{} = synonym) do
     System.audited("destroy", current_user, fn ->
       Repo.delete(synonym)
     end)
@@ -322,10 +322,10 @@ defmodule Cforum.Messages.Tags do
   ## Examples
 
       iex> change_tag_synonym(%Tag{}, synonym)
-      %Ecto.Changeset{source: %TagSynonym{}}
+      %Ecto.Changeset{source: %Synonym{}}
 
   """
-  def change_tag_synonym(%Tag{} = tag, %TagSynonym{} = synonym) do
-    TagSynonym.changeset(synonym, tag, %{})
+  def change_tag_synonym(%Tag{} = tag, %Synonym{} = synonym) do
+    Synonym.changeset(synonym, tag, %{})
   end
 end

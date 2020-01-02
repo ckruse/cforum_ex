@@ -1,4 +1,4 @@
-defmodule Cforum.Messages.Votes do
+defmodule Cforum.Votes do
   @moduledoc """
   The boundary for the Forums system.
   """
@@ -8,7 +8,7 @@ defmodule Cforum.Messages.Votes do
   alias Cforum.Repo
   alias Cforum.Helpers
   alias Cforum.Scores
-  alias Cforum.Messages.Vote
+  alias Cforum.Votes.Vote
   alias Cforum.Messages
   alias Cforum.Messages.Message
   alias Cforum.Messages.MessageCaching

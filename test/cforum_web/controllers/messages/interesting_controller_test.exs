@@ -3,7 +3,7 @@ defmodule CforumWeb.Messages.InterestingControllerTest do
 
   setup [:setup_tests]
 
-  alias Cforum.Messages.InterestingMessages
+  alias Cforum.InterestingMessages
 
   describe "listing" do
     test "lists all interesting messages", %{conn: conn, user: user, message: message} do

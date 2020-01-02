@@ -6,10 +6,10 @@ defmodule CforumWeb.TagController do
   alias Cforum.Threads.Thread
 
   alias Cforum.Messages.Message
-  alias Cforum.Messages.MessagesTags
+  alias Cforum.MessagesTags
 
-  alias Cforum.Messages.Tag
-  alias Cforum.Messages.Tags
+  alias Cforum.Tags.Tag
+  alias Cforum.Tags
 
   alias CforumWeb.Paginator
 

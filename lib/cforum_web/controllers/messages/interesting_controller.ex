@@ -6,7 +6,7 @@ defmodule CforumWeb.Messages.InterestingController do
   alias Cforum.Threads.ThreadHelpers
 
   alias Cforum.Messages
-  alias Cforum.Messages.InterestingMessages
+  alias Cforum.InterestingMessages
 
   alias Cforum.Search
   alias Cforum.Search.Finder

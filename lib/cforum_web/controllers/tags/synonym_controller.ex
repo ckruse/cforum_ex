@@ -4,11 +4,11 @@ defmodule CforumWeb.Tags.SynonymController do
 
   alias Cforum.Abilities
 
-  alias Cforum.Messages.Tags
-  alias Cforum.Messages.TagSynonym
+  alias Cforum.Tags
+  alias Cforum.Tags.Synonym
 
   def new(conn, %{"tag_id" => _tag_id}) do
-    changeset = Tags.change_tag_synonym(conn.assigns.tag, %TagSynonym{})
+    changeset = Tags.change_tag_synonym(conn.assigns.tag, %Synonym{})
     render(conn, "new.html", changeset: changeset)
   end
 

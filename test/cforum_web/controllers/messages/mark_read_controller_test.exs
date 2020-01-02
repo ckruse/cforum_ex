@@ -3,7 +3,7 @@ defmodule CforumWeb.Messages.MarkReadControllerTest do
 
   setup [:setup_tests]
 
-  alias Cforum.Messages.ReadMessages
+  alias Cforum.ReadMessages
 
   describe "marking a thread read" do
     test "marks a thread read", %{conn: conn, forum: forum, thread: thread, message: message} do

@@ -2,7 +2,7 @@ defmodule CforumWeb.Api.V1.UserController do
   use CforumWeb, :controller
 
   alias Cforum.Users
-  alias Cforum.Messages.MessagesUsers
+  alias Cforum.MessagesUsers
 
   def index(conn, %{"ids" => ids}) do
     users = Cforum.Users.get_users(ids, order: [desc: :activity])

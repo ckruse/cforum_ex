@@ -8,7 +8,7 @@ defmodule Cforum.Jobs.NewMessageBadgeDistributorJob do
   alias Cforum.{Users, Badges}
   alias Cforum.Messages
   alias Cforum.Messages.Message
-  alias Cforum.Messages.Votes
+  alias Cforum.Votes
 
   @badges_no_messages [
     {100, "chisel"},

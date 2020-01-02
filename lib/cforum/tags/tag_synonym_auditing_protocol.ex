@@ -1,4 +1,4 @@
-defimpl Cforum.System.AuditingProtocol, for: Cforum.Messages.TagSynonym do
+defimpl Cforum.System.AuditingProtocol, for: Cforum.Tags.Synonym do
   def audit_json(synonym) do
     synonym = Cforum.Repo.preload(synonym, [:tag])
 

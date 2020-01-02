@@ -6,7 +6,7 @@ defmodule CforumWeb.Api.V1.Messages.MarkReadController do
   alias Cforum.Threads
 
   alias Cforum.Messages
-  alias Cforum.Messages.ReadMessages
+  alias Cforum.ReadMessages
 
   alias Cforum.ConfigManager
 

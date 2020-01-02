@@ -1,8 +1,8 @@
-defmodule Cforum.Messages.MessagesUsersTest do
+defmodule Cforum.MessagesUsersTest do
   use Cforum.DataCase
 
   alias Cforum.Messages.Message
-  alias Cforum.Messages.MessagesUsers
+  alias Cforum.MessagesUsers
 
   setup do
     user = insert(:user)

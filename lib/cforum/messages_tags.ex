@@ -1,9 +1,9 @@
-defmodule Cforum.Messages.MessagesTags do
+defmodule Cforum.MessagesTags do
   import Ecto.Query, warn: false
 
   alias Cforum.Repo
   alias Cforum.Messages.Message
-  alias Cforum.Messages.Tag
+  alias Cforum.Tags.Tag
 
   @doc """
   Returns a list of messages for a tag, limited to the forums specified in `visible_forums`

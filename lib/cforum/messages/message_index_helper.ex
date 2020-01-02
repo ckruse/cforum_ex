@@ -7,8 +7,8 @@ defmodule Cforum.Messages.IndexHelper do
   alias Cforum.OpenClose.State, as: OpenCloseState
   alias Cforum.Messages.Message
 
-  alias Cforum.Messages.ReadMessage
-  alias Cforum.Messages.InterestingMessage
+  alias Cforum.ReadMessages.ReadMessage
+  alias Cforum.InterestingMessages.InterestingMessage
   alias Cforum.Subscriptions.Subscription
   alias Cforum.InvisibleThreads.InvisibleThread
 
@@ -22,7 +22,8 @@ defmodule Cforum.Messages.IndexHelper do
   defp get_read_messages(tids, user) do
     from(
       rm in ReadMessage,
-      inner_join: m in assoc(rm, :message),
+      inner_join: m in Message,
+      on: m.message_id == rm.message_id,
       where: rm.user_id == ^user.user_id and m.thread_id in ^tids,
       order_by: m.thread_id
     )

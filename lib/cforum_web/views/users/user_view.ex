@@ -1,7 +1,7 @@
 defmodule CforumWeb.Users.UserView do
   use CforumWeb, :view
 
-  alias Cforum.Messages.Tag
+  alias Cforum.Tags.Tag
   alias Cforum.ConfigManager
 
   alias CforumWeb.Paginator

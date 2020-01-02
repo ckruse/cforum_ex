@@ -1,12 +1,12 @@
-defmodule Cforum.Messages.ReadMessage do
+defmodule Cforum.ReadMessages.ReadMessage do
   use CforumWeb, :model
 
   @primary_key {:read_message_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :read_message_id}
 
   schema "read_messages" do
-    belongs_to(:user, Cforum.Users.User, references: :user_id)
-    belongs_to(:message, Cforum.Messages.Message, references: :message_id)
+    field(:user_id, :id)
+    field(:message_id, :id)
   end
 
   @doc """

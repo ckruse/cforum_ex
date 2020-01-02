@@ -5,7 +5,7 @@ defmodule Cforum.Subscriptions do
   alias Cforum.Messages.Message
   alias Cforum.Messages.MessageHelpers
   alias Cforum.Subscriptions.Subscription
-  alias Cforum.Messages.Tag
+  alias Cforum.Tags.Tag
 
   @doc """
   Subscribes a message for a user.

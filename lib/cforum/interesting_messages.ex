@@ -1,10 +1,10 @@
-defmodule Cforum.Messages.InterestingMessages do
+defmodule Cforum.InterestingMessages do
   import Ecto.Query, warn: false
 
   alias Cforum.Repo
   alias Cforum.Messages.Message
-  alias Cforum.Messages.InterestingMessage
-  alias Cforum.Messages.Tag
+  alias Cforum.InterestingMessages.InterestingMessage
+  alias Cforum.Tags.Tag
 
   @doc """
   Marks a message as interesting for a user.

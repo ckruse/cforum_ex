@@ -1,11 +1,11 @@
-defmodule Cforum.Messages.MessagesUsers do
+defmodule Cforum.MessagesUsers do
   import Ecto.Query, warn: false
 
   alias Cforum.Repo
   alias Cforum.Messages.Message
-  alias Cforum.Messages.Tags.MessageTag
-  alias Cforum.Messages.Tag
-  alias Cforum.Messages.Vote
+  alias Cforum.MessagesTags.MessageTag
+  alias Cforum.Tags.Tag
+  alias Cforum.Votes.Vote
   alias Cforum.Scores.Score
   alias Cforum.Users.User
 

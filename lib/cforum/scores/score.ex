@@ -8,7 +8,7 @@ defmodule Cforum.Scores.Score do
     field(:value, :integer)
 
     belongs_to(:user, Cforum.Users.User, references: :user_id)
-    belongs_to(:vote, Cforum.Messages.Vote, references: :vote_id)
+    belongs_to(:vote, Cforum.Votes.Vote, references: :vote_id)
     belongs_to(:message, Cforum.Messages.Message, references: :message_id)
 
     timestamps(inserted_at: :created_at, updated_at: nil)

@@ -1,4 +1,4 @@
-defmodule Cforum.Messages.Vote do
+defmodule Cforum.Votes.Vote do
   use CforumWeb, :model
 
   @primary_key {:vote_id, :id, autogenerate: true}
