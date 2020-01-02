@@ -10,14 +10,15 @@ const insertRenderedThread = (thread, message, html, id_prefix) => {
   const originalNode = document.getElementById(node.id);
   const viewedMessageUrl =
     document.body.dataset.controller === "MessageController" ? parseMessageUrl(document.location.href) : {};
+  const messageNode = node.querySelector(`#${id_prefix}m${message.message_id}`);
 
-  const messageNode = node.querySelector(`[id=${id_prefix}m${message.message_id}]`);
   if (messageNode) {
     const svgNode = parse(
       '<svg class="new-svg" width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="/images/icons.svg#svg-new"></use></svg>'
     ).firstChild;
+
     messageNode.classList.add("new");
-    messageNode.insertBefore(svgNode, messageNode.querySelector(".details").nextSibling);
+    messageNode.querySelector(".details").appendChild(svgNode);
   }
 
   switch (sortThreads) {
