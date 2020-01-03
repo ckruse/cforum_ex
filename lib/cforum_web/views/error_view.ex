@@ -12,7 +12,7 @@ defmodule CforumWeb.ErrorView do
       "error_404.html",
       Map.merge(
         assigns,
-        %{layout: {CforumWeb.LayoutView, "error.html"}, title: gettext("page not found")}
+        %{layout: {CforumWeb.LayoutView, "error.html"}, title: gettext("page not found"), current_forum: nil}
       )
     )
   end
@@ -27,7 +27,7 @@ defmodule CforumWeb.ErrorView do
       "error_403.html",
       Map.merge(
         assigns,
-        %{layout: {CforumWeb.LayoutView, "error.html"}, title: gettext("access forbidden")}
+        %{layout: {CforumWeb.LayoutView, "error.html"}, title: gettext("access forbidden"), current_forum: nil}
       )
     )
   end
@@ -42,7 +42,7 @@ defmodule CforumWeb.ErrorView do
       "error_500.html",
       Map.merge(
         assigns,
-        %{layout: {CforumWeb.LayoutView, "error.html"}, title: gettext("internal server error")}
+        %{layout: {CforumWeb.LayoutView, "error.html"}, title: gettext("internal server error"), current_forum: nil}
       )
     )
   end
@@ -58,7 +58,7 @@ defmodule CforumWeb.ErrorView do
       "error_500.html",
       Map.merge(
         assigns,
-        %{layout: {CforumWeb.LayoutView, "error.html"}, title: gettext("page not found")}
+        %{layout: {CforumWeb.LayoutView, "error.html"}, title: gettext("page not found"), current_forum: nil}
       )
     )
   end
