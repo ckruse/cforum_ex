@@ -34,16 +34,20 @@
     color: $active-link-color;
   }
 
-  &.highlighted-user .author a {
+  &.highlighted-user .author a,
+  &.highlighted-user .author {
     color: $highlight-user-color;
   }
-  &.highlighted-self .author a {
+  &.highlighted-self .author a,
+  &.highlighted-self .author {
     color: $highlight-self-color;
   }
-  &.visited.highlighted-user .author a {
+  &.visited.highlighted-user .author a,
+  &.visited.highlighted-user .author {
     color: $highlight-user-color-visited;
   }
-  &.visited.highlighted-self .author a {
+  &.visited.highlighted-self .author a,
+  &.visited.highlighted-self .author {
     color: $highlight-self-color-visited;
   }
 
