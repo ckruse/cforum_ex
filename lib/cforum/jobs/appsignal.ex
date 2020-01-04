@@ -35,10 +35,10 @@ defmodule Cforum.Jobs.Appsignal do
   defp normalize_error(%{kind: :error, error: error, stack: stack}) do
     {reason, message} = Error.metadata(error)
 
-    {reason, message, stack}
+    {inspect(reason), inspect(message), stack}
   end
 
   defp normalize_error(%{kind: kind, error: error, stack: stack}) do
-    {kind, error, stack}
+    {inspect(kind), inspect(error), stack}
   end
 end
