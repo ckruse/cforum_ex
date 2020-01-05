@@ -310,7 +310,7 @@ defmodule CforumWeb.LayoutView do
     cond do
       today.month == 12 || (today.month == 1 && today.day < 5) -> "christmas"
       today.month == 11 && today.day == 30 -> "blue-beanie"
-      true -> "blue-beanie"
+      true -> ""
     end
   end
 end
