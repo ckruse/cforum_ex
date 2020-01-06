@@ -318,12 +318,25 @@ defmodule Cforum.Messages do
     end)
   end
 
-  def retag_message(%Message{} = message, attrs, user, opts \\ [create_tags: false]) do
+  def retag_message(%Message{} = message, attrs, user, opts \\ [create_tags: false, retag_children: false]) do
     System.audited("retag", user, fn ->
-      message
-      |> Message.retag_changeset(attrs, user, opts)
-      |> Repo.update()
-      |> MessageCaching.update_cached_message()
+      ret =
+        message
+        |> Message.retag_changeset(attrs, user, opts)
+        |> Repo.update()
+        |> MessageCaching.update_cached_message()
+
+      with {:ok, _message} <- ret,
+           true <- opts[:retag_children] do
+        new_opts = put_in(opts, [:retag_children], false)
+
+        MessageHelpers.with_subtree(message, fn msg ->
+          if msg.message_id != message.message_id,
+            do: retag_message(msg, attrs, user, new_opts)
+        end)
+      end
+
+      ret
     end)
   end
 

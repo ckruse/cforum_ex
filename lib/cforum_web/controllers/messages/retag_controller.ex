@@ -21,7 +21,8 @@ defmodule CforumWeb.Messages.RetagController do
     message_params = params["message"] || %{"tags" => []}
 
     opts = [
-      create_tags: Abilities.may?(conn, "tag", :new)
+      create_tags: Abilities.may?(conn, "tag", :new),
+      retag_children: params["retag_children"] == "yes"
     ]
 
     case Messages.retag_message(message, message_params, curr_user, opts) do
