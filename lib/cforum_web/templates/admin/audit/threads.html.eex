@@ -5,7 +5,7 @@ link(
     @entry.contents["forum"]["slug"] <>
     @entry.contents["slug"] <> "/" <>
     to_string(List.first(@entry.contents["messages"])["message_id"]) <>
-    "?view_all=true#m" <>
+    "?view_all=yes#m" <>
     to_string(List.first(@entry.contents["messages"])["message_id"])
 )
 %> <%= gettext("by") %> <%= List.first(@entry.contents["messages"])["author"] %>

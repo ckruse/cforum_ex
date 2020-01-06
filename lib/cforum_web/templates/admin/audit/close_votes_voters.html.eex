@@ -5,7 +5,7 @@ link(
         @entry.contents["close_vote"]["message"]["thread"]["forum"]["slug"] <>
         @entry.contents["close_vote"]["message"]["thread"]["slug"] <> "/" <>
         to_string(@entry.contents["close_vote"]["message"]["message_id"]) <>
-        "?view_all=true#m" <>
+        "?view_all=yes#m" <>
         to_string(@entry.contents["close_vote"]["message"]["message_id"])
 )
 %>
