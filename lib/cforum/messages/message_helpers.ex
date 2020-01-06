@@ -198,4 +198,14 @@ defmodule Cforum.Messages.MessageHelpers do
   def message_deleted?(msg, reject_with_reason \\ false)
   def message_deleted?(msg, false), do: msg.deleted == true && Helpers.blank?(msg.flags["reason"])
   def message_deleted?(msg, _), do: msg.deleted == true
+
+  def map_subtree(message, fun) do
+    [fun.(message) | Enum.map(message.messages, &map_subtree(&1, fun))]
+  end
+
+  def with_subtree(message, fun) do
+    fun.(message)
+    Enum.each(message.messages, &with_subtree(&1, fun))
+    :ok
+  end
 end
