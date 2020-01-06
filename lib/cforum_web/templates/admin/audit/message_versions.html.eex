@@ -2,7 +2,7 @@
 
 <%=
 link(
-  @entry.contents["message"]["subject"], to: Path.root_path(@conn, :index) <>
+  @entry.contents["message"]["subject"], to: Path.root_path(CforumWeb.Endpoint, :index) <>
     @entry.contents["message"]["thread"]["forum"]["slug"] <>
     @entry.contents["message"]["thread"]["slug"] <> "/" <>
     to_string(@entry.contents["message"]["message_id"]) <>

@@ -1,1 +1,1 @@
-<%= link @entry.contents["filename"], to: Path.root_path(@conn, :index) <> "images/" <> @entry.contents["filename"] %>
+<%= link @entry.contents["filename"], to: Path.root_path(CforumWeb.Endpoint, :index) <> "images/" <> @entry.contents["filename"] %>

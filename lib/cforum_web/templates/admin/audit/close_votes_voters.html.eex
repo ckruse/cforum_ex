@@ -1,7 +1,7 @@
 <%=
 link(
   @entry.contents["close_vote"]["message"]["subject"],
-  to: Path.root_path(@conn, :index) <>
+  to: Path.root_path(CforumWeb.Endpoint, :index) <>
         @entry.contents["close_vote"]["message"]["thread"]["forum"]["slug"] <>
         @entry.contents["close_vote"]["message"]["thread"]["slug"] <> "/" <>
         to_string(@entry.contents["close_vote"]["message"]["message_id"]) <>
