@@ -44,6 +44,12 @@ window.addEventListener("popstate", ev => {
   }
 });
 
+const saveIdentity = () => {
+  if (document.body.dataset.userId) return undefined;
+  if (document.body.dataset.uuid) return true;
+  return false;
+};
+
 const showForm = (messageElement, json, CfPostingForm) => {
   const selector = ".posting-header > .cf-message-header > h2 > a, .posting-header > .cf-message-header > h3 > a";
   const href = messageElement.querySelector(selector).href;
@@ -83,6 +89,7 @@ const showForm = (messageElement, json, CfPostingForm) => {
       }}
       errors={{}}
       onCancel={() => window.history.go(-1)}
+      saveIdentity={saveIdentity()}
     />,
     node,
     () => {

@@ -292,9 +292,16 @@ defmodule CforumWeb.LayoutView do
   def forum_name(forum), do: forum.name
 
   def user_id(conn) do
-    if conn.assigns[:current_user],
-      do: {:safe, " data-user-id=\"#{conn.assigns.current_user.user_id}\""},
-      else: ""
+    cond do
+      Helpers.present?(conn.assigns[:current_user]) ->
+        [{:safe, " data-user-id=\""}, to_string(conn.assigns.current_user.user_id), {:safe, "\""}]
+
+      Helpers.present?(conn.cookies["cforum_user"]) ->
+        [{:safe, " data-uuid=\""}, to_string(conn.cookies["cforum_user"]), {:safe, "\""}]
+
+      true ->
+        ""
+    end
   end
 
   def current_controller(conn) do
