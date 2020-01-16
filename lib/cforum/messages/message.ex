@@ -79,6 +79,7 @@ defmodule Cforum.Messages.Message do
     |> validate_length(:problematic_site, min: 2, max: 250)
     |> validate_length(:content, min: 10, max: 12_288)
     |> Cforum.Helpers.validate_url(:problematic_site)
+    |> Cforum.Helpers.validate_url(:homepage)
   end
 
   defp maybe_put_change(changeset, _, nil), do: changeset
