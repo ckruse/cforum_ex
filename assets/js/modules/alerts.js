@@ -5,6 +5,13 @@ const SUCCESS_TIMEOUT = 5;
 const INFO_TIMEOUT = 10;
 const ERROR_TIMEOUT = 0;
 
+const escapeHTML = text =>
+  text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+
 const removeAlert = alrt => {
   alrt.classList.add("fade-in-exit", "fade-in-exit-active");
   window.setTimeout(() => alrt.remove(), 300);
@@ -37,7 +44,7 @@ alertsContainer.addEventListener("click", ev => {
 const pathLink = path => {
   if (!path) return "";
 
-  return `<a href="${path}">${t("more…")}</a>`;
+  return `<a href="${escapeHTML(path)}">${t("more…")}</a>`;
 };
 
 export const alert = (type, text, timeout, path = null) => {
@@ -46,7 +53,7 @@ export const alert = (type, text, timeout, path = null) => {
       <span aria-hidden="true">&times;</span>
     </button>
 
-    ${text}
+    ${escapeHTML(text)}
 
     ${pathLink(path)}
   </div>`);
