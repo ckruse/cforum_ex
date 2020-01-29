@@ -12,6 +12,7 @@ defmodule Cforum.Jobs.UserCleanupJob do
   def perform(_, _) do
     cleanup_unconfirmed_users()
     cleanup_users_wo_posts()
+
     Cachex.clear(:cforum)
   end
 
@@ -38,11 +39,16 @@ defmodule Cforum.Jobs.UserCleanupJob do
   end
 
   defp delete_users(query) do
-    query
-    |> Repo.all()
-    |> Enum.each(fn user ->
-      Logger.info("Automatically deleting user #{user.username}")
-      System.audited("autodestroy", nil, fn -> Repo.delete(user) end)
-    end)
+    Repo.transaction(
+      fn ->
+        query
+        |> Repo.stream()
+        |> Enum.each(fn user ->
+          Logger.info("Automatically deleting user #{user.username}")
+          System.audited("autodestroy", nil, fn -> Repo.delete(user) end)
+        end)
+      end,
+      timeout: :infinity
+    )
   end
 end
