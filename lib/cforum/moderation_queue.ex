@@ -93,7 +93,7 @@ defmodule Cforum.ModerationQueue do
   def get_entry!(id) do
     ModerationQueueEntry
     |> Repo.get!(id)
-    |> Repo.preload([:closer, message: [thread: :forum]])
+    |> Repo.preload([:closer, message: [:user, thread: :forum]])
   end
 
   @doc """
