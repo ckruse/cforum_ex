@@ -30,6 +30,7 @@ defmodule Cforum.Users.User do
     field(:avatar_updated_at, :utc_datetime)
     field(:score, :integer)
     field(:activity, :integer)
+    field(:inactivity_notification_sent_at, :naive_datetime)
 
     field(:password, :string, virtual: true)
     field(:password_confirmation, :string, virtual: true)
