@@ -17,4 +17,12 @@ defmodule CforumWeb.UserMailer do
     |> subject(gettext("reset password instructions"))
     |> render_body(:reset_password_mail, %{user: user})
   end
+
+  def inactivity_mail(user, years) do
+    new()
+    |> from(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))
+    |> to({user.username, user.email})
+    |> subject(gettext("inactivity warning"))
+    |> render_body(:inactivity_warning_mail, %{user: user, years: years})
+  end
 end

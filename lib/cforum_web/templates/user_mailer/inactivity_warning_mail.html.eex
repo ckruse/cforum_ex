@@ -1,0 +1,28 @@
+<p>Liebe Nutzerin, lieber Nutzer,</p>
+
+<p>wir haben festgestellt, dass du dich seit mindestens <%= @years %> Jahr(en)
+  nicht mehr im SELFHTML-Forum angemeldet hast. Grundsätzlich ist das überhaupt
+  kein Problem, du kannst das Forum auch ohne Anmeldung nutzen. Allerdings
+  entfernen wir regelmäßig alle inaktiven Benutzerkonten, nicht nur um unsere
+  Ressourcen zu schonen, sondern auch weil die DSGVO das zeitlich unbegrenzte
+  Speichern persönlicher Daten verbietet.</p>
+
+<p>Um deinen Account zu erhalten, ist es notwendig, dass du dich innerhalb
+  der nächsten 30 Tage im Forum anmeldest. Passiert dies nicht, so gehen wir
+  davon aus, dass du diesen Account nicht mehr nutzen möchtest,
+  folglich werden wir dein Benutzerkonto löschen.</p>
+
+<p>Deine bisher geschriebenen Beiträge bleiben dabei erhalten, technisch werden
+  sie allerdings zu Beiträgen eines anonymen Nutzers, der zufällig deinen
+  Benutzernamen gewählt hat.</p>
+
+<p>Dein Benutzername lautet <%= @user.username %>>, falls du dein Passwort
+  vergessen hast, kannst du unter
+  <a href="<%= Path.password_url(CforumWeb.Endpoint, :new) %>"><%= Path.password_url(CforumWeb.Endpoint, :new) %></a>
+  ein neues anfordern.</p>
+
+<p>Herzliche Grüße<br>
+  Das Team von SELFHTML</p>
+
+<a href="https://selfhtml.org/impressum.html">Impressum</a><br>
+<a href="https://selfhtml.org/impressum.html#datenschutz">Datenschutzerklärung</a>

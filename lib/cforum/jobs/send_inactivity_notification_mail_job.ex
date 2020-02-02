@@ -37,7 +37,7 @@ defmodule Cforum.Jobs.SendInactivityNotificationMailJob do
       group_by: user.user_id,
       having: count() <= ^no_messages
     )
-    |> send_notification_mails()
+    |> send_notification_mails(years)
   end
 
   defp notify_users_inactive_longer_5years do
@@ -46,21 +46,24 @@ defmodule Cforum.Jobs.SendInactivityNotificationMailJob do
         fragment("?::date <= NOW()::date - INTERVAL '5 years'", user.last_visit) or
           (is_nil(user.last_visit) and fragment("?::date <= NOW()::date - INTERVAL '5 years'", user.created_at))
     )
-    |> send_notification_mails()
+    |> send_notification_mails(5)
   end
 
-  defp send_notification_mails(q) do
+  defp send_notification_mails(q, years) do
     from(user in q,
       where: is_nil(user.inactivity_notification_sent_at),
       where: fragment("EXTRACT(DAY FROM ?) = EXTRACT(DAY FROM NOW())", user.created_at),
       where: fragment("EXTRACT(MONTH FROM ?) = EXTRACT(MONTH FROM NOW())", user.created_at)
     )
     |> Repo.all()
-    |> Enum.each(&notify_user/1)
+    |> Enum.each(&notify_user(&1, years))
   end
 
-  defp notify_user(user) do
-    # TODO: actually send notification email
+  defp notify_user(user, years) do
+    user
+    |> CforumWeb.UserMailer.inactivity_mail(years)
+    |> Cforum.Mailer.deliver!()
+
     from(user in User, where: user.user_id == ^user.user_id)
     |> Repo.update_all(set: [inactivity_notification_sent_at: Timex.now()])
   end
