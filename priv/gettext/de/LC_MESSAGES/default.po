@@ -4293,6 +4293,36 @@ msgid "retag children as well"
 msgstr "Tags auch bei Kind-Beiträgen neu vergeben"
 
 #, elixir-format
-#: lib/cforum_web/mailers/user_mailer.ex:25
+#: lib/cforum_web/mailers/user_mailer.ex:35
 msgid "inactivity warning"
 msgstr "SELFHTML – Inaktivitätswarnung"
+
+#, elixir-format
+#: lib/cforum_web/mailers/user_mailer.ex:30
+msgid "since %{years} year(s)"
+msgstr "seit mindestens %{years} Jahr(en)"
+
+#, elixir-format
+#: lib/cforum_web/mailers/user_mailer.ex:26
+msgid "since five years"
+msgstr "seit mindestens fünf Jahren"
+
+#, elixir-format
+#: lib/cforum_web/mailers/user_mailer.ex:25
+msgid "since four years"
+msgstr "seit mindestens vier Jahren"
+
+#, elixir-format
+#: lib/cforum_web/mailers/user_mailer.ex:22
+msgid "since one year"
+msgstr "seit mindestens einem Jahr"
+
+#, elixir-format
+#: lib/cforum_web/mailers/user_mailer.ex:24
+msgid "since three years"
+msgstr "seit mindestens drei Jahren"
+
+#, elixir-format
+#: lib/cforum_web/mailers/user_mailer.ex:23
+msgid "since two years"
+msgstr "seit mindestens zwei Jahren"

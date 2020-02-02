@@ -1,6 +1,6 @@
 Liebe Nutzerin, lieber Nutzer,
 
-wir haben festgestellt, dass du dich seit mindestens <%= @years %> Jahr(en) nicht
+wir haben festgestellt, dass du dich <%= @years %> nicht
 mehr im SELFHTML-Forum angemeldet hast. Grundsätzlich ist das überhaupt kein
 Problem, du kannst das Forum auch ohne Anmeldung nutzen. Allerdings entfernen
 wir regelmäßig alle inaktiven Benutzerkonten, nicht nur um unsere Ressourcen zu
