@@ -12,8 +12,15 @@ defmodule Cforum.Jobs.UserCleanupJob do
   def perform(_, _) do
     cleanup_unconfirmed_users()
     cleanup_users_wo_posts()
+    cleanup_inactive_users()
 
     Cachex.clear(:cforum)
+  end
+
+  defp cleanup_inactive_users() do
+    from(user in User, where: fragment("? < NOW() - INTERVAL '30 days'", user.inactivity_notification_sent_at))
+    |> Repo.all()
+    |> delete_users()
   end
 
   defp cleanup_unconfirmed_users() do
