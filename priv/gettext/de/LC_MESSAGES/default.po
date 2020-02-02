@@ -4291,3 +4291,8 @@ msgstr "Hintergrund-Aufträge"
 #: lib/cforum_web/templates/messages/retag/edit.html.eex:26
 msgid "retag children as well"
 msgstr "Tags auch bei Kind-Beiträgen neu vergeben"
+
+#, elixir-format
+#: lib/cforum_web/mailers/user_mailer.ex:25
+msgid "inactivity warning"
+msgstr "SELFHTML – Inaktivitätswarnung"
