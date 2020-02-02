@@ -57,7 +57,7 @@ defmodule Cforum.Mixfile do
       {:jason, "~> 1.0"},
       {:slugify, "~> 1.1"},
       {:xml_builder, "~> 2.0.0"},
-      {:oban, "~> 0.12"},
+      {:oban, "~> 1.0"},
       {:elixir_uuid, "~> 1.2"},
       {:cachex, "~> 3.1"},
       {:earmark, "~> 1.3.0"},
@@ -66,9 +66,9 @@ defmodule Cforum.Mixfile do
       {:appsignal, "~> 1.0"},
 
       # oban web view
-      {:phoenix_live_view, "~> 0.4.0"},
+      {:phoenix_live_view, "~> 0.6"},
       {:floki, ">= 0.0.0", only: :test},
-      {:oban_web, "~> 0.4", organization: "oban"},
+      {:oban_web, "~> 1.0", organization: "oban"},
 
       # testing
       {:excoveralls, "~> 0.8", only: :test},
