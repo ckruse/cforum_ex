@@ -584,6 +584,9 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
 
   def password_url(conn, action, params \\ [])
 
+  def password_url(conn, :new, params),
+    do: "#{root_url(conn, :index, false)}users/password#{encode_query_string(conn, params)}"
+
   def password_url(conn, :edit_reset, params),
     do: "#{root_url(conn, :index, false)}users/password/reset#{encode_query_string(conn, params)}"
 
