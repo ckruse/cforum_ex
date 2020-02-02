@@ -262,10 +262,14 @@ defmodule Cforum.Users do
 
     retval =
       from(user in User, where: user.user_id == ^user.user_id)
-      |> Repo.update_all(set: [last_visit: t])
+      |> Repo.update_all(set: [last_visit: t, inactivity_notification_sent_at: nil])
 
     with {1, v} <- retval do
-      Caching.update(:cforum, "users/#{user.user_id}", &{:commit, %User{&1 | last_visit: t}})
+      Caching.update(
+        :cforum,
+        "users/#{user.user_id}",
+        &{:commit, %User{&1 | last_visit: t, inactivity_notification_sent_at: nil}}
+      )
 
       {1, v}
     end
