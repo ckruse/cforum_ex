@@ -19,7 +19,6 @@ defmodule Cforum.Jobs.UserCleanupJob do
 
   defp cleanup_inactive_users() do
     from(user in User, where: fragment("? < NOW() - INTERVAL '30 days'", user.inactivity_notification_sent_at))
-    |> Repo.all()
     |> delete_users()
   end
 
