@@ -1,7 +1,7 @@
 defmodule Cforum.Jobs.UserCleanupJob do
   use Oban.Worker, queue: :background, max_attempts: 5
 
-  import Ecto.{Query, Changeset}, warn: false
+  import Ecto.Query, warn: false
   require Logger
 
   alias Cforum.Repo
