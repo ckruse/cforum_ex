@@ -25,7 +25,6 @@ defmodule Cforum.Jobs.SendInactivityNotificationMailJob do
     from(user in User,
       left_join: message in Message,
       on: message.user_id == user.user_id,
-      on: message.deleted == false,
       where:
         fragment("?::date <= NOW()::date - INTERVAL '1 year' * ?", user.last_visit, ^years) or
           (is_nil(user.last_visit) and
@@ -34,6 +33,8 @@ defmodule Cforum.Jobs.SendInactivityNotificationMailJob do
         fragment("?::date > NOW()::date - INTERVAL '1 year' * ?", user.last_visit, ^(years + 1)) or
           (is_nil(user.last_visit) and
              fragment("?::date > NOW()::date - INTERVAL '1 year' * ?", user.created_at, ^(years + 1))),
+      where: message.deleted == false,
+      where: fragment("?::date >= NOW()::date - INTERVAL '5 years'", message.created_at),
       group_by: user.user_id,
       having: count() <= ^no_messages
     )
