@@ -600,7 +600,7 @@ defmodule Cforum.Users do
             ^@permission_moderate
           ) or
           u.user_id in fragment(
-            "SELECT user_id FROM badges_users INNER JOIN badges USING(badge_id) WHERE badge_type = ?",
+            "SELECT user_id FROM badges_users INNER JOIN badges USING(badge_id) WHERE badge_type = ? AND active = true",
             ^@badge_moderator_tools
           ),
       order_by: [asc: :username]
@@ -618,7 +618,7 @@ defmodule Cforum.Users do
             ^forum.forum_id
           ) or
           u.user_id in fragment(
-            "SELECT user_id FROM badges_users INNER JOIN badges USING(badge_id) WHERE badge_type = ?",
+            "SELECT user_id FROM badges_users INNER JOIN badges USING(badge_id) WHERE badge_type = ? AND active = true",
             ^@badge_moderator_tools
           ),
       order_by: [asc: :username]
