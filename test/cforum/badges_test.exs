@@ -70,7 +70,7 @@ defmodule Cforum.BadgesTest do
     badge = Badges.get_badge!(badge.badge_id)
 
     assert Badges.unique_users(badge) == [
-             %{user: unload_relations(user, [:badges]), created_at: ub.created_at, times: 2}
+             %{user: unload_relations(user, [:badges]), created_at: ub.created_at, times: 2, active: true}
            ]
   end
 end
