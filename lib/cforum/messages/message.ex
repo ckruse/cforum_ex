@@ -195,12 +195,7 @@ defmodule Cforum.Messages.Message do
 
   defp maybe_create_tags(tags, _user, false) do
     known_tags = Tags.get_tags(tags)
-
-    unknown_tags =
-      Enum.filter(tags, fn tag ->
-        Enum.find(known_tags, &(&1.tag_name == tag)) == nil
-      end)
-
+    unknown_tags = Enum.filter(tags, &(not tag_matches?(known_tags, &1)))
     {known_tags, unknown_tags}
   end
 
@@ -209,13 +204,19 @@ defmodule Cforum.Messages.Message do
 
     unknown_tags =
       tags
-      |> Enum.filter(fn tag -> Enum.find(known_tags, &(&1.tag_name == tag)) == nil end)
+      |> Enum.filter(&(not tag_matches?(known_tags, &1)))
       |> Enum.map(fn tag ->
         {:ok, tag} = Tags.create_tag(user, %{tag_name: tag})
         tag
       end)
 
     {known_tags ++ unknown_tags, []}
+  end
+
+  defp tag_matches?(known_tags, wanted_tag) do
+    Enum.find(known_tags, fn tag ->
+      tag.tag_name == wanted_tag || Enum.find(tag.synonyms, &(&1.synonym == wanted_tag)) != nil
+    end) != nil
   end
 
   defp add_tag_errors(changeset, unknown_tags) do
