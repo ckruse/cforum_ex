@@ -1758,17 +1758,17 @@ msgstr "Benutzer"
 #, elixir-format
 #: lib/cforum_web/controllers/admin/group_controller.ex:23
 msgid "The group has been created successfully."
-msgstr "Der Thread wurde erfolgreich wiederhergestellt."
+msgstr "Die Gruppe wurde erfolgreich erstellt."
 
 #, elixir-format
 #: lib/cforum_web/controllers/admin/group_controller.ex:59
 msgid "The group has been deleted successfully."
-msgstr "Der Thread wurde erfolgreich wiederhergestellt."
+msgstr "Die Gruppe wurde erfolgreich gelöscht."
 
 #, elixir-format
 #: lib/cforum_web/controllers/admin/group_controller.ex:45
 msgid "The group has been updated successfully."
-msgstr "Der Thread wurde erfolgreich aufgeklappt."
+msgstr "Die Gruppe wurde erfolgreich geändert."
 
 #, elixir-format
 #: lib/cforum_web/views/admin/group_view.ex:12
