@@ -1798,7 +1798,7 @@ msgstr "Benutzer entfernen"
 #, elixir-format
 #: lib/cforum_web/controllers/admin/user_controller.ex:31
 msgid "The user has been created successfully."
-msgstr "Der Thread wurde erfolgreich wiederhergestellt."
+msgstr "Der Benutzer wurde erfolgreich erstellt."
 
 #, elixir-format
 #: lib/cforum_web/views/admin/forum_view.ex:8
