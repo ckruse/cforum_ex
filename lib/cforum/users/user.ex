@@ -1,6 +1,6 @@
 defmodule Cforum.Users.User do
   use CforumWeb, :model
-  use Arc.Ecto.Schema
+  use Waffle.Ecto.Schema
 
   alias Cforum.Helpers
   alias Phoenix.Token

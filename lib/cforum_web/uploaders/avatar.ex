@@ -1,9 +1,9 @@
 defmodule CforumWeb.Avatar do
-  use Arc.Definition
-  use Arc.Ecto.Definition
+  use Waffle.Definition
+  use Waffle.Ecto.Definition
 
   # Include ecto support (requires package arc_ecto installed):
-  # use Arc.Ecto.Definition
+  # use Waffle.Ecto.Definition
 
   @versions [:original, :medium, :thumb]
 

@@ -27,7 +27,7 @@ config :cforum, CforumWeb.Gettext, default_locale: "de"
 
 config :number, delimit: [precision: 2, delimiter: ".", separator: ","]
 
-config :arc, storage: Arc.Storage.Local
+config :waffle, storage: Waffle.Storage.Local
 config :porcelain, driver: Porcelain.Driver.Basic
 config :timex, default_locale: "de"
 
