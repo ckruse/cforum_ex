@@ -83,10 +83,18 @@ defmodule Cforum.Tags do
   def get_tags(tags) do
     tags = Enum.map(tags, &String.downcase(&1))
 
-    from(
-      tag in Tag,
-      left_join: syn in assoc(tag, :synonyms),
-      where: fragment("lower(?)", tag.tag_name) in ^tags or fragment("lower(?)", syn.synonym) in ^tags,
+    from(t in Tag,
+      inner_join:
+        t1 in subquery(
+          from(
+            tag in Tag,
+            select: tag.tag_id,
+            left_join: syn in assoc(tag, :synonyms),
+            where: fragment("lower(?)", tag.tag_name) in ^tags or fragment("lower(?)", syn.synonym) in ^tags,
+            group_by: [tag.tag_id]
+          )
+        ),
+      on: t.tag_id == t1.tag_id,
       order_by: [desc: :tag_name, desc: :tag_id]
     )
     |> Repo.all()
