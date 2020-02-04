@@ -43,4 +43,10 @@ defmodule CforumWeb.BadgeView do
       {:safe, "\"></use></svg>"}
     ]
   end
+
+  def visible_users(badge) do
+    badge
+    |> Badges.unique_users()
+    |> Enum.filter(& &1[:active])
+  end
 end

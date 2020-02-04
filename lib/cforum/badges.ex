@@ -157,7 +157,7 @@ defmodule Cforum.Badges do
   def unique_users(%Badge{} = badge) do
     badge.badges_users
     |> Enum.reduce(%{}, fn bu, acc ->
-      Map.update(acc, bu.user_id, %{user: bu.user, times: 1, created_at: bu.created_at}, fn mp ->
+      Map.update(acc, bu.user_id, %{user: bu.user, times: 1, created_at: bu.created_at, active: bu.active}, fn mp ->
         %{mp | times: mp[:times] + 1}
       end)
     end)
