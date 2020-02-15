@@ -61,7 +61,7 @@
     <%= unless Helpers.blank?(@cite.creator) do %>
       <%= gettext("created by") %>
       <span class="author">
-        <%= if !Helpers.blank?(@cite.creator_user_id) do %>
+        <%= if Helpers.present?(@cite.creator_user) do %>
           <%= ViewHelpers.user_link(@conn, @cite.creator_user, [], @cite.creator) %>
         <% else %>
           <span class="icon-message original-poster"><%= @cite.creator %></span>
