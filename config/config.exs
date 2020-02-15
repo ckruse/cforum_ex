@@ -45,7 +45,7 @@ config :cforum, Oban,
     {"0 3 1 * *", Cforum.Jobs.DatabaseMaintenanceJob}
   ]
 
-config :cforum, ObanWeb, repo: Cforum.Repo, stats: true, verbose: false
+config :cforum, ObanWeb, repo: Cforum.Repo, verbose: false
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

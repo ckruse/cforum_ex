@@ -20,7 +20,6 @@ config :cforum, Cforum.Repo,
   pool: Ecto.Adapters.SQL.Sandbox
 
 config :cforum, Oban, crontab: false, queues: false, prune: :disabled
-config :cforum, ObanWeb, stats: false
 config :cforum, Cforum.Mailer, adapter: Swoosh.Adapters.Test
 
 config :cforum,
