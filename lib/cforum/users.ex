@@ -135,8 +135,13 @@ defmodule Cforum.Users do
   """
   def get_user(id) do
     Caching.fetch(:cforum, "users/#{id}", fn ->
-      from(u in User, preload: [:settings, :badges, [badges_users: :badge]], where: u.user_id == ^id)
-      |> Repo.one()
+      ret =
+        from(u in User, preload: [:settings, :badges, [badges_users: :badge]], where: u.user_id == ^id)
+        |> Repo.one()
+
+      if ret == nil,
+        do: {:error, ret},
+        else: {:ok, ret}
     end)
   end
 
