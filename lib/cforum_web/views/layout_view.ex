@@ -148,8 +148,12 @@ defmodule CforumWeb.LayoutView do
   end
 
   def include_mathjax?(conn, url) do
-    (controller_module(conn) == CforumWeb.MessageController ||
-       (controller_module(conn) == CforumWeb.ThreadController && action_name(conn) == :new)) &&
+    cond do
+      controller_module(conn) == CforumWeb.MessageController -> true
+      controller_module(conn) == CforumWeb.ThreadController && action_name(conn) == :new -> true
+      controller_module(conn) == CforumWeb.MailController && action_name(conn) in [:show, :new, :create] -> true
+      true -> false
+    end &&
       Helpers.present?(url)
   end
 
