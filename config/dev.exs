@@ -40,6 +40,8 @@ config :logger, :console, format: "[$level] $message\n"
 config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
+config :cforum, Oban, crontab: false
+
 # Configure your database
 config :cforum, Cforum.Repo,
   database: "cforum_development",
