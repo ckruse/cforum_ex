@@ -32,6 +32,8 @@ defmodule Cforum.Jobs.VoteBadgeDistributorJob do
       grant_controverse_badge(owner, message)
       grant_badges_by_score(owner)
     end
+
+    :ok
   end
 
   defp grant_controverse_badge(owner, message) do

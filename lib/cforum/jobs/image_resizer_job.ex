@@ -15,6 +15,8 @@ defmodule Cforum.Jobs.ImageResizerJob do
       resize_image(img, "thumb")
       resize_image(img, "medium")
     end
+
+    :ok
   end
 
   defp resize_image(img, version) do

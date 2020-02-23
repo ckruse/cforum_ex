@@ -14,6 +14,8 @@ defmodule Cforum.Jobs.ScoreNotifyUserJob do
 
     user = Cforum.Users.get_user!(uid)
     CforumWeb.Endpoint.broadcast!("users:#{user.user_id}", "score-update", %{value: value, score: user.score})
+
+    :ok
   end
 
   def enqueue(score, action) do

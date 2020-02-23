@@ -21,5 +21,7 @@ defmodule Cforum.Jobs.DatabaseMaintenanceJob do
     Repo.query!("REINDEX DATABASE #{cfg[:database]}", [], timeout: :infinity, pool_timeout: :infinity)
 
     Logger.info("database maintenance finished!")
+
+    :ok
   end
 end

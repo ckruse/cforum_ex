@@ -9,11 +9,15 @@ defmodule Cforum.Jobs.DeleteUserJob do
     current_user = Cforum.Users.get_user!(euid)
 
     delete_user(user, current_user)
+
+    :ok
   end
 
   def perform(%{"user_id" => id}, _) do
     user = Cforum.Users.get_user!(id)
     delete_user(user, nil)
+
+    :ok
   end
 
   def delete_user(user, current_user) do

@@ -28,5 +28,7 @@ defmodule Cforum.Jobs.YearlingBadgeDistributorJob do
         for i <- 0..difference, i > 0, do: Badges.grant_badge(yearling_badge, user)
       end
     end
+
+    :ok
   end
 end

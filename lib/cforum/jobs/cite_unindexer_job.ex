@@ -9,6 +9,8 @@ defmodule Cforum.Jobs.CiteUnindexerJob do
 
     if !is_nil(doc),
       do: Search.delete_document(doc)
+
+    :ok
   end
 
   def enqueue(cite) do

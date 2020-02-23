@@ -34,6 +34,8 @@ defmodule Cforum.Jobs.NewMessageBadgeDistributorJob do
       parent = Messages.get_message!(message.parent_id)
       check_for_teacher_badge(user, parent)
     end
+
+    :ok
   end
 
   defp check_for_message_no_badges(user) do

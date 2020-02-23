@@ -27,6 +27,8 @@ defmodule Cforum.Jobs.RescoreMessageJob do
     %{"message_ids" => ids}
     |> Cforum.Jobs.RescoreMessageJob.new()
     |> Oban.insert!()
+
+    :ok
   end
 
   def enqueue(message) do

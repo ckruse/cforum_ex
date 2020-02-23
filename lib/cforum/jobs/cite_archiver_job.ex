@@ -16,6 +16,8 @@ defmodule Cforum.Jobs.CiteArchiverJob do
     Logger.info("Running cites archiver for #{length(cites)} cites (min age: #{min_age} weeks)")
     Enum.each(cites, &archive_cite(&1, Cites.score(&1)))
     Logger.info("cites archiver: done!")
+
+    :ok
   end
 
   defp archive_cite(cite, score) when score <= 0 do

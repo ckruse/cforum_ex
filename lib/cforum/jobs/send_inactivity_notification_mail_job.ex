@@ -35,6 +35,8 @@ defmodule Cforum.Jobs.SendInactivityNotificationMailJob do
       having: count() < ^no_messages
     )
     |> send_notification_mails(years)
+
+    :ok
   end
 
   defp notify_users_inactive_longer_5years do

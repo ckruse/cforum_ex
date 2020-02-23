@@ -17,5 +17,7 @@ defmodule Cforum.Jobs.UnindexMessageJob do
     %{"message_ids" => ids}
     |> Cforum.Jobs.UnindexMessageJob.new()
     |> Oban.insert!()
+
+    :ok
   end
 end

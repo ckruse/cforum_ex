@@ -33,6 +33,8 @@ defmodule Cforum.Jobs.MessageIndexerJob do
     thread = Threads.get_thread!(tid)
     message = Messages.get_message!(mid)
     index_message(thread, message)
+
+    :ok
   end
 
   def perform(%{"message_ids" => ids}, _) do
@@ -41,6 +43,8 @@ defmodule Cforum.Jobs.MessageIndexerJob do
       thread = Threads.get_thread!(message.thread_id)
       index_message(thread, message)
     end)
+
+    :ok
   end
 
   def index_message(thread, message) do

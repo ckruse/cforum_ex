@@ -15,6 +15,8 @@ defmodule Cforum.Jobs.UserCleanupJob do
     cleanup_inactive_users()
 
     Cachex.clear(:cforum)
+
+    :ok
   end
 
   defp cleanup_inactive_users() do

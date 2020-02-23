@@ -9,6 +9,8 @@ defmodule Cforum.Jobs.NotificationMailerJob do
     user
     |> CforumWeb.NotificationMailer.pm_notification_mail(pm)
     |> Cforum.Mailer.deliver!()
+
+    :ok
   end
 
   def perform(%{"moderation_queue_entry_id" => modqid, "type" => "moderation_queue"}, _) do
@@ -25,6 +27,8 @@ defmodule Cforum.Jobs.NotificationMailerJob do
       |> CforumWeb.NotificationMailer.moderation_mail(entry, thread, message)
       |> Cforum.Mailer.deliver!()
     end)
+
+    :ok
   end
 
   def enqueue_for_pm(pm, user) do

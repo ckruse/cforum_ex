@@ -13,5 +13,7 @@ defmodule Cforum.Jobs.ForumStatsJob do
 
     from(Forum, select: fragment("gen_forum_stats(forum_id::integer)"))
     |> Repo.all()
+
+    :ok
   end
 end

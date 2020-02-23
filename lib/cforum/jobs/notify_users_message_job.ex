@@ -33,6 +33,8 @@ defmodule Cforum.Jobs.NotifyUsersMessageJob do
 
     if message.parent_id != nil,
       do: notify_users(thread, message, users)
+
+    :ok
   end
 
   def perform(%{"thread_id" => tid, "message_id" => mid, "type" => "thread"}, _) do
@@ -45,6 +47,8 @@ defmodule Cforum.Jobs.NotifyUsersMessageJob do
     |> Enum.reject(fn user -> user.user_id == message.user_id end)
     |> Enum.filter(fn user -> may_view?(user, thread, message) end)
     |> Enum.each(fn user -> notify_user_thread(user, thread, message) end)
+
+    :ok
   end
 
   defp broadcast(thread, message) do

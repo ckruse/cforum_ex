@@ -19,6 +19,8 @@ defmodule Cforum.Jobs.ArchiverJob do
   def perform(_, _) do
     Forums.list_forums()
     |> Enum.each(&archive_for_forum/1)
+
+    :ok
   end
 
   def enforce_archiving(thread) do

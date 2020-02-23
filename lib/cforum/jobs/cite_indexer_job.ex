@@ -14,6 +14,8 @@ defmodule Cforum.Jobs.CiteIndexerJob do
     cite_id
     |> Cforum.Cites.get_cite!()
     |> index_cite()
+
+    :ok
   end
 
   def index_cite(cite) do

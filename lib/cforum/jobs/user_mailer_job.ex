@@ -11,6 +11,8 @@ defmodule Cforum.Jobs.UserMailerJob do
     |> Users.get_reset_password_token()
     |> CforumWeb.UserMailer.reset_password_mail()
     |> Cforum.Mailer.deliver!()
+
+    :ok
   end
 
   def perform(%{"user_id" => id, "type" => "confirm_user"}, _) do
@@ -19,6 +21,8 @@ defmodule Cforum.Jobs.UserMailerJob do
     user
     |> CforumWeb.UserMailer.confirmation_mail()
     |> Cforum.Mailer.deliver!()
+
+    :ok
   end
 
   def enqueue(user, type) do
