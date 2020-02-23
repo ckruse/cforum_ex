@@ -5,9 +5,18 @@ defmodule Cforum.Caching do
         Cachex.get!(cache, key)
 
       {:ok, false} ->
-        val = fun.()
-        Cachex.put!(cache, key, val)
-        val
+        case fun.() do
+          {:ok, val} ->
+            Cachex.put!(cache, key, val)
+            val
+
+          {:error, val} ->
+            val
+
+          val ->
+            Cachex.put!(cache, key, val)
+            val
+        end
 
       {:error, _} = v ->
         throw(v)
