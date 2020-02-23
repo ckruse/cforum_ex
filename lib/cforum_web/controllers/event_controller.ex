@@ -18,6 +18,9 @@ defmodule CforumWeb.EventController do
   end
 
   def show(conn, %{"id" => id}) do
+    if !Regex.match?(~r/^\d+$/, id),
+      do: raise(Cforum.Errors.NotFoundError, conn: conn)
+
     event = Events.get_event!(id, true)
     render(conn, "show.html", event: event)
   end
