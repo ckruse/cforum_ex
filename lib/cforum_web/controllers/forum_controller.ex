@@ -6,7 +6,7 @@ defmodule CforumWeb.ForumController do
   alias Cforum.Forums.Stats
   alias Cforum.ConfigManager
 
-  def index(conn, %{"t" => tid, "m" => mid}) do
+  def index(conn, %{"t" => tid, "m" => mid}) when not is_nil(tid) and not is_nil(mid) do
     if !Regex.match?(~r/^\d+$/, tid) || !Regex.match?(~r/^\d+$/, mid),
       do: raise(Cforum.Errors.NotFoundError, conn: conn)
 
