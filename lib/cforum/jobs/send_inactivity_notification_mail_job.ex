@@ -9,10 +9,10 @@ defmodule Cforum.Jobs.SendInactivityNotificationMailJob do
   alias Cforum.Messages.Message
 
   @limits [
-    {1, 25},
-    {2, 50},
+    {4, 100},
     {3, 75},
-    {4, 100}
+    {2, 50},
+    {1, 25}
   ]
 
   @impl Oban.Worker
@@ -25,18 +25,14 @@ defmodule Cforum.Jobs.SendInactivityNotificationMailJob do
     from(user in User,
       left_join: message in Message,
       on: message.user_id == user.user_id,
+      on: fragment("?::date >= (NOW() - INTERVAL '5 years')::date", message.created_at),
+      on: message.deleted == false,
       where:
-        fragment("?::date <= NOW()::date - INTERVAL '1 year' * ?", user.last_visit, ^years) or
+        fragment("?::date < (NOW() - INTERVAL '1 year' * ?)::date", user.last_visit, ^years) or
           (is_nil(user.last_visit) and
-             fragment("?::date <= NOW()::date - INTERVAL '1 year' * ?", user.created_at, ^years)),
-      where:
-        fragment("?::date > NOW()::date - INTERVAL '1 year' * ?", user.last_visit, ^(years + 1)) or
-          (is_nil(user.last_visit) and
-             fragment("?::date > NOW()::date - INTERVAL '1 year' * ?", user.created_at, ^(years + 1))),
-      where: message.deleted == false,
-      where: fragment("?::date >= NOW()::date - INTERVAL '5 years'", message.created_at),
+             fragment("?::date < (NOW() - INTERVAL '1 year' * ?)::date", user.created_at, ^years)),
       group_by: user.user_id,
-      having: count() <= ^no_messages
+      having: count() < ^no_messages
     )
     |> send_notification_mails(years)
   end
