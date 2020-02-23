@@ -147,10 +147,16 @@ defmodule CforumWeb.LayoutView do
     end
   end
 
+  def include_mathjax?(conn, url) do
+    (controller_module(conn) == CforumWeb.MessageController ||
+       (controller_module(conn) == CforumWeb.ThreadController && action_name(conn) == :new)) &&
+      Helpers.present?(url)
+  end
+
   def mathjax(conn) do
     url = ConfigManager.conf(conn, "mathjax_url")
 
-    if controller_module(conn) == CforumWeb.MessageController && Helpers.present?(url) do
+    if include_mathjax?(conn, url) do
       [
         {:safe, "<script nonce=\""},
         conn.assigns[:nonce_for_js],
