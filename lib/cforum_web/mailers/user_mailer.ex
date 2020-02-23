@@ -32,6 +32,7 @@ defmodule CforumWeb.UserMailer do
     new()
     |> from(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))
     |> to({user.username, user.email})
+    |> bcc(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))
     |> subject(gettext("inactivity warning"))
     |> render_body(:inactivity_warning_mail, %{user: user, years: years_str})
   end
