@@ -16,7 +16,7 @@
   sie allerdings zu Beiträgen eines anonymen Nutzers, der zufällig Ihren
   Benutzernamen gewählt hat.</p>
 
-<p>Ihr Benutzername lautet <%= @user.username %>>, falls Sie Ihr Passwort
+<p>Ihr Benutzername lautet <%= @user.username %>, falls Sie Ihr Passwort
   vergessen haben, können Sie unter
   <a href="<%= Path.password_url(CforumWeb.Endpoint, :new) %>"><%= Path.password_url(CforumWeb.Endpoint, :new) %></a>
   ein neues anfordern.</p>
