@@ -43,7 +43,7 @@ config :cforum, Oban,
     {"0 2 * * *", Cforum.Jobs.AuditingCleanupJob},
     {"0 5 * * *", Cforum.Jobs.YearlingBadgeDistributorJob},
     {"0 3 1 * *", Cforum.Jobs.DatabaseMaintenanceJob},
-    {"4 17 * * *", Cforum.Jobs.SendInactivityNotificationMailJob}
+    {"17 4 * * *", Cforum.Jobs.SendInactivityNotificationMailJob}
   ]
 
 config :cforum, ObanWeb, repo: Cforum.Repo, verbose: false
