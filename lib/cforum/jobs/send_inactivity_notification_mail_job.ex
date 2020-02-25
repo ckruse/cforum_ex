@@ -52,7 +52,9 @@ defmodule Cforum.Jobs.SendInactivityNotificationMailJob do
     from(user in q,
       where: is_nil(user.inactivity_notification_sent_at),
       where: fragment("EXTRACT(DAY FROM ?) = EXTRACT(DAY FROM NOW())", user.created_at),
-      where: fragment("EXTRACT(MONTH FROM ?) = EXTRACT(MONTH FROM NOW())", user.created_at)
+      where: fragment("EXTRACT(MONTH FROM ?) = EXTRACT(MONTH FROM NOW())", user.created_at),
+      where: not is_nil(user.email),
+      where: user.email != ""
     )
     |> Repo.all()
     |> Enum.each(&notify_user(&1, years))

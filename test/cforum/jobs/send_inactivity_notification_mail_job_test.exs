@@ -169,4 +169,15 @@ defmodule Cforum.Jobs.SendInactivityNotificationMailJobTest do
     refute user.inactivity_notification_sent_at
     refute_email_sent()
   end
+
+  test "doesn't fail on users w/o email address" do
+    date = Timex.now() |> Timex.shift(years: -5)
+    user = insert(:user, last_visit: date, created_at: date, email: nil)
+
+    Cforum.Jobs.SendInactivityNotificationMailJob.perform(nil, nil)
+    user = Repo.get!(User, user.user_id)
+
+    refute user.inactivity_notification_sent_at
+    refute_email_sent()
+  end
 end
