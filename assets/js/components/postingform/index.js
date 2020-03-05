@@ -1,11 +1,13 @@
 import React from "react";
 import Modal from "react-modal";
+import { ErrorBoundary } from "@appsignal/react";
 
 import CfContentForm from "../contentform";
 import { t } from "../../modules/i18n";
 import Notes from "./notes";
 import Meta from "./meta";
 import SaveIdentity from "./save_identity";
+import appsignal, { FallbackComponent } from "../../appsignal";
 
 class CfPostingForm extends React.Component {
   constructor(props) {
@@ -142,7 +144,7 @@ class CfPostingForm extends React.Component {
     const method = this.props.method || "post";
 
     return (
-      <>
+      <ErrorBoundary instance={appsignal} fallback={error => <FallbackComponent />}>
         <input type="hidden" name={csrfInfo.param} value={csrfInfo.token} />
         {method.toUpperCase() !== "POST" && <input type="hidden" name="_method" value={method} />}
 
@@ -209,7 +211,7 @@ class CfPostingForm extends React.Component {
             </button>
           </p>
         </Modal>
-      </>
+      </ErrorBoundary>
     );
   }
 }

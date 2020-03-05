@@ -1,4 +1,5 @@
 import React from "react";
+import { ErrorBoundary } from "@appsignal/react";
 
 import DefaultReplacements from "./default_replacements";
 import EmojiReplacements from "./emojis";
@@ -11,6 +12,7 @@ import { alertError } from "../../modules/alerts";
 import { t } from "../../modules/i18n";
 import { replaceAt, getSelection, escapeText } from "./helpers";
 import AutocompleteTextarea from "../autocomplete";
+import appsignal, { FallbackComponent } from "../../appsignal";
 
 class CfEditor extends React.Component {
   constructor(props) {
@@ -112,41 +114,43 @@ class CfEditor extends React.Component {
     }
 
     return (
-      <fieldset>
-        <label htmlFor={id}>
-          {t("posting text")}{" "}
-          {errors[id] && (
-            <>
-              <span className="help error">{errors[id]}</span>
-            </>
+      <ErrorBoundary instance={appsignal} fallback={error => <FallbackComponent />}>
+        <fieldset>
+          <label htmlFor={id}>
+            {t("posting text")}{" "}
+            {errors[id] && (
+              <>
+                <span className="help error">{errors[id]}</span>
+              </>
+            )}
+          </label>
+
+          <div className={className}>
+            <Toolbar
+              value={this.state.value}
+              changeValue={this.setValue}
+              textarea={this.textarea}
+              onImageUpload={this.fileDropped}
+              enableImages={this.props.withImages}
+            />
+
+            <AutocompleteTextarea
+              name={name}
+              value={this.state.value}
+              onChange={this.valueChanged}
+              onComplete={this.setValue}
+              triggers={[DefaultReplacements, EmojiReplacements, SmileyReplacements, MentionsReplacements]}
+              ref={this.textarea}
+            />
+          </div>
+
+          {this.props.withImages && (
+            <Dropzone onDragStart={this.dragStart} onDragStop={this.dragStop} onDrop={this.fileDropped} />
           )}
-        </label>
 
-        <div className={className}>
-          <Toolbar
-            value={this.state.value}
-            changeValue={this.setValue}
-            textarea={this.textarea}
-            onImageUpload={this.fileDropped}
-            enableImages={this.props.withImages}
-          />
-
-          <AutocompleteTextarea
-            name={name}
-            value={this.state.value}
-            onChange={this.valueChanged}
-            onComplete={this.setValue}
-            triggers={[DefaultReplacements, EmojiReplacements, SmileyReplacements, MentionsReplacements]}
-            ref={this.textarea}
-          />
-        </div>
-
-        {this.props.withImages && (
-          <Dropzone onDragStart={this.dragStart} onDragStop={this.dragStop} onDrop={this.fileDropped} />
-        )}
-
-        <LivePreview content={this.state.value} />
-      </fieldset>
+          <LivePreview content={this.state.value} />
+        </fieldset>
+      </ErrorBoundary>
     );
   }
 }

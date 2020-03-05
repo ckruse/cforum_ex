@@ -1,9 +1,11 @@
 import React from "react";
 import { render } from "react-dom";
+import { ErrorBoundary } from "@appsignal/react";
 
 import { t } from "../../modules/i18n";
 import Badge from "./badge";
 import NewBadgeModal from "./new_badge_modal";
+import appsignal, { FallbackComponent } from "../../appsignal";
 
 class BadgeManager extends React.Component {
   constructor(props) {
@@ -60,28 +62,30 @@ class BadgeManager extends React.Component {
     const badges = (this.state.user && this.state.user.badges) || [];
 
     return (
-      <fieldset>
-        <legend>{t("badge management")}</legend>
+      <ErrorBoundary instance={appsignal} fallback={error => <FallbackComponent />}>
+        <fieldset>
+          <legend>{t("badge management")}</legend>
 
-        <NewBadgeModal show={this.state.showModal} selectBadge={this.selectBadge} onClose={this.closeModal} />
+          <NewBadgeModal show={this.state.showModal} selectBadge={this.selectBadge} onClose={this.closeModal} />
 
-        <p>
-          <button type="button" onClick={this.showNewBadgeModal} className="cf-btn">
-            {t("add new badge")}
-          </button>
-        </p>
+          <p>
+            <button type="button" onClick={this.showNewBadgeModal} className="cf-btn">
+              {t("add new badge")}
+            </button>
+          </p>
 
-        {badges.map((b, idx) => (
-          <Badge
-            badge={b}
-            key={b.badge_user_id}
-            changeActive={this.changeActive}
-            deleteBadge={this.deleteBadge}
-            index={idx}
-            userId={this.state.user.user_id}
-          />
-        ))}
-      </fieldset>
+          {badges.map((b, idx) => (
+            <Badge
+              badge={b}
+              key={b.badge_user_id}
+              changeActive={this.changeActive}
+              deleteBadge={this.deleteBadge}
+              index={idx}
+              userId={this.state.user.user_id}
+            />
+          ))}
+        </fieldset>
+      </ErrorBoundary>
     );
   }
 }

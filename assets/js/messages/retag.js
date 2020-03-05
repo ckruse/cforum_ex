@@ -1,7 +1,9 @@
 import React from "react";
 import { render } from "react-dom";
+import { ErrorBoundary } from "@appsignal/react";
 
 import TagList from "../components/taglist";
+import appsignal, { FallbackComponent } from "../appsignal";
 
 const setupTaglist = () => {
   const el = document.querySelector(".cf-form-tagslist");
@@ -37,7 +39,12 @@ const setupTaglist = () => {
 
   fset.remove();
 
-  render(<TagList tags={tags} postingText={text} globalTagsError={globalTagsError} />, node);
+  render(
+    <ErrorBoundary instance={appsignal} fallback={error => <FallbackComponent />}>
+      <TagList tags={tags} postingText={text} globalTagsError={globalTagsError} />
+    </ErrorBoundary>,
+    node
+  );
 };
 
 export default setupTaglist;

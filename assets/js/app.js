@@ -55,6 +55,7 @@ import "./events";
 
 import "./init";
 import "./cleanup";
+import "./appsignal";
 
 import "./modules/anonymous";
 

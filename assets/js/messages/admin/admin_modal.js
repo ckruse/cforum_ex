@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
+import { ErrorBoundary } from "@appsignal/react";
+
 import { t } from "../../modules/i18n";
+import appsignal, { FallbackComponent } from "../../appsignal";
 
 export default function AdminModal(props) {
   const [isOpen, setIsOpen] = useState(true);
@@ -35,112 +38,114 @@ export default function AdminModal(props) {
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      appElement={document.body}
-      contentLabel={props.heading}
-      onRequestClose={closeModal}
-      closeTimeoutMS={300}
-    >
-      <h2>{props.heading}</h2>
+    <ErrorBoundary instance={appsignal} fallback={error => <FallbackComponent />}>
+      <Modal
+        isOpen={isOpen}
+        appElement={document.body}
+        contentLabel={props.heading}
+        onRequestClose={closeModal}
+        closeTimeoutMS={300}
+      >
+        <h2>{props.heading}</h2>
 
-      <div className="cf-form cf-delete-message-modal">
-        <div className="cf-cgroup">
-          <label className="radio">
-            <input
-              type="radio"
-              name="reason"
-              value="off-topic"
-              checked={formValues.chosenReason === "off-topic"}
-              onChange={reasonChanged}
-            />{" "}
-            {t("message is off-topic")}
-          </label>
-
-          <label className="radio">
-            <input
-              type="radio"
-              name="reason"
-              value="not-constructive"
-              checked={formValues.chosenReason === "not-constructive"}
-              onChange={reasonChanged}
-            />{" "}
-            {t("message is not constructive")}
-          </label>
-
-          <label className="radio">
-            <input
-              type="radio"
-              name="reason"
-              value="illegal"
-              checked={formValues.chosenReason === "illegal"}
-              onChange={reasonChanged}
-            />{" "}
-            {t("message is illegal")}
-          </label>
-
-          <label className="radio">
-            <input
-              type="radio"
-              name="reason"
-              value="duplicate"
-              checked={formValues.chosenReason === "duplicate"}
-              onChange={reasonChanged}
-            />{" "}
-            {t("message is a duplicate")}
-          </label>
-
-          <label className="radio">
-            <input
-              type="radio"
-              name="reason"
-              value="spam"
-              checked={formValues.chosenReason === "spam"}
-              onChange={reasonChanged}
-            />{" "}
-            {t("message is spam")}
-          </label>
-
-          <label className="radio">
-            <input
-              type="radio"
-              name="reason"
-              value="custom"
-              checked={formValues.chosenReason === "custom"}
-              onChange={reasonChanged}
-            />{" "}
-            {t("custom reason")}
-          </label>
-        </div>
-
-        {formValues.chosenReason === "custom" && (
+        <div className="cf-form cf-delete-message-modal">
           <div className="cf-cgroup">
-            <label htmlFor="delete-message-custom-reason">{t("custom reason")}</label>
-            <textarea
-              name="custom_reason"
-              id="delete-message-custom-reason"
-              value={formValues.customReason}
-              onChange={customReasonChanged}
-            />
-          </div>
-        )}
+            <label className="radio">
+              <input
+                type="radio"
+                name="reason"
+                value="off-topic"
+                checked={formValues.chosenReason === "off-topic"}
+                onChange={reasonChanged}
+              />{" "}
+              {t("message is off-topic")}
+            </label>
 
-        <p>
-          {window.currentUser.admin && (
-            <>
-              <button type="button" className="cf-primary-btn" onClick={noReasonAction}>
-                {props.noReasonActionText}
-              </button>{" "}
-            </>
+            <label className="radio">
+              <input
+                type="radio"
+                name="reason"
+                value="not-constructive"
+                checked={formValues.chosenReason === "not-constructive"}
+                onChange={reasonChanged}
+              />{" "}
+              {t("message is not constructive")}
+            </label>
+
+            <label className="radio">
+              <input
+                type="radio"
+                name="reason"
+                value="illegal"
+                checked={formValues.chosenReason === "illegal"}
+                onChange={reasonChanged}
+              />{" "}
+              {t("message is illegal")}
+            </label>
+
+            <label className="radio">
+              <input
+                type="radio"
+                name="reason"
+                value="duplicate"
+                checked={formValues.chosenReason === "duplicate"}
+                onChange={reasonChanged}
+              />{" "}
+              {t("message is a duplicate")}
+            </label>
+
+            <label className="radio">
+              <input
+                type="radio"
+                name="reason"
+                value="spam"
+                checked={formValues.chosenReason === "spam"}
+                onChange={reasonChanged}
+              />{" "}
+              {t("message is spam")}
+            </label>
+
+            <label className="radio">
+              <input
+                type="radio"
+                name="reason"
+                value="custom"
+                checked={formValues.chosenReason === "custom"}
+                onChange={reasonChanged}
+              />{" "}
+              {t("custom reason")}
+            </label>
+          </div>
+
+          {formValues.chosenReason === "custom" && (
+            <div className="cf-cgroup">
+              <label htmlFor="delete-message-custom-reason">{t("custom reason")}</label>
+              <textarea
+                name="custom_reason"
+                id="delete-message-custom-reason"
+                value={formValues.customReason}
+                onChange={customReasonChanged}
+              />
+            </div>
           )}
-          <button type="button" className="cf-primary-btn" onClick={checkDeleteMessage} disabled={!isValid()}>
-            {props.reasonActionText}
-          </button>{" "}
-          <button type="button" className="cf-btn" onClick={closeModal}>
-            {t("cancel")}
-          </button>
-        </p>
-      </div>
-    </Modal>
+
+          <p>
+            {window.currentUser.admin && (
+              <>
+                <button type="button" className="cf-primary-btn" onClick={noReasonAction}>
+                  {props.noReasonActionText}
+                </button>{" "}
+              </>
+            )}
+            <button type="button" className="cf-primary-btn" onClick={checkDeleteMessage} disabled={!isValid()}>
+              {props.reasonActionText}
+            </button>{" "}
+            <button type="button" className="cf-btn" onClick={closeModal}>
+              {t("cancel")}
+            </button>
+          </p>
+        </div>
+      </Modal>
+    </ErrorBoundary>
   );
 }
