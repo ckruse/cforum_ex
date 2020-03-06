@@ -12,6 +12,7 @@ defmodule Cforum.LegacyParser.ImageParser do
     img =
       [?!, ?[, map[:end], ?], ?(, map[:title], ?)]
       |> List.flatten()
+      |> Enum.reject(&is_nil/1)
       |> Enum.reverse()
 
     {img, context}
