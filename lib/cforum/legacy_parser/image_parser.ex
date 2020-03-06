@@ -1,25 +1,4 @@
 defmodule Cforum.LegacyParser.ImageParser do
-  # def parse(rest) do
-  #   case Regex.run(~r{((?:[^\]]|\\\])+)\]}, rest) do
-  #     nil ->
-  #       nil
-
-  #     [full_match, link] ->
-  #       {target, desc} = parse_target(link)
-  #       {target, desc, String.slice(rest, String.length(full_match)..-1)}
-  #   end
-  # end
-
-  # defp parse_target(target) do
-  #   case Regex.run(~r{(.*?)@alt=(.*)}, target, capture: :all_but_first) do
-  #     nil -> {target, nil}
-  #     [target, title] -> {target, title}
-  #   end
-  # end
-
-  # def markdown(target, nil), do: "![](#{target})"
-  # def markdown(target, desc), do: "![#{desc}](#{target})"
-
   def markdown_with_title(_rest, args, context, _line, _offset) do
     {_, map} =
       args
