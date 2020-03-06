@@ -135,12 +135,14 @@ defmodule Cforum.LegacyParser do
       |> String.replace(~r/^(\d+)\./m, "\\1\\.")
 
     content =
-      with {:ok, str, "", _v1, _v2, _v3} <- tokenize(content) do
-        str
-        |> to_string()
-        |> HtmlEntities.decode()
-      else
-        _ -> message.content
+      case tokenize(content) do
+        {:ok, str, "", _v1, _v2, _v3} ->
+          str
+          |> to_string()
+          |> HtmlEntities.decode()
+
+        _ ->
+          message.content
       end
 
     message
