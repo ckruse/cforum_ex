@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 defmodule CforumWeb.Plug.RememberMe do
   @moduledoc """
   This plug is plugged in the browser pipeline and implements a „remember me”
@@ -22,10 +20,13 @@ defmodule CforumWeb.Plug.RememberMe do
 
       with {:ok, uid} <- Phoenix.Token.verify(CforumWeb.Endpoint, "user", token, max_age: 2_592_000),
            current_user when not is_nil(current_user) <- Cforum.Users.get_user(uid) do
+        token = Phoenix.Token.sign(CforumWeb.Endpoint, "user", current_user.user_id)
+
         conn
         |> Plug.Conn.put_session(:user_id, current_user.user_id)
         |> Plug.Conn.configure_session(renew: true)
         |> Plug.Conn.assign(:current_user, current_user)
+        |> Plug.Conn.put_resp_cookie("remember_me", token, max_age: 2_592_000, http_only: true)
       else
         _ -> conn
       end
