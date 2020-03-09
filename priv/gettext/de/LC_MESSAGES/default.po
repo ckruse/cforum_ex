@@ -1309,7 +1309,7 @@ msgstr "Silber-Medaille"
 
 #: lib/cforum_web/templates/forum/index.html.eex:12
 #: lib/cforum_web/templates/layout/page_header.html.eex:21 lib/cforum_web/templates/message/message_forum_links.html.eex:4
-#: lib/cforum_web/views/archive_view.ex:8 lib/cforum_web/views/layout_view.ex:291
+#: lib/cforum_web/views/archive_view.ex:8 lib/cforum_web/views/layout_view.ex:301
 #: lib/cforum_web/views/thread_view.ex:37 lib/cforum_web/views/thread_view.ex:44
 msgid "all forums"
 msgstr "alle Foren"
@@ -1600,7 +1600,7 @@ msgid "chat"
 msgstr "Chat"
 
 #, elixir-format
-#: lib/cforum/jobs/cite_indexer_job.ex:33
+#: lib/cforum/jobs/cite_indexer_job.ex:35
 #: lib/cforum_web/templates/admin/audit/index.html.eex:16 lib/cforum_web/templates/admin/search_section/form.html.eex:26
 #: lib/cforum_web/templates/layout/page_header.html.eex:47 lib/cforum_web/views/cite_view.ex:15
 msgid "cites"
@@ -1612,7 +1612,7 @@ msgid "help"
 msgstr "Hilfe"
 
 #, elixir-format
-#: lib/cforum/jobs/cite_indexer_job.ex:52
+#: lib/cforum/jobs/cite_indexer_job.ex:54
 #: lib/cforum_web/templates/cite/cite.html.eex:5 lib/cforum_web/views/cite_view.ex:17
 msgid "cite %{id}"
 msgstr "Zitat #%{id}"
@@ -1874,7 +1874,7 @@ msgid "alternative CSS resoures"
 msgstr "alternative CSS-Resourcen"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:217
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:224
 msgid "blacklist patterns for posting content"
 msgstr "Blacklist-Muster für Beiträge"
 
@@ -1994,7 +1994,7 @@ msgid "minimum number of tags per message"
 msgstr "Mindestanzahl an Tags pro Beitrag"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:224
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:231
 msgid "nickname black list"
 msgstr "Namens-Blacklist"
 
@@ -2006,6 +2006,7 @@ msgstr "eine URL pro Zeile"
 #, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:212
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:219 lib/cforum_web/templates/admin/setting/settings.html.eex:226
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:233
 msgid "one pattern per line"
 msgstr "ein Muster pro Zeile"
 
@@ -2604,13 +2605,13 @@ msgstr "%{forum} – Übersicht"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:25
-#: lib/cforum_web/views/layout_view.ex:279
+#: lib/cforum_web/views/layout_view.ex:289
 msgid "administrative view"
 msgstr "Administrator-Ansicht"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:19
-#: lib/cforum_web/templates/message/message_forum_links.html.eex:21 lib/cforum_web/views/layout_view.ex:278
+#: lib/cforum_web/templates/message/message_forum_links.html.eex:21 lib/cforum_web/views/layout_view.ex:288
 msgid "normal view"
 msgstr "Administrator-Ansicht deaktivieren"
 
@@ -3633,12 +3634,12 @@ msgid "notify me via email on activity in subscribed messages"
 msgstr "benachrichtige mich via Email über Aktivität bei einem abonnierten Beitrag"
 
 #, elixir-format
-#: lib/cforum/jobs/notify_users_message_job.ex:84
+#: lib/cforum/jobs/notify_users_message_job.ex:88
 msgid "%{nick} wrote a new message: %{subject}"
 msgstr "%{nick} hat einen neuen Beitrag geschrieben: „%{subject}“"
 
 #, elixir-format
-#: lib/cforum/jobs/notify_users_message_job.ex:79
+#: lib/cforum/jobs/notify_users_message_job.ex:83
 msgid "%{nick} wrote a reply to your message: %{subject}"
 msgstr "%{nick} hat auf Ihren Beitrag geantwortet: „%{subject}“"
 
@@ -3653,7 +3654,7 @@ msgid "tags list"
 msgstr "Tags"
 
 #, elixir-format
-#: lib/cforum/jobs/notify_users_message_job.ex:115
+#: lib/cforum/jobs/notify_users_message_job.ex:119
 msgid "new thread by %{nick}: %{subject}"
 msgstr "neuer Thread von %{nick}: „%{subject}“"
 
@@ -3663,7 +3664,7 @@ msgid "user data"
 msgstr "Benutzer-Daten"
 
 #, elixir-format
-#: lib/cforum/jobs/notify_users_message_job.ex:141
+#: lib/cforum/jobs/notify_users_message_job.ex:145
 msgid "%{nick} mentioned you in a new message: “%{subject}”"
 msgstr "%{nick} hat Sie in einem neuen Beitrag „%{subject}“ erwähnt"
 
@@ -4293,7 +4294,7 @@ msgid "retag children as well"
 msgstr "Tags auch bei Kind-Beiträgen neu vergeben"
 
 #, elixir-format
-#: lib/cforum_web/mailers/user_mailer.ex:35
+#: lib/cforum_web/mailers/user_mailer.ex:36
 msgid "inactivity warning"
 msgstr "SELFHTML – Inaktivitätswarnung"
 
@@ -4326,3 +4327,8 @@ msgstr "seit mindestens drei Jahren"
 #: lib/cforum_web/mailers/user_mailer.ex:23
 msgid "since two years"
 msgstr "seit mindestens zwei Jahren"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:217
+msgid "blacklist patterns for posting urls"
+msgstr "Blacklist-Muster für URLs (problematische Seite und Homepage)"
