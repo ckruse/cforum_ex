@@ -45,6 +45,7 @@ defmodule Cforum.ConfigManager do
     "date_format_date" => "%d.%m.%Y",
     "mail_thread_sort" => "ascending",
     "subject_black_list" => "",
+    "url_black_list" => "",
     "content_black_list" => "",
     "mathjax_url" => "",
 

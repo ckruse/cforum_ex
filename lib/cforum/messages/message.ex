@@ -134,6 +134,8 @@ defmodule Cforum.Messages.Message do
     |> validate_required([:author, :subject, :content, :forum_id, :thread_id])
     |> validate_blacklist(:subject, "subject_black_list")
     |> validate_blacklist(:content, "content_black_list")
+    |> validate_blacklist(:homepage, "url_black_list")
+    |> validate_blacklist(:problematic_site, "url_black_list")
   end
 
   def changeset(struct, params, user, visible_forums, thread, message, opts) do
@@ -144,6 +146,8 @@ defmodule Cforum.Messages.Message do
     |> validate_required([:author, :subject, :content, :forum_id, :thread_id])
     |> validate_blacklist(:subject, "subject_black_list")
     |> validate_blacklist(:content, "content_black_list")
+    |> validate_blacklist(:homepage, "url_black_list")
+    |> validate_blacklist(:problematic_site, "url_black_list")
   end
 
   def new_or_update_changeset(struct, params, user, visible_forums, opts \\ [create_tags: false]) do

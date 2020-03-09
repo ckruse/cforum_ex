@@ -214,6 +214,13 @@
   </div>
 
   <div class="cf-cgroup">
+    <label for="settings-url_black_list"><%= gettext("blacklist patterns for posting urls") %></label>
+    <%= textarea @fo, :url_black_list, id: "settings-url_black_list" %>
+    <span class="help"><%= gettext("one pattern per line") %></span>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :url_black_list) %> <%= default_value(@conn, :url_black_list) %></label>
+  </div>
+
+  <div class="cf-cgroup">
     <label for="settings-content_black_list"><%= gettext("blacklist patterns for posting content") %></label>
     <%= textarea @fo, :content_black_list, id: "settings-content_black_list" %>
     <span class="help"><%= gettext("one pattern per line") %></span>
