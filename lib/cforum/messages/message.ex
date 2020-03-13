@@ -163,6 +163,11 @@ defmodule Cforum.Messages.Message do
     |> new_or_update_changeset(params, nil, visible_forums, opts)
     |> maybe_set_editor_id(user)
     |> set_editor_author(struct, user)
+    |> validate_blacklist(:author, "nick_black_list")
+    |> validate_blacklist(:subject, "subject_black_list")
+    |> validate_blacklist(:content, "content_black_list")
+    |> validate_blacklist(:homepage, "url_black_list")
+    |> validate_blacklist(:problematic_site, "url_black_list")
   end
 
   def retag_changeset(struct, params, user, opts \\ [create_tags: false]) do
