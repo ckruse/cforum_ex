@@ -38,4 +38,12 @@ defmodule CforumWeb.NotificationMailer do
       message: message
     })
   end
+
+  def inactivity_notification_error_mail(user, error, recipients) do
+    new()
+    |> from(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))
+    |> to(Enum.map(recipients, & &1.email))
+    |> subject(gettext("error sending inactivity notification email"))
+    |> render_body(:inactivity_notification_error, %{user: user, error: error})
+  end
 end

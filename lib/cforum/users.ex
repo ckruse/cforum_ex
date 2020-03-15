@@ -596,6 +596,11 @@ defmodule Cforum.Users do
     end
   end
 
+  def list_admins() do
+    from(u in User, where: u.admin == true, order_by: [asc: :username])
+    |> Repo.all()
+  end
+
   def list_moderators() do
     from(u in User,
       where:
