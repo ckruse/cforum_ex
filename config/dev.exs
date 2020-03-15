@@ -48,7 +48,8 @@ config :cforum, Cforum.Repo,
   hostname: "localhost",
   pool_size: 10
 
-config :cforum, Cforum.Mailer, adapter: Swoosh.Adapters.Local, serve_mailbox: true, preview_port: 4001
+config :cforum, Cforum.Mailer, adapter: Swoosh.Adapters.Local
+config :swoosh, serve_mailbox: true, preview_port: 4001
 
 config :cforum,
   mail_sender: "cforum@wwwtech.de",
