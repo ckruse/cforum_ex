@@ -61,11 +61,21 @@ defmodule Cforum.Jobs.SendInactivityNotificationMailJob do
   end
 
   defp notify_user(user, years) do
-    user
-    |> CforumWeb.UserMailer.inactivity_mail(years)
-    |> Cforum.Mailer.deliver!()
+    ret =
+      user
+      |> CforumWeb.UserMailer.inactivity_mail(years)
+      |> Cforum.Mailer.deliver()
 
-    from(user in User, where: user.user_id == ^user.user_id)
-    |> Repo.update_all(set: [inactivity_notification_sent_at: Timex.now()])
+    case ret do
+      {:ok, _} ->
+        from(user in User, where: user.user_id == ^user.user_id)
+        |> Repo.update_all(set: [inactivity_notification_sent_at: Timex.now()])
+
+      {:error, error} ->
+        admins = Cforum.Users.list_admins()
+
+        CforumWeb.NotificationMailer.inactivity_notification_error_mail(user, error, admins)
+        |> Cforum.Mailer.deliver()
+    end
   end
 end

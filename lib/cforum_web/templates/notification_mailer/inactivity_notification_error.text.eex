@@ -1,0 +1,7 @@
+<%= gettext("Hi there") %>
+
+<%= gettext("There was an error sending an inactivity notification mail to %{user} (%{email}):", user: @user.username, email: @user.email) %>
+
+<%= @error %>
+
+<%=  gettext("Best regards") %>

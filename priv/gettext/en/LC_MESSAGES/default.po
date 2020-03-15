@@ -3990,13 +3990,15 @@ msgid "notify me via email on flagged messages"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/notification_mailer/moderation_mail.html.eex:10
+#: lib/cforum_web/templates/notification_mailer/inactivity_notification_error.html.eex:9
+#: lib/cforum_web/templates/notification_mailer/inactivity_notification_error.text.eex:7 lib/cforum_web/templates/notification_mailer/moderation_mail.html.eex:10
 #: lib/cforum_web/templates/notification_mailer/moderation_mail.text.eex:9
 msgid "Best regards"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/notification_mailer/moderation_mail.html.eex:1
+#: lib/cforum_web/templates/notification_mailer/inactivity_notification_error.html.eex:1
+#: lib/cforum_web/templates/notification_mailer/inactivity_notification_error.text.eex:1 lib/cforum_web/templates/notification_mailer/moderation_mail.html.eex:1
 #: lib/cforum_web/templates/notification_mailer/moderation_mail.text.eex:1
 msgid "Hi there"
 msgstr ""
@@ -4307,4 +4309,15 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:217
 msgid "blacklist patterns for posting urls"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/notification_mailer/inactivity_notification_error.html.eex:4
+#: lib/cforum_web/templates/notification_mailer/inactivity_notification_error.text.eex:3
+msgid "There was an error sending an inactivity notification mail to %{user} (%{email}):"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/mailers/notification_mailer.ex:46
+msgid "error sending inactivity notification email"
 msgstr ""
