@@ -44,7 +44,7 @@ defmodule Cforum.Users do
   def list_users(query_params \\ [order: nil, limit: nil, search: nil, include_self: true, user: nil, prefix: false]) do
     User
     |> Cforum.PagingApi.set_limit(query_params[:limit])
-    |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
+    |> Cforum.OrderApi.set_ordering(query_params[:order], desc_nulls_last: :created_at)
     |> search_users(query_params[:search], query_params[:prefix])
     |> maybe_leave_out_self(!query_params[:include_self], query_params[:user])
     |> Repo.all()
