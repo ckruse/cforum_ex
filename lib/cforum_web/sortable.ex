@@ -7,11 +7,11 @@ defmodule CforumWeb.Sortable do
     dir = sort_direction(conn)
 
     cond do
-      column == field && dir == :desc ->
+      column == field && dir == :desc_nulls_last ->
         path = apply(path_helper, [conn, action, extra_args ++ [sort: field, dir: :asc]])
         Phoenix.HTML.Link.link(text, to: path, class: "cf-sortable sort-descending")
 
-      column == field && dir == :asc ->
+      column == field && dir == :asc_nulls_first ->
         path = apply(path_helper, [conn, action, extra_args ++ [sort: field, dir: :desc]])
         Phoenix.HTML.Link.link(text, to: path, class: "cf-sortable sort-ascending")
 
@@ -73,9 +73,9 @@ defmodule CforumWeb.Sortable do
   end
 
   defp sort_direction(conn) do
-    conn.assigns[:_sort_dir] || :asc
+    conn.assigns[:_sort_dir] || :asc_nulls_first
   end
 
-  defp validated_sort_dir(dir) when dir in [:desc, "desc"], do: :desc
-  defp validated_sort_dir(_), do: :asc
+  defp validated_sort_dir(dir) when dir in [:desc, "desc"], do: :desc_nulls_last
+  defp validated_sort_dir(_), do: :asc_nulls_first
 end
