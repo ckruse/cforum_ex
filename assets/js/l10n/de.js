@@ -97,7 +97,7 @@ export const lang = {
   author: "Autor",
   subject: "Betreff",
   "e.g. “replace float:left”": "z.B. „float:left mit einem Flexbox-Konstrukt ersetzen“",
-  email: "Email-Adresse",
+  email: "E-Mail-Adresse",
   "voluntarily, publicly visible": "freiwillig, öffentlich sichtbar",
   homepage: "Homepage",
   "e.g. “http://example.com/”": "z.B. „https://example.com“",
@@ -216,7 +216,7 @@ export const lang = {
   "save my identity in a cookie": "speichere die Identität in einem Cookie",
 
   "identity description":
-    "Die Identität in einem Cookie zu speichern erlaubt es Ihnen, Ihre Beiträge zu editieren. Außerdem müssen Sie dann bei neuen Beiträgen nicht mehr die Felder Name, Email und Homepage ausfüllen.",
+    "Die Identität in einem Cookie zu speichern erlaubt es Ihnen, Ihre Beiträge zu editieren. Außerdem müssen Sie dann bei neuen Beiträgen nicht mehr die Felder Name, E-Mail und Homepage ausfüllen.",
 
   "delete message without public reason": "lösche Beitrag ohne öffentliche Begründung",
   "delete message": "lösche Beitrag",
@@ -239,5 +239,5 @@ export const lang = {
   "should have at least {minLen} characters": "sollte mindestens {minLen} Zeichen haben",
   "should have at most {maxLen} characters": "sollte nicht mehr als {maxLen} Zeichen haben",
   "should be an URL": "sollte eine URL sein",
-  "should be an email": "sollte eine Email-Adresse sein"
+  "should be an email": "sollte eine E-Mail-Adresse sein"
 };
