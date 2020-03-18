@@ -180,7 +180,7 @@ msgstr "Login merken"
 
 #: lib/cforum_web/templates/users/session/new.html.eex:3
 msgid "Username or email"
-msgstr "Benutzername oder Email-Adresse"
+msgstr "Benutzername oder E-Mail-Adresse"
 
 #: lib/cforum_web/templates/layout/personal_links.html.eex:29
 #: lib/cforum_web/templates/layout/personal_links.html.eex:34
@@ -236,7 +236,7 @@ msgstr "Es ist etwas schief gelaufen! Bitte prüfen Sie die untenstehenden Fehle
 #: lib/cforum_web/templates/users/registration/new.html.eex:19 lib/cforum_web/templates/users/user/show.html.eex:21
 #: lib/cforum_web/templates/users/user/user_information.html.eex:11
 msgid "email"
-msgstr "Email-Adresse"
+msgstr "E-Mail-Adresse"
 
 #: lib/cforum_web/templates/admin/user/form.html.eex:30
 #: lib/cforum_web/templates/users/password/edit.html.eex:4 lib/cforum_web/templates/users/password/edit_reset.html.eex:4
@@ -273,7 +273,7 @@ msgstr "Benutzerkonto erfolgreich bestätigt!"
 
 #: lib/cforum_web/controllers/users/registration_controller.ex:29
 msgid "Account successfully created. Please follow the confirmation instructions we send you via mail."
-msgstr "Benutzerkonto erfolgreich erstellt. Bitte folgen sie den Bestätigungs-Anweisungen, die wir Ihnen via Email geschickt haben."
+msgstr "Benutzerkonto erfolgreich erstellt. Bitte folgen sie den Bestätigungs-Anweisungen, die wir Ihnen via E-Mail geschickt haben."
 
 #: lib/cforum_web/templates/user_mailer/confirmation_mail.html.eex:7
 #: lib/cforum_web/templates/user_mailer/confirmation_mail.text.eex:7 lib/cforum_web/templates/user_mailer/reset_password_mail.html.eex:7
@@ -619,10 +619,10 @@ msgstr "nein, benachrichtige mich nicht"
 #: lib/cforum_web/templates/users/user/notifications.html.eex:35
 #: lib/cforum_web/templates/users/user/notifications.html.eex:42 lib/cforum_web/templates/users/user/notifications.html.eex:49
 msgid "notify me via email"
-msgstr "benachrichtige mich via Email"
+msgstr "benachrichtige mich via E-Mail"
 
 msgid "notify me via email on activity in subscribed threads"
-msgstr "benachrichtige mich via Email über Aktivität in einem abonnierten Thread"
+msgstr "benachrichtige mich via E-Mail über Aktivität in einem abonnierten Thread"
 
 #: lib/cforum_web/templates/users/user/notifications.html.eex:32
 msgid "notify me when a thread gets moved to a different forum"
@@ -1045,7 +1045,7 @@ msgstr "Inline-Formular zum antworten nutzen"
 
 #: lib/cforum_web/templates/users/user/notifications.html.eex:65
 msgid "via email"
-msgstr "via Email"
+msgstr "via E-Mail"
 
 #: lib/cforum_web/templates/admin/event/index.html.eex:20
 #: lib/cforum_web/templates/admin/search_section/index.html.eex:19 lib/cforum_web/templates/admin/user/index.html.eex:34
@@ -1530,7 +1530,7 @@ msgstr "du"
 #, elixir-format
 #: lib/cforum_web/templates/users/user/notifications.html.eex:7
 msgid "notify me via email on new mail"
-msgstr "benachrichtige mich via Email über neue Post"
+msgstr "benachrichtige mich via E-Mail über neue Post"
 
 #, elixir-format
 #: lib/cforum_web/templates/mail/new.html.eex:6
@@ -1592,7 +1592,7 @@ msgstr "Standard-Berechtigung"
 #, elixir-format
 #: lib/cforum_web/templates/users/password/new.html.eex:4
 msgid "username or email"
-msgstr "Benutzername oder Email-Adresse"
+msgstr "Benutzername oder E-Mail-Adresse"
 
 #, elixir-format
 #: lib/cforum_web/templates/layout/page_header.html.eex:51
@@ -2580,7 +2580,7 @@ msgstr "Aktivität"
 #, elixir-format
 #: lib/cforum_web/templates/forum/portal.html.eex:30
 msgid "show all mails"
-msgstr "zeige alle Emails"
+msgstr "zeige alle E-Mails"
 
 #, elixir-format
 #: lib/cforum_web/templates/forum/portal.html.eex:15
@@ -3631,7 +3631,7 @@ msgstr "hervorgehobene Benutzer"
 #, elixir-format
 #: lib/cforum_web/templates/users/user/notifications.html.eex:27
 msgid "notify me via email on activity in subscribed messages"
-msgstr "benachrichtige mich via Email über Aktivität bei einem abonnierten Beitrag"
+msgstr "benachrichtige mich via E-Mail über Aktivität bei einem abonnierten Beitrag"
 
 #, elixir-format
 #: lib/cforum/jobs/notify_users_message_job.ex:88
@@ -3938,7 +3938,7 @@ msgstr "SELFHTML Forum, SELFHTML, Forum, SELFForum"
 #, elixir-format
 #: lib/cforum_web/templates/message/header_author.html.eex:17
 msgid "email address of the author"
-msgstr "Email-Adresse des Autors"
+msgstr "E-Mail-Adresse des Autors"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/header_author.html.eex:24
@@ -4009,7 +4009,7 @@ msgstr "letzter Besuch"
 #, elixir-format
 #: lib/cforum_web/templates/users/user/notifications.html.eex:55
 msgid "notify me via email on flagged messages"
-msgstr "benachrichtige mich via Email über gemeldete Nachrichten"
+msgstr "benachrichtige mich via E-Mail über gemeldete Nachrichten"
 
 #, elixir-format
 #: lib/cforum_web/templates/notification_mailer/moderation_mail.html.eex:10
