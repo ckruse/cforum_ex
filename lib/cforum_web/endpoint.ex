@@ -3,7 +3,6 @@ defmodule CforumWeb.Endpoint do
   use Appsignal.Phoenix
 
   socket("/socket", CforumWeb.UserSocket, websocket: true)
-  socket("/live", Phoenix.LiveView.Socket, websocket: true)
 
   # Serve at "/" the static files from "priv/static" directory.
   #

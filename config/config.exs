@@ -13,8 +13,7 @@ config :cforum, CforumWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "w/W7vB8NBsnCLFPZfPrUK3IUvyfEZv/+kIYUAa7YSfAjLg/aM61tsp6K+vnrD6FF",
   render_errors: [view: CforumWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Cforum.PubSub, adapter: Phoenix.PubSub.PG2],
-  live_view: [signing_salt: "RykHS61dP7qTtD5tOHImQJ657zEDQW2Z"]
+  pubsub: [name: Cforum.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -45,8 +44,6 @@ config :cforum, Oban,
     {"0 3 1 * *", Cforum.Jobs.DatabaseMaintenanceJob},
     {"17 4 * * *", Cforum.Jobs.SendInactivityNotificationMailJob}
   ]
-
-config :cforum, ObanWeb, repo: Cforum.Repo, verbose: false
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
