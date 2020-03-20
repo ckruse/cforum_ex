@@ -72,10 +72,18 @@ defmodule Cforum.Jobs.SendInactivityNotificationMailJob do
         |> Repo.update_all(set: [inactivity_notification_sent_at: Timex.now()])
 
       {:error, error} ->
-        admins = Cforum.Users.list_admins()
-
-        CforumWeb.NotificationMailer.inactivity_notification_error_mail(user, error, admins)
-        |> Cforum.Mailer.deliver()
+        notify_admins(user, error)
     end
+  rescue
+    val -> notify_admins(user, val)
+  catch
+    val -> notify_admins(user, val)
+  end
+
+  defp notify_admins(user, error) do
+    admins = Cforum.Users.list_admins()
+
+    CforumWeb.NotificationMailer.inactivity_notification_error_mail(user, error, admins)
+    |> Cforum.Mailer.deliver()
   end
 end
