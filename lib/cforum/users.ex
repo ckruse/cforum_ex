@@ -14,6 +14,7 @@ defmodule Cforum.Users do
   alias Cforum.Groups
   alias Cforum.Caching
   alias Cforum.Threads.ThreadCaching
+  alias Cforum.Helpers
 
   def discard_user_cache(%User{} = user) do
     Caching.del(:cforum, "users/#{user.user_id}")
@@ -531,7 +532,7 @@ defmodule Cforum.Users do
     user = get_user_by_username_or_email(login)
 
     cond do
-      user && Comeonin.Bcrypt.checkpw(password, user.encrypted_password) ->
+      user && Helpers.present?(user.encrypted_password) && Comeonin.Bcrypt.checkpw(password, user.encrypted_password) ->
         {:ok, user}
 
       user ->
