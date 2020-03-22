@@ -109,6 +109,16 @@ defmodule Cforum.Factory do
     }
   end
 
+  def message_version_factory do
+    %Cforum.Messages.MessageVersion{
+      author: sequence("Author "),
+      subject: sequence("Message subject "),
+      content: Faker.Lorem.paragraph(%Range{first: 1, last: 2}),
+      message: build(:message),
+      user: build(:user)
+    }
+  end
+
   def tag_factory do
     %Cforum.Tags.Tag{
       tag_name: sequence("tag "),
