@@ -65,7 +65,7 @@ defmodule CforumWeb.Sortable do
   defp set_cookie(conn, _, _, false), do: conn
 
   defp set_cookie(conn, key, value, true) do
-    Plug.Conn.put_resp_cookie(conn, key, value, max_age: 360 * 24 * 60 * 60)
+    Plug.Conn.put_resp_cookie(conn, key, value)
   end
 
   defp sort_column(conn) do
