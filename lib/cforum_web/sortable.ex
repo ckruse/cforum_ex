@@ -56,7 +56,7 @@ defmodule CforumWeb.Sortable do
       [{sort_dir, sort_col}],
       conn
       |> set_cookie(cookie_key_col, Atom.to_string(sort_col), set_cookie_col)
-      |> set_cookie(cookie_key_dir, Atom.to_string(sort_dir), set_cookie_dir)
+      |> set_cookie(cookie_key_dir, sort_dir_cookie_value(sort_dir), set_cookie_dir)
       |> Plug.Conn.assign(:_sort_col, sort_col)
       |> Plug.Conn.assign(:_sort_dir, sort_dir)
     }
@@ -78,4 +78,7 @@ defmodule CforumWeb.Sortable do
 
   defp validated_sort_dir(dir) when dir in [:desc, "desc"], do: :desc_nulls_last
   defp validated_sort_dir(_), do: :asc_nulls_first
+
+  defp sort_dir_cookie_value(dir) when dir in [:desc, "desc", :desc_nulls_last, "desc_nulls_last"], do: "desc"
+  defp sort_dir_cookie_value(_), do: "asc"
 end
