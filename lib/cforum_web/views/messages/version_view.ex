@@ -7,7 +7,7 @@ defmodule CforumWeb.Messages.VersionView do
   alias CforumWeb.Views.ViewHelpers
   alias CforumWeb.Views.ViewHelpers.Path
 
-  def page_title(_, assigns), do: gettext("Edit versions of message „%{subject}“", subject: assigns.message.subject)
+  def page_title(_, assigns), do: gettext("versions of message „%{subject}“", subject: assigns.message.subject)
 
   def page_heading(action, assigns), do: page_title(action, assigns)
 
