@@ -11,12 +11,9 @@ defmodule CforumWeb.LayoutView do
   alias CforumWeb.Views.ViewHelpers.Path
 
   def page_title(conn, assigns) do
-    try do
-      apply(view_module(conn), :page_title, [action_name(conn), assigns]) <> " – SELFHTML Forum"
-    rescue
-      UndefinedFunctionError -> default_page_title(conn, assigns)
-      FunctionClauseError -> default_page_title(conn, assigns)
-    end
+    if Kernel.function_exported?(view_module(conn), :page_title, 2),
+      do: apply(view_module(conn), :page_title, [action_name(conn), assigns]) <> " – SELFHTML Forum",
+      else: default_page_title(conn, assigns)
   end
 
   def default_page_title(_conn, _assigns) do
@@ -24,35 +21,29 @@ defmodule CforumWeb.LayoutView do
   end
 
   def body_classes(conn, assigns) do
-    anon_class = if Helpers.blank?(conn.assigns[:current_user]), do: "anonymous", else: "registered"
+    anon_class =
+      if Helpers.blank?(conn.assigns[:current_user]),
+        do: "anonymous",
+        else: "registered"
 
     classes =
-      try do
-        apply(view_module(conn), :body_classes, [action_name(conn), assigns])
-      rescue
-        UndefinedFunctionError -> ""
-        FunctionClauseError -> ""
-      end
+      if Kernel.function_exported?(view_module(conn), :body_classes, 2),
+        do: apply(view_module(conn), :body_classes, [action_name(conn), assigns]),
+        else: ""
 
     [{:safe, "class=\""}, classes, " ", anon_class, " ", holiday_classes(conn), {:safe, "\""}]
   end
 
   def body_id(conn, assigns) do
-    try do
-      {:safe, " id=\"#{apply(view_module(conn), :body_id, [action_name(conn), assigns])}\""}
-    rescue
-      UndefinedFunctionError -> ""
-      FunctionClauseError -> ""
-    end
+    if Kernel.function_exported?(view_module(conn), :body_id, 2),
+      do: {:safe, " id=\"#{apply(view_module(conn), :body_id, [action_name(conn), assigns])}\""},
+      else: ""
   end
 
   def page_heading(conn, assigns) do
-    try do
-      [{:safe, "<h1>"} | [apply(view_module(conn), :page_heading, [action_name(conn), assigns]) | {:safe, "</h1>"}]]
-    rescue
-      UndefinedFunctionError -> ""
-      FunctionClauseError -> ""
-    end
+    if Kernel.function_exported?(view_module(conn), :page_heading, 2),
+      do: [{:safe, "<h1>"} | [apply(view_module(conn), :page_heading, [action_name(conn), assigns]) | {:safe, "</h1>"}]],
+      else: ""
   end
 
   def meta_refresh(conn) do
