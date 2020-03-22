@@ -1126,14 +1126,14 @@ msgstr ""
 
 #: lib/cforum_web/templates/admin/advent_calendar/day.html.eex:14
 #: lib/cforum_web/templates/admin/audit/threads.html.eex:11 lib/cforum_web/templates/advent/day.html.eex:14
-#: lib/cforum_web/views/message_view.ex:88
+#: lib/cforum_web/views/message_view.ex:86
 msgid "by"
 msgstr ""
 
 #: lib/cforum_web/templates/message/form.html.eex:40
 #: lib/cforum_web/templates/message/message.html.eex:18 lib/cforum_web/templates/moderation/entry.html.eex:18
-#: lib/cforum_web/templates/moderation/entry.html.eex:19 lib/cforum_web/views/message_view.ex:231
-#: lib/cforum_web/views/message_view.ex:232
+#: lib/cforum_web/templates/moderation/entry.html.eex:19 lib/cforum_web/views/message_view.ex:239
+#: lib/cforum_web/views/message_view.ex:240
 msgid "problematic site"
 msgstr ""
 
@@ -1146,7 +1146,7 @@ msgstr ""
 msgid "user information"
 msgstr ""
 
-#: lib/cforum_web/views/message_view.ex:93
+#: lib/cforum_web/views/message_view.ex:91
 msgid "new answer to %{name}"
 msgstr ""
 
@@ -1291,7 +1291,7 @@ msgstr ""
 
 #: lib/cforum_web/templates/forum/index.html.eex:12
 #: lib/cforum_web/templates/layout/page_header.html.eex:21 lib/cforum_web/templates/message/message_forum_links.html.eex:4
-#: lib/cforum_web/views/archive_view.ex:8 lib/cforum_web/views/layout_view.ex:301
+#: lib/cforum_web/views/archive_view.ex:8 lib/cforum_web/views/layout_view.ex:292
 #: lib/cforum_web/views/thread_view.ex:37 lib/cforum_web/views/thread_view.ex:44
 msgid "all forums"
 msgstr ""
@@ -2585,13 +2585,13 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:25
-#: lib/cforum_web/views/layout_view.ex:289
+#: lib/cforum_web/views/layout_view.ex:280
 msgid "administrative view"
 msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:19
-#: lib/cforum_web/templates/message/message_forum_links.html.eex:21 lib/cforum_web/views/layout_view.ex:288
+#: lib/cforum_web/templates/message/message_forum_links.html.eex:21 lib/cforum_web/views/layout_view.ex:279
 msgid "normal view"
 msgstr ""
 
@@ -2829,7 +2829,7 @@ msgid "Message has successfully been unaccepted as a solving answer"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/message_view.ex:235
+#: lib/cforum_web/views/message_view.ex:243
 #: lib/cforum_web/views/messages/flag_view.ex:18
 msgid "Message is off topic."
 msgstr ""
@@ -3286,7 +3286,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/moderation/edit.html.eex:20
-#: lib/cforum_web/views/moderation_view.ex:32
+#: lib/cforum_web/views/moderation_view.ex:38
 msgid "close message and children"
 msgstr ""
 
@@ -3303,7 +3303,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/moderation/edit.html.eex:21
-#: lib/cforum_web/views/moderation_view.ex:33
+#: lib/cforum_web/views/moderation_view.ex:39
 msgid "delete message and children"
 msgstr ""
 
@@ -3324,7 +3324,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/moderation/edit.html.eex:18
-#: lib/cforum_web/views/moderation_view.ex:35
+#: lib/cforum_web/views/moderation_view.ex:41
 msgid "manual intervention"
 msgstr ""
 
@@ -3334,34 +3334,34 @@ msgid "media"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/moderation_view.ex:28
+#: lib/cforum_web/views/moderation_view.ex:34
 msgid "message is a duplicate of %{url}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/message_view.ex:240
-#: lib/cforum_web/views/messages/flag_view.ex:23 lib/cforum_web/views/moderation_view.ex:23
+#: lib/cforum_web/views/message_view.ex:248
+#: lib/cforum_web/views/messages/flag_view.ex:23 lib/cforum_web/views/moderation_view.ex:29
 msgid "message is illegal"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/moderation_view.ex:22
+#: lib/cforum_web/views/moderation_view.ex:28
 msgid "message is not constructive"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/moderation_view.ex:21
+#: lib/cforum_web/views/moderation_view.ex:27
 msgid "message is off topic"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/message_view.ex:242
-#: lib/cforum_web/views/messages/flag_view.ex:26 lib/cforum_web/views/moderation_view.ex:24
+#: lib/cforum_web/views/message_view.ex:250
+#: lib/cforum_web/views/messages/flag_view.ex:26 lib/cforum_web/views/moderation_view.ex:30
 msgid "message is spam"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/moderation_view.ex:15
+#: lib/cforum_web/views/moderation_view.ex:13
 msgid "moderation"
 msgstr ""
 
@@ -3376,7 +3376,7 @@ msgid "no action"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/moderation_view.ex:36
+#: lib/cforum_web/views/moderation_view.ex:42
 msgid "no intervention"
 msgstr ""
 
@@ -3408,7 +3408,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/moderation/edit.html.eex:19
-#: lib/cforum_web/views/moderation_view.ex:34
+#: lib/cforum_web/views/moderation_view.ex:40
 msgid "set message and children to „no archive“"
 msgstr ""
 
@@ -3468,13 +3468,13 @@ msgid "vote up"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/message_view.ex:241
+#: lib/cforum_web/views/message_view.ex:249
 #: lib/cforum_web/views/messages/flag_view.ex:24
 msgid "message is a duplicate of another message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/message_view.ex:238
+#: lib/cforum_web/views/message_view.ex:246
 #: lib/cforum_web/views/messages/flag_view.ex:21
 msgid "message is unconstructive or provocative and contributes to a deterioration of sentiment"
 msgstr ""
@@ -3644,11 +3644,6 @@ msgstr ""
 #, elixir-format
 #: lib/cforum/jobs/notify_users_message_job.ex:145
 msgid "%{nick} mentioned you in a new message: “%{subject}”"
-msgstr ""
-
-#, elixir-format
-#: lib/cforum_web/views/messages/version_view.ex:10
-msgid "Edit versions of message „%{subject}“"
 msgstr ""
 
 #, elixir-format
@@ -4134,7 +4129,7 @@ msgid "mark message as unread"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/message_view.ex:97
+#: lib/cforum_web/views/message_view.ex:94
 msgid "edit message “%{subject}” by %{author}"
 msgstr ""
 
@@ -4320,4 +4315,9 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/mailers/notification_mailer.ex:46
 msgid "error sending inactivity notification email"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/views/messages/version_view.ex:10
+msgid "versions of message „%{subject}“"
 msgstr ""
