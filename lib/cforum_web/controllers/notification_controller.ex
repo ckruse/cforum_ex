@@ -11,7 +11,7 @@ defmodule CforumWeb.NotificationController do
   alias CforumWeb.Paginator
 
   def index(conn, params) do
-    {sort_params, conn} = Sortable.sort_collection(conn, [:created_at, :subject])
+    {sort_params, conn} = Sortable.sort_collection(conn, [:created_at, :subject], dir: :desc)
     count = Notifications.count_notifications(conn.assigns[:current_user])
     paging = Paginator.paginate(count, page: params["p"])
 
