@@ -7,7 +7,7 @@ defmodule CforumWeb.Messages.RetagView do
   alias CforumWeb.Views.ViewHelpers.Path
   alias CforumWeb.ErrorHelpers
 
-  def page_title(_, assigns), do: gettext("Retag message “%{subject}”", assigns.message.subject)
+  def page_title(_, assigns), do: gettext("Retag message “%{subject}”", subject: assigns.message.subject)
   def page_heading(action, assigns), do: page_title(action, assigns)
   def body_id(_, _), do: "retag-message"
   def body_classes(_, _), do: "retag message"

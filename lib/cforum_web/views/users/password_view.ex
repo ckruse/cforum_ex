@@ -12,6 +12,8 @@ defmodule CforumWeb.Users.PasswordView do
     do: gettext("change password: %{username}", username: assigns[:user].username)
 
   def page_heading(action, assigns), do: page_title(action, assigns)
-  def body_id(action, _) when action in [:edit, :update], do: "users-password"
-  def body_classes(action, _) when action in [:edit, :update], do: "users password"
+
+  def body_id(action, _), do: "users-password-#{action}"
+
+  def body_classes(action, _), do: "users password #{action}"
 end

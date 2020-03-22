@@ -17,10 +17,10 @@ defmodule CforumWeb.Admin.UserView do
     do: gettext("edit user „%{name}“", name: assigns[:user].username)
 
   def body_id(:index, _), do: "admin-users-index"
-  def body_id(:new), do: "admin-users-new"
-  def body_id(:create), do: "admin-users-create"
-  def body_id(:edit), do: "admin-users-edit"
-  def body_id(:update), do: "admin-users-update"
+  def body_id(:new, _), do: "admin-users-new"
+  def body_id(:create, _), do: "admin-users-create"
+  def body_id(:edit, _), do: "admin-users-edit"
+  def body_id(:update, _), do: "admin-users-update"
 
   def body_classes(:index, _), do: "admin users index"
   def body_classes(:new, _), do: "admin users new"

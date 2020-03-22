@@ -15,10 +15,10 @@ defmodule CforumWeb.Admin.AdventCalendarView do
 
   def body_id(:index_years, _), do: "admin-advent-calendars-year-index"
   def body_id(:index, _), do: "admin-advent-calendars-day-index"
-  def body_id(:new), do: "admin-advent-calendars-new"
-  def body_id(:create), do: "admin-advent-calendars-create"
-  def body_id(:edit), do: "admin-advent-calendars-edit"
-  def body_id(:update), do: "admin-advent-calendars-update"
+  def body_id(:new, _), do: "admin-advent-calendars-new"
+  def body_id(:create, _), do: "admin-advent-calendars-create"
+  def body_id(:edit, _), do: "admin-advent-calendars-edit"
+  def body_id(:update, _), do: "admin-advent-calendars-update"
 
   def body_classes(:index_years, _), do: "admin advent-calendars index years"
   def body_classes(:index, _), do: "admin advent-calendars index days"

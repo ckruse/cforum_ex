@@ -19,6 +19,10 @@ defmodule CforumWeb.Events.AttendeeView do
   end
 
   def page_heading(action, assigns), do: page_title(action, assigns)
+
   def body_id(action, _) when action in [:new, :create], do: "events-attendees-new"
+  def body_id(action, _) when action in [:edit, :update], do: "events-attendees-edit"
+
   def body_classes(action, _) when action in [:new, :create], do: "events attendees new"
+  def body_classes(action, _) when action in [:edit, :update], do: "events attendees edit"
 end

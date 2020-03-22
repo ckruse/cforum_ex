@@ -10,13 +10,19 @@ defmodule CforumWeb.ModerationView do
 
   alias Cforum.ModerationQueue.ModerationQueueEntry
 
-  def page_heading(action, assigns), do: page_title(action, assigns)
-
   def page_title(_, _), do: gettext("moderation")
 
+  def page_heading(action, assigns), do: page_title(action, assigns)
+
   def body_id(:index, _), do: "moderation-index"
+  def body_id(:index_open, _), do: "moderation-index-open"
+  def body_id(:show, _), do: "moderation-show"
+  def body_id(action, _) when action in [:edit, :update], do: "moderation-edit"
 
   def body_classes(:index, _), do: "moderation index"
+  def body_classes(:index_open, _), do: "moderation index open"
+  def body_classes(:show, _), do: "moderation show"
+  def body_classes(action, _) when action in [:edit, :update], do: "moderation update"
 
   def l10n_report_reason(%ModerationQueueEntry{reason: "off-topic"}), do: gettext("message is off topic")
   def l10n_report_reason(%ModerationQueueEntry{reason: "not-constructive"}), do: gettext("message is not constructive")

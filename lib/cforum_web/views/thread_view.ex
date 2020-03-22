@@ -49,8 +49,8 @@ defmodule CforumWeb.ThreadView do
 
   def page_heading(action, assigns), do: page_title(action, assigns)
 
-  def body_id(:index, _assigns), do: "threads-index"
-  def body_classes(:index, assigns), do: "threads forum-#{Path.forum_slug(assigns[:current_forum])}"
+  def body_id(action, _assigns), do: "threads-#{action}"
+  def body_classes(action, assigns), do: "threads forum-#{Path.forum_slug(assigns[:current_forum])} #{action}"
 
   defp get_last_modified(nil), do: Timex.to_datetime({{1998, 7, 26}, {13, 19, 00}}, :local)
   defp get_last_modified(msg), do: msg.updated_at

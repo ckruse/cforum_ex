@@ -14,10 +14,10 @@ defmodule CforumWeb.Admin.SearchSectionView do
     do: gettext("edit search section „%{name}“", name: assigns[:section].name)
 
   def body_id(:index, _), do: "admin-search-sections-index"
-  def body_id(:new), do: "admin-search-sections-new"
-  def body_id(:create), do: "admin-search-sections-create"
-  def body_id(:edit), do: "admin-search-sections-edit"
-  def body_id(:update), do: "admin-search-sections-update"
+  def body_id(:new, _), do: "admin-search-sections-new"
+  def body_id(:create, _), do: "admin-search-sections-create"
+  def body_id(:edit, _), do: "admin-search-sections-edit"
+  def body_id(:update, _), do: "admin-search-sections-update"
 
   def body_classes(:index, _), do: "admin search-sections index"
   def body_classes(:new, _), do: "admin search-sections new"

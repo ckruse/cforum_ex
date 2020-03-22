@@ -13,10 +13,10 @@ defmodule CforumWeb.Admin.RedirectionView do
   def page_title(action, _) when action in [:edit, :update], do: gettext("edit redirection")
 
   def body_id(:index, _), do: "admin-redirections-index"
-  def body_id(:new), do: "admin-redirections-new"
-  def body_id(:create), do: "admin-redirections-create"
-  def body_id(:edit), do: "admin-redirections-edit"
-  def body_id(:update), do: "admin-redirections-update"
+  def body_id(:new, _), do: "admin-redirections-new"
+  def body_id(:create, _), do: "admin-redirections-create"
+  def body_id(:edit, _), do: "admin-redirections-edit"
+  def body_id(:update, _), do: "admin-redirections-update"
 
   def body_classes(:index, _), do: "admin redirections index"
   def body_classes(:new, _), do: "admin redirections new"

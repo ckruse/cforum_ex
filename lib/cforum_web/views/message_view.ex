@@ -80,30 +80,38 @@ defmodule CforumWeb.MessageView do
   def message_date_format(true), do: "date_format_index"
   def message_date_format(false), do: "date_format_post"
 
-  def page_title(:show, assigns) do
-    msg = assigns[:message]
-
+  def page_title(:show, %{message: msg, conn: conn}) do
     msg.subject <>
       " " <>
       gettext("by") <>
-      " " <> msg.author <> ", " <> ViewHelpers.format_date(assigns[:conn], msg.created_at, message_date_format(false))
+      " " <> msg.author <> ", " <> ViewHelpers.format_date(conn, msg.created_at, message_date_format(false))
   end
 
   def page_title(action, assigns) when action in [:new, :create],
     do: gettext("new answer to %{name}", name: assigns[:parent].author)
 
-  def page_title(action, assigns) when action in [:edit, :update] do
-    msg = assigns[:message]
-    gettext("edit message “%{subject}” by %{author}", subject: msg.subject, author: msg.author)
-  end
+  def page_title(action, %{message: msg}) when action in [:edit, :update],
+    do: gettext("edit message “%{subject}” by %{author}", subject: msg.subject, author: msg.author)
 
-  def page_heading(action, assigns) when action in [:new, :create, :edit, :update], do: page_title(action, assigns)
+  def page_heading(action, assigns), do: page_title(action, assigns)
 
   def body_id(:show, assigns), do: "message-#{assigns[:read_mode]}"
+  def body_id(action, _), do: "messages-#{action}"
 
   def body_classes(:show, assigns) do
-    classes = "messages #{assigns[:read_mode]}-view forum-#{Path.forum_slug(assigns[:current_forum])}"
-    if assigns[:thread].archived, do: ["archived " | classes], else: classes
+    classes = "messages #{assigns[:read_mode]}-view forum-#{Path.forum_slug(assigns[:current_forum])} show"
+
+    if assigns[:thread].archived,
+      do: ["archived " | classes],
+      else: classes
+  end
+
+  def body_classes(action, assigns) do
+    classes = "messages forum-#{Path.forum_slug(assigns[:current_forum])} #{action}"
+
+    if assigns[:thread].archived,
+      do: ["archived " | classes],
+      else: classes
   end
 
   defp positive_score_class(score) when score >= 0 and score <= 3, do: "positive-score"

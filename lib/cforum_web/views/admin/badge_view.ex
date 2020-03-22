@@ -13,10 +13,10 @@ defmodule CforumWeb.Admin.BadgeView do
     do: gettext("edit badge „%{name}“", name: assigns[:badge].name)
 
   def body_id(:index, _), do: "admin-badges-index"
-  def body_id(:new), do: "admin-badges-new"
-  def body_id(:create), do: "admin-badges-create"
-  def body_id(:edit), do: "admin-badges-edit"
-  def body_id(:update), do: "admin-badges-update"
+  def body_id(:new, _), do: "admin-badges-new"
+  def body_id(:create, _), do: "admin-badges-create"
+  def body_id(:edit, _), do: "admin-badges-edit"
+  def body_id(:update, _), do: "admin-badges-update"
 
   def body_classes(:index, _), do: "admin badges index"
   def body_classes(:new, _), do: "admin badges new"

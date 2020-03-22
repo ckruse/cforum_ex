@@ -14,10 +14,10 @@ defmodule CforumWeb.Admin.ForumView do
   def page_heading(action, assigns), do: page_title(action, assigns)
 
   def body_id(:index, _), do: "admin-forums-index"
-  def body_id(:new), do: "admin-forums-new"
-  def body_id(:create), do: "admin-forums-create"
-  def body_id(:edit), do: "admin-forums-edit"
-  def body_id(:update), do: "admin-forums-update"
+  def body_id(:new, _), do: "admin-forums-new"
+  def body_id(:create, _), do: "admin-forums-create"
+  def body_id(:edit, _), do: "admin-forums-edit"
+  def body_id(:update, _), do: "admin-forums-update"
 
   def body_classes(:index, _), do: "admin forums index"
   def body_classes(:new, _), do: "admin forums new"
