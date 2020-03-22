@@ -19,9 +19,7 @@ defmodule CforumWeb.Messages.VersionController do
 
     conn
     |> put_flash(:info, gettext("Message version deleted successfully."))
-    |> redirect(
-      to: Path.message_version_path(conn, :index, conn.assigns[:thread], conn.assigns[:message], view_all: "yes")
-    )
+    |> redirect(to: Path.message_version_path(conn, :index, conn.assigns[:thread], conn.assigns[:message]))
   end
 
   def load_resource(conn) do
