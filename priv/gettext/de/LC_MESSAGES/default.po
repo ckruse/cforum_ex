@@ -981,7 +981,7 @@ msgstr "zitiere den vorherigen Beitrag per Default"
 
 #: lib/cforum_web/templates/users/user/comfort.html.eex:21
 msgid "quote signature when answering"
-msgstr "zitiere die Signatur beim antworten"
+msgstr "zitiere die Signatur beim Antworten"
 
 #: lib/cforum_web/templates/users/user/personal_information.html.eex:18
 msgid "remove rel=nofollow from my homepage URL"
