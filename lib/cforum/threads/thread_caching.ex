@@ -49,6 +49,8 @@ defmodule Cforum.Threads.ThreadCaching do
 
   def refresh_cached_thread_by_tid(tid) do
     thread = Threads.get_thread!(tid)
-    Caching.update(:cforum, :threads, fn threads -> Map.put(threads, thread.slug, thread) end)
+
+    if !thread.archived,
+      do: Caching.update(:cforum, :threads, fn threads -> Map.put(threads, thread.slug, thread) end)
   end
 end
