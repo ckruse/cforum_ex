@@ -124,6 +124,30 @@ defmodule Cforum.PrivMessagesTest do
     end
   end
 
+  test "delete_thread/1 deletes a thread of PMs" do
+    priv_message = insert(:priv_message, thread_id: 1)
+    insert(:priv_message, thread_id: 1, owner: priv_message.owner)
+
+    assert {2, _} = PrivMessages.delete_thread(priv_message)
+
+    assert_raise Ecto.NoResultsError, fn ->
+      PrivMessages.get_priv_message!(priv_message.owner, priv_message.priv_message_id)
+    end
+  end
+
+  test "delete_thread/1 deletes only PMs of the owner" do
+    priv_message = insert(:priv_message, thread_id: 1)
+    pm1 = insert(:priv_message, thread_id: 1)
+
+    assert {1, _} = PrivMessages.delete_thread(priv_message)
+
+    assert_raise Ecto.NoResultsError, fn ->
+      PrivMessages.get_priv_message!(priv_message.owner, priv_message.priv_message_id)
+    end
+
+    assert %PrivMessage{} = PrivMessages.get_priv_message!(pm1.owner, pm1.priv_message_id)
+  end
+
   test "change_priv_message/1 returns a priv_message changeset" do
     priv_message = insert(:priv_message)
     assert %Ecto.Changeset{} = PrivMessages.change_priv_message(priv_message)

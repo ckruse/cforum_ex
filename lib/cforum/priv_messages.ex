@@ -347,7 +347,10 @@ defmodule Cforum.PrivMessages do
   end
 
   def delete_thread(%PrivMessage{} = priv_message) do
-    from(pm in PrivMessage, where: pm.thread_id == ^priv_message.thread_id)
+    from(pm in PrivMessage,
+      where: pm.thread_id == ^priv_message.thread_id,
+      where: pm.owner_id == ^priv_message.owner_id
+    )
     |> Repo.delete_all()
   end
 
