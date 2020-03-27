@@ -41,9 +41,12 @@ defmodule CforumWeb.LayoutView do
   end
 
   def page_heading(conn, assigns) do
-    if Kernel.function_exported?(view_module(conn), :page_heading, 2),
-      do: [{:safe, "<h1>"} | [apply(view_module(conn), :page_heading, [action_name(conn), assigns]) | {:safe, "</h1>"}]],
-      else: ""
+    with true <- Kernel.function_exported?(view_module(conn), :page_heading, 2),
+         heading when is_bitstring(heading) <- apply(view_module(conn), :page_heading, [action_name(conn), assigns]) do
+      [{:safe, "<h1>"}, heading, {:safe, "</h1>"}]
+    else
+      _ -> ""
+    end
   end
 
   def meta_refresh(conn) do
