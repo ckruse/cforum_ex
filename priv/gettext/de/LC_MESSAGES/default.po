@@ -3634,12 +3634,12 @@ msgid "notify me via email on activity in subscribed messages"
 msgstr "benachrichtige mich via E-Mail über Aktivität bei einem abonnierten Beitrag"
 
 #, elixir-format
-#: lib/cforum/jobs/notify_users_message_job.ex:88
+#: lib/cforum/jobs/notify_users_message_job.ex:80
 msgid "%{nick} wrote a new message: %{subject}"
 msgstr "%{nick} hat einen neuen Beitrag geschrieben: „%{subject}“"
 
 #, elixir-format
-#: lib/cforum/jobs/notify_users_message_job.ex:83
+#: lib/cforum/jobs/notify_users_message_job.ex:75
 msgid "%{nick} wrote a reply to your message: %{subject}"
 msgstr "%{nick} hat auf Ihren Beitrag geantwortet: „%{subject}“"
 
@@ -3654,7 +3654,7 @@ msgid "tags list"
 msgstr "Tags"
 
 #, elixir-format
-#: lib/cforum/jobs/notify_users_message_job.ex:119
+#: lib/cforum/jobs/notify_users_message_job.ex:111
 msgid "new thread by %{nick}: %{subject}"
 msgstr "neuer Thread von %{nick}: „%{subject}“"
 
@@ -3664,7 +3664,7 @@ msgid "user data"
 msgstr "Benutzer-Daten"
 
 #, elixir-format
-#: lib/cforum/jobs/notify_users_message_job.ex:145
+#: lib/cforum/jobs/notify_users_message_job.ex:137
 msgid "%{nick} mentioned you in a new message: “%{subject}”"
 msgstr "%{nick} hat Sie in einem neuen Beitrag „%{subject}“ erwähnt"
 
@@ -3875,7 +3875,7 @@ msgid "auditing: messages: versions: destroy"
 msgstr "Version des Beitrags gelöscht"
 
 #, elixir-format
-#: lib/cforum_web/templates/messages/version/version.html.eex:22
+#: lib/cforum_web/templates/messages/version/version.html.eex:24
 msgid "delete this version"
 msgstr "diese Version löschen"
 
@@ -4351,3 +4351,8 @@ msgstr "Versions-Historie des Beitrags „%{subject}“"
 #: lib/cforum_web/views/users/user_view.ex:48
 msgid "Deletion started"
 msgstr "Löschung begonnen"
+
+#, elixir-format
+#: lib/cforum_web/templates/messages/version/version.html.eex:5
+msgid "edited by"
+msgstr "bearbeitet von"

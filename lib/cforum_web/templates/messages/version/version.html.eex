@@ -2,6 +2,8 @@
   <time class="cf-message-header">
     <h2><%= link @version.subject, to: Path.message_path(@conn, :show, @thread, @message) %></h2>
 
+    <span class="edited-by"><%= gettext("edited by") %></span>
+
     <%= if Helpers.blank?(@version.user_id) do %>
       <span class="editor"><%= @version.author %></span>
     <% else %>

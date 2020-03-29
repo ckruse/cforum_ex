@@ -3612,12 +3612,12 @@ msgid "notify me via email on activity in subscribed messages"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/jobs/notify_users_message_job.ex:88
+#: lib/cforum/jobs/notify_users_message_job.ex:80
 msgid "%{nick} wrote a new message: %{subject}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/jobs/notify_users_message_job.ex:83
+#: lib/cforum/jobs/notify_users_message_job.ex:75
 msgid "%{nick} wrote a reply to your message: %{subject}"
 msgstr ""
 
@@ -3632,7 +3632,7 @@ msgid "tags list"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/jobs/notify_users_message_job.ex:119
+#: lib/cforum/jobs/notify_users_message_job.ex:111
 msgid "new thread by %{nick}: %{subject}"
 msgstr ""
 
@@ -3642,7 +3642,7 @@ msgid "user data"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum/jobs/notify_users_message_job.ex:145
+#: lib/cforum/jobs/notify_users_message_job.ex:137
 msgid "%{nick} mentioned you in a new message: “%{subject}”"
 msgstr ""
 
@@ -3853,7 +3853,7 @@ msgid "auditing: messages: versions: destroy"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/messages/version/version.html.eex:22
+#: lib/cforum_web/templates/messages/version/version.html.eex:24
 msgid "delete this version"
 msgstr ""
 
@@ -4326,4 +4326,9 @@ msgstr ""
 #: lib/cforum_web/views/users/user_view.ex:30
 #: lib/cforum_web/views/users/user_view.ex:48
 msgid "Deletion started"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/messages/version/version.html.eex:5
+msgid "edited by"
 msgstr ""
