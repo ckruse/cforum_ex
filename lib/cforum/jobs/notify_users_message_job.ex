@@ -12,9 +12,9 @@ defmodule Cforum.Jobs.NotifyUsersMessageJob do
   alias CforumWeb.Views.ViewHelpers.Path
 
   @impl Oban.Worker
-  def perform(%{"thread_id" => tid, "message_id" => mid, "type" => "message"}, _) do
+  def perform(%{"thread_id" => tid, "message_id" => mid, "type" => type}, _) do
     thread = Cforum.Threads.get_thread!(tid)
-    message = Cforum.Messages.get_message!(mid)
+    message = Cforum.Messages.get_message_from_mid!(thread, mid)
 
     thread = Cforum.Repo.preload(thread, [:forum])
 
@@ -31,22 +31,14 @@ defmodule Cforum.Jobs.NotifyUsersMessageJob do
 
     Enum.each(users, fn user -> notify_user_mention(user, thread, message) end)
 
-    if message.parent_id != nil,
-      do: notify_users(thread, message, users)
-
-    :ok
-  end
-
-  def perform(%{"thread_id" => tid, "message_id" => mid, "type" => "thread"}, _) do
-    thread = Cforum.Threads.get_thread!(tid)
-    message = Cforum.Messages.get_message_from_mid!(thread, mid)
-
-    broadcast(thread, message)
-
-    Users.list_users_by_config_option("notify_on_new_thread", "yes")
-    |> Enum.reject(fn user -> user.user_id == message.user_id end)
-    |> Enum.filter(fn user -> may_view?(user, thread, message) end)
-    |> Enum.each(fn user -> notify_user_thread(user, thread, message) end)
+    if type == "thread" do
+      Users.list_users_by_config_option("notify_on_new_thread", "yes")
+      |> Enum.reject(fn user -> user.user_id == message.user_id end)
+      |> Enum.filter(fn user -> may_view?(user, thread, message) end)
+      |> Enum.each(fn user -> notify_user_thread(user, thread, message) end)
+    else
+      notify_users(thread, message, users)
+    end
 
     :ok
   end
