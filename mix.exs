@@ -58,6 +58,7 @@ defmodule Cforum.Mixfile do
       {:slugify, "~> 1.1"},
       {:xml_builder, "~> 2.0.0"},
       {:oban, "~> 1.0"},
+      {:tzdata, "~> 1.0.3"},
       {:elixir_uuid, "~> 1.2"},
       {:cachex, "~> 3.1"},
       {:earmark, "~> 1.3.0"},

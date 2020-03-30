@@ -29,11 +29,13 @@ config :number, delimit: [precision: 2, delimiter: ".", separator: ","]
 config :waffle, storage: Waffle.Storage.Local
 config :porcelain, driver: Porcelain.Driver.Basic
 config :timex, default_locale: "de"
+config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
 
 config :cforum, Oban,
   repo: Cforum.Repo,
   prune: {:maxlen, 100_000},
   queues: [mails: 10, background: 10, media: 20],
+  timezone: "Europe/Berlin",
   crontab: [
     {"10 * * * *", Cforum.Jobs.ArchiverJob},
     {"0 0 * * *", Cforum.Jobs.ForumStatsJob},
