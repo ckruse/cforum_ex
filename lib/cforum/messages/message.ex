@@ -253,6 +253,9 @@ defmodule Cforum.Messages.Message do
     |> put_change(:user_id, author.user_id)
   end
 
+  defp maybe_set_author(changeset, nil, nil),
+    do: changeset
+
   defp maybe_set_author(changeset, nil, uuid),
     do: put_change(changeset, :uuid, uuid)
 
