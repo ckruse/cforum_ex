@@ -98,7 +98,8 @@ defmodule Cforum.Messages.Message do
   end
 
   defp validate_tags_count(changeset) do
-    with id when not is_nil(id) <- get_field(changeset, :forum_id),
+    with nil <- changeset.errors[:tags],
+         id when not is_nil(id) <- get_field(changeset, :forum_id),
          forum <- Cforum.Forums.get_forum!(id) do
       settings = Cforum.ConfigManager.settings_map(forum, nil)
 
