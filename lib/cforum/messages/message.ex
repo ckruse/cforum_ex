@@ -198,7 +198,7 @@ defmodule Cforum.Messages.Message do
       put_assoc(changeset, :tags, known_tags)
     else
       changeset
-      |> put_assoc(:tags, Enum.map(tags, &%Tag{tag_name: &1}))
+      |> cast_assoc(:tags, Enum.map(tags, &%Tag{tag_name: &1}))
       |> add_error(:tags, "unknown tags given: %{tags}", tags: Enum.join(unknown_tags, ", "))
       |> add_tag_errors(unknown_tags)
     end
