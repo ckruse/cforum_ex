@@ -152,8 +152,8 @@ defmodule Cforum.System do
 
   """
   def list_auditing(changeset, query_params \\ [limit: nil]) do
-    start_date = Ecto.Changeset.get_field(changeset, :from) |> Timex.to_datetime() |> Timex.beginning_of_day()
-    end_date = Ecto.Changeset.get_field(changeset, :to) |> Timex.to_datetime() |> Timex.end_of_day()
+    start_date = Ecto.Changeset.get_field(changeset, :from) |> Timex.to_datetime(:local) |> Timex.beginning_of_day()
+    end_date = Ecto.Changeset.get_field(changeset, :to) |> Timex.to_datetime(:local) |> Timex.end_of_day()
 
     from(
       auditing in Auditing,
