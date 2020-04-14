@@ -62,7 +62,7 @@ config :cforum,
   search_dict: "german",
   uploads_dir: Path.expand("../priv/uploads", __DIR__),
   media_dir: Path.expand("../priv/uploads/pictures", __DIR__),
-  avatar_dir: Path.expand("../priv/uploads/users/avatars", __DIR__),
+  avatar_dir: Path.expand("../priv/", __DIR__),
   avatar_url: "/uploads/users/avatars",
   convert: "/usr/bin/convert",
   cfmarkdown: [
