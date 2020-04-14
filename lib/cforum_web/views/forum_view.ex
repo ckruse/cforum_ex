@@ -14,6 +14,7 @@ defmodule CforumWeb.ForumView do
 
   def page_title(:stats, _), do: gettext("forum statistics for all forums")
 
+  def page_heading(:index, _), do: nil
   def page_heading(action, assigns), do: page_title(action, assigns)
 
   def body_id(:index, _), do: "forums-index"
