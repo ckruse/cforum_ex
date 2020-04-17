@@ -5,16 +5,15 @@ defmodule Cforum.MarkdownRenderer do
   """
 
   use GenServer
+  use Appsignal.Instrumentation.Decorators
 
   alias Porcelain.Process, as: Proc
-  # alias Porcelain.Result
 
   alias Cforum.Cites.Cite
   alias Cforum.Events.Event
   alias Cforum.Messages.Message
   alias Cforum.PrivMessages.PrivMessage
   alias Cforum.Badges.Badge
-  # alias Cforum.Users.User
 
   @max_runs 1000
 
@@ -121,7 +120,9 @@ defmodule Cforum.MarkdownRenderer do
 
   def to_html(str) when is_bitstring(str), do: to_html(str, :str)
 
+  @decorate transaction(:markdown_renderer)
   def render_doc(markdown, id, config \\ nil) do
+    Appsignal.Transaction.set_sample_data("environment", %{id: id, config: config})
     :poolboy.transaction(pool_name(), fn pid -> GenServer.call(pid, {:render_doc, markdown, id, config}) end)
   end
 
