@@ -12,6 +12,8 @@ defmodule Cforum.Messages.Message do
   @primary_key {:message_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :message_id}
 
+  @type t() :: %__MODULE__{}
+
   @default_preloads [
     :user,
     :cites,

@@ -19,6 +19,8 @@ defmodule Cforum.PrivMessages.PrivMessage do
              :updated_at
            ]}
 
+  @type t() :: %__MODULE__{}
+
   schema "priv_messages" do
     field(:is_read, :boolean, default: false)
     field(:subject, :string)

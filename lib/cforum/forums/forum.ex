@@ -4,6 +4,8 @@ defmodule Cforum.Forums.Forum do
   @primary_key {:forum_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :slug}
 
+  @type t() :: %__MODULE__{}
+
   @read "read"
   @write "write"
   @known_read "known-read"

@@ -32,7 +32,7 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
     Plug.Conn.assign(conn, :_url_flags, new_flags)
   end
 
-  @spec forum_slug(%Forum{} | nil | String.t(), boolean()) :: String.t() | nil
+  @spec forum_slug(Forum.t() | nil | String.t(), boolean()) :: String.t() | nil
   def forum_slug(forum, with_all \\ true)
   def forum_slug(nil, true), do: "all"
   def forum_slug(nil, _), do: nil
@@ -45,7 +45,7 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def root_url(conn, :index, params \\ []),
     do: "#{Routes.root_url(conn, :index)}#{encode_query_string(conn, params)}"
 
-  @spec forum_path(conn(), atom(), String.t() | %Forum{} | nil, opt_params()) :: String.t()
+  @spec forum_path(conn(), atom(), String.t() | Forum.t() | nil, opt_params()) :: String.t()
   def forum_path(conn, action, slug, params \\ [])
 
   def forum_path(conn, :index, slug, params),
@@ -63,7 +63,7 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def forum_path(conn, :unanswered, slug, params),
     do: "#{root_path(conn, :index, false)}#{forum_slug(slug)}/unanswered#{encode_query_string(conn, params)}"
 
-  @spec forum_url(conn(), atom(), String.t() | %Forum{} | nil, opt_params()) :: String.t()
+  @spec forum_url(conn(), atom(), String.t() | Forum.t() | nil, opt_params()) :: String.t()
   def forum_url(conn, action, slug, params \\ [])
 
   def forum_url(conn, :index, slug, params),
@@ -84,7 +84,7 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   @spec archive_path(
           conn(),
           atom(),
-          %Forum{} | String.t() | nil,
+          Forum.t() | String.t() | nil,
           params
           | tuple()
           | DateTime.t()
@@ -114,7 +114,7 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
     "#{forum_path(conn, :index, forum, false)}/#{part}#{encode_query_string(conn, params)}"
   end
 
-  @spec tag_path(conn(), atom(), %Tag{} | opt_params(), opt_params()) :: String.t()
+  @spec tag_path(conn(), atom(), Tag.t() | opt_params(), opt_params()) :: String.t()
   def tag_path(conn, action, tag_or_params \\ [], params \\ [])
   def tag_path(conn, :create, params, _), do: tag_path(conn, :index, params)
   def tag_path(conn, :delete, tag, params), do: tag_path(conn, :show, tag, params)
@@ -137,7 +137,7 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def tag_path(conn, :merge, tag, params),
     do: "#{root_path(conn, :index, false)}tags/#{tag.slug}/merge#{encode_query_string(conn, params)}"
 
-  @spec tag_synonym_path(conn(), atom(), %Tag{}, %Synonym{} | params(), params()) :: String.t()
+  @spec tag_synonym_path(conn(), atom(), Tag.t(), Synonym.t() | params(), params()) :: String.t()
   def tag_synonym_path(conn, action, tag, synonym \\ [], params \\ [])
 
   def tag_synonym_path(conn, :new, tag, params, _),
@@ -171,7 +171,7 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   - `resource` - the thread to generate the path to, the forum or `"/all"` (for :new)
   - `params` - an optional query string as a dict
   """
-  @spec thread_path(conn(), atom(), %Thread{} | %Forum{} | String.t() | nil, opt_params()) :: String.t()
+  @spec thread_path(conn(), atom(), Thread.t() | Forum.t() | String.t() | nil, opt_params()) :: String.t()
   def thread_path(conn, action, resource \\ nil, params \\ [])
 
   def thread_path(conn, :show, %Thread{} = thread, params),
@@ -221,7 +221,7 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def thread_path(conn, :split, %Thread{} = thread, params),
     do: "#{thread_path(conn, :show, thread, false)}/split#{encode_query_string(conn, params)}"
 
-  @spec thread_url(conn(), atom(), %Thread{}, opt_params()) :: String.t()
+  @spec thread_url(conn(), atom(), Thread.t(), opt_params()) :: String.t()
   def thread_url(conn, action, resource, params \\ [])
 
   def thread_url(conn, :show, %Thread{} = thread, params),
@@ -275,7 +275,7 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def int_message_url(conn, thread, message),
     do: "#{thread_url(conn, :show, thread, false)}/#{message.message_id}"
 
-  @spec message_url(conn(), atom(), %Thread{}, %Message{}, params()) :: String.t()
+  @spec message_url(conn(), atom(), Thread.t(), Message.t(), params()) :: String.t()
   def message_url(conn, action, thread, message, params \\ [])
 
   def message_url(conn, :show, %Thread{} = thread, %Message{} = msg, params),
@@ -293,7 +293,7 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   - `action` - the action for the path, defaults to `:show`
   - `params` - an optional query string as a dict
   """
-  @spec message_path(conn(), atom(), %Thread{}, %Message{}, params()) :: String.t()
+  @spec message_path(conn(), atom(), Thread.t(), Message.t(), params()) :: String.t()
   def message_path(conn, action, thread, message, params \\ [])
 
   def message_path(conn, :show, %Thread{} = thread, %Message{} = msg, params),
@@ -338,7 +338,7 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def message_path(conn, :unaccept, %Thread{} = thread, %Message{} = msg, params),
     do: "#{int_message_path(conn, thread, msg)}/unaccept#{encode_query_string(conn, params)}"
 
-  @spec message_version_path(Plug.Conn.t(), atom(), %Thread{}, %Message{}, params() | %MessageVersion{}, params()) ::
+  @spec message_version_path(Plug.Conn.t(), atom(), Thread.t(), Message.t(), params() | MessageVersion.t(), params()) ::
           String.t()
   def message_version_path(conn, action, thread, msg, params_or_version \\ [], params \\ [])
 
@@ -349,7 +349,7 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
     "#{int_message_path(conn, thread, msg)}/versions/#{version.message_version_id}#{encode_query_string(conn, params)}"
   end
 
-  @spec mark_read_path(conn(), atom(), %Thread{} | nil | params(), params()) :: String.t()
+  @spec mark_read_path(conn(), atom(), Thread.t() | nil | params(), params()) :: String.t()
   def mark_read_path(conn, action, thread_or_params \\ nil, params \\ [])
 
   def mark_read_path(conn, :mark_read, %Thread{} = thread, params),
@@ -358,7 +358,7 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def mark_read_path(conn, :mark_all_read, forum, params),
     do: "#{forum_path(conn, :index, forum, false)}/mark-all-read#{encode_query_string(conn, params)}"
 
-  @spec mail_thread_path(conn(), :show, %PrivMessage{}, params()) :: String.t()
+  @spec mail_thread_path(conn(), :show, PrivMessage.t(), params()) :: String.t()
   def mail_thread_path(conn, :show, pm, params \\ []) do
     "#{root_path(conn, :index, false)}mails/#{pm.thread_id}#{encode_query_string(conn, params)}#pm#{pm.priv_message_id}"
   end

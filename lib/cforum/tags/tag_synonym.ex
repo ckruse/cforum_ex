@@ -4,6 +4,8 @@ defmodule Cforum.Tags.Synonym do
   @primary_key {:tag_synonym_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :tag_synonym_id}
 
+  @type t() :: %__MODULE__{}
+
   schema "tag_synonyms" do
     field(:synonym, :string)
     belongs_to(:tag, Cforum.Tags.Tag, references: :tag_id)
