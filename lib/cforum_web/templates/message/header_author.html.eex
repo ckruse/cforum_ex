@@ -10,7 +10,7 @@
       <% end %>
     </span>
 
-    <%= if !@opts[:tree] && (Helpers.present?(@message.email) || Helpers.present?(@message.homepage)) do %>
+    <%= if !@opts[:tree] && (Helpers.present?(@message.email) || Helpers.present?(@message.homepage)) && !@message.deleted do %>
       <span class="author-infos">
         <%= if !@thread.archived && Helpers.present?(@message.email) do %>
           <%= link(to: "mailto:" <> @message.email, class: "author-email") do %>
