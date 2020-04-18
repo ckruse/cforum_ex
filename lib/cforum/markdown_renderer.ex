@@ -5,7 +5,6 @@ defmodule Cforum.MarkdownRenderer do
   """
 
   use GenServer
-  use Appsignal.Instrumentation.Decorators
 
   alias Porcelain.Process, as: Proc
 
@@ -30,32 +29,19 @@ defmodule Cforum.MarkdownRenderer do
   #
   # client API
   #
-  def to_html(object, user, tries \\ 0)
-  def to_html(_, _, tries) when tries >= 5, do: {:error, :not_possible}
+  def to_html(object, user)
 
-  def to_html(%Cite{} = cite, user, tries) do
-    case render_doc(cite.cite, "c-#{cite.cite_id}") do
-      {:ok, html} ->
-        {:safe, html}
-
-      _ ->
-        Process.sleep(50)
-        to_html(cite, user, tries + 1)
-    end
+  def to_html(%Cite{} = cite, _user) do
+    with {:ok, html} <- render_doc(cite.cite, "c-#{cite.cite_id}"),
+         do: {:safe, html}
   end
 
-  def to_html(%Event{} = event, user, tries) do
-    case render_doc(event.description, "e-#{event.event_id}") do
-      {:ok, html} ->
-        {:safe, html}
-
-      _ ->
-        Process.sleep(50)
-        to_html(event, user, tries + 1)
-    end
+  def to_html(%Event{} = event, _user) do
+    with {:ok, html} <- render_doc(event.description, "e-#{event.event_id}"),
+         do: {:safe, html}
   end
 
-  def to_html(%Message{format: "markdown"} = message, conn, tries) do
+  def to_html(%Message{format: "markdown"} = message, conn) do
     content = Cforum.Messages.content_with_presentational_filters(conn.assigns, message)
 
     target =
@@ -69,93 +55,55 @@ defmodule Cforum.MarkdownRenderer do
       "base" => Application.get_env(:cforum, :base_url, "http://localhost/")
     }
 
-    case render_doc(content, "m-#{message.message_id}", conf) do
-      {:ok, html} ->
-        {:safe, html}
-
-      _ ->
-        Process.sleep(50)
-        to_html(message, conn, tries + 1)
-    end
+    with {:ok, html} <- render_doc(content, "m-#{message.message_id}", conf),
+         do: {:safe, html}
   end
 
-  def to_html(%Message{format: "cforum"} = message, conn, tries) do
+  def to_html(%Message{format: "cforum"} = message, conn) do
     message
     |> Cforum.LegacyParser.parse()
-    |> to_html(conn, tries)
+    |> to_html(conn)
   end
 
-  def to_html(%PrivMessage{} = message, user, tries) do
-    case render_doc(message.body, "pm-#{message.priv_message_id}") do
-      {:ok, html} ->
-        {:safe, html}
-
-      _ ->
-        Process.sleep(50)
-        to_html(message, user, tries + 1)
-    end
+  def to_html(%PrivMessage{} = message, _user) do
+    with {:ok, html} <- render_doc(message.body, "pm-#{message.priv_message_id}"),
+         do: {:safe, html}
   end
 
-  def to_html(%Badge{} = badge, user, tries) do
-    case render_doc(badge.description, "b-#{badge.badge_id}") do
-      {:ok, html} ->
-        {:safe, html}
-
-      _ ->
-        Process.sleep(50)
-        to_html(badge, user, tries + 1)
-    end
+  def to_html(%Badge{} = badge, _user) do
+    with {:ok, html} <- render_doc(badge.description, "b-#{badge.badge_id}"),
+         do: {:safe, html}
   end
 
-  def to_html(str, :str, tries) do
-    case render_doc(str, "str") do
-      {:ok, html} ->
-        {:safe, html}
-
-      _ ->
-        Process.sleep(50)
-        to_html(str, :str, tries + 1)
-    end
+  def to_html(str, :str) do
+    with {:ok, html} <- render_doc(str, "str"),
+         do: {:safe, html}
   end
 
   def to_html(str) when is_bitstring(str), do: to_html(str, :str)
 
-  @decorate transaction(:markdown_renderer)
   def render_doc(markdown, id, config \\ nil) do
     Appsignal.Transaction.set_sample_data("environment", %{id: id, config: config})
     :poolboy.transaction(pool_name(), fn pid -> GenServer.call(pid, {:render_doc, markdown, id, config}) end)
   end
 
   @spec to_plain(%Message{} | %Cite{}) :: String.t()
-  def to_plain(object, tries \\ 0)
-  def to_plain(_, tries) when tries >= 5, do: {:error, :not_possible}
+  def to_plain(object)
 
-  def to_plain(%Message{format: "cforum"} = message, tries) do
+  def to_plain(%Message{format: "cforum"} = message) do
     message
     |> Cforum.LegacyParser.parse()
-    |> to_plain(tries)
+    |> to_plain()
   end
 
-  def to_plain(%Message{} = message, tries) do
-    case render_plain(message.content, "m-#{message.message_id}") do
-      {:ok, text} ->
-        text
-
-      _ ->
-        Process.sleep(50)
-        to_plain(message, tries + 1)
-    end
+  def to_plain(%Message{} = message) do
+    with {:ok, text} <- render_plain(message.content, "m-#{message.message_id}"),
+         do: text
   end
 
-  def to_plain(%Cite{} = cite, tries) do
-    case render_plain(cite.cite, "c-#{cite.cite_id}") do
-      {:ok, text} ->
-        text
-
-      _ ->
-        Process.sleep(50)
-        to_plain(cite, tries + 1)
-    end
+  def to_plain(%Cite{} = cite) do
+    with {:ok, text} <- render_plain(cite.cite, "c-#{cite.cite_id}"),
+         do: text
   end
 
   def render_plain(markdown, id) do
