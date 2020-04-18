@@ -1,5 +1,6 @@
 defmodule CforumWeb.Router do
   use CforumWeb, :router
+  import Phoenix.LiveDashboard.Router
 
   pipeline :browser do
     plug(:accepts, ["html"])
@@ -19,6 +20,10 @@ defmodule CforumWeb.Router do
     plug(CforumWeb.Plug.SetViewAll)
     plug(CforumWeb.Plug.SetShowReadThreads)
     plug(CforumWeb.Plug.LoadMotd)
+  end
+
+  pipeline :admins do
+    plug(CforumWeb.Plug.EnsureAdmin)
   end
 
   pipeline :api do
@@ -83,6 +88,10 @@ defmodule CforumWeb.Router do
     pipe_through(:browser)
 
     scope "/admin", Admin, as: :admin do
+      pipe_through(:admins)
+
+      live_dashboard "/dashboard"
+
       resources("/users", UserController, except: [:show])
       resources("/forums", ForumController, except: [:show])
       resources("/groups", GroupController, except: [:show])

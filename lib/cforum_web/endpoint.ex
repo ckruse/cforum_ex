@@ -2,7 +2,8 @@ defmodule CforumWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :cforum
   use Appsignal.Phoenix
 
-  socket("/socket", CforumWeb.UserSocket, websocket: true)
+  socket "/socket", CforumWeb.UserSocket, websocket: true
+  socket "/live", Phoenix.LiveView.Socket
 
   # Serve at "/" the static files from "priv/static" directory.
   #

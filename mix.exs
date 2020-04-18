@@ -41,6 +41,7 @@ defmodule Cforum.Mixfile do
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:phoenix_live_dashboard, "~> 0.1"},
       {:gettext, "0.17.1"},
       {:plug_cowboy, "~> 2.0"},
       {:plug, "~> 1.7"},

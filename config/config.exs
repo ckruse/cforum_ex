@@ -31,6 +31,9 @@ config :porcelain, driver: Porcelain.Driver.Basic
 config :timex, default_locale: "de"
 config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
 
+config :cforum, CforumWeb.Endpoint,
+  live_view: [signing_salt: "2MK3BXPmh3xvHA+anLruquVCOxe2diNXcRCt7wBkq4uYM+E7C4PuKlipS2cyGJDL"]
+
 config :cforum, Oban,
   repo: Cforum.Repo,
   prune: {:maxlen, 100_000},
