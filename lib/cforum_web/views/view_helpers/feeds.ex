@@ -1,9 +1,13 @@
 defmodule CforumWeb.Views.ViewHelpers.Feeds do
   alias CforumWeb.Views.ViewHelpers.Path
   alias Cforum.Messages.Message
+  alias Cforum.Threads.Thread
 
   import CforumWeb.Gettext
 
+  @type xml_struct :: {atom, map() | nil, [xml_struct()] | String.t()}
+
+  @spec atom_feed_head_for_thread(Plug.Conn.t(), Thread.t(), [Message.t()]) :: xml_struct
   def atom_feed_head_for_thread(conn, thread, messages) do
     forum = conn.assigns[:current_forum]
     message = List.first(thread.sorted_messages)
@@ -21,6 +25,7 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
      ]}
   end
 
+  @spec atom_feed_head(Plug.Conn.t(), [Thread.t()], NaiveDateTime.t()) :: xml_struct
   def atom_feed_head(conn, threads, last_updated) do
     forum = conn.assigns[:current_forum]
 
@@ -35,6 +40,7 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
      ]}
   end
 
+  @spec atom_feed_message(Plug.Conn.t(), Cforum.Threads.Thread.t(), Cforum.Messages.Message.t()) :: xml_struct
   def atom_feed_message(conn, thread, message) do
     {:safe, html} = Cforum.MarkdownRenderer.to_html(message, conn)
 
@@ -55,6 +61,7 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
      ]}
   end
 
+  @spec atom_feed_thread(Plug.Conn.t(), Cforum.Threads.Thread.t()) :: xml_struct
   def atom_feed_thread(conn, thread) do
     {:safe, html} = Cforum.MarkdownRenderer.to_html(thread.message, conn)
 
@@ -75,6 +82,7 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
      ]}
   end
 
+  @spec atom_author(Message.t()) :: xml_struct
   def atom_author(msg) do
     infos =
       [{:name, nil, msg.author}]
@@ -94,6 +102,7 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
 
   defp atom_maybe_add_url(children, _), do: children
 
+  @spec rss_feed_head(Plug.Conn.t(), [Thread.t()]) :: xml_struct()
   def rss_feed_head(conn, threads) do
     forum = conn.assigns[:current_forum]
 
@@ -116,6 +125,7 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
      ]}
   end
 
+  @spec rss_feed_head_for_thread(Plug.Conn.t(), Cforum.Threads.Thread.t(), [Message.t()]) :: xml_struct()
   def rss_feed_head_for_thread(conn, thread, messages) do
     forum = conn.assigns[:current_forum]
     message = List.first(thread.sorted_messages)
@@ -139,6 +149,7 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
      ]}
   end
 
+  @spec rss_feed_thread(Plug.Conn.t(), Cforum.Threads.Thread.t()) :: xml_struct()
   def rss_feed_thread(conn, thread) do
     {:safe, html} = Cforum.MarkdownRenderer.to_html(thread.message, conn)
 
@@ -152,6 +163,7 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
      ]}
   end
 
+  @spec rss_feed_message(Plug.Conn.t(), Cforum.Threads.Thread.t(), Cforum.Messages.Message.t()) :: xml_struct()
   def rss_feed_message(conn, thread, message) do
     {:safe, html} = Cforum.MarkdownRenderer.to_html(message, conn)
 

@@ -121,7 +121,7 @@ defmodule Cforum.Messages do
   """
   @spec get_message_and_thread!(
           Cforum.Forums.Forum.t() | nil,
-          [Cforum.Forums.Forum.t()],
+          [Cforum.Forums.Forum.t()] | nil,
           any,
           any,
           maybe_improper_list | map

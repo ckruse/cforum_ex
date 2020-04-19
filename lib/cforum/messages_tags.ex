@@ -13,6 +13,7 @@ defmodule Cforum.MessagesTags do
       iex> list_messages_for_tag([%Forum{}], %Tag{}, limit: [quantity: 10, offset: 0])
       [%Message{}, ...]
   """
+  @spec list_messages_for_tag([Cforum.Forums.Forum.t()], Tag.t(), keyword()) :: [Message.t()]
   def list_messages_for_tag(visible_forums, tag, query_params \\ [order: nil, limit: nil]) do
     forum_ids = Enum.map(visible_forums, & &1.forum_id)
 
@@ -37,6 +38,7 @@ defmodule Cforum.MessagesTags do
       iex> count_messages_for_tag([%Forum{}], %Tag{})
       10
   """
+  @spec count_messages_for_tag([Cforum.Forums.Forum.t()], Tag.t()) :: non_neg_integer()
   def count_messages_for_tag(visible_forums, tag) do
     forum_ids = Enum.map(visible_forums, & &1.forum_id)
 

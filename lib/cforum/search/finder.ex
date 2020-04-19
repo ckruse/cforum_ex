@@ -40,7 +40,7 @@ defmodule Cforum.Search.Finder do
     rslt.rows |> List.first() |> List.first()
   end
 
-  @spec search_interesting_messages(%User{}, Ecto.Changeset.t(), keyword() | map()) :: [%Document{}]
+  @spec search_interesting_messages(User.t(), Ecto.Changeset.t(), keyword()) :: [Cforum.Messages.Message.t()]
   def search_interesting_messages(current_user, changeset, paging \\ [offset: 0, quantity: 50]) do
     search_dict = Application.get_env(:cforum, :search_dict, "english")
     query = Query.parse(Ecto.Changeset.get_field(changeset, :term))
@@ -107,7 +107,7 @@ defmodule Cforum.Search.Finder do
     rslt.rows |> List.first() |> List.first()
   end
 
-  @spec search_subscribed_messages(%User{}, Ecto.Changeset.t(), keyword() | map()) :: [%Document{}]
+  @spec search_subscribed_messages(User.t(), Ecto.Changeset.t(), keyword()) :: [Cforum.Messages.Message.t()]
   def search_subscribed_messages(current_user, changeset, paging \\ [offset: 0, quantity: 50]) do
     search_dict = Application.get_env(:cforum, :search_dict, "english")
     query = Query.parse(Ecto.Changeset.get_field(changeset, :term))

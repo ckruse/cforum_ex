@@ -202,7 +202,7 @@ defmodule Cforum.ConfigManager do
     supported. If `:int` is specified, we cast the value with
     `String.to_integer/1`
   """
-  @spec uconf(%User{} | Plug.Conn.t(), String.t(), :none | :int | :float) :: nil | String.t() | integer() | float()
+  @spec uconf(User.t() | Plug.Conn.t(), String.t(), :none | :int | :float) :: nil | String.t() | integer() | float()
   def uconf(conn_or_user, name, type \\ :none)
   def uconf(conn, name, :int), do: Helpers.to_int(uconf(conn, name))
   def uconf(conn, name, :float), do: Helpers.to_float(uconf(conn, name))
@@ -234,7 +234,7 @@ defmodule Cforum.ConfigManager do
     supported. If `:int` is specified, we cast the value with
     `String.to_integer/1`
   """
-  @spec conf(%Setting{} | %Forum{} | %Plug.Conn{} | nil, String.t(), :none | :int | :float) ::
+  @spec conf(Setting.t() | Forum.t() | Plug.Conn.t() | nil, String.t(), :none | :int | :float) ::
           nil | String.t() | integer() | float()
   def conf(conn_setting_or_forum, name, type \\ :none)
   def conf(conn_setting_or_forum, name, :int), do: Helpers.to_int(conf(conn_setting_or_forum, name))
@@ -287,6 +287,11 @@ defmodule Cforum.ConfigManager do
     end)
   end
 
+  @spec settings_map(nil | Cforum.Forums.Forum.t(), nil | Cforum.Users.User.t()) :: %{
+          global: Setting.t() | nil,
+          forum: Setting.t() | nil,
+          user: Setting.t() | nil
+        }
   def settings_map(forum, user) do
     settings = Settings.load_relevant_settings(forum, user)
     map_from_confs(settings)

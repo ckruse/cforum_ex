@@ -29,15 +29,19 @@ defmodule Cforum.MarkdownRenderer do
   #
   # client API
   #
+  @spec to_html(
+          Cite.t() | Event.t() | Message.t() | PrivMessage.t() | Badge.t() | String.t(),
+          Plug.Conn.t() | :str
+        ) :: {:safe, String.t()} | {:error, atom}
   def to_html(object, user)
 
-  def to_html(%Cite{} = cite, _user) do
-    with {:ok, html} <- render_doc(cite.cite, "c-#{cite.cite_id}"),
+  def to_html(%{cite_id: id, cite: content}, _user) do
+    with {:ok, html} <- render_doc(content, "c-#{id}"),
          do: {:safe, html}
   end
 
-  def to_html(%Event{} = event, _user) do
-    with {:ok, html} <- render_doc(event.description, "e-#{event.event_id}"),
+  def to_html(%{description: content, event_id: id}, _user) do
+    with {:ok, html} <- render_doc(content, "e-#{id}"),
          do: {:safe, html}
   end
 
@@ -65,13 +69,13 @@ defmodule Cforum.MarkdownRenderer do
     |> to_html(conn)
   end
 
-  def to_html(%PrivMessage{} = message, _user) do
-    with {:ok, html} <- render_doc(message.body, "pm-#{message.priv_message_id}"),
+  def to_html(%{body: content, priv_message_id: id}, _user) do
+    with {:ok, html} <- render_doc(content, "pm-#{id}"),
          do: {:safe, html}
   end
 
-  def to_html(%Badge{} = badge, _user) do
-    with {:ok, html} <- render_doc(badge.description, "b-#{badge.badge_id}"),
+  def to_html(%{description: content, badge_id: id}, _user) do
+    with {:ok, html} <- render_doc(content, "b-#{id}"),
          do: {:safe, html}
   end
 
@@ -87,7 +91,7 @@ defmodule Cforum.MarkdownRenderer do
     :poolboy.transaction(pool_name(), fn pid -> GenServer.call(pid, {:render_doc, markdown, id, config}) end)
   end
 
-  @spec to_plain(%Message{} | %Cite{}) :: String.t()
+  @spec to_plain(Message.t() | Cite.t()) :: String.t()
   def to_plain(object)
 
   def to_plain(%Message{format: "cforum"} = message) do
