@@ -25,6 +25,8 @@ defmodule CforumWeb do
       import Ecto.Query
 
       @timestamps_opts [type: :utc_datetime]
+
+      @type t() :: %__MODULE__{}
     end
   end
 

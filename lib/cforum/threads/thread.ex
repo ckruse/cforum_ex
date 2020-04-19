@@ -8,8 +8,6 @@ defmodule Cforum.Threads.Thread do
   @primary_key {:thread_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :thread_id}
 
-  @type t() :: %__MODULE__{}
-
   def default_preloads, do: [:forum]
   def default_preloads(:messages), do: [:forum, messages: Message.default_preloads()]
 

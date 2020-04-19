@@ -4,8 +4,6 @@ defmodule Cforum.Messages.MessageVersion do
   @primary_key {:message_version_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :message_version_id}
 
-  @type t() :: %__MODULE__{}
-
   schema "message_versions" do
     field(:author, :string)
     field(:subject, :string)

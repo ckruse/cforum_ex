@@ -6,8 +6,6 @@ defmodule Cforum.Tags.Tag do
   @primary_key {:tag_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :slug}
 
-  @type t() :: %__MODULE__{}
-
   schema "tags" do
     field(:tag_name, :string)
     field(:slug, :string)
