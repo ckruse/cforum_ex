@@ -1,6 +1,6 @@
 defmodule CforumWeb.UsersChannel do
   use CforumWeb, :channel
-  use Appsignal.Instrumentation.Decorators
+  import Appsignal.Phoenix.Channel, only: [channel_action: 4]
 
   alias Cforum.Users.User
   alias Cforum.Forums
@@ -18,62 +18,69 @@ defmodule CforumWeb.UsersChannel do
       else: {:error, %{reason: "unauthorized"}}
   end
 
-  @decorate channel_action()
-  def handle_in("current_user", _payload, socket),
-    do: {:reply, {:ok, socket.assigns[:current_user]}, socket}
+  def handle_in("current_user", _payload, socket) do
+    channel_action(__MODULE__, "current_user", socket, fn ->
+      {:reply, {:ok, socket.assigns[:current_user]}, socket}
+    end)
+  end
 
-  @decorate channel_action()
   def handle_in("settings", _payload, socket) do
-    settings = Cforum.ConfigManager.settings_map(nil, socket.assigns[:current_user])
+    channel_action(__MODULE__, "settings", socket, fn ->
+      settings = Cforum.ConfigManager.settings_map(nil, socket.assigns[:current_user])
 
-    config =
-      Enum.reduce(Cforum.ConfigManager.visible_config_keys(), %{}, fn key, opts ->
-        Map.put(opts, key, ConfigManager.uconf(settings, key))
-      end)
+      config =
+        Enum.reduce(Cforum.ConfigManager.visible_config_keys(), %{}, fn key, opts ->
+          Map.put(opts, key, ConfigManager.uconf(settings, key))
+        end)
 
-    {:reply, {:ok, config}, socket}
+      {:reply, {:ok, config}, socket}
+    end)
   end
 
-  @decorate channel_action()
   def handle_in("visible_forums", _payload, socket) do
-    forums = Forums.list_visible_forums(socket.assigns[:current_user])
-    {:reply, {:ok, %{forums: forums}}, socket}
+    channel_action(__MODULE__, "visible_forums", socket, fn ->
+      forums = Forums.list_visible_forums(socket.assigns[:current_user])
+      {:reply, {:ok, %{forums: forums}}, socket}
+    end)
   end
 
-  @decorate channel_action()
   def handle_in("title_infos", _payload, socket) do
-    forums = Forums.list_visible_forums(socket.assigns[:current_user])
-    {_, num_messages} = ReadMessages.count_unread_messages(socket.assigns[:current_user], forums)
+    channel_action(__MODULE__, "title_infos", socket, fn ->
+      forums = Forums.list_visible_forums(socket.assigns[:current_user])
+      {_, num_messages} = ReadMessages.count_unread_messages(socket.assigns[:current_user], forums)
 
-    assigns = %{
-      unread_notifications: Notifications.count_notifications(socket.assigns[:current_user], true),
-      unread_mails: PrivMessages.count_priv_messages(socket.assigns[:current_user], true),
-      unread_messages: num_messages,
-      current_user: socket.assigns[:current_user]
-    }
+      assigns = %{
+        unread_notifications: Notifications.count_notifications(socket.assigns[:current_user], true),
+        unread_mails: PrivMessages.count_priv_messages(socket.assigns[:current_user], true),
+        unread_messages: num_messages,
+        current_user: socket.assigns[:current_user]
+      }
 
-    str = CforumWeb.LayoutView.numeric_infos(socket.assigns[:current_user], assigns)
+      str = CforumWeb.LayoutView.numeric_infos(socket.assigns[:current_user], assigns)
 
-    {:reply,
-     {:ok,
-      %{
-        infos: str,
-        unread_notifications: assigns[:unread_notifications],
-        unread_mails: assigns[:unread_mails],
-        unread_messages: assigns[:unread_messages]
-      }}, socket}
+      {:reply,
+       {:ok,
+        %{
+          infos: str,
+          unread_notifications: assigns[:unread_notifications],
+          unread_mails: assigns[:unread_mails],
+          unread_messages: assigns[:unread_messages]
+        }}, socket}
+    end)
   end
 
   def handle_in("mark_read", %{"message_id" => mid}, socket) do
-    with msg when not is_nil(msg) <- Cforum.Messages.get_message(mid),
-         thread when not is_nil(thread) <- Cforum.Threads.get_thread(msg.thread_id) do
-      if thread.archived == false,
-        do: Cforum.ReadMessages.mark_messages_read(socket.assigns[:current_user], msg)
+    channel_action(__MODULE__, "mark_read", socket, fn ->
+      with msg when not is_nil(msg) <- Cforum.Messages.get_message(mid),
+           thread when not is_nil(thread) <- Cforum.Threads.get_thread(msg.thread_id) do
+        if thread.archived == false,
+          do: Cforum.ReadMessages.mark_messages_read(socket.assigns[:current_user], msg)
 
-      {:reply, {:ok, %{"status" => "marked_read"}}, socket}
-    else
-      _ -> {:reply, {:error, %{"status" => "message_not_found"}}, socket}
-    end
+        {:reply, {:ok, %{"status" => "marked_read"}}, socket}
+      else
+        _ -> {:reply, {:error, %{"status" => "message_not_found"}}, socket}
+      end
+    end)
   end
 
   # # Channels can be used in a request/response fashion

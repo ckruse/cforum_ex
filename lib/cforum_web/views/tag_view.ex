@@ -48,7 +48,7 @@ defmodule CforumWeb.TagView do
   @f_min 1
 
   def font_size(count, min_cnt, max_cnt) do
-    divisor = if @f_max - @f_min == 0, do: 1, else: @f_max - @f_min
+    divisor = max(@f_max - @f_min, 1)
     constant = :math.log(max_cnt - (min_cnt - 1)) / divisor
 
     if constant == 0 do

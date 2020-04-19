@@ -20,8 +20,7 @@ defmodule Cforum.System.V4MigrationTaks do
       timeout: :infinity
     )
 
-    path = Application.app_dir(:cforum, "priv/repo/migrations")
-    Ecto.Migrator.run(Cforum.Repo, path, :up, all: true)
+    Ecto.Migrator.with_repo(Cforum.Repo, &Ecto.Migrator.run(&1, :up, all: true))
 
     Repo.transaction(
       fn ->
