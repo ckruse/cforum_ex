@@ -35,6 +35,7 @@ defmodule Cforum.Messages do
 
   alias Cforum.Helpers.CompositionHelpers
 
+  @spec list_messages([any]) :: [Message.t()]
   def list_messages(message_ids) do
     threads = Threads.get_threads_by_message_ids(message_ids)
 
@@ -62,6 +63,7 @@ defmodule Cforum.Messages do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_message!(any, nil | maybe_improper_list | map) :: Message.t()
   def get_message!(id, opts \\ []) do
     if opts[:view_all],
       do: Repo.get!(Message, id),
@@ -85,6 +87,7 @@ defmodule Cforum.Messages do
       nil
 
   """
+  @spec get_message(any, maybe_improper_list | map) :: Message.t() | nil
   def get_message(id, opts \\ []) do
     if opts[:view_all],
       do: Repo.get(Message, id),
@@ -116,6 +119,13 @@ defmodule Cforum.Messages do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_message_and_thread!(
+          Cforum.Forums.Forum.t() | nil,
+          [Cforum.Forums.Forum.t()],
+          any,
+          any,
+          maybe_improper_list | map
+        ) :: {Thread.t(), Message.t()}
   def get_message_and_thread!(forum, visible_forums, thread_id, message_id, opts \\ []) do
     thread =
       forum
@@ -134,6 +144,7 @@ defmodule Cforum.Messages do
   @doc """
   sort messages either ascending or descending
   """
+  @spec sort_messages([Message.t()], String.t()) :: [Message.t()]
   def sort_messages(messages, direction) do
     Enum.sort(messages, fn a, b ->
       cond do
@@ -156,6 +167,7 @@ defmodule Cforum.Messages do
       iex> get_message_from_mid!(%Forum{}, %User{}, "2009/08/32/foo-bar", 222)
       ** (Ecto.NoResultsError)
   """
+  @spec get_message_from_mid!(Thread.t(), any) :: Message.t()
   def get_message_from_mid!(thread, mid)
 
   def get_message_from_mid!(thread, mid) when is_bitstring(mid),
@@ -168,6 +180,7 @@ defmodule Cforum.Messages do
     end
   end
 
+  @spec get_message_from_old_mid!(Thread.t(), any) :: Message.t()
   def get_message_from_old_mid!(thread, mid) when is_bitstring(mid),
     do: get_message_from_old_mid!(thread, String.to_integer(mid, 10))
 
@@ -198,6 +211,8 @@ defmodule Cforum.Messages do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_message(map, %{user_id: any}, [%{forum_id: any}], Thread.t(), Message.t() | nil, keyword) ::
+          {:ok, Message.t()} | {:error, Ecto.Changeset.t()}
   def create_message(attrs, user, visible_forums, thread, parent \\ nil, opts \\ []) do
     opts = Keyword.merge([create_tags: false, autosubscribe: false, notify: true], opts)
 
@@ -244,6 +259,7 @@ defmodule Cforum.Messages do
   defp maybe_distribute_badges(val), do: val
 
   @default_notification_types ["message:create-answer", "message:create-activity"]
+  @spec unnotify_user(Cforum.Users.User.t(), String.t(), Thread.t(), Message.t(), [String.t()]) :: any
   def unnotify_user(user, read_mode, thread, message, notification_types \\ @default_notification_types)
   def unnotify_user(user, _, _, message, _) when is_nil(user) or is_nil(message), do: nil
 
@@ -255,6 +271,8 @@ defmodule Cforum.Messages do
     Notifications.delete_notification_for_object(user, mids, types)
   end
 
+  @spec unnotify_user({:ok, Message.t()} | {:error, Ecto.Changeset.t()}, [any]) ::
+          {:ok, Message.t()} | {:error, Ecto.Changeset.t()}
   def unnotify_user({:ok, msg}, message_ids) do
     Notifications.delete_notifications_for_objects(message_ids, [
       "message:create-answer",
@@ -282,6 +300,14 @@ defmodule Cforum.Messages do
       iex> preview_message(%{}, %User{}, %Thread{})
       {%Message{}, %Ecto.Changeset{}}
   """
+  @spec preview_message(
+          map,
+          Cforum.Users.User.t(),
+          [Cforum.Forums.Forum.t()],
+          Thread.t(),
+          Message.t() | nil,
+          Message.t()
+        ) :: {Message.t(), Ecto.Changeset.t()}
   def preview_message(attrs, user, visible_forums, thread, parent \\ nil, message \\ %Message{created_at: Timex.now()}) do
     changeset = Message.changeset(message, attrs, user, visible_forums, thread, parent)
 
@@ -306,6 +332,8 @@ defmodule Cforum.Messages do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_message(Message.t(), map(), Cforum.Users.User.t(), [Cforum.Forums.Forum.t()], keyword()) ::
+          {:ok, Message.t()} | {:error, Ecto.Changeset.t()}
   def update_message(%Message{} = message, attrs, user, visible_forums, opts \\ [create_tags: false]) do
     System.audited("update", user, fn ->
       message
@@ -317,6 +345,8 @@ defmodule Cforum.Messages do
     end)
   end
 
+  @spec retag_message(Message.t(), map(), Cforum.Users.User.t(), keyword()) ::
+          {:ok, Message.t()} | {:error, Ecto.Changeset.t()}
   def retag_message(%Message{} = message, attrs, user, opts \\ [create_tags: false, retag_children: false]) do
     System.audited("retag", user, fn ->
       ret =
@@ -353,6 +383,8 @@ defmodule Cforum.Messages do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_message(Cforum.Users.User.t(), Message.t(), String.t() | nil) ::
+          {:error, Ecto.Changeset.t()} | {:ok, Cforum.Messages.Message.t()}
   def delete_message(user, %Message{} = message, reason \\ nil) do
     message_ids =
       message
@@ -400,6 +432,7 @@ defmodule Cforum.Messages do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec restore_message(Cforum.Users.User.t(), Cforum.Messages.Message.t()) :: {:ok, Message.t()}
   def restore_message(user, %Message{} = message) do
     message_ids =
       message
@@ -435,6 +468,8 @@ defmodule Cforum.Messages do
       %Ecto.Changeset{source: %Message{}}
 
   """
+  @spec change_message(Cforum.Messages.Message.t(), nil | Cforum.Users.User.t(), [Cforum.Forums.Forum.t()], map()) ::
+          Ecto.Changeset.t()
   def change_message(%Message{} = message, user, visible_forums, attrs \\ %{}) do
     Message.new_or_update_changeset(message, attrs, user, visible_forums)
   end
@@ -456,6 +491,8 @@ defmodule Cforum.Messages do
       iex> new_message_changeset(%Message{}, %User{}, [%Forum{}], [])
       %Ecto.Changeset{}
   """
+  @spec new_message_changeset(nil | Message.t(), nil | Cforum.Users.User.t(), [Cforum.Forums.Forum.t()], map, keyword) ::
+          Ecto.Changeset.t()
   def new_message_changeset(message, user, visible_forums, params, opts \\ []) do
     opts =
       Keyword.merge(
@@ -572,6 +609,7 @@ defmodule Cforum.Messages do
       iex> accept_message(%Message{}, %User{}, 15)
       {:ok, _}
   """
+  @spec accept_message(Message.t(), Cforum.Users.User.t(), non_neg_integer()) :: any
   def accept_message(message, user, points)
   def accept_message(%Message{flags: %{"accepted" => "yes"}}, _, _), do: nil
 
@@ -617,6 +655,7 @@ defmodule Cforum.Messages do
       iex> unaccept_message(%Message{}, %User{})
       {:ok, _}
   """
+  @spec unaccept_message(Message.t(), Cforum.Users.User.t()) :: any
   def unaccept_message(message, user) do
     Repo.transaction(fn ->
       message = %Message{message | flags: Map.delete(message.flags, "accepted")}
@@ -663,6 +702,7 @@ defmodule Cforum.Messages do
       iex> flag_message_subtree(%Message{}, "no-answer", "yes")
       {:ok, %Message{}}
   """
+  @spec flag_message_subtree(Message.t(), String.t(), String.t()) :: {:ok, Message.t()}
   def flag_message_subtree(message, flag, value) do
     message_ids =
       message
@@ -689,6 +729,7 @@ defmodule Cforum.Messages do
       iex> unflag_message_subtree(%Message{}, "no-answer")
       {:ok, %Message{}}
   """
+  @spec unflag_message_subtree(Message.t(), String.t()) :: {:ok, Message.t()}
   def unflag_message_subtree(message, flag) do
     message_ids =
       message
@@ -716,6 +757,8 @@ defmodule Cforum.Messages do
       iex> flag_no_answer(%User{}, %Message{})
       {:ok, %Message{}}
   """
+  @spec flag_no_answer(Cforum.Users.User.t(), Message.t(), String.t() | nil, String.t()) ::
+          {:ok, Message.t()} | {:error, Ecto.Changeset.t()}
   def flag_no_answer(user, message, reason, type \\ "no-answer-admin") when type in ~w(no-answer-admin no-answer) do
     System.audited("flag-no-answer", user, fn ->
       message_ids =
@@ -759,7 +802,7 @@ defmodule Cforum.Messages do
       iex> unflag_no_answer(%User{}, %Message{})
       {:ok, %Message{}}
   """
-
+  @spec unflag_no_answer(Cforum.Users.User.t(), Message.t(), [String.t()]) :: {:ok, Message.t()}
   def unflag_no_answer(user, message, types \\ ["no-answer-admin", "no-answer"]) do
     System.audited("unflag-no-answer", user, fn ->
       Enum.each(types, fn type ->
@@ -777,9 +820,11 @@ defmodule Cforum.Messages do
     |> ThreadCaching.refresh_cached_thread()
   end
 
+  @spec content_with_presentational_filters(nil | maybe_improper_list | map, Message.t()) :: String.t()
   def content_with_presentational_filters(assigns, message) do
-    message = Mentions.mentions_markup(message, assigns[:current_user])
-    message.content
+    message
+    |> Mentions.mentions_markup(assigns[:current_user])
+    |> Map.get(:content)
   end
 
   defp notify_users(message_or_changeset, thread_or_score, notify \\ true)

@@ -11,9 +11,11 @@ defmodule Cforum.InterestingMessages do
 
   ## Examples
 
-      iex> mark_message_interesting(%User{}, %Message{})
-      {:ok, %InterestingMessage{}}
+  iex> mark_message_interesting(%User{}, %Message{})
+  {:ok, %InterestingMessage{}}
   """
+  @spec mark_message_interesting(%{user_id: any}, %{message_id: any}) ::
+          {:ok, InterestingMessage.t()} | {:error, Ecto.Changeset.t()}
   def mark_message_interesting(user, message) do
     %InterestingMessage{}
     |> InterestingMessage.changeset(%{user_id: user.user_id, message_id: message.message_id})
@@ -25,15 +27,19 @@ defmodule Cforum.InterestingMessages do
 
   ## Examples
 
-      iex> mark_message_boring(%User{}, %Message{})
-      {:ok, %InterestingMessage{}}
+  iex> mark_message_boring(%User{}, %Message{})
+  {:ok, %InterestingMessage{}}
   """
+  @spec mark_message_boring(%{user_id: any}, %{message_id: any}) ::
+          {:ok, InterestingMessage.t()} | nil | {:error, Ecto.Changeset.t()}
   def mark_message_boring(user, message) do
     interesting_message =
       InterestingMessage
       |> Repo.get_by(user_id: user.user_id, message_id: message.message_id)
 
-    if interesting_message, do: Repo.delete(interesting_message), else: nil
+    if interesting_message,
+      do: Repo.delete(interesting_message),
+      else: nil
   end
 
   @doc """
@@ -41,9 +47,10 @@ defmodule Cforum.InterestingMessages do
 
   ## Examples
 
-      iex> list_interesting_messages(%User{})
-      [%Message{}, ...]
+  iex> list_interesting_messages(%User{})
+  [%Message{}, ...]
   """
+  @spec list_interesting_messages(%{user_id: any}, maybe_improper_list | map) :: [Message.t()]
   def list_interesting_messages(user, query_params \\ [order: nil, limit: nil]) do
     from(
       msg in Message,
@@ -65,6 +72,7 @@ defmodule Cforum.InterestingMessages do
       iex> count_interesting_messages(%User{})
       1
   """
+  @spec count_interesting_messages(%{user_id: any}) :: non_neg_integer()
   def count_interesting_messages(user) do
     from(
       msg in Message,
