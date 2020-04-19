@@ -39,10 +39,9 @@ defmodule Cforum.Messages do
     threads = Threads.get_threads_by_message_ids(message_ids)
 
     threads
-    |> Enum.map(fn thread ->
+    |> Enum.flat_map(fn thread ->
       Enum.map(thread.messages, &%Message{&1 | thread: thread})
     end)
-    |> List.flatten()
     |> Enum.filter(&(&1.message_id in message_ids))
   end
 
