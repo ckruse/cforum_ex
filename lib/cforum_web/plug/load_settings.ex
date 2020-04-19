@@ -7,24 +7,16 @@ defmodule CforumWeb.Plug.LoadSettings do
   - user settings as `@user_config`/`:user_config`
   """
 
-  alias Cforum.Settings.Setting
-  alias Cforum.Settings
+  alias Cforum.ConfigManager
 
   def init(opts), do: opts
 
   def call(conn, _opts) do
-    user = conn.assigns[:current_user]
-    forum = conn.assigns[:current_forum]
+    settings = ConfigManager.settings_map(conn.assigns[:current_forum], conn.assigns[:current_user])
 
-    settings = Settings.load_relevant_settings(forum, user)
-    set_confs(conn, settings)
-  end
-
-  defp set_confs(conn, confs) do
-    Enum.reduce(confs, conn, fn
-      conf = %Setting{user_id: nil, forum_id: nil}, conn -> Plug.Conn.assign(conn, :global_config, conf)
-      conf = %Setting{forum_id: nil}, conn -> Plug.Conn.assign(conn, :user_config, conf)
-      conf = %Setting{user_id: nil}, conn -> Plug.Conn.assign(conn, :forum_config, conf)
-    end)
+    conn
+    |> Plug.Conn.assign(:global_config, settings[:global])
+    |> Plug.Conn.assign(:user_config, settings[:user])
+    |> Plug.Conn.assign(:forum_config, settings[:forum])
   end
 end
