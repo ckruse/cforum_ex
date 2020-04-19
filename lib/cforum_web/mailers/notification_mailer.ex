@@ -2,6 +2,8 @@ defmodule CforumWeb.NotificationMailer do
   use Phoenix.Swoosh, view: CforumWeb.NotificationMailerView, layout: {CforumWeb.LayoutView, :email}
   import CforumWeb.Gettext
 
+  alias Cforum.ConfigManager
+
   def pm_notification_mail(user, pm) do
     new()
     |> from(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))
@@ -15,7 +17,12 @@ defmodule CforumWeb.NotificationMailer do
     |> from(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))
     |> to({user.username, user.email})
     |> subject(gettext("new message: “%{subject}”", subject: message.subject))
-    |> render_body(:new_message_mail, %{user: user, thread: thread, message: message})
+    |> render_body(:new_message_mail, %{
+      user: user,
+      thread: thread,
+      message: message,
+      conn: build_conn(thread.forum, user)
+    })
   end
 
   def new_notification_mail(user, thread, message, msg_subject) do
@@ -23,7 +30,12 @@ defmodule CforumWeb.NotificationMailer do
     |> from(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))
     |> to({user.username, user.email})
     |> subject(gettext("new notification: “%{subject}”", subject: msg_subject))
-    |> render_body(:new_message_mail, %{user: user, thread: thread, message: message})
+    |> render_body(:new_message_mail, %{
+      user: user,
+      thread: thread,
+      message: message,
+      conn: build_conn(thread.forum, user)
+    })
   end
 
   def moderation_mail(user, moderation_queue_entry, thread, message) do
@@ -45,5 +57,18 @@ defmodule CforumWeb.NotificationMailer do
     |> to(Enum.map(recipients, & &1.email))
     |> subject(gettext("error sending inactivity notification email"))
     |> render_body(:inactivity_notification_error, %{user: user, error: error})
+  end
+
+  defp build_conn(forum, user) do
+    settings = ConfigManager.settings_map(forum, user)
+
+    %Plug.Conn{
+      assigns: %{
+        global_config: settings[:global],
+        forum_config: settings[:forum],
+        user_config: settings[:user],
+        current_user: user
+      }
+    }
   end
 end

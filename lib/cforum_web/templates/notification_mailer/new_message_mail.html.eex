@@ -1,1 +1,1 @@
-<%= Cforum.MarkdownRenderer.to_html(@message, %Plug.Conn{assigns: %{current_user: @user}}) %>
+<%= Cforum.MarkdownRenderer.to_html(@message, @conn) %>
