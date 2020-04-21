@@ -11,6 +11,8 @@ defmodule Cforum.ConfigManager do
 
   alias Cforum.Helpers
 
+  @typep conf_map() :: %{global: Setting.t() | nil, forum: Setting.t() | nil, user: Setting.t() | nil}
+
   @defaults %{
     "pagination" => 50,
     "pagination_users" => 50,
@@ -234,7 +236,7 @@ defmodule Cforum.ConfigManager do
     supported. If `:int` is specified, we cast the value with
     `String.to_integer/1`
   """
-  @spec conf(Setting.t() | Forum.t() | Plug.Conn.t() | nil, String.t(), :none | :int | :float) ::
+  @spec conf(Setting.t() | Forum.t() | Plug.Conn.t() | conf_map() | nil, String.t(), :none | :int | :float) ::
           nil | String.t() | integer() | float()
   def conf(conn_setting_or_forum, name, type \\ :none)
   def conf(conn_setting_or_forum, name, :int), do: Helpers.to_int(conf(conn_setting_or_forum, name))
@@ -287,11 +289,7 @@ defmodule Cforum.ConfigManager do
     end)
   end
 
-  @spec settings_map(nil | Cforum.Forums.Forum.t(), nil | Cforum.Users.User.t()) :: %{
-          global: Setting.t() | nil,
-          forum: Setting.t() | nil,
-          user: Setting.t() | nil
-        }
+  @spec settings_map(nil | Cforum.Forums.Forum.t(), nil | Cforum.Users.User.t()) :: conf_map()
   def settings_map(forum, user) do
     settings = Settings.load_relevant_settings(forum, user)
     map_from_confs(settings)
