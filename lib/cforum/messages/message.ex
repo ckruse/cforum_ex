@@ -8,6 +8,8 @@ defmodule Cforum.Messages.Message do
   alias Cforum.Tags.Tag
   alias Cforum.Tags
   alias Cforum.MessagesTags.MessageTag
+  alias Cforum.ConfigManager
+  alias Cforum.Forums
 
   @primary_key {:message_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :message_id}
@@ -68,8 +70,8 @@ defmodule Cforum.Messages.Message do
     |> validate_forum_id(visible_forums)
     |> maybe_set_author(user, opts[:uuid])
     |> set_author_from_opts_when_unset(:author, opts[:author])
-    |> Cforum.Helpers.strip_changeset_changes()
-    |> Cforum.Helpers.changeset_changes_to_normalized_newline()
+    |> Helpers.strip_changeset_changes()
+    |> Helpers.changeset_changes_to_normalized_newline()
     |> parse_tags(params, user, opts[:create_tags])
     |> validate_tags_count()
     |> validate_length(:author, min: 2, max: 60)
@@ -78,8 +80,8 @@ defmodule Cforum.Messages.Message do
     |> validate_length(:homepage, min: 2, max: 250)
     |> validate_length(:problematic_site, min: 2, max: 250)
     |> validate_length(:content, min: 10, max: 12_288)
-    |> Cforum.Helpers.validate_url(:problematic_site)
-    |> Cforum.Helpers.validate_url(:homepage)
+    |> Helpers.validate_url(:problematic_site)
+    |> Helpers.validate_url(:homepage)
   end
 
   defp maybe_put_change(changeset, _, nil), do: changeset
@@ -98,13 +100,18 @@ defmodule Cforum.Messages.Message do
   end
 
   defp validate_tags_count(changeset) do
-    with nil <- changeset.errors[:tags],
-         id when not is_nil(id) <- get_field(changeset, :forum_id),
-         forum <- Cforum.Forums.get_forum!(id) do
-      settings = Cforum.ConfigManager.settings_map(forum, nil)
+    with nil <- changeset.errors[:tags] do
+      forum_id = get_field(changeset, :forum_id)
 
-      min_tags = Cforum.ConfigManager.conf(settings, "min_tags_per_message", :int)
-      max_tags = Cforum.ConfigManager.conf(settings, "max_tags_per_message", :int)
+      forum =
+        if Helpers.present?(forum_id),
+          do: Forums.get_forum!(forum_id),
+          else: nil
+
+      settings = ConfigManager.settings_map(forum, nil)
+
+      min_tags = ConfigManager.conf(settings, "min_tags_per_message", :int)
+      max_tags = ConfigManager.conf(settings, "max_tags_per_message", :int)
 
       no_tags = length(get_field(changeset, :tags, []))
 
@@ -277,8 +284,14 @@ defmodule Cforum.Messages.Message do
 
   defp validate_blacklist(changeset, field, conf_key) do
     forum_id = get_field(changeset, :forum_id)
-    forum = if Helpers.present?(forum_id), do: Cforum.Forums.get_forum!(forum_id), else: nil
-    blacklist = Cforum.ConfigManager.conf(forum, conf_key)
+
+    forum =
+      if Helpers.present?(forum_id),
+        do: Forums.get_forum!(forum_id),
+        else: nil
+
+    settings = ConfigManager.settings_map(forum, nil)
+    blacklist = ConfigManager.conf(settings, conf_key)
     value = get_field(changeset, field)
 
     if matches?(value, blacklist),
