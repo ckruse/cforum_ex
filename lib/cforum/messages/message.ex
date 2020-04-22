@@ -4,7 +4,6 @@ defmodule Cforum.Messages.Message do
   import Ecto.Query, warn: false
 
   alias Cforum.Helpers
-  alias Cforum.Users.User
   alias Cforum.Tags.Tag
   alias Cforum.Tags
   alias Cforum.MessagesTags.MessageTag
@@ -249,7 +248,7 @@ defmodule Cforum.Messages.Message do
     put_change(changeset, :tags, tags)
   end
 
-  defp maybe_set_author(changeset, %User{} = author, _) do
+  defp maybe_set_author(changeset, %{} = author, _) do
     case get_field(changeset, :author) do
       nil ->
         changeset
