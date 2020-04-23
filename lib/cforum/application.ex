@@ -19,9 +19,13 @@ defmodule Cforum.Application do
     # Define workers and child supervisors to be supervised
     children = [
       # Start the Ecto repository
-      supervisor(Cforum.Repo, []),
+      Cforum.Repo,
+      # Start the Telemetry supervisor
+      CforumWeb.Telemetry,
+      # Start the PubSub system
+      {Phoenix.PubSub, name: Cforum.PubSub},
       # Start the endpoint when the application starts
-      supervisor(CforumWeb.Endpoint, []),
+      CforumWeb.Endpoint,
       {Oban, Application.get_env(:cforum, Oban)},
       # Start your own worker by calling: Cforum.Worker.start_link(arg1, arg2, arg3)
       # worker(Cforum.Worker, [arg1, arg2, arg3]),

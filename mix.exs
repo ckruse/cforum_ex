@@ -33,8 +33,9 @@ defmodule Cforum.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.4.0"},
-      {:phoenix_pubsub, "~> 1.0"},
+      {:phoenix, "~> 1.5.0"},
+      {:phoenix_pubsub, "~> 2.0"},
+      {:plug_cowboy, "~> 2.1"},
       {:ecto_sql, "~> 3.0"},
       {:phoenix_ecto, "~> 4.0"},
       {:ecto, "~> 3.4.0"},
@@ -43,7 +44,6 @@ defmodule Cforum.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:phoenix_live_dashboard, "~> 0.1"},
       {:gettext, "0.17.1"},
-      {:plug_cowboy, "~> 2.0"},
       {:plug, "~> 1.7"},
       {:comeonin, "~> 4.0"},
       {:bcrypt_elixir, "~> 0.12"},
@@ -67,6 +67,8 @@ defmodule Cforum.Mixfile do
       {:html_entities, "~> 0.4"},
       {:nimble_parsec, "~> 0.2"},
       {:appsignal, "~> 1.0"},
+      {:telemetry_poller, "~> 0.4"},
+      {:telemetry_metrics, "~> 0.4"},
 
       # testing
       {:excoveralls, "~> 0.8", only: :test},

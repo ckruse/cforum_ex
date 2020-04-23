@@ -18,10 +18,13 @@ defmodule CforumWeb.ConnCase do
   using do
     quote do
       # Import conveniences for testing with connections
-      use Phoenix.ConnTest
+      import Plug.Conn
+      import Phoenix.ConnTest
+      import CforumWeb.ConnCase
+
       use Oban.Testing, repo: Cforum.Repo
 
-      import Plug.Test
+      # import Plug.Test
       import Cforum.TestHelpers
       import CforumWeb.Gettext
       import Cforum.Factory

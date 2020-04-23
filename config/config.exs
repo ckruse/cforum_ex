@@ -13,7 +13,7 @@ config :cforum, CforumWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "w/W7vB8NBsnCLFPZfPrUK3IUvyfEZv/+kIYUAa7YSfAjLg/aM61tsp6K+vnrD6FF",
   render_errors: [view: CforumWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Cforum.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub_server: Cforum.PubSub
 
 # Configures Elixir's Logger
 config :logger, :console,
