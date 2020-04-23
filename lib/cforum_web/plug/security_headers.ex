@@ -1,6 +1,8 @@
 defmodule CforumWeb.Plug.SecurityHeaders do
   def init(opts), do: opts
 
+  def call(%{request_path: "/admin/dashboard" <> _} = conn, _), do: conn
+
   def call(conn, _) do
     if Application.get_env(:cforum, :environment) == :prod do
       js_nonce =
