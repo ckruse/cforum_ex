@@ -58,7 +58,7 @@ defmodule Cforum.Mixfile do
       {:porcelain, git: "https://github.com/ckruse/porcelain.git"},
       {:jason, "~> 1.0"},
       {:slugify, "~> 1.1"},
-      {:xml_builder, "~> 2.0.0"},
+      {:xml_builder, "~> 2.1.1"},
       {:oban, "~> 1.0"},
       {:tzdata, "~> 1.0.3"},
       {:elixir_uuid, "~> 1.2"},
