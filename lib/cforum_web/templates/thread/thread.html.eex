@@ -16,7 +16,7 @@
     <%= if @thread.flags["no-archive"] == "yes" do %><svg class="no-archive-icon" title="<%= gettext("this thread will not be archived") %>" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-no-archive"></use></svg><% end %>
   </div>
 
-  <%= if show_tree?(@thread, @conn.assigns[:view_all]) do %>
+  <%= if show_tree?(@thread, @conn.assigns[:view_all], assigns[:fold] != "no") do %>
     <%= CforumWeb.MessageView.message_tree(
           @conn,
           @thread,

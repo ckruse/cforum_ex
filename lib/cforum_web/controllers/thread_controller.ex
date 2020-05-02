@@ -80,7 +80,11 @@ defmodule CforumWeb.ThreadController do
   def show(conn, params) do
     conn
     |> put_layout(false)
-    |> render("thread.html", index: str_to_bool(params["index"], true), id_prefix: params["id_prefix"])
+    |> render("thread.html",
+      index: str_to_bool(params["index"], true),
+      id_prefix: params["id_prefix"],
+      fold: params["fold"]
+    )
   end
 
   defp str_to_bool(nil, default), do: default
