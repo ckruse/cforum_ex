@@ -56,9 +56,10 @@ const insertRenderedThread = (thread, message, html, id_prefix) => {
 
 const autoloadMessage = async (ev) => {
   const { thread, message, forum } = ev.detail.data;
-  const id_prefix = document.body.dataset.controller === "MessageController" ? "tree-" : "";
+  const isMsg = document.body.dataset.controller === "MessageController";
+  const id_prefix = isMsg ? "tree-" : "";
 
-  if (document.body.dataset.controller === "MessageController" && !document.getElementById(thread.thread_id)) {
+  if (isMsg && !document.getElementById(thread.thread_id)) {
     return;
   }
 
@@ -74,7 +75,8 @@ const autoloadMessage = async (ev) => {
     message_id: message.message_id,
     invisible: "no",
     id_prefix,
-    index: document.body.dataset.action === "show" ? "no" : "yes",
+    index: isMsg ? "no" : "yes",
+    fold: isMsg ? "no" : "yes",
   });
 
   const rsp = await fetch(`/${slug}${thread.slug}?${qs}`, { credentials: "same-origin" });
