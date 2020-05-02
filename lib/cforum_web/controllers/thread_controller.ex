@@ -189,7 +189,11 @@ defmodule CforumWeb.ThreadController do
       |> Threads.get_thread_by_slug!(conn.assigns[:visible_forums], ThreadHelpers.slug_from_params(params))
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.ensure_found!()
-      |> Threads.apply_user_infos(conn.assigns[:current_user], include: [:invisible])
+      |> Threads.apply_user_infos(conn.assigns[:current_user],
+        include: [:invisible],
+        close_read_threads: ConfigManager.uconf(conn, "open_close_close_when_read") == "yes",
+        open_close_default_state: ConfigManager.uconf(conn, "open_close_default")
+      )
       |> Threads.apply_highlights(conn)
       |> Threads.build_message_tree(ConfigManager.uconf(conn, "sort_messages"))
 
