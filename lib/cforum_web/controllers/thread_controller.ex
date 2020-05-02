@@ -77,11 +77,15 @@ defmodule CforumWeb.ThreadController do
       else: show(conn, Map.drop(params, ["invisible"]))
   end
 
-  def show(conn, _params) do
+  def show(conn, params) do
     conn
     |> put_layout(false)
-    |> render("thread.html")
+    |> render("thread.html", index: str_to_bool(params["index"], true), id_prefix: params["id_prefix"])
   end
+
+  defp str_to_bool(nil, default), do: default
+  defp str_to_bool("yes", _), do: true
+  defp str_to_bool(_, _), do: false
 
   def index_atom(conn, _params) do
     threads = feed_thread_list(conn)
