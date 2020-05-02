@@ -1,5 +1,7 @@
 import Highcharts from "highcharts";
-import { parse } from "date-fns";
+import { parseISO, format } from "date-fns";
+import { de } from "date-fns/locale";
+
 import { t } from "../modules/i18n";
 
 Highcharts.setOptions({
@@ -17,7 +19,7 @@ if (id && el) {
         chart: { type: "spline" },
         title: null,
         xAxis: {
-          categories: json.map((val) => Highcharts.dateFormat("%B %Y", parse(val.month))),
+          categories: json.map((val) => format(parseISO(val.month), "MMMM yyyy", { locale: de })),
         },
         yAxis: { title: { text: t("number of new messages") } },
         series: [
