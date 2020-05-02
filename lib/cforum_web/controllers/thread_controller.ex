@@ -71,15 +71,10 @@ defmodule CforumWeb.ThreadController do
     )
   end
 
-  def show(conn, %{"invisible" => "no"}) do
-    if conn.assigns.thread.attribs[:invisible] do
-      conn
-      |> html("")
-    else
-      conn
-      |> put_layout(false)
-      |> render("thread.html")
-    end
+  def show(conn, %{"invisible" => "no"} = params) do
+    if conn.assigns.thread.attribs[:invisible],
+      do: html(conn, ""),
+      else: show(conn, Map.drop(params, ["invisible"]))
   end
 
   def show(conn, _params) do
