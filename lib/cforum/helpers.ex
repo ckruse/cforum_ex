@@ -195,4 +195,15 @@ defmodule Cforum.Helpers do
       end
     end)
   end
+
+  def bool_value(value, default_value \\ true)
+  def bool_value(true, _), do: true
+  def bool_value(false, _), do: false
+  def bool_value(nil, default), do: default
+
+  def bool_value(value, _) do
+    if present?(value),
+      do: true,
+      else: false
+  end
 end
