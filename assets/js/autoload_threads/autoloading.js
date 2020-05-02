@@ -54,7 +54,7 @@ const insertRenderedThread = (thread, message, html, id_prefix) => {
   }
 };
 
-const autoloadMessage = ev => {
+const autoloadMessage = async (ev) => {
   const { thread, message, forum } = ev.detail.data;
   const id_prefix = document.body.dataset.controller === "MessageController" ? "tree-" : "";
 
@@ -70,26 +70,27 @@ const autoloadMessage = ev => {
 
   NEW_MESSAGES.push(message.message_id);
 
-  const qs = queryString({ message_id: message.message_id, invisible: "no", id_prefix });
-  fetch(`/${slug}${thread.slug}?${qs}`, { credentials: "same-origin" })
-    .then(rsp => {
-      if (rsp.ok) {
-        return rsp.text();
-      }
+  const qs = queryString({
+    message_id: message.message_id,
+    invisible: "no",
+    id_prefix,
+    index: document.body.dataset.action === "show" ? "no" : "yes",
+  });
 
-      return "";
-    })
-    .then(
-      text => {
-        if (!text) {
-          return;
-        }
+  const rsp = await fetch(`/${slug}${thread.slug}?${qs}`, { credentials: "same-origin" });
 
-        setNewFavicon();
-        insertRenderedThread(thread, message, text, id_prefix);
-      },
-      error => console.log(error)
-    );
+  if (!rsp.ok) {
+    return;
+  }
+
+  const text = await rsp.text();
+
+  if (!text) {
+    return;
+  }
+
+  setNewFavicon();
+  insertRenderedThread(thread, message, text, id_prefix);
 };
 
 export default () => document.addEventListener("cf:newMessage", autoloadMessage);
