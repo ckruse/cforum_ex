@@ -170,10 +170,6 @@ defmodule CforumWeb.MessageController do
     end
   end
 
-  def delete(conn, _params) do
-    conn
-  end
-
   #
   # private helpers
   #
