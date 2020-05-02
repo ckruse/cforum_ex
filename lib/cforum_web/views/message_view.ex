@@ -163,7 +163,8 @@ defmodule CforumWeb.MessageView do
           tags: true,
           show_votes: false,
           thread_icons: true,
-          rm: nil
+          rm: nil,
+          index: true
         ],
         opts
       )

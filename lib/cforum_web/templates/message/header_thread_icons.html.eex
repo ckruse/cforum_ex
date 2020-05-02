@@ -1,12 +1,14 @@
-<%= if @thread.attribs[:open_state] == "open" do %>
-  <%= ViewHelpers.Button.cf_button(to: Path.thread_path(@conn, :close, @thread), class: "open icon-button", title: gettext("Thread is currently open. Close it."), params: ViewHelpers.std_args(@conn)) do %>
-    <span class="visually-hidden"><%= gettext("Thread is currently open. Close it.") %></span>
-    <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-folder-open"></use></svg>
-  <% end %>
-<% else %>
-  <%= ViewHelpers.Button.cf_button(to: Path.thread_path(@conn, :open, @thread), class: "close icon-button", title: gettext("Thread is currently closed. Open it."), params: ViewHelpers.std_args(@conn)) do %>
-    <span class="visually-hidden"><%= gettext("Thread is currently closed. Open it.") %></span>
-    <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-folder-closed"></use></svg>
+<%= if @opts[:index] do %>
+  <%= if @thread.attribs[:open_state] == "open" do %>
+    <%= ViewHelpers.Button.cf_button(to: Path.thread_path(@conn, :close, @thread), class: "open icon-button", title: gettext("Thread is currently open. Close it."), params: ViewHelpers.std_args(@conn)) do %>
+      <span class="visually-hidden"><%= gettext("Thread is currently open. Close it.") %></span>
+      <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-folder-open"></use></svg>
+    <% end %>
+  <% else %>
+    <%= ViewHelpers.Button.cf_button(to: Path.thread_path(@conn, :open, @thread), class: "close icon-button", title: gettext("Thread is currently closed. Open it."), params: ViewHelpers.std_args(@conn)) do %>
+      <span class="visually-hidden"><%= gettext("Thread is currently closed. Open it.") %></span>
+      <svg width="22" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><use xlink:href="<%= Routes.static_path(@conn, "/images/icons.svg") %>#svg-folder-closed"></use></svg>
+    <% end %>
   <% end %>
 <% end %>
 
