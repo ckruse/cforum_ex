@@ -12,18 +12,12 @@ export default class MultiUserSelector extends React.Component {
 
     this.state = {
       chosenUsers: [],
-      showModal: false
+      showModal: false,
     };
 
-    const formData = new FormData();
-    this.props.users.forEach(id => formData.append("ids[]", id));
-
-    fetch(`/api/v1/users`, { cedentials: "same-origin", method: "post", body: formData })
-      .then(response => response.json())
-      .then(users => {
-        users.sort((a, b) => a.username.localeCompare(b.username));
-        this.setState({ ...this.state, chosenUsers: users });
-      });
+    if (this.props.users && this.props.users.length > 0) {
+      this.prefetchUsers();
+    }
 
     this.removeUser = this.removeUser.bind(this);
     this.showSearchModal = this.showSearchModal.bind(this);
@@ -31,8 +25,18 @@ export default class MultiUserSelector extends React.Component {
     this.selectUsers = this.selectUsers.bind(this);
   }
 
+  async prefetchUsers() {
+    const formData = new FormData();
+    this.props.users.forEach((id) => formData.append("ids[]", id));
+
+    const response = await fetch(`/api/v1/users`, { cedentials: "same-origin", method: "post", body: formData });
+    const users = await response.json();
+    users.sort((a, b) => a.username.localeCompare(b.username));
+    this.setState({ ...this.state, chosenUsers: users });
+  }
+
   removeUser(user) {
-    this.setState({ ...this.state, chosenUsers: this.state.chosenUsers.filter(u => u.user_id != user.user_id) });
+    this.setState({ ...this.state, chosenUsers: this.state.chosenUsers.filter((u) => u.user_id != user.user_id) });
   }
 
   showSearchModal() {
@@ -53,7 +57,7 @@ export default class MultiUserSelector extends React.Component {
     return (
       <>
         <TransitionGroup component="ul">
-          {this.state.chosenUsers.map(user => (
+          {this.state.chosenUsers.map((user) => (
             <FadeTransition key={user.user_id}>
               <li>
                 <input type="hidden" name={this.props.fieldName} value={user.user_id} />
