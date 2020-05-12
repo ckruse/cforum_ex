@@ -234,7 +234,19 @@ defmodule CforumWeb.LayoutView do
     do: (conn.assigns[:original_path] || conn.request_path) <> Path.encode_query_string(params)
 
   def search_changeset(conn) do
-    visible_sections = Search.list_visible_search_sections(conn.assigns.visible_forums, "forum")
+    visible_sections =
+      cond do
+        controller_module(conn) == CforumWeb.CiteController ->
+          Search.list_visible_search_sections(conn.assigns.visible_forums, "cites")
+
+        Helpers.present?(conn.assigns[:current_forum]) ->
+          Search.list_visible_search_sections(conn.assigns.visible_forums, "forum")
+          |> Enum.filter(&(&1.forum_id == conn.assigns[:current_forum].forum_id))
+
+        true ->
+          Search.list_visible_search_sections(conn.assigns.visible_forums, "forum")
+      end
+
     Search.search_changeset(visible_sections, %{sections: Enum.map(visible_sections, & &1.search_section_id)})
   end
 
