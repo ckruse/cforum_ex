@@ -15,7 +15,15 @@ defmodule CforumWeb.SearchView do
   def body_id(_, _), do: "search"
   def body_classes(_, _), do: "search"
 
-  def checked?(section, form), do: section.search_section_id in input_value(form, :sections)
+  def checked?(section, form) do
+    values =
+      Enum.map(input_value(form, :sections), fn
+        s when is_bitstring(s) -> String.to_integer(s)
+        v -> v
+      end)
+
+    section.search_section_id in values
+  end
 
   def should_show_title?(nil), do: false
   def should_show_title?(""), do: false
