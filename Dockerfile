@@ -6,13 +6,14 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN \
   apt-get update && \
-  apt-get install -y wget curl gnupg apt-utils
+  apt-get upgrade -y && \
+  apt-get install -y wget curl gnupg apt-utils build-essential openssh-server git locales
 
 RUN \
   wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && \
   dpkg -i erlang-solutions_1.0_all.deb && \
   apt-get update && \
-  apt-get install -y esl-erlang elixir build-essential openssh-server git locales
+  apt-get install -y esl-erlang elixir
 
 RUN \
   apt-get update && \
@@ -23,7 +24,7 @@ RUN \
   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
   echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
   apt-get update && \
-  apt-get install yarn
+  apt-get install -y yarn
 
 
 
