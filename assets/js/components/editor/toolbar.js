@@ -1,28 +1,9 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { Picker } from "emoji-mart";
 
 import { t } from "../../modules/i18n";
-import {
-  addEmoji,
-  toggleBold,
-  toggleItalic,
-  toggleStrikeThrough,
-  toggleHeader,
-  toggleCite,
-  toggleOl,
-  toggleUl,
-  toggleCode,
-  addCodeBlockFromModal,
-  togglePicker,
-  hideCodeModal,
-  hideLinkModal,
-  addLinkFromModal,
-  addLink,
-  hideImageModal,
-  onImageUpload,
-  addImage
-} from "./toolbar_methods";
+import * as ToolbarMethods from "./toolbar_methods";
 
 import LinkModal from "./link_modal";
 
@@ -31,177 +12,180 @@ import ImageModal from "./image_modal";
 
 import(/* webpackChunkName: "vendor" */ "emoji-mart/css/emoji-mart.css");
 
-class Toolbar extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      pickerVisible: false,
-      linkModalVisible: false,
-      linkText: null,
-      codeModalVisible: false,
-      code: "",
-      showImageModal: false
-    };
-
-    this.addEmoji = addEmoji.bind(this);
-    this.togglePicker = togglePicker.bind(this);
-    this.toggleBold = toggleBold.bind(this);
-    this.toggleItalic = toggleItalic.bind(this);
-    this.toggleStrikeThrough = toggleStrikeThrough.bind(this);
-    this.toggleHeader = toggleHeader.bind(this);
-    this.toggleCite = toggleCite.bind(this);
-    this.toggleUl = toggleUl.bind(this);
-    this.toggleOl = toggleOl.bind(this);
-    this.toggleCode = toggleCode.bind(this);
-    this.addLink = addLink.bind(this);
-    this.addLinkFromModal = addLinkFromModal.bind(this);
-    this.hideLinkModal = hideLinkModal.bind(this);
-    this.hideCodeModal = hideCodeModal.bind(this);
-    this.addCodeBlockFromModal = addCodeBlockFromModal.bind(this);
-
-    this.hideImageModal = hideImageModal.bind(this);
-    this.onImageUpload = onImageUpload.bind(this);
-    this.addImage = addImage.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
+const getCounterClass = (len, minLength = 10, maxLength = 12288) => {
+  if (len < minLength || len >= maxLength) {
+    return "error";
+  } else if (len >= maxLength * 0.8) {
+    return "warning";
   }
 
-  componentDidMount() {
-    document.addEventListener("click", this.handleClick);
-  }
+  return "success";
+};
 
-  componentWillUnmount() {
-    document.removeEventListener("click", this.handleClick);
-  }
+export default function Toolbar({ enableImages, value, textarea, changeValue, onImageUpload }) {
+  const [pickerVisible, setPickerVisible] = useState(false);
+  const [{ linkModalVisible, linkText }, setLink] = useState({
+    linkModalVisible: false,
+    linkText: null,
+  });
+  const [{ codeModalVisible, code }, setCode] = useState({ codeModalVisible: false, code: "" });
+  const [imageModalVisible, setImageModalVisible] = useState(false);
+  const picker = useRef();
 
-  handleClick(event) {
-    if (!this.picker || !this.state.pickerVisible || event.target.classList.contains("emoji-picker-btn")) {
+  function handleClick(event) {
+    if (!picker.current || !pickerVisible || event.target.classList.contains("emoji-picker-btn")) {
       return;
     }
 
-    let node = ReactDOM.findDOMNode(this.picker);
+    let node = ReactDOM.findDOMNode(picker.current);
     if (!node) {
       return;
     }
 
     if (!node.contains(event.target)) {
-      this.togglePicker();
+      setPickerVisible(!pickerVisible);
     }
   }
 
-  handleKeyDown(ev) {
+  useEffect(() => {
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  });
+
+  function handleKeyDown(ev) {
     if (ev.keyCode === 27) {
-      this.togglePicker();
+      setPickerVisible(!pickerVisible);
     }
   }
 
-  getCounterClass(len, minLength = 10, maxLength = 12288) {
-    if (len < minLength || len >= maxLength) {
-      return "error";
-    } else if (len >= maxLength * 0.8) {
-      return "warning";
-    }
+  return (
+    <div className="cf-editor-toolbar">
+      <a
+        href="https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Formatierung_der_Beitr%C3%A4ge"
+        title={t("help")}
+        className="cf-editor-toolbar-help-btn"
+      >
+        ?
+      </a>
 
-    return "success";
-  }
+      <button type="button" title={t("bold")} onClick={() => ToolbarMethods.toggleBold(textarea, value, changeValue)}>
+        <img src="/images/bold.svg" alt="" />
+      </button>
 
-  render() {
-    return (
-      <div className="cf-editor-toolbar">
-        <a
-          href="https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Formatierung_der_Beitr%C3%A4ge"
-          title={t("help")}
-          className="cf-editor-toolbar-help-btn"
-        >
-          ?
-        </a>
+      <button
+        type="button"
+        title={t("italic")}
+        onClick={() => ToolbarMethods.toggleItalic(textarea, value, changeValue)}
+      >
+        <img src="/images/italic.svg" alt="" />
+      </button>
 
-        <button type="button" title={t("bold")} onClick={this.toggleBold}>
-          <img src="/images/bold.svg" alt="" />
+      <button
+        type="button"
+        title={t("strike through")}
+        onClick={() => ToolbarMethods.toggleStrikeThrough(textarea, value, changeValue)}
+      >
+        <img src="/images/strikethrough.svg" alt="" />
+      </button>
+
+      <button
+        type="button"
+        title={t("header")}
+        onClick={() => ToolbarMethods.toggleHeader(textarea, value, changeValue)}
+      >
+        <img src="/images/header.svg" alt="" />
+      </button>
+
+      <button type="button" title={t("link")} onClick={() => ToolbarMethods.addLink(textarea, setLink)}>
+        <img src="/images/link.svg" alt="" />
+      </button>
+
+      {enableImages && (
+        <button type="button" title={t("image")} onClick={() => setImageModalVisible(true)}>
+          <img src="/images/image.svg" alt="" />
         </button>
+      )}
 
-        <button type="button" title={t("italic")} onClick={this.toggleItalic}>
-          <img src="/images/italic.svg" alt="" />
-        </button>
+      <button
+        type="button"
+        title={t("unordered list")}
+        onClick={() => ToolbarMethods.toggleUl(textarea, value, changeValue)}
+      >
+        <img src="/images/list-ul.svg" alt="" />
+      </button>
 
-        <button type="button" title={t("strike through")} onClick={this.toggleStrikeThrough}>
-          <img src="/images/strikethrough.svg" alt="" />
-        </button>
+      <button
+        type="button"
+        title={t("ordered list")}
+        onClick={() => ToolbarMethods.toggleOl(textarea, value, changeValue)}
+      >
+        <img src="/images/list-ol.svg" alt="" />
+      </button>
 
-        <button type="button" title={t("header")} onClick={this.toggleHeader}>
-          <img src="/images/header.svg" alt="" />
-        </button>
+      <button
+        type="button"
+        title={t("code")}
+        onClick={() => ToolbarMethods.toggleCode(textarea, value, changeValue, setCode)}
+      >
+        <img src="/images/code.svg" alt="" />
+      </button>
 
-        <button type="button" title={t("link")} onClick={this.addLink}>
-          <img src="/images/link.svg" alt="" />
-        </button>
+      <button type="button" title={t("cite")} onClick={() => ToolbarMethods.toggleCite(textarea, value, changeValue)}>
+        <img src="/images/quote-left.svg" alt="" />
+      </button>
 
-        {this.props.enableImages && (
-          <button type="button" title={t("image")} onClick={this.addImage}>
-            <img src="/images/image.svg" alt="" />
-          </button>
-        )}
+      <button
+        type="button"
+        title={t("emoji picker")}
+        onClick={() => setPickerVisible(true)}
+        className="emoji-picker-btn"
+      >
+        <img src="/images/smile-o.svg" alt="" className="emoji-picker-btn" />
+      </button>
 
-        <button type="button" title={t("unordered list")} onClick={this.toggleUl}>
-          <img src="/images/list-ul.svg" alt="" />
-        </button>
+      {pickerVisible && (
+        <div onKeyDown={handleKeyDown} className="cf-emoji-picker">
+          <Picker
+            set={null}
+            i18n={t("emojimart")}
+            title="Emojis"
+            native={true}
+            onSelect={(emoji) => ToolbarMethods.addEmoji(textarea, value, changeValue, emoji)}
+            autoFocus={true}
+            ref={picker}
+            unsized={true}
+          />
+        </div>
+      )}
 
-        <button type="button" title={t("ordered list")} onClick={this.toggleOl}>
-          <img src="/images/list-ol.svg" alt="" />
-        </button>
+      <span className={`cf-content-counter ${getCounterClass(value.length)}`}>{value.length}</span>
 
-        <button type="button" title={t("code")} onClick={this.toggleCode}>
-          <img src="/images/code.svg" alt="" />
-        </button>
+      <LinkModal
+        isOpen={linkModalVisible}
+        linkText={linkText}
+        onOk={(text, target) => ToolbarMethods.addLinkFromModal(textarea, value, setLink, text, target, changeValue)}
+        onCancel={() => setLink({ linkModalVisible: false, linkText: null })}
+      />
 
-        <button type="button" title={t("cite")} onClick={this.toggleCite}>
-          <img src="/images/quote-left.svg" alt="" />
-        </button>
+      <CodeModal
+        isOpen={codeModalVisible}
+        code={code}
+        onOk={(lang, code) => ToolbarMethods.addCodeBlockFromModal(textarea, value, lang, code, changeValue, setCode)}
+        onCancel={() => setCode({ codeModalVisible: false, code: "" })}
+      />
 
-        <button type="button" title={t("emoji picker")} onClick={this.togglePicker} className="emoji-picker-btn">
-          <img src="/images/smile-o.svg" alt="" className="emoji-picker-btn" />
-        </button>
-
-        {this.state.pickerVisible && (
-          <div onKeyDown={this.handleKeyDown} className="cf-emoji-picker">
-            <Picker
-              set={null}
-              i18n={t("emojimart")}
-              title="Emojis"
-              native={true}
-              onSelect={this.addEmoji}
-              autoFocus={true}
-              ref={ref => (this.picker = ref)}
-              unsized={true}
-            />
-          </div>
-        )}
-
-        <span className={`cf-content-counter ${this.getCounterClass(this.props.value.length)}`}>
-          {this.props.value.length}
-        </span>
-
-        <LinkModal
-          isOpen={this.state.linkModalVisible}
-          linkText={this.state.linkText}
-          onOk={this.addLinkFromModal}
-          onCancel={this.hideLinkModal}
+      {enableImages && (
+        <ImageModal
+          isOpen={imageModalVisible}
+          onOk={(file, desc, title) =>
+            ToolbarMethods.onImageUpload(setImageModalVisible, file, desc, title, onImageUpload)
+          }
+          onCancel={() => setImageModalVisible(false)}
         />
-
-        <CodeModal
-          isOpen={this.state.codeModalVisible}
-          code={this.state.code}
-          onOk={this.addCodeBlockFromModal}
-          onCancel={this.hideCodeModal}
-        />
-
-        {this.props.enableImages && (
-          <ImageModal isOpen={this.state.showImageModal} onOk={this.onImageUpload} onCancel={this.hideImageModal} />
-        )}
-      </div>
-    );
-  }
+      )}
+    </div>
+  );
 }
-
-export default Toolbar;
