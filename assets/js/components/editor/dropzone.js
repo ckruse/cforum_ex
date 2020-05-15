@@ -1,9 +1,10 @@
 import React from "react";
 
 import { t } from "../../modules/i18n";
-import ImageModal from "./image_modal";
+import ImageModal from "./toolbar/image_modal";
 import { alertError } from "../../modules/alerts";
 import { isInSizeLimit } from "./helpers";
+import { conf } from "../../modules/helpers";
 
 export default class Dropzone extends React.Component {
   constructor(props) {
@@ -119,6 +120,7 @@ export default class Dropzone extends React.Component {
       this.ignoreEvents(ev, true);
 
       const file = ev.clipboardData.items[0].getAsFile();
+      const maxSize = conf("max_image_filesize");
 
       if (!isInSizeLimit(file)) {
         alertError(t("The image you tried to paste exceeds the size limit of {maxSize} mb", { maxSize }));

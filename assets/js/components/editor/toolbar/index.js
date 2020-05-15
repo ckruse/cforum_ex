@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { Picker } from "emoji-mart";
 
-import { t } from "../../modules/i18n";
-import * as ToolbarMethods from "./toolbar_methods";
+import { t } from "../../../modules/i18n";
+import * as ToolbarMethods from "./helpers";
 
 import LinkModal from "./link_modal";
 

@@ -2,7 +2,7 @@ import React from "react";
 import Modal from "react-modal";
 import Autosuggest from "react-autosuggest";
 
-import { t } from "../../modules/i18n";
+import { t } from "../../../modules/i18n";
 
 const LANGUAGES = ["HTML", "CSS", "JavaScript", "Ruby", "PHP", "SQL", "Perl", "SVG"];
 
@@ -22,7 +22,7 @@ class CodeModal extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.code != this.props.code) {
+    if (prevProps.code !== this.props.code) {
       this.setState({ code: this.props.code, lang: "" });
     }
   }
@@ -56,7 +56,7 @@ class CodeModal extends React.Component {
     const suggestions =
       inputLength === 0
         ? [...LANGUAGES]
-        : LANGUAGES.filter(lang => lang.toLowerCase().slice(0, inputLength) === inputValue);
+        : LANGUAGES.filter((lang) => lang.toLowerCase().slice(0, inputLength) === inputValue);
 
     this.setState({ suggestions });
   }
@@ -83,13 +83,13 @@ class CodeModal extends React.Component {
               suggestions={this.state.suggestions}
               onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
               onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-              getSuggestionValue={item => item}
-              renderSuggestion={item => item}
+              getSuggestionValue={(item) => item}
+              renderSuggestion={(item) => item}
               inputProps={{
                 type: "text",
                 id: "add-code-block-modal-lang",
                 value: this.state.lang,
-                onChange: this.handleLanguageChange
+                onChange: this.handleLanguageChange,
               }}
               shouldRenderSuggestions={() => true}
               onSuggestionSelected={this.handleLanguageChosen}

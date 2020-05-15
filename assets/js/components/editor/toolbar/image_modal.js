@@ -1,9 +1,9 @@
 import React from "react";
 import Modal from "react-modal";
 
-import { t } from "../../modules/i18n";
+import { t } from "../../../modules/i18n";
 import Thumb from "./thumb";
-import { isInSizeLimit } from "./helpers";
+import { isInSizeLimit } from "../helpers";
 
 export default class ImageModal extends React.Component {
   constructor(props) {
@@ -66,19 +66,17 @@ export default class ImageModal extends React.Component {
           <div className="cf-cgroup">
             <label htmlFor="add-image-modal-file">{t("choose image")}</label>
             <input
-              ref={ref => (this.focusElementFile = ref)}
+              ref={(ref) => (this.focusElementFile = ref)}
               type="file"
               id="add-image-modal-desc"
               onChange={this.handleFileChanged}
             />
           </div>
-
           <Thumb file={this.state.file} />
-
           <div className="cf-cgroup">
             <label htmlFor="add-image-modal-desc">{t("enter image description")}</label>
             <input
-              ref={ref => (this.focusElement = ref)}
+              ref={(ref) => (this.focusElement = ref)}
               type="text"
               id="add-image-modal-desc"
               name="desc"
@@ -86,7 +84,6 @@ export default class ImageModal extends React.Component {
               value={this.state.desc}
             />
           </div>
-
           <div className="cf-cgroup">
             <label htmlFor="add-image-modal-title">{t("enter image title")}</label>
             <input
@@ -97,7 +94,6 @@ export default class ImageModal extends React.Component {
               value={this.state.title}
             />
           </div>
-
           <button className="cf-primary-btn" type="button" onClick={this.okPressed}>
             {t("add image")}
           </button>{" "}

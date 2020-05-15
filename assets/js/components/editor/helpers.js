@@ -1,17 +1,16 @@
 import { alertError } from "../../modules/alerts";
 import { t } from "../../modules/i18n";
-import { conf } from "../../modules/helpers";
 
 export const replaceAt = (text, replacement, start, end) =>
   text.substr(0, start) + replacement + text.substr(end, text.length);
 
-export const getSelection = input => ({
+export const getSelection = (input) => ({
   start: input.selectionStart,
   end: input.selectionEnd,
-  len: input.selectionEnd - input.selectionStart
+  len: input.selectionEnd - input.selectionStart,
 });
 
-export const getSelectedText = input =>
+export const getSelectedText = (input) =>
   input.value.substr(input.selectionStart, input.selectionEnd - input.selectionStart);
 
 export const replaceSelectedText = (input, replacement) => {
@@ -39,7 +38,7 @@ export const toggleInAccent = (value, text, accent, start, end, len) => {
     markText = false;
   }
 
-  if (value.substr(start - alen, alen) == accent && value.substr(end, alen) == accent) {
+  if (value.substr(start - alen, alen) === accent && value.substr(end, alen) === accent) {
     val = replaceAt(value, chunk, start - alen, end + alen);
     pos = calcSelection(markText, start - alen, chunk.length);
   } else {
@@ -118,7 +117,7 @@ export const isPreviousLineList = (content, start, rx) => {
 
   for (i = start - 1; i >= 0; --i) {
     c = content.substr(i, 1);
-    if (c == "\n") {
+    if (c === "\n") {
       if (content.substr(i + 1, 1).match(rx)) {
         return true;
       }
@@ -135,9 +134,7 @@ export const escapeText = (text, escapes) => {
   return text.replace(rx, "\\$1");
 };
 
-export const isInSizeLimit = file => {
-  const maxSize = conf("max_image_filesize");
-
+export const isInSizeLimit = (file, maxSize) => {
   if (file.size > maxSize * 1024 * 1024) {
     alertError(t("The image you tried to paste exceeds the size limit of {maxSize} mb", { maxSize }));
     return false;

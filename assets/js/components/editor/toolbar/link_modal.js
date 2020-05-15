@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 
-import { t } from "../../modules/i18n";
+import { t } from "../../../modules/i18n";
 
 class LinkModal extends React.Component {
   constructor(props) {
@@ -57,7 +57,7 @@ class LinkModal extends React.Component {
           <div className="cf-cgroup">
             <label htmlFor="add-link-modal-linktext">{t("link description")}</label>
             <input
-              ref={ref => (this.focusElement = ref)}
+              ref={(ref) => (this.focusElement = ref)}
               type="text"
               id="add-link-modal-linktext"
               onChange={this.handleTextKeyPressed}

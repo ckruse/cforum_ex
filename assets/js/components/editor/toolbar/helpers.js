@@ -1,5 +1,5 @@
-import { alertError } from "../../modules/alerts";
-import { t } from "../../modules/i18n";
+import { alertError } from "../../../modules/alerts";
+import { t } from "../../../modules/i18n";
 import {
   replaceAt,
   getSelection,
@@ -10,7 +10,7 @@ import {
   isBeginningOfLine,
   isPreviousLineList,
   escapeText,
-} from "./helpers";
+} from "../helpers";
 
 export function addEmoji(textarea, value, changeValue, emoji) {
   const { start, end } = getSelection(textarea.current);
