@@ -32,6 +32,11 @@ export default function Toolbar({ enableImages, value, textarea, changeValue, on
   const [imageModalVisible, setImageModalVisible] = useState(false);
   const picker = useRef();
 
+  // we catch all click events for the whole document; if it was inside the picker, we ignore it.
+  // If it was outside of the picker, we hide the picker.
+  //
+  // this is not the nicest way to handle it, but a very pragmatic way since an event
+  // listener on the picker itself catches not all click events…
   function handleClick(event) {
     if (!picker.current || !pickerVisible || event.target.classList.contains("emoji-picker-btn")) {
       return;
