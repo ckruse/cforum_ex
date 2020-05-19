@@ -77,7 +77,8 @@ defmodule Cforum.Jobs.ArchiverJob do
     |> Repo.all()
     |> Repo.preload([:messages])
     |> Enum.each(fn thread ->
-      archive_thread(thread)
+      thread
+      |> archive_thread()
       |> discard_thread_cache()
     end)
   end
