@@ -1,11 +1,11 @@
 <%=
 link(
-  List.first(@entry.contents["messages"])["subject"],
+  @message["subject"],
   to: Path.root_path(CforumWeb.Endpoint, :index) <>
     @entry.contents["forum"]["slug"] <>
     @entry.contents["slug"] <> "/" <>
-    to_string(List.first(@entry.contents["messages"])["message_id"]) <>
+    to_string(@message["message_id"]) <>
     "?view_all=yes#m" <>
-    to_string(List.first(@entry.contents["messages"])["message_id"])
+    to_string(@message["message_id"])
 )
-%> <%= gettext("by") %> <%= List.first(@entry.contents["messages"])["author"] %>
+%> <%= gettext("by") %> <%= @message["author"] %>

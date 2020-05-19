@@ -44,5 +44,13 @@ defmodule CforumWeb.Admin.AuditView do
   alias Cforum.System.Auditing
   import CforumWeb.AuditingViewL10n
 
+  def render_object(conn, %Auditing{relation: "threads"} = entry) do
+    render("threads.html",
+      conn: conn,
+      entry: entry,
+      message: Enum.min_by(entry.contents["messages"], & &1["message_id"])
+    )
+  end
+
   def render_object(conn, %Auditing{relation: rel} = entry), do: render("#{rel}.html", conn: conn, entry: entry)
 end
