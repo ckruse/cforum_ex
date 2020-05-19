@@ -3259,7 +3259,7 @@ msgstr "Thread erstellt"
 #, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:85
 msgid "auditing: threads: destroy"
-msgstr "Thread gelöscht"
+msgstr "Thread endgültig gelöscht"
 
 #, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:87
