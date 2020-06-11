@@ -191,11 +191,10 @@ defmodule Cforum.Forums.ModerationQueueTest do
       assert {:ok, %ModerationQueueEntry{cleared: true}} =
                ModerationQueue.resolve_entry(u, entry, %{"resolution" => "foobar", "resolution_action" => "delete"})
 
-      assert_raise Ecto.NoResultsError, fn ->
-        Threads.get_thread!(m.thread_id)
-        |> Threads.reject_deleted_threads()
-        |> Threads.ensure_found!()
-      end
+      thread = Threads.get_thread!(m.thread_id)
+      assert message = Enum.find(thread.messages, &(&1.message_id == m.message_id))
+      assert message.deleted
+      assert message.flags["reason"]
     end
 
     test "resolve_entry/3 resolves an entry and sets thread to no-archive", %{entry: entry, user: u, message: m} do
