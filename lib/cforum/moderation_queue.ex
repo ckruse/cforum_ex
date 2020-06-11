@@ -268,7 +268,7 @@ defmodule Cforum.ModerationQueue do
 
       case ret do
         {:ok, entry} ->
-          apply_resolution_action(entry.resolution_action, user, message)
+          apply_resolution_action(entry, user, message)
           {:ok, entry}
 
         _ ->
@@ -277,26 +277,29 @@ defmodule Cforum.ModerationQueue do
     end)
   end
 
-  defp apply_resolution_action("close", user, message) do
+  defp action_reason(%{reason: "custom", custom_reason: custom_reason}), do: custom_reason
+  defp action_reason(%{reason: reason}), do: reason
+
+  defp apply_resolution_action(%{resolution_action: "close"} = entry, user, message) do
     thread =
       Threads.get_thread!(message.thread_id)
       |> Threads.build_message_tree("ascending")
 
     message = Messages.get_message_from_mid!(thread, message.message_id)
 
-    {:ok, _msg} = Messages.flag_no_answer(user, message, nil, "no-answer")
+    {:ok, _msg} = Messages.flag_no_answer(user, message, action_reason(entry), "no-answer")
   end
 
-  defp apply_resolution_action("delete", user, message) do
+  defp apply_resolution_action(%{resolution_action: "delete"} = entry, user, message) do
     thread =
       Threads.get_thread!(message.thread_id)
       |> Threads.build_message_tree("ascending")
 
     message = Messages.get_message_from_mid!(thread, message.message_id)
-    {:ok, _msg} = Messages.delete_message(user, message)
+    {:ok, _msg} = Messages.delete_message(user, message, action_reason(entry))
   end
 
-  defp apply_resolution_action("no-archive", user, message) do
+  defp apply_resolution_action(%{resolution_action: "no-archive"}, user, message) do
     thread = Threads.get_thread!(message.thread_id)
     {:ok, _thread} = Threads.flag_thread_no_archive(user, thread)
   end
