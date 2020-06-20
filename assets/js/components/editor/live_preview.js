@@ -13,6 +13,10 @@ export default function LivePreview({ content }) {
     if (window.MathJax && window.MathJax.Hub) {
       window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub]);
     }
+
+    if (window.Prism) {
+      window.setTimeout(window.Prism.highlightAll, 0);
+    }
   }, [content]);
 
   const fixedContent = CfMarkdown.manualFixes(content);

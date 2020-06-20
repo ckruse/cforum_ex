@@ -7,11 +7,11 @@ const config = require("./package");
 const ENV = process.env.MIX_ENV || "dev";
 const OUTPUT_PATH = path.resolve(__dirname, "..", "priv", "static");
 
-module.exports = function(env = {}, argv) {
+module.exports = function (env = {}, argv) {
   const IS_PROD = ENV === "prod";
   const ExtractCSS = new ExtractTextPlugin({
     filename: "css/[name].css",
-    chunkFilename: IS_PROD ? "css/[id].[hash].css" : "css/[id].css"
+    chunkFilename: IS_PROD ? "css/[id].[hash].css" : "css/[id].css",
   });
 
   var PLUGINS = [
@@ -19,40 +19,41 @@ module.exports = function(env = {}, argv) {
     new Webpack.DefinePlugin({
       APP_NAME: JSON.stringify(config.app_name),
       VERSION: JSON.stringify(config.version),
-      ENV: JSON.stringify(ENV)
+      ENV: JSON.stringify(ENV),
     }),
     new CopyWebpackPlugin([
       {
         context: "./static",
         from: "**/*",
-        to: "."
+        to: ".",
       },
       {
         context: path.resolve(__dirname, "node_modules/leaflet/dist/images"),
         from: path.resolve(__dirname, "node_modules/leaflet/dist/images/*"),
-        to: path.resolve(__dirname, "..", "priv/static/images/leaflet/")
-      }
-    ])
+        to: path.resolve(__dirname, "..", "priv/static/images/leaflet/"),
+      },
+    ]),
   ];
 
   return {
     target: "web",
     entry: {
-      app: "./js/app.js"
+      app: "./js/app.js",
+      prism: "./js/prism.js",
     },
 
     output: {
       filename: "js/[name].js",
       chunkFilename: "js/[name].[chunkhash].js",
       path: OUTPUT_PATH,
-      publicPath: "/"
+      publicPath: "/",
     },
 
     devtool: IS_PROD ? false : "source-map",
 
     resolve: {
       modules: ["node_modules", __dirname + "/js"],
-      extensions: ["*", ".js", ".jsx"]
+      extensions: ["*", ".js", ".jsx"],
     },
 
     module: {
@@ -60,45 +61,45 @@ module.exports = function(env = {}, argv) {
         {
           test: /\.jsx?$/,
           exclude: /(node_modules|bower_components)/,
-          loader: "babel-loader"
+          loader: "babel-loader",
         },
         {
           test: /\.bundle\.js$/,
-          use: "bundle-loader"
+          use: "bundle-loader",
         },
         {
           test: /\.(sa|sc|c)ss$/,
           use: [
             {
               loader: ExtractTextPlugin.loader,
-              options: { sourceMap: IS_PROD ? false : true }
+              options: { sourceMap: IS_PROD ? false : true },
             },
             { loader: "css-loader", options: { sourceMap: IS_PROD ? false : true } },
             { loader: "postcss-loader", options: { sourceMap: IS_PROD ? false : true } },
-            { loader: "sass-loader", options: { sourceMap: IS_PROD ? false : true } }
-          ]
+            { loader: "sass-loader", options: { sourceMap: IS_PROD ? false : true } },
+          ],
         },
         {
           test: /\.(eot|svg|ttf|woff|woff2)$/,
-          loader: "url-loader"
+          loader: "url-loader",
         },
         {
           test: /\.(gif|jpe?g|png)/,
-          loader: "file-loader"
-        }
-      ]
+          loader: "file-loader",
+        },
+      ],
     },
 
     optimization: {
       minimize: IS_PROD,
       splitChunks: {
-        chunks: "async"
-      }
+        chunks: "async",
+      },
     },
 
     plugins: PLUGINS,
     //optimization: { minimize: IS_PROD },
     stats: { colors: true },
-    mode: IS_PROD ? "production" : "development"
+    mode: IS_PROD ? "production" : "development",
   };
 };
