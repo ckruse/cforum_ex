@@ -109,7 +109,7 @@ defmodule Cforum.Messages.Mentions do
     lines = Regex.split(~r/\015\012|\015|\012/, msg.content)
     mentions = Enum.reduce(mentions, %{}, fn [username, _, _] = mention, acc -> Map.put(acc, username, mention) end)
     names = Map.keys(mentions) |> Enum.map(&"(?:#{Regex.escape(&1)})") |> Enum.join("|")
-    rx = Regex.compile!("^@(#{names})(?:\\b|[^\\w]|\\z)")
+    rx = Regex.compile!("^@(#{names})(?:\\b|[^\\w]|\\z)", "u")
 
     content =
       gen_markup(config, user, lines, mentions, rx, [])
