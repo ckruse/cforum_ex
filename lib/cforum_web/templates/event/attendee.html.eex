@@ -39,7 +39,7 @@
 <% end %>
 
 <%= if Abilities.may?(@conn, "events/attendee", :delete, @attendee) do %>
-  <div class="controls">
+  <div class="form-actions">
     <%= ViewHelpers.Button.default_button_link gettext("edit"), to: Path.event_attendee_path(@conn, :edit, @event, @attendee) %>
     <%= ViewHelpers.Button.destructive_button(gettext("delete attendee"), to: Path.event_attendee_path(@conn, :delete, @event, @attendee), method: :delete) %>
   </div>
