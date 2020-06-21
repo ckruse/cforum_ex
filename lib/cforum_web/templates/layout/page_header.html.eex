@@ -48,7 +48,6 @@
             <%= if Abilities.signed_in?(@conn) do %>(<%= link "#{@undecided_cites}", to: Path.cite_path(@conn, :index_voting) %>)<% end %>
           </li>
           <li><%= link gettext("search"), to: Path.search_path(@conn, :show) %></li>
-          <li><%= link gettext("chat"), to: "https://kiwiirc.com/client/irc.epd-me.net/#{chat_nick_name(@conn)}&channel=#selfhtml", rel: "nofollow" %></li>
           <li><%= link(gettext("help"), to: Path.page_path(@conn, :help)) %></li>
 
           <%= if show?(assigns, :search) do %>
