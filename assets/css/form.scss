@@ -82,6 +82,12 @@
       }
     }
 
+    .datetime {
+      input:first-of-type {
+        margin-bottom: 0.25em;
+      }
+    }
+
     .help-text {
       margin-top: 0;
       margin-bottom: 0;
@@ -232,6 +238,19 @@
     .cf-cgroup {
       textarea {
         padding: 0.5em;
+      }
+
+      .datetime {
+        display: flex;
+        input:first-of-type {
+          flex: 1 1 75%;
+          margin-right: 1em;
+          margin-bottom: 0;
+        }
+
+        input:last-of-type {
+          flex: 1 1 25%;
+        }
       }
     }
   }

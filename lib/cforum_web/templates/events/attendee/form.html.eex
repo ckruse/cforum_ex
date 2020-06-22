@@ -35,7 +35,7 @@
       <%= ErrorHelpers.error_tag(f, :planned_start) %>
     <% end %>
 
-    <%= datetime_local_input f, :planned_start %>
+    <%= ViewHelpers.date_time_combo f, :planned_start %>
   </div>
 
   <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :planned_arrival) %>">
@@ -44,7 +44,7 @@
       <%= ErrorHelpers.error_tag(f, :planned_arrival) %>
     <% end %>
 
-    <%= datetime_local_input f, :planned_arrival, required: true %>
+    <%= ViewHelpers.date_time_combo f, :planned_arrival, required: true %>
   </div>
 
   <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :planned_leave) %>">
@@ -53,7 +53,7 @@
       <%= ErrorHelpers.error_tag(f, :planned_leave) %>
     <% end %>
 
-    <%= datetime_local_input f, :planned_leave %>
+    <%= ViewHelpers.date_time_combo f, :planned_leave %>
   </div>
 
   <div class="cf-cgroup <%= ErrorHelpers.error_tag(f, :comment) %>">

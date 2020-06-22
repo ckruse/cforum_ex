@@ -6,13 +6,15 @@ defmodule CforumWeb.Events.AttendeeController do
   alias Cforum.Events.{Attendee, Attendees}
   alias Cforum.Helpers
 
+  alias CforumWeb.Views.ViewHelpers
+
   def new(conn, _params) do
     changeset = Attendees.change_attendee(%Attendee{})
     render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"attendee" => attendee_params}) do
-    case Attendees.create_attendee(conn.assigns.event, conn.assigns.current_user, attendee_params) do
+    case Attendees.create_attendee(conn.assigns.event, conn.assigns.current_user, date_params(attendee_params)) do
       {:ok, _attendee} ->
         conn
         |> put_flash(:info, gettext("You registered successfully."))
@@ -29,7 +31,7 @@ defmodule CforumWeb.Events.AttendeeController do
   end
 
   def update(conn, %{"attendee" => attendee_params}) do
-    case Attendees.update_attendee(conn.assigns.current_user, conn.assigns.attendee, attendee_params) do
+    case Attendees.update_attendee(conn.assigns.current_user, conn.assigns.attendee, date_params(attendee_params)) do
       {:ok, _attendee} ->
         conn
         |> put_flash(:info, gettext("Your registration was successfully updated."))
@@ -46,6 +48,13 @@ defmodule CforumWeb.Events.AttendeeController do
     conn
     |> put_flash(:info, gettext("Attendee deleted successfully."))
     |> redirect(to: Path.event_path(conn, :show, conn.assigns.event))
+  end
+
+  defp date_params(attendee_params) do
+    attendee_params
+    |> ViewHelpers.concat_datetime("planned_start")
+    |> ViewHelpers.concat_datetime("planned_arrival")
+    |> ViewHelpers.concat_datetime("planned_leave")
   end
 
   def load_resource(conn) do

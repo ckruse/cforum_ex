@@ -16,6 +16,8 @@ defmodule CforumWeb.Views.ViewHelpers do
 
   alias CforumWeb.Views.ViewHelpers.Path
 
+  alias Phoenix.HTML.Form
+
   @doc """
   This function formats a date by a format name. It looks up the format itself
   using `Cforum.ConfigManager.uconf`. `name` parameter defaults to `"date_format_default"`.
@@ -224,5 +226,34 @@ defmodule CforumWeb.Views.ViewHelpers do
       |> Enum.into(%{})
 
     Map.merge(local_args, args)
+  end
+
+  def date_time_combo(form, name, opts \\ []) do
+    value = opts[:value] || Form.input_value(form, name)
+
+    {date_value, time_value} =
+      case value do
+        nil -> {nil, nil}
+        v -> {NaiveDateTime.to_date(v), NaiveDateTime.to_time(v)}
+      end
+
+    base_name = Form.input_name(form, name)
+
+    [
+      {:safe, "<div class=\"datetime\">"},
+      Form.date_input(form, name, Keyword.merge(opts, name: "#{base_name}[date]", value: date_value)),
+      Form.time_input(form, name, Keyword.merge(opts, name: "#{base_name}[time]", value: time_value)),
+      {:safe, "</div>"}
+    ]
+  end
+
+  def concat_datetime(params, name) do
+    if params[name] && Map.has_key?(params[name], "date") && Map.has_key?(params[name], "time") do
+      if Helpers.present?(get_in(params, [name, "date"])) && Helpers.present?(get_in(params, [name, "time"])),
+        do: Map.put(params, name, "#{params[name]["date"]} #{params[name]["time"]}"),
+        else: Map.put(params, name, "")
+    else
+      params
+    end
   end
 end
