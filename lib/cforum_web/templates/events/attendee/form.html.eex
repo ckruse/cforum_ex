@@ -6,7 +6,7 @@
   <%= unless Abilities.signed_in?(@conn) do %>
     <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :name) %>">
       <%= label f, :name do %>
-        <%= gettext("name") %>
+        <%= gettext("name (required)") %>
         <%= ErrorHelpers.error_tag f, :name %>
       <% end %>
       <%= text_input f, :name, maxlength: 250, required: true %>
@@ -40,7 +40,7 @@
 
   <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :planned_arrival) %>">
     <%= label f, :planned_arrival do %>
-      <%= gettext("planned arrival") %>
+      <%= gettext("planned arrival (required)") %>
       <%= ErrorHelpers.error_tag(f, :planned_arrival) %>
     <% end %>
 
