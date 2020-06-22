@@ -234,7 +234,7 @@ defmodule CforumWeb.Views.ViewHelpers do
     {date_value, time_value} =
       case value do
         nil -> {nil, nil}
-        v -> {NaiveDateTime.to_date(v), NaiveDateTime.to_time(v)}
+        v -> {Timex.to_date(v), v |> Timex.local() |> DateTime.to_time()}
       end
 
     base_name = Form.input_name(form, name)

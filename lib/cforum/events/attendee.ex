@@ -24,6 +24,7 @@ defmodule Cforum.Events.Attendee do
     event
     |> cast(attrs, [:name, :comment, :starts_at, :planned_start, :planned_arrival, :planned_leave, :seats])
     |> maybe_set_user(user)
+    |> update_change(:planned_arrival, &convert_local_date/1)
     |> validate_required([:name, :planned_arrival])
     |> unique_constraint(:user_id, name: :attendees_event_id_user_id_key)
   end
@@ -37,4 +38,14 @@ defmodule Cforum.Events.Attendee do
   end
 
   defp maybe_set_user(changeset, _), do: changeset
+
+  defp convert_local_date(date) do
+    with %NaiveDateTime{} = naive_date <- Timex.to_naive_datetime(date),
+         %DateTime{} = local_date <- Timex.to_datetime(naive_date, Timex.Timezone.Local.lookup()),
+         %DateTime{} = utc_date <- Timex.to_datetime(local_date, "UTC") do
+      utc_date
+    else
+      _ -> date
+    end
+  end
 end
