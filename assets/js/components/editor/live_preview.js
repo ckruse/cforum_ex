@@ -14,7 +14,7 @@ export default function LivePreview({ content }) {
       window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub]);
     }
 
-    if (window.Prism) {
+    if (window?.Prism?.highlightAll) {
       window.setTimeout(window.Prism.highlightAll, 0);
     }
   }, [content]);
