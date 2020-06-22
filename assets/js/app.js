@@ -58,3 +58,7 @@ import "./cleanup";
 import "./appsignal";
 
 import "./modules/anonymous";
+
+window.addEventListener("load", () => {
+  if (window.Prism) window.Prism.highlightAll();
+});

@@ -34,9 +34,9 @@
 
     <script nonce="<%= @conn.assigns[:nonce_for_js] %>">window.userToken = "<%= assigns[:user_token] %>";</script>
     <script src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-    <script src="<%= Routes.static_path(@conn, "/js/prism.js") %>" async></script>
     <%= own_js_file(@conn) %>
     <%= own_js(@conn) %>
 
+    <script src="<%= Routes.static_path(@conn, "/js/prism.js") %>" defer data-manual></script>
   </body>
 </html>
