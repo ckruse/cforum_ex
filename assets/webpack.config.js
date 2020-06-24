@@ -39,7 +39,6 @@ module.exports = function (env = {}, argv) {
     target: "web",
     entry: {
       app: "./js/app.js",
-      prism: "./js/prism.js",
     },
 
     output: {

@@ -59,6 +59,3 @@ import "./appsignal";
 import "./modules/anonymous";
 
 window.Prism = { manual: true };
-window.addEventListener("load", () => {
-  if (window.Prism.highlightAll) window.Prism.highlightAll();
-});

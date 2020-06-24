@@ -36,7 +36,5 @@
     <script src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
     <%= own_js_file(@conn) %>
     <%= own_js(@conn) %>
-
-    <script src="<%= Routes.static_path(@conn, "/js/prism.js") %>" async data-manual></script>
   </body>
 </html>
