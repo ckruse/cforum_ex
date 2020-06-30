@@ -15,7 +15,7 @@
     </time>
   </header>
 
-  <div class="cf-posting-content-diff"><%= diff_posting(@prev_content, @diff_content) %></div>
+  <div class="cf-posting-content-diff"><%= @version.content %></div>
 
   <%= if @view_all && Abilities.may?(@conn, "messages/version", :delete, @version) do %>
     <div class="posting-footer">
