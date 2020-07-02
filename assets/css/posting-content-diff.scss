@@ -16,4 +16,16 @@
     background-color: $red-bg-color;
     display: block;
   }
+
+  ins,
+  del {
+    ins {
+      display: inline;
+      background-color: darken($green-bg-color, 10%);
+    }
+    del {
+      display: inline;
+      background-color: darken($red-bg-color, 10%);
+    }
+  }
 }
