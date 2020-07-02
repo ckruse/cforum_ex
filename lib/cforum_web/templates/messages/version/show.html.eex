@@ -1,6 +1,8 @@
 <%= if Helpers.blank?(@message.versions) do %>
   <p><%= gettext("no message version found.") %></p>
 <% else %>
+  <%= render "version.html", Map.put(assigns, :version, @message) %>
+
   <%= for version <- version_list(@message) do %>
     <%= render "version.html", Map.put(assigns, :version, version) %>
   <% end %>
