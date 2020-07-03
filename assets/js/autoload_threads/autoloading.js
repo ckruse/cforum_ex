@@ -26,7 +26,7 @@ const insertRenderedThread = (thread, message, html, id_prefix) => {
     case "descending":
       if (originalNode) {
         originalNode.replaceWith(node);
-        return;
+        break;
       }
 
       if (sortThreads === "ascending") {
