@@ -66,6 +66,12 @@
     </div>
 
   <div class="cf-cgroup">
+    <label class="checkbox">
+      <%= checkbox @f, :visible %> <%= gettext("visible") %>
+    </label>
+  </div>
+
+  <div class="cf-cgroup">
     <%= label @f, :standard_permission do %>
       <%= gettext("standard permission") %>
       <%= ErrorHelpers.error_tag @f, :standard_permission %>

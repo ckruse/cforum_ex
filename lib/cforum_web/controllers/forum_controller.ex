@@ -6,6 +6,8 @@ defmodule CforumWeb.ForumController do
   alias Cforum.Forums.Stats
   alias Cforum.ConfigManager
 
+  alias CforumWeb.ForumView
+
   def index(conn, %{"t" => tid, "m" => mid}) when not is_nil(tid) and not is_nil(mid) do
     if !Regex.match?(~r/^\d+$/, tid) || !Regex.match?(~r/^\d+$/, mid),
       do: raise(Cforum.Errors.NotFoundError, conn: conn)
@@ -36,7 +38,7 @@ defmodule CforumWeb.ForumController do
       end
 
     all_threads =
-      Threads.list_threads(nil, conn.assigns[:visible_forums])
+      Threads.list_threads(nil, ForumView.non_hidden_forums(conn.assigns[:visible_forums]))
       |> Threads.reject_deleted_threads(conn.assigns[:view_all], true)
       |> Threads.reject_invisible_threads(conn.assigns[:current_user])
 
@@ -64,7 +66,7 @@ defmodule CforumWeb.ForumController do
   def stats(conn, _params) do
     forum = conn.assigns[:current_forum]
     # user = conn.assigns[:current_user]
-    visible_forums = conn.assigns[:visible_forums]
+    visible_forums = ForumView.non_hidden_forums(conn.assigns[:visible_forums])
 
     {stats, no_threads, no_messages} = Stats.forum_stats_overall(forum, visible_forums)
     oldest_forum = get_oldest_forum(forum, visible_forums)

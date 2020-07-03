@@ -28,7 +28,7 @@
     <p><%= link gettext("show all threads"), to: Path.forum_path(@conn, :index, "all") %></p>
   </li>
 
-  <%= for forum <- @visible_forums do %>
+  <%= for forum <- non_hidden_forums(@visible_forums) do %>
     <li>
       <h2 class="forum-name">
         <%= link forum.name, to: Path.forum_path(@conn, :index, forum) %>

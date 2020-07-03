@@ -58,4 +58,7 @@ defmodule CforumWeb.ForumView do
       do: Timex.format!(ViewHelpers.local_date(message.created_at), "%H:%M", :strftime),
       else: ViewHelpers.format_date(conn, message.created_at, "date_format_index")
   end
+
+  def non_hidden_forums(forums),
+    do: Enum.filter(forums, & &1.visible)
 end
