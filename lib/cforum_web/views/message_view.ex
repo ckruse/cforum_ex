@@ -238,8 +238,8 @@ defmodule CforumWeb.MessageView do
 
   def problematic_site_link(conn, url) do
     if Cforum.ConfigManager.uconf(conn, "target_blank_for_posting_links") == "yes",
-      do: link(gettext("problematic site"), to: url, rel: "nofollow noopener", target: "_blank"),
-      else: link(gettext("problematic site"), to: url, rel: "nofollow")
+      do: link(gettext("problematic site"), to: url, rel: "nofollow noopener noreferrer", target: "_blank"),
+      else: link(gettext("problematic site"), to: url, rel: "nofollow noopener noreferrer")
   end
 
   def l10n_reason("off-topic"), do: gettext("Message is off topic.")
