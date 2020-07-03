@@ -12,7 +12,7 @@
 
       <nav class="quicklinks">
         <ul>
-          <li><%= link gettext("create new thread"), to: Path.thread_path(@conn, :new, @current_forum) %></li>
+          <li><%= if Abilities.may?(@conn, "thread", :create), do: link gettext("create new thread"), to: Path.thread_path(@conn, :new, @current_forum) %></li>
           <li><%= link gettext("home"), to: Path.root_path(@conn, :index) %></li>
           <li class="cf-dropdown" data-dropdown="yes">
             <span class="anchor"><%= gettext("forums") %></span>
