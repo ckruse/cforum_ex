@@ -59,11 +59,11 @@
     <%= text_input @f, :slug %>
   </div>
 
-    <div class="cf-cgroup">
-      <label class="checkbox">
-        <%= checkbox @f, :active %> <%= gettext("active") %>
-      </label>
-    </div>
+  <div class="cf-cgroup">
+    <label class="checkbox">
+      <%= checkbox @f, :active %> <%= gettext("active") %>
+    </label>
+  </div>
 
   <div class="cf-cgroup">
     <label class="checkbox">
