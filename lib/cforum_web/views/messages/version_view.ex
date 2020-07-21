@@ -21,4 +21,10 @@ defmodule CforumWeb.Messages.VersionView do
     message.versions
     |> Enum.sort_by(& &1.message_version_id, &>=/2)
   end
+
+  def can_delete?(conn, view_all, %{message_version_id: _} = version),
+    do: view_all && Abilities.may?(conn, "messages/version", :delete, version)
+
+  def can_delete?(_, _, _),
+    do: false
 end

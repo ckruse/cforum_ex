@@ -17,7 +17,7 @@
 
   <div class="cf-posting-content-diff"><%= @version.content %></div>
 
-  <%= if @view_all && Abilities.may?(@conn, "messages/version", :delete, @version) do %>
+  <%= if can_delete?(@conn, @view_all, @version) do %>
     <div class="posting-footer">
       <div class="admin-links">
         <%= ViewHelpers.Button.destructive_index_button(to: Path.message_version_path(@conn, :delete, @thread, @message, @version), method: :delete) do %>
