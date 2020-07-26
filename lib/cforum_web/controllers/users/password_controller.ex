@@ -60,15 +60,15 @@ defmodule CforumWeb.Users.PasswordController do
     render(conn, "edit.html", user: user, changeset: changeset)
   end
 
-  def update(conn, %{"user_id" => id, "user" => user_params}) do
+  def update(conn, %{"user_id" => id, "user" => %{"old_password" => password} = user_params}) do
     user = Users.get_user!(id)
 
-    case Users.update_user_password(user, user_params) do
-      {:ok, user} ->
-        conn
-        |> put_flash(:info, gettext("Password updated successfully."))
-        |> redirect(to: Path.user_path(conn, :show, user))
-
+    with {:ok, _} <- Users.authenticate_user(user, password),
+         {:ok, user} <- Users.update_user_password(user, user_params) do
+      conn
+      |> put_flash(:info, gettext("Password updated successfully."))
+      |> redirect(to: Path.user_path(conn, :show, user))
+    else
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)
     end

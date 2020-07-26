@@ -528,6 +528,21 @@ defmodule Cforum.Users do
       iex> authenticate_user("luke", "wrong")
       {:error, %Ecto.Changeset{}}
   """
+  def authenticate_user(%User{} = user, password) do
+    if Helpers.present?(user.encrypted_password) && Comeonin.Bcrypt.checkpw(password, user.encrypted_password) do
+      {:ok, user}
+    else
+      # just waste some time for timing sidechannel attacks
+      Comeonin.Bcrypt.dummy_checkpw()
+
+      {:error,
+       user
+       |> change_user_password()
+       |> Ecto.Changeset.add_error(:old_password, "is invalid")
+       |> Map.put(:action, :update)}
+    end
+  end
+
   def authenticate_user(login, password) do
     user = get_user_by_username_or_email(login)
 
