@@ -44,11 +44,13 @@ defmodule CforumWeb.Users.PasswordControllerTest do
   end
 
   test "changes password", %{conn: conn} do
-    user = insert(:user, encrypted_password: "1234")
+    user = insert(:user, encrypted_password: Comeonin.Bcrypt.hashpwsalt("1234"))
 
     conn =
       login(conn, user)
-      |> put(Path.user_password_path(conn, :update, user), user: %{password: "111", password_confirmation: "111"})
+      |> put(Path.user_password_path(conn, :update, user),
+        user: %{old_password: "1234", password: "111", password_confirmation: "111"}
+      )
 
     u1 = Users.get_user!(user.user_id)
 
@@ -58,11 +60,28 @@ defmodule CforumWeb.Users.PasswordControllerTest do
   end
 
   test "does not change password when confirmation does not match", %{conn: conn} do
-    user = insert(:user, encrypted_password: "1234")
+    user = insert(:user, encrypted_password: Comeonin.Bcrypt.hashpwsalt("1234"))
 
     conn =
       login(conn, user)
-      |> put(Path.user_password_path(conn, :update, user), user: %{password: "111", password_confirmation: "222"})
+      |> put(Path.user_password_path(conn, :update, user),
+        user: %{old_password: "1234", password: "111", password_confirmation: "222"}
+      )
+
+    u1 = Users.get_user!(user.user_id)
+
+    assert html_response(conn, 200) =~ gettext("change password")
+    assert u1.encrypted_password == user.encrypted_password
+  end
+
+  test "does not change password when old password does not match", %{conn: conn} do
+    user = insert(:user, encrypted_password: Comeonin.Bcrypt.hashpwsalt("1234"))
+
+    conn =
+      login(conn, user)
+      |> put(Path.user_password_path(conn, :update, user),
+        user: %{old_password: "12345", password: "111", password_confirmation: "111"}
+      )
 
     u1 = Users.get_user!(user.user_id)
 
