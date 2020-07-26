@@ -87,7 +87,6 @@ defmodule Cforum.MarkdownRenderer do
   def to_html(str) when is_bitstring(str), do: to_html(str, :str)
 
   def render_doc(markdown, id, config \\ nil) do
-    Appsignal.Transaction.set_sample_data("environment", %{id: id, config: config})
     :poolboy.transaction(pool_name(), fn pid -> GenServer.call(pid, {:render_doc, markdown, id, config}) end)
   end
 
