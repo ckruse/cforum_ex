@@ -1,40 +1,40 @@
 import Highcharts from "highcharts";
-import { startOfMonth, subMonths, parse, isBefore } from "date-fns";
+import { startOfMonth, subMonths, parseJSON, isBefore } from "date-fns";
 
 import { t } from "../modules/i18n.js";
 
 Highcharts.setOptions({
-  lang: t("highcharts")
+  lang: t("highcharts"),
 });
 
 Highcharts.chart(document.querySelector(".chart-all.chart"), {
   chart: { type: "line" },
   title: null,
   xAxis: {
-    categories: window.forumStatsValues.map(val => Highcharts.dateFormat("%B %Y", new Date(val.mon)))
+    categories: window.forumStatsValues.map((val) => Highcharts.dateFormat("%B %Y", new Date(val.mon))),
   },
   yAxis: [
     { title: { text: t("number of threads") }, min: 0 },
-    { title: { text: t("number of messages") }, opposite: true, min: 0 }
+    { title: { text: t("number of messages") }, opposite: true, min: 0 },
   ],
   series: [
     {
       name: t("threads"),
-      data: window.forumStatsValues.map(val => val.threads),
-      yAxis: 0
+      data: window.forumStatsValues.map((val) => val.threads),
+      yAxis: 0,
     },
     {
       name: t("messages"),
-      data: window.forumStatsValues.map(val => val.messages),
-      yAxis: 1
-    }
-  ]
+      data: window.forumStatsValues.map((val) => val.messages),
+      yAxis: 1,
+    },
+  ],
 });
 
-let lastYear = startOfMonth(subMonths(new Date(), 13));
+const lastYear = startOfMonth(subMonths(new Date(), 13));
 
-let yearValues = window.forumStatsValues.filter(val => {
-  let mmt = parse(val.mon);
+const yearValues = window.forumStatsValues.filter((val) => {
+  const mmt = parseJSON(val.mon);
 
   if (isBefore(mmt, lastYear)) {
     return false;
@@ -42,10 +42,10 @@ let yearValues = window.forumStatsValues.filter(val => {
   return true;
 });
 
-let lastFourYears = startOfMonth(subMonths(new Date(), 48));
+const lastFourYears = startOfMonth(subMonths(new Date(), 48));
 
-let lastFourYearValues = window.forumStatsValues.filter(val => {
-  let mmt = parse(val.mon);
+const lastFourYearValues = window.forumStatsValues.filter((val) => {
+  const mmt = parseJSON(val.mon);
   if (isBefore(mmt, lastFourYears)) {
     return false;
   }
@@ -56,64 +56,64 @@ Highcharts.chart(document.querySelector(".chart-year.chart"), {
   chart: { type: "spline" },
   title: null,
   xAxis: {
-    categories: yearValues.map(val => Highcharts.dateFormat("%B %Y", new Date(val.moment)))
+    categories: yearValues.map((val) => Highcharts.dateFormat("%B %Y", new Date(val.moment))),
   },
   yAxis: [
     { title: { text: t("number of threads") }, min: 0 },
-    { title: { text: t("number of messages") }, opposite: true, min: 0 }
+    { title: { text: t("number of messages") }, opposite: true, min: 0 },
   ],
   series: [
     {
       name: t("threads"),
-      data: yearValues.map(val => val.threads),
-      yAxis: 0
+      data: yearValues.map((val) => val.threads),
+      yAxis: 0,
     },
     {
       name: t("messages"),
-      data: yearValues.map(val => val.messages),
-      yAxis: 1
-    }
-  ]
+      data: yearValues.map((val) => val.messages),
+      yAxis: 1,
+    },
+  ],
 });
 
 Highcharts.chart(document.querySelector(".chart-users-year.chart"), {
   chart: { type: "spline" },
   title: null,
   xAxis: {
-    categories: window.forumStatsUsersTwelveMonths.map(val => Highcharts.dateFormat("%B %Y", new Date(val.moment)))
+    categories: window.forumStatsUsersTwelveMonths.map((val) => Highcharts.dateFormat("%B %Y", new Date(val.moment))),
   },
   yAxis: {
     title: { text: t("number of users") },
-    min: 0
+    min: 0,
   },
   series: [
     {
       name: t("users"),
-      data: window.forumStatsUsersTwelveMonths.map(val => val.cnt)
-    }
-  ]
+      data: window.forumStatsUsersTwelveMonths.map((val) => val.cnt),
+    },
+  ],
 });
 
 Highcharts.chart(document.querySelector(".chart-48-months.chart"), {
   chart: { type: "spline" },
   title: null,
   xAxis: {
-    categories: lastFourYearValues.map(val => Highcharts.dateFormat("%B %Y", new Date(val.moment)))
+    categories: lastFourYearValues.map((val) => Highcharts.dateFormat("%B %Y", new Date(val.moment))),
   },
   yAxis: [
     { title: { text: t("number of threads") }, min: 0 },
-    { title: { text: t("number of messages") }, opposite: true, min: 0 }
+    { title: { text: t("number of messages") }, opposite: true, min: 0 },
   ],
   series: [
     {
       name: t("threads"),
-      data: lastFourYearValues.map(val => val.threads),
-      yAxis: 0
+      data: lastFourYearValues.map((val) => val.threads),
+      yAxis: 0,
     },
     {
       name: t("messages"),
-      data: lastFourYearValues.map(val => val.messages),
-      yAxis: 1
-    }
-  ]
+      data: lastFourYearValues.map((val) => val.messages),
+      yAxis: 1,
+    },
+  ],
 });
