@@ -39,14 +39,14 @@ defmodule CforumWeb.ArchiveController do
           |> Archive.list_archived_threads(conn.assigns[:visible_forums], start_date, end_date,
             view_all: conn.assigns[:view_all],
             limit: limit,
-            page: page
+            page: page,
+            order: "ascending"
           )
           |> Threads.apply_user_infos(conn.assigns[:current_user],
             close_read_threads: ConfigManager.uconf(conn, "open_close_close_when_read") == "yes",
             open_close_default_state: ConfigManager.uconf(conn, "open_close_default")
           )
           |> Threads.apply_highlights(conn)
-          |> Threads.sort_threads(ConfigManager.uconf(conn, "sort_threads"))
           |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
 
         count =
