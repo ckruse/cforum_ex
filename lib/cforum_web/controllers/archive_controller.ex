@@ -36,21 +36,27 @@ defmodule CforumWeb.ArchiveController do
 
         threads =
           conn.assigns[:current_forum]
-          |> Archive.list_archived_threads(conn.assigns[:visible_forums], start_date, end_date)
-          |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+          |> Archive.list_archived_threads(conn.assigns[:visible_forums], start_date, end_date,
+            view_all: conn.assigns[:view_all],
+            limit: limit,
+            page: page
+          )
           |> Threads.apply_user_infos(conn.assigns[:current_user],
             close_read_threads: ConfigManager.uconf(conn, "open_close_close_when_read") == "yes",
             open_close_default_state: ConfigManager.uconf(conn, "open_close_default")
           )
           |> Threads.apply_highlights(conn)
-
-        count = length(threads)
-
-        threads =
-          threads
           |> Threads.sort_threads(ConfigManager.uconf(conn, "sort_threads"))
-          |> Threads.paged_thread_list(page, limit)
           |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
+
+        count =
+          Archive.count_archived_threads(
+            conn.assigns[:current_forum],
+            conn.assigns[:visible_forums],
+            start_date,
+            end_date,
+            view_all: conn.assigns[:view_all]
+          )
 
         p = Paginator.paginate(count, per_page: limit, page: page + 1)
 

@@ -28,6 +28,15 @@ defmodule Cforum.Threads.Archive do
     )
   end
 
+  def count_archived_threads(forum, visible_forums, from, to, opts \\ []) do
+    opts = Keyword.merge([view_all: false], opts)
+
+    from(thread in Thread, where: thread.created_at >= ^from and thread.created_at <= ^to, select: count())
+    |> ThreadHelpers.set_forum_id(visible_forums, forum)
+    |> ThreadHelpers.set_view_all(opts[:view_all])
+    |> Repo.one()
+  end
+
   def list_archive_years(forum, visible_forums, opts \\ []) do
     opts = Keyword.merge([view_all: false], opts)
 
