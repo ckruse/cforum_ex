@@ -1,96 +1,75 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Autosuggest from "react-autosuggest";
 
 import { t } from "../../modules/i18n";
 import SuggestionItem from "./suggestion_item";
 
-export default class NewTagInput extends React.Component {
-  constructor(props) {
-    super(props);
+const tagMatches = (tag, rx) => rx.test(tag.tag_name) || tag.synonyms.find((syn) => rx.test(syn));
 
-    this.state = { value: "", suggestions: [], tags: [] };
+const getSuggestions = (value, allTags, existingTags) => {
+  const inputValue = value.trim().toLowerCase();
+  const rx = new RegExp("^" + inputValue, "i");
 
-    this.keyDown = this.keyDown.bind(this);
-    this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
-    this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
-    this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
-    this.onChange = this.onChange.bind(this);
-  }
+  return allTags.filter((tag) => !existingTags.includes(tag.tag_name) && tagMatches(tag, rx)).slice(0, 25);
+};
 
-  componentWillReceiveProps(props) {
-    if (this.state.value === "") {
-      this.setState({ suggestions: this.props.allTags });
+export default function NewTagInput({ allTags, existingTags, onChoose }) {
+  const [suggestions, setSuggestions] = useState([]);
+  const [value, setValue] = useState("");
+
+  useEffect(() => {
+    if (value === "") {
+      setSuggestions(allTags.slice(0, 25));
     }
-  }
+  }, [value, allTags, existingTags]);
 
-  tagMatches(tag, rx) {
-    return rx.test(tag.tag_name) || tag.synonyms.find(syn => rx.test(syn));
-  }
-
-  getSuggestions(value) {
-    const inputValue = value.trim().toLowerCase();
-    const rx = new RegExp("^" + inputValue, "i");
-
-    return this.props.allTags
-      .filter(tag => !this.props.existingTags.includes(tag.tag_name) && this.tagMatches(tag, rx))
-      .slice(0, 25);
-  }
-
-  keyDown(event) {
-    if (["Tab", ","].includes(event.key) && this.state.value.trim() !== "") {
+  function keyDown(event) {
+    if (["Tab", ","].includes(event.key) && value.trim() !== "") {
       event.preventDefault();
-      this.props.onChoose(this.state.value);
-      this.setState({ ...this.state, value: "", suggestions: this.getSuggestions("") });
+      onChoose(value);
+      setValue("");
+      setSuggestions(getSuggestions("", allTags, existingTags));
     }
   }
 
-  onSuggestionsFetchRequested({ value }) {
-    this.setState({
-      suggestions: this.getSuggestions(value)
-    });
+  function onSuggestionsFetchRequested({ value }) {
+    setSuggestions(getSuggestions(value, allTags, existingTags));
   }
 
-  onSuggestionsClearRequested() {
-    this.setState({
-      suggestions: []
-    });
+  function onSuggestionsClearRequested() {
+    setSuggestions([]);
   }
 
-  onSuggestionSelected(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) {
-    this.props.onChoose(suggestionValue);
-    this.setState({ ...this.state, value: "", suggestions: this.getSuggestions("") });
+  function onSuggestionSelected(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) {
+    onChoose(suggestionValue);
+    setValue("");
+    setSuggestions(getSuggestions("", allTags, existingTags));
     event.preventDefault();
   }
 
-  onChange(event, { newValue }) {
-    this.setState({
-      value: newValue
-    });
+  function onChange(event, { newValue }) {
+    setValue(newValue);
   }
 
-  render() {
-    const { value, suggestions } = this.state;
-
-    return (
-      <>
-        <label htmlFor="new-tag-input">{t("enter new tag")}</label>
-        <Autosuggest
-          suggestions={suggestions}
-          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-          getSuggestionValue={item => item.tag_name}
-          renderSuggestion={tag => <SuggestionItem tag={tag} />}
-          onSuggestionSelected={this.onSuggestionSelected}
-          inputProps={{
-            onKeyDown: ev => this.keyDown(ev),
-            type: "text",
-            id: "new-tag-input",
-            value,
-            onChange: this.onChange
-          }}
-          shouldRenderSuggestions={() => true}
-        />
-      </>
-    );
-  }
+  return (
+    <>
+      <label htmlFor="new-tag-input">{t("enter new tag")}</label>
+      <Autosuggest
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={onSuggestionsClearRequested}
+        getSuggestionValue={(item) => item.tag_name}
+        renderSuggestion={(tag) => <SuggestionItem tag={tag} />}
+        onSuggestionSelected={onSuggestionSelected}
+        inputProps={{
+          onKeyDown: (ev) => keyDown(ev),
+          type: "text",
+          id: "new-tag-input",
+          value,
+          onChange: onChange,
+        }}
+        shouldRenderSuggestions={() => true}
+      />
+    </>
+  );
 }
