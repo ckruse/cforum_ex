@@ -36,6 +36,8 @@ export const lang = {
   "no tag suggestions available": "keine Vorschläge verfügbar",
   "click to add tag": "klicken, um das Schlagwort hinzuzufügen",
   "klick to remove chosen tag": "klicken, um ein ausgewähltes Schlagwort zu entfernen",
+  "please choose at least {count} tags": "Bitte wählen Sie mindestens {count} Schlagwörter",
+  "please choose at least {count} tag": "Bitte wählen Sie mindestens ein Schlagwort",
 
   "{count} unread mails": "{count} ungelesene Mails",
   "You've got a new mail from {sender}: {subject}": "neue Mail von {sender}: „{subject}“",
@@ -129,7 +131,7 @@ export const lang = {
       "September",
       "Oktober",
       "November",
-      "Dezember"
+      "Dezember",
     ],
     weekdays: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
     shortMonths: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
@@ -143,7 +145,7 @@ export const lang = {
     downloadPDF: "Download als PDF-Dokument",
     downloadSVG: "Download als SVG-Bild",
     resetZoom: "Zoom zurücksetzen",
-    resetZoomTitle: "Zoom zurücksetzen"
+    resetZoomTitle: "Zoom zurücksetzen",
   },
 
   dateTimeInputLocalFormat: "l, j. F Y, H:i \\U\\h\\r",
@@ -171,8 +173,8 @@ export const lang = {
       objects: "Objekte",
       symbols: "Symbole",
       flags: "Flaggen",
-      custom: "benutzerdefiniert"
-    }
+      custom: "benutzerdefiniert",
+    },
   },
 
   "number of new cites": "Anzahl neuer Zitate",
@@ -239,5 +241,5 @@ export const lang = {
   "should have at least {minLen} characters": "sollte mindestens {minLen} Zeichen haben",
   "should have at most {maxLen} characters": "sollte nicht mehr als {maxLen} Zeichen haben",
   "should be an URL": "sollte eine URL sein",
-  "should be an email": "sollte eine E-Mail-Adresse sein"
+  "should be an email": "sollte eine E-Mail-Adresse sein",
 };
