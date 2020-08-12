@@ -51,6 +51,14 @@ const tagMatches = (tag_name, words) => {
   return false;
 };
 
+const checkForError = (tag, allTags) => {
+  if (!allTags.find((tg) => tg.tag_name === tag)) {
+    return t("is unknown");
+  }
+
+  return null;
+};
+
 export default function TagList({ tags: propsTags, postingText, onChange, globalTagsError }) {
   const [tags, setTags] = useState(propsTags);
   const [allTags, setAllTags] = useState([]);
@@ -105,17 +113,9 @@ export default function TagList({ tags: propsTags, postingText, onChange, global
     refreshSuggestions();
   }, [tags, refreshSuggestions]);
 
-  function checkForError(tag) {
-    if (!allTags.find((tg) => tg.tag_name === tag)) {
-      return t("is unknown");
-    }
-
-    return null;
-  }
-
   function addTag(tag) {
     if (!tags.find(([tag1, _]) => tag1 === tag)) {
-      const newTags = [...tags, [tag, checkForError(tag)]];
+      const newTags = [...tags, [tag, checkForError(tag, allTags)]];
       setTags(newTags);
       setTouched(true);
 
