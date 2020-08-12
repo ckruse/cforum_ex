@@ -55,6 +55,7 @@ export default function TagList({ tags: propsTags, postingText, onChange, global
   const [tags, setTags] = useState(propsTags);
   const [allTags, setAllTags] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
+  const [touched, setTouched] = useState(false);
   const [{ minTags, maxTags }, setMinMaxTags] = useState({
     minTags: conf("min_tags_per_message") || 1,
     maxTags: conf("max_tags_per_message") || 3,
@@ -116,6 +117,7 @@ export default function TagList({ tags: propsTags, postingText, onChange, global
     if (!tags.find(([tag1, _]) => tag1 === tag)) {
       const newTags = [...tags, [tag, checkForError(tag)]];
       setTags(newTags);
+      setTouched(true);
 
       if (onChange) {
         onChange(newTags);
@@ -126,6 +128,7 @@ export default function TagList({ tags: propsTags, postingText, onChange, global
   function removeTag(tagToRemove) {
     const newTags = tags.filter(([t, _]) => t !== tagToRemove);
     setTags(newTags);
+    setTouched(true);
 
     if (onChange) {
       onChange(newTags);
@@ -148,7 +151,7 @@ export default function TagList({ tags: propsTags, postingText, onChange, global
       </div>
 
       {globalTagsError && <span className="help error">{globalTagsError}</span>}
-      {tags.length < minTags && minTags > 0 && (
+      {tags.length < minTags && minTags > 0 && touched && (
         <span className="help error">
           {t(minTags === 1 ? "please choose at least {count} tag" : "please choose at least {count} tags", {
             count: minTags,
