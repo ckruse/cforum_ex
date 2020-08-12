@@ -2,7 +2,7 @@ import React from "react";
 
 function Tag({ error, tag, onClick, name }) {
   return (
-    <li className={error ? " has-error" : ""}>
+    <li className={error ? " has-error" : undefined}>
       <div className="cf-tag">
         {tag}
         <button type="button" className="remove" aria-labelledby="remove-chosen-tag-help" onClick={onClick}>
