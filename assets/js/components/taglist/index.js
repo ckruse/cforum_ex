@@ -99,7 +99,8 @@ export default function TagList({ tags: propsTags, postingText, onChange, global
         console.log(e);
       }
     })();
-  }, [refreshSuggestions]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const timer = window.setTimeout(refreshSuggestions, 500);
