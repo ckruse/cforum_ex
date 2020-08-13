@@ -1,6 +1,4 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { TransitionGroup } from "react-transition-group";
-import { FadeTransition } from "../transitions";
 
 import Tag from "./tag";
 import NewTagInput from "./new_tag_input";
@@ -161,13 +159,11 @@ export default function TagList({ tags: propsTags, postingText, onChange, global
       )}
 
       <div className="cf-cgroup">
-        <TransitionGroup component="ul" className="cf-form-tagslist cf-tags-list" aria-live="polite">
+        <ul className="cf-form-tagslist cf-tags-list" aria-live="polite">
           {tags.map(([tag, err]) => (
-            <FadeTransition key={tag}>
-              <Tag tag={tag} error={err} onClick={() => removeTag(tag)} />
-            </FadeTransition>
+            <Tag key={tag} tag={tag} error={err} onClick={() => removeTag(tag)} />
           ))}
-        </TransitionGroup>
+        </ul>
       </div>
 
       <div className="cf-cgroup">

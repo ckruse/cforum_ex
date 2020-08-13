@@ -1,6 +1,4 @@
 import React from "react";
-import { TransitionGroup } from "react-transition-group";
-import { FadeTransition } from "../transitions";
 
 import { t } from "../../modules/i18n";
 
@@ -20,31 +18,27 @@ export default function Suggestions({ suggestions, onClick }) {
           {svg} {t("click to add tag")}
         </span>
 
-        <TransitionGroup component="ul" className="cf-cgroup cf-form-tagslist cf-tags-list" aria-live="polite">
+        <ul className="cf-cgroup cf-form-tagslist cf-tags-list" aria-live="polite">
           {suggestions.length === 0 && (
-            <FadeTransition key="no-transition-found">
-              <li>
-                <em>{t("no tag suggestions available")}</em>
-              </li>
-            </FadeTransition>
+            <li key="no-suggestion-found">
+              <em>{t("no tag suggestions available")}</em>
+            </li>
           )}
 
           {suggestions.map((tag) => (
-            <FadeTransition key={tag.tag_id}>
-              <li className="cf-tag" key={tag.tag_id}>
-                {tag.tag_name}
-                <button
-                  type="button"
-                  className="add"
-                  aria-labelledby="add-tag-suggestion-help"
-                  onClick={() => onClick(tag.tag_name)}
-                >
-                  {svg}
-                </button>
-              </li>
-            </FadeTransition>
+            <li className="cf-tag" key={tag.tag_id}>
+              {tag.tag_name}
+              <button
+                type="button"
+                className="add"
+                aria-labelledby="add-tag-suggestion-help"
+                onClick={() => onClick(tag.tag_name)}
+              >
+                {svg}
+              </button>
+            </li>
           ))}
-        </TransitionGroup>
+        </ul>
       </div>
     </>
   );

@@ -1,6 +1,4 @@
 import React from "react";
-import { TransitionGroup } from "react-transition-group";
-import { FadeTransition } from "../transitions";
 
 import { t } from "../../modules/i18n";
 import SearchModal from "./search_modal";
@@ -56,27 +54,25 @@ export default class MultiUserSelector extends React.Component {
   render() {
     return (
       <>
-        <TransitionGroup component="ul">
+        <ul>
           {this.state.chosenUsers.map((user) => (
-            <FadeTransition key={user.user_id}>
-              <li>
-                <input type="hidden" name={this.props.fieldName} value={user.user_id} />
+            <li key={user.user_id}>
+              <input type="hidden" name={this.props.fieldName} value={user.user_id} />
 
-                <a className="user-link" href={`/users/${user.user_id}`} title={t(" user") + " " + user.username}>
-                  <span className="registered-user">
-                    <span className="visually-hidden">{t("link to profile of")}</span>
-                    <img alt={t(" user") + " " + user.username} className="avatar" src={user.avatar.thumb} />
-                    {" " + user.username}
-                  </span>
-                </a>
+              <a className="user-link" href={`/users/${user.user_id}`} title={t(" user") + " " + user.username}>
+                <span className="registered-user">
+                  <span className="visually-hidden">{t("link to profile of")}</span>
+                  <img alt={t(" user") + " " + user.username} className="avatar" src={user.avatar.thumb} />
+                  {" " + user.username}
+                </span>
+              </a>
 
-                <button type="button" className="cf-index-btn" onClick={() => this.removeUser(user)}>
-                  {t("remove user")}
-                </button>
-              </li>
-            </FadeTransition>
+              <button type="button" className="cf-index-btn" onClick={() => this.removeUser(user)}>
+                {t("remove user")}
+              </button>
+            </li>
           ))}
-        </TransitionGroup>
+        </ul>
 
         <button type="button" className="cf-users-selector-btn" onClick={this.showSearchModal}>
           {t("search user")}

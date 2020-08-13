@@ -1,7 +1,5 @@
 import React from "react";
 import Modal from "react-modal";
-import { TransitionGroup } from "react-transition-group";
-import { FadeTransition } from "../transitions";
 
 import { t } from "../../modules/i18n";
 import { queryString } from "../../modules/helpers";
@@ -32,8 +30,8 @@ export default class SearchModal extends React.Component {
   searchUsers() {
     const qs = queryString({ s: this.state.value });
     fetch(`/api/v1/users?${qs}&self=${this.props.selfSelect ? "yes" : "no"}`, { credentials: "same-origin" })
-      .then(response => response.json())
-      .then(json => {
+      .then((response) => response.json())
+      .then((json) => {
         json.sort((a, b) => a.username.localeCompare(b.username));
         this.setState({ ...this.state, foundUsers: json });
       });
@@ -50,7 +48,7 @@ export default class SearchModal extends React.Component {
   }
 
   unchooseUser(user) {
-    this.setState({ ...this.state, selectedUsers: this.state.selectedUsers.filter(u => u.user_id !== user.user_id) });
+    this.setState({ ...this.state, selectedUsers: this.state.selectedUsers.filter((u) => u.user_id !== user.user_id) });
   }
 
   selectUsers() {
@@ -64,22 +62,21 @@ export default class SearchModal extends React.Component {
   renderFoundUsers() {
     if (this.state.foundUsers.length === 0) {
       return (
-        <FadeTransition key="no-user-found">
-          <li className="no-data">{t("none found")}</li>
-        </FadeTransition>
+        <li className="no-data" key="no-user-found">
+          {t("none found")}
+        </li>
       );
     } else {
-      return this.state.foundUsers.map(user => (
-        <FadeTransition key={user.user_id}>
-          <li>
-            <span className="author">
-              <img src={user.avatar.thumb} alt="" className="avatar" /> {user.username}
-            </span>
-            <button type="button" className="cf-primary-index-btn" onClick={() => this.chooseUser(user)}>
-              {t("select user")}
-            </button>
-          </li>
-        </FadeTransition>
+      return this.state.foundUsers.map((user) => (
+        <li key={user.user_id}>
+          <span className="author">
+            <img src={user.avatar.thumb} alt="" className="avatar" />
+             {user.username}
+          </span>
+          <button type="button" className="cf-primary-index-btn" onClick={() => this.chooseUser(user)}>
+            {t("select user")}
+          </button>
+        </li>
       ));
     }
   }
@@ -88,27 +85,24 @@ export default class SearchModal extends React.Component {
     return (
       <>
         <h2>{t("selected users")}</h2>
-        <TransitionGroup component="ul" className="users-selector-selected-users-list" aria-live="assertive">
+        <ul className="users-selector-selected-users-list" aria-live="assertive">
           {this.state.selectedUsers.length === 0 && (
-            <FadeTransition key="no-user-selected">
-              <li className="no-data" key="no-data">
-                {t("none selected")}
-              </li>
-            </FadeTransition>
+            <li className="no-data" key="no-data">
+              {t("none selected")}
+            </li>
           )}
-          {this.state.selectedUsers.map(user => (
-            <FadeTransition key={user.user_id}>
-              <li>
-                <span className="author">
-                  <img src={user.avatar.thumb} alt="" className="avatar" /> {user.username}
-                </span>
-                <button type="button" className="cf-primary-index-btn" onClick={() => this.unchooseUser(user)}>
-                  {t("unselect user")}
-                </button>
-              </li>
-            </FadeTransition>
+          {this.state.selectedUsers.map((user) => (
+            <li key={user.user_id}>
+              <span className="author">
+                <img src={user.avatar.thumb} alt="" className="avatar" />
+                 {user.username}
+              </span>
+              <button type="button" className="cf-primary-index-btn" onClick={() => this.unchooseUser(user)}>
+                {t("unselect user")}
+              </button>
+            </li>
           ))}
-        </TransitionGroup>
+        </ul>
       </>
     );
   }
@@ -130,9 +124,9 @@ export default class SearchModal extends React.Component {
           </div>
 
           <h2>{t("found users")}</h2>
-          <TransitionGroup component="ul" className="users-selector-found-users-list" aria-live="assertive">
+          <ul className="users-selector-found-users-list" aria-live="assertive">
             {this.renderFoundUsers()}
-          </TransitionGroup>
+          </ul>
 
           {!this.props.single && this.renderSelectedUsers()}
 
