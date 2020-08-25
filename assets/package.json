@@ -23,7 +23,7 @@
     "diff": "^4.0.2",
     "emoji-mart": "<= 2.11.1 || > 2.11.2",
     "flatpickr": "^4.5.0",
-    "highcharts": "^7.1.1",
+    "highcharts": "^7.2.2",
     "leaflet": "^1.6.0",
     "leaflet-geosearch": "^2.7.0",
     "phoenix": "file:../deps/phoenix",
