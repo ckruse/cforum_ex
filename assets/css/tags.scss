@@ -11,16 +11,17 @@
   }
 
   .cf-tag {
-    display: inline;
+    display: inline-block;
     background-color: $tag-background-color;
     margin-right: 0.5em;
-    padding: 0.1em 0.4em 0 0.4em;
+    padding: 0 0.4em;
     color: $tag-color;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
     border: 1px solid $tag-border-color;
     border-radius: 0 0.25em 0.25em;
+    line-height: 1.6;
 
     &:link,
     &:visited {
