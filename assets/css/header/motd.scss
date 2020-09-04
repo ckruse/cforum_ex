@@ -10,8 +10,7 @@
     margin: 0.3em 0.5em 0px 0px;
   }
 
-  & > p {
-    margin-top: 0;
+  & > *:last-child {
     margin-bottom: 0;
   }
 
@@ -43,5 +42,11 @@
 @include default-breakpoint() {
   .cf-motd-list {
     margin: 0.5em 2em;
+
+    .cf-motd {
+      max-width: 100%;
+      max-width: 95vw;
+      width: 45em;
+    }
   }
 }
