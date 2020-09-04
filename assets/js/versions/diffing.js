@@ -19,7 +19,7 @@ elements.forEach((element, idx) => {
     if (idx < diff.length - 1) {
       const prevPart = diff[idx + 1];
 
-      if ((prevPart.added === part.removed || prevPart.removed === part.added) && (part.added || part.removed)) {
+      if ((prevPart.added && part.removed) || (prevPart.removed && part.added)) {
         const lineDiff = diffChars(part.value, prevPart.value);
         value = document.createDocumentFragment();
 
