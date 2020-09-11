@@ -484,8 +484,10 @@ defmodule Cforum.Users do
     [%Badge{}, ...]
 
   """
-  def unique_badges(user) do
-    user.badges_users
+  def unique_badges(user_or_badges_users_list)
+  def unique_badges(%User{} = user), do: unique_badges(user.badges_users)
+  def unique_badges(badges_users) do
+    badges_users
     |> Enum.reduce(%{}, fn bu, acc ->
       Map.update(
         acc,
@@ -496,6 +498,11 @@ defmodule Cforum.Users do
     end)
     |> Map.values()
     |> Enum.sort(&(&1[:times] >= &2[:times]))
+  end
+
+  def visible_badges(user) do
+    user.badges_users
+    |> Enum.filter(& &1.active)
   end
 
   @doc """

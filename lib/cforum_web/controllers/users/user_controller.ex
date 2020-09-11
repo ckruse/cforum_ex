@@ -83,7 +83,7 @@ defmodule CforumWeb.Users.UserController do
       last_messages: last_messages,
       tags_cnt: tags_cnt,
       point_msgs: point_msgs,
-      badges: Users.unique_badges(user),
+      badges: user |> Users.visible_badges() |> Users.unique_badges(),
       jabber_id: Users.conf(user, "jabber_id"),
       twitter_handle: Users.conf(user, "twitter_handle"),
       user_url: Users.conf(user, "url"),
