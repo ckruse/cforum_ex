@@ -98,7 +98,7 @@ defmodule Cforum.Jobs.VoteBadgeDistributorJob do
     Enum.each(@bevoted_badges, fn badge_type ->
       badge = Badges.get_badge_by(slug: badge_type[:name])
 
-      if Helpers.present?(badge) && votes >= badge_type[:votes] && !Users.badge?(user, badge),
+      if Helpers.present?(badge) && votes >= badge_type[:votes] && !Users.badge?(user, badge, false),
         do: Badges.grant_badge(badge, user)
     end)
   end
