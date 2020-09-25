@@ -8,7 +8,10 @@
     <% end %>
     <%= if assigns[:parent] do %>
       <%= hidden_input @f, :recipient_id, required: true %>
-      <input type="text" disabled value="<%= @parent.sender.username %>">
+
+      <span className="author">
+        <%= ViewHelpers.user_link(@conn, @parent.sender, [], @parent.sender.username) %>
+      </span>
     <% else %>
       <%= text_input @f, :recipient_id, required: true, "data-user-selector": "single", "data-user-selector-self": "no" %>
     <% end %>
