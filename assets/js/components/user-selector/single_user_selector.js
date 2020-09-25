@@ -9,13 +9,13 @@ export default class SingleUserSelector extends React.Component {
 
     this.state = {
       chosenUser: null,
-      showModal: false
+      showModal: false,
     };
 
     if (this.props.userId) {
       fetch(`/api/v1/users/${this.props.userId}`, { credentials: "same-origin" })
-        .then(json => json.json())
-        .then(json => this.setState({ chosenUser: json }));
+        .then((json) => json.json())
+        .then((json) => this.setState({ chosenUser: json }));
     }
 
     this.showSearchModal = this.showSearchModal.bind(this);
@@ -48,18 +48,24 @@ export default class SingleUserSelector extends React.Component {
   }
 
   render() {
-    const username = this.state.chosenUser ? this.state.chosenUser.username : "";
+    const user = this.state.chosenUser;
 
     return (
       <>
-        <input id={this.props.id} type="text" readOnly={true} value={username} className="cf-users-selector" />
+        <div id={this.props.id} className="cf-users-selector">
+          {user && (
+            <span className="author">
+              <img src={user.avatar.thumb} alt="" className="avatar" /> {user.username}
+            </span>
+          )}
+          {!user && <em>{t("no user chosen")}</em>}
+        </div>
         <button type="button" className="cf-users-selector-btn" onClick={this.showSearchModal}>
           {t("search user")}
         </button>
         <button type="button" className="cf-users-selector-btn" onClick={this.clear}>
           {t("clear")}
         </button>
-
         {this.state.showModal && (
           <SearchModal
             selfSelect={this.props.selfSelect}

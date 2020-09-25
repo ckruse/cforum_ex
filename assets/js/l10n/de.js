@@ -242,4 +242,6 @@ export const lang = {
   "should have at most {maxLen} characters": "sollte nicht mehr als {maxLen} Zeichen haben",
   "should be an URL": "sollte eine URL sein",
   "should be an email": "sollte eine E-Mail-Adresse sein",
+
+  "no user chosen": "kein Benutzer ausgewählt",
 };
