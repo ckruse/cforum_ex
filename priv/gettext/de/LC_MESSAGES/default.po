@@ -1483,7 +1483,7 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/views/mail_view.ex:20
 msgid "mail from %{partner}"
-msgstr "Post von %{partner}"
+msgstr "Post-Verlauf mit %{partner}"
 
 #, elixir-format
 #: lib/cforum_web/templates/mail/index.html.eex:28
