@@ -4,10 +4,10 @@ defmodule Cforum.Jobs.Appsignal do
   alias Appsignal.Error
   alias Appsignal.Transaction
 
-  def handle_event([:oban, event], measurement, meta, _) when event in [:success, :failure] do
+  def handle_event([:oban, :job, event], measurement, meta, _) when event in [:exception, :stop] do
     transaction = record_event(measurement, meta)
 
-    if event == :failure do
+    if event == :exception do
       {reason, message, stack} = normalize_error(meta)
       Logger.error("Error executing job: #{reason} (#{inspect(message)})\n\n#{inspect(stack)}")
 
@@ -32,9 +32,8 @@ defmodule Cforum.Jobs.Appsignal do
     transaction
   end
 
-  defp normalize_error(%{kind: :error, error: error, stack: stack}) do
+  defp normalize_error(%{kind: kind, error: error, stack: stack}) when kind in [:error, :throw] do
     {reason, message} = Error.metadata(error)
-
     {inspect(reason), inspect(message), stack}
   end
 

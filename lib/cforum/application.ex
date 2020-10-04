@@ -13,8 +13,8 @@ defmodule Cforum.Application do
       nil
     )
 
-    :telemetry.attach("oban-failure", [:oban, :failure], &Cforum.Jobs.Appsignal.handle_event/4, nil)
-    :telemetry.attach("oban-success", [:oban, :success], &Cforum.Jobs.Appsignal.handle_event/4, nil)
+    :telemetry.attach("oban-failure", [:oban, :job, :exception], &Cforum.Jobs.Appsignal.handle_event/4, nil)
+    :telemetry.attach("oban-success", [:oban, :job, :stop], &Cforum.Jobs.Appsignal.handle_event/4, nil)
 
     # Define workers and child supervisors to be supervised
     children = [
