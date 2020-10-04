@@ -23,7 +23,7 @@ defmodule CforumWeb.Messages.VersionController do
   end
 
   def load_resource(conn) do
-    if !Regex.match?(~r/^\d+$/, conn.params["mid"]) || !Regex.match?(~r/^\d+$/, conn.params["id"]),
+    if !Regex.match?(~r/^\d+$/, conn.params["mid"]) || (conn.params["id"] && !Regex.match?(~r/^\d+$/, conn.params["id"])),
       do: raise(Cforum.Errors.NotFoundError, conn: conn)
 
     thread =
