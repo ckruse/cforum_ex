@@ -23,6 +23,9 @@ defmodule CforumWeb.Messages.VersionController do
   end
 
   def load_resource(conn) do
+    if !Regex.match?(~r/^\d+$/, conn.params["mid"]) || !Regex.match?(~r/^\d+$/, conn.params["id"]),
+      do: raise(Cforum.Errors.NotFoundError, conn: conn)
+
     thread =
       conn.assigns[:current_forum]
       |> Threads.get_thread_by_slug!(nil, ThreadHelpers.slug_from_params(conn.params))
