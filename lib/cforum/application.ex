@@ -4,7 +4,6 @@ defmodule Cforum.Application do
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
   def start(_type, _args) do
-    import Supervisor.Spec
 
     :telemetry.attach(
       "appsignal-ecto",
@@ -29,7 +28,7 @@ defmodule Cforum.Application do
       {Oban, Application.get_env(:cforum, Oban)},
       # Start your own worker by calling: Cforum.Worker.start_link(arg1, arg2, arg3)
       # worker(Cforum.Worker, [arg1, arg2, arg3]),
-      worker(Cachex, [:cforum, []]),
+      {Cachex, name: :cforum},
       :poolboy.child_spec(Cforum.MarkdownRenderer.pool_name(), poolboy_config(:markdown), [])
     ]
 
