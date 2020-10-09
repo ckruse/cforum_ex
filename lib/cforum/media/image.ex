@@ -46,7 +46,7 @@ defmodule Cforum.Media.Image do
   defp maybe_set_owner_id(changeset, user), do: put_change(changeset, :owner_id, user.user_id)
 
   defp validate_content_type(changeset, file) do
-    if file.content_type =~ ~r/^image\/(png|gif|jpeg|svg\+xml)$/,
+    if file.content_type =~ ~r/\Aimage\/(png|gif|jpeg|svg\+xml)\z/,
       do: changeset,
       else: add_error(changeset, :filename, "only image files are allowed!")
   end

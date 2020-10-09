@@ -78,7 +78,7 @@ defmodule Cforum.Forums.Forum do
       "archiv",
       "images"
     ])
-    |> validate_format(:slug, ~r/^[a-z0-9-]{2,}$/)
+    |> validate_format(:slug, ~r/\A[a-z0-9-]{2,}\z/)
     |> validate_length(:slug, min: 2, max: 50)
     |> unique_constraint(:slug, name: :forums_slug_idx)
     |> validate_inclusion(:standard_permission, @permissions)
