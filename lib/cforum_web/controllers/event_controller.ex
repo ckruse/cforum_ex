@@ -18,9 +18,6 @@ defmodule CforumWeb.EventController do
   end
 
   def show(conn, %{"id" => id}) do
-    if !Regex.match?(~r/^\d+$/, id),
-      do: raise(Cforum.Errors.NotFoundError, conn: conn)
-
     event = Events.get_event!(id, true)
     render(conn, "show.html", event: event)
   end
@@ -28,4 +25,6 @@ defmodule CforumWeb.EventController do
   def allowed?(_conn, :index, _), do: true
   def allowed?(_conn, :show, _), do: true
   def allowed?(_, _, _), do: false
+
+  def id_fields(_), do: ["id"]
 end

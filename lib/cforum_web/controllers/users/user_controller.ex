@@ -219,16 +219,9 @@ defmodule CforumWeb.Users.UserController do
   end
 
   def load_resource(conn) do
-    cond do
-      Helpers.present?(conn.params["id"]) && Regex.match?(~r/^\d+$/, conn.params["id"]) ->
-        Plug.Conn.assign(conn, :user, Users.get_user!(conn.params["id"]))
-
-      Helpers.present?(conn.params["id"]) ->
-        raise(Cforum.Errors.NotFoundError, conn: conn)
-
-      true ->
-        conn
-    end
+    if Helpers.present?(conn.params["id"]),
+      do: Plug.Conn.assign(conn, :user, Users.get_user!(conn.params["id"])),
+      else: conn
   end
 
   @anonymous_allowed_actions [:index, :show, :show_messages, :show_scores, :deletion_started]
@@ -257,4 +250,6 @@ defmodule CforumWeb.Users.UserController do
   end
 
   def allowed?(_, _, _), do: false
+
+  def id_fields(_), do: ["id", "user_id"]
 end

@@ -23,9 +23,6 @@ defmodule CforumWeb.Messages.VersionController do
   end
 
   def load_resource(conn) do
-    if !Regex.match?(~r/^\d+$/, conn.params["mid"]) || (conn.params["id"] && !Regex.match?(~r/^\d+$/, conn.params["id"])),
-      do: raise(Cforum.Errors.NotFoundError, conn: conn)
-
     thread =
       conn.assigns[:current_forum]
       |> Threads.get_thread_by_slug!(nil, ThreadHelpers.slug_from_params(conn.params))
@@ -53,4 +50,6 @@ defmodule CforumWeb.Messages.VersionController do
 
   def allowed?(conn, _, {_thread, message}),
     do: Abilities.access_forum?(conn) && (!message.deleted || conn.assigns.view_all)
+
+  def id_fields(_), do: ["mid", "id"]
 end

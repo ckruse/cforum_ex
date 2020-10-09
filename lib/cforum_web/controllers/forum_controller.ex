@@ -9,9 +9,6 @@ defmodule CforumWeb.ForumController do
   alias CforumWeb.ForumView
 
   def index(conn, %{"t" => tid, "m" => mid}) when not is_nil(tid) and not is_nil(mid) do
-    if !Regex.match?(~r/^\d+$/, tid) || !Regex.match?(~r/^\d+$/, mid),
-      do: raise(Cforum.Errors.NotFoundError, conn: conn)
-
     threads =
       Threads.get_threads_by_tid!(tid)
       |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
@@ -100,4 +97,6 @@ defmodule CforumWeb.ForumController do
 
   def allowed?(_, action, _) when action in [:index, :stats], do: true
   def allowed?(_, _, _), do: false
+
+  def id_fields(_), do: ["t", "m"]
 end

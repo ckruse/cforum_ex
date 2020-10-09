@@ -29,9 +29,6 @@ defmodule CforumWeb.Messages.FlagController do
   end
 
   def load_resource(conn) do
-    if !Regex.match?(~r/^\d+$/, conn.params["mid"]),
-      do: raise(Cforum.Errors.NotFoundError, conn: conn)
-
     thread =
       Threads.get_thread_by_slug!(conn.assigns[:current_forum], nil, ThreadHelpers.slug_from_params(conn.params))
       |> Threads.reject_deleted_threads(conn.assigns[:view_all])
@@ -46,4 +43,6 @@ defmodule CforumWeb.Messages.FlagController do
   end
 
   def allowed?(_conn, _, _), do: true
+
+  def id_fields(_), do: ["mid"]
 end

@@ -175,9 +175,6 @@ defmodule CforumWeb.MessageController do
   #
 
   defp get_message(conn, %{"mid" => mid} = params) do
-    if !Regex.match?(~r/^\d+$/, mid),
-      do: raise(Cforum.Errors.NotFoundError, conn: conn)
-
     thread =
       conn.assigns[:current_forum]
       |> Threads.get_thread_by_slug!(conn.assigns[:visible_forums], ThreadHelpers.slug_from_params(params))
@@ -299,4 +296,6 @@ defmodule CforumWeb.MessageController do
     do: Abilities.badge?(conn, @badge_edit_question) || Abilities.badge?(conn, @badge_edit_answer)
 
   defp edit_by_badge?(conn, _), do: Abilities.badge?(conn, @badge_edit_answer)
+
+  def id_fields(_), do: ["mid"]
 end

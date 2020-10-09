@@ -35,9 +35,6 @@ defmodule CforumWeb.CiteController do
   end
 
   def show(conn, %{"id" => id}) do
-    if !Regex.match?(~r/^\d+$/, id),
-      do: raise(Cforum.Errors.NotFoundError, conn: conn)
-
     cite = Cites.get_cite!(id)
     render(conn, "show.html", cite: cite)
   end
@@ -75,4 +72,6 @@ defmodule CforumWeb.CiteController do
   def allowed?(conn, :index_voting, _), do: Abilities.signed_in?(conn)
   def allowed?(conn, action, _) when action not in [:index, :show, :new, :create], do: Abilities.admin?(conn)
   def allowed?(_, _, _), do: false
+
+  def id_fields(_), do: ["id"]
 end

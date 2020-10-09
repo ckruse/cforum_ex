@@ -24,17 +24,11 @@ defmodule CforumWeb.Api.V1.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    if !Regex.match?(~r/^\d+$/, id),
-      do: raise(Cforum.Errors.NotFoundError, conn: conn)
-
     user = Cforum.Users.get_user!(id)
     render(conn, "show.json", user: user)
   end
 
   def activity(conn, %{"id" => id}) do
-    if !Regex.match?(~r/^\d+$/, id),
-      do: raise(Cforum.Errors.NotFoundError, conn: conn)
-
     user = Users.get_user!(id)
 
     forum_ids = Enum.map(conn.assigns[:visible_forums], & &1.forum_id)
@@ -43,4 +37,6 @@ defmodule CforumWeb.Api.V1.UserController do
   end
 
   def allowed?(_conn, _, _), do: true
+
+  def id_fields(_), do: ["id"]
 end

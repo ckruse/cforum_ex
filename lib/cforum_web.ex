@@ -38,6 +38,7 @@ defmodule CforumWeb do
 
       alias CforumWeb.Views.ViewHelpers.Path
 
+      plug(CforumWeb.Plug.ValidateId)
       plug(CforumWeb.Plug.LoadResource)
       plug(CforumWeb.Plug.AuthorizeAccess)
 

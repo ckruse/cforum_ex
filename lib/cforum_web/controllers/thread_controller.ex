@@ -272,9 +272,6 @@ defmodule CforumWeb.ThreadController do
   end
 
   defp get_thread_feed(conn, id) do
-    if !Regex.match?(~r/^\d+$/, id),
-      do: raise(Cforum.Errors.NotFoundError, conn: conn)
-
     conn.assigns[:current_forum]
     |> Threads.get_thread!(conn.assigns[:visible_forums], id)
     |> Threads.reject_deleted_threads(conn.assigns[:view_all])
@@ -289,4 +286,6 @@ defmodule CforumWeb.ThreadController do
       Abilities.forum_active?(forum) && Abilities.access_forum?(conn, forum, :write)
     end)
   end
+
+  def id_fields(_), do: ["id"]
 end

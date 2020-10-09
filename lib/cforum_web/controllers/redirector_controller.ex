@@ -27,9 +27,6 @@ defmodule CforumWeb.RedirectorController do
   end
 
   def redirect_to_thread(conn, %{"year" => year, "tid" => tid}) do
-    if !Regex.match?(~r/^\d+(_\d+)?$/, year) || !Regex.match?(~r/^\d+(?:\.html?)?$/, tid),
-      do: raise(Cforum.Errors.NotFoundError, conn: conn)
-
     threads =
       tid
       |> String.replace_suffix(".htm", "")
@@ -59,9 +56,6 @@ defmodule CforumWeb.RedirectorController do
   end
 
   def redirect_to_month(conn, %{"year" => year, "month" => month}) do
-    if not valid_params?(year, month),
-      do: raise(Cforum.Errors.NotFoundError, conn: conn)
-
     year = String.replace(year, ~r/_\d+$/, "")
     {:ok, date} = NaiveDateTime.new(String.to_integer(year), String.to_integer(month), 1, 12, 0, 0)
 
@@ -85,9 +79,8 @@ defmodule CforumWeb.RedirectorController do
     end
   end
 
-  defp valid_params?(year, month) do
-    Regex.match?(~r/^\d+(_\d+)?$/, year) && Regex.match?(~r/^\d+$/, month) && String.to_integer(month) in 1..12
-  end
-
   def allowed?(_, _, _), do: true
+
+  def id_fields(_),
+    do: [{"year", ~r/\A\d+(_\d+)?\z/}, {"tid", ~r/\A\d+(?:\.html?)?\z/}, {"month", ~r/\A(?:[1-9]|10|11|12)\z/}]
 end

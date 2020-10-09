@@ -17,8 +17,7 @@ defmodule CforumWeb.RedirectorControllerTest do
   end
 
   test "fails on /archiv/:year with invalid year", %{conn: conn} do
-    conn = get(conn, "/archiv/foobar")
-    assert html_response(conn, 404)
+    assert_raise Cforum.Errors.NotFoundError, fn -> get(conn, "/archiv/foobar") end
   end
 
   test "redirects to thread on /archiv/:year/:tid", %{conn: conn} do
