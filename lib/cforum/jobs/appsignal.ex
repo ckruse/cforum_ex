@@ -32,12 +32,12 @@ defmodule Cforum.Jobs.Appsignal do
     transaction
   end
 
-  defp normalize_error(%{kind: kind, error: error, stack: stack}) when kind in [:error, :throw] do
+  defp normalize_error(%{kind: kind, error: error, stacktrace: stack}) when kind in [:error, :throw] do
     {reason, message} = Error.metadata(error)
     {inspect(reason), inspect(message), stack}
   end
 
-  defp normalize_error(%{kind: kind, error: error, stack: stack}) do
+  defp normalize_error(%{kind: kind, error: error, stacktrace: stack}) do
     {inspect(kind), inspect(error), stack}
   end
 end
