@@ -1,7 +1,7 @@
 import { alertError, alertSuccess } from "../modules/alerts";
 import { t } from "../modules/i18n";
 
-const voteForMessage = ev => {
+const voteForMessage = (ev) => {
   if (ev.target.nodeName !== "BUTTON") {
     return;
   }
@@ -10,7 +10,8 @@ const voteForMessage = ev => {
 
   const btn = ev.target;
   const form = btn.closest("form");
-  if (!form.action.match(/\/cites\/(\d+)\/vote$/)) {
+  const url = new URL(form.action);
+  if (!url.pathname.match(/\/cites\/(\d+)\/vote$/)) {
     return;
   }
 
@@ -28,20 +29,23 @@ const voteForMessage = ev => {
   const params = {
     _csrf_token: inp.value,
     type,
-    id
+    id,
   };
 
   fetch("/api/v1/cites/vote", {
     credentials: "same-origin",
     method: "POST",
     body: JSON.stringify(params),
-    headers: { "Content-Type": "application/json; charset=utf-8" }
+    headers: { "Content-Type": "application/json; charset=utf-8" },
   })
-    .then(rsp => rsp.json(), err => handleError(btn))
-    .then(json => updateVotingAreas(json, type, btn.closest(".cf-cite"), btn));
+    .then(
+      (rsp) => rsp.json(),
+      (err) => handleError(btn)
+    )
+    .then((json) => updateVotingAreas(json, type, btn.closest(".cf-cite"), btn));
 };
 
-const handleError = btn => {
+const handleError = (btn) => {
   alertError(t("Oops, something went wrong!"));
   btn.classList.remove("loading");
   btn.disabled = false;
@@ -74,7 +78,7 @@ const updateVotingAreas = (json, type, cite, btn) => {
       console.log(type, json, cite);
   }
 
-  areas.forEach(area => {
+  areas.forEach((area) => {
     const downButton = area.querySelector(".vote-down");
     const upButton = area.querySelector(".vote-up");
 
@@ -99,6 +103,6 @@ const setButtonStatus = (button, active) => {
 };
 
 const setupVoting = () =>
-  document.querySelectorAll(".cf-voting-area-cites").forEach(elem => elem.addEventListener("click", voteForMessage));
+  document.querySelectorAll(".cf-voting-area-cites").forEach((elem) => elem.addEventListener("click", voteForMessage));
 
 export default setupVoting;
