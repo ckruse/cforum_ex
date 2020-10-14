@@ -486,6 +486,7 @@ defmodule Cforum.Users do
   """
   def unique_badges(user_or_badges_users_list)
   def unique_badges(%User{} = user), do: unique_badges(user.badges_users)
+
   def unique_badges(badges_users) do
     badges_users
     |> Enum.reduce(%{}, fn bu, acc ->
@@ -536,11 +537,11 @@ defmodule Cforum.Users do
       {:error, %Ecto.Changeset{}}
   """
   def authenticate_user(%User{} = user, password) do
-    if Helpers.present?(user.encrypted_password) && Comeonin.Bcrypt.checkpw(password, user.encrypted_password) do
+    if Helpers.present?(user.encrypted_password) && Bcrypt.verify_pass(password, user.encrypted_password) do
       {:ok, user}
     else
       # just waste some time for timing sidechannel attacks
-      Comeonin.Bcrypt.dummy_checkpw()
+      Bcrypt.no_user_verify()
 
       {:error,
        user
@@ -554,7 +555,7 @@ defmodule Cforum.Users do
     user = get_user_by_username_or_email(login)
 
     cond do
-      user && Helpers.present?(user.encrypted_password) && Comeonin.Bcrypt.checkpw(password, user.encrypted_password) ->
+      user && Helpers.present?(user.encrypted_password) && Bcrypt.verify_pass(password, user.encrypted_password) ->
         {:ok, user}
 
       user ->
@@ -562,7 +563,7 @@ defmodule Cforum.Users do
 
       true ->
         # just waste some time for timing sidechannel attacks
-        Comeonin.Bcrypt.dummy_checkpw()
+        Bcrypt.no_user_verify()
         {:error, User.login_changeset(%User{}, %{"login" => login, "password" => password})}
     end
   end

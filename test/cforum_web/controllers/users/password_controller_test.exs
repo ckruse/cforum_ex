@@ -44,7 +44,7 @@ defmodule CforumWeb.Users.PasswordControllerTest do
   end
 
   test "changes password", %{conn: conn} do
-    user = insert(:user, encrypted_password: Comeonin.Bcrypt.hashpwsalt("1234"))
+    user = insert(:user, encrypted_password: Bcrypt.hash_pwd_salt("1234"))
 
     conn =
       login(conn, user)
@@ -60,7 +60,7 @@ defmodule CforumWeb.Users.PasswordControllerTest do
   end
 
   test "does not change password when confirmation does not match", %{conn: conn} do
-    user = insert(:user, encrypted_password: Comeonin.Bcrypt.hashpwsalt("1234"))
+    user = insert(:user, encrypted_password: Bcrypt.hash_pwd_salt("1234"))
 
     conn =
       login(conn, user)
@@ -75,7 +75,7 @@ defmodule CforumWeb.Users.PasswordControllerTest do
   end
 
   test "does not change password when old password does not match", %{conn: conn} do
-    user = insert(:user, encrypted_password: Comeonin.Bcrypt.hashpwsalt("1234"))
+    user = insert(:user, encrypted_password: Bcrypt.hash_pwd_salt("1234"))
 
     conn =
       login(conn, user)

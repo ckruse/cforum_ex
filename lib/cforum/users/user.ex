@@ -155,7 +155,7 @@ defmodule Cforum.Users.User do
   defp put_password_hash(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
-        put_change(changeset, :encrypted_password, Comeonin.Bcrypt.hashpwsalt(pass))
+        change(changeset, Bcrypt.add_hash(pass, hash_key: :encrypted_password))
 
       _ ->
         changeset

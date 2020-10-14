@@ -16,7 +16,7 @@ defmodule Cforum.Factory do
   end
 
   def as_admin(user), do: %{user | admin: true}
-  def with_password(user, pass), do: %{user | encrypted_password: Comeonin.Bcrypt.hashpwsalt(pass)}
+  def with_password(user, pass), do: %{user | encrypted_password: Bcrypt.hash_pwd_salt(pass)}
 
   def with_badge(user, badge) do
     insert(:badge_user, user: user, badge: badge)
