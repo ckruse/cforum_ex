@@ -41,7 +41,7 @@ defmodule CforumWeb.Plug.SecurityHeaders do
   defp maybe_unsafe_eval(_), do: ""
 
   defp img_csp("/events/" <> _id), do: "; img-src 'self' *.tile.openstreetmap.de data:"
-  defp img_csp(_), do: ""
+  defp img_csp(_), do: "; img-src 'self' data:"
 
   defp maybe_osm_connect("/events/" <> _id), do: " nominatim.openstreetmap.org"
   defp maybe_osm_connect(_), do: ""
