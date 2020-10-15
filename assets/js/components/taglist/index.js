@@ -108,9 +108,13 @@ export default function TagList({ tags: propsTags, postingText, onChange, global
     };
   }, [postingText, refreshSuggestions]);
 
-  useEffect(() => {
-    refreshSuggestions();
-  }, [tags, refreshSuggestions]);
+  useEffect(
+    () => {
+      refreshSuggestions();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [tags]
+  );
 
   function addTag(tag) {
     if (!tags.find(([tag1, _]) => tag1 === tag)) {
