@@ -18,7 +18,11 @@ export default class Thumb extends React.PureComponent {
 
   componentDidUpdate() {
     if (this.props.file !== this.state.file) {
-      this.setState({ loading: true, file: this.props.file, thumb: undefined }, () => this.readFile(this.props.file));
+      this.setState({ loading: true, file: this.props.file, thumb: undefined }, () => {
+        if (this.props.file) {
+          this.readFile(this.props.file);
+        }
+      });
     } else if (this.state.file && !this.state.thumb) {
       this.readFile(this.state.file);
     }
