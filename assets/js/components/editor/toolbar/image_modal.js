@@ -15,6 +15,7 @@ export default class ImageModal extends React.Component {
     this.onAfterOpen = this.onAfterOpen.bind(this);
     this.okPressed = this.okPressed.bind(this);
     this.handleFileChanged = this.handleFileChanged.bind(this);
+    this.onCancel = this.onCancel.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -49,6 +50,11 @@ export default class ImageModal extends React.Component {
     } else {
       this.props.onCancel();
     }
+  }
+
+  onCancel() {
+    this.setState({ desc: "", title: "", file: null });
+    this.props.onCancel();
   }
 
   render() {
@@ -97,7 +103,7 @@ export default class ImageModal extends React.Component {
           <button className="cf-primary-btn" type="button" onClick={this.okPressed}>
             {t("add image")}
           </button>{" "}
-          <button className="cf-btn" type="button" onClick={this.props.onCancel}>
+          <button className="cf-btn" type="button" onClick={this.onCancel}>
             {t("cancel")}
           </button>
         </div>

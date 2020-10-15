@@ -132,7 +132,7 @@ export default class Dropzone extends React.Component {
   }
 
   onCancel() {
-    this.setState({ showImageModal: false });
+    this.setState({ showImageModal: false, file: null });
   }
 
   showImageModal() {
