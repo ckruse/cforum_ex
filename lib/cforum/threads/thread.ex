@@ -70,9 +70,10 @@ defmodule Cforum.Threads.Thread do
         now = Timex.local()
 
         s =
-          (now
-           |> Timex.lformat!("/%Y/%b/%d/", "en", :strftime)
-           |> String.downcase()) <> maybe_add_num(num) <> to_url(subject)
+          ((now
+            |> Timex.lformat!("/%Y/%b/%d/", "en", :strftime)
+            |> String.downcase()) <> maybe_add_num(num) <> to_url(subject))
+          |> String.slice(0, 255)
 
         if ThreadHelpers.slug_taken?(s),
           do: gen_slug(changeset, num + 1),
