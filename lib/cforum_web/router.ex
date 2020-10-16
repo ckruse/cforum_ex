@@ -90,7 +90,7 @@ defmodule CforumWeb.Router do
     scope "/admin", Admin, as: :admin do
       pipe_through(:admins)
 
-      live_dashboard "/dashboard", metrics: CforumWeb.Telemetry
+      live_dashboard "/dashboard", metrics: CforumWeb.Telemetry, ecto_repos: [Cforum.Repo]
 
       resources("/users", UserController, except: [:show])
       resources("/forums", ForumController, except: [:show])

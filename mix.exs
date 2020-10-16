@@ -68,6 +68,7 @@ defmodule Cforum.Mixfile do
       {:appsignal, "~> 1.0"},
       {:telemetry_poller, "~> 0.4"},
       {:telemetry_metrics, "~> 0.4"},
+      {:ecto_psql_extras, "~> 0.2"},
 
       # testing
       {:excoveralls, "~> 0.8", only: :test},
