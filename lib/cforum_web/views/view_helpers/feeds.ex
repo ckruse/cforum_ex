@@ -19,7 +19,7 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
         []},
        {:link, %{"rel" => "self", "type" => "application/atom+xml", "href" => Path.thread_url(conn, :atom, thread)},
         []},
-       {:title, nil, "#{message.subject} – #{CforumWeb.LayoutView.forum_name(forum)}"},
+       {:title, nil, safe_xml_pcdata("#{message.subject} – #{CforumWeb.LayoutView.forum_name(forum)}")},
        {:updated, nil, Timex.lformat!(thread.latest_message, "{RFC3339z}", "en")},
        messages
      ]}
@@ -56,8 +56,8 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
           "type" => "text/html",
           "href" => Path.message_url(conn, :show, thread, message)
         }, []},
-       {:title, nil, message.subject},
-       {:content, %{"type" => "html"}, html}
+       {:title, nil, safe_xml_pcdata(message.subject)},
+       {:content, %{"type" => "html"}, safe_xml_pcdata(html)}
      ]}
   end
 
@@ -77,8 +77,8 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
           "type" => "text/html",
           "href" => Path.message_url(conn, :show, thread, thread.message)
         }, []},
-       {:title, nil, thread.message.subject},
-       {:content, %{"type" => "html"}, html}
+       {:title, nil, safe_xml_pcdata(thread.message.subject)},
+       {:content, %{"type" => "html"}, safe_xml_pcdata(html)}
      ]}
   end
 
@@ -139,7 +139,7 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
      [
        {:channel, nil,
         [
-          {:title, nil, "#{message.subject} – #{CforumWeb.LayoutView.forum_name(forum)}"},
+          {:title, nil, safe_xml_pcdata("#{message.subject} – #{CforumWeb.LayoutView.forum_name(forum)}")},
           {:description, nil, desc},
           {:link, nil, Path.forum_url(conn, :index, forum)},
           {"atom:link",
@@ -155,11 +155,11 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
 
     {:item, nil,
      [
-       {:title, nil, thread.message.subject},
+       {:title, nil, safe_xml_pcdata(thread.message.subject)},
        {:pubDate, nil, Timex.lformat!(thread.message.created_at, "{RFC822z}", "en")},
        {:link, nil, Path.message_url(conn, :show, thread, thread.message)},
        {:guid, nil, Path.message_url(conn, :show, thread, thread.message)},
-       {:description, nil, html}
+       {:description, nil, safe_xml_pcdata(html)}
      ]}
   end
 
@@ -169,11 +169,14 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
 
     {:item, nil,
      [
-       {:title, nil, message.subject},
+       {:title, nil, safe_xml_pcdata(message.subject)},
        {:pubDate, nil, Timex.lformat!(message.created_at, "{RFC822z}", "en")},
        {:link, nil, Path.message_url(conn, :show, thread, message)},
        {:guid, nil, Path.message_url(conn, :show, thread, message)},
-       {:description, nil, html}
+       {:description, nil, safe_xml_pcdata(html)}
      ]}
   end
+
+  defp safe_xml_pcdata(content),
+    do: Regex.replace(~r/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u, content, " ")
 end
