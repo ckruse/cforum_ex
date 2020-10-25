@@ -262,7 +262,7 @@ defmodule CforumWeb.ThreadController do
 
     conn.assigns[:current_forum]
     |> Threads.list_threads(conn.assigns[:visible_forums])
-    |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+    |> Threads.reject_deleted_threads(conn.assigns[:view_all], true)
     |> Threads.reject_invisible_threads(user, conn.assigns[:view_all])
     |> Threads.apply_user_infos(user, omit: [:open_close, :subscriptions, :interesting])
     |> Threads.reject_read_threads(ThreadHelpers.hide_read_threads?(conn))
@@ -274,7 +274,7 @@ defmodule CforumWeb.ThreadController do
   defp get_thread_feed(conn, id) do
     conn.assigns[:current_forum]
     |> Threads.get_thread!(conn.assigns[:visible_forums], id)
-    |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+    |> Threads.reject_deleted_threads(conn.assigns[:view_all], true)
     |> Threads.ensure_found!()
     |> Threads.apply_user_infos(conn.assigns[:current_user], omit: [:open_close, :subscriptions, :interesting])
     |> Threads.apply_highlights(conn)
