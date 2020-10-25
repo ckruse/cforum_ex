@@ -10,8 +10,8 @@ const OUTPUT_PATH = path.resolve(__dirname, "..", "priv", "static");
 module.exports = function (env = {}, argv) {
   const IS_PROD = ENV === "prod";
   const ExtractCSS = new ExtractTextPlugin({
-    filename: "css/[name].css",
-    chunkFilename: IS_PROD ? "css/[id].[hash].css" : "css/[id].css",
+    filename: IS_PROD ? "css/[name].[contenthash].css" : "css/[name].css",
+    chunkFilename: IS_PROD ? "css/[name].[chunkhash].css" : "css/[name].css",
   });
 
   var PLUGINS = [
@@ -44,8 +44,8 @@ module.exports = function (env = {}, argv) {
     },
 
     output: {
-      filename: "js/[name].js",
-      chunkFilename: "js/[name].[chunkhash].js",
+      filename: IS_PROD ? "js/[name].[contenthash].js" : "js/[name].js",
+      chunkFilename: IS_PROD ? "js/[name].[chunkhash].js" : "js/[name].js",
       path: OUTPUT_PATH,
       publicPath: "/",
     },
