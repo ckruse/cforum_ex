@@ -21,18 +21,20 @@ module.exports = function (env = {}, argv) {
       VERSION: JSON.stringify(config.version),
       ENV: JSON.stringify(ENV),
     }),
-    new CopyWebpackPlugin([
-      {
-        context: "./static",
-        from: "**/*",
-        to: ".",
-      },
-      {
-        context: path.resolve(__dirname, "node_modules/leaflet/dist/images"),
-        from: path.resolve(__dirname, "node_modules/leaflet/dist/images/*"),
-        to: path.resolve(__dirname, "..", "priv/static/images/leaflet/"),
-      },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          context: "./static",
+          from: "**/*",
+          to: ".",
+        },
+        {
+          context: path.resolve(__dirname, "node_modules/leaflet/dist/images"),
+          from: path.resolve(__dirname, "node_modules/leaflet/dist/images/*"),
+          to: path.resolve(__dirname, "..", "priv/static/images/leaflet/"),
+        },
+      ],
+    }),
   ];
 
   return {
@@ -73,7 +75,7 @@ module.exports = function (env = {}, argv) {
               loader: ExtractTextPlugin.loader,
               options: { sourceMap: IS_PROD ? false : true },
             },
-            { loader: "css-loader", options: { sourceMap: IS_PROD ? false : true } },
+            { loader: "css-loader", options: { url: false, sourceMap: IS_PROD ? false : true } },
             { loader: "postcss-loader", options: { sourceMap: IS_PROD ? false : true } },
             { loader: "sass-loader", options: { sourceMap: IS_PROD ? false : true } },
           ],
