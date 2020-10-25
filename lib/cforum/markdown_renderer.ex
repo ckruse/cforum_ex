@@ -160,6 +160,7 @@ defmodule Cforum.MarkdownRenderer do
       Task.await(task, 1000)
     catch
       :exit, {:timeout, _} ->
+        System.stop(1)
         Task.shutdown(task, :brutal_kill)
         nil
     end
