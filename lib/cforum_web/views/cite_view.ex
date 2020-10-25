@@ -28,7 +28,7 @@ defmodule CforumWeb.CiteView do
 
   def body_classes(:index, _), do: "cites index"
   def body_classes(:index_voting, _), do: "cites votes index"
-  def body_classes(:show, _), do: "cites show"
+  def body_classes(:show, assigns), do: "cites show#{if votable?(assigns.conn, assigns.cite), do: " votable"}"
   def body_classes(action, _) when action in [:new, :create], do: "cites new"
   def body_classes(action, _) when action in [:edit, :update], do: "cites edit"
 

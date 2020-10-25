@@ -1,5 +1,9 @@
 if (document.body.dataset.controller === "CiteController") {
-  if (document.body.dataset.action === "index_voting") {
+  const loadVotingJs =
+    document.body.dataset.action === "index_voting" ||
+    (document.body.dataset.action === "show" && document.body.classList.contains("votable"));
+
+  if (loadVotingJs) {
     import(/* webpackChunkName: "cites" */ "./voting.js").then(({ default: setupVoting }) => setupVoting());
   }
 
