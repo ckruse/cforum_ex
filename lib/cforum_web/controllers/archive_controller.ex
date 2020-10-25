@@ -9,12 +9,20 @@ defmodule CforumWeb.ArchiveController do
   alias CforumWeb.Paginator
 
   def years(conn, _params) do
-    years = Archive.list_archive_years(conn.assigns[:current_forum], conn.assigns[:visible_forums])
+    years =
+      Archive.list_archive_years(conn.assigns[:current_forum], conn.assigns[:visible_forums],
+        view_all: conn.assigns[:view_all]
+      )
+
     render(conn, "years.html", years: years)
   end
 
   def months(conn, %{"year" => year}) do
-    months = Archive.list_archive_months(conn.assigns[:current_forum], conn.assigns[:visible_forums], year)
+    months =
+      Archive.list_archive_months(conn.assigns[:current_forum], conn.assigns[:visible_forums], year,
+        view_all: conn.assigns[:view_all]
+      )
+
     render(conn, "months.html", months: months, year: year)
   end
 
@@ -36,6 +44,7 @@ defmodule CforumWeb.ArchiveController do
             page: page,
             order: "ascending"
           )
+          |> Threads.reject_deleted_threads(conn.assigns[:view_all], true)
           |> Threads.apply_user_infos(conn.assigns[:current_user],
             close_read_threads: ConfigManager.uconf(conn, "open_close_close_when_read") == "yes",
             open_close_default_state: ConfigManager.uconf(conn, "open_close_default")

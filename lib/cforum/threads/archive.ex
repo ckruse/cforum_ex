@@ -43,15 +43,27 @@ defmodule Cforum.Threads.Archive do
     from(
       thread in Thread,
       select: fragment("DATE_TRUNC('month', created_at)"),
-      where: thread.deleted == false,
       group_by: fragment("1"),
       order_by: fragment("1 DESC")
     )
     |> ThreadHelpers.set_forum_id(visible_forums, forum)
-    |> ThreadHelpers.set_view_all(opts[:view_all])
+    |> maybe_filter_deleted(opts[:view_all])
     |> Repo.all()
     |> Enum.reduce(%{}, fn month, archive -> Map.update(archive, month.year, [month], &[month | &1]) end)
     |> Map.values()
+  end
+
+  defp maybe_filter_deleted(q, true), do: q
+
+  defp maybe_filter_deleted(q, _) do
+    from(thread in q,
+      where: thread.deleted == false,
+      where:
+        fragment(
+          "EXISTS(SELECT message_id FROM messages WHERE messages.deleted = false AND messages.thread_id = ?)",
+          thread.thread_id
+        )
+    )
   end
 
   def list_archive_months(forum, visible_forums, year, opts \\ []) do
@@ -60,10 +72,11 @@ defmodule Cforum.Threads.Archive do
     from(
       thread in Thread,
       select: fragment("DATE_TRUNC('month', created_at) AS year"),
-      where: thread.deleted == false and fragment("EXTRACT('year' from ?)", thread.created_at) == type(^year, :integer),
+      where: fragment("EXTRACT('year' from ?)", thread.created_at) == type(^year, :integer),
       group_by: fragment("1"),
       order_by: fragment("1 DESC")
     )
+    |> maybe_filter_deleted(opts[:view_all])
     |> ThreadHelpers.set_forum_id(visible_forums, forum)
     |> ThreadHelpers.set_view_all(opts[:view_all])
     |> Repo.all()
