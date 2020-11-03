@@ -1,8 +1,6 @@
 import L from "leaflet";
 import { OpenStreetMapProvider } from "leaflet-geosearch";
 
-import("leaflet/dist/leaflet.css");
-
 const showEvent = async (id, map) => {
   const response = await fetch(`/api/v1/event/${id}`);
   const event = await response.json();
@@ -11,7 +9,7 @@ const showEvent = async (id, map) => {
 
   // map.setView([0, 0], 0);
   if (results.length >= 1) {
-    results.forEach(result => {
+    results.forEach((result) => {
       L.marker([result.y, result.x])
         .addTo(map)
         .bindPopup(`<strong>${event.name}</strong><br>${event.location}`)
@@ -31,7 +29,7 @@ L.tileLayer("https://a.tile.openstreetmap.de/{z}/{x}/{y}.png", {
   attribution:
     'Kartendaten &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>, ' +
     '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-    'Bilddaten &copy; <a href="https://www.openstreetmap.de/">OpenStreetMap Deutschland</a>'
+    'Bilddaten &copy; <a href="https://www.openstreetmap.de/">OpenStreetMap Deutschland</a>',
 }).addTo(map);
 
 showEvent(eventId, map);
