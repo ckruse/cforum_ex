@@ -71,10 +71,7 @@ module.exports = function (env = {}, argv) {
         {
           test: /\.(sa|sc|c)ss$/,
           use: [
-            {
-              loader: ExtractTextPlugin.loader,
-              options: { sourceMap: IS_PROD ? false : true },
-            },
+            { loader: ExtractTextPlugin.loader },
             { loader: "css-loader", options: { url: false, sourceMap: IS_PROD ? false : true } },
             { loader: "postcss-loader", options: { sourceMap: IS_PROD ? false : true } },
             { loader: "sass-loader", options: { sourceMap: IS_PROD ? false : true } },
