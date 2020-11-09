@@ -51,6 +51,12 @@ defmodule CforumWeb.Users.RegistrationController do
     end
   end
 
+  def confirm(conn, _) do
+    conn
+    |> put_flash(:error, gettext("Oops, something went wrong!"))
+    |> redirect(to: Path.root_path(conn, :index))
+  end
+
   def allowed?(conn, _, _), do: !Abilities.signed_in?(conn)
 
   defp token_valid?(conn) do
