@@ -98,4 +98,6 @@ defmodule CforumWeb.ModerationController do
   end
 
   def allowed?(_, _, _), do: false
+
+  def id_fields(_), do: ["id"]
 end
