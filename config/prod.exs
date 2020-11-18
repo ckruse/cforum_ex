@@ -60,4 +60,6 @@ config :logger, level: :info
 # which should be versioned separately.
 import_config "prod.secret.exs"
 
-config :appsignal, :config, active: true
+config :appsignal, :config,
+  otp_app: :cforum,
+  active: true

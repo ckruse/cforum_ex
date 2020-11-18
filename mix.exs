@@ -65,7 +65,7 @@ defmodule Cforum.Mixfile do
       {:earmark, "~> 1.3.0"},
       {:html_entities, "~> 0.4"},
       {:nimble_parsec, "~> 0.2"},
-      {:appsignal, "~> 1.0"},
+      {:appsignal_phoenix, "~> 2.0.0"},
       {:telemetry_poller, "~> 0.4"},
       {:telemetry_metrics, "~> 0.4"},
       {:ecto_psql_extras, "~> 0.2"},

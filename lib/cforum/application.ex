@@ -4,9 +4,7 @@ defmodule Cforum.Application do
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
   def start(_type, _args) do
-    :telemetry.attach("appsignal-ecto", [:cforum, :repo, :query], &Appsignal.Ecto.handle_event/4, nil)
     :telemetry.attach("oban-failure", [:oban, :job, :exception], &Cforum.Jobs.Appsignal.handle_event/4, nil)
-    :telemetry.attach("oban-success", [:oban, :job, :stop], &Cforum.Jobs.Appsignal.handle_event/4, nil)
 
     # Define workers and child supervisors to be supervised
     children = [

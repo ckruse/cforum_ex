@@ -72,4 +72,6 @@ config :cforum,
     pool_size: 5
   ]
 
-config :appsignal, :config, active: false
+config :appsignal, :config,
+  otp_app: :cforum,
+  active: false
