@@ -36,13 +36,15 @@ defmodule Cforum.MarkdownRenderer do
   def to_html(object, user)
 
   def to_html(%{cite_id: id, cite: content}, _user) do
-    with {:ok, html} <- render_doc(content, "c-#{id}"),
-         do: {:safe, html}
+    content
+    |> render_doc("c-#{id}")
+    |> to_html_with_error_handling()
   end
 
   def to_html(%{description: content, event_id: id}, _user) do
-    with {:ok, html} <- render_doc(content, "e-#{id}"),
-         do: {:safe, html}
+    content
+    |> render_doc("e-#{id}")
+    |> to_html_with_error_handling()
   end
 
   def to_html(%Message{format: "markdown"} = message, conn) do
@@ -59,8 +61,9 @@ defmodule Cforum.MarkdownRenderer do
       "base" => Application.get_env(:cforum, :base_url, "http://localhost/")
     }
 
-    with {:ok, html} <- render_doc(content, "m-#{message.message_id}", conf),
-         do: {:safe, html}
+    content
+    |> render_doc("m-#{message.message_id}", conf)
+    |> to_html_with_error_handling()
   end
 
   def to_html(%Message{format: "cforum"} = message, conn) do
@@ -70,24 +73,35 @@ defmodule Cforum.MarkdownRenderer do
   end
 
   def to_html(%{body: content, priv_message_id: id}, _user) do
-    with {:ok, html} <- render_doc(content, "pm-#{id}"),
-         do: {:safe, html}
+    content
+    |> render_doc("pm-#{id}")
+    |> to_html_with_error_handling()
   end
 
   def to_html(%{description: content, badge_id: id}, _user) do
-    with {:ok, html} <- render_doc(content, "b-#{id}"),
-         do: {:safe, html}
+    content
+    |> render_doc("b-#{id}")
+    |> to_html_with_error_handling()
   end
 
   def to_html(str, :str) do
-    with {:ok, html} <- render_doc(str, "str"),
-         do: {:safe, html}
+    str
+    |> render_doc("str")
+    |> to_html_with_error_handling()
   end
 
-  def to_html(str) when is_bitstring(str), do: to_html(str, :str)
+  def to_html(str) when is_bitstring(str),
+    do: to_html(str, :str)
+
+  defp to_html_with_error_handling({:ok, str}), do: {:safe, str}
+  defp to_html_with_error_handling(_), do: System.halt(1)
 
   def render_doc(markdown, id, config \\ nil) do
-    :poolboy.transaction(pool_name(), fn pid -> GenServer.call(pid, {:render_doc, markdown, id, config}) end)
+    try do
+      :poolboy.transaction(pool_name(), fn pid -> GenServer.call(pid, {:render_doc, markdown, id, config}) end)
+    catch
+      :exit, _ -> System.halt(1)
+    end
   end
 
   @spec to_plain(Message.t() | Cite.t()) :: String.t()
@@ -100,17 +114,26 @@ defmodule Cforum.MarkdownRenderer do
   end
 
   def to_plain(%Message{} = message) do
-    with {:ok, text} <- render_plain(message.content, "m-#{message.message_id}"),
-         do: text
+    message.content
+    |> render_plain("m-#{message.message_id}")
+    |> to_plain_with_error_handling()
   end
 
   def to_plain(%Cite{} = cite) do
-    with {:ok, text} <- render_plain(cite.cite, "c-#{cite.cite_id}"),
-         do: text
+    cite.cite
+    |> render_plain("c-#{cite.cite_id}")
+    |> to_plain_with_error_handling()
   end
 
+  defp to_plain_with_error_handling({:ok, str}), do: str
+  defp to_plain_with_error_handling(_), do: System.halt(1)
+
   def render_plain(markdown, id) do
-    :poolboy.transaction(pool_name(), fn pid -> :gen_server.call(pid, {:render_plain, markdown, id}) end)
+    try do
+      :poolboy.transaction(pool_name(), fn pid -> :gen_server.call(pid, {:render_plain, markdown, id}) end)
+    catch
+      :exit, _ -> System.halt(1)
+    end
   end
 
   defp start_new_proc() do
@@ -160,7 +183,7 @@ defmodule Cforum.MarkdownRenderer do
       Task.await(task, 1000)
     catch
       :exit, {:timeout, _} ->
-        System.stop(1)
+        System.halt(1)
         Task.shutdown(task, :brutal_kill)
         nil
     end
