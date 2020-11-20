@@ -1,4 +1,4 @@
-defimpl Cforum.System.AuditingProtocol, for: Cforum.Messages.Message do
+defmodule Cforum.Messages.MessageAuditJson do
   @msg_auditing_fields_to_ignore [
     :__meta__,
     :user,
@@ -12,14 +12,14 @@ defimpl Cforum.System.AuditingProtocol, for: Cforum.Messages.Message do
     :messages
   ]
 
-  def audit_json(message) do
+  def to_json(message) do
     message = Cforum.Repo.preload(message, [:thread, :tags])
 
     message
     |> Map.from_struct()
     |> Map.drop(@msg_auditing_fields_to_ignore)
-    |> Map.put(:thread, Cforum.System.AuditingProtocol.audit_json(maybe_thread(message.thread)))
-    |> Map.put(:tags, Cforum.System.AuditingProtocol.audit_json(message.tags))
+    |> Map.put(:thread, Cforum.System.Auditing.Json.to_json(maybe_thread(message.thread)))
+    |> Map.put(:tags, Cforum.System.Auditing.Json.to_json(message.tags))
   end
 
   defp maybe_thread(%Ecto.Association.NotLoaded{}), do: nil

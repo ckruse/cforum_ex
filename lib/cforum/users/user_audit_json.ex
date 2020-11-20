@@ -1,7 +1,7 @@
-defimpl Cforum.System.AuditingProtocol, for: Cforum.Users.User do
-  def audit_json(user) do
+defmodule Cforum.Users.UserAuditJson do
+  def to_json(user) do
     user = Cforum.Repo.preload(user, [:badges])
-    badges = Enum.map(user.badges, &Cforum.System.AuditingProtocol.audit_json/1)
+    badges = Enum.map(user.badges, &Cforum.System.Auditing.Json.to_json/1)
 
     user
     |> Map.from_struct()

@@ -231,7 +231,7 @@ defmodule Cforum.System do
       relation: object.__struct__.__schema__(:source),
       relid: Map.get(object, pid_field),
       act: action,
-      contents: Cforum.System.AuditingProtocol.audit_json(object),
+      contents: Cforum.System.Auditing.Json.to_json(object),
       user_id: user_id
     })
   end
