@@ -9,7 +9,7 @@ defmodule Cforum.Jobs.UserCleanupJob do
   alias Cforum.Users.User
 
   @impl Oban.Worker
-  def perform(_, _) do
+  def perform(_) do
     cleanup_unconfirmed_users()
     cleanup_users_wo_posts()
     cleanup_inactive_users()

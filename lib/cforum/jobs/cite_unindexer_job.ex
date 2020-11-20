@@ -4,7 +4,7 @@ defmodule Cforum.Jobs.CiteUnindexerJob do
   alias Cforum.Search
 
   @impl Oban.Worker
-  def perform(%{"cite_id" => cite_id}, _) do
+  def perform(%Oban.Job{args: %{"cite_id" => cite_id}}) do
     doc = Search.get_document_by_reference_id(cite_id, :cites)
 
     if !is_nil(doc),

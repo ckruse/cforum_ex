@@ -8,7 +8,7 @@ defmodule Cforum.Jobs.YearlingBadgeDistributorJob do
   alias Cforum.Badges.Badge
 
   @impl Oban.Worker
-  def perform(_, _) do
+  def perform(_) do
     users =
       Users.all_users()
       |> Repo.preload([:badges_users])

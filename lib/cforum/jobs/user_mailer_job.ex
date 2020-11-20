@@ -4,7 +4,7 @@ defmodule Cforum.Jobs.UserMailerJob do
   alias Cforum.Users
 
   @impl Oban.Worker
-  def perform(%{"user_id" => id, "type" => "reset_password"}, _) do
+  def perform(%Oban.Job{args: %{"user_id" => id, "type" => "reset_password"}}) do
     user = Users.get_user!(id)
 
     user
@@ -15,7 +15,7 @@ defmodule Cforum.Jobs.UserMailerJob do
     :ok
   end
 
-  def perform(%{"user_id" => id, "type" => "confirm_user"}, _) do
+  def perform(%Oban.Job{args: %{"user_id" => id, "type" => "confirm_user"}}) do
     user = Users.get_user!(id)
 
     user

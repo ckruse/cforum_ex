@@ -2,7 +2,7 @@ defmodule Cforum.Jobs.UnindexMessageJob do
   use Oban.Worker, queue: :background, max_attempts: 5
 
   @impl Oban.Worker
-  def perform(%{"message_ids" => mids}, _) do
+  def perform(%Oban.Job{args: %{"message_ids" => mids}}) do
     Cforum.Search.delete_documents_by_reference_ids(mids)
   end
 

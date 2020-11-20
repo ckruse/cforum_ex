@@ -4,7 +4,7 @@ defmodule Cforum.Jobs.DeleteUserJob do
   alias Cforum.Repo
 
   @impl Oban.Worker
-  def perform(%{"user_id" => id, "executing_user_id" => euid}, _) do
+  def perform(%Oban.Job{args: %{"user_id" => id, "executing_user_id" => euid}}) do
     user = Cforum.Users.get_user!(id)
     current_user = Cforum.Users.get_user!(euid)
 
@@ -13,7 +13,7 @@ defmodule Cforum.Jobs.DeleteUserJob do
     :ok
   end
 
-  def perform(%{"user_id" => id}, _) do
+  def perform(%Oban.Job{args: %{"user_id" => id}}) do
     user = Cforum.Users.get_user!(id)
     delete_user(user, nil)
 

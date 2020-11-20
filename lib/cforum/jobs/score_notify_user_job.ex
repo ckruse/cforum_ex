@@ -5,7 +5,7 @@ defmodule Cforum.Jobs.ScoreNotifyUserJob do
   alias Cforum.Users.User
 
   @impl Oban.Worker
-  def perform(%{"user_id" => uid, "value" => value, "action" => action}, _) do
+  def perform(%Oban.Job{args: %{"user_id" => uid, "value" => value, "action" => action}}) do
     Caching.update(:cforum, "users/#{uid}", fn user ->
       if action == "delete",
         do: %User{user | score: user.score - value},

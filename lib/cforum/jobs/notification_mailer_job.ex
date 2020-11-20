@@ -2,7 +2,7 @@ defmodule Cforum.Jobs.NotificationMailerJob do
   use Oban.Worker, queue: :mails, max_attempts: 5
 
   @impl Oban.Worker
-  def perform(%{"priv_message_id" => pmid, "user_id" => uid, "type" => "priv_message"}, _) do
+  def perform(%Oban.Job{args: %{"priv_message_id" => pmid, "user_id" => uid, "type" => "priv_message"}}) do
     user = Cforum.Users.get_user!(uid)
     pm = Cforum.PrivMessages.get_priv_message!(user, pmid)
 
@@ -13,7 +13,7 @@ defmodule Cforum.Jobs.NotificationMailerJob do
     :ok
   end
 
-  def perform(%{"moderation_queue_entry_id" => modqid, "type" => "moderation_queue"}, _) do
+  def perform(%Oban.Job{args: %{"moderation_queue_entry_id" => modqid, "type" => "moderation_queue"}}) do
     entry = Cforum.ModerationQueue.get_entry!(modqid)
     m = Cforum.Messages.get_message!(entry.message_id, view_all: true)
     forum = Cforum.Forums.get_forum!(m.forum_id)

@@ -24,7 +24,7 @@ defmodule Cforum.Jobs.NewMessageBadgeDistributorJob do
   ]
 
   @impl Oban.Worker
-  def perform(%{"message_id" => mid}, _) do
+  def perform(%Oban.Job{args: %{"message_id" => mid}}) do
     message = Cforum.Messages.get_message!(mid)
     user = Users.get_user!(message.user_id)
 

@@ -29,7 +29,7 @@ defmodule Cforum.Jobs.MessageIndexerJob do
 
   @impl Oban.Worker
 
-  def perform(%{"message_id" => mid, "thread_id" => tid}, _) do
+  def perform(%Oban.Job{args: %{"message_id" => mid, "thread_id" => tid}}) do
     thread = Threads.get_thread!(tid)
     message = Messages.get_message!(mid)
     index_message(thread, message)
@@ -37,7 +37,7 @@ defmodule Cforum.Jobs.MessageIndexerJob do
     :ok
   end
 
-  def perform(%{"message_ids" => ids}, _) do
+  def perform(%Oban.Job{args: %{"message_ids" => ids}}) do
     Enum.each(ids, fn id ->
       message = Messages.get_message(id)
       thread = Threads.get_thread!(message.thread_id)

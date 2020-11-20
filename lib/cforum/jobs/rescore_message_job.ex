@@ -2,7 +2,7 @@ defmodule Cforum.Jobs.RescoreMessageJob do
   use Oban.Worker, queue: :background, max_attempts: 5
 
   @impl Oban.Worker
-  def perform(%{"message_ids" => mids}, _) do
+  def perform(%Oban.Job{args: %{"message_ids" => mids}}) do
     Enum.each(mids, fn mid ->
       msg = Cforum.Messages.get_message!(mid)
       doc = Cforum.Search.get_document_by_reference_id(msg.message_id)

@@ -16,7 +16,7 @@ defmodule Cforum.Jobs.SendInactivityNotificationMailJob do
   ]
 
   @impl Oban.Worker
-  def perform(_, _) do
+  def perform(_) do
     notify_users_inactive_longer_5years()
     Enum.each(@limits, &notify_users_inactive_in_limit/1)
   end

@@ -6,7 +6,8 @@ defmodule Cforum.Jobs.AuditingCleanupJob do
   alias Cforum.Repo
   alias Cforum.System.Auditing
 
-  def perform(_, _) do
+  @impl Oban.Worker
+  def perform(_) do
     from(au in Auditing, where: au.created_at < ago(12, "month"))
     |> Repo.delete_all()
 

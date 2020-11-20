@@ -19,7 +19,7 @@ config :cforum, Cforum.Repo,
   hostname: System.get_env("DB_HOST", "localhost"),
   pool: Ecto.Adapters.SQL.Sandbox
 
-config :cforum, Oban, crontab: false, queues: false, prune: :disabled
+config :cforum, Oban, crontab: false, queues: false, plugins: false
 config :cforum, Cforum.Mailer, adapter: Swoosh.Adapters.Test
 
 config :cforum,

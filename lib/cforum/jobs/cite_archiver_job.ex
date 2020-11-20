@@ -8,7 +8,7 @@ defmodule Cforum.Jobs.CiteArchiverJob do
   require Logger
 
   @impl Oban.Worker
-  def perform(_, _) do
+  def perform(_) do
     setting = Settings.get_global_setting()
     min_age = ConfigManager.conf(setting, "cites_min_age_to_archive", :int)
     cites = Cites.list_cites_to_archive(min_age)

@@ -10,7 +10,7 @@ defmodule Cforum.Jobs.CiteIndexerJob do
   alias CforumWeb.Router.Helpers
 
   @impl Oban.Worker
-  def perform(%{"cite_id" => cite_id}, _) do
+  def perform(%Oban.Job{args: %{"cite_id" => cite_id}}) do
     cite_id
     |> Cforum.Cites.get_cite!()
     |> index_cite()

@@ -9,7 +9,7 @@ defmodule Cforum.Jobs.ImageResizerJob do
   end
 
   @impl Oban.Worker
-  def perform(%{"medium_id" => id}, _) do
+  def perform(%Oban.Job{args: %{"medium_id" => id}}) do
     if Application.get_env(:cforum, :environment) != :test do
       img = Media.get_image!(id)
       resize_image(img, "thumb")

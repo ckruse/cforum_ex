@@ -16,7 +16,7 @@ defmodule Cforum.Jobs.ArchiverJob do
   import Ecto.{Query, Changeset}, warn: false
 
   @impl Oban.Worker
-  def perform(_, _) do
+  def perform(_) do
     Forums.list_forums()
     |> Enum.each(&archive_for_forum/1)
 

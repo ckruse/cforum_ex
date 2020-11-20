@@ -7,7 +7,7 @@ defmodule Cforum.Jobs.DatabaseMaintenanceJob do
   alias Cforum.Repo
 
   @impl Oban.Worker
-  def perform(_, _) do
+  def perform(_) do
     Logger.info("Starting database maintenance…")
 
     Logger.info("VACCUM FULL ANALYZE…")

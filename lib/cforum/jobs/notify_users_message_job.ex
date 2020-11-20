@@ -12,7 +12,7 @@ defmodule Cforum.Jobs.NotifyUsersMessageJob do
   alias CforumWeb.Views.ViewHelpers.Path
 
   @impl Oban.Worker
-  def perform(%{"thread_id" => tid, "message_id" => mid, "type" => type}, _) do
+  def perform(%Oban.Job{args: %{"thread_id" => tid, "message_id" => mid, "type" => type}}) do
     thread = Cforum.Threads.get_thread!(tid)
     message = Cforum.Messages.get_message_from_mid!(thread, mid)
 

@@ -8,7 +8,7 @@ defmodule Cforum.Jobs.ForumStatsJob do
   alias Cforum.Forums.Forum
 
   @impl Oban.Worker
-  def perform(_, _) do
+  def perform(_) do
     Logger.info("Renerating forum statistics…")
 
     from(Forum, select: fragment("gen_forum_stats(forum_id::integer)"))

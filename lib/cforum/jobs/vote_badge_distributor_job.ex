@@ -19,7 +19,7 @@ defmodule Cforum.Jobs.VoteBadgeDistributorJob do
     |> Oban.insert!()
   end
 
-  def perform(%{"vote_id" => id}, _) do
+  def perform(%Oban.Job{args: %{"vote_id" => id}}) do
     vote = Votes.get_vote!(id)
     user = Users.get_user!(vote.user_id)
     message = Messages.get_message!(vote.message_id, view_all: true)
