@@ -28,5 +28,5 @@ sleep 5
 ssh $HOST "cd $DIR/cforum && ./bin/cforum rpc 'Cforum.Release.migrate'"
 ssh $HOST "cd $DIR/cforum && rm -rf cforum-$VERSION.tar.gz cforum-$VERSION/"
 
-curl -X POST -d "{\"revision\": \"$VERSION\", \"user\": \"ckruse\"}" "https://push.appsignal.com/1/markers?api_key=${key}&name=SELFHTML+Forum+V5&environment=prod" >/dev/null
+curl -X POST -d "{\"revision\": \"$VERSION\", \"user\": \"ckruse\"}" "https://push.appsignal.com/1/markers?api_key=${key}&name=SELFHTML+Forum&environment=prod" >/dev/null
 
