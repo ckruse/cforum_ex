@@ -92,15 +92,14 @@ defmodule Cforum.MarkdownRenderer do
     do: to_html(str, :str)
 
   defp to_html_with_error_handling({:ok, str}), do: {:safe, str}
-  # System.halt(1)
-  defp to_html_with_error_handling(_), do: {:safe, ""}
+  defp to_html_with_error_handling(_), do: System.halt(1)
 
   def render_doc(markdown, id, config \\ nil) do
-    # try do
-    :poolboy.transaction(pool_name(), fn pid -> GenServer.call(pid, {:render_doc, markdown, id, config}) end)
-    # catch
-    #   :exit, _ -> System.halt(1)
-    # end
+    try do
+      :poolboy.transaction(pool_name(), fn pid -> GenServer.call(pid, {:render_doc, markdown, id, config}) end)
+    catch
+      :exit, _ -> System.halt(1)
+    end
   end
 
   @spec to_plain(Message.t() | Cite.t()) :: String.t()
@@ -125,15 +124,14 @@ defmodule Cforum.MarkdownRenderer do
   end
 
   defp to_plain_with_error_handling({:ok, str}), do: str
-  # System.halt(1)
-  defp to_plain_with_error_handling(_), do: ""
+  defp to_plain_with_error_handling(_), do: System.halt(1)
 
   def render_plain(markdown, id) do
-    # try do
-    :poolboy.transaction(pool_name(), fn pid -> :gen_server.call(pid, {:render_plain, markdown, id}) end)
-    # catch
-    #   :exit, _ -> System.halt(1)
-    # end
+    try do
+      :poolboy.transaction(pool_name(), fn pid -> :gen_server.call(pid, {:render_plain, markdown, id}) end)
+    catch
+      :exit, _ -> System.halt(1)
+    end
   end
 
   defp read_line(data, timeout, terminator) do
