@@ -54,7 +54,6 @@ defmodule Cforum.Mixfile do
       {:waffle_ecto, "~> 0.0.7"},
       {:waffle, "~> 1.0.0"},
       {:poolboy, "~> 1.5.1"},
-      {:porcelain, git: "https://github.com/ckruse/porcelain.git"},
       {:jason, "~> 1.0"},
       {:slugify, "~> 1.1"},
       {:xml_builder, "~> 2.1.1"},

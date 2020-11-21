@@ -22,7 +22,7 @@ defmodule Cforum.Jobs.ImageResizerJob do
   defp resize_image(img, version) do
     arguments = convert_arguments(img, version)
     convert = Application.get_env(:cforum, :convert)
-    Porcelain.exec(convert, arguments)
+    System.cmd(convert, arguments)
   end
 
   defp convert_arguments(img, version) do

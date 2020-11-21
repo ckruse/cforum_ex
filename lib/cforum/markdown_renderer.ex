@@ -6,8 +6,6 @@ defmodule Cforum.MarkdownRenderer do
 
   use GenServer
 
-  alias Porcelain.Process, as: Proc
-
   alias Cforum.Cites.Cite
   alias Cforum.Events.Event
   alias Cforum.Messages.Message
@@ -94,14 +92,15 @@ defmodule Cforum.MarkdownRenderer do
     do: to_html(str, :str)
 
   defp to_html_with_error_handling({:ok, str}), do: {:safe, str}
-  defp to_html_with_error_handling(_), do: System.halt(1)
+  # System.halt(1)
+  defp to_html_with_error_handling(_), do: {:safe, ""}
 
   def render_doc(markdown, id, config \\ nil) do
-    try do
-      :poolboy.transaction(pool_name(), fn pid -> GenServer.call(pid, {:render_doc, markdown, id, config}) end)
-    catch
-      :exit, _ -> System.halt(1)
-    end
+    # try do
+    :poolboy.transaction(pool_name(), fn pid -> GenServer.call(pid, {:render_doc, markdown, id, config}) end)
+    # catch
+    #   :exit, _ -> System.halt(1)
+    # end
   end
 
   @spec to_plain(Message.t() | Cite.t()) :: String.t()
@@ -126,114 +125,119 @@ defmodule Cforum.MarkdownRenderer do
   end
 
   defp to_plain_with_error_handling({:ok, str}), do: str
-  defp to_plain_with_error_handling(_), do: System.halt(1)
+  # System.halt(1)
+  defp to_plain_with_error_handling(_), do: ""
 
   def render_plain(markdown, id) do
-    try do
-      :poolboy.transaction(pool_name(), fn pid -> :gen_server.call(pid, {:render_plain, markdown, id}) end)
-    catch
-      :exit, _ -> System.halt(1)
+    # try do
+    :poolboy.transaction(pool_name(), fn pid -> :gen_server.call(pid, {:render_plain, markdown, id}) end)
+    # catch
+    #   :exit, _ -> System.halt(1)
+    # end
+  end
+
+  defp read_line(data, timeout, terminator) do
+    receive do
+      {_, {:data, chunk}} ->
+        if String.ends_with?(chunk, terminator),
+          do: {:ok, data <> String.replace_suffix(chunk, terminator, "")},
+          else: read_line(data <> chunk, timeout, terminator)
+    after
+      timeout ->
+        {:error, :timeout}
     end
   end
 
   defp start_new_proc() do
     conf = Application.get_env(:cforum, :cfmarkdown)
 
-    cli =
+    port =
       if conf[:pwd],
-        do: "cd #{conf[:pwd]} && #{conf[:cli]}",
-        else: conf[:cli]
+        do: Port.open({:spawn, conf[:cli]}, [:binary, {:cd, conf[:pwd]}]),
+        else: Port.open({:spawn, conf[:cli]}, [:binary])
 
-    proc = Porcelain.spawn_shell(cli, in: :receive, out: :stream)
-    ["ok\n"] = Enum.take(proc.out, 1)
-    proc
+    {:ok, "ok"} = read_line("", 5000, "\n")
+    port
   end
 
-  defp ensure_proc(nil, _), do: {start_new_proc(), @max_runs}
+  defp ensure_port(nil, _), do: {start_new_proc(), @max_runs}
 
-  defp ensure_proc(proc, runs) do
-    if Proc.alive?(proc) && runs > 0 do
-      {proc, runs - 1}
+  defp ensure_port(port, runs) do
+    if runs > 0 do
+      {port, runs - 1}
     else
-      Proc.stop(proc)
+      Port.close(port)
       {start_new_proc(), @max_runs}
     end
   end
 
-  defp read_line(proc) do
-    Enum.reduce_while(proc.out, "", fn line, acc ->
-      if Regex.match?(~r/--eof--$/, line),
-        do: {:halt, acc <> Regex.replace(~r/--eof--$/, line, "")},
-        else: {:cont, acc <> line}
-    end)
-  end
+  # defp read_line(proc) do
+  #   Enum.reduce_while(proc.out, "", fn line, acc ->
+  #     if Regex.match?(~r/--eof--$/, line),
+  #       do: {:halt, acc <> Regex.replace(~r/--eof--$/, line, "")},
+  #       else: {:cont, acc <> line}
+  #   end)
+  # end
 
-  defp send_and_receive(proc, out) do
-    task =
-      Task.async(fn ->
-        Proc.send_input(proc, out)
-        line = read_line(proc)
+  defp send_and_receive(port, out) do
+    Port.command(port, out)
 
-        with {:ok, json} <- Jason.decode(line) do
-          json
-        end
-      end)
-
-    try do
-      Task.await(task, 1000)
-    catch
-      :exit, {:timeout, _} ->
-        System.halt(1)
-        Task.shutdown(task, :brutal_kill)
-        nil
+    with {:ok, line} <- read_line("", 1000, "--eof--\n"),
+         {:ok, json} <- Jason.decode(line) do
+      json
     end
   end
 
-  defp response(%{"status" => "ok", "html" => html}, proc, runs),
-    do: {:reply, {:ok, html}, {proc, runs}}
+  defp response(%{"status" => "ok", "html" => html}, port, runs),
+    do: {:reply, {:ok, html}, {port, runs}}
 
-  defp response(v, proc, _) when not is_map(v) do
-    Proc.stop(proc)
+  defp response(v, port, _) when not is_map(v) do
+    Port.close(port)
     {:reply, {:error, :unknown_retval}, {nil, 0}}
   end
 
-  defp response(v, proc, _) do
-    Proc.stop(proc)
+  defp response(v, port, _) do
+    Port.close(port)
     {:reply, {:error, v["message"]}, {nil, 0}}
   end
 
   #
   # server callbacks
   #
-  def handle_call({:render_doc, markdown, id, config}, _sender, {proc, runs}) do
+  def handle_call({:render_doc, markdown, id, config}, _sender, {port, runs}) do
     if Application.get_env(:cforum, :environment) == :test do
-      {:reply, {:ok, markdown}, {proc, runs + 1}}
+      {:reply, {:ok, markdown}, {port, runs + 1}}
     else
-      {proc, runs} = ensure_proc(proc, runs)
+      {port, runs} = ensure_port(port, runs)
       out = Jason.encode!(%{markdown: markdown, id: id, config: config}) <> "\n"
 
-      proc
+      port
       |> send_and_receive(out)
-      |> response(proc, runs)
+      |> response(port, runs)
     end
   end
 
-  def handle_call({:render_plain, markdown, id}, _sender, {proc, runs}) do
+  def handle_call({:render_plain, markdown, id}, _sender, {port, runs}) do
     if Application.get_env(:cforum, :environment) == :test do
-      {:reply, {:ok, markdown}, {proc, runs + 1}}
+      {:reply, {:ok, markdown}, {port, runs + 1}}
     else
-      {proc, runs} = ensure_proc(proc, runs)
+      {port, runs} = ensure_port(port, runs)
       out = Jason.encode!(%{markdown: markdown, target: "plain", id: id}) <> "\n"
 
-      proc
+      port
       |> send_and_receive(out)
-      |> response(proc, runs)
+      |> response(port, runs)
     end
   end
 
-  def terminate(_, {proc, _runs}) do
-    if proc,
-      do: Proc.stop(proc)
+  def handle_info({:EXIT, port, _reason}, _state) do
+    Port.close(port)
+    {:noreply, {nil, 0}}
+  end
+
+  def terminate(_, {port, _runs}) do
+    if port,
+      do: Port.close(port)
 
     {nil, 0}
   end
