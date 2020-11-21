@@ -3,7 +3,7 @@ import { t } from "../../modules/i18n";
 
 import "./mark_read";
 
-const toggleFoldedHandler = ev => {
+const toggleFoldedHandler = (ev) => {
   const btn = ev.target;
   const posting = btn.closest(".posting-nested");
   toggleFolded(posting, btn);
@@ -23,7 +23,7 @@ const toggleFolded = (posting, button = null) => {
   }
 };
 
-const foldMessage = el => {
+const foldMessage = (el) => {
   if (el.classList.contains("deleted") && !isInAdminView()) {
     return;
   }
@@ -76,15 +76,15 @@ const toggleActiveMessage = (messageId, scrollToIt = true) => {
 const foldAllMode = () =>
   document.querySelector(".cf-thread-nested-root.folded, .cf-thread-nested-root .folded") ? "unfold" : "fold";
 
-const toggleAll = ev => {
+const toggleAll = (ev) => {
   ev.stopPropagation();
   const mode = foldAllMode();
 
   if (mode === "fold") {
-    document.querySelectorAll(".cf-thread-message:not(.folded)").forEach(el => toggleFolded(el));
+    document.querySelectorAll(".cf-thread-message:not(.folded)").forEach((el) => toggleFolded(el));
     ev.target.textContent = t("unfold all");
   } else {
-    document.querySelectorAll(".cf-thread-message.folded").forEach(el => toggleFolded(el));
+    document.querySelectorAll(".cf-thread-message.folded").forEach((el) => toggleFolded(el));
     ev.target.textContent = t("fold all");
   }
 
@@ -98,7 +98,7 @@ const initialFold = () => {
 
   document
     .querySelectorAll(".cf-thread-nested .cf-thread-message > .posting-header > .cf-message-header")
-    .forEach(el => foldMessage(el));
+    .forEach((el) => foldMessage(el));
 
   const el = document.querySelector(".cf-thread-nested .cf-thread-message.active");
   if (el) {
@@ -130,58 +130,54 @@ const initialFoldConfigDidLoad = () => {
   initialFold();
 };
 
-const initNestedView = () => {
-  initialFold();
-  document.addEventListener("cf:configDidLoad", initialFoldConfigDidLoad);
+initialFold();
+document.addEventListener("cf:configDidLoad", initialFoldConfigDidLoad);
 
-  document.querySelector(".cf-thread-list").addEventListener("click", function(ev) {
-    const url = ev.target.href;
-    if (!url || !url.match(/#m\d+$/)) {
-      return;
-    }
+document.querySelector(".cf-thread-list").addEventListener("click", function (ev) {
+  const url = ev.target.href;
+  if (!url || !url.match(/#m\d+$/)) {
+    return;
+  }
 
-    const parsedUrl = parseMessageUrl(url);
-    const location = parseMessageUrl(document.location.href);
-    const elem = document.getElementById("m" + parsedUrl.messageId);
+  const parsedUrl = parseMessageUrl(url);
+  const location = parseMessageUrl(document.location.href);
+  const elem = document.getElementById("m" + parsedUrl.messageId);
 
-    /* ignore this click if link links to a different thread or is a message not yet loaded */
-    if (parsedUrl.slug !== location.slug || parsedUrl.forum !== location.forum || !elem) {
-      return;
-    }
+  /* ignore this click if link links to a different thread or is a message not yet loaded */
+  if (parsedUrl.slug !== location.slug || parsedUrl.forum !== location.forum || !elem) {
+    return;
+  }
 
-    ev.preventDefault();
-    window.history.pushState("#m" + parsedUrl.messageId, "", url);
-    toggleActiveMessage("m" + parsedUrl.messageId);
-  });
+  ev.preventDefault();
+  window.history.pushState("#m" + parsedUrl.messageId, "", url);
+  toggleActiveMessage("m" + parsedUrl.messageId);
+});
 
-  window.addEventListener("popstate", () => {
-    if (!document.location.href.match(/#m\d+$/)) {
-      return;
-    }
+window.addEventListener("popstate", () => {
+  if (!document.location.href.match(/#m\d+$/)) {
+    return;
+  }
 
-    const parsedUrl = parseMessageUrl(document.location.href);
-    const active = document.querySelector(
-      ".cf-thread-nested .cf-thread-message.active > .posting-header > .cf-message-header"
-    );
-    if (active && active.id === "m" + parsedUrl.messageId) {
-      return;
-    }
+  const parsedUrl = parseMessageUrl(document.location.href);
+  const active = document.querySelector(
+    ".cf-thread-nested .cf-thread-message.active > .posting-header > .cf-message-header"
+  );
+  if (active && active.id === "m" + parsedUrl.messageId) {
+    return;
+  }
 
-    toggleActiveMessage("m" + parsedUrl.messageId, false);
-  });
+  toggleActiveMessage("m" + parsedUrl.messageId, false);
+});
 
-  document.querySelector(".cf-thread-nested-root").addEventListener("click", ev => {
-    const trgt = ev.target;
-    if (!trgt.matches(".cf-thread-message header a") || !trgt.href.match(/#m\d+$/)) {
-      return;
-    }
+document.querySelector(".cf-thread-nested-root").addEventListener("click", (ev) => {
+  const trgt = ev.target;
+  if (!trgt.matches(".cf-thread-message header a") || !trgt.href.match(/#m\d+$/)) {
+    return;
+  }
 
-    ev.preventDefault();
+  ev.preventDefault();
 
-    const newMessageUrl = parseMessageUrl(trgt.href);
-    window.history.pushState("#m" + newMessageUrl.messageId, "", trgt.href);
-    toggleActiveMessage("m" + newMessageUrl.messageId);
-  });
-};
-
-export default initNestedView;
+  const newMessageUrl = parseMessageUrl(trgt.href);
+  window.history.pushState("#m" + newMessageUrl.messageId, "", trgt.href);
+  toggleActiveMessage("m" + newMessageUrl.messageId);
+});

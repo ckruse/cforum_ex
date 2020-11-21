@@ -3,7 +3,7 @@ import { parse } from "../helpers";
 import { maybeCloseThread, openOrCloseThread } from "./open_close";
 import { hideThread, maybeHide } from "./hide";
 
-const addIcons = el => {
+const addIcons = (el) => {
   const id = el.closest(".cf-thread").id;
   const closeState = localStorage.getItem(`${id}_oc_state`);
   const icon = closeState === "closed" ? "svg-folder-closed" : "svg-folder-open";
@@ -21,7 +21,7 @@ const addIcons = el => {
   el.appendChild(node);
 };
 
-const handleClick = ev => {
+const handleClick = (ev) => {
   const target = ev.target.closest("button");
   if (!target.classList.contains("icon-button")) {
     return;
@@ -37,22 +37,18 @@ const handleClick = ev => {
   }
 };
 
-const setupAnonynmous = () => {
-  document
-    .querySelectorAll(
-      "[data-controller='ThreadController'][data-action='index'] .cf-thread-list .cf-thread > .cf-message-header"
-    )
-    .forEach(el => {
-      if (!maybeHide(el)) {
-        maybeCloseThread(el);
-        addIcons(el);
-      }
-    });
+document
+  .querySelectorAll(
+    "[data-controller='ThreadController'][data-action='index'] .cf-thread-list .cf-thread > .cf-message-header"
+  )
+  .forEach((el) => {
+    if (!maybeHide(el)) {
+      maybeCloseThread(el);
+      addIcons(el);
+    }
+  });
 
-  const el = document.querySelector("[data-controller='ThreadController'][data-action='index'] .cf-thread-list");
-  if (el) {
-    el.addEventListener("click", handleClick);
-  }
-};
-
-export default setupAnonynmous;
+const el = document.querySelector("[data-controller='ThreadController'][data-action='index'] .cf-thread-list");
+if (el) {
+  el.addEventListener("click", handleClick);
+}

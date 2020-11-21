@@ -5,15 +5,10 @@ import { ErrorBoundary } from "@appsignal/react";
 import TagList from "../components/taglist";
 import appsignal, { FallbackComponent } from "../appsignal";
 
-const setupTaglist = () => {
-  const el = document.querySelector(".cf-form-tagslist");
-  if (!el) {
-    return;
-  }
-
+const setupTaglist = (el) => {
   const tags = Array.from(el.querySelectorAll('input[data-tag="yes"]'))
-    .filter(t => !!t.value)
-    .map(t => {
+    .filter((t) => !!t.value)
+    .map((t) => {
       const elem = t.previousElementSibling.querySelector(".error");
       return [t.value, elem ? elem.textContent : null];
     });
@@ -40,11 +35,14 @@ const setupTaglist = () => {
   fset.remove();
 
   render(
-    <ErrorBoundary instance={appsignal} fallback={error => <FallbackComponent />}>
+    <ErrorBoundary instance={appsignal} fallback={(error) => <FallbackComponent />}>
       <TagList tags={tags} postingText={text} globalTagsError={globalTagsError} />
     </ErrorBoundary>,
     node
   );
 };
 
-export default setupTaglist;
+const el = document.querySelector(".cf-form-tagslist");
+if (el) {
+  setupTaglist(el);
+}

@@ -4,10 +4,10 @@ if (document.body.dataset.controller === "CiteController") {
     (document.body.dataset.action === "show" && document.body.classList.contains("votable"));
 
   if (loadVotingJs) {
-    import(/* webpackChunkName: "cites" */ "./voting.js").then(({ default: setupVoting }) => setupVoting());
+    import(/* webpackChunkName: "cites" */ "./voting.js");
   }
 
   if (document.body.dataset.action === "new") {
-    import(/* webpackChunkName: "cites" */ "./new-cite.js").then(({ default: setupNewCite }) => setupNewCite());
+    import(/* webpackChunkName: "cites" */ "./new-cite.js");
   }
 }

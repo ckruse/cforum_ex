@@ -102,7 +102,4 @@ const setButtonStatus = (button, active) => {
   }
 };
 
-const setupVoting = () =>
-  document.querySelectorAll(".cf-voting-area-cites").forEach((elem) => elem.addEventListener("click", voteForMessage));
-
-export default setupVoting;
+document.querySelectorAll(".cf-voting-area-cites").forEach((elem) => elem.addEventListener("click", voteForMessage));

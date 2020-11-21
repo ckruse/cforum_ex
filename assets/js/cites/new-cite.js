@@ -1,12 +1,7 @@
 import { parseMessageUrl } from "../modules/helpers";
 
-export default () => {
-  const elem = document.getElementById("cite_url");
-  if (!elem) {
-    return;
-  }
-
-  elem.addEventListener("input", ev => {
+const setup = (elem) => {
+  elem.addEventListener("input", (ev) => {
     const url = parseMessageUrl(ev.target.value);
     const elem = document.getElementById("cite_author").closest(".cf-cgroup");
 
@@ -23,3 +18,8 @@ export default () => {
     }, 300);
   });
 };
+
+const elem = document.getElementById("cite_url");
+if (elem) {
+  setup(elem);
+}

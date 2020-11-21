@@ -95,4 +95,4 @@ const autoloadMessage = async (ev) => {
   insertRenderedThread(thread, message, text, id_prefix);
 };
 
-export default () => document.addEventListener("cf:newMessage", autoloadMessage);
+document.addEventListener("cf:newMessage", autoloadMessage);
