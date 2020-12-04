@@ -13,9 +13,8 @@ defmodule CforumWeb.AdventView do
   def body_classes(:index, _), do: "advent-calendar index"
   def body_classes(:show, %{year: year}), do: "advent-calendar index day year-#{year}"
 
-  def find_day(days, no) do
+  def find_day(days, no, today) do
     day = Enum.find(days, &(&1.date.day == no))
-    today = Timex.today()
 
     cond do
       day == nil -> nil
