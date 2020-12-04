@@ -18,7 +18,7 @@ defmodule CforumWeb.AdventView do
 
     cond do
       day == nil -> nil
-      Timex.before?(day.date, today) || Timex.equal?(day.date, today) -> day
+      Timex.before?(day.date, today) || Timex.equal?(day.date, today, :day) -> day
       true -> nil
     end
   end
