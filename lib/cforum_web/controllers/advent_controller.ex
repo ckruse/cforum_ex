@@ -10,7 +10,7 @@ defmodule CforumWeb.AdventController do
 
   def show(conn, %{"year" => year}) do
     advent_calendar_days = AdventCalendars.list_advent_calendar_days(year)
-    render(conn, "show.html", advent_calendar_days: advent_calendar_days, year: year, today: Timex.today())
+    render(conn, "show.html", advent_calendar_days: advent_calendar_days, year: year, today: Timex.local())
   end
 
   def allowed?(_, _, _), do: true
