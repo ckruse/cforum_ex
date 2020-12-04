@@ -1,6 +1,6 @@
 import { clearChildren } from "../modules/helpers";
 
-const genOrder = year => {
+const genOrder = (year) => {
   const val = localStorage.getItem(`advent-order-${year}`);
   if (val) {
     return JSON.parse(val);
@@ -23,20 +23,21 @@ const randomizeOrder = (calendar, year) => {
   const elements = Array.from(calendar.querySelectorAll("li"));
   const order = genOrder(year);
 
-  const newElements = order.map(i => elements[i]);
+  const newElements = order.map((i) => elements[i]);
 
   clearChildren(calendar);
-  newElements.forEach(day => calendar.appendChild(day));
+  newElements.forEach((day) => calendar.appendChild(day));
 };
 
-const parseOpened = year => {
+const parseOpened = (year) => {
+  const today = new Date().getDate();
   const opened = JSON.parse(localStorage.getItem(`advent-calendar-${year}`) || "[]");
 
   if (!(opened instanceof Array)) {
     return [];
   }
 
-  return opened;
+  return opened.filter((day) => day <= today);
 };
 
 const addToOpened = (ev, year) => {
@@ -46,18 +47,23 @@ const addToOpened = (ev, year) => {
 
   const opened = parseOpened(year);
   const no = parseInt(el.querySelector(".day").textContent);
-  opened.push(no);
+  const today = new Date().getDate();
 
-  localStorage.setItem(`advent-calendar-${year}`, JSON.stringify(opened));
+  if (no <= today) {
+    opened.push(no);
+
+    localStorage.setItem(`advent-calendar-${year}`, JSON.stringify(opened));
+  }
 };
 
-const hideUnopenedElements = year => {
+const hideUnopenedElements = (year) => {
   const opened = parseOpened(year);
+  localStorage.setItem(`advent-calendar-${year}`, JSON.stringify(opened));
 
-  document.querySelectorAll(".cf-advent-calendar-list .open").forEach(el => {
+  document.querySelectorAll(".cf-advent-calendar-list .open").forEach((el) => {
     const no = parseInt(el.querySelector(".day").textContent);
 
-    if (opened.find(el => el === no)) return;
+    if (opened.find((el) => el === no)) return;
 
     el.classList.remove("open");
     el.classList.add("closed");
@@ -66,10 +72,10 @@ const hideUnopenedElements = year => {
 
 const calendar = document.querySelector(".cf-advent-calendar-list");
 const year = Array.from(calendar.classList)
-  .find(el => el.match(/^year-/))
+  .find((el) => el.match(/^year-/))
   .replace(/^year-/, "");
 
 randomizeOrder(calendar, year);
 hideUnopenedElements(year);
 
-calendar.addEventListener("click", ev => addToOpened(ev, year));
+calendar.addEventListener("click", (ev) => addToOpened(ev, year));
