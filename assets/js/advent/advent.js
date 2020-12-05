@@ -1,3 +1,4 @@
+import { isBefore } from "date-fns";
 import { clearChildren } from "../modules/helpers";
 
 const genOrder = (year) => {
@@ -30,14 +31,14 @@ const randomizeOrder = (calendar, year) => {
 };
 
 const parseOpened = (year) => {
-  const today = new Date().getDate();
+  const today = new Date();
   const opened = JSON.parse(localStorage.getItem(`advent-calendar-${year}`) || "[]");
 
   if (!(opened instanceof Array)) {
     return [];
   }
 
-  return opened.filter((day) => day <= today);
+  return opened.filter((day) => isBefore(new Date(year, 11, day), today));
 };
 
 const addToOpened = (ev, year) => {
@@ -47,9 +48,10 @@ const addToOpened = (ev, year) => {
 
   const opened = parseOpened(year);
   const no = parseInt(el.querySelector(".day").textContent);
-  const today = new Date().getDate();
+  const today = new Date();
+  const dayDate = new Date(year, 11, no);
 
-  if (no <= today) {
+  if (isBefore(dayDate, today)) {
     opened.push(no);
 
     localStorage.setItem(`advent-calendar-${year}`, JSON.stringify(opened));
