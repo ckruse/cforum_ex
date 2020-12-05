@@ -22,8 +22,8 @@ export default function AdminModal(props) {
     return hasReason && customIsValid;
   };
 
-  const reasonChanged = ev => setformValues({ ...formValues, chosenReason: ev.target.value });
-  const customReasonChanged = ev => setformValues({ ...formValues, customReason: ev.target.value });
+  const reasonChanged = (ev) => setformValues({ ...formValues, chosenReason: ev.target.value });
+  const customReasonChanged = (ev) => setformValues({ ...formValues, customReason: ev.target.value });
 
   const noReasonAction = () => {
     props.noReasonAction();
@@ -38,7 +38,7 @@ export default function AdminModal(props) {
   };
 
   return (
-    <ErrorBoundary instance={appsignal} fallback={error => <FallbackComponent />}>
+    <ErrorBoundary instance={appsignal} fallback={(error) => <FallbackComponent />}>
       <Modal
         isOpen={isOpen}
         appElement={document.body}

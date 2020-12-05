@@ -21,16 +21,16 @@ export class Dropdown {
   }
 
   setupListeners() {
-    this.menuButton.addEventListener("click", ev => {
+    this.menuButton.addEventListener("click", (ev) => {
       ev.preventDefault();
       this.toggleMenu();
     });
 
-    this.rootElement.addEventListener("keypress", ev => this.maybeHideForEsc(ev));
-    this.rootElement.addEventListener("keydown", ev => this.handleUpAndDown(ev));
+    this.rootElement.addEventListener("keypress", (ev) => this.maybeHideForEsc(ev));
+    this.rootElement.addEventListener("keydown", (ev) => this.handleUpAndDown(ev));
 
-    this.rootElement.querySelectorAll("button, a").forEach(el => {
-      el.addEventListener("blur", ev => this.checkForHideOnFocusLoss());
+    this.rootElement.querySelectorAll("button, a").forEach((el) => {
+      el.addEventListener("blur", (ev) => this.checkForHideOnFocusLoss());
     });
   }
 
@@ -43,7 +43,7 @@ export class Dropdown {
     ev.stopPropagation();
 
     if (ev.keyCode === 27) {
-      this.menuElement.querySelectorAll("li.active").forEach(el => el.classList.remove("active"));
+      this.menuElement.querySelectorAll("li.active").forEach((el) => el.classList.remove("active"));
       this.hideMenu(true);
       return;
     }
@@ -69,7 +69,7 @@ export class Dropdown {
     }
 
     for (let i = 0; i < links.length; ++i) {
-      if (links[i] == active) {
+      if (links[i] === active) {
         return this.nextLink(links, i, direction);
       }
     }
@@ -78,9 +78,9 @@ export class Dropdown {
   }
 
   nextLink(links, index, direction) {
-    if (index + direction == links.length) {
+    if (index + direction === links.length) {
       return links[0];
-    } else if (index + direction == -1) {
+    } else if (index + direction === -1) {
       return links[links.length - 1];
     }
 
@@ -88,7 +88,7 @@ export class Dropdown {
   }
 
   maybeHideForEsc(ev) {
-    if (ev.keyCode == 27) {
+    if (ev.keyCode === 27) {
       ev.preventDefault();
       this.hideMenu(true);
     }
@@ -136,5 +136,5 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  Array.from(document.querySelectorAll("[data-dropdown='yes']")).forEach(element => new Dropdown(element));
+  Array.from(document.querySelectorAll("[data-dropdown='yes']")).forEach((element) => new Dropdown(element));
 });

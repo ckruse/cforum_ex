@@ -3,7 +3,7 @@ import { render } from "react-dom";
 
 import { parseMessageUrl } from "../modules/helpers";
 
-const showInlineForm = async ev => {
+const showInlineForm = async (ev) => {
   ev.preventDefault();
 
   const messageElement = ev.target.closest(".cf-thread-message");
@@ -23,7 +23,7 @@ const showInlineForm = async ev => {
     method: "GET",
     credentials: "same-origin",
     cache: "no-cache",
-    headers: { "Content-Type": "application/json; charset=utf-8" }
+    headers: { "Content-Type": "application/json; charset=utf-8" },
   });
   const json = await response.json();
 
@@ -32,15 +32,15 @@ const showInlineForm = async ev => {
   showForm(messageElement, json, CfPostingForm);
 };
 
-const transformNewlines = text => text.replace(/\015\012|\015|\012/g, "\n");
+const transformNewlines = (text) => text.replace(/\015\012|\015|\012/g, "\n");
 const forms = {};
 
-window.addEventListener("popstate", ev => {
+window.addEventListener("popstate", (ev) => {
   if (ev.state && ev.state.type === "answer" && ev.state.parsedUrl && forms[ev.state.parsedUrl.messageId]) {
     const messageElement = document.getElementById("m" + ev.state.parsedUrl.messageId).closest(".cf-thread-message");
     messageElement.parentNode.insertBefore(forms[ev.state.parsedUrl.messageId], messageElement.nextSibling);
   } else {
-    document.querySelectorAll(".cf-posting-form").forEach(el => el.remove());
+    document.querySelectorAll(".cf-posting-form").forEach((el) => el.remove());
   }
 });
 
@@ -57,7 +57,7 @@ const showForm = (messageElement, json, CfPostingForm) => {
 
   const csrfInfo = document.querySelector("meta[name='csrf-token']");
 
-  document.querySelectorAll(".cf-posting-form").forEach(el => el.remove());
+  document.querySelectorAll(".cf-posting-form").forEach((el) => el.remove());
 
   const node = document.createElement("form");
   node.classList.add("cf-form");
@@ -71,7 +71,7 @@ const showForm = (messageElement, json, CfPostingForm) => {
 
   messageElement.parentNode.insertBefore(node, messageElement.nextSibling);
 
-  const tags = json.tags.map(t => [t, null]);
+  const tags = json.tags.map((t) => [t, null]);
 
   render(
     <CfPostingForm
@@ -85,7 +85,7 @@ const showForm = (messageElement, json, CfPostingForm) => {
       homepage={json.homepage}
       csrfInfo={{
         param: csrfInfo.getAttribute("csrf-param"),
-        token: csrfInfo.getAttribute("content")
+        token: csrfInfo.getAttribute("content"),
       }}
       errors={{}}
       onCancel={() => window.history.go(-1)}
@@ -100,7 +100,7 @@ const showForm = (messageElement, json, CfPostingForm) => {
   );
 };
 
-const setCursorInTextarea = el => {
+const setCursorInTextarea = (el) => {
   if (el.nodeName !== "TEXTAREA" || !el.value) {
     return;
   }

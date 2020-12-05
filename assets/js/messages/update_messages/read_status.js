@@ -2,19 +2,19 @@ import { conf } from "../../modules/helpers";
 import { getMessageTreeElement } from "./index";
 import { updateTitleInfos } from "../../title_infos";
 
-const threadIsVisited = thread => {
+const threadIsVisited = (thread) => {
   return thread.querySelectorAll(".cf-message-header:not(.visited)").length === 0;
 };
-const shouldFold = thread => threadIsVisited(thread) && document.body.dataset.controller === "ThreadController";
+const shouldFold = (thread) => threadIsVisited(thread) && document.body.dataset.controller === "ThreadController";
 
 if (document.body.dataset.userId) {
-  document.addEventListener("cf:userPrivate", event => {
+  document.addEventListener("cf:userPrivate", (event) => {
     const channel = event.detail;
 
     channel.on("message_marked_read", ({ message_ids }) => {
       updateTitleInfos();
 
-      message_ids.forEach(id => {
+      message_ids.forEach((id) => {
         const elem = getMessageTreeElement(id);
         if (!elem) {
           return;

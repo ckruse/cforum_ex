@@ -2,7 +2,7 @@ import { t } from "../../modules/i18n";
 import { getMessageTreeElement } from "./index";
 import { updateTitleInfos } from "../../title_infos";
 
-const votesTitle = params => {
+const votesTitle = (params) => {
   const noVotes = params.upvotes + params.downvotes;
 
   if (noVotes === 0) {
@@ -12,7 +12,7 @@ const votesTitle = params => {
   return t("scoring: {score}", { score: params.score_str });
 };
 
-const updateMessageTree = params => {
+const updateMessageTree = (params) => {
   const elem = getMessageTreeElement(params.message_id);
   if (!elem) {
     return;
@@ -23,7 +23,7 @@ const updateMessageTree = params => {
   votes.textContent = params.upvotes - params.downvotes;
 };
 
-const updateVotingArea = params => {
+const updateVotingArea = (params) => {
   const elem = document.getElementById(`m${params.message_id}`);
 
   if (!elem) {
@@ -35,16 +35,16 @@ const updateVotingArea = params => {
     return;
   }
 
-  thread.querySelectorAll(".cf-voting-area .votes").forEach(votes => {
+  thread.querySelectorAll(".cf-voting-area .votes").forEach((votes) => {
     votes.setAttribute("title", votesTitle(params));
     votes.textContent = params.score_str;
   });
 };
 
-const updateMessages = params => {
+const updateMessages = (params) => {
   updateMessageTree(params);
   updateVotingArea(params);
   updateTitleInfos();
 };
 
-document.addEventListener("cf:forumChannel", event => event.detail.channel.on("message_rescored", updateMessages));
+document.addEventListener("cf:forumChannel", (event) => event.detail.channel.on("message_rescored", updateMessages));

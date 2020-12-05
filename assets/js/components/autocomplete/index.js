@@ -25,7 +25,7 @@ class AutocompleteTextarea extends React.Component {
 
   navigate(key) {
     if (key === "ArrowDown") {
-      this.setState(oldState => {
+      this.setState((oldState) => {
         let active;
 
         if (oldState.active === null) {
@@ -40,7 +40,7 @@ class AutocompleteTextarea extends React.Component {
         return { active };
       });
     } else {
-      this.setState(oldState => {
+      this.setState((oldState) => {
         let active = oldState.active - 1;
         if (active < 0) {
           active = oldState.suggestions.length - 1;
@@ -122,21 +122,21 @@ class AutocompleteTextarea extends React.Component {
     const cursorPosition = this.props.textarea.current.selectionStart;
     const currentSubstring = this.props.value.substring(0, cursorPosition);
 
-    const matching = triggers.filter(trg => currentSubstring.match(trg.trigger));
+    const matching = triggers.filter((trg) => currentSubstring.match(trg.trigger));
     if (matching.length === 0) {
       this.resetSuggestions();
       return;
     }
 
     this.setState({ matching, active: null, suggestions: [] });
-    matching.forEach(element => {
-      return element.suggestions(RegExp.lastMatch, suggestions => this.handleSuggestions(element, suggestions));
+    matching.forEach((element) => {
+      return element.suggestions(RegExp.lastMatch, (suggestions) => this.handleSuggestions(element, suggestions));
     });
   }
 
   handleSuggestions(matching, suggestions) {
-    const tuples = suggestions.map(suggestion => ({ matching, suggestion }));
-    this.setState(prevState => ({ suggestions: [...prevState.suggestions, ...tuples] }));
+    const tuples = suggestions.map((suggestion) => ({ matching, suggestion }));
+    this.setState((prevState) => ({ suggestions: [...prevState.suggestions, ...tuples] }));
   }
 
   onTrigger(event, matching, suggestion) {

@@ -17,16 +17,16 @@ const MentionsReplacements = {
     tm = window.setTimeout(() => {
       const qs = queryString({ s: term.substring(1), self: "no", prefix: "yes" });
       fetch(`/api/v1/users?${qs}`, { credentials: "same-origin" })
-        .then(response => response.json())
-        .then(json => {
-          const users = json.map(u => ({ id: u.user_id, display: "@" + u.username }));
+        .then((response) => response.json())
+        .then((json) => {
+          const users = json.map((u) => ({ id: u.user_id, display: "@" + u.username }));
           callback(users);
         });
     }, 400);
   },
 
   render: ({ id, display }) => display,
-  complete: ({ id, display }) => display
+  complete: ({ id, display }) => display,
 };
 
 export default MentionsReplacements;

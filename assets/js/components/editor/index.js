@@ -75,10 +75,10 @@ class CfEditor extends React.Component {
       method: "POST",
       credentials: "same-origin",
       cache: "no-cache",
-      body: fdata
+      body: fdata,
     })
-      .then(rsp => rsp.json())
-      .then(json => this.fileUploadFinished(json, desc, title, file));
+      .then((rsp) => rsp.json())
+      .then((json) => this.fileUploadFinished(json, desc, title, file));
   }
 
   fileUploadFinished(rsp, desc, title, file) {
@@ -114,7 +114,7 @@ class CfEditor extends React.Component {
     }
 
     return (
-      <ErrorBoundary instance={appsignal} fallback={error => <FallbackComponent />}>
+      <ErrorBoundary instance={appsignal} fallback={(error) => <FallbackComponent />}>
         <fieldset>
           <label htmlFor={id}>
             {t("posting text")}{" "}

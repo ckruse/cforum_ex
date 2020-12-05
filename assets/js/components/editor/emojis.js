@@ -13,14 +13,14 @@ const EmojiReplacements = {
       found = emojiIndex.search(term);
     }
 
-    return cb(found.slice(0, 10).map(o => ({ id: o.id, display: o.native })));
+    return cb(found.slice(0, 10).map((o) => ({ id: o.id, display: o.native })));
   },
   render: ({ id, display }) => (
     <>
       {display} :{id}
     </>
   ),
-  complete: ({ id, display }) => display
+  complete: ({ id, display }) => display,
 };
 
 export default EmojiReplacements;

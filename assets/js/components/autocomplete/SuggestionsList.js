@@ -47,8 +47,8 @@ export default class SuggestionsList extends React.Component {
           <li key={suggestion.id} className={this.isActive(idx)}>
             <button
               type="button"
-              ref={ref => (this.buttons[idx] = ref)}
-              onClick={ev => this.props.onTrigger(ev, matching, suggestion)}
+              ref={(ref) => (this.buttons[idx] = ref)}
+              onClick={(ev) => this.props.onTrigger(ev, matching, suggestion)}
             >
               {matching.render(suggestion)}
             </button>

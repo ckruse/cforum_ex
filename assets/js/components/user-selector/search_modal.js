@@ -70,8 +70,7 @@ export default class SearchModal extends React.Component {
       return this.state.foundUsers.map((user) => (
         <li key={user.user_id}>
           <span className="author">
-            <img src={user.avatar.thumb} alt="" className="avatar" />
-             {user.username}
+            <img src={user.avatar.thumb} alt="" className="avatar" /> {user.username}
           </span>
           <button type="button" className="cf-primary-index-btn" onClick={() => this.chooseUser(user)}>
             {t("select user")}
@@ -94,8 +93,7 @@ export default class SearchModal extends React.Component {
           {this.state.selectedUsers.map((user) => (
             <li key={user.user_id}>
               <span className="author">
-                <img src={user.avatar.thumb} alt="" className="avatar" />
-                 {user.username}
+                <img src={user.avatar.thumb} alt="" className="avatar" /> {user.username}
               </span>
               <button type="button" className="cf-primary-index-btn" onClick={() => this.unchooseUser(user)}>
                 {t("unselect user")}

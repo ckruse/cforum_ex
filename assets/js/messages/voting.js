@@ -2,7 +2,7 @@ import { parseMessageUrl } from "../modules/helpers";
 import { alertError, alertSuccess } from "../modules/alerts";
 import { t } from "../modules/i18n";
 
-const voteForMessage = ev => {
+const voteForMessage = (ev) => {
   if (ev.target.nodeName !== "BUTTON") {
     return;
   }
@@ -27,7 +27,7 @@ const voteForMessage = ev => {
     _csrf_token: inp.value,
     message_id: parsedUrl.messageId,
     slug: parsedUrl.slug,
-    forum: parsedUrl.forum
+    forum: parsedUrl.forum,
   };
 
   const targetUrl = `/api/v1/messages/${type}`;
@@ -36,13 +36,16 @@ const voteForMessage = ev => {
     credentials: "same-origin",
     method: "POST",
     body: JSON.stringify(params),
-    headers: { "Content-Type": "application/json; charset=utf-8" }
+    headers: { "Content-Type": "application/json; charset=utf-8" },
   })
-    .then(rsp => rsp.json(), err => handleError(btn))
-    .then(json => updateVotingAreas(json, type, btn.closest(".cf-thread-message"), btn));
+    .then(
+      (rsp) => rsp.json(),
+      (err) => handleError(btn)
+    )
+    .then((json) => updateVotingAreas(json, type, btn.closest(".cf-thread-message"), btn));
 };
 
-const handleError = btn => {
+const handleError = (btn) => {
   alertError(t("Oops, something went wrong!"));
   btn.classList.remove("loading");
   btn.disabled = false;
@@ -82,7 +85,7 @@ const updateVotingAreas = (json, type, message, btn) => {
       console.log(type, json, message);
   }
 
-  areas.forEach(area => {
+  areas.forEach((area) => {
     const downButton = area.querySelector(".vote-down");
     const upButton = area.querySelector(".vote-up");
     const acceptButton = area.querySelector(".accept");
@@ -116,5 +119,5 @@ const setButtonStatus = (button, active) => {
 };
 
 if (document.body.dataset.controller === "MessageController") {
-  document.querySelectorAll(".cf-voting-area.bottom").forEach(elem => elem.addEventListener("click", voteForMessage));
+  document.querySelectorAll(".cf-voting-area.bottom").forEach((elem) => elem.addEventListener("click", voteForMessage));
 }

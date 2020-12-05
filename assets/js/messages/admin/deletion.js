@@ -48,8 +48,8 @@ async function deleteMessage(button, slug, messageId, completelyDelete, reason =
       reason,
       custom: customReason,
       no_reason: completelyDelete,
-      id_prefix: document.body.dataset.controller === "MessageController" ? "tree-" : ""
-    })
+      id_prefix: document.body.dataset.controller === "MessageController" ? "tree-" : "",
+    }),
   });
 
   const html = await response.text();

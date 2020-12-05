@@ -22,20 +22,20 @@ class BadgeManager extends React.Component {
 
   componentDidMount() {
     fetch(`/api/v1/users/${this.props.userId}`, { credentials: "same-origin" })
-      .then(rsp => rsp.json())
-      .then(json => this.setState({ user: json }));
+      .then((rsp) => rsp.json())
+      .then((json) => this.setState({ user: json }));
   }
 
   changeActive(badge) {
     const newBadges = [...this.state.user.badges];
-    const index = newBadges.findIndex(b => b.badge_user_id == badge.badge_user_id);
+    const index = newBadges.findIndex((b) => b.badge_user_id === badge.badge_user_id);
     newBadges[index].active = !newBadges[index].active;
 
     this.setState({ user: { ...this.state.user, badges: newBadges } });
   }
 
   deleteBadge(badge) {
-    const newBadges = this.state.user.badges.filter(b => b.badge_user_id != badge.badge_user_id);
+    const newBadges = this.state.user.badges.filter((b) => b.badge_user_id !== badge.badge_user_id);
     this.setState({ user: { ...this.state.user, badges: newBadges } });
   }
 
@@ -53,8 +53,11 @@ class BadgeManager extends React.Component {
       lastAdded: this.state.lastAdded + 1,
       user: {
         ...this.state.user,
-        badges: [...this.state.user.badges, { ...badge, active: true, badge_user_id: "bu_" + this.state.lastAdded + 1 }]
-      }
+        badges: [
+          ...this.state.user.badges,
+          { ...badge, active: true, badge_user_id: "bu_" + this.state.lastAdded + 1 },
+        ],
+      },
     });
   }
 
@@ -62,7 +65,7 @@ class BadgeManager extends React.Component {
     const badges = (this.state.user && this.state.user.badges) || [];
 
     return (
-      <ErrorBoundary instance={appsignal} fallback={error => <FallbackComponent />}>
+      <ErrorBoundary instance={appsignal} fallback={(error) => <FallbackComponent />}>
         <fieldset>
           <legend>{t("badge management")}</legend>
 
@@ -90,6 +93,6 @@ class BadgeManager extends React.Component {
   }
 }
 
-const setupBadgeManager = element => render(<BadgeManager userId={element.dataset.userId} />, element);
+const setupBadgeManager = (element) => render(<BadgeManager userId={element.dataset.userId} />, element);
 
 export default setupBadgeManager;

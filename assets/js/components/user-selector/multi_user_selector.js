@@ -34,7 +34,7 @@ export default class MultiUserSelector extends React.Component {
   }
 
   removeUser(user) {
-    this.setState({ ...this.state, chosenUsers: this.state.chosenUsers.filter((u) => u.user_id != user.user_id) });
+    this.setState({ ...this.state, chosenUsers: this.state.chosenUsers.filter((u) => u.user_id !== user.user_id) });
   }
 
   showSearchModal() {

@@ -20,7 +20,7 @@ export default function Meta(props) {
     message_forum_id: forumId,
     message_homepage: homepage,
     message_problematic_site: problematicSite,
-    message_subject: subject
+    message_subject: subject,
   };
 
   function setFieldTouched(ev) {
@@ -42,7 +42,7 @@ export default function Meta(props) {
             onChange={props.onChange}
             onBlur={setFieldTouched}
           >
-            {props.forumOptions.map(opt => (
+            {props.forumOptions.map((opt) => (
               <option key={opt.value} value={opt.value}>
                 {opt.text}
               </option>

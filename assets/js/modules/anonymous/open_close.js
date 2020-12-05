@@ -1,4 +1,4 @@
-export const maybeCloseThread = el => {
+export const maybeCloseThread = (el) => {
   const thread = el.closest(".cf-thread");
   const id = thread.id;
   const state = localStorage.getItem(`${id}_oc_state`);
@@ -8,7 +8,7 @@ export const maybeCloseThread = el => {
   }
 };
 
-export const openOrCloseThread = thread => {
+export const openOrCloseThread = (thread) => {
   const id = thread.id;
   const state = localStorage.getItem(`${id}_oc_state`);
   let newState = "closed";

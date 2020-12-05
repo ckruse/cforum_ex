@@ -6,10 +6,10 @@ const CONSTRAINTS = {
   message_subject: { minLen: 4, maxLen: 250, required: true },
   message_homepage: { minLen: 2, maxLen: 250, required: false, type: "url" },
   message_problematic_site: { minLen: 2, maxLen: 250, required: false, type: "url" },
-  message_forum_id: { required: true }
+  message_forum_id: { required: true },
 };
 
-const isUrl = val => {
+const isUrl = (val) => {
   try {
     new URL(val);
     return true;
@@ -18,7 +18,7 @@ const isUrl = val => {
   }
 };
 
-const isEmail = val => /^[^@]+@[^@\s]+/.test(val);
+const isEmail = (val) => /^[^@]+@[^@\s]+/.test(val);
 
 export const isValid = (name, values) => {
   const val = values[name] || "";
@@ -41,7 +41,7 @@ export const hasErrorClass = (name, errors, touched, values) => {
   return "";
 };
 
-export const hasMoreThanOneForum = forums => forums.filter(f => f.value !== "").length > 1;
+export const hasMoreThanOneForum = (forums) => forums.filter((f) => f.value !== "").length > 1;
 
 export const showAuthor = () => {
   const isRegistered = !!document.body.dataset.userId;

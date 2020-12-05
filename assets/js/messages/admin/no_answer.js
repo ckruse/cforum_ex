@@ -47,8 +47,8 @@ async function closeMessage(button, slug, messageId, noPublicReason, reason, cus
       forum: document.body.dataset.currentForum,
       reason,
       custom: customReason,
-      no_reason: noPublicReason
-    })
+      no_reason: noPublicReason,
+    }),
   });
 
   const html = await response.text();

@@ -13,7 +13,7 @@ class NewBadgeModal extends React.Component {
     this.state = {
       value: "",
       badges: [],
-      foundBadges: []
+      foundBadges: [],
     };
 
     this.handleKeyPressed = this.handleKeyPressed.bind(this);
@@ -22,8 +22,8 @@ class NewBadgeModal extends React.Component {
 
   componentDidMount() {
     fetch("/api/v1/badges")
-      .then(rsp => rsp.json())
-      .then(json => this.setState({ badges: json }));
+      .then((rsp) => rsp.json())
+      .then((json) => this.setState({ badges: json }));
   }
 
   handleKeyPressed(event) {
@@ -37,7 +37,7 @@ class NewBadgeModal extends React.Component {
 
   searchBadges() {
     const v = this.state.value.toLowerCase();
-    const found = this.state.badges.filter(b => b.name.toLowerCase().indexOf(v) !== -1);
+    const found = this.state.badges.filter((b) => b.name.toLowerCase().indexOf(v) !== -1);
     this.setState({ foundBadges: found });
   }
 
@@ -58,10 +58,10 @@ class NewBadgeModal extends React.Component {
         </div>
 
         <h3>{t("found badges")}</h3>
-        {this.state.foundBadges.length == 0 && <p>{t("no badges found")}</p>}
+        {this.state.foundBadges.length === 0 && <p>{t("no badges found")}</p>}
 
         <ul>
-          {this.state.foundBadges.map(b => (
+          {this.state.foundBadges.map((b) => (
             <FoundBadge key={b.badge_id} badge={b} selectBadge={this.props.selectBadge} />
           ))}
         </ul>

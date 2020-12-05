@@ -30,13 +30,13 @@ socket.onError(() => {
   }
 });
 
-const privateChannelJoined = channel => {
+const privateChannelJoined = (channel) => {
   document.dispatchEvent(new CustomEvent("cf:userLobby", { detail: channel }));
 
   channel.push("visible_forums", {}).receive("ok", ({ forums }) => {
     window.visibleForums = forums;
 
-    forums.forEach(forum => {
+    forums.forEach((forum) => {
       const channel = socket.channel(`forum:${forum.forum_id}`, {});
       channel
         .join()
@@ -46,7 +46,7 @@ const privateChannelJoined = channel => {
         .receive("error", ({ reason }) => console.log("failed joining forum room", reason))
         .receive("timeout", () => console.log("forum room: networking issue. Still waiting..."));
 
-      channel.on("new_message", data => {
+      channel.on("new_message", (data) => {
         updateTitleInfos();
         const event = new CustomEvent("cf:newMessage", { detail: { channel, data } });
         document.dispatchEvent(event);

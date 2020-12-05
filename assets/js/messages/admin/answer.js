@@ -21,8 +21,8 @@ async function allowAnswer(button, slug, messageId) {
     body: JSON.stringify({
       slug,
       message_id: messageId,
-      forum: document.body.dataset.currentForum
-    })
+      forum: document.body.dataset.currentForum,
+    }),
   });
 
   const html = await response.text();

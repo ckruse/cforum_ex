@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "react-dom";
 import UserSelector from "../components/user-selector";
 
-const setupSingleSelector = sel => {
+const setupSingleSelector = (sel) => {
   const userId = sel.value;
   const selfSelect = sel.dataset.userSelectorSelf === "yes";
   const clearable = sel.dataset.userSelectorClearable === "yes";
@@ -16,8 +16,8 @@ const setupSingleSelector = sel => {
   return [root, { id, userId, selfSelect, single: true, element: sel, clearable }];
 };
 
-const setupMultiSelector = element => {
-  const users = Array.from(element.querySelectorAll("input[type=hidden]")).map(inp => inp.value);
+const setupMultiSelector = (element) => {
+  const users = Array.from(element.querySelectorAll("input[type=hidden]")).map((inp) => inp.value);
   const selfSelect = element.dataset.userSelectorSelf === "yes";
   const fieldName = element.dataset.fieldName;
   const root = document.createElement("div");
@@ -28,8 +28,8 @@ const setupMultiSelector = element => {
   return [root, { users, selfSelect, fieldName }];
 };
 
-const setupUserSelectors = nodes => {
-  nodes.forEach(sel => {
+const setupUserSelectors = (nodes) => {
+  nodes.forEach((sel) => {
     let props, root;
 
     if (sel.dataset.userSelector === "single") {

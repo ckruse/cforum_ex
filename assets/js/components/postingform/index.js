@@ -23,7 +23,7 @@ class CfPostingForm extends React.Component {
       email: this.props.email || "",
       homepage: this.props.homepage || "",
       saveIdentity: this.props.saveIdentity,
-      showRestoreDraft: false
+      showRestoreDraft: false,
     };
 
     this.resetSaveTimer = this.resetSaveTimer.bind(this);
@@ -86,7 +86,7 @@ class CfPostingForm extends React.Component {
       problematicSite: fields.problematicSite || "",
       email: fields.email || "",
       homepage: fields.homepage || "",
-      showRestoreDraft: false
+      showRestoreDraft: false,
     });
   }
 
@@ -130,7 +130,7 @@ class CfPostingForm extends React.Component {
       val = undefined;
     }
 
-    this.setState(state => ({ showRestoreDraft: val === undefined ? !state.showRestoreDraft : val }));
+    this.setState((state) => ({ showRestoreDraft: val === undefined ? !state.showRestoreDraft : val }));
   }
 
   cancelForm() {
@@ -144,7 +144,7 @@ class CfPostingForm extends React.Component {
     const method = this.props.method || "post";
 
     return (
-      <ErrorBoundary instance={appsignal} fallback={error => <FallbackComponent />}>
+      <ErrorBoundary instance={appsignal} fallback={(error) => <FallbackComponent />}>
         <input type="hidden" name={csrfInfo.param} value={csrfInfo.token} />
         {method.toUpperCase() !== "POST" && <input type="hidden" name="_method" value={method} />}
 

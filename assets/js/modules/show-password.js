@@ -1,7 +1,7 @@
 import { t } from "./i18n.js";
 
 function toggleInputType(input, button) {
-  if (input.getAttribute("type") == "password") {
+  if (input.getAttribute("type") === "password") {
     input.setAttribute("type", "text");
     button.innerText = t("hide password");
   } else {
@@ -20,7 +20,7 @@ function setupShowPassword(input) {
   anchor.classList.add("cf-show-password");
   anchor.setAttribute("type", "button");
 
-  anchor.addEventListener("click", ev => {
+  anchor.addEventListener("click", (ev) => {
     ev.preventDefault();
     toggleInputType(input, ev.target);
   });

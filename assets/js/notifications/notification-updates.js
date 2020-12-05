@@ -2,7 +2,7 @@ import { t } from "../modules/i18n";
 import { alertInfoWithPath } from "../modules/alerts";
 import { updateTitleInfos, setNewFavicon } from "../title_infos";
 
-const updateNotificationCount = count => {
+const updateNotificationCount = (count) => {
   const liElem = document.getElementById("user-notifications");
   if (liElem) {
     if (count > 0) {
@@ -13,10 +13,10 @@ const updateNotificationCount = count => {
   }
 };
 
-document.addEventListener("cf:userPrivate", event => {
+document.addEventListener("cf:userPrivate", (event) => {
   const channel = event.detail;
 
-  channel.on("new_priv_message", data => {
+  channel.on("new_priv_message", (data) => {
     updateTitleInfos();
 
     const elem = document.getElementById("mails");
@@ -37,13 +37,13 @@ document.addEventListener("cf:userPrivate", event => {
     alertInfoWithPath(
       t("You've got a new mail from {sender}: {subject}", {
         sender: data.priv_message.sender_name,
-        subject: data.priv_message.subject
+        subject: data.priv_message.subject,
       }),
       data.path
     );
   });
 
-  channel.on("score-update", data => {
+  channel.on("score-update", (data) => {
     const elem = document.querySelector("#user-info .score");
 
     if (elem) {
@@ -53,7 +53,7 @@ document.addEventListener("cf:userPrivate", event => {
     }
   });
 
-  channel.on("new_notification", data => {
+  channel.on("new_notification", (data) => {
     updateTitleInfos();
     setNewFavicon();
 
@@ -71,7 +71,7 @@ document.addEventListener("cf:userPrivate", event => {
     );
   });
 
-  channel.on("notification_count", data => {
+  channel.on("notification_count", (data) => {
     updateTitleInfos();
 
     const elem = document.getElementById("notifications-display");

@@ -5,20 +5,16 @@ const SUCCESS_TIMEOUT = 5;
 const INFO_TIMEOUT = 10;
 const ERROR_TIMEOUT = 0;
 
-const escapeHTML = text =>
-  text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+const escapeHTML = (text) =>
+  text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-const removeAlert = alrt => {
+const removeAlert = (alrt) => {
   alrt.classList.add("fade-in-exit", "fade-in-exit-active");
   window.setTimeout(() => alrt.remove(), 300);
 };
 
 const alertsContainer = document.querySelector("#alerts-container");
-alertsContainer.querySelectorAll(".cf-alert").forEach(alert => {
+alertsContainer.querySelectorAll(".cf-alert").forEach((alert) => {
   let timeout;
 
   if (alert.classList.contains("cf-error")) {
@@ -34,14 +30,14 @@ alertsContainer.querySelectorAll(".cf-alert").forEach(alert => {
   }
 });
 
-alertsContainer.addEventListener("click", ev => {
+alertsContainer.addEventListener("click", (ev) => {
   if (ev.target.matches(".cf-alert, .cf-alert *")) {
     const alert = ev.target.closest(".cf-alert");
     removeAlert(alert);
   }
 });
 
-const pathLink = path => {
+const pathLink = (path) => {
   if (!path) return "";
 
   return `<a href="${escapeHTML(path)}">${t("more…")}</a>`;

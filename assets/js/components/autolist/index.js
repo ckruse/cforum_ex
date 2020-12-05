@@ -15,20 +15,20 @@ class Autolist {
     this.addButton = parse(`<button type="button" class="cf-btn">${t("add new element")}</button>`).firstChild;
     this.root.appendChild(this.addButton);
 
-    this.addButton.addEventListener("click", ev => {
+    this.addButton.addEventListener("click", (ev) => {
       ev.preventDefault();
       this.addNewElement();
     });
 
     const elements = this.root.querySelectorAll(this.listElement);
     this.index = elements[elements.length - 1].dataset.index || 0;
-    elements.forEach(el => this.setupListElement(el));
+    elements.forEach((el) => this.setupListElement(el));
   }
 
   setupListElement(element) {
     const btn = parse(`<button class="cf-btn" type="button">${t("remove element")}</button>`).firstChild;
     element.appendChild(btn);
-    btn.addEventListener("click", ev => {
+    btn.addEventListener("click", (ev) => {
       ev.preventDefault();
       this.removeElement(element);
     });
@@ -41,7 +41,7 @@ class Autolist {
   addNewElement() {
     const newNode = this.template.cloneNode(true);
     this.index += 1;
-    newNode.querySelectorAll("input, textarea, select").forEach(el => this.updateFieldName(el));
+    newNode.querySelectorAll("input, textarea, select").forEach((el) => this.updateFieldName(el));
     this.setupListElement(newNode);
     this.addButton.parentElement.insertBefore(newNode, this.addButton);
   }
@@ -52,5 +52,5 @@ class Autolist {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll("[data-autolist='yes']").forEach(element => new Autolist(element));
+  document.querySelectorAll("[data-autolist='yes']").forEach((element) => new Autolist(element));
 });

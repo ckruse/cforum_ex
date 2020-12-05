@@ -11,10 +11,10 @@ const enableConfirming = (event, element) => {
   event.preventDefault();
 };
 
-const enableConfirmation = element => {
+const enableConfirmation = (element) => {
   const text = element.textContent;
 
-  element.addEventListener("click", event => {
+  element.addEventListener("click", (event) => {
     if (element.classList.contains("confirming")) {
       disableConfiming(element, text);
       element.setAttribute("aria-live", "off");

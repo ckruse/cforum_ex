@@ -23,7 +23,11 @@ const SmileyReplacements = {
         break;
       case ":-P":
       case ":P":
-        found = [{ id: "😝", display: "😝" }, { id: "😛", display: "😛" }, { id: "😜", display: "😜" }];
+        found = [
+          { id: "😝", display: "😝" },
+          { id: "😛", display: "😛" },
+          { id: "😜", display: "😜" },
+        ];
         break;
       case ":-(":
       case ":(":
@@ -31,15 +35,24 @@ const SmileyReplacements = {
         break;
       case ":-O":
       case ":O":
-        found = [{ id: "😱", display: "😱" }, { id: "😨", display: "😨" }];
+        found = [
+          { id: "😱", display: "😱" },
+          { id: "😨", display: "😨" },
+        ];
         break;
       case ":-|":
       case ":|":
-        found = [{ id: "😐", display: "😐" }, { id: "😑", display: "😑" }];
+        found = [
+          { id: "😐", display: "😐" },
+          { id: "😑", display: "😑" },
+        ];
         break;
       case ":-/":
       case ":/":
-        found = [{ id: "😕", display: "😕" }, { id: "😏", display: "😏" }];
+        found = [
+          { id: "😕", display: "😕" },
+          { id: "😏", display: "😏" },
+        ];
         break;
       case "M(":
         found = [{ id: "🤦", display: "🤦" }];
@@ -50,7 +63,7 @@ const SmileyReplacements = {
           { id: "😘", display: "😘" },
           { id: "😗", display: "😗" },
           { id: "😙", display: "😙" },
-          { id: "😚", display: "😚" }
+          { id: "😚", display: "😚" },
         ];
         break;
 
@@ -62,7 +75,7 @@ const SmileyReplacements = {
   },
 
   render: ({ id, display }) => display,
-  complete: ({ id, display }) => display
+  complete: ({ id, display }) => display,
 };
 
 export default SmileyReplacements;

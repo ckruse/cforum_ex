@@ -7,10 +7,10 @@ const ACTIONS = {
   delete: showDeleteMessage,
   restore: restoreMessage,
   "no-answer": forbidAnswer,
-  answer: allowAnswer
+  answer: allowAnswer,
 };
 
-const dispatchClicks = ev => {
+const dispatchClicks = (ev) => {
   let element = ev.target;
   if (element.nodeName !== "BUTTON") {
     element = ev.target.closest("button");
@@ -29,4 +29,6 @@ const dispatchClicks = ev => {
   ACTIONS[jsAction](ev, element);
 };
 
-document.querySelectorAll(".cf-thread-list, .admin-links").forEach(el => el.addEventListener("click", dispatchClicks));
+document
+  .querySelectorAll(".cf-thread-list, .admin-links")
+  .forEach((el) => el.addEventListener("click", dispatchClicks));

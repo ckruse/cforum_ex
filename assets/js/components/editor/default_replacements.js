@@ -10,7 +10,11 @@ const DefaultReplacements = {
 
     switch (term) {
       case '"':
-        found = [{ id: '""', display: '""' }, { id: "„“", display: "„“" }, { id: "‚‘", display: "‚‘" }];
+        found = [
+          { id: '""', display: '""' },
+          { id: "„“", display: "„“" },
+          { id: "‚‘", display: "‚‘" },
+        ];
         break;
 
       case "...":
@@ -23,14 +27,15 @@ const DefaultReplacements = {
       case "--":
         found = [
           { id: "–", display: "–", desc: `– ${t("(en dash sign)")}` },
-          { id: "—", display: "—", desc: `— ${t("(em dash sign)")}` }
+          { id: "—", display: "—", desc: `— ${t("(em dash sign)")}` },
         ];
         break;
+
       case "-":
         found = [
           { id: "-", display: "-", desc: `- ${t("(hyphen minus)")}` },
           { id: "−", display: "−", desc: `− ${t("(minus sign)")}` },
-          { id: "–", display: "–", desc: `– ${t("(en dash sign)")}` }
+          { id: "–", display: "–", desc: `– ${t("(en dash sign)")}` },
         ];
         break;
 
@@ -43,15 +48,16 @@ const DefaultReplacements = {
           { id: "→", display: "→" },
           { id: "←", display: "←" },
           { id: "↑", display: "↑" },
-          { id: "↓", display: "↓" }
+          { id: "↓", display: "↓" },
         ];
         break;
+
       case "<-":
         found = [
           { id: "←", display: "←" },
           { id: "→", display: "→" },
           { id: "↑", display: "↑" },
-          { id: "↓", display: "↓" }
+          { id: "↓", display: "↓" },
         ];
         break;
 
@@ -61,19 +67,32 @@ const DefaultReplacements = {
           { id: "▲", display: "▲" },
           { id: "←", display: "←" },
           { id: "→", display: "→" },
-          { id: "↓", display: "↓" }
+          { id: "↓", display: "↓" },
         ];
         break;
 
       case "=>":
-        found = [{ id: "⇒", display: "⇒" }, { id: "⇐", display: "⇐" }, { id: "⇔", display: "⇔" }];
+        found = [
+          { id: "⇒", display: "⇒" },
+          { id: "⇐", display: "⇐" },
+          { id: "⇔", display: "⇔" },
+        ];
         break;
+
       case "<=":
-        found = [{ id: "⇐", display: "⇐" }, { id: "⇒", display: "⇒" }, { id: "⇔", display: "⇔" }];
+        found = [
+          { id: "⇐", display: "⇐" },
+          { id: "⇒", display: "⇒" },
+          { id: "⇔", display: "⇔" },
+        ];
         break;
 
       case "<=>":
-        found = [{ id: "⇔", display: "⇔" }, { id: "⇐", display: "⇐" }, { id: "⇒", display: "⇒" }];
+        found = [
+          { id: "⇔", display: "⇔" },
+          { id: "⇐", display: "⇐" },
+          { id: "⇒", display: "⇒" },
+        ];
         break;
 
       case "[tm":
@@ -84,7 +103,10 @@ const DefaultReplacements = {
       case "=":
       case "=/":
       case "=/=":
-        found = [{ id: "≠", display: "≠" }, { id: "≈", display: "≈" }];
+        found = [
+          { id: "≠", display: "≠" },
+          { id: "≈", display: "≈" },
+        ];
         break;
 
       default:
@@ -94,7 +116,7 @@ const DefaultReplacements = {
     return cb(found);
   },
 
-  render: suggestion => {
+  render: (suggestion) => {
     if (suggestion.desc) {
       return <>{suggestion.desc}</>;
     }
@@ -108,7 +130,7 @@ const DefaultReplacements = {
     }
 
     return { start, end };
-  }
+  },
 };
 
 export default DefaultReplacements;

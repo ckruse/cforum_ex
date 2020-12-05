@@ -31,8 +31,8 @@ export const hideThreadHelper = (requestParams, form) => {
 
   return {
     url: "/api/v1/threads/hide",
-    afterAction: response => {
-      response.json().then(json => {
+    afterAction: (response) => {
+      response.json().then((json) => {
         if (json.status === "ok") {
           if (document.body.dataset.controller === "MessageController") {
             form.action = form.action.replace(/hide$/, "unhide");
@@ -47,7 +47,7 @@ export const hideThreadHelper = (requestParams, form) => {
           alertError(t("Oops, something went wrong!"));
         }
       });
-    }
+    },
   };
 };
 
@@ -60,8 +60,8 @@ export const unhideThreadHelper = (requestParams, form) => {
 
   return {
     url: "/api/v1/threads/unhide",
-    afterAction: response => {
-      response.json().then(json => {
+    afterAction: (response) => {
+      response.json().then((json) => {
         if (json.status === "ok") {
           if (document.body.dataset.controller === "MessageController") {
             form.action = form.action.replace(/unhide$/, "hide");
@@ -76,7 +76,7 @@ export const unhideThreadHelper = (requestParams, form) => {
           alertError(t("Oops, something went wrong!"));
         }
       });
-    }
+    },
   };
 };
 
@@ -108,7 +108,7 @@ export const markReadHelper = (requestParams, form) => {
   requestParams.body = JSON.stringify({
     slug: parsedUrl.slug,
     forum: document.body.dataset.currentForum,
-    fold: document.body.dataset.controller !== "MessageController" ? "yes" : "no"
+    fold: document.body.dataset.controller !== "MessageController" ? "yes" : "no",
   });
 
   return { url: "/api/v1/messages/mark-read" };
@@ -123,7 +123,7 @@ export const markInterestingHelper = (requestParams, form) => {
     slug: parsedUrl.slug,
     message_id: parsedUrl.messageId,
     forum: document.body.dataset.currentForum,
-    fold: document.body.dataset.controller !== "MessageController" ? "yes" : "no"
+    fold: document.body.dataset.controller !== "MessageController" ? "yes" : "no",
   });
 
   return { url: "/api/v1/messages/interesting" };
@@ -138,13 +138,13 @@ export const markBoringHelper = (requestParams, form) => {
     slug: parsedUrl.slug,
     message_id: parsedUrl.messageId,
     forum: document.body.dataset.currentForum,
-    fold: document.body.dataset.controller !== "MessageController" ? "yes" : "no"
+    fold: document.body.dataset.controller !== "MessageController" ? "yes" : "no",
   });
 
   const retval = { url: "/api/v1/messages/boring" };
 
   if (document.body.dataset.controller === "Messages.InterestingController") {
-    retval.afterAction = response => {
+    retval.afterAction = (response) => {
       if (response.status === 200) {
         form.closest(".cf-thread").remove();
       } else {
@@ -165,7 +165,7 @@ export const subscribeMessageHelper = (requestParams, form) => {
     slug: parsedUrl.slug,
     message_id: parsedUrl.messageId,
     forum: document.body.dataset.currentForum,
-    fold: document.body.dataset.controller !== "MessageController" ? "yes" : "no"
+    fold: document.body.dataset.controller !== "MessageController" ? "yes" : "no",
   });
 
   return { url: "/api/v1/messages/subscribe" };
@@ -180,13 +180,13 @@ export const unsubscribeMessageHelper = (requestParams, form) => {
     slug: parsedUrl.slug,
     message_id: parsedUrl.messageId,
     forum: document.body.dataset.currentForum,
-    fold: document.body.dataset.controller !== "MessageController" ? "yes" : "no"
+    fold: document.body.dataset.controller !== "MessageController" ? "yes" : "no",
   });
 
   const retval = { url: "/api/v1/messages/unsubscribe" };
 
   if (document.body.dataset.controller === "Messages.SubscriptionController") {
-    retval.afterAction = response => {
+    retval.afterAction = (response) => {
       if (response.status === 200) {
         form.closest(".cf-thread").remove();
       } else {

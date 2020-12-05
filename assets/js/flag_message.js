@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const elements = {
     option: "moderation_queue_entry[reason]",
     url: "#moderation_queue_entry_duplicate_url",
-    custom: "#moderation_queue_entry_custom_reason"
+    custom: "#moderation_queue_entry_custom_reason",
   };
 
   const showOrHide = () => {
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   showOrHide();
 
-  document.querySelectorAll("[name='" + elements.option + "']").forEach(element => {
+  document.querySelectorAll("[name='" + elements.option + "']").forEach((element) => {
     element.addEventListener("change", showOrHide);
   });
 });

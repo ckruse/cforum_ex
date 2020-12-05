@@ -1,8 +1,8 @@
-const hideOrShowAuthor = ev => {
+const hideOrShowAuthor = (ev) => {
   authorElement.closest(".cf-cgroup").hidden = !!ev.target.value;
 };
 
-const hideOrShowUser = ev => {
+const hideOrShowUser = (ev) => {
   userElement.closest(".cf-cgroup").hidden = !!ev.target.value;
 };
 

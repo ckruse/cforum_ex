@@ -1,16 +1,16 @@
 import { lang as de } from "../l10n/de.js";
 
 const l10nData = {
-  de: de
+  de: de,
 };
 
 const defaultLanguage = de;
 
-export const t = function(key, placeholders = {}) {
+export const t = function (key, placeholders = {}) {
   const lang = l10nData[window.navigator.language] || defaultLanguage;
 
   let msg = lang[key] || key;
-  Object.keys(placeholders).forEach(key => {
+  Object.keys(placeholders).forEach((key) => {
     msg = msg.replace(new RegExp(`{${key}}`, "g"), placeholders[key]);
   });
 

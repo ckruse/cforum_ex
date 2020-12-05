@@ -1,7 +1,7 @@
 import { parse } from "../modules/helpers";
 import { t } from "../modules/i18n";
 
-const addNotificationCheckbox = el => {
+const addNotificationCheckbox = (el) => {
   const td = document.createElement("td");
 
   const input = document.createElement("input");
@@ -56,6 +56,6 @@ if (document.body.dataset.controller === "NotificationController") {
     notifications.forEach(addNotificationCheckbox);
     document
       .querySelector(".cf-notifications-table")
-      .addEventListener("click", ev => handleClickEvent(ev, btnDelete, btnMarkRead, btnMarkUnread));
+      .addEventListener("click", (ev) => handleClickEvent(ev, btnDelete, btnMarkRead, btnMarkUnread));
   }
 }

@@ -4,11 +4,11 @@ import { conf } from "../../modules/helpers";
 const options = {
   root: null,
   rootMargin: "0px",
-  threshold: 0.2
+  threshold: 0.2,
 };
 
 const observerCallback = (entries, observer, channel) => {
-  entries.forEach(entry => {
+  entries.forEach((entry) => {
     if (entry.isIntersecting) {
       const thread = entry.target.closest(".cf-thread-message");
       const header = thread.querySelector(".cf-message-header");
@@ -18,12 +18,12 @@ const observerCallback = (entries, observer, channel) => {
       }
 
       const message_id = header.getAttribute("id").replace(/^m/, "");
-      channel.push("mark_read", { message_id }).receive("ok", _ => header.classList.add("visited"));
+      channel.push("mark_read", { message_id }).receive("ok", (_) => header.classList.add("visited"));
     }
   });
 };
 
-const setupObserver = event => {
+const setupObserver = (event) => {
   if (conf("mark_nested_read_via_js") !== "yes") {
     return;
   }
@@ -34,7 +34,7 @@ const setupObserver = event => {
   );
 
   const nodes = document.querySelectorAll(".cf-thread-nested .cf-posting-content");
-  nodes.forEach(target => observer.observe(target));
+  nodes.forEach((target) => observer.observe(target));
 };
 
 if (window.IntersectionObserver) {

@@ -10,7 +10,7 @@ export default class UserSelector extends React.Component {
     const Component = this.props.single ? SingleUserSelector : MultiUserSelector;
 
     return (
-      <ErrorBoundary instance={appsignal} fallback={error => <FallbackComponent />}>
+      <ErrorBoundary instance={appsignal} fallback={(error) => <FallbackComponent />}>
         <Component {...this.props} />
       </ErrorBoundary>
     );

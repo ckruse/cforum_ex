@@ -11,7 +11,7 @@ const ACTIONS = {
     action: (event, thread, response) => {
       event.target.remove();
       return true;
-    }
+    },
   },
   "mark-interesting": {
     url: "/api/v1/messages/interesting",
@@ -19,7 +19,7 @@ const ACTIONS = {
       event.target.textContent = t("mark message boring");
       event.target.dataset.js = "mark-boring";
       return true;
-    }
+    },
   },
   "mark-boring": {
     url: "/api/v1/messages/boring",
@@ -27,7 +27,7 @@ const ACTIONS = {
       event.target.textContent = t("mark message interesting");
       event.target.dataset.js = "mark-interesting";
       return true;
-    }
+    },
   },
   subscribe: {
     url: "/api/v1/messages/subscribe",
@@ -35,7 +35,7 @@ const ACTIONS = {
       event.target.textContent = t("unsubscribe message");
       event.target.dataset.js = "unsubscribe";
       return true;
-    }
+    },
   },
   unsubscribe: {
     url: "/api/v1/messages/unsubscribe",
@@ -43,11 +43,11 @@ const ACTIONS = {
       event.target.textContent = t("subscribe message");
       event.target.dataset.js = "subscribe";
       return true;
-    }
-  }
+    },
+  },
 };
 
-const messageButtonClicked = ev => {
+const messageButtonClicked = (ev) => {
   const form = ev.target.closest("form");
 
   const thread = form.closest(".cf-thread-message");
@@ -75,20 +75,20 @@ const messageButtonClicked = ev => {
     method: "POST",
     credentials: "same-origin",
     cache: "no-cache",
-    body: fdata
+    body: fdata,
   })
     .then(
-      response => {
+      (response) => {
         if (!response.ok) {
           return Promise.reject();
         }
 
         return response.text();
       },
-      err => alertError(t("Oops, something went wrong!"))
+      (err) => alertError(t("Oops, something went wrong!"))
     )
     .then(
-      text => {
+      (text) => {
         const replace = !action.action || action.action(ev, thread, text);
 
         if (replace) {
@@ -96,8 +96,8 @@ const messageButtonClicked = ev => {
           document.querySelector(".cf-thread-list .cf-thread").replaceWith(node);
         }
       },
-      error => alertError(t("Oops, something went wrong!"))
+      (error) => alertError(t("Oops, something went wrong!"))
     );
 };
 
-document.querySelectorAll(SELECTOR).forEach(button => button.addEventListener("click", messageButtonClicked));
+document.querySelectorAll(SELECTOR).forEach((button) => button.addEventListener("click", messageButtonClicked));

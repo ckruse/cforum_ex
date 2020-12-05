@@ -21,8 +21,8 @@ async function restoreMessage(button, slug, messageId) {
       slug,
       message_id: messageId,
       forum: document.body.dataset.currentForum,
-      id_prefix: document.body.dataset.controller === "MessageController" ? "tree-" : ""
-    })
+      id_prefix: document.body.dataset.controller === "MessageController" ? "tree-" : "",
+    }),
   });
 
   const html = await response.text();

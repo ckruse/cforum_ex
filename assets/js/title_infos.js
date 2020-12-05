@@ -3,7 +3,7 @@ import { parse } from "./modules/helpers";
 
 export const updateTitleInfos = () => {
   if (document.body.dataset.userId) {
-    privateUserChannel.push("title_infos", {}).receive("ok", data => {
+    privateUserChannel.push("title_infos", {}).receive("ok", (data) => {
       document.title = document.title.replace(/^\([^)]+\)/, data.infos);
     });
   }
@@ -27,6 +27,6 @@ export const setReadFavicon = () => {
   }
 };
 
-window.addEventListener("focus", function() {
+window.addEventListener("focus", function () {
   setReadFavicon();
 });
