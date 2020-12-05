@@ -7,30 +7,32 @@ const threadIsVisited = (thread) => {
 };
 const shouldFold = (thread) => threadIsVisited(thread) && document.body.dataset.controller === "ThreadController";
 
-if (document.body.dataset.userId) {
-  document.addEventListener("cf:userPrivate", (event) => {
-    const channel = event.detail;
+const onUserPrivate = (event) => {
+  const channel = event.detail;
 
-    channel.on("message_marked_read", ({ message_ids }) => {
-      updateTitleInfos();
+  channel.on("message_marked_read", ({ message_ids }) => {
+    updateTitleInfos();
 
-      message_ids.forEach((id) => {
-        const elem = getMessageTreeElement(id);
-        if (!elem) {
-          return;
+    message_ids.forEach((id) => {
+      const elem = getMessageTreeElement(id);
+      if (!elem) {
+        return;
+      }
+
+      elem.classList.add("visited");
+
+      const thread = elem.closest(".cf-thread");
+
+      if (conf("open_close_close_when_read") === "yes" && shouldFold(thread)) {
+        const ol = thread.querySelector("ol");
+        if (ol) {
+          ol.remove();
         }
-
-        elem.classList.add("visited");
-
-        const thread = elem.closest(".cf-thread");
-
-        if (conf("open_close_close_when_read") === "yes" && shouldFold(thread)) {
-          const ol = thread.querySelector("ol");
-          if (ol) {
-            ol.remove();
-          }
-        }
-      });
+      }
     });
   });
+};
+
+if (document.body.dataset.userId) {
+  document.addEventListener("cf:userPrivate", onUserPrivate);
 }
