@@ -7,23 +7,8 @@ import { isInSizeLimit } from "./helpers";
 import { conf } from "../../modules/helpers";
 
 export default class Dropzone extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.dragEvents = 0;
-
-    this.state = { dragging: false, file: null, showImageModal: false };
-    this.onOk = this.onOk.bind(this);
-    this.onCancel = this.onCancel.bind(this);
-    this.showImageModal = this.showImageModal.bind(this);
-    this.dragEnterListener = this.dragEnterListener.bind(this);
-    this.dragLeaveListener = this.dragLeaveListener.bind(this);
-    this.dropListener = this.dropListener.bind(this);
-
-    this.ignoreEvents = this.ignoreEvents.bind(this);
-    this.dropIgnoreListener = this.dropIgnoreListener.bind(this);
-    this.onPaste = this.onPaste.bind(this);
-  }
+  state = { dragging: false, file: null, showImageModal: false };
+  dragEvents = 0;
 
   componentDidMount() {
     window.addEventListener("dragstart", this.ignoreEvents);
@@ -53,35 +38,35 @@ export default class Dropzone extends React.Component {
     window.removeEventListener("paste", this.onPaste);
   }
 
-  onOk(file, desc, title) {
+  onOk = (file, desc, title) => {
     this.setState({ showImageModal: false });
 
     if (file.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && isInSizeLimit(file)) {
       this.props.onDrop(file, desc, title);
     }
-  }
+  };
 
-  isDraggingFile(ev) {
+  isDraggingFile = (ev) => {
     return ev.dataTransfer.types.indexOf
       ? ev.dataTransfer.types.indexOf("Files") !== -1
       : ev.dataTransfer.types.contains("Files");
-  }
+  };
 
-  ignoreEvents(ev, checkedForDraggingFile = false) {
+  ignoreEvents = (ev, checkedForDraggingFile = false) => {
     if (checkedForDraggingFile || this.isDraggingFile(ev)) {
       ev.stopPropagation();
       ev.preventDefault();
     }
-  }
+  };
 
-  dropIgnoreListener(ev) {
+  dropIgnoreListener = (ev) => {
     this.ignoreEvents(ev);
     this.dragEvents = 0;
     this.setState({ dragging: false });
     this.props.onDragStop();
-  }
+  };
 
-  dragEnterListener(ev) {
+  dragEnterListener = (ev) => {
     this.dragEvents++;
     this.ignoreEvents(ev);
 
@@ -89,9 +74,9 @@ export default class Dropzone extends React.Component {
       this.setState({ dragging: true });
       this.props.onDragStart();
     }
-  }
+  };
 
-  dragLeaveListener(ev) {
+  dragLeaveListener = (ev) => {
     this.dragEvents--;
     this.ignoreEvents(ev);
 
@@ -99,9 +84,9 @@ export default class Dropzone extends React.Component {
       this.setState({ dragging: false });
       this.props.onDragStop();
     }
-  }
+  };
 
-  dropListener(ev) {
+  dropListener = (ev) => {
     this.ignoreEvents(ev);
     this.dragEvents = 0;
     this.setState({ dragging: false });
@@ -113,9 +98,9 @@ export default class Dropzone extends React.Component {
         this.setState({ file, showImageModal: true });
       }
     }
-  }
+  };
 
-  onPaste(ev) {
+  onPaste = (ev) => {
     if (ev.clipboardData.items[0].type.match(/^image\//)) {
       this.ignoreEvents(ev, true);
 
@@ -129,15 +114,15 @@ export default class Dropzone extends React.Component {
 
       this.setState({ file, showImageModal: true });
     }
-  }
+  };
 
-  onCancel() {
+  onCancel = () => {
     this.setState({ showImageModal: false, file: null });
-  }
+  };
 
-  showImageModal() {
+  showImageModal = () => {
     this.setState({ showImageModal: true });
-  }
+  };
 
   render() {
     return (

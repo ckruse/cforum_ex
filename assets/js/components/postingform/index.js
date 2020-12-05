@@ -25,46 +25,43 @@ class CfPostingForm extends React.Component {
       saveIdentity: this.props.saveIdentity,
       showRestoreDraft: false,
     };
-
-    this.resetSaveTimer = this.resetSaveTimer.bind(this);
-    this.saveDraft = this.saveDraft.bind(this);
-    this.restoreDraft = this.restoreDraft.bind(this);
-    this.deleteDraft = this.deleteDraft.bind(this);
-
-    this.updateState = this.updateState.bind(this);
-    this.onTextChange = this.onTextChange.bind(this);
-    this.onTagChange = this.onTagChange.bind(this);
-    this.toggleRestoreDraft = this.toggleRestoreDraft.bind(this);
-    this.setSaveIdentity = this.setSaveIdentity.bind(this);
-
-    this.cancelForm = this.cancelForm.bind(this);
   }
 
-  updateState(ev) {
+  componentDidMount() {
+    if (this.props.form) {
+      const key = this.keyForDraft(this.props.form);
+
+      if (localStorage.getItem(key)) {
+        this.toggleRestoreDraft();
+      }
+    }
+  }
+
+  updateState = (ev) => {
     let name = ev.target.name.replace(/message\[([^\]]+)\]/, "$1").replace(/_(.)/, (_, c) => c.toUpperCase());
     this.setState({ [name]: ev.target.value });
     this.resetSaveTimer();
-  }
+  };
 
-  onTextChange(text) {
+  onTextChange = (text) => {
     this.setState({ text });
     this.resetSaveTimer();
-  }
+  };
 
-  onTagChange(tags) {
+  onTagChange = (tags) => {
     this.setState({ tags });
     this.resetSaveTimer();
-  }
+  };
 
-  setSaveIdentity(val) {
+  setSaveIdentity = (val) => {
     this.setState({ saveIdentity: val });
-  }
+  };
 
-  keyForDraft(form) {
+  keyForDraft = (form) => {
     return form.action + "_draft";
-  }
+  };
 
-  restoreDraft() {
+  restoreDraft = () => {
     if (!this.props.form) {
       return;
     }
@@ -88,9 +85,9 @@ class CfPostingForm extends React.Component {
       homepage: fields.homepage || "",
       showRestoreDraft: false,
     });
-  }
+  };
 
-  deleteDraft() {
+  deleteDraft = () => {
     if (this.timer) {
       window.clearInterval(this.timer);
       this.timer = null;
@@ -99,44 +96,34 @@ class CfPostingForm extends React.Component {
     const key = this.keyForDraft(this.props.form);
     localStorage.removeItem(key);
     this.toggleRestoreDraft(false);
-  }
+  };
 
-  saveDraft() {
+  saveDraft = () => {
     const key = this.keyForDraft(this.props.form);
     const draft = { ...this.state, saved: new Date() };
     delete draft.showRestoreDraft;
 
     localStorage.setItem(key, JSON.stringify(draft));
-  }
+  };
 
-  resetSaveTimer() {
+  resetSaveTimer = () => {
     if (!this.timer) {
       this.timer = window.setInterval(this.saveDraft, 2000);
     }
-  }
+  };
 
-  componentDidMount() {
-    if (this.props.form) {
-      const key = this.keyForDraft(this.props.form);
-
-      if (localStorage.getItem(key)) {
-        this.toggleRestoreDraft();
-      }
-    }
-  }
-
-  toggleRestoreDraft(val = undefined) {
+  toggleRestoreDraft = (val = undefined) => {
     if (typeof val == "object") {
       val = undefined;
     }
 
     this.setState((state) => ({ showRestoreDraft: val === undefined ? !state.showRestoreDraft : val }));
-  }
+  };
 
-  cancelForm() {
+  cancelForm = () => {
     this.deleteDraft();
     this.props.onCancel();
-  }
+  };
 
   render() {
     const { csrfInfo } = this.props;

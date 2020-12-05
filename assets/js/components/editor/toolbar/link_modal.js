@@ -8,11 +8,6 @@ class LinkModal extends React.Component {
     super(props);
 
     this.state = { linkText: this.props.linkText, linkTarget: "" };
-
-    this.handleTextKeyPressed = this.handleTextKeyPressed.bind(this);
-    this.handleTargetKeyPressed = this.handleTargetKeyPressed.bind(this);
-    this.onAfterOpen = this.onAfterOpen.bind(this);
-    this.okPressed = this.okPressed.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -21,26 +16,26 @@ class LinkModal extends React.Component {
     }
   }
 
-  handleTextKeyPressed(event) {
+  handleTextKeyPressed = (event) => {
     this.setState({ linkText: event.target.value });
-  }
+  };
 
-  handleTargetKeyPressed(event) {
+  handleTargetKeyPressed = (event) => {
     this.setState({ linkTarget: event.target.value });
-  }
+  };
 
-  onAfterOpen() {
+  onAfterOpen = () => {
     if (this.focusElement) {
       this.focusElement.focus();
     }
-  }
+  };
 
-  okPressed() {
+  okPressed = () => {
     const { linkText, linkTarget } = this.state;
     this.setState({ linkText: "", linkTarget: "" });
 
     this.props.onOk(linkText, linkTarget);
-  }
+  };
 
   render() {
     return (

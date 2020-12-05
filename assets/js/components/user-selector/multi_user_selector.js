@@ -5,25 +5,20 @@ import SearchModal from "./search_modal";
 import { unique } from "../../modules/helpers";
 
 export default class MultiUserSelector extends React.Component {
+  state = {
+    chosenUsers: [],
+    showModal: false,
+  };
+
   constructor(props) {
     super(props);
-
-    this.state = {
-      chosenUsers: [],
-      showModal: false,
-    };
 
     if (this.props.users && this.props.users.length > 0) {
       this.prefetchUsers();
     }
-
-    this.removeUser = this.removeUser.bind(this);
-    this.showSearchModal = this.showSearchModal.bind(this);
-    this.hideSearchModal = this.hideSearchModal.bind(this);
-    this.selectUsers = this.selectUsers.bind(this);
   }
 
-  async prefetchUsers() {
+  prefetchUsers = async () => {
     const formData = new FormData();
     this.props.users.forEach((id) => formData.append("ids[]", id));
 
@@ -31,25 +26,25 @@ export default class MultiUserSelector extends React.Component {
     const users = await response.json();
     users.sort((a, b) => a.username.localeCompare(b.username));
     this.setState({ ...this.state, chosenUsers: users });
-  }
+  };
 
-  removeUser(user) {
+  removeUser = (user) => {
     this.setState({ ...this.state, chosenUsers: this.state.chosenUsers.filter((u) => u.user_id !== user.user_id) });
-  }
+  };
 
-  showSearchModal() {
+  showSearchModal = () => {
     this.setState({ ...this.state, showModal: true });
-  }
+  };
 
-  hideSearchModal() {
+  hideSearchModal = () => {
     this.setState({ ...this.state, showModal: false });
-  }
+  };
 
-  selectUsers(users) {
+  selectUsers = (users) => {
     const newUsers = unique([...this.state.chosenUsers, ...users]);
     newUsers.sort((a, b) => a.username.localeCompare(b.username));
     this.setState({ ...this.state, chosenUsers: newUsers, showModal: false });
-  }
+  };
 
   render() {
     return (

@@ -7,17 +7,9 @@ import { queryString } from "../../modules/helpers";
 const SEARCH_TIMEOUT = 500;
 
 export default class SearchModal extends React.Component {
-  constructor(props) {
-    super(props);
+  state = { value: "", foundUsers: [], selectedUsers: [] };
 
-    this.state = { value: "", foundUsers: [], selectedUsers: [] };
-
-    this.handleKeyPressed = this.handleKeyPressed.bind(this);
-    this.selectUsers = this.selectUsers.bind(this);
-    this.clearResults = this.clearResults.bind(this);
-  }
-
-  handleKeyPressed(event) {
+  handleKeyPressed = (event) => {
     if (this.timer != null) {
       window.clearTimeout(this.timer);
     }
@@ -25,9 +17,9 @@ export default class SearchModal extends React.Component {
     this.setState({ ...this.state, value: event.target.value });
 
     this.timer = window.setTimeout(() => this.searchUsers(), SEARCH_TIMEOUT);
-  }
+  };
 
-  searchUsers() {
+  searchUsers = () => {
     const qs = queryString({ s: this.state.value });
     fetch(`/api/v1/users?${qs}&self=${this.props.selfSelect ? "yes" : "no"}`, { credentials: "same-origin" })
       .then((response) => response.json())
@@ -35,9 +27,9 @@ export default class SearchModal extends React.Component {
         json.sort((a, b) => a.username.localeCompare(b.username));
         this.setState({ ...this.state, foundUsers: json });
       });
-  }
+  };
 
-  chooseUser(user) {
+  chooseUser = (user) => {
     if (this.props.single) {
       this.props.selectUser(user);
     } else {
@@ -45,21 +37,21 @@ export default class SearchModal extends React.Component {
       newUsers.sort((a, b) => a.username.localeCompare(b.username));
       this.setState({ ...this.state, selectedUsers: newUsers });
     }
-  }
+  };
 
-  unchooseUser(user) {
+  unchooseUser = (user) => {
     this.setState({ ...this.state, selectedUsers: this.state.selectedUsers.filter((u) => u.user_id !== user.user_id) });
-  }
+  };
 
-  selectUsers() {
+  selectUsers = () => {
     this.props.selectUser(this.state.selectedUsers);
-  }
+  };
 
-  clearResults() {
+  clearResults = () => {
     this.setState({ ...this.state, foundUsers: [], selectedUsers: [] });
-  }
+  };
 
-  renderFoundUsers() {
+  renderFoundUsers = () => {
     if (this.state.foundUsers.length === 0) {
       return (
         <li className="no-data" key="no-user-found">
@@ -70,7 +62,8 @@ export default class SearchModal extends React.Component {
       return this.state.foundUsers.map((user) => (
         <li key={user.user_id}>
           <span className="author">
-            <img src={user.avatar.thumb} alt="" className="avatar" /> {user.username}
+            <img src={user.avatar.thumb} alt="" className="avatar" />
+             {user.username}
           </span>
           <button type="button" className="cf-primary-index-btn" onClick={() => this.chooseUser(user)}>
             {t("select user")}
@@ -78,9 +71,9 @@ export default class SearchModal extends React.Component {
         </li>
       ));
     }
-  }
+  };
 
-  renderSelectedUsers() {
+  renderSelectedUsers = () => {
     return (
       <>
         <h2>{t("selected users")}</h2>
@@ -93,7 +86,8 @@ export default class SearchModal extends React.Component {
           {this.state.selectedUsers.map((user) => (
             <li key={user.user_id}>
               <span className="author">
-                <img src={user.avatar.thumb} alt="" className="avatar" /> {user.username}
+                <img src={user.avatar.thumb} alt="" className="avatar" />
+                 {user.username}
               </span>
               <button type="button" className="cf-primary-index-btn" onClick={() => this.unchooseUser(user)}>
                 {t("unselect user")}
@@ -103,7 +97,7 @@ export default class SearchModal extends React.Component {
         </ul>
       </>
     );
-  }
+  };
 
   render() {
     return (

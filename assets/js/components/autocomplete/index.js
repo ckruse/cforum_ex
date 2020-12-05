@@ -8,22 +8,13 @@ const NAV_KEYS = ["ArrowUp", "ArrowDown"];
 const TRIGGER_KEYS = ["Tab", "Enter"];
 
 class AutocompleteTextarea extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { suggestions: [], matching: [], active: null };
-
-    this.handleKeyUp = this.handleKeyUp.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.onTrigger = this.onTrigger.bind(this);
-    this.handleSuggestions = this.handleSuggestions.bind(this);
-  }
+  state = { suggestions: [], matching: [], active: null };
 
   resetSuggestions() {
     this.setState({ suggestions: [], matching: [], active: null });
   }
 
-  navigate(key) {
+  navigate = (key) => {
     if (key === "ArrowDown") {
       this.setState((oldState) => {
         let active;
@@ -49,9 +40,9 @@ class AutocompleteTextarea extends React.Component {
         return { active };
       });
     }
-  }
+  };
 
-  triggerCompletion(matching, suggestion) {
+  triggerCompletion = (matching, suggestion) => {
     const cursorPosition = this.props.textarea.current.selectionStart;
     const currentSubstring = this.props.value.substring(0, cursorPosition);
     const rest = this.props.value.substring(cursorPosition);
@@ -75,9 +66,9 @@ class AutocompleteTextarea extends React.Component {
     }
 
     window.setTimeout(() => this.props.textarea.current.setSelectionRange(cursorPositionStart, cursorPositionEnd), 0);
-  }
+  };
 
-  shouldComplete(event) {
+  shouldComplete = (event) => {
     if (TRIGGER_KEYS.includes(event.key) && typeof this.state.active === "number") {
       return this.state.active;
     }
@@ -87,9 +78,9 @@ class AutocompleteTextarea extends React.Component {
     }
 
     return false;
-  }
+  };
 
-  handleKeyDown(ev) {
+  handleKeyDown = (ev) => {
     if (this.state.suggestions.length > 0) {
       if (NAV_KEYS.includes(ev.key)) {
         ev.preventDefault();
@@ -111,9 +102,9 @@ class AutocompleteTextarea extends React.Component {
       this.resetSuggestions();
       this.props.textarea.current.focus();
     }
-  }
+  };
 
-  handleKeyUp(ev) {
+  handleKeyUp = (ev) => {
     if (IGNORED_KEYS.includes(ev.key) || ev.key === "Escape") {
       return;
     }
@@ -132,20 +123,20 @@ class AutocompleteTextarea extends React.Component {
     matching.forEach((element) => {
       return element.suggestions(RegExp.lastMatch, (suggestions) => this.handleSuggestions(element, suggestions));
     });
-  }
+  };
 
-  handleSuggestions(matching, suggestions) {
+  handleSuggestions = (matching, suggestions) => {
     const tuples = suggestions.map((suggestion) => ({ matching, suggestion }));
     this.setState((prevState) => ({ suggestions: [...prevState.suggestions, ...tuples] }));
-  }
+  };
 
-  onTrigger(event, matching, suggestion) {
+  onTrigger = (event, matching, suggestion) => {
     event.preventDefault();
 
     this.resetSuggestions();
     this.props.textarea.current.focus();
     this.triggerCompletion(matching, suggestion);
-  }
+  };
 
   render() {
     return (

@@ -4,21 +4,15 @@ import CfEditor from "../editor";
 import TagList from "../taglist";
 
 class CfContentForm extends React.Component {
-  constructor(props) {
-    super(props);
+  state = { value: this.props.text };
 
-    this.state = { value: this.props.text };
-
-    this.refreshSuggestions = this.refreshSuggestions.bind(this);
-  }
-
-  refreshSuggestions(newValue) {
+  refreshSuggestions = (newValue) => {
     this.setState({ value: newValue });
 
     if (this.props.onTextChange) {
       this.props.onTextChange(newValue);
     }
-  }
+  };
 
   componentDidUpdate(prevProps) {
     if (prevProps.text !== this.props.text) {

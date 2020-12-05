@@ -7,18 +7,11 @@ import FoundBadge from "./found_badge";
 const SEARCH_TIMEOUT = 500;
 
 class NewBadgeModal extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      value: "",
-      badges: [],
-      foundBadges: [],
-    };
-
-    this.handleKeyPressed = this.handleKeyPressed.bind(this);
-    this.searchBadges = this.searchBadges.bind(this);
-  }
+  state = {
+    value: "",
+    badges: [],
+    foundBadges: [],
+  };
 
   componentDidMount() {
     fetch("/api/v1/badges")
@@ -26,20 +19,20 @@ class NewBadgeModal extends React.Component {
       .then((json) => this.setState({ badges: json }));
   }
 
-  handleKeyPressed(event) {
+  handleKeyPressed = (event) => {
     if (this.timer != null) {
       window.clearTimeout(this.timer);
     }
 
     this.setState({ value: event.target.value });
     this.timer = window.setTimeout(() => this.searchBadges(), SEARCH_TIMEOUT);
-  }
+  };
 
-  searchBadges() {
+  searchBadges = () => {
     const v = this.state.value.toLowerCase();
     const found = this.state.badges.filter((b) => b.name.toLowerCase().indexOf(v) !== -1);
     this.setState({ foundBadges: found });
-  }
+  };
 
   render() {
     return (

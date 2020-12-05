@@ -8,17 +8,7 @@ import NewBadgeModal from "./new_badge_modal";
 import appsignal, { FallbackComponent } from "../../appsignal";
 
 class BadgeManager extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { user: null, showModal: false, lastAdded: 0 };
-
-    this.changeActive = this.changeActive.bind(this);
-    this.deleteBadge = this.deleteBadge.bind(this);
-    this.showNewBadgeModal = this.showNewBadgeModal.bind(this);
-    this.selectBadge = this.selectBadge.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-  }
+  state = { user: null, showModal: false, lastAdded: 0 };
 
   componentDidMount() {
     fetch(`/api/v1/users/${this.props.userId}`, { credentials: "same-origin" })
@@ -26,28 +16,28 @@ class BadgeManager extends React.Component {
       .then((json) => this.setState({ user: json }));
   }
 
-  changeActive(badge) {
+  changeActive = (badge) => {
     const newBadges = [...this.state.user.badges];
     const index = newBadges.findIndex((b) => b.badge_user_id === badge.badge_user_id);
     newBadges[index].active = !newBadges[index].active;
 
     this.setState({ user: { ...this.state.user, badges: newBadges } });
-  }
+  };
 
-  deleteBadge(badge) {
+  deleteBadge = (badge) => {
     const newBadges = this.state.user.badges.filter((b) => b.badge_user_id !== badge.badge_user_id);
     this.setState({ user: { ...this.state.user, badges: newBadges } });
-  }
+  };
 
-  showNewBadgeModal() {
+  showNewBadgeModal = () => {
     this.setState({ showModal: true });
-  }
+  };
 
-  closeModal() {
+  closeModal = () => {
     this.setState({ showModal: false });
-  }
+  };
 
-  selectBadge(badge) {
+  selectBadge = (badge) => {
     this.setState({
       showModal: false,
       lastAdded: this.state.lastAdded + 1,
@@ -59,7 +49,7 @@ class BadgeManager extends React.Component {
         ],
       },
     });
-  }
+  };
 
   render() {
     const badges = (this.state.user && this.state.user.badges) || [];

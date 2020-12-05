@@ -11,14 +11,6 @@ class CodeModal extends React.Component {
     super(props);
 
     this.state = { lang: "", code: this.props.code, suggestions: [...LANGUAGES] };
-
-    this.handleLanguageChosen = this.handleLanguageChosen.bind(this);
-    this.handleLanguageChange = this.handleLanguageChange.bind(this);
-    this.handleCodeKeyPressed = this.handleCodeKeyPressed.bind(this);
-    this.okPressed = this.okPressed.bind(this);
-    this.onAfterOpen = this.onAfterOpen.bind(this);
-    this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
-    this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -27,29 +19,29 @@ class CodeModal extends React.Component {
     }
   }
 
-  handleLanguageChosen(event, { suggestionValue }) {
+  handleLanguageChosen = (event, { suggestionValue }) => {
     this.setState({ lang: suggestionValue });
-  }
+  };
 
-  handleLanguageChange(event, { newValue }) {
+  handleLanguageChange = (event, { newValue }) => {
     this.setState({ lang: newValue });
-  }
+  };
 
-  handleCodeKeyPressed(event) {
+  handleCodeKeyPressed = (event) => {
     this.setState({ code: event.target.value });
-  }
+  };
 
-  okPressed() {
+  okPressed = () => {
     this.props.onOk(this.state.lang, this.state.code);
-  }
+  };
 
-  onAfterOpen() {
+  onAfterOpen = () => {
     if (this.focusElement) {
       this.focusElement.focus();
     }
-  }
+  };
 
-  onSuggestionsFetchRequested({ value }) {
+  onSuggestionsFetchRequested = ({ value }) => {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
 
@@ -59,11 +51,11 @@ class CodeModal extends React.Component {
         : LANGUAGES.filter((lang) => lang.toLowerCase().slice(0, inputLength) === inputValue);
 
     this.setState({ suggestions });
-  }
+  };
 
-  onSuggestionsClearRequested() {
+  onSuggestionsClearRequested = () => {
     this.setState({ suggestions: [...LANGUAGES] });
-  }
+  };
 
   render() {
     return (

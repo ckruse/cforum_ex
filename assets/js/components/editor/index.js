@@ -15,19 +15,12 @@ import AutocompleteTextarea from "../autocomplete";
 import appsignal, { FallbackComponent } from "../../appsignal";
 
 class CfEditor extends React.Component {
+  textarea = React.createRef();
+
   constructor(props) {
     super(props);
 
     this.state = { value: props.text, dragging: false, loading: false };
-    this.textarea = React.createRef();
-
-    this.valueChanged = this.valueChanged.bind(this);
-    this.setValue = this.setValue.bind(this);
-    this.dragStart = this.dragStart.bind(this);
-    this.dragStop = this.dragStop.bind(this);
-
-    this.fileDropped = this.fileDropped.bind(this);
-    this.fileUploadFinished = this.fileUploadFinished.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -43,11 +36,11 @@ class CfEditor extends React.Component {
     this.textarea.current.selectionStart = this.textarea.current.selectionEnd = pos;
   }
 
-  valueChanged(ev) {
+  valueChanged = (ev) => {
     this.setValue(ev.target.value);
-  }
+  };
 
-  setValue(value, opts = {}) {
+  setValue = (value, opts = {}) => {
     this.setState({ value });
 
     if (this.props.onChange) {
@@ -60,15 +53,15 @@ class CfEditor extends React.Component {
         this.textarea.current.selectionEnd = opts.end;
       }, 0);
     }
-  }
+  };
 
-  dragStart() {
+  dragStart = () => {
     this.setState({ dragging: true });
-  }
-  dragStop() {
+  };
+  dragStop = () => {
     this.setState({ dragging: false });
-  }
-  fileDropped(file, desc, title) {
+  };
+  fileDropped = (file, desc, title) => {
     const fdata = new FormData();
     fdata.append("image", file);
     fetch("/api/v1/images", {
@@ -79,9 +72,9 @@ class CfEditor extends React.Component {
     })
       .then((rsp) => rsp.json())
       .then((json) => this.fileUploadFinished(json, desc, title, file));
-  }
+  };
 
-  fileUploadFinished(rsp, desc, title, file) {
+  fileUploadFinished = (rsp, desc, title, file) => {
     this.setState({ loading: false });
     if (rsp.status === "success") {
       const { start, end } = getSelection(this.textarea.current);
@@ -100,7 +93,7 @@ class CfEditor extends React.Component {
     } else {
       alertError(t("Oops, something went wrong!"));
     }
-  }
+  };
 
   render() {
     const { id, name, errors } = this.props;

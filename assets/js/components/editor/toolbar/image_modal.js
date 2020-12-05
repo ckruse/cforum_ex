@@ -10,12 +10,6 @@ export default class ImageModal extends React.Component {
     super(props);
 
     this.state = { desc: "", title: "", file: this.props.file };
-
-    this.handleKeyPressed = this.handleKeyPressed.bind(this);
-    this.onAfterOpen = this.onAfterOpen.bind(this);
-    this.okPressed = this.okPressed.bind(this);
-    this.handleFileChanged = this.handleFileChanged.bind(this);
-    this.onCancel = this.onCancel.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -24,38 +18,38 @@ export default class ImageModal extends React.Component {
     }
   }
 
-  handleKeyPressed(event) {
+  handleKeyPressed = (event) => {
     this.setState({ [event.target.name]: event.target.value });
-  }
+  };
 
-  handleFileChanged(ev) {
+  handleFileChanged = (ev) => {
     const file = ev.target.files[0];
 
     if (file.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && isInSizeLimit(file)) {
       this.setState({ file });
     }
-  }
+  };
 
-  onAfterOpen() {
+  onAfterOpen = () => {
     if (this.focusElementFile) {
       this.focusElementFile.focus();
     } else if (this.focusElement) {
       this.focusElement.focus();
     }
-  }
+  };
 
-  okPressed() {
+  okPressed = () => {
     if (this.state.file) {
       this.props.onOk(this.state.file, this.state.desc, this.state.title);
     } else {
       this.props.onCancel();
     }
-  }
+  };
 
-  onCancel() {
+  onCancel = () => {
     this.setState({ desc: "", title: "", file: null });
     this.props.onCancel();
-  }
+  };
 
   render() {
     return (
