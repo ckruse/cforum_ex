@@ -61,17 +61,19 @@ class CfEditor extends React.Component {
   dragStop = () => {
     this.setState({ dragging: false });
   };
-  fileDropped = (file, desc, title) => {
+  fileDropped = async (file, desc, title) => {
     const fdata = new FormData();
     fdata.append("image", file);
-    fetch("/api/v1/images", {
+
+    const rsp = await fetch("/api/v1/images", {
       method: "POST",
       credentials: "same-origin",
       cache: "no-cache",
       body: fdata,
-    })
-      .then((rsp) => rsp.json())
-      .then((json) => this.fileUploadFinished(json, desc, title, file));
+    });
+
+    const json = await rsp.json();
+    this.fileUploadFinished(json, desc, title, file);
   };
 
   fileUploadFinished = (rsp, desc, title, file) => {

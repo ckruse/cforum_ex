@@ -19,14 +19,14 @@ export default class SearchModal extends React.Component {
     this.timer = window.setTimeout(() => this.searchUsers(), SEARCH_TIMEOUT);
   };
 
-  searchUsers = () => {
+  searchUsers = async () => {
     const qs = queryString({ s: this.state.value });
-    fetch(`/api/v1/users?${qs}&self=${this.props.selfSelect ? "yes" : "no"}`, { credentials: "same-origin" })
-      .then((response) => response.json())
-      .then((json) => {
-        json.sort((a, b) => a.username.localeCompare(b.username));
-        this.setState({ ...this.state, foundUsers: json });
-      });
+    const response = await fetch(`/api/v1/users?${qs}&self=${this.props.selfSelect ? "yes" : "no"}`, {
+      credentials: "same-origin",
+    });
+    const json = await response.json();
+    json.sort((a, b) => a.username.localeCompare(b.username));
+    this.setState({ ...this.state, foundUsers: json });
   };
 
   chooseUser = (user) => {
@@ -62,8 +62,7 @@ export default class SearchModal extends React.Component {
       return this.state.foundUsers.map((user) => (
         <li key={user.user_id}>
           <span className="author">
-            <img src={user.avatar.thumb} alt="" className="avatar" />
-             {user.username}
+            <img src={user.avatar.thumb} alt="" className="avatar" /> {user.username}
           </span>
           <button type="button" className="cf-primary-index-btn" onClick={() => this.chooseUser(user)}>
             {t("select user")}
@@ -86,8 +85,7 @@ export default class SearchModal extends React.Component {
           {this.state.selectedUsers.map((user) => (
             <li key={user.user_id}>
               <span className="author">
-                <img src={user.avatar.thumb} alt="" className="avatar" />
-                 {user.username}
+                <img src={user.avatar.thumb} alt="" className="avatar" /> {user.username}
               </span>
               <button type="button" className="cf-primary-index-btn" onClick={() => this.unchooseUser(user)}>
                 {t("unselect user")}

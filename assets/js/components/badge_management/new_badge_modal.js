@@ -13,10 +13,10 @@ class NewBadgeModal extends React.Component {
     foundBadges: [],
   };
 
-  componentDidMount() {
-    fetch("/api/v1/badges")
-      .then((rsp) => rsp.json())
-      .then((json) => this.setState({ badges: json }));
+  async componentDidMount() {
+    const rsp = await fetch("/api/v1/badges");
+    const json = await rsp.json();
+    this.setState({ badges: json });
   }
 
   handleKeyPressed = (event) => {

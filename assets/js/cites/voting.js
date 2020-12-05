@@ -1,7 +1,7 @@
 import { alertError, alertSuccess } from "../modules/alerts";
 import { t } from "../modules/i18n";
 
-const voteForMessage = (ev) => {
+const voteForMessage = async (ev) => {
   if (ev.target.nodeName !== "BUTTON") {
     return;
   }
@@ -32,17 +32,19 @@ const voteForMessage = (ev) => {
     id,
   };
 
-  fetch("/api/v1/cites/vote", {
-    credentials: "same-origin",
-    method: "POST",
-    body: JSON.stringify(params),
-    headers: { "Content-Type": "application/json; charset=utf-8" },
-  })
-    .then(
-      (rsp) => rsp.json(),
-      (err) => handleError(btn)
-    )
-    .then((json) => updateVotingAreas(json, type, btn.closest(".cf-cite"), btn));
+  try {
+    const rsp = await fetch("/api/v1/cites/vote", {
+      credentials: "same-origin",
+      method: "POST",
+      body: JSON.stringify(params),
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+    });
+
+    const json = await rsp.json();
+    updateVotingAreas(json, type, btn.closest(".cf-cite"), btn);
+  } catch (e) {
+    handleError(btn);
+  }
 };
 
 const handleError = (btn) => {

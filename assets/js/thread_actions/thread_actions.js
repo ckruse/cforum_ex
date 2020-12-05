@@ -13,15 +13,15 @@ import {
   subscribeMessageHelper,
   unsubscribeMessageHelper,
   noArchiveHelper,
-  doArchiveHelper
+  doArchiveHelper,
 } from "./helpers";
 
-const buttonElement = el => {
+const buttonElement = (el) => {
   if (el.nodeName === "BUTTON") return el;
   return el.closest("button");
 };
 
-const setupThreadActions = element => {
+const setupThreadActions = (element) => {
   const validElements = {
     ".thread-icons .open": openThreadHelper,
     ".thread-icons .close": closeThreadHelper,
@@ -33,17 +33,17 @@ const setupThreadActions = element => {
     ".message-icons .mark-interesting": markInterestingHelper,
     ".message-icons .boring": markBoringHelper,
     ".message-icons .subscribe": subscribeMessageHelper,
-    ".message-icons .unsubscribe": unsubscribeMessageHelper
+    ".message-icons .unsubscribe": unsubscribeMessageHelper,
   };
 
-  element.addEventListener("click", event => {
+  element.addEventListener("click", async (event) => {
     const element = buttonElement(event.target);
 
     if (!element) {
       return;
     }
 
-    const action = Object.keys(validElements).find(selector => element.matches(selector));
+    const action = Object.keys(validElements).find((selector) => element.matches(selector));
 
     if (!action) {
       return;
@@ -58,24 +58,22 @@ const setupThreadActions = element => {
     element.disabled = true;
     element.classList.add("loading");
 
-    fetch(url, requestParams).then(response => {
-      element.disabled = false;
-      element.classList.remove("loading");
+    const response = await fetch(url, requestParams);
+    element.disabled = false;
+    element.classList.remove("loading");
 
-      if (!response.ok) {
-        alertError(t("Oops, something went wrong!"));
-        return;
-      }
+    if (!response.ok) {
+      alertError(t("Oops, something went wrong!"));
+      return;
+    }
 
-      if (afterAction) {
-        afterAction(response);
-      } else {
-        response.text().then(text => {
-          const node = parse(text);
-          form.closest(".cf-thread").replaceWith(node);
-        });
-      }
-    });
+    if (afterAction) {
+      afterAction(response);
+    } else {
+      const text = await response.text();
+      const node = parse(text);
+      form.closest(".cf-thread").replaceWith(node);
+    }
   });
 };
 

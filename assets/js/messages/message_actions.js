@@ -47,7 +47,7 @@ const ACTIONS = {
   },
 };
 
-const messageButtonClicked = (ev) => {
+const messageButtonClicked = async (ev) => {
   const form = ev.target.closest("form");
 
   const thread = form.closest(".cf-thread-message");
@@ -71,33 +71,29 @@ const messageButtonClicked = (ev) => {
   fdata.append("forum", document.body.dataset.currentForum);
   fdata.append("fold", "no");
 
-  fetch(action.url, {
-    method: "POST",
-    credentials: "same-origin",
-    cache: "no-cache",
-    body: fdata,
-  })
-    .then(
-      (response) => {
-        if (!response.ok) {
-          return Promise.reject();
-        }
+  try {
+    const response = await fetch(action.url, {
+      method: "POST",
+      credentials: "same-origin",
+      cache: "no-cache",
+      body: fdata,
+    });
 
-        return response.text();
-      },
-      (err) => alertError(t("Oops, something went wrong!"))
-    )
-    .then(
-      (text) => {
-        const replace = !action.action || action.action(ev, thread, text);
+    if (!response.ok) {
+      throw new Error();
+    }
 
-        if (replace) {
-          const node = parse(text);
-          document.querySelector(".cf-thread-list .cf-thread").replaceWith(node);
-        }
-      },
-      (error) => alertError(t("Oops, something went wrong!"))
-    );
+    const text = await response.text();
+
+    const replace = !action.action || action.action(ev, thread, text);
+
+    if (replace) {
+      const node = parse(text);
+      document.querySelector(".cf-thread-list .cf-thread").replaceWith(node);
+    }
+  } catch (e) {
+    alertError(t("Oops, something went wrong!"));
+  }
 };
 
 document.querySelectorAll(SELECTOR).forEach((button) => button.addEventListener("click", messageButtonClicked));

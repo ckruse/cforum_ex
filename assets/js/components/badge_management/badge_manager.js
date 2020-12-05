@@ -10,10 +10,10 @@ import appsignal, { FallbackComponent } from "../../appsignal";
 class BadgeManager extends React.Component {
   state = { user: null, showModal: false, lastAdded: 0 };
 
-  componentDidMount() {
-    fetch(`/api/v1/users/${this.props.userId}`, { credentials: "same-origin" })
-      .then((rsp) => rsp.json())
-      .then((json) => this.setState({ user: json }));
+  async componentDidMount() {
+    const rsp = await fetch(`/api/v1/users/${this.props.userId}`, { credentials: "same-origin" });
+    const json = await rsp.json();
+    this.setState({ user: json });
   }
 
   changeActive = (badge) => {

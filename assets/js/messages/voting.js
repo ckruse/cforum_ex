@@ -2,7 +2,7 @@ import { parseMessageUrl } from "../modules/helpers";
 import { alertError, alertSuccess } from "../modules/alerts";
 import { t } from "../modules/i18n";
 
-const voteForMessage = (ev) => {
+const voteForMessage = async (ev) => {
   if (ev.target.nodeName !== "BUTTON") {
     return;
   }
@@ -32,17 +32,19 @@ const voteForMessage = (ev) => {
 
   const targetUrl = `/api/v1/messages/${type}`;
 
-  fetch(targetUrl, {
-    credentials: "same-origin",
-    method: "POST",
-    body: JSON.stringify(params),
-    headers: { "Content-Type": "application/json; charset=utf-8" },
-  })
-    .then(
-      (rsp) => rsp.json(),
-      (err) => handleError(btn)
-    )
-    .then((json) => updateVotingAreas(json, type, btn.closest(".cf-thread-message"), btn));
+  try {
+    const rsp = await fetch(targetUrl, {
+      credentials: "same-origin",
+      method: "POST",
+      body: JSON.stringify(params),
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+    });
+    const json = await rsp.json();
+
+    updateVotingAreas(json, type, btn.closest(".cf-thread-message"), btn);
+  } catch (e) {
+    handleError(btn);
+  }
 };
 
 const handleError = (btn) => {
