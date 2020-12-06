@@ -1,107 +1,101 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Modal from "react-modal";
 
 import { t } from "../../../modules/i18n";
 import Thumb from "./thumb";
 import { isInSizeLimit } from "../helpers";
 
-export default class ImageModal extends React.Component {
-  constructor(props) {
-    super(props);
+export default function ImageModal(props) {
+  const [meta, setMeta] = useState({ title: "", desc: "" });
+  const [file, setFile] = useState(props.file);
+  const focusElementFile = useRef();
+  const focusElement = useRef();
 
-    this.state = { desc: "", title: "", file: this.props.file };
+  useEffect(() => {
+    setFile(props.file);
+  }, [props.file]);
+
+  function handleKeyPressed(event) {
+    setMeta({ ...meta, [event.target.name]: event.target.value });
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.file !== this.props.file) {
-      this.setState({ file: this.props.file });
+  function handleFileChanged(ev) {
+    const newFile = ev.target.files[0];
+
+    if (newFile.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && isInSizeLimit(newFile)) {
+      setFile(newFile);
     }
   }
 
-  handleKeyPressed = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
-  handleFileChanged = (ev) => {
-    const file = ev.target.files[0];
-
-    if (file.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && isInSizeLimit(file)) {
-      this.setState({ file });
+  function onAfterOpen() {
+    if (focusElementFile.current) {
+      focusElementFile.current.focus();
+    } else if (focusElement.current) {
+      focusElement.current.focus();
     }
-  };
+  }
 
-  onAfterOpen = () => {
-    if (this.focusElementFile) {
-      this.focusElementFile.focus();
-    } else if (this.focusElement) {
-      this.focusElement.focus();
-    }
-  };
-
-  okPressed = () => {
-    if (this.state.file) {
-      this.props.onOk(this.state.file, this.state.desc, this.state.title);
+  function okPressed() {
+    if (file) {
+      setFile(null);
+      setMeta({ title: "", desc: "" });
+      props.onOk(file, meta.desc, meta.title);
     } else {
-      this.props.onCancel();
+      setFile(null);
+      setMeta({ title: "", desc: "" });
+      props.onCancel();
     }
-  };
-
-  onCancel = () => {
-    this.setState({ desc: "", title: "", file: null });
-    this.props.onCancel();
-  };
-
-  render() {
-    return (
-      <Modal
-        isOpen={this.props.isOpen}
-        appElement={document.body}
-        contentLabel={t("Add new image")}
-        onRequestClose={this.props.onCancel}
-        onAfterOpen={this.onAfterOpen}
-        closeTimeoutMS={300}
-        shouldReturnFocusAfterClose={false}
-      >
-        <div className="cf-form">
-          <div className="cf-cgroup">
-            <label htmlFor="add-image-modal-file">{t("choose image")}</label>
-            <input
-              ref={(ref) => (this.focusElementFile = ref)}
-              type="file"
-              id="add-image-modal-desc"
-              onChange={this.handleFileChanged}
-            />
-          </div>
-          <Thumb file={this.state.file} />
-          <div className="cf-cgroup">
-            <label htmlFor="add-image-modal-desc">{t("enter image description")}</label>
-            <input
-              ref={(ref) => (this.focusElement = ref)}
-              type="text"
-              id="add-image-modal-desc"
-              name="desc"
-              onChange={this.handleKeyPressed}
-              value={this.state.desc}
-            />
-          </div>
-          <div className="cf-cgroup">
-            <label htmlFor="add-image-modal-title">{t("enter image title")}</label>
-            <input
-              type="text"
-              id="add-image-modal-title"
-              name="title"
-              onChange={this.handleKeyPressed}
-              value={this.state.title}
-            />
-          </div>
-          <button className="cf-primary-btn" type="button" onClick={this.okPressed}>
-            {t("add image")}
-          </button>{" "}
-          <button className="cf-btn" type="button" onClick={this.onCancel}>
-            {t("cancel")}
-          </button>
-        </div>
-      </Modal>
-    );
   }
+
+  function onCancel() {
+    setFile(null);
+    setMeta({ title: "", desc: "" });
+    props.onCancel();
+  }
+
+  return (
+    <Modal
+      isOpen={props.isOpen}
+      appElement={document.body}
+      contentLabel={t("Add new image")}
+      onRequestClose={props.onCancel}
+      onAfterOpen={onAfterOpen}
+      closeTimeoutMS={300}
+      shouldReturnFocusAfterClose={false}
+    >
+      <div className="cf-form">
+        <div className="cf-cgroup">
+          <label htmlFor="add-image-modal-file">{t("choose image")}</label>
+          <input ref={focusElementFile} type="file" id="add-image-modal-desc" onChange={handleFileChanged} />
+        </div>
+
+        <Thumb file={file} />
+
+        <div className="cf-cgroup">
+          <label htmlFor="add-image-modal-desc">{t("enter image description")}</label>
+          <input
+            ref={focusElement}
+            type="text"
+            id="add-image-modal-desc"
+            name="desc"
+            onChange={handleKeyPressed}
+            value={meta.desc}
+          />
+        </div>
+
+        <div className="cf-cgroup">
+          <label htmlFor="add-image-modal-title">{t("enter image title")}</label>
+          <input type="text" id="add-image-modal-title" name="title" onChange={handleKeyPressed} value={meta.title} />
+        </div>
+
+        <button className="cf-primary-btn" type="button" onClick={okPressed}>
+          {t("add image")}
+        </button>
+
+        <button className="cf-btn" type="button" onClick={onCancel}>
+          {t("cancel")}
+        </button>
+      </div>
+    </Modal>
+  );
 }
