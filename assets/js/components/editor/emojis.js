@@ -13,7 +13,12 @@ const EmojiReplacements = {
       found = emojiIndex.search(term);
     }
 
-    return cb(found.slice(0, 10).map((o) => ({ id: o.id, display: o.native })));
+    const suggestions = found
+      .slice(0, 10)
+      .map((o) => ({ id: o.id, display: o.native }))
+      .filter((o) => !!o.id);
+
+    return cb(suggestions);
   },
   render: ({ id, display }) => (
     <>
