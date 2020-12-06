@@ -1,60 +1,52 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import getCaretCoordinates from "textarea-caret";
 
-export default class SuggestionsList extends React.Component {
-  constructor(props) {
-    super(props);
+export default function SuggestionsList({ active, textarea, onKeyDown, suggestions, onTrigger }) {
+  const buttons = useRef([]);
 
-    this.buttons = [];
+  function isActive(idx) {
+    return active === idx ? "active" : null;
   }
 
-  isActive(idx) {
-    return this.props.active === idx ? "active" : null;
-  }
-
-  componentDidUpdate(props) {
-    if (this.buttons[this.props.active]) {
-      this.buttons[this.props.active].focus();
+  useEffect(() => {
+    if (buttons[active]) {
+      buttons[active].focus();
     }
-  }
+  });
 
-  correctedPosition(coordinates) {
-    if (this.props.textarea.current.scrollLeft) {
-      coordinates.left = coordinates.left - this.props.textarea.current.scrollLeft;
+  function correctedPosition(coordinates) {
+    if (textarea.current.scrollLeft) {
+      coordinates.left = coordinates.left - textarea.current.scrollLeft;
     }
 
-    if (this.props.textarea.current.scrollHeight) {
-      coordinates.top = coordinates.top - this.props.textarea.current.scrollTop;
+    if (textarea.current.scrollHeight) {
+      coordinates.top = coordinates.top - textarea.current.scrollTop;
     }
 
     return coordinates;
   }
 
-  render() {
-    const caret = this.correctedPosition(
-      getCaretCoordinates(this.props.textarea.current, this.props.textarea.current.selectionEnd)
-    );
+  const caret = correctedPosition(getCaretCoordinates(textarea.current, textarea.current.selectionEnd));
 
-    const top = caret.top + caret.height + 5;
+  const top = caret.top + caret.height + 5;
 
-    return (
-      <ul
-        className="cf-autocomplete-suggestionslist"
-        style={{ top: `${top}px`, left: `${caret.left}px` }}
-        onKeyDown={this.props.onKeyDown}
-      >
-        {this.props.suggestions.map(({ matching, suggestion }, idx) => (
-          <li key={suggestion.id} className={this.isActive(idx)}>
-            <button
-              type="button"
-              ref={(ref) => (this.buttons[idx] = ref)}
-              onClick={(ev) => this.props.onTrigger(ev, matching, suggestion)}
-            >
-              {matching.render(suggestion)}
-            </button>
-          </li>
-        ))}
-      </ul>
-    );
-  }
+  return (
+    <ul
+      className="cf-autocomplete-suggestionslist"
+      style={{ top: `${top}px`, left: `${caret.left}px` }}
+      onKeyDown={onKeyDown}
+    >
+      {suggestions.map(({ matching, suggestion }, idx) => (
+        <li key={suggestion.id} className={isActive(idx)}>
+          <button
+            type="button"
+            ref={(ref) => (buttons.current[idx] = ref)}
+            onClick={(ev) => onTrigger(ev, matching, suggestion)}
+          >
+            {matching.render(suggestion)}
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
 }
