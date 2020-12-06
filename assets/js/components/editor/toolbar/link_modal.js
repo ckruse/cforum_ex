@@ -7,12 +7,12 @@ class LinkModal extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { linkText: this.props.linkText, linkTarget: "" };
+    this.state = { linkText: this.props.linkText || "", linkTarget: "" };
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.linkText !== this.props.linkText) {
-      this.setState({ linkText: this.props.linkText, linkTarget: "" });
+      this.setState({ linkText: this.props.linkText || "", linkTarget: "" });
     }
   }
 
