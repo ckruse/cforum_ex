@@ -124,10 +124,18 @@ export default class Dropzone extends React.Component {
     this.setState({ showImageModal: true });
   };
 
+  classes = () => {
+    const classes = [];
+    if (this.state.dragging) classes.push("dragging");
+    if (this.props.loading) classes.push("loading");
+
+    return classes.join(" ");
+  };
+
   render() {
     return (
       <>
-        <div className={`cf-dropzone ${this.state.dragging ? "dragging" : ""}`} onDrop={this.dropListener}>
+        <div className={`cf-dropzone ${this.classes()}`} onDrop={this.dropListener}>
           <button onClick={this.showImageModal} type="button">
             <span>{t("drop file here or click here to upload")}</span>
           </button>

@@ -115,6 +115,15 @@ $radius: 0.3em;
 
 .cf-dropzone {
   display: none;
+
+  &.loading {
+    background: url(/images/ajax-loader.svg) no-repeat center scroll transparent;
+    background-size: contain;
+
+    span {
+      display: none;
+    }
+  }
 }
 
 .cf-dropzone-thumbnail {
