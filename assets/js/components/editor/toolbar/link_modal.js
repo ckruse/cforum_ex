@@ -1,85 +1,74 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Modal from "react-modal";
 
 import { t } from "../../../modules/i18n";
 
-class LinkModal extends React.Component {
-  constructor(props) {
-    super(props);
+export default function LinkModal(props) {
+  const [linkText, setLinkText] = useState(props.linkText || "");
+  const [linkTarget, setLinkTarget] = useState("");
+  const focusElement = useRef();
 
-    this.state = { linkText: this.props.linkText || "", linkTarget: "" };
+  useEffect(() => {
+    setLinkText(props.linkText || "");
+    setLinkTarget("");
+  }, [props.linkText]);
+
+  function handleTextKeyPressed(event) {
+    setLinkText(event.target.value);
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.linkText !== this.props.linkText) {
-      this.setState({ linkText: this.props.linkText || "", linkTarget: "" });
+  function handleTargetKeyPressed(event) {
+    setLinkTarget(event.target.value);
+  }
+
+  function onAfterOpen() {
+    if (focusElement.current) {
+      focusElement.current.focus();
     }
   }
 
-  handleTextKeyPressed = (event) => {
-    this.setState({ linkText: event.target.value });
-  };
+  function okPressed() {
+    setLinkText("");
+    setLinkTarget("");
 
-  handleTargetKeyPressed = (event) => {
-    this.setState({ linkTarget: event.target.value });
-  };
+    props.onOk(linkText, linkTarget);
+  }
 
-  onAfterOpen = () => {
-    if (this.focusElement) {
-      this.focusElement.focus();
-    }
-  };
-
-  okPressed = () => {
-    const { linkText, linkTarget } = this.state;
-    this.setState({ linkText: "", linkTarget: "" });
-
-    this.props.onOk(linkText, linkTarget);
-  };
-
-  render() {
-    return (
-      <Modal
-        isOpen={this.props.isOpen}
-        appElement={document.body}
-        contentLabel={t("Add new link")}
-        onRequestClose={this.props.onCancel}
-        onAfterOpen={this.onAfterOpen}
-        closeTimeoutMS={300}
-        shouldReturnFocusAfterClose={false}
-      >
-        <div className="cf-form">
-          <div className="cf-cgroup">
-            <label htmlFor="add-link-modal-linktext">{t("link description")}</label>
-            <input
-              ref={(ref) => (this.focusElement = ref)}
-              type="text"
-              id="add-link-modal-linktext"
-              onChange={this.handleTextKeyPressed}
-              value={this.state.linkText}
-            />
-          </div>
-
-          <div className="cf-cgroup">
-            <label htmlFor="add-link-modal-linkurl">{t("link target")}</label>
-            <input
-              type="text"
-              id="add-link-modal-linkurl"
-              onChange={this.handleTargetKeyPressed}
-              value={this.state.linkTarget}
-            />
-          </div>
-
-          <button className="cf-primary-btn" type="button" onClick={this.okPressed}>
-            {t("add link")}
-          </button>
-          <button className="cf-btn" type="button" onClick={this.props.onCancel}>
-            {t("cancel")}
-          </button>
+  return (
+    <Modal
+      isOpen={props.isOpen}
+      appElement={document.body}
+      contentLabel={t("Add new link")}
+      onRequestClose={props.onCancel}
+      onAfterOpen={onAfterOpen}
+      closeTimeoutMS={300}
+      shouldReturnFocusAfterClose={false}
+    >
+      <div className="cf-form">
+        <div className="cf-cgroup">
+          <label htmlFor="add-link-modal-linktext">{t("link description")}</label>
+          <input
+            ref={focusElement}
+            type="text"
+            id="add-link-modal-linktext"
+            onChange={handleTextKeyPressed}
+            value={linkText}
+          />
         </div>
-      </Modal>
-    );
-  }
-}
 
-export default LinkModal;
+        <div className="cf-cgroup">
+          <label htmlFor="add-link-modal-linkurl">{t("link target")}</label>
+          <input type="text" id="add-link-modal-linkurl" onChange={handleTargetKeyPressed} value={linkTarget} />
+        </div>
+
+        <button className="cf-primary-btn" type="button" onClick={okPressed}>
+          {t("add link")}
+        </button>
+
+        <button className="cf-btn" type="button" onClick={props.onCancel}>
+          {t("cancel")}
+        </button>
+      </div>
+    </Modal>
+  );
+}
