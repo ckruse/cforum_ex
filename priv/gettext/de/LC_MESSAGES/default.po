@@ -295,7 +295,7 @@ msgid "Hi there, %{name}!"
 msgstr "Hallo %{name}!"
 
 #: lib/cforum_web/controllers/notification_controller.ex:53
-#: lib/cforum_web/controllers/users/registration_controller.ex:49
+#: lib/cforum_web/controllers/users/registration_controller.ex:49 lib/cforum_web/controllers/users/registration_controller.ex:56
 msgid "Oops, something went wrong!"
 msgstr "Uups, es ist etwas schief gegangen!"
 
@@ -842,7 +842,7 @@ msgid "show"
 msgstr "anzeigen"
 
 #: lib/cforum_web/templates/admin/advent_calendar/form.html.eex:28
-#: lib/cforum_web/templates/mail/form.html.eex:19 lib/cforum_web/templates/mail/index.html.eex:6
+#: lib/cforum_web/templates/mail/form.html.eex:22 lib/cforum_web/templates/mail/index.html.eex:6
 #: lib/cforum_web/templates/message/form.html.eex:4 lib/cforum_web/templates/notification/index.html.eex:5
 msgid "subject"
 msgstr "Betreff"
@@ -1476,7 +1476,7 @@ msgid "send mail"
 msgstr "Mail versenden"
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/form.html.eex:22
+#: lib/cforum_web/templates/mail/form.html.eex:25
 msgid "Howdy, partner!"
 msgstr ""
 
@@ -1539,7 +1539,7 @@ msgid "preview"
 msgstr "Vorschau"
 
 #, elixir-format
-#: lib/cforum_web/templates/mail/form.html.eex:30
+#: lib/cforum_web/templates/mail/form.html.eex:33
 msgid "mail content"
 msgstr "Mail-Inhalt"
 
@@ -2822,12 +2822,12 @@ msgid "Cite created successfully."
 msgstr "Zitat erfolgreich erstellt."
 
 #, elixir-format
-#: lib/cforum_web/controllers/cite_controller.ex:70
+#: lib/cforum_web/controllers/cite_controller.ex:67
 msgid "Cite deleted successfully."
 msgstr "Zitat erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/cite_controller.ex:57
+#: lib/cforum_web/controllers/cite_controller.ex:54
 msgid "Cite updated successfully."
 msgstr "Zitat erfolgreich geändert."
 
@@ -4179,17 +4179,17 @@ msgid "This message has been locked: %{reason}"
 msgstr "Dieser Beitrag wurde gesperrt: %{reason}"
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/advent_calendar_controller.ex:31
+#: lib/cforum_web/controllers/admin/advent_calendar_controller.ex:28
 msgid "Advent calendar day created successfully."
 msgstr "Der Adventskalender-Tag wurde erfolgreich erstellt."
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/advent_calendar_controller.ex:64
+#: lib/cforum_web/controllers/admin/advent_calendar_controller.ex:61
 msgid "Advent calendar day deleted successfully."
 msgstr "Der Adventskalender-Tag wurde erfolgreich gelöscht."
 
 #, elixir-format
-#: lib/cforum_web/controllers/admin/advent_calendar_controller.ex:51
+#: lib/cforum_web/controllers/admin/advent_calendar_controller.ex:48
 msgid "Advent calendar day updated successfully."
 msgstr "Der Adventskalender-Tag wurde erfolgreich bearbeitet."
 
@@ -4275,11 +4275,6 @@ msgstr "Tut mir leid, leider gibt es hier nichts :("
 #: lib/cforum_web/templates/advent/day.html.eex:20
 msgid "no content"
 msgstr "kein Inhalt"
-
-#, elixir-format
-#: lib/cforum_web/templates/admin/subnav.html.eex:13
-msgid "background jobs"
-msgstr "Hintergrund-Aufträge"
 
 #, elixir-format
 #: lib/cforum_web/templates/messages/retag/edit.html.eex:26
