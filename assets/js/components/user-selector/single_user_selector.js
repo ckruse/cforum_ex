@@ -1,76 +1,76 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { t } from "../../modules/i18n";
 import SearchModal from "./search_modal";
 
-export default class SingleUserSelector extends React.Component {
-  state = {
-    chosenUser: null,
-    showModal: false,
-  };
+export default function SingleUserSelector({ userId, element, id, selfSelect }) {
+  const [chosenUser, setChosenUser] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
-  constructor(props) {
-    super(props);
+  async function fetchUser(userId) {
+    const data = await fetch(`/api/v1/users/${userId}`, { credentials: "same-origin" });
+    const json = await data.json();
+    setChosenUser(json);
+  }
 
-    if (this.props.userId) {
-      fetch(`/api/v1/users/${this.props.userId}`, { credentials: "same-origin" })
-        .then((json) => json.json())
-        .then((json) => this.setState({ chosenUser: json }));
+  useEffect(() => {
+    if (userId) {
+      fetchUser(userId);
     }
+  });
+
+  function showSearchModal() {
+    setShowModal(true);
   }
 
-  showSearchModal = () => {
-    this.setState({ showModal: true });
-  };
+  function hideSearchModal() {
+    setShowModal(false);
+  }
 
-  hideSearchModal = () => {
-    this.setState({ showModal: false });
-  };
-
-  selectUser = (user) => {
-    this.setState({ chosenUser: { ...user }, showModal: false });
-    this.props.element.value = user.user_id;
+  function selectUser(user) {
+    setChosenUser(user);
+    setShowModal(false);
+    element.value = user.user_id;
 
     const event = new Event("change");
-    this.props.element.dispatchEvent(event);
-  };
+    element.dispatchEvent(event);
+  }
 
-  clear = () => {
-    this.setState({ chosenUser: null });
-    this.props.element.value = "";
+  function clear() {
+    setChosenUser(null);
+    element.value = "";
     const event = new Event("change");
-    this.props.element.dispatchEvent(event);
-  };
+    element.dispatchEvent(event);
+  }
 
-  render() {
-    const user = this.state.chosenUser;
-
-    return (
-      <>
-        <div id={this.props.id} className="cf-users-selector">
-          {user && (
-            <span className="author">
-              <img src={user.avatar.thumb} alt="" className="avatar" /> {user.username}
-            </span>
-          )}
-          {!user && <em>{t("no user chosen")}</em>}
-        </div>
-        <button type="button" className="cf-users-selector-btn" onClick={this.showSearchModal}>
-          {t("search user")}
-        </button>
-        <button type="button" className="cf-users-selector-btn" onClick={this.clear}>
-          {t("clear")}
-        </button>
-        {this.state.showModal && (
-          <SearchModal
-            selfSelect={this.props.selfSelect}
-            single={true}
-            show={this.state.showModal}
-            close={this.hideSearchModal}
-            selectUser={this.selectUser}
-          />
+  return (
+    <>
+      <div id={id} className="cf-users-selector">
+        {chosenUser && (
+          <span className="author">
+            <img src={chosenUser.avatar.thumb} alt="" className="avatar" /> {chosenUser.username}
+          </span>
         )}
-      </>
-    );
-  }
+        {!chosenUser && <em>{t("no user chosen")}</em>}
+      </div>
+
+      <button type="button" className="cf-users-selector-btn" onClick={showSearchModal}>
+        {t("search user")}
+      </button>
+
+      <button type="button" className="cf-users-selector-btn" onClick={clear}>
+        {t("clear")}
+      </button>
+
+      {showModal && (
+        <SearchModal
+          selfSelect={selfSelect}
+          single={true}
+          show={showModal}
+          close={hideSearchModal}
+          selectUser={selectUser}
+        />
+      )}
+    </>
+  );
 }

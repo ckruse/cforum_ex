@@ -1,48 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import CfEditor from "../editor";
 import TagList from "../taglist";
 
-class CfContentForm extends React.Component {
-  state = { value: this.props.text };
+export default function CfContentForm({ text, tags, id, name, errors, globalTagsError, onTagChange, onTextChange }) {
+  const [value, setValue] = useState(text);
 
-  refreshSuggestions = (newValue) => {
-    this.setState({ value: newValue });
+  function refreshSuggestions(newValue) {
+    setValue(newValue);
 
-    if (this.props.onTextChange) {
-      this.props.onTextChange(newValue);
-    }
-  };
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.text !== this.props.text) {
-      this.setState({ value: this.props.text });
+    if (onTextChange) {
+      onTextChange(newValue);
     }
   }
 
-  render() {
-    const { tags, id, name } = this.props;
+  useEffect(() => {
+    setValue(text);
+  }, [text]);
 
-    return (
-      <>
-        <CfEditor
-          text={this.state.value}
-          name={name}
-          id={id}
-          mentions={true}
-          onChange={this.refreshSuggestions}
-          withImages={true}
-          errors={this.props.errors}
-        />
-        <TagList
-          tags={tags}
-          postingText={this.state.value}
-          globalTagsError={this.props.globalTagsError}
-          onChange={this.props.onTagChange}
-        />
-      </>
-    );
-  }
+  return (
+    <>
+      <CfEditor
+        text={value}
+        name={name}
+        id={id}
+        mentions={true}
+        onChange={refreshSuggestions}
+        withImages={true}
+        errors={errors}
+      />
+      <TagList tags={tags} postingText={value} globalTagsError={globalTagsError} onChange={onTagChange} />
+    </>
+  );
 }
-
-export default CfContentForm;

@@ -1,88 +1,87 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { t } from "../../modules/i18n";
 import SearchModal from "./search_modal";
 import { unique } from "../../modules/helpers";
 
-export default class MultiUserSelector extends React.Component {
-  state = {
-    chosenUsers: [],
-    showModal: false,
-  };
+export default function MultiUserSelector({ users, fieldName, selfSelect }) {
+  const [chosenUsers, setChosenUsers] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
-  constructor(props) {
-    super(props);
-
-    if (this.props.users && this.props.users.length > 0) {
-      this.prefetchUsers();
-    }
-  }
-
-  prefetchUsers = async () => {
+  async function prefetchUsers() {
     const formData = new FormData();
-    this.props.users.forEach((id) => formData.append("ids[]", id));
+    users.forEach((id) => formData.append("ids[]", id));
 
     const response = await fetch(`/api/v1/users`, { cedentials: "same-origin", method: "post", body: formData });
-    const users = await response.json();
-    users.sort((a, b) => a.username.localeCompare(b.username));
-    this.setState({ ...this.state, chosenUsers: users });
-  };
-
-  removeUser = (user) => {
-    this.setState({ ...this.state, chosenUsers: this.state.chosenUsers.filter((u) => u.user_id !== user.user_id) });
-  };
-
-  showSearchModal = () => {
-    this.setState({ ...this.state, showModal: true });
-  };
-
-  hideSearchModal = () => {
-    this.setState({ ...this.state, showModal: false });
-  };
-
-  selectUsers = (users) => {
-    const newUsers = unique([...this.state.chosenUsers, ...users]);
-    newUsers.sort((a, b) => a.username.localeCompare(b.username));
-    this.setState({ ...this.state, chosenUsers: newUsers, showModal: false });
-  };
-
-  render() {
-    return (
-      <>
-        <ul>
-          {this.state.chosenUsers.map((user) => (
-            <li key={user.user_id}>
-              <input type="hidden" name={this.props.fieldName} value={user.user_id} />
-
-              <a className="user-link" href={`/users/${user.user_id}`} title={t(" user") + " " + user.username}>
-                <span className="registered-user">
-                  <span className="visually-hidden">{t("link to profile of")}</span>
-                  <img alt={t(" user") + " " + user.username} className="avatar" src={user.avatar.thumb} />
-                  {" " + user.username}
-                </span>
-              </a>
-
-              <button type="button" className="cf-index-btn" onClick={() => this.removeUser(user)}>
-                {t("remove user")}
-              </button>
-            </li>
-          ))}
-        </ul>
-
-        <button type="button" className="cf-users-selector-btn" onClick={this.showSearchModal}>
-          {t("search user")}
-        </button>
-
-        {this.state.showModal && (
-          <SearchModal
-            selfSelect={this.props.selfSelect}
-            single={false}
-            show={this.state.showModal}
-            close={this.hideSearchModal}
-            selectUser={this.selectUsers}
-          />
-        )}
-      </>
-    );
+    const fetchedUsers = await response.json();
+    fetchedUsers.sort((a, b) => a.username.localeCompare(b.username));
+    setChosenUsers(fetchedUsers);
   }
+
+  useEffect(
+    () => {
+      if (users && users.length > 0) {
+        prefetchUsers();
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [users]
+  );
+
+  function removeUser(user) {
+    setChosenUsers(chosenUsers.filter((u) => u.user_id !== user.user_id));
+  }
+
+  function showSearchModal() {
+    setShowModal(true);
+  }
+
+  function hideSearchModal() {
+    setShowModal(false);
+  }
+
+  function selectUsers(users) {
+    const newUsers = unique([...chosenUsers, ...users]);
+    newUsers.sort((a, b) => a.username.localeCompare(b.username));
+    setChosenUsers(newUsers);
+    setShowModal(false);
+  }
+
+  return (
+    <>
+      <ul>
+        {chosenUsers.map((user) => (
+          <li key={user.user_id}>
+            <input type="hidden" name={fieldName} value={user.user_id} />
+
+            <a className="user-link" href={`/users/${user.user_id}`} title={t(" user") + " " + user.username}>
+              <span className="registered-user">
+                <span className="visually-hidden">{t("link to profile of")}</span>
+                <img alt={t(" user") + " " + user.username} className="avatar" src={user.avatar.thumb} />
+                {" " + user.username}
+              </span>
+            </a>
+
+            <button type="button" className="cf-index-btn" onClick={() => removeUser(user)}>
+              {t("remove user")}
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      <button type="button" className="cf-users-selector-btn" onClick={showSearchModal}>
+        {t("search user")}
+      </button>
+
+      {showModal && (
+        <SearchModal
+          selfSelect={selfSelect}
+          single={false}
+          show={showModal}
+          close={hideSearchModal}
+          selectUser={selectUsers}
+        />
+      )}
+    </>
+  );
 }

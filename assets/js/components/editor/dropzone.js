@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { t } from "../../modules/i18n";
 import ImageModal from "./toolbar/image_modal";
@@ -6,148 +6,149 @@ import { alertError } from "../../modules/alerts";
 import { isInSizeLimit } from "./helpers";
 import { conf } from "../../modules/helpers";
 
-export default class Dropzone extends React.Component {
-  state = { dragging: false, file: null, showImageModal: false };
-  dragEvents = 0;
+export default function Dropzone(props) {
+  const [dragging, setDragging] = useState(false);
+  const [file, setFile] = useState(null);
+  const [showImageModal, setShowImageModal] = useState(false);
 
-  componentDidMount() {
-    window.addEventListener("dragstart", this.ignoreEvents);
-    window.addEventListener("dragend", this.ignoreEvents);
+  const dragEvents = useRef(0);
 
-    window.addEventListener("dragover", this.ignoreEvents);
-    window.addEventListener("drop", this.dropIgnoreListener);
+  useEffect(
+    () => {
+      window.addEventListener("dragstart", ignoreEvents);
+      window.addEventListener("dragend", ignoreEvents);
 
-    window.addEventListener("dragenter", this.dragEnterListener);
-    window.addEventListener("dragleave", this.dragLeaveListener);
+      window.addEventListener("dragover", ignoreEvents);
+      window.addEventListener("drop", dropIgnoreListener);
 
-    window.addEventListener("paste", this.onPaste);
+      window.addEventListener("dragenter", dragEnterListener);
+      window.addEventListener("dragleave", dragLeaveListener);
 
-    this.dragEvents = 0;
-  }
+      window.addEventListener("paste", onPaste);
 
-  componentWillUnmount() {
-    window.removeEventListener("dragstart", this.ignoreEvents);
-    window.removeEventListener("dragend", this.ignoreEvents);
+      return () => {
+        window.removeEventListener("dragstart", ignoreEvents);
+        window.removeEventListener("dragend", ignoreEvents);
 
-    window.removeEventListener("dragover", this.ignoreEvents);
-    window.removeEventListener("drop", this.dropIgnoreListener);
+        window.removeEventListener("dragover", ignoreEvents);
+        window.removeEventListener("drop", dropIgnoreListener);
 
-    window.removeEventListener("dragenter", this.dragEnterListener);
-    window.removeEventListener("dragleave", this.dragLeaveListener);
+        window.removeEventListener("dragenter", dragEnterListener);
+        window.removeEventListener("dragleave", dragLeaveListener);
 
-    window.removeEventListener("paste", this.onPaste);
-  }
+        window.removeEventListener("paste", onPaste);
+      };
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
-  onOk = (file, desc, title) => {
-    this.setState({ showImageModal: false });
+  function onOk(file, desc, title) {
+    setShowImageModal(false);
 
     if (file.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && isInSizeLimit(file)) {
-      this.props.onDrop(file, desc, title);
+      props.onDrop(file, desc, title);
     }
-  };
+  }
 
-  isDraggingFile = (ev) => {
+  function isDraggingFile(ev) {
     return ev.dataTransfer.types.indexOf
       ? ev.dataTransfer.types.indexOf("Files") !== -1
       : ev.dataTransfer.types.contains("Files");
-  };
+  }
 
-  ignoreEvents = (ev, checkedForDraggingFile = false) => {
-    if (checkedForDraggingFile || this.isDraggingFile(ev)) {
+  function ignoreEvents(ev, checkedForDraggingFile = false) {
+    if (checkedForDraggingFile || isDraggingFile(ev)) {
       ev.stopPropagation();
       ev.preventDefault();
     }
-  };
+  }
 
-  dropIgnoreListener = (ev) => {
-    this.ignoreEvents(ev);
-    this.dragEvents = 0;
-    this.setState({ dragging: false });
-    this.props.onDragStop();
-  };
+  function dropIgnoreListener(ev) {
+    ignoreEvents(ev);
+    dragEvents.current = 0;
+    setDragging(false);
+    props.onDragStop();
+  }
 
-  dragEnterListener = (ev) => {
-    this.dragEvents++;
-    this.ignoreEvents(ev);
+  function dragEnterListener(ev) {
+    dragEvents.current++;
+    ignoreEvents(ev);
 
-    if (!this.state.dragging && this.isDraggingFile(ev)) {
-      this.setState({ dragging: true });
-      this.props.onDragStart();
+    if (!dragging && isDraggingFile(ev)) {
+      setDragging(true);
+      props.onDragStart();
     }
-  };
+  }
 
-  dragLeaveListener = (ev) => {
-    this.dragEvents--;
-    this.ignoreEvents(ev);
+  function dragLeaveListener(ev) {
+    dragEvents.current--;
+    ignoreEvents(ev);
 
-    if (this.dragEvents === 0) {
-      this.setState({ dragging: false });
-      this.props.onDragStop();
+    if (dragEvents.current === 0) {
+      setDragging(false);
+      props.onDragStop();
     }
-  };
+  }
 
-  dropListener = (ev) => {
-    this.ignoreEvents(ev);
-    this.dragEvents = 0;
-    this.setState({ dragging: false });
-    this.props.onDragStop();
+  function dropListener(ev) {
+    ignoreEvents(ev);
+    dragEvents.current = 0;
+    setDragging(false);
+    props.onDragStop();
 
     if (ev.dataTransfer.files && ev.dataTransfer.files[0]) {
-      const file = ev.dataTransfer.files[0];
-      if (file.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && isInSizeLimit(file)) {
-        this.setState({ file, showImageModal: true });
+      const droppedFile = ev.dataTransfer.files[0];
+      if (droppedFile.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && isInSizeLimit(droppedFile)) {
+        setFile(droppedFile);
+        setShowImageModal(true);
       }
     }
-  };
+  }
 
-  onPaste = (ev) => {
+  function onPaste(ev) {
     if (ev.clipboardData.items[0].type.match(/^image\//)) {
-      this.ignoreEvents(ev, true);
+      ignoreEvents(ev, true);
 
-      const file = ev.clipboardData.items[0].getAsFile();
+      const pastedFile = ev.clipboardData.items[0].getAsFile();
       const maxSize = conf("max_image_filesize");
 
-      if (!isInSizeLimit(file)) {
+      if (!isInSizeLimit(pastedFile)) {
         alertError(t("The image you tried to paste exceeds the size limit of {maxSize} mb", { maxSize }));
         return;
       }
 
-      this.setState({ file, showImageModal: true });
+      setFile(pastedFile);
+      setShowImageModal(true);
     }
-  };
+  }
 
-  onCancel = () => {
-    this.setState({ showImageModal: false, file: null });
-  };
+  function onCancel() {
+    setShowImageModal(false);
+    setFile(null);
+  }
 
-  showImageModal = () => {
-    this.setState({ showImageModal: true });
-  };
+  function doShowImageModal() {
+    setShowImageModal(true);
+  }
 
-  classes = () => {
+  function classes() {
     const classes = [];
-    if (this.state.dragging) classes.push("dragging");
-    if (this.props.loading) classes.push("loading");
+    if (dragging) classes.push("dragging");
+    if (props.loading) classes.push("loading");
 
     return classes.join(" ");
-  };
-
-  render() {
-    return (
-      <>
-        <div className={`cf-dropzone ${this.classes()}`} onDrop={this.dropListener}>
-          <button onClick={this.showImageModal} type="button">
-            <span>{t("drop file here or click here to upload")}</span>
-          </button>
-        </div>
-
-        <ImageModal
-          isOpen={this.state.showImageModal}
-          file={this.state.file}
-          onOk={this.onOk}
-          onCancel={this.onCancel}
-        />
-      </>
-    );
   }
+
+  return (
+    <>
+      <div className={`cf-dropzone ${classes()}`} onDrop={dropListener}>
+        <button onClick={doShowImageModal} type="button">
+          <span>{t("drop file here or click here to upload")}</span>
+        </button>
+      </div>
+
+      <ImageModal isOpen={showImageModal} file={file} onOk={onOk} onCancel={onCancel} />
+    </>
+  );
 }
