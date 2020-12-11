@@ -1,6 +1,6 @@
 /* source-sans-pro-regular - greek_latin-ext_cyrillic_vietnamese_latin_cyrillic-ext */
 @font-face {
-  font-display: optional;
+  font-display: swap;
   font-family: "Source Sans Pro";
   font-style: normal;
   font-weight: 400;
@@ -20,7 +20,7 @@
 }
 /* source-sans-pro-italic - greek_latin-ext_cyrillic_vietnamese_latin_cyrillic-ext */
 @font-face {
-  font-display: optional;
+  font-display: swap;
   font-family: "Source Sans Pro";
   font-style: italic;
   font-weight: 400;
@@ -40,7 +40,7 @@
 }
 /* source-sans-pro-700 - greek_latin-ext_cyrillic_vietnamese_latin_cyrillic-ext */
 @font-face {
-  font-display: optional;
+  font-display: swap;
   font-family: "Source Sans Pro";
   font-style: normal;
   font-weight: 700;
@@ -58,7 +58,7 @@
 }
 /* source-sans-pro-700italic - greek_latin-ext_cyrillic_vietnamese_latin_cyrillic-ext */
 @font-face {
-  font-display: optional;
+  font-display: swap;
   font-family: "Source Sans Pro";
   font-style: italic;
   font-weight: 700;
@@ -79,7 +79,7 @@
 
 /* source-code-pro-regular - latin-ext_latin */
 @font-face {
-  font-display: optional;
+  font-display: swap;
   font-family: "Source Code Pro";
   font-style: normal;
   font-weight: 400;
@@ -92,7 +92,7 @@
 }
 /* source-code-pro-700 - latin-ext_latin */
 @font-face {
-  font-display: optional;
+  font-display: swap;
   font-family: "Source Code Pro";
   font-style: normal;
   font-weight: 700;
