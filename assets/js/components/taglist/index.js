@@ -68,11 +68,15 @@ export default function TagList({ tags: propsTags, postingText, onChange, global
   });
 
   useEffect(() => {
-    document.addEventListener("cf:configDidLoad", () => {
+    const handler = () => {
       const minTags = conf("min_tags_per_message") || 1;
       const maxTags = conf("max_tags_per_message") || 3;
       setMinMaxTags({ minTags, maxTags });
-    });
+    };
+
+    document.addEventListener("cf:configDidLoad", handler);
+
+    return () => document.removeEventListener("cf:configDidLoad", handler);
   }, []);
 
   const refreshSuggestions = useCallback(() => {
