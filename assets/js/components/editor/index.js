@@ -30,7 +30,13 @@ export default function CfEditor({ text, onChange, id, name, errors, withImages 
       if (textarea.current && !didPosition) {
         textarea.current.focus();
         const found = value.indexOf("\n\n");
-        const pos = found === -1 ? 0 : found + 2;
+        const cite = value.search(/^>/);
+        let pos = found === -1 ? 0 : found + 2;
+
+        if (cite !== -1 && found > cite) {
+          pos = cite;
+        }
+
         textarea.current.selectionStart = textarea.current.selectionEnd = pos;
         setDidPosition(true);
       }
