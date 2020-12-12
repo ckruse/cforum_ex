@@ -68,6 +68,7 @@ defmodule Cforum.Mixfile do
       {:telemetry_poller, "~> 0.4"},
       {:telemetry_metrics, "~> 0.4"},
       {:ecto_psql_extras, "~> 0.2"},
+      {:gh_webhook_plug, "~> 0.0.5"},
 
       # testing
       {:excoveralls, "~> 0.8", only: :test},

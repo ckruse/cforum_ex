@@ -1,6 +1,4 @@
-defmodule CforumWeb.Api.Gh.DeployController do
-  use CforumWeb, :controller
-
+defmodule Cforum.DeployTask do
   alias Cforum.Helpers
 
   def deploy(conn, %{"action" => "created", "release" => %{"html_url" => url}}) do
@@ -20,6 +18,4 @@ defmodule CforumWeb.Api.Gh.DeployController do
     |> Plug.Conn.put_resp_header("content-type", "application/json; charset=utf-8")
     |> Plug.Conn.send_resp(403, "{\"status\":\"unknown\"}")
   end
-
-  def allowed?(_conn, _, _), do: true
 end

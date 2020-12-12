@@ -37,23 +37,8 @@ defmodule CforumWeb.Router do
     plug(CforumWeb.Plug.SetShowReadThreads)
   end
 
-  pipeline :ghub do
-    plug(Plug.Parsers,
-      parsers: [:json],
-      body_reader: {CforumWeb.Plug.CachedBodyReader, :read_body, []},
-      json_decoder: Jason
-    )
-
-    plug(CforumWeb.Plug.GhWebhookAuth)
-  end
-
   scope "/api", CforumWeb.Api, as: :api do
     pipe_through(:api)
-
-    scope "/gh", Gh do
-      pipe_through(:ghub)
-      post "/deploy", DeployController, :deploy
-    end
 
     scope "/v1", V1 do
       get("/users", UserController, :index)

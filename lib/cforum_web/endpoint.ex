@@ -37,6 +37,12 @@ defmodule CforumWeb.Endpoint do
   plug(Plug.Logger)
   plug(CforumWeb.Plug.CurrentForum)
 
+  plug(GhWebhookPlug,
+    secret: Application.get_env(:cforum, :deploy_secret),
+    path: "/api/gh/deploy",
+    action: {Cforum.DeployTask, :deploy}
+  )
+
   plug(Plug.Parsers,
     parsers: [:urlencoded, {:multipart, length: 104_857_600}, :json],
     pass: ["*/*"],
