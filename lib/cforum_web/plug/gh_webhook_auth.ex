@@ -12,7 +12,7 @@ defmodule CforumWeb.Plug.GhWebhookAuth do
   end
 
   defp get_signature_digest(conn) do
-    case Plug.Conn.get_req_header(conn, "x-hub-signature") do
+    case Plug.Conn.get_req_header(conn, "x-hub-signature-256") do
       ["sha256=" <> digest] -> {:ok, digest}
       _ -> {:error, "No Github Signature Found"}
     end
@@ -23,7 +23,7 @@ defmodule CforumWeb.Plug.GhWebhookAuth do
   end
 
   defp valid_request?(digest, secret, conn) do
-    hmac = :crypto.hmac(:sha, secret, conn.assigns.raw_body) |> Base.encode16(case: :lower)
+    hmac = :crypto.hmac(:sha256, secret, conn.assigns.raw_body) |> Base.encode16(case: :lower)
 
     if Plug.Crypto.secure_compare(digest, hmac),
       do: :ok,
