@@ -1,0 +1,66 @@
+name: Build Release
+
+on: push
+# on:
+#   push:
+#     tags:
+#       - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "14"
+      - name: install Dependencies
+        run: |
+          wget https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb
+          dpkg -i erlang-solutions_2.0_all.deb
+          apt-get update
+          apt-get install -y esl-erlang elixir
+          mix local.rebar --force
+          mix local.hex --force
+          mix deps.get
+          apt-get update
+          apt-get install -y postgresql-client
+          apt-get install -y nodejs
+      - name: install yarn
+        uses: borales/actions-yarn@v2.0.0
+      - name: create assets
+        run: |
+          mkdir -p priv/static
+          cd assets
+          MIX_ENV=prod yarn install
+          MIX_ENV=prod yarn run deploy
+          cd ..
+      - name: compile
+        run: |
+          MIX_ENV=prod mix deps.get --only prod && MIX_ENV=prod mix compile
+          MIX_ENV=prod mix phx.digest
+      - name: create release
+        run: |
+          MIX_ENV=prod mix release --path cforum-${{ github.ref }}
+          tar -czf cforum-${{ github.ref }}.tgz cforum-${{ github.ref }}
+      - name: create github release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./cforum-${{ github.ref }}.tgz
+          asset_name: cforum-${{ github.ref }}.tgz
+          asset_content_type: application/gzip
