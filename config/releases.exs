@@ -22,8 +22,8 @@ config :cforum,
   ]
 
 config :cforum, Cforum.Repo,
-  username: System.fetch_env!("CF_DB_USERNAME"),
-  password: System.fetch_env!("CF_DB_PASSWORD"),
+  username: System.get_env("CF_DB_USERNAME"),
+  password: System.get_env("CF_DB_PASSWORD"),
   database: System.fetch_env!("CF_DB_NAME")
 
 config :cforum, Cforum.Mailer,
