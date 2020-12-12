@@ -18,15 +18,15 @@ jobs:
       - name: install Dependencies
         run: |
           wget https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb
-          dpkg -i erlang-solutions_2.0_all.deb
-          apt-get update
-          apt-get install -y esl-erlang elixir
+          sudo dpkg -i erlang-solutions_2.0_all.deb
+          sudo apt-get update
+          sudo apt-get install -y esl-erlang elixir
           mix local.rebar --force
           mix local.hex --force
           mix deps.get
-          apt-get update
-          apt-get install -y postgresql-client
-          apt-get install -y nodejs
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+          sudo apt-get install -y nodejs
       - name: install yarn
         uses: borales/actions-yarn@v2.0.0
       - name: create assets
