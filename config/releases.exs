@@ -23,6 +23,8 @@ config :cforum,
     max_overflow: 15
   ]
 
+config :gh_webhook_plug, secret: System.fetch_env!("CF_DEPLOY_SECRET")
+
 config :cforum, Cforum.Repo,
   username: System.get_env("CF_DB_USERNAME"),
   password: System.get_env("CF_DB_PASSWORD"),
