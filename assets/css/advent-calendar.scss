@@ -84,7 +84,8 @@ $day-size: 2.2rem;
     }
   }
 
-  li.closed:hover {
+  li.closed:hover,
+  li.closed:focus-within {
     h2,
     .meta,
     .content {
