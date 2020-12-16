@@ -17,14 +17,10 @@ defmodule CforumWeb.SearchView do
 
   def checked?(section, form) do
     values =
-      Enum.map(input_value(form, :sections), fn
-        s when is_bitstring(s) ->
-          if Regex.match?(~r/^\d+$/, x),
-            do: String.to_integer(s),
-            else: s
-
-        v ->
-          v
+      Enum.map(input_value(form, :sections), fn s ->
+        if is_bitstring(s) && Regex.match?(~r/^\d+$/, s),
+          do: String.to_integer(s),
+          else: s
       end)
 
     section.search_section_id in values
