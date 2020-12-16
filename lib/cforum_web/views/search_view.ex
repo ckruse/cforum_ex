@@ -18,8 +18,13 @@ defmodule CforumWeb.SearchView do
   def checked?(section, form) do
     values =
       Enum.map(input_value(form, :sections), fn
-        s when is_bitstring(s) -> String.to_integer(s)
-        v -> v
+        s when is_bitstring(s) ->
+          if Regex.match?(~r/^\d+$/, x),
+            do: String.to_integer(s),
+            else: s
+
+        v ->
+          v
       end)
 
     section.search_section_id in values
