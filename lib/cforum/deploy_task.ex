@@ -8,8 +8,12 @@ defmodule Cforum.DeployTask do
     version = Regex.replace(~r{.*/}, url, "")
     script = Application.get_env(:cforum, :deploy_script)
 
-    if Helpers.present?(script),
-      do: Task.start(fn -> System.cmd(script, [version]) end)
+    if Helpers.present?(script) do
+      Task.start(fn ->
+        Process.sleep(10000)
+        System.cmd(script, [version])
+      end)
+    end
   end
 
   def deploy(_conn, _),
