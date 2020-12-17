@@ -22,7 +22,7 @@ jobs:
           sudo apt-get install -y esl-erlang elixir
           mix local.rebar --force
           mix local.hex --force
-          mix deps.get
+          MIX_ENV=prod mix deps.get --only prod
           sudo apt-get update
           sudo apt-get install -y postgresql-client
           sudo apt-get install -y nodejs
@@ -37,7 +37,7 @@ jobs:
           cd ..
       - name: compile
         run: |
-          MIX_ENV=prod mix deps.get --only prod && MIX_ENV=prod mix compile
+          MIX_ENV=prod mix compile
           MIX_ENV=prod mix phx.digest
       - name: create release
         run: |
