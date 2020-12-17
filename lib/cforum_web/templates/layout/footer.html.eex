@@ -4,6 +4,7 @@
     <li><%= link "Impressum", to: "//selfhtml.org/impressum.html" %></li>
     <li><%= link "Datenschutz", to: "//selfhtml.org/impressum.html#datenschutz" %></li>
     <li>Software: <%= link "Classic Forum", to: "https://github.com/ckruse/cforum_ex" %> V<%= Cforum.version %></li>
-    <li><%= link to: "https://termitel.de/" do %><%= img_tag(Routes.static_path(@conn, "/images/termitel-customer-care-and-sales.svg"), alt: "Termitel - Customer Care & Sales") %><% end %></li>
+    <li class="sponsor"><%= link to: "https://termitel.de/" do %><%= img_tag(Routes.static_path(@conn, "/images/termitel-customer-care-and-sales.svg"), alt: "Termitel - Customer Care & Sales") %><% end %></li>
+    <li class="sponsor"><img src="<%= Routes.static_path(@conn, "/images/appsignal.svg") %>" alt="AppSignal">
   </ul>
 </footer>

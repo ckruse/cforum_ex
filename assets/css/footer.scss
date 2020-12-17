@@ -11,7 +11,7 @@
     padding: 0;
   }
 
-  li:last-of-type {
+  li.sponsor {
     text-align: center;
   }
   img {
@@ -36,9 +36,11 @@
       padding-left: 0;
     }
 
-    li:last-of-type {
+    li.sponsor {
       float: right;
       text-align: left;
+      border-left: 0;
+      margin-left: 1em;
     }
 
     img {
