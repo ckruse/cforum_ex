@@ -1,4 +1,5 @@
 defmodule Cforum.Release do
+  use GenServer
   require Logger
 
   def start_link(_) do
