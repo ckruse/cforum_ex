@@ -26,7 +26,8 @@ config :cforum,
     distance: 3
   ],
   environment: Mix.env(),
-  search_dict: "german"
+  search_dict: "german",
+  uploads_dir: "/home/ckruse/uploads/"
 
 config :appsignal, :config,
   otp_app: :cforum,
