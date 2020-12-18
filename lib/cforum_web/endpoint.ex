@@ -17,12 +17,7 @@ defmodule CforumWeb.Endpoint do
     only: ~w(css fonts images js favicon.ico robots.txt humans.txt)
   )
 
-  plug(Plug.Static,
-    at: "/uploads",
-    from: Application.get_env(:cforum, :uploads_dir, Path.expand("./priv/uploads")),
-    gzip: false,
-    cache_control_for_etags: "public, max-age=31536000"
-  )
+  plug(CforumWeb.Plug.CfStatic)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
