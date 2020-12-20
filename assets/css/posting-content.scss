@@ -10,7 +10,12 @@
   border-radius: 0px 0.5em 0.5em;
   line-height: 1.4em;
   image-orientation: from-image;
+
   hyphens: auto;
+  hyphenate-limit-chars: 6 3 3;
+  hyphenate-limit-last: always;
+  hyphenate-limit-lines: 2;
+  hyphenate-limit-zone: 8%;
 
   &.deleted {
     color: darken($deleted-color, 5%);
@@ -193,6 +198,7 @@
 @include default-breakpoint() {
   .cf-posting-content {
     padding: 0.8em 1em 1em;
+    hyphens: none;
 
     blockquote {
       padding-left: 1em;
