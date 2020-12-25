@@ -10,7 +10,6 @@ defmodule Cforum.Application do
     children = [
       # Start the Ecto repository
       Cforum.Repo,
-      Cforum.Release,
       # Start the Telemetry supervisor
       CforumWeb.Telemetry,
       # Start the PubSub system
