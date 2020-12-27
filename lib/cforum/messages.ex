@@ -209,7 +209,7 @@ defmodule Cforum.Messages do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec create_message(map, %{user_id: any}, [%{forum_id: any}], Thread.t(), Message.t() | nil, keyword) ::
+  @spec create_message(map, %{user_id: any} | nil, [%{forum_id: any}], Thread.t(), Message.t() | nil, keyword) ::
           {:ok, Message.t()} | {:error, Ecto.Changeset.t()}
   def create_message(attrs, user, visible_forums, thread, parent \\ nil, opts \\ []) do
     opts = Keyword.merge([create_tags: false, autosubscribe: false, notify: true], opts)
@@ -330,7 +330,7 @@ defmodule Cforum.Messages do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec update_message(Message.t(), map(), Cforum.Users.User.t(), [Cforum.Forums.Forum.t()], keyword()) ::
+  @spec update_message(Message.t(), map(), Cforum.Users.User.t() | nil, [Cforum.Forums.Forum.t()], keyword()) ::
           {:ok, Message.t()} | {:error, Ecto.Changeset.t()}
   def update_message(%Message{} = message, attrs, user, visible_forums, opts \\ [create_tags: false]) do
     System.audited("update", user, fn ->
