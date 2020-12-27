@@ -45,6 +45,9 @@ defmodule Cforum.MarkdownRenderer do
     |> to_html_with_error_handling()
   end
 
+  def to_html(%Message{format: "html"} = message, _conn),
+    do: {:safe, message.content}
+
   def to_html(%Message{format: "markdown"} = message, conn) do
     content = Cforum.Messages.content_with_presentational_filters(conn.assigns, message)
 

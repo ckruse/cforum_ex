@@ -22,6 +22,8 @@ defmodule Cforum.Messages.Message do
   ]
   def default_preloads, do: @default_preloads ++ [tags: from(t in Tag, order_by: [asc: :tag_name])]
 
+  @valid_formats ["markdown", "html"]
+
   schema "messages" do
     field(:upvotes, :integer, default: 0)
     field(:downvotes, :integer, default: 0)
@@ -95,6 +97,7 @@ defmodule Cforum.Messages.Message do
     |> Helpers.maybe_put_change(:forum_id, forum_id)
     |> validate_forum_id(visible_forums)
     |> maybe_set_author(user, opts[:uuid])
+    |> maybe_set_format(opts[:format])
     |> set_author_from_opts_when_unset(:author, opts[:author])
     |> Helpers.strip_changeset_changes()
     |> Helpers.changeset_changes_to_normalized_newline()
@@ -274,6 +277,9 @@ defmodule Cforum.Messages.Message do
 
     put_change(changeset, :tags, tags)
   end
+
+  defp maybe_set_format(changeset, format) when format in @valid_formats, do: put_change(changeset, :format, format)
+  defp maybe_set_format(changeset, _), do: changeset
 
   defp maybe_set_author(changeset, %{} = author, _) do
     case get_field(changeset, :author) do
