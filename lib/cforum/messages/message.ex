@@ -70,10 +70,11 @@ defmodule Cforum.Messages.Message do
   defp get_settings(forum_id, params, msg) do
     given_forum_id =
       cond do
-        Helpers.present?(params["forum_id"]) -> params["forum_id"]
-        Helpers.present?(params[:forum_id]) -> params[:forum_id]
+        Helpers.present?(params) && Helpers.present?(params["forum_id"]) -> params["forum_id"]
+        Helpers.present?(params) && Helpers.present?(params[:forum_id]) -> params[:forum_id]
         Helpers.present?(forum_id) -> forum_id
-        true -> msg.forum_id
+        Helpers.present?(msg) -> msg.forum_id
+        true -> nil
       end
 
     forum =
@@ -131,13 +132,7 @@ defmodule Cforum.Messages.Message do
   defp validate_tags_count(changeset) do
     with nil <- changeset.errors[:tags] do
       forum_id = get_field(changeset, :forum_id)
-
-      forum =
-        if Helpers.present?(forum_id),
-          do: Forums.get_forum!(forum_id),
-          else: nil
-
-      settings = ConfigManager.settings_map(forum, nil)
+      settings = get_settings(forum_id, nil, nil)
 
       min_tags = ConfigManager.conf(settings, "min_tags_per_message", :int)
       max_tags = ConfigManager.conf(settings, "max_tags_per_message", :int)
@@ -317,12 +312,7 @@ defmodule Cforum.Messages.Message do
   defp validate_blacklist(changeset, field, conf_key) do
     forum_id = get_field(changeset, :forum_id)
 
-    forum =
-      if Helpers.present?(forum_id),
-        do: Forums.get_forum!(forum_id),
-        else: nil
-
-    settings = ConfigManager.settings_map(forum, nil)
+    settings = get_settings(forum_id, nil, nil)
     blacklist = ConfigManager.conf(settings, conf_key)
     value = get_field(changeset, field)
 
