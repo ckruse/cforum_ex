@@ -12,7 +12,7 @@ if (document.body.dataset.userId) {
 document.addEventListener("cf:userLobby", (event) => {
   const channel = event.detail;
 
-  channel.push("settings", {}).receive("ok", (config) => {
+  channel.push("settings", { current_forum: document.body.dataset.currentForum }).receive("ok", (config) => {
     window.currentConfig = config;
     document.dispatchEvent(new CustomEvent("cf:configDidLoad", { detail: config }));
   });

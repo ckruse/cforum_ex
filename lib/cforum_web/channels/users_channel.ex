@@ -5,6 +5,7 @@ defmodule CforumWeb.UsersChannel do
   alias Cforum.Users.User
   alias Cforum.Forums
   alias Cforum.ConfigManager
+  alias Cforum.Helpers
 
   alias Cforum.ReadMessages
   alias Cforum.Notifications
@@ -24,12 +25,17 @@ defmodule CforumWeb.UsersChannel do
     end)
   end
 
-  def handle_in("settings", _payload, socket) do
+  def handle_in("settings", payload, socket) do
     channel_action(__MODULE__, "settings", socket, fn ->
-      settings = Cforum.ConfigManager.settings_map(nil, socket.assigns[:current_user])
+      forum =
+        if Helpers.present?(payload["current_forum"]) && payload["current_forum"] != "all",
+          do: Forums.get_forum_by_slug(payload["current_forum"]),
+          else: nil
+
+      settings = Cforum.ConfigManager.settings_map(forum, socket.assigns[:current_user])
 
       config =
-        Enum.reduce(Cforum.ConfigManager.visible_config_keys(), %{}, fn key, opts ->
+        Enum.reduce(ConfigManager.visible_config_keys(), %{}, fn key, opts ->
           Map.put(opts, key, ConfigManager.uconf(settings, key))
         end)
 
