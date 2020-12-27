@@ -4,6 +4,7 @@ defmodule Cforum.Threads.Thread do
   alias Cforum.Threads.ThreadHelpers
   alias Cforum.Messages.Message
   alias Cforum.Forums.Forum
+  alias Cforum.Helpers
 
   @primary_key {:thread_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :thread_id}
@@ -37,12 +38,15 @@ defmodule Cforum.Threads.Thread do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
-  def changeset(struct, params, forum, visible_forums) do
+  def changeset(struct, params, forum, visible_forums, opts \\ nil) do
     struct
     |> cast(params, [:forum_id, :subject])
     |> maybe_put_forum_id(forum)
     |> maybe_error_forum_id(visible_forums)
-    |> gen_slug()
+    |> gen_slug(opts[:slug])
+    |> Helpers.maybe_put_change(:created_at, opts[:created_at])
+    |> Helpers.maybe_put_change(:updated_at, opts[:updated_at])
+    |> Helpers.maybe_put_change(:latest_message, opts[:latest_message])
     |> validate_required([:forum_id, :slug, :latest_message])
   end
 
@@ -61,7 +65,9 @@ defmodule Cforum.Threads.Thread do
     end
   end
 
-  defp gen_slug(changeset, num \\ 0) do
+  defp gen_slug(changeset, given_slug, num \\ 0)
+
+  defp gen_slug(changeset, nil, num) do
     case get_field(changeset, :subject) do
       subject when is_nil(subject) or subject == "" ->
         changeset
@@ -80,6 +86,8 @@ defmodule Cforum.Threads.Thread do
           else: put_change(changeset, :slug, s)
     end
   end
+
+  defp gen_slug(changeset, slug, _), do: put_change(changeset, :slug, slug)
 
   defp to_url(str) do
     case Slug.slugify(str) do

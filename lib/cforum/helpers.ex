@@ -162,6 +162,10 @@ defmodule Cforum.Helpers do
     end)
   end
 
+  @spec maybe_put_change(Ecto.Changeset.t(), atom(), any()) :: Ecto.Changeset.t()
+  def maybe_put_change(changeset, _, nil), do: changeset
+  def maybe_put_change(changeset, field, value), do: Ecto.Changeset.put_change(changeset, field, value)
+
   @doc """
   Truncates the string `str` after `words_count` words
   """

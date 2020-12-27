@@ -86,7 +86,7 @@ defmodule Cforum.Messages.Message do
 
     struct
     |> cast(params, [:author, :email, :homepage, :subject, :content, :problematic_site, :forum_id, :save_identity])
-    |> maybe_put_change(:forum_id, forum_id)
+    |> Helpers.maybe_put_change(:forum_id, forum_id)
     |> validate_forum_id(visible_forums)
     |> maybe_set_author(user, opts[:uuid])
     |> set_author_from_opts_when_unset(:author, opts[:author])
@@ -102,10 +102,9 @@ defmodule Cforum.Messages.Message do
     |> validate_length(:content, min: min_message_len, max: max_message_len)
     |> Helpers.validate_url(:problematic_site)
     |> Helpers.validate_url(:homepage)
+    |> Helpers.maybe_put_change(:created_at, opts[:created_at])
+    |> Helpers.maybe_put_change(:updated_at, opts[:updated_at])
   end
-
-  defp maybe_put_change(changeset, _, nil), do: changeset
-  defp maybe_put_change(changeset, field, value), do: put_change(changeset, field, value)
 
   defp validate_forum_id(changeset, visible_forums) do
     case get_field(changeset, :forum_id) do
