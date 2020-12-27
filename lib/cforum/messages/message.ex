@@ -1,5 +1,6 @@
 defmodule Cforum.Messages.Message do
   use CforumWeb, :model
+  use Waffle.Ecto.Schema
 
   import Ecto.Query, warn: false
 
@@ -30,6 +31,7 @@ defmodule Cforum.Messages.Message do
     field(:email, :string)
     field(:homepage, :string)
     field(:subject, :string)
+    field(:excerpt, :string)
     field(:content, :string)
     field(:flags, :map, default: %{})
     field(:uuid, :string)
@@ -37,6 +39,7 @@ defmodule Cforum.Messages.Message do
     field(:format, :string, default: "markdown")
     field(:edit_author, :string)
     field(:problematic_site, :string)
+    field(:thumbnail, CforumWeb.MessageThumbnail.Type)
 
     field(:messages, :any, virtual: true)
     field(:attribs, :map, virtual: true, default: %{classes: []})
@@ -79,13 +82,16 @@ defmodule Cforum.Messages.Message do
     ConfigManager.settings_map(forum, nil)
   end
 
+  @rw_fields [:author, :email, :homepage, :subject, :content, :excerpt, :problematic_site, :forum_id, :save_identity]
+
   defp base_changeset(struct, params, user, forum_id, visible_forums, opts) do
     settings = get_settings(forum_id, params, struct)
     min_message_len = ConfigManager.conf(settings, "min_message_length", :int)
     max_message_len = ConfigManager.conf(settings, "max_message_length", :int)
 
     struct
-    |> cast(params, [:author, :email, :homepage, :subject, :content, :problematic_site, :forum_id, :save_identity])
+    |> cast(params, @rw_fields)
+    |> cast_attachments(params, [:thumbnail])
     |> Helpers.maybe_put_change(:forum_id, forum_id)
     |> validate_forum_id(visible_forums)
     |> maybe_set_author(user, opts[:uuid])
@@ -99,6 +105,7 @@ defmodule Cforum.Messages.Message do
     |> validate_length(:email, min: 6, max: 60)
     |> validate_length(:homepage, min: 2, max: 250)
     |> validate_length(:problematic_site, min: 2, max: 250)
+    |> validate_length(:excerpt, max: max_message_len)
     |> validate_length(:content, min: min_message_len, max: max_message_len)
     |> Helpers.validate_url(:problematic_site)
     |> Helpers.validate_url(:homepage)
@@ -328,5 +335,14 @@ defmodule Cforum.Messages.Message do
       regex = Regex.compile!(rx, "i")
       Regex.match?(regex, str)
     end)
+  end
+
+  def thumbnail_path(message, version \\ "original") do
+    path = Application.get_env(:cforum, :thumbnail_dir)
+    url = Application.get_env(:cforum, :thumbnail_url)
+
+    {message.thumbnail, message}
+    |> CforumWeb.MessageThumbnail.url(version)
+    |> String.replace_leading(path, url)
   end
 end

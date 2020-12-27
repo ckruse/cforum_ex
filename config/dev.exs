@@ -65,6 +65,8 @@ config :cforum,
   media_dir: Path.expand("../priv/uploads/pictures", __DIR__),
   avatar_dir: Path.expand("../priv/", __DIR__),
   avatar_url: "/uploads/users/avatars",
+  thumbnail_dir: Path.expand("../priv/", __DIR__),
+  thumbnail_url: "/uploads/thumbnails",
   convert: "/usr/bin/convert",
   cfmarkdown: [
     cli: "./node_modules/.bin/babel-node ./bin/cfmarkdown2html.js",
