@@ -62,7 +62,28 @@ defmodule Cforum.Messages.Message do
     timestamps(inserted_at: :created_at)
   end
 
+  defp get_settings(forum_id, params, msg) do
+    given_forum_id =
+      cond do
+        Helpers.present?(params["forum_id"]) -> params["forum_id"]
+        Helpers.present?(params[:forum_id]) -> params[:forum_id]
+        Helpers.present?(forum_id) -> forum_id
+        true -> msg.forum_id
+      end
+
+    forum =
+      if Helpers.present?(given_forum_id),
+        do: Forums.get_forum!(given_forum_id),
+        else: nil
+
+    ConfigManager.settings_map(forum, nil)
+  end
+
   defp base_changeset(struct, params, user, forum_id, visible_forums, opts) do
+    settings = get_settings(forum_id, params, struct)
+    min_message_len = ConfigManager.conf(settings, "min_message_length", :int)
+    max_message_len = ConfigManager.conf(settings, "max_message_length", :int)
+
     struct
     |> cast(params, [:author, :email, :homepage, :subject, :content, :problematic_site, :forum_id, :save_identity])
     |> maybe_put_change(:forum_id, forum_id)
@@ -78,7 +99,7 @@ defmodule Cforum.Messages.Message do
     |> validate_length(:email, min: 6, max: 60)
     |> validate_length(:homepage, min: 2, max: 250)
     |> validate_length(:problematic_site, min: 2, max: 250)
-    |> validate_length(:content, min: 10, max: 12_288)
+    |> validate_length(:content, min: min_message_len, max: max_message_len)
     |> Helpers.validate_url(:problematic_site)
     |> Helpers.validate_url(:homepage)
   end

@@ -33,7 +33,7 @@
         <%= gettext("mail content") %>
         <%= ErrorHelpers.error_tag @f, :body %>
       <% end %>
-      <%= textarea @f, :body, maxlength: 12288, class: "big", required: true %>
+      <%= textarea @f, :body, maxlength: Cforum.ConfigManager.conf(@conn, "max_message_length"), class: "big", required: true %>
     </div>
   </fieldset>
 </div>

@@ -50,6 +50,8 @@ defmodule Cforum.ConfigManager do
     "url_black_list" => "",
     "content_black_list" => "",
     "mathjax_url" => "",
+    "min_message_length" => 10,
+    "max_message_length" => 12_288,
 
     # search settings
     "search_forum_relevance" => 1,
@@ -143,7 +145,13 @@ defmodule Cforum.ConfigManager do
     "mark_nested_read_via_js"
   ]
 
-  @visible_config ["max_tags_per_message", "min_tags_per_message", "max_image_filesize"] ++ @user_config_keys
+  @visible_config [
+                    "max_tags_per_message",
+                    "min_tags_per_message",
+                    "max_image_filesize",
+                    "min_message_length",
+                    "max_message_length"
+                  ] ++ @user_config_keys
 
   def user_config_keys, do: @user_config_keys
 

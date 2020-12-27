@@ -29,7 +29,7 @@
       <%= ErrorHelpers.error_tag f, :resolution %>
     <% end %>
 
-    <%= textarea f, :resolution, maxlength: 12288, class: 'big', required: true %>
+    <%= textarea f, :resolution, maxlength: Cforum.ConfigManager.conf(@conn, "max_message_length"), class: 'big', required: true %>
   </div>
 
   <p class="form-actions">

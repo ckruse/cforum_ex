@@ -33,5 +33,5 @@
       <%= gettext("cite") %>
       <%= ErrorHelpers.error_tag @f, :cite %>
     <% end %>
-    <%= textarea @f, :cite, maxlength: 12288, class: 'big', required: true %>
+    <%= textarea @f, :cite, maxlength: Cforum.ConfigManager.conf(@conn, "max_message_length"), class: 'big', required: true %>
   </div>

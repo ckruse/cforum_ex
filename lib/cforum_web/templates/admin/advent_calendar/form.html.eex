@@ -42,7 +42,7 @@
         <%= gettext("content") %>
         <%= ErrorHelpers.error_tag f, :content %>
       <% end %>
-      <%= textarea f, :content, maxlength: 12288, class: "big", required: true %>
+      <%= textarea f, :content, maxlength: Cforum.ConfigManager.conf(@conn, "max_message_length"), class: "big", required: true %>
     </div>
   </div>
 

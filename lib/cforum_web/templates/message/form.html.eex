@@ -51,7 +51,7 @@
       <%= gettext("message content") %>
       <%= ErrorHelpers.error_tag @f, :content %>
     <% end %>
-    <%= textarea @f, :content, class: "big", id: "message_input", maxlength: 12288, required: true %>
+    <%= textarea @f, :content, class: "big", id: "message_input", maxlength: ConfigManager.conf(@conn, "max_message_length"), required: true %>
   </div>
 </fieldset>
 

@@ -9,6 +9,7 @@ import LinkModal from "./link_modal";
 
 import CodeModal from "./code_modal";
 import ImageModal from "./image_modal";
+import { conf } from "../../../modules/helpers";
 
 import(/* webpackChunkName: "vendor" */ "emoji-mart/css/emoji-mart.css");
 
@@ -31,6 +32,22 @@ export default function Toolbar({ enableImages, value, textarea, changeValue, on
   const [{ codeModalVisible, code }, setCode] = useState({ codeModalVisible: false, code: "" });
   const [imageModalVisible, setImageModalVisible] = useState(false);
   const picker = useRef();
+
+  const [{ minLength, maxLength }, setMaxLength] = useState({
+    minLength: conf("min_message_length") || 10,
+    maxLength: conf("max_message_length") || 12288,
+  });
+
+  useEffect(() => {
+    const handler = () => {
+      setMaxLength({
+        minLength: conf("min_message_length") || 10,
+        maxLength: conf("max_message_length") || 12288,
+      });
+    };
+    document.addEventListener("cf:configDidLoad", handler);
+    return () => document.removeEventListener("cf:configDidLoad", handler);
+  }, []);
 
   // we catch all click events for the whole document; if it was inside the picker, we ignore it.
   // If it was outside of the picker, we hide the picker.
@@ -166,7 +183,9 @@ export default function Toolbar({ enableImages, value, textarea, changeValue, on
         </div>
       )}
 
-      <span className={`cf-content-counter ${getCounterClass(value.length)}`}>{value.length}</span>
+      <span className={`cf-content-counter ${getCounterClass(value.length, minLength, maxLength)}`}>
+        {value.length}
+      </span>
 
       <LinkModal
         isOpen={linkModalVisible}

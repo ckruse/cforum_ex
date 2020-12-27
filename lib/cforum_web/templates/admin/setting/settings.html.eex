@@ -20,6 +20,18 @@
   </div>
 
   <div class="cf-cgroup">
+    <label for="settings-max_message_length"><%= gettext("maximum message length") %></label>
+    <%= number_input @fo, :max_message_length, step: 1, minimum: 1, id: "settings-max_message_length" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :max_message_length) %> <%= default_value(@conn, :max_message_length) %></label>
+  </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-min_message_length"><%= gettext("minimum message length") %></label>
+    <%= number_input @fo, :min_message_length, step: 1, minimum: 1, id: "settings-min_message_length" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :min_message_length) %> <%= default_value(@conn, :min_message_length) %></label>
+  </div>
+
+  <div class="cf-cgroup">
     <label for="settings-max_tags_per_message"><%= gettext("maximum number of tags per message") %></label>
     <%= number_input @fo, :max_tags_per_message, step: 1, minimum: 1, id: "settings-max_tags_per_message" %>
     <label class="checkbox"><%= default_checkbox(@fo, @settings, :max_tags_per_message) %> <%= default_value(@conn, :max_tags_per_message) %></label>
