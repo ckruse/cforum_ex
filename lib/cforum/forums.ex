@@ -11,7 +11,9 @@ defmodule Cforum.Forums do
   alias Cforum.Users.User
   alias Cforum.Settings
   alias Cforum.Caching
+  alias Cforum.Groups
 
+  @spec discard_forums_cache({:ok, any()} | any()) :: {:ok, any()} | any()
   def discard_forums_cache({:ok, rel}) do
     Caching.del(:cforum, "forums")
     {:ok, rel}
@@ -28,6 +30,7 @@ defmodule Cforum.Forums do
       [%Forum{}, ...]
 
   """
+  @spec list_forums() :: [Forum.t()]
   def list_forums do
     Caching.fetch(:cforum, "forums", fn ->
       Forum
@@ -74,6 +77,7 @@ defmodule Cforum.Forums do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_forum_by_slug!(String.t()) :: Forum.t()
   def get_forum_by_slug!(slug) do
     with %Forum{} = forum <- Enum.find(list_forums(), &(&1.slug == slug)) do
       %Forum{forum | setting: Settings.get_setting_for_forum(forum)}
@@ -82,8 +86,16 @@ defmodule Cforum.Forums do
     end
   end
 
+  @spec get_forum_by_slug(String.t()) :: Forum.t() | nil
   def get_forum_by_slug(slug) do
     with %Forum{} = forum <- Enum.find(list_forums(), &(&1.slug == slug)) do
+      %Forum{forum | setting: Settings.get_setting_for_forum(forum)}
+    end
+  end
+
+  @spec get_forum_by_type(String.t()) :: Forum.t() | nil
+  def get_forum_by_type(type) do
+    with %Forum{} = forum <- Enum.find(list_forums(), &(&1.type == type)) do
       %Forum{forum | setting: Settings.get_setting_for_forum(forum)}
     end
   end
@@ -100,6 +112,7 @@ defmodule Cforum.Forums do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_forum(User.t() | nil, map()) :: {:ok, Forum.t()} | {:error, Ecto.Changeset.t()}
   def create_forum(current_user, attrs \\ %{}) do
     System.audited("create", current_user, fn ->
       %Forum{}
@@ -122,6 +135,7 @@ defmodule Cforum.Forums do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_forum(User.t() | nil, Forum.t(), map()) :: {:ok, Forum.t()} | {:error, Ecto.Changeset.t()}
   def update_forum(current_user, %Forum{} = forum, attrs) do
     System.audited("update", current_user, fn ->
       forum
@@ -144,6 +158,7 @@ defmodule Cforum.Forums do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_forum(User.t() | nil, Forum.t()) :: {:ok, Forum.t()} | {:error, Ecto.Changeset.t()}
   def delete_forum(current_user, %Forum{} = forum) do
     System.audited("destroy", current_user, fn ->
       Repo.delete(forum)
@@ -161,6 +176,7 @@ defmodule Cforum.Forums do
       %Ecto.Changeset{source: %Forum{}}
 
   """
+  @spec change_forum(Forum.t()) :: Ecto.Changeset.t()
   def change_forum(%Forum{} = forum) do
     Forum.changeset(forum, %{})
   end
@@ -174,6 +190,7 @@ defmodule Cforum.Forums do
       [%Forum{}]
 
   """
+  @spec list_visible_forums(nil | User.t()) :: [Forum.t()]
   def list_visible_forums(user \\ nil) do
     list_forums()
     |> visible_forums(user)
@@ -183,7 +200,6 @@ defmodule Cforum.Forums do
     Enum.filter(forums, &(&1.standard_permission in [Forum.read(), Forum.write()]))
   end
 
-  alias Cforum.Groups
   # admins may view all forums
   defp visible_forums(forums, %User{admin: true}), do: forums
 
@@ -205,6 +221,7 @@ defmodule Cforum.Forums do
       [%Forum{}]
 
   """
+  @spec list_forums_by_permission(User.t() | nil, String.t()) :: [Forum.t()]
   def list_forums_by_permission(user, permission)
 
   def list_forums_by_permission(nil, permission) when permission in ~w(read write) do
