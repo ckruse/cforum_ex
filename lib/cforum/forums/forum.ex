@@ -20,6 +20,7 @@ defmodule Cforum.Forums.Forum do
     field(:slug, :string)
     field(:short_name, :string)
     field(:name, :string)
+    field(:type, :string, default: "forum")
     field(:description, :string)
     field(:standard_permission, :string)
     field(:keywords, :string)
@@ -44,6 +45,7 @@ defmodule Cforum.Forums.Forum do
       :slug,
       :short_name,
       :name,
+      :type,
       :description,
       :standard_permission,
       :keywords,
@@ -52,7 +54,7 @@ defmodule Cforum.Forums.Forum do
       :visible
     ])
     |> cast_assoc(:setting)
-    |> validate_required([:slug, :short_name, :name, :description, :standard_permission, :position])
+    |> validate_required([:slug, :short_name, :name, :type, :description, :standard_permission, :position])
     |> validate_inclusion(:standard_permission, @permissions)
     |> validate_slug()
   end
