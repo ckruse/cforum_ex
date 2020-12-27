@@ -70,6 +70,12 @@ defmodule Cforum.Mixfile do
       {:ecto_psql_extras, "~> 0.2"},
       {:gh_webhook_plug, "~> 0.0.5"},
 
+      # import for old weblog
+      {:sweet_xml, "~> 0.6.6"},
+      {:tesla, "~> 1.4.0"},
+      {:briefly, "~> 0.3"},
+      {:mime, "~> 1.2"},
+
       # testing
       {:excoveralls, "~> 0.8", only: :test},
       {:ex_machina, "~> 2.2", only: :test},
