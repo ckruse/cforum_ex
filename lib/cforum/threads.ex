@@ -362,11 +362,13 @@ defmodule Cforum.Threads do
 
   """
   def create_thread(attrs, user, forum, visible_forums, opts \\ [create_tags: false]) do
+    opts = Keyword.merge([latest_message: DateTime.truncate(Timex.now(), :second)], opts)
+
     retval =
       Repo.transaction(fn ->
         retval =
-          %Thread{latest_message: DateTime.truncate(Timex.now(), :second)}
-          |> Thread.changeset(attrs, forum, visible_forums)
+          %Thread{}
+          |> Thread.changeset(attrs, forum, visible_forums, opts)
           |> Repo.insert()
 
         case retval do
