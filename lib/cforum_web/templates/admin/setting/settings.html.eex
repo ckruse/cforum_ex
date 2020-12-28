@@ -191,6 +191,12 @@
     <%= text_input @fo, :date_format_default, id: "settings-date_format_default" %>
     <label class="checkbox"><%= default_checkbox(@fo, @settings, :date_format_default) %> <%= default_value(@conn, :date_format_default) %></label>
   </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-date_format_blog_index"><%= gettext("date format for the weblog index") %></label>
+    <%= text_input @fo, :date_format_blog_index, id: "settings-date_format_blog_index" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :date_format_blog_index) %> <%= default_value(@conn, :date_format_blog_index) %></label>
+  </div>
 </fieldset>
 
 <fieldset id="voting-and-scoring-settings">

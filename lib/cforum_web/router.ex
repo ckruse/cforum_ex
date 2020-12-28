@@ -22,6 +22,11 @@ defmodule CforumWeb.Router do
     plug(CforumWeb.Plug.LoadMotd)
   end
 
+  pipeline :blog do
+    plug :put_layout, {CforumWeb.LayoutView, "blog.html"}
+    plug(CforumWeb.Plug.Blog)
+  end
+
   pipeline :admins do
     plug(CforumWeb.Plug.EnsureAdmin)
   end
@@ -81,6 +86,14 @@ defmodule CforumWeb.Router do
       post("/cites/vote", Cite.VoteController, :vote)
 
       post("/images", ImageController, :create)
+    end
+  end
+
+  scope "/", host: "blog." do
+    pipe_through([:browser, :blog])
+
+    scope "/", CforumWeb do
+      get "/", BlogController, :index
     end
   end
 

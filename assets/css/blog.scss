@@ -1,0 +1,58 @@
+.cf-weblog-article {
+  margin-bottom: 2em;
+  padding-bottom: 2em;
+  border-bottom: $dividing-border;
+
+  @include clearfix;
+
+  header {
+    h2 {
+      margin-top: 0;
+      margin-bottom: 1em;
+    }
+
+    .details {
+      margin-bottom: 0.5em;
+
+      .count::before {
+        margin-right: 0.2em;
+        margin-left: 0.25em;
+        content: "\00b7";
+      }
+    }
+  }
+
+  .cf-weblog-article-thumbnail {
+    float: left;
+    margin: 0 0.75em 0.25em 0;
+    max-width: 25%;
+  }
+
+  .details,
+  .cf-weblog-tags {
+    font-size: 0.9em;
+    color: #909090;
+  }
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
+
+@include default-breakpoint() {
+  .weblog {
+    main {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    #content {
+      max-width: 50rem;
+      margin: auto;
+    }
+
+    .selflinks {
+      max-width: 50rem;
+      margin: auto;
+    }
+  }
+}

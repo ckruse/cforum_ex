@@ -1,0 +1,47 @@
+.cf-page-header-blog {
+  .logo {
+    h1 {
+      background: url(/images/selfhtml-weblog.png) no-repeat center center;
+      background-size: contain;
+      width: 410px;
+      max-width: 100%;
+      height: 70px;
+    }
+
+    .rss,
+    .atom,
+    .donate {
+      display: inline;
+    }
+
+    .rss img {
+      width: 18%;
+    }
+    .atom img {
+      width: 20%;
+    }
+    .donate img {
+      width: 24%;
+    }
+  }
+}
+
+@include default-breakpoint() {
+  .cf-page-header-blog {
+    margin: 0.5em auto;
+    max-width: 50rem;
+
+    .logo {
+      display: grid;
+      grid-template-columns: 1fr min-content min-content min-content;
+      gap: 0.5em;
+      align-items: end;
+
+      .rss img,
+      .atom img,
+      .donate img {
+        width: auto;
+      }
+    }
+  }
+}

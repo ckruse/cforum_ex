@@ -2,6 +2,14 @@
   background: url(/images/selfhtml-forum-small-weihnachtsmuetze.png) no-repeat center center;
 }
 
+.christmas .cf-page-header-blog .logo h1 {
+  background-image: url(/images/selfhtml-weblog-christmas.png);
+}
+
+.blue-beanie .cf-page-header-blog .logo h1 {
+  background-image: url(/images/selfhtml-weblog-blue-beanie.png);
+}
+
 @include default-breakpoint() {
   .christmas .cf-page-header .logo h1 {
     background: url(/images/selfhtml-forum-weihnachtsmuetze.png) no-repeat center center;

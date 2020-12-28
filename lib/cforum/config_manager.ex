@@ -46,6 +46,7 @@ defmodule Cforum.ConfigManager do
     "date_format_search" => "%d.%m.%Y",
     "date_format_default" => "%d.%m.%Y %H:%M",
     "date_format_date" => "%d.%m.%Y",
+    "date_format_blog_index" => "%d. %B %Y",
     "mail_thread_sort" => "ascending",
     "subject_black_list" => "",
     "url_black_list" => "",

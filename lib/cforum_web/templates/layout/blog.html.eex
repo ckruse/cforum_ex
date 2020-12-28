@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="<%= Gettext.get_locale(CforumWeb.Gettext) %>">
+  <head>
+    <%= render "meta.html", assigns %>
+    <%= render "link.html", assigns %>
+
+    <%= css_ressource(@conn) %>
+
+    <title><%= page_title(@conn, assigns) %></title>
+  </head>
+
+  <body data-moderator="<%= Abilities.access_forum?(@conn, :moderate) %>" data-current-forum="<%= Path.forum_slug(@current_forum) %>" data-controller="<%= current_controller(@conn) %>" data-action="<%= action_name(@conn) %>" <%= body_classes(@conn, assigns, true) %><%= body_id(@conn, assigns) %><%= user_id(@conn) %>>
+    <script nonce="<%= @conn.assigns[:nonce_for_js] %>">document.body.classList.add("js");</script>
+
+    <%= render "top_bar.html", assigns %>
+    <%= render "page_header_blog.html", assigns %>
+
+    <main>
+      <%= render "alerts.html", assigns %>
+
+      <div id="content">
+        <%= @inner_content %>
+      </div>
+    </main>
+
+    <%= render "footer.html", assigns %>
+
+    <%= mathjax(@conn) %>
+
+    <%= if Application.get_env(:cforum, :environment) == :prod do %>
+      <script src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+    <% else %>
+      <script src='http://localhost:8080/app.js'></script>
+    <% end %>
+  </body>
+</html>

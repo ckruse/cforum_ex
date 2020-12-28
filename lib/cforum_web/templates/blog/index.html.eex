@@ -1,0 +1,3 @@
+<%= for article <- @threads do %>
+  <%= render "article.html", Map.put(assigns, :article, article) %>
+<% end %>

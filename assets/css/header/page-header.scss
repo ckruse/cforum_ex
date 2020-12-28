@@ -1,6 +1,7 @@
 @charset "utf-8";
 
-.cf-page-header {
+.cf-page-header,
+.cf-page-header-blog {
   margin: 0.5em;
 
   .logo {
@@ -124,11 +125,11 @@
 }
 
 @include default-breakpoint() {
-  .js {
-    .cf-page-header .quicklinks ul li {
+  .js .cf-page-header {
+    .quicklinks ul li {
       display: inline-block;
     }
-    .cf-page-header .subnav ul {
+    .subnav ul {
       display: block;
     }
   }

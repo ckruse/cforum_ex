@@ -20,7 +20,7 @@ defmodule CforumWeb.LayoutView do
     "SELFHTML Forum"
   end
 
-  def body_classes(conn, assigns) do
+  def body_classes(conn, assigns, blog \\ false) do
     anon_class =
       if Helpers.blank?(conn.assigns[:current_user]),
         do: "anonymous",
@@ -31,7 +31,12 @@ defmodule CforumWeb.LayoutView do
         do: apply(view_module(conn), :body_classes, [action_name(conn), assigns]),
         else: ""
 
-    [{:safe, "class=\""}, classes, " ", anon_class, " ", holiday_classes(conn), {:safe, "\""}]
+    weblog_class =
+      if blog,
+        do: " weblog",
+        else: ""
+
+    [{:safe, "class=\""}, classes, weblog_class, " ", anon_class, " ", holiday_classes(conn), {:safe, "\""}]
   end
 
   def body_id(conn, assigns) do
