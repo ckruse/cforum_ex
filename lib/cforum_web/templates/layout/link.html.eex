@@ -10,7 +10,11 @@
     <link rel="search" href="<%= Path.search_url(@conn, :show) %>" title="<%= gettext("SELFHTML Search") %>">
     <%= if assigns[:link_tags], do: @link_tags %>
 
+    <%= if Application.get_env(:cforum, :environment) == :prod do %>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>" media="all" title="SELFHTML Forum Stylesheet">
+    <% else %>
+    <link rel="stylesheet" href="http://localhost:8080/css/app.css" media="all" title="SELFHTML Forum Stylesheet">
+    <% end %>
 
     <%= if Map.has_key?(assigns, :current_forum) do %>
       <link rel="alternate" title="<%= gettext("Atom feed (%{forum})", forum: forum_name(@current_forum)) %>" type="application/atom+xml" href="<%= Path.forum_url(@conn, :atom, @current_forum) %>">

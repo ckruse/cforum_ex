@@ -33,7 +33,11 @@
     <%= mathjax(@conn) %>
 
     <script nonce="<%= @conn.assigns[:nonce_for_js] %>">window.userToken = "<%= assigns[:user_token] %>";</script>
-    <script src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+    <%= if Application.get_env(:cforum, :environment) == :prod do %>
+      <script src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+    <% else %>
+      <script src='http://localhost:8080/app.js'></script>
+    <% end %>
     <%= own_js_file(@conn) %>
     <%= own_js(@conn) %>
   </body>

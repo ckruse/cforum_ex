@@ -43,14 +43,27 @@ module.exports = function (env = {}, argv) {
       app: "./js/app.js",
     },
 
-    output: {
-      filename: "js/[name].js",
-      chunkFilename: "js/[name].[chunkhash].js",
-      path: OUTPUT_PATH,
-      publicPath: "/",
+    devServer: {
+      disableHostCheck: true,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
     },
 
-    devtool: IS_PROD ? false : "source-map",
+    output: IS_PROD
+      ? {
+          filename: "js/[name].js",
+          chunkFilename: "js/[name].[chunkhash].js",
+          path: OUTPUT_PATH,
+          publicPath: "/",
+        }
+      : {
+          path: path.resolve(__dirname, "public"),
+          filename: "app.js",
+          publicPath: "http://localhost:8080/",
+        },
+
+    devtool: IS_PROD ? "source-map" : "eval-cheap-module-source-map",
 
     resolve: {
       modules: ["node_modules", __dirname + "/js"],
