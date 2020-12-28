@@ -125,6 +125,12 @@
   <legend><%= gettext("archiver settings") %></legend>
 
   <div class="cf-cgroup">
+    <label class="radio"><%= radio_button @fo, :archiver_active, "yes" %> <%= gettext("archiver is active") %></label>
+    <label class="radio"><%= radio_button @fo, :archiver_active, "no" %> <%= gettext("archiver is inactive") %></label>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :archiver_active) %> <%= default_value(@conn, :archiver_active) %></label>
+  </div>
+
+  <div class="cf-cgroup">
     <label for="settings-max_threads"><%= gettext("maximum number of threads") %></label>
     <%= number_input @fo, :max_threads, step: 1, minimum: 1, id: "settings-max_threads" %>
     <label class="checkbox"><%= default_checkbox(@fo, @settings, :max_threads) %> <%= default_value(@conn, :max_threads) %></label>

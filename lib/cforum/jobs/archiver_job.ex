@@ -29,8 +29,12 @@ defmodule Cforum.Jobs.ArchiverJob do
   end
 
   defp archive_for_forum(forum) do
-    archive_max_messages_per_thread(forum)
-    archive_max_threads_per_forum(forum)
+    is_active = Cforum.ConfigManager.conf(forum, "archiver_active") == "yes"
+
+    if is_active do
+      archive_max_messages_per_thread(forum)
+      archive_max_threads_per_forum(forum)
+    end
   end
 
   defp archive_max_messages_per_thread(forum) do
