@@ -9,6 +9,7 @@ defmodule Cforum.BlogImport do
   alias Cforum.Threads.ThreadHelpers
   alias Cforum.Messages
   alias Cforum.Settings
+  alias Cforum.Helpers
 
   def import(file) do
     {:ok, forum} = maybe_create_blog_forum()
@@ -129,7 +130,9 @@ defmodule Cforum.BlogImport do
 
   defp block_editor_content(cnt) do
     cnt
+    |> String.trim()
     |> String.split(~r/\n\n+/)
+    |> Enum.reject(&Helpers.blank?/1)
     |> Enum.map(fn part ->
       "<p>\n" <> String.replace(part, ~r/\n/, "<br>\n") <> "\n</p>"
     end)
