@@ -166,7 +166,7 @@ defmodule Cforum.Helpers do
   def maybe_put_change(changeset, _, nil), do: changeset
   def maybe_put_change(changeset, field, value), do: Ecto.Changeset.put_change(changeset, field, value)
 
-  @spec maybe_put_change(Ecto.Changeset.t(), atom(), String.t()) :: Ecto.Changeset.t()
+  @spec validate_blacklist(Ecto.Changeset.t(), atom(), String.t()) :: Ecto.Changeset.t()
   def validate_blacklist(changeset, field, conf_key) do
     forum_id = Ecto.Changeset.get_field(changeset, :forum_id)
 
