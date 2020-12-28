@@ -166,6 +166,50 @@ defmodule Cforum.Helpers do
   def maybe_put_change(changeset, _, nil), do: changeset
   def maybe_put_change(changeset, field, value), do: Ecto.Changeset.put_change(changeset, field, value)
 
+  @spec maybe_put_change(Ecto.Changeset.t(), atom(), String.t()) :: Ecto.Changeset.t()
+  def validate_blacklist(changeset, field, conf_key) do
+    forum_id = Ecto.Changeset.get_field(changeset, :forum_id)
+
+    settings = get_settings(forum_id, nil, nil)
+    blacklist = Cforum.ConfigManager.conf(settings, conf_key)
+    value = Ecto.Changeset.get_field(changeset, field)
+
+    if matches?(value, blacklist),
+      do: Ecto.Changeset.add_error(changeset, field, "seems like spam!"),
+      else: changeset
+  end
+
+  defp matches?(str, list) when is_nil(str) or str == "" or is_nil(list) or list == "", do: false
+
+  defp matches?(str, list) do
+    list
+    |> String.split(~r/\015\012|\015|\012/)
+    |> Enum.reject(&blank?/1)
+    |> Enum.any?(fn rx ->
+      regex = Regex.compile!(rx, "i")
+      Regex.match?(regex, str)
+    end)
+  end
+
+  @spec get_settings(any() | nil, map() | nil, Cforum.Messages.Message.t() | nil) :: Cforum.ConfigManager.conf_map()
+  def get_settings(forum_id, params, msg) do
+    given_forum_id =
+      cond do
+        present?(params) && present?(params["forum_id"]) -> params["forum_id"]
+        present?(params) && present?(params[:forum_id]) -> params[:forum_id]
+        present?(forum_id) -> forum_id
+        present?(msg) -> msg.forum_id
+        true -> nil
+      end
+
+    forum =
+      if present?(given_forum_id),
+        do: Cforum.Forums.get_forum!(given_forum_id),
+        else: nil
+
+    Cforum.ConfigManager.settings_map(forum, nil)
+  end
+
   @doc """
   Truncates the string `str` after `words_count` words
   """

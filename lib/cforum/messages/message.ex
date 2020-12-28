@@ -9,7 +9,6 @@ defmodule Cforum.Messages.Message do
   alias Cforum.Tags
   alias Cforum.MessagesTags.MessageTag
   alias Cforum.ConfigManager
-  alias Cforum.Forums
 
   @primary_key {:message_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :message_id}
@@ -67,28 +66,10 @@ defmodule Cforum.Messages.Message do
     timestamps(inserted_at: :created_at)
   end
 
-  defp get_settings(forum_id, params, msg) do
-    given_forum_id =
-      cond do
-        Helpers.present?(params) && Helpers.present?(params["forum_id"]) -> params["forum_id"]
-        Helpers.present?(params) && Helpers.present?(params[:forum_id]) -> params[:forum_id]
-        Helpers.present?(forum_id) -> forum_id
-        Helpers.present?(msg) -> msg.forum_id
-        true -> nil
-      end
-
-    forum =
-      if Helpers.present?(given_forum_id),
-        do: Forums.get_forum!(given_forum_id),
-        else: nil
-
-    ConfigManager.settings_map(forum, nil)
-  end
-
   @rw_fields [:author, :email, :homepage, :subject, :content, :excerpt, :problematic_site, :forum_id, :save_identity]
 
   defp base_changeset(struct, params, user, forum_id, visible_forums, opts) do
-    settings = get_settings(forum_id, params, struct)
+    settings = Helpers.get_settings(forum_id, params, struct)
     min_message_len = ConfigManager.conf(settings, "min_message_length", :int)
     max_message_len = ConfigManager.conf(settings, "max_message_length", :int)
 
@@ -132,7 +113,7 @@ defmodule Cforum.Messages.Message do
   defp validate_tags_count(changeset) do
     with nil <- changeset.errors[:tags] do
       forum_id = get_field(changeset, :forum_id)
-      settings = get_settings(forum_id, nil, nil)
+      settings = Helpers.get_settings(forum_id, nil, nil)
 
       min_tags = ConfigManager.conf(settings, "min_tags_per_message", :int)
       max_tags = ConfigManager.conf(settings, "max_tags_per_message", :int)
@@ -164,11 +145,11 @@ defmodule Cforum.Messages.Message do
     |> base_changeset(params, user, thread.forum_id, visible_forums, opts)
     |> put_change(:thread_id, thread.thread_id)
     |> validate_required([:author, :subject, :content, :forum_id, :thread_id])
-    |> validate_blacklist(:author, "nick_black_list")
-    |> validate_blacklist(:subject, "subject_black_list")
-    |> validate_blacklist(:content, "content_black_list")
-    |> validate_blacklist(:homepage, "url_black_list")
-    |> validate_blacklist(:problematic_site, "url_black_list")
+    |> Helpers.validate_blacklist(:author, "nick_black_list")
+    |> Helpers.validate_blacklist(:subject, "subject_black_list")
+    |> Helpers.validate_blacklist(:content, "content_black_list")
+    |> Helpers.validate_blacklist(:homepage, "url_black_list")
+    |> Helpers.validate_blacklist(:problematic_site, "url_black_list")
   end
 
   def changeset(struct, params, user, visible_forums, thread, message, opts) do
@@ -177,11 +158,11 @@ defmodule Cforum.Messages.Message do
     |> put_change(:thread_id, thread.thread_id)
     |> put_change(:parent_id, message.message_id)
     |> validate_required([:author, :subject, :content, :forum_id, :thread_id])
-    |> validate_blacklist(:author, "nick_black_list")
-    |> validate_blacklist(:subject, "subject_black_list")
-    |> validate_blacklist(:content, "content_black_list")
-    |> validate_blacklist(:homepage, "url_black_list")
-    |> validate_blacklist(:problematic_site, "url_black_list")
+    |> Helpers.validate_blacklist(:author, "nick_black_list")
+    |> Helpers.validate_blacklist(:subject, "subject_black_list")
+    |> Helpers.validate_blacklist(:content, "content_black_list")
+    |> Helpers.validate_blacklist(:homepage, "url_black_list")
+    |> Helpers.validate_blacklist(:problematic_site, "url_black_list")
   end
 
   def new_or_update_changeset(struct, params, user, visible_forums, opts \\ [create_tags: false]) do
@@ -195,11 +176,11 @@ defmodule Cforum.Messages.Message do
     |> new_or_update_changeset(params, nil, visible_forums, opts)
     |> maybe_set_editor_id(user)
     |> set_editor_author(struct, user)
-    |> validate_blacklist(:author, "nick_black_list")
-    |> validate_blacklist(:subject, "subject_black_list")
-    |> validate_blacklist(:content, "content_black_list")
-    |> validate_blacklist(:homepage, "url_black_list")
-    |> validate_blacklist(:problematic_site, "url_black_list")
+    |> Helpers.validate_blacklist(:author, "nick_black_list")
+    |> Helpers.validate_blacklist(:subject, "subject_black_list")
+    |> Helpers.validate_blacklist(:content, "content_black_list")
+    |> Helpers.validate_blacklist(:homepage, "url_black_list")
+    |> Helpers.validate_blacklist(:problematic_site, "url_black_list")
   end
 
   def retag_changeset(struct, params, user, opts \\ [create_tags: false]) do
@@ -307,30 +288,6 @@ defmodule Cforum.Messages.Message do
       nil -> put_change(changeset, field, value)
       _ -> changeset
     end
-  end
-
-  defp validate_blacklist(changeset, field, conf_key) do
-    forum_id = get_field(changeset, :forum_id)
-
-    settings = get_settings(forum_id, nil, nil)
-    blacklist = ConfigManager.conf(settings, conf_key)
-    value = get_field(changeset, field)
-
-    if matches?(value, blacklist),
-      do: add_error(changeset, field, "seems like spam!"),
-      else: changeset
-  end
-
-  defp matches?(str, list) when is_nil(str) or str == "" or is_nil(list) or list == "", do: false
-
-  defp matches?(str, list) do
-    list
-    |> String.split(~r/\015\012|\015|\012/)
-    |> Enum.reject(&Helpers.blank?/1)
-    |> Enum.any?(fn rx ->
-      regex = Regex.compile!(rx, "i")
-      Regex.match?(regex, str)
-    end)
   end
 
   def thumbnail_path(message, version \\ "original") do

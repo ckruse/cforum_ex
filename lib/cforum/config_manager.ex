@@ -11,7 +11,7 @@ defmodule Cforum.ConfigManager do
 
   alias Cforum.Helpers
 
-  @typep conf_map() :: %{global: Setting.t() | nil, forum: Setting.t() | nil, user: Setting.t() | nil}
+  @type conf_map() :: %{global: Setting.t() | nil, forum: Setting.t() | nil, user: Setting.t() | nil}
 
   @defaults %{
     "pagination" => 50,
