@@ -4,6 +4,7 @@ defmodule CforumWeb.BlogView do
   alias Cforum.Helpers
   alias CforumWeb.Views.ViewHelpers.Path
   alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.Paginator
 
   def page_title(:index, assigns),
     do: gettext("overview – %{forum}", forum: assigns[:current_forum].name)

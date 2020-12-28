@@ -1,3 +1,5 @@
 <%= for article <- @threads do %>
   <%= render "article.html", Map.put(assigns, :article, article) %>
 <% end %>
+
+<%= Paginator.pagination @conn, @page, &Routes.blog_path/3, path_args: ([@conn, :index]) %>
