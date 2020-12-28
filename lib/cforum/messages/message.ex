@@ -289,13 +289,4 @@ defmodule Cforum.Messages.Message do
       _ -> changeset
     end
   end
-
-  def thumbnail_path(message, version \\ "original") do
-    path = Application.get_env(:cforum, :thumbnail_dir)
-    url = Application.get_env(:cforum, :thumbnail_url)
-
-    {message.thumbnail, message}
-    |> CforumWeb.MessageThumbnail.url(version)
-    |> String.replace_leading(path, url)
-  end
 end
