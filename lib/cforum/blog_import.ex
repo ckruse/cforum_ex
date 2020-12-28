@@ -329,7 +329,7 @@ defmodule Cforum.BlogImport do
 
         Settings.create_setting(nil, %{
           forum_id: forum.forum_id,
-          options: %{"max_message_length" => 122_880, "max_tags_per_message" => 10}
+          options: %{"max_message_length" => 122_880, "max_tags_per_message" => 10, "archiver_active" => "no"}
         })
 
         {:ok, forum}
