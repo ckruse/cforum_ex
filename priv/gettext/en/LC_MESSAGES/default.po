@@ -59,8 +59,9 @@ msgstr ""
 msgid "Atom feed"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/link.html.eex:16
+#: lib/cforum_web/templates/layout/link.html.eex:20
 #: lib/cforum_web/templates/layout/page_header.html.eex:8 lib/cforum_web/templates/layout/page_header.html.eex:8
+#: lib/cforum_web/templates/layout/page_header_blog.html.eex:8 lib/cforum_web/templates/layout/page_header_blog.html.eex:8
 msgid "Atom feed (%{forum})"
 msgstr ""
 
@@ -71,8 +72,9 @@ msgstr ""
 msgid "RSS feed"
 msgstr ""
 
-#: lib/cforum_web/templates/layout/link.html.eex:17
+#: lib/cforum_web/templates/layout/link.html.eex:21
 #: lib/cforum_web/templates/layout/page_header.html.eex:9 lib/cforum_web/templates/layout/page_header.html.eex:9
+#: lib/cforum_web/templates/layout/page_header_blog.html.eex:9 lib/cforum_web/templates/layout/page_header_blog.html.eex:9
 msgid "RSS feed (%{forum})"
 msgstr ""
 
@@ -83,12 +85,14 @@ msgid "Statistics"
 msgstr ""
 
 #: lib/cforum_web/templates/layout/page_header.html.eex:10
-#: lib/cforum_web/templates/layout/page_header.html.eex:10
+#: lib/cforum_web/templates/layout/page_header.html.eex:10 lib/cforum_web/templates/layout/page_header_blog.html.eex:10
+#: lib/cforum_web/templates/layout/page_header_blog.html.eex:10
 msgid "donate"
 msgstr ""
 
 #: lib/cforum_web/templates/layout/page_header.html.eex:5
-#: lib/cforum_web/templates/layout/page_header.html.eex:16 lib/cforum_web/templates/message/message_forum_links.html.eex:3
+#: lib/cforum_web/templates/layout/page_header.html.eex:16 lib/cforum_web/templates/layout/page_header_blog.html.eex:5
+#: lib/cforum_web/templates/message/message_forum_links.html.eex:3
 msgid "home"
 msgstr ""
 
@@ -880,7 +884,7 @@ msgstr ""
 msgid "date format for the threads index"
 msgstr ""
 
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:184
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:190
 #: lib/cforum_web/templates/users/user/personalization.html.eex:47
 msgid "default date format"
 msgstr ""
@@ -1292,7 +1296,7 @@ msgstr ""
 
 #: lib/cforum_web/templates/forum/index.html.eex:12
 #: lib/cforum_web/templates/layout/page_header.html.eex:21 lib/cforum_web/templates/message/message_forum_links.html.eex:4
-#: lib/cforum_web/views/archive_view.ex:8 lib/cforum_web/views/layout_view.ex:307
+#: lib/cforum_web/views/archive_view.ex:8 lib/cforum_web/views/layout_view.ex:312
 #: lib/cforum_web/views/thread_view.ex:37 lib/cforum_web/views/thread_view.ex:44
 msgid "all forums"
 msgstr ""
@@ -1827,12 +1831,12 @@ msgid "user is an administrator"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:206
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:218
 msgid "accept score"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:212
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:224
 msgid "accept score for self-accepted answers"
 msgstr ""
 
@@ -1852,12 +1856,12 @@ msgid "alternative CSS resoures"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:236
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:248
 msgid "blacklist patterns for posting content"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:222
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:234
 msgid "blacklist patterns for posting subjects"
 msgstr ""
 
@@ -1867,17 +1871,17 @@ msgid "close subtree"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:178
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:184
 msgid "date format for search results"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:166
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:172
 msgid "date format for the index and the thread tree"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:172
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:178
 msgid "date format for the postings"
 msgstr ""
 
@@ -1897,7 +1901,7 @@ msgid "default view for threads"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:200
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:212
 msgid "downvote score"
 msgstr ""
 
@@ -1937,7 +1941,7 @@ msgid "items per page"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:150
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:156
 msgid "maximum editable age of posting in minutes"
 msgstr ""
 
@@ -1947,7 +1951,7 @@ msgid "maximum filesize for images"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:134
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:140
 msgid "maximum number of messages per thread"
 msgstr ""
 
@@ -1957,7 +1961,7 @@ msgid "maximum number of tags per message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:128
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:134
 msgid "maximum number of threads"
 msgstr ""
 
@@ -1972,7 +1976,7 @@ msgid "minimum number of tags per message"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:243
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:255
 msgid "nickname black list"
 msgstr ""
 
@@ -1982,9 +1986,9 @@ msgid "one URL per line"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:224
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:231 lib/cforum_web/templates/admin/setting/settings.html.eex:238
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:245
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:236
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:243 lib/cforum_web/templates/admin/setting/settings.html.eex:250
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:257
 msgid "one pattern per line"
 msgstr ""
 
@@ -1994,12 +1998,12 @@ msgid "one pattern per line; links in postings to URLs macthing to one of these 
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:157
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:163
 msgid "postings are always editable"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:156
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:162
 msgid "postings are editable until the first answer has been written"
 msgstr ""
 
@@ -2014,17 +2018,17 @@ msgid "start index for headings"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:194
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:206
 msgid "upvote score"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:144
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:150
 msgid "users may edit their postings"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:145
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:151
 msgid "users may not edit their postings"
 msgstr ""
 
@@ -2051,7 +2055,7 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:10
 #: lib/cforum_web/templates/admin/forum/form.html.eex:23 lib/cforum_web/templates/admin/setting/edit.html.eex:12
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:24 lib/cforum_web/templates/admin/setting/settings.html.eex:219
+#: lib/cforum_web/templates/admin/setting/edit.html.eex:24 lib/cforum_web/templates/admin/setting/settings.html.eex:231
 msgid "anti spam settings"
 msgstr ""
 
@@ -2065,14 +2069,14 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:8
 #: lib/cforum_web/templates/admin/forum/form.html.eex:21 lib/cforum_web/templates/admin/setting/edit.html.eex:10
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:22 lib/cforum_web/templates/admin/setting/settings.html.eex:163
+#: lib/cforum_web/templates/admin/setting/edit.html.eex:22 lib/cforum_web/templates/admin/setting/settings.html.eex:169
 msgid "date format settings"
 msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:7
 #: lib/cforum_web/templates/admin/forum/form.html.eex:20 lib/cforum_web/templates/admin/setting/edit.html.eex:9
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:21 lib/cforum_web/templates/admin/setting/settings.html.eex:141
+#: lib/cforum_web/templates/admin/setting/edit.html.eex:21 lib/cforum_web/templates/admin/setting/settings.html.eex:147
 msgid "editing settings"
 msgstr ""
 
@@ -2093,7 +2097,7 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:9
 #: lib/cforum_web/templates/admin/forum/form.html.eex:22 lib/cforum_web/templates/admin/setting/edit.html.eex:11
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:23 lib/cforum_web/templates/admin/setting/settings.html.eex:191
+#: lib/cforum_web/templates/admin/setting/edit.html.eex:23 lib/cforum_web/templates/admin/setting/settings.html.eex:203
 msgid "voting and scoring settings"
 msgstr ""
 
@@ -2575,19 +2579,19 @@ msgid "show all threads"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/views/thread_view.ex:38
+#: lib/cforum_web/views/blog_view.ex:9 lib/cforum_web/views/thread_view.ex:38
 msgid "overview – %{forum}"
 msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:25
-#: lib/cforum_web/views/layout_view.ex:295
+#: lib/cforum_web/views/layout_view.ex:300
 msgid "administrative view"
 msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:19
-#: lib/cforum_web/templates/message/message_forum_links.html.eex:21 lib/cforum_web/views/layout_view.ex:294
+#: lib/cforum_web/templates/message/message_forum_links.html.eex:21 lib/cforum_web/views/layout_view.ex:299
 msgid "normal view"
 msgstr ""
 
@@ -4293,7 +4297,7 @@ msgid "since two years"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:229
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:241
 msgid "blacklist patterns for posting urls"
 msgstr ""
 
@@ -4347,4 +4351,36 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:29
 msgid "minimum message length"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/layout/page_header_blog.html.eex:4
+msgid "SELFHTML Weblog - Complementing the <a href=\"https://wiki.selfhtml.org\">documentation</a>"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:196
+msgid "date format for the weblog index"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/blog/article.html.eex:9
+msgid "no comments"
+msgid_plural "%{count} comments"
+msgstr[0] ""
+msgstr[1] ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:128
+msgid "archiver is active"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:129
+msgid "archiver is inactive"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/blog/article.html.eex:28
+msgid "categorized under:"
 msgstr ""
