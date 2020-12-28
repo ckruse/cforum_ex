@@ -17,12 +17,15 @@ window.viewType = mql.matches ? "broad" : "narrow";
 
 if (!mql.matches) {
   const quicklinks = document.querySelector(".cf-page-header .quicklinks");
-  const li = document.createElement("li");
-  const btn = document.createElement("button");
-  btn.classList.add("quicklinks-expand");
-  btn.textContent = t("expand menu");
-  btn.addEventListener("click", expand);
 
-  li.appendChild(btn);
-  quicklinks.querySelector("ul").appendChild(li);
+  if (quicklinks) {
+    const li = document.createElement("li");
+    const btn = document.createElement("button");
+    btn.classList.add("quicklinks-expand");
+    btn.textContent = t("expand menu");
+    btn.addEventListener("click", expand);
+
+    li.appendChild(btn);
+    quicklinks.querySelector("ul").appendChild(li);
+  }
 }
