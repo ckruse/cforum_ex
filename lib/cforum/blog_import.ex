@@ -180,7 +180,9 @@ defmodule Cforum.BlogImport do
             )
 
           if img do
-            {:ok, _m} = Messages.update_message(message, %{"thumbnail" => img}, nil, [forum])
+            {:ok, _m} =
+              Messages.update_message(message, %{"thumbnail" => img}, nil, [forum], updated_at: message.updated_at)
+
             File.rm!(img.path)
           end
 
