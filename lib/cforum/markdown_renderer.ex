@@ -29,27 +29,31 @@ defmodule Cforum.MarkdownRenderer do
   #
   @spec to_html(
           Cite.t() | Event.t() | Message.t() | PrivMessage.t() | Badge.t() | String.t(),
-          Plug.Conn.t() | :str
+          Plug.Conn.t() | :str,
+          :content | :excerpt
         ) :: {:safe, String.t()} | {:error, atom}
-  def to_html(object, user)
+  def to_html(object, user, part \\ :content)
 
-  def to_html(%{cite_id: id, cite: content}, _user) do
+  def to_html(%{cite_id: id, cite: content}, _user, _) do
     content
     |> render_doc("c-#{id}")
     |> to_html_with_error_handling()
   end
 
-  def to_html(%{description: content, event_id: id}, _user) do
+  def to_html(%{description: content, event_id: id}, _user, _) do
     content
     |> render_doc("e-#{id}")
     |> to_html_with_error_handling()
   end
 
-  def to_html(%Message{format: "html"} = message, _conn),
+  def to_html(%Message{format: "html"} = message, _conn, :excerpt),
+    do: {:safe, message.excerpt}
+
+  def to_html(%Message{format: "html"} = message, _conn, :content),
     do: {:safe, message.content}
 
-  def to_html(%Message{format: "markdown"} = message, conn) do
-    content = Cforum.Messages.content_with_presentational_filters(conn.assigns, message)
+  def to_html(%Message{format: "markdown"} = message, conn, part) do
+    content = Cforum.Messages.content_with_presentational_filters(conn.assigns, message, part)
 
     target =
       if Cforum.ConfigManager.uconf(conn, "target_blank_for_posting_links") == "yes",
@@ -67,25 +71,25 @@ defmodule Cforum.MarkdownRenderer do
     |> to_html_with_error_handling()
   end
 
-  def to_html(%Message{format: "cforum"} = message, conn) do
+  def to_html(%Message{format: "cforum"} = message, conn, part) do
     message
     |> Cforum.LegacyParser.parse()
-    |> to_html(conn)
+    |> to_html(conn, part)
   end
 
-  def to_html(%{body: content, priv_message_id: id}, _user) do
+  def to_html(%{body: content, priv_message_id: id}, _user, _) do
     content
     |> render_doc("pm-#{id}")
     |> to_html_with_error_handling()
   end
 
-  def to_html(%{description: content, badge_id: id}, _user) do
+  def to_html(%{description: content, badge_id: id}, _user, _) do
     content
     |> render_doc("b-#{id}")
     |> to_html_with_error_handling()
   end
 
-  def to_html(str, :str) do
+  def to_html(str, :str, _) do
     str
     |> render_doc("str")
     |> to_html_with_error_handling()

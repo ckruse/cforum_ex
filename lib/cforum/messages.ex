@@ -818,11 +818,12 @@ defmodule Cforum.Messages do
     |> ThreadCaching.refresh_cached_thread()
   end
 
-  @spec content_with_presentational_filters(nil | maybe_improper_list | map, Message.t()) :: String.t()
-  def content_with_presentational_filters(assigns, message) do
+  @spec content_with_presentational_filters(nil | maybe_improper_list | map, Message.t(), :content | :excerpt) ::
+          String.t()
+  def content_with_presentational_filters(assigns, message, part) do
     message
     |> Mentions.mentions_markup(assigns[:current_user])
-    |> Map.get(:content)
+    |> Map.get(part)
   end
 
   defp notify_users(message_or_changeset, thread_or_score, notify \\ true)
