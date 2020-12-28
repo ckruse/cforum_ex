@@ -175,7 +175,8 @@ defmodule Cforum.BlogImport do
               created_at: post.post_date |> Timex.to_datetime(),
               updated_at: post.post_date |> Timex.to_datetime(),
               slug: gen_slug(post),
-              latest_message: post.post_date |> Timex.to_datetime()
+              latest_message: post.post_date |> Timex.to_datetime(),
+              notify: false
             )
 
           if img do
