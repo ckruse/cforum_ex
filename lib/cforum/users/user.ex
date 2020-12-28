@@ -70,6 +70,7 @@ defmodule Cforum.Users.User do
     |> unique_constraint(:username, name: :users_username_idx)
     |> unique_constraint(:email, name: :users_email_idx)
     |> unique_constraint(:unconfirmed_email)
+    |> Helpers.validate_blacklist(:username, "nick_black_list")
   end
 
   def admin_changeset(%User{} = struct, params \\ %{}) do
@@ -86,6 +87,7 @@ defmodule Cforum.Users.User do
     |> validate_required([:username, :email])
     |> unique_constraint(:username, name: :users_username_idx)
     |> unique_constraint(:email, name: :users_email_idx)
+    |> Helpers.validate_blacklist(:username, "nick_black_list")
     |> maybe_confirm_password()
     |> maybe_put_password()
   end
@@ -98,6 +100,7 @@ defmodule Cforum.Users.User do
     |> unique_constraint(:email, name: :users_email_idx)
     |> unique_constraint(:confirmation_token, name: :users_confirmation_token_idx)
     |> confirm_password()
+    |> Helpers.validate_blacklist(:username, "nick_black_list")
     |> put_password_hash()
     |> put_confirmation_token()
   end
