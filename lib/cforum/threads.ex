@@ -361,8 +361,9 @@ defmodule Cforum.Threads do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_thread(attrs, user, forum, visible_forums, opts \\ [create_tags: false]) do
-    opts = Keyword.merge([latest_message: DateTime.truncate(Timex.now(), :second)], opts)
+  def create_thread(attrs, user, forum, visible_forums, opts \\ [create_tags: false, notify: true]) do
+    opts =
+      Keyword.merge([latest_message: DateTime.truncate(Timex.now(), :second), create_tags: false, notify: true], opts)
 
     retval =
       Repo.transaction(fn ->
@@ -385,7 +386,7 @@ defmodule Cforum.Threads do
     with {:ok, {:ok, thread, message}} <- retval do
       {:ok, Repo.preload(thread, [:forum]), message}
     end
-    |> maybe_notify_users()
+    |> maybe_notify_users(opts[:notify])
     |> ThreadCaching.refresh_cached_thread()
   end
 
@@ -399,12 +400,14 @@ defmodule Cforum.Threads do
     end
   end
 
-  def maybe_notify_users({:ok, thread, message}) do
+  def maybe_notify_users(val, false), do: val
+
+  def maybe_notify_users({:ok, thread, message}, _) do
     Cforum.Jobs.NotifyUsersMessageJob.enqueue(thread, message, "thread")
     {:ok, thread, message}
   end
 
-  def maybe_notify_users(val), do: val
+  def maybe_notify_users(val, _), do: val
 
   @doc """
   Updates a thread.
