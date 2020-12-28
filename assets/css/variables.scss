@@ -119,6 +119,14 @@ $deleted-color: darkred;
   border: 1px solid $grey-border;
 }
 
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
 @mixin default-breakpoint() {
   @media only screen and (min-width: 35em) {
     @content;
