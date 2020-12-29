@@ -34,11 +34,14 @@ defmodule CforumWeb.BlogView do
   defp get_last_modified(msg), do: msg.updated_at
 
   def render("index.atom", %{threads: threads, conn: conn}) do
-    xml_threads = Enum.map(threads, &Feeds.atom_feed_thread(conn, &1))
+    xml_threads =
+      for thread <- threads,
+          do: Feeds.atom_feed_thread(conn, thread, &Path.blog_thread_url/3, &Path.blog_message_url/4)
+
     last_modified = get_last_modified(List.first(threads))
 
     conn
-    |> Feeds.atom_feed_head(xml_threads, last_modified)
+    |> Feeds.atom_feed_head(xml_threads, last_modified, Path.blog_url(conn), Path.blog_atom_url(conn))
     |> XmlBuilder.generate()
   end
 

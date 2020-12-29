@@ -52,6 +52,7 @@ config :cforum,
     distance: 3
   ],
   base_url: "http://localhost:4000/",
+  blog_base_url: "http://blog.localhost:4000/",
   environment: Mix.env(),
   search_dict: "german",
   uploads_dir: Path.expand("../priv/uploads", __DIR__),

@@ -281,6 +281,30 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def message_url(conn, :show, %Thread{} = thread, %Message{} = msg, params),
     do: "#{int_message_url(conn, thread, msg)}#{encode_query_string(conn, params)}#m#{msg.message_id}"
 
+  @spec blog_url(conn(), params()) :: String.t()
+  def blog_url(conn, params \\ []) do
+    base_url = Application.get_env(:cforum, :blog_base_url, "") |> String.replace(~r(/+$), "")
+    "#{base_url}/#{encode_query_string(conn, params)}"
+  end
+
+  @spec blog_rss_url(conn(), params()) :: String.t()
+  def blog_rss_url(conn, params \\ []),
+    do: "#{blog_url(conn)}feed/rss#{encode_query_string(conn, params)}"
+
+  @spec blog_atom_url(conn(), params()) :: String.t()
+  def blog_atom_url(conn, params \\ []),
+    do: "#{blog_url(conn)}/feed/atom#{encode_query_string(conn, params)}"
+
+  @spec blog_message_url(conn(), atom(), Thread.t(), Message.t(), params()) :: String.t()
+  def blog_message_url(conn, :show, %Thread{} = thread, %Message{} = msg, params \\ []),
+    do: "#{blog_thread_url(conn, :show, thread, params)}#m#{msg.message_id}"
+
+  @spec blog_thread_url(conn(), atom(), Thread.t(), params()) :: String.t()
+  def blog_thread_url(conn, :show, %Thread{} = thread, params \\ []) do
+    url = blog_url(conn) |> String.replace(~r(/+$), "")
+    "#{url}#{thread.slug}#{encode_query_string(conn, params)}"
+  end
+
   @doc """
   Generates URL path part to the `message`. Uses the thread from the
   `message` struct.

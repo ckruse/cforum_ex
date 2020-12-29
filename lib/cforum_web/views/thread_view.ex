@@ -60,7 +60,12 @@ defmodule CforumWeb.ThreadView do
     last_modified = get_last_modified(List.first(threads))
 
     conn
-    |> Feeds.atom_feed_head(xml_threads, last_modified)
+    |> Feeds.atom_feed_head(
+      xml_threads,
+      last_modified,
+      Path.forum_url(conn, :index, conn.assigns[:current_forum]),
+      Path.forum_url(conn, :atom, conn.assigns[:current_forum])
+    )
     |> XmlBuilder.generate()
   end
 

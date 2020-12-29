@@ -29,15 +29,15 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
      ]}
   end
 
-  @spec atom_feed_head(Plug.Conn.t(), [Thread.t()], NaiveDateTime.t()) :: xml_struct
-  def atom_feed_head(conn, threads, last_updated) do
+  @spec atom_feed_head(Plug.Conn.t(), [Thread.t()], NaiveDateTime.t(), String.t(), String.t()) :: xml_struct
+  def atom_feed_head(conn, threads, last_updated, forum_url, feed_url) do
     forum = conn.assigns[:current_forum]
 
     {:feed, %{"xml:lang" => Gettext.get_locale(CforumWeb.Gettext), "xmlns" => "http://www.w3.org/2005/Atom"},
      [
        {:id, nil, "tag:forum.selfhtml.org,2005:/self"},
-       {:link, %{"rel" => "alternate", "type" => "text/html", "href" => Path.forum_url(conn, :index, forum)}, []},
-       {:link, %{"rel" => "self", "type" => "application/atom+xml", "href" => Path.forum_url(conn, :atom, forum)}, []},
+       {:link, %{"rel" => "alternate", "type" => "text/html", "href" => forum_url}, []},
+       {:link, %{"rel" => "self", "type" => "application/atom+xml", "href" => feed_url}, []},
        {:title, nil, LayoutView.forum_name(forum)},
        {:updated, nil, Timex.lformat!(last_updated, "{RFC3339z}", "en")},
        threads
@@ -75,8 +75,14 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
     {:entry, nil, children ++ [{:content, %{"type" => "html"}, safe_xml_pcdata(html)}]}
   end
 
-  @spec atom_feed_thread(Plug.Conn.t(), Thread.t()) :: xml_struct
-  def atom_feed_thread(conn, thread) do
+  @spec atom_feed_thread(
+          Plug.Conn.t(),
+          Thread.t(),
+          (Plug.Conn.t(), atom(), Thread.t() -> String.t()),
+          (Plug.Conn.t(), atom(), Thread.t(), Message.t() -> String.t())
+        ) ::
+          xml_struct
+  def atom_feed_thread(conn, thread, guid_fun \\ &Path.thread_url/3, path_fun \\ &Path.message_url/4) do
     {:safe, html} = MarkdownRenderer.to_html(thread.message, conn)
 
     {:safe, excerpt} =
@@ -86,7 +92,7 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
 
     children =
       [
-        {:id, nil, Path.thread_url(conn, :show, thread)},
+        {:id, nil, guid_fun.(conn, :show, thread)},
         atom_author(thread.message),
         {:published, nil, Timex.lformat!(thread.created_at, "{RFC3339z}", "en")},
         {:updated, nil, Timex.lformat!(thread.updated_at, "{RFC3339z}", "en")},
@@ -94,7 +100,7 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
          %{
            "rel" => "alternate",
            "type" => "text/html",
-           "href" => Path.message_url(conn, :show, thread, thread.message)
+           "href" => path_fun.(conn, :show, thread, thread.message)
          }, []},
         {:title, nil, safe_xml_pcdata(thread.message.subject)}
       ]
