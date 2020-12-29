@@ -4,6 +4,7 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
   alias Cforum.Messages.Message
   alias Cforum.Threads.Thread
   alias Cforum.MarkdownRenderer
+  alias Cforum.Helpers
 
   alias CforumWeb.Views.ViewHelpers.Path
   alias CforumWeb.LayoutView
@@ -47,42 +48,62 @@ defmodule CforumWeb.Views.ViewHelpers.Feeds do
   def atom_feed_message(conn, thread, message) do
     {:safe, html} = MarkdownRenderer.to_html(message, conn)
 
-    {:entry, nil,
-     [
-       {:id, nil, Path.message_url(conn, :show, thread, message)},
-       atom_author(message),
-       {:published, nil, Timex.lformat!(message.created_at, "{RFC3339z}", "en")},
-       {:updated, nil, Timex.lformat!(message.updated_at, "{RFC3339z}", "en")},
-       {:link,
-        %{
-          "rel" => "alternate",
-          "type" => "text/html",
-          "href" => Path.message_url(conn, :show, thread, message)
-        }, []},
-       {:title, nil, safe_xml_pcdata(message.subject)},
-       {:content, %{"type" => "html"}, safe_xml_pcdata(html)}
-     ]}
+    {:safe, excerpt} =
+      if Helpers.present?(message.excerpt),
+        do: MarkdownRenderer.to_html(message, conn, :excerpt),
+        else: {:safe, ""}
+
+    children =
+      [
+        {:id, nil, Path.message_url(conn, :show, thread, message)},
+        atom_author(message),
+        {:published, nil, Timex.lformat!(message.created_at, "{RFC3339z}", "en")},
+        {:updated, nil, Timex.lformat!(message.updated_at, "{RFC3339z}", "en")},
+        {:link,
+         %{
+           "rel" => "alternate",
+           "type" => "text/html",
+           "href" => Path.message_url(conn, :show, thread, message)
+         }, []},
+        {:title, nil, safe_xml_pcdata(message.subject)}
+      ]
+      |> Helpers.append_if(
+        Helpers.present?(message.excerpt),
+        {:summary, %{"type" => "html"}, safe_xml_pcdata(excerpt)}
+      )
+
+    {:entry, nil, children ++ [{:content, %{"type" => "html"}, safe_xml_pcdata(html)}]}
   end
 
   @spec atom_feed_thread(Plug.Conn.t(), Thread.t()) :: xml_struct
   def atom_feed_thread(conn, thread) do
     {:safe, html} = MarkdownRenderer.to_html(thread.message, conn)
 
-    {:entry, nil,
-     [
-       {:id, nil, Path.thread_url(conn, :show, thread)},
-       atom_author(thread.message),
-       {:published, nil, Timex.lformat!(thread.created_at, "{RFC3339z}", "en")},
-       {:updated, nil, Timex.lformat!(thread.updated_at, "{RFC3339z}", "en")},
-       {:link,
-        %{
-          "rel" => "alternate",
-          "type" => "text/html",
-          "href" => Path.message_url(conn, :show, thread, thread.message)
-        }, []},
-       {:title, nil, safe_xml_pcdata(thread.message.subject)},
-       {:content, %{"type" => "html"}, safe_xml_pcdata(html)}
-     ]}
+    {:safe, excerpt} =
+      if Helpers.present?(thread.message.excerpt),
+        do: MarkdownRenderer.to_html(thread.message, conn, :excerpt),
+        else: {:safe, ""}
+
+    children =
+      [
+        {:id, nil, Path.thread_url(conn, :show, thread)},
+        atom_author(thread.message),
+        {:published, nil, Timex.lformat!(thread.created_at, "{RFC3339z}", "en")},
+        {:updated, nil, Timex.lformat!(thread.updated_at, "{RFC3339z}", "en")},
+        {:link,
+         %{
+           "rel" => "alternate",
+           "type" => "text/html",
+           "href" => Path.message_url(conn, :show, thread, thread.message)
+         }, []},
+        {:title, nil, safe_xml_pcdata(thread.message.subject)}
+      ]
+      |> Helpers.append_if(
+        Helpers.present?(thread.message.excerpt),
+        {:summary, %{"type" => "html"}, safe_xml_pcdata(excerpt)}
+      )
+
+    {:entry, nil, children ++ [{:content, %{"type" => "html"}, safe_xml_pcdata(html)}]}
   end
 
   @spec atom_author(Message.t()) :: xml_struct

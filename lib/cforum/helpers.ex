@@ -123,6 +123,10 @@ defmodule Cforum.Helpers do
   def add_if(list, true, value), do: [value | list]
   def add_if(list, _, _value), do: list
 
+  @spec append_if(list(), boolean(), any()) :: list()
+  def append_if(list, true, value), do: list ++ [value]
+  def append_if(list, _, _value), do: list
+
   @spec map_maybe_delete(map(), any(), boolean()) :: map()
   def map_maybe_delete(map, key, true), do: Map.delete(map, key)
   def map_maybe_delete(map, _, _), do: map
