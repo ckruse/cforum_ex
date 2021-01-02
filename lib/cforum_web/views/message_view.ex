@@ -257,4 +257,10 @@ defmodule CforumWeb.MessageView do
     (Helpers.blank?(conn.assigns[:current_user]) || Abilities.access_forum?(conn, :moderate)) &&
       Helpers.blank?(conn.cookies[:cforum_author])
   end
+
+  def merged_assigns_for_nested(assigns, message) do
+    assigns
+    |> Map.merge(%{first: false, message: message})
+    |> Map.put_new(:controls, true)
+  end
 end
