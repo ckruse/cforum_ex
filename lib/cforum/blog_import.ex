@@ -163,7 +163,7 @@ defmodule Cforum.BlogImport do
 
     File.rm!(tmpfile)
 
-    {:ok, CforumWeb.Views.ViewHelpers.Path.image_path(CforumWeb.Endpoint, :show, img)}
+    {:ok, CforumWeb.Views.ViewHelpers.Path.blog_image_url(CforumWeb.Endpoint, :show, img)}
   end
 
   defp categorize_posts(data) do

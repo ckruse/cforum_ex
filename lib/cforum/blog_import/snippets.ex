@@ -27,8 +27,8 @@ defmodule Cforum.BlogImport.Snippets do
   defp images_as_html(images) do
     Enum.map(images, fn {url, text} ->
       img = create_image(url)
-      path = CforumWeb.Views.ViewHelpers.Path.image_path(CforumWeb.Endpoint, :show, img, %{"size" => "medium"})
-      full_path = CforumWeb.Views.ViewHelpers.Path.image_path(CforumWeb.Endpoint, :show, img)
+      path = CforumWeb.Views.ViewHelpers.Path.blog_image_url(CforumWeb.Endpoint, :show, img, %{"size" => "medium"})
+      full_path = CforumWeb.Views.ViewHelpers.Path.blog_image_url(CforumWeb.Endpoint, :show, img)
       html = if text, do: safe_html(text), else: ""
 
       """

@@ -311,6 +311,10 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
     "#{url}#{thread.slug}#{encode_query_string(conn, params)}"
   end
 
+  @spec blog_image_url(conn(), atom(), Cforum.Media.Image.t(), params()) :: String.t()
+  def blog_image_url(conn, :show, image, params \\ []),
+    do: "#{blog_url(conn)}images/#{image.filename}#{encode_query_string(conn, params)}"
+
   @doc """
   Generates URL path part to the `message`. Uses the thread from the
   `message` struct.
