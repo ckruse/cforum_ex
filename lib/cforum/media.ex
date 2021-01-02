@@ -63,7 +63,7 @@ defmodule Cforum.Media do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec create_image(%User{}, %Plug.Upload{}) :: {:ok, %Image{}} | {:error, %Ecto.Changeset{}}
+  @spec create_image(%User{} | nil, %Plug.Upload{}) :: {:ok, %Image{}} | {:error, %Ecto.Changeset{}}
   def create_image(user, file) do
     System.audited("create", user, fn ->
       ret =
