@@ -133,15 +133,26 @@ defmodule Cforum.BlogImport do
   end
 
   defp fix_markup(str) do
-    str
-    |> String.replace(~r/<pre>\s*<code>/, "<pre><code class=\"block\">")
-    |> String.replace(~r{src="https://blog.selfhtml.org/[^"]+}, fn img ->
-      {:ok, url} = create_image(String.replace_leading(img, "src=\"", ""))
-      "src=\"#{url}"
+    urls = Regex.scan(~r{src="(?:https?:)?//blog.selfhtml.org/[^"]+}, str) |> List.flatten()
+
+    fixed_str =
+      str
+      |> String.replace(~r/<pre>\s*<code>/, "<pre><code class=\"block\">")
+      |> String.replace(~r/\[gallery[^\]]+\]/, &Snippets.gallery/1)
+      |> String.replace(~r/\[caption[^\]]+\].*?\[\/caption\]/, &Snippets.caption/1)
+
+    Enum.reduce(urls, fixed_str, fn url, str ->
+      orig_uri = String.replace_leading(url, "src=\"", "") |> maybe_add_protocol()
+      {:ok, img_url} = create_image(orig_uri)
+
+      str
+      |> String.replace(url, "src=\"#{img_url}?size=medium")
+      |> String.replace(orig_uri, img_url)
     end)
-    |> String.replace(~r/\[gallery[^\]]+\]/, &Snippets.gallery/1)
-    |> String.replace(~r/\[caption[^\]]+\].*?\[\/caption\]/, &Snippets.caption/1)
   end
+
+  defp maybe_add_protocol("//blog" <> _ = s), do: "https:#{s}"
+  defp maybe_add_protocol(s), do: s
 
   defp create_image(raw_url) do
     url =
