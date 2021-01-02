@@ -97,6 +97,8 @@ defmodule CforumWeb.Router do
       get "/feed", BlogController, :old_rss
       get "/feed/rss", BlogController, :index_rss
       get "/feed/atom", BlogController, :index_atom
+
+      get "/:year/:month/:day/:slug", BlogpostController, :show
     end
   end
 

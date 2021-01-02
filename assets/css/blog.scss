@@ -3,8 +3,6 @@
   padding-bottom: 2em;
   border-bottom: $dividing-border;
 
-  @include clearfix;
-
   header {
     h2 {
       margin-top: 0;
@@ -34,8 +32,46 @@
     color: #909090;
   }
 
+  .e-content {
+    @include clearfix;
+  }
+
   &:last-of-type {
     border-bottom: none;
+  }
+
+  .alignleft,
+  .alignright {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .alignright {
+    float: right;
+    margin-left: 0.5em;
+    margin-right: 0;
+  }
+  .alignleft {
+    float: left;
+    margin-right: 0.5em;
+    margin-left: 0;
+  }
+  img.alignleft,
+  img.alignright {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  .gallery {
+    margin: 1em 0;
+    padding: 0;
+
+    figure {
+      margin: 0;
+    }
   }
 }
 
@@ -53,6 +89,28 @@
     .selflinks {
       max-width: 50rem;
       margin: auto;
+    }
+  }
+
+  .cf-weblog-article {
+    .gallery {
+      &.two-cols {
+        display: grid;
+        gap: 1em;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      &.three-cols {
+        display: grid;
+        gap: 1em;
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      &.four-cols {
+        display: grid;
+        gap: 1em;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
     }
   }
 }

@@ -12,12 +12,29 @@ defmodule CforumWeb.LayoutView do
 
   def page_title(conn, assigns) do
     if Kernel.function_exported?(view_module(conn), :page_title, 2),
-      do: apply(view_module(conn), :page_title, [action_name(conn), assigns]) <> " – SELFHTML Forum",
+      do: apply(view_module(conn), :page_title, [action_name(conn), assigns]) |> maybe_append_forum(assigns),
       else: default_page_title(conn, assigns)
   end
 
-  def default_page_title(_conn, _assigns) do
-    "SELFHTML Forum"
+  defp maybe_append_forum(str, assigns) do
+    appendix =
+      cond do
+        is_nil(assigns[:current_forum]) -> " – SELFHTML Forum"
+        assigns[:current_forum].type == "blog" -> " – SELFHTML Weblog"
+        assigns[:current_forum].type == "forum" -> " – SELFHTML Forum"
+        true -> ""
+      end
+
+    str <> appendix
+  end
+
+  def default_page_title(_conn, assigns) do
+    cond do
+      is_nil(assigns[:current_forum]) -> "SELFHTML Forum"
+      assigns[:current_forum].type == "blog" -> "SELFHTML Weblog"
+      assigns[:current_forum].type == "forum" -> "SELFHTML Forum"
+      true -> "SELFHTML Forum"
+    end
   end
 
   def body_classes(conn, assigns, blog \\ false) do

@@ -44,6 +44,7 @@ defmodule CforumWeb.BlogController do
     |> Threads.reject_deleted_threads(conn.assigns[:view_all])
     |> Threads.reject_invisible_threads(conn.assigns[:current_user], conn.assigns[:view_all])
     |> Threads.apply_user_infos(conn.assigns[:current_user])
+    |> Threads.apply_highlights(conn)
   end
 
   defp feed_thread_list(conn) do
