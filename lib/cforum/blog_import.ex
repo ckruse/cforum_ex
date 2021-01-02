@@ -9,7 +9,10 @@ defmodule Cforum.BlogImport do
   alias Cforum.Threads.ThreadHelpers
   alias Cforum.Messages
   alias Cforum.Settings
-  alias Cforum.Helpers
+  alias Cforum.Media
+
+  alias Cforum.BlogImport.Snippets
+  alias Cforum.BlogImport.Autop
 
   def import(file) do
     {:ok, forum} = maybe_create_blog_forum()
@@ -115,28 +118,52 @@ defmodule Cforum.BlogImport do
     posts =
       data
       |> Map.get(:posts)
-      |> Enum.map(fn
-        %{meta: %{"classic-editor-remember" => "block-editor"}} = post ->
-          post
-          |> Map.put(:encoded_content, block_editor_content(post.encoded_content))
-          |> Map.put(:encoded_excerpt, block_editor_content(post.encoded_excerpt))
-
-        p ->
-          p
+      |> Enum.map(fn post ->
+        post
+        |> Map.put(:encoded_content, Autop.parse(post.encoded_content))
+        |> Map.put(:encoded_excerpt, Autop.parse(post.encoded_excerpt))
+      end)
+      |> Enum.map(fn p ->
+        p
+        |> Map.put(:encoded_content, fix_markup(p.encoded_content))
+        |> Map.put(:encoded_excerpt, fix_markup(p.encoded_excerpt))
       end)
 
     Map.put(data, :posts, posts)
   end
 
-  defp block_editor_content(cnt) do
-    cnt
-    |> String.trim()
-    |> String.split(~r/\n\n+/)
-    |> Enum.reject(&Helpers.blank?/1)
-    |> Enum.map(fn part ->
-      "<p>\n" <> String.replace(part, ~r/\n/, "<br>\n") <> "\n</p>"
+  defp fix_markup(str) do
+    str
+    |> String.replace(~r/<pre>\s*<code>/, "<pre><code class=\"block\">")
+    |> String.replace(~r{src="https://blog.selfhtml.org/[^"]+}, fn img ->
+      {:ok, url} = create_image(String.replace_leading(img, "src=\"", ""))
+      "src=\"#{url}"
     end)
-    |> Enum.join("\n\n")
+    |> String.replace(~r/\[gallery[^\]]+\]/, &Snippets.gallery/1)
+    |> String.replace(~r/\[caption[^\]]+\].*?\[\/caption\]/, &Snippets.caption/1)
+  end
+
+  defp create_image(raw_url) do
+    url =
+      raw_url
+      |> String.replace("ö", "%C3%B6")
+      |> String.replace("ü", "%C3%BC")
+      |> String.replace("ß", "%C3%9F")
+
+    response = Tesla.get!(url)
+    tmpfile = Briefly.create!()
+    File.write!(tmpfile, response.body)
+
+    {:ok, img} =
+      Media.create_image(nil, %Plug.Upload{
+        path: tmpfile,
+        content_type: MIME.from_path(url),
+        filename: Regex.replace(~r(.*/), url, "")
+      })
+
+    File.rm!(tmpfile)
+
+    {:ok, CforumWeb.Views.ViewHelpers.Path.image_path(CforumWeb.Endpoint, :show, img)}
   end
 
   defp categorize_posts(data) do
