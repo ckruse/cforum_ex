@@ -58,6 +58,8 @@ defmodule Cforum.Threads.ThreadHelpers do
     |> Repo.exists?()
   end
 
+  @month_names [nil] ++ ~w[jan feb mar apr may jun jul aug sep oct nov dec]
+
   @doc """
   Generate a thread slug from a params map.
 
@@ -66,6 +68,18 @@ defmodule Cforum.Threads.ThreadHelpers do
       iex> slug_from_params(%{"year" => "2017", "month" => "jan", "day" => "31", "slug" => "foo"})
       "/2017/jan/31/foo"
   """
-  def slug_from_params(%{"year" => year, "month" => month, "day" => day, "slug" => slug}),
+  @spec slug_from_params(map(), boolean()) :: String.t()
+  def slug_from_params(params, accept_nummeric_month \\ false)
+
+  def slug_from_params(%{"year" => year, "month" => month, "day" => day, "slug" => slug}, false),
     do: "/#{year}/#{month}/#{day}/#{slug}"
+
+  def slug_from_params(%{"year" => year, "month" => month, "day" => day, "slug" => slug}, _) do
+    stringified_month =
+      if Regex.match?(~r/^((0?[1-9])|(1[0-2]))$/, month),
+        do: Enum.at(@month_names, String.to_integer(month, 10)),
+        else: month
+
+    "/#{year}/#{stringified_month}/#{day}/#{slug}"
+  end
 end
