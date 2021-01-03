@@ -262,6 +262,7 @@ defmodule CforumWeb.MessageView do
     assigns
     |> Map.merge(overwrites)
     |> Map.put_new(:controls, true)
+    |> Map.put_new(:enhanced_controls, true)
     |> Map.put_new(:first, false)
     |> Map.put_new(:do_parent, false)
   end

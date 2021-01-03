@@ -42,7 +42,7 @@
   </div>
 
   <%= if assigns[:controls] && @view_all, do: render("message_admin_buttons.html", assigns) %>
-  <%= if assigns[:controls] && !@message.deleted, do: render("message_forum_links.html", assigns) %>
+  <%= if assigns[:controls] && assigns[:enhanced_controls] && !@message.deleted, do: render("message_forum_links.html", assigns) %>
 </div>
 
 
