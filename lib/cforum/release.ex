@@ -7,7 +7,9 @@ defmodule Cforum.Release do
   end
 
   def init(_) do
-    migrate()
+    if Application.get_env(:cforum, :environment) == :prod,
+      do: migrate()
+
     {:ok, nil}
   end
 
