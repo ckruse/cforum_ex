@@ -1,6 +1,6 @@
 const path = require("path");
 const Webpack = require("webpack");
-const ExtractTextPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const config = require("./package");
 
@@ -9,13 +9,12 @@ const OUTPUT_PATH = path.resolve(__dirname, "..", "priv", "static");
 
 module.exports = function (env = {}, argv) {
   const IS_PROD = ENV === "prod";
-  const ExtractCSS = new ExtractTextPlugin({
-    filename: "css/[name].css",
-    chunkFilename: IS_PROD ? "css/[id].[hash].css" : "css/[id].css",
-  });
 
   var PLUGINS = [
-    ExtractCSS,
+    new MiniCssExtractPlugin({
+      filename: "css/[name].css",
+      chunkFilename: IS_PROD ? "css/[id].[chunkhash].css" : "css/[id].css",
+    }),
     new Webpack.DefinePlugin({
       APP_NAME: JSON.stringify(config.app_name),
       VERSION: JSON.stringify(config.version),
@@ -84,7 +83,7 @@ module.exports = function (env = {}, argv) {
         {
           test: /\.(sa|sc|c)ss$/,
           use: [
-            { loader: ExtractTextPlugin.loader },
+            { loader: MiniCssExtractPlugin.loader },
             { loader: "css-loader", options: { url: false, sourceMap: IS_PROD ? false : true } },
             { loader: "postcss-loader", options: { sourceMap: IS_PROD ? false : true } },
             { loader: "sass-loader", options: { sourceMap: IS_PROD ? false : true } },
@@ -109,7 +108,6 @@ module.exports = function (env = {}, argv) {
     },
 
     plugins: PLUGINS,
-    //optimization: { minimize: IS_PROD },
     stats: { colors: true },
     mode: IS_PROD ? "production" : "development",
   };
