@@ -12,6 +12,7 @@ defmodule Cforum.Forums do
   alias Cforum.Settings
   alias Cforum.Caching
   alias Cforum.Groups
+  use Cforum.Constants
 
   @spec discard_forums_cache({:ok, any()} | any()) :: {:ok, any()} | any()
   def discard_forums_cache({:ok, rel}) do
@@ -197,14 +198,21 @@ defmodule Cforum.Forums do
   end
 
   defp visible_forums(forums, nil) do
-    Enum.filter(forums, &(&1.standard_permission in [Forum.read(), Forum.write()]))
+    Enum.filter(forums, &(&1.standard_permission in [@permission_read, @permission_write, @permission_answer]))
   end
 
   # admins may view all forums
   defp visible_forums(forums, %User{admin: true}), do: forums
 
   defp visible_forums(forums, %User{} = user) do
-    permissions = [Forum.read(), Forum.write(), Forum.known_read(), Forum.known_write()]
+    permissions = [
+      @permission_read,
+      @permission_write,
+      @permission_answer,
+      @permission_known_read,
+      @permission_known_write
+    ]
+
     Enum.filter(forums, &(&1.standard_permission in permissions || Groups.permission?(user, &1, permissions)))
   end
 
@@ -224,11 +232,13 @@ defmodule Cforum.Forums do
   @spec list_forums_by_permission(User.t() | nil, String.t()) :: [Forum.t()]
   def list_forums_by_permission(user, permission)
 
-  def list_forums_by_permission(nil, permission) when permission in ~w(read write) do
+  def list_forums_by_permission(nil, permission) when permission in ~w(read write answer) do
     plist =
-      if permission == "write",
-        do: [Forum.write()],
-        else: [Forum.write(), Forum.read()]
+      case permission do
+        "write" -> [@permission_write]
+        "answer" -> [@permission_write, @permission_answer]
+        _ -> [@permission_write, @permission_read, @permission_answer]
+      end
 
     list_forums()
     |> Enum.filter(&(&1.standard_permission in plist))

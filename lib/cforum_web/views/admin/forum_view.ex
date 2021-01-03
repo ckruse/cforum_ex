@@ -1,5 +1,6 @@
 defmodule CforumWeb.Admin.ForumView do
   use CforumWeb, :view
+  use Cforum.Constants
 
   alias CforumWeb.Views.ViewHelpers
   alias CforumWeb.Views.ViewHelpers.Path
@@ -30,4 +31,10 @@ defmodule CforumWeb.Admin.ForumView do
   def l10n_permission("known-read"), do: gettext("known-read")
   def l10n_permission("known-write"), do: gettext("known-write")
   def l10n_permission("private"), do: gettext("private")
+
+  def permission_read, do: @permission_read
+  def permission_write, do: @permission_write
+  def permission_answer, do: @permission_answer
+  def permission_known_read, do: @permission_known_read
+  def permission_known_write, do: @permission_known_write
 end

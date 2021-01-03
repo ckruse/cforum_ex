@@ -141,7 +141,7 @@ defmodule Cforum.Abilities do
   """
   def access_forum?(nil_conn_or_user, forum_or_permission \\ :read, permission \\ :read)
 
-  def access_forum?(%Plug.Conn{} = conn, permission, _) when permission in [:read, :write, :moderate],
+  def access_forum?(%Plug.Conn{} = conn, permission, _) when permission in [:read, :write, :answer, :moderate],
     do: access_forum?(conn.assigns[:current_user], conn.assigns[:current_forum], permission)
 
   def access_forum?(%Plug.Conn{} = conn, forum, permission),
@@ -152,6 +152,7 @@ defmodule Cforum.Abilities do
 
   def access_forum?(%{__struct__: User, admin: true}, _, _), do: true
   def access_forum?(user, forum, :read), do: access_forum_read?(user, forum)
+  def access_forum?(user, forum, :answer), do: access_forum_answer?(user, forum)
   def access_forum?(user, forum, :write), do: access_forum_write?(user, forum)
   def access_forum?(user, forum, :moderate), do: access_forum_moderate?(user, forum)
   def access_forum?(_, _, _), do: false
@@ -172,7 +173,7 @@ defmodule Cforum.Abilities do
   defp access_forum_read?(_, nil), do: true
 
   defp access_forum_read?(nil, forum),
-    do: forum.standard_permission in [@permission_write, @permission_read]
+    do: forum.standard_permission in [@permission_write, @permission_answer, @permission_read]
 
   defp access_forum_read?(user, forum) do
     if standard_permission_valid?(forum) do
@@ -180,6 +181,30 @@ defmodule Cforum.Abilities do
     else
       permissions = Groups.list_permissions_for_user_and_forum(user, forum)
       Helpers.present?(permissions)
+    end
+  end
+
+  #
+  # answer access
+  #
+  defp access_forum_answer?(_, nil), do: true
+  defp access_forum_answer?(nil, forum), do: forum.standard_permission in [@permission_answer, @permission_write]
+
+  defp access_forum_answer?(user, forum) do
+    permissions = Groups.list_permissions_for_user_and_forum(user, forum)
+
+    cond do
+      forum.standard_permission in [@permission_answer, @permission_write, @permission_known_write] ->
+        true
+
+      Users.badge?(user, @badge_moderator_tools) && generally_has_access?(permissions, forum) ->
+        true
+
+      Groups.permission?(permissions, [@permission_answer, @permission_moderate, @permission_write]) ->
+        true
+
+      true ->
+        false
     end
   end
 
@@ -226,6 +251,12 @@ defmodule Cforum.Abilities do
   defp generally_has_access?(permissions, forum), do: Helpers.present?(permissions) || standard_permission_valid?(forum)
 
   defp standard_permission_valid?(forum) do
-    forum.standard_permission in [@permission_read, @permission_write, @permission_known_read, @permission_known_write]
+    forum.standard_permission in [
+      @permission_read,
+      @permission_write,
+      @permission_answer,
+      @permission_known_read,
+      @permission_known_write
+    ]
   end
 end

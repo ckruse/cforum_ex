@@ -3,12 +3,13 @@ defmodule Cforum.Constants do
     quote do
       @permission_moderate "moderate"
       @permission_write "write"
+      @permission_answer "answer"
       @permission_read "read"
 
       @permission_known_write "known-write"
       @permission_known_read "known-read"
 
-      @permissions [@permission_moderate, @permission_write, @permission_read]
+      @permissions [@permission_moderate, @permission_write, @permission_read, @permission_answer]
 
       @badge_upvote "upvote"
       @badge_downvote "downvote"

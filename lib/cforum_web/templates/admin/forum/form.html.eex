@@ -76,11 +76,14 @@
       <%= gettext("standard permission") %>
       <%= ErrorHelpers.error_tag @f, :standard_permission %>
     <% end %>
-    <%= select(@f, :standard_permission, [{gettext("private"), "private"},
-      {gettext("read"), Cforum.Forums.Forum.read()},
-      {gettext("write"), Cforum.Forums.Forum.write()},
-      {gettext("known-read"), Cforum.Forums.Forum.known_read()},
-      {gettext("known-write"), Cforum.Forums.Forum.known_write()}]) %>
+    <%= select(@f, :standard_permission, [
+        {gettext("private"), "private"},
+        {gettext("read"), permission_read()},
+        {gettext("answer"), permission_answer()},
+        {gettext("write"), permission_write()},
+        {gettext("known-read"), permission_known_read()},
+        {gettext("known-write"), permission_known_write()}
+      ]) %>
   </div>
 
   <div class="cf-cgroup">

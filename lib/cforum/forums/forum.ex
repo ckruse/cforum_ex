@@ -1,20 +1,9 @@
 defmodule Cforum.Forums.Forum do
   use CforumWeb, :model
+  use Cforum.Constants
 
   @primary_key {:forum_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :slug}
-
-  @read "read"
-  @write "write"
-  @known_read "known-read"
-  @known_write "known-write"
-  @private "private"
-  @permissions [@read, @write, @known_read, @known_write, @private]
-
-  def read(), do: @read
-  def write(), do: @write
-  def known_read(), do: @known_read
-  def known_write(), do: @known_write
 
   schema "forums" do
     field(:slug, :string)

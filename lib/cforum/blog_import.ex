@@ -358,7 +358,7 @@ defmodule Cforum.BlogImport do
             name: "SELFHTML Weblog",
             type: "blog",
             description: "Das Weblog als Ergänzung zu SELFHTML",
-            standard_permission: "read",
+            standard_permission: "answer",
             keywords: "SELFHTML, Weblog",
             position: 5,
             active: true,
