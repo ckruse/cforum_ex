@@ -12,14 +12,14 @@ config :cforum, CforumWeb.Endpoint,
   code_reloader: true,
   check_origin: false,
   watchers: [
-    yarn: ["run", "watch", cd: Path.expand("../assets", __DIR__)]
+    yarn: ["run", "dev", cd: Path.expand("../assets", __DIR__)]
   ]
 
 # Watch static and templates for browser reloading.
 config :cforum, CforumWeb.Endpoint,
   live_reload: [
     patterns: [
-      # ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
+      ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
       ~r{lib/cforum_web/views/.*(ex)$},
       ~r{lib/cforum_web/templates/.*(eex)$}

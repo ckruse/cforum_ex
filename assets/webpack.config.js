@@ -25,7 +25,7 @@ module.exports = function (env = {}, argv) {
         {
           context: "./static",
           from: "**/*",
-          to: ".",
+          to: OUTPUT_PATH,
         },
         {
           context: path.resolve(__dirname, "node_modules/leaflet/dist/images"),
@@ -49,18 +49,12 @@ module.exports = function (env = {}, argv) {
       },
     },
 
-    output: IS_PROD
-      ? {
-          filename: "js/[name].js",
-          chunkFilename: "js/[name].[chunkhash].js",
-          path: OUTPUT_PATH,
-          publicPath: "/",
-        }
-      : {
-          path: path.resolve(__dirname, "public"),
-          filename: "app.js",
-          publicPath: "http://localhost:8080/",
-        },
+    output: {
+      filename: "js/[name].js",
+      chunkFilename: "js/[name].[chunkhash].js",
+      path: OUTPUT_PATH,
+      publicPath: "/",
+    },
 
     devtool: IS_PROD ? "source-map" : "eval-cheap-module-source-map",
 
