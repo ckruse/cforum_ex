@@ -222,7 +222,7 @@ defmodule CforumWeb.MessageView do
 
   defp no_tag_inputs_left(conn, changeset) do
     cnt = length(tags_from_changeset(changeset))
-    max = ConfigManager.conf(conn, "max_tags_per_message")
+    max = ConfigManager.conf(conn, "max_tags_per_message", :int)
 
     if cnt >= max,
       do: [],
