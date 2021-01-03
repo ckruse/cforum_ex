@@ -1131,7 +1131,7 @@ msgstr ""
 
 #: lib/cforum_web/templates/admin/advent_calendar/day.html.eex:14
 #: lib/cforum_web/templates/admin/audit/threads.html.eex:11 lib/cforum_web/templates/advent/day.html.eex:14
-#: lib/cforum_web/views/blogpost_view.ex:13 lib/cforum_web/views/message_view.ex:86
+#: lib/cforum_web/views/blogpost_view.ex:14 lib/cforum_web/views/message_view.ex:86
 msgid "by"
 msgstr ""
 
@@ -4364,7 +4364,7 @@ msgid "date format for the weblog index"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/blog/article.html.eex:9
+#: lib/cforum_web/templates/blogpost/article.html.eex:9
 msgid "no comments"
 msgid_plural "%{count} comments"
 msgstr[0] ""
@@ -4381,6 +4381,11 @@ msgid "archiver is inactive"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/blog/article.html.eex:30
+#: lib/cforum_web/templates/blogpost/article.html.eex:40
 msgid "categorized under:"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/blogpost/article.html.eex:52
+msgid "published by"
 msgstr ""
