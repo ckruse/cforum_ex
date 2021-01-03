@@ -36,14 +36,26 @@
   </div>
 
   <%= if Helpers.present?(@article.message.tags) do %>
-  <div class="cf-weblog-tags">
+  <section class="cf-weblog-tags">
     <%= gettext("categorized under:") %>
 
     <ul class="cf-tags-list">
       <%= for tag <- @article.message.tags do %>
-      <li class="cf-tag"><%= tag.tag_name %></li>
+        <li class="cf-tag"><%= tag.tag_name %></li>
       <% end %>
     </ul>
-  </div>
+  </section>
+  <% end %>
+
+  <%= unless assigns[:preview] do %>
+    <p class="cf-weblog-author">
+      <%= gettext("published by") %> <span class="author"><%= ViewHelpers.user_link(@conn, @article.message.user, ["p-name"], @article.message.user.username) %></span>
+    </p>
+
+    <%= unless Helpers.blank?(@article.message.messages) do %>
+      <article class="cf-weblog-comments cf-thread-nested cf-thread-nested-root <%= CforumWeb.ThreadView.thread_classes(@article) %>">
+        <%= render(CforumWeb.MessageView, "answers-nested.html", CforumWeb.MessageView.message_assigns(assigns, %{thread: @article, message: @article.message, messages: @article.message.messages, enhanced_controls: false})) %>
+      </article>
+    <% end %>
   <% end %>
 </article>

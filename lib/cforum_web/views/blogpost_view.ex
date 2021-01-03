@@ -2,6 +2,7 @@ defmodule CforumWeb.BlogpostView do
   use CforumWeb, :view
 
   alias Cforum.Helpers
+
   alias CforumWeb.Views.ViewHelpers.Path
   alias CforumWeb.Views.ViewHelpers
 

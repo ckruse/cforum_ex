@@ -1,3 +1,7 @@
+.weblog {
+  font-size: 1.3em;
+}
+
 .cf-weblog-article {
   margin-bottom: 2em;
   padding-bottom: 2em;
@@ -27,7 +31,8 @@
   }
 
   .details,
-  .cf-weblog-tags {
+  .cf-weblog-tags,
+  .cf-weblog-author {
     font-size: 0.9em;
     color: #909090;
   }
@@ -72,6 +77,12 @@
     figure {
       margin: 0;
     }
+  }
+}
+
+.cf-weblog-comments {
+  & > .answers {
+    padding-left: 0;
   }
 }
 
