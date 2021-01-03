@@ -258,9 +258,11 @@ defmodule CforumWeb.MessageView do
       Helpers.blank?(conn.cookies[:cforum_author])
   end
 
-  def merged_assigns_for_nested(assigns, message) do
+  def message_assigns(assigns, overwrites \\ %{}) do
     assigns
-    |> Map.merge(%{first: false, message: message})
+    |> Map.merge(overwrites)
     |> Map.put_new(:controls, true)
+    |> Map.put_new(:first, false)
+    |> Map.put_new(:do_parent, false)
   end
 end

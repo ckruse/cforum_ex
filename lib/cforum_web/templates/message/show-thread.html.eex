@@ -6,7 +6,7 @@
 <h2 class="cf-heading"><%= gettext("read message") %></h2>
 
 <article class="cf-thread-message <%= message_classes(@conn, @message, @thread, false) %> h-entry">
-  <%= render "message.html", Map.merge(assigns, %{first: true, do_parent: true, controls: true}) %>
+  <%= render "message.html", Map.merge(assigns, %{first: true, do_parent: true}) %>
 </article>
 
 <div class="cf-thread-list">

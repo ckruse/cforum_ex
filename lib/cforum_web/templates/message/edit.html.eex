@@ -4,7 +4,7 @@
 
 <% if assigns[:preview] do %>
   <article class="cf-thread-message preview">
-    <%= render("message.html", Map.merge(assigns, %{controls: false, first: true})) %>
+    <%= render("message.html", message_assigns(assigns, %{controls: false, first: true})) %>
   </article>
 <% end %>
 

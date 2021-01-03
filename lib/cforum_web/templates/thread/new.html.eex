@@ -4,7 +4,7 @@
 
 <%= if assigns[:preview] do %>
   <article class="cf-thread-message preview">
-    <%= render(CforumWeb.MessageView, "message.html", conn: @conn, thread: @thread, message: @message, controls: false, first: true) %>
+    <%= render(CforumWeb.MessageView, "message.html", CforumWeb.MessageView.message_assigns(assigns, %{conn: @conn, thread: @thread, message: @message, first: true})) %>
   </article>
 <% end %>
 

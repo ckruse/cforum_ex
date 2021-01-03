@@ -2,7 +2,7 @@
   <%= for msg <- @messages do %>
     <li>
       <div class="posting-nested cf-thread-message h-entry <%= message_classes(@conn, msg, @thread, @message.message_id == msg.message_id, :nested) %>">
-        <%= render "message.html", merged_assigns_for_nested(assigns, msg) %>
+        <%= render "message.html", message_assigns(assigns, %{message: msg}) %>
       </div>
 
       <%= unless Helpers.blank?(msg.messages), do: render("answers-nested.html", Map.merge(assigns, %{messages: msg.messages})) %>

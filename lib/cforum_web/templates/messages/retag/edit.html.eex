@@ -1,5 +1,5 @@
 <article class="cf-thread-message preview">
-  <%= render(CforumWeb.MessageView, "message.html", Map.merge(assigns, %{controls: false, first: true})) %>
+  <%= render(CforumWeb.MessageView, "message.html", CforumWeb.MessageView.message_assigns(assigns, %{controls: false, first: true})) %>
 </article>
 
 <%= form_for @changeset, Path.message_path(@conn, :retag, @thread, @message), [class: "cf-form", method: :post], fn f -> %>
