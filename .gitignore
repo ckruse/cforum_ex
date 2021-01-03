@@ -32,3 +32,4 @@ node_modules
 /.build/secrets
 /config/ssh_key.pub
 /.build/api.key
+/.log
