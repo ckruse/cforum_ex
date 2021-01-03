@@ -9,7 +9,9 @@ defmodule Cforum.Constants do
       @permission_known_write "known-write"
       @permission_known_read "known-read"
 
-      @permissions [@permission_moderate, @permission_write, @permission_read, @permission_answer]
+      @permission_private "private"
+
+      @permissions [@permission_moderate, @permission_write, @permission_read, @permission_answer, @permission_private]
 
       @badge_upvote "upvote"
       @badge_downvote "downvote"
