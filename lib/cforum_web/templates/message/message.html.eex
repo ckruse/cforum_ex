@@ -1,5 +1,5 @@
 <div class="posting-header">
-  <%= header(@conn, @thread, @message, first: @first, do_parent: assigns[:do_parent], tree: false, show_editor: true, author_link_to_message: false, plate: true, show_icons: false) %>
+  <%= header(@conn, @thread, @message, first: @first, do_parent: assigns[:do_parent], tree: false, show_editor: true, author_link_to_message: false, plate: true, show_icons: false, is_blog: @thread.forum.type == "blog" && is_nil(@message.parent_id)) %>
   <%= if assigns[:controls] && !@message.deleted, do: render "voting-area.html", Map.put(assigns, :top, true) %>
 </div>
 
@@ -22,6 +22,12 @@
 
 <%= if !@message.deleted || @view_all do %>
   <div class="cf-posting-content<%= if @message.deleted, do: " deleted" %> e-content">
+    <%= if Helpers.present?(@message.thumbnail) do %>
+      <%= link to: Path.blog_message_url(@conn, :show, @thread, @message) do %>
+        <img src="<%= CforumWeb.MessageThumbnail.url({@message.thumbnail, @message}, "original") %>" class="cf-weblog-article-thumbnail" alt="">
+      <% end %>
+    <% end %>
+
     <%= Cforum.MarkdownRenderer.to_html(@message, @conn) %>
   </div>
 <% end %>

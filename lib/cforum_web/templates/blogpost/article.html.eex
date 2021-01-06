@@ -51,11 +51,13 @@
     <p class="cf-weblog-author">
       <%= gettext("published by") %> <span class="author"><%= ViewHelpers.user_link(@conn, @article.message.user, ["p-name"], @article.message.user.username) %></span>
     </p>
-
-    <%= unless Helpers.blank?(@article.message.messages) do %>
-      <article class="cf-weblog-comments cf-thread-nested cf-thread-nested-root <%= CforumWeb.ThreadView.thread_classes(@article) %>">
-        <%= render(CforumWeb.MessageView, "answers-nested.html", CforumWeb.MessageView.message_assigns(assigns, %{thread: @article, message: @article.message, messages: @article.message.messages, enhanced_controls: false})) %>
-      </article>
-    <% end %>
   <% end %>
 </article>
+
+<%= unless assigns[:preview] do %>
+  <%= if Helpers.present?(@article.message.messages) && assigns[:show_answers] do %>
+    <article class="cf-weblog-comments cf-thread-nested cf-thread-nested-root <%= CforumWeb.ThreadView.thread_classes(@article) %>">
+      <%= render(CforumWeb.MessageView, "answers-nested.html", CforumWeb.MessageView.message_assigns(assigns, %{thread: @article, message: @article.message, messages: @article.message.messages, enhanced_controls: false})) %>
+    </article>
+  <% end %>
+<% end %>

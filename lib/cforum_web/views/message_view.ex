@@ -139,6 +139,7 @@ defmodule CforumWeb.MessageView do
     |> Helpers.add_if(Enum.member?(thread.accepted, message), "accepted")
     |> Helpers.add_if(is_folded, "folded")
     |> Helpers.add_if(thread.archived, "archived")
+    |> Helpers.add_if(thread.forum.type == "blog" && is_nil(message.parent_id), "cf-weblog-article")
     |> score_class(message)
     |> Enum.join(" ")
   end

@@ -1,48 +1,29 @@
-.weblog {
-  font-size: 1.3em;
+.cf-weblog-article,
+.cf-thread-nested .cf-weblog-article.cf-thread-message.active {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+  font-size: 1.3rem;
+  box-shadow: none;
+
+  .e-content {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+  }
 }
 
 .cf-weblog-article {
-  margin-bottom: 2em;
-  padding-bottom: 2em;
-  border-bottom: $dividing-border;
-
-  header {
-    h2 {
-      margin-top: 0;
-      margin-bottom: 1em;
-    }
-
-    .details {
-      margin-bottom: 0.5em;
-
-      .count::before {
-        margin-right: 0.2em;
-        margin-left: 0.25em;
-        content: "\00b7";
-      }
-    }
-  }
-
   .cf-weblog-article-thumbnail {
     float: left;
     margin: 0 0.75em 0.25em 0;
     max-width: 25%;
   }
 
-  .details,
-  .cf-weblog-tags,
-  .cf-weblog-author {
-    font-size: 0.9em;
-    color: #909090;
-  }
-
   .e-content {
     @include clearfix;
-  }
-
-  &:last-of-type {
-    border-bottom: none;
   }
 
   .alignleft,
@@ -80,6 +61,45 @@
   }
 }
 
+.weblog {
+  font-size: 1.3rem;
+
+  .cf-weblog-article {
+    margin-bottom: 2em;
+    padding-bottom: 2em;
+    font-size: 1.3rem;
+    border-bottom: $dividing-border;
+
+    header {
+      h2 {
+        margin-top: 0;
+        margin-bottom: 1em;
+      }
+
+      .details {
+        margin-bottom: 0.5em;
+
+        .count::before {
+          margin-right: 0.2em;
+          margin-left: 0.25em;
+          content: "\00b7";
+        }
+      }
+    }
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+
+    .details,
+    .cf-weblog-tags,
+    .cf-weblog-author {
+      font-size: 0.9em;
+      color: #909090;
+    }
+  }
+}
+
 .cf-weblog-comments {
   font-size: 1rem;
 
@@ -94,6 +114,7 @@
       margin-left: 0;
       margin-right: 0;
     }
+
     #content {
       max-width: 50rem;
       margin: auto;

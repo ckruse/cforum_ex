@@ -1,1 +1,1 @@
-<%= render "article.html", assigns %>
+<%= render "article.html", Map.put(assigns, :show_answers, true) %>
