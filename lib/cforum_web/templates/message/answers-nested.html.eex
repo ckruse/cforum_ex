@@ -5,7 +5,7 @@
         <%= render "message.html", message_assigns(assigns, %{message: msg}) %>
       </div>
 
-      <%= unless Helpers.blank?(msg.messages), do: render("answers-nested.html", Map.merge(assigns, %{messages: msg.messages})) %>
+      <%= if Helpers.present?(msg.messages), do: render("answers-nested.html", Map.merge(assigns, %{messages: msg.messages})) %>
     </li>
   <% end %>
 </ol>
