@@ -311,6 +311,15 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
     "#{url}#{thread.slug}#{encode_query_string(conn, params)}"
   end
 
+  @spec blog_comment_path(conn(), atom(), Thread.t(), Message.t() | params(), params()) :: String.t()
+  def blog_comment_path(conn, action, thread, message, params \\ [])
+
+  def blog_comment_path(conn, :show, %Thread{} = thread, message, params),
+    do: "#{blog_thread_path(conn, :show, thread)}#m#{message.message_id}#{encode_query_string(conn, params)}"
+
+  def blog_comment_path(conn, :new, %Thread{} = thread, message, params),
+    do: "#{blog_thread_path(conn, :show, thread)}/#{message.message_id}/new#{encode_query_string(conn, params)}"
+
   @spec blog_image_url(conn(), atom(), Cforum.Media.Image.t(), params()) :: String.t()
   def blog_image_url(conn, :show, image, params \\ []),
     do: "#{blog_url(conn)}images/#{image.filename}#{encode_query_string(conn, params)}"

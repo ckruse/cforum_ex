@@ -13,7 +13,7 @@ defmodule CforumWeb.BlogpostController do
       else: render(conn, "show.html")
   end
 
-  defp load_thread_and_message(conn, :show) do
+  def load_thread_and_message(conn, :show) do
     thread =
       conn.assigns[:current_forum]
       |> Threads.get_thread_by_slug!(conn.assigns[:visible_forums], ThreadHelpers.slug_from_params(conn.params, true))
@@ -26,7 +26,7 @@ defmodule CforumWeb.BlogpostController do
     assign(conn, :article, thread)
   end
 
-  defp load_thread_and_message(conn, _), do: conn
+  def load_thread_and_message(conn, _), do: conn
 
   def load_resource(conn) do
     load_thread_and_message(conn, action_name(conn))

@@ -165,7 +165,8 @@ defmodule CforumWeb.MessageView do
           show_votes: false,
           thread_icons: true,
           rm: nil,
-          index: true
+          index: true,
+          message_path_helper: &Path.message_path/5
         ],
         opts
       )
@@ -266,5 +267,6 @@ defmodule CforumWeb.MessageView do
     |> Map.put_new(:enhanced_controls, true)
     |> Map.put_new(:first, false)
     |> Map.put_new(:do_parent, false)
+    |> Map.put_new(:message_path_helper, &Path.message_path/5)
   end
 end

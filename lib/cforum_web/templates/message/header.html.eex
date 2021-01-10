@@ -14,7 +14,7 @@
   <% end %>
 
   <%= if @opts[:tree] do %>
-    <a href="<%= Path.message_path(@conn, :show, @thread, @message, rm: @opts[:rm]) %>">
+    <a href="<%= @opts[:message_path_helper].(@conn, :show, @thread, @message, rm: @opts[:rm]) %>">
   <% end %>
 
   <%= render "header_subject.html", assigns %>

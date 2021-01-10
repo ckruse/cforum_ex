@@ -3,7 +3,7 @@
       <%= if @opts[:tree] do %>
         <%= @message.subject %>
       <% else %>
-        <%= link(@message.subject, to: Path.message_path(@conn, :show, @thread, @message, rm: @opts[:rm])) %>
+        <%= link(@message.subject, to: @opts[:message_path_helper].(@conn, :show, @thread, @message, rm: @opts[:rm])) %>
       <% end %>
     </h2>
   <% else %>
@@ -13,7 +13,7 @@
           <%= if @opts[:tree] do %>
             <%= @message.subject %>
           <% else %>
-            <%= link(@message.subject, to: Path.message_path(@conn, :show, @thread, @message, rm: @opts[:rm])) %>
+            <%= link(@message.subject, to: @opts[:message_path_helper].(@conn, :show, @thread, @message, rm: @opts[:rm])) %>
           <% end %>
         </h3>
       <% end %>

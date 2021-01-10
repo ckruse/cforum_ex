@@ -35,6 +35,7 @@
     <span class="help"><%= gettext("voluntary, will be publicly visible") %></span>
   </div>
 
+  <%= unless assigns[:hide_problematic_site] do %>
   <div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :problematic_site) %>">
     <%= label @f, :problematic_site do %>
       <%= gettext("problematic site") %>
@@ -43,6 +44,7 @@
     <%= text_input @f, :problematic_site, maxlength: 250, placeholder: gettext("https://example.com/float-example.html") %>
     <span class="help"><%= gettext("voluntary, will be publicly visible") %></span>
   </div>
+  <% end %>
 </fieldset>
 
 <fieldset>

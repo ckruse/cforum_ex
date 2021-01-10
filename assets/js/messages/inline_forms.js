@@ -62,7 +62,7 @@ const showForm = (messageElement, json, CfPostingForm) => {
   const node = document.createElement("form");
   node.classList.add("cf-form");
   node.classList.add("cf-posting-form");
-  node.action = "/" + parsedUrl.forum + parsedUrl.slug + "/" + parsedUrl.messageId + "/new";
+  node.action = ("/" + parsedUrl.forum + parsedUrl.slug + "/" + parsedUrl.messageId + "/new").replace(/\/{2,}/g, "/");
   node.method = "POST";
   node.id = `inline-form-${parsedUrl.messageId}`;
 

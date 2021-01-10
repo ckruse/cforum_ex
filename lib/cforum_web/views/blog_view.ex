@@ -1,7 +1,6 @@
 defmodule CforumWeb.BlogView do
   use CforumWeb, :view
 
-  alias Cforum.Helpers
   alias CforumWeb.Views.ViewHelpers.Path
   alias CforumWeb.Paginator
   alias CforumWeb.Views.ViewHelpers.Feeds

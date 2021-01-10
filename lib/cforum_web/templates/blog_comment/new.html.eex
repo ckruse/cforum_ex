@@ -1,0 +1,23 @@
+<%= if @changeset.action && !assigns[:preview] do %>
+  <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
+<% end %>
+
+<article class="cf-thread-message <%= if assigns[:preview], do: "preview" %>">
+  <%= if !assigns[:preview] do %>
+    <%= render(CforumWeb.MessageView, "message.html", CforumWeb.MessageView.message_assigns(assigns, %{controls: false, first: true, thread: @article, message: @parent})) %>
+  <% else %>
+    <%= render(CforumWeb.MessageView, "message.html", CforumWeb.MessageView.message_assigns(assigns, %{controls: false, first: true, thread: @article})) %>
+  <% end %>
+</article>
+
+<%= form_for @changeset, Path.blog_comment_path(@conn, :new, @article, @parent), [class: "cf-form cf-posting-form"], fn f -> %>
+  <%= render(CforumWeb.MessageView, "form.html", Map.merge(assigns, %{f: f, hide_problematic_site: true})) %>
+
+  <%= ViewHelpers.l10n_render CforumWeb.MessageView, "post-notes.html", assigns %>
+
+  <p class="form-actions">
+    <%= ViewHelpers.Button.default_submit gettext("show preview"), name: "preview" %>
+    <%= ViewHelpers.Button.primary_submit gettext("create message") %>
+    <%= ViewHelpers.Button.default_button_link gettext("cancel"), to: Path.blog_comment_path(@conn, :show, @article, @parent) %>
+  </p>
+<% end %>

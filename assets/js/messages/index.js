@@ -1,6 +1,8 @@
 import { isInAdminView } from "../modules/helpers";
 
-if (document.body.dataset.controller === "MessageController") {
+const controllers = ["BlogpostController", "MessageController"];
+
+if (controllers.includes(document.body.dataset.controller)) {
   if (document.body.dataset.action === "show") {
     import(/* webpackChunkName: "messages-show" */ "./inline_forms").then(({ default: showInlineForm }) => {
       document.querySelectorAll('[data-action="answer"]').forEach((el) => el.addEventListener("click", showInlineForm));

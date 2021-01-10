@@ -57,7 +57,13 @@
 <%= unless assigns[:preview] do %>
   <%= if Helpers.present?(@article.message.messages) && assigns[:show_answers] do %>
     <article class="cf-weblog-comments cf-thread-nested cf-thread-nested-root <%= CforumWeb.ThreadView.thread_classes(@article) %>">
-      <%= render(CforumWeb.MessageView, "answers-nested.html", CforumWeb.MessageView.message_assigns(assigns, %{thread: @article, message: @article.message, messages: @article.message.messages, enhanced_controls: false})) %>
+      <%= render(CforumWeb.MessageView, "answers-nested.html", CforumWeb.MessageView.message_assigns(assigns, %{
+        thread: @article,
+        message: @article.message,
+        messages: @article.message.messages,
+        enhanced_controls: false,
+        message_path_helper: &Path.blog_comment_path/5
+      })) %>
     </article>
   <% end %>
 <% end %>

@@ -189,7 +189,7 @@ defmodule CforumWeb.MessageController do
     {thread, message}
   end
 
-  defp quote?(conn, params) do
+  def quote?(conn, params) do
     if Helpers.blank?(params["with_quote"]),
       do: ConfigManager.uconf(conn, "quote_by_default") == "yes",
       else: params["with_quote"] == "yes"
