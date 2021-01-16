@@ -73,5 +73,6 @@ defmodule Cforum.Forums.Forum do
     |> validate_length(:slug, min: 2, max: 50)
     |> unique_constraint(:slug, name: :forums_slug_idx)
     |> validate_inclusion(:standard_permission, @permissions)
+    |> validate_inclusion(:type, ~w[forum blog])
   end
 end
