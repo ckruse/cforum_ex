@@ -108,6 +108,7 @@ defmodule CforumWeb.Router do
       get "/:year/:month/:day/:slug/:mid/new", CommentController, :new, as: nil
       post "/:year/:month/:day/:slug/:mid/new", CommentController, :create, as: nil
 
+      get "/tags", TagController, :index
       get "/tags/:tag", TagController, :show
     end
   end

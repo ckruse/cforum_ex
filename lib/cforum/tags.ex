@@ -20,8 +20,26 @@ defmodule Cforum.Tags do
 
   """
   @spec list_tags() :: [%Tag{}]
-  def list_tags() do
+  def list_tags(forums \\ nil)
+
+  def list_tags(nil) do
     from(tag in Tag, order_by: [asc: :tag_name, asc: :tag_id], preload: [:synonyms])
+    |> Repo.all()
+  end
+
+  def list_tags(forums) do
+    forum_ids = Enum.map(forums, & &1.forum_id)
+
+    from(tag in Tag,
+      where:
+        fragment(
+          "EXISTS (SELECT message_tag_id FROM messages_tags a INNER JOIN messages b USING(message_id) WHERE a.tag_id = ? AND b.forum_id = ANY(?))",
+          tag.tag_id,
+          ^forum_ids
+        ),
+      order_by: [asc: :tag_name, asc: :tag_id],
+      preload: [:synonyms]
+    )
     |> Repo.all()
   end
 

@@ -8,6 +8,21 @@ defmodule CforumWeb.Blog.TagController do
 
   alias CforumWeb.Paginator
 
+  def index(conn, _) do
+    tags = Tags.list_tags([conn.assigns[:current_forum]])
+
+    {min_cnt, max_cnt} =
+      Enum.reduce(tags, {-1, 0}, fn
+        tag, {-1, max_cnt} ->
+          {tag.num_messages, max(max_cnt, tag.num_messages)}
+
+        tag, {min_cnt, max_cnt} ->
+          {min(min_cnt, tag.num_messages), max(max_cnt, tag.num_messages)}
+      end)
+
+    render(conn, "index.html", tags: tags, min_cnt: min_cnt, max_cnt: max_cnt)
+  end
+
   def show(conn, %{"tag" => tag} = params) do
     tag = Tags.get_tag_by_slug!(tag)
 
