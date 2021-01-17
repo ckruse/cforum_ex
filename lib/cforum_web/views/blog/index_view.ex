@@ -1,4 +1,4 @@
-defmodule CforumWeb.BlogView do
+defmodule CforumWeb.Blog.IndexView do
   use CforumWeb, :view
 
   alias CforumWeb.Views.ViewHelpers.Path

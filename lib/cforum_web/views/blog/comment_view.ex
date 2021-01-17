@@ -1,4 +1,4 @@
-defmodule CforumWeb.BlogCommentView do
+defmodule CforumWeb.Blog.CommentView do
   use CforumWeb, :view
 
   alias CforumWeb.Views.ViewHelpers

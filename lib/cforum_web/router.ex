@@ -92,18 +92,21 @@ defmodule CforumWeb.Router do
   scope "/", host: "blog." do
     pipe_through([:browser, :blog])
 
-    scope "/", CforumWeb do
-      get "/", BlogController, :index
-      get "/feed", BlogController, :old_rss
-      get "/feed/rss", BlogController, :index_rss
-      get "/feed/atom", BlogController, :index_atom
+    scope "/", CforumWeb.Blog do
+      get "/", IndexController, :index, as: :blog
+      get "/feed", IndexController, :old_rss, as: :blog
+      get "/feed/rss", IndexController, :index_rss, as: :blog
+      get "/feed/atom", IndexController, :index_atom, as: :blog
 
-      get "/:year/:month/:day/:slug", BlogpostController, :show
-      get "/new", BlogpostController, :new
-      post "/new", BlogpostController, :create
+      get "/:year/:month/:day/:slug", ArticleController, :show, as: nil
+      get "/new", ArticleController, :new
+      post "/new", ArticleController, :create
 
-      get "/:year/:month/:day/:slug/:mid/new", BlogCommentController, :new
-      post "/:year/:month/:day/:slug/:mid/new", BlogCommentController, :create
+      get "/:year/:month/:day/:slug/:mid/edit", CommentController, :edit, as: nil
+      post "/:year/:month/:day/:slug/:mid/edit", CommentController, :update, as: nil
+
+      get "/:year/:month/:day/:slug/:mid/new", CommentController, :new, as: nil
+      post "/:year/:month/:day/:slug/:mid/new", CommentController, :create, as: nil
     end
   end
 

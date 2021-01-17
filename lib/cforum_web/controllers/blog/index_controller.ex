@@ -1,4 +1,4 @@
-defmodule CforumWeb.BlogController do
+defmodule CforumWeb.Blog.IndexController do
   use CforumWeb, :controller
 
   alias Cforum.Threads

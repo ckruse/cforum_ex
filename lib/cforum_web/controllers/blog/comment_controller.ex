@@ -1,4 +1,4 @@
-defmodule CforumWeb.BlogCommentController do
+defmodule CforumWeb.Blog.CommentController do
   use CforumWeb, :controller
 
   alias Cforum.Abilities
@@ -9,7 +9,7 @@ defmodule CforumWeb.BlogCommentController do
 
   alias CforumWeb.Views.ViewHelpers
   alias CforumWeb.MessageController
-  alias CforumWeb.BlogpostController
+  alias CforumWeb.Blog.ArticleController
 
   def new(conn, params) do
     changeset =
@@ -72,7 +72,7 @@ defmodule CforumWeb.BlogCommentController do
   end
 
   def load_resource(conn) do
-    conn = BlogpostController.load_thread_and_message(conn, :show)
+    conn = ArticleController.load_thread_and_message(conn, :show)
     message = Messages.get_message_from_mid!(conn.assigns[:article], conn.params["mid"])
 
     assign(conn, :parent, message)

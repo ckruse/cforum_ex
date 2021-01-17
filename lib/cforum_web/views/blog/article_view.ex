@@ -1,4 +1,4 @@
-defmodule CforumWeb.BlogpostView do
+defmodule CforumWeb.Blog.ArticleView do
   use CforumWeb, :view
 
   alias Cforum.Helpers
