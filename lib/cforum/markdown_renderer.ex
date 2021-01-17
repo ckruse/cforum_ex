@@ -52,7 +52,7 @@ defmodule Cforum.MarkdownRenderer do
   def to_html(%Message{format: "html"} = message, _conn, :content),
     do: {:safe, message.content}
 
-  def to_html(%Message{format: "markdown"} = message, conn, part) do
+  def to_html(%Message{format: "markdown" <> rest} = message, conn, part) do
     content = Cforum.Messages.content_with_presentational_filters(conn.assigns, message, part)
 
     target =
@@ -63,7 +63,8 @@ defmodule Cforum.MarkdownRenderer do
     conf = %{
       "followWhitelist" => String.split(Cforum.ConfigManager.conf(conn, "links_white_list"), ~r/\015\012|\012|\015/),
       "linkTarget" => target,
-      "base" => Application.get_env(:cforum, :base_url, "http://localhost/")
+      "base" => Application.get_env(:cforum, :base_url, "http://localhost/"),
+      "html" => rest == "-blog"
     }
 
     content

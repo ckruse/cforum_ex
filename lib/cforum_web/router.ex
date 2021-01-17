@@ -99,6 +99,8 @@ defmodule CforumWeb.Router do
       get "/feed/atom", BlogController, :index_atom
 
       get "/:year/:month/:day/:slug", BlogpostController, :show
+      get "/new", BlogpostController, :new
+      post "/new", BlogpostController, :create
 
       get "/:year/:month/:day/:slug/:mid/new", BlogCommentController, :new
       post "/:year/:month/:day/:slug/:mid/new", BlogCommentController, :create

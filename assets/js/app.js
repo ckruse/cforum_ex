@@ -57,6 +57,8 @@ import "./init";
 import "./cleanup";
 import "./appsignal";
 
+import "./blog";
+
 import "./modules/anonymous";
 
 window.Prism = { manual: true };

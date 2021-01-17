@@ -2,9 +2,11 @@ defmodule CforumWeb.BlogpostView do
   use CforumWeb, :view
 
   alias Cforum.Helpers
+  alias Cforum.ConfigManager
 
   alias CforumWeb.Views.ViewHelpers.Path
   alias CforumWeb.Views.ViewHelpers
+  alias CforumWeb.ErrorHelpers
 
   def page_title(:show, %{article: thread, conn: conn}) do
     msg = thread.message
@@ -14,6 +16,8 @@ defmodule CforumWeb.BlogpostView do
       gettext("by") <>
       " " <> msg.author <> ", " <> ViewHelpers.format_date(conn, msg.created_at, "date_format_post")
   end
+
+  def page_title(action, _assigns) when action in [:new, :create], do: gettext("new thread")
 
   def body_id(action, _assigns), do: "weblog-#{action}"
   def body_classes(action, assigns), do: "weblog forum-#{Path.forum_slug(assigns[:current_forum])} #{action}"

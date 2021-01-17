@@ -225,6 +225,7 @@ defmodule Cforum.Messages do
       case MessageHelpers.may_user_post_with_name?(user, author) do
         true ->
           Repo.insert(changeset)
+          |> maybe_attach_thumbnail(attrs)
 
         _ ->
           changeset =
@@ -241,6 +242,21 @@ defmodule Cforum.Messages do
     |> maybe_distribute_badges()
     |> ThreadCaching.refresh_cached_thread()
   end
+
+  defp maybe_attach_thumbnail({:ok, message}, attrs) do
+    forum = Cforum.Forums.get_forum!(message.forum_id)
+
+    if forum.type == "blog" do
+      message
+      |> Message.attachment_changeset(attrs)
+      |> Ecto.Changeset.change(%{updated_at: message.created_at})
+      |> Repo.update()
+    else
+      {:ok, message}
+    end
+  end
+
+  defp maybe_attach_thumbnail(v, _), do: v
 
   defp index_message({:ok, message}, thread) do
     MessageIndexerJob.enqueue(thread, message)

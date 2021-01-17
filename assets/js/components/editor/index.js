@@ -14,7 +14,8 @@ import { replaceAt, getSelection, escapeText } from "./helpers";
 import AutocompleteTextarea from "../autocomplete";
 import appsignal, { FallbackComponent } from "../../appsignal";
 
-export default function CfEditor({ text, onChange, id, name, errors, withImages }) {
+export default function CfEditor(props) {
+  const { text, onChange, id, name, errors, withImages, withPreview, labelText, withCounter } = props;
   const [value, setValue] = useState(text);
   const [dragging, setDragging] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -47,6 +48,10 @@ export default function CfEditor({ text, onChange, id, name, errors, withImages 
 
   function valueChanged(ev) {
     setValue(ev.target.value);
+
+    if (onChange) {
+      onChange(ev.target.value);
+    }
   }
 
   function doSetValue(value, opts = {}) {
@@ -120,7 +125,7 @@ export default function CfEditor({ text, onChange, id, name, errors, withImages 
     <ErrorBoundary instance={appsignal} fallback={(error) => <FallbackComponent />}>
       <fieldset>
         <label htmlFor={id}>
-          {t("posting text")}{" "}
+          {labelText || t("posting text")}{" "}
           {errors[id] && (
             <>
               <span className="help error">{errors[id]}</span>
@@ -135,6 +140,7 @@ export default function CfEditor({ text, onChange, id, name, errors, withImages 
             textarea={textarea}
             onImageUpload={fileDropped}
             enableImages={withImages}
+            withCounter={withCounter}
           />
 
           <AutocompleteTextarea
@@ -151,8 +157,12 @@ export default function CfEditor({ text, onChange, id, name, errors, withImages 
           <Dropzone onDragStart={dragStart} onDragStop={dragStop} onDrop={fileDropped} loading={loading} />
         )}
 
-        <LivePreview content={value} />
+        {withPreview && <LivePreview content={value} />}
       </fieldset>
     </ErrorBoundary>
   );
 }
+
+CfEditor.defaultProps = {
+  withPreview: true,
+};

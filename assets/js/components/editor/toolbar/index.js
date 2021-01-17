@@ -23,7 +23,7 @@ const getCounterClass = (len, minLength = 10, maxLength = 12288) => {
   return "success";
 };
 
-export default function Toolbar({ enableImages, value, textarea, changeValue, onImageUpload }) {
+export default function Toolbar({ enableImages, value, textarea, changeValue, onImageUpload, withCounter }) {
   const [pickerVisible, setPickerVisible] = useState(false);
   const [{ linkModalVisible, linkText }, setLink] = useState({
     linkModalVisible: false,
@@ -183,9 +183,11 @@ export default function Toolbar({ enableImages, value, textarea, changeValue, on
         </div>
       )}
 
-      <span className={`cf-content-counter ${getCounterClass(value.length, minLength, maxLength)}`}>
-        {value.length}
-      </span>
+      {withCounter && (
+        <span className={`cf-content-counter ${getCounterClass(value.length, minLength, maxLength)}`}>
+          {value.length}
+        </span>
+      )}
 
       <LinkModal
         isOpen={linkModalVisible}
@@ -213,3 +215,7 @@ export default function Toolbar({ enableImages, value, textarea, changeValue, on
     </div>
   );
 }
+
+Toolbar.defaultProps = {
+  withCounter: true,
+};

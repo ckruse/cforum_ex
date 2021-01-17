@@ -220,9 +220,9 @@ defmodule CforumWeb.MessageView do
     end
   end
 
-  defp tags_and_index_from_changeset(changeset), do: changeset |> tags_from_changeset() |> Enum.with_index()
+  def tags_and_index_from_changeset(changeset), do: changeset |> tags_from_changeset() |> Enum.with_index()
 
-  defp no_tag_inputs_left(conn, changeset) do
+  def no_tag_inputs_left(conn, changeset) do
     cnt = length(tags_from_changeset(changeset))
     max = ConfigManager.conf(conn, "max_tags_per_message", :int)
 

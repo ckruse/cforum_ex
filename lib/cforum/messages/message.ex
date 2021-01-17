@@ -21,7 +21,7 @@ defmodule Cforum.Messages.Message do
   ]
   def default_preloads, do: @default_preloads ++ [tags: from(t in Tag, order_by: [asc: :tag_name])]
 
-  @valid_formats ["markdown", "html"]
+  @valid_formats ["markdown", "markdown-blog", "html"]
 
   schema "messages" do
     field(:upvotes, :integer, default: 0)
@@ -75,7 +75,6 @@ defmodule Cforum.Messages.Message do
 
     struct
     |> cast(params, @rw_fields)
-    |> cast_attachments(params, [:thumbnail])
     |> Helpers.maybe_put_change(:forum_id, forum_id)
     |> validate_forum_id(visible_forums)
     |> maybe_set_author(user, opts[:uuid])
@@ -190,6 +189,12 @@ defmodule Cforum.Messages.Message do
     |> validate_tags_count()
     |> maybe_set_editor_id(user)
     |> set_editor_author(struct, user)
+  end
+
+  def attachment_changeset(struct, params) do
+    struct
+    |> change()
+    |> cast_attachments(params, [:thumbnail])
   end
 
   defp parse_tags(changeset, %{"tags" => tags}, user, create_tags) do

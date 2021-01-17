@@ -29,6 +29,7 @@ export const lang = {
 
   forum: "Forum",
   "posting text": "Beitragstext",
+  "excerpt content": "Einleitung",
   "chosen tags": "ausgewählte Schlagwörter",
   "enter new tag": "neues Schlagwort eingeben",
   "is unknown": "ist unbekannt",
@@ -244,4 +245,7 @@ export const lang = {
   "should be an email": "sollte eine E-Mail-Adresse sein",
 
   "no user chosen": "kein Benutzer ausgewählt",
+
+  thumbnail: "Beitragsbild",
+  optional: "optional",
 };

@@ -1,0 +1,60 @@
+<fieldset>
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :subject) %>">
+    <%= label @f, :subject do %>
+      <%= gettext("subject") %>
+      <%= ErrorHelpers.error_tag @f, :subject %>
+    <% end %>
+    <%= text_input @f, :subject, placeholder: gettext("replace float:left with a flexbox construct"), maxlength: 250, required: true %>
+  </div>
+
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :email) %>">
+    <%= label @f, :email do %>
+      <%= gettext("email") %>
+      <%= ErrorHelpers.error_tag @f, :email %>
+    <% end %>
+    <%= text_input @f, :email, maxlength: 60 %>
+    <span class="help"><%= gettext("voluntary, will be publicly visible") %></span>
+  </div>
+
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :homepage) %>">
+    <%= label @f, :homepage do %>
+      <%= gettext("homepage") %>
+      <%= ErrorHelpers.error_tag @f, :homepage %>
+    <% end %>
+    <%= text_input @f, :homepage, maxlength: 250, placeholder: gettext("https://example.com") %>
+    <span class="help"><%= gettext("voluntary, will be publicly visible") %></span>
+  </div>
+
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :thumbnail) %>">
+    <%= label @f, :thumbnail do %>
+      <%= gettext("thumbnail") %>
+      <%= ErrorHelpers.error_tag @f, :thumbnail %>
+    <% end %>
+    <%= file_input @f, :thumbnail, maxlength: 250, required: true %>
+    <span class="help"><%= gettext("optional") %></span>
+  </div>
+
+  <div class="cf-cgroup cf-textarea-only <%= ErrorHelpers.error_class(@f, :excerpt) %>">
+    <%= label @f, :excerpt, for: "excerpt_input" do %>
+      <%= gettext("excerpt") %>
+      <%= ErrorHelpers.error_tag @f, :excerpt %>
+    <% end %>
+    <%= textarea @f, :excerpt, class: "big", id: "excerpt_input", maxlength: ConfigManager.conf(@conn, "max_message_length") %>
+    <span class="help"><%= gettext("optional") %></span>
+  </div>
+
+  <div class="cf-cgroup cf-textarea-only <%= ErrorHelpers.error_class(@f, :content) %>">
+    <%= label @f, :content, for: "message_input" do %>
+      <%= gettext("message content") %>
+      <%= ErrorHelpers.error_tag @f, :content %>
+    <% end %>
+    <%= textarea @f, :content, class: "big", id: "message_input", maxlength: ConfigManager.conf(@conn, "max_message_length"), required: true %>
+  </div>
+</fieldset>
+
+<fieldset>
+  <%= ErrorHelpers.error_tag @f, :tags %>
+  <ul class="cf-form-tagslist" data-tags-list="form" data-no-js="yes">
+    <%= render "form_tags.html", assigns %>
+  </ul>
+</fieldset>
