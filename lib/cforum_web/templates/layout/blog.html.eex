@@ -13,6 +13,7 @@
     <script nonce="<%= @conn.assigns[:nonce_for_js] %>">document.body.classList.add("js");</script>
 
     <%= render "top_bar.html", assigns %>
+    <%= render "personal_links.html", assigns %>
     <%= render "page_header_blog.html", assigns %>
 
     <main>
