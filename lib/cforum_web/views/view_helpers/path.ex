@@ -39,29 +39,38 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def forum_slug(%Forum{} = forum, _), do: forum.slug
   def forum_slug(slug, _), do: slug
 
+  @spec root_path(conn(), atom(), opt_params()) :: String.t()
   def root_path(conn, :index, params \\ []),
     do: "#{Routes.root_path(conn, :index)}#{encode_query_string(conn, params)}"
 
   def root_url(conn, :index, params \\ []),
     do: "#{Routes.root_url(conn, :index)}#{encode_query_string(conn, params)}"
 
+  def root_path_or_url(conn, action, params \\ [])
+
+  def root_path_or_url(%Plug.Conn{host: "blog." <> _} = conn, action, params),
+    do: root_url(conn, action, params)
+
+  def root_path_or_url(conn, action, params),
+    do: root_path(conn, action, params)
+
   @spec forum_path(conn(), atom(), String.t() | Forum.t() | nil, opt_params()) :: String.t()
   def forum_path(conn, action, slug, params \\ [])
 
   def forum_path(conn, :index, slug, params),
-    do: "#{root_path(conn, :index, false)}#{forum_slug(slug)}#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}#{forum_slug(slug)}#{encode_query_string(conn, params)}"
 
   def forum_path(conn, :atom, slug, params),
-    do: "#{root_path(conn, :index, false)}#{forum_slug(slug)}/feeds/atom#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}#{forum_slug(slug)}/feeds/atom#{encode_query_string(conn, params)}"
 
   def forum_path(conn, :rss, slug, params),
-    do: "#{root_path(conn, :index, false)}#{forum_slug(slug)}/feeds/rss#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}#{forum_slug(slug)}/feeds/rss#{encode_query_string(conn, params)}"
 
   def forum_path(conn, :stats, slug, params),
-    do: "#{root_path(conn, :index, false)}#{forum_slug(slug)}/stats#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}#{forum_slug(slug)}/stats#{encode_query_string(conn, params)}"
 
   def forum_path(conn, :unanswered, slug, params),
-    do: "#{root_path(conn, :index, false)}#{forum_slug(slug)}/unanswered#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}#{forum_slug(slug)}/unanswered#{encode_query_string(conn, params)}"
 
   @spec forum_url(conn(), atom(), String.t() | Forum.t() | nil, opt_params()) :: String.t()
   def forum_url(conn, action, slug, params \\ [])
@@ -410,7 +419,8 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
 
   @spec mail_thread_path(conn(), :show, PrivMessage.t(), params()) :: String.t()
   def mail_thread_path(conn, :show, pm, params \\ []) do
-    "#{root_path(conn, :index, false)}mails/#{pm.thread_id}#{encode_query_string(conn, params)}#pm#{pm.priv_message_id}"
+    root_path_or_url(conn, :index, false) <>
+      "mails/#{pm.thread_id}#{encode_query_string(conn, params)}#pm#{pm.priv_message_id}"
   end
 
   # cites
@@ -421,19 +431,19 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def cite_path(conn, :create, params, _), do: cite_path(conn, :index, params, nil)
 
   def cite_path(conn, :index, params, _),
-    do: "#{root_path(conn, :index, false)}cites#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}cites#{encode_query_string(conn, params)}"
 
   def cite_path(conn, :index_voting, params, _),
-    do: "#{root_path(conn, :index, false)}cites/voting#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}cites/voting#{encode_query_string(conn, params)}"
 
   def cite_path(conn, :new, params, _),
-    do: "#{root_path(conn, :index, false)}cites/new#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}cites/new#{encode_query_string(conn, params)}"
 
   def cite_path(conn, :show, cite, params),
-    do: "#{root_path(conn, :index, false)}cites/#{cite.cite_id}#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}cites/#{cite.cite_id}#{encode_query_string(conn, params)}"
 
   def cite_path(conn, :edit, cite, params),
-    do: "#{root_path(conn, :index, false)}cites/#{cite.cite_id}/edit#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}cites/#{cite.cite_id}/edit#{encode_query_string(conn, params)}"
 
   def cite_path(conn, :vote, cite, params),
     do: "#{cite_path(conn, :show, cite, false)}/vote#{encode_query_string(conn, params)}"
@@ -456,13 +466,13 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def event_path(conn, action, event_or_params \\ nil, params \\ [])
 
   def event_path(conn, :index, params, _),
-    do: "#{root_path(conn, :index, false)}events#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}events#{encode_query_string(conn, params)}"
 
   def event_path(conn, :show, event, params),
-    do: "#{root_path(conn, :index, false)}events/#{event.event_id}#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}events/#{event.event_id}#{encode_query_string(conn, params)}"
 
   def event_path(conn, :edit, event, params),
-    do: "#{root_path(conn, :index, false)}events/#{event.event_id}/edit#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}events/#{event.event_id}/edit#{encode_query_string(conn, params)}"
 
   # event attendees
   def event_attendee_path(conn, action, event, attendee_or_params \\ nil, params \\ [])
@@ -497,10 +507,10 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
     do: "#{mail_path(conn, :show, mail, false)}/unread#{encode_query_string(conn, params)}"
 
   def mail_path(conn, :index, params, _),
-    do: "#{root_path(conn, :index, false)}mails#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}mails#{encode_query_string(conn, params)}"
 
   def mail_path(conn, :show, mail, params),
-    do: "#{root_path(conn, :index, false)}mails/#{mail.priv_message_id}#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}mails/#{mail.priv_message_id}#{encode_query_string(conn, params)}"
 
   # notifications
 
@@ -509,13 +519,13 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def notification_path(conn, :delete, notification, params), do: notification_path(conn, :show, notification, params)
 
   def notification_path(conn, :index, params, _),
-    do: "#{root_path(conn, :index, false)}notifications#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}notifications#{encode_query_string(conn, params)}"
 
   def notification_path(conn, :batch_action, params, _),
-    do: "#{root_path(conn, :index, false)}notifications/batch#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}notifications/batch#{encode_query_string(conn, params)}"
 
   def notification_path(conn, :show, notification, params) do
-    "#{root_path(conn, :index, false)}notifications/#{notification.notification_id}" <>
+    "#{root_path_or_url(conn, :index, false)}notifications/#{notification.notification_id}" <>
       encode_query_string(conn, params)
   end
 
@@ -537,10 +547,10 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def user_path(conn, :update, user, params), do: user_path(conn, :show, user, params)
 
   def user_path(conn, :index, params, _),
-    do: "#{root_path(conn, :index, false)}users#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}users#{encode_query_string(conn, params)}"
 
   def user_path(conn, :show, user, params),
-    do: "#{root_path(conn, :index, false)}users/#{user.user_id}" <> encode_query_string(conn, params)
+    do: "#{root_path_or_url(conn, :index, false)}users/#{user.user_id}" <> encode_query_string(conn, params)
 
   def user_path(conn, :show_messages, user, params),
     do: "#{user_path(conn, :show, user, false)}/messages#{encode_query_string(conn, params)}"
@@ -552,7 +562,7 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
     do: "#{user_path(conn, :show, user, false)}/votes#{encode_query_string(conn, params)}"
 
   def user_path(conn, :edit, user, params),
-    do: "#{root_path(conn, :index, false)}users/#{user.user_id}/edit" <> encode_query_string(conn, params)
+    do: "#{root_path_or_url(conn, :index, false)}users/#{user.user_id}/edit" <> encode_query_string(conn, params)
 
   def user_path(conn, :confirm_delete, user, params),
     do: "#{user_path(conn, :show, user, false)}/delete#{encode_query_string(conn, params)}"
@@ -569,13 +579,13 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
     do: "#{moderation_path(conn, :show, moderation, false)}/edit#{encode_query_string(conn, params)}"
 
   def moderation_path(conn, :index, params, _),
-    do: "#{root_path(conn, :index, false)}moderation#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}moderation#{encode_query_string(conn, params)}"
 
   def moderation_path(conn, :index_open, params, _),
-    do: "#{root_path(conn, :index, false)}moderation/open#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}moderation/open#{encode_query_string(conn, params)}"
 
   def moderation_path(conn, :show, moderation, params) do
-    "#{root_path(conn, :index, false)}moderation/#{moderation.moderation_queue_entry_id}" <>
+    "#{root_path_or_url(conn, :index, false)}moderation/#{moderation.moderation_queue_entry_id}" <>
       encode_query_string(conn, params)
   end
 
@@ -593,10 +603,10 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def badge_path(conn, action, badge_or_params \\ nil, params \\ [])
 
   def badge_path(conn, :index, params, _),
-    do: "#{root_path(conn, :index, false)}badges#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}badges#{encode_query_string(conn, params)}"
 
   def badge_path(conn, :show, badge, params),
-    do: "#{root_path(conn, :index, false)}badges/#{badge.slug}" <> encode_query_string(conn, params)
+    do: "#{root_path_or_url(conn, :index, false)}badges/#{badge.slug}" <> encode_query_string(conn, params)
 
   def search_path(conn, :show, params \\ []),
     do: "#{root_path(conn, :index, false)}search#{encode_query_string(conn, params)}"
@@ -607,13 +617,13 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def registration_path(conn, action, params \\ [])
 
   def registration_path(conn, :new, params),
-    do: "#{root_path(conn, :index, false)}registrations/new" <> encode_query_string(conn, params)
+    do: "#{root_path_or_url(conn, :index, false)}registrations/new" <> encode_query_string(conn, params)
 
   def registration_path(conn, :create, params),
-    do: "#{root_path(conn, :index, false)}registrations" <> encode_query_string(conn, params)
+    do: "#{root_path_or_url(conn, :index, false)}registrations" <> encode_query_string(conn, params)
 
   def registration_path(conn, :confirm, params),
-    do: "#{root_path(conn, :index, false)}registrations/confirm#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}registrations/confirm#{encode_query_string(conn, params)}"
 
   @spec registration_url(conn(), atom(), opt_params()) :: String.t()
   def registration_url(conn, :confirm, params),
@@ -627,10 +637,10 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def password_path(conn, :update_reset, params), do: password_path(conn, :edit_reset, params)
 
   def password_path(conn, :new, params),
-    do: "#{root_path(conn, :index, false)}users/password#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}users/password#{encode_query_string(conn, params)}"
 
   def password_path(conn, :edit_reset, params),
-    do: "#{root_path(conn, :index, false)}users/password/reset#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}users/password/reset#{encode_query_string(conn, params)}"
 
   def password_url(conn, action, params \\ [])
 
@@ -651,15 +661,18 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   # interesting
 
   def interesting_path(conn, :index, params \\ []),
-    do: "#{root_path(conn, :index, false)}interesting#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}interesting#{encode_query_string(conn, params)}"
 
   def subscription_path(conn, :index, params \\ []),
-    do: "#{root_path(conn, :index, false)}subscriptions#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}subscriptions#{encode_query_string(conn, params)}"
 
   # pages
 
+  @spec page_path(conn(), atom(), opt_params()) :: String.t()
   def page_path(conn, page, params \\ [])
-  def page_path(conn, :help, params), do: "#{root_path(conn, :index, false)}help#{encode_query_string(conn, params)}"
+
+  def page_path(conn, :help, params),
+    do: "#{root_path_or_url(conn, :index, false)}help#{encode_query_string(conn, params)}"
 
   #
   # admin routes
@@ -670,16 +683,17 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def admin_badge_path(conn, :delete, badge, params), do: admin_badge_path(conn, :show, badge, params)
 
   def admin_badge_path(conn, :new, params, _),
-    do: "#{root_path(conn, :index, false)}admin/badges/new#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/badges/new#{encode_query_string(conn, params)}"
 
   def admin_badge_path(conn, :index, params, _),
-    do: "#{root_path(conn, :index, false)}admin/badges#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/badges#{encode_query_string(conn, params)}"
 
   def admin_badge_path(conn, :show, badge, params),
-    do: "#{root_path(conn, :index, false)}admin/badges/#{badge.badge_id}#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/badges/#{badge.badge_id}#{encode_query_string(conn, params)}"
 
-  def admin_badge_path(conn, :edit, badge, params),
-    do: "#{root_path(conn, :index, false)}admin/badges/#{badge.badge_id}/edit#{encode_query_string(conn, params)}"
+  def admin_badge_path(conn, :edit, badge, params) do
+    "#{root_path_or_url(conn, :index, false)}admin/badges/#{badge.badge_id}/edit#{encode_query_string(conn, params)}"
+  end
 
   def admin_event_path(conn, action, event_or_params \\ nil, params \\ [])
   def admin_event_path(conn, :create, params, _), do: admin_event_path(conn, :index, params, nil)
@@ -687,16 +701,17 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def admin_event_path(conn, :delete, event, params), do: admin_event_path(conn, :show, event, params)
 
   def admin_event_path(conn, :new, params, _),
-    do: "#{root_path(conn, :index, false)}admin/events/new#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/events/new#{encode_query_string(conn, params)}"
 
   def admin_event_path(conn, :index, params, _),
-    do: "#{root_path(conn, :index, false)}admin/events#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/events#{encode_query_string(conn, params)}"
 
   def admin_event_path(conn, :show, event, params),
-    do: "#{root_path(conn, :index, false)}admin/events/#{event.event_id}#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/events/#{event.event_id}#{encode_query_string(conn, params)}"
 
-  def admin_event_path(conn, :edit, event, params),
-    do: "#{root_path(conn, :index, false)}admin/events/#{event.event_id}/edit#{encode_query_string(conn, params)}"
+  def admin_event_path(conn, :edit, event, params) do
+    "#{root_path_or_url(conn, :index, false)}admin/events/#{event.event_id}/edit#{encode_query_string(conn, params)}"
+  end
 
   def admin_forum_path(conn, action, forum_or_params \\ nil, params \\ [])
   def admin_forum_path(conn, :create, params, _), do: admin_forum_path(conn, :index, params, nil)
@@ -704,16 +719,16 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def admin_forum_path(conn, :delete, forum, params), do: admin_forum_path(conn, :show, forum, params)
 
   def admin_forum_path(conn, :new, params, _),
-    do: "#{root_path(conn, :index, false)}admin/forums/new#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/forums/new#{encode_query_string(conn, params)}"
 
   def admin_forum_path(conn, :index, params, _),
-    do: "#{root_path(conn, :index, false)}admin/forums#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/forums#{encode_query_string(conn, params)}"
 
   def admin_forum_path(conn, :show, forum, params),
-    do: "#{root_path(conn, :index, false)}admin/forums/#{forum.slug}#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/forums/#{forum.slug}#{encode_query_string(conn, params)}"
 
   def admin_forum_path(conn, :edit, forum, params),
-    do: "#{root_path(conn, :index, false)}admin/forums/#{forum.slug}/edit#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/forums/#{forum.slug}/edit#{encode_query_string(conn, params)}"
 
   def admin_group_path(conn, action, group_or_params \\ nil, params \\ [])
   def admin_group_path(conn, :create, params, _), do: admin_group_path(conn, :index, params, nil)
@@ -721,16 +736,17 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def admin_group_path(conn, :delete, group, params), do: admin_group_path(conn, :show, group, params)
 
   def admin_group_path(conn, :new, params, _),
-    do: "#{root_path(conn, :index, false)}admin/groups/new#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/groups/new#{encode_query_string(conn, params)}"
 
   def admin_group_path(conn, :index, params, _),
-    do: "#{root_path(conn, :index, false)}admin/groups#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/groups#{encode_query_string(conn, params)}"
 
   def admin_group_path(conn, :show, group, params),
-    do: "#{root_path(conn, :index, false)}admin/groups/#{group.group_id}#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/groups/#{group.group_id}#{encode_query_string(conn, params)}"
 
-  def admin_group_path(conn, :edit, group, params),
-    do: "#{root_path(conn, :index, false)}admin/groups/#{group.group_id}/edit#{encode_query_string(conn, params)}"
+  def admin_group_path(conn, :edit, group, params) do
+    "#{root_path_or_url(conn, :index, false)}admin/groups/#{group.group_id}/edit#{encode_query_string(conn, params)}"
+  end
 
   def admin_redirection_path(conn, action, redirection_or_params \\ nil, params \\ [])
   def admin_redirection_path(conn, :create, params, _), do: admin_redirection_path(conn, :index, params, nil)
@@ -742,18 +758,18 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
     do: admin_redirection_path(conn, :show, redirection, params)
 
   def admin_redirection_path(conn, :new, params, _),
-    do: "#{root_path(conn, :index, false)}admin/redirections/new#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/redirections/new#{encode_query_string(conn, params)}"
 
   def admin_redirection_path(conn, :index, params, _),
-    do: "#{root_path(conn, :index, false)}admin/redirections#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/redirections#{encode_query_string(conn, params)}"
 
   def admin_redirection_path(conn, :show, redirection, params) do
-    "#{root_path(conn, :index, false)}admin/redirections/#{redirection.redirection_id}" <>
+    "#{root_path_or_url(conn, :index, false)}admin/redirections/#{redirection.redirection_id}" <>
       encode_query_string(conn, params)
   end
 
   def admin_redirection_path(conn, :edit, redirection, params) do
-    "#{root_path(conn, :index, false)}admin/redirections/#{redirection.redirection_id}/edit" <>
+    "#{root_path_or_url(conn, :index, false)}admin/redirections/#{redirection.redirection_id}/edit" <>
       encode_query_string(conn, params)
   end
 
@@ -767,23 +783,23 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
     do: admin_search_section_path(conn, :show, search_section, params)
 
   def admin_search_section_path(conn, :new, params, _),
-    do: "#{root_path(conn, :index, false)}admin/search_sections/new#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/search_sections/new#{encode_query_string(conn, params)}"
 
   def admin_search_section_path(conn, :index, params, _),
-    do: "#{root_path(conn, :index, false)}admin/search_sections#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/search_sections#{encode_query_string(conn, params)}"
 
   def admin_search_section_path(conn, :show, search_section, params) do
-    "#{root_path(conn, :index, false)}admin/search_sections/#{search_section.search_section_id}" <>
+    "#{root_path_or_url(conn, :index, false)}admin/search_sections/#{search_section.search_section_id}" <>
       encode_query_string(conn, params)
   end
 
   def admin_search_section_path(conn, :edit, search_section, params) do
-    "#{root_path(conn, :index, false)}admin/search_sections/#{search_section.search_section_id}/edit" <>
+    "#{root_path_or_url(conn, :index, false)}admin/search_sections/#{search_section.search_section_id}/edit" <>
       encode_query_string(conn, params)
   end
 
   def admin_setting_path(conn, action, params \\ []) when action in [:edit, :update],
-    do: "#{root_path(conn, :index, false)}admin/settings#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/settings#{encode_query_string(conn, params)}"
 
   def admin_user_path(conn, action, user_or_params \\ nil, params \\ [])
   def admin_user_path(conn, :create, params, _), do: admin_user_path(conn, :index, params, nil)
@@ -791,17 +807,17 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def admin_user_path(conn, :delete, user, params), do: admin_user_path(conn, :show, user, params)
 
   def admin_user_path(conn, :new, params, _),
-    do: "#{root_path(conn, :index, false)}admin/users/new#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/users/new#{encode_query_string(conn, params)}"
 
   def admin_user_path(conn, :index, params, _),
-    do: "#{root_path(conn, :index, false)}admin/users#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/users#{encode_query_string(conn, params)}"
 
   def admin_user_path(conn, :show, user, params),
-    do: "#{root_path(conn, :index, false)}admin/users/#{user.user_id}#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/users/#{user.user_id}#{encode_query_string(conn, params)}"
 
   def admin_user_path(conn, :edit, user, params),
-    do: "#{root_path(conn, :index, false)}admin/users/#{user.user_id}/edit#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}admin/users/#{user.user_id}/edit#{encode_query_string(conn, params)}"
 
   def admin_audit_path(conn, :index, params \\ []),
-    do: "#{root_path(conn, :index, false)}admin/audit" <> encode_query_string(conn, params)
+    do: "#{root_path_or_url(conn, :index, false)}admin/audit" <> encode_query_string(conn, params)
 end
