@@ -28,9 +28,9 @@ defmodule CforumWeb.Plug.CurrentForum do
   end
 
   defp maybe_modify_path(%{assigns: %{current_forum: nil}} = conn, _), do: conn
-  defp maybe_modify_path(conn, slug), do: replace_infos_with__forum(conn, slug)
+  defp maybe_modify_path(conn, slug), do: replace_infos_with_forum(conn, slug)
 
-  defp replace_infos_with__forum(conn, slug) do
+  defp replace_infos_with_forum(conn, slug) do
     {_, pi} = List.pop_at(conn.path_info, 0)
     orig_path = conn.request_path
 
