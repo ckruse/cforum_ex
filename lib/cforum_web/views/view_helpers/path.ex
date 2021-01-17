@@ -129,22 +129,22 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def tag_path(conn, :delete, tag, params), do: tag_path(conn, :show, tag, params)
 
   def tag_path(conn, :index, params, _),
-    do: "#{root_path(conn, :index, false)}tags#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}tags#{encode_query_string(conn, params)}"
 
   def tag_path(conn, :show, tag, params),
     do: "#{root_path(conn, :index, false)}tags/#{tag.slug}#{encode_query_string(conn, params)}"
 
   def tag_path(conn, :edit, tag, params),
-    do: "#{root_path(conn, :index, false)}tags/#{tag.slug}/edit#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}tags/#{tag.slug}/edit#{encode_query_string(conn, params)}"
 
   def tag_path(conn, :update, tag, params),
-    do: "#{root_path(conn, :index, false)}tags/#{tag.slug}#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}tags/#{tag.slug}#{encode_query_string(conn, params)}"
 
   def tag_path(conn, :new, params, _),
-    do: "#{root_path(conn, :index, false)}tags/new#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}tags/new#{encode_query_string(conn, params)}"
 
   def tag_path(conn, :merge, tag, params),
-    do: "#{root_path(conn, :index, false)}tags/#{tag.slug}/merge#{encode_query_string(conn, params)}"
+    do: "#{root_path_or_url(conn, :index, false)}tags/#{tag.slug}/merge#{encode_query_string(conn, params)}"
 
   @spec tag_synonym_path(conn(), atom(), Tag.t(), Synonym.t() | params(), params()) :: String.t()
   def tag_synonym_path(conn, action, tag, synonym \\ [], params \\ [])

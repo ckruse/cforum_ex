@@ -41,7 +41,13 @@
 
     <ul class="cf-tags-list">
       <%= for tag <- @article.message.tags do %>
-        <li class="cf-tag"><%= tag.tag_name %></li>
+        <li class="cf-tag">
+          <%= if Helpers.present?(@article.thread_id) do %>
+            <%= link tag.tag_name, to: Path.tag_path(@conn, :show, tag) %>
+          <% else %>
+            <%= tag.tag_name %>
+          <% end %>
+        </li>
       <% end %>
     </ul>
   </section>

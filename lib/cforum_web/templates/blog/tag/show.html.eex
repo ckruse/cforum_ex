@@ -1,0 +1,19 @@
+<p><%= if @tag.suggest, do: gettext("This tag is used for suggestions."), else: gettext("This tag is not used for suggestions.") %></p>
+
+<h2><%= gettext("messages") %></h2>
+
+<%= if Helpers.blank?(@messages) do %>
+  <p><%= gettext("no messages found") %></p>
+<% else %>
+  <%= Paginator.pagination @conn, @page, &Path.tag_path/4, path_args: [@conn, :show, @tag] %>
+
+  <div class="cf-thread-list">
+    <%= for m <- @messages do %>
+      <article class="threadlist cf-thread">
+        <%= CforumWeb.MessageView.header(@conn, m.thread, m, show_votes: true, show_icons: true, id: false, message_path_helper: &message_path/5) %>
+      </article>
+    <% end %>
+  </div>
+
+  <%= Paginator.pagination @conn, @page, &Path.tag_path/4, path_args: [@conn, :show, @tag] %>
+<% end %>

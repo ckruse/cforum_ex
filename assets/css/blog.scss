@@ -152,4 +152,11 @@
       }
     }
   }
+
+  .weblog.tag {
+    #content {
+      max-width: none;
+      margin: 0.5em;
+    }
+  }
 }
