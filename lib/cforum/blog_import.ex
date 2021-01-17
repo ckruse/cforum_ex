@@ -161,7 +161,8 @@ defmodule Cforum.BlogImport do
       |> String.replace("ü", "%C3%BC")
       |> String.replace("ß", "%C3%9F")
 
-    response = Tesla.get!(url)
+    client = Tesla.client([Tesla.Middleware.FollowRedirects])
+    response = Tesla.get!(client, url)
     tmpfile = Briefly.create!()
     File.write!(tmpfile, response.body)
 
@@ -239,7 +240,8 @@ defmodule Cforum.BlogImport do
     entry = Enum.find(attachments, &(&1.id == String.to_integer(id)))
     if is_nil(entry), do: raise("attachment #{id} not found!")
 
-    response = Tesla.get!(entry.attachment_url)
+    client = Tesla.client([Tesla.Middleware.FollowRedirects])
+    response = Tesla.get!(client, entry.attachment_url)
     tmpfile = Briefly.create!()
     File.write!(tmpfile, response.body)
 
@@ -367,7 +369,7 @@ defmodule Cforum.BlogImport do
 
         Settings.create_setting(nil, %{
           forum_id: forum.forum_id,
-          options: %{"max_message_length" => 122_880, "max_tags_per_message" => 10, "archiver_active" => "no"}
+          options: %{"max_message_length" => 122_880, "max_tags_per_message" => 10}
         })
 
         {:ok, forum}
