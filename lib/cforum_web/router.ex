@@ -220,6 +220,15 @@ defmodule CforumWeb.Router do
       resources("/synonyms", Tags.SynonymController, only: [:edit, :update, :new, :create, :delete], as: nil)
     end
 
+    scope "/", host: "blog." do
+      pipe_through(:blog)
+
+      scope "/", Blog do
+        get("/archive", ArchiveController, :years, as: nil)
+        get("/:year/:month", ArchiveController, :threads, as: nil)
+      end
+    end
+
     scope "/all" do
       get("/", ThreadController, :index, as: nil)
 

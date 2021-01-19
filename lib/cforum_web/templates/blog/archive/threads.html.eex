@@ -1,0 +1,9 @@
+<%= Paginator.pagination @conn, @page, &Path.archive_path/5, path_args: [@conn, :threads, @current_forum, @start_date] %>
+
+<div class="cf-thread-list">
+  <%= for thread <- @threads do %>
+    <%= render CforumWeb.Blog.ArticleView, "article.html", Map.merge(assigns, %{article: thread, preview: true}) %>
+  <% end %>
+</div>
+
+<%= Paginator.pagination @conn, @page, &Path.archive_path/5, path_args: [@conn, :threads, @current_forum, @start_date] %>

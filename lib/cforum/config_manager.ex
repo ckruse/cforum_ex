@@ -33,6 +33,7 @@ defmodule Cforum.ConfigManager do
     "hide_subjects_unchanged" => "yes",
     "hide_repeating_tags" => "yes",
     "archiver_active" => "yes",
+    "archive_by" => "oldest_message",
     "max_threads" => 150,
     "max_messages_per_thread" => 50,
     "cites_min_age_to_archive" => 2,

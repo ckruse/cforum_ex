@@ -131,6 +131,12 @@
   </div>
 
   <div class="cf-cgroup">
+    <label class="radio"><%= radio_button @fo, :archive_by, "oldest_message" %> <%= gettext("archive thread with the oldest message first") %></label>
+    <label class="radio"><%= radio_button @fo, :archive_by, "oldest_thread" %> <%= gettext("archive oldest thread first") %></label>
+    <label class="radio"><%= radio_button @fo, :archive_by, "_DEFAULT_", checked: !conf_set?(@settings, "archive_by") %> <%= default_value(@conn, :archive_by) %></label>
+  </div>
+
+  <div class="cf-cgroup">
     <label for="settings-max_threads"><%= gettext("maximum number of threads") %></label>
     <%= number_input @fo, :max_threads, step: 1, minimum: 1, id: "settings-max_threads" %>
     <label class="checkbox"><%= default_checkbox(@fo, @settings, :max_threads) %> <%= default_value(@conn, :max_threads) %></label>

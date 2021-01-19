@@ -3,6 +3,7 @@ defmodule CforumWeb.Blog.IndexController do
 
   alias Cforum.Threads
   alias Cforum.ConfigManager
+  alias Cforum.Abilities
 
   alias CforumWeb.Paginator
   alias CforumWeb.Router.Helpers, as: Routes
@@ -60,5 +61,5 @@ defmodule CforumWeb.Blog.IndexController do
     |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
   end
 
-  def allowed?(_, _, _), do: true
+  def allowed?(conn, _, _), do: Abilities.access_forum?(conn)
 end

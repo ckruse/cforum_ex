@@ -1,0 +1,19 @@
+<ul class="cf-archive-year-month-list">
+  <%= for year <- @years do %>
+    <li>
+      <h2><%= year_title(year) %></h2>
+
+      <ul>
+        <%= for {month, has_posts } <- months_for_year(year) do %>
+          <li>
+            <%= if has_posts do %>
+              <%= link month_link_title(month), to: Path.blog_archive_path(@conn, :threads, month) %>
+            <% else %>
+              <s><%= month_link_title(month) %></s>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+</ul>

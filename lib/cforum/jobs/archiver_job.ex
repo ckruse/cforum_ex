@@ -59,6 +59,7 @@ defmodule Cforum.Jobs.ArchiverJob do
 
   defp archive_max_threads_per_forum(forum) do
     max_threads = Cforum.ConfigManager.conf(forum, "max_threads", :int)
+    archive_by = Cforum.ConfigManager.conf(forum, "archive_by")
 
     no_threads =
       from(t in Thread, select: count("*"), where: t.forum_id == ^forum.forum_id and t.archived == false)
@@ -70,14 +71,11 @@ defmodule Cforum.Jobs.ArchiverJob do
         else: 0
 
     from(t in Thread,
-      where:
-        t.forum_id == ^forum.forum_id and t.archived == false and t.sticky == false and
-          t.thread_id in fragment(
-            "SELECT threads.thread_id FROM threads INNER JOIN messages USING(thread_id) WHERE threads.forum_id = ? AND archived = false GROUP BY threads.thread_id ORDER BY MAX(messages.message_id) LIMIT ?",
-            ^forum.forum_id,
-            ^limit
-          )
+      where: t.forum_id == ^forum.forum_id,
+      where: t.archived == false,
+      where: t.sticky == false
     )
+    |> filter_by_type(forum, limit, archive_by)
     |> Repo.all()
     |> Repo.preload([:messages])
     |> Enum.each(fn thread ->
@@ -85,6 +83,24 @@ defmodule Cforum.Jobs.ArchiverJob do
       |> archive_thread()
       |> discard_thread_cache()
     end)
+  end
+
+  defp filter_by_type(q, _forum, limit, "oldest_thread") do
+    from(t in q,
+      order_by: [asc: :thread_id],
+      limit: ^limit
+    )
+  end
+
+  defp filter_by_type(q, forum, limit, _) do
+    from(t in q,
+      where:
+        t.thread_id in fragment(
+          "SELECT threads.thread_id FROM threads INNER JOIN messages USING(thread_id) WHERE threads.forum_id = ? AND archived = false GROUP BY threads.thread_id ORDER BY MAX(messages.message_id) LIMIT ?",
+          ^forum.forum_id,
+          ^limit
+        )
+    )
   end
 
   defp archive_thread(%Thread{flags: %{"no-archive" => "yes"}} = thread) do

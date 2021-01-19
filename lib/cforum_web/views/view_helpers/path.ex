@@ -123,6 +123,11 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
     "#{forum_path(conn, :index, forum, false)}/#{part}#{encode_query_string(conn, params)}"
   end
 
+  def blog_archive_path(conn, :threads, month, params \\ []) do
+    part = month |> Timex.lformat!("%Y/%b", "en", :strftime) |> String.downcase()
+    "#{root_path(conn, :index, false)}#{part}#{encode_query_string(conn, params)}"
+  end
+
   @spec tag_path(conn(), atom(), Tag.t() | opt_params(), opt_params()) :: String.t()
   def tag_path(conn, action, tag_or_params \\ [], params \\ [])
   def tag_path(conn, :create, params, _), do: tag_path(conn, :index, params)

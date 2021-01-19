@@ -28,6 +28,7 @@ defmodule CforumWeb.Admin.ForumView do
 
   def l10n_permission("read"), do: gettext("read")
   def l10n_permission("write"), do: gettext("write")
+  def l10n_permission("answer"), do: gettext("answer")
   def l10n_permission("known-read"), do: gettext("known-read")
   def l10n_permission("known-write"), do: gettext("known-write")
   def l10n_permission("private"), do: gettext("private")
