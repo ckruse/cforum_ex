@@ -157,6 +157,7 @@ msgid "keywords_text"
 msgstr "SELFHTML Forum, SELFHTML, Forum, SELFForum"
 
 #: lib/cforum_web/templates/layout/page_header.html.eex:110
+#: lib/cforum_web/views/blog/archive_view.ex:7
 msgid "archive"
 msgstr "archivierte Beiträge"
 
@@ -224,8 +225,8 @@ msgstr "Einstellungen"
 #: lib/cforum_web/templates/admin/badge/form.html.eex:3 lib/cforum_web/templates/admin/event/form.html.eex:3
 #: lib/cforum_web/templates/admin/forum/form.html.eex:30 lib/cforum_web/templates/admin/group/form.html.eex:3
 #: lib/cforum_web/templates/admin/redirection/form.html.eex:3 lib/cforum_web/templates/admin/search_section/form.html.eex:3
-#: lib/cforum_web/templates/admin/user/form.html.eex:3 lib/cforum_web/templates/blog_comment/new.html.eex:2
-#: lib/cforum_web/templates/blogpost/new.html.eex:2 lib/cforum_web/templates/cite/form.html.eex:2
+#: lib/cforum_web/templates/admin/user/form.html.eex:3 lib/cforum_web/templates/blog/article/new.html.eex:2
+#: lib/cforum_web/templates/blog/comment/new.html.eex:2 lib/cforum_web/templates/cite/form.html.eex:2
 #: lib/cforum_web/templates/events/attendee/form.html.eex:3 lib/cforum_web/templates/mail/new.html.eex:2
 #: lib/cforum_web/templates/message/edit.html.eex:2 lib/cforum_web/templates/message/new.html.eex:2
 #: lib/cforum_web/templates/messages/flag/new.html.eex:3 lib/cforum_web/templates/moderation/edit.html.eex:3
@@ -237,7 +238,7 @@ msgid "Oops, something went wrong! Please check the errors below."
 msgstr "Es ist etwas schief gelaufen! Bitte prüfen Sie die untenstehenden Fehler."
 
 #: lib/cforum_web/templates/admin/user/form.html.eex:16
-#: lib/cforum_web/templates/admin/user/index.html.eex:15 lib/cforum_web/templates/blogpost/form.html.eex:12
+#: lib/cforum_web/templates/admin/user/index.html.eex:15 lib/cforum_web/templates/blog/article/form.html.eex:12
 #: lib/cforum_web/templates/message/form.html.eex:22 lib/cforum_web/templates/users/registration/new.html.eex:19
 #: lib/cforum_web/templates/users/user/show.html.eex:21 lib/cforum_web/templates/users/user/user_information.html.eex:11
 msgid "email"
@@ -421,8 +422,8 @@ msgid "info"
 msgstr "Informationen"
 
 #: lib/cforum_web/templates/admin/audit/index.html.eex:15
-#: lib/cforum_web/templates/admin/user/index.html.eex:32 lib/cforum_web/templates/tag/show.html.eex:26
-#: lib/cforum_web/templates/users/user/index.html.eex:25
+#: lib/cforum_web/templates/admin/user/index.html.eex:32 lib/cforum_web/templates/blog/tag/show.html.eex:3
+#: lib/cforum_web/templates/tag/show.html.eex:26 lib/cforum_web/templates/users/user/index.html.eex:25
 msgid "messages"
 msgstr "Beiträge"
 
@@ -512,8 +513,8 @@ msgstr "Avatar"
 #: lib/cforum_web/templates/admin/forum/edit.html.eex:6 lib/cforum_web/templates/admin/forum/new.html.eex:6
 #: lib/cforum_web/templates/admin/group/form.html.eex:34 lib/cforum_web/templates/admin/redirection/form.html.eex:32
 #: lib/cforum_web/templates/admin/search_section/form.html.eex:36 lib/cforum_web/templates/admin/setting/edit.html.eex:33
-#: lib/cforum_web/templates/admin/user/form.html.eex:47 lib/cforum_web/templates/blog_comment/new.html.eex:21
-#: lib/cforum_web/templates/blogpost/new.html.eex:17 lib/cforum_web/templates/cite/edit.html.eex:6
+#: lib/cforum_web/templates/admin/user/form.html.eex:47 lib/cforum_web/templates/blog/article/new.html.eex:17
+#: lib/cforum_web/templates/blog/comment/new.html.eex:21 lib/cforum_web/templates/cite/edit.html.eex:6
 #: lib/cforum_web/templates/cite/new.html.eex:6 lib/cforum_web/templates/events/attendee/form.html.eex:71
 #: lib/cforum_web/templates/mail/new.html.eex:16 lib/cforum_web/templates/message/edit.html.eex:19
 #: lib/cforum_web/templates/message/new.html.eex:21 lib/cforum_web/templates/messages/flag/new.html.eex:33
@@ -552,7 +553,7 @@ msgstr "Flattr-ID"
 msgid "greeting"
 msgstr "Begrüßung"
 
-#: lib/cforum_web/templates/blogpost/form.html.eex:21
+#: lib/cforum_web/templates/blog/article/form.html.eex:21
 #: lib/cforum_web/templates/message/form.html.eex:31 lib/cforum_web/templates/users/user/personal_information.html.eex:12
 msgid "homepage"
 msgstr "Homepage"
@@ -801,12 +802,12 @@ msgid "edit profile and settings"
 msgstr "Profil und Einstellungen bearbeiten"
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:84
-#: lib/cforum_web/views/admin/forum_view.ex:31
+#: lib/cforum_web/views/admin/forum_view.ex:32
 msgid "known-read"
 msgstr "lesen für Angemeldete"
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:85
-#: lib/cforum_web/views/admin/forum_view.ex:32
+#: lib/cforum_web/views/admin/forum_view.ex:33
 msgid "known-write"
 msgstr "schreiben für Angemeldete"
 
@@ -820,7 +821,7 @@ msgid "new mail to %{username}"
 msgstr "Neue Mail an %{username}"
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:80
-#: lib/cforum_web/views/admin/forum_view.ex:33
+#: lib/cforum_web/views/admin/forum_view.ex:34
 msgid "private"
 msgstr "privat"
 
@@ -848,7 +849,7 @@ msgid "show"
 msgstr "anzeigen"
 
 #: lib/cforum_web/templates/admin/advent_calendar/form.html.eex:28
-#: lib/cforum_web/templates/blogpost/form.html.eex:4 lib/cforum_web/templates/mail/form.html.eex:22
+#: lib/cforum_web/templates/blog/article/form.html.eex:4 lib/cforum_web/templates/mail/form.html.eex:22
 #: lib/cforum_web/templates/mail/index.html.eex:6 lib/cforum_web/templates/message/form.html.eex:4
 #: lib/cforum_web/templates/notification/index.html.eex:5
 msgid "subject"
@@ -903,7 +904,7 @@ msgstr "Datumsformat für einzelne Postings"
 msgid "date format for the threads index"
 msgstr "Datumsformat für den Thread-Baum"
 
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:190
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:196
 #: lib/cforum_web/templates/users/user/personalization.html.eex:47
 msgid "default date format"
 msgstr "Standard-Datumsformat"
@@ -1150,7 +1151,7 @@ msgstr "weniger als einer Minute"
 
 #: lib/cforum_web/templates/admin/advent_calendar/day.html.eex:14
 #: lib/cforum_web/templates/admin/audit/threads.html.eex:11 lib/cforum_web/templates/advent/day.html.eex:14
-#: lib/cforum_web/views/blogpost_view.ex:16 lib/cforum_web/views/message_view.ex:86
+#: lib/cforum_web/views/blog/article_view.ex:16 lib/cforum_web/views/message_view.ex:86
 msgid "by"
 msgstr "von"
 
@@ -1174,7 +1175,7 @@ msgstr "Benutzer-Informationen"
 msgid "new answer to %{name}"
 msgstr "Antwort an „%{name}“ verfassen"
 
-#: lib/cforum_web/controllers/blog_comment_controller.ex:65
+#: lib/cforum_web/controllers/blog/comment_controller.ex:65
 #: lib/cforum_web/controllers/message_controller.ex:123 lib/cforum_web/controllers/message_controller.ex:165
 msgid "Message created successfully."
 msgstr "Beitrag erfolgreich gespeichert."
@@ -1184,7 +1185,7 @@ msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">
 msgstr "SELFHTML Forum - Ergänzung zur <a href=\"https://wiki.selfhtml.org\">Dokumentation</a>"
 
 #: lib/cforum_web/controllers/api/v1/message_controller.ex:26
-#: lib/cforum_web/controllers/blog_comment_controller.ex:29 lib/cforum_web/controllers/blogpost_controller.ex:34
+#: lib/cforum_web/controllers/blog/article_controller.ex:34 lib/cforum_web/controllers/blog/comment_controller.ex:29
 #: lib/cforum_web/controllers/message_controller.ex:87 lib/cforum_web/controllers/thread_controller.ex:127
 msgid "all"
 msgstr "alle"
@@ -1197,8 +1198,8 @@ msgstr "Autor"
 msgid "comma separated list, e.g. „css, html“"
 msgstr "Komma-separierte Liste, z.B. “css, html“"
 
-#: lib/cforum_web/templates/blog_comment/new.html.eex:20
-#: lib/cforum_web/templates/blogpost/new.html.eex:16 lib/cforum_web/templates/message/edit.html.eex:18
+#: lib/cforum_web/templates/blog/article/new.html.eex:16
+#: lib/cforum_web/templates/blog/comment/new.html.eex:20 lib/cforum_web/templates/message/edit.html.eex:18
 #: lib/cforum_web/templates/message/new.html.eex:20 lib/cforum_web/templates/thread/new.html.eex:28
 msgid "create message"
 msgstr "Beitrag speichern"
@@ -1206,7 +1207,7 @@ msgstr "Beitrag speichern"
 msgid "html, css, javascript"
 msgstr ""
 
-#: lib/cforum_web/templates/blogpost/form.html.eex:24
+#: lib/cforum_web/templates/blog/article/form.html.eex:24
 #: lib/cforum_web/templates/message/form.html.eex:34
 msgid "https://example.com"
 msgstr "z.B. „https://example.com“"
@@ -1215,13 +1216,13 @@ msgstr "z.B. „https://example.com“"
 msgid "https://example.com/float-example.html"
 msgstr "z.B. „https://example.com/float-example.html“"
 
-#: lib/cforum_web/templates/blogpost/form.html.eex:7
+#: lib/cforum_web/templates/blog/article/form.html.eex:7
 #: lib/cforum_web/templates/message/form.html.eex:7
 msgid "replace float:left with a flexbox construct"
 msgstr "z.B. „float:left mit einem Flexbox-Konstrukt ersetzen“"
 
-#: lib/cforum_web/templates/blog_comment/new.html.eex:19
-#: lib/cforum_web/templates/blogpost/new.html.eex:15 lib/cforum_web/templates/mail/new.html.eex:14
+#: lib/cforum_web/templates/blog/article/new.html.eex:15
+#: lib/cforum_web/templates/blog/comment/new.html.eex:19 lib/cforum_web/templates/mail/new.html.eex:14
 #: lib/cforum_web/templates/message/edit.html.eex:17 lib/cforum_web/templates/message/new.html.eex:19
 #: lib/cforum_web/templates/thread/new.html.eex:27
 msgid "show preview"
@@ -1231,8 +1232,8 @@ msgstr "Vorschau"
 msgid "tags"
 msgstr "Tags"
 
-#: lib/cforum_web/templates/blogpost/form.html.eex:16
-#: lib/cforum_web/templates/blogpost/form.html.eex:25 lib/cforum_web/templates/message/form.html.eex:26
+#: lib/cforum_web/templates/blog/article/form.html.eex:16
+#: lib/cforum_web/templates/blog/article/form.html.eex:25 lib/cforum_web/templates/message/form.html.eex:26
 #: lib/cforum_web/templates/message/form.html.eex:35 lib/cforum_web/templates/message/form.html.eex:45
 msgid "voluntary, will be publicly visible"
 msgstr "freiwillig, öffentlich sichtbar"
@@ -1313,7 +1314,7 @@ msgstr "Forum"
 msgid "gold medal"
 msgstr "Gold-Medaille"
 
-#: lib/cforum_web/views/blogpost_view.ex:20
+#: lib/cforum_web/views/blog/article_view.ex:20
 #: lib/cforum_web/views/thread_view.ex:48
 msgid "new thread"
 msgstr "neuer Thread"
@@ -1502,6 +1503,7 @@ msgstr "Post-Verlauf mit %{partner}"
 #, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:82
 #: lib/cforum_web/templates/mail/index.html.eex:28 lib/cforum_web/templates/mail/mail.html.eex:29
+#: lib/cforum_web/views/admin/forum_view.ex:31
 msgid "answer"
 msgstr "antworten"
 
@@ -1564,7 +1566,7 @@ msgid "keywords"
 msgstr "Schlagwörter"
 
 #, elixir-format
-#: lib/cforum_web/templates/blogpost/form.html.eex:48
+#: lib/cforum_web/templates/blog/article/form.html.eex:48
 #: lib/cforum_web/templates/message/form.html.eex:53
 msgid "message content"
 msgstr "Beitragstext"
@@ -1860,12 +1862,12 @@ msgid "user is an administrator"
 msgstr "Benutzer ist ein Administrator"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:218
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:224
 msgid "accept score"
 msgstr "Punkte für das Akzeptieren"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:224
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:230
 msgid "accept score for self-accepted answers"
 msgstr "Punkte für das akzeptieren eigener Antworten"
 
@@ -1885,12 +1887,12 @@ msgid "alternative CSS resoures"
 msgstr "alternative CSS-Resourcen"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:248
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:254
 msgid "blacklist patterns for posting content"
 msgstr "Blacklist-Muster für Beiträge"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:234
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:240
 msgid "blacklist patterns for posting subjects"
 msgstr "Blacklist-Muster für Beitrags-Betreff"
 
@@ -1900,17 +1902,17 @@ msgid "close subtree"
 msgstr "Sub-Baum schliessen"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:184
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:190
 msgid "date format for search results"
 msgstr "Datums-Format für Such-Resultate"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:172
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:178
 msgid "date format for the index and the thread tree"
 msgstr "Datumsformat für den Thread-Baum"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:178
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:184
 msgid "date format for the postings"
 msgstr "Datumsformat für einzelne Postings"
 
@@ -1930,7 +1932,7 @@ msgid "default view for threads"
 msgstr "Default-Ansicht für Threads"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:212
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:218
 msgid "downvote score"
 msgstr "Downvote-Punkte"
 
@@ -1970,7 +1972,7 @@ msgid "items per page"
 msgstr "Elemente pro Seite"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:156
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:162
 msgid "maximum editable age of posting in minutes"
 msgstr "maximales Alter in Minuten, in denen Beiträge editiert werden dürfen"
 
@@ -1980,7 +1982,7 @@ msgid "maximum filesize for images"
 msgstr "maximale Dateigröße für Bilder"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:140
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:146
 msgid "maximum number of messages per thread"
 msgstr "maximale Anzahl an Nachrichten pro Thread"
 
@@ -1990,7 +1992,7 @@ msgid "maximum number of tags per message"
 msgstr "maximale Anzahl an Tags pro Beitrag"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:134
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:140
 msgid "maximum number of threads"
 msgstr "Maximale Anzahl an Threads"
 
@@ -2005,7 +2007,7 @@ msgid "minimum number of tags per message"
 msgstr "Mindestanzahl an Tags pro Beitrag"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:255
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:261
 msgid "nickname black list"
 msgstr "Namens-Blacklist"
 
@@ -2015,9 +2017,9 @@ msgid "one URL per line"
 msgstr "eine URL pro Zeile"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:236
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:243 lib/cforum_web/templates/admin/setting/settings.html.eex:250
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:257
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:242
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:249 lib/cforum_web/templates/admin/setting/settings.html.eex:256
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:263
 msgid "one pattern per line"
 msgstr "ein Muster pro Zeile"
 
@@ -2027,12 +2029,12 @@ msgid "one pattern per line; links in postings to URLs macthing to one of these 
 msgstr "Ein Muster pro Zeile; Links in Beiträgen, auf die eines dieser Muster passt, bekommen kein rel=nofollow"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:163
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:169
 msgid "postings are always editable"
 msgstr "Beiträge sind immer editierbar"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:162
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:168
 msgid "postings are editable until the first answer has been written"
 msgstr "Beiträge sind editierbar bis die erste Antwort verfasst wurde"
 
@@ -2047,17 +2049,17 @@ msgid "start index for headings"
 msgstr "Start-Index für Überschriften in Markdown"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:206
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:212
 msgid "upvote score"
 msgstr "Upvote-Punkte"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:150
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:156
 msgid "users may edit their postings"
 msgstr "Benutzer dürfen ihre Beiträge bearbeiten"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:151
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:157
 msgid "users may not edit their postings"
 msgstr "Benutzer dürfen ihre Beiträge nicht bearbeiten"
 
@@ -2084,7 +2086,7 @@ msgstr "„ja“"
 #, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:10
 #: lib/cforum_web/templates/admin/forum/form.html.eex:23 lib/cforum_web/templates/admin/setting/edit.html.eex:12
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:24 lib/cforum_web/templates/admin/setting/settings.html.eex:231
+#: lib/cforum_web/templates/admin/setting/edit.html.eex:24 lib/cforum_web/templates/admin/setting/settings.html.eex:237
 msgid "anti spam settings"
 msgstr "Anti-Spam-Maßnahmen"
 
@@ -2098,14 +2100,14 @@ msgstr "Archivierung"
 #, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:8
 #: lib/cforum_web/templates/admin/forum/form.html.eex:21 lib/cforum_web/templates/admin/setting/edit.html.eex:10
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:22 lib/cforum_web/templates/admin/setting/settings.html.eex:169
+#: lib/cforum_web/templates/admin/setting/edit.html.eex:22 lib/cforum_web/templates/admin/setting/settings.html.eex:175
 msgid "date format settings"
 msgstr "Datumsformate"
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:7
 #: lib/cforum_web/templates/admin/forum/form.html.eex:20 lib/cforum_web/templates/admin/setting/edit.html.eex:9
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:21 lib/cforum_web/templates/admin/setting/settings.html.eex:147
+#: lib/cforum_web/templates/admin/setting/edit.html.eex:21 lib/cforum_web/templates/admin/setting/settings.html.eex:153
 msgid "editing settings"
 msgstr "Editierung"
 
@@ -2126,7 +2128,7 @@ msgstr "Seiten"
 #, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:9
 #: lib/cforum_web/templates/admin/forum/form.html.eex:22 lib/cforum_web/templates/admin/setting/edit.html.eex:11
-#: lib/cforum_web/templates/admin/setting/edit.html.eex:23 lib/cforum_web/templates/admin/setting/settings.html.eex:203
+#: lib/cforum_web/templates/admin/setting/edit.html.eex:23 lib/cforum_web/templates/admin/setting/settings.html.eex:209
 msgid "voting and scoring settings"
 msgstr "Bewertungen und Punkte"
 
@@ -2343,11 +2345,13 @@ msgid "Tag updated successfully."
 msgstr "Tag erfolgreich geändert."
 
 #, elixir-format
+#: lib/cforum_web/templates/blog/tag/show.html.eex:1
 #: lib/cforum_web/templates/tag/show.html.eex:1
 msgid "This tag is not used for suggestions."
 msgstr "Dieses Tag wird nicht für Vorschläge genutzt."
 
 #, elixir-format
+#: lib/cforum_web/templates/blog/tag/show.html.eex:1
 #: lib/cforum_web/templates/tag/show.html.eex:1
 msgid "This tag is used for suggestions."
 msgstr "Dieses Tag wird für Vorschläge genutzt."
@@ -2408,6 +2412,7 @@ msgid "new tag"
 msgstr "neues Tag"
 
 #, elixir-format
+#: lib/cforum_web/templates/blog/tag/show.html.eex:6
 #: lib/cforum_web/templates/tag/show.html.eex:29
 msgid "no messages found"
 msgstr "keine Beiträge gefunden"
@@ -2418,6 +2423,7 @@ msgid "no synonyms found"
 msgstr "keine Synonyme gefunden"
 
 #, elixir-format
+#: lib/cforum_web/templates/blog/tag/index.html.eex:3
 #: lib/cforum_web/templates/tag/index.html.eex:3
 msgid "not applicable for suggestions"
 msgstr "wird nicht vorgeschlagen"
@@ -3617,8 +3623,8 @@ msgid "sort by relevance"
 msgstr "Sortierung nach Relevanz"
 
 #, elixir-format
-#: lib/cforum_web/templates/blogpost/form_tags.html.eex:3
-#: lib/cforum_web/templates/blogpost/form_tags.html.eex:10 lib/cforum_web/templates/message/form_tags.html.eex:3
+#: lib/cforum_web/templates/blog/article/form_tags.html.eex:3
+#: lib/cforum_web/templates/blog/article/form_tags.html.eex:10 lib/cforum_web/templates/message/form_tags.html.eex:3
 #: lib/cforum_web/templates/message/form_tags.html.eex:9 lib/cforum_web/templates/messages/retag/edit.html.eex:11
 #: lib/cforum_web/templates/messages/retag/edit.html.eex:17
 msgid "Tag %{no}"
@@ -3656,12 +3662,12 @@ msgid "%{nick} wrote a reply to your message: %{subject}"
 msgstr "%{nick} hat auf Ihren Beitrag geantwortet: „%{subject}“"
 
 #, elixir-format
-#: lib/cforum_web/views/tag_view.ex:17
+#: lib/cforum_web/views/blog/tag_view.ex:11 lib/cforum_web/views/tag_view.ex:17
 msgid "tag “%{tag}”"
 msgstr "Tag „%{tag}“"
 
 #, elixir-format
-#: lib/cforum_web/views/tag_view.ex:14
+#: lib/cforum_web/views/blog/tag_view.ex:10 lib/cforum_web/views/tag_view.ex:14
 msgid "tags list"
 msgstr "Tags"
 
@@ -4333,7 +4339,7 @@ msgid "since two years"
 msgstr "seit mindestens zwei Jahren"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:241
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:247
 msgid "blacklist patterns for posting urls"
 msgstr "Blacklist-Muster für URLs (problematische Seite und Homepage)"
 
@@ -4395,12 +4401,12 @@ msgid "SELFHTML Weblog - Complementing the <a href=\"https://wiki.selfhtml.org\"
 msgstr "SELFHTML Weblog - Ergänzung zur <a href=\"https://wiki.selfhtml.org\">Dokumentation</a>"
 
 #, elixir-format
-#: lib/cforum_web/templates/admin/setting/settings.html.eex:196
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:202
 msgid "date format for the weblog index"
 msgstr "Datumsformat für den Weblog-Index"
 
 #, elixir-format
-#: lib/cforum_web/templates/blogpost/article.html.eex:9
+#: lib/cforum_web/templates/blog/article/article.html.eex:9
 msgid "no comments"
 msgid_plural "%{count} comments"
 msgstr[0] "keine Kommentare"
@@ -4418,32 +4424,57 @@ msgid "archiver is inactive"
 msgstr "Archvierung ist nicht aktiv"
 
 #, elixir-format
-#: lib/cforum_web/templates/blogpost/article.html.eex:40
+#: lib/cforum_web/templates/blog/article/article.html.eex:40
 msgid "categorized under:"
 msgstr "eingeordnet unter:"
 
 #, elixir-format
-#: lib/cforum_web/templates/blogpost/article.html.eex:52
+#: lib/cforum_web/templates/blog/article/article.html.eex:58
 msgid "published by"
 msgstr "veröffentlicht von"
 
 #, elixir-format
-#: lib/cforum_web/templates/blogpost/form.html.eex:39
+#: lib/cforum_web/templates/blog/article/form.html.eex:39
 msgid "excerpt"
 msgstr "Einleitung"
 
 #, elixir-format
-#: lib/cforum_web/templates/blogpost/form.html.eex:34
-#: lib/cforum_web/templates/blogpost/form.html.eex:43
+#: lib/cforum_web/templates/blog/article/form.html.eex:34
+#: lib/cforum_web/templates/blog/article/form.html.eex:43
 msgid "optional"
 msgstr "optional"
 
 #, elixir-format
-#: lib/cforum_web/templates/blogpost/form.html.eex:30
+#: lib/cforum_web/templates/blog/article/form.html.eex:30
 msgid "thumbnail"
 msgstr "Beitragsbild"
 
 #, elixir-format
-#: lib/cforum_web/controllers/blogpost_controller.ex:76
+#: lib/cforum_web/controllers/blog/article_controller.ex:76
 msgid "Article created successfully."
 msgstr "Artikel erfolgreich erstellt."
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:135
+msgid "archive oldest thread first"
+msgstr "archiviere den älteresten Thread zuerst"
+
+#, elixir-format
+#: lib/cforum_web/templates/admin/setting/settings.html.eex:134
+msgid "archive thread with the oldest message first"
+msgstr "archiviere den Thread mit dem ältesten jüngsten Beitrag zuerst"
+
+#, elixir-format
+#: lib/cforum_web/views/blog/archive_view.ex:10
+msgid "archive: %{month}"
+msgstr "Archiv: %{month}"
+
+#, elixir-format
+#: lib/cforum_web/templates/layout/blog.html.eex:22
+msgid "create new article"
+msgstr "neuer Artikel"
+
+#, elixir-format
+#: lib/cforum_web/templates/layout/blog.html.eex:21
+msgid "older articles"
+msgstr "ältere Artikel"
