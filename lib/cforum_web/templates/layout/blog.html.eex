@@ -16,6 +16,13 @@
     <%= render "personal_links.html", assigns %>
     <%= render "page_header_blog.html", assigns %>
 
+    <nav class="cf-weblog-nav">
+      <ul>
+        <li><%= link gettext("older articles"), to: Path.blog_archive_path(@conn, :years) %></li>
+        <%= if Abilities.may?(@conn, "thread", :create) do %><li><%= link gettext("create new article"), to: Path.blog_thread_path(@conn, :new) %></li><% end %>
+      </ul>
+    </nav>
+
     <main>
       <%= render "alerts.html", assigns %>
 

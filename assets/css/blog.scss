@@ -1,3 +1,17 @@
+.cf-weblog-nav {
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0.5em;
+    border-bottom: $dividing-border;
+    padding-bottom: 0.5em;
+
+    li a {
+      display: block;
+    }
+  }
+}
+
 .cf-weblog-article,
 .cf-thread-nested .cf-weblog-article.cf-thread-message.active {
   border: 0;
@@ -157,6 +171,21 @@
     #content {
       max-width: none;
       margin: 0.5em;
+    }
+  }
+
+  .cf-weblog-nav {
+    max-width: 50rem;
+    margin: auto;
+
+    ul {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin: 0.5em 0 2em 0;
+
+      display: grid;
+      grid-template-columns: max-content max-content;
+      gap: 1em;
     }
   }
 }
