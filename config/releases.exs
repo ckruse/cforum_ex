@@ -18,6 +18,8 @@ config :cforum,
   convert: System.fetch_env!("CF_CONVERT_PATH"),
   deploy_secret: System.fetch_env!("CF_DEPLOY_SECRET"),
   deploy_script: System.fetch_env!("CF_DEPLOY_SCRIPT"),
+  thumbnail_dir: System.fetch_env!("CF_THUMBNAIL_DIR"),
+  thumbnail_url: System.fetch_env!("CF_THUMBNAIL_URL"),
   cfmarkdown: [
     cli: "./node_modules/.bin/babel-node ./bin/cfmarkdown2html.js",
     pwd: System.fetch_env!("CF_MARKDOWN_PATH"),
