@@ -12,7 +12,9 @@ if (controllers.includes(document.body.dataset.controller)) {
     import(/* webpackChunkName: "messages-show" */ "./message_actions");
   }
 
-  if (document.body.classList.contains("nested-view")) {
+  const showNested =
+    document.body.classList.contains("nested-view") || document.body.dataset.controller === "Blog.ArticleController";
+  if (showNested) {
     import(/* webpackChunkName: "messages-show-nested" */ "./nested_view");
   }
 }
