@@ -17,7 +17,7 @@ if (controllers.includes(document.body.dataset.controller)) {
   }
 }
 
-if (["MessageController", "ThreadController"].includes(document.body.dataset.controller)) {
+if (["MessageController", "ThreadController", "Blog.CommentController"].includes(document.body.dataset.controller)) {
   if (["new", "edit", "update", "create"].includes(document.body.dataset.action)) {
     import(/* webpackChunkName: "messages-threads" */ "./postingform");
   }

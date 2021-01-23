@@ -54,6 +54,8 @@ export const parseMessageUrl = (url) => {
     ret.messageId = RegExp.$3;
     ret.action = RegExp.$4;
 
+    if (!ret.messageId && url.hash.match(/^#?m(\d+)$/)) ret.messageId = RegExp.$1;
+
     return ret;
   }
 

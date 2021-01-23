@@ -121,22 +121,28 @@ export default function Meta(props) {
         <span className="help">{t("voluntarily, publicly visible")}</span>
       </div>
 
-      <div className={`cf-cgroup ${hasErrorClass("message_problematic_site", errors, touched, values)}`}>
-        <ErrorLabel field="message_problematic_site" errors={errors} values={values} touched={touched}>
-          {t("problematic site")}
-        </ErrorLabel>
-        <input
-          id="message_problematic_site"
-          maxLength="250"
-          name="message[problematic_site]"
-          placeholder={t("e.g. “https://example.com/float-example.html”")}
-          type="text"
-          value={problematicSite}
-          onChange={props.onChange}
-          onBlur={setFieldTouched}
-        />
-        <span className="help">{t("voluntarily, publicly visible")}</span>
-      </div>
+      {props.withProblematicSite && (
+        <div className={`cf-cgroup ${hasErrorClass("message_problematic_site", errors, touched, values)}`}>
+          <ErrorLabel field="message_problematic_site" errors={errors} values={values} touched={touched}>
+            {t("problematic site")}
+          </ErrorLabel>
+          <input
+            id="message_problematic_site"
+            maxLength="250"
+            name="message[problematic_site]"
+            placeholder={t("e.g. “https://example.com/float-example.html”")}
+            type="text"
+            value={problematicSite}
+            onChange={props.onChange}
+            onBlur={setFieldTouched}
+          />
+          <span className="help">{t("voluntarily, publicly visible")}</span>
+        </div>
+      )}
     </fieldset>
   );
 }
+
+Meta.defaultProps = {
+  withProblematicSite: true,
+};

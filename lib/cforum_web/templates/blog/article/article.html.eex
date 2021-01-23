@@ -64,6 +64,16 @@
       </span>
     </p>
   <% end %>
+
+  <div class="posting-footer">
+    <div class="button-container">
+      <%= if !assigns[:preview] && !@article.message.deleted do %>
+        <div class="message-links">
+          <%= render CforumWeb.MessageView, "message_default_controls.html", Map.merge(assigns, %{thread: @article, message: @article.message, message_path_helper: &Path.blog_comment_path/5}) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </article>
 
 <%= unless assigns[:preview] do %>

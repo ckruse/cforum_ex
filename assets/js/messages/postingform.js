@@ -55,7 +55,8 @@ document.querySelectorAll(".cf-posting-form").forEach(async (el) => {
   const author = authorNode ? authorNode.value : "";
   const email = el.querySelector("[name='message[email]']").value;
   const homepage = el.querySelector("[name='message[homepage]']").value;
-  const problematicSite = el.querySelector("[name='message[problematic_site]']").value;
+  const problematicSiteElement = el.querySelector("[name='message[problematic_site]']");
+  const problematicSite = problematicSiteElement?.value;
   const saveIdentityElement = el.querySelector("#message_save_identity");
   const saveIdentity = saveIdentityElement ? saveIdentityElement.checked : undefined;
 
@@ -74,6 +75,7 @@ document.querySelectorAll(".cf-posting-form").forEach(async (el) => {
       tags={tags}
       globalTagsError={globalTagsError}
       problematicSite={problematicSite}
+      withProblematicSite={!!problematicSiteElement}
       saveIdentity={saveIdentity}
       method={method}
       csrfInfo={{

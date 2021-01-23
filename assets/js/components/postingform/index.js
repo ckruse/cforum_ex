@@ -145,6 +145,7 @@ class CfPostingForm extends React.Component {
           onChange={this.updateState}
           forumOptions={this.props.forumOptions}
           errors={this.props.errors}
+          withProblematicSite={this.props.withProblematicSite}
         />
 
         <div className="cf-content-form">
@@ -202,5 +203,9 @@ class CfPostingForm extends React.Component {
     );
   }
 }
+
+CfPostingForm.defaultProps = {
+  withProblematicSite: true,
+};
 
 export default CfPostingForm;

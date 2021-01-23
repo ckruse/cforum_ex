@@ -4,9 +4,11 @@ import { render } from "react-dom";
 import { parseMessageUrl } from "../modules/helpers";
 
 const showInlineForm = async (ev) => {
-  ev.preventDefault();
-
   const messageElement = ev.target.closest(".cf-thread-message");
+
+  if (!messageElement) return;
+
+  ev.preventDefault();
 
   const parsedUrl = parseMessageUrl(document.location.href);
   const messageId = messageElement.querySelector(".cf-message-header").id;
