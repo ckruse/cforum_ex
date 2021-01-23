@@ -12,7 +12,7 @@
   <fieldset>
     <legend><%= gettext("users") %></legend>
 
-    <%= CforumWeb.WidgetsView.multi_users_selector(assigns, Ecto.Changeset.get_field(@changeset, :users), "group[users][]") %>
+    <%= CforumWeb.WidgetsView.multi_users_selector(Map.put(assigns, :self_select, true), Ecto.Changeset.get_field(@changeset, :users), "group[users][]") %>
   </fieldset>
 
   <fieldset>
