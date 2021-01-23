@@ -30,7 +30,7 @@
       <%= gettext("thumbnail") %>
       <%= ErrorHelpers.error_tag @f, :thumbnail %>
     <% end %>
-    <%= file_input @f, :thumbnail, maxlength: 250, required: true %>
+    <%= file_input @f, :thumbnail %>
     <span class="help"><%= gettext("optional") %></span>
   </div>
 
