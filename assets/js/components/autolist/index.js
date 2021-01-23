@@ -21,7 +21,7 @@ class Autolist {
     });
 
     const elements = this.root.querySelectorAll(this.listElement);
-    this.index = elements[elements.length - 1].dataset.index || 0;
+    this.index = elements[elements.length - 1]?.dataset?.index || 0;
     elements.forEach((el) => this.setupListElement(el));
   }
 
