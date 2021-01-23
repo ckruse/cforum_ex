@@ -133,7 +133,7 @@ const initialFoldConfigDidLoad = () => {
 initialFold();
 document.addEventListener("cf:configDidLoad", initialFoldConfigDidLoad);
 
-document.querySelector(".cf-thread-list").addEventListener("click", function (ev) {
+document.querySelector(".cf-thread-list")?.addEventListener("click", function (ev) {
   const url = ev.target.href;
   if (!url || !url.match(/#m\d+$/)) {
     return;
