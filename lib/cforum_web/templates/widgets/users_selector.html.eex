@@ -1,5 +1,5 @@
 <div class="cf-users-selector multi">
-  <ul data-user-selector="yes"<%= if assigns[:self_select] == false, do: " data-user-selector-self=\"no\"" %> data-field-name="<%= @field_name %>">
+  <ul data-user-selector="yes"<%= if assigns[:self_select] == true, do: {:safe, " data-user-selector-self=\"yes\""} %> data-field-name="<%= @field_name %>">
     <%= for user <- @users do %>
       <li>
         <input type="hidden" name="<%= @field_name %>" value="<%= user.user_id %>">
