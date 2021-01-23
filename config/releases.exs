@@ -4,7 +4,8 @@ config :cforum, CforumWeb.Endpoint,
   secret_key_base: System.fetch_env!("CF_SECRET_KEY"),
   http: [port: System.fetch_env!("CF_PORT"), ip: {127, 0, 0, 1}],
   url: [host: System.fetch_env!("CF_HOST"), port: 443, scheme: "https"],
-  live_view: [signing_salt: System.fetch_env!("CF_SIGNING_SALT")]
+  live_view: [signing_salt: System.fetch_env!("CF_SIGNING_SALT")],
+  check_origin: ["https://forum.selfhtml.org/", "https://blog.selfhtml.org/"]
 
 config :cforum,
   mail_sender: System.fetch_env!("CF_MAIL_SENDER"),
