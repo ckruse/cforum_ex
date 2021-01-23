@@ -35,8 +35,7 @@ export default function CfBlogForm(props) {
   }
 
   return (
-    <>
-      {/*ErrorBoundary instance={appsignal} fallback={(error) => <FallbackComponent />}>*/}
+    <ErrorBoundary instance={appsignal} fallback={(error) => <FallbackComponent />}>
       <input type="hidden" name={csrfInfo.param} value={csrfInfo.token} />
       {method.toUpperCase() !== "POST" && <input type="hidden" name="_method" value={method} />}
 
@@ -80,6 +79,6 @@ export default function CfBlogForm(props) {
           {t("discard")}
         </a>
       </p>
-    </> //ErrorBoundary>
+    </ErrorBoundary>
   );
 }
