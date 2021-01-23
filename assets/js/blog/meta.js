@@ -75,7 +75,6 @@ export default function Meta({ subject, email, homepage, errors, onChange }) {
         </ErrorLabel>
         <input
           id="message_thumbnail"
-          maxLength="250"
           name="message[thumbnail]"
           type="file"
           onChange={onChange}
