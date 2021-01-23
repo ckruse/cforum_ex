@@ -24,11 +24,13 @@ export const isValid = (name, values) => {
   const val = values[name] || "";
   const len = val.length;
 
-  if (CONSTRAINTS[name].required && !val) return false;
-  if (val && CONSTRAINTS[name].minLen && len < CONSTRAINTS[name].minLen) return false;
-  if (val && CONSTRAINTS[name].maxLen && len > CONSTRAINTS[name].maxLen) return false;
-  if (val && CONSTRAINTS[name].type === "url") return isUrl(val);
-  if (val && CONSTRAINTS[name].type === "email") return isEmail(val);
+  if (CONSTRAINTS[name]) {
+    if (CONSTRAINTS[name].required && !val) return false;
+    if (val && CONSTRAINTS[name].minLen && len < CONSTRAINTS[name].minLen) return false;
+    if (val && CONSTRAINTS[name].maxLen && len > CONSTRAINTS[name].maxLen) return false;
+    if (val && CONSTRAINTS[name].type === "url") return isUrl(val);
+    if (val && CONSTRAINTS[name].type === "email") return isEmail(val);
+  }
 
   return true;
 };
@@ -70,6 +72,8 @@ export const getError = (name, errors, values, touched) => {
 
   const val = values[name] || "";
   const len = val.length;
+
+  if (!CONSTRAINTS[name]) return null;
 
   return message(
     val,
