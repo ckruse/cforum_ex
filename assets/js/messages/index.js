@@ -1,6 +1,6 @@
 import { isInAdminView } from "../modules/helpers";
 
-const controllers = ["BlogpostController", "MessageController"];
+const controllers = ["Blog.ArticleController", "MessageController"];
 
 if (controllers.includes(document.body.dataset.controller)) {
   if (document.body.dataset.action === "show") {
