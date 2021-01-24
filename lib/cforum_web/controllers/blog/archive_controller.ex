@@ -17,8 +17,19 @@ defmodule CforumWeb.Blog.ArchiveController do
     render(conn, "years.html", years: years)
   end
 
+  @month_names [nil] ++ ~w[jan feb mar apr may jun jul aug sep oct nov dec]
+
   def threads(conn, %{"year" => year, "month" => month_name} = params) do
-    case NaiveDateTime.new(String.to_integer(year), Timex.month_to_num(month_name), 1, 0, 0, 0) do
+    if month_name =~ ~r/^\d+$/ do
+      month = Enum.at(@month_names, String.to_integer(month_name, 10))
+      redirect(conn, to: "/#{year}/#{month}")
+    else
+      render_threads(conn, params, year, Timex.month_to_num(month_name))
+    end
+  end
+
+  def render_threads(conn, params, year, month) do
+    case NaiveDateTime.new(String.to_integer(year), month, 1, 0, 0, 0) do
       {:ok, month} ->
         start_date = Timex.beginning_of_month(month)
         end_date = Timex.end_of_month(month)
