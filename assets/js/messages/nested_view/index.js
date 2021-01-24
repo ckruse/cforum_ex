@@ -169,7 +169,7 @@ window.addEventListener("popstate", () => {
   toggleActiveMessage("m" + parsedUrl.messageId, false);
 });
 
-document.querySelector(".cf-thread-nested-root").addEventListener("click", (ev) => {
+document.querySelector(".cf-thread-nested-root")?.addEventListener("click", (ev) => {
   const trgt = ev.target;
   if (!trgt.matches(".cf-thread-message header a") || !trgt.href.match(/#m\d+$/)) {
     return;
