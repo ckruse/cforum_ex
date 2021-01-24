@@ -16,3 +16,7 @@
       <link rel="alternate" title="<%= gettext("Atom feed (%{forum})", forum: forum_name(@current_forum)) %>" type="application/atom+xml" href="<%= Path.forum_url(@conn, :atom, @current_forum) %>">
       <link rel="alternate" title="<%= gettext("RSS feed (%{forum})", forum: forum_name(@current_forum)) %>" type="application/rss+xml" href="<%= Path.forum_url(@conn, :rss, @current_forum) %>">
     <% end %>
+
+    <%= if assigns[:current_forum] && @current_forum.type == "blog" && assigns[:thread] do %>
+      <link rel="canonical" href="<%= Path.blog_thread_url(@conn, :show, @thread) %>" />
+    <% end %>
