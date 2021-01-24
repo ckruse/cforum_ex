@@ -292,7 +292,8 @@ defmodule Cforum.BlogImport do
           message,
           format: "html",
           created_at: comment.date |> Timex.to_datetime(),
-          updated_at: comment.date |> Timex.to_datetime()
+          updated_at: comment.date |> Timex.to_datetime(),
+          notify: false
         )
     end)
   end
