@@ -176,16 +176,21 @@
 
   .cf-weblog-nav {
     max-width: 50rem;
-    margin: auto;
+    margin: 0 auto 2em auto;
 
     ul {
       border-bottom: none;
       padding-bottom: 0;
-      margin: 0.5em 0 2em 0;
+      margin: 0.5em 0 0 0;
 
       display: grid;
       grid-template-columns: max-content max-content;
       gap: 1em;
+    }
+
+    .cf-weblog-prev-next {
+      display: grid;
+      grid-template-columns: 1fr max-content;
     }
   }
 }

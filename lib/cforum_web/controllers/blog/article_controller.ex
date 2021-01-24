@@ -13,9 +13,14 @@ defmodule CforumWeb.Blog.ArticleController do
   alias CforumWeb.Views.ViewHelpers.Path
 
   def show(conn, %{"month" => mon}) do
-    if Regex.match?(~r/^\d+$/, mon),
-      do: redirect(conn, to: Path.blog_thread_path(conn, :show, conn.assigns.article)),
-      else: render(conn, "show.html")
+    if Regex.match?(~r/^\d+$/, mon) do
+      redirect(conn, to: Path.blog_thread_path(conn, :show, conn.assigns.article))
+    else
+      threads = threads_list(conn)
+      next = next_article(conn.assigns.article, threads)
+      prev = prev_article(conn.assigns.article, threads)
+      render(conn, "show.html", prev_article: prev, next_article: next)
+    end
   end
 
   def new(conn, _) do
@@ -105,4 +110,34 @@ defmodule CforumWeb.Blog.ArticleController do
     do: Abilities.forum_active?(conn) && Abilities.access_forum?(conn, :write)
 
   def allowed?(_, _, _), do: true
+
+  defp threads_list(conn) do
+    conn.assigns[:current_forum]
+    |> Threads.list_threads(conn.assigns[:visible_forums])
+    |> Threads.reject_deleted_threads(conn.assigns[:view_all])
+    |> Threads.reject_invisible_threads(conn.assigns[:current_user], conn.assigns[:view_all])
+    |> Threads.apply_user_infos(conn.assigns[:current_user])
+    |> Threads.apply_highlights(conn)
+    |> Threads.sort_threads("descending")
+    |> Threads.build_message_trees(ConfigManager.uconf(conn, "sort_messages"))
+  end
+
+  defp next_article(%{archived: true}, _),
+    do: nil
+
+  defp next_article(article, threads) do
+    idx = Enum.find_index(threads, &(&1.thread_id == article.thread_id))
+
+    if idx > 0,
+      do: Enum.at(threads, idx - 1),
+      else: nil
+  end
+
+  def prev_article(%{archived: true}, _),
+    do: nil
+
+  def prev_article(article, threads) do
+    idx = Enum.find_index(threads, &(&1.thread_id == article.thread_id))
+    Enum.at(threads, idx + 1)
+  end
 end

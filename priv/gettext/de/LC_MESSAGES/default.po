@@ -1185,7 +1185,7 @@ msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">
 msgstr "SELFHTML Forum - Ergänzung zur <a href=\"https://wiki.selfhtml.org\">Dokumentation</a>"
 
 #: lib/cforum_web/controllers/api/v1/message_controller.ex:26
-#: lib/cforum_web/controllers/blog/article_controller.ex:34 lib/cforum_web/controllers/blog/comment_controller.ex:29
+#: lib/cforum_web/controllers/blog/article_controller.ex:39 lib/cforum_web/controllers/blog/comment_controller.ex:29
 #: lib/cforum_web/controllers/message_controller.ex:87 lib/cforum_web/controllers/thread_controller.ex:127
 msgid "all"
 msgstr "alle"
@@ -4450,7 +4450,7 @@ msgid "thumbnail"
 msgstr "Beitragsbild"
 
 #, elixir-format
-#: lib/cforum_web/controllers/blog/article_controller.ex:76
+#: lib/cforum_web/controllers/blog/article_controller.ex:81
 msgid "Article created successfully."
 msgstr "Artikel erfolgreich erstellt."
 
@@ -4478,3 +4478,13 @@ msgstr "neuer Artikel"
 #: lib/cforum_web/templates/layout/blog.html.eex:21
 msgid "older articles"
 msgstr "ältere Artikel"
+
+#, elixir-format
+#: lib/cforum_web/templates/layout/blog.html.eex:31
+msgid "next article"
+msgstr "nächster Artikel"
+
+#, elixir-format
+#: lib/cforum_web/templates/layout/blog.html.eex:28
+msgid "previous article"
+msgstr "vorheriger Artikel"
