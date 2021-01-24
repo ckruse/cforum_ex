@@ -31,6 +31,15 @@
 }
 
 .cf-weblog-article {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+  }
+
   .cf-weblog-article-thumbnail {
     float: left;
     margin: 0 0.75em 0.25em 0;
@@ -39,6 +48,7 @@
 
   .e-content {
     @include clearfix;
+    line-height: 1.6;
   }
 
   .alignleft,
