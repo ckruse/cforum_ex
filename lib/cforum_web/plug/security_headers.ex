@@ -23,12 +23,15 @@ defmodule CforumWeb.Plug.SecurityHeaders do
         "connect-src 'self' #{scheme()}://#{CforumWeb.Endpoint.config(:url)[:host]}#{port()}" <>
           maybe_osm_connect(conn.request_path)
 
+      frame_src = "frame-src wiki.selfhtml.org"
+      img_src = "img-src 'self' wiki.selfhtml.org blog.selfhtml.org forum.selfhtml.org"
+
       conn
       |> Plug.Conn.assign(:nonce_for_js, js_nonce)
       |> Plug.Conn.assign(:nonce_for_style, style_nonce)
       |> Plug.Conn.put_resp_header(
         "Content-Security-Policy",
-        "default-src 'self'; frame-src wiki.selfhtml.org; #{script_csp}; #{style_csp}; #{connect_csp}" <>
+        "default-src 'self'; #{frame_src}; #{img_src}; #{script_csp}; #{style_csp}; #{connect_csp}" <>
           img_csp(conn.request_path)
       )
     else
