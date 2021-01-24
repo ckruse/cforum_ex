@@ -28,7 +28,8 @@ defmodule CforumWeb.Plug.SecurityHeaders do
       |> Plug.Conn.assign(:nonce_for_style, style_nonce)
       |> Plug.Conn.put_resp_header(
         "Content-Security-Policy",
-        "default-src 'self'; #{script_csp}; #{style_csp}; #{connect_csp}" <> img_csp(conn.request_path)
+        "default-src 'self'; frame-src wiki.selfhtml.org; #{script_csp}; #{style_csp}; #{connect_csp}" <>
+          img_csp(conn.request_path)
       )
     else
       conn
