@@ -10,7 +10,7 @@ defmodule CforumWeb.Blog.IndexController do
 
   def index(conn, params) do
     page = Paginator.parse_page(params["p"]) - 1
-    limit = 5
+    limit = 10
 
     threads = thread_list(conn)
     all_threads_count = length(threads)
