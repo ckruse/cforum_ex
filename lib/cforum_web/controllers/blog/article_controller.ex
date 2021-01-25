@@ -116,7 +116,8 @@ defmodule CforumWeb.Blog.ArticleController do
 
     opts = [
       create_tags: Abilities.may?(conn, "tag", :new),
-      remove_previous_versions: Abilities.admin?(conn) && Map.has_key?(params, "delete_previous_versions")
+      remove_previous_versions: Abilities.admin?(conn) && Map.has_key?(params, "delete_previous_versions"),
+      format: "markdown-blog"
     ]
 
     case Messages.update_message(message, message_params, cu, vis_forums, opts) do
