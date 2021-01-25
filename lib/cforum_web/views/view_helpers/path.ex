@@ -326,7 +326,7 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
     "#{url}#{thread.slug}#{encode_query_string(conn, params)}"
   end
 
-  @spec blog_thread_path(conn(), :show, Thread.t(), params()) :: String.t()
+  @spec blog_thread_path(conn(), :show | :edit, Thread.t(), params()) :: String.t()
   @spec blog_thread_path(conn(), :new, params(), any) :: String.t()
 
   def blog_thread_path(conn, action, thread_or_params \\ [], params \\ [])
