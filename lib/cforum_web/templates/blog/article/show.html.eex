@@ -1,1 +1,14 @@
+<%= if assigns[:prev_article] || assigns[:next_article] do %>
+  <nav class="cf-weblog-nav">
+    <ul class="cf-weblog-prev-next">
+      <%= if assigns[:prev_article] do %>
+        <li><%= link gettext("previous article"), to: Path.blog_thread_path(@conn, :show, @prev_article) %></li>
+      <% end %>
+      <%= if assigns[:next_article] do %>
+        <li><%= link gettext("next article"), to: Path.blog_thread_path(@conn, :show, @next_article) %></li>
+      <% end %>
+    </ul>
+  </nav>
+<% end %>
+
 <%= render "article.html", Map.put(assigns, :show_answers, true) %>
