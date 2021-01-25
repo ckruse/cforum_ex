@@ -87,7 +87,50 @@ defmodule CforumWeb.Blog.ArticleController do
     end
   end
 
-  def load_thread_and_message(conn, :show) do
+  def edit(conn, _params) do
+    changeset =
+      Messages.change_message(conn.assigns.article.message, conn.assigns[:current_user], conn.assigns.visible_forums)
+
+    render(conn, "edit.html", changeset: changeset)
+  end
+
+  def update(conn, %{"message" => message_params, "preview" => _}) do
+    {message, changeset} =
+      Messages.preview_message(
+        message_params,
+        conn.assigns[:current_user],
+        conn.assigns[:visible_forums],
+        conn.assigns.article,
+        nil,
+        conn.assigns.article.message
+      )
+
+    render(conn, "edit.html", message: message, changeset: changeset, preview: true)
+  end
+
+  def update(conn, %{"message" => message_params} = params) do
+    cu = conn.assigns[:current_user]
+    vis_forums = conn.assigns.visible_forums
+    thread = conn.assigns.article
+    message = conn.assigns.article.message
+
+    opts = [
+      create_tags: Abilities.may?(conn, "tag", :new),
+      remove_previous_versions: Abilities.admin?(conn) && Map.has_key?(params, "delete_previous_versions")
+    ]
+
+    case Messages.update_message(message, message_params, cu, vis_forums, opts) do
+      {:ok, _message} ->
+        conn
+        |> put_flash(:info, gettext("Message created successfully."))
+        |> redirect(to: Path.blog_thread_path(conn, :show, thread))
+
+      {:error, changeset} ->
+        render(conn, "edit.html", changeset: changeset)
+    end
+  end
+
+  def load_thread_and_message(conn, action) when action in [:show, :edit, :update] do
     thread =
       conn.assigns[:current_forum]
       |> Threads.get_thread_by_slug!(conn.assigns[:visible_forums], ThreadHelpers.slug_from_params(conn.params, true))

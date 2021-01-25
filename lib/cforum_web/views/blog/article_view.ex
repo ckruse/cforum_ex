@@ -3,6 +3,7 @@ defmodule CforumWeb.Blog.ArticleView do
 
   alias Cforum.Helpers
   alias Cforum.ConfigManager
+  alias Cforum.Abilities
 
   alias CforumWeb.Views.ViewHelpers.Path
   alias CforumWeb.Views.ViewHelpers
@@ -18,6 +19,10 @@ defmodule CforumWeb.Blog.ArticleView do
   end
 
   def page_title(action, _assigns) when action in [:new, :create], do: gettext("new thread")
+
+  def page_title(action, %{article: thread}) when action in [:edit, :update] do
+    gettext("edit message “%{subject}” by %{author}", subject: thread.message.subject, author: thread.message.author)
+  end
 
   def body_id(action, _assigns), do: "weblog-#{action}"
   def body_classes(action, assigns), do: "weblog forum-#{Path.forum_slug(assigns[:current_forum])} #{action}"

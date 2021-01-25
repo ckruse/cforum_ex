@@ -336,6 +336,11 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
     "#{url}#{thread.slug}#{encode_query_string(conn, params)}"
   end
 
+  def blog_thread_path(conn, :edit, %Thread{} = thread, params) do
+    url = root_path(conn, :index) |> String.replace(~r(/+$), "")
+    "#{url}#{thread.slug}/edit#{encode_query_string(conn, params)}"
+  end
+
   def blog_thread_path(conn, :new, params, _),
     do: "#{root_path(conn, :index)}new#{encode_query_string(conn, params)}"
 

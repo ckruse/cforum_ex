@@ -1,0 +1,19 @@
+<%= if @changeset.action && !assigns[:preview] do %>
+  <p class="cf-error"><%= gettext("Oops, something went wrong! Please check the errors below.") %></p>
+<% end %>
+
+<%= if assigns[:preview] do %>
+  <article class="cf-thread-message preview">
+    <%= render(CforumWeb.MessageView, "message.html", CforumWeb.MessageView.message_assigns(assigns, %{conn: @conn, thread: @thread, message: @message, first: true})) %>
+  </article>
+<% end %>
+
+<%= form_for @changeset, Path.blog_thread_path(@conn, :edit, @article), [class: "cf-form cf-posting-form", multipart: true], fn f -> %>
+  <%= render("form.html", Map.merge(assigns, %{f: f})) %>
+
+  <p class="form-actions">
+    <%= ViewHelpers.Button.default_submit gettext("show preview"), name: "preview" %>
+    <%= ViewHelpers.Button.primary_submit gettext("create message") %>
+    <%= ViewHelpers.Button.default_button_link gettext("cancel"), to: Path.forum_path(@conn, :index, @current_forum) %>
+  </p>
+<% end %>

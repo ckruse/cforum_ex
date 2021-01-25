@@ -66,13 +66,19 @@
   <% end %>
 
   <div class="posting-footer">
-    <div class="button-container">
-      <%= if !assigns[:preview] && !@article.message.deleted do %>
+    <%= if !assigns[:preview] && !@article.message.deleted do %>
+      <div class="button-container">
         <div class="message-links">
           <%= render CforumWeb.MessageView, "message_default_controls.html", Map.merge(assigns, %{thread: @article, message: @article.message, message_path_helper: &Path.blog_comment_path/5}) %>
+
+          <p>
+            <%= if Abilities.may?(@conn, "thread", :edit, {@article, @article.message}) do %>
+              <%= ViewHelpers.Button.default_button_link(gettext("edit article"), to: Path.blog_thread_path(@conn, :edit, @article), rel: "nofollow") %>
+            <% end %>
+          </p>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
 </article>
 
