@@ -235,7 +235,7 @@ defmodule CforumWeb.MessageView do
     if Abilities.badge?(message.user_id, @badge_seo_profi) &&
          ConfigManager.uconf(message.user, "norelnofollow") == "yes",
        do: nil,
-       else: "rel=\"nofollow\""
+       else: "nofollow"
   end
 
   def problematic_site_link(conn, url) do
