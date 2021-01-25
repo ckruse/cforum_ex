@@ -1,3 +1,5 @@
 <%= for article <- @threads do %>
   <%= render CforumWeb.Blog.ArticleView, "article.html", Map.merge(assigns, %{article: article, preview: true}) %>
 <% end %>
+
+<p><%= link gettext("You will find older articles in the archive."), to: Path.blog_archive_path(@conn, :years) %></p>

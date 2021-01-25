@@ -1177,7 +1177,7 @@ msgstr "Benutzer-Informationen"
 msgid "new answer to %{name}"
 msgstr "Antwort an „%{name}“ verfassen"
 
-#: lib/cforum_web/controllers/blog/article_controller.ex:125
+#: lib/cforum_web/controllers/blog/article_controller.ex:126
 #: lib/cforum_web/controllers/blog/comment_controller.ex:65 lib/cforum_web/controllers/message_controller.ex:123
 #: lib/cforum_web/controllers/message_controller.ex:165
 msgid "Message created successfully."
@@ -4485,12 +4485,12 @@ msgid "older articles"
 msgstr "ältere Artikel"
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/blog.html.eex:31
+#: lib/cforum_web/templates/blog/article/show.html.eex:8
 msgid "next article"
 msgstr "nächster Artikel"
 
 #, elixir-format
-#: lib/cforum_web/templates/layout/blog.html.eex:28
+#: lib/cforum_web/templates/blog/article/show.html.eex:5
 msgid "previous article"
 msgstr "vorheriger Artikel"
 
@@ -4498,3 +4498,8 @@ msgstr "vorheriger Artikel"
 #: lib/cforum_web/templates/blog/article/article.html.eex:76
 msgid "edit article"
 msgstr "Artikel bearbeiten"
+
+#, elixir-format
+#: lib/cforum_web/templates/blog/index/index.html.eex:5
+msgid "You will find older articles in the archive."
+msgstr "Ältere Artikel finden sie im Archiv."
