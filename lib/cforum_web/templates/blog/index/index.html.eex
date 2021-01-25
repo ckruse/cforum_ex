@@ -1,5 +1,3 @@
 <%= for article <- @threads do %>
   <%= render CforumWeb.Blog.ArticleView, "article.html", Map.merge(assigns, %{article: article, preview: true}) %>
 <% end %>
-
-<%= Paginator.pagination @conn, @page, &Routes.blog_path/3, path_args: ([@conn, :index]) %>

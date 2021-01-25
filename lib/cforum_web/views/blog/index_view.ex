@@ -2,7 +2,6 @@ defmodule CforumWeb.Blog.IndexView do
   use CforumWeb, :view
 
   alias CforumWeb.Views.ViewHelpers.Path
-  alias CforumWeb.Paginator
   alias CforumWeb.Views.ViewHelpers.Feeds
 
   def body_id(action, _assigns), do: "weblog-index-#{action}"
