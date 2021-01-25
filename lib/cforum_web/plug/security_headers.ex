@@ -24,14 +24,13 @@ defmodule CforumWeb.Plug.SecurityHeaders do
           maybe_osm_connect(conn.request_path)
 
       frame_src = "frame-src wiki.selfhtml.org"
-      img_src = "img-src 'self' wiki.selfhtml.org blog.selfhtml.org forum.selfhtml.org"
 
       conn
       |> Plug.Conn.assign(:nonce_for_js, js_nonce)
       |> Plug.Conn.assign(:nonce_for_style, style_nonce)
       |> Plug.Conn.put_resp_header(
         "Content-Security-Policy",
-        "default-src 'self'; #{frame_src}; #{img_src}; #{script_csp}; #{style_csp}; #{connect_csp}" <>
+        "default-src 'self'; #{frame_src}; #{script_csp}; #{style_csp}; #{connect_csp}" <>
           img_csp(conn.request_path)
       )
     else
@@ -44,8 +43,10 @@ defmodule CforumWeb.Plug.SecurityHeaders do
   defp maybe_unsafe_eval("/events/" <> _id), do: " 'unsafe-eval'"
   defp maybe_unsafe_eval(_), do: ""
 
-  defp img_csp("/events/" <> _id), do: "; img-src 'self' *.tile.openstreetmap.de data:"
-  defp img_csp(_), do: "; img-src 'self' data:"
+  defp img_csp("/events/" <> _id),
+    do: "; img-src 'self' *.tile.openstreetmap.de data: wiki.selfhtml.org blog.selfhtml.org forum.selfhtml.org"
+
+  defp img_csp(_), do: "; img-src 'self' data: wiki.selfhtml.org blog.selfhtml.org forum.selfhtml.org"
 
   defp maybe_osm_connect("/events/" <> _id), do: " nominatim.openstreetmap.org"
   defp maybe_osm_connect(_), do: ""
