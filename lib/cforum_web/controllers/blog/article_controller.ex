@@ -4,6 +4,7 @@ defmodule CforumWeb.Blog.ArticleController do
   alias Cforum.Threads
   alias Cforum.ConfigManager
   alias Cforum.Threads.ThreadHelpers
+  alias Cforum.Threads.Thread
   alias Cforum.Messages
   alias Cforum.Messages.MessageHelpers
   alias Cforum.Abilities
@@ -152,6 +153,18 @@ defmodule CforumWeb.Blog.ArticleController do
 
   def allowed?(conn, action, _) when action in [:new, :create],
     do: Abilities.forum_active?(conn) && Abilities.access_forum?(conn, :write)
+
+  def allowed?(conn, action, nil) when action in [:edit, :update],
+    do: allowed?(conn, action, {conn.assigns.thread, conn.assigns.message})
+
+  def allowed?(conn, action, {%Thread{archived: true}, _msg}) when action in [:edit, :update],
+    do: Abilities.admin?(conn)
+
+  def allowed?(conn, action, _) when action in [:edit, :update] do
+    if Abilities.forum_active?(conn),
+      do: Abilities.access_forum?(conn, :moderate),
+      else: Abilities.admin?(conn)
+  end
 
   def allowed?(_, _, _), do: true
 
