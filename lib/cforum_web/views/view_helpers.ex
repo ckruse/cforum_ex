@@ -187,7 +187,7 @@ defmodule CforumWeb.Views.ViewHelpers do
 
     if do_link do
       link(content,
-        to: CforumWeb.Router.Helpers.user_path(conn, :show, user),
+        to: Path.user_path(conn, :show, user),
         title: gettext("user %{user}", user: user.username),
         class: "user-link"
       )
