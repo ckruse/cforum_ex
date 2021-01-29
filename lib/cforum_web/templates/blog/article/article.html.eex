@@ -10,12 +10,12 @@
       </span>
     </div>
 
-    <h2><%= link @article.message.subject, to: Path.blog_message_url(@conn, :show, @article, @article.message) %></h2>
+    <h2><%= link @article.message.subject, to: Path.blog_thread_url(@conn, :show, @article) %></h2>
   </header>
 
   <div class="e-content">
     <%= if Helpers.present?(@article.message.thumbnail) do %>
-      <%= link to: Path.blog_message_url(@conn, :show, @article, @article.message) do %>
+      <%= link to: Path.blog_thread_url(@conn, :show, @article) do %>
         <img src="<%= CforumWeb.MessageThumbnail.url({@article.message.thumbnail, @article.message}, "original") %>" class="cf-weblog-article-thumbnail" alt="">
       <% end %>
     <% end %>
@@ -23,7 +23,7 @@
     <%= if assigns[:preview] do %>
       <%= excerpt(@conn, @article.message) %>
 
-      <p><%= link "Weiterlesen…", to: Path.blog_message_url(@conn, :show, @article, @article.message) %></p>
+      <p><%= link "Weiterlesen…", to: Path.blog_thread_url(@conn, :show, @article) %></p>
     <% else %>
       <%= if Helpers.present?(@article.message.excerpt) do %>
         <div class="excerpt">
