@@ -112,6 +112,9 @@ defmodule CforumWeb.Router do
 
       get "/tags", TagController, :index
       get "/tags/:tag", TagController, :show
+
+      get "/users", RedirectController, :redirect_users
+      get "/users/:id", RedirectController, :redirect_user
     end
   end
 
