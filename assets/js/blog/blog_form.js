@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { ErrorBoundary } from "@appsignal/react";
 
-import appsignal, { FallbackComponent } from "../appsignal";
 import Meta from "./meta";
 import CfEditor from "../components/editor";
 import { t } from "../modules/i18n";
 import LivePreview from "./live_preview";
 import TagList from "../components/taglist";
+import Boundary from "../Boundary";
 
 export default function CfBlogForm(props) {
   const { csrfInfo, method, email, subject, homepage, errors, excerpt, text, tags, globalTagsError } = props;
@@ -35,7 +34,7 @@ export default function CfBlogForm(props) {
   }
 
   return (
-    <ErrorBoundary instance={appsignal} fallback={(error) => <FallbackComponent />}>
+    <Boundary>
       <input type="hidden" name={csrfInfo.param} value={csrfInfo.token} />
       {method.toUpperCase() !== "POST" && <input type="hidden" name="_method" value={method} />}
 
@@ -79,6 +78,6 @@ export default function CfBlogForm(props) {
           {t("discard")}
         </a>
       </p>
-    </ErrorBoundary>
+    </Boundary>
   );
 }

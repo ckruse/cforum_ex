@@ -1,9 +1,8 @@
 import React from "react";
 import { render } from "react-dom";
-import { ErrorBoundary } from "@appsignal/react";
 
 import TagList from "../components/taglist";
-import appsignal, { FallbackComponent } from "../appsignal";
+import Boundary from "../Boundary";
 
 const setupTaglist = (el) => {
   const tags = Array.from(el.querySelectorAll('input[data-tag="yes"]'))
@@ -35,9 +34,9 @@ const setupTaglist = (el) => {
   fset.remove();
 
   render(
-    <ErrorBoundary instance={appsignal} fallback={(error) => <FallbackComponent />}>
+    <Boundary>
       <TagList tags={tags} postingText={text} globalTagsError={globalTagsError} />
-    </ErrorBoundary>,
+    </Boundary>,
     node
   );
 };

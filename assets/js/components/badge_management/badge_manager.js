@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { render } from "react-dom";
-import { ErrorBoundary } from "@appsignal/react";
 
 import { t } from "../../modules/i18n";
 import Badge from "./badge";
 import NewBadgeModal from "./new_badge_modal";
-import appsignal, { FallbackComponent } from "../../appsignal";
+import Boundary from "../../Boundary";
 
 function BadgeManager({ userId }) {
   const [user, setUser] = useState(null);
@@ -50,7 +48,7 @@ function BadgeManager({ userId }) {
   const badges = user?.badges || [];
 
   return (
-    <ErrorBoundary instance={appsignal} fallback={(error) => <FallbackComponent />}>
+    <Boundary>
       <fieldset>
         <legend>{t("badge management")}</legend>
 
@@ -73,7 +71,7 @@ function BadgeManager({ userId }) {
           />
         ))}
       </fieldset>
-    </ErrorBoundary>
+    </Boundary>
   );
 }
 

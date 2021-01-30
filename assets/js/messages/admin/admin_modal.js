@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import { ErrorBoundary } from "@appsignal/react";
 
 import { t } from "../../modules/i18n";
-import appsignal, { FallbackComponent } from "../../appsignal";
+import Boundary from "../../Boundary";
 
 export default function AdminModal(props) {
   const [isOpen, setIsOpen] = useState(true);
@@ -38,7 +37,7 @@ export default function AdminModal(props) {
   };
 
   return (
-    <ErrorBoundary instance={appsignal} fallback={(error) => <FallbackComponent />}>
+    <Boundary>
       <Modal
         isOpen={isOpen}
         appElement={document.body}
@@ -146,6 +145,6 @@ export default function AdminModal(props) {
           </p>
         </div>
       </Modal>
-    </ErrorBoundary>
+    </Boundary>
   );
 }

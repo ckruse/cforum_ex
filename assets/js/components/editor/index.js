@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ErrorBoundary } from "@appsignal/react";
 
 import DefaultReplacements from "./default_replacements";
 import EmojiReplacements from "./emojis";
@@ -12,7 +11,7 @@ import { alertError } from "../../modules/alerts";
 import { t } from "../../modules/i18n";
 import { replaceAt, getSelection, escapeText } from "./helpers";
 import AutocompleteTextarea from "../autocomplete";
-import appsignal, { FallbackComponent } from "../../appsignal";
+import Boundary from "../../Boundary";
 
 export default function CfEditor(props) {
   const { text, onChange, id, name, errors, withImages, withPreview, labelText, withCounter } = props;
@@ -122,7 +121,7 @@ export default function CfEditor(props) {
   }
 
   return (
-    <ErrorBoundary instance={appsignal} fallback={(error) => <FallbackComponent />}>
+    <Boundary>
       <fieldset>
         <label htmlFor={id}>
           {labelText || t("posting text")}{" "}
@@ -159,7 +158,7 @@ export default function CfEditor(props) {
 
         {withPreview && <LivePreview content={value} />}
       </fieldset>
-    </ErrorBoundary>
+    </Boundary>
   );
 }
 
