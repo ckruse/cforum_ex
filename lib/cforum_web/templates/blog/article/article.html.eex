@@ -82,6 +82,10 @@
   </div>
 </article>
 
+<%= unless Abilities.may?(@conn, "blog/comment", :new, {@article, @article.message}) do %>
+  <p class="cf-weblog-comments-disabled"><%= gettext("Writing new comments is disabled for this article.") %></p>
+<% end %>
+
 <%= unless assigns[:preview] do %>
   <%= if Helpers.present?(@article.message.messages) && assigns[:show_answers] do %>
     <article class="cf-weblog-comments cf-thread-nested cf-thread-nested-root <%= CforumWeb.ThreadView.thread_classes(@article) %>">

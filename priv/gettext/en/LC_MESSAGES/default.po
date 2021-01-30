@@ -1161,7 +1161,7 @@ msgstr ""
 msgid "new answer to %{name}"
 msgstr ""
 
-#: lib/cforum_web/controllers/blog/article_controller.ex:126
+#: lib/cforum_web/controllers/blog/article_controller.ex:127
 #: lib/cforum_web/controllers/blog/comment_controller.ex:65 lib/cforum_web/controllers/message_controller.ex:123
 #: lib/cforum_web/controllers/message_controller.ex:165
 msgid "Message created successfully."
@@ -1172,7 +1172,7 @@ msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">
 msgstr ""
 
 #: lib/cforum_web/controllers/api/v1/message_controller.ex:26
-#: lib/cforum_web/controllers/blog/article_controller.ex:39 lib/cforum_web/controllers/blog/comment_controller.ex:29
+#: lib/cforum_web/controllers/blog/article_controller.ex:40 lib/cforum_web/controllers/blog/comment_controller.ex:29
 #: lib/cforum_web/controllers/message_controller.ex:87 lib/cforum_web/controllers/thread_controller.ex:127
 msgid "all"
 msgstr ""
@@ -2692,7 +2692,7 @@ msgid "in %{location}"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message.html.eex:39
+#: lib/cforum_web/templates/message/message.html.eex:41
 msgid "This message got cited in cite %{cite_links}"
 msgid_plural "This message got cited in cites %{cite_links}"
 msgstr[0] ""
@@ -3511,7 +3511,7 @@ msgid "number of users"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message.html.eex:56
+#: lib/cforum_web/templates/message/message.html.eex:58
 msgid "accepted answers"
 msgstr ""
 
@@ -3921,7 +3921,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/layout/meta.html.eex:8
-#: lib/cforum_web/views/view_helpers/feeds.ex:142 lib/cforum_web/views/view_helpers/feeds.ex:166
+#: lib/cforum_web/views/view_helpers/feeds.ex:132 lib/cforum_web/views/view_helpers/feeds.ex:156
 msgid "A forum as a completion to the wiki and the weblog"
 msgstr ""
 
@@ -4430,7 +4430,7 @@ msgid "thumbnail"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/blog/article_controller.ex:81
+#: lib/cforum_web/controllers/blog/article_controller.ex:82
 msgid "Article created successfully."
 msgstr ""
 
@@ -4475,6 +4475,11 @@ msgid "edit article"
 msgstr ""
 
 #, elixir-format
+#: lib/cforum_web/templates/blog/article/article.html.eex:86
+msgid "Writing new comments is disabled for this article."
+msgstr ""
+
+#, elixir-format
 #: lib/cforum_web/templates/blog/index/index.html.eex:5
-msgid "You will find older articles in the archive"
+msgid "You will find older articles in the archive."
 msgstr ""

@@ -1177,7 +1177,7 @@ msgstr "Benutzer-Informationen"
 msgid "new answer to %{name}"
 msgstr "Antwort an „%{name}“ verfassen"
 
-#: lib/cforum_web/controllers/blog/article_controller.ex:126
+#: lib/cforum_web/controllers/blog/article_controller.ex:127
 #: lib/cforum_web/controllers/blog/comment_controller.ex:65 lib/cforum_web/controllers/message_controller.ex:123
 #: lib/cforum_web/controllers/message_controller.ex:165
 msgid "Message created successfully."
@@ -1188,7 +1188,7 @@ msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">
 msgstr "SELFHTML Forum - Ergänzung zur <a href=\"https://wiki.selfhtml.org\">Dokumentation</a>"
 
 #: lib/cforum_web/controllers/api/v1/message_controller.ex:26
-#: lib/cforum_web/controllers/blog/article_controller.ex:39 lib/cforum_web/controllers/blog/comment_controller.ex:29
+#: lib/cforum_web/controllers/blog/article_controller.ex:40 lib/cforum_web/controllers/blog/comment_controller.ex:29
 #: lib/cforum_web/controllers/message_controller.ex:87 lib/cforum_web/controllers/thread_controller.ex:127
 msgid "all"
 msgstr "alle"
@@ -2712,7 +2712,7 @@ msgid "in %{location}"
 msgstr "in <span class=\"p-location\">%{location}</span>"
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message.html.eex:39
+#: lib/cforum_web/templates/message/message.html.eex:41
 msgid "This message got cited in cite %{cite_links}"
 msgid_plural "This message got cited in cites %{cite_links}"
 msgstr[0] "Grundlage für kein Zitat."
@@ -3533,7 +3533,7 @@ msgid "number of users"
 msgstr "Anzahl Benutzer"
 
 #, elixir-format
-#: lib/cforum_web/templates/message/message.html.eex:56
+#: lib/cforum_web/templates/message/message.html.eex:58
 msgid "accepted answers"
 msgstr "akzeptierte Antworten"
 
@@ -3943,7 +3943,7 @@ msgstr "markiere alle Benachrichtigungen als ungelesen"
 
 #, elixir-format
 #: lib/cforum_web/templates/layout/meta.html.eex:8
-#: lib/cforum_web/views/view_helpers/feeds.ex:142 lib/cforum_web/views/view_helpers/feeds.ex:166
+#: lib/cforum_web/views/view_helpers/feeds.ex:132 lib/cforum_web/views/view_helpers/feeds.ex:156
 msgid "A forum as a completion to the wiki and the weblog"
 msgstr "Forum als Ergänzung zum SELFHTML-Wiki und zur Dokumentation SELFHTML"
 
@@ -4455,7 +4455,7 @@ msgid "thumbnail"
 msgstr "Beitragsbild"
 
 #, elixir-format
-#: lib/cforum_web/controllers/blog/article_controller.ex:81
+#: lib/cforum_web/controllers/blog/article_controller.ex:82
 msgid "Article created successfully."
 msgstr "Artikel erfolgreich erstellt."
 
@@ -4498,6 +4498,11 @@ msgstr "vorheriger Artikel"
 #: lib/cforum_web/templates/blog/article/article.html.eex:76
 msgid "edit article"
 msgstr "Artikel bearbeiten"
+
+#, elixir-format
+#: lib/cforum_web/templates/blog/article/article.html.eex:86
+msgid "Writing new comments is disabled for this article."
+msgstr "Kommentieren ist für diesen Artikel deaktiviert."
 
 #, elixir-format
 #: lib/cforum_web/templates/blog/index/index.html.eex:5
