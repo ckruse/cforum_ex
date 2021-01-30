@@ -27,9 +27,11 @@ defmodule CforumWeb.Blog.TagController do
   def show(conn, %{"tag" => tag} = params) do
     tag = Tags.get_tag_by_slug!(tag)
 
-    count = MessagesTags.count_messages_for_tag([conn.assigns[:current_forum]], tag)
+    count = MessagesTags.count_messages_for_tag([conn.assigns[:current_forum]], tag, only_ops: true)
     paging = Paginator.paginate(count, page: params["p"])
-    entries = MessagesTags.list_messages_for_tag([conn.assigns[:current_forum]], tag, limit: paging.params)
+
+    entries =
+      MessagesTags.list_messages_for_tag([conn.assigns[:current_forum]], tag, limit: paging.params, only_ops: true)
 
     messages =
       Enum.map(entries, fn msg ->

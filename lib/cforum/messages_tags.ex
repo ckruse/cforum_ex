@@ -26,6 +26,7 @@ defmodule Cforum.MessagesTags do
     )
     |> Cforum.PagingApi.set_limit(query_params[:limit])
     |> Cforum.OrderApi.set_ordering(query_params[:order], desc: :created_at)
+    |> maybe_filter_ops(query_params[:only_ops])
     |> Repo.all()
     |> Repo.preload(tags: from(t in Tag, order_by: [asc: :tag_name]))
   end
@@ -38,8 +39,8 @@ defmodule Cforum.MessagesTags do
       iex> count_messages_for_tag([%Forum{}], %Tag{})
       10
   """
-  @spec count_messages_for_tag([Cforum.Forums.Forum.t()], Tag.t()) :: non_neg_integer()
-  def count_messages_for_tag(visible_forums, tag) do
+  @spec count_messages_for_tag([Cforum.Forums.Forum.t()], Tag.t(), keyword()) :: non_neg_integer()
+  def count_messages_for_tag(visible_forums, tag, opts \\ []) do
     forum_ids = Enum.map(visible_forums, & &1.forum_id)
 
     from(
@@ -49,6 +50,12 @@ defmodule Cforum.MessagesTags do
       where: t.tag_id == ^tag.tag_id and m.deleted == false and m.forum_id in ^forum_ids,
       select: count("*")
     )
+    |> maybe_filter_ops(opts[:only_ops])
     |> Repo.one()
   end
+
+  defp maybe_filter_ops(q, true),
+    do: from(m in q, where: is_nil(m.parent_id))
+
+  defp maybe_filter_ops(q, _), do: q
 end
