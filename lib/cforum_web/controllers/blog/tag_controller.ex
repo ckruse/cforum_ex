@@ -5,6 +5,7 @@ defmodule CforumWeb.Blog.TagController do
   alias Cforum.Messages.Message
   alias Cforum.MessagesTags
   alias Cforum.Tags
+  alias Cforum.Abilities
 
   alias CforumWeb.Paginator
 
@@ -39,5 +40,5 @@ defmodule CforumWeb.Blog.TagController do
     render(conn, "show.html", tag: tag, messages: messages, page: paging)
   end
 
-  def allowed?(_, _, _), do: true
+  def allowed?(conn, _, _), do: Abilities.access_forum?(conn)
 end

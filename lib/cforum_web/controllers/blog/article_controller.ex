@@ -151,6 +151,9 @@ defmodule CforumWeb.Blog.ArticleController do
     load_thread_and_message(conn, action_name(conn))
   end
 
+  def allowed?(conn, :show, _),
+    do: Abilities.access_forum?(conn)
+
   def allowed?(conn, action, _) when action in [:new, :create],
     do: Abilities.forum_active?(conn) && Abilities.access_forum?(conn, :write)
 
@@ -166,7 +169,7 @@ defmodule CforumWeb.Blog.ArticleController do
       else: Abilities.admin?(conn)
   end
 
-  def allowed?(_, _, _), do: true
+  def allowed?(_, _, _), do: false
 
   defp threads_list(conn) do
     conn.assigns[:current_forum]

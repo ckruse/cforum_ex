@@ -86,5 +86,5 @@ defmodule CforumWeb.Blog.CommentController do
       !thread.archived
   end
 
-  def allowed(conn, _, _), do: Abilities.forum_active?(conn) && Abilities.access_forum?(conn, :read)
+  def allowed(_, _, _), do: false
 end
