@@ -140,8 +140,8 @@
 @include default-breakpoint() {
   .weblog {
     main {
-      margin-left: 0;
-      margin-right: 0;
+      margin-left: 2em;
+      margin-right: 2em;
     }
 
     #content {
@@ -178,9 +178,15 @@
   }
 
   .weblog.tag {
+    .cf-page-header-blog,
+    .cf-weblog-nav {
+      max-width: none;
+      margin-left: 2em;
+      margin-right: 2em;
+    }
     #content {
       max-width: none;
-      margin: 0.5em;
+      margin: 0;
     }
   }
 
