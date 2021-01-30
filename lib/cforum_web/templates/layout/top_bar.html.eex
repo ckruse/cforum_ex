@@ -3,6 +3,6 @@
     <li><%= link "SELFHTML", to: "//selfhtml.org/" %></li>
     <li><%= link "Wiki", to: "//wiki.selfhtml.org/" %></li>
     <li><%= link "Forum", to: Path.root_url(@conn, :index) %></li>
-    <li><%= link "Blog", to: "//blog.selfhtml.org/" %></li>
+    <li><%= link "Blog", to: Path.blog_url(@conn) %></li>
   </ul>
 </header>
