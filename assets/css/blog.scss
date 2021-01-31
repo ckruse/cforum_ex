@@ -1,3 +1,5 @@
+@import "./blog-fonts.scss";
+
 .cf-weblog-nav {
   ul {
     list-style-type: none;
@@ -41,7 +43,7 @@
   h4,
   h5,
   h6 {
-    font-family: Georgia, "Times New Roman", Times, serif;
+    font-family: "Source Serif Pro", Georgia, "Times New Roman", Times, serif;
     line-height: 1.6;
   }
 
@@ -128,14 +130,14 @@
     .cf-weblog-tags,
     .cf-weblog-author {
       font-size: 0.9em;
-      color: #909090;
+      color: $blog-comment-color;
     }
   }
 }
 
 .cf-weblog-comments-disabled {
   font-size: 0.9em;
-  color: #909090;
+  color: $blog-comment-color;
   font-style: italic;
 }
 
