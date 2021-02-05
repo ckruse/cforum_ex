@@ -37,16 +37,19 @@ config :cforum, Oban,
   repo: Cforum.Repo,
   plugins: [{Oban.Plugins.Pruner, max_age: 7200}],
   queues: [mails: 10, background: 10, media: 20],
-  timezone: "Europe/Berlin",
-  crontab: [
-    {"10 * * * *", Cforum.Jobs.ArchiverJob},
-    {"0 0 * * *", Cforum.Jobs.ForumStatsJob},
-    {"0 0 * * *", Cforum.Jobs.CiteArchiverJob},
-    {"0 1 * * *", Cforum.Jobs.UserCleanupJob},
-    {"0 2 * * *", Cforum.Jobs.AuditingCleanupJob},
-    {"0 5 * * *", Cforum.Jobs.YearlingBadgeDistributorJob},
-    {"0 3 * * *", Cforum.Jobs.DatabaseMaintenanceJob},
-    {"17 4 * * *", Cforum.Jobs.SendInactivityNotificationMailJob}
+  plugins: [
+    {Oban.Plugins.Cron,
+     timezone: "Europe/Berlin",
+     crontab: [
+       {"10 * * * *", Cforum.Jobs.ArchiverJob},
+       {"0 0 * * *", Cforum.Jobs.ForumStatsJob},
+       {"0 0 * * *", Cforum.Jobs.CiteArchiverJob},
+       {"0 1 * * *", Cforum.Jobs.UserCleanupJob},
+       {"0 2 * * *", Cforum.Jobs.AuditingCleanupJob},
+       {"0 5 * * *", Cforum.Jobs.YearlingBadgeDistributorJob},
+       {"0 3 * * *", Cforum.Jobs.DatabaseMaintenanceJob},
+       {"17 4 * * *", Cforum.Jobs.SendInactivityNotificationMailJob}
+     ]}
   ]
 
 # Import environment specific config. This must remain at the bottom
