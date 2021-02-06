@@ -160,12 +160,12 @@ defmodule CforumWeb.Blog.ArticleController do
   def allowed?(conn, action, nil) when action in [:edit, :update],
     do: allowed?(conn, action, {conn.assigns.article, conn.assigns.article.message})
 
-  def allowed?(conn, action, {%Thread{archived: true}, _msg}) when action in [:edit, :update],
-    do: Abilities.admin?(conn)
+  def allowed?(conn, action, {%Thread{archived: true}, msg}) when action in [:edit, :update],
+    do: Abilities.admin?(conn) || Abilities.owner?(msg, conn.assigns[:current_user])
 
-  def allowed?(conn, action, _) when action in [:edit, :update] do
+  def allowed?(conn, action, {_thread, msg}) when action in [:edit, :update] do
     if Abilities.forum_active?(conn),
-      do: Abilities.access_forum?(conn, :moderate),
+      do: Abilities.access_forum?(conn, :moderate) || Abilities.owner?(msg, conn.assigns[:current_user]),
       else: Abilities.admin?(conn)
   end
 

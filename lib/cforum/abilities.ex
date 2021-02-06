@@ -13,7 +13,7 @@ defmodule Cforum.Abilities do
   alias Cforum.Groups
   alias Cforum.Settings
   alias Cforum.Settings.Setting
-
+  alias Cforum.Messages.Message
   alias Cforum.Messages.MessageHelpers
 
   @doc """
@@ -259,4 +259,8 @@ defmodule Cforum.Abilities do
       @permission_known_write
     ]
   end
+
+  @spec owner?(User.t() | nil, Message.t()) :: boolean()
+  def owner?(nil, _), do: false
+  def owner?(user, message), do: user.user_id == message.user_id
 end
