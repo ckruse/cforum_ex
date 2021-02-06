@@ -260,7 +260,8 @@ defmodule Cforum.Abilities do
     ]
   end
 
-  @spec owner?(User.t() | nil, Message.t()) :: boolean()
+  @spec owner?(User.t() | nil, Message.t() | nil) :: boolean()
   def owner?(nil, _), do: false
+  def owner?(_, nil), do: false
   def owner?(user, message), do: user.user_id == message.user_id
 end
