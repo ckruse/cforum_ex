@@ -15,6 +15,7 @@ defmodule Cforum.Abilities do
   alias Cforum.Settings.Setting
   alias Cforum.Messages.Message
   alias Cforum.Messages.MessageHelpers
+  alias Cforum.Forums.Forum
 
   @doc """
   Returns `true` if the user may access the given path, `false` otherwise
@@ -70,6 +71,7 @@ defmodule Cforum.Abilities do
       iex> signed_in?(conn)
       true
   """
+  @spec signed_in?(Plug.Conn.t()) :: boolean()
   def signed_in?(conn), do: conn.assigns[:current_user] != nil
 
   @doc """
@@ -87,18 +89,21 @@ defmodule Cforum.Abilities do
       iex> admin?(%User{admin: true})
       true
   """
+  @spec admin?(any) :: boolean()
   def admin?(conn_or_user)
   def admin?(%Plug.Conn{} = conn), do: admin?(conn.assigns[:current_user])
-  def admin?(%{__struct__: User} = user), do: user.admin
+  def admin?(%User{} = user), do: user.admin
   def admin?(_), do: false
 
+  @spec badge?(any, any) :: boolean()
   def badge?(conn_or_user, badge_type)
   def badge?(nil, _), do: false
   def badge?(%Plug.Conn{} = conn, badge_type), do: badge?(conn.assigns[:current_user], badge_type)
-  def badge?(%{__struct__: User} = user, badge_type), do: Users.badge?(user, badge_type)
+  def badge?(%User{} = user, badge_type), do: Users.badge?(user, badge_type)
   def badge?(id, badge_type) when is_number(id), do: Users.badge?(Users.get_user!(id), badge_type)
   def badge?(_, _), do: false
 
+  @spec accept_allowed?(Plug.Conn.t(), Message.t()) :: boolean()
   def accept_allowed?(conn, message) do
     cond do
       admin?(conn) ->
@@ -119,6 +124,7 @@ defmodule Cforum.Abilities do
     end
   end
 
+  @spec accept?(Plug.Conn.t(), Message.t()) :: boolean()
   def accept?(conn, message),
     do: access_forum?(conn, :write) && !MessageHelpers.closed?(message) && accept_allowed?(conn, message)
 
@@ -139,6 +145,9 @@ defmodule Cforum.Abilities do
       iex> access_forum?(%User{}, %Forum{standard_permission: "read})
       true
   """
+  @spec access_forum?(Plug.Conn.t(), :read | :write | :answer | :moderate, any) :: boolean()
+  @spec access_forum?(Plug.Conn.t() | User.t(), Forum.t(), :read | :write | :answer | :moderate) :: boolean()
+  @spec access_forum?(nil, any, any) :: false
   def access_forum?(nil_conn_or_user, forum_or_permission \\ :read, permission \\ :read)
 
   def access_forum?(%Plug.Conn{} = conn, permission, _) when permission in [:read, :write, :answer, :moderate],
@@ -150,17 +159,19 @@ defmodule Cforum.Abilities do
   def access_forum?(user, forum_id, permission) when is_integer(forum_id) or is_bitstring(forum_id),
     do: access_forum?(user, Forums.get_forum!(forum_id), permission)
 
-  def access_forum?(%{__struct__: User, admin: true}, _, _), do: true
+  def access_forum?(%User{admin: true}, _, _), do: true
   def access_forum?(user, forum, :read), do: access_forum_read?(user, forum)
   def access_forum?(user, forum, :answer), do: access_forum_answer?(user, forum)
   def access_forum?(user, forum, :write), do: access_forum_write?(user, forum)
   def access_forum?(user, forum, :moderate), do: access_forum_moderate?(user, forum)
   def access_forum?(_, _, _), do: false
 
+  @spec forum_active?(Plug.Conn.t() | Forum.t()) :: boolean()
+  @spec forum_active?(nil) :: false
   def forum_active?(%Plug.Conn{} = conn),
     do: forum_active?(conn.assigns[:current_forum])
 
-  def forum_active?(%{__struct__: Cforum.Forums.Forum} = forum),
+  def forum_active?(%Forum{} = forum),
     do: forum.active
 
   def forum_active?(_),
