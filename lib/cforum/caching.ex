@@ -18,8 +18,8 @@ defmodule Cforum.Caching do
             val
         end
 
-      {:error, _} = v ->
-        throw(v)
+      {:error, _} ->
+        fun.()
     end
   end
 
