@@ -11,7 +11,7 @@ const voteForMessage = async (ev) => {
 
   const btn = ev.target;
   const form = btn.closest("form");
-  const url = form.action.replace(/\/(accept|unaccept|upvote|downvote)$/, "");
+  const url = form.action.replace(/\/(accept|unaccept|upvote|downvote)(?:\?.*)?$/, "");
   const type = RegExp.$1;
   const parsedUrl = parseMessageUrl(url);
 
