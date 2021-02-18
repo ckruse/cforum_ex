@@ -4,7 +4,7 @@ defmodule Cforum.Mixfile do
   def project do
     [
       app: :cforum,
-      version: "5.6.24",
+      version: "5.6.25",
       elixir: "~> 1.8",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
