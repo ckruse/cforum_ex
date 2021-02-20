@@ -39,7 +39,8 @@ defmodule Cforum.Messages.Mentions do
 
       block ->
         lines =
-          block.lines
+          block
+          |> Map.get(:lines, [])
           |> Enum.map(&Regex.replace(context.rules.code, &1, ""))
           |> Enum.reject(&Helpers.blank?/1)
 
