@@ -29,6 +29,9 @@ defmodule CforumWeb.Blog.ArchiveController do
   end
 
   def render_threads(conn, params, year, month) do
+    if !Regex.match?(~r/^\d+$/, year) || month not in @month_names,
+      do: raise(Cforum.Errors.NotFoundError, conn: conn)
+
     case NaiveDateTime.new(String.to_integer(year), month, 1, 0, 0, 0) do
       {:ok, month} ->
         start_date = Timex.beginning_of_month(month)
