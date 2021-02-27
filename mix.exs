@@ -61,7 +61,7 @@ defmodule Cforum.Mixfile do
       {:tzdata, "~> 1.1.0", override: true},
       {:elixir_uuid, "~> 1.2"},
       {:cachex, "~> 3.1"},
-      {:earmark, "~> 1.4.0"},
+      {:earmark_parser, "~> 1.4.0"},
       {:html_entities, "~> 0.4"},
       {:nimble_parsec, "~> 1.1"},
       {:appsignal_phoenix, "~> 2.0.0"},
