@@ -24,15 +24,15 @@ defmodule CforumWeb.Blog.ArchiveController do
       month = Enum.at(@month_names, String.to_integer(month_name, 10))
       redirect(conn, to: "/#{year}/#{month}")
     else
-      render_threads(conn, params, year, Timex.month_to_num(month_name))
+      render_threads(conn, params, year, month_name)
     end
   end
 
-  def render_threads(conn, params, year, month) do
-    if !Regex.match?(~r/^\d+$/, year) || month not in @month_names,
+  def render_threads(conn, params, year, month_name) do
+    if !Regex.match?(~r/^\d+$/, year) || month_name not in @month_names,
       do: raise(Cforum.Errors.NotFoundError, conn: conn)
 
-    case NaiveDateTime.new(String.to_integer(year), month, 1, 0, 0, 0) do
+    case NaiveDateTime.new(String.to_integer(year), Timex.month_to_num(month_name), 1, 0, 0, 0) do
       {:ok, month} ->
         start_date = Timex.beginning_of_month(month)
         end_date = Timex.end_of_month(month)
