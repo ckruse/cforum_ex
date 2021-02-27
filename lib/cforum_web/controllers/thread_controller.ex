@@ -237,8 +237,10 @@ defmodule CforumWeb.ThreadController do
     |> CforumWeb.MessageController.allowed?(:show, {thread, message})
   end
 
-  def allowed?(conn, action, _) when action in [:new, :create],
-    do: Abilities.forum_active?(conn) && Abilities.access_forum?(conn, :write)
+  def allowed?(conn, action, _) when action in [:new, :create] do
+    Abilities.forum_active?(conn) && Abilities.access_forum?(conn, :write) &&
+      (conn.assigns[:current_forum] == nil || conn.assigns[:current_forum].type != "blog")
+  end
 
   def allowed?(conn, _, _), do: Abilities.access_forum?(conn)
 
@@ -283,7 +285,7 @@ defmodule CforumWeb.ThreadController do
 
   defp writable_forums(conn) do
     Enum.filter(conn.assigns[:visible_forums] || [], fn forum ->
-      Abilities.forum_active?(forum) && Abilities.access_forum?(conn, forum, :write)
+      Abilities.forum_active?(forum) && Abilities.access_forum?(conn, forum, :write) && forum.type != "blog"
     end)
   end
 
