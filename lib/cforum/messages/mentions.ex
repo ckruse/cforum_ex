@@ -8,11 +8,11 @@ defmodule Cforum.Messages.Mentions do
   def parse_mentions(%Changeset{valid?: true} = changeset) do
     content = Changeset.get_field(changeset, :content)
     options = %Earmark.Options{smartypants: true, gfm: true, breaks: false}
-    {blocks, context} = Earmark.Parser.parse_markdown(content, options)
+    {:ok, blocks, _} = Earmark.as_ast(content, options)
 
     mentions =
       blocks
-      |> strip_unwanted_elements(context)
+      |> strip_unwanted_elements()
       |> find_mentions_in_blocks()
       |> Enum.map(fn {name, id, in_quote} -> [name, id, in_quote] end)
 
@@ -22,43 +22,31 @@ defmodule Cforum.Messages.Mentions do
 
   def parse_mentions(changeset), do: changeset
 
-  defp strip_unwanted_elements(blocks, context) do
+  defp strip_unwanted_elements(blocks) do
     blocks
     |> Enum.reject(fn
-      %Earmark.Block.Code{} -> true
-      rec -> !Map.has_key?(rec, :lines) && !Map.has_key?(rec, :blocks)
+      {"pre", _, [{"code", _, _, _}], _} -> true
+      {"code", _, _, _} -> true
+      _ -> false
     end)
     |> Enum.map(fn
-      %Earmark.Block.BlockQuote{} = block ->
-        blocks = strip_unwanted_elements(block.blocks, context)
-        Map.put(block, :blocks, blocks)
-
-      %{blocks: blocks} = block when blocks != [] ->
-        new_blocks = strip_unwanted_elements(blocks, context)
-        Map.put(block, :blocks, new_blocks)
-
-      block ->
-        lines =
-          block
-          |> Map.get(:lines, [])
-          |> Enum.map(&Regex.replace(context.rules.code, &1, ""))
-          |> Enum.reject(&Helpers.blank?/1)
-
-        Map.put(block, :lines, lines)
+      {node, attrs, children, opts} -> {node, attrs, strip_unwanted_elements(children), opts}
+      text -> text
     end)
   end
 
   defp find_mentions_in_blocks(blocks, mentions \\ [], in_quote \\ false) do
     Enum.reduce(blocks, mentions, fn
-      %Earmark.Block.BlockQuote{} = block, mentions ->
-        find_mentions_in_blocks(block.blocks, mentions, true)
+      {"blockquote", _, children, _}, mentions ->
+        find_mentions_in_blocks(children, mentions, true)
 
-      %{blocks: blocks}, mentions when blocks != [] ->
-        find_mentions_in_blocks(blocks, mentions, in_quote)
+      {_, _, children, _}, mentions ->
+        find_mentions_in_blocks(children, mentions, in_quote)
 
       block, mentions ->
         found =
-          Enum.map(block.lines, &find_mentions(&1, [], in_quote))
+          block
+          |> find_mentions([], in_quote)
           |> List.flatten()
           |> Enum.reject(&Helpers.blank?/1)
 
