@@ -59,7 +59,7 @@
     "postcss": "^8.1.4",
     "postcss-loader": "^5.0.0",
     "postcss-sass": "^0.4.4",
-    "sass-loader": "^10.0.4",
+    "sass-loader": "^11.0.1",
     "snazzy": "^8.0.0",
     "style-loader": "^2.0.0",
     "url-loader": "^4.1.1",
