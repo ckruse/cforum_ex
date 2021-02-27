@@ -7,20 +7,30 @@ defmodule Cforum.Messages.Mentions do
 
   def parse_mentions(%Changeset{valid?: true} = changeset) do
     content = Changeset.get_field(changeset, :content)
-    options = %Earmark.Options{smartypants: true, gfm: true, breaks: false}
-    {:ok, blocks, _} = Earmark.as_ast(content, options)
 
-    mentions =
-      blocks
-      |> strip_unwanted_elements()
-      |> find_mentions_in_blocks()
-      |> Enum.map(fn {name, id, in_quote} -> [name, id, in_quote] end)
+    with {_, blocks, warnings} <- EarmarkParser.as_ast(content, smartypants: true, gfm: true, breaks: false),
+         false <- has_errors?(warnings) do
+      mentions =
+        blocks
+        |> strip_unwanted_elements()
+        |> find_mentions_in_blocks()
+        |> Enum.map(fn {name, id, in_quote} -> [name, id, in_quote] end)
 
-    flags = Changeset.get_field(changeset, :flags, %{})
-    Changeset.put_change(changeset, :flags, Map.put(flags, "mentions", mentions))
+      flags = Changeset.get_field(changeset, :flags, %{})
+      Changeset.put_change(changeset, :flags, Map.put(flags, "mentions", mentions))
+    else
+      _ -> changeset
+    end
   end
 
   def parse_mentions(changeset), do: changeset
+
+  defp has_errors?(warnings) do
+    Enum.find(warnings, fn
+      {:error, _, _} -> true
+      _ -> false
+    end) != nil
+  end
 
   defp strip_unwanted_elements(blocks) do
     blocks
