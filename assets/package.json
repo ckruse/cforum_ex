@@ -22,7 +22,7 @@
     "date-fns": "^2.16.1",
     "diff": "^4.0.2",
     "emoji-mart": "<= 3.0.2 || > 2.11.2",
-    "highcharts": "^8.2.2",
+    "highcharts": "^9.0.1",
     "leaflet": "^1.7.1",
     "leaflet-geosearch": "^3.0.6",
     "phoenix": "file:../deps/phoenix",
