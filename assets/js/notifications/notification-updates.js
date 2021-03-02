@@ -64,6 +64,7 @@ document.addEventListener("cf:userPrivate", (event) => {
     }
 
     updateNotificationCount(data.unread);
+    console.log("new notification", data.notification);
 
     alertInfoWithPath(
       t("You've got a new notification: {subject}", { subject: data.notification.subject }),
