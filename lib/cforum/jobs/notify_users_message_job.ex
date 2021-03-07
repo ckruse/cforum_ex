@@ -56,11 +56,11 @@ defmodule Cforum.Jobs.NotifyUsersMessageJob do
     |> Cforum.Repo.preload([:forum])
     |> parent_messages(message)
     |> Subscriptions.list_subscriptions_for_messages()
-    |> Enum.reduce(%{}, fn sub, acc -> Map.put(acc, sub.user_id, sub.user) end)
-    |> Map.values()
-    |> Enum.reject(fn user -> user.user_id == message.user_id end)
-    |> Enum.reject(fn user -> Enum.find(already_notified, &(&1.user_id == user.user_id)) != nil end)
-    |> Enum.filter(fn user -> may_view?(user, thread, message) end)
+    |> Stream.map(& &1.user)
+    |> Stream.uniq_by(& &1.user_id)
+    |> Stream.reject(fn user -> user.user_id == message.user_id end)
+    |> Stream.reject(fn user -> Enum.find(already_notified, &(&1.user_id == user.user_id)) != nil end)
+    |> Stream.filter(fn user -> may_view?(user, thread, message) end)
     |> Enum.each(fn user -> notify_user_message(user, thread, message) end)
   end
 
