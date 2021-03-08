@@ -48,7 +48,7 @@ defmodule Cforum.Mixfile do
       {:bcrypt_elixir, "~> 2.0"},
       {:number, "~> 1.0"},
       {:swoosh, "~> 1.3"},
-      {:gen_smtp, "~> 1.0 and != 1.1.1"},
+      {:gen_smtp, "~> 1.1"},
       {:phoenix_swoosh, "~> 0.2"},
       {:timex, "~> 3.1"},
       {:waffle_ecto, "~> 0.0.7"},
