@@ -355,6 +355,7 @@ defmodule Cforum.Messages do
       |> Mentions.parse_mentions()
       |> MessageVersions.build_version(message, user)
       |> Repo.update()
+      |> maybe_attach_thumbnail(attrs)
       |> MessageCaching.update_cached_message()
     end)
   end
