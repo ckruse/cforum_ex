@@ -148,3 +148,9 @@ button:active {
 @import "blog";
 
 @import "leaflet/dist/leaflet.css";
+
+*,
+*:after,
+*:before {
+  filter: grayscale(1);
+}
