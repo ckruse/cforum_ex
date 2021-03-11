@@ -67,16 +67,14 @@ defmodule CforumWeb.Blog.ArticleController do
       format: "markdown-blog"
     ]
 
-    create_val =
-      Threads.create_thread(
-        message_params,
-        conn.assigns[:current_user],
-        conn.assigns[:current_forum],
-        conn.assigns[:visible_forums],
-        opts
-      )
-
-    case create_val do
+    Threads.create_thread(
+      message_params,
+      conn.assigns[:current_user],
+      conn.assigns[:current_forum],
+      conn.assigns[:visible_forums],
+      opts
+    )
+    |> case do
       {:ok, thread, message} ->
         conn
         |> put_flash(:info, gettext("Article created successfully."))
