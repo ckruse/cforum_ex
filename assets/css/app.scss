@@ -163,6 +163,10 @@ header.cf-page-header {
   z-index: 1000;
 }
 
+.ReactModal__Overlay--after-open {
+  z-index: 1001;
+}
+
 .cf-message-header:not(.visited) > a::before {
   content: "▶ ";
   font-size: 0.75em;
