@@ -144,13 +144,28 @@ button:active {
 @import "registration";
 @import "old-browser";
 @import "advent-calendar";
-@import "blog-fonts.scss";
+@import "blog-fonts";
 @import "blog";
 
 @import "leaflet/dist/leaflet.css";
 
-*,
-*:after,
-*:before {
+.cf-page-header,
+.cf-personallinks,
+.cf-top-bar,
+#content,
+.cf-footer,
+.ReactModal__Content--after-open {
   filter: grayscale(1);
+}
+
+header.cf-page-header {
+  position: relative;
+  z-index: 1000;
+}
+
+.cf-message-header:not(.visited) > a::before {
+  content: "▶ ";
+  font-size: 0.75em;
+  padding-right: 0.25em;
+  vertical-align: middle;
 }
