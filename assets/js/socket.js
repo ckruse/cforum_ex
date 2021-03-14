@@ -30,7 +30,11 @@ socket.onError(() => {
   }
 });
 
-const privateChannelJoined = (channel) => {
+let lobbyChannelJoinedDispatched = false;
+const lobbyChannelJoined = (channel) => {
+  if (lobbyChannelJoinedDispatched) return;
+  lobbyChannelJoinedDispatched = true;
+
   document.dispatchEvent(new CustomEvent("cf:userLobby", { detail: channel }));
 
   channel.push("visible_forums", {}).receive("ok", ({ forums }) => {
@@ -58,7 +62,7 @@ const privateChannelJoined = (channel) => {
 export let allUsersChannel = socket.channel(`users:lobby`, {});
 allUsersChannel
   .join()
-  .receive("ok", () => privateChannelJoined(allUsersChannel))
+  .receive("ok", () => lobbyChannelJoined(allUsersChannel))
   .receive("error", ({ reason }) => {
     console.log("failed joining users lobby", reason);
     document.dispatchEvent(new CustomEvent("cf:userLobbyFailed"));
@@ -68,13 +72,19 @@ allUsersChannel
     document.dispatchEvent(new CustomEvent("cf:userLobbyFailed"));
   });
 
+let privateChannelJoinedDispatched = false;
 export let privateUserChannel = null;
 
 if (document.body.dataset.userId) {
   privateUserChannel = socket.channel(`users:${document.body.dataset.userId}`, {});
   privateUserChannel
     .join()
-    .receive("ok", () => document.dispatchEvent(new CustomEvent("cf:userPrivate", { detail: privateUserChannel })))
+    .receive("ok", () => {
+      if (privateChannelJoinedDispatched) return;
+      privateChannelJoinedDispatched = true;
+
+      document.dispatchEvent(new CustomEvent("cf:userPrivate", { detail: privateUserChannel }));
+    })
     .receive("error", ({ reason }) => {
       console.log("failed joining private user channel", reason);
       document.dispatchEvent(new CustomEvent("cf:userPrivateFailed"));
