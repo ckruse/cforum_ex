@@ -63,7 +63,7 @@
     "snazzy": "^9.0.0",
     "style-loader": "^2.0.0",
     "url-loader": "^4.1.1",
-    "webpack": "^5.26.0",
+    "webpack": "^5.26.2",
     "webpack-cli": "^4.3.0"
   }
 }
