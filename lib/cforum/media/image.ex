@@ -23,7 +23,7 @@ defmodule Cforum.Media.Image do
     |> put_change(:content_type, file.content_type)
     |> put_change(:orig_name, file.filename)
     |> put_change(:filename, gen_filename(Path.extname(file.filename)))
-    |> validate_format(:orig_name, ~r/\.(png|jpe?g|gif|svg)$/)
+    |> validate_format(:orig_name, ~r/\.(png|jpe?g|gif|svg)$/i)
     |> validate_content_type(file)
     |> validate_required([:filename, :orig_name, :content_type])
     |> unique_constraint(:filename, name: :index_media_on_filename)
@@ -46,7 +46,7 @@ defmodule Cforum.Media.Image do
   defp maybe_set_owner_id(changeset, user), do: put_change(changeset, :owner_id, user.user_id)
 
   defp validate_content_type(changeset, file) do
-    if file.content_type =~ ~r/\Aimage\/(png|gif|jpeg|svg\+xml)\z/,
+    if file.content_type =~ ~r/\Aimage\/(png|gif|jpeg|svg\+xml)\z/i,
       do: changeset,
       else: add_error(changeset, :filename, "only image files are allowed!")
   end
