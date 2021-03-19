@@ -40,3 +40,7 @@ config :cforum,
     # pwd: Path.expand("../cfmarkdown"),
     pool_size: 10
   ]
+
+config :appsignal, :config,
+  otp_app: :cforum,
+  active: false
