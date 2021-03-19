@@ -50,7 +50,7 @@ defmodule Cforum.Mixfile do
       {:swoosh, "~> 1.3"},
       {:gen_smtp, "~> 1.1"},
       {:phoenix_swoosh, "~> 0.2"},
-      {:timex, "~> 3.1"},
+      {:timex, "~> 3.6.0"},
       {:waffle_ecto, "~> 0.0.7"},
       {:waffle, "~> 1.1.0"},
       {:poolboy, "~> 1.5.1"},
