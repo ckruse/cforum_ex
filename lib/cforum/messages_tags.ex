@@ -48,7 +48,7 @@ defmodule Cforum.MessagesTags do
       inner_join: t in "messages_tags",
       on: t.message_id == m.message_id,
       where: t.tag_id == ^tag.tag_id and m.deleted == false and m.forum_id in ^forum_ids,
-      select: count("*")
+      select: count()
     )
     |> maybe_filter_ops(opts[:only_ops])
     |> Repo.one()

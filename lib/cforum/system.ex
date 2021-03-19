@@ -34,7 +34,7 @@ defmodule Cforum.System do
   """
   def count_redirections do
     Redirection
-    |> select(count("*"))
+    |> select(count())
     |> Repo.one()
   end
 
@@ -172,7 +172,7 @@ defmodule Cforum.System do
 
     from(auditing in Auditing, where: auditing.created_at >= ^start_date and auditing.created_at <= ^end_date)
     |> maybe_add_object_list(changeset)
-    |> select(count("*"))
+    |> select(count())
     |> Repo.one()
   end
 

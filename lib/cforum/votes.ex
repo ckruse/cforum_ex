@@ -31,7 +31,7 @@ defmodule Cforum.Votes do
   def count_votes_for_user(user, forum_ids) do
     from(
       v in Vote,
-      select: count("*"),
+      select: count(),
       inner_join: m in Message,
       on: m.message_id == v.message_id,
       where: v.user_id == ^user.user_id,

@@ -95,7 +95,7 @@ defmodule Cforum.Users do
   """
   def count_users do
     User
-    |> select(count("*"))
+    |> select(count())
     |> Repo.one()
   end
 

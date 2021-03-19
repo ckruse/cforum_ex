@@ -46,13 +46,13 @@ defmodule Cforum.Jobs.VoteBadgeDistributorJob do
   @voter_badge_limits [100, 250, 500, 1000, 2500, 5000, 10_000]
   defp grant_voter_badges_by_limits(user, badge) do
     all_user_votes =
-      from(vote in Vote, where: vote.user_id == ^user.user_id, select: count("*"))
+      from(vote in Vote, where: vote.user_id == ^user.user_id, select: count())
       |> Repo.one!()
 
     voter_badges =
       from(badge_user in BadgeUser,
         where: badge_user.user_id == ^user.user_id and badge_user.badge_id == ^badge.badge_id,
-        select: count("*")
+        select: count()
       )
       |> Repo.one!()
 

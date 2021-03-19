@@ -62,7 +62,7 @@ defmodule Cforum.Jobs.ArchiverJob do
     archive_by = Cforum.ConfigManager.conf(forum, "archive_by")
 
     no_threads =
-      from(t in Thread, select: count("*"), where: t.forum_id == ^forum.forum_id and t.archived == false)
+      from(t in Thread, select: count(), where: t.forum_id == ^forum.forum_id and t.archived == false)
       |> Repo.one()
 
     limit =

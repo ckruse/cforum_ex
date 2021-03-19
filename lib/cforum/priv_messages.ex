@@ -164,7 +164,7 @@ defmodule Cforum.PrivMessages do
             "SELECT MAX(priv_message_id) FROM priv_messages WHERE owner_id = ? GROUP BY thread_id",
             ^user.user_id
           ),
-      select: count("*")
+      select: count()
     )
     |> maybe_filter_author(query_params[:author], user)
     |> Repo.one()
@@ -190,13 +190,13 @@ defmodule Cforum.PrivMessages do
   def count_priv_messages(user, only_unread \\ false)
 
   def count_priv_messages(user, false) do
-    from(pm in PrivMessage, where: pm.owner_id == ^user.user_id, select: count("*"))
+    from(pm in PrivMessage, where: pm.owner_id == ^user.user_id, select: count())
     |> Repo.one()
   end
 
   def count_priv_messages(user, true) do
     Caching.fetch(:cforum, "notifications/unread/#{user.user_id}", fn ->
-      from(pm in PrivMessage, where: pm.owner_id == ^user.user_id and pm.is_read == false, select: count("*"))
+      from(pm in PrivMessage, where: pm.owner_id == ^user.user_id and pm.is_read == false, select: count())
       |> Repo.one!()
     end)
   end

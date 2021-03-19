@@ -37,7 +37,7 @@ defmodule Cforum.Events do
 
   def count_events(only_visible \\ false) do
     Event
-    |> select(count("*"))
+    |> select(count())
     |> set_only_visible(only_visible)
     |> Repo.one()
   end

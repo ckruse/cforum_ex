@@ -47,7 +47,7 @@ defmodule Cforum.Badges do
   def count_badges() do
     from(
       badge in Badge,
-      select: count("*")
+      select: count()
     )
     |> Repo.one()
   end

@@ -66,7 +66,7 @@ defmodule Cforum.ModerationQueue do
     from(
       entry in ModerationQueueEntry,
       inner_join: m in assoc(entry, :message),
-      select: count("*"),
+      select: count(),
       where: m.forum_id in ^fids
     )
     |> maybe_only_open(only_open)

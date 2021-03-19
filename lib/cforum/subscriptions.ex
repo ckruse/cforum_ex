@@ -80,7 +80,7 @@ defmodule Cforum.Subscriptions do
       msg in Message,
       join: s in Subscription,
       where: s.message_id == msg.message_id and s.user_id == ^user.user_id,
-      select: count("*")
+      select: count()
     )
     |> Repo.one()
   end

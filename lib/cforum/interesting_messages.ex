@@ -78,7 +78,7 @@ defmodule Cforum.InterestingMessages do
       msg in Message,
       join: s in InterestingMessage,
       where: s.message_id == msg.message_id and s.user_id == ^user.user_id,
-      select: count("*")
+      select: count()
     )
     |> Repo.one()
   end

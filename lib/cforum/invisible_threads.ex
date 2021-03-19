@@ -31,7 +31,7 @@ defmodule Cforum.InvisibleThreads do
       q
       |> exclude(:select)
       |> exclude(:order_by)
-      |> select(count("*"))
+      |> select(count())
       |> Repo.one!()
 
     threads =

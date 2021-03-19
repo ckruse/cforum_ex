@@ -43,7 +43,7 @@ defmodule Cforum.Cites do
   def count_cites(archived \\ true) do
     from(
       cite in Cite,
-      select: count("*"),
+      select: count(),
       where: cite.archived == ^archived
     )
     |> Repo.one!()
@@ -68,7 +68,7 @@ defmodule Cforum.Cites do
             cite.cite_id,
             ^user.user_id
           ),
-      select: count("*")
+      select: count()
     )
     |> Repo.one!()
   end
@@ -367,7 +367,7 @@ defmodule Cforum.Cites do
 
   def cites_stats(months, :months) do
     from(cite in Cforum.Cites.Cite,
-      select: {fragment("date_trunc('month', ?) AS created_at", cite.created_at), count("*")},
+      select: {fragment("date_trunc('month', ?) AS created_at", cite.created_at), count()},
       where: cite.created_at >= ago(^months, "month"),
       group_by: fragment("1"),
       order_by: fragment("1")

@@ -37,7 +37,7 @@ defmodule Cforum.Notifications do
   def count_notifications(user, only_unread \\ false)
 
   def count_notifications(user, false) do
-    from(notification in Notification, where: notification.recipient_id == ^user.user_id, select: count("*"))
+    from(notification in Notification, where: notification.recipient_id == ^user.user_id, select: count())
     |> Repo.one()
   end
 
@@ -45,7 +45,7 @@ defmodule Cforum.Notifications do
     Caching.fetch(:cforum, "notifications/unread_count/#{user.user_id}", fn ->
       from(notification in Notification,
         where: notification.recipient_id == ^user.user_id and notification.is_read == false,
-        select: count("*")
+        select: count()
       )
       |> Repo.one()
     end)

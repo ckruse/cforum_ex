@@ -81,7 +81,7 @@ defmodule Cforum.ReadMessages do
 
     from(
       msg in Message,
-      select: {fragment("COUNT(DISTINCT ?)", msg.thread_id), count("*")},
+      select: {fragment("COUNT(DISTINCT ?)", msg.thread_id), count()},
       inner_join: thr in assoc(msg, :thread),
       left_join: rm in ReadMessage,
       on: rm.message_id == msg.message_id and rm.user_id == ^user.user_id,

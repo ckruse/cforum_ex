@@ -41,7 +41,7 @@ defmodule Cforum.MessagesUsers do
     from(
       m in Message,
       where: m.user_id == ^user.user_id and m.deleted == false and m.forum_id in ^forum_ids,
-      select: count("*")
+      select: count()
     )
     |> Repo.one()
   end
@@ -152,7 +152,7 @@ defmodule Cforum.MessagesUsers do
     |> int_list_scored_msgs_for_user_in_perspective(user, forum_ids, nil)
     |> exclude(:preload)
     |> exclude(:order_by)
-    |> select(count("*"))
+    |> select(count())
     |> Repo.one()
   end
 
@@ -167,7 +167,7 @@ defmodule Cforum.MessagesUsers do
   def count_messages_for_user_by_month(user, forum_ids) do
     from(
       m in Message,
-      select: {fragment("DATE_TRUNC('month', created_at) created_at"), count("*")},
+      select: {fragment("DATE_TRUNC('month', created_at) created_at"), count()},
       where: m.user_id == ^user.user_id and m.deleted == false and m.forum_id in ^forum_ids,
       group_by: fragment("DATE_TRUNC('month', created_at)"),
       order_by: fragment("DATE_TRUNC('month', created_at)")
@@ -192,7 +192,7 @@ defmodule Cforum.MessagesUsers do
       on: m.message_id == mt.message_id,
       inner_join: t in Tag,
       on: mt.tag_id == t.tag_id,
-      select: {t.slug, t.tag_name, count("*")},
+      select: {t.slug, t.tag_name, count()},
       where: m.deleted == false and m.user_id == ^user.user_id and m.forum_id in ^forum_ids,
       group_by: [t.slug, t.tag_name],
       order_by: fragment("COUNT(*) DESC"),

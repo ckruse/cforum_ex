@@ -28,7 +28,7 @@ defmodule Cforum.Media do
 
   def count_images do
     Image
-    |> select(count("*"))
+    |> select(count())
     |> Repo.one()
   end
 
