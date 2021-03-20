@@ -20,21 +20,25 @@ defmodule Cforum.Jobs.ImageResizerJob do
   end
 
   defp resize_image(img, version) do
-    arguments = convert_arguments(img, version)
-    convert = Application.get_env(:cforum, :convert)
-    System.cmd(convert, arguments)
-  end
-
-  defp convert_arguments(img, version) do
     orig_path = Media.future_image_path(img, "orig")
     version_path = Media.future_image_path(img, version)
+    arguments = convert_arguments(version, orig_path, version_path)
+    convert = Application.get_env(:cforum, :convert)
 
+    System.cmd(convert, arguments)
+
+    if File.exists?(version_path <> ".tmp") do
+      File.rename(version_path <> ".tmp", version_path)
+    end
+  end
+
+  defp convert_arguments(version, orig_path, version_path) do
     [
       orig_path,
       "-auto-orient",
       "-strip",
       args_by_version(version),
-      version_path
+      version_path <> ".tmp"
     ]
     |> List.flatten()
   end
