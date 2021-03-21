@@ -37,7 +37,7 @@ config :cforum, Oban,
   repo: Cforum.Repo,
   queues: [mails: 10, background: 10, media: 20],
   plugins: [
-    {Oban.Plugins.Pruner, max_age: 7200},
+    {Oban.Plugins.Pruner, max_age: 36000},
     {Oban.Plugins.Cron,
      timezone: "Europe/Berlin",
      crontab: [
