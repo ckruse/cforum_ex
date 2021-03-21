@@ -190,7 +190,7 @@ msgstr "Benutzername oder E-Mail-Adresse"
 #: lib/cforum_web/templates/layout/personal_links.html.eex:29
 #: lib/cforum_web/templates/layout/personal_links.html.eex:34
 msgid "%{count} new mails"
-msgstr "%{count} neue Mails"
+msgstr "%{count} neue private Nachrichten"
 
 #: lib/cforum_web/templates/layout/personal_links.html.eex:8
 msgid "%{points} points"
@@ -611,7 +611,7 @@ msgstr "abonniere den eigenen Beitrag automatisch"
 
 #: lib/cforum_web/templates/users/user/notifications.html.eex:20
 msgid "automatically subscribe the parent posting"
-msgstr "automatisch das Vorgänger-Posting abonnieren"
+msgstr "automatisch den Vorgänger-Beitrag abonnieren"
 
 #: lib/cforum_web/templates/users/user/notifications.html.eex:18
 msgid "automatically subscribe threads when answering"
@@ -820,7 +820,7 @@ msgstr "ungelesen markieren"
 
 #: lib/cforum_web/templates/users/user/show.html.eex:182
 msgid "new mail to %{username}"
-msgstr "Neue Mail an %{username}"
+msgstr "neue private Nachricht an %{username}"
 
 #: lib/cforum_web/templates/admin/forum/form.html.eex:80
 #: lib/cforum_web/views/admin/forum_view.ex:34
@@ -900,7 +900,7 @@ msgstr "Klappe Threads zusammen, wenn sie vollständig gelesen wurden"
 
 #: lib/cforum_web/templates/users/user/personalization.html.eex:41
 msgid "date format for the posting view"
-msgstr "Datumsformat für einzelne Postings"
+msgstr "Datumsformat für einzelne Beiträge"
 
 #: lib/cforum_web/templates/users/user/personalization.html.eex:36
 msgid "date format for the threads index"
@@ -1471,7 +1471,7 @@ msgstr "Baum deabonnieren"
 #, elixir-format
 #: lib/cforum_web/templates/mail/index.html.eex:14
 msgid "No mails found"
-msgstr "Keine Mails gefunden."
+msgstr "keine privaten Nachrichten gefunden."
 
 #, elixir-format
 #: lib/cforum_web/views/mail_view.ex:16
@@ -1482,7 +1482,7 @@ msgstr "Post"
 #: lib/cforum_web/templates/mail/subnav.html.eex:2
 #: lib/cforum_web/views/mail_view.ex:17
 msgid "new mail"
-msgstr "neue Mail"
+msgstr "neue private Nachricht"
 
 #, elixir-format
 #: lib/cforum_web/templates/mail/index.html.eex:4
@@ -1492,7 +1492,7 @@ msgstr "Partner"
 #, elixir-format
 #: lib/cforum_web/templates/mail/new.html.eex:15
 msgid "send mail"
-msgstr "Mail versenden"
+msgstr "private Nachricht versenden"
 
 #, elixir-format
 #: lib/cforum_web/templates/mail/form.html.eex:25
@@ -1520,17 +1520,17 @@ msgstr "ohne Zitat antworten"
 #, elixir-format
 #: lib/cforum_web/controllers/mail_controller.ex:120
 msgid "Mail created successfully."
-msgstr "Mail erfolgreich gespeichert."
+msgstr "Private Nachricht erfolgreich gespeichert."
 
 #, elixir-format
 #: lib/cforum_web/controllers/mail_controller.ex:145
 msgid "Mail deleted successfully."
-msgstr "Mail erfolgreich gelöscht."
+msgstr "Private Nachricht erfolgreich gelöscht."
 
 #, elixir-format
 #: lib/cforum_web/controllers/mail_controller.ex:133
 msgid "Mail successfully marked as unread."
-msgstr "Mail erfolgreich als ungelesen markiert."
+msgstr "Private Nachricht erfolgreich als ungelesen markiert."
 
 #, elixir-format
 #: lib/cforum_web/templates/mail/mail.html.eex:33
@@ -1561,7 +1561,7 @@ msgstr "Vorschau"
 #, elixir-format
 #: lib/cforum_web/templates/mail/form.html.eex:33
 msgid "mail content"
-msgstr "Mail-Inhalt"
+msgstr "Inhalt der privaten Nachricht"
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:91
@@ -1918,7 +1918,7 @@ msgstr "Datumsformat für den Thread-Baum"
 #, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:184
 msgid "date format for the postings"
-msgstr "Datumsformat für einzelne Postings"
+msgstr "Datumsformat für einzelne Beiträge"
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:73
@@ -2581,9 +2581,9 @@ msgstr "keine Tags gefunden"
 #: lib/cforum_web/templates/forum/portal.html.eex:19
 msgid "%{count} new mail"
 msgid_plural "%{count} new mails"
-msgstr[0] "keine neue Mail"
-msgstr[1] "eine neue Mail"
-msgstr[2] "%{count} neue Mails"
+msgstr[0] "keine neue Nachricht"
+msgstr[1] "eine neue Nachricht"
+msgstr[2] "%{count} neue Nachrichten"
 
 #, elixir-format
 #: lib/cforum_web/templates/forum/portal.html.eex:5
@@ -2601,7 +2601,7 @@ msgstr "Aktivität"
 #, elixir-format
 #: lib/cforum_web/templates/forum/portal.html.eex:30
 msgid "show all mails"
-msgstr "zeige alle E-Mails"
+msgstr "zeige alle privaten Nachrichten"
 
 #, elixir-format
 #: lib/cforum_web/templates/forum/portal.html.eex:15
@@ -4122,7 +4122,7 @@ msgstr "neue Benachrichtigung: „%{subject}“"
 #, elixir-format
 #: lib/cforum_web/mailers/notification_mailer.ex:11
 msgid "new private message: “%{subject}”"
-msgstr "neue Mail: „%{subject}“"
+msgstr "neue private Nachricht: „%{subject}“"
 
 #, elixir-format
 #: lib/cforum_web/templates/users/user/notifications.html.eex:62
@@ -4147,7 +4147,7 @@ msgstr "markiere Beiträge in der Nested-Ansicht als gelesen, wenn sie in den si
 #, elixir-format
 #: lib/cforum_web/templates/mail/index.html.eex:5
 msgid "number of mails"
-msgstr "Anzahl Nachrichten"
+msgstr "Anzahl privater Nachrichten"
 
 #, elixir-format
 #: lib/cforum_web/controllers/mail_controller.ex:142
