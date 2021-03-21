@@ -31,7 +31,7 @@ defmodule Cforum.Messages.ReindexMessagesJob do
     do_reindex_messages(start_id - 1)
   end
 
-  @decorate transaction_event(:indexing)
+  @decorate transaction_event("indexing")
   defp do_reindex_messages(last_id) do
     mid =
       from(m in Message,

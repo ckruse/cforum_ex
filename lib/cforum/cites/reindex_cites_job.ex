@@ -29,7 +29,7 @@ defmodule Cforum.Cites.ReindexCitesJob do
     do_reindex_cites()
   end
 
-  @decorate transaction_event(:indexing)
+  @decorate transaction_event("indexing")
   defp do_reindex_cites(last_id \\ -1) do
     cite =
       from(cite in Cite,
