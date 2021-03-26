@@ -110,18 +110,17 @@ defmodule Cforum.Messages.IndexHelper do
        ) do
     messages =
       Enum.map(thread.messages, fn msg ->
+        is_read = read_messages[msg.message_id] != nil || (msg.deleted && Helpers.present?(msg.flags["reason"]))
+
         classes =
           msg.attribs[:classes]
-          |> Helpers.add_if(read_messages[msg.message_id] != nil, "visited")
+          |> Helpers.add_if(is_read, "visited")
           |> Helpers.add_if(subscribed_messages[msg.message_id] != nil, "subscribed")
           |> Helpers.add_if(interesting_messages[msg.message_id] != nil, "interesting")
 
         new_attribs =
           msg.attribs
-          |> Map.put(
-            :is_read,
-            read_messages[msg.message_id] != nil || (msg.deleted && Helpers.present?(msg.flags["reason"]))
-          )
+          |> Map.put(:is_read, is_read)
           |> Map.put(:is_subscribed, subscribed_messages[msg.message_id] != nil)
           |> Map.put(:is_interesting, interesting_messages[msg.message_id] != nil)
           |> Map.put(:classes, classes)
