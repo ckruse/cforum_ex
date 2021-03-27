@@ -186,7 +186,7 @@ defmodule CforumWeb.Blog.ArticleController do
   defp next_article(article, threads) do
     idx = Enum.find_index(threads, &(&1.thread_id == article.thread_id))
 
-    if idx > 0,
+    if !is_nil(idx) && idx > 0,
       do: Enum.at(threads, idx - 1),
       else: nil
   end
