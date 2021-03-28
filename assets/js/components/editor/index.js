@@ -1,20 +1,30 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import DefaultReplacements from "./default_replacements";
-import EmojiReplacements from "./emojis";
-import MentionsReplacements from "./mentions";
-import SmileyReplacements from "./smileys";
-import LivePreview from "./live_preview";
-import Toolbar from "./toolbar";
-import Dropzone from "./dropzone";
+import Boundary from "../../Boundary";
 import { alertError } from "../../modules/alerts";
 import { t } from "../../modules/i18n";
-import { replaceAt, getSelection, escapeText } from "./helpers";
 import AutocompleteTextarea from "../autocomplete";
-import Boundary from "../../Boundary";
+import DefaultReplacements from "./default_replacements";
+import Dropzone from "./dropzone";
+import EmojiReplacements from "./emojis";
+import { escapeText, getSelection, replaceAt } from "./helpers";
+import LivePreview from "./live_preview";
+import MentionsReplacements from "./mentions";
+import SmileyReplacements from "./smileys";
+import Toolbar from "./toolbar";
 
-export default function CfEditor(props) {
-  const { text, onChange, id, name, errors, withImages, withPreview, labelText, withCounter } = props;
+export default function CfEditor({
+  text,
+  onChange,
+  id,
+  name,
+  errors,
+  withImages,
+  withPreview = true,
+  withMentions = true,
+  labelText,
+  withCounter,
+}) {
   const [value, setValue] = useState(text);
   const [dragging, setDragging] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -120,6 +130,9 @@ export default function CfEditor(props) {
     className += " has-error";
   }
 
+  const triggers = [DefaultReplacements, EmojiReplacements, SmileyReplacements];
+  if (withMentions) triggers.push(MentionsReplacements);
+
   return (
     <Boundary>
       <fieldset>
@@ -147,7 +160,7 @@ export default function CfEditor(props) {
             value={value}
             onChange={valueChanged}
             onComplete={doSetValue}
-            triggers={[DefaultReplacements, EmojiReplacements, SmileyReplacements, MentionsReplacements]}
+            triggers={triggers}
             ref={textarea}
           />
         </div>
@@ -161,7 +174,3 @@ export default function CfEditor(props) {
     </Boundary>
   );
 }
-
-CfEditor.defaultProps = {
-  withPreview: true,
-};
