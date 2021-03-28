@@ -82,7 +82,7 @@ defmodule Cforum.Threads.Thread do
           |> String.slice(0, 255)
 
         if ThreadHelpers.slug_taken?(s),
-          do: gen_slug(changeset, num + 1),
+          do: gen_slug(changeset, nil, num + 1),
           else: put_change(changeset, :slug, s)
     end
   end
