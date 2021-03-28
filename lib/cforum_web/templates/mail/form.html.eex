@@ -26,7 +26,7 @@
   </div>
 </fieldset>
 
-<div class="cf-editor-form">
+<div class="cf-editor-form" data-images="yes">
   <fieldset>
     <div class="cf-cgroup cf-textarea-only <%= ErrorHelpers.error_class(@f, :body) %>">
       <%= label @f, :body do %>
