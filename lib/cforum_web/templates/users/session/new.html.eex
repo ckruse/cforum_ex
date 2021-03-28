@@ -1,4 +1,6 @@
 <%= form_for @changeset, Path.session_path(@conn, :create), [method: :post, class: "cf-form"], fn f -> %>
+  <%= if @conn.params["return_to"] do %><input type="hidden" name="return_to" value="<%= @conn.params["return_to"] %>"><% end %>
+
   <div class="cf-cgroup">
     <%= label f, :login, gettext("Username or email") %>
     <%= text_input f, :login, placeholder: gettext("Regina Schlauklug"), autofocus: true %>

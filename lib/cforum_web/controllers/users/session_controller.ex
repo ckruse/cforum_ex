@@ -4,6 +4,12 @@ defmodule CforumWeb.Users.SessionController do
   alias Cforum.Abilities
   alias Cforum.Users
   alias Cforum.Users.User
+  alias Cforum.Messages
+  alias Cforum.Messages.Message
+  alias Cforum.Threads
+  alias Cforum.Threads.Thread
+
+  alias CforumWeb.Views.ViewHelpers.Path
 
   def new(conn, _params) do
     changeset = User.login_changeset(%User{})
@@ -29,7 +35,7 @@ defmodule CforumWeb.Users.SessionController do
         |> put_session(:user_id, user.user_id)
         |> configure_session(renew: true)
         |> put_flash(:info, gettext("You logged in successfully"))
-        |> redirect(to: Path.root_path(conn, :index))
+        |> redirect(to: return_url(conn))
 
       {:error, changeset} ->
         conn
@@ -49,4 +55,17 @@ defmodule CforumWeb.Users.SessionController do
   def allowed?(conn, :delete, _), do: Abilities.signed_in?(conn)
   def allowed?(conn, action, _) when action in [:new, :create], do: !Abilities.signed_in?(conn)
   def allowed?(_, _, _), do: false
+
+  defp return_url(conn) do
+    with mid when not is_nil(mid) and mid != "" <- conn.params["return_to"],
+         true <- Regex.match?(~r/^\d+$/, mid),
+         %Message{} = msg <- Messages.get_message(mid),
+         %Thread{} = thread <- Threads.get_thread(msg.thread_id) do
+      if String.starts_with?(conn.host, "blog."),
+        do: Path.blog_thread_path(conn, :show, thread),
+        else: Path.message_path(conn, :show, thread, msg)
+    else
+      _ -> Path.root_path(conn, :index)
+    end
+  end
 end

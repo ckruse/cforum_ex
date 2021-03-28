@@ -358,4 +358,19 @@ defmodule CforumWeb.LayoutView do
       true -> ""
     end
   end
+
+  def login_link(conn) do
+    controller = current_controller(conn)
+
+    cond do
+      controller == "MessageController" && conn.assigns[:message] ->
+        Path.session_path(conn, :new, return_to: conn.assigns.message.message_id)
+
+      controller == "Blog.ArticleController" && conn.assigns[:article] ->
+        Path.session_path(conn, :new, return_to: conn.assigns.article.message.message_id)
+
+      true ->
+        Path.session_path(conn, :new)
+    end
+  end
 end

@@ -7,7 +7,7 @@
     <% end %>
 
     <%= if Helpers.blank?(@current_user) do %>
-      <li><%= link gettext("login"), to: Path.session_path(@conn, :new), rel: "nofollow" %></li>
+      <li><%= link gettext("login"), to: Path.session_path(@conn, :new, return_to: @message.message_id), rel: "nofollow" %></li>
       <li><%= link gettext("register"), to: Path.registration_path(@conn, :new), rel: "nofollow" %></li>
     <% end %>
 
