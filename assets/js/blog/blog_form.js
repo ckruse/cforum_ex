@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-import Meta from "./meta";
+import Boundary from "../Boundary";
 import CfEditor from "../components/editor";
+import TagList from "../components/taglist";
 import { t } from "../modules/i18n";
 import LivePreview from "./live_preview";
-import TagList from "../components/taglist";
-import Boundary from "../Boundary";
+import Meta from "./meta";
 
 export default function CfBlogForm(props) {
   const { csrfInfo, method, email, subject, homepage, errors, excerpt, text, tags, globalTagsError } = props;
@@ -46,7 +46,7 @@ export default function CfBlogForm(props) {
           name="message[excerpt]"
           id="message_excerpt"
           labelText={t("excerpt content")}
-          mentions={true}
+          withMentions={true}
           withImages={false}
           withPreview={false}
           errors={errors}
@@ -58,7 +58,7 @@ export default function CfBlogForm(props) {
           text={text}
           name="message[content]"
           id="message_content"
-          mentions={true}
+          withMentions={true}
           withImages={true}
           withPreview={false}
           errors={errors}

@@ -24,7 +24,7 @@ export default function CfContentForm({ text, tags, id, name, errors, globalTags
         text={value}
         name={name}
         id={id}
-        mentions={true}
+        withMentions={true}
         onChange={refreshSuggestions}
         withImages={true}
         errors={errors}
