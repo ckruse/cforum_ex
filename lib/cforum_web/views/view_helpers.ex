@@ -200,6 +200,8 @@ defmodule CforumWeb.Views.ViewHelpers do
     if conn.assigns[:is_error],
       do: CforumWeb.ErrorView,
       else: Phoenix.Controller.controller_module(conn)
+  rescue
+    _ in KeyError -> CforumWeb.ForumController
   end
 
   def controller_path(conn) do
