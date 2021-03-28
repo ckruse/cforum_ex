@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
+
 import { Picker } from "emoji-mart";
 
-import { t } from "../../../modules/i18n";
-import * as ToolbarMethods from "./helpers";
-
-import LinkModal from "./link_modal";
-
-import CodeModal from "./code_modal";
-import ImageModal from "./image_modal";
 import { conf } from "../../../modules/helpers";
+import { t } from "../../../modules/i18n";
+import CodeModal from "./code_modal";
+import * as ToolbarMethods from "./helpers";
+import ImageModal from "./image_modal";
+import LinkModal from "./link_modal";
 
 import(/* webpackChunkName: "vendor" */ "emoji-mart/css/emoji-mart.css");
 
@@ -23,7 +22,7 @@ const getCounterClass = (len, minLength = 10, maxLength = 12288) => {
   return "success";
 };
 
-export default function Toolbar({ enableImages, value, textarea, changeValue, onImageUpload, withCounter }) {
+export default function Toolbar({ enableImages, value, textarea, changeValue, onImageUpload, withCounter = true }) {
   const [pickerVisible, setPickerVisible] = useState(false);
   const [{ linkModalVisible, linkText }, setLink] = useState({
     linkModalVisible: false,
@@ -215,7 +214,3 @@ export default function Toolbar({ enableImages, value, textarea, changeValue, on
     </div>
   );
 }
-
-Toolbar.defaultProps = {
-  withCounter: true,
-};
