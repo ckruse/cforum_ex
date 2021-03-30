@@ -61,22 +61,20 @@ defmodule CforumWeb.MessageView do
 
     parts =
       Enum.map(messages, fn msg ->
-        # TODO classes
-        subtree = if Helpers.blank?(msg.messages), do: "", else: message_tree(conn, thread, msg, msg.messages, new_opts)
+        subtree =
+          if Helpers.blank?(msg.messages),
+            do: "",
+            else: message_tree(conn, thread, msg, msg.messages, new_opts)
 
         [
           {:safe, "<li class=\"cf-message-answers\">"}
-          | [
-              header(conn, thread, msg, new_opts)
-              | [subtree | {:safe, "</li>"}]
-            ]
+          | [header(conn, thread, msg, new_opts) | [subtree | {:safe, "</li>"}]]
         ]
       end)
 
     [{:safe, "<ol>"} | [parts | {:safe, "</ol>"}]]
   end
 
-  # TODO day_changed_key(message))
   def message_date_format(true), do: "date_format_index"
   def message_date_format(false), do: "date_format_post"
 
