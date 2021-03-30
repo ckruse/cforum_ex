@@ -34,6 +34,7 @@ defmodule Cforum.Jobs.NotifyUsersMessageJob do
     if type == "thread" do
       Users.list_users_by_config_option("notify_on_new_thread", "yes")
       |> Enum.reject(fn user -> user.user_id == message.user_id end)
+      |> Enum.filter(fn user -> Enum.find(users, &(&1.user_id == user.user_id)) == nil end)
       |> Enum.filter(fn user -> may_view?(user, thread, message) end)
       |> Enum.each(fn user -> notify_user_thread(user, thread, message) end)
     else

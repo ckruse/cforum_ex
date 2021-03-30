@@ -133,5 +133,29 @@ defmodule Cforum.Jobs.NotifyUsersMessageJobTest do
       notifications = from(notification in Cforum.Notifications.Notification, select: count()) |> Repo.one()
       assert notifications == 1
     end
+
+    test "doesn't send notifications to a user already notified by a mention", %{
+      user: user,
+      thread: thread,
+      forum: forum,
+      tag: tag
+    } do
+      insert(:setting, user: user, options: %{"notify_on_new_thread" => "yes"})
+
+      message =
+        insert(:message,
+          tags: [tag],
+          forum: forum,
+          thread: thread,
+          content: "foo bar baz\n@#{user.username}",
+          flags: %{"mentions" => [[user.username, user.user_id, false]]}
+        )
+
+      Cforum.Jobs.NotifyUsersMessageJob.enqueue(thread, message, "thread")
+      assert %{success: 1, failure: 0} == Oban.drain_queue(queue: :background)
+
+      notifications = from(notification in Cforum.Notifications.Notification, select: count()) |> Repo.one()
+      assert notifications == 1
+    end
   end
 end
