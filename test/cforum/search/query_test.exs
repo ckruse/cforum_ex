@@ -10,8 +10,8 @@ defmodule Cforum.Search.QueryTest do
     end
 
     test "it parses a quoted expression" do
-      assert Query.parse("\"foo bar\"") == %Query{all: %{include: ["foo bar"], exclude: []}}
-      assert Query.parse("+\"foo bar\"") == %Query{all: %{include: ["foo bar"], exclude: []}}
+      assert Query.parse("\"foo bar\"") == %Query{all: %{include: [{:phrase, "foo bar"}], exclude: []}}
+      assert Query.parse("+\"foo bar\"") == %Query{all: %{include: [{:phrase, "foo bar"}], exclude: []}}
     end
 
     test "it parses an exclude expression" do
@@ -19,7 +19,7 @@ defmodule Cforum.Search.QueryTest do
     end
 
     test "it parses a quoted exclude expression" do
-      assert Query.parse("-\"foo bar\"") == %Query{all: %{include: [], exclude: ["foo bar"]}}
+      assert Query.parse("-\"foo bar\"") == %Query{all: %{include: [], exclude: [{:phrase, "foo bar"}]}}
     end
   end
 
@@ -31,9 +31,9 @@ defmodule Cforum.Search.QueryTest do
     end
 
     test "it parses a quoted expression for an author" do
-      assert Query.parse("author:\"foo bar\"") == %Query{author: %{include: ["foo bar"], exclude: []}}
-      assert Query.parse("+author:\"foo bar\"") == %Query{author: %{include: ["foo bar"], exclude: []}}
-      assert Query.parse("author:+\"foo bar\"") == %Query{author: %{include: ["foo bar"], exclude: []}}
+      assert Query.parse("author:\"foo bar\"") == %Query{author: %{include: [{:phrase, "foo bar"}], exclude: []}}
+      assert Query.parse("+author:\"foo bar\"") == %Query{author: %{include: [{:phrase, "foo bar"}], exclude: []}}
+      assert Query.parse("author:+\"foo bar\"") == %Query{author: %{include: [{:phrase, "foo bar"}], exclude: []}}
     end
 
     test "it parses an exclude expression for an author" do
@@ -42,8 +42,8 @@ defmodule Cforum.Search.QueryTest do
     end
 
     test "it parses a quoted exclude expression for an author" do
-      assert Query.parse("-author:\"foo bar\"") == %Query{author: %{include: [], exclude: ["foo bar"]}}
-      assert Query.parse("author:-\"foo bar\"") == %Query{author: %{include: [], exclude: ["foo bar"]}}
+      assert Query.parse("-author:\"foo bar\"") == %Query{author: %{include: [], exclude: [{:phrase, "foo bar"}]}}
+      assert Query.parse("author:-\"foo bar\"") == %Query{author: %{include: [], exclude: [{:phrase, "foo bar"}]}}
     end
   end
 
@@ -55,9 +55,9 @@ defmodule Cforum.Search.QueryTest do
     end
 
     test "it parses a quoted expression for a title" do
-      assert Query.parse("title:\"foo bar\"") == %Query{title: %{include: ["foo bar"], exclude: []}}
-      assert Query.parse("+title:\"foo bar\"") == %Query{title: %{include: ["foo bar"], exclude: []}}
-      assert Query.parse("title:+\"foo bar\"") == %Query{title: %{include: ["foo bar"], exclude: []}}
+      assert Query.parse("title:\"foo bar\"") == %Query{title: %{include: [{:phrase, "foo bar"}], exclude: []}}
+      assert Query.parse("+title:\"foo bar\"") == %Query{title: %{include: [{:phrase, "foo bar"}], exclude: []}}
+      assert Query.parse("title:+\"foo bar\"") == %Query{title: %{include: [{:phrase, "foo bar"}], exclude: []}}
     end
 
     test "it parses an exclude expression for a title" do
@@ -66,8 +66,8 @@ defmodule Cforum.Search.QueryTest do
     end
 
     test "it parses a quoted exclude expression for a title" do
-      assert Query.parse("-title:\"foo bar\"") == %Query{title: %{include: [], exclude: ["foo bar"]}}
-      assert Query.parse("title:-\"foo bar\"") == %Query{title: %{include: [], exclude: ["foo bar"]}}
+      assert Query.parse("-title:\"foo bar\"") == %Query{title: %{include: [], exclude: [{:phrase, "foo bar"}]}}
+      assert Query.parse("title:-\"foo bar\"") == %Query{title: %{include: [], exclude: [{:phrase, "foo bar"}]}}
     end
   end
 
@@ -79,9 +79,9 @@ defmodule Cforum.Search.QueryTest do
     end
 
     test "it parses a quoted expression for a body" do
-      assert Query.parse("body:\"foo bar\"") == %Query{content: %{include: ["foo bar"], exclude: []}}
-      assert Query.parse("+body:\"foo bar\"") == %Query{content: %{include: ["foo bar"], exclude: []}}
-      assert Query.parse("body:+\"foo bar\"") == %Query{content: %{include: ["foo bar"], exclude: []}}
+      assert Query.parse("body:\"foo bar\"") == %Query{content: %{include: [{:phrase, "foo bar"}], exclude: []}}
+      assert Query.parse("+body:\"foo bar\"") == %Query{content: %{include: [{:phrase, "foo bar"}], exclude: []}}
+      assert Query.parse("body:+\"foo bar\"") == %Query{content: %{include: [{:phrase, "foo bar"}], exclude: []}}
     end
 
     test "it parses an exclude expression for a body" do
@@ -90,8 +90,8 @@ defmodule Cforum.Search.QueryTest do
     end
 
     test "it parses a quoted exclude expression for a body" do
-      assert Query.parse("-body:\"foo bar\"") == %Query{content: %{include: [], exclude: ["foo bar"]}}
-      assert Query.parse("body:-\"foo bar\"") == %Query{content: %{include: [], exclude: ["foo bar"]}}
+      assert Query.parse("-body:\"foo bar\"") == %Query{content: %{include: [], exclude: [{:phrase, "foo bar"}]}}
+      assert Query.parse("body:-\"foo bar\"") == %Query{content: %{include: [], exclude: [{:phrase, "foo bar"}]}}
     end
   end
 
@@ -103,9 +103,9 @@ defmodule Cforum.Search.QueryTest do
     end
 
     test "it parses a quoted expression for a tag" do
-      assert Query.parse("tag:\"foo bar\"") == %Query{tags: %{include: ["foo bar"], exclude: []}}
-      assert Query.parse("+tag:\"foo bar\"") == %Query{tags: %{include: ["foo bar"], exclude: []}}
-      assert Query.parse("tag:+\"foo bar\"") == %Query{tags: %{include: ["foo bar"], exclude: []}}
+      assert Query.parse("tag:\"foo bar\"") == %Query{tags: %{include: [{:phrase, "foo bar"}], exclude: []}}
+      assert Query.parse("+tag:\"foo bar\"") == %Query{tags: %{include: [{:phrase, "foo bar"}], exclude: []}}
+      assert Query.parse("tag:+\"foo bar\"") == %Query{tags: %{include: [{:phrase, "foo bar"}], exclude: []}}
     end
 
     test "it parses an exclude expression for a tag" do
@@ -114,8 +114,8 @@ defmodule Cforum.Search.QueryTest do
     end
 
     test "it parses a quoted exclude expression for a tag" do
-      assert Query.parse("-tag:\"foo bar\"") == %Query{tags: %{include: [], exclude: ["foo bar"]}}
-      assert Query.parse("tag:-\"foo bar\"") == %Query{tags: %{include: [], exclude: ["foo bar"]}}
+      assert Query.parse("-tag:\"foo bar\"") == %Query{tags: %{include: [], exclude: [{:phrase, "foo bar"}]}}
+      assert Query.parse("tag:-\"foo bar\"") == %Query{tags: %{include: [], exclude: [{:phrase, "foo bar"}]}}
     end
   end
 
@@ -129,6 +129,6 @@ defmodule Cforum.Search.QueryTest do
 
   test "it removes leading and trailing whitespaces" do
     assert Query.parse("  foo  ") == %Query{all: %{include: ["foo"], exclude: []}}
-    assert Query.parse("author:\"  foo  \"") == %Query{author: %{include: ["foo"], exclude: []}}
+    assert Query.parse("author:\"  foo  \"") == %Query{author: %{include: [{:phrase, "foo"}], exclude: []}}
   end
 end
