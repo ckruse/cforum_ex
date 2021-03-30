@@ -12,7 +12,6 @@
     <% end %>
 
     <%= if Abilities.access_forum?(@conn, :moderate) do %>
-      <!-- TODO li><%# cf_link_to t('plugins.twitter.tweet_message'), tweet_message_path(@thread, m) %></li -->
       <%= if @view_all do %>
         <li>
           <%= if @message.deleted do %>
