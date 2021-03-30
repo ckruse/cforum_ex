@@ -17,11 +17,11 @@ defmodule Cforum.Search.Finder do
 
     {_, conditions, _, args, args_cnt} =
       {[], [], "", [], 0}
-      |> maybe_add_search(query.all, search_dict, "ts_document")
-      |> maybe_add_search(query.title, search_dict, "ts_title")
-      |> maybe_add_search(query.content, search_dict, "ts_content")
-      |> maybe_add_search(query.author, "simple", "ts_author")
-      |> maybe_add_search(query.tags, nil, :tags)
+      |> maybe_add_search(query.all, search_dict, "ts_document", :document)
+      |> maybe_add_search(query.title, search_dict, "ts_title", :title)
+      |> maybe_add_search(query.content, search_dict, "ts_content", :content)
+      |> maybe_add_search(query.author, "simple", "ts_author", nil)
+      |> maybe_add_search(query.tags, nil, :tags, nil)
       |> add_sections(sections)
 
     conditions =
@@ -48,11 +48,11 @@ defmodule Cforum.Search.Finder do
 
     {_, conditions, ordering, args, args_cnt} =
       {[], [], "", [], 0}
-      |> maybe_add_search(query.all, search_dict, "ts_document")
-      |> maybe_add_search(query.title, search_dict, "ts_title")
-      |> maybe_add_search(query.content, search_dict, "ts_content")
-      |> maybe_add_search(query.author, "simple", "ts_author")
-      |> maybe_add_search(query.tags, nil, :tags)
+      |> maybe_add_search(query.all, search_dict, "ts_document", :document)
+      |> maybe_add_search(query.title, search_dict, "ts_title", :title)
+      |> maybe_add_search(query.content, search_dict, "ts_content", :content)
+      |> maybe_add_search(query.author, "simple", "ts_author", nil)
+      |> maybe_add_search(query.tags, nil, :tags, nil)
       |> add_sections(sections)
       |> add_result_order("date", query, search_dict, false)
 
@@ -84,11 +84,11 @@ defmodule Cforum.Search.Finder do
 
     {_, conditions, _, args, args_cnt} =
       {[], [], "", [], 0}
-      |> maybe_add_search(query.all, search_dict, "ts_document")
-      |> maybe_add_search(query.title, search_dict, "ts_title")
-      |> maybe_add_search(query.content, search_dict, "ts_content")
-      |> maybe_add_search(query.author, "simple", "ts_author")
-      |> maybe_add_search(query.tags, nil, :tags)
+      |> maybe_add_search(query.all, search_dict, "ts_document", :document)
+      |> maybe_add_search(query.title, search_dict, "ts_title", :title)
+      |> maybe_add_search(query.content, search_dict, "ts_content", :content)
+      |> maybe_add_search(query.author, "simple", "ts_author", nil)
+      |> maybe_add_search(query.tags, nil, :tags, nil)
       |> add_sections(sections)
 
     conditions =
@@ -115,11 +115,11 @@ defmodule Cforum.Search.Finder do
 
     {_, conditions, ordering, args, args_cnt} =
       {[], [], "", [], 0}
-      |> maybe_add_search(query.all, search_dict, "ts_document")
-      |> maybe_add_search(query.title, search_dict, "ts_title")
-      |> maybe_add_search(query.content, search_dict, "ts_content")
-      |> maybe_add_search(query.author, "simple", "ts_author")
-      |> maybe_add_search(query.tags, nil, :tags)
+      |> maybe_add_search(query.all, search_dict, "ts_document", :document)
+      |> maybe_add_search(query.title, search_dict, "ts_title", :title)
+      |> maybe_add_search(query.content, search_dict, "ts_content", :content)
+      |> maybe_add_search(query.author, "simple", "ts_author", nil)
+      |> maybe_add_search(query.tags, nil, :tags, nil)
       |> add_sections(sections)
       |> add_result_order("date", query, search_dict, false)
 
@@ -153,11 +153,11 @@ defmodule Cforum.Search.Finder do
 
     {_, conditions, _, args, _} =
       {[], [], "", [], 0}
-      |> maybe_add_search(query.all, search_dict, "ts_document")
-      |> maybe_add_search(query.title, search_dict, "ts_title")
-      |> maybe_add_search(query.content, search_dict, "ts_content")
-      |> maybe_add_search(query.author, "simple", "ts_author")
-      |> maybe_add_search(query.tags, nil, :tags)
+      |> maybe_add_search(query.all, search_dict, "ts_document", :document)
+      |> maybe_add_search(query.title, search_dict, "ts_title", :title)
+      |> maybe_add_search(query.content, search_dict, "ts_content", :content)
+      |> maybe_add_search(query.author, "simple", "ts_author", nil)
+      |> maybe_add_search(query.tags, nil, :tags, nil)
       |> add_start_date(start_date)
       |> add_end_date(end_date)
       |> add_sections(sections)
@@ -182,11 +182,11 @@ defmodule Cforum.Search.Finder do
 
     {_, sub_conditions, ordering, sub_args, args_cnt} =
       {[], [], "", [], 0}
-      |> maybe_add_search(query.all, search_dict, "ts_document")
-      |> maybe_add_search(query.title, search_dict, "ts_title")
-      |> maybe_add_search(query.content, search_dict, "ts_content")
-      |> maybe_add_search(query.author, "simple", "ts_author")
-      |> maybe_add_search(query.tags, nil, :tags)
+      |> maybe_add_search(query.all, search_dict, "ts_document", :document)
+      |> maybe_add_search(query.title, search_dict, "ts_title", :title)
+      |> maybe_add_search(query.content, search_dict, "ts_content", :content)
+      |> maybe_add_search(query.author, "simple", "ts_author", nil)
+      |> maybe_add_search(query.tags, nil, :tags, nil)
       |> add_start_date(start_date)
       |> add_end_date(end_date)
       |> add_sections(sections)
@@ -262,9 +262,15 @@ defmodule Cforum.Search.Finder do
   defp add_end_date({selects, conditions, order, args, args_cnt}, end_date),
     do: {selects, conditions ++ ["document_created <= $#{args_cnt + 1}"], order, args ++ [end_date], args_cnt + 1}
 
-  defp maybe_add_search(q, %{include: [], exclude: []}, _, _), do: q
+  defp maybe_add_search(q, %{include: [], exclude: []}, _, _, _), do: q
 
-  defp maybe_add_search({selects, conditions, order, args, args_cnt}, %{include: includes, exclude: excludes}, _, :tags) do
+  defp maybe_add_search(
+         {selects, conditions, order, args, args_cnt},
+         %{include: includes, exclude: excludes},
+         _,
+         :tags,
+         _
+       ) do
     includes = Enum.map(includes, &String.downcase/1)
     excludes = Enum.map(excludes, &String.downcase/1)
 
@@ -272,9 +278,63 @@ defmodule Cforum.Search.Finder do
      args ++ [includes, excludes], args_cnt + 2}
   end
 
-  defp maybe_add_search({selects, conditions, order, args, cnt}, %{include: includes, exclude: excludes}, dict, field) do
+  defp maybe_add_search(
+         {selects, conditions, order, args, cnt},
+         %{include: includes, exclude: excludes},
+         dict,
+         field,
+         nil
+       ) do
     expression = to_tsquery(includes, excludes)
     {selects, conditions ++ ["#{field} @@ to_tsquery('#{dict}', $#{cnt + 1})"], order, args ++ [expression], cnt + 1}
+  end
+
+  defp maybe_add_search(
+         {selects, conditions, order, args, cnt},
+         %{include: includes, exclude: excludes},
+         dict,
+         field,
+         after_field
+       ) do
+    expression = to_tsquery(includes, excludes)
+
+    include_phrases =
+      Enum.filter(includes, fn
+        {:phrase, _} -> true
+        _ -> false
+      end)
+
+    exclude_phrases =
+      Enum.filter(excludes, fn
+        {:phrase, _} -> true
+        _ -> false
+      end)
+
+    like_field =
+      case after_field do
+        :document -> "title || '\n' || content"
+        :title -> "title"
+        :content -> "content"
+      end
+
+    {new_conditions, new_args, new_cnt} =
+      {conditions ++ ["#{field} @@ to_tsquery('#{dict}', $#{cnt + 1})"], args ++ [expression], cnt + 1}
+      |> maybe_add_include_likes(like_field, include_phrases)
+      |> maybe_add_exclude_likes(like_field, exclude_phrases)
+
+    {selects, new_conditions, order, new_args, new_cnt}
+  end
+
+  defp maybe_add_include_likes({conditions, args, cnt}, field, phrases) do
+    Enum.reduce(phrases, {conditions, args, cnt}, fn {:phrase, phrase}, {conditions, args, cnt} ->
+      {conditions ++ ["#{field} LIKE $#{cnt + 1}"], args ++ [db_quote("%#{phrase}%", false)], cnt + 1}
+    end)
+  end
+
+  defp maybe_add_exclude_likes({conditions, args, cnt}, field, phrases) do
+    Enum.reduce(phrases, {conditions, args, cnt}, fn {:phrase, phrase}, {conditions, args, cnt} ->
+      {conditions ++ ["#{field} NOT LIKE $#{cnt + 1}"], args ++ [db_quote("%#{phrase}%", false)], cnt + 1}
+    end)
   end
 
   defp maybe_add_title(q, %{include: [], exclude: []}, _, _), do: q
@@ -350,8 +410,11 @@ defmodule Cforum.Search.Finder do
     end
   end
 
-  @spec ts_term(String.t(), String.t()) :: String.t()
-  defp ts_term(term, prefix \\ "") do
+  @spec ts_term(String.t() | {:phrase, String.t()}, String.t()) :: String.t()
+  defp ts_term(term, prefix \\ "")
+  defp ts_term({:phrase, term}, prefix), do: ts_term(term, prefix)
+
+  defp ts_term(term, prefix) do
     prefix <>
       if String.last(term) == "*" && term != "*",
         do: db_quote(String.slice(term, 0..-2)) <> ":*",
@@ -359,12 +422,14 @@ defmodule Cforum.Search.Finder do
   end
 
   @spec db_quote(String.t()) :: String.t()
-  defp db_quote(term) do
+  defp db_quote(term, as_ts \\ true) do
     s =
       term
       |> String.replace("'", "''")
       |> String.replace("\\", "\\\\")
 
-    "'#{s}'"
+    if as_ts,
+      do: "'#{s}'",
+      else: s
   end
 end

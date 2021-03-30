@@ -39,7 +39,7 @@ defmodule Cforum.Search.Query do
 
   defp parse_search_terms("\"" <> rest, query, current, current_type) do
     {rest, str} = read_string(rest)
-    parse_search_terms(skip_whitespaces(rest), set_search_term(query, str, current, current_type), :all)
+    parse_search_terms(skip_whitespaces(rest), set_search_term(query, str, current, current_type, true), :all)
   end
 
   defp parse_search_terms(str, query, current, current_type) do
@@ -64,17 +64,25 @@ defmodule Cforum.Search.Query do
   defp read_string(<<char, rest::binary>>, acc), do: read_string(rest, [acc, char])
 
   @spec set_search_term(%Query{}, String.t(), section(), term_type()) :: %Query{}
-  defp set_search_term(query, term, section, type)
+  defp set_search_term(query, term, section, type, is_phrase \\ false)
 
-  defp set_search_term(query, "-" <> term, section, nil),
-    do: Map.update!(query, section, fn val -> Map.update!(val, :exclude, &(&1 ++ [String.trim(term)])) end)
+  defp set_search_term(query, "-" <> term, section, nil, is_phrase) do
+    term_val = if is_phrase, do: {:phrase, String.trim(term)}, else: String.trim(term)
+    Map.update!(query, section, fn val -> Map.update!(val, :exclude, &(&1 ++ [term_val])) end)
+  end
 
-  defp set_search_term(query, "+" <> term, section, nil),
-    do: Map.update!(query, section, fn val -> Map.update!(val, :include, &(&1 ++ [String.trim(term)])) end)
+  defp set_search_term(query, "+" <> term, section, nil, is_phrase) do
+    term_val = if is_phrase, do: {:phrase, String.trim(term)}, else: String.trim(term)
+    Map.update!(query, section, fn val -> Map.update!(val, :include, &(&1 ++ [term_val])) end)
+  end
 
-  defp set_search_term(query, term, section, nil),
-    do: Map.update!(query, section, fn val -> Map.update!(val, :include, &(&1 ++ [String.trim(term)])) end)
+  defp set_search_term(query, term, section, nil, is_phrase) do
+    term_val = if is_phrase, do: {:phrase, String.trim(term)}, else: String.trim(term)
+    Map.update!(query, section, fn val -> Map.update!(val, :include, &(&1 ++ [term_val])) end)
+  end
 
-  defp set_search_term(query, term, section, type),
-    do: Map.update!(query, section, fn val -> Map.update!(val, type, &(&1 ++ [String.trim(term)])) end)
+  defp set_search_term(query, term, section, type, is_phrase) do
+    term_val = if is_phrase, do: {:phrase, String.trim(term)}, else: String.trim(term)
+    Map.update!(query, section, fn val -> Map.update!(val, type, &(&1 ++ [term_val])) end)
+  end
 end
