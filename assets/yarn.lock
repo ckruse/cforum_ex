@@ -3252,10 +3252,10 @@ language-tags@^1.0.5:
   dependencies:
     language-subtag-registry "~0.3.2"
 
-leaflet-geosearch@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/leaflet-geosearch/-/leaflet-geosearch-3.3.0.tgz#b6b6f15cc837a7cf6e00f5b7eabaa8a15d2700a0"
-  integrity sha512-0BH2uHhrmJD6uisBB3ZGWaBK/iq/LaL31h9WOLuqeovDil67BIlNESJoB/FUdyPDDt73YxW9gAYCl2tcAuy8Qg==
+leaflet-geosearch@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/leaflet-geosearch/-/leaflet-geosearch-3.3.1.tgz#72620fc5d45c4a81d656f90846d7bafe73241765"
+  integrity sha512-Hzs6Jday7jqe3lvZrw5sfDpiAKzU83RfewAqQIj4hdN9IsmEs7mNhwwMXUr/5IoKUwJ6p5Db4gtTyxaeizOaTA==
   optionalDependencies:
     leaflet "^1.6.0"
 
