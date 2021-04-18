@@ -56,7 +56,7 @@
     "file-loader": "^6.1.1",
     "mini-css-extract-plugin": "^1.4.1",
     "node-sass": "^5.0.0",
-    "postcss": "^8.2.9",
+    "postcss": "^8.2.10",
     "postcss-loader": "^5.2.0",
     "postcss-sass": "^0.4.4",
     "sass-loader": "^11.0.1",
