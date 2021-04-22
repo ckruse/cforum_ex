@@ -7,7 +7,7 @@ defmodule CforumWeb.Router do
     plug(:fetch_session)
     plug(:fetch_flash)
     plug(:protect_from_forgery)
-    plug(:put_secure_browser_headers)
+    plug(:put_secure_browser_headers, %{"permissions-policy" => "interest-cohort=()"})
 
     plug(CforumWeb.Plug.SecurityHeaders)
     plug(CforumWeb.Plug.RedirectionsPlug)
