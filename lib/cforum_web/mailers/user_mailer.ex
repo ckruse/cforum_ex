@@ -6,6 +6,7 @@ defmodule CforumWeb.UserMailer do
     new()
     |> from(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))
     |> to({user.username, user.email})
+    |> Swoosh.Email.header("Auto-Submitted", "auto-generated")
     |> subject(gettext("confirm your registration"))
     |> render_body(:confirmation_mail, %{user: user})
   end
@@ -14,6 +15,7 @@ defmodule CforumWeb.UserMailer do
     new()
     |> from(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))
     |> to({user.username, user.email})
+    |> Swoosh.Email.header("Auto-Submitted", "auto-generated")
     |> subject(gettext("reset password instructions"))
     |> render_body(:reset_password_mail, %{user: user})
   end
@@ -33,6 +35,7 @@ defmodule CforumWeb.UserMailer do
     |> from(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))
     |> to({user.username, user.email})
     |> bcc(Application.get_env(:cforum, :mail_sender, "cforum@example.org"))
+    |> Swoosh.Email.header("Auto-Submitted", "auto-generated")
     |> subject(gettext("inactivity warning"))
     |> render_body(:inactivity_warning_mail, %{user: user, years: years_str})
   end
