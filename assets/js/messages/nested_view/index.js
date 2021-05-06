@@ -16,6 +16,10 @@ const toggleFolded = (posting, button = null) => {
 
   posting.classList.toggle("folded");
 
+  if (!button) {
+    return;
+  }
+
   if (posting.classList.contains("folded")) {
     button.firstChild.textContent = t("unfold");
   } else {
