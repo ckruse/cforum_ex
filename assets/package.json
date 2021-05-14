@@ -19,7 +19,7 @@
     "@appsignal/react": "^1.0.3",
     "bundle-loader": "^0.5.6",
     "cfmarkdown": "https://github.com/ckruse/cfmarkdown.git",
-    "date-fns": "^2.21.2",
+    "date-fns": "^2.21.3",
     "diff": "^5.0.0",
     "emoji-mart": "<= 3.0.2 || > 2.11.2",
     "highcharts": "^9.1.0",
