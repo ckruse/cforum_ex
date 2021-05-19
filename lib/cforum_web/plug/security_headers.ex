@@ -20,7 +20,7 @@ defmodule CforumWeb.Plug.SecurityHeaders do
       style_csp = "style-src 'self' 'unsafe-inline'"
 
       connect_csp =
-        "connect-src 'self' #{scheme()}://#{CforumWeb.Endpoint.config(:url)[:host]}#{port()}" <>
+        "connect-src 'self' #{scheme()}://#{CforumWeb.Endpoint.config(:url)[:host]}#{port()} https://appsignal-endpoint.net/collect" <>
           maybe_osm_connect(conn.request_path)
 
       frame_src = "frame-src wiki.selfhtml.org"
