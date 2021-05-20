@@ -9,7 +9,10 @@
       </div>
 
       <div class="cf-cgroup">
-        <%= label @f, :url, gettext("homepage") %>
+        <%= label @f, :url do %>
+          <%= gettext("homepage") %>
+          <%= ErrorHelpers.error_tag @fs, :options_url %>
+        <% end %>
         <%= url_input @f, :url, placeholder: "http://example.com/" %>
       </div>
 

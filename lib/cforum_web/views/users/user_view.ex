@@ -14,6 +14,8 @@ defmodule CforumWeb.Users.UserView do
   alias CforumWeb.Views.ViewHelpers
   alias CforumWeb.Views.ViewHelpers.Path
 
+  alias CforumWeb.ErrorHelpers
+
   def page_title(:index, _), do: gettext("Users")
   def page_title(:show, assigns), do: gettext("User %{username}", username: assigns[:user].username)
 

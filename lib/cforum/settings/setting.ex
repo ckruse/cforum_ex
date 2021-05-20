@@ -46,7 +46,7 @@ defmodule Cforum.Settings.Setting do
       changeset
     else
       nil -> changeset
-      {:error, msg} -> add_error(changeset, :options, msg)
+      {:error, msg} -> add_error(changeset, :options_url, msg)
     end
   end
 

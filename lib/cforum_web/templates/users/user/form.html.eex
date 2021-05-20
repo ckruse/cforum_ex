@@ -4,6 +4,6 @@
 
 <%= inputs_for @f, :settings, [], fn fs -> %>
   <%= ViewHelpers.sub_inputs fs, :options, [merge_callback: fn opts -> merge_default_config(@user.settings, opts) end], fn(fo) -> %>
-    <%= render "settings.html", Map.merge(assigns, %{f: fo, original_f: @f, user: @user}) %>
+    <%= render "settings.html", Map.merge(assigns, %{fs: fs, f: fo, original_f: @f, user: @user}) %>
   <% end %>
 <% end %>
