@@ -13,18 +13,6 @@
       </ul>
     </nav>
 
-    <template id="tablist">
-      <div role="tablist" class="cf-tab-list">
-        <button role="tab" id="general-setting-tab" aria-controls="general-settings" aria-selected="false" tabindex="-1"><%= gettext("general settings") %></button>
-        <button role="tab" id="Paginator.pagination-settings-tab" aria-controls="Paginator.pagination-settings" aria-selected="false" tabindex="-1"><%= gettext("pagination settings") %></button>
-        <button role="tab" id="archiver-settings-tab" aria-controls="archiver-settings" aria-selected="false" tabindex="-1"><%= gettext("archiver settings") %></button>
-        <button role="tab" id="editing-settings-tab" aria-controls="editing-settings" aria-selected="false" tabindex="-1"><%= gettext("editing settings") %></button>
-        <button role="tab" id="date-format-settings-tab" aria-controls="date-format-settings" aria-selected="false" tabindex="-1"><%= gettext("date format settings") %></button>
-        <button role="tab" id="voting-and-scoring-settings-tab" aria-controls="voting-and-scoring-settings" aria-selected="false" tabindex="-1"><%= gettext("voting and scoring settings") %></button>
-        <button role="tab" id="anti-spam-settings-tab" aria-controls="anti-spam-settings" aria-selected="false" tabindex="-1"><%= gettext("anti spam settings") %></button>
-      </div>
-    </template>
-
     <%= render "settings.html", Map.put(assigns, :fo, fo) %>
   <% end %>
 
