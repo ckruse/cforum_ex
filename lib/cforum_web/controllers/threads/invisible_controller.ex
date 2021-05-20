@@ -92,7 +92,12 @@ defmodule CforumWeb.Threads.InvisibleController do
     end
   end
 
-  def allowed?(conn, :unhide, thread), do: (thread || conn.assigns[:thread]).attribs[:invisible] == true
-  def allowed?(conn, :hide, thread), do: (thread || conn.assigns[:thread]).attribs[:invisible] != true
-  def allowed?(conn, _, _), do: Abilities.signed_in?(conn)
+  def allowed?(conn, :unhide, thread),
+    do: Abilities.signed_in?(conn) && (thread || conn.assigns[:thread]).attribs[:invisible] == true
+
+  def allowed?(conn, :hide, thread),
+    do: Abilities.signed_in?(conn) && (thread || conn.assigns[:thread]).attribs[:invisible] != true
+
+  def allowed?(conn, _, _),
+    do: Abilities.signed_in?(conn)
 end
