@@ -1,6 +1,8 @@
 defmodule Cforum.Settings.Setting do
   use CforumWeb, :model
 
+  alias Cforum.Helpers
+
   @primary_key {:setting_id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :setting_id}
 
@@ -19,6 +21,7 @@ defmodule Cforum.Settings.Setting do
     |> remove_default_option_values()
     |> validate_required([:options])
     |> unique_constraint(:forum_id)
+    |> validate_urls()
   end
 
   defp remove_default_option_values(%Ecto.Changeset{valid?: true} = changeset) do
@@ -36,4 +39,17 @@ defmodule Cforum.Settings.Setting do
 
   defp defaults_reduce({_key, "_DEFAULT_"}, acc), do: acc
   defp defaults_reduce({key, value}, acc), do: Map.put(acc, key, value)
+
+  defp validate_urls(changeset) do
+    with %{} = options <- Ecto.Changeset.get_change(changeset, :options),
+         :ok <- check_url(options["url"]) do
+      changeset
+    else
+      nil -> changeset
+      {:error, msg} -> add_error(changeset, :options, msg)
+    end
+  end
+
+  defp check_url(url) when is_binary(url) and url != "", do: Helpers.check_url(url)
+  defp check_url(_), do: :ok
 end
