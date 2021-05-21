@@ -1,7 +1,6 @@
 import { parse } from "../helpers";
-
-import { maybeCloseThread, openOrCloseThread } from "./open_close";
 import { hideThread, maybeHide } from "./hide";
+import { maybeCloseThread, openOrCloseThread } from "./open_close";
 
 const addIcons = (el) => {
   const id = el.closest(".cf-thread").id;
