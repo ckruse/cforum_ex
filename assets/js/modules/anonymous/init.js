@@ -23,7 +23,7 @@ const addIcons = (el) => {
 
 const handleClick = (ev) => {
   const target = ev.target.closest("button");
-  if (!target.classList.contains("icon-button")) {
+  if (!target || !target.classList.contains("icon-button")) {
     return;
   }
 
