@@ -26,7 +26,7 @@ defmodule Cforum.Factory do
   def notification_factory do
     %Cforum.Notifications.Notification{
       is_read: false,
-      subject: Faker.Lorem.sentence(%Range{first: 1, last: 10}),
+      subject: Faker.Lorem.sentence(1..10),
       path: "/foo/bar",
       oid: 0,
       otype: "none",
@@ -39,7 +39,7 @@ defmodule Cforum.Factory do
       owner: build(:user),
       is_read: false,
       subject: sequence("Subject "),
-      body: Faker.Lorem.paragraph(%Range{first: 1, last: 3}),
+      body: Faker.Lorem.paragraph(1..3),
       sender_name: sequence("PM Sender "),
       recipient_name: sequence("PM Recipient ")
     }
@@ -76,7 +76,7 @@ defmodule Cforum.Factory do
       name: sequence("Forum "),
       short_name: sequence("Forum "),
       slug: sequence("forum-"),
-      description: Faker.Lorem.sentence(%Range{first: 1, last: 3}),
+      description: Faker.Lorem.sentence(1..3),
       standard_permission: "private",
       position: 0
     }
@@ -91,7 +91,11 @@ defmodule Cforum.Factory do
   def group_factory, do: %Cforum.Groups.Group{name: sequence("Group ")}
 
   def forum_group_permission_factory,
-    do: %Cforum.Groups.ForumGroupPermission{permission: "read", forum: build(:forum), group: build(:group)}
+    do: %Cforum.Groups.ForumGroupPermission{
+      permission: "read",
+      forum: build(:forum),
+      group: build(:group)
+    }
 
   def thread_factory do
     %Cforum.Threads.Thread{
@@ -105,7 +109,7 @@ defmodule Cforum.Factory do
     %Cforum.Messages.Message{
       author: sequence("Author "),
       subject: sequence("Message subject "),
-      content: Faker.Lorem.paragraph(%Range{first: 1, last: 2})
+      content: Faker.Lorem.paragraph(1..2)
     }
   end
 
@@ -113,7 +117,7 @@ defmodule Cforum.Factory do
     %Cforum.Messages.MessageVersion{
       author: sequence("Author "),
       subject: sequence("Message subject "),
-      content: Faker.Lorem.paragraph(%Range{first: 1, last: 2}),
+      content: Faker.Lorem.paragraph(1..2),
       message: build(:message),
       user: build(:user)
     }
@@ -158,7 +162,7 @@ defmodule Cforum.Factory do
     %Cforum.Cites.Cite{
       archived: false,
       author: sequence("Author "),
-      cite: Faker.Lorem.sentence(%Range{first: 1, last: 10}),
+      cite: Faker.Lorem.sentence(1..10),
       cite_date: Timex.now(),
       creator: sequence("Creator "),
       url: sequence("https://example.com/cites/")
@@ -181,7 +185,7 @@ defmodule Cforum.Factory do
       start_date: Timex.today(),
       end_date: Timex.today() |> Timex.shift(days: 2),
       location: sequence("Location "),
-      description: Faker.Lorem.paragraph(%Range{first: 1, last: 2}),
+      description: Faker.Lorem.paragraph(1..2),
       visible: false
     }
   end
@@ -214,12 +218,12 @@ defmodule Cforum.Factory do
   def search_document_factory do
     %Cforum.Search.Document{
       author: sequence("Author "),
-      content: Faker.Lorem.paragraph(%Range{first: 1, last: 2}),
+      content: Faker.Lorem.paragraph(1..2),
       document_created: DateTime.truncate(Timex.now(), :second),
       lang: "german",
       relevance: 1.0,
       tags: [],
-      title: Faker.Lorem.sentence(%Range{first: 1, last: 10}),
+      title: Faker.Lorem.sentence(1..10),
       url: sequence("https://example.org/search-"),
       search_section: build(:search_section)
     }
@@ -240,9 +244,9 @@ defmodule Cforum.Factory do
 
     %Cforum.AdventCalendars.Day{
       date: %Date{day | month: 12, day: day_no},
-      subject: Faker.Lorem.sentence(%Range{first: 1, last: 10}),
+      subject: Faker.Lorem.sentence(1..10),
       author: sequence("Author "),
-      content: Faker.Lorem.paragraph(%Range{first: 1, last: 2})
+      content: Faker.Lorem.paragraph(1..2)
     }
   end
 end
