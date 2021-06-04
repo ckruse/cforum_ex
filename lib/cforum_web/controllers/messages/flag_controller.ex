@@ -42,7 +42,8 @@ defmodule CforumWeb.Messages.FlagController do
     |> Plug.Conn.assign(:message, message)
   end
 
-  def allowed?(_conn, _, _), do: true
+  def allowed?(_conn, _, {thread, _message}), do: not thread.archived
+  def allowed?(conn, action, _), do: allowed?(conn, action, {conn.assigns.thread, conn.assigns.message})
 
   def id_fields(_), do: ["mid"]
 end

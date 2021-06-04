@@ -20,8 +20,10 @@
       <%= ViewHelpers.Button.default_button_link(gettext("retag message"), to: Path.message_path(@conn, :retag, @thread, @message), rel: "nofollow") %>
     <% end %>
 
-    <%= if Abilities.may?(@conn, "messages/flag", :flag, @message) do %>
+    <%= if Abilities.may?(@conn, "messages/flag", :flag, {@thread, @message}) do %>
       <%= ViewHelpers.Button.default_button_link(gettext("flag message"), to: Path.message_path(@conn, :flag, @thread, @message), rel: "nofollow") %>
+    <% else %>
+      <%= ViewHelpers.Button.default_button_link(gettext("flag message"), to: "mailto:projekt@selfhtml.org", rel: "nofollow") %>
     <% end %>
   <% end %>
 </div>
