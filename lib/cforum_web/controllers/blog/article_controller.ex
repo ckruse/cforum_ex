@@ -196,6 +196,9 @@ defmodule CforumWeb.Blog.ArticleController do
 
   def prev_article(article, threads) do
     idx = Enum.find_index(threads, &(&1.thread_id == article.thread_id))
-    Enum.at(threads, idx + 1)
+
+    if is_nil(idx),
+      do: nil,
+      else: Enum.at(threads, idx + 1)
   end
 end
