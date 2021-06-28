@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import { t } from "../../modules/i18n";
-import ImageModal from "./toolbar/image_modal";
 import { alertError } from "../../modules/alerts";
-import { isInSizeLimit } from "./helpers";
 import { conf } from "../../modules/helpers";
+import { t } from "../../modules/i18n";
+import { isInSizeLimit } from "./helpers";
+import ImageModal from "./toolbar/image_modal";
+
+export const VALID_IMAGE_RX = /^image\/(png|jpe?g|gif|svg\+xml|webp)$/;
 
 export default function Dropzone(props) {
   const [dragging, setDragging] = useState(false);
@@ -46,7 +48,7 @@ export default function Dropzone(props) {
   function onOk(file, desc, title) {
     setShowImageModal(false);
 
-    if (file.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && isInSizeLimit(file)) {
+    if (file.type.match(VALID_IMAGE_RX) && isInSizeLimit(file)) {
       props.onDrop(file, desc, title);
     }
   }
@@ -99,7 +101,7 @@ export default function Dropzone(props) {
 
     if (ev.dataTransfer.files && ev.dataTransfer.files[0]) {
       const droppedFile = ev.dataTransfer.files[0];
-      if (droppedFile.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && isInSizeLimit(droppedFile)) {
+      if (droppedFile.type.match(VALID_IMAGE_RX) && isInSizeLimit(droppedFile)) {
         setFile(droppedFile);
         setShowImageModal(true);
       }

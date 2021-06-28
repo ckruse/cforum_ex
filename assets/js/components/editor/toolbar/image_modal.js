@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
+
 import Modal from "react-modal";
 
 import { t } from "../../../modules/i18n";
-import Thumb from "./thumb";
+import { VALID_IMAGE_RX } from "../dropzone";
 import { isInSizeLimit } from "../helpers";
+import Thumb from "./thumb";
 
 export default function ImageModal(props) {
   const [meta, setMeta] = useState({ title: "", desc: "" });
@@ -22,7 +24,7 @@ export default function ImageModal(props) {
   function handleFileChanged(ev) {
     const newFile = ev.target.files[0];
 
-    if (newFile.type.match(/^image\/(png|jpe?g|gif|svg\+xml)$/) && isInSizeLimit(newFile)) {
+    if (newFile.type.match(VALID_IMAGE_RX) && isInSizeLimit(newFile)) {
       setFile(newFile);
     }
   }
