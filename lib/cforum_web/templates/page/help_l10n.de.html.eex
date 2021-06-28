@@ -29,7 +29,7 @@
     <dd><%= link "github.com/ckruse/cforum_ex/issues", to: "https://github.com/ckruse/cforum_ex/issues" %></dd>
 
     <dt>Für allgemeine Fragen wenden Sie sich an den Verein SELFHTML e.V.</dt>
-    <dd><%= link "matthias.apsel@selfhtml.org", to: "mailto:matthias.apsel@selfhtml.org" %></dd>
+    <dd><%= link "projekt@selfhtml.org", to: "mailto:projekt@selfhtml.org" %></dd>
   </dd>
 </section>
 
