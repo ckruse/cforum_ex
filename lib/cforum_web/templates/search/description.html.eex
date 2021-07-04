@@ -12,7 +12,5 @@
     <li class="headline-content"><%= {:safe, @result.headline_content} %></li>
   <% end %>
 
-  <%= if should_show_desc?(@result) do %>
-    <li class="content-truncated p-content"><%= Helpers.truncate_words(@result.content, 30) %></li>
-  <% end %>
+  <li class="content-truncated p-content"><%= Helpers.truncate_words(@result.content, 30) %></li>
 </ol>

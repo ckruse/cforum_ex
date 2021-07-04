@@ -29,9 +29,4 @@ defmodule CforumWeb.SearchView do
   def should_show_title?(nil), do: false
   def should_show_title?(""), do: false
   def should_show_title?(str), do: String.contains?(str, "<b>")
-
-  def should_show_desc?(result) do
-    !should_show_title?(result.headline_author) && !should_show_title?(result.headline_title) &&
-      !should_show_title?(result.headline_all) && !should_show_title?(result.headline_content)
-  end
 end
