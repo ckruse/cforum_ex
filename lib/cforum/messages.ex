@@ -168,7 +168,7 @@ defmodule Cforum.Messages do
   @spec get_message_from_mid!(Thread.t(), any) :: Message.t()
   def get_message_from_mid!(thread, mid)
 
-  def get_message_from_mid!(thread, mid) when is_bitstring(mid),
+  def get_message_from_mid!(thread, mid) when is_binary(mid),
     do: get_message_from_mid!(thread, String.to_integer(mid, 10))
 
   def get_message_from_mid!(%Thread{} = thread, mid) do
@@ -179,7 +179,7 @@ defmodule Cforum.Messages do
   end
 
   @spec get_message_from_old_mid!(Thread.t(), any) :: Message.t()
-  def get_message_from_old_mid!(thread, mid) when is_bitstring(mid),
+  def get_message_from_old_mid!(thread, mid) when is_binary(mid),
     do: get_message_from_old_mid!(thread, String.to_integer(mid, 10))
 
   def get_message_from_old_mid!(thread, mid) do

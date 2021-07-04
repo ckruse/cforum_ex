@@ -18,7 +18,7 @@ defmodule CforumWeb.SearchView do
   def checked?(section, form) do
     values =
       Enum.map(input_value(form, :sections), fn s ->
-        if is_bitstring(s) && Regex.match?(~r/^\d+$/, s),
+        if is_binary(s) && Regex.match?(~r/^\d+$/, s),
           do: String.to_integer(s),
           else: s
       end)

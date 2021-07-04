@@ -60,7 +60,7 @@ defmodule Cforum.Helpers do
   def to_int(true), do: 1
   def to_int(false), do: 0
   def to_int(map) when map == %{}, do: 0
-  def to_int(v) when is_bitstring(v), do: String.to_integer(v)
+  def to_int(v) when is_binary(v), do: String.to_integer(v)
   def to_int(v) when is_integer(v), do: v
   def to_int(v) when is_number(v), do: trunc(v)
   def to_int(_v), do: 0
@@ -92,7 +92,7 @@ defmodule Cforum.Helpers do
   def to_float(true), do: 1.0
   def to_float(false), do: 0.0
   def to_float(map) when map == %{}, do: 0.0
-  def to_float(v) when is_bitstring(v), do: String.to_float(v)
+  def to_float(v) when is_binary(v), do: String.to_float(v)
   def to_float(v) when is_float(v), do: v
   def to_float(v) when is_number(v), do: v / 1
   def to_float(_v), do: 0.0

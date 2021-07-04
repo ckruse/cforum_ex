@@ -96,7 +96,7 @@ defmodule Cforum.MarkdownRenderer do
     |> to_html_with_error_handling()
   end
 
-  def to_html(str) when is_bitstring(str),
+  def to_html(str) when is_binary(str),
     do: to_html(str, :str)
 
   defp to_html_with_error_handling({:ok, str}), do: {:safe, str}

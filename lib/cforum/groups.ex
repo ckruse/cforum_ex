@@ -147,7 +147,7 @@ defmodule Cforum.Groups do
     |> List.flatten()
   end
 
-  def permission?(user, forum, permission) when is_bitstring(permission), do: permission?(user, forum, [permission])
+  def permission?(user, forum, permission) when is_binary(permission), do: permission?(user, forum, [permission])
 
   def permission?(user, forum, permissions) when is_list(permissions) do
     list_groups()
@@ -157,7 +157,7 @@ defmodule Cforum.Groups do
     |> Enum.any?(&(&1.forum_id == forum.forum_id && &1.permission in permissions))
   end
 
-  def permission?(permission_list, permission) when is_bitstring(permission),
+  def permission?(permission_list, permission) when is_binary(permission),
     do: permission?(permission_list, [permission])
 
   def permission?(permission_list, permissions) when is_list(permissions),

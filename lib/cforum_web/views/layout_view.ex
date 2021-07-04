@@ -64,7 +64,7 @@ defmodule CforumWeb.LayoutView do
 
   def page_heading(conn, assigns) do
     with true <- Kernel.function_exported?(view_module(conn), :page_heading, 2),
-         heading when is_bitstring(heading) <- apply(view_module(conn), :page_heading, [action_name(conn), assigns]) do
+         heading when is_binary(heading) <- apply(view_module(conn), :page_heading, [action_name(conn), assigns]) do
       [{:safe, "<h1>"}, heading, {:safe, "</h1>"}]
     else
       _ -> ""

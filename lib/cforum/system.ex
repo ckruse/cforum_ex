@@ -236,7 +236,7 @@ defmodule Cforum.System do
     })
   end
 
-  def audited(action, user, fun, opts \\ []) when is_bitstring(action) and is_function(fun) do
+  def audited(action, user, fun, opts \\ []) when is_binary(action) and is_function(fun) do
     {_, val} =
       Repo.transaction(
         fn ->

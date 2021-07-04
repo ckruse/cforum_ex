@@ -164,7 +164,7 @@ defmodule Cforum.Badges do
     |> Map.values()
   end
 
-  def grant_badge(type, user) when is_bitstring(type),
+  def grant_badge(type, user) when is_binary(type),
     do: grant_badge(get_badge_by(badge_type: type), user)
 
   def grant_badge({key, value}, user),

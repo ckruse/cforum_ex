@@ -23,7 +23,7 @@ defmodule CforumWeb.AdventView do
     end
   end
 
-  def past?(year, day_no, today) when is_bitstring(year), do: past?(Helpers.to_int(year), day_no, today)
+  def past?(year, day_no, today) when is_binary(year), do: past?(Helpers.to_int(year), day_no, today)
 
   def past?(year, day_no, today) do
     cond do

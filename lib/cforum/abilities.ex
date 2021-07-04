@@ -30,7 +30,7 @@ defmodule Cforum.Abilities do
   @spec may?(Plug.Conn.t() | map(), String.t() | atom(), atom(), any()) :: boolean()
   def may?(conn, path, action \\ :index, args \\ nil)
 
-  def may?(%Plug.Conn{} = conn, controller_path, action, resource) when is_bitstring(controller_path) do
+  def may?(%Plug.Conn{} = conn, controller_path, action, resource) when is_binary(controller_path) do
     nam = Cforum.Abilities.SnailCaseCamelCase.to_camel_case(controller_path)
     controller = String.to_existing_atom("Elixir.CforumWeb.#{nam}Controller")
     may?(conn, controller, action, resource)
@@ -156,7 +156,7 @@ defmodule Cforum.Abilities do
   def access_forum?(%Plug.Conn{} = conn, forum, permission),
     do: access_forum?(conn.assigns[:current_user], forum, permission)
 
-  def access_forum?(user, forum_id, permission) when is_integer(forum_id) or is_bitstring(forum_id),
+  def access_forum?(user, forum_id, permission) when is_integer(forum_id) or is_binary(forum_id),
     do: access_forum?(user, Forums.get_forum!(forum_id), permission)
 
   def access_forum?(%User{admin: true}, _, _), do: true
