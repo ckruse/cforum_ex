@@ -127,9 +127,3 @@ msgstr "ist unbekannt"
 
 msgid "seems like spam!"
 msgstr "sieht nach Spam aus!"
-
-msgid "has an invalid scheme"
-msgstr "hat ein ungültiges Schema"
-
-msgid "is missing a host"
-msgstr "fehlt ein Hostname"

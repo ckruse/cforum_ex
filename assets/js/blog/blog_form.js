@@ -8,7 +8,7 @@ import LivePreview from "./live_preview";
 import Meta from "./meta";
 
 export default function CfBlogForm(props) {
-  const { csrfInfo, method, email, subject, homepage, errors, excerpt, text, tags, globalTagsError } = props;
+  const { csrfInfo, method, email, subject, homepage, errors, excerpt, text, tags, globalTagsError, draft } = props;
   const [meta, setMeta] = useState({ email, subject, homepage });
   const [contents, setContents] = useState({ text, excerpt });
   const [tagsList, setTagsList] = useState(tags);
@@ -67,6 +67,18 @@ export default function CfBlogForm(props) {
 
         <TagList tags={tagsList} postingText={contents.text} globalTagsError={globalTagsError} onChange={onTagChange} />
       </div>
+
+      {draft !== undefined && (
+        <fieldset>
+          <div className="cf-cgroup">
+            <label className="checkbox">
+              <input name="message[draft]" type="hidden" value="false" />
+              <input id="message_draft" name="message[draft]" type="checkbox" value="true" defaultChecked={draft} />
+              {t("save as a draft")}
+            </label>
+          </div>
+        </fieldset>
+      )}
 
       <LivePreview excerpt={contents.excerpt} content={contents.text} thumbnail={meta.thumbnail} />
 

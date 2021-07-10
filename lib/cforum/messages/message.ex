@@ -27,6 +27,7 @@ defmodule Cforum.Messages.Message do
     field(:upvotes, :integer, default: 0)
     field(:downvotes, :integer, default: 0)
     field(:deleted, :boolean, default: false)
+    field(:draft, :boolean, default: false)
     field(:mid, :integer)
     field(:author, :string)
     field(:email, :string)
@@ -95,6 +96,7 @@ defmodule Cforum.Messages.Message do
     |> Helpers.validate_url(:homepage)
     |> Helpers.maybe_put_change(:created_at, opts[:created_at])
     |> Helpers.maybe_put_change(:updated_at, opts[:updated_at])
+    |> Helpers.maybe_put_change(:draft, opts[:draft])
   end
 
   defp validate_forum_id(changeset, visible_forums) do

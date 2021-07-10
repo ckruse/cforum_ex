@@ -58,3 +58,11 @@
     <%= render "form_tags.html", assigns %>
   </ul>
 </fieldset>
+
+<fieldset>
+  <div class="cf-cgroup">
+    <label class="checkbox">
+      <%= checkbox @f, :draft %> <%= gettext("save as a draft") %>
+    </label>
+  </div>
+</fieldset>

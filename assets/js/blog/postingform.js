@@ -1,5 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
+
 import CfBlogForm from "./blog_form";
 
 const gatherErrors = (element) => {
@@ -46,11 +47,14 @@ document.querySelectorAll(".cf-posting-form").forEach(async (frm) => {
   const subject = frm.querySelector("[name='message[subject]']").value;
   const email = frm.querySelector("[name='message[email]']").value;
   const homepage = frm.querySelector("[name='message[homepage]']").value;
+  const draftElement = frm.querySelector("#message_draft");
+  const draft = draftElement ? draftElement.checked : undefined;
 
   const errors = gatherErrors(frm);
 
   render(
     <CfBlogForm
+      draft={draft}
       form={frm}
       subject={subject}
       email={email}

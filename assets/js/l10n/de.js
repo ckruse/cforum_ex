@@ -248,4 +248,6 @@ export const lang = {
 
   thumbnail: "Beitragsbild",
   optional: "optional",
+
+  "save as a draft": "als Entwurf speichern",
 };

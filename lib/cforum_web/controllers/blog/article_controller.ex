@@ -64,7 +64,8 @@ defmodule CforumWeb.Blog.ArticleController do
         Subscriptions.autosubscribe?(conn.assigns.current_user, ConfigManager.uconf(conn, "autosubscribe_on_post")),
       uuid: uuid,
       author: ViewHelpers.author_from_conn(conn),
-      format: "markdown-blog"
+      format: "markdown-blog",
+      draft: message_params["draft"] == "true"
     ]
 
     Threads.create_thread(
@@ -116,7 +117,8 @@ defmodule CforumWeb.Blog.ArticleController do
     opts = [
       create_tags: Abilities.may?(conn, "tag", :new),
       remove_previous_versions: Abilities.admin?(conn) && Map.has_key?(params, "delete_previous_versions"),
-      format: "markdown-blog"
+      format: "markdown-blog",
+      draft: message_params["draft"] == "true"
     ]
 
     case Messages.update_message(message, message_params, cu, vis_forums, opts) do
@@ -174,6 +176,7 @@ defmodule CforumWeb.Blog.ArticleController do
     |> Threads.list_threads(conn.assigns[:visible_forums])
     |> Threads.reject_deleted_threads(conn.assigns[:view_all])
     |> Threads.reject_invisible_threads(conn.assigns[:current_user], conn.assigns[:view_all])
+    |> Threads.reject_drafts(conn.assigns[:view_all])
     |> Threads.apply_user_infos(conn.assigns[:current_user])
     |> Threads.apply_highlights(conn)
     |> Threads.sort_threads("descending")

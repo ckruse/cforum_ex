@@ -68,6 +68,26 @@ defmodule Cforum.Threads do
     |> Enum.reverse()
   end
 
+  def reject_drafts(threads, view_all \\ false)
+  def reject_drafts(threads, true), do: threads
+  def reject_drafts(nil, _), do: nil
+
+  def reject_drafts(%Thread{} = thread, view_all) do
+    reject_drafts([thread], view_all)
+    |> List.first()
+  end
+
+  def reject_drafts(threads, _) do
+    Enum.reduce(threads, [], fn thread, list ->
+      messages = Enum.reject(thread.messages, & &1.draft)
+      thread = Map.put(thread, :messages, messages)
+
+      [thread | list]
+    end)
+    |> Enum.reject(&(&1.messages == []))
+    |> Enum.reverse()
+  end
+
   @doc """
   Sort the threads ascending, descending or by the newest message
   """
