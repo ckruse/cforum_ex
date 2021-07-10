@@ -24,13 +24,14 @@ defmodule CforumWeb.Plug.SecurityHeaders do
           maybe_osm_connect(conn.request_path)
 
       frame_src = "frame-src wiki.selfhtml.org"
+      media_src = "media-src 'self' src.selfhtml.org"
 
       conn
       |> Plug.Conn.assign(:nonce_for_js, js_nonce)
       |> Plug.Conn.assign(:nonce_for_style, style_nonce)
       |> Plug.Conn.put_resp_header(
         "Content-Security-Policy",
-        "default-src 'self'; #{frame_src}; #{script_csp}; #{style_csp}; #{connect_csp}" <>
+        "default-src 'self'; #{frame_src}; #{script_csp}; #{style_csp}; #{media_src}; #{connect_csp}" <>
           img_csp(conn.request_path)
       )
     else
