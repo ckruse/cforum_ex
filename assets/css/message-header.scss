@@ -11,6 +11,11 @@
     margin: 0;
     font-weight: bold;
     border: 0;
+
+    .draft {
+      font-style: italic;
+      font-size: 0.8em;
+    }
   }
 
   .details {

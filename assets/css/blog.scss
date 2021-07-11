@@ -43,6 +43,11 @@
   h6 {
     font-family: "Source Serif Pro", Georgia, "Times New Roman", Times, serif;
     line-height: 1.6;
+
+    .draft {
+      font-style: italic;
+      font-size: 0.8em;
+    }
   }
 
   .cf-weblog-article-thumbnail {

@@ -1,5 +1,7 @@
   <%= if @opts[:first] do %>
     <h2>
+      <%= if @message.draft do %><span class="draft"><%= gettext("draft") %>: </span><% end %>
+
       <%= if @opts[:tree] do %>
         <%= @message.subject %>
       <% else %>

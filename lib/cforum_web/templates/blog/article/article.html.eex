@@ -10,7 +10,7 @@
       </span>
     </div>
 
-    <h2><%= link @article.message.subject, to: Path.blog_thread_url(@conn, :show, @article) %></h2>
+    <h2><%= if @article.message.draft do %><span class="draft"><%= gettext("draft") %>:</span> <% end %><%= link @article.message.subject, to: Path.blog_thread_url(@conn, :show, @article) %></h2>
   </header>
 
   <div class="e-content">

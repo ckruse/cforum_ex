@@ -14,6 +14,7 @@
   <% end %>
 </span>
 
+<%= if @message.draft do %><span class="draft"><%= gettext("draft") %>: </span><% end %>
 <%= link(@message.subject, to: Path.message_path(@conn, :show, @thread, @message), class: Enum.join(["thread-info p-name u-uid u-url" | @message.attribs[:classes]], " ")) %>
 
 <time datetime="<%= NaiveDateTime.to_iso8601(@message.created_at) %>">
