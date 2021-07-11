@@ -31,7 +31,13 @@ defmodule Cforum.Threads.Archive do
   def count_archived_threads(forum, visible_forums, from, to, opts \\ []) do
     opts = Keyword.merge([view_all: false], opts)
 
-    from(thread in Thread, where: thread.created_at >= ^from and thread.created_at <= ^to, select: count())
+    from(thread in Thread,
+      inner_join: msg in Message,
+      on: msg.thread_id == thread.thread_id and is_nil(msg.parent_id),
+      where: thread.created_at >= ^from and thread.created_at <= ^to,
+      where: msg.draft == false,
+      select: count()
+    )
     |> ThreadHelpers.set_forum_id(visible_forums, forum)
     |> ThreadHelpers.set_view_all(opts[:view_all])
     |> Repo.one()
