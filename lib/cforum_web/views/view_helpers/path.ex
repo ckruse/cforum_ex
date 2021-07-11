@@ -302,9 +302,9 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def message_url(conn, :show, %Thread{} = thread, %Message{} = msg, params),
     do: "#{int_message_url(conn, thread, msg)}#{encode_query_string(conn, params)}#m#{msg.message_id}"
 
-  @spec blog_url(conn(), params()) :: String.t()
+  @spec blog_url(conn(), opt_params()) :: String.t()
   def blog_url(conn, params \\ []) do
-    base_url = Application.get_env(:cforum, :blog_base_url, "") |> String.replace(~r(/+$), "")
+    base_url = Application.get_env(:cforum, :blog_base_url, "") |> String.replace_trailing("/", "")
     "#{base_url}/#{encode_query_string(conn, params)}"
   end
 
@@ -322,7 +322,7 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
 
   @spec blog_thread_url(conn(), atom(), Thread.t(), params()) :: String.t()
   def blog_thread_url(conn, :show, %Thread{} = thread, params \\ []) do
-    url = blog_url(conn) |> String.replace(~r(/+$), "")
+    url = blog_url(conn, false) |> String.replace_trailing("/", "")
     "#{url}#{thread.slug}#{encode_query_string(conn, params)}"
   end
 
@@ -332,17 +332,17 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def blog_thread_path(conn, action, thread_or_params \\ [], params \\ [])
 
   def blog_thread_path(conn, :show, %Thread{} = thread, params) do
-    url = root_path(conn, :index) |> String.replace(~r(/+$), "")
+    url = root_path(conn, :index, false) |> String.replace_trailing("/", "")
     "#{url}#{thread.slug}#{encode_query_string(conn, params)}"
   end
 
   def blog_thread_path(conn, :edit, %Thread{} = thread, params) do
-    url = root_path(conn, :index) |> String.replace(~r(/+$), "")
+    url = root_path(conn, :index, false) |> String.replace_trailing("/", "")
     "#{url}#{thread.slug}/edit#{encode_query_string(conn, params)}"
   end
 
   def blog_thread_path(conn, :new, params, _),
-    do: "#{root_path(conn, :index)}new#{encode_query_string(conn, params)}"
+    do: "#{root_path(conn, :index, false)}new#{encode_query_string(conn, params)}"
 
   @spec blog_comment_path(conn(), atom(), Thread.t(), Message.t() | params(), params()) :: String.t()
   def blog_comment_path(conn, action, thread, message, params \\ [])
