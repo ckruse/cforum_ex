@@ -87,7 +87,7 @@ defmodule Cforum.ReadMessages do
       on: rm.message_id == msg.message_id and rm.user_id == ^user.user_id,
       left_join: inv in InvisibleThread,
       on: inv.thread_id == thr.thread_id and inv.user_id == ^user.user_id,
-      where: msg.deleted == false and thr.archived == false,
+      where: msg.deleted == false and thr.archived == false and msg.draft == false,
       where: is_nil(rm.message_id) and is_nil(inv.thread_id),
       where: msg.forum_id in ^forum_ids
     )
