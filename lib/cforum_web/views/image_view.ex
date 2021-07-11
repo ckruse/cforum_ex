@@ -14,6 +14,11 @@ defmodule CforumWeb.ImageView do
   def body_id(_, _), do: "images-index"
   def body_classes(_, _), do: "images index"
 
-  def thumbnail_img(conn, img),
-    do: {:safe, "<img src=\"#{Path.image_path(conn, :show, img, size: "thumb")}\" alt=\"\">"}
+  def thumbnail_img(conn, img) do
+    [
+      {:safe, "<img src=\""},
+      Path.image_path(conn, :show, img, size: "thumb"),
+      {:safe, "\" class=\"cf-images-index-preview-img\" alt=\"\">"}
+    ]
+  end
 end
