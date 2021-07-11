@@ -48,7 +48,7 @@ defmodule CforumWeb.Blog.ArchiveController do
             order: "ascending"
           )
           |> Threads.reject_deleted_threads(conn.assigns[:view_all], true)
-          |> Threads.reject_drafts(conn.assigns[:view_all])
+          |> Threads.reject_drafts(conn.assigns[:current_user], conn.assigns[:view_all])
           |> Threads.apply_user_infos(conn.assigns[:current_user],
             close_read_threads: ConfigManager.uconf(conn, "open_close_close_when_read") == "yes",
             open_close_default_state: ConfigManager.uconf(conn, "open_close_default")

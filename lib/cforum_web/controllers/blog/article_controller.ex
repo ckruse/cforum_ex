@@ -176,7 +176,7 @@ defmodule CforumWeb.Blog.ArticleController do
     |> Threads.list_threads(conn.assigns[:visible_forums])
     |> Threads.reject_deleted_threads(conn.assigns[:view_all])
     |> Threads.reject_invisible_threads(conn.assigns[:current_user], conn.assigns[:view_all])
-    |> Threads.reject_drafts(conn.assigns[:view_all])
+    |> Threads.reject_drafts(conn.assigns[:current_user], conn.assigns[:view_all])
     |> Threads.apply_user_infos(conn.assigns[:current_user])
     |> Threads.apply_highlights(conn)
     |> Threads.sort_threads("descending")

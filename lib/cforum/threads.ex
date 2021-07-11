@@ -68,18 +68,18 @@ defmodule Cforum.Threads do
     |> Enum.reverse()
   end
 
-  def reject_drafts(threads, view_all \\ false)
-  def reject_drafts(threads, true), do: threads
-  def reject_drafts(nil, _), do: nil
+  def reject_drafts(threads, user, view_all \\ false)
+  def reject_drafts(threads, _, true), do: threads
+  def reject_drafts(nil, _, _), do: nil
 
-  def reject_drafts(%Thread{} = thread, view_all) do
-    reject_drafts([thread], view_all)
+  def reject_drafts(%Thread{} = thread, user, view_all) do
+    reject_drafts([thread], user, view_all)
     |> List.first()
   end
 
-  def reject_drafts(threads, _) do
+  def reject_drafts(threads, user, _) do
     Enum.reduce(threads, [], fn thread, list ->
-      messages = Enum.reject(thread.messages, & &1.draft)
+      messages = Enum.reject(thread.messages, &(&1.draft && (is_nil(user) || &1.user_id != user.user_id)))
       thread = Map.put(thread, :messages, messages)
 
       [thread | list]
