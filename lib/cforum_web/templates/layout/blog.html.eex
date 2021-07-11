@@ -20,6 +20,7 @@
       <ul>
         <li><%= link gettext("older articles"), to: Path.blog_archive_path(@conn, :years) %></li>
         <%= if Abilities.may?(@conn, "blog/article", :create) do %><li><%= link gettext("create new article"), to: Path.blog_thread_path(@conn, :new) %></li><% end %>
+        <%= if show?(assigns, :view_all) do %><li id="admin-view"><%= view_all_link(@conn) %></li><% end %>
       </ul>
     </nav>
 

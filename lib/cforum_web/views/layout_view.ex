@@ -239,7 +239,10 @@ defmodule CforumWeb.LayoutView do
     CforumWeb.ThreadController,
     CforumWeb.MessageController,
     CforumWeb.Messages.VersionController,
-    CforumWeb.ArchiveController
+    CforumWeb.ArchiveController,
+    CforumWeb.Blog.IndexController,
+    CforumWeb.Blog.ArticleController,
+    CforumWeb.Blog.ArchiveController
   ]
 
   def show?(%{conn: conn}, :view_all) do
@@ -300,10 +303,24 @@ defmodule CforumWeb.LayoutView do
         do: [view_all: nil],
         else: [view_all: "yes"]
 
+    controller = ViewHelpers.controller(conn)
+
     path =
       cond do
-        ViewHelpers.controller(conn) == CforumWeb.Messages.VersionController ->
+        controller == CforumWeb.Messages.VersionController ->
           Path.message_version_path(conn, :index, conn.assigns[:thread], conn.assigns[:message], opts)
+
+        Helpers.present?(conn.assigns[:article]) && controller == CforumWeb.Blog.ArticleController ->
+          Path.blog_thread_path(conn, :show, conn.assigns[:article], opts)
+
+        controller == CforumWeb.Blog.ArchiveController && Helpers.present?(conn.assigns[:years]) ->
+          Path.blog_archive_path(conn, :years, opts)
+
+        controller == CforumWeb.Blog.ArchiveController ->
+          Path.blog_archive_path(conn, :threads, conn.assigns[:start_date], opts)
+
+        controller == CforumWeb.Blog.IndexController ->
+          Path.blog_url(conn, opts)
 
         Helpers.present?(conn.assigns[:message]) ->
           Path.message_path(conn, :show, conn.assigns[:thread], conn.assigns[:message], opts)
