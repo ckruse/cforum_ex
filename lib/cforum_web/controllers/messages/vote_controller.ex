@@ -67,7 +67,7 @@ defmodule CforumWeb.Messages.VoteController do
         _ -> {conn.assigns.thread, conn.assigns.message}
       end
 
-    Abilities.signed_in?(conn) && Abilities.access_forum?(conn, :write) &&
+    Abilities.signed_in?(conn) && Abilities.access_forum?(conn, :read) &&
       (Abilities.admin?(conn) || Abilities.badge?(conn, "upvote")) &&
       !MessageHelpers.closed?(message) && message.user_id != conn.assigns.current_user.user_id
   end
@@ -79,7 +79,7 @@ defmodule CforumWeb.Messages.VoteController do
         _ -> {conn.assigns.thread, conn.assigns.message}
       end
 
-    Abilities.signed_in?(conn) && Abilities.access_forum?(conn, :write) &&
+    Abilities.signed_in?(conn) && Abilities.access_forum?(conn, :read) &&
       (Abilities.admin?(conn) || Abilities.badge?(conn, "downvote")) &&
       !MessageHelpers.closed?(message) && conn.assigns.current_user.score > 0 &&
       message.user_id != conn.assigns.current_user.user_id
