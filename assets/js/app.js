@@ -52,6 +52,7 @@ import "./cites";
 import "./advent";
 import "./events";
 import "./versions";
+import "./attendees";
 
 import "./init";
 import "./cleanup";

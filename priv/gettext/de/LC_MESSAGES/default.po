@@ -516,7 +516,7 @@ msgstr "Avatar"
 #: lib/cforum_web/templates/admin/user/form.html.eex:47 lib/cforum_web/templates/blog/article/edit.html.eex:17
 #: lib/cforum_web/templates/blog/article/new.html.eex:17 lib/cforum_web/templates/blog/comment/new.html.eex:21
 #: lib/cforum_web/templates/cite/edit.html.eex:6 lib/cforum_web/templates/cite/new.html.eex:6
-#: lib/cforum_web/templates/events/attendee/form.html.eex:71 lib/cforum_web/templates/mail/new.html.eex:16
+#: lib/cforum_web/templates/events/attendee/form.html.eex:83 lib/cforum_web/templates/mail/new.html.eex:16
 #: lib/cforum_web/templates/message/edit.html.eex:19 lib/cforum_web/templates/message/new.html.eex:21
 #: lib/cforum_web/templates/messages/flag/new.html.eex:33 lib/cforum_web/templates/messages/retag/edit.html.eex:32
 #: lib/cforum_web/templates/moderation/edit.html.eex:37 lib/cforum_web/templates/tag/edit_merge.html.eex:13
@@ -1328,7 +1328,7 @@ msgstr "Silber-Medaille"
 
 #: lib/cforum_web/templates/forum/index.html.eex:12
 #: lib/cforum_web/templates/layout/page_header.html.eex:21 lib/cforum_web/templates/message/message_forum_links.html.eex:4
-#: lib/cforum_web/views/archive_view.ex:8 lib/cforum_web/views/layout_view.ex:332
+#: lib/cforum_web/views/archive_view.ex:8 lib/cforum_web/views/layout_view.ex:346
 #: lib/cforum_web/views/thread_view.ex:37 lib/cforum_web/views/thread_view.ex:44
 msgid "all forums"
 msgstr "alle Foren"
@@ -1749,7 +1749,7 @@ msgstr "neue Gruppe"
 #: lib/cforum_web/templates/admin/badge/form.html.eex:49 lib/cforum_web/templates/admin/event/form.html.eex:47
 #: lib/cforum_web/templates/admin/group/form.html.eex:33 lib/cforum_web/templates/admin/redirection/form.html.eex:31
 #: lib/cforum_web/templates/admin/search_section/form.html.eex:35 lib/cforum_web/templates/admin/user/form.html.eex:46
-#: lib/cforum_web/templates/events/attendee/form.html.eex:70 lib/cforum_web/templates/messages/retag/edit.html.eex:31
+#: lib/cforum_web/templates/events/attendee/form.html.eex:82 lib/cforum_web/templates/messages/retag/edit.html.eex:31
 #: lib/cforum_web/templates/moderation/edit.html.eex:36 lib/cforum_web/templates/tag/edit_merge.html.eex:12
 #: lib/cforum_web/templates/tag/form.html.eex:22 lib/cforum_web/templates/tags/synonym/form.html.eex:15
 msgid "save"
@@ -2272,7 +2272,7 @@ msgstr "Weiterleitungen verwalten"
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/redirection/form.html.eex:25
-#: lib/cforum_web/templates/admin/redirection/index.html.eex:8 lib/cforum_web/templates/events/attendee/form.html.eex:61
+#: lib/cforum_web/templates/admin/redirection/index.html.eex:8 lib/cforum_web/templates/events/attendee/form.html.eex:73
 msgid "comment"
 msgstr "Kommentar"
 
@@ -2618,13 +2618,13 @@ msgstr "%{forum} – Übersicht"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:24
-#: lib/cforum_web/views/layout_view.ex:320
+#: lib/cforum_web/views/layout_view.ex:334
 msgid "administrative view"
 msgstr "Administrator-Ansicht"
 
 #, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:18
-#: lib/cforum_web/templates/message/message_forum_links.html.eex:20 lib/cforum_web/views/layout_view.ex:319
+#: lib/cforum_web/templates/message/message_forum_links.html.eex:20 lib/cforum_web/views/layout_view.ex:333
 msgid "normal view"
 msgstr "Administrator-Ansicht deaktivieren"
 
@@ -2762,7 +2762,7 @@ msgstr "geplante Ankunft"
 
 #, elixir-format
 #: lib/cforum_web/templates/event/attendee.html.eex:27
-#: lib/cforum_web/templates/events/attendee/form.html.eex:52
+#: lib/cforum_web/templates/events/attendee/form.html.eex:60
 msgid "planned leave"
 msgstr "geplante Abreise"
 
@@ -4373,7 +4373,7 @@ msgid "name (required)"
 msgstr "Name (Pflichtfeld)"
 
 #, elixir-format
-#: lib/cforum_web/templates/events/attendee/form.html.eex:43
+#: lib/cforum_web/templates/events/attendee/form.html.eex:47
 msgid "planned arrival (required)"
 msgstr "geplante Ankunft (Pflichtfeld)"
 
@@ -4508,5 +4508,18 @@ msgstr "als Entwurf speichern"
 
 #, elixir-format
 #: lib/cforum_web/templates/blog/article/article.html.eex:13
+#: lib/cforum_web/templates/forum/message_header.html.eex:17 lib/cforum_web/templates/message/header_subject.html.eex:3
 msgid "draft"
 msgstr "Entwurf"
+
+#, elixir-format
+#: lib/cforum_web/templates/events/attendee/form.html.eex:41
+#: lib/cforum_web/templates/events/attendee/form.html.eex:54 lib/cforum_web/templates/events/attendee/form.html.eex:67
+msgid "HH:MM"
+msgstr "SS:MM"
+
+#, elixir-format
+#: lib/cforum_web/templates/events/attendee/form.html.eex:40
+#: lib/cforum_web/templates/events/attendee/form.html.eex:53 lib/cforum_web/templates/events/attendee/form.html.eex:66
+msgid "YYYY-MM-DD"
+msgstr "JJJJ-MM-TT"

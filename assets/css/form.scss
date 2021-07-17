@@ -242,13 +242,15 @@
 
       .datetime {
         display: flex;
-        input:first-of-type {
+        input:first-of-type,
+        &.help span:first-of-type {
           flex: 1 1 75%;
           margin-right: 1em;
           margin-bottom: 0;
         }
 
-        input:last-of-type {
+        input:last-of-type,
+        &.help span:last-of-type {
           flex: 1 1 25%;
         }
       }
