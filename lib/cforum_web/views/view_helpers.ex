@@ -231,12 +231,13 @@ defmodule CforumWeb.Views.ViewHelpers do
   end
 
   def date_time_combo(form, name, opts \\ []) do
-    value = opts[:value] || Form.input_value(form, name)
-
     {date_value, time_value} =
-      case value do
-        nil -> {nil, nil}
-        v -> {Timex.to_date(v), v |> Timex.local() |> DateTime.to_time()}
+      with value when value != nil <- opts[:value] || Form.input_value(form, name),
+           %Date{} = date <- Timex.to_date(value),
+           %Time{} = time <- value |> Timex.local() |> DateTime.to_time() do
+        {date, time}
+      else
+        _ -> {nil, nil}
       end
 
     base_name = Form.input_name(form, name)
