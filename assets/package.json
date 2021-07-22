@@ -55,7 +55,7 @@
     "eslint-webpack-plugin": "^2.5.4",
     "file-loader": "^6.1.1",
     "mini-css-extract-plugin": "^2.1.0",
-    "postcss": "^8.3.5",
+    "postcss": "^8.3.6",
     "postcss-loader": "^6.1.1",
     "sass": "^1.35.2",
     "sass-loader": "^12.1.0",
