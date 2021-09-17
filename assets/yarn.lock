@@ -20,12 +20,12 @@
     "@appsignal/types" "=2.1.1"
     tslib "^2.3.0"
 
-"@appsignal/plugin-window-events@^1.0.8":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@appsignal/plugin-window-events/-/plugin-window-events-1.0.8.tgz#8d5c8b0759879b6fb7a4fbe111248ff7d4995a2c"
-  integrity sha512-RY0fLnXgLvbhl8cn0jYWL3bGD8k01pLXjr3vlPMxLwf3YdXGUclv/U+x2Tw0Th4Zd9srFFM6w3REfbD8SXBnKw==
+"@appsignal/plugin-window-events@^1.0.9":
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@appsignal/plugin-window-events/-/plugin-window-events-1.0.9.tgz#e42d7e4ab6d5e96d2352151d56169720cb504153"
+  integrity sha512-eD66T27nspP61goodqJ153NWFuCkX4ywEhRKRJ0q3+IoDbijFnhd8f5PMJKfv/nIlmzCsx9OadlYE1iH8ZEQkQ==
   dependencies:
-    "@appsignal/types" "=2.1.0"
+    "@appsignal/types" "=2.1.1"
 
 "@appsignal/react@^1.0.9":
   version "1.0.9"
@@ -33,11 +33,6 @@
   integrity sha512-c/7+oHO8Gc26RJEXGHPeTTbHsFETycETcJFX8EiwgxEJeN55+k8Jb0iwa+ejHRE3sSLPXaqVqaoqeEKbNqnA1w==
   dependencies:
     "@appsignal/types" "=2.1.1"
-
-"@appsignal/types@=2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@appsignal/types/-/types-2.1.0.tgz#8616d0b88caa51583356757e0f88631e08ca7730"
-  integrity sha512-CxBPeDbxju8Cgu5wzNsjPE3TvQ/f6S9jJOxBrctjUD40JTDMDl9lpRWflfTrkVWkRgaCrhrXb5KqROcPZzet8w==
 
 "@appsignal/types@=2.1.1":
   version "2.1.1"
