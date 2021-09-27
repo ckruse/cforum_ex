@@ -2,22 +2,22 @@
 # yarn lockfile v1
 
 
-"@appsignal/core@=1.1.9":
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/@appsignal/core/-/core-1.1.9.tgz#310f37faa8634ce5299382c5095d1f6b8ddc98eb"
-  integrity sha512-prf4bm5WFI+wU08EBfuCi3KL2xhJJ7eYt4WzPlCHD9h2ZKIMNpHozrtqY8+RAHK3cuS7sM3skho3n6tC9N0I8w==
+"@appsignal/core@=1.1.11":
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/@appsignal/core/-/core-1.1.11.tgz#dd361b1130ec6b0f4516beabd98813bd045ea9a6"
+  integrity sha512-k3/JXDm8W7Uvz9Jr+esnxZyrDmHeHY6BiivFpIBndxTQd9eGoXHGyws3o+POoNjyFIruZ8mPijsvJ+w8XtZdVg==
   dependencies:
-    "@appsignal/types" "=2.1.1"
+    "@appsignal/types" "=2.1.3"
     isomorphic-unfetch "^3.1.0"
     tslib "^2.3.0"
 
-"@appsignal/javascript@^1.3.14":
-  version "1.3.14"
-  resolved "https://registry.yarnpkg.com/@appsignal/javascript/-/javascript-1.3.14.tgz#3f7734237e54161baa0e8c77b0f66027d040553a"
-  integrity sha512-izfjoAZm06rAMGSACUpP654A8j/L5JHW/3kBZLqRISegG+aFGmPQY/TCNDbNOpxGmKnCSnu47xtvVYJKhQ2jPQ==
+"@appsignal/javascript@^1.3.16":
+  version "1.3.16"
+  resolved "https://registry.yarnpkg.com/@appsignal/javascript/-/javascript-1.3.16.tgz#9b7c3b2a1204bfcae3588329d4b689649088e960"
+  integrity sha512-g8RD9Bm3wadmMuZon74VAViRpRDEwDaPYRmqXqEKs/W7DvoQvIYxOpfxY7ao4W1NTmiqHKg+C0VE3Oqs9AErHw==
   dependencies:
-    "@appsignal/core" "=1.1.9"
-    "@appsignal/types" "=2.1.1"
+    "@appsignal/core" "=1.1.11"
+    "@appsignal/types" "=2.1.3"
     tslib "^2.3.0"
 
 "@appsignal/plugin-window-events@^1.0.9":
@@ -38,6 +38,11 @@
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@appsignal/types/-/types-2.1.1.tgz#0ef5bd91e2efaa66a68395f2408051e5f1dd661f"
   integrity sha512-4GrdUTXsl1Krr/nx9QQStxAyU7yKoqtSil5z95FHB1iKP0Ihazict71Udt1mvOTC75aoPtdw1QppVA4/48QHRQ==
+
+"@appsignal/types@=2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@appsignal/types/-/types-2.1.3.tgz#55cae78de1c79957f73090f494abf5ef59959f57"
+  integrity sha512-slMFN+nhFr8jnhTbE+vNsHKd4VrUrtv7RCuYnHn5ataGI8BD75YMWBcwqwQD/0NZlVUuvbDlS0G6M+JzZUN/AA==
 
 "@babel/code-frame@7.12.11":
   version "7.12.11"
