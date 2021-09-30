@@ -27,17 +27,22 @@
   dependencies:
     "@appsignal/types" "=2.1.1"
 
-"@appsignal/react@^1.0.9":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@appsignal/react/-/react-1.0.9.tgz#8dd8f1fad687af40068c0446062e8dfbd6062c12"
-  integrity sha512-c/7+oHO8Gc26RJEXGHPeTTbHsFETycETcJFX8EiwgxEJeN55+k8Jb0iwa+ejHRE3sSLPXaqVqaoqeEKbNqnA1w==
+"@appsignal/react@^1.0.12":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@appsignal/react/-/react-1.0.12.tgz#8e04974e80b9da656a154eac8b87b9bdd5cd855a"
+  integrity sha512-yH0Ty6iQT6ntewvxwGUVw4V94Gd9UcZCDAF5ds3NSBOLCUd6fvY+huFV60JAjjtnuPmTE7SW1MOq6GLYTVCKgQ==
   dependencies:
-    "@appsignal/types" "=2.1.1"
+    "@appsignal/types" "=2.1.4"
 
 "@appsignal/types@=2.1.1":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@appsignal/types/-/types-2.1.1.tgz#0ef5bd91e2efaa66a68395f2408051e5f1dd661f"
   integrity sha512-4GrdUTXsl1Krr/nx9QQStxAyU7yKoqtSil5z95FHB1iKP0Ihazict71Udt1mvOTC75aoPtdw1QppVA4/48QHRQ==
+
+"@appsignal/types@=2.1.4":
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@appsignal/types/-/types-2.1.4.tgz#86a79f6cf7437e9742f0201a1174a604ad7bda1d"
+  integrity sha512-kKzuYkwtJaNUaHjn6gOBRspY9zr3JR0F0wtBWO6ndEhHF1fv0D7PJsEXF8yYlRMEjxYXSDU0nhQHnGSRDDbrEg==
 
 "@babel/code-frame@7.12.11":
   version "7.12.11"
