@@ -21,13 +21,9 @@ config :logger, :console,
   metadata: [:request_id]
 
 config :phoenix, :json_library, Jason
-
-config :cforum, CforumWeb.Gettext, default_locale: "de"
-
+config :gettext, default_locale: "de"
 config :number, delimit: [precision: 2, delimiter: ".", separator: ","]
-
 config :waffle, storage: Waffle.Storage.Local
-config :timex, default_locale: "de"
 config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
 
 config :cforum, CforumWeb.Endpoint,
