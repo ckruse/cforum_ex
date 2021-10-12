@@ -13,6 +13,7 @@ defmodule CforumWeb.Blog.ArchiveController do
       Archive.list_archive_years(conn.assigns[:current_forum], conn.assigns[:visible_forums],
         view_all: conn.assigns[:view_all]
       )
+      |> Enum.reverse()
 
     render(conn, "years.html", years: years)
   end
