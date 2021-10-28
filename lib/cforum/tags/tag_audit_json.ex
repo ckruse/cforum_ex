@@ -1,7 +1,7 @@
 defmodule Cforum.Tags.TagAuditJson do
   def to_json(tag) do
     tag_synonyms = Cforum.Tags.list_tag_synonyms(tag)
-    synonyms = Enum.map(tag_synonyms, &Cforum.System.Auditing.Json.to_json/1)
+    synonyms = Enum.map(tag_synonyms, &Cforum.System.Auditing.Json.to_json(%{&1 | tag: tag}))
 
     tag
     |> Map.from_struct()
