@@ -178,11 +178,15 @@ defmodule Cforum.Tags do
   """
   @spec update_tag(%Cforum.Users.User{}, %Tag{}, map()) :: {:ok, %Tag{}} | {:error, Ecto.Changeset.t()}
   def update_tag(current_user, %Tag{} = tag, attrs) do
-    System.audited("update", current_user, fn ->
-      tag
-      |> Tag.changeset(attrs)
-      |> Repo.update()
-    end)
+    with {:ok, tag} <-
+           System.audited("update", current_user, fn ->
+             tag
+             |> Tag.changeset(attrs)
+             |> Repo.update()
+           end) do
+      Cachex.clear(:cforum)
+      {:ok, tag}
+    end
   end
 
   @doc """
@@ -199,9 +203,10 @@ defmodule Cforum.Tags do
   """
   @spec delete_tag(%Cforum.Users.User{}, %Tag{}) :: {:ok, %Tag{}}
   def delete_tag(current_user, %Tag{} = tag) do
-    System.audited("destroy", current_user, fn ->
-      Repo.delete(tag)
-    end)
+    with {:ok, tag} <- System.audited("destroy", current_user, fn -> Repo.delete(tag) end) do
+      Cachex.clear(:cforum)
+      {:ok, tag}
+    end
   end
 
   @doc """
@@ -227,6 +232,7 @@ defmodule Cforum.Tags do
       with {:ok, %Synonym{}} <- create_tag_synonym(current_user, new_tag, %{synonym: old_tag.tag_name}),
            {:ok, %Tag{}} <- Repo.delete(old_tag),
            tag = %Tag{} = get_tag!(new_tag.tag_id) do
+        Cachex.clear(:cforum)
         {:ok, tag}
       else
         _ ->
