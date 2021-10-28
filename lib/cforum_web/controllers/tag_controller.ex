@@ -105,6 +105,13 @@ defmodule CforumWeb.TagController do
         )
         |> redirect(to: Path.tag_path(conn, :show, new_tag))
 
+      {:error, :same_tag} ->
+        tags = Tags.list_tags()
+
+        conn
+        |> put_flash(:error, gettext("You can't merge a tag with itself!"))
+        |> render("edit_merge.html", tag: old_tag, tags: tags)
+
       {:error, _} ->
         tags = Tags.list_tags()
         render(conn, "edit_merge.html", tag: old_tag, tags: tags)

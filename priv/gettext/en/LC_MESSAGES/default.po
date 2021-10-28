@@ -2313,7 +2313,7 @@ msgid "Tag created successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/tag_controller.ex:119
+#: lib/cforum_web/controllers/tag_controller.ex:126
 msgid "Tag deleted successfully."
 msgstr ""
 
@@ -4497,4 +4497,9 @@ msgstr ""
 #: lib/cforum_web/templates/events/attendee/form.html.eex:40
 #: lib/cforum_web/templates/events/attendee/form.html.eex:53 lib/cforum_web/templates/events/attendee/form.html.eex:66
 msgid "YYYY-MM-DD"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/controllers/tag_controller.ex:112
+msgid "You can't merge a tag with itself!"
 msgstr ""

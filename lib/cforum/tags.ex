@@ -220,7 +220,10 @@ defmodule Cforum.Tags do
       {:ok, %Tag{}}
 
   """
-  @spec merge_tag(%Cforum.Users.User{}, %Tag{}, %Tag{}) :: {:ok, %Tag{}} | {:error, Ecto.Changeset.t()}
+  @spec merge_tag(%Cforum.Users.User{}, %Tag{}, %Tag{}) :: {:ok, %Tag{}} | {:error, any}
+  def merge_tag(_current_user, %Tag{tag_id: tag_id}, %Tag{tag_id: tag_id}),
+    do: {:error, :same_tag}
+
   def merge_tag(current_user, %Tag{} = old_tag, %Tag{} = new_tag) do
     System.audited("merge", current_user, fn ->
       from(mtag in "messages_tags", where: mtag.tag_id == ^old_tag.tag_id)
