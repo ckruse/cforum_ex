@@ -12,7 +12,7 @@ defmodule CforumWeb.Tags.SynonymController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"tag_id" => _tag_id, "tag_synonym" => synonym_params}) do
+  def create(conn, %{"tag_id" => _tag_id, "synonym" => synonym_params}) do
     case Tags.create_tag_synonym(conn.assigns.current_user, conn.assigns.tag, synonym_params) do
       {:ok, _synonym} ->
         conn
@@ -29,7 +29,7 @@ defmodule CforumWeb.Tags.SynonymController do
     render(conn, "edit.html", changeset: changeset)
   end
 
-  def update(conn, %{"tag_id" => _tag_id, "id" => _id, "tag_synonym" => synonym_params}) do
+  def update(conn, %{"tag_id" => _tag_id, "id" => _id, "synonym" => synonym_params}) do
     case Tags.update_tag_synonym(conn.assigns.current_user, conn.assigns.tag, conn.assigns.synonym, synonym_params) do
       {:ok, _synonym} ->
         conn
