@@ -5,7 +5,7 @@ defmodule Cforum.Mixfile do
     [
       app: :cforum,
       version: "5.6.67",
-      elixir: "~> 1.8",
+      elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
