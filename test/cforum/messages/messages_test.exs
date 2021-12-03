@@ -112,7 +112,7 @@ defmodule Cforum.MessagesTest do
     test "create_message/4 with valid data creates a message", %{user: user, thread: thread, forum: forum, tag: tag} do
       params = string_params_for(:message, tags: [tag.tag_name])
       assert {:ok, %Message{} = message} = Messages.create_message(params, user, [forum], thread)
-      assert %{success: _, failure: 0} = Oban.drain_queue(queue: :background)
+      assert %{success: _, failure: 0, snoozed: 0} = Oban.drain_queue(queue: :background)
       assert message.user_id == user.user_id
       assert message.subject == params["subject"]
     end
@@ -129,7 +129,7 @@ defmodule Cforum.MessagesTest do
       assert {:ok, %Message{} = message1} =
                Messages.create_message(params, user, [forum], %Thread{thread | tree: message}, message)
 
-      assert %{success: _, failure: 0} = Oban.drain_queue(queue: :background)
+      assert %{success: _, failure: 0, snoozed: 0} = Oban.drain_queue(queue: :background)
 
       assert message1.user_id == user.user_id
       assert message1.subject == params["subject"]
@@ -172,7 +172,7 @@ defmodule Cforum.MessagesTest do
     test "user may post with name: equal: username and name are equal", %{user: u, forum: f, thread: t, tag: tag} do
       params = string_params_for(:message, author: u.username, tags: [tag.tag_name])
       assert {:ok, %Message{} = message} = Messages.create_message(params, u, [f], t)
-      assert %{success: _, failure: 0} = Oban.drain_queue(queue: :background)
+      assert %{success: _, failure: 0, snoozed: 0} = Oban.drain_queue(queue: :background)
       assert message.user_id == u.user_id
       assert message.subject == params["subject"]
     end
@@ -180,7 +180,7 @@ defmodule Cforum.MessagesTest do
     test "user may post with name: equal: name contains blanks", %{user: u, forum: f, thread: t, tag: tag} do
       params = string_params_for(:message, author: "  #{u.username}    ", tags: [tag.tag_name])
       assert {:ok, %Message{} = message} = Messages.create_message(params, u, [f], t)
-      assert %{success: _, failure: 0} = Oban.drain_queue(queue: :background)
+      assert %{success: _, failure: 0, snoozed: 0} = Oban.drain_queue(queue: :background)
       assert message.user_id == u.user_id
       assert message.subject == params["subject"]
       assert message.author == u.username
@@ -189,7 +189,7 @@ defmodule Cforum.MessagesTest do
     test "user may post with name: equal: name differs in case", %{user: u, forum: f, thread: t, tag: tag} do
       params = string_params_for(:message, author: String.upcase(u.username), tags: [tag.tag_name])
       assert {:ok, %Message{} = message} = Messages.create_message(params, u, [f], t)
-      assert %{success: _, failure: 0} = Oban.drain_queue(queue: :background)
+      assert %{success: _, failure: 0, snoozed: 0} = Oban.drain_queue(queue: :background)
       assert message.user_id == u.user_id
       assert message.subject == params["subject"]
     end
@@ -300,12 +300,12 @@ defmodule Cforum.MessagesTest do
 
     test "unnaccept_message/3 removes user scores", %{message: m, user: u} do
       Messages.accept_message(m, u, 15)
-      assert %{success: 2, failure: 0} == Oban.drain_queue(queue: :background)
+      assert %{success: 2, failure: 0, snoozed: 0} == Oban.drain_queue(queue: :background)
       user = Cforum.Users.get_user!(u.user_id)
       assert user.score == 15
 
       assert {:ok, _} = Messages.unaccept_message(m, u)
-      assert %{success: 2, failure: 0} == Oban.drain_queue(queue: :background)
+      assert %{success: 2, failure: 0, snoozed: 0} == Oban.drain_queue(queue: :background)
       user = Cforum.Users.get_user!(u.user_id)
       assert user.score == 0
     end
