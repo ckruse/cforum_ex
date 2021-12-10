@@ -3,13 +3,14 @@ import ErrorLabel from "../components/postingform/meta/error_label";
 import { hasErrorClass } from "../components/postingform/meta/utils";
 import { t } from "../modules/i18n";
 
-export default function Meta({ subject, email, homepage, errors, onChange }) {
+export default function Meta({ subject, email, homepage, thumbnailAlt, errors, onChange }) {
   const [touched, setTouched] = useState({});
 
   const values = {
     message_subject: subject,
     message_email: email,
     message_homepage: homepage,
+    message_thumbnail_alt: thumbnailAlt,
   };
 
   function setFieldTouched(ev) {
@@ -81,6 +82,22 @@ export default function Meta({ subject, email, homepage, errors, onChange }) {
           onBlur={setFieldTouched}
         />
         <span className="help">{t("optional")}</span>
+      </div>
+
+      <div className={`cf-cgroup ${hasErrorClass("message_thumbnail_alt", errors, touched, values)}`}>
+        <ErrorLabel field="message_thumbnail_alt" errors={errors} values={values} touched={touched}>
+          {t("alt text")}
+        </ErrorLabel>
+        <input
+          id="message_thumbnail_alt"
+          maxLength="250"
+          name="message[thumbnail_alt]"
+          type="text"
+          value={thumbnailAlt}
+          onChange={onChange}
+          onBlur={setFieldTouched}
+        />
+        <span className="help">{t("voluntarily, publicly visible")}</span>
       </div>
     </fieldset>
   );

@@ -8,8 +8,21 @@ import LivePreview from "./live_preview";
 import Meta from "./meta";
 
 export default function CfBlogForm(props) {
-  const { csrfInfo, method, email, subject, homepage, errors, excerpt, text, tags, globalTagsError, draft } = props;
-  const [meta, setMeta] = useState({ email, subject, homepage });
+  const {
+    csrfInfo,
+    method,
+    email,
+    subject,
+    homepage,
+    thumbnailAlt,
+    errors,
+    excerpt,
+    text,
+    tags,
+    globalTagsError,
+    draft,
+  } = props;
+  const [meta, setMeta] = useState({ email, subject, homepage, thumbnail_alt: thumbnailAlt });
   const [contents, setContents] = useState({ text, excerpt });
   const [tagsList, setTagsList] = useState(tags);
 
@@ -38,7 +51,14 @@ export default function CfBlogForm(props) {
       <input type="hidden" name={csrfInfo.param} value={csrfInfo.token} />
       {method.toUpperCase() !== "POST" && <input type="hidden" name="_method" value={method} />}
 
-      <Meta subject={meta.subject} email={meta.email} homepage={meta.homepage} onChange={updateMeta} errors={errors} />
+      <Meta
+        subject={meta.subject}
+        email={meta.email}
+        homepage={meta.homepage}
+        thumbnailAlt={meta.thumbnail_alt}
+        onChange={updateMeta}
+        errors={errors}
+      />
 
       <div className="cf-content-form">
         <CfEditor

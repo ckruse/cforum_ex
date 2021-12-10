@@ -34,6 +34,15 @@
     <span class="help"><%= gettext("optional") %></span>
   </div>
 
+  <div class="cf-cgroup <%= ErrorHelpers.error_class(@f, :thumbnail_alt) %>">
+    <%= label @f, :thumbnail_alt do %>
+      <%= gettext("alt text") %>
+      <%= ErrorHelpers.error_tag @f, :thumbnail_alt %>
+    <% end %>
+    <%= text_input @f, :thumbnail_alt, maxlength: 250 %>
+    <span class="help"><%= gettext("voluntary, will be publicly visible") %></span>
+  </div>
+
   <div class="cf-cgroup cf-textarea-only <%= ErrorHelpers.error_class(@f, :excerpt) %>">
     <%= label @f, :excerpt, for: "excerpt_input" do %>
       <%= gettext("excerpt") %>
