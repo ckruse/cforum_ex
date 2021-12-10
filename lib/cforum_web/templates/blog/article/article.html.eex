@@ -16,7 +16,7 @@
   <div class="e-content">
     <%= if Helpers.present?(@article.message.thumbnail) do %>
       <%= link to: Path.blog_thread_url(@conn, :show, @article) do %>
-        <img src="<%= CforumWeb.MessageThumbnail.url({@article.message.thumbnail, @article.message}, "original") %>" class="cf-weblog-article-thumbnail" alt="">
+        <img src="<%= CforumWeb.MessageThumbnail.url({@article.message.thumbnail, @article.message}, "original") %>" class="cf-weblog-article-thumbnail" alt="<%= @article.message.thumbnail_alt %>">
       <% end %>
     <% end %>
 
