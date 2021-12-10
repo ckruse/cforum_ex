@@ -42,6 +42,7 @@ defmodule Cforum.Messages.Message do
     field(:edit_author, :string)
     field(:problematic_site, :string)
     field(:thumbnail, CforumWeb.MessageThumbnail.Type)
+    field(:thumbnail_alt, :string)
 
     field(:messages, :any, virtual: true)
     field(:attribs, :map, virtual: true, default: %{classes: []})
@@ -67,7 +68,18 @@ defmodule Cforum.Messages.Message do
     timestamps(inserted_at: :created_at)
   end
 
-  @rw_fields [:author, :email, :homepage, :subject, :content, :excerpt, :problematic_site, :forum_id, :save_identity]
+  @rw_fields [
+    :author,
+    :email,
+    :homepage,
+    :subject,
+    :content,
+    :excerpt,
+    :problematic_site,
+    :forum_id,
+    :save_identity,
+    :thumbnail_alt
+  ]
 
   defp base_changeset(struct, params, user, forum_id, visible_forums, opts) do
     settings = Helpers.get_settings(forum_id, params, struct)
@@ -90,6 +102,7 @@ defmodule Cforum.Messages.Message do
     |> validate_length(:email, min: 6, max: 60)
     |> validate_length(:homepage, min: 2, max: 250)
     |> validate_length(:problematic_site, min: 2, max: 250)
+    |> validate_length(:thumbnail_alt, min: 2, max: 250)
     |> validate_length(:excerpt, max: max_message_len)
     |> validate_length(:content, min: min_message_len, max: max_message_len)
     |> Helpers.validate_url(:problematic_site)
