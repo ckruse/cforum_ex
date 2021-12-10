@@ -1220,8 +1220,9 @@ msgid "tags"
 msgstr ""
 
 #: lib/cforum_web/templates/blog/article/form.html.eex:16
-#: lib/cforum_web/templates/blog/article/form.html.eex:25 lib/cforum_web/templates/message/form.html.eex:26
-#: lib/cforum_web/templates/message/form.html.eex:35 lib/cforum_web/templates/message/form.html.eex:45
+#: lib/cforum_web/templates/blog/article/form.html.eex:25 lib/cforum_web/templates/blog/article/form.html.eex:43
+#: lib/cforum_web/templates/message/form.html.eex:26 lib/cforum_web/templates/message/form.html.eex:35
+#: lib/cforum_web/templates/message/form.html.eex:45
 msgid "voluntary, will be publicly visible"
 msgstr ""
 
@@ -1551,7 +1552,7 @@ msgid "keywords"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/blog/article/form.html.eex:48
+#: lib/cforum_web/templates/blog/article/form.html.eex:57
 #: lib/cforum_web/templates/message/form.html.eex:53
 msgid "message content"
 msgstr ""
@@ -4406,13 +4407,13 @@ msgid "published by"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/blog/article/form.html.eex:39
+#: lib/cforum_web/templates/blog/article/form.html.eex:48
 msgid "excerpt"
 msgstr ""
 
 #, elixir-format
 #: lib/cforum_web/templates/blog/article/form.html.eex:34
-#: lib/cforum_web/templates/blog/article/form.html.eex:43
+#: lib/cforum_web/templates/blog/article/form.html.eex:52
 msgid "optional"
 msgstr ""
 
@@ -4477,7 +4478,7 @@ msgid "You will find older articles in the archive."
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/templates/blog/article/form.html.eex:65
+#: lib/cforum_web/templates/blog/article/form.html.eex:74
 msgid "save as a draft"
 msgstr ""
 
@@ -4502,4 +4503,9 @@ msgstr ""
 #, elixir-format
 #: lib/cforum_web/controllers/tag_controller.ex:112
 msgid "You can't merge a tag with itself!"
+msgstr ""
+
+#, elixir-format
+#: lib/cforum_web/templates/blog/article/form.html.eex:39
+msgid "alt text"
 msgstr ""

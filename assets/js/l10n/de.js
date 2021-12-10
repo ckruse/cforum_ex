@@ -250,4 +250,6 @@ export const lang = {
   optional: "optional",
 
   "save as a draft": "als Entwurf speichern",
+
+  "alt text": "Alt-Text",
 };

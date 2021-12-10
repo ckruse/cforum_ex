@@ -1236,8 +1236,9 @@ msgid "tags"
 msgstr "Tags"
 
 #: lib/cforum_web/templates/blog/article/form.html.eex:16
-#: lib/cforum_web/templates/blog/article/form.html.eex:25 lib/cforum_web/templates/message/form.html.eex:26
-#: lib/cforum_web/templates/message/form.html.eex:35 lib/cforum_web/templates/message/form.html.eex:45
+#: lib/cforum_web/templates/blog/article/form.html.eex:25 lib/cforum_web/templates/blog/article/form.html.eex:43
+#: lib/cforum_web/templates/message/form.html.eex:26 lib/cforum_web/templates/message/form.html.eex:35
+#: lib/cforum_web/templates/message/form.html.eex:45
 msgid "voluntary, will be publicly visible"
 msgstr "freiwillig, öffentlich sichtbar"
 
@@ -1569,7 +1570,7 @@ msgid "keywords"
 msgstr "Schlagwörter"
 
 #, elixir-format
-#: lib/cforum_web/templates/blog/article/form.html.eex:48
+#: lib/cforum_web/templates/blog/article/form.html.eex:57
 #: lib/cforum_web/templates/message/form.html.eex:53
 msgid "message content"
 msgstr "Beitragstext"
@@ -4431,13 +4432,13 @@ msgid "published by"
 msgstr "veröffentlicht von"
 
 #, elixir-format
-#: lib/cforum_web/templates/blog/article/form.html.eex:39
+#: lib/cforum_web/templates/blog/article/form.html.eex:48
 msgid "excerpt"
 msgstr "Einleitung"
 
 #, elixir-format
 #: lib/cforum_web/templates/blog/article/form.html.eex:34
-#: lib/cforum_web/templates/blog/article/form.html.eex:43
+#: lib/cforum_web/templates/blog/article/form.html.eex:52
 msgid "optional"
 msgstr "optional"
 
@@ -4502,7 +4503,7 @@ msgid "You will find older articles in the archive."
 msgstr "Ältere Artikel finden sie im Archiv."
 
 #, elixir-format
-#: lib/cforum_web/templates/blog/article/form.html.eex:65
+#: lib/cforum_web/templates/blog/article/form.html.eex:74
 msgid "save as a draft"
 msgstr "als Entwurf speichern"
 
@@ -4528,3 +4529,8 @@ msgstr "JJJJ-MM-TT"
 #: lib/cforum_web/controllers/tag_controller.ex:112
 msgid "You can't merge a tag with itself!"
 msgstr "Sie können das Schlagwort nicht mit sich selbst zusammenführen!"
+
+#, elixir-format
+#: lib/cforum_web/templates/blog/article/form.html.eex:39
+msgid "alt text"
+msgstr "Alt-Text"
