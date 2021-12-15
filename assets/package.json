@@ -26,9 +26,9 @@
     "leaflet-geosearch": "^3.3.2",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
-    "react": "^16.8.6",
+    "react": "^17.0.2",
     "react-autosuggest": "^10.0.3",
-    "react-dom": "^16.8.6",
+    "react-dom": "^17.0.2",
     "react-modal": "^3.14.4",
     "text-diff": "^1.0.1",
     "textarea-caret": "^3.1.0"
