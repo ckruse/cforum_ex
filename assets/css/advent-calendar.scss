@@ -20,7 +20,7 @@ $day-size: 2.2rem;
   li {
     min-height: 10rem;
     width: 100%;
-    height: 95vw;
+    line-break: anywhere;
 
     border: $advent-item-border;
     border-radius: $default-border-radius;
@@ -97,26 +97,26 @@ $day-size: 2.2rem;
 @include default-breakpoint() {
   .cf-advent-calendar-list {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(8, auto);
     grid-column-gap: 5px;
     grid-row-gap: 5px;
 
     li {
       width: 100%;
-      min-width: 8.75rem;
+      min-width: 8.33rem;
       height: auto;
     }
   }
 }
 
-@media only screen and (min-width: 50em) {
+@media only screen and (min-width: 90em) {
   .cf-advent-calendar-list {
     grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-rows: repeat(4, auto);
 
     li {
-      min-width: 8.33rem;
+      min-width: 11.66rem;
     }
   }
 }
