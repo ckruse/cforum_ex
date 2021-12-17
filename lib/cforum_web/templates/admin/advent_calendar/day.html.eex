@@ -1,13 +1,14 @@
 <%= if Helpers.present?(@day) do %>
-  <%= if Helpers.present?(@day.link) do %><a href="<%= @day.link %>"><% end %>
 
-  <h2><%= @day.subject %></h2>
+  <h2>
+    <%= if Helpers.present?(@day.link) do %><a href="<%= @day.link %>"><% end %>
+    <%= @day.subject %>
+    <%= if Helpers.present?(@day.link) do %></a><% end %>
+  </h2>
 
   <div class="content">
     <%= Cforum.MarkdownRenderer.to_html(@day.content) %>
   </div>
-
-  <%= if Helpers.present?(@day.link) do %></a><% end %>
 
   <div class="meta">
     <p>

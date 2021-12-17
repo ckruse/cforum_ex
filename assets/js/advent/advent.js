@@ -53,6 +53,8 @@ const addToOpened = (ev, year) => {
 
   if (isBefore(dayDate, today)) {
     opened.push(no);
+    el.classList.remove("closed");
+    el.classList.add("open");
 
     localStorage.setItem(`advent-calendar-${year}`, JSON.stringify(opened));
   }
