@@ -50,7 +50,13 @@ defmodule CforumWeb.Endpoint do
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
-  plug(Plug.Session, store: :cookie, key: "_cforum_key", signing_salt: "aRQT3uvM", http_only: true)
+  plug(Plug.Session,
+    store: :cookie,
+    key: "_cforum_key",
+    signing_salt: "aRQT3uvM",
+    http_only: true,
+    domain: Application.get_env(:cforum, :cookie_domain)
+  )
 
   plug(CforumWeb.Router)
 
