@@ -18,9 +18,14 @@ defmodule CforumWeb.Plug.AuthorizeAccess do
 
   def call(conn, _opts) do
     action = Phoenix.Controller.action_name(conn)
+    module = Phoenix.Controller.controller_module(conn)
 
-    if Abilities.may?(conn, Phoenix.Controller.controller_module(conn), action),
-      do: conn,
-      else: raise(Cforum.Errors.ForbiddenError, conn: conn)
+    if Abilities.may?(conn, module, action) do
+      conn
+    else
+      if Kernel.function_exported?(module, :not_allowed, 2),
+        do: module.not_allowed(conn, action),
+        else: raise(Cforum.Errors.ForbiddenError, conn: conn)
+    end
   end
 end
