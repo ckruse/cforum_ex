@@ -72,4 +72,13 @@ defmodule CforumWeb.Users.SessionController do
       _ -> Path.root_path(conn, :index)
     end
   end
+
+  def not_allowed(conn, :new) do
+    conn
+    |> put_flash(:info, gettext("You are already logged in!"))
+    |> redirect(to: Path.root_path(conn, :index))
+  end
+
+  def not_allowed(conn, _),
+    do: raise(Cforum.Errors.ForbiddenError, conn: conn)
 end
