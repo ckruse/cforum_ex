@@ -133,6 +133,10 @@
   }
 }
 
+.cf-older-entries-archive {
+  font-style: italic;
+}
+
 @include default-breakpoint() {
   .cf-thread {
     min-width: 44em;
