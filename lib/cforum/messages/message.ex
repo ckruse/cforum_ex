@@ -56,6 +56,7 @@ defmodule Cforum.Messages.Message do
 
     has_many(:cites, Cforum.Cites.Cite, foreign_key: :message_id, on_delete: :nilify_all)
     has_many(:versions, Cforum.Messages.MessageVersion, foreign_key: :message_id, on_delete: :delete_all)
+    has_many(:votes, Cforum.Votes.Vote, foreign_key: :message_id)
 
     many_to_many(:tags, Tag,
       join_through: MessageTag,
@@ -63,7 +64,10 @@ defmodule Cforum.Messages.Message do
       on_replace: :delete
     )
 
-    has_many(:votes, Cforum.Votes.Vote, foreign_key: :message_id)
+    many_to_many(:images, Cforum.Media.Image,
+      join_through: "messages_media",
+      join_keys: [message_id: :message_id, medium_id: :medium_id]
+    )
 
     timestamps(inserted_at: :created_at)
   end

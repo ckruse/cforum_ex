@@ -9,7 +9,8 @@ defmodule Cforum.Messages.MessageAuditJson do
     :votes,
     :cites,
     :versions,
-    :messages
+    :messages,
+    :images
   ]
 
   def to_json(message) do

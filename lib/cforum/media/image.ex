@@ -11,6 +11,11 @@ defmodule Cforum.Media.Image do
 
     belongs_to(:owner, Cforum.Users.User, references: :user_id)
 
+    many_to_many(:messages, Cforum.Messages.Message,
+      join_through: "messages_media",
+      join_keys: [medium_id: :medium_id, message_id: :message_id]
+    )
+
     timestamps(inserted_at: :created_at)
   end
 
