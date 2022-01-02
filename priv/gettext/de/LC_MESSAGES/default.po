@@ -862,6 +862,7 @@ msgstr "Erstellungszeitpunkt"
 #: lib/cforum_web/templates/admin/user/index.html.eex:39
 #: lib/cforum_web/templates/cite/cite.html.eex:77
 #: lib/cforum_web/templates/image/index.html.eex:14
+#: lib/cforum_web/templates/image/show.html.eex:17
 #: lib/cforum_web/templates/notification/index.html.eex:27
 msgid "delete"
 msgstr "löschen"
@@ -3861,7 +3862,7 @@ msgid "%{nick} mentioned you in a new message: “%{subject}”"
 msgstr "%{nick} hat Sie in einem neuen Beitrag „%{subject}“ erwähnt"
 
 #, elixir-format
-#: lib/cforum_web/controllers/image_controller.ex:59
+#: lib/cforum_web/controllers/image_controller.ex:70
 msgid "Image deleted successfully."
 msgstr "Das Bild wurde erfolgreich gelöscht."
 
@@ -4733,3 +4734,18 @@ msgstr "Sie sind bereits angemeldet!"
 #: lib/cforum_web/templates/image/index.html.eex:13
 msgid "details"
 msgstr "Details"
+
+#, elixir-format, ex-autogen
+#: lib/cforum_web/views/image_view.ex:13
+msgid "image „%{name}“"
+msgstr "Bild „%{name}“"
+
+#, elixir-format, ex-autogen
+#: lib/cforum_web/templates/image/show.html.eex:16
+msgid "back to images list"
+msgstr "zurück zur Bilderliste"
+
+#, elixir-format, ex-autogen
+#: lib/cforum_web/templates/image/show.html.eex:5
+msgid "contained in"
+msgstr "enthalten in"

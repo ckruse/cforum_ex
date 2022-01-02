@@ -846,6 +846,7 @@ msgstr ""
 #: lib/cforum_web/templates/admin/user/index.html.eex:39
 #: lib/cforum_web/templates/cite/cite.html.eex:77
 #: lib/cforum_web/templates/image/index.html.eex:14
+#: lib/cforum_web/templates/image/show.html.eex:17
 #: lib/cforum_web/templates/notification/index.html.eex:27
 msgid "delete"
 msgstr ""
@@ -3839,7 +3840,7 @@ msgid "%{nick} mentioned you in a new message: “%{subject}”"
 msgstr ""
 
 #, elixir-format
-#: lib/cforum_web/controllers/image_controller.ex:59
+#: lib/cforum_web/controllers/image_controller.ex:70
 msgid "Image deleted successfully."
 msgstr ""
 
@@ -4707,4 +4708,19 @@ msgstr ""
 #, elixir-format, ex-autogen
 #: lib/cforum_web/templates/image/index.html.eex:13
 msgid "details"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cforum_web/views/image_view.ex:13
+msgid "image „%{name}“"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cforum_web/templates/image/show.html.eex:16
+msgid "back to images list"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cforum_web/templates/image/show.html.eex:5
+msgid "contained in"
 msgstr ""
