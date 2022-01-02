@@ -478,6 +478,9 @@ defmodule CforumWeb.Views.ViewHelpers.Path do
   def image_path(conn, :show, image, params),
     do: "#{root_path(conn, :index, false)}images/#{image.filename}#{encode_query_string(conn, params)}"
 
+  def image_path(conn, :details, image, params),
+    do: "#{root_path(conn, :index, false)}images/#{image.medium_id}#{encode_query_string(conn, params)}"
+
   # events
 
   def event_path(conn, action, event_or_params \\ nil, params \\ [])

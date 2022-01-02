@@ -7,6 +7,9 @@ defmodule CforumWeb.ImageController do
   alias CforumWeb.Sortable
   alias CforumWeb.Paginator
 
+  alias Cforum.Threads.Thread
+  alias Cforum.Messages.Message
+
   @max_age 30 * 24 * 60 * 60
 
   def index(conn, params) do
@@ -19,6 +22,12 @@ defmodule CforumWeb.ImageController do
   end
 
   def show(conn, %{"id" => id} = params) do
+    if is_image_id(id),
+      do: show_image_details(conn, params),
+      else: show_image(conn, params)
+  end
+
+  defp show_image(conn, %{"id" => id} = params) do
     img = Media.get_image_by_filename!(id)
 
     case Media.image_full_path(img, params["size"]) do
@@ -41,6 +50,18 @@ defmodule CforumWeb.ImageController do
     end
   end
 
+  defp show_image_details(conn, %{"id" => id} = _params) do
+    img = Media.get_image!(id, with: [messages: [:user, [thread: :forum]]])
+
+    messages =
+      Enum.map(img.messages, fn msg ->
+        thread = %Thread{msg.thread | message: msg}
+        %Message{msg | thread: thread}
+      end)
+
+    render(conn, "show.html", image: img, messages: messages)
+  end
+
   def delete(conn, %{"id" => id}) do
     img = Media.get_image!(id)
     {:ok, _img} = Media.delete_image(img, conn.assigns.current_user)
@@ -53,4 +74,6 @@ defmodule CforumWeb.ImageController do
   def allowed?(conn, :index, _), do: Abilities.admin?(conn)
   def allowed?(conn, :delete, _), do: Abilities.admin?(conn)
   def allowed?(_conn, _, _), do: true
+
+  defp is_image_id(param), do: Regex.match?(~r/^\d+$/, param)
 end

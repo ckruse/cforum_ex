@@ -46,7 +46,11 @@ defmodule Cforum.Media do
       ** (Ecto.NoResultsError)
 
   """
-  def get_image!(id), do: Repo.get!(Image, id)
+  def get_image!(id, opts \\ []) do
+    Image
+    |> Repo.get!(id)
+    |> Repo.maybe_preload(opts[:with])
+  end
 
   @spec get_image_by_filename!(String.t()) :: %Image{}
   def get_image_by_filename!(filename), do: Repo.get_by!(Image, filename: filename)

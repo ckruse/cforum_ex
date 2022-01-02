@@ -1,0 +1,18 @@
+<p>
+  <img src="<%= Path.image_path(@conn, :show, @image) %>">
+</p>
+
+<p><%= gettext("contained in") %></p>
+
+<div class="cf-thread-list">
+  <%= for m <- @messages do %>
+    <article class="threadlist cf-thread">
+      <%= CforumWeb.MessageView.header(@conn, m.thread, m, show_votes: true, show_icons: true, id: false) %>
+    </article>
+  <% end %>
+</div>
+
+<div class="form-actions">
+  <%= ViewHelpers.Button.default_button_link gettext("back to images list"), to: Path.image_path(@conn, :index) %>
+  <%= if Abilities.may?(@conn, "image", :delete, @image), do: ViewHelpers.Button.destructive_button(gettext("delete"), to: Path.image_path(@conn, :delete, @image), method: :delete) %>
+</div>
