@@ -55,6 +55,13 @@ defmodule Cforum.Media do
   @spec get_image_by_filename!(String.t()) :: %Image{}
   def get_image_by_filename!(filename), do: Repo.get_by!(Image, filename: filename)
 
+  @spec get_image_by_filename(String.t(), keyword()) :: %Image{}
+  def get_image_by_filename(filename, opts \\ []) do
+    Image
+    |> Repo.get_by(filename: filename)
+    |> Repo.maybe_preload(opts[:with])
+  end
+
   @doc """
   Creates a image.
 

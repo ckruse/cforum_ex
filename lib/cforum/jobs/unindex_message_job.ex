@@ -4,6 +4,7 @@ defmodule Cforum.Jobs.UnindexMessageJob do
   @impl Oban.Worker
   def perform(%Oban.Job{args: %{"message_ids" => mids}}) do
     Cforum.Search.delete_documents_by_reference_ids(mids)
+    :ok
   end
 
   def enqueue(messages) do

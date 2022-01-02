@@ -20,7 +20,9 @@ defmodule Cforum.Messages do
   alias Cforum.Threads.ThreadCaching
 
   alias Cforum.Jobs.MessageIndexerJob
+  alias Cforum.Jobs.IndexMessageImagesJob
   alias Cforum.Jobs.UnindexMessageJob
+  alias Cforum.Jobs.UnindexMessageImagesJob
   alias Cforum.Jobs.RescoreMessageJob
   alias Cforum.Jobs.NotifyUsersMessageJob
   alias Cforum.Jobs.NewMessageBadgeDistributorJob
@@ -63,9 +65,12 @@ defmodule Cforum.Messages do
   """
   @spec get_message!(any, nil | maybe_improper_list | map) :: Message.t()
   def get_message!(id, opts \\ []) do
-    if opts[:view_all],
-      do: Repo.get!(Message, id),
-      else: Repo.get_by!(Message, message_id: id, deleted: false)
+    message =
+      if opts[:view_all],
+        do: Repo.get!(Message, id),
+        else: Repo.get_by!(Message, message_id: id, deleted: false)
+
+    Repo.maybe_preload(message, opts[:with])
   end
 
   @doc """
@@ -260,6 +265,7 @@ defmodule Cforum.Messages do
 
   defp index_message({:ok, message}, thread) do
     MessageIndexerJob.enqueue(thread, message)
+    IndexMessageImagesJob.enqueue(message)
     {:ok, message}
   end
 
@@ -350,12 +356,15 @@ defmodule Cforum.Messages do
           {:ok, Message.t()} | {:error, Ecto.Changeset.t()}
   def update_message(%Message{} = message, attrs, user, visible_forums, opts \\ [create_tags: false]) do
     System.audited("update", user, fn ->
+      thread = Repo.preload(message, :thread).thread
+
       message
       |> Message.update_changeset(attrs, user, visible_forums, opts)
       |> Mentions.parse_mentions()
       |> MessageVersions.build_version(message, user)
       |> Repo.update()
       |> maybe_attach_thumbnail(attrs)
+      |> index_message(thread)
       |> MessageCaching.update_cached_message()
     end)
   end
@@ -430,6 +439,7 @@ defmodule Cforum.Messages do
 
   defp unindex_messages({:ok, msg}, ids) do
     UnindexMessageJob.enqueue(ids)
+    UnindexMessageImagesJob.enqueue(ids)
     {:ok, msg}
   end
 
@@ -469,6 +479,7 @@ defmodule Cforum.Messages do
 
   defp index_messages({:ok, msg}, ids) do
     MessageIndexerJob.enqueue(ids)
+    IndexMessageImagesJob.enqueue(ids)
     {:ok, msg}
   end
 
