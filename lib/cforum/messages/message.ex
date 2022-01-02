@@ -66,7 +66,8 @@ defmodule Cforum.Messages.Message do
 
     many_to_many(:images, Cforum.Media.Image,
       join_through: "messages_media",
-      join_keys: [message_id: :message_id, medium_id: :medium_id]
+      join_keys: [message_id: :message_id, medium_id: :medium_id],
+      on_replace: :delete
     )
 
     timestamps(inserted_at: :created_at)
