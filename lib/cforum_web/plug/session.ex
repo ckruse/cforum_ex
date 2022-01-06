@@ -8,7 +8,7 @@ defmodule CforumWeb.Plug.Session do
 
     runtime_opts =
       if domain,
-        do: Map.put(opts, :domain, domain),
+        do: Map.update(opts, :cookie_opts, [domain: domain], &Keyword.put(&1, :domain, domain)),
         else: opts
 
     Plug.Session.call(conn, runtime_opts)
