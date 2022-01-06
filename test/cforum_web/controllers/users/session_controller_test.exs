@@ -8,7 +8,7 @@ defmodule CforumWeb.Users.SessionControllerTest do
 
   test "sends 403 for already logged-in users", %{conn: conn} do
     user = insert(:user)
-    assert_error_sent(403, fn -> get(login(conn, user), Path.session_path(conn, :new)) end)
+    assert_error_sent(302, fn -> get(login(conn, user), Path.session_path(conn, :new)) end)
   end
 
   test "logs in successfully with right password", %{conn: conn} do
