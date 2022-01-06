@@ -54,8 +54,7 @@ defmodule CforumWeb.Endpoint do
     store: :cookie,
     key: "_cforum_key",
     signing_salt: "aRQT3uvM",
-    http_only: true,
-    domain: Application.get_env(:cforum, :cookie_domain)
+    http_only: true
   )
 
   plug(CforumWeb.Router)
