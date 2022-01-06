@@ -7,7 +7,7 @@
 
         <%= link(img_tag(Routes.static_path(@conn, "/images/feed-atom.svg"), alt: gettext("Atom feed (%{forum})", forum: forum_name(@current_forum))), to: Path.forum_url(@conn, :atom, @current_forum), title: gettext("Atom feed (%{forum})", forum: forum_name(@current_forum)), class: "atom") %>
         <%= link(img_tag(Routes.static_path(@conn, "/images/feed-rss.svg"), alt: gettext("RSS feed (%{forum})", forum: forum_name(@current_forum))), to: Path.forum_url(@conn, :rss, @current_forum), title: gettext("RSS feed (%{forum})", forum: forum_name(@current_forum)), class: "rss") %>
-        <%= link(img_tag(Routes.static_path(@conn, "/images/donate.svg"), alt: gettext("donate")), to: "https://selfhtml.org/spenden.html", title: gettext("donate"), class: "donate") %>
+        <%= link(img_tag(Routes.static_path(@conn, "/images/donate.svg"), alt: gettext("donate")), to: "https://wiki.selfhtml.org/wiki/SELFHTML:Verein/Spenden", title: gettext("donate"), class: "donate") %>
       </div>
 
       <nav class="quicklinks">

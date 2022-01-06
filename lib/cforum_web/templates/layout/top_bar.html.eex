@@ -1,6 +1,6 @@
 <header class="cf-top-bar">
   <ul class="selflinks">
-    <li><%= link "SELFHTML", to: "//selfhtml.org/" %></li>
+    <li><%= link "SELFHTML", to: "https://wiki.selfhtml.org/wiki/SELFHTML:Verein" %></li>
     <li><%= link "Wiki", to: "//wiki.selfhtml.org/" %></li>
     <li><%= link "Forum", to: Path.root_url(@conn, :index) %></li>
     <li><%= link "Blog", to: Path.blog_url(@conn) %></li>

@@ -1,8 +1,8 @@
 <footer class="cf-footer">
   <ul>
-    <li>Seit 1995 – <%= link "Die Energie des Verstehens", to: "//selfhtml.org/" %></li>
-    <li><%= link "Impressum", to: "//selfhtml.org/impressum.html" %></li>
-    <li><%= link "Datenschutz", to: "//selfhtml.org/impressum.html#datenschutz" %></li>
+    <li>Seit 1995 – <%= link "Die Energie des Verstehens", to: "https://wiki.selfhtml.org/wiki/SELFHTML:Verein" %></li>
+    <li><%= link "Impressum", to: "https://wiki.selfhtml.org/wiki/SELFHTML:Impressum" %></li>
+    <li><%= link "Datenschutz", to: "https://wiki.selfhtml.org/wiki/SELFHTML:Impressum#Datenschutzbestimmungen" %></li>
     <li>Software: <%= link "Classic Forum", to: "https://github.com/ckruse/cforum_ex" %> V<%= Cforum.version %></li>
     <li class="sponsor"><%= link to: "https://termitel.de/" do %><%= img_tag(Routes.static_path(@conn, "/images/termitel-customer-care-and-sales.svg"), alt: "Termitel - Customer Care & Sales") %><% end %></li>
     <li class="sponsor"><%= link to: "https://appsignal.com/" do %><%= img_tag(Routes.static_path(@conn, "/images/appsignal.svg"), alt: "AppSignal") %><% end %></li>
