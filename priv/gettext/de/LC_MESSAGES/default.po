@@ -312,7 +312,7 @@ msgstr "Benutzerkonto erfolgreich bestätigt!"
 
 #: lib/cforum_web/controllers/users/registration_controller.ex:29
 msgid "Account successfully created. Please follow the confirmation instructions we send you via mail."
-msgstr "Benutzerkonto erfolgreich erstellt. Bitte folgen sie den Bestätigungs-Anweisungen, die wir Ihnen via E-Mail geschickt haben."
+msgstr "Benutzerkonto erfolgreich erstellt. Bitte folgen Sie den Bestätigungs-Anweisungen, die wir Ihnen via E-Mail geschickt haben."
 
 #: lib/cforum_web/templates/user_mailer/confirmation_mail.html.eex:7
 #: lib/cforum_web/templates/user_mailer/confirmation_mail.text.eex:7
@@ -4687,7 +4687,7 @@ msgstr "Kommentieren ist für diesen Artikel deaktiviert."
 #: lib/cforum_web/templates/blog/index/index.html.eex:5
 #: lib/cforum_web/templates/thread/index.html.eex:10
 msgid "You will find older articles in the archive."
-msgstr "Ältere Artikel finden sie im Archiv."
+msgstr "Ältere Artikel finden Sie im Archiv."
 
 #, elixir-format
 #: lib/cforum_web/templates/blog/article/form.html.eex:74
