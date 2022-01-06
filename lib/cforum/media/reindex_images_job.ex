@@ -7,6 +7,10 @@ defmodule Cforum.Media.ReindexImagesJob do
 
   @batch_size 100
 
+  def perform do
+    Task.start(&reindex_images/0)
+  end
+
   def reindex_images(page \\ 0) do
     row_offset = page * @batch_size
 
