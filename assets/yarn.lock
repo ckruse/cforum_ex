@@ -20,10 +20,10 @@
     "@appsignal/types" "=2.1.6"
     tslib "^2.3.0"
 
-"@appsignal/plugin-window-events@^1.0.14":
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/@appsignal/plugin-window-events/-/plugin-window-events-1.0.14.tgz#9ad222cc26790a0b4cad84e9edf6a1531faa905c"
-  integrity sha512-bgQxT6Uy8k5EN+N0F1e5vaLcsXsZn9BZR08gj1JmS7khKZkYPiNJI982vz7MjLbMGMn5oUlc1WLst1qtfAlBQw==
+"@appsignal/plugin-window-events@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@appsignal/plugin-window-events/-/plugin-window-events-1.0.15.tgz#d76ec3215f4f7eb326e2bad9957b38448cab151a"
+  integrity sha512-m06raS72k/OW78otwGMdZYU2LZ2sYX3CUfqU0UdKcHT3O/8WQ6PI3mV5SuRvOnqvYkyLWPvI53K8n/R5nYxgpQ==
   dependencies:
     "@appsignal/types" "=2.1.6"
 
