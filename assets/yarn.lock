@@ -27,11 +27,12 @@
   dependencies:
     "@appsignal/types" "=2.1.6"
 
-"@appsignal/react@^1.0.15":
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/@appsignal/react/-/react-1.0.15.tgz#74cce9fb9f316d6c641d54839ea043a2135313f1"
-  integrity sha512-kr5ztB0aH5LCnjnmsZw1ZGzsWCqozoc3MO326+Vs41FeVS8uLtrgZBtmCh7BfuHijvlnAbBDoh79sn9uPV8K5Q==
+"@appsignal/react@^1.0.16":
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/@appsignal/react/-/react-1.0.16.tgz#b4e185b23fe3b8abd9fb76220c377a22884a9ca5"
+  integrity sha512-75Dz+r6UDXXg7Cfq3ArwSjLQXzKDZ3NkugdnZjqSooPDY0hVdOePC4JPgLAej8uDznMoFhV/6X5AcCmS3auOLw==
   dependencies:
+    "@appsignal/core" "=1.1.15"
     "@appsignal/types" "=2.1.6"
 
 "@appsignal/types@=2.1.6":
