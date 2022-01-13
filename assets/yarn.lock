@@ -2,15 +2,6 @@
 # yarn lockfile v1
 
 
-"@appsignal/core@=1.1.15":
-  version "1.1.15"
-  resolved "https://registry.yarnpkg.com/@appsignal/core/-/core-1.1.15.tgz#5ea0632cb83b116a3726af6eef7572f6ea97948f"
-  integrity sha512-Qp5jar8a2dA7kU70TpaqiWZAB7jK/sQPN6p/Fq10431R5T1gWRsgTcxma4CXRzOfLIPZsWT57eI+RSkL6SeFRQ==
-  dependencies:
-    "@appsignal/types" "=2.1.6"
-    isomorphic-unfetch "^3.1.0"
-    tslib "^2.3.0"
-
 "@appsignal/core@=1.1.16":
   version "1.1.16"
   resolved "https://registry.yarnpkg.com/@appsignal/core/-/core-1.1.16.tgz#78361017a2a9cd0defa0f8980fbcdab5a5cfca1d"
@@ -36,13 +27,13 @@
   dependencies:
     "@appsignal/types" "=2.1.6"
 
-"@appsignal/react@^1.0.16":
-  version "1.0.16"
-  resolved "https://registry.yarnpkg.com/@appsignal/react/-/react-1.0.16.tgz#b4e185b23fe3b8abd9fb76220c377a22884a9ca5"
-  integrity sha512-75Dz+r6UDXXg7Cfq3ArwSjLQXzKDZ3NkugdnZjqSooPDY0hVdOePC4JPgLAej8uDznMoFhV/6X5AcCmS3auOLw==
+"@appsignal/react@^1.0.17":
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/@appsignal/react/-/react-1.0.17.tgz#b0604c35c413fafd42372e4eb2689b3f2b118b21"
+  integrity sha512-bTqJbmsT1x/vvKZzd7K2Ea/3yKX17pOmUlhxRVxO6R7kKrh+7IdZBrGKrPcF+l3aiiqvph4xVrCd0iHi+EabAA==
   dependencies:
-    "@appsignal/core" "=1.1.15"
-    "@appsignal/types" "=2.1.6"
+    "@appsignal/core" "=1.1.16"
+    "@appsignal/types" "=2.1.7"
 
 "@appsignal/types@=2.1.6":
   version "2.1.6"
