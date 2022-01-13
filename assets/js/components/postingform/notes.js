@@ -13,7 +13,7 @@ export default class Notes extends React.PureComponent {
         </li>
         <li>
           Im Wiki erhalten Sie{" "}
-          <a href="https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Bedienung">
+          <a href="https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Formatierung_der_Beitr%C3%A4ge">
             <strong>Hilfe bei der Formatierung Ihrer Beiträge</strong>
           </a>
           .
