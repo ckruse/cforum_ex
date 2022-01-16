@@ -34,7 +34,7 @@
   .cf-images-index-list {
     display: grid;
     gap: 1em;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
 
     li {
       padding: 0.5em;
@@ -47,17 +47,5 @@
         flex: 1 1 auto;
       }
     }
-  }
-}
-
-@media only screen and (min-width: 40em) {
-  .cf-images-index-list {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media only screen and (min-width: 85em) {
-  .cf-images-index-list {
-    grid-template-columns: repeat(6, 1fr);
   }
 }
