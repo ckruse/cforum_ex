@@ -8,7 +8,7 @@
         <span class="owner"><strong><%= gettext("owner") %></strong> <%= ViewHelpers.user_link(@conn, image.owner, [], image.owner.username) %></span>
       <% end %>
 
-      <span class="created"><strong><%= gettext("created at") %></strong> <%= ViewHelpers.format_date(@conn, image.created_at) %></span>
+      <span class="created"><strong><%= gettext("created") %></strong> <%= ViewHelpers.format_date(@conn, image.created_at) %></span>
       <span class="actions">
         <%= ViewHelpers.Button.default_index_button_link(gettext("details"), to: Path.image_path(@conn, :details, image)) %>
         <%= if Abilities.may?(@conn, "image", :delete, image), do: ViewHelpers.Button.destructive_index_button(gettext("delete"), to: Path.image_path(@conn, :delete, image), method: :delete) %>

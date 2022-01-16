@@ -1846,7 +1846,7 @@ msgstr "Medaillen"
 #, elixir-format
 #: lib/cforum_web/templates/admin/group/index.html.eex:6
 msgid "created"
-msgstr "Erstellungszeitpunkt"
+msgstr "erstellt"
 
 #, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:23
