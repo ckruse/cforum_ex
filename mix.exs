@@ -45,7 +45,7 @@ defmodule Cforum.Mixfile do
       {:phoenix_live_dashboard, "~> 0.1"},
       {:gettext, "0.19.0"},
       {:plug, "~> 1.7"},
-      {:bcrypt_elixir, "~> 2.0"},
+      {:bcrypt_elixir, "~> 3.0"},
       {:number, "~> 1.0"},
       {:swoosh, "~> 1.3"},
       {:gen_smtp, "~> 1.1"},
