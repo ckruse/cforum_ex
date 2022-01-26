@@ -43,7 +43,7 @@
     "@babel/preset-react": "^7.16.7",
     "autoprefixer": "^10.4.2",
     "babel-loader": "^8.2.3",
-    "copy-webpack-plugin": "^10.1.0",
+    "copy-webpack-plugin": "^10.2.1",
     "css-loader": "^6.5.1",
     "eslint": "^8.7.0",
     "eslint-config-react-app": "^7.0.0",
