@@ -43,7 +43,7 @@ defmodule Cforum.Mixfile do
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:phoenix_live_dashboard, "~> 0.1"},
-      {:gettext, "0.19.0"},
+      {:gettext, "0.19.1"},
       {:plug, "~> 1.7"},
       {:bcrypt_elixir, "~> 3.0"},
       {:number, "~> 1.0"},
