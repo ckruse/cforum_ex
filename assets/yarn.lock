@@ -29,12 +29,12 @@
     "@appsignal/types" "=2.1.7"
     tslib "^2.3.0"
 
-"@appsignal/plugin-window-events@^1.0.16":
-  version "1.0.16"
-  resolved "https://registry.yarnpkg.com/@appsignal/plugin-window-events/-/plugin-window-events-1.0.16.tgz#be662df49c09f66f161ad9fd8b8b67405ac35a76"
-  integrity sha512-WfN3LIiHg+R/VUpNU+H9gkxFfP4aTF6oQiR7x7iL3pUc80FUiA/o+HbHu51OkwRYD1fuQ9MNZieifZGJbJ/vcw==
+"@appsignal/plugin-window-events@^1.0.17":
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/@appsignal/plugin-window-events/-/plugin-window-events-1.0.17.tgz#f011898308340b27e98d2f0f22650bf00a42400e"
+  integrity sha512-RW3JVxQD2ePxvF3HIcuuor4t6JWsPPYNjRVEFAFLnvKEeZUgtzPNaOOCJQ07VAojbVPiag7d+LlivCOwh/u8Kg==
   dependencies:
-    "@appsignal/types" "=2.1.7"
+    "@appsignal/types" "=3.0.0"
 
 "@appsignal/react@^1.0.17":
   version "1.0.17"
@@ -48,6 +48,11 @@
   version "2.1.7"
   resolved "https://registry.yarnpkg.com/@appsignal/types/-/types-2.1.7.tgz#4d7a26460fa3c8cc07379430a4c18f971917f861"
   integrity sha512-a1xs27N7KVMxjdiIgnCsPZP95mjsZym82bCsYzir8C+kh1dpa72uY3e2uO7AK2amKLWaQK34uQQS4ouVo1PIbA==
+
+"@appsignal/types@=3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@appsignal/types/-/types-3.0.0.tgz#7cbfe9220224d6631954610688fa9a8f6c531f75"
+  integrity sha512-L0OAKaro7209Du39UF2ZWU8CzUJxeeKaW6Zyu2FA2SGdW3HK0PoJxY7A8R52KdZiXzMlCAlrOjvoDvT/ct0RIg==
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.16.7":
   version "7.16.7"
