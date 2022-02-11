@@ -20,13 +20,22 @@
     isomorphic-unfetch "^3.1.0"
     tslib "^2.3.0"
 
-"@appsignal/javascript@^1.3.21":
-  version "1.3.21"
-  resolved "https://registry.yarnpkg.com/@appsignal/javascript/-/javascript-1.3.21.tgz#411d33b442e82716209cfa266dfba42ff9932b67"
-  integrity sha512-o1zzLhMiPV+hYwOh5nSSbTyATVeP8NAnnba6oEHg42FigQTwTQ6NNmWJOLhSX1bXdIuDBYFSmY1oPhUcDbKyXg==
+"@appsignal/core@=1.1.17":
+  version "1.1.17"
+  resolved "https://registry.yarnpkg.com/@appsignal/core/-/core-1.1.17.tgz#2076e44d1125a63678fc9e24c49e83a2523ed0f9"
+  integrity sha512-UwsuXHmQ+KwLbTUuAqlnUMbfyglpr44h57daM/PXXbDtBJInGP6GDqccFp/p2C+8lUhDlvyCxaRb1uxDeXzUeA==
   dependencies:
-    "@appsignal/core" "=1.1.16"
-    "@appsignal/types" "=2.1.7"
+    "@appsignal/types" "=3.0.0"
+    isomorphic-unfetch "^3.1.0"
+    tslib "^2.3.0"
+
+"@appsignal/javascript@^1.3.22":
+  version "1.3.22"
+  resolved "https://registry.yarnpkg.com/@appsignal/javascript/-/javascript-1.3.22.tgz#29613c2f8025bd37a2c0d44c286319dd0f131b28"
+  integrity sha512-XdLz6CQr9wrzG7526+6j3oU5ALsdHN4oNeWMnYRTu7qt5EIv1pcL1RTzlk4aK3gHAPZo6B/DJcM+ftzjzj69cA==
+  dependencies:
+    "@appsignal/core" "=1.1.17"
+    "@appsignal/types" "=3.0.0"
     tslib "^2.3.0"
 
 "@appsignal/plugin-window-events@^1.0.17":
