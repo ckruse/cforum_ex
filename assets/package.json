@@ -21,7 +21,7 @@
     "cfmarkdown": "https://github.com/ckruse/cfmarkdown.git",
     "date-fns": "^2.28.0",
     "emoji-mart": "<= 3.0.2 || > 2.11.2",
-    "highcharts": "^9.3.3",
+    "highcharts": "^10.0.0",
     "leaflet": "^1.7.1",
     "leaflet-geosearch": "^3.3.2",
     "phoenix": "file:../deps/phoenix",
