@@ -56,7 +56,7 @@ defmodule Cforum.Settings.Setting do
 
   defp validate_url_blacklists(changeset) do
     with %{} = options <- Ecto.Changeset.get_change(changeset, :options),
-         :ok <- Helpers.validate_blacklist_value(changeset, options["url"], "url_black_list") do
+         :ok <- Helpers.validate_url_blacklist_value(changeset, options["url"], "url_black_list") do
       changeset
     else
       nil -> changeset

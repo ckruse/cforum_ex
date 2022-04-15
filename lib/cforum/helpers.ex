@@ -183,14 +183,38 @@ defmodule Cforum.Helpers do
       else: changeset
   end
 
-  @spec validate_blacklist_value(Ecto.Changeset.t(), String.t() | nil, String.t()) :: :ok | {:error, String.t()}
-  def validate_blacklist_value(changeset, value, conf_key) do
+  @spec validate_url_blacklist(Ecto.Changeset.t(), atom(), String.t()) :: Ecto.Changeset.t()
+  def validate_url_blacklist(changeset, field, conf_key) do
     forum_id = Ecto.Changeset.get_field(changeset, :forum_id)
 
     settings = get_settings(forum_id, nil, nil)
     blacklist = Cforum.ConfigManager.conf(settings, conf_key)
 
+    value =
+      with val when is_bitstring(val) <- Ecto.Changeset.get_field(changeset, field),
+           %URI{} = url <- URI.parse(val) do
+        %URI{url | host: URI.decode_www_form(val)} |> URI.to_string()
+      end
+
     if matches?(value, blacklist),
+      do: Ecto.Changeset.add_error(changeset, field, "seems like spam!"),
+      else: changeset
+  end
+
+  @spec validate_url_blacklist_value(Ecto.Changeset.t(), String.t() | nil, String.t()) :: :ok | {:error, String.t()}
+  def validate_url_blacklist_value(changeset, value, conf_key) do
+    forum_id = Ecto.Changeset.get_field(changeset, :forum_id)
+
+    settings = get_settings(forum_id, nil, nil)
+    blacklist = Cforum.ConfigManager.conf(settings, conf_key)
+
+    normalized_value =
+      with val when is_bitstring(val) <- value,
+           %URI{} = url <- URI.parse(val) do
+        %URI{url | host: URI.decode_www_form(val)} |> URI.to_string()
+      end
+
+    if matches?(normalized_value, blacklist),
       do: {:error, "seems like spam!"},
       else: :ok
   end

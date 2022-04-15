@@ -167,8 +167,8 @@ defmodule Cforum.Messages.Message do
     |> Helpers.validate_blacklist(:author, "nick_black_list")
     |> Helpers.validate_blacklist(:subject, "subject_black_list")
     |> Helpers.validate_blacklist(:content, "content_black_list")
-    |> Helpers.validate_blacklist(:homepage, "url_black_list")
-    |> Helpers.validate_blacklist(:problematic_site, "url_black_list")
+    |> Helpers.validate_url_blacklist(:homepage, "url_black_list")
+    |> Helpers.validate_url_blacklist(:problematic_site, "url_black_list")
   end
 
   def changeset(struct, params, user, visible_forums, thread, message, opts) do
@@ -180,8 +180,8 @@ defmodule Cforum.Messages.Message do
     |> Helpers.validate_blacklist(:author, "nick_black_list")
     |> Helpers.validate_blacklist(:subject, "subject_black_list")
     |> Helpers.validate_blacklist(:content, "content_black_list")
-    |> Helpers.validate_blacklist(:homepage, "url_black_list")
-    |> Helpers.validate_blacklist(:problematic_site, "url_black_list")
+    |> Helpers.validate_url_blacklist(:homepage, "url_black_list")
+    |> Helpers.validate_url_blacklist(:problematic_site, "url_black_list")
   end
 
   def new_or_update_changeset(struct, params, user, visible_forums, opts \\ [create_tags: false]) do
@@ -198,8 +198,8 @@ defmodule Cforum.Messages.Message do
     |> Helpers.validate_blacklist(:author, "nick_black_list")
     |> Helpers.validate_blacklist(:subject, "subject_black_list")
     |> Helpers.validate_blacklist(:content, "content_black_list")
-    |> Helpers.validate_blacklist(:homepage, "url_black_list")
-    |> Helpers.validate_blacklist(:problematic_site, "url_black_list")
+    |> Helpers.validate_url_blacklist(:homepage, "url_black_list")
+    |> Helpers.validate_url_blacklist(:problematic_site, "url_black_list")
   end
 
   def retag_changeset(struct, params, user, opts \\ [create_tags: false]) do
