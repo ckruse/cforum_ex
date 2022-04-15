@@ -22,6 +22,7 @@ defmodule Cforum.Settings.Setting do
     |> validate_required([:options])
     |> unique_constraint(:forum_id)
     |> validate_urls()
+    |> validate_url_blacklists()
   end
 
   defp remove_default_option_values(%Ecto.Changeset{valid?: true} = changeset) do
@@ -52,4 +53,14 @@ defmodule Cforum.Settings.Setting do
 
   defp check_url(url) when is_binary(url) and url != "", do: Helpers.check_url(url)
   defp check_url(_), do: :ok
+
+  defp validate_url_blacklists(changeset) do
+    with %{} = options <- Ecto.Changeset.get_change(changeset, :options),
+         :ok <- Helpers.validate_blacklist_value(changeset, options["url"], "url_black_list") do
+      changeset
+    else
+      nil -> changeset
+      {:error, msg} -> add_error(changeset, :options_url, msg)
+    end
+  end
 end

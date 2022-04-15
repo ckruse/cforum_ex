@@ -183,6 +183,18 @@ defmodule Cforum.Helpers do
       else: changeset
   end
 
+  @spec validate_blacklist_value(Ecto.Changeset.t(), String.t() | nil, String.t()) :: :ok | {:error, String.t()}
+  def validate_blacklist_value(changeset, value, conf_key) do
+    forum_id = Ecto.Changeset.get_field(changeset, :forum_id)
+
+    settings = get_settings(forum_id, nil, nil)
+    blacklist = Cforum.ConfigManager.conf(settings, conf_key)
+
+    if matches?(value, blacklist),
+      do: {:error, "seems like spam!"},
+      else: :ok
+  end
+
   defp matches?(str, list) when is_nil(str) or str == "" or is_nil(list) or list == "", do: false
 
   defp matches?(str, list) do
