@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { render } from "react-dom";
 
 import { t } from "../../modules/i18n";
 import Badge from "./badge";
