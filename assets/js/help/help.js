@@ -1,5 +1,5 @@
 import Highcharts from "highcharts";
-import { parse } from "date-fns";
+import { parseJSON } from "date-fns";
 import { t } from "../modules/i18n";
 
 Highcharts.setOptions({
@@ -12,7 +12,7 @@ if (el) {
     chart: { type: "spline" },
     title: null,
     xAxis: {
-      categories: window.helpCitesData.map((val) => Highcharts.dateFormat("%B %Y", parse(val.date))),
+      categories: window.helpCitesData.map((val) => Highcharts.dateFormat("%B %Y", parseJSON(val.date))),
     },
     yAxis: { title: { text: t("number of new cites") } },
     series: [
