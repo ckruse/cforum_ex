@@ -44,7 +44,7 @@ config :cforum, Oban,
        {"0 1 * * *", Cforum.Jobs.UserCleanupJob},
        {"0 2 * * *", Cforum.Jobs.AuditingCleanupJob},
        {"0 5 * * *", Cforum.Jobs.YearlingBadgeDistributorJob},
-       {"0 3 * * *", Cforum.Jobs.DatabaseMaintenanceJob},
+       {"0 3 * * SUN", Cforum.Jobs.DatabaseMaintenanceJob},
        {"17 4 * * *", Cforum.Jobs.SendInactivityNotificationMailJob}
      ]}
   ]
