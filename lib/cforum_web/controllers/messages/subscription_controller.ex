@@ -32,6 +32,7 @@ defmodule CforumWeb.Messages.SubscriptionController do
     threads =
       Finder.search_subscribed_messages(conn.assigns.current_user, changeset, paging.params)
       |> Enum.map(fn msg -> %Thread{msg.thread | messages: [msg]} end)
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.apply_user_infos(conn.assigns[:current_user])
       |> Threads.apply_highlights(conn)
       |> Enum.map(fn thread -> %Thread{thread | message: List.first(thread.messages)} end)
@@ -50,6 +51,7 @@ defmodule CforumWeb.Messages.SubscriptionController do
     threads =
       entries
       |> Enum.map(fn msg -> %Thread{msg.thread | messages: [msg]} end)
+      |> Threads.reject_deleted_threads(conn.assigns[:view_all])
       |> Threads.apply_user_infos(conn.assigns[:current_user])
       |> Threads.apply_highlights(conn)
       |> Enum.map(fn thread -> %Thread{thread | message: List.first(thread.messages)} end)
