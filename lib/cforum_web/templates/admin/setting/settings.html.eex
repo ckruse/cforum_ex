@@ -153,6 +153,12 @@
     <%= number_input @fo, :max_age_deleted, step: 1, minimum: 1, id: "settings-max_age_deleted" %>
     <label class="checkbox"><%= default_checkbox(@fo, @settings, :max_age_deleted) %> <%= default_value(@conn, :max_age_deleted) %></label>
   </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-max_age_no_archive"><%= gettext("maximum age of threads marked with “no archive” (in seconds)") %></label>
+    <%= number_input @fo, :max_age_no_archive, step: 1, minimum: 1, id: "settings-max_age_no_archive" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :max_age_no_archive) %> <%= default_value(@conn, :max_age_no_archive) %></label>
+  </div>
 </fieldset>
 
 <fieldset id="editing-settings">

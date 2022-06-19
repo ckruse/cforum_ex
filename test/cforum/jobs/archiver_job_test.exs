@@ -82,4 +82,52 @@ defmodule Cforum.Jobs.ArchiverJobTest do
     thread = Threads.get_thread!(old_thread.thread_id)
     assert thread.archived == false
   end
+
+  test "archive/0 deletes threads with no-archive older than max age", %{forum: forum} do
+    insert(:setting, options: %{"max_age_no_archive" => 30})
+
+    thread =
+      insert(:thread,
+        forum: forum,
+        latest_message: Timex.shift(Timex.now(), seconds: -60),
+        flags: %{"no-archive" => "yes"}
+      )
+
+    ArchiverJob.new(%{}) |> Oban.insert!()
+    assert %{success: 1, failure: 0, snoozed: 0} == Oban.drain_queue(queue: :background)
+
+    assert_raise Ecto.NoResultsError, fn -> Threads.get_thread!(thread.thread_id) end
+  end
+
+  test "archive/0 ignores threads with no-archive younger than max age", %{forum: forum} do
+    insert(:setting, options: %{"max_age_no_archive" => 120})
+
+    thread =
+      insert(:thread,
+        forum: forum,
+        latest_message: Timex.shift(Timex.now(), seconds: -60),
+        flags: %{"no-archive" => "yes"}
+      )
+
+    ArchiverJob.new(%{}) |> Oban.insert!()
+    assert %{success: 1, failure: 0, snoozed: 0} == Oban.drain_queue(queue: :background)
+
+    assert unload_relations(Threads.get_thread!(thread.thread_id)) == unload_relations(thread)
+  end
+
+  test "archive/0 ignores threads with no-archive when max-age is 0", %{forum: forum} do
+    insert(:setting, options: %{"max_age_no_archive" => 0})
+
+    thread =
+      insert(:thread,
+        forum: forum,
+        latest_message: Timex.shift(Timex.now(), seconds: -60),
+        flags: %{"no-archive" => "yes"}
+      )
+
+    ArchiverJob.new(%{}) |> Oban.insert!()
+    assert %{success: 1, failure: 0, snoozed: 0} == Oban.drain_queue(queue: :background)
+
+    assert unload_relations(Threads.get_thread!(thread.thread_id)) == unload_relations(thread)
+  end
 end
