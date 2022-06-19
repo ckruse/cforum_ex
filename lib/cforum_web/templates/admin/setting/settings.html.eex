@@ -147,6 +147,12 @@
     <%= number_input @fo, :max_messages_per_thread, step: 1, minimum: 1, id: "settings-max_messages_per_thread" %>
     <label class="checkbox"><%= default_checkbox(@fo, @settings, :max_messages_per_thread) %> <%= default_value(@conn, :max_messages_per_thread) %></label>
   </div>
+
+  <div class="cf-cgroup">
+    <label for="settings-max_age_deleted"><%= gettext("maximum age of deleted threads (in seconds)") %></label>
+    <%= number_input @fo, :max_age_deleted, step: 1, minimum: 1, id: "settings-max_age_deleted" %>
+    <label class="checkbox"><%= default_checkbox(@fo, @settings, :max_age_deleted) %> <%= default_value(@conn, :max_age_deleted) %></label>
+  </div>
 </fieldset>
 
 <fieldset id="editing-settings">

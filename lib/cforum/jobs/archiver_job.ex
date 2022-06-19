@@ -30,13 +30,35 @@ defmodule Cforum.Jobs.ArchiverJob do
 
   defp archive_for_forum(forum) do
     is_active = Cforum.ConfigManager.conf(forum, "archiver_active") == "yes"
+    max_age_deleted = Cforum.ConfigManager.conf(forum, "max_age_deleted", :int)
 
     if is_active do
+      archive_deleted(forum, max_age_deleted)
       archive_max_messages_per_thread(forum)
       archive_max_threads_per_forum(forum)
     end
   end
 
+  defp archive_deleted(_, 0), do: nil
+
+  defp archive_deleted(forum, age) do
+    now = Timex.now() |> Timex.shift(seconds: -age)
+
+    from(thread in Thread,
+      where: thread.forum_id == ^forum.forum_id,
+      where: thread.archived == false,
+      where: thread.sticky == false,
+      where: thread.deleted == true,
+      where: thread.latest_message < ^now
+    )
+    |> Repo.all()
+    |> Repo.preload([:messages])
+    |> Enum.each(fn thread ->
+      thread
+      |> archive_thread()
+      |> discard_thread_cache()
+    end)
+  end
   defp archive_max_messages_per_thread(forum) do
     max_messages = Cforum.ConfigManager.conf(forum, "max_messages_per_thread", :int)
 

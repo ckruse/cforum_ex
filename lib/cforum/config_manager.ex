@@ -36,6 +36,7 @@ defmodule Cforum.ConfigManager do
     "archive_by" => "oldest_message",
     "max_threads" => 150,
     "max_messages_per_thread" => 50,
+    "max_age_deleted" => 0,
     "cites_min_age_to_archive" => 2,
     "accept_value" => 15,
     "accept_self_value" => 15,
