@@ -23,40 +23,40 @@ msgstr ""
 #~ msgid ""
 #~ msgstr ""
 #~ "Language: de\n"
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/personal_links.html.eex:46
+#, elixir-autogen
 msgid "not logged in"
 msgstr "nicht angemeldet"
 
-#, elixir-autogen
 #: lib/cforum_web/error_handler.ex:17
+#, elixir-autogen
 msgid "You have to be logged in and an admin to see this page!"
 msgstr "Sie müssen sich einloggen und über Administrator-Rechte verfügen, um diese Seite sehen zu dürfen!"
 
-#, elixir-autogen
 #: lib/cforum_web/error_handler.ex:9
+#, elixir-autogen
 msgid "You have to be logged in to see this page!"
 msgstr "Sie müssen sich einloggen, um diese Seite sehen zu dürfen!"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/link.html.eex:9
 #: lib/cforum_web/templates/layout/personal_links.html.eex:51
+#, elixir-autogen
 msgid "Help"
 msgstr "Hilfe"
 
-#, elixir-autogen
 #: lib/cforum_web/controllers/users/session_controller.ex:46
+#, elixir-autogen
 msgid "Username or password wrong"
 msgstr "Benutzername oder Passwort sind falsch."
 
-#, elixir-autogen
 #: lib/cforum_web/error_handler.ex:25
 #: lib/cforum_web/error_handler.ex:33
+#, elixir-autogen
 msgid "You don't have access to this page!"
 msgstr "Sie haben keinen Zugriff auf diese Seite!"
 
-#, elixir-autogen
 #: lib/cforum_web/controllers/users/session_controller.ex:41
+#, elixir-autogen
 msgid "You logged in successfully"
 msgstr "Sie haben sich erfolgreich angemeldet."
 
@@ -69,42 +69,42 @@ msgstr "alle anzeigen"
 msgid "Cites"
 msgstr "Zitatesammlung"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/page_header.html.eex:102
+#, elixir-autogen
 msgid "Administration"
 msgstr "Verwaltung"
 
 msgid "Forums"
 msgstr "Foren"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/page_header.html.eex:97
+#, elixir-autogen
 msgid "Atom feed"
 msgstr "Atom-Feed"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/link.html.eex:16
 #: lib/cforum_web/templates/layout/page_header.html.eex:8
 #: lib/cforum_web/templates/layout/page_header.html.eex:8
 #: lib/cforum_web/templates/layout/page_header_blog.html.eex:8
 #: lib/cforum_web/templates/layout/page_header_blog.html.eex:8
+#, elixir-autogen
 msgid "Atom feed (%{forum})"
 msgstr "Atom-Feed (%{forum})"
 
 msgid "Chat"
 msgstr "Chat"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/page_header.html.eex:98
+#, elixir-autogen
 msgid "RSS feed"
 msgstr "RSS-Feed"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/link.html.eex:17
 #: lib/cforum_web/templates/layout/page_header.html.eex:9
 #: lib/cforum_web/templates/layout/page_header.html.eex:9
 #: lib/cforum_web/templates/layout/page_header_blog.html.eex:9
 #: lib/cforum_web/templates/layout/page_header_blog.html.eex:9
+#, elixir-autogen
 msgid "RSS feed (%{forum})"
 msgstr "RSS-Feed (%{forum})"
 
@@ -114,72 +114,72 @@ msgstr "Suche"
 msgid "Statistics"
 msgstr "Statistiken"
 
+#: lib/cforum_web/templates/layout/page_header.html.eex:10
+#: lib/cforum_web/templates/layout/page_header.html.eex:10
+#: lib/cforum_web/templates/layout/page_header_blog.html.eex:10
+#: lib/cforum_web/templates/layout/page_header_blog.html.eex:10
 #, elixir-autogen
-#: lib/cforum_web/templates/layout/page_header.html.eex:10
-#: lib/cforum_web/templates/layout/page_header.html.eex:10
-#: lib/cforum_web/templates/layout/page_header_blog.html.eex:10
-#: lib/cforum_web/templates/layout/page_header_blog.html.eex:10
 msgid "donate"
 msgstr "Spenden"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/page_header.html.eex:5
 #: lib/cforum_web/templates/layout/page_header.html.eex:16
 #: lib/cforum_web/templates/layout/page_header_blog.html.eex:5
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:3
+#, elixir-autogen
 msgid "home"
 msgstr "Übersicht"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/link.html.eex:2
+#, elixir-autogen
 msgid "icon"
 msgstr "SELFHTML Icon"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/personal_links.html.eex:58
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:10
+#, elixir-autogen
 msgid "login"
 msgstr "anmelden"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:68
 #: lib/cforum_web/templates/layout/page_header.html.eex:80
 #: lib/cforum_web/views/admin/setting_view.ex:33
+#, elixir-autogen
 msgid "nested view"
 msgstr "Nested-Ansicht"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/meta.html.eex:11
+#, elixir-autogen
 msgid "publisher"
 msgstr "SELFHTML Forum"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/personal_links.html.eex:65
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:11
 #: lib/cforum_web/views/users/registration_view.ex:8
 #: lib/cforum_web/views/users/registration_view.ex:11
+#, elixir-autogen
 msgid "register"
 msgstr "Benutzerkonto erstellen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/page_header.html.eex:86
+#, elixir-autogen
 msgid "sort ascending"
 msgstr "aufsteigend sortieren"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/page_header.html.eex:89
+#, elixir-autogen
 msgid "sort descending"
 msgstr "absteigend sortieren"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/page_header.html.eex:92
+#, elixir-autogen
 msgid "sort newest first"
 msgstr "nach neuestem Beitrag sortieren"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:67
 #: lib/cforum_web/templates/layout/page_header.html.eex:78
 #: lib/cforum_web/views/admin/setting_view.ex:34
+#, elixir-autogen
 msgid "thread view"
 msgstr "Thread-Ansicht"
 
@@ -189,87 +189,86 @@ msgstr "Forum als Ergänzung zum SELFHTML-Wiki und zur Dokumentation SELFHTML"
 msgid "keywords_text"
 msgstr "SELFHTML Forum, SELFHTML, Forum, SELFForum"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/page_header.html.eex:110
 #: lib/cforum_web/views/blog/archive_view.ex:7
+#, elixir-autogen
 msgid "archive"
 msgstr "archivierte Beiträge"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/page_header.html.eex:15
+#, elixir-autogen
 msgid "create new thread"
 msgstr "neuer Beitrag"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/session/new.html.eex:23
+#, elixir-autogen
 msgid "I forgot my password"
 msgstr "Ich habe mein Passwort vergessen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/session/new.html.eex:22
 #: lib/cforum_web/views/users/session_view.ex:7
+#, elixir-autogen
 msgid "Login"
 msgstr "anmelden"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/registration/new.html.eex:14
 #: lib/cforum_web/templates/users/session/new.html.eex:6
+#, elixir-autogen
 msgid "Regina Schlauklug"
 msgstr "Regina Schlauklug"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/session/new.html.eex:17
+#, elixir-autogen
 msgid "Remember me"
 msgstr "Login merken"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/session/new.html.eex:5
+#, elixir-autogen
 msgid "Username or email"
 msgstr "Benutzername oder E-Mail-Adresse"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/personal_links.html.eex:29
 #: lib/cforum_web/templates/layout/personal_links.html.eex:34
+#, elixir-autogen
 msgid "%{count} new mails"
 msgstr "%{count} neue private Nachrichten"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/personal_links.html.eex:8
+#, elixir-autogen
 msgid "%{points} points"
 msgstr "%{points} Punkte"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/personal_links.html.eex:40
+#, elixir-autogen
 msgid "logout"
 msgstr "abmelden"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/personal_links.html.eex:31
+#, elixir-autogen
 msgid "mail"
 msgstr "Post"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/personal_links.html.eex:19
 #: lib/cforum_web/templates/layout/personal_links.html.eex:25
+#, elixir-autogen
 msgid "new notifications"
 msgstr "neue Benachrichtigungen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/personal_links.html.eex:21
 #: lib/cforum_web/templates/users/user/notifications.html.eex:3
 #: lib/cforum_web/templates/users/user/settings.html.eex:6
+#, elixir-autogen
 msgid "notifications"
 msgstr "Benachrichtigungen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/audit/index.html.eex:25
 #: lib/cforum_web/templates/admin/subnav.html.eex:3
 #: lib/cforum_web/templates/layout/personal_links.html.eex:14
 #: lib/cforum_web/views/admin/setting_view.ex:10
+#, elixir-autogen
 msgid "settings"
 msgstr "Einstellungen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/advent_calendar/form.html.eex:3
 #: lib/cforum_web/templates/admin/badge/form.html.eex:3
 #: lib/cforum_web/templates/admin/event/form.html.eex:3
@@ -296,10 +295,10 @@ msgstr "Einstellungen"
 #: lib/cforum_web/templates/threads/admin/split.html.eex:5
 #: lib/cforum_web/templates/users/registration/new.html.eex:6
 #: lib/cforum_web/templates/users/user/form.html.eex:2
+#, elixir-autogen
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr "Es ist etwas schief gelaufen! Bitte prüfen Sie die untenstehenden Fehler."
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/user/form.html.eex:16
 #: lib/cforum_web/templates/admin/user/index.html.eex:15
 #: lib/cforum_web/templates/blog/article/form.html.eex:12
@@ -307,30 +306,30 @@ msgstr "Es ist etwas schief gelaufen! Bitte prüfen Sie die untenstehenden Fehle
 #: lib/cforum_web/templates/users/registration/new.html.eex:19
 #: lib/cforum_web/templates/users/user/show.html.eex:21
 #: lib/cforum_web/templates/users/user/user_information.html.eex:11
+#, elixir-autogen
 msgid "email"
 msgstr "E-Mail-Adresse"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/user/form.html.eex:30
 #: lib/cforum_web/templates/users/password/edit.html.eex:12
 #: lib/cforum_web/templates/users/password/edit_reset.html.eex:4
 #: lib/cforum_web/templates/users/registration/new.html.eex:27
 #: lib/cforum_web/templates/users/session/new.html.eex:10
 #: lib/cforum_web/templates/users/session/new.html.eex:11
+#, elixir-autogen
 msgid "password"
 msgstr "Passwort"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/registration/new.html.eex:22
+#, elixir-autogen
 msgid "regina@example.org"
 msgstr "regina@example.org"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/registration/new.html.eex:39
+#, elixir-autogen
 msgid "sign up"
 msgstr "registrieren"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/user/form.html.eex:10
 #: lib/cforum_web/templates/admin/user/index.html.eex:3
 #: lib/cforum_web/templates/admin/user/index.html.eex:14
@@ -339,245 +338,246 @@ msgstr "registrieren"
 #: lib/cforum_web/templates/users/user/index.html.eex:13
 #: lib/cforum_web/templates/users/user/show.html.eex:8
 #: lib/cforum_web/templates/users/user/user_information.html.eex:6
+#, elixir-autogen
 msgid "username"
 msgstr "Benutzername"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/user/form.html.eex:36
 #: lib/cforum_web/templates/users/password/edit.html.eex:19
 #: lib/cforum_web/templates/users/password/edit_reset.html.eex:11
 #: lib/cforum_web/templates/users/registration/new.html.eex:34
+#, elixir-autogen
 msgid "password confirmation"
 msgstr "Passwort-Bestätigung"
 
-#, elixir-autogen
 #: lib/cforum_web/controllers/users/registration_controller.ex:44
+#, elixir-autogen
 msgid "Account successfully confirmed!"
 msgstr "Benutzerkonto erfolgreich bestätigt!"
 
-#, elixir-autogen
 #: lib/cforum_web/controllers/users/registration_controller.ex:29
+#, elixir-autogen
 msgid "Account successfully created. Please follow the confirmation instructions we send you via mail."
 msgstr "Benutzerkonto erfolgreich erstellt. Bitte folgen Sie den Bestätigungs-Anweisungen, die wir Ihnen via E-Mail geschickt haben."
 
-#, elixir-autogen
 #: lib/cforum_web/templates/user_mailer/confirmation_mail.html.eex:7
 #: lib/cforum_web/templates/user_mailer/confirmation_mail.text.eex:7
 #: lib/cforum_web/templates/user_mailer/reset_password_mail.html.eex:7
 #: lib/cforum_web/templates/user_mailer/reset_password_mail.text.eex:7
+#, elixir-autogen
 msgid "Best regards, SELFHTML"
 msgstr ""
 "Freundliche Grüße,\n"
 "  SELFHTML\n"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/user_mailer/confirmation_mail.html.eex:5
 #: lib/cforum_web/views/users/registration_view.ex:9
 #: lib/cforum_web/views/users/registration_view.ex:12
+#, elixir-autogen
 msgid "Confirm my account"
 msgstr "Benutzerkonto bestätigen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/user_mailer/confirmation_mail.html.eex:1
 #: lib/cforum_web/templates/user_mailer/confirmation_mail.text.eex:1
 #: lib/cforum_web/templates/user_mailer/reset_password_mail.html.eex:1
 #: lib/cforum_web/templates/user_mailer/reset_password_mail.text.eex:1
+#, elixir-autogen
 msgid "Hi there, %{name}!"
 msgstr "Hallo %{name}!"
 
-#, elixir-autogen
 #: lib/cforum_web/controllers/notification_controller.ex:53
 #: lib/cforum_web/controllers/users/registration_controller.ex:49
 #: lib/cforum_web/controllers/users/registration_controller.ex:56
+#, elixir-autogen
 msgid "Oops, something went wrong!"
 msgstr "Uups, es ist etwas schief gegangen!"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/user_mailer/confirmation_mail.html.eex:3
 #: lib/cforum_web/templates/user_mailer/confirmation_mail.text.eex:3
+#, elixir-autogen
 msgid "You can confirm your account email through the link below:"
 msgstr "Sie können Ihr Benutzerkonto über den Link unten bestätigen:"
 
-#, elixir-autogen
 #: lib/cforum_web/mailers/user_mailer.ex:10
+#, elixir-autogen
 msgid "confirm your registration"
 msgstr "Benutzerkonto bestätigen"
 
 msgid "password and password confirmation don't match"
 msgstr "Passwort und Passwort-Bestätigung stimmen nicht überein"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/user/index.html.eex:17
 #: lib/cforum_web/templates/users/user/index.html.eex:15
+#, elixir-autogen
 msgid "Activity during the last 30 days"
 msgstr "Aktivität in den letzten 30 Tagen"
 
-#, elixir-autogen
 #: lib/cforum_web/views/users/user_view.ex:23
 #: lib/cforum_web/views/users/user_view.ex:38
+#, elixir-autogen
 msgid "All messages for user %{username}"
 msgstr "alle Beiträge von Benutzer „%{username}“"
 
-#, elixir-autogen
 #: lib/cforum_web/views/users/user_view.ex:26
 #: lib/cforum_web/views/users/user_view.ex:41
+#, elixir-autogen
 msgid "All scores for user %{username}"
 msgstr "alle Punkte für Benutzer „%{username}“"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:160
+#, elixir-autogen
 msgid "Badges"
 msgstr "Medaillen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:103
+#, elixir-autogen
 msgid "Best scored messages"
 msgstr "am besten bewertete Beiträge"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:59
+#, elixir-autogen
 msgid "Description"
 msgstr "Beschreibung"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:53
+#, elixir-autogen
 msgid "Homepage"
 msgstr "Homepage"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:39
+#, elixir-autogen
 msgid "Jabber ID"
 msgstr "Jabber-ID"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:3
+#, elixir-autogen
 msgid "Message closed, answering not allowed"
 msgstr "Dieser Beitrag ist gesperrt, antworten ist nicht erlaubt."
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:87
+#, elixir-autogen
 msgid "Newest messages"
 msgstr "neueste Beiträge"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:90
+#, elixir-autogen
 msgid "No messages so far"
 msgstr "bisher keine Beiträge"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:106
+#, elixir-autogen
 msgid "No scored messages so far"
 msgstr "bisher keine bewerteten Beiträge"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:16
+#, elixir-autogen
 msgid "Number of messages"
 msgstr "Beiträge"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:118
+#, elixir-autogen
 msgid "Own votings"
 msgstr "Bewertungsverlauf"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/user/index.html.eex:18
 #: lib/cforum_web/templates/users/user/index.html.eex:16
+#, elixir-autogen
 msgid "Registration date"
 msgstr "Registrierungs-Datum"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/user/index.html.eex:16
 #: lib/cforum_web/templates/users/user/index.html.eex:14
+#, elixir-autogen
 msgid "Score"
 msgstr "Punkte"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/personal_information.html.eex:31
 #: lib/cforum_web/templates/users/user/show.html.eex:46
+#, elixir-autogen
 msgid "Twitter handle"
 msgstr "Twitter-Handle"
 
-#, elixir-autogen
 #: lib/cforum_web/views/users/user_view.ex:20
 #: lib/cforum_web/views/users/user_view.ex:35
+#, elixir-autogen
 msgid "User %{username}"
 msgstr "Benutzer %{username}"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:82
+#, elixir-autogen
 msgid "User activity"
 msgstr "Benutzer-Aktivität"
 
-#, elixir-autogen
 #: lib/cforum_web/views/users/user_view.ex:19
 #: lib/cforum_web/views/users/user_view.ex:34
+#, elixir-autogen
 msgid "Users"
 msgstr "Benutzer"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:101
+#, elixir-autogen
 msgid "all messages"
 msgstr "alle Beiträge"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:153
+#, elixir-autogen
 msgid "all scores"
 msgstr "alle Punkte"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:155
+#, elixir-autogen
 msgid "all votes"
 msgstr "alle Bewertungen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:160
+#, elixir-autogen
 msgid "info"
 msgstr "Informationen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/audit/index.html.eex:15
 #: lib/cforum_web/templates/admin/user/index.html.eex:32
 #: lib/cforum_web/templates/blog/tag/show.html.eex:3
 #: lib/cforum_web/templates/tag/show.html.eex:26
 #: lib/cforum_web/templates/users/user/index.html.eex:25
+#, elixir-autogen
 msgid "messages"
 msgstr "Beiträge"
 
 msgid "no archive"
 msgstr "Dieser Thread wird nicht archiviert."
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:163
+#, elixir-autogen
 msgid "no badges so far"
 msgstr "bisher keine Medaillen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:61
+#, elixir-autogen
 msgid "no description given"
 msgstr "Bisher keine Beschreibung angegeben."
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:121
+#, elixir-autogen
 msgid "no scored messages so far"
 msgstr "bisher keine bewerteten Beiträge"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:22
+#, elixir-autogen
 msgid "only visible for you"
 msgstr "Nur für Sie sichtbar"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/message/header_author.html.eex:6
+#, elixir-autogen
 msgid "original poster"
 msgstr "Thread-Ersteller"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:26
+#, elixir-autogen
 msgid "registered since"
 msgstr "Registriert seit"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/thread/thread.html.eex:14
+#, elixir-autogen
 msgid "this thread is sticky"
 msgstr "Der Thread ist angepinnt."
 
@@ -592,57 +592,56 @@ msgstr[0] "Bewertung: keine Bewertung"
 msgstr[1] "Bewertung: %{score}, %{count} Stimme"
 msgstr[2] "Bewertung: %{score}, %{count} Stimmen"
 
-#, elixir-autogen
 #: lib/cforum_web/views/users/user_view.ex:28
 #: lib/cforum_web/views/users/user_view.ex:44
+#, elixir-autogen
 msgid "All votes for user %{username}"
 msgstr "alle Bewertungen vom Benutzer „%{username}”"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:118
+#, elixir-autogen
 msgid "Received votings"
 msgstr "erhaltene Bewertungen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/confirm_delete.html.eex:4
+#, elixir-autogen
 msgid "Caution!"
 msgstr "Achtung!"
 
-#, elixir-autogen
 #: lib/cforum_web/views/users/user_view.ex:31
 #: lib/cforum_web/views/users/user_view.ex:49
+#, elixir-autogen
 msgid "Delete user %{username}"
 msgstr "Benutzer „%{username}” löschen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/confirm_delete.html.eex:9
+#, elixir-autogen
 msgid "Nope, get me out of here"
 msgstr "Nein, bring mich hier weg"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/confirm_delete.html.eex:8
+#, elixir-autogen
 msgid "Yes, delete user"
 msgstr "Ja, Benutzer löschen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/confirm_delete.html.eex:4
+#, elixir-autogen
 msgid "You can't undo the deletion of this account, all data will be irretrievable lost! Are you sure that you wan't to delete the account?"
 msgstr "Das Löschen dieses Accounts kann nicht rückgängig gemacht werden. Wenn das Profil erst einmal gelöscht worden ist, dann ist es endgültig weg. Sind Sie sicher, dass Sie das wollen?"
 
-#, elixir-autogen
 #: lib/cforum_web/views/users/user_view.ex:29
+#, elixir-autogen
 msgid "Edit profile: %{username}"
 msgstr "Profil editieren: %{username}"
 
 msgid "Save changes"
 msgstr "Änderungen speichern"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/user_information.html.eex:16
+#, elixir-autogen
 msgid "avatar"
 msgstr "Avatar"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/advent_calendar/form.html.eex:51
 #: lib/cforum_web/templates/admin/badge/form.html.eex:50
 #: lib/cforum_web/templates/admin/event/form.html.eex:48
@@ -675,77 +674,78 @@ msgstr "Avatar"
 #: lib/cforum_web/templates/users/password/edit_reset.html.eex:17
 #: lib/cforum_web/templates/users/password/new.html.eex:12
 #: lib/cforum_web/templates/users/user/edit.html.eex:8
+#, elixir-autogen
 msgid "cancel"
 msgstr "abbrechen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:12
+#, elixir-autogen
 msgid "score"
 msgstr "Punkte"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/comfort.html.eex:7
+#, elixir-autogen
 msgid "Hello {$vname},"
 msgstr "Hallo {$vname}"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/comfort.html.eex:3
 #: lib/cforum_web/templates/users/user/settings.html.eex:5
+#, elixir-autogen
 msgid "comfort functions"
 msgstr "Komfort-Funktionen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/badge/form.html.eex:43
 #: lib/cforum_web/templates/admin/event/form.html.eex:29
 #: lib/cforum_web/templates/admin/forum/form.html.eex:93
 #: lib/cforum_web/templates/admin/forum/index.html.eex:6
 #: lib/cforum_web/templates/users/user/personal_information.html.eex:36
+#, elixir-autogen
 msgid "description"
 msgstr "Beschreibung"
 
 msgid "flattr id"
 msgstr "Flattr-ID"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/comfort.html.eex:6
+#, elixir-autogen
 msgid "greeting"
 msgstr "Begrüßung"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/blog/article/form.html.eex:21
 #: lib/cforum_web/templates/message/form.html.eex:31
 #: lib/cforum_web/templates/users/user/personal_information.html.eex:13
+#, elixir-autogen
 msgid "homepage"
 msgstr "Homepage"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/personal_information.html.eex:26
+#, elixir-autogen
 msgid "jabber id"
 msgstr "Jabber-ID"
 
 msgid "notify me on new mail"
 msgstr "benachrichtige mich über neue Post"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/personal_information.html.eex:4
 #: lib/cforum_web/templates/users/user/settings.html.eex:4
+#, elixir-autogen
 msgid "personal information"
 msgstr "Persönliche Informationen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/personalization.html.eex:3
 #: lib/cforum_web/templates/users/user/settings.html.eex:7
+#, elixir-autogen
 msgid "personalization"
 msgstr "Personalisierung"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/personal_information.html.eex:7
+#, elixir-autogen
 msgid "public email"
 msgstr "öffentliche E-Mail-Adresse"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:3
 #: lib/cforum_web/templates/users/user/settings.html.eex:8
+#, elixir-autogen
 msgid "readability and overview"
 msgstr "Lesbarkeit und Übersicht"
 
@@ -764,76 +764,75 @@ msgstr "Benachrichtigungen für neue Zitate automatisch löschen"
 msgid "automatically delete read notifications for new mails"
 msgstr "Benachrichtigungen für neue Post automatisch löschen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/notifications.html.eex:22
+#, elixir-autogen
 msgid "automatically subscribe the first posting of the thread"
 msgstr "abonniere den ersten Beitrag des Threads automatisch"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/notifications.html.eex:21
+#, elixir-autogen
 msgid "automatically subscribe the own posting"
 msgstr "abonniere den eigenen Beitrag automatisch"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/notifications.html.eex:20
+#, elixir-autogen
 msgid "automatically subscribe the parent posting"
 msgstr "automatisch den Vorgänger-Beitrag abonnieren"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/notifications.html.eex:18
+#, elixir-autogen
 msgid "automatically subscribe threads when answering"
 msgstr "Threads Automatisch abonnieren bei Antwort"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/notifications.html.eex:19
+#, elixir-autogen
 msgid "no, don't automatically subscribe"
 msgstr "Nein, nicht automatisch abonnieren"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/notifications.html.eex:34
 #: lib/cforum_web/templates/users/user/notifications.html.eex:41
 #: lib/cforum_web/templates/users/user/notifications.html.eex:48
+#, elixir-autogen
 msgid "no, don't notify me"
 msgstr "nein, benachrichtige mich nicht"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/notifications.html.eex:35
 #: lib/cforum_web/templates/users/user/notifications.html.eex:42
 #: lib/cforum_web/templates/users/user/notifications.html.eex:49
+#, elixir-autogen
 msgid "notify me via email"
 msgstr "benachrichtige mich via E-Mail"
 
 msgid "notify me via email on activity in subscribed threads"
 msgstr "benachrichtige mich via E-Mail über Aktivität in einem abonnierten Thread"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/notifications.html.eex:32
+#, elixir-autogen
 msgid "notify me when a thread gets moved to a different forum"
 msgstr "benachrichtige mich, wenn ein Thread in ein anderes Forum verschoben wurde"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/notifications.html.eex:46
+#, elixir-autogen
 msgid "notify me when someone creates a new cite"
 msgstr "benachrichtige mich, wenn ein neues Zitat erstellt wurde"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/notifications.html.eex:39
+#, elixir-autogen
 msgid "notify me when someone mentions me"
 msgstr "benachrichtige mich, wenn mich jemand erwähnt"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/notifications.html.eex:13
+#, elixir-autogen
 msgid "notify on new threads"
 msgstr "benachrichtige mich über neue Threads"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/notifications.html.eex:33
 #: lib/cforum_web/templates/users/user/notifications.html.eex:40
 #: lib/cforum_web/templates/users/user/notifications.html.eex:47
+#, elixir-autogen
 msgid "yes, notify me"
 msgstr "ja, benachrichtige mich"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/advent_calendar/day.html.eex:19
 #: lib/cforum_web/templates/admin/badge/index.html.eex:23
 #: lib/cforum_web/templates/admin/event/index.html.eex:24
@@ -858,24 +857,25 @@ msgstr "ja, benachrichtige mich"
 #: lib/cforum_web/views/view_helpers/button.ex:309
 #: lib/cforum_web/views/view_helpers/button.ex:364
 #: lib/cforum_web/views/view_helpers/button.ex:373
+#, elixir-autogen
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
 
 msgid "Edit Forum „%{forum}“"
 msgstr "Forum „%{forum}“ bearbeiten"
 
-#, elixir-autogen
 #: lib/cforum_web/controllers/admin/forum_controller.ex:23
+#, elixir-autogen
 msgid "Forum created successfully."
 msgstr "Forum erfolgreich erstellt."
 
-#, elixir-autogen
 #: lib/cforum_web/controllers/admin/forum_controller.ex:56
+#, elixir-autogen
 msgid "Forum deleted successfully."
 msgstr "Forum erfolgreich gelöscht."
 
-#, elixir-autogen
 #: lib/cforum_web/controllers/admin/forum_controller.ex:43
+#, elixir-autogen
 msgid "Forum updated successfully."
 msgstr "Forum erfolgreich geändert."
 
@@ -888,32 +888,32 @@ msgstr "Name"
 msgid "New Forum"
 msgstr "Neues Forum"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/notification/index.html.eex:13
+#, elixir-autogen
 msgid "No notifications found"
 msgstr "Keine Benachrichtigungen gefunden"
 
-#, elixir-autogen
 #: lib/cforum_web/views/notification_view.ex:12
+#, elixir-autogen
 msgid "Notifications"
 msgstr "Benachrichtigungen"
 
-#, elixir-autogen
 #: lib/cforum_web/controllers/users/password_controller.ex:41
 #: lib/cforum_web/controllers/users/password_controller.ex:69
+#, elixir-autogen
 msgid "Password updated successfully."
 msgstr "Passwort erfolgreich geändert."
 
 msgid "Position"
 msgstr "Position"
 
-#, elixir-autogen
 #: lib/cforum_web/views/users/password_view.ex:9
+#, elixir-autogen
 msgid "Reset my password"
 msgstr "Mein Passwort zurücksetzen"
 
-#, elixir-autogen
 #: lib/cforum_web/views/users/password_view.ex:8
+#, elixir-autogen
 msgid "Send password reset instructions"
 msgstr "Instruktionen um das Passwort zurückzusetzen versenden"
 
@@ -923,8 +923,8 @@ msgstr "Kurzname"
 msgid "Show Forum „%{forum}“"
 msgstr "Forum „%{forum}“"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/personalization.html.eex:6
+#, elixir-autogen
 msgid "Show threads by default…"
 msgstr "Threads per default…"
 
@@ -934,58 +934,57 @@ msgstr "Slug"
 msgid "Standard permission"
 msgstr "Standard-Berechtigung"
 
-#, elixir-autogen
 #: lib/cforum_web/controllers/users/password_controller.ex:18
+#, elixir-autogen
 msgid "The instructions how to reset your password have been sent."
 msgstr "Die Anweisungen, wie Sie Ihr Passwort zurücksetzen können, wurden verschickt."
 
-#, elixir-autogen
 #: lib/cforum_web/controllers/admin/user_controller.ex:64
+#, elixir-autogen
 msgid "User deleted successfully."
 msgstr "Benutzer erfolgreich gelöscht."
 
-#, elixir-autogen
 #: lib/cforum_web/controllers/admin/user_controller.ex:51
 #: lib/cforum_web/controllers/users/user_controller.ex:189
+#, elixir-autogen
 msgid "User updated successfully."
 msgstr "Benutzer erfolgreich geändert."
 
-#, elixir-autogen
 #: lib/cforum_web/error_handler.ex:41
+#, elixir-autogen
 msgid "You are already logged in"
 msgstr "Sie sind bereits eingeloggt"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/user_mailer/reset_password_mail.html.eex:3
 #: lib/cforum_web/templates/user_mailer/reset_password_mail.text.eex:3
+#, elixir-autogen
 msgid "You can reset your password by following the instructions from the link below:"
 msgstr "Sie können Ihr Passwort zurücksetzen, indem Sie den Anweisungen bei dem Link unten folgen:"
 
-#, elixir-autogen
 #: lib/cforum_web/controllers/users/session_controller.ex:54
+#, elixir-autogen
 msgid "You logged out successfully"
 msgstr "Sie wurden erfolgreich ausgeloggt"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/password/edit.html.eex:24
 #: lib/cforum_web/templates/users/password/edit_reset.html.eex:16
 #: lib/cforum_web/templates/users/user/edit.html.eex:7
 #: lib/cforum_web/templates/users/user/show.html.eex:181
+#, elixir-autogen
 msgid "change password"
 msgstr "Passwort ändern"
 
-#, elixir-autogen
 #: lib/cforum_web/views/users/password_view.ex:12
+#, elixir-autogen
 msgid "change password: %{username}"
 msgstr "Passwort ändern: %{username}"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/mail/index.html.eex:7
 #: lib/cforum_web/templates/notification/index.html.eex:6
+#, elixir-autogen
 msgid "created at"
 msgstr "Erstellungszeitpunkt"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/advent_calendar/day.html.eex:19
 #: lib/cforum_web/templates/admin/badge/index.html.eex:23
 #: lib/cforum_web/templates/admin/event/form.html.eex:53
@@ -1000,15 +999,15 @@ msgstr "Erstellungszeitpunkt"
 #: lib/cforum_web/templates/image/index.html.eex:14
 #: lib/cforum_web/templates/image/show.html.eex:17
 #: lib/cforum_web/templates/notification/index.html.eex:27
+#, elixir-autogen
 msgid "delete"
 msgstr "löschen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:180
+#, elixir-autogen
 msgid "delete user"
 msgstr "Benutzer löschen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/advent_calendar/day.html.eex:20
 #: lib/cforum_web/templates/admin/advent_calendar/day.html.eex:26
 #: lib/cforum_web/templates/admin/badge/index.html.eex:22
@@ -1020,237 +1019,238 @@ msgstr "Benutzer löschen"
 #: lib/cforum_web/templates/admin/user/index.html.eex:38
 #: lib/cforum_web/templates/cite/cite.html.eex:76
 #: lib/cforum_web/templates/event/attendee.html.eex:43
+#, elixir-autogen
 msgid "edit"
 msgstr "bearbeiten"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:179
+#, elixir-autogen
 msgid "edit profile and settings"
 msgstr "Profil und Einstellungen bearbeiten"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/forum/form.html.eex:70
 #: lib/cforum_web/views/admin/forum_view.ex:32
+#, elixir-autogen
 msgid "known-read"
 msgstr "lesen für Angemeldete"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/forum/form.html.eex:71
 #: lib/cforum_web/views/admin/forum_view.ex:33
+#, elixir-autogen
 msgid "known-write"
 msgstr "schreiben für Angemeldete"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/mail/index.html.eex:31
 #: lib/cforum_web/templates/mail/mail.html.eex:34
 #: lib/cforum_web/templates/notification/index.html.eex:29
+#, elixir-autogen
 msgid "mark unread"
 msgstr "ungelesen markieren"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/show.html.eex:182
+#, elixir-autogen
 msgid "new mail to %{username}"
 msgstr "neue private Nachricht an %{username}"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/forum/form.html.eex:66
 #: lib/cforum_web/views/admin/forum_view.ex:34
+#, elixir-autogen
 msgid "private"
 msgstr "privat"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/forum/form.html.eex:67
 #: lib/cforum_web/templates/admin/group/permissions.html.eex:18
 #: lib/cforum_web/views/admin/forum_view.ex:29
+#, elixir-autogen
 msgid "read"
 msgstr "lesen"
 
-#, elixir-autogen
 #: lib/cforum_web/mailers/user_mailer.ex:19
 #: lib/cforum_web/templates/user_mailer/reset_password_mail.html.eex:5
+#, elixir-autogen
 msgid "reset password instructions"
 msgstr "Instruktionen um das Passwort zurückzusetzen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/forum/edit.html.eex:5
 #: lib/cforum_web/templates/admin/forum/new.html.eex:5
 #: lib/cforum_web/templates/admin/setting/edit.html.eex:20
 #: lib/cforum_web/templates/users/user/edit.html.eex:6
+#, elixir-autogen
 msgid "save changes"
 msgstr "Änderungen speichern"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/password/new.html.eex:11
+#, elixir-autogen
 msgid "send reset instructions"
 msgstr "Anweisungen zum zurücksetzen verschicken"
 
 msgid "show"
 msgstr "anzeigen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/advent_calendar/form.html.eex:28
 #: lib/cforum_web/templates/blog/article/form.html.eex:4
 #: lib/cforum_web/templates/mail/form.html.eex:22
 #: lib/cforum_web/templates/mail/index.html.eex:6
 #: lib/cforum_web/templates/message/form.html.eex:4
 #: lib/cforum_web/templates/notification/index.html.eex:5
+#, elixir-autogen
 msgid "subject"
 msgstr "Betreff"
 
 msgid "unread"
 msgstr "ungelesen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/forum/form.html.eex:69
 #: lib/cforum_web/templates/admin/group/permissions.html.eex:17
 #: lib/cforum_web/views/admin/forum_view.ex:30
+#, elixir-autogen
 msgid "write"
 msgstr "schreiben"
 
 msgid "New forum"
 msgstr "Neues Forum"
 
-#, elixir-autogen
 #: lib/cforum_web/controllers/notification_controller.ex:62
+#, elixir-autogen
 msgid "Notification deleted successfully."
 msgstr "Benachrichtigung erfolgreich gelöscht."
 
-#, elixir-autogen
 #: lib/cforum_web/controllers/notification_controller.ex:48
+#, elixir-autogen
 msgid "Notification successfully marked as unread."
 msgstr "Benachrichtigung erfolgreich als ungelesen markiert."
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/comfort.html.eex:12
+#, elixir-autogen
 msgid "Bye, Regina"
 msgstr "Bis bald, Regina"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/comfort.html.eex:17
+#, elixir-autogen
 msgid "Roses are red"
 msgstr "Rosen sind rot"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:75
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:41
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:47
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:65
 #: lib/cforum_web/views/admin/setting_view.ex:36
+#, elixir-autogen
 msgid "ascending"
 msgstr "aufsteigend"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/comfort.html.eex:51
+#, elixir-autogen
 msgid "automatically refresh forum index page"
 msgstr "Lade die Threadliste automatisch neu"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/personalization.html.eex:12
+#, elixir-autogen
 msgid "close threads when read"
 msgstr "Klappe Threads zusammen, wenn sie vollständig gelesen wurden"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/personalization.html.eex:41
+#, elixir-autogen
 msgid "date format for the posting view"
 msgstr "Datumsformat für einzelne Beiträge"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/personalization.html.eex:36
+#, elixir-autogen
 msgid "date format for the threads index"
 msgstr "Datumsformat für den Thread-Baum"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:208
 #: lib/cforum_web/templates/users/user/personalization.html.eex:47
+#, elixir-autogen
 msgid "default date format"
 msgstr "Standard-Datumsformat"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:74
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:42
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:48
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:66
 #: lib/cforum_web/views/admin/setting_view.ex:37
+#, elixir-autogen
 msgid "descending"
 msgstr "absteigend"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/comfort.html.eex:11
+#, elixir-autogen
 msgid "farewell"
 msgstr "Verabschiedung"
 
 msgid "fold quotes"
 msgstr "Klappe Zitate zusammen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:12
+#, elixir-autogen
 msgid "fold read messages"
 msgstr "Klappe gelesene Beiträge zusammen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/page_header.html.eex:119
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:60
+#, elixir-autogen
 msgid "hide read threads"
 msgstr "verstecke vollständig gelesene Threads"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:31
+#, elixir-autogen
 msgid "hide unchanged date"
 msgstr "verstecke ein unverändertes Datum"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:23
+#, elixir-autogen
 msgid "hide unchanged subjects"
 msgstr "verstecke unveränderte Betreffe"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:27
+#, elixir-autogen
 msgid "hide unchanged tags"
 msgstr "verstecke unveränderte Tags"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:56
+#, elixir-autogen
 msgid "highlight myself"
 msgstr "hebe meine eigenen Beiträge hervor"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/personalization.html.eex:26
+#, elixir-autogen
 msgid "include my own CSS code"
 msgstr "binde meinen eigenen CSS-Code ein"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/personalization.html.eex:16
+#, elixir-autogen
 msgid "include my own CSS file"
 msgstr "binde meine eigene CSS-Datei ein"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/personalization.html.eex:31
+#, elixir-autogen
 msgid "include my own JS code"
 msgstr "binde meinen eigenen JS-Code ein"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/personalization.html.eex:21
+#, elixir-autogen
 msgid "include my own JS file"
 msgstr "binde meine eigene JS-Datei ein"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:35
+#, elixir-autogen
 msgid "mark suspicious usernames"
 msgstr "markiere verdächtige Benutzernamen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:76
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:40
 #: lib/cforum_web/views/admin/setting_view.ex:35
+#, elixir-autogen
 msgid "newest first"
 msgstr "Threads mit neuestem Beitrag zuerst"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/event/index.html.eex:20
 #: lib/cforum_web/templates/admin/search_section/index.html.eex:19
 #: lib/cforum_web/templates/admin/user/index.html.eex:34
 #: lib/cforum_web/templates/admin/user/index.html.eex:35
 #: lib/cforum_web/templates/users/user/comfort.html.eex:27
+#, elixir-autogen
 msgid "no"
 msgstr "nein"
 
@@ -1260,79 +1260,79 @@ msgstr "Anzahl von Kontext-Zeilen bei Diffs"
 msgid "page messages index"
 msgstr "Zeige die Beiträge auf Seiten aufgeteilt"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/comfort.html.eex:25
+#, elixir-autogen
 msgid "quote previous message by default"
 msgstr "zitiere den vorherigen Beitrag per Default"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/comfort.html.eex:21
+#, elixir-autogen
 msgid "quote signature when answering"
 msgstr "zitiere die Signatur beim Antworten"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/personal_information.html.eex:21
+#, elixir-autogen
 msgid "remove rel=nofollow from my homepage URL"
 msgstr "verlinke meine Homepage ohne rel=nofollow"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/personalization.html.eex:8
+#, elixir-autogen
 msgid "show closed"
 msgstr "schliessen"
 
 msgid "show mail index grouped by thread"
 msgstr "zeige den Post-Index gruppiert nach Thread"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/comfort.html.eex:36
+#, elixir-autogen
 msgid "show number of unread PMs in title"
 msgstr "zeige die Anzahl ungelesener Post im Titel"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/comfort.html.eex:40
+#, elixir-autogen
 msgid "show number of unread messages in title"
 msgstr "zeige die Anzahl ungelesener Beiträge im Titel"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/comfort.html.eex:32
+#, elixir-autogen
 msgid "show number of unread notifications in title"
 msgstr "zeige die Anzahl ungelesener Benachrichtigungen im Titel"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/personalization.html.eex:7
+#, elixir-autogen
 msgid "show opened"
 msgstr "öffnen"
 
 msgid "show the live preview"
 msgstr "benutze die Live-Vorschau"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:6
+#, elixir-autogen
 msgid "show threads in…"
 msgstr "zeige Threads in…"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/comfort.html.eex:28
+#, elixir-autogen
 msgid "show two buttons"
 msgstr "zeige zwei Buttons"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/comfort.html.eex:16
+#, elixir-autogen
 msgid "signature"
 msgstr "Signatur"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:64
+#, elixir-autogen
 msgid "sort mail threads…"
 msgstr "sortiere private Nachrichten…"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:46
+#, elixir-autogen
 msgid "sort messages…"
 msgstr "sortiere Beiträge…"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:39
+#, elixir-autogen
 msgid "sort threads…"
 msgstr "sortiere Threads…"
 
@@ -1346,218 +1346,217 @@ msgstr "Inline-Formular zum antworten nutzen"
 msgid "via email"
 msgstr "via E-Mail"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/event/index.html.eex:20
 #: lib/cforum_web/templates/admin/search_section/index.html.eex:19
 #: lib/cforum_web/templates/admin/user/index.html.eex:34
 #: lib/cforum_web/templates/users/user/comfort.html.eex:26
+#, elixir-autogen
 msgid "yes"
 msgstr "ja"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:8
+#, elixir-autogen
 msgid "… in nested view"
 msgstr "… der Nested-Ansicht"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:7
+#, elixir-autogen
 msgid "… in thread view"
 msgstr "… der Einzel-Ansicht"
 
-#, elixir-autogen
 #: lib/cforum_web/views/view_helpers/relative_time.ex:53
+#, elixir-autogen
 msgid "%{days} days"
 msgstr "%{days} Tagen"
 
 msgid "%{minutes} minutes"
 msgstr "%{minutes} Minuten"
 
-#, elixir-autogen
 #: lib/cforum_web/views/view_helpers/relative_time.ex:58
+#, elixir-autogen
 msgid "%{months} months"
 msgstr "%{months} Monaten"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/forum/thread_infos.html.eex:20
+#, elixir-autogen
 msgid "%{time} ago"
 msgstr "vor %{time}"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/forum/thread_infos.html.eex:6
 #: lib/cforum_web/templates/forum/thread_infos.html.eex:13
+#, elixir-autogen
 msgid "%{time} ago:"
 msgstr "vor %{time}:"
 
-#, elixir-autogen
 #: lib/cforum_web/views/view_helpers/relative_time.ex:61
+#, elixir-autogen
 msgid "%{years} years"
 msgstr "%{years} Jahren"
 
 msgid "1 minute"
 msgstr "einer Minute"
 
-#, elixir-autogen
 #: lib/cforum_web/views/view_helpers/relative_time.ex:60
+#, elixir-autogen
 msgid "1 year"
 msgstr "einem Jahr"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/forum/thread_infos.html.eex:19
+#, elixir-autogen
 msgid "Thread created"
 msgstr "Thread erstellt"
 
-#, elixir-autogen
 #: lib/cforum_web/views/view_helpers/relative_time.ex:50
+#, elixir-autogen
 msgid "a day"
 msgstr "einem Tag"
 
-#, elixir-autogen
 #: lib/cforum_web/views/view_helpers/relative_time.ex:48
+#, elixir-autogen
 msgid "about %{hours} hours"
 msgstr "etwa %{hours} Stunden"
 
-#, elixir-autogen
 #: lib/cforum_web/views/view_helpers/relative_time.ex:55
+#, elixir-autogen
 msgid "about 1 month"
 msgstr "etwa einem Monat"
 
-#, elixir-autogen
 #: lib/cforum_web/views/view_helpers/relative_time.ex:45
+#, elixir-autogen
 msgid "about an hour"
 msgstr "etwa einer Stunde"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/forum/thread_infos.html.eex:12
+#, elixir-autogen
 msgid "first unread message"
 msgstr "erster ungelesener Beitrag"
 
-#, elixir-autogen
 #: lib/cforum_web/views/view_helpers/relative_time.ex:32
+#, elixir-autogen
 msgid "half a minute"
 msgstr "einer halben Minute"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/forum/thread_infos.html.eex:5
+#, elixir-autogen
 msgid "last message"
 msgstr "letzter Beitrag"
 
-#, elixir-autogen
 #: lib/cforum_web/views/view_helpers/relative_time.ex:26
+#, elixir-autogen
 msgid "less than 10 seconds"
 msgstr "weniger als zehn Sekunden"
 
-#, elixir-autogen
 #: lib/cforum_web/views/view_helpers/relative_time.ex:29
+#, elixir-autogen
 msgid "less than 20 seconds"
 msgstr "weniger als 20 Sekunden"
 
-#, elixir-autogen
 #: lib/cforum_web/views/view_helpers/relative_time.ex:23
+#, elixir-autogen
 msgid "less than 5 seconds"
 msgstr "weniger als fünf Sekunden"
 
-#, elixir-autogen
 #: lib/cforum_web/views/view_helpers/relative_time.ex:35
+#, elixir-autogen
 msgid "less than a minute"
 msgstr "weniger als einer Minute"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/advent_calendar/day.html.eex:15
 #: lib/cforum_web/templates/admin/audit/threads.html.eex:11
 #: lib/cforum_web/templates/advent/day.html.eex:15
 #: lib/cforum_web/views/blog/article_view.ex:17
 #: lib/cforum_web/views/message_view.ex:84
+#, elixir-autogen
 msgid "by"
 msgstr "von"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/message/form.html.eex:41
 #: lib/cforum_web/templates/message/message.html.eex:18
 #: lib/cforum_web/templates/moderation/entry.html.eex:18
 #: lib/cforum_web/templates/moderation/entry.html.eex:19
 #: lib/cforum_web/views/message_view.ex:241
 #: lib/cforum_web/views/message_view.ex:242
+#, elixir-autogen
 msgid "problematic site"
 msgstr "problematische Seite"
 
-#, elixir-autogen
 #: thread.html.eex:6
+#, elixir-autogen
 msgid "read message"
 msgstr "Beitrag lesen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/users/user/settings.html.eex:3
 #: lib/cforum_web/templates/users/user/user_information.html.eex:3
+#, elixir-autogen
 msgid "user information"
 msgstr "Benutzer-Informationen"
 
-#, elixir-autogen
 #: lib/cforum_web/views/message_view.ex:89
+#, elixir-autogen
 msgid "new answer to %{name}"
 msgstr "Antwort an „%{name}“ verfassen"
 
-#, elixir-autogen
 #: lib/cforum_web/controllers/blog/article_controller.ex:127
 #: lib/cforum_web/controllers/blog/comment_controller.ex:65
 #: lib/cforum_web/controllers/message_controller.ex:123
 #: lib/cforum_web/controllers/message_controller.ex:165
+#, elixir-autogen
 msgid "Message created successfully."
 msgstr "Beitrag erfolgreich gespeichert."
 
-#, elixir-autogen
 #: lib/cforum_web/templates/layout/page_header.html.eex:4
+#, elixir-autogen
 msgid "SELFHTML Forum - Complementing the <a href=\"https://wiki.selfhtml.org\">documentation</a>"
 msgstr "SELFHTML Forum - Ergänzung zur <a href=\"https://wiki.selfhtml.org\">Dokumentation</a>"
 
-#, elixir-autogen
 #: lib/cforum_web/controllers/api/v1/message_controller.ex:26
 #: lib/cforum_web/controllers/blog/article_controller.ex:40
 #: lib/cforum_web/controllers/blog/comment_controller.ex:29
 #: lib/cforum_web/controllers/message_controller.ex:87
 #: lib/cforum_web/controllers/thread_controller.ex:127
+#, elixir-autogen
 msgid "all"
 msgstr "alle"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/cite/form.html.eex:15
 #: lib/cforum_web/templates/message/form.html.eex:13
+#, elixir-autogen
 msgid "author"
 msgstr "Autor"
 
 msgid "comma separated list, e.g. „css, html“"
 msgstr "Komma-separierte Liste, z.B. “css, html“"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/blog/article/edit.html.eex:16
 #: lib/cforum_web/templates/blog/article/new.html.eex:16
 #: lib/cforum_web/templates/blog/comment/new.html.eex:20
 #: lib/cforum_web/templates/message/edit.html.eex:18
 #: lib/cforum_web/templates/message/new.html.eex:20
 #: lib/cforum_web/templates/thread/new.html.eex:28
+#, elixir-autogen
 msgid "create message"
 msgstr "Beitrag speichern"
 
 msgid "html, css, javascript"
 msgstr ""
 
-#, elixir-autogen
 #: lib/cforum_web/templates/blog/article/form.html.eex:24
 #: lib/cforum_web/templates/message/form.html.eex:34
+#, elixir-autogen
 msgid "https://example.com"
 msgstr "z.B. „https://example.com“"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/message/form.html.eex:44
+#, elixir-autogen
 msgid "https://example.com/float-example.html"
 msgstr "z.B. „https://example.com/float-example.html“"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/blog/article/form.html.eex:7
 #: lib/cforum_web/templates/message/form.html.eex:7
+#, elixir-autogen
 msgid "replace float:left with a flexbox construct"
 msgstr "z.B. „float:left mit einem Flexbox-Konstrukt ersetzen“"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/blog/article/edit.html.eex:15
 #: lib/cforum_web/templates/blog/article/new.html.eex:15
 #: lib/cforum_web/templates/blog/comment/new.html.eex:19
@@ -1565,42 +1564,43 @@ msgstr "z.B. „float:left mit einem Flexbox-Konstrukt ersetzen“"
 #: lib/cforum_web/templates/message/edit.html.eex:17
 #: lib/cforum_web/templates/message/new.html.eex:19
 #: lib/cforum_web/templates/thread/new.html.eex:27
+#, elixir-autogen
 msgid "show preview"
 msgstr "Vorschau"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/audit/index.html.eex:19
+#, elixir-autogen
 msgid "tags"
 msgstr "Tags"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/blog/article/form.html.eex:16
 #: lib/cforum_web/templates/blog/article/form.html.eex:25
 #: lib/cforum_web/templates/blog/article/form.html.eex:43
 #: lib/cforum_web/templates/message/form.html.eex:26
 #: lib/cforum_web/templates/message/form.html.eex:35
 #: lib/cforum_web/templates/message/form.html.eex:45
+#, elixir-autogen
 msgid "voluntary, will be publicly visible"
 msgstr "freiwillig, öffentlich sichtbar"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/forum/message_header.html.eex:4
+#, elixir-autogen
 msgid "link to profile of"
 msgstr "Link zum Profil von"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/audit/index.html.eex:34
 #: lib/cforum_web/templates/admin/user/index.html.eex:7
 #: lib/cforum_web/templates/layout/page_header.html.eex:50
 #: lib/cforum_web/templates/layout/page_header.html.eex:61
 #: lib/cforum_web/templates/search/show.html.eex:41
 #: lib/cforum_web/templates/users/user/index.html.eex:7
+#, elixir-autogen
 msgid "search"
 msgstr "suchen"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/forum/message_header.html.eex:6
 #: lib/cforum_web/views/view_helpers.ex:191
+#, elixir-autogen
 msgid "user %{user}"
 msgstr "Benutzer %{user}"
 
@@ -1618,50 +1618,49 @@ msgstr[0] "keine ungelesenen Beiträge"
 msgstr[1] "ein ungelesener Beitrag"
 msgstr[2] "%{count} ungelesene Beiträge"
 
-#, elixir-autogen
 #: lib/cforum_web/paginator.ex:61
+#, elixir-autogen
 msgid "first page"
 msgstr "erste Seite"
 
-#, elixir-autogen
 #: lib/cforum_web/paginator.ex:90
+#, elixir-autogen
 msgid "last page"
 msgstr "letzte Seite"
 
-#, elixir-autogen
 #: lib/cforum_web/paginator.ex:81
+#, elixir-autogen
 msgid "next page"
 msgstr "eine Seite vor"
 
-#, elixir-autogen
 #: lib/cforum_web/paginator.ex:46
+#, elixir-autogen
 msgid "pages"
 msgstr "Seitenauswahl"
 
-#, elixir-autogen
 #: lib/cforum_web/paginator.ex:71
+#, elixir-autogen
 msgid "previous page"
 msgstr "eine Seite zurück"
 
 msgid "unknown tags given: %{tags}"
 msgstr "Folgende Tags sind unbekannt: %{tags}."
 
-#, elixir-autogen
 #: lib/cforum_web/controllers/thread_controller.ex:174
+#, elixir-autogen
 msgid "Thread created successfully."
 msgstr "Thread erfolgreich erstellt."
 
-#, elixir-autogen
 #: lib/cforum_web/templates/forum/message_header.html.eex:8
+#, elixir-autogen
 msgid "User %{user}"
 msgstr "Benutzer %{user}"
 
-#, elixir-autogen
 #: lib/cforum_web/views/view_helpers.ex:160
+#, elixir-autogen
 msgid "bronze medal"
 msgstr "Bronze-Medaille"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/admin/group/permissions.html.eex:3
 #: lib/cforum_web/templates/admin/search_section/form.html.eex:19
 #: lib/cforum_web/templates/admin/search_section/form.html.eex:26
@@ -1669,26 +1668,26 @@ msgstr "Bronze-Medaille"
 #: lib/cforum_web/templates/thread/new.html.eex:15
 #: lib/cforum_web/templates/threads/admin/move.html.eex:8
 #: lib/cforum_web/templates/threads/admin/split.html.eex:10
+#, elixir-autogen
 msgid "forum"
 msgstr "Forum"
 
-#, elixir-autogen
 #: lib/cforum_web/views/view_helpers.ex:162
+#, elixir-autogen
 msgid "gold medal"
 msgstr "Gold-Medaille"
 
-#, elixir-autogen
 #: lib/cforum_web/views/blog/article_view.ex:21
 #: lib/cforum_web/views/thread_view.ex:48
+#, elixir-autogen
 msgid "new thread"
 msgstr "neuer Thread"
 
-#, elixir-autogen
 #: lib/cforum_web/views/view_helpers.ex:161
+#, elixir-autogen
 msgid "silver medal"
 msgstr "Silber-Medaille"
 
-#, elixir-autogen
 #: lib/cforum_web/templates/forum/index.html.eex:12
 #: lib/cforum_web/templates/layout/page_header.html.eex:21
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:4
@@ -1696,256 +1695,256 @@ msgstr "Silber-Medaille"
 #: lib/cforum_web/views/layout_view.ex:346
 #: lib/cforum_web/views/thread_view.ex:37
 #: lib/cforum_web/views/thread_view.ex:44
+#, elixir-autogen
 msgid "all forums"
 msgstr "alle Foren"
 
 msgid "show all"
 msgstr "alle anzeigen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/messages/interesting_controller.ex:74
+#, elixir-autogen, elixir-format
 msgid "Interesting mark was successfully removed."
 msgstr "Die Interessant-Markierung wurde erfolgreich gelöscht."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/messages/interesting_controller.ex:66
+#, elixir-autogen, elixir-format
 msgid "Message was successfully marked as interesting."
 msgstr "Der Beitrag wurde erfolgreich als interessant markiert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/messages/subscription_controller.ex:66
+#, elixir-autogen, elixir-format
 msgid "Message was successfully subscribed."
 msgstr "Der Baum wurde erfolgreich abonniert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/messages/subscription_controller.ex:74
+#, elixir-autogen, elixir-format
 msgid "Message was successfully unsubscribed."
 msgstr "Der Baum wurde erfolgreich deabonniert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/threads/open_close_controller.ex:38
+#, elixir-autogen, elixir-format
 msgid "Thread has successfully been closed."
 msgstr "Der Thread wurde erfolgreich zugeklappt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/threads/invisible_controller.ex:56
+#, elixir-autogen, elixir-format
 msgid "Thread has successfully been hidden."
 msgstr "Der Thread wurde erfolgreich ausgeblendet."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/threads/open_close_controller.ex:22
+#, elixir-autogen, elixir-format
 msgid "Thread has successfully been opened."
 msgstr "Der Thread wurde erfolgreich aufgeklappt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/threads/invisible_controller.ex:73
+#, elixir-autogen, elixir-format
 msgid "Thread has successfully been restored."
 msgstr "Der Thread wurde erfolgreich wiederhergestellt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_thread_icons.html.eex:8
 #: lib/cforum_web/templates/message/header_thread_icons.html.eex:9
+#, elixir-autogen, elixir-format
 msgid "Thread is currently closed. Open it."
 msgstr "Dieser Thread ist zur Zeit zugeklappt. Klappe ihn auf."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_thread_icons.html.eex:3
 #: lib/cforum_web/templates/message/header_thread_icons.html.eex:4
+#, elixir-autogen, elixir-format
 msgid "Thread is currently open. Close it."
 msgstr "Dieser Thread ist zur Zeit aufgeklappt. Klappe ihn zu."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_thread_icons.html.eex:21
 #: lib/cforum_web/templates/message/header_thread_icons.html.eex:22
+#, elixir-autogen, elixir-format
 msgid "hide this thread"
 msgstr "Diesen Thread ausblenden"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/layout/page_header.html.eex:125
+#, elixir-autogen, elixir-format
 msgid "interesting messages"
 msgstr "als interessant markierte Beiträge"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/layout/page_header.html.eex:127
 #: lib/cforum_web/views/threads/invisible_view.ex:9
+#, elixir-autogen, elixir-format
 msgid "invisible threads"
 msgstr "ausgeblendete Threads"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_thread_icons.html.eex:16
 #: lib/cforum_web/templates/message/header_thread_icons.html.eex:17
+#, elixir-autogen, elixir-format
 msgid "make this thread visible again"
 msgstr "Diesen Thread wieder einblenden"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:17
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:18
 #: lib/cforum_web/templates/message/message_default_controls.html.eex:44
+#, elixir-autogen, elixir-format
 msgid "mark message as interesting"
 msgstr "Beitrag als interessant markieren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_thread_icons.html.eex:27
 #: lib/cforum_web/templates/message/header_thread_icons.html.eex:28
+#, elixir-autogen, elixir-format
 msgid "mark thread read"
 msgstr "Thread als gelesen markieren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/messages/interesting_view.ex:12
+#, elixir-autogen, elixir-format
 msgid "messages marked as interesting"
 msgstr "Als interessant markierte Beiträge"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/threads/invisible/index.html.eex:2
+#, elixir-autogen, elixir-format
 msgid "no invisible threads, yet"
 msgstr "Sie haben bisher keine Threads ausgeblendet."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/messages/interesting/index.html.eex:12
+#, elixir-autogen, elixir-format
 msgid "no messages marked as interesting, yet"
 msgstr "Sie haben bisher keine Beiträge als interessant markiert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/messages/subscription/index.html.eex:12
+#, elixir-autogen, elixir-format
 msgid "no subscribed messages, yet"
 msgstr "Sie haben bisher keine Beiträge abonniert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:12
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:13
+#, elixir-autogen, elixir-format
 msgid "remove interesting mark"
 msgstr "Interessant-Markierung entfernen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:30
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:31
 #: lib/cforum_web/templates/message/message_default_controls.html.eex:63
+#, elixir-autogen, elixir-format
 msgid "subscribe message"
 msgstr "Baum abonnieren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/layout/page_header.html.eex:126
 #: lib/cforum_web/views/messages/subscription_view.ex:12
+#, elixir-autogen, elixir-format
 msgid "subscribed messages"
 msgstr "abonnierte Beiträge"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:25
 #: lib/cforum_web/templates/message/header_message_icons.html.eex:26
 #: lib/cforum_web/templates/message/message_default_controls.html.eex:72
+#, elixir-autogen, elixir-format
 msgid "unsubscribe message"
 msgstr "Baum deabonnieren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/mail/index.html.eex:14
+#, elixir-autogen, elixir-format
 msgid "No mails found"
 msgstr "keine privaten Nachrichten gefunden."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/mail_view.ex:16
+#, elixir-autogen, elixir-format
 msgid "mails"
 msgstr "Post"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/mail/subnav.html.eex:2
 #: lib/cforum_web/views/mail_view.ex:17
+#, elixir-autogen, elixir-format
 msgid "new mail"
 msgstr "neue private Nachricht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/mail/index.html.eex:4
+#, elixir-autogen, elixir-format
 msgid "partner"
 msgstr "Partner"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/mail/new.html.eex:15
+#, elixir-autogen, elixir-format
 msgid "send mail"
 msgstr "private Nachricht versenden"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/mail/form.html.eex:25
+#, elixir-autogen, elixir-format
 msgid "Howdy, partner!"
 msgstr ""
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/mail_view.ex:20
+#, elixir-autogen, elixir-format
 msgid "mail from %{partner}"
 msgstr "Post-Verlauf mit %{partner}"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:68
 #: lib/cforum_web/templates/mail/index.html.eex:28
 #: lib/cforum_web/templates/mail/mail.html.eex:29
 #: lib/cforum_web/views/admin/forum_view.ex:31
+#, elixir-autogen, elixir-format
 msgid "answer"
 msgstr "antworten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/mail/index.html.eex:29
 #: lib/cforum_web/templates/mail/mail.html.eex:30
+#, elixir-autogen, elixir-format
 msgid "answer without cite"
 msgstr "ohne Zitat antworten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/mail_controller.ex:120
+#, elixir-autogen, elixir-format
 msgid "Mail created successfully."
 msgstr "Private Nachricht erfolgreich gespeichert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/mail_controller.ex:145
+#, elixir-autogen, elixir-format
 msgid "Mail deleted successfully."
 msgstr "Private Nachricht erfolgreich gelöscht."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/mail_controller.ex:133
+#, elixir-autogen, elixir-format
 msgid "Mail successfully marked as unread."
 msgstr "Private Nachricht erfolgreich als ungelesen markiert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/mail/mail.html.eex:33
+#, elixir-autogen, elixir-format
 msgid "delete mail"
 msgstr "löschen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/mail/form.html.eex:6
+#, elixir-autogen, elixir-format
 msgid "recpient"
 msgstr "Empfänger"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/mail_controller.ex:60
 #: lib/cforum_web/controllers/mail_controller.ex:83
 #: lib/cforum_web/controllers/mail_controller.ex:98
+#, elixir-autogen, elixir-format
 msgid "you"
 msgstr "du"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/users/user/notifications.html.eex:7
+#, elixir-autogen, elixir-format
 msgid "notify me via email on new mail"
 msgstr "benachrichtige mich via E-Mail über neue Post"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/mail/new.html.eex:6
+#, elixir-autogen, elixir-format
 msgid "preview"
 msgstr "Vorschau"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/mail/form.html.eex:33
+#, elixir-autogen, elixir-format
 msgid "mail content"
 msgstr "Inhalt der privaten Nachricht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:77
 #: lib/cforum_web/templates/admin/forum/index.html.eex:8
+#, elixir-autogen, elixir-format
 msgid "keywords"
 msgstr "Schlagwörter"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/blog/article/form.html.eex:57
 #: lib/cforum_web/templates/message/form.html.eex:53
+#, elixir-autogen, elixir-format
 msgid "message content"
 msgstr "Beitragstext"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/badge/form.html.eex:7
 #: lib/cforum_web/templates/admin/badge/index.html.eex:4
 #: lib/cforum_web/templates/admin/event/form.html.eex:7
@@ -1957,180 +1956,180 @@ msgstr "Beitragstext"
 #: lib/cforum_web/templates/badge/index.html.eex:8
 #: lib/cforum_web/templates/event/attendee.html.eex:2
 #: lib/cforum_web/templates/event/index.html.eex:4
+#, elixir-autogen, elixir-format
 msgid "name"
 msgstr "Name"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:85
 #: lib/cforum_web/templates/admin/forum/index.html.eex:9
 #: lib/cforum_web/templates/admin/search_section/form.html.eex:13
 #: lib/cforum_web/templates/admin/search_section/index.html.eex:5
+#, elixir-autogen, elixir-format
 msgid "position"
 msgstr "Position"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:34
 #: lib/cforum_web/templates/admin/forum/index.html.eex:5
+#, elixir-autogen, elixir-format
 msgid "short name"
 msgstr "Kurzname"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/badge/form.html.eex:13
 #: lib/cforum_web/templates/admin/forum/form.html.eex:42
+#, elixir-autogen, elixir-format
 msgid "slug"
 msgstr "Slug"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:62
 #: lib/cforum_web/templates/admin/forum/index.html.eex:7
+#, elixir-autogen, elixir-format
 msgid "standard permission"
 msgstr "Standard-Berechtigung"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/users/password/new.html.eex:4
+#, elixir-autogen, elixir-format
 msgid "username or email"
 msgstr "Benutzername oder E-Mail-Adresse"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum/jobs/cite_indexer_job.ex:35
 #: lib/cforum_web/templates/admin/audit/index.html.eex:16
 #: lib/cforum_web/templates/admin/search_section/form.html.eex:26
 #: lib/cforum_web/templates/layout/page_header.html.eex:47
 #: lib/cforum_web/views/cite_view.ex:15
+#, elixir-autogen, elixir-format
 msgid "cites"
 msgstr "Zitatesammlung"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/layout/page_header.html.eex:51
+#, elixir-autogen, elixir-format
 msgid "help"
 msgstr "Hilfe"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum/jobs/cite_indexer_job.ex:54
 #: lib/cforum_web/templates/cite/cite.html.eex:5
 #: lib/cforum_web/views/cite_view.ex:17
+#, elixir-autogen, elixir-format
 msgid "cite %{id}"
 msgstr "Zitat #%{id}"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/cite/cite.html.eex:62
+#, elixir-autogen, elixir-format
 msgid "created by"
 msgstr "eingereicht von"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/cite/subnav.html.eex:2
 #: lib/cforum_web/views/cite_view.ex:18
+#, elixir-autogen, elixir-format
 msgid "suggest new cite"
 msgstr "neues Zitat vorschlagen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/cite/subnav.html.eex:4
 #: lib/cforum_web/views/cite_view.ex:16
+#, elixir-autogen, elixir-format
 msgid "vote for cites"
 msgstr "über Zitate abstimmen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/cite/form.html.eex:7
+#, elixir-autogen, elixir-format
 msgid "URL"
 msgstr "URL"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/cite/form.html.eex:33
+#, elixir-autogen, elixir-format
 msgid "cite"
 msgstr "Zitatesammlung"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/cite_view.ex:19
+#, elixir-autogen, elixir-format
 msgid "edit cite #%{id}"
 msgstr "Zitat #%{id} speichern"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/cite/edit.html.eex:5
+#, elixir-autogen, elixir-format
 msgid "save edited cite"
 msgstr "geändertes Zitat speichern"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/cite/new.html.eex:5
+#, elixir-autogen, elixir-format
 msgid "suggest cite"
 msgstr "neues Zitat vorschlagen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/cite/form.html.eex:24
+#, elixir-autogen, elixir-format
 msgid "submitted by"
 msgstr "eingereicht von"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/cite/vote_controller.ex:19
+#, elixir-autogen, elixir-format
 msgid "Successfully voted for cite."
 msgstr "Sie haben erfolgreich über das Zitat abgestimmt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/group_view.ex:8
+#, elixir-autogen, elixir-format
 msgid "administrate groups"
 msgstr "Gruppen verwalten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/subnav.html.eex:10
 #: lib/cforum_web/views/admin/auditing_view.ex:10
 #: lib/cforum_web/views/admin/auditing_view.ex:11
+#, elixir-autogen, elixir-format
 msgid "audit log"
 msgstr "Audit-Log"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:28
 #: lib/cforum_web/templates/admin/audit/users.html.eex:2
 #: lib/cforum_web/templates/admin/subnav.html.eex:7
 #: lib/cforum_web/templates/layout/page_header.html.eex:130
 #: lib/cforum_web/views/badge_view.ex:11
+#, elixir-autogen, elixir-format
 msgid "badges"
 msgstr "Medaillen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/group/index.html.eex:6
 #: lib/cforum_web/templates/image/index.html.eex:11
+#, elixir-autogen, elixir-format
 msgid "created"
 msgstr "erstellt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:23
 #: lib/cforum_web/templates/admin/subnav.html.eex:5
 #: lib/cforum_web/templates/layout/page_header.html.eex:134
 #: lib/cforum_web/views/event_view.ex:13
+#, elixir-autogen, elixir-format
 msgid "events"
 msgstr "Ereignisse"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:26
 #: lib/cforum_web/templates/admin/subnav.html.eex:4
 #: lib/cforum_web/templates/forum/index.html.eex:3
 #: lib/cforum_web/templates/layout/page_header.html.eex:18
 #: lib/cforum_web/views/forum_view.ex:10
+#, elixir-autogen, elixir-format
 msgid "forums"
 msgstr "Foren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/group/index.html.eex:4
+#, elixir-autogen, elixir-format
 msgid "group name"
 msgstr "Gruppen-Name"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/subnav.html.eex:9
 #: lib/cforum_web/views/image_view.ex:12
+#, elixir-autogen, elixir-format
 msgid "images"
 msgstr "Bilder"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/group/index.html.eex:5
+#, elixir-autogen, elixir-format
 msgid "members"
 msgstr "Mitglieder"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/group/subnav.html.eex:4
 #: lib/cforum_web/views/admin/group_view.ex:9
+#, elixir-autogen, elixir-format
 msgid "new group"
 msgstr "neue Gruppe"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/advent_calendar/form.html.eex:50
 #: lib/cforum_web/templates/admin/badge/form.html.eex:49
 #: lib/cforum_web/templates/admin/event/form.html.eex:47
@@ -2144,2861 +2143,2862 @@ msgstr "neue Gruppe"
 #: lib/cforum_web/templates/tag/edit_merge.html.eex:12
 #: lib/cforum_web/templates/tag/form.html.eex:22
 #: lib/cforum_web/templates/tags/synonym/form.html.eex:15
+#, elixir-autogen, elixir-format
 msgid "save"
 msgstr "Speichern"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/subnav.html.eex:8
+#, elixir-autogen, elixir-format
 msgid "search sections"
 msgstr "Such-Sektionen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/group/index.html.eex:7
+#, elixir-autogen, elixir-format
 msgid "updated"
 msgstr "geändert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:17
 #: lib/cforum_web/templates/admin/group/form.html.eex:13
 #: lib/cforum_web/templates/admin/subnav.html.eex:2
+#, elixir-autogen, elixir-format
 msgid "users"
 msgstr "Benutzer"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/group_controller.ex:23
+#, elixir-autogen, elixir-format
 msgid "The group has been created successfully."
 msgstr "Die Gruppe wurde erfolgreich erstellt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/group_controller.ex:59
+#, elixir-autogen, elixir-format
 msgid "The group has been deleted successfully."
 msgstr "Die Gruppe wurde erfolgreich gelöscht."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/group_controller.ex:45
+#, elixir-autogen, elixir-format
 msgid "The group has been updated successfully."
 msgstr "Die Gruppe wurde erfolgreich geändert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/group_view.ex:12
+#, elixir-autogen, elixir-format
 msgid "edit group „%{name}“"
 msgstr "Gruppe „%{name}“ bearbeiten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/group/permissions.html.eex:16
+#, elixir-autogen, elixir-format
 msgid "moderate"
 msgstr "moderieren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/group/permissions.html.eex:13
+#, elixir-autogen, elixir-format
 msgid "permission"
 msgstr "Recht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/group/form.html.eex:19
+#, elixir-autogen, elixir-format
 msgid "permissions"
 msgstr "Rechte"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/widgets/users_selector.html.eex:6
+#, elixir-autogen, elixir-format
 msgid "remove user"
 msgstr "Benutzer entfernen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/user_controller.ex:31
+#, elixir-autogen, elixir-format
 msgid "The user has been created successfully."
 msgstr "Der Benutzer wurde erfolgreich erstellt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/forum_view.ex:9
+#, elixir-autogen, elixir-format
 msgid "administrate forums"
 msgstr "Foren verwalten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/user_view.ex:13
+#, elixir-autogen, elixir-format
 msgid "administrate users"
 msgstr "Benutzer verwalten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/forum_view.ex:13
+#, elixir-autogen, elixir-format
 msgid "edit forum „%{name}“"
 msgstr "Forum „%{name}“ bearbeiten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/user_view.ex:17
+#, elixir-autogen, elixir-format
 msgid "edit user „%{name}“"
 msgstr "Benutzer „%{name}“ bearbeiten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:27
 #: lib/cforum_web/templates/admin/subnav.html.eex:6
+#, elixir-autogen, elixir-format
 msgid "groups"
 msgstr "Gruppen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/forum/subnav.html.eex:4
 #: lib/cforum_web/views/admin/forum_view.ex:10
+#, elixir-autogen, elixir-format
 msgid "new forum"
 msgstr "Neues Forum"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/user/subnav.html.eex:4
 #: lib/cforum_web/views/admin/user_view.ex:14
+#, elixir-autogen, elixir-format
 msgid "new user"
 msgstr "neuer Benutzer"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/user/form.html.eex:26
+#, elixir-autogen, elixir-format
 msgid "user is active"
 msgstr "Benutzer ist aktiv"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/user/form.html.eex:22
+#, elixir-autogen, elixir-format
 msgid "user is an administrator"
 msgstr "Benutzer ist ein Administrator"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:236
+#, elixir-autogen, elixir-format
 msgid "accept score"
 msgstr "Punkte für das Akzeptieren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:242
+#, elixir-autogen, elixir-format
 msgid "accept score for self-accepted answers"
 msgstr "Punkte für das akzeptieren eigener Antworten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:11
+#, elixir-autogen, elixir-format
 msgid "additional CSS resource"
 msgstr "zusätzliche CSS-Resourcen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:17
+#, elixir-autogen, elixir-format
 msgid "additional JS resource"
 msgstr "zusätzliche JS-Resourcen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:53
+#, elixir-autogen, elixir-format
 msgid "alternative CSS resoures"
 msgstr "alternative CSS-Resourcen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:266
+#, elixir-autogen, elixir-format
 msgid "blacklist patterns for posting content"
 msgstr "Blacklist-Muster für Beiträge"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:252
+#, elixir-autogen, elixir-format
 msgid "blacklist patterns for posting subjects"
 msgstr "Blacklist-Muster für Beitrags-Betreff"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/setting_view.ex:38
+#, elixir-autogen, elixir-format
 msgid "close subtree"
 msgstr "Sub-Baum schliessen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:202
+#, elixir-autogen, elixir-format
 msgid "date format for search results"
 msgstr "Datums-Format für Such-Resultate"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:190
+#, elixir-autogen, elixir-format
 msgid "date format for the index and the thread tree"
 msgstr "Datumsformat für den Thread-Baum"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:196
+#, elixir-autogen, elixir-format
 msgid "date format for the postings"
 msgstr "Datumsformat für einzelne Beiträge"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:73
+#, elixir-autogen, elixir-format
 msgid "default sort order for threads"
 msgstr "Default-Sortierung für Threads"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/setting_view.ex:28
+#, elixir-autogen, elixir-format
 msgid "default value (%{val}, %{origin})"
 msgstr "Default-Wert (%{val}, %{origin})"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:66
+#, elixir-autogen, elixir-format
 msgid "default view for threads"
 msgstr "Default-Ansicht für Threads"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:230
+#, elixir-autogen, elixir-format
 msgid "downvote score"
 msgstr "Downvote-Punkte"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/setting_view.ex:40
+#, elixir-autogen, elixir-format
 msgid "empty value"
 msgstr "kein Wert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:5
+#, elixir-autogen, elixir-format
 msgid "forum instance is locked"
 msgstr "Foren-Instanz ist gesperrt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:6
+#, elixir-autogen, elixir-format
 msgid "forum instance is not locked"
 msgstr "Foren-Instanz ist nicht gesperrt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/setting_view.ex:27
+#, elixir-autogen, elixir-format
 msgid "global config"
 msgstr "globale Konfiguration"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/setting_view.ex:27
+#, elixir-autogen, elixir-format
 msgid "global default"
 msgstr "globales Default"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/setting_view.ex:39
+#, elixir-autogen, elixir-format
 msgid "hide („delete“) subtree"
 msgstr "Sub-Baum ausblenden"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:106
+#, elixir-autogen, elixir-format
 msgid "items per page"
 msgstr "Elemente pro Seite"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:174
+#, elixir-autogen, elixir-format
 msgid "maximum editable age of posting in minutes"
 msgstr "maximales Alter in Minuten, in denen Beiträge editiert werden dürfen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:89
+#, elixir-autogen, elixir-format
 msgid "maximum filesize for images"
 msgstr "maximale Dateigröße für Bilder"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:146
+#, elixir-autogen, elixir-format
 msgid "maximum number of messages per thread"
 msgstr "maximale Anzahl an Nachrichten pro Thread"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:35
+#, elixir-autogen, elixir-format
 msgid "maximum number of tags per message"
 msgstr "maximale Anzahl an Tags pro Beitrag"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:140
+#, elixir-autogen, elixir-format
 msgid "maximum number of threads"
 msgstr "Maximale Anzahl an Threads"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:60
+#, elixir-autogen, elixir-format
 msgid "message of the day"
 msgstr "Nachricht des Tages"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:41
+#, elixir-autogen, elixir-format
 msgid "minimum number of tags per message"
 msgstr "Mindestanzahl an Tags pro Beitrag"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:273
+#, elixir-autogen, elixir-format
 msgid "nickname black list"
 msgstr "Namens-Blacklist"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:55
+#, elixir-autogen, elixir-format
 msgid "one URL per line"
 msgstr "eine URL pro Zeile"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:254
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:261
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:268
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:275
+#, elixir-autogen, elixir-format
 msgid "one pattern per line"
 msgstr "ein Muster pro Zeile"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:84
+#, elixir-autogen, elixir-format
 msgid "one pattern per line; links in postings to URLs macthing to one of these patterns don't get rel=nofollow set"
 msgstr "Ein Muster pro Zeile; Links in Beiträgen, auf die eines dieser Muster passt, bekommen kein rel=nofollow"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:181
+#, elixir-autogen, elixir-format
 msgid "postings are always editable"
 msgstr "Beiträge sind immer editierbar"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:180
+#, elixir-autogen, elixir-format
 msgid "postings are editable until the first answer has been written"
 msgstr "Beiträge sind editierbar bis die erste Antwort verfasst wurde"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:118
+#, elixir-autogen, elixir-format
 msgid "search results per page"
 msgstr "Anzahl Such-Resultate pro Seite"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:47
+#, elixir-autogen, elixir-format
 msgid "start index for headings"
 msgstr "Start-Index für Überschriften in Markdown"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:224
+#, elixir-autogen, elixir-format
 msgid "upvote score"
 msgstr "Upvote-Punkte"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:168
+#, elixir-autogen, elixir-format
 msgid "users may edit their postings"
 msgstr "Benutzer dürfen ihre Beiträge bearbeiten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:169
+#, elixir-autogen, elixir-format
 msgid "users may not edit their postings"
 msgstr "Benutzer dürfen ihre Beiträge nicht bearbeiten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:112
+#, elixir-autogen, elixir-format
 msgid "users per page"
 msgstr "Anzahl Benutzer pro Seite"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:82
+#, elixir-autogen, elixir-format
 msgid "white list for links"
 msgstr "Whitelist für Links"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/setting_view.ex:32
+#, elixir-autogen, elixir-format
 msgid "„no“"
 msgstr "„nein“"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/setting_view.ex:31
+#, elixir-autogen, elixir-format
 msgid "„yes“"
 msgstr "„ja“"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:10
 #: lib/cforum_web/templates/admin/setting/edit.html.eex:12
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:249
+#, elixir-autogen, elixir-format
 msgid "anti spam settings"
 msgstr "Anti-Spam-Maßnahmen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:6
 #: lib/cforum_web/templates/admin/setting/edit.html.eex:8
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:125
+#, elixir-autogen, elixir-format
 msgid "archiver settings"
 msgstr "Archivierung"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:8
 #: lib/cforum_web/templates/admin/setting/edit.html.eex:10
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:187
+#, elixir-autogen, elixir-format
 msgid "date format settings"
 msgstr "Datumsformate"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:7
 #: lib/cforum_web/templates/admin/setting/edit.html.eex:9
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:165
+#, elixir-autogen, elixir-format
 msgid "editing settings"
 msgstr "Editierung"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:4
 #: lib/cforum_web/templates/admin/setting/edit.html.eex:6
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:2
+#, elixir-autogen, elixir-format
 msgid "general settings"
 msgstr "Allgemeines"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:5
 #: lib/cforum_web/templates/admin/setting/edit.html.eex:7
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:103
+#, elixir-autogen, elixir-format
 msgid "pagination settings"
 msgstr "Seiten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:9
 #: lib/cforum_web/templates/admin/setting/edit.html.eex:11
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:221
+#, elixir-autogen, elixir-format
 msgid "voting and scoring settings"
 msgstr "Bewertungen und Punkte"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/setting_controller.ex:20
+#, elixir-autogen, elixir-format
 msgid "Settings updated successfully."
 msgstr "Einstellungen erfolgreich gespeichert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:3
 #: lib/cforum_web/templates/admin/forum/form.html.eex:22
+#, elixir-autogen, elixir-format
 msgid "forum settings"
 msgstr "Foren-Einstellungen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/badge_controller.ex:22
+#, elixir-autogen, elixir-format
 msgid "Badge created successfully."
 msgstr "Medaille erfolgreich erstellt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/badge_controller.ex:55
+#, elixir-autogen, elixir-format
 msgid "Badge deleted successfully."
 msgstr "Medaille erfolgreich gelöscht."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/badge_controller.ex:42
+#, elixir-autogen, elixir-format
 msgid "Badge updated successfully."
 msgstr "Medaille erfolgreich geändert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/badge_view.ex:9
+#, elixir-autogen, elixir-format
 msgid "administrate badges"
 msgstr "Medaillen verwalten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/badge/form.html.eex:37
 #: lib/cforum_web/templates/admin/badge/index.html.eex:6
+#, elixir-autogen, elixir-format
 msgid "badge type"
 msgstr "Medaillen-Art"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/view_helpers.ex:169
+#, elixir-autogen, elixir-format
 msgid "create tag synonyms"
 msgstr "Recht Tag-Synonyme zu erstellen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/view_helpers.ex:168
+#, elixir-autogen, elixir-format
 msgid "create tags"
 msgstr "Recht Tags zu erstellen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/view_helpers.ex:174
+#, elixir-autogen, elixir-format
 msgid "custom"
 msgstr "benutzerdefiniert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/view_helpers.ex:166
+#, elixir-autogen, elixir-format
 msgid "downvote"
 msgstr "Downvote"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/view_helpers.ex:171
+#, elixir-autogen, elixir-format
 msgid "edit answers"
 msgstr "Recht Antworten zu editieren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/badge_view.ex:13
+#, elixir-autogen, elixir-format
 msgid "edit badge „%{name}“"
 msgstr "Medaille „%{name}“ bearbeiten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/view_helpers.ex:170
+#, elixir-autogen, elixir-format
 msgid "edit questions"
 msgstr "Recht Fragen zu editieren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/badge/form.html.eex:31
 #: lib/cforum_web/templates/admin/badge/index.html.eex:7
+#, elixir-autogen, elixir-format
 msgid "medal type"
 msgstr "Medaillen-Stufe"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/view_helpers.ex:172
+#, elixir-autogen, elixir-format
 msgid "moderator tools"
 msgstr "Zugriff auf Moderationstools"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/badge/subnav.html.eex:4
 #: lib/cforum_web/views/admin/badge_view.ex:10
+#, elixir-autogen, elixir-format
 msgid "new badge"
 msgstr "neue Medaille"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/view_helpers.ex:167
+#, elixir-autogen, elixir-format
 msgid "retag"
 msgstr "Recht neu zu taggen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/badge/form.html.eex:25
 #: lib/cforum_web/templates/admin/badge/index.html.eex:5
 #: lib/cforum_web/templates/badge/index.html.eex:9
+#, elixir-autogen, elixir-format
 msgid "score needed"
 msgstr "benötigte Punkte"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/view_helpers.ex:173
+#, elixir-autogen, elixir-format
 msgid "seo profi"
 msgstr "SEO-Profi"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/view_helpers.ex:165
+#, elixir-autogen, elixir-format
 msgid "upvote"
 msgstr "Upvote"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/badge/form.html.eex:19
 #: lib/cforum_web/templates/badge/index.html.eex:6
+#, elixir-autogen, elixir-format
 msgid "order"
 msgstr "Reihenfolge"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/redirection/form.html.eex:7
 #: lib/cforum_web/templates/admin/redirection/index.html.eex:5
+#, elixir-autogen, elixir-format
 msgid "HTTP status code"
 msgstr "HTTP-Statuscode"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/redirection_controller.ex:28
+#, elixir-autogen, elixir-format
 msgid "Redirection created successfully."
 msgstr "Weiterleitung erfolgreich gelöscht."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/redirection_controller.ex:61
+#, elixir-autogen, elixir-format
 msgid "Redirection deleted successfully."
 msgstr "Weiterleitung erfolgreich gelöscht."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/redirection_controller.ex:48
+#, elixir-autogen, elixir-format
 msgid "Redirection updated successfully."
 msgstr "Weiterleitung erfolgreich geändert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/redirection_view.ex:11
+#, elixir-autogen, elixir-format
 msgid "administrate redirections"
 msgstr "Weiterleitungen verwalten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/redirection/form.html.eex:25
 #: lib/cforum_web/templates/admin/redirection/index.html.eex:8
 #: lib/cforum_web/templates/events/attendee/form.html.eex:73
+#, elixir-autogen, elixir-format
 msgid "comment"
 msgstr "Kommentar"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/redirection/form.html.eex:19
 #: lib/cforum_web/templates/admin/redirection/index.html.eex:7
+#, elixir-autogen, elixir-format
 msgid "destination"
 msgstr "Ziel"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/redirection_view.ex:13
+#, elixir-autogen, elixir-format
 msgid "edit redirection"
 msgstr "Weiterleitung bearbeiten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/redirection/subnav.html.eex:4
 #: lib/cforum_web/views/admin/redirection_view.ex:12
+#, elixir-autogen, elixir-format
 msgid "new redirection"
 msgstr "neue Weiterleitung"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/redirection/form.html.eex:13
 #: lib/cforum_web/templates/admin/redirection/index.html.eex:6
+#, elixir-autogen, elixir-format
 msgid "path"
 msgstr "Pfad"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:29
 #: lib/cforum_web/templates/admin/subnav.html.eex:11
+#, elixir-autogen, elixir-format
 msgid "redirections"
 msgstr "Weiterleitungen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/redirection/index.html.eex:4
+#, elixir-autogen, elixir-format
 msgid "id"
 msgstr "ID"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/redirector/redirect_archive_thread.html.eex:1
+#, elixir-autogen, elixir-format
 msgid "Because of historical reasons the thread id of the old archive is not unique. Found the following threads with the same TID:"
 msgstr "Aus historischen Gründen ist die Thread-ID aus den Jahren 1998-2005 nicht zwangsläufig eindeutig. Es wurden folgende Threads mit der gleichen Thread-ID gefunden:"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/redirector_view.ex:4
+#, elixir-autogen, elixir-format
 msgid "found multiple threads with this thread id"
 msgstr "Es wurden mehrere Threads mit der gleichen ID gefunden"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/tag_controller.ex:100
+#, elixir-autogen, elixir-format
 msgid "Tag %{old_tag} got successfully merged to tag %{new_tag}"
 msgstr "Das Tag „%{old_tag}“ wurde erfolgreich mit dem Tag „%{new_tag}“ zusammengeführt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/tag_controller.ex:56
+#, elixir-autogen, elixir-format
 msgid "Tag created successfully."
 msgstr "Tag erfolgreich erstellt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/tag_controller.ex:126
+#, elixir-autogen, elixir-format
 msgid "Tag deleted successfully."
 msgstr "Tag erfolgreich gelöscht."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/tag_controller.ex:76
+#, elixir-autogen, elixir-format
 msgid "Tag updated successfully."
 msgstr "Tag erfolgreich geändert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/blog/tag/show.html.eex:1
 #: lib/cforum_web/templates/tag/show.html.eex:1
+#, elixir-autogen, elixir-format
 msgid "This tag is not used for suggestions."
 msgstr "Dieses Tag wird nicht für Vorschläge genutzt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/blog/tag/show.html.eex:1
 #: lib/cforum_web/templates/tag/show.html.eex:1
+#, elixir-autogen, elixir-format
 msgid "This tag is used for suggestions."
 msgstr "Dieses Tag wird für Vorschläge genutzt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/tag_view.ex:22
+#, elixir-autogen, elixir-format
 msgid "create new tag"
 msgstr "neues Tag erstellen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/tags/synonym_view.ex:17
+#, elixir-autogen, elixir-format
 msgid "create new tag synonym for tag “%{tag}”"
 msgstr "Neues Synonym für Tag „%{tag}“ erstellen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/tag/show.html.eex:6
+#, elixir-autogen, elixir-format
 msgid "delete tag"
 msgstr "Tag löschen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/tag/show.html.eex:4
+#, elixir-autogen, elixir-format
 msgid "edit tag"
 msgstr "Tag bearbeiten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/tags/synonym_view.ex:9
+#, elixir-autogen, elixir-format
 msgid "edit tag synonym “%{synonym}” for tag “%{tag}”"
 msgstr "Tag-Synonym „%{synonym}“ für Tag „%{tag}“ bearbeiten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/tag_view.ex:20
+#, elixir-autogen, elixir-format
 msgid "edit tag “%{tag}”"
 msgstr "Tag „%{tag}“ bearbeiten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/tag/edit_merge.html.eex:5
+#, elixir-autogen, elixir-format
 msgid "existing tag"
 msgstr "existierender Tag"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/tag/show.html.eex:5
+#, elixir-autogen, elixir-format
 msgid "merge tag"
 msgstr "Tag zusammenführen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/tag_view.ex:25
+#, elixir-autogen, elixir-format
 msgid "merge tag %{tag}"
 msgstr "Tag „%{tag}“ zusammenführen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/tag/show.html.eex:7
+#, elixir-autogen, elixir-format
 msgid "new synonym"
 msgstr "neues Synonym"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/tag/subnav.html.eex:2
+#, elixir-autogen, elixir-format
 msgid "new tag"
 msgstr "neues Tag"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/blog/tag/show.html.eex:6
 #: lib/cforum_web/templates/tag/show.html.eex:29
+#, elixir-autogen, elixir-format
 msgid "no messages found"
 msgstr "keine Beiträge gefunden"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/tag/show.html.eex:13
+#, elixir-autogen, elixir-format
 msgid "no synonyms found"
 msgstr "keine Synonyme gefunden"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/blog/tag/index.html.eex:3
 #: lib/cforum_web/templates/tag/index.html.eex:3
+#, elixir-autogen, elixir-format
 msgid "not applicable for suggestions"
 msgstr "wird nicht vorgeschlagen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/tag/form.html.eex:17
+#, elixir-autogen, elixir-format
 msgid "suggest this tag"
 msgstr "dieses Tag vorschlagen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/tag/show.html.eex:10
+#, elixir-autogen, elixir-format
 msgid "synonyms"
 msgstr "Synonyme"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/tag/form.html.eex:8
+#, elixir-autogen, elixir-format
 msgid "tag name"
 msgstr "Tag-Name"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/tags/synonym_controller.ex:19
+#, elixir-autogen, elixir-format
 msgid "Tag synonym created successfully."
 msgstr "Das Tag-Synonym wurde erfolgreich erstellt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/tags/synonym_controller.ex:48
+#, elixir-autogen, elixir-format
 msgid "Tag synonym deleted successfully."
 msgstr "Das Tag-Synonym wurde erfolgreich gelöscht."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/tags/synonym_controller.ex:36
+#, elixir-autogen, elixir-format
 msgid "Tag synonym updated successfully."
 msgstr "Das Tag-Synonym wurde erfolgreich geändert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/tag/show.html.eex:20
+#, elixir-autogen, elixir-format
 msgid "delete synonym"
 msgstr "Synonym löschen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/tag/show.html.eex:19
+#, elixir-autogen, elixir-format
 msgid "edit synonym"
 msgstr "Synonym bearbeiten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/tags/synonym/form.html.eex:8
+#, elixir-autogen, elixir-format
 msgid "synonym"
 msgstr "Synonym"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/forum/stats.html.eex:34
+#, elixir-autogen, elixir-format
 msgid "%{messages} messages in %{threads} threads by %{users} users"
 msgstr "%{messages} Beiträge in %{threads} Threads von %{users} Autoren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/forum/index.html.eex:6
+#, elixir-autogen, elixir-format
 msgid "%{num_messages} unread messages in %{num_threads} threads"
 msgstr "%{num_messages} ungelesene Beiträge in %{num_threads} Threads"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/forum/stats.html.eex:10
+#, elixir-autogen, elixir-format
 msgid "The forum „%{name}“ has been created at %{created} and contains <strong>%{no_messages}</strong> messages in <strong>%{no_threads}</strong> threads."
 msgstr "Das Forum „%{name}“ wurde am %{created} Uhr erstellt und enthält <strong>%{no_messages}</strong> Beiträge in <strong>%{no_threads}</strong> Threads."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/forum/stats.html.eex:8
+#, elixir-autogen, elixir-format
 msgid "The oldest forum has been created at %{created}. All forums contain <strong>%{no_messages}</strong> messages in <strong>%{no_threads}</strong> threads."
 msgstr "Das älteste Forum wurde am %{created} Uhr erstellt. Alle Foren enthalten <strong>%{no_messages}</strong> Beiträge in <strong>%{no_threads}</strong> Threads."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/forum/stats.html.eex:5
+#, elixir-autogen, elixir-format
 msgid "There are no visible forums available."
 msgstr "Es gibt keine sichtbaren Foren."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/forum/stats.html.eex:57
+#, elixir-autogen, elixir-format
 msgid "five most active users"
 msgstr "die fünf aktivsten Benutzer"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/forum/stats.html.eex:42
+#, elixir-autogen, elixir-format
 msgid "five most used tags"
 msgstr "die fünf am häufigsten benutzten Tags"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/forum_view.ex:15
+#, elixir-autogen, elixir-format
 msgid "forum statistics for all forums"
 msgstr "Foren-Statistiken für alle Foren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/forum_view.ex:13
+#, elixir-autogen, elixir-format
 msgid "forum statistics for forum „%{forum}“"
 msgstr "Foren-Statistiken für das Forum „%{forum}“"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/forum/stats.html.eex:60
+#, elixir-autogen, elixir-format
 msgid "no users found"
 msgstr "keine Benutzer gefunden"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/forum/stats.html.eex:23
+#, elixir-autogen, elixir-format
 msgid "number of authors per month in the last 12 months"
 msgstr "Anzahl Autoren pro Monat über die letzten 12 Monate"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/forum/stats.html.eex:75
+#, elixir-autogen, elixir-format
 msgid "number of threads and messages per month during the last 48 months"
 msgstr "Anzahl Threads und Beiträge pro Monat über die letzten 48 Monate"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/forum/stats.html.eex:17
+#, elixir-autogen, elixir-format
 msgid "number of threads and messages per month in the last 12 months"
 msgstr "Anzahl Threads und Beiträge pro Monat über die letzten 12 Monate"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/forum/stats.html.eex:81
+#, elixir-autogen, elixir-format
 msgid "number of threads and messages per month overall"
 msgstr "Anzahl Threads und Beiträge pro Monat über die gesamte Zeit"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/forum_view.ex:33
+#, elixir-autogen, elixir-format
 msgid "state %{day} last week"
 msgstr "Status %{day} vor einer Woche"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/forum_view.ex:35
+#, elixir-autogen, elixir-format
 msgid "state of the last 30 days"
 msgstr "Status der letzten dreißig Tage"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/forum_view.ex:36
+#, elixir-autogen, elixir-format
 msgid "state of the last 360 days"
 msgstr "Status der letzten 360 Tage"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/forum_view.ex:34
+#, elixir-autogen, elixir-format
 msgid "state of the last seven days"
 msgstr "Status der letzten sieben Tage"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/forum_view.ex:32
+#, elixir-autogen, elixir-format
 msgid "state today"
 msgstr "Status heute"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/forum/stats.html.eex:46
+#, elixir-autogen, elixir-format
 msgid "no tags found"
 msgstr "keine Tags gefunden"
 
-#, elixir-format
 #: lib/cforum_web/templates/forum/portal.html.eex:19
+#, elixir-format
 msgid "%{count} new mail"
 msgid_plural "%{count} new mails"
 msgstr[0] "keine neue Nachricht"
 msgstr[1] "eine neue Nachricht"
 msgstr[2] "%{count} neue Nachrichten"
 
-#, elixir-format
 #: lib/cforum_web/templates/forum/portal.html.eex:5
+#, elixir-format
 msgid "%{count} new notification"
 msgid_plural "%{count} new notifications"
 msgstr[0] "keine neue Benachrichtigung"
 msgstr[1] "eine neue Benachrichtigung"
 msgstr[2] "%{count} neue Benachrichtigungen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/forum/portal.html.eex:2
+#, elixir-autogen, elixir-format
 msgid "activity"
 msgstr "Aktivität"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/forum/portal.html.eex:30
+#, elixir-autogen, elixir-format
 msgid "show all mails"
 msgstr "zeige alle privaten Nachrichten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/forum/portal.html.eex:15
+#, elixir-autogen, elixir-format
 msgid "show all notifications"
 msgstr "zeige alle Benachrichtigungen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/forum/index.html.eex:58
+#, elixir-autogen, elixir-format
 msgid "Threads without answer"
 msgstr "Threads ohne Antwort"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/forum/index.html.eex:28
 #: lib/cforum_web/templates/forum/index.html.eex:52
 #: lib/cforum_web/templates/forum/index.html.eex:68
+#, elixir-autogen, elixir-format
 msgid "show all threads"
 msgstr "zeige alle Threads"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/thread_view.ex:38
+#, elixir-autogen, elixir-format
 msgid "overview – %{forum}"
 msgstr "%{forum} – Übersicht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:24
 #: lib/cforum_web/views/layout_view.ex:334
+#, elixir-autogen, elixir-format
 msgid "administrative view"
 msgstr "Administrator-Ansicht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:18
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:20
 #: lib/cforum_web/views/layout_view.ex:333
+#, elixir-autogen, elixir-format
 msgid "normal view"
 msgstr "Administrator-Ansicht deaktivieren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/forum/index.html.eex:13
 #: lib/cforum_web/templates/forum/index.html.eex:35
 #: lib/cforum_web/templates/layout/page_header.html.eex:22
 #: lib/cforum_web/templates/layout/page_header.html.eex:31
+#, elixir-autogen, elixir-format
 msgid "statistics"
 msgstr "Statistiken"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/event_controller.ex:31
+#, elixir-autogen, elixir-format
 msgid "Event created successfully."
 msgstr "Ereignis erfolgreich erstellt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/event_controller.ex:64
+#, elixir-autogen, elixir-format
 msgid "Event deleted successfully."
 msgstr "Ereignis erfolgreich gelöscht."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/event_controller.ex:51
+#, elixir-autogen, elixir-format
 msgid "Event updated successfully."
 msgstr "Ereignis erfolgreich geändert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/event/form.html.eex:41
+#, elixir-autogen, elixir-format
 msgid "Google maps link"
 msgstr "Google-Maps-Link"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/event_view.ex:14
+#, elixir-autogen, elixir-format
 msgid "edit event %{name}"
 msgstr "Ereignis „%{name}“ bearbeiten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:8
 #: lib/cforum_web/templates/admin/event/form.html.eex:19
 #: lib/cforum_web/templates/admin/event/index.html.eex:7
 #: lib/cforum_web/templates/event/index.html.eex:7
 #: lib/cforum_web/templates/search/show.html.eex:30
+#, elixir-autogen, elixir-format
 msgid "end date"
 msgstr "End-Datum"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/event/form.html.eex:25
+#, elixir-autogen, elixir-format
 msgid "event is visible"
 msgstr "Ereignis ist sichtbar"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/events.html.eex:4
 #: lib/cforum_web/templates/admin/event/form.html.eex:35
 #: lib/cforum_web/templates/admin/event/index.html.eex:5
 #: lib/cforum_web/templates/event/index.html.eex:5
+#, elixir-autogen, elixir-format
 msgid "location"
 msgstr "Ort"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/event/subnav.html.eex:4
 #: lib/cforum_web/views/admin/event_view.ex:11
+#, elixir-autogen, elixir-format
 msgid "new event"
 msgstr "neues Ereignis"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:3
 #: lib/cforum_web/templates/admin/event/form.html.eex:13
 #: lib/cforum_web/templates/admin/event/index.html.eex:6
 #: lib/cforum_web/templates/event/index.html.eex:6
 #: lib/cforum_web/templates/search/show.html.eex:24
+#, elixir-autogen, elixir-format
 msgid "start date"
 msgstr "Start-Datum"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/event/index.html.eex:8
 #: lib/cforum_web/templates/admin/forum/form.html.eex:56
+#, elixir-autogen, elixir-format
 msgid "visible"
 msgstr "sichtbar"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/event/show.html.eex:11
+#, elixir-autogen, elixir-format
 msgid "in %{location}"
 msgstr "in <span class=\"p-location\">%{location}</span>"
 
-#, elixir-format
 #: lib/cforum_web/templates/message/message.html.eex:41
+#, elixir-format
 msgid "This message got cited in cite %{cite_links}"
 msgid_plural "This message got cited in cites %{cite_links}"
 msgstr[0] "Grundlage für kein Zitat."
 msgstr[1] "Grundlage für Zitat %{cite_links}."
 msgstr[2] "Grundlage für die Zitate %{cite_links}."
 
-#, elixir-format
 #: lib/cforum_web/templates/event/show.html.eex:25
+#, elixir-format
 msgid "no attendees"
 msgid_plural "%{count} attendees"
 msgstr[0] "keine Teilnehmer"
 msgstr[1] "ein Teilnehmer"
 msgstr[2] "%{count} Teilnehmer"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/event/show.html.eex:32
+#, elixir-autogen, elixir-format
 msgid "No attendees, yet."
 msgstr "Bisher keine Teilnehmer."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/event/attendee.html.eex:44
+#, elixir-autogen, elixir-format
 msgid "delete attendee"
 msgstr "Teilnehmer entfernen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message_default_controls.html.eex:11
+#, elixir-autogen, elixir-format
 msgid "edit message"
 msgstr "Beitrag bearbeiten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message_default_controls.html.eex:24
 #: lib/cforum_web/templates/message/message_default_controls.html.eex:26
 #: lib/cforum_web/templates/messages/flag/new.html.eex:32
+#, elixir-autogen, elixir-format
 msgid "flag message"
 msgstr "Beitrag melden"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message_default_controls.html.eex:15
+#, elixir-autogen, elixir-format
 msgid "mail to author"
 msgstr "Nachricht an den Autor"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/event/show.html.eex:20
+#, elixir-autogen, elixir-format
 msgid "map of the event location area"
 msgstr "Karte der Zielregion"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message_default_controls.html.eex:53
+#, elixir-autogen, elixir-format
 msgid "mark message as boring"
 msgstr "Interessant-Markierung entfernen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/event/attendee.html.eex:22
+#, elixir-autogen, elixir-format
 msgid "planned arrival"
 msgstr "geplante Ankunft"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/event/attendee.html.eex:27
 #: lib/cforum_web/templates/events/attendee/form.html.eex:60
+#, elixir-autogen, elixir-format
 msgid "planned leave"
 msgstr "geplante Abreise"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/event/attendee.html.eex:17
 #: lib/cforum_web/templates/events/attendee/form.html.eex:34
+#, elixir-autogen, elixir-format
 msgid "planned start"
 msgstr "geplanter Reisebeginn"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/mail_controller.ex:74
+#, elixir-autogen, elixir-format
 msgid "regarding your message %{subject} from %{time}"
 msgstr "Dein Beitrag „%{subject}“ vom %{time}"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message_default_controls.html.eex:20
+#, elixir-autogen, elixir-format
 msgid "retag message"
 msgstr "Tags neu vergeben"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/event/attendee.html.eex:32
+#, elixir-autogen, elixir-format
 msgid "seats available"
 msgstr "Sitzplätze verfügbar"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message_admin_buttons.html.eex:43
 #: lib/cforum_web/templates/threads/admin/split.html.eex:19
+#, elixir-autogen, elixir-format
 msgid "split thread"
 msgstr "Thread teilen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/event/attendee.html.eex:12
+#, elixir-autogen, elixir-format
 msgid "starts at location"
 msgstr "Start-Ort"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/events/attendee_view.ex:11
+#, elixir-autogen, elixir-format
 msgid "take place in event „%{event}“"
 msgstr "An „%{event}“ teilnehmen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message_default_controls.html.eex:3
+#, elixir-autogen, elixir-format
 msgid "write a new answer"
 msgstr "Antwort verfassen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message_default_controls.html.eex:6
+#, elixir-autogen, elixir-format
 msgid "write a new answer with quoting"
 msgstr "Antwort mit Zitat verfassen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/scores.html.eex:1
+#, elixir-autogen, elixir-format
 msgid "%{score} points for %{user}"
 msgstr "%{score} Punkte für %{user}"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view.ex:41
+#, elixir-autogen, elixir-format
 msgid "(unknown)"
 msgstr "(unbekannt)"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/events/attendee_controller.ex:49
+#, elixir-autogen, elixir-format
 msgid "Attendee deleted successfully."
 msgstr "Teilnehmer erfolgreich gelöscht."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/badge/index.html.eex:1
+#, elixir-autogen, elixir-format
 msgid "Be aware of the scoring rules!"
 msgstr "Beachten Sie die <a href=\"https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Bewertungsregeln\">Bewertungsregeln</a> und die <a href=\"https://wiki.selfhtml.org/wiki/SELFHTML:Forum/Rechte\">Rechte</a>, die erworben werden können!"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/cite_controller.ex:29
+#, elixir-autogen, elixir-format
 msgid "Cite created successfully."
 msgstr "Zitat erfolgreich erstellt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/cite_controller.ex:67
+#, elixir-autogen, elixir-format
 msgid "Cite deleted successfully."
 msgstr "Zitat erfolgreich gelöscht."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/cite_controller.ex:54
+#, elixir-autogen, elixir-format
 msgid "Cite updated successfully."
 msgstr "Zitat erfolgreich geändert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/messages/accept_controller.ex:21
+#, elixir-autogen, elixir-format
 msgid "Message has successfully been accepted as a solving answer"
 msgstr "Der Beitrag wurde erfolgreich als Lösung akzeptiert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/messages/flag_controller.ex:23
+#, elixir-autogen, elixir-format
 msgid "Message has successfully been flagged."
 msgstr "Der Beitrag wurde erfolgreich gemeldet."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/messages/accept_controller.ex:29
+#, elixir-autogen, elixir-format
 msgid "Message has successfully been unaccepted as a solving answer"
 msgstr "Der Beitrag wird nicht länger als Lösung akzeptiert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/message_view.ex:245
 #: lib/cforum_web/views/messages/flag_view.ex:18
+#, elixir-autogen, elixir-format
 msgid "Message is off topic."
 msgstr "Der Beitrag ist außerhalb des durch dieses Forum abgedeckten Themenbereichs."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/moderation_controller.ex:64
+#, elixir-autogen, elixir-format
 msgid "Moderation case successfully solved."
 msgstr "Der Moderations-Fall wurde erfolgreich als geklärt markiert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/moderation/index.html.eex:3
+#, elixir-autogen, elixir-format
 msgid "No moderation queue entries found"
 msgstr "Keine Moderations-Fälle gefunden."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/events/attendee/form.html.eex:21
+#, elixir-autogen, elixir-format
 msgid "Steinfurt"
 msgstr "Steinfurt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/messages/vote_controller.ex:42
+#, elixir-autogen, elixir-format
 msgid "Successfully downvoted message"
 msgstr "Der Beitrag wurde erfolgreich negativ bewertet"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/messages/vote_controller.ex:22
 #: lib/cforum_web/controllers/messages/vote_controller.ex:39
+#, elixir-autogen, elixir-format
 msgid "Successfully took back vote"
 msgstr "Die Wahl wurde erfolgreich zurück genommen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/messages/vote_controller.ex:25
+#, elixir-autogen, elixir-format
 msgid "Successfully upvoted message"
 msgstr "Der Beitrag wurde erfolgreich positiv bewertet"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/moderation/entry.html.eex:28
+#, elixir-autogen, elixir-format
 msgid "This message has been flagged: %{reason}"
 msgstr "Dieser Beitrag wurde gemeldet: %{reason}"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/moderation/entry.html.eex:35
+#, elixir-autogen, elixir-format
 msgid "This moderation case has been solved by %{user}: %{resolution}"
 msgstr "Dieser Moderations-Fall wurde durch %{user} geklärt: %{resolution}"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/messages/flag/new.html.eex:16
+#, elixir-autogen, elixir-format
 msgid "URL of the original message"
 msgstr "URL des Original-Beitrags"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/events/attendee_controller.ex:20
+#, elixir-autogen, elixir-format
 msgid "You registered successfully."
 msgstr "Sie haben sich erfolgreich am Ereignis angemeldet."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/events/attendee_controller.ex:37
+#, elixir-autogen, elixir-format
 msgid "Your registration was successfully updated."
 msgstr "Ihre Anmeldung wurde erfolgreich geändert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/voting_area_view.ex:34
 #: lib/cforum_web/views/voting_area_view.ex:38
+#, elixir-autogen, elixir-format
 msgid "accept answer"
 msgstr "Antwort akzeptieren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:45
+#, elixir-autogen, elixir-format
 msgid "action"
 msgstr "Aktion"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/event/show.html.eex:28
+#, elixir-autogen, elixir-format
 msgid "attend event"
 msgstr "an Ereignis teilnehmen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/attendees.html.eex:2
+#, elixir-autogen, elixir-format
 msgid "attendee %{name}"
 msgstr "Teilnehmer „%{name}“"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:24
+#, elixir-autogen, elixir-format
 msgid "attendees"
 msgstr "Teilnehmer"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:38
+#, elixir-autogen, elixir-format
 msgid "auditing entries"
 msgstr "Audit-Einträge"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:13
+#, elixir-autogen, elixir-format
 msgid "auditing: accepted score"
 msgstr "Akzeptieren-Punkte vergeben"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:16
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:19
+#, elixir-autogen, elixir-format
 msgid "auditing: accepted unscore"
 msgstr "Akzeptieren-Punkte zurückgenommen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:55
+#, elixir-autogen, elixir-format
 msgid "auditing: attendees: create"
 msgstr "Teilnehmer erstellt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:57
+#, elixir-autogen, elixir-format
 msgid "auditing: attendees: destroy"
 msgstr "Teilnehmer gelöscht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:56
+#, elixir-autogen, elixir-format
 msgid "auditing: attendees: update"
 msgstr "Teilnehmer geändert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:9
+#, elixir-autogen, elixir-format
 msgid "auditing: autodestroy user"
 msgstr "Benutzer automatisch gelöscht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:71
+#, elixir-autogen, elixir-format
 msgid "auditing: badges: create"
 msgstr "Medaille erstellt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:73
+#, elixir-autogen, elixir-format
 msgid "auditing: badges: destroy"
 msgstr "Medaille gelöscht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:72
+#, elixir-autogen, elixir-format
 msgid "auditing: badges: update"
 msgstr "Medaille geändert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:48
+#, elixir-autogen, elixir-format
 msgid "auditing: cites: archive"
 msgstr "Zitat archiviert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:45
+#, elixir-autogen, elixir-format
 msgid "auditing: cites: create"
 msgstr "Zitat erstellt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:47
+#, elixir-autogen, elixir-format
 msgid "auditing: cites: destroy"
 msgstr "Zitat gelöscht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:46
+#, elixir-autogen, elixir-format
 msgid "auditing: cites: update"
 msgstr "Zitat geändert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:31
+#, elixir-autogen, elixir-format
 msgid "auditing: close_votes: create"
 msgstr "Sperr-/Entsperr-Abstimmung erstellt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:34
+#, elixir-autogen, elixir-format
 msgid "auditing: close_votes: finished"
 msgstr "Sperr-/Entsperr-Abstimmung beendet"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:10
+#, elixir-autogen, elixir-format
 msgid "auditing: confirm user"
 msgstr "Benutzer bestätigt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:6
+#, elixir-autogen, elixir-format
 msgid "auditing: create user"
 msgstr "Benutzer erstellt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:8
+#, elixir-autogen, elixir-format
 msgid "auditing: destroy user"
 msgstr "Benutzer gelöscht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:51
+#, elixir-autogen, elixir-format
 msgid "auditing: events: create"
 msgstr "Ereignis erstellt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:53
+#, elixir-autogen, elixir-format
 msgid "auditing: events: destroy"
 msgstr "Ereignis gelöscht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:52
+#, elixir-autogen, elixir-format
 msgid "auditing: events: update"
 msgstr "Ereignis geändert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:63
+#, elixir-autogen, elixir-format
 msgid "auditing: forums: create"
 msgstr "Forum erstellt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:65
+#, elixir-autogen, elixir-format
 msgid "auditing: forums: destroy"
 msgstr "Forum gelöscht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:64
+#, elixir-autogen, elixir-format
 msgid "auditing: forums: update"
 msgstr "Forum geändert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:67
+#, elixir-autogen, elixir-format
 msgid "auditing: groups: create"
 msgstr "Gruppe erstellt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:69
+#, elixir-autogen, elixir-format
 msgid "auditing: groups: destroy"
 msgstr "Gruppe gelöscht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:68
+#, elixir-autogen, elixir-format
 msgid "auditing: groups: update"
 msgstr "Gruppe geändert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:42
+#, elixir-autogen, elixir-format
 msgid "auditing: media: create"
 msgstr "Medium erstellt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:43
+#, elixir-autogen, elixir-format
 msgid "auditing: media: destroy"
 msgstr "Medium gelöscht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:116
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: accepted-no"
 msgstr "Beitrag nicht länger akzeptiert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:113
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: accepted-yes"
 msgstr "Beitrag akzeptiert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:100
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: create"
 msgstr "Beitrag erstellt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:110
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: del_versions"
 msgstr "alte Versionen des Beitrags gelöscht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:103
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:104
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: delete"
 msgstr "Beitrag gelöscht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:131
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: flagged-custom"
 msgstr "Beitrag gemeldet: sonstiger Grund"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:125
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: flagged-duplicate"
 msgstr "Beitrag gemeldet: Doppelposting"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:122
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: flagged-not-constructive"
 msgstr "Beitrag gemeldet: unkonstruktiv oder provokativ"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:119
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: flagged-off-topic"
 msgstr "Beitrag gemeldet: Off-Topic"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:128
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: flagged-spam"
 msgstr "Beitrag gemeldet: Spam"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:106
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: move"
 msgstr "Beitrag verschoben"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:140
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:143
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: no-answer"
 msgstr "Beitrag geschlossen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:137
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: no-answer-admin-no"
 msgstr "Beitrag nicht länger geschlossen (Admin)"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:134
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: no-answer-admin-yes"
 msgstr "Beitrag geschlossen (Admin)"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:146
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: no-answer-no"
 msgstr "Beitrag nicht länger geschlossen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:105
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: restore"
 msgstr "Beitrag wiederhergestellt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:102
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: retag"
 msgstr "Tags neu vergeben"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:107
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: unflagged"
 msgstr "Beitrag nicht länger gemeldet"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:101
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: update"
 msgstr "Beitrag geändert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:78
+#, elixir-autogen, elixir-format
 msgid "auditing: redirections: create"
 msgstr "Weiterleitung erstellt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:82
+#, elixir-autogen, elixir-format
 msgid "auditing: redirections: destroy"
 msgstr "Weiterleitung gelöscht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:79
+#, elixir-autogen, elixir-format
 msgid "auditing: redirections: update"
 msgstr "Weiterleitung geändert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:59
+#, elixir-autogen, elixir-format
 msgid "auditing: settings: create"
 msgstr "Einstellungen erstellt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:61
+#, elixir-autogen, elixir-format
 msgid "auditing: settings: destroy"
 msgstr "Einstellungen gelöscht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:60
+#, elixir-autogen, elixir-format
 msgid "auditing: settings: update"
 msgstr "Einstellungen geändert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:26
+#, elixir-autogen, elixir-format
 msgid "auditing: tag_synonyms: create"
 msgstr "Tag-Synonym erstellt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:29
+#, elixir-autogen, elixir-format
 msgid "auditing: tag_synonyms: destroy"
 msgstr "Tag-Synonym gelöscht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:21
+#, elixir-autogen, elixir-format
 msgid "auditing: tags: create"
 msgstr "Tag erstellt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:23
+#, elixir-autogen, elixir-format
 msgid "auditing: tags: destroy"
 msgstr "Tag gelöscht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:24
+#, elixir-autogen, elixir-format
 msgid "auditing: tags: merge"
 msgstr "Tags zusammengeführt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:22
+#, elixir-autogen, elixir-format
 msgid "auditing: tags: update"
 msgstr "Tag geändert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:86
+#, elixir-autogen, elixir-format
 msgid "auditing: threads: archive"
 msgstr "Thread archiviert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:84
+#, elixir-autogen, elixir-format
 msgid "auditing: threads: create"
 msgstr "Thread erstellt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:85
+#, elixir-autogen, elixir-format
 msgid "auditing: threads: destroy"
 msgstr "Thread endgültig gelöscht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:87
+#, elixir-autogen, elixir-format
 msgid "auditing: threads: move"
 msgstr "Thread verschoben"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:95
+#, elixir-autogen, elixir-format
 msgid "auditing: threads: no-archive-no"
 msgstr "Thread wird archiviert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:92
+#, elixir-autogen, elixir-format
 msgid "auditing: threads: no-archive-yes"
 msgstr "Thread wird nicht archiviert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:88
+#, elixir-autogen, elixir-format
 msgid "auditing: threads: sticky"
 msgstr "Thread ist angepinnt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:89
+#, elixir-autogen, elixir-format
 msgid "auditing: threads: unsticky"
 msgstr "Thread nicht länger angepinnt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:7
+#, elixir-autogen, elixir-format
 msgid "auditing: update user"
 msgstr "Benutzer geändert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:11
+#, elixir-autogen, elixir-format
 msgid "auditing: user gained badge"
 msgstr "Benutzer hat Badge erhalten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/badge_view.ex:12
 #: lib/cforum_web/views/badge_view.ex:18
+#, elixir-autogen, elixir-format
 msgid "badge %{name}"
 msgstr "Medaille „%{name}“"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/moderation/edit.html.eex:16
+#, elixir-autogen, elixir-format
 msgid "choose an action"
 msgstr "Wählen Sie eine Aktion"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/moderation/edit.html.eex:20
 #: lib/cforum_web/views/moderation_view.ex:38
+#, elixir-autogen, elixir-format
 msgid "close message and children"
 msgstr "Beitrag und Kind-Beiträge schliessen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:21
+#, elixir-autogen, elixir-format
 msgid "close votes"
 msgstr "Sperr-Abstimmungen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/messages/flag/new.html.eex:24
 #: lib/cforum_web/views/messages/flag_view.ex:25
+#, elixir-autogen, elixir-format
 msgid "custom reason"
 msgstr "sonstiger Grund"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/moderation/edit.html.eex:21
 #: lib/cforum_web/views/moderation_view.ex:39
+#, elixir-autogen, elixir-format
 msgid "delete message and children"
 msgstr "Beitrag und Kind-Beiträge löschen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/attendees.html.eex:1
+#, elixir-autogen, elixir-format
 msgid "event %{no}"
 msgstr "Ereignis %{no}"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/messages/flag_view.ex:11
+#, elixir-autogen, elixir-format
 msgid "flag message %{subject} by %{author}"
 msgstr "Beitrag %{subject} von %{author} melden"
 
-#, elixir-autogen, elixir-format
 #: area.html.eex:13
+#, elixir-autogen, elixir-format
 msgid "information about the voting rules"
 msgstr "Informationen zu den Bewertungsregeln"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/moderation/edit.html.eex:18
 #: lib/cforum_web/views/moderation_view.ex:41
+#, elixir-autogen, elixir-format
 msgid "manual intervention"
 msgstr "manueller Eingriff"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:22
+#, elixir-autogen, elixir-format
 msgid "media"
 msgstr "Medien"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/moderation_view.ex:34
+#, elixir-autogen, elixir-format
 msgid "message is a duplicate of %{url}"
 msgstr "Beitrag ist ein Duplikat von %{url}"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/message_view.ex:250
 #: lib/cforum_web/views/messages/flag_view.ex:23
 #: lib/cforum_web/views/moderation_view.ex:29
+#, elixir-autogen, elixir-format
 msgid "message is illegal"
 msgstr "Beitrag ist rechtlich problematisch."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/moderation_view.ex:28
+#, elixir-autogen, elixir-format
 msgid "message is not constructive"
 msgstr "Beitrag ist unkonstruktiv"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/moderation_view.ex:27
+#, elixir-autogen, elixir-format
 msgid "message is off topic"
 msgstr "Beitrag ist außerhalb des durch dieses Forum abgedeckten Themenbereichs"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/message_view.ex:252
 #: lib/cforum_web/views/messages/flag_view.ex:26
 #: lib/cforum_web/views/moderation_view.ex:30
+#, elixir-autogen, elixir-format
 msgid "message is spam"
 msgstr "Beitrag ist Spam."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/moderation_view.ex:13
+#, elixir-autogen, elixir-format
 msgid "moderation"
 msgstr "Moderation"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/layout/page_header.html.eex:42
+#, elixir-autogen, elixir-format
 msgid "moderation queue"
 msgstr "Moderations-Queue"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/moderation/edit.html.eex:17
+#, elixir-autogen, elixir-format
 msgid "no action"
 msgstr "keine Aktion"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/moderation_view.ex:42
+#, elixir-autogen, elixir-format
 msgid "no intervention"
 msgstr "nicht eingreifen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/users.html.eex:3
+#, elixir-autogen, elixir-format
 msgid "none"
 msgstr "keine"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:47
+#, elixir-autogen, elixir-format
 msgid "object"
 msgstr "Objekt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/moderation/edit.html.eex:8
 #: lib/cforum_web/templates/moderation/edit.html.eex:28
+#, elixir-autogen, elixir-format
 msgid "resolution action"
 msgstr "Lösung"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:18
+#, elixir-autogen, elixir-format
 msgid "scores"
 msgstr "Punkte"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/events/attendee/form.html.eex:26
+#, elixir-autogen, elixir-format
 msgid "seats"
 msgstr "Sitzplätze"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/moderation/edit.html.eex:19
 #: lib/cforum_web/views/moderation_view.ex:40
+#, elixir-autogen, elixir-format
 msgid "set message and children to „no archive“"
 msgstr "Setze Thread auf „nicht archivieren“"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/moderation/entry.html.eex:45
+#, elixir-autogen, elixir-format
 msgid "solve"
 msgstr "lösen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/events/attendee/form.html.eex:18
+#, elixir-autogen, elixir-format
 msgid "starting at location"
 msgstr "Start-Ort"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:20
+#, elixir-autogen, elixir-format
 msgid "tag synonyms"
 msgstr "Synonyme"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/events/attendee_view.ex:14
+#, elixir-autogen, elixir-format
 msgid "take place in event „%{event}“: attendee „%{attendee}“"
 msgstr "An „%{event}“ teilnehmen: Teilnehmer „%{attendee}“"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:14
+#, elixir-autogen, elixir-format
 msgid "threads"
 msgstr "Threads"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:48
+#, elixir-autogen, elixir-format
 msgid "timestamp"
 msgstr "Zeitstempel"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/voting_area_view.ex:44
 #: lib/cforum_web/views/voting_area_view.ex:48
+#, elixir-autogen, elixir-format
 msgid "unaccept answer"
 msgstr "Beitrag nicht länger als Lösung akzeptieren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/index.html.eex:46
+#, elixir-autogen, elixir-format
 msgid "user"
 msgstr "Benutzer"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/cite/cite.html.eex:36
 #: lib/cforum_web/templates/cite/cite.html.eex:38
 #: lib/cforum_web/views/voting_area_view.ex:93
 #: lib/cforum_web/views/voting_area_view.ex:98
+#, elixir-autogen, elixir-format
 msgid "vote down"
 msgstr "negativ bewerten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/cite/cite.html.eex:49
 #: lib/cforum_web/templates/cite/cite.html.eex:51
 #: lib/cforum_web/views/voting_area_view.ex:74
 #: lib/cforum_web/views/voting_area_view.ex:79
+#, elixir-autogen, elixir-format
 msgid "vote up"
 msgstr "positiv bewerten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/message_view.ex:251
 #: lib/cforum_web/views/messages/flag_view.ex:24
+#, elixir-autogen, elixir-format
 msgid "message is a duplicate of another message"
 msgstr "Der Beitrag ist ein Duplikat eines anderen Beitrags."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/message_view.ex:248
 #: lib/cforum_web/views/messages/flag_view.ex:21
+#, elixir-autogen, elixir-format
 msgid "message is unconstructive or provocative and contributes to a deterioration of sentiment"
 msgstr "Der Beitrag ist unkonstruktiv oder provokativ und trägt zu einer Verschlechterung der Stimmung bei."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/badge/index.html.eex:7
+#, elixir-autogen, elixir-format
 msgid "badge medal type"
 msgstr "Medaillen-Stufe"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/badge/index.html.eex:10
+#, elixir-autogen, elixir-format
 msgid "number of users"
 msgstr "Anzahl Benutzer"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message.html.eex:58
+#, elixir-autogen, elixir-format
 msgid "accepted answers"
 msgstr "akzeptierte Antworten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/event_view.ex:10
+#, elixir-autogen, elixir-format
 msgid "administrate events"
 msgstr "Ereignisse verwalten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:37
+#, elixir-autogen, elixir-format
 msgid "auditing: close_votes_voters: vote"
 msgstr "für Sperr-/Entsperr-Abstimmung gestimmt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:40
+#, elixir-autogen, elixir-format
 msgid "auditing: close_votes_voters: unvote"
 msgstr "Stimme für Sperr-/Entsperr-Abstimmung zurück genommen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:149
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: unflag-no-answer"
 msgstr "„antworten verboten“-Markierung entfernt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/search/show.html.eex:46
+#, elixir-autogen, elixir-format
 msgid "%{count} search results"
 msgstr "%{count} Suchergebnisse"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/search_section_controller.ex:24
+#, elixir-autogen, elixir-format
 msgid "Search section created successfully."
 msgstr "Such-Sektion erfolgreich erstellt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/search_section_controller.ex:57
+#, elixir-autogen, elixir-format
 msgid "Search section deleted successfully."
 msgstr "Such-Sektion erfolgreich gelöscht."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/search_section_controller.ex:44
+#, elixir-autogen, elixir-format
 msgid "Search section updated successfully."
 msgstr "Such-Sektion erfolgreich geändert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/search_section/form.html.eex:31
 #: lib/cforum_web/templates/admin/search_section/index.html.eex:7
+#, elixir-autogen, elixir-format
 msgid "active by default"
 msgstr "aktiv per Default"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/search_section_view.ex:10
+#, elixir-autogen, elixir-format
 msgid "administrate search sections"
 msgstr "Such-Sektionen verwalten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/search_section_view.ex:14
+#, elixir-autogen, elixir-format
 msgid "edit search section „%{name}“"
 msgstr "Such-Sektion „%{name}“ bearbeiten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/search_view.ex:12
+#, elixir-autogen, elixir-format
 msgid "forum search"
 msgstr "Foren-Suche"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/search_section/subnav.html.eex:4
 #: lib/cforum_web/views/admin/search_section_view.ex:11
+#, elixir-autogen, elixir-format
 msgid "new search section"
 msgstr "neue Such-Sektion"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/search_section/index.html.eex:4
+#, elixir-autogen, elixir-format
 msgid "search section name"
 msgstr "Such-Sektionsname"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/layout/page_header.html.eex:60
 #: lib/cforum_web/templates/messages/interesting/index.html.eex:3
 #: lib/cforum_web/templates/messages/subscription/index.html.eex:3
 #: lib/cforum_web/templates/search/show.html.eex:7
+#, elixir-autogen, elixir-format
 msgid "search term"
 msgstr "Suchbegriff"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/search/show.html.eex:37
+#, elixir-autogen, elixir-format
 msgid "sort by date"
 msgstr "Sortierung nach Datum"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/search/show.html.eex:36
+#, elixir-autogen, elixir-format
 msgid "sort by relevance"
 msgstr "Sortierung nach Relevanz"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/blog/article/form_tags.html.eex:3
 #: lib/cforum_web/templates/blog/article/form_tags.html.eex:10
 #: lib/cforum_web/templates/message/form_tags.html.eex:3
 #: lib/cforum_web/templates/message/form_tags.html.eex:9
 #: lib/cforum_web/templates/messages/retag/edit.html.eex:11
 #: lib/cforum_web/templates/messages/retag/edit.html.eex:17
+#, elixir-autogen, elixir-format
 msgid "Tag %{no}"
 msgstr "Tag %{no}"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:72
+#, elixir-autogen, elixir-format
 msgid "A comma separated list of poster names"
 msgstr "Eine Komma-separierte Liste von Autoren-Namen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/layout/alerts.html.eex:5
 #: lib/cforum_web/templates/layout/alerts.html.eex:14
+#, elixir-autogen, elixir-format
 msgid "close"
 msgstr "schließen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:70
+#, elixir-autogen, elixir-format
 msgid "highlighted users"
 msgstr "hervorgehobene Benutzer"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/users/user/notifications.html.eex:27
+#, elixir-autogen, elixir-format
 msgid "notify me via email on activity in subscribed messages"
 msgstr "benachrichtige mich via E-Mail über Aktivität bei einem abonnierten Beitrag"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum/jobs/notify_users_message_job.ex:81
+#, elixir-autogen, elixir-format
 msgid "%{nick} wrote a new message: %{subject}"
 msgstr "%{nick} hat einen neuen Beitrag geschrieben: „%{subject}“"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum/jobs/notify_users_message_job.ex:76
+#, elixir-autogen, elixir-format
 msgid "%{nick} wrote a reply to your message: %{subject}"
 msgstr "%{nick} hat auf Ihren Beitrag geantwortet: „%{subject}“"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/blog/tag_view.ex:11
 #: lib/cforum_web/views/tag_view.ex:17
+#, elixir-autogen, elixir-format
 msgid "tag “%{tag}”"
 msgstr "Tag „%{tag}“"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/blog/tag_view.ex:10
 #: lib/cforum_web/views/tag_view.ex:14
+#, elixir-autogen, elixir-format
 msgid "tags list"
 msgstr "Tags"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum/jobs/notify_users_message_job.ex:112
+#, elixir-autogen, elixir-format
 msgid "new thread by %{nick}: %{subject}"
 msgstr "neuer Thread von %{nick}: „%{subject}“"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/user/form.html.eex:7
+#, elixir-autogen, elixir-format
 msgid "user data"
 msgstr "Benutzer-Daten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum/jobs/notify_users_message_job.ex:138
+#, elixir-autogen, elixir-format
 msgid "%{nick} mentioned you in a new message: “%{subject}”"
 msgstr "%{nick} hat Sie in einem neuen Beitrag „%{subject}“ erwähnt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/image_controller.ex:70
+#, elixir-autogen, elixir-format
 msgid "Image deleted successfully."
 msgstr "Das Bild wurde erfolgreich gelöscht."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:13
 #: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:14
+#, elixir-autogen, elixir-format
 msgid "Move thread to a different forum."
 msgstr "Bewege diesen Thread in ein anderes Forum."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/threads/admin_controller.ex:26
+#, elixir-autogen, elixir-format
 msgid "Sticky mark has successfully been removed."
 msgstr "Der Thread ist nicht länger angepinnt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/threads/admin_controller.ex:18
+#, elixir-autogen, elixir-format
 msgid "Thread has successfully been marked as sticky."
 msgstr "Der Thread wurde erfolgreich angepinnt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:2
 #: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:3
+#, elixir-autogen, elixir-format
 msgid "Thread is currently marked sticky. Remove mark."
 msgstr "Dieser Thread ist zur Zeit angepinnt. Löse ihn."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:7
 #: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:8
+#, elixir-autogen, elixir-format
 msgid "Thread is currently not marked sticky. Mark it."
 msgstr "Dieser Thread ist zur Zeit nicht angepinnt. Pinne ihn an."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/threads/admin_controller.ex:42
+#, elixir-autogen, elixir-format
 msgid "Thread will be archived."
 msgstr "Dieser Thread wird archiviert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:24
 #: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:25
+#, elixir-autogen, elixir-format
 msgid "Thread will currently be archived. Don't archive it."
 msgstr "Dieser Thread wird zur Zeit archiviert. Archivierung ausschalten."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:19
 #: lib/cforum_web/templates/message/header_thread_icons_admin.html.eex:20
+#, elixir-autogen, elixir-format
 msgid "Thread will currently not be archived. Archive it."
 msgstr "Dieser Thread wird zur Zeit nicht archiviert. Archivierung wieder einschalten."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/threads/admin_controller.ex:34
+#, elixir-autogen, elixir-format
 msgid "Thread will get deleted on archiving."
 msgstr "Dieser Thread wird bei Archivierung gelöscht."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:14
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:15
 #: lib/cforum_web/templates/message/message_admin_buttons.html.eex:36
+#, elixir-autogen, elixir-format
 msgid "allow answering to this message"
 msgstr "antworten auf diesen Beitrag erlauben"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:8
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:9
 #: lib/cforum_web/templates/message/message_admin_buttons.html.eex:32
+#, elixir-autogen, elixir-format
 msgid "delete this message"
 msgstr "diesen Beitrag löschen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:19
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:20
 #: lib/cforum_web/templates/message/message_admin_buttons.html.eex:38
+#, elixir-autogen, elixir-format
 msgid "forbid answering to this message"
 msgstr "antworten auf diesen Beitrag verbieten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/image/index.html.eex:8
+#, elixir-autogen, elixir-format
 msgid "owner"
 msgstr "Besitzer"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:2
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:3
 #: lib/cforum_web/templates/message/message_admin_buttons.html.eex:29
+#, elixir-autogen, elixir-format
 msgid "restore this message"
 msgstr "diesen Beitrag wiederherstellen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/search_section/form.html.eex:25
+#, elixir-autogen, elixir-format
 msgid "section type"
 msgstr "Sektions-Typ"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/thread/thread.html.eex:15
+#, elixir-autogen, elixir-format
 msgid "this thread has interesting messages"
 msgstr "Dieser Thread enthält interessante Beiträge"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/thread/thread.html.eex:16
+#, elixir-autogen, elixir-format
 msgid "this thread will not be archived"
 msgstr "Dieser Thread wird nicht archiviert"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_editor.html.eex:3
+#, elixir-autogen, elixir-format
 msgid "versions"
 msgstr "Versionen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/messages/retag_controller.ex:31
+#, elixir-autogen, elixir-format
 msgid "Message has successfully been retagged."
 msgstr "Der Beitrag wurde erfolgreich neu verschlagwortet."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/messages/retag_view.ex:10
+#, elixir-autogen, elixir-format
 msgid "Retag message “%{subject}”"
 msgstr "Beitrag „%{subject}“ neu verschlagworten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum/badges.ex:185
+#, elixir-autogen, elixir-format
 msgid "You have won the %{mtype} “%{name}”!"
 msgstr "Sie haben die %{mtype} „%{name}“ gewonnen!"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:76
+#, elixir-autogen, elixir-format
 msgid "auditing: badges_users: gain"
 msgstr "Medaille gewonnen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/badges_users.html.eex:1
+#, elixir-autogen, elixir-format
 msgid "gained badge"
 msgstr "Medaille gewonnen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/threads/admin_view.ex:9
+#, elixir-autogen, elixir-format
 msgid "Move thread %{subject} by %{author}"
 msgstr "Thread „%{subject}“ von %{author} verschieben"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/threads/admin_controller.ex:63
+#, elixir-autogen, elixir-format
 msgid "Thread has successfully been moved."
 msgstr "Der Thread wurde erfolgreich verschoben."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message_admin_buttons.html.eex:14
 #: lib/cforum_web/templates/threads/admin/move.html.eex:15
+#, elixir-autogen, elixir-format
 msgid "move thread"
 msgstr "Thread verschieben"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/threads/admin_view.ex:12
+#, elixir-autogen, elixir-format
 msgid "Split thread at message %{subject} by %{author}"
 msgstr "Thread bei Beitrag „%{subject}“ von %{autor} teilen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/threads/admin_controller.ex:90
+#, elixir-autogen, elixir-format
 msgid "Thread was successfully split."
 msgstr "Der Thread wurde erfolgreich geteilt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:97
+#, elixir-autogen, elixir-format
 msgid "auditing: threads: split"
 msgstr "Thread wurde geteilt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:26
 #: lib/cforum_web/templates/message/header_message_icons_admin.html.eex:27
+#, elixir-autogen, elixir-format
 msgid "split thread with this message as new root"
 msgstr "Teile Thread mit diesem Beitrag als neuen Ursprungsbeitrag"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message_admin_buttons.html.eex:19
+#, elixir-autogen, elixir-format
 msgid "archive thread"
 msgstr "Thread archivieren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message_admin_buttons.html.eex:23
+#, elixir-autogen, elixir-format
 msgid "don't archive thread"
 msgstr "Thread nicht archivieren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message_admin_buttons.html.eex:9
+#, elixir-autogen, elixir-format
 msgid "mark thread as sticky"
 msgstr "Thread anpinnen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message_admin_buttons.html.eex:5
+#, elixir-autogen, elixir-format
 msgid "remove sticky mark"
 msgstr "Thread lösen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message_forum_links.html.eex:28
+#, elixir-autogen, elixir-format
 msgid "message in tree"
 msgstr "Beitrag im Thread-Baum"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/page_view.ex:9
+#, elixir-autogen, elixir-format
 msgid "help & support"
 msgstr "Hilfe & Unterstützung"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/messages/version_controller.ex:21
+#, elixir-autogen, elixir-format
 msgid "Message version deleted successfully."
 msgstr "Die Version wurde erfolgreich gelöscht."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:152
+#, elixir-autogen, elixir-format
 msgid "auditing: messages: versions: destroy"
 msgstr "Version des Beitrags gelöscht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/messages/version/version.html.eex:24
+#, elixir-autogen, elixir-format
 msgid "delete this version"
 msgstr "diese Version löschen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/audit/message_versions.html.eex:1
+#, elixir-autogen, elixir-format
 msgid "message version by “%{user}”, message"
 msgstr "Version von „%{user}“, Beitrag"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/messages/version/show.html.eex:2
+#, elixir-autogen, elixir-format
 msgid "no message version found."
 msgstr "keine Versionen gefunden"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/notification_controller.ex:87
+#, elixir-autogen, elixir-format
 msgid "Notifications have successfully been deleted."
 msgstr "Die Benachrichtigungen wurden erfolgreich gelöscht."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/notification_controller.ex:70
+#, elixir-autogen, elixir-format
 msgid "Notifications successfully marked as read."
 msgstr "Die Benachrichtigungen wurden erfolgreich als gelesen markiert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/notification_controller.ex:73
+#, elixir-autogen, elixir-format
 msgid "Notifications successfully marked as unread."
 msgstr "Die Benachrichtigungen wurden erfolgreich als ungelesen markiert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/notification/index.html.eex:44
+#, elixir-autogen, elixir-format
 msgid "delete all notifications"
 msgstr "lösche alle Benachrichtigungen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/notification/index.html.eex:42
+#, elixir-autogen, elixir-format
 msgid "mark all notifications as read"
 msgstr "markiere alle Benachrichtigungen als gelesen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/notification/index.html.eex:43
+#, elixir-autogen, elixir-format
 msgid "mark all notifications as unread"
 msgstr "markiere alle Benachrichtigungen als ungelesen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/layout/meta.html.eex:8
 #: lib/cforum_web/views/view_helpers/feeds.ex:132
 #: lib/cforum_web/views/view_helpers/feeds.ex:156
+#, elixir-autogen, elixir-format
 msgid "A forum as a completion to the wiki and the weblog"
 msgstr "Forum als Ergänzung zum SELFHTML-Wiki und zur Dokumentation SELFHTML"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/layout/meta.html.eex:9
+#, elixir-autogen, elixir-format
 msgid "SELFHTML Forum, SELFHTML, Forum, SELFForum"
 msgstr "SELFHTML Forum, SELFHTML, Forum, SELFForum"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_author.html.eex:17
+#, elixir-autogen, elixir-format
 msgid "email address of the author"
 msgstr "E-Mail-Adresse des Autors"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/header_author.html.eex:24
+#, elixir-autogen, elixir-format
 msgid "homepage of the author"
 msgstr "Homepage des Autors"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:49
+#, elixir-autogen, elixir-format
 msgid "auditing: cites: archive-del"
 msgstr "Zitat wegen Archivierung gelöscht"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/layout/page_header.html.eex:121
+#, elixir-autogen, elixir-format
 msgid "show read threads"
 msgstr "zeige gelesene Threads"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/archive_view.ex:10
+#, elixir-autogen, elixir-format
 msgid "archive – %{forum}"
 msgstr "Archiv – %{forum}"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/archive_view.ex:16
+#, elixir-autogen, elixir-format
 msgid "archive: %{month} – %{forum}"
 msgstr "archivierte Beiträge für %{month} – %{forum}"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/archive_view.ex:13
+#, elixir-autogen, elixir-format
 msgid "archive: %{year} – %{forum}"
 msgstr "archivierte Beiträge für %{year} – %{forum}"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/thread_view.ex:45
+#, elixir-autogen, elixir-format
 msgid "unanswered threads – %{forum}"
 msgstr "unbeantwortete Threads – %{forum}"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/layout/page_header.html.eex:114
+#, elixir-autogen, elixir-format
 msgid "mark all messages read"
 msgstr "markiere alle Beiträge als gelesen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/messages/mark_read_controller.ex:79
+#, elixir-autogen, elixir-format
 msgid "All messages on this page have successfully been marked as read."
 msgstr "Alle Beiträge auf dieser Seite wurden erfolgreich als gelesen markiert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/messages/mark_read_controller.ex:29
+#, elixir-autogen, elixir-format
 msgid "Thread has successfully been marked as read."
 msgstr "Der Thread wurde erfolgreich als gelesen markiert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/forum/form.html.eex:50
 #: lib/cforum_web/templates/admin/user/index.html.eex:19
+#, elixir-autogen, elixir-format
 msgid "active"
 msgstr "aktiv"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/user/index.html.eex:20
+#, elixir-autogen, elixir-format
 msgid "confirmed"
 msgstr "bestätigt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/user/index.html.eex:21
+#, elixir-autogen, elixir-format
 msgid "last visit"
 msgstr "letzter Besuch"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/users/user/notifications.html.eex:55
+#, elixir-autogen, elixir-format
 msgid "notify me via email on flagged messages"
 msgstr "benachrichtige mich via E-Mail über gemeldete Nachrichten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/notification_mailer/inactivity_notification_error.html.eex:9
 #: lib/cforum_web/templates/notification_mailer/inactivity_notification_error.text.eex:7
 #: lib/cforum_web/templates/notification_mailer/moderation_mail.html.eex:10
 #: lib/cforum_web/templates/notification_mailer/moderation_mail.text.eex:9
+#, elixir-autogen, elixir-format
 msgid "Best regards"
 msgstr ""
 "Freundliche Grüße,\n"
 "  SELFHTML\n"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/notification_mailer/inactivity_notification_error.html.eex:1
 #: lib/cforum_web/templates/notification_mailer/inactivity_notification_error.text.eex:1
 #: lib/cforum_web/templates/notification_mailer/moderation_mail.html.eex:1
 #: lib/cforum_web/templates/notification_mailer/moderation_mail.text.eex:1
+#, elixir-autogen, elixir-format
 msgid "Hi there"
 msgstr "Hallo"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/notification_mailer/moderation_mail.html.eex:4
+#, elixir-autogen, elixir-format
 msgid "There has been created a new moderation queue entry for message"
 msgstr "eine Nachricht wurde gemeldet:"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/notification_mailer/moderation_mail.text.eex:3
+#, elixir-autogen, elixir-format
 msgid "There has been created a new moderation queue entry for message „%{subject}“"
 msgstr "Die Nachricht „%{subject} wurde gemeldet."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/auditing_view_l10n.ex:155
+#, elixir-autogen, elixir-format
 msgid "auditing: moderation_queue: update"
 msgstr "Moderations-Eintrag geklärt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/users/user/show_scores.html.eex:14
+#, elixir-autogen, elixir-format
 msgid "message is no longer available"
 msgstr "Der Beitrag ist nicht länger verfügbar."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:52
+#, elixir-autogen, elixir-format
 msgid "page threads in the threadlist"
 msgstr "verteile die Threads in der Thread-Liste auf Seiten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/layout/link.html.eex:10
+#, elixir-autogen, elixir-format
 msgid "SELFHTML Search"
 msgstr "SELFHTML-Suche"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/users/user/comfort.html.eex:46
+#, elixir-autogen, elixir-format
 msgid "open links in postings in a new window or tab"
 msgstr "öffne Links in Beiträgen in einem neuen Fenster oder Tab"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/view_helpers/relative_time.ex:38
+#, elixir-autogen, elixir-format
 msgid "about 1 minute"
 msgstr "etwa einer Minute"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/view_helpers/relative_time.ex:43
+#, elixir-autogen, elixir-format
 msgid "less than %{minutes} minutes"
 msgstr "weniger als %{minutes} Minuten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/error_view.ex:30
+#, elixir-autogen, elixir-format
 msgid "access forbidden"
 msgstr "Zugriff verboten!"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/error_view.ex:45
+#, elixir-autogen, elixir-format
 msgid "internal server error"
 msgstr "Oops! Etwas ist schief gegangen."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/error_view.ex:15
 #: lib/cforum_web/views/error_view.ex:61
+#, elixir-autogen, elixir-format
 msgid "page not found"
 msgstr "Seite nicht gefunden!"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/mailers/notification_mailer.ex:21
+#, elixir-autogen, elixir-format
 msgid "new message: “%{subject}”"
 msgstr "neuer Beitrag: „%{subject}“"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/mailers/notification_mailer.ex:49
+#, elixir-autogen, elixir-format
 msgid "new moderation queue entry: “%{subject}”"
 msgstr "neuer Moderations-Fall: „%{subject}“"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/mailers/notification_mailer.ex:35
+#, elixir-autogen, elixir-format
 msgid "new notification: “%{subject}”"
 msgstr "neue Benachrichtigung: „%{subject}“"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/mailers/notification_mailer.ex:12
+#, elixir-autogen, elixir-format
 msgid "new private message: “%{subject}”"
 msgstr "neue private Nachricht: „%{subject}“"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/users/user/notifications.html.eex:62
+#, elixir-autogen, elixir-format
 msgid "automatically delete read notifications"
 msgstr "gelesene Benachrichtigungen automatisch löschen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:95
+#, elixir-autogen, elixir-format
 msgid "MathJax URL"
 msgstr "MathJax-URL"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/search/show.html.eex:51
+#, elixir-autogen, elixir-format
 msgid "We could not find any matching documents."
 msgstr "Wir konnten leider keine passenden Ergebnisse zu ihrer Suche finden."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/users/user/readability_overview.html.eex:18
+#, elixir-autogen, elixir-format
 msgid "mark nested messages read when they become visible"
 msgstr "markiere Beiträge in der Nested-Ansicht als gelesen, wenn sie in den sichtbaren Bereich scrollen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/mail/index.html.eex:5
+#, elixir-autogen, elixir-format
 msgid "number of mails"
 msgstr "Anzahl privater Nachrichten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/mail_controller.ex:142
+#, elixir-autogen, elixir-format
 msgid "Thread deleted successfully."
 msgstr "Unterhaltung erfolgreich gelöscht."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/mail/index.html.eex:32
+#, elixir-autogen, elixir-format
 msgid "delete latest message"
 msgstr "Nachricht löschen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/mail/index.html.eex:33
+#, elixir-autogen, elixir-format
 msgid "delete thread"
 msgstr "Unterhaltung löschen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/messages/mark_read_controller.ex:48
+#, elixir-autogen, elixir-format
 msgid "Message has successfully been marked as unread."
 msgstr "Der Beitrag wurde erfolgreich als ungelesen markiert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message_default_controls.html.eex:35
+#, elixir-autogen, elixir-format
 msgid "mark message as unread"
 msgstr "markiere Beitrag als ungelesen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/blog/article_view.ex:24
 #: lib/cforum_web/views/message_view.ex:92
+#, elixir-autogen, elixir-format
 msgid "edit message “%{subject}” by %{author}"
 msgstr "Beitrag bearbeiten: %{author}: %{subject}"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/users/user/deletion_started.html.eex:2
+#, elixir-autogen, elixir-format
 msgid "However, we disabled your account to avoid technical issues."
 msgstr "Wir haben ihren Account allerdings schonmal gesperrt, um technische Schwierigkeiten zu vermeiden."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/users/user/deletion_started.html.eex:1
+#, elixir-autogen, elixir-format
 msgid "The deletion of your user has been started in the background. It might take some time until everything is deleted."
 msgstr "Das Löschen ihres Benutzerkontos wurde im Hintergrund in Gang gesetzt. Es ist möglich, dass es einige Zeit dauert, bis alle Daten gelöscht wurden."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/form.html.eex:70
+#, elixir-autogen, elixir-format
 msgid "save my identity in a cookie"
 msgstr "speichere die Identität in einem Cookie"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message.html.eex:9
+#, elixir-autogen, elixir-format
 msgid "This message has been deleted: %{reason}"
 msgstr "Dieser Beitrag wurde gelöscht: %{reason}"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/message/message.html.eex:11
+#, elixir-autogen, elixir-format
 msgid "This message has been locked: %{reason}"
 msgstr "Dieser Beitrag wurde gesperrt: %{reason}"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/advent_calendar_controller.ex:28
+#, elixir-autogen, elixir-format
 msgid "Advent calendar day created successfully."
 msgstr "Der Adventskalender-Tag wurde erfolgreich erstellt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/advent_calendar_controller.ex:61
+#, elixir-autogen, elixir-format
 msgid "Advent calendar day deleted successfully."
 msgstr "Der Adventskalender-Tag wurde erfolgreich gelöscht."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/admin/advent_calendar_controller.ex:48
+#, elixir-autogen, elixir-format
 msgid "Advent calendar day updated successfully."
 msgstr "Der Adventskalender-Tag wurde erfolgreich bearbeitet."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/advent/day.html.eex:24
+#, elixir-autogen, elixir-format
 msgid "By the way, did you know? You can support SELFHTML!"
 msgstr "Wussten Sie schon, dass Sie SELFHTML unterstützen können?"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/advent/day.html.eex:23
+#, elixir-autogen, elixir-format
 msgid "It's early days yet"
 msgstr "Es ist noch zu früh"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/advent_calendar_view.ex:10
+#, elixir-autogen, elixir-format
 msgid "administrate advent calendar %{year}"
 msgstr "Adventskalender %{year} verwalten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/advent_calendar_view.ex:9
+#, elixir-autogen, elixir-format
 msgid "administrate advent calendars"
 msgstr "Adventskalender verwalten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/advent_view.ex:7
+#, elixir-autogen, elixir-format
 msgid "advent calendar %{year}"
 msgstr "Adventskalender %{year}"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/subnav.html.eex:12
 #: lib/cforum_web/views/advent_view.ex:6
+#, elixir-autogen, elixir-format
 msgid "advent calendars"
 msgstr "Adventskalender"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/advent_calendar/form.html.eex:22
+#, elixir-autogen, elixir-format
 msgid "author (name)"
 msgstr "Autor (Name)"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/advent_calendar/form.html.eex:14
+#, elixir-autogen, elixir-format
 msgid "author (user)"
 msgstr "Autor (Benutzer)"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/advent_calendar/form.html.eex:42
+#, elixir-autogen, elixir-format
 msgid "content"
 msgstr "Inhalt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/advent_calendar/form.html.eex:7
+#, elixir-autogen, elixir-format
 msgid "date"
 msgstr "Datum"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/admin/advent_calendar_view.ex:12
+#, elixir-autogen, elixir-format
 msgid "edit advent calendar day"
 msgstr "Tag bearbeiten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/advent_calendar/form.html.eex:34
+#, elixir-autogen, elixir-format
 msgid "link"
 msgstr "Link"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/advent_calendar/subnav.html.eex:4
 #: lib/cforum_web/views/admin/advent_calendar_view.ex:11
+#, elixir-autogen, elixir-format
 msgid "new advent calendar day"
 msgstr "neuer Adventskalender-Tag"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/advent_calendar/index_years.html.eex:3
 #: lib/cforum_web/templates/advent/index.html.eex:3
+#, elixir-autogen, elixir-format
 msgid "no years found"
 msgstr "keine Jahre mit einem Adventskalender gefunden"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/advent/day.html.eex:21
+#, elixir-autogen, elixir-format
 msgid "sorry, there is nothing yet… :("
 msgstr "Tut mir leid, leider gibt es hier nichts :("
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/advent/day.html.eex:20
+#, elixir-autogen, elixir-format
 msgid "no content"
 msgstr "kein Inhalt"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/messages/retag/edit.html.eex:26
+#, elixir-autogen, elixir-format
 msgid "retag children as well"
 msgstr "Tags auch bei Kind-Beiträgen neu vergeben"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/mailers/user_mailer.ex:39
+#, elixir-autogen, elixir-format
 msgid "inactivity warning"
 msgstr "SELFHTML – Inaktivitätswarnung"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/mailers/user_mailer.ex:32
+#, elixir-autogen, elixir-format
 msgid "since %{years} year(s)"
 msgstr "seit mindestens %{years} Jahr(en)"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/mailers/user_mailer.ex:28
+#, elixir-autogen, elixir-format
 msgid "since five years"
 msgstr "seit mindestens fünf Jahren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/mailers/user_mailer.ex:27
+#, elixir-autogen, elixir-format
 msgid "since four years"
 msgstr "seit mindestens vier Jahren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/mailers/user_mailer.ex:24
+#, elixir-autogen, elixir-format
 msgid "since one year"
 msgstr "seit mindestens einem Jahr"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/mailers/user_mailer.ex:26
+#, elixir-autogen, elixir-format
 msgid "since three years"
 msgstr "seit mindestens drei Jahren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/mailers/user_mailer.ex:25
+#, elixir-autogen, elixir-format
 msgid "since two years"
 msgstr "seit mindestens zwei Jahren"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:259
+#, elixir-autogen, elixir-format
 msgid "blacklist patterns for posting urls"
 msgstr "Blacklist-Muster für URLs (problematische Seite und Homepage)"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/notification_mailer/inactivity_notification_error.html.eex:4
 #: lib/cforum_web/templates/notification_mailer/inactivity_notification_error.text.eex:3
+#, elixir-autogen, elixir-format
 msgid "There was an error sending an inactivity notification mail to %{user} (%{email}):"
 msgstr "Es gab einen Fehler beim versenden der Inaktivitätswarnung für den Benutzer %{user} (%{email}):"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/mailers/notification_mailer.ex:63
+#, elixir-autogen, elixir-format
 msgid "error sending inactivity notification email"
 msgstr "Fehler beim Versenden der Inaktivitätswarnung"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/messages/version_view.ex:10
+#, elixir-autogen, elixir-format
 msgid "versions of message „%{subject}“"
 msgstr "Versions-Historie des Beitrags „%{subject}“"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/users/user_view.ex:32
 #: lib/cforum_web/views/users/user_view.ex:50
+#, elixir-autogen, elixir-format
 msgid "Deletion started"
 msgstr "Löschung begonnen"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/messages/version/version.html.eex:5
+#, elixir-autogen, elixir-format
 msgid "edited by"
 msgstr "bearbeitet von"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/events/attendee/form.html.eex:9
+#, elixir-autogen, elixir-format
 msgid "name (required)"
 msgstr "Name (Pflichtfeld)"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/events/attendee/form.html.eex:47
+#, elixir-autogen, elixir-format
 msgid "planned arrival (required)"
 msgstr "geplante Ankunft (Pflichtfeld)"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/users/password/edit.html.eex:4
+#, elixir-autogen, elixir-format
 msgid "old password"
 msgstr "bisheriges Passwort"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:23
+#, elixir-autogen, elixir-format
 msgid "maximum message length"
 msgstr "maximale Beitragslänge"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:29
+#, elixir-autogen, elixir-format
 msgid "minimum message length"
 msgstr "minimale Beitragslänge"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/layout/page_header_blog.html.eex:4
+#, elixir-autogen, elixir-format
 msgid "SELFHTML Weblog - Complementing the <a href=\"https://wiki.selfhtml.org\">documentation</a>"
 msgstr "SELFHTML Weblog - Ergänzung zur <a href=\"https://wiki.selfhtml.org\">Dokumentation</a>"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:214
+#, elixir-autogen, elixir-format
 msgid "date format for the weblog index"
 msgstr "Datumsformat für den Weblog-Index"
 
-#, elixir-format
 #: lib/cforum_web/templates/blog/article/article.html.eex:9
+#, elixir-format
 msgid "no comments"
 msgid_plural "%{count} comments"
 msgstr[0] "keine Kommentare"
 msgstr[1] "1 Kommentar"
 msgstr[2] "%{count} Kommentare"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:128
+#, elixir-autogen, elixir-format
 msgid "archiver is active"
 msgstr "Archvierung ist aktiv"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:129
+#, elixir-autogen, elixir-format
 msgid "archiver is inactive"
 msgstr "Archvierung ist nicht aktiv"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/blog/article/article.html.eex:40
+#, elixir-autogen, elixir-format
 msgid "categorized under:"
 msgstr "eingeordnet unter:"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/blog/article/article.html.eex:58
+#, elixir-autogen, elixir-format
 msgid "published by"
 msgstr "veröffentlicht von"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/blog/article/form.html.eex:48
+#, elixir-autogen, elixir-format
 msgid "excerpt"
 msgstr "Einleitung"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/blog/article/form.html.eex:34
 #: lib/cforum_web/templates/blog/article/form.html.eex:52
+#, elixir-autogen, elixir-format
 msgid "optional"
 msgstr "optional"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/blog/article/form.html.eex:30
+#, elixir-autogen, elixir-format
 msgid "thumbnail"
 msgstr "Beitragsbild"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/blog/article_controller.ex:81
+#, elixir-autogen, elixir-format
 msgid "Article created successfully."
 msgstr "Artikel erfolgreich erstellt."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:135
+#, elixir-autogen, elixir-format
 msgid "archive oldest thread first"
 msgstr "archiviere den älteresten Thread zuerst"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:134
+#, elixir-autogen, elixir-format
 msgid "archive thread with the oldest message first"
 msgstr "archiviere den Thread mit dem ältesten jüngsten Beitrag zuerst"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/blog/archive_view.ex:10
+#, elixir-autogen, elixir-format
 msgid "archive: %{month}"
 msgstr "Archiv: %{month}"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/layout/blog.html.eex:22
+#, elixir-autogen, elixir-format
 msgid "create new article"
 msgstr "neuer Artikel"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/layout/blog.html.eex:21
+#, elixir-autogen, elixir-format
 msgid "older articles"
 msgstr "ältere Artikel"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/blog/article/show.html.eex:8
+#, elixir-autogen, elixir-format
 msgid "next article"
 msgstr "nächster Artikel"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/blog/article/show.html.eex:5
+#, elixir-autogen, elixir-format
 msgid "previous article"
 msgstr "vorheriger Artikel"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/blog/article/article.html.eex:76
+#, elixir-autogen, elixir-format
 msgid "edit article"
 msgstr "Artikel bearbeiten"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/blog/article/article.html.eex:86
+#, elixir-autogen, elixir-format
 msgid "Writing new comments is disabled for this article."
 msgstr "Kommentieren ist für diesen Artikel deaktiviert."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/blog/index/index.html.eex:5
 #: lib/cforum_web/templates/thread/index.html.eex:10
+#, elixir-autogen, elixir-format
 msgid "You will find older articles in the archive."
 msgstr "Ältere Artikel finden Sie im Archiv."
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/blog/article/form.html.eex:74
+#, elixir-autogen, elixir-format
 msgid "save as a draft"
 msgstr "als Entwurf speichern"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/blog/article/article.html.eex:13
 #: lib/cforum_web/templates/forum/message_header.html.eex:17
 #: lib/cforum_web/templates/message/header_subject.html.eex:3
+#, elixir-autogen, elixir-format
 msgid "draft"
 msgstr "Entwurf"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/events/attendee/form.html.eex:41
 #: lib/cforum_web/templates/events/attendee/form.html.eex:54
 #: lib/cforum_web/templates/events/attendee/form.html.eex:67
+#, elixir-autogen, elixir-format
 msgid "HH:MM"
 msgstr "SS:MM"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/events/attendee/form.html.eex:40
 #: lib/cforum_web/templates/events/attendee/form.html.eex:53
 #: lib/cforum_web/templates/events/attendee/form.html.eex:66
+#, elixir-autogen, elixir-format
 msgid "YYYY-MM-DD"
 msgstr "JJJJ-MM-TT"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/tag_controller.ex:112
+#, elixir-autogen, elixir-format
 msgid "You can't merge a tag with itself!"
 msgstr "Sie können das Schlagwort nicht mit sich selbst zusammenführen!"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/blog/article/form.html.eex:39
+#, elixir-autogen, elixir-format
 msgid "alt text"
 msgstr "Alt-Text"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/controllers/users/session_controller.ex:78
+#, elixir-autogen, elixir-format
 msgid "You are already logged in!"
 msgstr "Sie sind bereits angemeldet!"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/image/index.html.eex:13
+#, elixir-autogen, elixir-format
 msgid "details"
 msgstr "Details"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/views/image_view.ex:13
+#, elixir-autogen, elixir-format
 msgid "image „%{name}“"
 msgstr "Bild „%{name}“"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/image/show.html.eex:16
+#, elixir-autogen, elixir-format
 msgid "back to images list"
 msgstr "zurück zur Bilderliste"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/image/show.html.eex:5
+#, elixir-autogen, elixir-format
 msgid "contained in"
 msgstr "enthalten in"
 
-#, elixir-autogen, elixir-format
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:152
-msgid "maximum age of deleted threads (in seconds)"
-msgstr "maximales Alter von gelöschten Threads"
-
 #, elixir-autogen, elixir-format
+msgid "maximum age of deleted threads (in days)"
+msgstr "maximales Alter von gelöschten Threads (in Tagen)"
+
 #: lib/cforum_web/templates/admin/setting/settings.html.eex:158
-msgid "maximum age of threads marked with “no archive” (in seconds)"
-msgstr "maximales Alter von Threads, die als „nicht archivieren“ gekennzeichnet wurden"
+#, elixir-autogen, elixir-format
+msgid "maximum age of threads marked with “no archive” (in days)"
+msgstr "maximales Alter von Threads, die als „nicht archivieren“ gekennzeichnet wurden (in Tagen)"

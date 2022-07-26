@@ -44,7 +44,7 @@ defmodule Cforum.Jobs.ArchiverJob do
   defp archive_deleted(_, 0), do: nil
 
   defp archive_deleted(forum, age) do
-    now = Timex.now() |> Timex.shift(seconds: -age)
+    now = Timex.now() |> Timex.shift(days: -age)
 
     from(thread in Thread,
       where: thread.forum_id == ^forum.forum_id,
@@ -70,7 +70,7 @@ defmodule Cforum.Jobs.ArchiverJob do
       where: thread.archived == false,
       where: thread.sticky == false,
       where: fragment("?->>'no-archive'", thread.flags) == "yes",
-      where: thread.latest_message < ago(^age, "second")
+      where: thread.latest_message < ago(^age, "day")
     )
     |> Repo.all()
     |> Repo.preload([:messages])
