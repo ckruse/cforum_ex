@@ -41,7 +41,7 @@ defmodule Cforum.Jobs.ArchiverJob do
     end
   end
 
-  defp archive_deleted(_, 0), do: nil
+  defp archive_deleted(_, val) when is_nil(val) or val == 0, do: nil
 
   defp archive_deleted(forum, age) do
     now = Timex.now() |> Timex.shift(days: -age)
@@ -62,7 +62,7 @@ defmodule Cforum.Jobs.ArchiverJob do
     end)
   end
 
-  defp archive_no_archive(_, 0), do: nil
+  defp archive_no_archive(_, val) when is_nil(val) or val == 0, do: nil
 
   defp archive_no_archive(forum, age) do
     from(thread in Thread,
