@@ -50,7 +50,7 @@ defmodule Cforum.Jobs.ArchiverJobTest do
   test "archive/0 archives deleted threads older than max age", %{forum: forum} do
     insert(:setting, options: %{"max_age_deleted" => 30})
 
-    old_thread = insert(:thread, forum: forum, latest_message: Timex.shift(Timex.now(), seconds: -60), deleted: true)
+    old_thread = insert(:thread, forum: forum, latest_message: Timex.shift(Timex.now(), days: -60), deleted: true)
 
     ArchiverJob.new(%{}) |> Oban.insert!()
     assert %{success: 1, failure: 0, snoozed: 0} == Oban.drain_queue(queue: :background)
@@ -89,7 +89,7 @@ defmodule Cforum.Jobs.ArchiverJobTest do
     thread =
       insert(:thread,
         forum: forum,
-        latest_message: Timex.shift(Timex.now(), seconds: -60),
+        latest_message: Timex.shift(Timex.now(), days: -60),
         flags: %{"no-archive" => "yes"}
       )
 
