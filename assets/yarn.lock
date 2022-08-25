@@ -10,15 +10,6 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@appsignal/core@=1.1.17":
-  version "1.1.17"
-  resolved "https://registry.yarnpkg.com/@appsignal/core/-/core-1.1.17.tgz#2076e44d1125a63678fc9e24c49e83a2523ed0f9"
-  integrity sha512-UwsuXHmQ+KwLbTUuAqlnUMbfyglpr44h57daM/PXXbDtBJInGP6GDqccFp/p2C+8lUhDlvyCxaRb1uxDeXzUeA==
-  dependencies:
-    "@appsignal/types" "=3.0.0"
-    isomorphic-unfetch "^3.1.0"
-    tslib "^2.3.0"
-
 "@appsignal/core@=1.1.18":
   version "1.1.18"
   resolved "https://registry.yarnpkg.com/@appsignal/core/-/core-1.1.18.tgz#853e1197d2fbc8a5a10cadd90666c85d9569e6cf"
@@ -45,12 +36,12 @@
     "@appsignal/core" "=1.1.18"
     "@appsignal/types" "=3.0.0"
 
-"@appsignal/react@^1.0.20":
-  version "1.0.20"
-  resolved "https://registry.yarnpkg.com/@appsignal/react/-/react-1.0.20.tgz#32f49c80e17e8e72cdc5d638f663d6061926aae0"
-  integrity sha512-bEfrTEVj4Iap8iD03soYXwV8rwywsPIFJ5qYp5KKtYy9+zJAZLpowV45nO54d0TMeKqYjGgSyqAaqStjc63SZA==
+"@appsignal/react@^1.0.21":
+  version "1.0.21"
+  resolved "https://registry.yarnpkg.com/@appsignal/react/-/react-1.0.21.tgz#ac262e572cb68fc6fac8d90f8114f274c9397b73"
+  integrity sha512-l2XeJNUzVATGTr4TRBlgfCQbwF+o1/2Vw89g4azzJAs8Imoj+04uLMr6EUki34PgPRfxHRUOrNGPmT89g1+fCQ==
   dependencies:
-    "@appsignal/core" "=1.1.17"
+    "@appsignal/core" "=1.1.18"
     "@appsignal/types" "=3.0.0"
 
 "@appsignal/types@=3.0.0":
