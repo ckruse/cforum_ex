@@ -29,7 +29,7 @@
     "react": "^17.0.2",
     "react-autosuggest": "^10.0.3",
     "react-dom": "^17.0.2",
-    "react-modal": "^3.15.1",
+    "react-modal": "^3.16.1",
     "text-diff": "^1.0.1",
     "textarea-caret": "^3.1.0"
   },
