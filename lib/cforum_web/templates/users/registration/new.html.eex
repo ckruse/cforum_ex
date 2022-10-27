@@ -27,12 +27,12 @@
     <%= gettext("password") %>
     <%= ErrorHelpers.error_tag f, :password %>
   <% end %>
-  <%= password_input f, :password, autocomplete: "off", required: true, "data-show-password": true %>
+  <%= password_input f, :password, autocomplete: "off", spellcheck: "false", required: true, "data-show-password": true %>
 </div>
 
 <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :password_confirmation) %>">
   <%= label f, :password_confirmation, gettext("password confirmation") %>
-  <%= password_input f, :password_confirmation, type: "password", required: true, autocomplete: "off" %>
+  <%= password_input f, :password_confirmation, type: "password", required: true, autocomplete: "off", spellcheck: "false" %>
 </div>
 
 <p class="form-actions">

@@ -28,13 +28,13 @@
 
     <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :password) %>">
       <%= label f, :password, gettext("password") %>
-      <%= password_input f, :password, autocomplete: "off", "data-show-password": true %>
+      <%= password_input f, :password, spellcheck: "false", autocomplete: "off", "data-show-password": true %>
       <%= ErrorHelpers.error_tag f, :password %>
     </div>
 
     <div class="cf-cgroup <%= ErrorHelpers.error_class(f, :password_confirmation) %>">
       <%= label f, :password_confirmation, gettext("password confirmation") %>
-      <%= password_input f, :password_confirmation, autocomplete: "off" %>
+      <%= password_input f, :password_confirmation, autocomplete: "off", spellcheck: "false" %>
     </div>
   </fieldset>
 

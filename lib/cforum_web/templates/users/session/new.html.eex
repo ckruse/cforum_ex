@@ -8,7 +8,7 @@
 
   <div class="cf-cgroup">
     <%= label f, :password, gettext("password") %>
-    <%= password_input f, :password, placeholder: gettext("password"), class: "login-password", "data-show-password": true %>
+    <%= password_input f, :password, placeholder: gettext("password"), class: "login-password", "data-show-password": true, spellcheck: "false", autocomplete: "off" %>
   </div>
 
   <div class="cf-cgroup">
