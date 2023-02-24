@@ -65,6 +65,7 @@ defmodule Cforum.Threads do
       [thread | list]
     end)
     |> Enum.reject(&(&1.messages == []))
+    |> Enum.filter(fn msg -> Enum.any?(msg.messages, &is_nil(&1.parent_id)) end)
     |> Enum.reverse()
   end
 
@@ -85,6 +86,7 @@ defmodule Cforum.Threads do
       [thread | list]
     end)
     |> Enum.reject(&(&1.messages == []))
+    |> Enum.filter(fn msg -> Enum.any?(msg.messages, &is_nil(&1.parent_id)) end)
     |> Enum.reverse()
   end
 
