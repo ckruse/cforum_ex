@@ -25,7 +25,7 @@ defmodule Cforum.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {Cforum.Application, []}, extra_applications: [:logger, :runtime_tools, :os_mon]]
+    [mod: {Cforum.Application, []}, extra_applications: [:logger, :runtime_tools, :os_mon, :crypto]]
   end
 
   # Specifies which paths to compile per environment.
