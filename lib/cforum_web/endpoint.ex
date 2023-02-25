@@ -1,6 +1,5 @@
 defmodule CforumWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :cforum
-  use Appsignal.Phoenix
 
   socket "/socket", CforumWeb.UserSocket, websocket: true
   socket "/live", Phoenix.LiveView.Socket
@@ -31,12 +30,6 @@ defmodule CforumWeb.Endpoint do
   plug(Plug.RequestId)
   plug(Plug.Logger)
   plug(CforumWeb.Plug.CurrentForum)
-
-  plug(GhWebhookPlug,
-    secret: Application.get_env(:cforum, :deploy_secret),
-    path: "/api/gh/deploy",
-    action: {Cforum.DeployTask, :deploy}
-  )
 
   plug(Plug.Parsers,
     parsers: [:urlencoded, {:multipart, length: 104_857_600}, :json],

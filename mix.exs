@@ -9,7 +9,12 @@ defmodule Cforum.Mixfile do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ],
       aliases: aliases(),
       deps: deps(),
       dialyzer: [plt_add_deps: :transitive, ignore_warnings: ".dialyzer_ignore.exs"]
@@ -42,7 +47,7 @@ defmodule Cforum.Mixfile do
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:phoenix_live_dashboard, "~> 0.1"},
-      {:gettext, "0.22.1"},
+      {:gettext, "~> 0.21.0"},
       {:plug, "~> 1.7"},
       {:bcrypt_elixir, "~> 3.0"},
       {:number, "~> 1.0"},
@@ -67,7 +72,6 @@ defmodule Cforum.Mixfile do
       {:telemetry_poller, "~> 0.4"},
       {:telemetry_metrics, "~> 0.4"},
       {:ecto_psql_extras, "~> 0.2"},
-      {:gh_webhook_plug, "~> 0.0.5"},
 
       # testing
       {:excoveralls, "~> 0.8", only: :test},
