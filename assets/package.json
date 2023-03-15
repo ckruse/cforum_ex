@@ -58,7 +58,7 @@
     "postcss": "^8.4.18",
     "postcss-loader": "^7.0.1",
     "prettier": "^2.7.1",
-    "sass": "^1.59.2",
+    "sass": "^1.59.3",
     "sass-loader": "^13.2.0",
     "snazzy": "^9.0.0",
     "style-loader": "^3.3.2",
