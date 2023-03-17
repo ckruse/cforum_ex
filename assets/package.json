@@ -54,7 +54,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-webpack-plugin": "^4.0.0",
     "file-loader": "^6.1.1",
-    "mini-css-extract-plugin": "^2.7.3",
+    "mini-css-extract-plugin": "^2.7.5",
     "postcss": "^8.4.18",
     "postcss-loader": "^7.0.1",
     "prettier": "^2.7.1",
