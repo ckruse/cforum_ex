@@ -19,10 +19,10 @@
     isomorphic-unfetch "^3.1.0"
     tslib "^2.3.0"
 
-"@appsignal/javascript@^1.3.24":
-  version "1.3.25"
-  resolved "https://registry.yarnpkg.com/@appsignal/javascript/-/javascript-1.3.25.tgz#ee656b9519b6dcfa8488a09faae2eabb6905e873"
-  integrity sha512-GBx4kZDMgfGTtVELdBd2PSiVMqFeURI8vw47fOtxaOdajpA+2wws7aKzgiaglWCjt7VaxExBIO+fV3tcPN0WQQ==
+"@appsignal/javascript@^1.3.26":
+  version "1.3.26"
+  resolved "https://registry.yarnpkg.com/@appsignal/javascript/-/javascript-1.3.26.tgz#9f2cc539a8c1ba81e98902d7eb4a2d9ebcf7fd6b"
+  integrity sha512-wg2ZWUqCXckRylJClRymnMYYmyvMgiKDlc9tM0pagRPit/typUpWdGjYNL/k6+XS+0POOE/coGb27+4z6fX7pg==
   dependencies:
     "@appsignal/core" "=1.1.19"
     "@appsignal/types" "=3.0.0"
