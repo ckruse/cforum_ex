@@ -3049,10 +3049,10 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-highcharts@^10.3.3:
-  version "10.3.3"
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-10.3.3.tgz#b8acca24f2d4b1f2f726540734166e59e07b35c4"
-  integrity sha512-r7wgUPQI9tr3jFDn3XT36qsNwEIZYcfgz4mkKEA6E4nn5p86y+u1EZjazIG4TRkl5/gmGRtkBUiZW81g029RIw==
+highcharts@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-11.0.0.tgz#46157414e9935e0c7a031ae9ffbbeb81ad6922b9"
+  integrity sha512-1xLojOI0VUAjbbtAZlbDbRHRy0vLQYmZam45+oUZo04ACtWtsfNDOYXiYQ2+02P4IZwm9EOYYFcQ8K7uSk+sDg==
 
 http-errors@2.0.0:
   version "2.0.0"
