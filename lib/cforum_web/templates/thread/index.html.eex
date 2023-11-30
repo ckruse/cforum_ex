@@ -1,4 +1,4 @@
-<%= if @use_paging, do: Paginator.pagination @conn, @page, &Path.forum_path/4, path_args: ([@conn, :index, @current_forum]) %>
+<%= if @use_paging, do: Paginator.pagination(@conn, @page, &Path.forum_path/4, path_args: ([@conn, :index, @current_forum])) %>
 
 <div class="cf-thread-list">
   <%= for thread <- @threads do %>
@@ -10,4 +10,4 @@
 <p class="cf-older-entries-archive"><%= link gettext("You will find older articles in the archive."), to: Path.archive_path(@conn, :years, @current_forum) %></p>
 <% end %>
 
-<%= if @use_paging, do: Paginator.pagination @conn, @page, &Path.forum_path/4, path_args: ([@conn, :index, @current_forum]) %>
+<%= if @use_paging, do: Paginator.pagination(@conn, @page, &Path.forum_path/4, path_args: ([@conn, :index, @current_forum])) %>

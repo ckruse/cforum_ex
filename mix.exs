@@ -42,7 +42,7 @@ defmodule Cforum.Mixfile do
       {:plug_cowboy, "~> 2.1"},
       {:ecto_sql, "~> 3.0"},
       {:phoenix_ecto, "~> 4.0"},
-      {:ecto, "~> 3.5.0"},
+      {:ecto, "~> 3.11"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},

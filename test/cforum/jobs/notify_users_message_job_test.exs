@@ -31,7 +31,7 @@ defmodule Cforum.Jobs.NotifyUsersMessageJobTest do
         )
 
       Cforum.Jobs.NotifyUsersMessageJob.enqueue(thread, message, "message")
-      assert %{success: 1, failure: 0, snoozed: 0} == Oban.drain_queue(queue: :background)
+      assert %{success: 1, failure: 0, snoozed: 0, cancelled: 0, discard: 0} == Oban.drain_queue(queue: :background)
 
       notifications = Notifications.list_notifications(user)
       assert length(notifications) == 1
@@ -53,7 +53,7 @@ defmodule Cforum.Jobs.NotifyUsersMessageJobTest do
         )
 
       Cforum.Jobs.NotifyUsersMessageJob.enqueue(thread, message, "message")
-      assert %{success: 1, failure: 0, snoozed: 0} == Oban.drain_queue(queue: :background)
+      assert %{success: 1, failure: 0, snoozed: 0, cancelled: 0, discard: 0} == Oban.drain_queue(queue: :background)
 
       notifications = Notifications.list_notifications(user)
       assert length(notifications) == 1
@@ -75,7 +75,7 @@ defmodule Cforum.Jobs.NotifyUsersMessageJobTest do
         )
 
       Cforum.Jobs.NotifyUsersMessageJob.enqueue(thread, message, "message")
-      assert %{success: 1, failure: 0, snoozed: 0} == Oban.drain_queue(queue: :background)
+      assert %{success: 1, failure: 0, snoozed: 0, cancelled: 0, discard: 0} == Oban.drain_queue(queue: :background)
 
       notifications = Notifications.list_notifications(user)
       assert Enum.empty?(notifications)
@@ -94,7 +94,7 @@ defmodule Cforum.Jobs.NotifyUsersMessageJobTest do
         )
 
       Cforum.Jobs.NotifyUsersMessageJob.enqueue(thread, message, "message")
-      assert %{success: 1, failure: 0, snoozed: 0} == Oban.drain_queue(queue: :background)
+      assert %{success: 1, failure: 0, snoozed: 0, cancelled: 0, discard: 0} == Oban.drain_queue(queue: :background)
 
       subject =
         gettext("%{nick} mentioned you in a new message: “%{subject}”", subject: message.subject, nick: message.author)
@@ -108,7 +108,7 @@ defmodule Cforum.Jobs.NotifyUsersMessageJobTest do
   describe "thread" do
     test "sends no notifications to users who didn't choose", %{thread: thread, message: message} do
       Cforum.Jobs.NotifyUsersMessageJob.enqueue(thread, message, "thread")
-      assert %{success: 1, failure: 0, snoozed: 0} == Oban.drain_queue(queue: :background)
+      assert %{success: 1, failure: 0, snoozed: 0, cancelled: 0, discard: 0} == Oban.drain_queue(queue: :background)
 
       notifications = from(notification in Cforum.Notifications.Notification, select: count()) |> Repo.one()
       assert notifications == 0
@@ -118,7 +118,7 @@ defmodule Cforum.Jobs.NotifyUsersMessageJobTest do
       insert(:setting, user: user, options: %{"notify_on_new_thread" => "no"})
 
       Cforum.Jobs.NotifyUsersMessageJob.enqueue(thread, message, "thread")
-      assert %{success: 1, failure: 0, snoozed: 0} == Oban.drain_queue(queue: :background)
+      assert %{success: 1, failure: 0, snoozed: 0, cancelled: 0, discard: 0} == Oban.drain_queue(queue: :background)
 
       notifications = from(notification in Cforum.Notifications.Notification, select: count()) |> Repo.one()
       assert notifications == 0
@@ -128,7 +128,7 @@ defmodule Cforum.Jobs.NotifyUsersMessageJobTest do
       insert(:setting, user: user, options: %{"notify_on_new_thread" => "yes"})
 
       Cforum.Jobs.NotifyUsersMessageJob.enqueue(thread, message, "thread")
-      assert %{success: 1, failure: 0, snoozed: 0} == Oban.drain_queue(queue: :background)
+      assert %{success: 1, failure: 0, snoozed: 0, cancelled: 0, discard: 0} == Oban.drain_queue(queue: :background)
 
       notifications = from(notification in Cforum.Notifications.Notification, select: count()) |> Repo.one()
       assert notifications == 1
@@ -152,7 +152,7 @@ defmodule Cforum.Jobs.NotifyUsersMessageJobTest do
         )
 
       Cforum.Jobs.NotifyUsersMessageJob.enqueue(thread, message, "thread")
-      assert %{success: 1, failure: 0, snoozed: 0} == Oban.drain_queue(queue: :background)
+      assert %{success: 1, failure: 0, snoozed: 0, cancelled: 0, discard: 0} == Oban.drain_queue(queue: :background)
 
       notifications = from(notification in Cforum.Notifications.Notification, select: count()) |> Repo.one()
       assert notifications == 1

@@ -1,4 +1,4 @@
-<%= if Abilities.signed_in?(@conn), do: render "portal.html", assigns %>
+<%= if Abilities.signed_in?(@conn), do: render("portal.html", assigns) %>
 
 <h1><%= gettext("forums") %></h1>
 

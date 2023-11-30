@@ -7,7 +7,7 @@ config :cforum, CforumWeb.Endpoint,
   server: false
 
 # Print only warnings and errors during test
-config :logger, level: :warn
+config :logger, level: :warning
 # config :logger, :console, format: "[$level] $message\n"
 
 # Configure your database
@@ -19,7 +19,7 @@ config :cforum, Cforum.Repo,
   hostname: System.get_env("DB_HOST", "localhost"),
   pool: Ecto.Adapters.SQL.Sandbox
 
-config :cforum, Oban, crontab: false, queues: false, plugins: false
+config :cforum, Oban, testing: :manual
 config :cforum, Cforum.Mailer, adapter: Swoosh.Adapters.Test
 
 config :cforum,

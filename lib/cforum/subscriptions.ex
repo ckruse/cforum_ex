@@ -49,7 +49,8 @@ defmodule Cforum.Subscriptions do
     from(
       msg in Message,
       join: s in Subscription,
-      where: s.message_id == msg.message_id and s.user_id == ^user.user_id,
+      on: s.message_id == msg.message_id,
+      where: s.user_id == ^user.user_id,
       preload: [:user, thread: :forum]
     )
     |> Cforum.PagingApi.set_limit(query_params[:limit])
@@ -79,7 +80,8 @@ defmodule Cforum.Subscriptions do
     from(
       msg in Message,
       join: s in Subscription,
-      where: s.message_id == msg.message_id and s.user_id == ^user.user_id,
+      on: s.message_id == msg.message_id,
+      where: s.user_id == ^user.user_id,
       select: count()
     )
     |> Repo.one()

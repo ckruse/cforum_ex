@@ -1,6 +1,6 @@
 <div class="posting-header">
   <%= header(@conn, @thread, @message, first: @first, do_parent: assigns[:do_parent], tree: false, show_editor: true, author_link_to_message: false, plate: true, show_icons: false, is_blog: @thread.forum.type == "blog" && is_nil(@message.parent_id), message_path_helper: @message_path_helper) %>
-  <%= if assigns[:controls] && !@message.deleted, do: render "voting-area.html", Map.put(assigns, :top, true) %>
+  <%= if assigns[:controls] && !@message.deleted, do: render("voting-area.html", Map.put(assigns, :top, true)) %>
 </div>
 
 <%= if Helpers.present?(@message.flags["reason"]) do %>
@@ -46,7 +46,7 @@
       <%= if assigns[:controls] && !@message.deleted, do: render("message_default_controls.html", assigns) %>
     </div>
 
-    <%= if assigns[:controls] && !@message.deleted, do: render "voting-area.html", Map.put(assigns, :top, false) %>
+    <%= if assigns[:controls] && !@message.deleted, do: render("voting-area.html", Map.put(assigns, :top, false)) %>
   </div>
 
   <%= if assigns[:controls] && @view_all, do: render("message_admin_buttons.html", assigns) %>
