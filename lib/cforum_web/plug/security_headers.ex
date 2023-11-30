@@ -17,7 +17,7 @@ defmodule CforumWeb.Plug.SecurityHeaders do
 
       script_csp = "script-src 'self' 'nonce-#{js_nonce}' *.selfhtml.org" <> maybe_unsafe_eval(conn.request_path)
       # 'nonce-#{style_nonce}' not yet possible, due to mathjax
-      style_csp = "style-src 'self' 'unsafe-inline'"
+      style_csp = "style-src 'self' 'unsafe-inline' *.selfhtml.org"
 
       connect_csp =
         "connect-src 'self' #{scheme()}://#{CforumWeb.Endpoint.config(:url)[:host]}#{port()} https://appsignal-endpoint.net/collect" <>
