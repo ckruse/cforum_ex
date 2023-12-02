@@ -17,10 +17,9 @@ $day-size: 2.2rem;
   list-style-type: none;
   padding-left: 0;
 
-  li {
+  & > li {
     min-height: 10rem;
     width: 100%;
-
     border: $advent-item-border;
     border-radius: $default-border-radius;
     padding: 0.5em;
@@ -30,7 +29,12 @@ $day-size: 2.2rem;
     flex-direction: column;
 
     margin-bottom: 0.5em;
-
+    
+    ul {
+      padding-left: 1.5em;
+      list-style-type: disc;
+    }
+ 
     .content {
       p {
         margin-bottom: 0.5em;
@@ -73,19 +77,6 @@ $day-size: 2.2rem;
       line-height: $day-size;
       padding: $day-size * 0.02;
     }
-
-    ul {
-      list-style-type: disc;
-      padding-left: 1.5em;
-    }
-
-    li {
-      display: list-item;
-      border: none;
-      min-height: auto;
-      margin-bottom: 0;
-      padding: 0.1em 0.2em;
-    }
   }
 
   li.closed {
@@ -109,26 +100,33 @@ $day-size: 2.2rem;
 @include default-breakpoint() {
   .cf-advent-calendar-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(8, auto);
-    grid-column-gap: 5px;
-    grid-row-gap: 5px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(12, auto);
+    gap: 0.3em;
 
-    li {
-      width: 100%;
-      min-width: 8.33rem;
-      height: auto;
+    & > li {
+      margin-bottom: 0;
     }
   }
 }
 
-@media only screen and (min-width: 90em) {
+@media only screen and (min-width: 52em) {
+  .cf-advent-calendar-list {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(8, auto);
+  }
+}
+
+@media only screen and (min-width: 70em) {
+  .cf-advent-calendar-list {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, auto);
+  }
+}
+
+@media only screen and (min-width: 100em) {
   .cf-advent-calendar-list {
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(4, auto);
-
-    li {
-      min-width: 11.66rem;
-    }
   }
 }
