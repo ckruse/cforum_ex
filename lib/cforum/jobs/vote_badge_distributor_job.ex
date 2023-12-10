@@ -39,7 +39,7 @@ defmodule Cforum.Jobs.VoteBadgeDistributorJob do
   defp grant_controverse_badge(owner, message) do
     controverse = Badges.get_badge_by(slug: "controverse")
 
-    if message.upvotes >= 5 && message.downvotes >= 5 && !Users.badge?(owner, controverse),
+    if message.upvotes >= 5 && message.downvotes >= 5 && !Users.badge?(owner, controverse, false),
       do: Badges.grant_badge(controverse, owner)
   end
 
@@ -73,10 +73,10 @@ defmodule Cforum.Jobs.VoteBadgeDistributorJob do
     enthusiast = Badges.get_badge_by(slug: "enthusiast")
     critic = Badges.get_badge_by(slug: "critic")
 
-    if Helpers.present?(enthusiast) && vote.vtype == Vote.upvote() && !Users.badge?(user, enthusiast),
+    if Helpers.present?(enthusiast) && vote.vtype == Vote.upvote() && !Users.badge?(user, enthusiast, false),
       do: Badges.grant_badge(enthusiast, user)
 
-    if Helpers.present?(critic) && vote.vtype == Vote.downvote() && !Users.badge?(user, critic),
+    if Helpers.present?(critic) && vote.vtype == Vote.downvote() && !Users.badge?(user, critic, false),
       do: Badges.grant_badge(critic, user)
 
     badge = Badges.get_badge_by(slug: "voter")
@@ -109,7 +109,7 @@ defmodule Cforum.Jobs.VoteBadgeDistributorJob do
       |> Repo.all()
 
     Enum.each(badges, fn b ->
-      if !Users.badge?(user, b),
+      if !Users.badge?(user, b, false),
         do: Badges.grant_badge(b, user)
     end)
   end
