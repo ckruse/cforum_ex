@@ -20,7 +20,7 @@
     "bundle-loader": "^0.5.6",
     "cfmarkdown": "https://github.com/ckruse/cfmarkdown.git",
     "date-fns": "^3.6.0",
-    "emoji-mart": "= 3.0.1",
+    "emoji-mart": "= 5.6.0",
     "highcharts": "^11.4.3",
     "leaflet": "^1.9.2",
     "leaflet-geosearch": "^3.11.1",
