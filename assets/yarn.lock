@@ -40,10 +40,10 @@
     "@appsignal/core" "=1.1.22"
     "@appsignal/types" "=3.0.1"
 
-"@appsignal/react@^1.0.25":
-  version "1.0.25"
-  resolved "https://registry.yarnpkg.com/@appsignal/react/-/react-1.0.25.tgz#0e2982623754080db3d99d004354d2e9bd63806a"
-  integrity sha512-XeBoETPe4cMyavQZS8i1h14O/aKId8DeFeuQM63ni66WlFdRwWN/kcxWTF1C7Gxu3UVpPugu/XXC8Mf4+p2+Hw==
+"@appsignal/react@^1.0.26":
+  version "1.0.26"
+  resolved "https://registry.yarnpkg.com/@appsignal/react/-/react-1.0.26.tgz#8e979bfdaf434e534b19f37f26c76e8ec1e409fe"
+  integrity sha512-+z/FI5ydM5g8W9PDOd/5hRgjY3bcZ+hHFoS7FRfGoidBqH3Eh4lN+0y+908+hDFPRa5jEZs+6EBEUDMxOJis5Q==
   dependencies:
     "@appsignal/core" "=1.1.22"
     "@appsignal/types" "=3.0.1"
