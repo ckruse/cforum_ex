@@ -3662,10 +3662,10 @@ hasown@^2.0.0, hasown@^2.0.1, hasown@^2.0.2:
   dependencies:
     function-bind "^1.1.2"
 
-highcharts@^11.4.6:
-  version "11.4.6"
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-11.4.6.tgz#1b7b0f99a66f67684c0549ef7226cb3e1464079c"
-  integrity sha512-ntFZ053giEEquAxza+HlOWiLQyCLOjQ3M3EV4r6LoSNKS/fz2S0EKGl8G7Jls9EaYmdAHecB/vL4hGI2J1Ud9g==
+highcharts@^11.4.7:
+  version "11.4.7"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-11.4.7.tgz#ac6cf5aa325b8bc6880288dd401711876372fb3f"
+  integrity sha512-4FQTaV/9DtYal6U8rCgGeFWzzoL5QoKowpzyGlG0sp+UJKjm9G9t4bvyz+odvXt+YcqUvK9GEspdLoBnKSWGVA==
 
 http-errors@2.0.0:
   version "2.0.0"
