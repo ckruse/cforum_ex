@@ -64,7 +64,7 @@ defmodule Cforum.Mixfile do
       {:oban, "~> 2.3"},
       {:tzdata, "~> 1.1.0"},
       {:elixir_uuid, "~> 1.2"},
-      {:cachex, "~> 3.1"},
+      {:cachex, "~> 4.0"},
       {:earmark_parser, "~> 1.4.0"},
       {:html_entities, "~> 0.4"},
       {:nimble_parsec, "~> 1.1"},
