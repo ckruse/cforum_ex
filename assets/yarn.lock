@@ -15,14 +15,6 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@appsignal/core@=1.1.23":
-  version "1.1.23"
-  resolved "https://registry.yarnpkg.com/@appsignal/core/-/core-1.1.23.tgz#bbde8c5c70ced96774e976fb8ab7fde7074f7df7"
-  integrity sha512-5N6bGBecZRU7C9MkUc/U/+CNeSfnjdLqP07h8lJnEfe4DXDfeABiy4AWGZPFRHFllP1eWZY+fWXJQo9mkTubFQ==
-  dependencies:
-    "@appsignal/types" "=3.0.1"
-    tslib "^2.3.0"
-
 "@appsignal/core@=1.1.24":
   version "1.1.24"
   resolved "https://registry.yarnpkg.com/@appsignal/core/-/core-1.1.24.tgz#a680f582ed4605b2ec77f98107a23ec97410cf69"
@@ -31,12 +23,12 @@
     "@appsignal/types" "=3.0.1"
     tslib "^2.3.0"
 
-"@appsignal/javascript@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@appsignal/javascript/-/javascript-1.4.0.tgz#4964138244128d0c1239e1dea3eb20d71ade507a"
-  integrity sha512-IEWWmRKItyH3zAyzS5ZA5CKsXxlbTtopIh4UDG1tJFPrKeGobVKx5f8d2MITjhT1qd1C/rKYTQHE0WSUVkoHUg==
+"@appsignal/javascript@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@appsignal/javascript/-/javascript-1.4.1.tgz#8d6a05885b54917571134273bacec874d2e7ff65"
+  integrity sha512-jdZdXvMWLVdCVtVUbgK45WpxK/FQguQL4EI21ebUib4ySQXU1Hdy2Z6uU8AOcM/CfGtmCIil7EcjEwJMH5UFQg==
   dependencies:
-    "@appsignal/core" "=1.1.23"
+    "@appsignal/core" "=1.1.24"
     "@appsignal/types" "=3.0.1"
     tslib "^2.3.0"
 

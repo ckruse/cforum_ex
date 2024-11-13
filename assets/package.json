@@ -14,7 +14,7 @@
     "deploy": "webpack --mode production"
   },
   "dependencies": {
-    "@appsignal/javascript": "^1.4.0",
+    "@appsignal/javascript": "^1.4.1",
     "@appsignal/plugin-window-events": "^1.0.24",
     "@appsignal/react": "^1.0.28",
     "bundle-loader": "^0.5.6",
