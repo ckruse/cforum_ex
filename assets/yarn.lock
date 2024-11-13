@@ -23,6 +23,14 @@
     "@appsignal/types" "=3.0.1"
     tslib "^2.3.0"
 
+"@appsignal/core@=1.1.24":
+  version "1.1.24"
+  resolved "https://registry.yarnpkg.com/@appsignal/core/-/core-1.1.24.tgz#a680f582ed4605b2ec77f98107a23ec97410cf69"
+  integrity sha512-5KG2/XiLPM9a5Zvi/iCHwCqgcLD0JIZuc+spfQ6H/83RepCnB4xRdt3FBsuJvDMhW9T6jnoI0asRHx5lWFB/FQ==
+  dependencies:
+    "@appsignal/types" "=3.0.1"
+    tslib "^2.3.0"
+
 "@appsignal/javascript@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@appsignal/javascript/-/javascript-1.4.0.tgz#4964138244128d0c1239e1dea3eb20d71ade507a"
@@ -40,12 +48,12 @@
     "@appsignal/core" "=1.1.23"
     "@appsignal/types" "=3.0.1"
 
-"@appsignal/react@^1.0.27":
-  version "1.0.27"
-  resolved "https://registry.yarnpkg.com/@appsignal/react/-/react-1.0.27.tgz#633f3e6afc3cc7d1ffbc0277a865d47ac79504b0"
-  integrity sha512-bTKjb2eysuSM9BbTty/CYpsN+lfzWsevUogNkO5b/0vEUbV6UHF5SVjCZUdaVhXs0+Fm7v+1dSNAZlJY7Epbdg==
+"@appsignal/react@^1.0.28":
+  version "1.0.28"
+  resolved "https://registry.yarnpkg.com/@appsignal/react/-/react-1.0.28.tgz#95af6bc88e3f603a28fd2ab43fe116bb8cf634c0"
+  integrity sha512-m1CIdWU/Cgh94LlM/QAv9DW/4ndgywL0Mr+eIHEHav6HwChlPxOu6ZX16TkTvHiL+kQCNbKxGMjimc+E8DfPYw==
   dependencies:
-    "@appsignal/core" "=1.1.23"
+    "@appsignal/core" "=1.1.24"
     "@appsignal/types" "=3.0.1"
 
 "@appsignal/types@=3.0.1":
