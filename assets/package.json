@@ -16,7 +16,7 @@
   "dependencies": {
     "@appsignal/javascript": "^1.5.0",
     "@appsignal/plugin-window-events": "^1.0.24",
-    "@appsignal/react": "^1.0.28",
+    "@appsignal/react": "^1.0.29",
     "bundle-loader": "^0.5.6",
     "cfmarkdown": "https://github.com/ckruse/cfmarkdown.git",
     "date-fns": "^4.1.0",
