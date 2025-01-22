@@ -3980,10 +3980,10 @@ language-tags@^1.0.9:
   dependencies:
     language-subtag-registry "^0.3.20"
 
-leaflet-geosearch@^3.11.1:
-  version "3.11.1"
-  resolved "https://registry.yarnpkg.com/leaflet-geosearch/-/leaflet-geosearch-3.11.1.tgz#e35b1e156afef388bbb42543eb56502e9a633192"
-  integrity sha512-cILLFLmn8C3MtGhaafGqY7CuhUG2+bGyUgfPHgNgW6fs4EvYyiIO88nO2ZqR7Hy6Ba089haLkhODpZR+/fRrPQ==
+leaflet-geosearch@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/leaflet-geosearch/-/leaflet-geosearch-4.1.0.tgz#adfc6dd8679aba73daf19b67beda41f503245a77"
+  integrity sha512-HyqmRWInm5/B28PpAscruOFnYztamJji4OTsueNluvaHg/hYVMWpaReyWvfVUQGVn8U42+Mm01gBpOcRsqh60g==
   optionalDependencies:
     "@googlemaps/js-api-loader" "^1.16.6"
     leaflet "^1.6.0"
