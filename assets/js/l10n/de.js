@@ -56,7 +56,7 @@ export const lang = {
   "You gained a new badge: {name}": "Sie haben eine neue Medaille erhalten: {name}",
 
   "(hyphen minus)": "(Bindestrich-Minus/Mittestrich, U+002D)",
-  "(minus sign)": "(Minus-Sybmol, U+2212)",
+  "(minus sign)": "(Minus-Symbol, U+2212)",
   "(en dash sign)": "(Halbgeviertstrich/Bis-Strich/Gedankenstrich, U+2013)",
   "(em dash sign)": "(Geviertstrich, U+2014)",
 
